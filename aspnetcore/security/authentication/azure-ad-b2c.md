@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/21/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: d62889ba6dba6748ce3d047f0d37b3a904199496
-ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.openlocfilehash: 4933203b8bdd8f653268c1df7ff83b8e9423341f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82850430"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405063"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>ASP.NET Core 中的 Azure Active Directory B2C 的云身份验证
 
@@ -58,7 +60,7 @@ ms.locfileid: "82850430"
 | **名称**                      | *&lt;应用名称&gt;*        | 输入向使用者描述你的应用程序的应用程序的**名称**。                                                                                                                                 |
 | **** 包括 Web 应用/Web API | 是                       |                                                                                                                                                                                                    |
 | **** 允许隐式流       | 是                       |                                                                                                                                                                                                    |
-| **回复 URL**                 | `https://localhost:44300/signin-oidc` | 回复 URL 属于终结点，允许 Azure AD B2C 在其中返回应用请求的任何令牌。 Visual Studio 提供要使用的回复 URL。 现在，请按`https://localhost:44300/signin-oidc` enter 完成表单。 |
+| 回复 URL                 | `https://localhost:44300/signin-oidc` | 回复 URL 属于终结点，允许 Azure AD B2C 在其中返回应用请求的任何令牌。 Visual Studio 提供要使用的回复 URL。 现在，请按 enter `https://localhost:44300/signin-oidc` 完成表单。 |
 | 应用 ID URI****                | 留空               | 本教程不需要。                                                                                                                                                                    |
 | **包含本机客户端**     | 否                        |                                                                                                                                                                                                    |
 
@@ -87,7 +89,7 @@ ms.locfileid: "82850430"
 
 5. 完成具有以下值的窗体：
     
-    | 设置                       | Value                                                 |
+    | 设置                       | “值”                                                 |
     |-------------------------------|-------------------------------------------------------|
     | **域名**               | *&lt;B2C 租户的域名&gt;*          |
     | **应用程序 ID**            | *&lt;从剪贴板粘贴应用程序 ID&gt;* |
@@ -103,18 +105,18 @@ ms.locfileid: "82850430"
 返回到包含 B2C 应用程序属性的浏览器窗口。 将前面指定的临时**回复 URL**更改为从 Visual Studio 复制的值。 选择窗口顶部的 "**保存**"。
 
 > [!TIP]
-> 如果未复制回复 URL，请使用 web 项目属性中的 "调试" 选项卡上的 HTTPS 地址，并从*appsettings*追加**CallbackPath**值。
+> 如果未复制回复 URL，请使用 web 项目属性中的 "调试" 选项卡上的 HTTPS 地址，并将**CallbackPath**值从*上的appsettings.js*追加到。
 
 ## <a name="configure-policies"></a>配置策略
 
-使用 Azure AD B2C 文档中的步骤[创建注册或登录策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)，然后[创建密码重置策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)。 使用提供** Identity者**文档、**注册属性**和**应用程序声明**中提供的示例值。 使用 "**立即运行**" 按钮测试文档中所述的策略是可选的。
+使用 Azure AD B2C 文档中的步骤[创建注册或登录策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)，然后[创建密码重置策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)。 使用提供** Identity 者**文档、**注册属性**和**应用程序声明**中提供的示例值。 使用 "**立即运行**" 按钮测试文档中所述的策略是可选的。
 
 > [!WARNING]
-> 确保策略名称与文档中所述的完全相同，因为在 Visual Studio 的 "**更改身份验证**" 对话框中使用了这些策略。 可以在*appsettings*中验证策略名称。
+> 确保策略名称与文档中所述的完全相同，因为在 Visual Studio 的 "**更改身份验证**" 对话框中使用了这些策略。 可以在*appsettings.js*中验证策略名称。
 
 ## <a name="configure-the-underlying-openidconnectoptionsjwtbearercookie-options"></a>配置基础 OpenIdConnectOptions/JwtBearer/Cookie 选项
 
-若要直接配置基础选项，请在中`Startup.ConfigureServices`使用适当的方案常数：
+若要直接配置基础选项，请在中使用适当的方案常数 `Startup.ConfigureServices` ：
 
 ```csharp
 services.Configure<OpenIdConnectOptions>(
@@ -136,7 +138,7 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-## <a name="run-the-app"></a>运行应用
+## <a name="run-the-app"></a>运行应用程序
 
 在 Visual Studio 中，按**F5**生成并运行应用。 Web 应用启动后，选择 "**接受**" 以接受 cookie 的使用（如果出现提示），然后选择 "**登录**"。
 
@@ -148,11 +150,11 @@ services.Configure<JwtBearerOptions>(
 
 成功登录后，浏览器将重定向到 web 应用。
 
-![Success](./azure-ad-b2c/_static/success.png)
+![成功](./azure-ad-b2c/_static/success.png)
 
 ## <a name="next-steps"></a>后续步骤
 
-在本教程中，你了解了如何执行以下操作：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 创建 Azure Active Directory B2C 租户

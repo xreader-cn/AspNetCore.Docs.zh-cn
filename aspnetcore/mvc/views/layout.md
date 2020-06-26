@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 07/30/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/layout
-ms.openlocfilehash: fbae94f315c1bb49f1b04be7e71c841f46826216
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 08e6284a6c5fc8e8926651f6fe873a71df449acb
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766480"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406649"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core 中的布局
 
@@ -28,7 +30,7 @@ ms.locfileid: "82766480"
 * 共享指令。
 * 在呈现页面或视图之前运行通用代码。
 
-本文档讨论了两种不同方法 ASP.NET Core MVC： Razor页面和控制器与视图的布局。 在本主题中，差异很小：
+本文档讨论了两种不同方法 ASP.NET Core MVC： Razor 页面和控制器与视图的布局。 在本主题中，差异很小：
 
 * Razor页面位于 "*页面*" 文件夹中。
 * 具有视图的控制器使用视图的“视图”文件夹。**
@@ -59,11 +61,11 @@ ms.locfileid: "82766480"
 
 ## <a name="specifying-a-layout"></a>指定布局
 
-Razor视图具有`Layout`属性。 单个视图通过设置此属性来指定布局：
+Razor视图具有 `Layout` 属性。 单个视图通过设置此属性来指定布局：
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
-指定的布局可以使用完整路径（例如 /Pages/Shared/_Layout.cshtml 或 /Views/Shared/_Layout.cshtml）或部分名称（示例：`_Layout`）。**** 如果提供了部分名称，视图引擎Razor将使用其标准发现进程搜索布局文件。 首先搜索处理程序方法（或控制器）所在的文件夹，然后搜索 Shared 文件夹。** 此发现过程与用于发现[分部视图](xref:mvc/views/partial#partial-view-discovery)的过程相同。
+指定的布局可以使用完整路径（例如 /Pages/Shared/_Layout.cshtml 或 /Views/Shared/_Layout.cshtml）或部分名称（示例：`_Layout`）。**** 如果提供了部分名称， Razor 视图引擎将使用其标准发现进程搜索布局文件。 首先搜索处理程序方法（或控制器）所在的文件夹，然后搜索 Shared 文件夹。** 此发现过程与用于发现[分部视图](xref:mvc/views/partial#partial-view-discovery)的过程相同。
 
 默认情况下，每个布局必须调用 `RenderBody`。 无论在何处调用 `RenderBody`，都会呈现视图的内容。
 
@@ -79,9 +81,9 @@ Razor视图具有`Layout`属性。 单个视图通过设置此属性来指定布
 @RenderSection("Scripts", required: false)
 ```
 
-如果找不到所需的节，将引发异常。 单个视图使用`@section` Razor语法指定要在节中呈现的内容。 如果某个页面或视图定义了一个部分，则必须呈现该部分（否则将发生错误）。
+如果找不到所需的节，将引发异常。 单个视图使用语法指定要在节中呈现的内容 `@section` Razor 。 如果某个页面或视图定义了一个部分，则必须呈现该部分（否则将发生错误）。
 
-页面视图`@section`中Razor的示例定义：
+`@section`页面视图中的示例定义 Razor ：
 
 ```html
 @section Scripts {
@@ -99,7 +101,7 @@ Razor视图具有`Layout`属性。 单个视图通过设置此属性来指定布
 }
 ```
 
-上述标记是由[基架Identity](xref:security/authentication/scaffold-identity)生成的。
+上述标记是由[基架 Identity ](xref:security/authentication/scaffold-identity)生成的。
 
 在页面或视图中定义的部分仅在其即时布局页面中可用。 不能从部分、视图组件或视图系统的其他部分引用它们。
 
@@ -109,13 +111,13 @@ Razor视图具有`Layout`属性。 单个视图通过设置此属性来指定布
 
 要让视图引擎忽略正文或节，请调用 `IgnoreBody` 和 `IgnoreSection` 方法。
 
-Razor页面中的正文和每个节必须呈现或忽略。
+页面中的正文和每个节 Razor 必须呈现或忽略。
 
 <a name="viewimports"></a>
 
 ## <a name="importing-shared-directives"></a>导入共享指令
 
-视图和页面可以使用Razor指令导入命名空间和使用[依赖关系注入](dependency-injection.md)。 由多个视图共享的指令可以在通用 _ViewImports.cshtml 文件中进行指定。** `_ViewImports` 文件支持以下指令：
+视图和页面可以使用 Razor 指令导入命名空间和使用[依赖关系注入](dependency-injection.md)。 由多个视图共享的指令可以在通用 _ViewImports.cshtml 文件中进行指定。** `_ViewImports` 文件支持以下指令：
 
 * `@addTagHelper`
 * `@removeTagHelper`
@@ -125,7 +127,7 @@ Razor页面中的正文和每个节必须呈现或忽略。
 * `@inherits`
 * `@inject`
 
-文件不支持其他Razor功能，例如函数和节定义。
+文件不支持其他 Razor 功能，例如函数和节定义。
 
 示例 `_ViewImports.cshtml` 文件：
 

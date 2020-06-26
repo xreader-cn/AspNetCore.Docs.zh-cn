@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/controllers/actions
-ms.openlocfilehash: b7c4d61c4a71939e84bdea180a2f77b6438b15d5
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 0c91edc947b1a17f2dd36b281afe348aa8611bd7
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774192"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406909"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>在 ASP.NET Core MVC 中使用控制器处理请求
 
@@ -71,7 +73,7 @@ ms.locfileid: "82774192"
 
     此类型返回 HTTP 状态代码。 此类型的几种帮助程序方法是 `BadRequest`、`NotFound` 和 `Ok`。 例如，`return BadRequest();` 执行时生成 400 状态代码。 重载 `BadRequest``NotFound` 和 `Ok` 等方法时，它们不再符合 HTTP 状态代码响应方的资格，因为正在进行内容协商。
 
-* **定向**
+* **重定向**
 
     此类型（使用 `Redirect``LocalRedirect``RedirectToAction` 或 `RedirectToRoute`）返回一个到操作或目标的重定向。 例如，`return RedirectToAction("Complete", new {id = 123});` 重定向到 `Complete`，传递一个匿名对象。
 
@@ -83,7 +85,7 @@ ms.locfileid: "82774192"
 
 此类别中有两种结果类型：[视图](xref:mvc/views/overview)和[已格式化的响应](xref:web-api/advanced/formatting)。
 
-* **查看**
+* **视图**
 
     此类型返回一个使用模型呈现 HTML 的视图。 例如，`return View(customer);` 将模型传递给视图以进行数据绑定。
 

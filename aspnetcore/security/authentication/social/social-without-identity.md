@@ -1,22 +1,24 @@
 ---
 title: 无 ASP.NET Core 的 Facebook、Google 和外部提供程序身份验证Identity
 author: rick-anderson
-description: 使用 Facebook、Google、Twitter 等帐户用户身份验证的说明（不 ASP.NET Core Identity）。
+description: 使用 Facebook、Google、Twitter 等帐户用户身份验证的说明（不 ASP.NET Core） Identity 。
 ms.author: riande
 ms.date: 12/10/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: cc44eb83947540ca9a5a04ffad4fdb8522fab26a
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: ed908526604b04f9aebb93935aa3ad4719621526
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775734"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406038"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>在不 ASP.NET Core 的情况下使用社交登录提供程序身份验证Identity
 
@@ -24,9 +26,9 @@ ms.locfileid: "82775734"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<xref:security/authentication/social/index>描述如何使用户能够使用 OAuth 2.0 通过外部身份验证提供程序中的凭据进行登录。 该主题中所述的方法包括Identity ASP.NET Core 身份验证提供程序。
+<xref:security/authentication/social/index>描述如何使用户能够使用 OAuth 2.0 通过外部身份验证提供程序中的凭据进行登录。 该主题中所述的方法包括 ASP.NET Core Identity 身份验证提供程序。
 
-此示例演示如何在不 ASP.NET Core Identity的**情况下**使用外部身份验证提供程序。 这对于不需要 ASP.NET Core Identity的所有功能，但仍需要与受信任的外部身份验证提供程序集成的应用很有用。
+此示例演示如何在不 ASP.NET Core 的**情况下**使用外部身份验证提供程序 Identity 。 这对于不需要 ASP.NET Core 的所有功能 Identity ，但仍需要与受信任的外部身份验证提供程序集成的应用很有用。
 
 此示例使用[Google 身份验证](xref:security/authentication/google-logins)对用户进行身份验证。 使用 Google 身份验证将管理登录过程的许多复杂性转移到 Google。 若要与其他外部身份验证提供程序集成，请参阅以下主题：
 
@@ -37,11 +39,11 @@ ms.locfileid: "82775734"
 
 ## <a name="configuration"></a>配置
 
-在`ConfigureServices`方法中，使用<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>、 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>和<xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*>方法配置应用的身份验证方案：
+在 `ConfigureServices` 方法中，使用 <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> 、 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> 和方法配置应用的身份验证方案 <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> ：
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Startup.cs?name=snippet1)]
 
-用于<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>设置应用的<xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme>的调用。 `DefaultScheme`是以下`HttpContext`身份验证扩展方法使用的默认方案：
+用于 <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> 设置应用的的调用 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme> 。 `DefaultScheme`是以下 `HttpContext` 身份验证扩展方法使用的默认方案：
 
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.AuthenticateAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync*>
@@ -49,27 +51,27 @@ ms.locfileid: "82775734"
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>
 
-如果将应用程序`DefaultScheme`的设置为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用的<xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme>设置为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用配置为使用 Google 作为调用的`ChallengeAsync`默认方案。 `DefaultChallengeScheme`重`DefaultScheme`写。 有关<xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>设置时重写`DefaultScheme`的其他属性，请参阅。
+如果将应用程序的设置 `DefaultScheme` 为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用的设置 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用配置为使用 Google 作为调用的默认方案 `ChallengeAsync` 。 `DefaultChallengeScheme`重写 `DefaultScheme` 。 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>有关设置时重写的其他属性，请参阅 `DefaultScheme` 。
 
-在`Startup.Configure`中， `UseAuthentication`在`UseAuthorization`调用`UseRouting`和`UseEndpoints`之间调用和。 这会设置`HttpContext.User`属性并为请求运行授权中间件：
+在中 `Startup.Configure` ， `UseAuthentication` 在 `UseAuthorization` 调用和之间调用和 `UseRouting` `UseEndpoints` 。 这会设置 `HttpContext.User` 属性并为请求运行授权中间件：
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Startup.cs?name=snippet2&highlight=3-4)]
 
-若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证， <xref:security/authentication/cookie>请参阅。
+若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证，请参阅 <xref:security/authentication/cookie> 。
 
 ## <a name="apply-authorization"></a>应用授权
 
-通过将`AuthorizeAttribute`特性应用于控制器、操作或页来测试应用的身份验证配置。 以下代码将访问*隐私*页面的权限限制为已经过身份验证的用户：
+通过将 `AuthorizeAttribute` 特性应用于控制器、操作或页来测试应用的身份验证配置。 以下代码将访问*隐私*页面的权限限制为已经过身份验证的用户：
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Pages/Privacy.cshtml.cs?name=snippet&highlight=1)]
 
 ## <a name="sign-out"></a>注销
 
-若要注销当前用户并删除其 cookie，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将`Logout`页面处理程序添加到*索引*页：
+若要注销当前用户并删除其 cookie，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将 `Logout` 页面处理程序添加到*索引*页：
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Pages/Index.cshtml.cs?name=snippet&highlight=3-7)]
 
-请注意，对的`SignOutAsync`调用未指定身份验证方案。 的应用程序`DefaultScheme` `CookieAuthenticationDefaults.AuthenticationScheme`用作回退。
+请注意，对的调用 `SignOutAsync` 未指定身份验证方案。 的应用程序 `DefaultScheme` 用作 `CookieAuthenticationDefaults.AuthenticationScheme` 回退。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -79,9 +81,9 @@ ms.locfileid: "82775734"
 ::: moniker-end
 ::: moniker range="< aspnetcore-3.0"
 
-<xref:security/authentication/social/index>描述如何使用户能够使用 OAuth 2.0 通过外部身份验证提供程序中的凭据进行登录。 该主题中所述的方法包括Identity ASP.NET Core 身份验证提供程序。
+<xref:security/authentication/social/index>描述如何使用户能够使用 OAuth 2.0 通过外部身份验证提供程序中的凭据进行登录。 该主题中所述的方法包括 ASP.NET Core Identity 身份验证提供程序。
 
-此示例演示如何在不 ASP.NET Core Identity的**情况下**使用外部身份验证提供程序。 这对于不需要 ASP.NET Core Identity的所有功能，但仍需要与受信任的外部身份验证提供程序集成的应用很有用。
+此示例演示如何在不 ASP.NET Core 的**情况下**使用外部身份验证提供程序 Identity 。 这对于不需要 ASP.NET Core 的所有功能 Identity ，但仍需要与受信任的外部身份验证提供程序集成的应用很有用。
 
 此示例使用[Google 身份验证](xref:security/authentication/google-logins)对用户进行身份验证。 使用 Google 身份验证将管理登录过程的许多复杂性转移到 Google。 若要与其他外部身份验证提供程序集成，请参阅以下主题：
 
@@ -92,11 +94,11 @@ ms.locfileid: "82775734"
 
 ## <a name="configuration"></a>配置
 
-在`ConfigureServices`方法中，使用`AddAuthentication`、 `AddCookie`和`AddGoogle`方法配置应用的身份验证方案：
+在 `ConfigureServices` 方法中，使用 `AddAuthentication` 、 `AddCookie` 和方法配置应用的身份验证方案 `AddGoogle` ：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Startup.cs?name=snippet1)]
 
-对[AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication#Microsoft_Extensions_DependencyInjection_AuthenticationServiceCollectionExtensions_AddAuthentication_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Authentication_AuthenticationOptions__)的调用将设置应用的[DefaultScheme](xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme)。 `DefaultScheme`是以下`HttpContext`身份验证扩展方法使用的默认方案：
+对[AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication#Microsoft_Extensions_DependencyInjection_AuthenticationServiceCollectionExtensions_AddAuthentication_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Authentication_AuthenticationOptions__)的调用将设置应用的[DefaultScheme](xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme)。 `DefaultScheme`是以下 `HttpContext` 身份验证扩展方法使用的默认方案：
 
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.AuthenticateAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync*>
@@ -104,27 +106,27 @@ ms.locfileid: "82775734"
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>
 
-如果将应用程序`DefaultScheme`的设置为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用的<xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme>设置为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用配置为使用 Google 作为调用的`ChallengeAsync`默认方案。 `DefaultChallengeScheme`重`DefaultScheme`写。 有关<xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>设置时重写`DefaultScheme`的其他属性，请参阅。
+如果将应用程序的设置 `DefaultScheme` 为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用的设置 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用配置为使用 Google 作为调用的默认方案 `ChallengeAsync` 。 `DefaultChallengeScheme`重写 `DefaultScheme` 。 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>有关设置时重写的其他属性，请参阅 `DefaultScheme` 。
 
-在`Configure`方法中，调用`UseAuthentication`方法以调用设置`HttpContext.User`属性的身份验证中间件。 在调用`UseAuthentication` `UseMvcWithDefaultRoute`或`UseMvc`之前调用方法：
+在 `Configure` 方法中，调用 `UseAuthentication` 方法以调用设置属性的身份验证中间件 `HttpContext.User` 。 `UseAuthentication`在调用或之前调用 `UseMvcWithDefaultRoute` 方法 `UseMvc` ：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Startup.cs?name=snippet2)]
 
-若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证， <xref:security/authentication/cookie>请参阅。
+若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证，请参阅 <xref:security/authentication/cookie> 。
 
 ## <a name="apply-authorization"></a>应用授权
 
-通过将`AuthorizeAttribute`特性应用于控制器、操作或页来测试应用的身份验证配置。 以下代码将访问*隐私*页面的权限限制为已经过身份验证的用户：
+通过将 `AuthorizeAttribute` 特性应用于控制器、操作或页来测试应用的身份验证配置。 以下代码将访问*隐私*页面的权限限制为已经过身份验证的用户：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Pages/Privacy.cshtml.cs?name=snippet&highlight=1)]
 
 ## <a name="sign-out"></a>注销
 
-若要注销当前用户并删除其 cookie，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将`Logout`页面处理程序添加到*索引*页：
+若要注销当前用户并删除其 cookie，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将 `Logout` 页面处理程序添加到*索引*页：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Pages/Index.cshtml.cs?name=snippet&highlight=3-7)]
 
-请注意，对的`SignOutAsync`调用未指定身份验证方案。 的应用程序`DefaultScheme` `CookieAuthenticationDefaults.AuthenticationScheme`用作回退。
+请注意，对的调用 `SignOutAsync` 未指定身份验证方案。 的应用程序 `DefaultScheme` 用作 `CookieAuthenticationDefaults.AuthenticationScheme` 回退。
 
 ## <a name="additional-resources"></a>其他资源
 

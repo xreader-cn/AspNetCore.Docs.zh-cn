@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 4/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: performance/memory
-ms.openlocfilehash: db6f8e867fc83a211170aa59f5bad604d9c2730d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d261a26de7b9ba77e5f9787ae2eb37293257a0fc
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776111"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406389"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
@@ -135,7 +137,7 @@ public ActionResult<string> GetBigString()
 * **工作站 GC**：针对桌面进行了优化。
 * **服务器 GC**。 ASP.NET Core 应用的默认 GC。 针对服务器进行了优化。
 
-GC 模式可以在项目文件中或在已发布应用的*runtimeconfig.template.json*文件中显式设置。 以下标记显示项目文件`ServerGarbageCollection`中的设置：
+GC 模式可以在项目文件中或在发布的应用程序的*runtimeconfig.js*文件中显式设置。 以下标记显示 `ServerGarbageCollection` 项目文件中的设置：
 
 ```xml
 <PropertyGroup>
@@ -143,7 +145,7 @@ GC 模式可以在项目文件中或在已发布应用的*runtimeconfig.template
 </PropertyGroup>
 ```
 
-更改`ServerGarbageCollection`项目文件需要重新生成应用。
+更改 `ServerGarbageCollection` 项目文件需要重新生成应用。
 
 **注意：** 服务器垃圾回收在具有单个核心的计算机上**不可用。** 有关详细信息，请参阅 <xref:System.Runtime.GCSettings.IsServerGC>。
 
@@ -186,23 +188,23 @@ public ActionResult<string> GetStaticString()
 前面的代码：
 
 * 典型内存泄漏的示例。
-* 如果频繁调用，会导致应用内存增加，直到进程因`OutOfMemory`异常而崩溃。
+* 如果频繁调用，会导致应用内存增加，直到进程因异常而崩溃 `OutOfMemory` 。
 
 ![上图](memory/_static/eternal.png)
 
 在上图中：
 
-* 负载测试`/api/staticstring`终结点会导致内存线性增加。
+* 负载测试 `/api/staticstring` 终结点会导致内存线性增加。
 * GC 在内存压力增加时，通过调用第2代回收来尝试释放内存。
 * GC 无法释放泄漏的内存。 已分配和工作集增加了时间。
 
-某些方案（如缓存）需要保留对象引用，直到内存压力强制释放它们。 <xref:System.WeakReference>类可用于这种类型的缓存代码。 `WeakReference`对象在内存压力下收集。 的<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>默认实现使用`WeakReference`。
+某些方案（如缓存）需要保留对象引用，直到内存压力强制释放它们。 <xref:System.WeakReference>类可用于这种类型的缓存代码。 `WeakReference`对象在内存压力下收集。 的默认实现 <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache> 使用 `WeakReference` 。
 
 ### <a name="native-memory"></a>本机内存
 
 某些 .NET Core 对象依赖本机内存。 GC**无法**收集本机内存。 使用本机内存的 .NET 对象必须使用本机代码释放它。
 
-.NET 提供了<xref:System.IDisposable>接口，使开发人员能够释放本机内存。 即使未<xref:System.IDisposable.Dispose*>调用，也会在[终结器](/dotnet/csharp/programming-guide/classes-and-structs/destructors)运行`Dispose`时正确实现类调用。
+.NET 提供了 <xref:System.IDisposable> 接口，使开发人员能够释放本机内存。 即使 <xref:System.IDisposable.Dispose*> 未调用，也会 `Dispose` 在[终结器](/dotnet/csharp/programming-guide/classes-and-structs/destructors)运行时正确实现类调用。
 
 考虑下列代码：
 
@@ -217,7 +219,7 @@ public void GetFileProvider()
 
 [PhysicalFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0)是托管类，因此将在请求结束时收集任何实例。
 
-下图显示了连续调用`fileprovider` API 时的内存配置文件。
+下图显示了连续调用 API 时的内存配置文件 `fileprovider` 。
 
 ![上图](memory/_static/fileprovider.png)
 
@@ -226,7 +228,7 @@ public void GetFileProvider()
 可以通过以下方式之一在用户代码中发生相同的泄漏：
 
 * 不能正确释放类。
-* 忘记调用应释放`Dispose`的依赖对象的方法。
+* 忘记调用 `Dispose` 应释放的依赖对象的方法。
 
 ### <a name="large-objects-heap"></a>大型对象堆
 
@@ -248,7 +250,7 @@ GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.Compa
 GC.Collect();
 ```
 
-有关<xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode>压缩 LOH 的信息，请参阅。
+<xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode>有关压缩 LOH 的信息，请参阅。
 
 在使用 .NET Core 3.0 和更高版本的容器中，LOH 将自动压缩。
 
@@ -262,15 +264,15 @@ public int GetLOH1(int size)
 }
 ```
 
-下图显示了在最大负载下调用`/api/loh/84975`终结点的内存配置文件：
+下图显示了 `/api/loh/84975` 在最大负载下调用终结点的内存配置文件：
 
 ![上图](memory/_static/loh1.png)
 
-下图显示调用`/api/loh/84976`终结点的内存配置文件，只分配*一个字节*：
+下图显示调用终结点的内存配置文件 `/api/loh/84976` ，只分配*一个字节*：
 
 ![上图](memory/_static/loh2.png)
 
-注意：此`byte[]`结构具有开销字节。 这就是84976字节触发85000限制的原因。
+注意：此 `byte[]` 结构具有开销字节。 这就是84976字节触发85000限制的原因。
 
 比较上述两个图表：
 
@@ -287,23 +289,23 @@ public int GetLOH1(int size)
 * [ResponseCaching/StreamUtilities](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 * [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-有关详细信息，请参见:
+有关详情，请参阅：
 
 * [发现的大型对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)
 
 ### <a name="httpclient"></a>HttpClient
 
-使用<xref:System.Net.Http.HttpClient>不当可能会导致资源泄漏。 系统资源，如数据库连接、套接字、文件句柄等：
+使用不当 <xref:System.Net.Http.HttpClient> 可能会导致资源泄漏。 系统资源，如数据库连接、套接字、文件句柄等：
 
 * 比内存更稀有。
 * 泄漏内存时，问题更多。
 
-经验丰富的 .NET 开发人员<xref:System.IDisposable.Dispose*>知道要对实现<xref:System.IDisposable>的对象调用。 不释放实现`IDisposable`的对象通常会导致内存泄漏或泄漏系统资源。
+经验丰富的 .NET 开发人员知道要对 <xref:System.IDisposable.Dispose*> 实现的对象调用 <xref:System.IDisposable> 。 不释放实现的对象 `IDisposable` 通常会导致内存泄漏或泄漏系统资源。
 
-`HttpClient`实现`IDisposable`，但**不**应在每次调用时都释放。 `HttpClient`应重复使用。
+`HttpClient`实现 `IDisposable` ，但**不**应在每次调用时都释放。 `HttpClient`应重复使用。
 
-以下终结点创建并释放每个`HttpClient`请求的一个新实例：
+以下终结点创建并释放 `HttpClient` 每个请求的一个新实例：
 
 ```csharp
 [HttpGet("httpclient1")]
@@ -331,9 +333,9 @@ System.Net.Http.HttpRequestException: Only one usage of each socket address
     CancellationToken cancellationToken)
 ```
 
-即使`HttpClient`实例被释放，实际的网络连接也需要一些时间才能由操作系统释放。 通过持续创建新的连接，会发生_端口耗尽_。 每个客户端连接都需要自己的客户端端口。
+即使 `HttpClient` 实例被释放，实际的网络连接也需要一些时间才能由操作系统释放。 通过持续创建新的连接，会发生_端口耗尽_。 每个客户端连接都需要自己的客户端端口。
 
-防止端口耗尽的一种方法是重复使用同`HttpClient`一个实例：
+防止端口耗尽的一种方法是重复使用同一个 `HttpClient` 实例：
 
 ```csharp
 private static readonly HttpClient _httpClient = new HttpClient();
@@ -346,16 +348,16 @@ public async Task<int> GetHttpClient2(string url)
 }
 ```
 
-当`HttpClient`应用程序停止时，将释放该实例。 此示例说明，每次使用后都不应释放每个可释放资源。
+`HttpClient`当应用程序停止时，将释放该实例。 此示例说明，每次使用后都不应释放每个可释放资源。
 
-请参阅以下内容，了解更好的方法来处理`HttpClient`实例的生存期：
+请参阅以下内容，了解更好的方法来处理实例的生存期 `HttpClient` ：
 
 * [HttpClient 和生存期管理](/aspnet/core/fundamentals/http-requests#httpclient-and-lifetime-management)
 * [HTTPClient 工厂博客](https://devblogs.microsoft.com/aspnet/asp-net-core-2-1-preview1-introducing-httpclient-factory/)
  
 ### <a name="object-pooling"></a>对象池
 
-前面的示例演示了如何`HttpClient`将实例设为静态的，并由所有请求重复使用。 重复使用会阻止资源耗尽。
+前面的示例演示了如何将 `HttpClient` 实例设为静态的，并由所有请求重复使用。 重复使用会阻止资源耗尽。
 
 对象池：
 
@@ -366,7 +368,7 @@ public async Task<int> GetHttpClient2(string url)
 
 NuGet 包[ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/)包含有助于管理此类池的类。
 
-以下 API 终结点将实例`byte`化一个缓冲区，该缓冲区使用每个请求的随机数字填充：
+以下 API 终结点将实例化一个 `byte` 缓冲区，该缓冲区使用每个请求的随机数字填充：
 
 ```csharp
         [HttpGet("array/{size}")]
@@ -386,7 +388,7 @@ NuGet 包[ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.Object
 
 在上图中，第0代回收大约每秒发生一次。
 
-可以通过使用`byte` [ArrayPool\<T>](xref:System.Buffers.ArrayPool`1)来池缓冲来优化前面的代码。 静态实例可跨请求重复使用。
+可以通过 `byte` 使用[ArrayPool \<T> ](xref:System.Buffers.ArrayPool`1)来对缓冲池进行优化，从而优化上述代码。 静态实例可跨请求重复使用。
 
 此方法的不同之处在于，将从 API 返回一个共用对象。 这意味着：
 
@@ -398,7 +400,7 @@ NuGet 包[ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.Object
 * 将池数组封装到可释放对象中。
 * 将此池对象注册为[RegisterForDispose](xref:Microsoft.AspNetCore.Http.HttpResponse.RegisterForDispose*)。
 
-`RegisterForDispose`将负责调用`Dispose`目标对象，以便仅当 HTTP 请求完成时才会释放该对象。
+`RegisterForDispose`将负责调用 `Dispose` 目标对象，以便仅当 HTTP 请求完成时才会释放该对象。
 
 ```csharp
 private static ArrayPool<byte> _arrayPool = ArrayPool<byte>.Create();

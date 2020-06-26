@@ -1,31 +1,33 @@
 ---
 title: ASP.NET Core MVC 中的模型验证
 author: rick-anderson
-description: 了解 ASP.NET Core MVC 和Razor页面中的模型验证。
+description: 了解 ASP.NET Core MVC 和页面中的模型验证 Razor 。
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: 56c8d799b98cc09b8cfff12744c6eeb46af4f8e6
-ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
+ms.openlocfilehash: e76ddad795237991c49bf2a3b1ca840795989260
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/09/2020
-ms.locfileid: "83003165"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404907"
 ---
-# <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和Razor页面中的模型验证
+# <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和页面中的模型验证 Razor
 
 ::: moniker range=">= aspnetcore-3.0"
 
 作者：[Kirk Larkin](https://github.com/serpent5)
 
-本文介绍如何在 ASP.NET Core MVC 或Razor页面应用中验证用户输入。
+本文介绍如何在 ASP.NET Core MVC 或页面应用中验证用户输入 Razor 。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
 
@@ -33,7 +35,7 @@ ms.locfileid: "83003165"
 
 模型状态表示两个子系统的错误：模型绑定和模型验证。 源自[模型绑定](model-binding.md)的错误通常是数据转换错误。 例如，在一个整数字段中输入一个“x”。 模型验证在模型绑定后发生，并报告数据不符合业务规则的错误。 例如，在需要 1 到 5 之间评分的字段中输入 0。
 
-模型绑定和模型验证在执行控制器操作或Razor页面处理程序方法之前发生。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
+模型绑定和模型验证在执行控制器操作或 Razor 页面处理程序方法之前发生。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_OnPostAsync&highlight=3-6)]
 
@@ -61,10 +63,10 @@ ms.locfileid: "83003165"
 * `[Phone]`：验证属性是否具有电话号码格式。
 * `[Range]`：验证属性值是否在指定的范围内。
 * `[RegularExpression]`：验证属性值是否与指定的正则表达式匹配。
-* `[Required]`：验证字段是否不为 null。 有关此属性的行为的详细信息，请参阅[ `[Required]`特性](#required-attribute)。
+* `[Required]`：验证字段是否不为 null。 有关此属性的行为的详细信息，请参阅[ `[Required]` 特性](#required-attribute)。
 * `[StringLength]`：验证字符串属性值是否不超过指定长度限制。
 * `[Url]`：验证属性是否具有 URL 格式。
-* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 有关此属性的行为的详细信息，请参阅[ `[Remote]`特性](#remote-attribute)。
+* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 有关此属性的行为的详细信息，请参阅[ `[Remote]` 特性](#remote-attribute)。
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
@@ -100,7 +102,7 @@ services.AddControllers(options => options.SuppressImplicitRequiredAttributeForN
 
 但是，不可为 null 的属性的模型绑定可能会失败，从而导致 `The value '' is invalid` 等错误消息。 若要为不可为 null 的类型的服务器端验证指定自定义错误消息，可使用以下选项：
 
-* 将字段设置为可以为 null（例如，`decimal?`而不是 `decimal`）。 类似于标准的可以为 null 的类型来处理[可以为 null\<T>](/dotnet/csharp/programming-guide/nullable-types/) 值类型。
+* 将字段设置为可以为 null（例如，`decimal?`而不是 `decimal`）。 [可以 \<T> 为 null](/dotnet/csharp/programming-guide/nullable-types/)值类型的处理方式类似于标准的可为 null 的类型。
 * 指定模型绑定要使用的默认错误消息，如以下示例所示：
 
   [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_Configuration&highlight=5-6)]
@@ -248,7 +250,7 @@ public string MiddleName { get; set; }
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Views/Shared/_ValidationScriptsPartial.cshtml?name=snippet_Scripts)]
 
-JQuery 非介入式[验证](https://github.com/aspnet/jquery-validation-unobtrusive)脚本是一种基于常用[jQuery 验证](https://jqueryvalidation.org/)插件构建的自定义 Microsoft 前端库。 如果没有 jQuery 非介入式验证，则必须在两个位置编码相同的验证逻辑：一次是在模型属性上的服务器端验证特性中，一次是在客户端脚本中。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)则使用模型属性中的验证特性和类型元数据，呈现需要验证的表单元素的 HTML 5 `data-` 特性。 jQuery 非介入式验证`data-`分析属性，并将逻辑传递到 jQuery 验证，从而有效地将服务器端验证逻辑 "复制" 到客户端。 可以使用标记帮助程序在客户端上显示验证错误，如下所示：
+JQuery 非介入式[验证](https://github.com/aspnet/jquery-validation-unobtrusive)脚本是一种基于常用[jQuery 验证](https://jqueryvalidation.org/)插件构建的自定义 Microsoft 前端库。 如果没有 jQuery 非介入式验证，则必须在两个位置编码相同的验证逻辑：一次是在模型属性上的服务器端验证特性中，一次是在客户端脚本中。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)则使用模型属性中的验证特性和类型元数据，呈现需要验证的表单元素的 HTML 5 `data-` 特性。 jQuery 非介入式验证分析 `data-` 属性，并将逻辑传递到 JQuery 验证，从而有效地将服务器端验证逻辑 "复制" 到客户端。 可以使用标记帮助程序在客户端上显示验证错误，如下所示：
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml?name=snippet_ReleaseDate&highlight=3-4)]
 
@@ -265,7 +267,7 @@ JQuery 非介入式[验证](https://github.com/aspnet/jquery-validation-unobtrus
 </div>
 ```
 
-请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jquery 非介入式验证将此值传递给[所需](https://jqueryvalidation.org/required-method/)的 jQuery 验证（）方法，该方法随后会在伴随** \<的范围>** 元素中显示该消息。
+请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给[所需](https://jqueryvalidation.org/required-method/)的 jQuery 验证（）方法，然后在随附的元素中显示该消息 **\<span>** 。
 
 如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
 
@@ -319,7 +321,7 @@ $.get({
 
 ## <a name="custom-client-side-validation"></a>自定义客户端验证
 
-自定义客户端验证是通过生成`data-`适用于自定义 jQuery 验证适配器的 HTML 特性来完成的。 以下示例适配器代码是为本文前面部分介绍的 `[ClassicMovie]` 和 `[ClassicMovieWithClientValidator]` 特性编写的：
+自定义客户端验证是通过生成 `data-` 适用于自定义 JQuery 验证适配器的 HTML 特性来完成的。 以下示例适配器代码是为本文前面部分介绍的 `[ClassicMovie]` 和 `[ClassicMovieWithClientValidator]` 特性编写的：
 
 [!code-javascript[](validation/samples/3.x/ValidationSample/wwwroot/js/classicMovieValidator.js)]
 
@@ -351,7 +353,7 @@ $.get({
 
 在 HTML 中呈现 `data-` 特性的方法在示例应用中由 `ClassicMovie` 特性使用。 若要使用此方法添加客户端验证：
 
-1. 为自定义验证特性创建特性适配器类。 从 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) 派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
+1. 为自定义验证特性创建特性适配器类。 从[AttributeAdapterBase \<T> ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2)派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Validation/ClassicMovieAttributeAdapter.cs?name=snippet_Class)]
 
@@ -373,7 +375,7 @@ $.get({
 
 ## <a name="disable-client-side-validation"></a>禁用客户端验证
 
-下面的代码在页中Razor禁用客户端验证：
+下面的代码在页中禁用客户端验证 Razor ：
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_DisableClientValidation&highlight=2-5)]
 
@@ -382,7 +384,7 @@ $.get({
 * 在所有 *.cshtml* 文件中注释掉对 `_ValidationScriptsPartial` 的引用。
 * 删除 *Pages\Shared\_ValidationScriptsPartial.cshtml* 文件的内容。
 
-上述方法不会阻止 ASP.NET Core Identity Razor类库的客户端验证。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。
+上述方法不会阻止 ASP.NET Core 类库的客户端验证 Identity Razor 。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -393,7 +395,7 @@ $.get({
 
 ::: moniker range="< aspnetcore-3.0"
 
-本文介绍如何在 ASP.NET Core MVC 或Razor页面应用中验证用户输入。
+本文介绍如何在 ASP.NET Core MVC 或页面应用中验证用户输入 Razor 。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
 
@@ -401,7 +403,7 @@ $.get({
 
 模型状态表示两个子系统的错误：模型绑定和模型验证。 [模型绑定](model-binding.md)的错误通常是数据转换错误（例如，在要求为整数的字段中输入“x”）。 模型验证在模型绑定之后进行，并在数据不符合业务规则时报告错误（例如，在要求评级为 1 至 5 之间的字段中输入 0）。
 
-模型绑定和验证都在执行控制器操作或Razor页面处理程序方法之前发生。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
+模型绑定和验证都在执行控制器操作或 Razor 页面处理程序方法之前发生。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
 
 [!code-csharp[](validation/samples_snapshot/2.x/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
@@ -424,15 +426,15 @@ $.get({
 内置验证特性包括：
 
 * `[CreditCard]`：验证属性是否具有信用卡格式。
-* `[Compare]`：验证模型中的两个属性是否匹配。 例如，*Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。 [基架Identity ](xref:security/authentication/scaffold-identity)查看注册代码。
+* `[Compare]`：验证模型中的两个属性是否匹配。 例如，*Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。 [基架 Identity ](xref:security/authentication/scaffold-identity)查看注册代码。
 * `[EmailAddress]`：验证属性是否具有电子邮件格式。
 * `[Phone]`：验证属性是否具有电话号码格式。
 * `[Range]`：验证属性值是否在指定的范围内。
 * `[RegularExpression]`：验证属性值是否与指定的正则表达式匹配。
-* `[Required]`：验证字段是否不为 null。 有关此属性的行为的详细信息，请参阅[ `[Required]`特性](#required-attribute)。
+* `[Required]`：验证字段是否不为 null。 有关此属性的行为的详细信息，请参阅[ `[Required]` 特性](#required-attribute)。
 * `[StringLength]`：验证字符串属性值是否不超过指定长度限制。
 * `[Url]`：验证属性是否具有 URL 格式。
-* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 有关此属性的行为的详细信息，请参阅[ `[Remote]`特性](#remote-attribute)。
+* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 有关此属性的行为的详细信息，请参阅[ `[Remote]` 特性](#remote-attribute)。
 
 将 `[RegularExpression]` 属性用于客户端验证时，在客户端上使用 JavaScript 执行正则表达式。 这意味着将使用 [ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) 匹配行为。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/corefx/issues/42487)。
 
@@ -466,7 +468,7 @@ $.get({
 
 但是，不可为 null 的属性的模型绑定可能会失败，从而导致 `The value '' is invalid` 等错误消息。 若要为不可为 null 的类型的服务器端验证指定自定义错误消息，可使用以下选项：
 
-* 将字段设置为可以为 null（例如，`decimal?`而不是 `decimal`）。 类似于标准的可以为 null 的类型来处理[可以为 null\<T>](/dotnet/csharp/programming-guide/nullable-types/) 值类型。
+* 将字段设置为可以为 null（例如，`decimal?`而不是 `decimal`）。 [可以 \<T> 为 null](/dotnet/csharp/programming-guide/nullable-types/)值类型的处理方式类似于标准的可为 null 的类型。
 * 指定模型绑定要使用的默认错误消息，如以下示例所示：
 
   [!code-csharp[](validation/samples/2.x/ValidationSample/Startup.cs?name=snippet_MaxModelValidationErrors&highlight=4-5)]
@@ -640,7 +642,7 @@ public string MiddleName { get; set; }
 </form>
 ```
 
-请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [required()](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
+请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [required （）](https://jqueryvalidation.org/required-method/)方法，然后在随附的元素中显示该消息 **\<span>** 。
 
 如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
 
@@ -722,7 +724,7 @@ $.get({
 
 在 HTML 中呈现 `data-` 特性的方法在示例应用中由 `ClassicMovie` 特性使用。 若要使用此方法添加客户端验证：
 
-1. 为自定义验证特性创建特性适配器类。 从 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) 派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
+1. 为自定义验证特性创建特性适配器类。 从[AttributeAdapterBase \<T> ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2)派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttributeAdapter.cs?name=snippet_ClassicMovieAttributeAdapter)]
 

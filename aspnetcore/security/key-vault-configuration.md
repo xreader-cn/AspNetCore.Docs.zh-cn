@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/key-vault-configuration
-ms.openlocfilehash: 4a5689af9ffea175838a869e92752de889cbb227
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 47172339f1c82a572a8a2c5d4ba49e4906e30b29
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106671"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406870"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
@@ -35,7 +37,7 @@ ms.locfileid: "84106671"
 
 ## <a name="packages"></a>package
 
-将包引用添加到[AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
+向Microsoft.Extensions.Configu 添加包引用[。AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
 
 ## <a name="sample-app"></a>示例应用
 
@@ -114,7 +116,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 ## <a name="use-application-id-and-x509-certificate-for-non-azure-hosted-apps"></a>为非 Azure 托管的应用使用应用程序 ID 和 x.509 证书
 
-配置 Azure AD、Azure Key Vault 和应用，以便在**Azure 外托管应用时**使用 Azure Active Directory 应用程序 ID 和 x.509 证书对密钥保管库进行身份验证。 有关详细信息，请参阅[关于密钥、机密和证书](/azure/key-vault/about-keys-secrets-and-certificates)。
+配置 Azure AD、Azure Key Vault 和应用，以便在**Azure 外托管应用时**使用 Azure Active Directory 应用程序 ID 和 x.509 证书对密钥保管库进行身份验证。 有关详细信息，请参阅 [About keys, secrets, and certificates](/azure/key-vault/about-keys-secrets-and-certificates)（关于密钥、机密和证书）。
 
 > [!NOTE]
 > 尽管在 Azure 中托管的应用程序支持使用应用程序 ID 和 x.509 证书，但在 Azure 中托管应用程序时，我们建议使用[Azure 资源的托管标识](#use-managed-identities-for-azure-resources)。 托管标识不需要在应用或开发环境中存储证书。
@@ -129,7 +131,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
    1. 在 Azure AD 中选择应用。
    1. 导航到 "**证书" & "机密**"。
    1. 选择 "**上传证书**"，上传包含公钥的证书。 *.Cer*、 *pem*或 *.crt*证书是可接受的。
-1. 将密钥保管库名称、应用程序 ID 和证书指纹存储在应用的*appsettings*文件中。
+1. 将密钥保管库名称、应用程序 ID 和证书指纹存储在应用的*appsettings.js*文件中。
 1. 导航到 Azure 门户中的**密钥保管库**。
 1. 选择在[生产环境中的机密存储中](#secret-storage-in-the-production-environment-with-azure-key-vault)创建的密钥保管库，其中 Azure Key Vault "部分。
 1. 选择“访问策略”。
@@ -147,7 +149,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用*appsettings*文件提供的值调用：
+X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用文件*上的appsettings.js*提供的值调用：
 
 [!code-csharp[](key-vault-configuration/samples/3.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
 
@@ -157,7 +159,7 @@ X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configura
 * 应用程序 ID：`627e911e-43cc-61d4-992e-12db9c81b413`
 * 证书指纹：`fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-appsettings.json：
+appsettings.json**：
 
 [!code-json[](key-vault-configuration/samples/3.x/SampleApp/appsettings.json?highlight=10-12)]
 
@@ -169,7 +171,7 @@ appsettings.json：
 
 当 `#define` *Program.cs*文件顶部的语句设置为时，示例应用使用 Azure 资源的托管标识 `Managed` 。
 
-在应用的*appsettings*文件中输入保管库名称。 当设置为版本时，示例应用不需要应用程序 ID 和密码（客户端密码） `Managed` ，因此可以忽略这些配置条目。 应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在*appsettings*文件中的保管库名称访问 Azure Key Vault。
+将保管库名称输入到应用的*appsettings.js*文件中。 当设置为版本时，示例应用不需要应用程序 ID 和密码（客户端密码） `Managed` ，因此可以忽略这些配置条目。 应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在文件*appsettings.js*中的保管库名称访问 Azure Key Vault。
 
 将示例应用部署到 Azure App Service。
 
@@ -193,7 +195,7 @@ az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-
 
 Key vault 名称示例值：`contosovault`
     
-appsettings.json：
+appsettings.json**：
 
 ```json
 {
@@ -219,7 +221,7 @@ config.AddAzureKeyVault(
     });
 ```
 
-| properties         | 描述 |
+| properties         | 说明 |
 | ---------------- | ----------- |
 | `Client`         | <xref:Microsoft.Azure.KeyVault.KeyVaultClient>用于检索值。 |
 | `Manager`        | <xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager>用于控制机密加载的实例。 |
@@ -381,7 +383,7 @@ Configuration.Reload();
 
 ## <a name="packages"></a>package
 
-将包引用添加到[AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
+向Microsoft.Extensions.Configu 添加包引用[。AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
 
 ## <a name="sample-app"></a>示例应用
 
@@ -460,7 +462,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 ## <a name="use-application-id-and-x509-certificate-for-non-azure-hosted-apps"></a>为非 Azure 托管的应用使用应用程序 ID 和 x.509 证书
 
-配置 Azure AD、Azure Key Vault 和应用，以便在**Azure 外托管应用时**使用 Azure Active Directory 应用程序 ID 和 x.509 证书对密钥保管库进行身份验证。 有关详细信息，请参阅[关于密钥、机密和证书](/azure/key-vault/about-keys-secrets-and-certificates)。
+配置 Azure AD、Azure Key Vault 和应用，以便在**Azure 外托管应用时**使用 Azure Active Directory 应用程序 ID 和 x.509 证书对密钥保管库进行身份验证。 有关详细信息，请参阅 [About keys, secrets, and certificates](/azure/key-vault/about-keys-secrets-and-certificates)（关于密钥、机密和证书）。
 
 > [!NOTE]
 > 尽管在 Azure 中托管的应用程序支持使用应用程序 ID 和 x.509 证书，但在 Azure 中托管应用程序时，我们建议使用[Azure 资源的托管标识](#use-managed-identities-for-azure-resources)。 托管标识不需要在应用或开发环境中存储证书。
@@ -475,7 +477,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
    1. 在 Azure AD 中选择应用。
    1. 导航到 "**证书" & "机密**"。
    1. 选择 "**上传证书**"，上传包含公钥的证书。 *.Cer*、 *pem*或 *.crt*证书是可接受的。
-1. 将密钥保管库名称、应用程序 ID 和证书指纹存储在应用的*appsettings*文件中。
+1. 将密钥保管库名称、应用程序 ID 和证书指纹存储在应用的*appsettings.js*文件中。
 1. 导航到 Azure 门户中的**密钥保管库**。
 1. 选择在[生产环境中的机密存储中](#secret-storage-in-the-production-environment-with-azure-key-vault)创建的密钥保管库，其中 Azure Key Vault "部分。
 1. 选择“访问策略”。
@@ -493,7 +495,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用*appsettings*文件提供的值调用：
+X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用文件*上的appsettings.js*提供的值调用：
 
 [!code-csharp[](key-vault-configuration/samples/2.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
 
@@ -503,7 +505,7 @@ X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configura
 * 应用程序 ID：`627e911e-43cc-61d4-992e-12db9c81b413`
 * 证书指纹：`fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-appsettings.json：
+appsettings.json**：
 
 [!code-json[](key-vault-configuration/samples/2.x/SampleApp/appsettings.json?highlight=10-12)]
 
@@ -515,7 +517,7 @@ appsettings.json：
 
 当 `#define` *Program.cs*文件顶部的语句设置为时，示例应用使用 Azure 资源的托管标识 `Managed` 。
 
-在应用的*appsettings*文件中输入保管库名称。 当设置为版本时，示例应用不需要应用程序 ID 和密码（客户端密码） `Managed` ，因此可以忽略这些配置条目。 应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在*appsettings*文件中的保管库名称访问 Azure Key Vault。
+将保管库名称输入到应用的*appsettings.js*文件中。 当设置为版本时，示例应用不需要应用程序 ID 和密码（客户端密码） `Managed` ，因此可以忽略这些配置条目。 应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在文件*appsettings.js*中的保管库名称访问 Azure Key Vault。
 
 将示例应用部署到 Azure App Service。
 
@@ -539,7 +541,7 @@ az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-
 
 Key vault 名称示例值：`contosovault`
     
-appsettings.json：
+appsettings.json**：
 
 ```json
 {

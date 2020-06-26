@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 02/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/overview
-ms.openlocfilehash: fcd81544385702ce72ff5fc8ae2de34d0f7afb37
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 68a0b14eb0897f6ff6e24e74b1fe5536bee1adfe
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103003"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405843"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -68,7 +70,7 @@ ASP.NET Core MVC 包括以下功能：
 * [路由](#routing)
 * [模型绑定](#model-binding)
 * [模型验证](#model-validation)
-* [依赖项注入](../fundamentals/dependency-injection.md)
+* [依赖关系注入](../fundamentals/dependency-injection.md)
 * [筛选器](#filters)
 * [Areas](#areas)
 * [Web API](#web-apis)
@@ -147,7 +149,7 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 框架处理客户端和服务器上的验证请求数据。 在模型类型上指定的验证逻辑作为非介入式注释添加到呈现的视图，并使用 [jQuery 验证](https://jqueryvalidation.org/)在浏览器中强制执行。
 
-### <a name="dependency-injection"></a>依赖项注入
+### <a name="dependency-injection"></a>依赖关系注入
 
 ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-injection.md) 的支持。 在 ASP.NET Core MVC 中，[控制器](controllers/dependency-injection.md)可通过其构造函数请求所需服务，使其能够遵循 [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）。
 

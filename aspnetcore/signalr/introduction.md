@@ -1,32 +1,34 @@
 ---
 title: ASP.NET Core SignalR 简介
 author: bradygaster
-description: 了解 ASP.NET Core SignalR库如何简化将实时功能添加到应用程序。
+description: 了解 ASP.NET Core 库如何 SignalR 简化将实时功能添加到应用程序。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/27/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: 4e968659d23330c4b1403ab998dda9c9e6ebe080
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 816ecfc5d23e8e1d2901a8c35c657cc968fa95df
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775773"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404946"
 ---
 # <a name="introduction-to-aspnet-core-signalr"></a>ASP.NET Core SignalR 简介
 
-## <a name="what-is-signalr"></a>什么是SignalR？
+## <a name="what-is-signalr"></a>什么是 SignalR？
 
-ASP.NET Core SignalR是一种开放源代码库，可简化将实时 web 功能添加到应用程序的功能。 实时 web 功能使服务器端代码可以立即将内容推送到客户端。
+ASP.NET Core SignalR 是一种开放源代码库，可简化将实时 web 功能添加到应用程序的功能。 实时 web 功能使服务器端代码可以立即将内容推送到客户端。
 
-适用于SignalR：
+适用于 SignalR ：
 
 * 需要从服务器进行高频率更新的应用。 示例包括游戏、社交网络、投票、拍卖、地图和 GPS 应用。
 * 仪表板和监视应用。 示例包括公司仪表板、即时销售更新或旅行警报。
@@ -35,7 +37,7 @@ ASP.NET Core SignalR是一种开放源代码库，可简化将实时 web 功能�
 
 SignalR提供用于创建服务器到客户端[远程过程调用（RPC）](https://wikipedia.org/wiki/Remote_procedure_call)的 API。 Rpc 通过服务器端 .NET Core 代码从客户端调用 JavaScript 函数。
 
-下面是的SignalR某些功能 ASP.NET Core：
+下面是的某些功能 SignalR ASP.NET Core：
 
 * 自动处理连接管理。
 * 将消息同时发送到所有连接的客户端。 例如，聊天室。
@@ -48,7 +50,7 @@ SignalR提供用于创建服务器到客户端[远程过程调用（RPC）](http
 
 SignalR支持以下用于处理实时通信的技术（按正常回退的顺序）：
 
-* [Websocket](https://tools.ietf.org/html/rfc7118)
+* [WebSockets](https://tools.ietf.org/html/rfc7118)
 * 服务器发送的事件
 * 长轮询
 
@@ -64,7 +66,7 @@ SignalR使用*集线器*在客户端和服务器之间进行通信。
 
 ## <a name="additional-resources"></a>其他资源
 
-* [ASP.NET Core 入门SignalR](xref:tutorials/signalr)
+* [SignalRASP.NET Core 入门](xref:tutorials/signalr)
 * [支持的平台](xref:signalr/supported-platforms)
 * [中心](xref:signalr/hubs)
 * [JavaScript 客户端](xref:signalr/javascript-client)

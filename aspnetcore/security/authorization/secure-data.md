@@ -1,23 +1,25 @@
 ---
 title: 使用授权保护的用户数据创建 ASP.NET Core 应用
 author: rick-anderson
-description: 了解如何使用授权保护Razor的用户数据创建页面应用。 包括 HTTPS、身份验证、安全性 ASP.NET Core Identity。
+description: 了解如何 Razor 使用授权保护的用户数据创建页面应用。 包括 HTTPS、身份验证、安全性 ASP.NET Core Identity 。
 ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authorization/secure-data
-ms.openlocfilehash: f52b08786dde54e7dcbd2e00f43badb58879cf79
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: f50015af864a4a62abd5e2eab508aac915cb6370
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775747"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404712"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>使用授权保护的用户数据创建 ASP.NET Core 应用
 
@@ -45,13 +47,13 @@ ms.locfileid: "82775747"
 
 此文档中的图像与最新模板并不完全匹配。
 
-在下图中，用户 Rick （`rick@example.com`）已登录。 Rick 只能查看已批准的联系人，**编辑**/**删除**/为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+在下图中，用户 Rick （ `rick@example.com` ）已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
 
 ![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
 
-在下图中， `manager@contoso.com`已登录，并在管理器的角色中：
+在下图中， `manager@contoso.com` 已登录，并在管理器的角色中：
 
-![显示manager@contoso.com已登录的屏幕截图](secure-data/_static/manager1.png)
+![显示 manager@contoso.com 已登录的屏幕截图](secure-data/_static/manager1.png)
 
 下图显示了联系人的经理详细信息视图：
 
@@ -59,13 +61,13 @@ ms.locfileid: "82775747"
 
 "**批准**" 和 "**拒绝**" 按钮仅为经理和管理员显示。
 
-在下图中， `admin@contoso.com`以管理员的角色登录和：
+在下图中，以 `admin@contoso.com` 管理员的角色登录和：
 
-![显示admin@contoso.com已登录的屏幕截图](secure-data/_static/admin.png)
+![显示 admin@contoso.com 已登录的屏幕截图](secure-data/_static/admin.png)
 
 管理员具有所有权限。 她可以读取/编辑/删除任何联系人并更改联系人的状态。
 
-此应用是通过[基架](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)创建的`Contact` ：以下模型：
+此应用是通过[基架](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)创建的 `Contact` ：以下模型：
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
@@ -83,7 +85,7 @@ ms.locfileid: "82775747"
 * [身份验证](xref:security/authentication/identity)
 * [帐户确认和密码恢复](xref:security/authentication/accconfirm)
 * [授权](xref:security/authorization/introduction)
-* [实体框架核心](xref:data/ef-mvc/intro)
+* [Entity Framework Core](xref:data/ef-mvc/intro)
 
 ## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
 
@@ -101,11 +103,11 @@ ms.locfileid: "82775747"
 
 ### <a name="tie-the-contact-data-to-the-user"></a>将联系人数据与用户关联
 
-使用 ASP.NET [Identity](xref:security/authentication/identity) user ID 可确保用户能够编辑其数据，而不是其他用户数据。 将`OwnerID`和`ContactStatus`添加到`Contact`模型：
+使用 ASP.NET [Identity](xref:security/authentication/identity) 用户 ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和添加 `ContactStatus` 到 `Contact` 模型：
 
 [!code-csharp[](secure-data/samples/final3/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID``AspNetUser` [标识](xref:security/authentication/identity)数据库中的表的用户 ID。 此`Status`字段确定常规用户是否可查看联系人。
+`OwnerID`数据库中的表的用户 ID `AspNetUser` [Identity](xref:security/authentication/identity) 。 此 `Status` 字段确定常规用户是否可查看联系人。
 
 创建新的迁移并更新数据库：
 
@@ -114,7 +116,7 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>将角色服务添加到标识
+### <a name="add-role-services-to-identity"></a>将角色服务添加到Identity
 
 追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
 
@@ -126,7 +128,7 @@ dotnet ef database update
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=15-99)] 
 
- 您可以通过`[AllowAnonymous]`属性在 Razor 页、控制器或操作方法级别选择不进行身份验证。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor Pages 和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor Pages 来包括`[Authorize]`属性更安全。
+ 您可以 Razor 通过属性在页、控制器或操作方法级别选择不进行身份验证 `[AllowAnonymous]` 。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor 页面和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor 页面以包括属性更安全 `[Authorize]` 。
 
 将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 "索引" 和 "隐私" 页，以便匿名用户在注册之前可以获取有关站点的信息。
 
@@ -140,32 +142,32 @@ dotnet ef database update
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-如果未指定强密码，则在`SeedData.Initialize`调用时会引发异常。
+如果未指定强密码，则在调用时会引发异常 `SeedData.Initialize` 。
 
-更新`Main`以使用测试密码：
+更新 `Main` 以使用测试密码：
 
 [!code-csharp[](secure-data/samples/final3/Program.cs?name=snippet)]
 
 ### <a name="create-the-test-accounts-and-update-the-contacts"></a>创建测试帐户并更新联系人
 
-更新`SeedData`类`Initialize`中的方法，以创建测试帐户：
+更新 `Initialize` 类中的方法 `SeedData` ，以创建测试帐户：
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet_Initialize)]
 
-向联系人添加管理员用户 ID `ContactStatus`和。 使其中一个联系人 "已提交" 和一个 "已拒绝"。 将用户 ID 和状态添加到所有联系人。 只显示一个联系人：
+向联系人添加管理员用户 ID 和 `ContactStatus` 。 使其中一个联系人 "已提交" 和一个 "已拒绝"。 将用户 ID 和状态添加到所有联系人。 只显示一个联系人：
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
 ## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>创建所有者、经理和管理员授权处理程序
 
-在 Authorization `ContactIsOwnerAuthorizationHandler`文件夹中创建*Authorization*一个类。 `ContactIsOwnerAuthorizationHandler`验证对资源的用户是否拥有该资源。
+`ContactIsOwnerAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactIsOwnerAuthorizationHandler`验证对资源的用户是否拥有该资源。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
 `ContactIsOwnerAuthorizationHandler`调用[上下文。](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)如果当前经过身份验证的用户是联系人所有者，则会成功。 授权处理程序通常：
 
-* 满足`context.Succeed`要求时返回。
-* 当`Task.CompletedTask`不满足要求时返回。 `Task.CompletedTask`不是成功或失败&mdash;，它允许其他授权处理程序运行。
+* `context.Succeed`满足要求时返回。
+* `Task.CompletedTask`当不满足要求时返回。 `Task.CompletedTask`不是成功或失败， &mdash; 它允许其他授权处理程序运行。
 
 如果需要显式失败，请返回[context。失败](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
 
@@ -173,68 +175,68 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ### <a name="create-a-manager-authorization-handler"></a>创建管理器授权处理程序
 
-在 Authorization `ContactManagerAuthorizationHandler`文件夹中创建*Authorization*一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
+`ContactManagerAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactManagerAuthorizationHandler.cs)]
 
 ### <a name="create-an-administrator-authorization-handler"></a>创建管理员授权处理程序
 
-在 Authorization `ContactAdministratorsAuthorizationHandler`文件夹中创建*Authorization*一个类。 `ContactAdministratorsAuthorizationHandler`验证对资源的用户是否为管理员。 管理员可以执行所有操作。
+`ContactAdministratorsAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactAdministratorsAuthorizationHandler`验证对资源的用户是否为管理员。 管理员可以执行所有操作。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
 ## <a name="register-the-authorization-handlers"></a>注册授权处理程序
 
-Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 Entity Framework Core 上构建 ASP.NET Core[标识](xref:security/authentication/identity)。 向服务集合注册处理程序，使其可`ContactsController`通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾`ConfigureServices`：
+Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
-`ContactAdministratorsAuthorizationHandler`和`ContactManagerAuthorizationHandler`将添加为单一实例。 它们是单一实例的，因为它们不使用 EF，并且所需的所有`Context`信息都在`HandleRequirementAsync`方法的参数中。
+`ContactAdministratorsAuthorizationHandler`和 `ContactManagerAuthorizationHandler` 将添加为单一实例。 它们是单一实例的，因为它们不使用 EF，并且所需的所有信息都在 `Context` 方法的参数中 `HandleRequirementAsync` 。
 
 ## <a name="support-authorization"></a>支持授权
 
-在本部分中，将更新 Razor Pages 并添加操作要求类。
+在本部分中，将更新 Razor 页面并添加操作要求类。
 
 ### <a name="review-the-contact-operations-requirements-class"></a>查看联系操作要求类
 
-查看`ContactOperations`类。 此类包含应用支持的要求：
+查看 `ContactOperations` 类。 此类包含应用支持的要求：
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人创建基类 Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人页创建基类 Razor
 
-创建一个基类，该基类包含联系人 Razor Pages 中使用的服务。 基类将初始化代码放在一个位置：
+创建一个包含联系人页中使用的服务的基类 Razor 。 基类将初始化代码放在一个位置：
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/DI_BasePageModel.cs)]
 
 前面的代码：
 
-* 添加`IAuthorizationService`服务以访问授权处理程序。
-* 添加标识`UserManager`服务。
+* 添加 `IAuthorizationService` 服务以访问授权处理程序。
+* 添加 Identity `UserManager` 服务。
 * 添加 `ApplicationDbContext`。
 
 ### <a name="update-the-createmodel"></a>更新 CreateModel
 
-更新 "创建页模型" 构造函数以`DI_BasePageModel`使用基类：
+更新 "创建页模型" 构造函数以使用 `DI_BasePageModel` 基类：
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-将`CreateModel.OnPostAsync`方法更新为：
+将 `CreateModel.OnPostAsync` 方法更新为：
 
-* 将用户 ID 添加到`Contact`模型。
+* 将用户 ID 添加到 `Contact` 模型。
 * 调用授权处理程序以验证用户是否有权创建联系人。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
 ### <a name="update-the-indexmodel"></a>更新 IndexModel
 
-更新`OnGetAsync`方法以便仅向一般用户显示已批准的联系人：
+更新 `OnGetAsync` 方法以便仅向一般用户显示已批准的联系人：
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
 ### <a name="update-the-editmodel"></a>更新 EditModel
 
-添加一个授权处理程序来验证用户是否拥有该联系人。 由于正在验证资源授权，因此`[Authorize]`属性不够。 计算属性时，应用无法访问资源。 基于资源的授权必须是必需的。 如果应用有权访问该资源，则必须执行检查，方法是将其加载到页面模型中，或在处理程序本身中加载它。 通过传入资源键，可以频繁地访问资源。
+添加一个授权处理程序来验证用户是否拥有该联系人。 由于正在验证资源授权，因此 `[Authorize]` 属性不够。 计算属性时，应用无法访问资源。 基于资源的授权必须是必需的。 如果应用有权访问该资源，则必须执行检查，方法是将其加载到页面模型中，或在处理程序本身中加载它。 通过传入资源键，可以频繁地访问资源。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
@@ -252,14 +254,14 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 [!code-cshtml[](secure-data/samples/final3/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-前面的标记添加了`using`多个语句。
+前面的标记添加了多个 `using` 语句。
 
 更新*页面/联系人/索引*中的 "**编辑**" 和 "**删除**" 链接，以便仅为具有适当权限的用户呈现它们：
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor 页或控制器必须强制进行访问检查以确保数据的安全。
+> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor页或控制器必须强制进行访问检查以确保数据的安全。
 
 ### <a name="update-details"></a>更新详细信息
 
@@ -288,15 +290,15 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 在上述代码中：
 
-* 如果用户**未通过身份**验证， `ChallengeResult`则返回。 `ChallengeResult`返回后，会将用户重定向到登录页。
-* 如果用户已通过身份验证，但未获得授权`ForbidResult` ，则返回。 `ForbidResult`返回后，会将用户重定向到 "拒绝访问" 页。
+* 如果用户**未通过身份**验证， `ChallengeResult` 则返回。 返回后 `ChallengeResult` ，会将用户重定向到登录页。
+* 如果用户已通过身份验证，但未获得授权， `ForbidResult` 则返回。 返回后 `ForbidResult` ，会将用户重定向到 "拒绝访问" 页。
 
 ## <a name="test-the-completed-app"></a>测试已完成的应用程序
 
 如果尚未为种子设定用户帐户设置密码，请使用[机密管理器工具](xref:security/app-secrets#secret-manager)设置密码：
 
-* 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如， `Passw0rd!`满足强密码要求。
-* 从项目的文件夹中执行以下命令，其中`<PW>`是密码：
+* 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如， `Passw0rd!` 满足强密码要求。
+* 从项目的文件夹中执行以下命令，其中 `<PW>` 是密码：
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
@@ -304,14 +306,14 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 如果应用有联系人：
 
-* 删除`Contact`表中的所有记录。
+* 删除表中的所有记录 `Contact` 。
 * 重新启动应用以对数据库进行种子设定。
 
-测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中，注册新用户（例如`test@example.com`）。 使用其他用户登录到每个浏览器。 验证下列操作：
+测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中，注册新用户（例如 `test@example.com` ）。 使用其他用户登录到每个浏览器。 验证下列操作：
 
 * 已注册的用户可以查看所有已批准的联系人数据。
 * 已注册的用户可以编辑/删除他们自己的数据。
-* 经理可以批准/拒绝联系人数据。 此`Details`视图显示 "**批准**" 和 "**拒绝**" 按钮。
+* 经理可以批准/拒绝联系人数据。 此 `Details` 视图显示 "**批准**" 和 "**拒绝**" 按钮。
 * 管理员可以批准/拒绝和编辑/删除所有数据。
 
 | 用户                | 应用程序的种子 | 选项                                  |
@@ -324,7 +326,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 ## <a name="create-the-starter-app"></a>创建初学者应用
 
-* 创建名为 "ContactManager" 的 Razor Pages 应用
+* 创建 Razor 名为 "ContactManager" 的页面应用
   * 创建具有**单个用户帐户**的应用。
   * 将其命名为 "ContactManager"，使命名空间与该示例中使用的命名空间匹配。
   * `-uld`指定 LocalDB 而不是 SQLite
@@ -337,7 +339,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* 基架`Contact`模型。
+* 基架 `Contact` 模型。
 * 创建初始迁移并更新数据库：
 
 ```dotnetcli
@@ -349,7 +351,7 @@ dotnet ef migrations add initial
 dotnet ef database update
 ```
 
-如果使用`dotnet aspnet-codegenerator razorpage`命令遇到 bug，请参阅[此 GitHub 问题](https://github.com/aspnet/Scaffolding/issues/984)。
+如果使用命令遇到 bug `dotnet aspnet-codegenerator razorpage` ，请参阅[此 GitHub 问题](https://github.com/aspnet/Scaffolding/issues/984)。
 
 * 更新*Pages/Shared/_Layout cshtml*文件中的**ContactManager**定位点：
 
@@ -365,7 +367,7 @@ dotnet ef database update
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
-调用`SeedData.Initialize`自`Main`：
+调用 `SeedData.Initialize` 自 `Main` ：
 
 [!code-csharp[](secure-data/samples/starter3/Program.cs)]
 
@@ -381,13 +383,13 @@ dotnet ef database update
 * **经理**可以批准或拒绝联系人数据。 只有已批准的联系人对用户可见。
 * **管理员**可以批准/拒绝和编辑/删除任何数据。
 
-在下图中，用户 Rick （`rick@example.com`）已登录。 Rick 只能查看已批准的联系人，**编辑**/**删除**/为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+在下图中，用户 Rick （ `rick@example.com` ）已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
 
 ![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
 
-在下图中， `manager@contoso.com`已登录，并在管理器的角色中：
+在下图中， `manager@contoso.com` 已登录，并在管理器的角色中：
 
-![显示manager@contoso.com已登录的屏幕截图](secure-data/_static/manager1.png)
+![显示 manager@contoso.com 已登录的屏幕截图](secure-data/_static/manager1.png)
 
 下图显示了联系人的经理详细信息视图：
 
@@ -395,13 +397,13 @@ dotnet ef database update
 
 "**批准**" 和 "**拒绝**" 按钮仅为经理和管理员显示。
 
-在下图中， `admin@contoso.com`以管理员的角色登录和：
+在下图中，以 `admin@contoso.com` 管理员的角色登录和：
 
-![显示admin@contoso.com已登录的屏幕截图](secure-data/_static/admin.png)
+![显示 admin@contoso.com 已登录的屏幕截图](secure-data/_static/admin.png)
 
 管理员具有所有权限。 她可以读取/编辑/删除任何联系人并更改联系人的状态。
 
-此应用是通过[基架](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)创建的`Contact` ：以下模型：
+此应用是通过[基架](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)创建的 `Contact` ：以下模型：
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
@@ -419,7 +421,7 @@ dotnet ef database update
 * [身份验证](xref:security/authentication/identity)
 * [帐户确认和密码恢复](xref:security/authentication/accconfirm)
 * [授权](xref:security/authorization/introduction)
-* [实体框架核心](xref:data/ef-mvc/intro)
+* [Entity Framework Core](xref:data/ef-mvc/intro)
 
 ## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
 
@@ -437,11 +439,11 @@ dotnet ef database update
 
 ### <a name="tie-the-contact-data-to-the-user"></a>将联系人数据与用户关联
 
-使用 ASP.NET [Identity](xref:security/authentication/identity) user ID 可确保用户能够编辑其数据，而不是其他用户数据。 将`OwnerID`和`ContactStatus`添加到`Contact`模型：
+使用 ASP.NET [Identity](xref:security/authentication/identity) 用户 ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和添加 `ContactStatus` 到 `Contact` 模型：
 
 [!code-csharp[](secure-data/samples/final2.1/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID``AspNetUser` [标识](xref:security/authentication/identity)数据库中的表的用户 ID。 此`Status`字段确定常规用户是否可查看联系人。
+`OwnerID`数据库中的表的用户 ID `AspNetUser` [Identity](xref:security/authentication/identity) 。 此 `Status` 字段确定常规用户是否可查看联系人。
 
 创建新的迁移并更新数据库：
 
@@ -450,7 +452,7 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>将角色服务添加到标识
+### <a name="add-role-services-to-identity"></a>将角色服务添加到Identity
 
 追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
 
@@ -462,7 +464,7 @@ dotnet ef database update
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet&highlight=17-99)] 
 
- 您可以通过`[AllowAnonymous]`属性在 Razor 页、控制器或操作方法级别选择不进行身份验证。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor Pages 和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor Pages 来包括`[Authorize]`属性更安全。
+ 您可以 Razor 通过属性在页、控制器或操作方法级别选择不进行身份验证 `[AllowAnonymous]` 。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor 页面和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor 页面以包括属性更安全 `[Authorize]` 。
 
 将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 "索引"、"关于" 和 "联系人" 页，以便匿名用户在注册之前可以获取有关站点的信息。
 
@@ -476,32 +478,32 @@ dotnet ef database update
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-如果未指定强密码，则在`SeedData.Initialize`调用时会引发异常。
+如果未指定强密码，则在调用时会引发异常 `SeedData.Initialize` 。
 
-更新`Main`以使用测试密码：
+更新 `Main` 以使用测试密码：
 
 [!code-csharp[](secure-data/samples/final2.1/Program.cs?name=snippet)]
 
 ### <a name="create-the-test-accounts-and-update-the-contacts"></a>创建测试帐户并更新联系人
 
-更新`SeedData`类`Initialize`中的方法，以创建测试帐户：
+更新 `Initialize` 类中的方法 `SeedData` ，以创建测试帐户：
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet_Initialize)]
 
-向联系人添加管理员用户 ID `ContactStatus`和。 使其中一个联系人 "已提交" 和一个 "已拒绝"。 将用户 ID 和状态添加到所有联系人。 只显示一个联系人：
+向联系人添加管理员用户 ID 和 `ContactStatus` 。 使其中一个联系人 "已提交" 和一个 "已拒绝"。 将用户 ID 和状态添加到所有联系人。 只显示一个联系人：
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
 ## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>创建所有者、经理和管理员授权处理程序
 
-创建一个*授权*文件夹并在其中`ContactIsOwnerAuthorizationHandler`创建一个类。 `ContactIsOwnerAuthorizationHandler`验证对资源的用户是否拥有该资源。
+创建一个*授权*文件夹并 `ContactIsOwnerAuthorizationHandler` 在其中创建一个类。 `ContactIsOwnerAuthorizationHandler`验证对资源的用户是否拥有该资源。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
 `ContactIsOwnerAuthorizationHandler`调用[上下文。](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)如果当前经过身份验证的用户是联系人所有者，则会成功。 授权处理程序通常：
 
-* 满足`context.Succeed`要求时返回。
-* 当`Task.CompletedTask`不满足要求时返回。 `Task.CompletedTask`不是成功或失败&mdash;，它允许其他授权处理程序运行。
+* `context.Succeed`满足要求时返回。
+* `Task.CompletedTask`当不满足要求时返回。 `Task.CompletedTask`不是成功或失败， &mdash; 它允许其他授权处理程序运行。
 
 如果需要显式失败，请返回[context。失败](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
 
@@ -509,68 +511,68 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ### <a name="create-a-manager-authorization-handler"></a>创建管理器授权处理程序
 
-在 Authorization `ContactManagerAuthorizationHandler`文件夹中创建*Authorization*一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
+`ContactManagerAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactManagerAuthorizationHandler.cs)]
 
 ### <a name="create-an-administrator-authorization-handler"></a>创建管理员授权处理程序
 
-在 Authorization `ContactAdministratorsAuthorizationHandler`文件夹中创建*Authorization*一个类。 `ContactAdministratorsAuthorizationHandler`验证对资源的用户是否为管理员。 管理员可以执行所有操作。
+`ContactAdministratorsAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactAdministratorsAuthorizationHandler`验证对资源的用户是否为管理员。 管理员可以执行所有操作。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
 ## <a name="register-the-authorization-handlers"></a>注册授权处理程序
 
-Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 Entity Framework Core 上构建 ASP.NET Core[标识](xref:security/authentication/identity)。 向服务集合注册处理程序，使其可`ContactsController`通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾`ConfigureServices`：
+Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
-`ContactAdministratorsAuthorizationHandler`和`ContactManagerAuthorizationHandler`将添加为单一实例。 它们是单一实例的，因为它们不使用 EF，并且所需的所有`Context`信息都在`HandleRequirementAsync`方法的参数中。
+`ContactAdministratorsAuthorizationHandler`和 `ContactManagerAuthorizationHandler` 将添加为单一实例。 它们是单一实例的，因为它们不使用 EF，并且所需的所有信息都在 `Context` 方法的参数中 `HandleRequirementAsync` 。
 
 ## <a name="support-authorization"></a>支持授权
 
-在本部分中，将更新 Razor Pages 并添加操作要求类。
+在本部分中，将更新 Razor 页面并添加操作要求类。
 
 ### <a name="review-the-contact-operations-requirements-class"></a>查看联系操作要求类
 
-查看`ContactOperations`类。 此类包含应用支持的要求：
+查看 `ContactOperations` 类。 此类包含应用支持的要求：
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人创建基类 Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人页创建基类 Razor
 
-创建一个基类，该基类包含联系人 Razor Pages 中使用的服务。 基类将初始化代码放在一个位置：
+创建一个包含联系人页中使用的服务的基类 Razor 。 基类将初始化代码放在一个位置：
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/DI_BasePageModel.cs)]
 
 前面的代码：
 
-* 添加`IAuthorizationService`服务以访问授权处理程序。
-* 添加标识`UserManager`服务。
+* 添加 `IAuthorizationService` 服务以访问授权处理程序。
+* 添加 Identity `UserManager` 服务。
 * 添加 `ApplicationDbContext`。
 
 ### <a name="update-the-createmodel"></a>更新 CreateModel
 
-更新 "创建页模型" 构造函数以`DI_BasePageModel`使用基类：
+更新 "创建页模型" 构造函数以使用 `DI_BasePageModel` 基类：
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-将`CreateModel.OnPostAsync`方法更新为：
+将 `CreateModel.OnPostAsync` 方法更新为：
 
-* 将用户 ID 添加到`Contact`模型。
+* 将用户 ID 添加到 `Contact` 模型。
 * 调用授权处理程序以验证用户是否有权创建联系人。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
 ### <a name="update-the-indexmodel"></a>更新 IndexModel
 
-更新`OnGetAsync`方法以便仅向一般用户显示已批准的联系人：
+更新 `OnGetAsync` 方法以便仅向一般用户显示已批准的联系人：
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
 ### <a name="update-the-editmodel"></a>更新 EditModel
 
-添加一个授权处理程序来验证用户是否拥有该联系人。 由于正在验证资源授权，因此`[Authorize]`属性不够。 计算属性时，应用无法访问资源。 基于资源的授权必须是必需的。 如果应用有权访问该资源，则必须执行检查，方法是将其加载到页面模型中，或在处理程序本身中加载它。 通过传入资源键，可以频繁地访问资源。
+添加一个授权处理程序来验证用户是否拥有该联系人。 由于正在验证资源授权，因此 `[Authorize]` 属性不够。 计算属性时，应用无法访问资源。 基于资源的授权必须是必需的。 如果应用有权访问该资源，则必须执行检查，方法是将其加载到页面模型中，或在处理程序本身中加载它。 通过传入资源键，可以频繁地访问资源。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
@@ -588,14 +590,14 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-前面的标记添加了`using`多个语句。
+前面的标记添加了多个 `using` 语句。
 
 更新*页面/联系人/索引*中的 "**编辑**" 和 "**删除**" 链接，以便仅为具有适当权限的用户呈现它们：
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor 页或控制器必须强制进行访问检查以确保数据的安全。
+> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor页或控制器必须强制进行访问检查以确保数据的安全。
 
 ### <a name="update-details"></a>更新详细信息
 
@@ -618,8 +620,8 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 如果尚未为种子设定用户帐户设置密码，请使用[机密管理器工具](xref:security/app-secrets#secret-manager)设置密码：
 
-* 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如， `Passw0rd!`满足强密码要求。
-* 从项目的文件夹中执行以下命令，其中`<PW>`是密码：
+* 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如， `Passw0rd!` 满足强密码要求。
+* 从项目的文件夹中执行以下命令，其中 `<PW>` 是密码：
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
@@ -634,11 +636,11 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 * 重新启动应用以对数据库进行种子设定。
 
-测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中，注册新用户（例如`test@example.com`）。 使用其他用户登录到每个浏览器。 验证下列操作：
+测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中，注册新用户（例如 `test@example.com` ）。 使用其他用户登录到每个浏览器。 验证下列操作：
 
 * 已注册的用户可以查看所有已批准的联系人数据。
 * 已注册的用户可以编辑/删除他们自己的数据。
-* 经理可以批准/拒绝联系人数据。 此`Details`视图显示 "**批准**" 和 "**拒绝**" 按钮。
+* 经理可以批准/拒绝联系人数据。 此 `Details` 视图显示 "**批准**" 和 "**拒绝**" 按钮。
 * 管理员可以批准/拒绝和编辑/删除所有数据。
 
 | 用户                | 应用程序的种子 | 选项                                  |
@@ -651,7 +653,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 ## <a name="create-the-starter-app"></a>创建初学者应用
 
-* 创建名Razor为 "ContactManager" 的页面应用
+* 创建 Razor 名为 "ContactManager" 的页面应用
   * 创建具有**单个用户帐户**的应用。
   * 将其命名为 "ContactManager"，使命名空间与该示例中使用的命名空间匹配。
   * `-uld`指定 LocalDB 而不是 SQLite
@@ -664,7 +666,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* 基架`Contact`模型。
+* 基架 `Contact` 模型。
 * 创建初始迁移并更新数据库：
 
   ```dotnetcli
@@ -686,7 +688,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 将[SeedData](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs)类添加到*Data*文件夹中。
 
-调用`SeedData.Initialize`自`Main`：
+调用 `SeedData.Initialize` 自 `Main` ：
 
 [!code-csharp[](secure-data/samples/starter2.1/Program.cs?name=snippet)]
 

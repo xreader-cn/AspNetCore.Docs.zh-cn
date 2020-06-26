@@ -7,17 +7,19 @@ ms.author: scaddie
 ms.date: 06/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: df118cdc8346b99e4e5c60c9f0441c963543f4b4
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 58781880764b26a67d71e70c225ab4ed4e5da109
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767507"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406701"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序组件
 
@@ -25,7 +27,7 @@ ms.locfileid: "82767507"
 
 标记帮助程序组件是可用于有条件地修改或添加服务器端代码中的 HTML 元素的标记帮助程序。 ASP.NET Core 2.0 或更高版本中提供了此功能。
 
-ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 它们位于<xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers>命名空间中，并且可在 MVC 和Razor页面中使用。 标记帮助程序组件不需要在 *_ViewImports.cshtml* 中注册应用。
+ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 它们位于 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers> 命名空间中，并且可在 MVC 和页面中使用 Razor 。 标记帮助程序组件不需要在 *_ViewImports.cshtml* 中注册应用。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -33,8 +35,8 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 标记帮助程序组件的两个常见用例包括：
 
-1. [将`<link>`插入`<head>`。](#inject-into-html-head-element)
-1. [将`<script>`插入`<body>`。](#inject-into-html-body-element)
+1. [将 `<link>` 插入 `<head>` 。](#inject-into-html-head-element)
+1. [将 `<script>` 插入 `<body>` 。](#inject-into-html-body-element)
 
 以下各节介绍了这些用例。
 
@@ -69,7 +71,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 标记帮助程序组件必须添加到应用的标记帮助程序组件集合。 有以下三种方法可添加到集合：
 
 * [通过服务容器注册](#registration-via-services-container)
-* [通过Razor文件注册](#registration-via-razor-file)
+* [通过 Razor 文件注册](#registration-via-razor-file)
 * [通过页面模型或控制器注册](#registration-via-page-model-or-controller)
 
 ### <a name="registration-via-services-container"></a>通过服务容器注册
@@ -78,9 +80,9 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 [!code-csharp[](th-components/samples/RazorPagesSample/Startup.cs?name=snippet_ConfigureServices&highlight=12-15)]
 
-### <a name="registration-via-razor-file"></a>通过Razor文件注册
+### <a name="registration-via-razor-file"></a>通过 Razor 文件注册
 
-如果标记帮助程序组件未使用 DI 注册，则可以从Razor页面页或 MVC 视图注册。 此方法用于控制来自Razor文件的注入标记和组件执行顺序。
+如果标记帮助程序组件未使用 DI 注册，则可以从 Razor 页面页或 MVC 视图注册。 此方法用于控制来自文件的注入标记和组件执行顺序 Razor 。
 
 `ITagHelperComponentManager` 用于添加标记帮助程序组件或从应用中删除这些组件。 以下代码演示了使用 `AddressTagHelperComponent` 的此项技术：
 
@@ -88,7 +90,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 在上述代码中：
 
-* `@inject` 指令提供了 `ITagHelperComponentManager` 的实例。 在Razor文件中，将实例分配给`manager`一个名为的用于访问的变量。
+* `@inject` 指令提供了 `ITagHelperComponentManager` 的实例。 在文件中，将实例分配给一个名 `manager` 为的用于访问的变量 Razor 。
 * `AddressTagHelperComponent` 的实例将添加到应用的标记帮助程序组件集合。
 
 修改 `AddressTagHelperComponent` 以适应接受 `markup` 和 `order` 参数的构造函数：
@@ -101,9 +103,9 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 ### <a name="registration-via-page-model-or-controller"></a>通过页面模型或控制器注册
 
-如果标记帮助程序组件未使用 DI 注册，则可以从Razor页面模型或 MVC 控制器注册它。 此方法可用于分隔文件中Razor的 c # 逻辑。
+如果标记帮助程序组件未使用 DI 注册，则可以从 Razor 页面模型或 MVC 控制器注册它。 此方法可用于分隔文件中的 c # 逻辑 Razor 。
 
-构造函数注入用于访问 `ITagHelperComponentManager` 的实例。 标记帮助程序组件将添加到该实例的标记帮助程序组件集合。 以下Razor页面模型演示了此方法`AddressTagHelperComponent`：
+构造函数注入用于访问 `ITagHelperComponentManager` 的实例。 标记帮助程序组件将添加到该实例的标记帮助程序组件集合。 以下 Razor 页面模型演示了此方法 `AddressTagHelperComponent` ：
 
 [!code-csharp[](th-components/samples/RazorPagesSample/Pages/Index.cshtml.cs?name=snippet_IndexModelClass)]
 
@@ -117,8 +119,8 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 创建自定义标记帮助程序组件：
 
 * 创建派生自 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper> 的公共类。
-* 将[`[HtmlTargetElement]`](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute)特性应用于类。 指定目标 HTML 元素的名称。
-* *可选*：将[`[EditorBrowsable(EditorBrowsableState.Never)]`](xref:System.ComponentModel.EditorBrowsableAttribute)特性应用于类，以在 IntelliSense 中取消显示该类型的显示内容。
+* 将特性应用于 [`[HtmlTargetElement]`](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) 类。 指定目标 HTML 元素的名称。
+* *可选*：将特性应用于 [`[EditorBrowsable(EditorBrowsableState.Never)]`](xref:System.ComponentModel.EditorBrowsableAttribute) 类，以在 IntelliSense 中取消显示该类型的显示内容。
 
 以下代码可创建面向 `<address>` HTML 元素的自定义标记帮助程序组件：
 

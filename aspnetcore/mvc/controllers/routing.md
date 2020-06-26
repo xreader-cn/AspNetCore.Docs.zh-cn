@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 3/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 0078ed5d4aa30ff7a7b76af8dffd015f2557e165
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: b917671053313c74acfff36518e8f36d5ef2eb22
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83998648"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405479"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -424,11 +426,11 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了 `[Route]` 上述代码中的属性：
 
-| 属性               | 结合`[Route("Home")]` | 定义路由模板 |
+| 特性               | 结合`[Route("Home")]` | 定义路由模板 |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | 是 | `"Home"` |
 | `[Route("Index")]` | 是 | `"Home/Index"` |
-| `[Route("/")]` | **否** | `""` |
+| `[Route("/")]` | **是** | `""` |
 | `[Route("About")]` | 是 | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>

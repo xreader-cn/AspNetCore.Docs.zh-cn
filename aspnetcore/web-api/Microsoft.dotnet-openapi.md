@@ -7,17 +7,19 @@ ms.date: 09/26/2019
 monikerRange: '>= aspnetcore-3.0'
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/Microsoft.dotnet-openapi
-ms.openlocfilehash: 1924fb8ee5ac1ba8dc31d2175a336c8333c81fb2
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: eb8d6a1dc70b2aabf495bdb359e243c91e94289f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775708"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404790"
 ---
 # <a name="develop-aspnet-core-apps-using-openapi-tools"></a>使用 OpenAPI 工具开发 ASP.NET Core 应用
 
@@ -35,7 +37,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ## <a name="add"></a>添加
 
-使用此页上的任意命令添加 OpenAPI 引用会将类似于`<OpenApiReference />`下面的元素添加到 *.csproj*文件：
+使用此页上的任意命令添加 OpenAPI 引用会将类似于 `<OpenApiReference />` 下面的元素添加到 *.csproj*文件：
 
 ```xml
 <OpenApiReference Include="openapi.json" />
@@ -62,7 +64,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 #### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明 | 示例 |
+| 短选项| 长选项| 描述 | 示例 |
 |-------|------|-------|---------|
 | -p|--updateProject | 要操作的项目。 |dotnet openapi add file --updateProject .\Ref.csproj** .\OpenAPI.json |
 | -c|--code-generator| 应用于引用的代码生成器。 选项包括 `NSwagCSharp` 和 `NSwagTypeScript`。 如果未指定 `--code-generator`，则工具将默认为 `NSwagCSharp`。|dotnet openapi add file .\OpenApi.json --code-generator
@@ -78,7 +80,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 #### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明 | 示例 |
+| 短选项| 长选项| 描述 | 示例 |
 |-------|------|-------------|---------|
 | -p|--updateProject | 要操作的项目。 |dotnet openapi add url --updateProject .\Ref.csproj** `https://contoso.com/openapi.json` |
 | -o|--output-file | 用于放置 OpenAPI 文件本地副本的位置。 |dotnet openapi add url  --output-file myclient.json`https://contoso.com/openapi.json` ** |
@@ -97,7 +99,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明| 示例 |
+| 短选项| 长选项| 描述| 示例 |
 |-------|------|------------|---------|
 | -p|--updateProject | 要操作的项目。 |dotnet openapi remove --updateProject .\Ref.csproj** .\OpenAPI.json |
 | -H|--help|显示帮助信息|dotnet openapi remove --help|
@@ -114,7 +116,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明 | 示例 |
+| 短选项| 长选项| 描述 | 示例 |
 |-------|------|-------------|---------|
 | -p|--updateProject | 要操作的项目。 | dotnet openapi refresh --updateProject .\Ref.csproj** `https://contoso.com/openapi.json` |
 | -H|--help|显示帮助信息|dotnet openapi refresh --help|

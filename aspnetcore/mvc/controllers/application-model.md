@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 5e31d2e6611321bec7442534ce41350de10478e0
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 61503a1a87b5d5eea36586108b65304236cf799a
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768658"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405635"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>使用 ASP.NET Core 中的应用程序模型
 
@@ -69,7 +71,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 * 将操作方法参数添加到上下文
 * 应用路由和其他属性
 
-某些内置行为由 `DefaultApplicationModelProvider` 实现。 此提供程序负责[`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel)构造，后者又引用[`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel)、 [`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel)和[`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel)实例。 `DefaultApplicationModelProvider` 类是一个内部框架实现细节，未来将对其进行更改。 
+某些内置行为由 `DefaultApplicationModelProvider` 实现。 此提供程序负责构造 [`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel) ，后者又引用 [`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel) 、 [`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel) 和 [`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel) 实例。 `DefaultApplicationModelProvider` 类是一个内部框架实现细节，未来将对其进行更改。 
 
 `AuthorizationApplicationModelProvider` 负责应用与 `AuthorizeFilter` 和 `AllowAnonymousFilter` 属性关联的行为。 [详细了解这些属性](xref:security/authorization/simple)。
 
@@ -86,7 +88,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 * [`IActionModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iactionmodelconvention)
 * [`IParameterModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iparametermodelconvention)
 
-约定的应用方法是将它们添加到 MVC 选项， `Attribute`或通过实现并将其应用于控制器、操作或操作参数（ [`Filters`](xref:mvc/controllers/filters)类似于）。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
+约定的应用方法是将它们添加到 MVC 选项，或通过实现 `Attribute` 并将其应用于控制器、操作或操作参数（类似于 [`Filters`](xref:mvc/controllers/filters) ）。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
 
 ### <a name="sample-modifying-the-applicationmodel"></a>示例：修改 ApplicationModel
 
@@ -206,7 +208,7 @@ services.AddMvc().AddWebApiConventions();
 
 ## <a name="using-apiexplorer-to-document-your-app"></a>使用 ApiExplorer 记录应用
 
-应用程序模型在每[`ApiExplorer`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.apiexplorermodel)个级别公开一个属性，该属性可用于遍历应用的结构。 这可用于[使用 Swagger 等工具为 Web API 生成帮助页](xref:tutorials/web-api-help-pages-using-swagger)。 `ApiExplorer` 属性公开了 `IsVisible` 属性，后者可设置为指定应公开的应用模型部分。 可以使用约定配置此设置：
+应用程序模型 [`ApiExplorer`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.apiexplorermodel) 在每个级别公开一个属性，该属性可用于遍历应用的结构。 这可用于[使用 Swagger 等工具为 Web API 生成帮助页](xref:tutorials/web-api-help-pages-using-swagger)。 `ApiExplorer` 属性公开了 `IsVisible` 属性，后者可设置为指定应公开的应用模型部分。 可以使用约定配置此设置：
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/EnableApiExplorerApplicationConvention.cs)]
 
