@@ -7,42 +7,44 @@ ms.author: bdorrans
 ms.date: 01/02/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: cf80f7009334f49d877d2bd296b512e23f7fded8
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: 493046e288c6b1ccd8e41f15a8e6e532a10a4adc
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "84724244"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403191"
 ---
-# <a name="configure-certificate-authentication-in-aspnet-core"></a><span data-ttu-id="a5fc1-103">在 ASP.NET Core 中配置证书身份验证</span><span class="sxs-lookup"><span data-stu-id="a5fc1-103">Configure certificate authentication in ASP.NET Core</span></span>
+# <a name="configure-certificate-authentication-in-aspnet-core"></a><span data-ttu-id="84793-103">在 ASP.NET Core 中配置证书身份验证</span><span class="sxs-lookup"><span data-stu-id="84793-103">Configure certificate authentication in ASP.NET Core</span></span>
 
-<span data-ttu-id="a5fc1-104">`Microsoft.AspNetCore.Authentication.Certificate`包含类似于 ASP.NET Core 的[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)的实现。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-104">`Microsoft.AspNetCore.Authentication.Certificate` contains an implementation similar to [Certificate Authentication](https://tools.ietf.org/html/rfc5246#section-7.4.4) for ASP.NET Core.</span></span> <span data-ttu-id="a5fc1-105">证书身份验证在 TLS 级别发生，远在到达 ASP.NET Core 之前。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-105">Certificate authentication happens at the TLS level, long before it ever gets to ASP.NET Core.</span></span> <span data-ttu-id="a5fc1-106">更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到的事件 `ClaimsPrincipal` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-106">More accurately, this is an authentication handler that validates the certificate and then gives you an event where you can resolve that certificate to a `ClaimsPrincipal`.</span></span> 
+<span data-ttu-id="84793-104">`Microsoft.AspNetCore.Authentication.Certificate`包含类似于 ASP.NET Core 的[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)的实现。</span><span class="sxs-lookup"><span data-stu-id="84793-104">`Microsoft.AspNetCore.Authentication.Certificate` contains an implementation similar to [Certificate Authentication](https://tools.ietf.org/html/rfc5246#section-7.4.4) for ASP.NET Core.</span></span> <span data-ttu-id="84793-105">证书身份验证在 TLS 级别发生，远在到达 ASP.NET Core 之前。</span><span class="sxs-lookup"><span data-stu-id="84793-105">Certificate authentication happens at the TLS level, long before it ever gets to ASP.NET Core.</span></span> <span data-ttu-id="84793-106">更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到的事件 `ClaimsPrincipal` 。</span><span class="sxs-lookup"><span data-stu-id="84793-106">More accurately, this is an authentication handler that validates the certificate and then gives you an event where you can resolve that certificate to a `ClaimsPrincipal`.</span></span> 
 
-<span data-ttu-id="a5fc1-107">将[服务器配置](#configure-your-server-to-require-certificates)为使用证书进行身份验证，如 IIS、Kestrel、Azure Web 应用，或者使用任何其他方法。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-107">[Configure your server](#configure-your-server-to-require-certificates) for certificate authentication, be it IIS, Kestrel, Azure Web Apps, or whatever else you're using.</span></span>
+<span data-ttu-id="84793-107">将[服务器配置](#configure-your-server-to-require-certificates)为使用证书进行身份验证，如 IIS、Kestrel、Azure Web 应用，或者使用任何其他方法。</span><span class="sxs-lookup"><span data-stu-id="84793-107">[Configure your server](#configure-your-server-to-require-certificates) for certificate authentication, be it IIS, Kestrel, Azure Web Apps, or whatever else you're using.</span></span>
 
-## <a name="proxy-and-load-balancer-scenarios"></a><span data-ttu-id="a5fc1-108">代理和负载均衡器方案</span><span class="sxs-lookup"><span data-stu-id="a5fc1-108">Proxy and load balancer scenarios</span></span>
+## <a name="proxy-and-load-balancer-scenarios"></a><span data-ttu-id="84793-108">代理和负载均衡器方案</span><span class="sxs-lookup"><span data-stu-id="84793-108">Proxy and load balancer scenarios</span></span>
 
-<span data-ttu-id="a5fc1-109">证书身份验证是一种有状态方案，主要用于代理或负载均衡器不处理客户端和服务器之间的流量。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-109">Certificate authentication is a stateful scenario primarily used where a proxy or load balancer doesn't handle traffic between clients and servers.</span></span> <span data-ttu-id="a5fc1-110">如果使用代理或负载平衡器，则仅当代理或负载均衡器：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-110">If a proxy or load balancer is used, certificate authentication only works if the proxy or load balancer:</span></span>
+<span data-ttu-id="84793-109">证书身份验证是一种有状态方案，主要用于代理或负载均衡器不处理客户端和服务器之间的流量。</span><span class="sxs-lookup"><span data-stu-id="84793-109">Certificate authentication is a stateful scenario primarily used where a proxy or load balancer doesn't handle traffic between clients and servers.</span></span> <span data-ttu-id="84793-110">如果使用代理或负载平衡器，则仅当代理或负载均衡器：</span><span class="sxs-lookup"><span data-stu-id="84793-110">If a proxy or load balancer is used, certificate authentication only works if the proxy or load balancer:</span></span>
 
-* <span data-ttu-id="a5fc1-111">处理身份验证。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-111">Handles the authentication.</span></span>
-* <span data-ttu-id="a5fc1-112">将用户身份验证信息传递给应用程序（例如，在请求标头中），该信息对身份验证信息起作用。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-112">Passes the user authentication information to the app (for example, in a request header), which acts on the authentication information.</span></span>
+* <span data-ttu-id="84793-111">处理身份验证。</span><span class="sxs-lookup"><span data-stu-id="84793-111">Handles the authentication.</span></span>
+* <span data-ttu-id="84793-112">将用户身份验证信息传递给应用程序（例如，在请求标头中），该信息对身份验证信息起作用。</span><span class="sxs-lookup"><span data-stu-id="84793-112">Passes the user authentication information to the app (for example, in a request header), which acts on the authentication information.</span></span>
 
-<span data-ttu-id="a5fc1-113">使用代理和负载平衡器的环境中证书身份验证的替代方法是使用 OpenID Connect （OIDC） Active Directory 联合服务（ADFS）。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-113">An alternative to certificate authentication in environments where proxies and load balancers are used is Active Directory Federated Services (ADFS) with OpenID Connect (OIDC).</span></span>
+<span data-ttu-id="84793-113">使用代理和负载平衡器的环境中证书身份验证的替代方法是使用 OpenID Connect （OIDC） Active Directory 联合服务（ADFS）。</span><span class="sxs-lookup"><span data-stu-id="84793-113">An alternative to certificate authentication in environments where proxies and load balancers are used is Active Directory Federated Services (ADFS) with OpenID Connect (OIDC).</span></span>
 
-## <a name="get-started"></a><span data-ttu-id="a5fc1-114">入门</span><span class="sxs-lookup"><span data-stu-id="a5fc1-114">Get started</span></span>
+## <a name="get-started"></a><span data-ttu-id="84793-114">入门</span><span class="sxs-lookup"><span data-stu-id="84793-114">Get started</span></span>
 
-<span data-ttu-id="a5fc1-115">获取并应用 HTTPS 证书，并将[服务器配置](#configure-your-server-to-require-certificates)为需要证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-115">Acquire an HTTPS certificate, apply it, and [configure your server](#configure-your-server-to-require-certificates) to require certificates.</span></span>
+<span data-ttu-id="84793-115">获取并应用 HTTPS 证书，并将[服务器配置](#configure-your-server-to-require-certificates)为需要证书。</span><span class="sxs-lookup"><span data-stu-id="84793-115">Acquire an HTTPS certificate, apply it, and [configure your server](#configure-your-server-to-require-certificates) to require certificates.</span></span>
 
-<span data-ttu-id="a5fc1-116">在 web 应用中，添加对包的引用 `Microsoft.AspNetCore.Authentication.Certificate` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-116">In your web app, add a reference to the `Microsoft.AspNetCore.Authentication.Certificate` package.</span></span> <span data-ttu-id="a5fc1-117">然后在 `Startup.ConfigureServices` 方法中， `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` 使用你的选项调用，同时提供一个委托，用于对 `OnCertificateValidated` 随请求发送的客户端证书进行任何补充验证。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-117">Then in the `Startup.ConfigureServices` method, call `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` with your options, providing a delegate for `OnCertificateValidated` to do any supplementary validation on the client certificate sent with requests.</span></span> <span data-ttu-id="a5fc1-118">将该信息转换为 `ClaimsPrincipal` 并在属性上设置 `context.Principal` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-118">Turn that information into a `ClaimsPrincipal` and set it on the `context.Principal` property.</span></span>
+<span data-ttu-id="84793-116">在 web 应用中，添加对包的引用 `Microsoft.AspNetCore.Authentication.Certificate` 。</span><span class="sxs-lookup"><span data-stu-id="84793-116">In your web app, add a reference to the `Microsoft.AspNetCore.Authentication.Certificate` package.</span></span> <span data-ttu-id="84793-117">然后在 `Startup.ConfigureServices` 方法中， `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` 使用你的选项调用，同时提供一个委托，用于对 `OnCertificateValidated` 随请求发送的客户端证书进行任何补充验证。</span><span class="sxs-lookup"><span data-stu-id="84793-117">Then in the `Startup.ConfigureServices` method, call `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` with your options, providing a delegate for `OnCertificateValidated` to do any supplementary validation on the client certificate sent with requests.</span></span> <span data-ttu-id="84793-118">将该信息转换为 `ClaimsPrincipal` 并在属性上设置 `context.Principal` 。</span><span class="sxs-lookup"><span data-stu-id="84793-118">Turn that information into a `ClaimsPrincipal` and set it on the `context.Principal` property.</span></span>
 
-<span data-ttu-id="a5fc1-119">如果身份验证失败，此处理程序将 `403 (Forbidden)` `401 (Unauthorized)` 像你所料，返回响应，而不是。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-119">If authentication fails, this handler returns a `403 (Forbidden)` response rather a `401 (Unauthorized)`, as you might expect.</span></span> <span data-ttu-id="a5fc1-120">原因是，在初次 TLS 连接期间应进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-120">The reasoning is that the authentication should happen during the initial TLS connection.</span></span> <span data-ttu-id="a5fc1-121">当它到达处理程序时，它的时间太晚。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-121">By the time it reaches the handler, it's too late.</span></span> <span data-ttu-id="a5fc1-122">无法将连接从匿名连接升级到证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-122">There's no way to upgrade the connection from an anonymous connection to one with a certificate.</span></span>
+<span data-ttu-id="84793-119">如果身份验证失败，此处理程序将 `403 (Forbidden)` `401 (Unauthorized)` 像你所料，返回响应，而不是。</span><span class="sxs-lookup"><span data-stu-id="84793-119">If authentication fails, this handler returns a `403 (Forbidden)` response rather a `401 (Unauthorized)`, as you might expect.</span></span> <span data-ttu-id="84793-120">原因是，在初次 TLS 连接期间应进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="84793-120">The reasoning is that the authentication should happen during the initial TLS connection.</span></span> <span data-ttu-id="84793-121">当它到达处理程序时，它的时间太晚。</span><span class="sxs-lookup"><span data-stu-id="84793-121">By the time it reaches the handler, it's too late.</span></span> <span data-ttu-id="84793-122">无法将连接从匿名连接升级到证书。</span><span class="sxs-lookup"><span data-stu-id="84793-122">There's no way to upgrade the connection from an anonymous connection to one with a certificate.</span></span>
 
-<span data-ttu-id="a5fc1-123">还会 `app.UseAuthentication();` 在方法中添加 `Startup.Configure` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-123">Also add `app.UseAuthentication();` in the `Startup.Configure` method.</span></span> <span data-ttu-id="a5fc1-124">否则， `HttpContext.User` 将不会设置为 `ClaimsPrincipal` 从证书创建。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-124">Otherwise, the `HttpContext.User` will not be set to `ClaimsPrincipal` created from the certificate.</span></span> <span data-ttu-id="a5fc1-125">例如：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-125">For example:</span></span>
+<span data-ttu-id="84793-123">还会 `app.UseAuthentication();` 在方法中添加 `Startup.Configure` 。</span><span class="sxs-lookup"><span data-stu-id="84793-123">Also add `app.UseAuthentication();` in the `Startup.Configure` method.</span></span> <span data-ttu-id="84793-124">否则， `HttpContext.User` 将不会设置为 `ClaimsPrincipal` 从证书创建。</span><span class="sxs-lookup"><span data-stu-id="84793-124">Otherwise, the `HttpContext.User` will not be set to `ClaimsPrincipal` created from the certificate.</span></span> <span data-ttu-id="84793-125">例如：</span><span class="sxs-lookup"><span data-stu-id="84793-125">For example:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -61,60 +63,60 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-<span data-ttu-id="a5fc1-126">前面的示例演示了添加证书身份验证的默认方法。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-126">The preceding example demonstrates the default way to add certificate authentication.</span></span> <span data-ttu-id="a5fc1-127">处理程序使用通用证书属性构造用户主体。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-127">The handler constructs a user principal using the common certificate properties.</span></span>
+<span data-ttu-id="84793-126">前面的示例演示了添加证书身份验证的默认方法。</span><span class="sxs-lookup"><span data-stu-id="84793-126">The preceding example demonstrates the default way to add certificate authentication.</span></span> <span data-ttu-id="84793-127">处理程序使用通用证书属性构造用户主体。</span><span class="sxs-lookup"><span data-stu-id="84793-127">The handler constructs a user principal using the common certificate properties.</span></span>
 
-## <a name="configure-certificate-validation"></a><span data-ttu-id="a5fc1-128">配置证书验证</span><span class="sxs-lookup"><span data-stu-id="a5fc1-128">Configure certificate validation</span></span>
+## <a name="configure-certificate-validation"></a><span data-ttu-id="84793-128">配置证书验证</span><span class="sxs-lookup"><span data-stu-id="84793-128">Configure certificate validation</span></span>
 
-<span data-ttu-id="a5fc1-129">`CertificateAuthenticationOptions`处理程序具有一些内置的验证，这些验证是你应在证书上执行的最小验证。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-129">The `CertificateAuthenticationOptions` handler has some built-in validations that are the minimum validations you should perform on a certificate.</span></span> <span data-ttu-id="a5fc1-130">默认情况下，将启用这些设置中的每一个。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-130">Each of these settings is enabled by default.</span></span>
+<span data-ttu-id="84793-129">`CertificateAuthenticationOptions`处理程序具有一些内置的验证，这些验证是你应在证书上执行的最小验证。</span><span class="sxs-lookup"><span data-stu-id="84793-129">The `CertificateAuthenticationOptions` handler has some built-in validations that are the minimum validations you should perform on a certificate.</span></span> <span data-ttu-id="84793-130">默认情况下，将启用这些设置中的每一个。</span><span class="sxs-lookup"><span data-stu-id="84793-130">Each of these settings is enabled by default.</span></span>
 
-### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a><span data-ttu-id="a5fc1-131">AllowedCertificateTypes = 链式、SelfSigned 或 All （链式 |SelfSigned)</span><span class="sxs-lookup"><span data-stu-id="a5fc1-131">AllowedCertificateTypes = Chained, SelfSigned, or All (Chained | SelfSigned)</span></span>
+### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a><span data-ttu-id="84793-131">AllowedCertificateTypes = 链式、SelfSigned 或 All （链式 |SelfSigned)</span><span class="sxs-lookup"><span data-stu-id="84793-131">AllowedCertificateTypes = Chained, SelfSigned, or All (Chained | SelfSigned)</span></span>
 
-<span data-ttu-id="a5fc1-132">默认值：30`CertificateTypes.Chained`</span><span class="sxs-lookup"><span data-stu-id="a5fc1-132">Default value: `CertificateTypes.Chained`</span></span>
+<span data-ttu-id="84793-132">默认值：30`CertificateTypes.Chained`</span><span class="sxs-lookup"><span data-stu-id="84793-132">Default value: `CertificateTypes.Chained`</span></span>
 
-<span data-ttu-id="a5fc1-133">此检查将验证是否只允许使用适当的证书类型。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-133">This check validates that only the appropriate certificate type is allowed.</span></span> <span data-ttu-id="a5fc1-134">如果应用使用自签名证书，则需要将此选项设置为 `CertificateTypes.All` 或 `CertificateTypes.SelfSigned` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-134">If the app is using self-signed certificates, this option needs to be set to `CertificateTypes.All` or `CertificateTypes.SelfSigned`.</span></span>
+<span data-ttu-id="84793-133">此检查将验证是否只允许使用适当的证书类型。</span><span class="sxs-lookup"><span data-stu-id="84793-133">This check validates that only the appropriate certificate type is allowed.</span></span> <span data-ttu-id="84793-134">如果应用使用自签名证书，则需要将此选项设置为 `CertificateTypes.All` 或 `CertificateTypes.SelfSigned` 。</span><span class="sxs-lookup"><span data-stu-id="84793-134">If the app is using self-signed certificates, this option needs to be set to `CertificateTypes.All` or `CertificateTypes.SelfSigned`.</span></span>
 
-### <a name="validatecertificateuse"></a><span data-ttu-id="a5fc1-135">ValidateCertificateUse</span><span class="sxs-lookup"><span data-stu-id="a5fc1-135">ValidateCertificateUse</span></span>
+### <a name="validatecertificateuse"></a><span data-ttu-id="84793-135">ValidateCertificateUse</span><span class="sxs-lookup"><span data-stu-id="84793-135">ValidateCertificateUse</span></span>
 
-<span data-ttu-id="a5fc1-136">默认值：30`true`</span><span class="sxs-lookup"><span data-stu-id="a5fc1-136">Default value: `true`</span></span>
+<span data-ttu-id="84793-136">默认值：30`true`</span><span class="sxs-lookup"><span data-stu-id="84793-136">Default value: `true`</span></span>
 
-<span data-ttu-id="a5fc1-137">此检查将验证客户端提供的证书是否具有客户端身份验证扩展密钥使用（EKU），或者根本没有 Eku。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-137">This check validates that the certificate presented by the client has the Client Authentication extended key use (EKU), or no EKUs at all.</span></span> <span data-ttu-id="a5fc1-138">如规范所示，如果未指定 EKU，则所有 Eku 均视为有效。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-138">As the specifications say, if no EKU is specified, then all EKUs are deemed valid.</span></span>
+<span data-ttu-id="84793-137">此检查将验证客户端提供的证书是否具有客户端身份验证扩展密钥使用（EKU），或者根本没有 Eku。</span><span class="sxs-lookup"><span data-stu-id="84793-137">This check validates that the certificate presented by the client has the Client Authentication extended key use (EKU), or no EKUs at all.</span></span> <span data-ttu-id="84793-138">如规范所示，如果未指定 EKU，则所有 Eku 均视为有效。</span><span class="sxs-lookup"><span data-stu-id="84793-138">As the specifications say, if no EKU is specified, then all EKUs are deemed valid.</span></span>
 
-### <a name="validatevalidityperiod"></a><span data-ttu-id="a5fc1-139">ValidateValidityPeriod</span><span class="sxs-lookup"><span data-stu-id="a5fc1-139">ValidateValidityPeriod</span></span>
+### <a name="validatevalidityperiod"></a><span data-ttu-id="84793-139">ValidateValidityPeriod</span><span class="sxs-lookup"><span data-stu-id="84793-139">ValidateValidityPeriod</span></span>
 
-<span data-ttu-id="a5fc1-140">默认值：30`true`</span><span class="sxs-lookup"><span data-stu-id="a5fc1-140">Default value: `true`</span></span>
+<span data-ttu-id="84793-140">默认值：30`true`</span><span class="sxs-lookup"><span data-stu-id="84793-140">Default value: `true`</span></span>
 
-<span data-ttu-id="a5fc1-141">此检查将验证证书是否在其有效期内。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-141">This check validates that the certificate is within its validity period.</span></span> <span data-ttu-id="a5fc1-142">对于每个请求，处理程序将确保在其在其当前会话期间提供的证书过期时，该证书是有效的。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-142">On each request, the handler ensures that a certificate that was valid when it was presented hasn't expired during its current session.</span></span>
+<span data-ttu-id="84793-141">此检查将验证证书是否在其有效期内。</span><span class="sxs-lookup"><span data-stu-id="84793-141">This check validates that the certificate is within its validity period.</span></span> <span data-ttu-id="84793-142">对于每个请求，处理程序将确保在其在其当前会话期间提供的证书过期时，该证书是有效的。</span><span class="sxs-lookup"><span data-stu-id="84793-142">On each request, the handler ensures that a certificate that was valid when it was presented hasn't expired during its current session.</span></span>
 
-### <a name="revocationflag"></a><span data-ttu-id="a5fc1-143">RevocationFlag</span><span class="sxs-lookup"><span data-stu-id="a5fc1-143">RevocationFlag</span></span>
+### <a name="revocationflag"></a><span data-ttu-id="84793-143">RevocationFlag</span><span class="sxs-lookup"><span data-stu-id="84793-143">RevocationFlag</span></span>
 
-<span data-ttu-id="a5fc1-144">默认值：30`X509RevocationFlag.ExcludeRoot`</span><span class="sxs-lookup"><span data-stu-id="a5fc1-144">Default value: `X509RevocationFlag.ExcludeRoot`</span></span>
+<span data-ttu-id="84793-144">默认值：30`X509RevocationFlag.ExcludeRoot`</span><span class="sxs-lookup"><span data-stu-id="84793-144">Default value: `X509RevocationFlag.ExcludeRoot`</span></span>
 
-<span data-ttu-id="a5fc1-145">一个标志，该标志指定将检查链中的哪些证书进行吊销。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-145">A flag that specifies which certificates in the chain are checked for revocation.</span></span>
+<span data-ttu-id="84793-145">一个标志，该标志指定将检查链中的哪些证书进行吊销。</span><span class="sxs-lookup"><span data-stu-id="84793-145">A flag that specifies which certificates in the chain are checked for revocation.</span></span>
 
-<span data-ttu-id="a5fc1-146">仅当证书链接到根证书时才执行吊销检查。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-146">Revocation checks are only performed when the certificate is chained to a root certificate.</span></span>
+<span data-ttu-id="84793-146">仅当证书链接到根证书时才执行吊销检查。</span><span class="sxs-lookup"><span data-stu-id="84793-146">Revocation checks are only performed when the certificate is chained to a root certificate.</span></span>
 
-### <a name="revocationmode"></a><span data-ttu-id="a5fc1-147">RevocationMode</span><span class="sxs-lookup"><span data-stu-id="a5fc1-147">RevocationMode</span></span>
+### <a name="revocationmode"></a><span data-ttu-id="84793-147">RevocationMode</span><span class="sxs-lookup"><span data-stu-id="84793-147">RevocationMode</span></span>
 
-<span data-ttu-id="a5fc1-148">默认值：30`X509RevocationMode.Online`</span><span class="sxs-lookup"><span data-stu-id="a5fc1-148">Default value: `X509RevocationMode.Online`</span></span>
+<span data-ttu-id="84793-148">默认值：30`X509RevocationMode.Online`</span><span class="sxs-lookup"><span data-stu-id="84793-148">Default value: `X509RevocationMode.Online`</span></span>
 
-<span data-ttu-id="a5fc1-149">指定如何执行吊销检查的标志。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-149">A flag that specifies how revocation checks are performed.</span></span>
+<span data-ttu-id="84793-149">指定如何执行吊销检查的标志。</span><span class="sxs-lookup"><span data-stu-id="84793-149">A flag that specifies how revocation checks are performed.</span></span>
 
-<span data-ttu-id="a5fc1-150">指定联机检查可能会导致长时间延迟，同时与证书颁发机构联系。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-150">Specifying an online check can result in a long delay while the certificate authority is contacted.</span></span>
+<span data-ttu-id="84793-150">指定联机检查可能会导致长时间延迟，同时与证书颁发机构联系。</span><span class="sxs-lookup"><span data-stu-id="84793-150">Specifying an online check can result in a long delay while the certificate authority is contacted.</span></span>
 
-<span data-ttu-id="a5fc1-151">仅当证书链接到根证书时才执行吊销检查。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-151">Revocation checks are only performed when the certificate is chained to a root certificate.</span></span>
+<span data-ttu-id="84793-151">仅当证书链接到根证书时才执行吊销检查。</span><span class="sxs-lookup"><span data-stu-id="84793-151">Revocation checks are only performed when the certificate is chained to a root certificate.</span></span>
 
-### <a name="can-i-configure-my-app-to-require-a-certificate-only-on-certain-paths"></a><span data-ttu-id="a5fc1-152">我是否可以将我的应用程序配置为只需要特定路径上的证书？</span><span class="sxs-lookup"><span data-stu-id="a5fc1-152">Can I configure my app to require a certificate only on certain paths?</span></span>
+### <a name="can-i-configure-my-app-to-require-a-certificate-only-on-certain-paths"></a><span data-ttu-id="84793-152">我是否可以将我的应用程序配置为只需要特定路径上的证书？</span><span class="sxs-lookup"><span data-stu-id="84793-152">Can I configure my app to require a certificate only on certain paths?</span></span>
 
-<span data-ttu-id="a5fc1-153">这是不可能的。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-153">This isn't possible.</span></span> <span data-ttu-id="a5fc1-154">请记住，证书交换已完成 HTTPS 会话的启动，在该连接上收到第一个请求之前，服务器会完成此操作，因此无法基于任何请求字段进行作用域。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-154">Remember the certificate exchange is done that the start of the HTTPS conversation, it's done by the server before the first request is received on that connection so it's not possible to scope based on any request fields.</span></span>
+<span data-ttu-id="84793-153">这是不可能的。</span><span class="sxs-lookup"><span data-stu-id="84793-153">This isn't possible.</span></span> <span data-ttu-id="84793-154">请记住，证书交换已完成 HTTPS 会话的启动，在该连接上收到第一个请求之前，服务器会完成此操作，因此无法基于任何请求字段进行作用域。</span><span class="sxs-lookup"><span data-stu-id="84793-154">Remember the certificate exchange is done that the start of the HTTPS conversation, it's done by the server before the first request is received on that connection so it's not possible to scope based on any request fields.</span></span>
 
-## <a name="handler-events"></a><span data-ttu-id="a5fc1-155">处理程序事件</span><span class="sxs-lookup"><span data-stu-id="a5fc1-155">Handler events</span></span>
+## <a name="handler-events"></a><span data-ttu-id="84793-155">处理程序事件</span><span class="sxs-lookup"><span data-stu-id="84793-155">Handler events</span></span>
 
-<span data-ttu-id="a5fc1-156">处理程序有两个事件：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-156">The handler has two events:</span></span>
+<span data-ttu-id="84793-156">处理程序有两个事件：</span><span class="sxs-lookup"><span data-stu-id="84793-156">The handler has two events:</span></span>
 
-* <span data-ttu-id="a5fc1-157">`OnAuthenticationFailed`：如果在身份验证过程中发生异常，则调用，并允许您做出反应。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-157">`OnAuthenticationFailed`: Called if an exception happens during authentication and allows you to react.</span></span>
-* <span data-ttu-id="a5fc1-158">`OnCertificateValidated`：在验证证书后调用，并已创建默认主体。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-158">`OnCertificateValidated`: Called after the certificate has been validated, passed validation and a default principal has been created.</span></span> <span data-ttu-id="a5fc1-159">此事件允许你执行自己的验证并增加或替换主体。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-159">This event allows you to perform your own validation and augment or replace the principal.</span></span> <span data-ttu-id="a5fc1-160">例如：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-160">For examples include:</span></span>
-  * <span data-ttu-id="a5fc1-161">确定你的服务是否知道该证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-161">Determining if the certificate is known to your services.</span></span>
-  * <span data-ttu-id="a5fc1-162">构造自己的主体。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-162">Constructing your own principal.</span></span> <span data-ttu-id="a5fc1-163">请看下面 `Startup.ConfigureServices` 中的示例：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-163">Consider the following example in `Startup.ConfigureServices`:</span></span>
+* <span data-ttu-id="84793-157">`OnAuthenticationFailed`：如果在身份验证过程中发生异常，则调用，并允许您做出反应。</span><span class="sxs-lookup"><span data-stu-id="84793-157">`OnAuthenticationFailed`: Called if an exception happens during authentication and allows you to react.</span></span>
+* <span data-ttu-id="84793-158">`OnCertificateValidated`：在验证证书后调用，并已创建默认主体。</span><span class="sxs-lookup"><span data-stu-id="84793-158">`OnCertificateValidated`: Called after the certificate has been validated, passed validation and a default principal has been created.</span></span> <span data-ttu-id="84793-159">此事件允许你执行自己的验证并增加或替换主体。</span><span class="sxs-lookup"><span data-stu-id="84793-159">This event allows you to perform your own validation and augment or replace the principal.</span></span> <span data-ttu-id="84793-160">例如：</span><span class="sxs-lookup"><span data-stu-id="84793-160">For examples include:</span></span>
+  * <span data-ttu-id="84793-161">确定你的服务是否知道该证书。</span><span class="sxs-lookup"><span data-stu-id="84793-161">Determining if the certificate is known to your services.</span></span>
+  * <span data-ttu-id="84793-162">构造自己的主体。</span><span class="sxs-lookup"><span data-stu-id="84793-162">Constructing your own principal.</span></span> <span data-ttu-id="84793-163">请看下面 `Startup.ConfigureServices` 中的示例：</span><span class="sxs-lookup"><span data-stu-id="84793-163">Consider the following example in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 services.AddAuthentication(
@@ -148,9 +150,9 @@ services.AddAuthentication(
     });
 ```
 
-<span data-ttu-id="a5fc1-164">如果发现入站证书不符合额外的验证，请调用 `context.Fail("failure reason")` 失败原因。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-164">If you find the inbound certificate doesn't meet your extra validation, call `context.Fail("failure reason")` with a failure reason.</span></span>
+<span data-ttu-id="84793-164">如果发现入站证书不符合额外的验证，请调用 `context.Fail("failure reason")` 失败原因。</span><span class="sxs-lookup"><span data-stu-id="84793-164">If you find the inbound certificate doesn't meet your extra validation, call `context.Fail("failure reason")` with a failure reason.</span></span>
 
-<span data-ttu-id="a5fc1-165">对于实际功能，你可能需要调用在依赖关系注入中注册的服务，该服务连接到数据库或其他类型的用户存储。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-165">For real functionality, you'll probably want to call a service registered in dependency injection that connects to a database or other type of user store.</span></span> <span data-ttu-id="a5fc1-166">使用传递到委托中的上下文访问你的服务。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-166">Access your service by using the context passed into your delegate.</span></span> <span data-ttu-id="a5fc1-167">请看下面 `Startup.ConfigureServices` 中的示例：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-167">Consider the following example in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="84793-165">对于实际功能，你可能需要调用在依赖关系注入中注册的服务，该服务连接到数据库或其他类型的用户存储。</span><span class="sxs-lookup"><span data-stu-id="84793-165">For real functionality, you'll probably want to call a service registered in dependency injection that connects to a database or other type of user store.</span></span> <span data-ttu-id="84793-166">使用传递到委托中的上下文访问你的服务。</span><span class="sxs-lookup"><span data-stu-id="84793-166">Access your service by using the context passed into your delegate.</span></span> <span data-ttu-id="84793-167">请看下面 `Startup.ConfigureServices` 中的示例：</span><span class="sxs-lookup"><span data-stu-id="84793-167">Consider the following example in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 services.AddAuthentication(
@@ -193,13 +195,13 @@ services.AddAuthentication(
     });
 ```
 
-<span data-ttu-id="a5fc1-168">从概念上讲，验证证书是一种授权问题。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-168">Conceptually, the validation of the certificate is an authorization concern.</span></span> <span data-ttu-id="a5fc1-169">例如，在授权策略中添加一个颁发者或指纹，而不是在中， `OnCertificateValidated` 这是完全可以接受的。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-169">Adding a check on, for example, an issuer or thumbprint in an authorization policy, rather than inside `OnCertificateValidated`, is perfectly acceptable.</span></span>
+<span data-ttu-id="84793-168">从概念上讲，验证证书是一种授权问题。</span><span class="sxs-lookup"><span data-stu-id="84793-168">Conceptually, the validation of the certificate is an authorization concern.</span></span> <span data-ttu-id="84793-169">例如，在授权策略中添加一个颁发者或指纹，而不是在中， `OnCertificateValidated` 这是完全可以接受的。</span><span class="sxs-lookup"><span data-stu-id="84793-169">Adding a check on, for example, an issuer or thumbprint in an authorization policy, rather than inside `OnCertificateValidated`, is perfectly acceptable.</span></span>
 
-## <a name="configure-your-server-to-require-certificates"></a><span data-ttu-id="a5fc1-170">将服务器配置为需要证书</span><span class="sxs-lookup"><span data-stu-id="a5fc1-170">Configure your server to require certificates</span></span>
+## <a name="configure-your-server-to-require-certificates"></a><span data-ttu-id="84793-170">将服务器配置为需要证书</span><span class="sxs-lookup"><span data-stu-id="84793-170">Configure your server to require certificates</span></span>
 
-### <a name="kestrel"></a><span data-ttu-id="a5fc1-171">Kestrel</span><span class="sxs-lookup"><span data-stu-id="a5fc1-171">Kestrel</span></span>
+### <a name="kestrel"></a><span data-ttu-id="84793-171">Kestrel</span><span class="sxs-lookup"><span data-stu-id="84793-171">Kestrel</span></span>
 
-<span data-ttu-id="a5fc1-172">在*Program.cs*中，按如下所示配置 Kestrel：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-172">In *Program.cs*, configure Kestrel as follows:</span></span>
+<span data-ttu-id="84793-172">在*Program.cs*中，按如下所示配置 Kestrel：</span><span class="sxs-lookup"><span data-stu-id="84793-172">In *Program.cs*, configure Kestrel as follows:</span></span>
 
 ```csharp
 public static void Main(string[] args)
@@ -224,37 +226,37 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="a5fc1-173">通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-173">Endpoints created by calling <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> **before** calling <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> won't have the defaults applied.</span></span>
+> <span data-ttu-id="84793-173">通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。\*\*\*\*</span><span class="sxs-lookup"><span data-stu-id="84793-173">Endpoints created by calling <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> **before** calling <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> won't have the defaults applied.</span></span>
 
-### <a name="iis"></a><span data-ttu-id="a5fc1-174">IIS</span><span class="sxs-lookup"><span data-stu-id="a5fc1-174">IIS</span></span>
+### <a name="iis"></a><span data-ttu-id="84793-174">IIS</span><span class="sxs-lookup"><span data-stu-id="84793-174">IIS</span></span>
 
-<span data-ttu-id="a5fc1-175">在 IIS 管理器中完成以下步骤：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-175">Complete the following steps in IIS Manager:</span></span>
+<span data-ttu-id="84793-175">在 IIS 管理器中完成以下步骤：</span><span class="sxs-lookup"><span data-stu-id="84793-175">Complete the following steps in IIS Manager:</span></span>
 
-1. <span data-ttu-id="a5fc1-176">从 "**连接**" 选项卡中选择你的站点。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-176">Select your site from the **Connections** tab.</span></span>
-1. <span data-ttu-id="a5fc1-177">双击 "**功能视图**" 窗口中的 " **SSL 设置**" 选项。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-177">Double-click the **SSL Settings** option in the **Features View** window.</span></span>
-1. <span data-ttu-id="a5fc1-178">选中 "**需要 SSL** " 复选框，并选择 "**客户端证书**" 部分中的 "**要求**" 单选按钮。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-178">Check the **Require SSL** checkbox, and select the **Require** radio button in the **Client certificates** section.</span></span>
+1. <span data-ttu-id="84793-176">从 "**连接**" 选项卡中选择你的站点。</span><span class="sxs-lookup"><span data-stu-id="84793-176">Select your site from the **Connections** tab.</span></span>
+1. <span data-ttu-id="84793-177">双击 "**功能视图**" 窗口中的 " **SSL 设置**" 选项。</span><span class="sxs-lookup"><span data-stu-id="84793-177">Double-click the **SSL Settings** option in the **Features View** window.</span></span>
+1. <span data-ttu-id="84793-178">选中 "**需要 SSL** " 复选框，并选择 "**客户端证书**" 部分中的 "**要求**" 单选按钮。</span><span class="sxs-lookup"><span data-stu-id="84793-178">Check the **Require SSL** checkbox, and select the **Require** radio button in the **Client certificates** section.</span></span>
 
 ![IIS 中的客户端证书设置](README-IISConfig.png)
 
-### <a name="azure-and-custom-web-proxies"></a><span data-ttu-id="a5fc1-180">Azure 和自定义 web 代理</span><span class="sxs-lookup"><span data-stu-id="a5fc1-180">Azure and custom web proxies</span></span>
+### <a name="azure-and-custom-web-proxies"></a><span data-ttu-id="84793-180">Azure 和自定义 web 代理</span><span class="sxs-lookup"><span data-stu-id="84793-180">Azure and custom web proxies</span></span>
 
-<span data-ttu-id="a5fc1-181">有关如何配置证书转发中间件的详细[说明，请参阅托管和部署文档](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding)。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-181">See the [host and deploy documentation](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding) for how to configure the certificate forwarding middleware.</span></span>
+<span data-ttu-id="84793-181">有关如何配置证书转发中间件的详细[说明，请参阅托管和部署文档](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding)。</span><span class="sxs-lookup"><span data-stu-id="84793-181">See the [host and deploy documentation](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding) for how to configure the certificate forwarding middleware.</span></span>
 
-### <a name="use-certificate-authentication-in-azure-web-apps"></a><span data-ttu-id="a5fc1-182">在 Azure Web 应用中使用证书身份验证</span><span class="sxs-lookup"><span data-stu-id="a5fc1-182">Use certificate authentication in Azure Web Apps</span></span>
+### <a name="use-certificate-authentication-in-azure-web-apps"></a><span data-ttu-id="84793-182">在 Azure Web 应用中使用证书身份验证</span><span class="sxs-lookup"><span data-stu-id="84793-182">Use certificate authentication in Azure Web Apps</span></span>
 
-<span data-ttu-id="a5fc1-183">Azure 不需要转发配置。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-183">No forwarding configuration is required for Azure.</span></span> <span data-ttu-id="a5fc1-184">此设置已在证书转发中间件中进行设置。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-184">This is already setup in the certificate forwarding middleware.</span></span>
+<span data-ttu-id="84793-183">Azure 不需要转发配置。</span><span class="sxs-lookup"><span data-stu-id="84793-183">No forwarding configuration is required for Azure.</span></span> <span data-ttu-id="84793-184">此设置已在证书转发中间件中进行设置。</span><span class="sxs-lookup"><span data-stu-id="84793-184">This is already setup in the certificate forwarding middleware.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="a5fc1-185">这要求存在 CertificateForwardingMiddleware。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-185">This requires that the CertificateForwardingMiddleware is present.</span></span>
+> <span data-ttu-id="84793-185">这要求存在 CertificateForwardingMiddleware。</span><span class="sxs-lookup"><span data-stu-id="84793-185">This requires that the CertificateForwardingMiddleware is present.</span></span>
 
-### <a name="use-certificate-authentication-in-custom-web-proxies"></a><span data-ttu-id="a5fc1-186">在自定义 web 代理中使用证书身份验证</span><span class="sxs-lookup"><span data-stu-id="a5fc1-186">Use certificate authentication in custom web proxies</span></span>
+### <a name="use-certificate-authentication-in-custom-web-proxies"></a><span data-ttu-id="84793-186">在自定义 web 代理中使用证书身份验证</span><span class="sxs-lookup"><span data-stu-id="84793-186">Use certificate authentication in custom web proxies</span></span>
 
-<span data-ttu-id="a5fc1-187">`AddCertificateForwarding`方法用于指定：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-187">The `AddCertificateForwarding` method is used to specify:</span></span>
+<span data-ttu-id="84793-187">`AddCertificateForwarding`方法用于指定：</span><span class="sxs-lookup"><span data-stu-id="84793-187">The `AddCertificateForwarding` method is used to specify:</span></span>
 
-* <span data-ttu-id="a5fc1-188">客户端标头名称。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-188">The client header name.</span></span>
-* <span data-ttu-id="a5fc1-189">如何加载证书（使用 `HeaderConverter` 属性）。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-189">How the certificate is to be loaded (using the `HeaderConverter` property).</span></span>
+* <span data-ttu-id="84793-188">客户端标头名称。</span><span class="sxs-lookup"><span data-stu-id="84793-188">The client header name.</span></span>
+* <span data-ttu-id="84793-189">如何加载证书（使用 `HeaderConverter` 属性）。</span><span class="sxs-lookup"><span data-stu-id="84793-189">How the certificate is to be loaded (using the `HeaderConverter` property).</span></span>
 
-<span data-ttu-id="a5fc1-190">例如，在自定义 web 代理中，证书作为自定义请求标头传递 `X-SSL-CERT` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-190">In custom web proxies, the certificate is passed as a custom request header, for example `X-SSL-CERT`.</span></span> <span data-ttu-id="a5fc1-191">若要使用它，请在中配置证书转发 `Startup.ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-191">To use it, configure certificate forwarding in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="84793-190">例如，在自定义 web 代理中，证书作为自定义请求标头传递 `X-SSL-CERT` 。</span><span class="sxs-lookup"><span data-stu-id="84793-190">In custom web proxies, the certificate is passed as a custom request header, for example `X-SSL-CERT`.</span></span> <span data-ttu-id="84793-191">若要使用它，请在中配置证书转发 `Startup.ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="84793-191">To use it, configure certificate forwarding in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -291,7 +293,7 @@ private static byte[] StringToByteArray(string hex)
 }
 ```
 
-<span data-ttu-id="a5fc1-192">然后，该 `Startup.Configure` 方法将添加中间件。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-192">The `Startup.Configure` method then adds the middleware.</span></span> <span data-ttu-id="a5fc1-193">`UseCertificateForwarding`调用和之前调用 `UseAuthentication` `UseAuthorization` ：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-193">`UseCertificateForwarding` is called before the calls to `UseAuthentication` and `UseAuthorization`:</span></span>
+<span data-ttu-id="84793-192">然后，该 `Startup.Configure` 方法将添加中间件。</span><span class="sxs-lookup"><span data-stu-id="84793-192">The `Startup.Configure` method then adds the middleware.</span></span> <span data-ttu-id="84793-193">`UseCertificateForwarding`调用和之前调用 `UseAuthentication` `UseAuthorization` ：</span><span class="sxs-lookup"><span data-stu-id="84793-193">`UseCertificateForwarding` is called before the calls to `UseAuthentication` and `UseAuthorization`:</span></span>
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -311,7 +313,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ```
 
-<span data-ttu-id="a5fc1-194">单独的类可用于实现验证逻辑。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-194">A separate class can be used to implement validation logic.</span></span> <span data-ttu-id="a5fc1-195">由于本示例中使用了相同的自签名证书，因此请确保只能使用证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-195">Because the same self-signed certificate is used in this example, ensure that only your certificate can be used.</span></span> <span data-ttu-id="a5fc1-196">验证客户端证书和服务器证书的指纹是否匹配，否则，任何证书都可以使用，并且足以进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-196">Validate that the thumbprints of both the client certificate and the server certificate match, otherwise any certificate can be used and will be enough to authenticate.</span></span> <span data-ttu-id="a5fc1-197">这将在方法中使用 `AddCertificate` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-197">This would be used inside the `AddCertificate` method.</span></span> <span data-ttu-id="a5fc1-198">如果使用的是中间证书或子证书，也可以在此处验证使用者或颁发者。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-198">You could also validate the subject or the issuer here if you're using intermediate or child certificates.</span></span>
+<span data-ttu-id="84793-194">单独的类可用于实现验证逻辑。</span><span class="sxs-lookup"><span data-stu-id="84793-194">A separate class can be used to implement validation logic.</span></span> <span data-ttu-id="84793-195">由于本示例中使用了相同的自签名证书，因此请确保只能使用证书。</span><span class="sxs-lookup"><span data-stu-id="84793-195">Because the same self-signed certificate is used in this example, ensure that only your certificate can be used.</span></span> <span data-ttu-id="84793-196">验证客户端证书和服务器证书的指纹是否匹配，否则，任何证书都可以使用，并且足以进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="84793-196">Validate that the thumbprints of both the client certificate and the server certificate match, otherwise any certificate can be used and will be enough to authenticate.</span></span> <span data-ttu-id="84793-197">这将在方法中使用 `AddCertificate` 。</span><span class="sxs-lookup"><span data-stu-id="84793-197">This would be used inside the `AddCertificate` method.</span></span> <span data-ttu-id="84793-198">如果使用的是中间证书或子证书，也可以在此处验证使用者或颁发者。</span><span class="sxs-lookup"><span data-stu-id="84793-198">You could also validate the subject or the issuer here if you're using intermediate or child certificates.</span></span>
 
 ```csharp
 using System.IO;
@@ -339,9 +341,9 @@ namespace AspNetCoreCertificateAuthApi
 }
 ```
 
-#### <a name="implement-an-httpclient-using-a-certificate-and-the-httpclienthandler"></a><span data-ttu-id="a5fc1-199">使用证书和 HttpClientHandler 实现 HttpClient</span><span class="sxs-lookup"><span data-stu-id="a5fc1-199">Implement an HttpClient using a certificate and the HttpClientHandler</span></span>
+#### <a name="implement-an-httpclient-using-a-certificate-and-the-httpclienthandler"></a><span data-ttu-id="84793-199">使用证书和 HttpClientHandler 实现 HttpClient</span><span class="sxs-lookup"><span data-stu-id="84793-199">Implement an HttpClient using a certificate and the HttpClientHandler</span></span>
 
-<span data-ttu-id="a5fc1-200">HttpClientHandler 可以直接添加到 HttpClient 类的构造函数中。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-200">The HttpClientHandler could be added directly in the constructor of the HttpClient class.</span></span> <span data-ttu-id="a5fc1-201">创建 HttpClient 的实例时应格外小心。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-201">Care should be taken when creating instances of the HttpClient.</span></span> <span data-ttu-id="a5fc1-202">然后，HttpClient 将随每个请求发送证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-202">The HttpClient will then send the certificate with each request.</span></span>
+<span data-ttu-id="84793-200">HttpClientHandler 可以直接添加到 HttpClient 类的构造函数中。</span><span class="sxs-lookup"><span data-stu-id="84793-200">The HttpClientHandler could be added directly in the constructor of the HttpClient class.</span></span> <span data-ttu-id="84793-201">创建 HttpClient 的实例时应格外小心。</span><span class="sxs-lookup"><span data-stu-id="84793-201">Care should be taken when creating instances of the HttpClient.</span></span> <span data-ttu-id="84793-202">然后，HttpClient 将随每个请求发送证书。</span><span class="sxs-lookup"><span data-stu-id="84793-202">The HttpClient will then send the certificate with each request.</span></span>
 
 ```csharp
 private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
@@ -368,9 +370,9 @@ private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
 }
 ```
 
-#### <a name="implement-an-httpclient-using-a-certificate-and-a-named-httpclient-from-ihttpclientfactory"></a><span data-ttu-id="a5fc1-203">使用证书和 IHttpClientFactory 中的命名 HttpClient 实现 HttpClient</span><span class="sxs-lookup"><span data-stu-id="a5fc1-203">Implement an HttpClient using a certificate and a named HttpClient from IHttpClientFactory</span></span> 
+#### <a name="implement-an-httpclient-using-a-certificate-and-a-named-httpclient-from-ihttpclientfactory"></a><span data-ttu-id="84793-203">使用证书和 IHttpClientFactory 中的命名 HttpClient 实现 HttpClient</span><span class="sxs-lookup"><span data-stu-id="84793-203">Implement an HttpClient using a certificate and a named HttpClient from IHttpClientFactory</span></span> 
 
-<span data-ttu-id="a5fc1-204">在下面的示例中，使用处理程序中的 ClientCertificates 属性将客户端证书添加到 HttpClientHandler 中。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-204">In the following example, a client certificate is added to a HttpClientHandler using the ClientCertificates property from the handler.</span></span> <span data-ttu-id="a5fc1-205">然后，可以使用 ConfigurePrimaryHttpMessageHandler 方法在 HttpClient 的命名实例中使用此处理程序。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-205">This handler can then be used in a named instance of a HttpClient using the ConfigurePrimaryHttpMessageHandler method.</span></span> <span data-ttu-id="a5fc1-206">这是在 ConfigureServices 方法中的 Startup 类中设置的。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-206">This is setup in the Startup class in the ConfigureServices method.</span></span>
+<span data-ttu-id="84793-204">在下面的示例中，使用处理程序中的 ClientCertificates 属性将客户端证书添加到 HttpClientHandler 中。</span><span class="sxs-lookup"><span data-stu-id="84793-204">In the following example, a client certificate is added to a HttpClientHandler using the ClientCertificates property from the handler.</span></span> <span data-ttu-id="84793-205">然后，可以使用 ConfigurePrimaryHttpMessageHandler 方法在 HttpClient 的命名实例中使用此处理程序。</span><span class="sxs-lookup"><span data-stu-id="84793-205">This handler can then be used in a named instance of a HttpClient using the ConfigurePrimaryHttpMessageHandler method.</span></span> <span data-ttu-id="84793-206">这是在 ConfigureServices 方法中的 Startup 类中设置的。</span><span class="sxs-lookup"><span data-stu-id="84793-206">This is setup in the Startup class in the ConfigureServices method.</span></span>
 
 ```csharp
 var clientCertificate = 
@@ -385,7 +387,7 @@ services.AddHttpClient("namedClient", c =>
 }).ConfigurePrimaryHttpMessageHandler(() => handler);
 ```
 
-<span data-ttu-id="a5fc1-207">然后，可以使用 IHttpClientFactory 通过处理程序和证书获取命名实例。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-207">The IHttpClientFactory can then be used to get the named instance with the handler and the certificate.</span></span> <span data-ttu-id="a5fc1-208">使用 Startup 类中定义的客户端名称的 CreateClient 方法来获取实例。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-208">The CreateClient method with the name of the client defined in the Startup class is used to get the instance.</span></span> <span data-ttu-id="a5fc1-209">可根据需要使用客户端发送 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-209">The HTTP request can be sent using the client as required.</span></span>
+<span data-ttu-id="84793-207">然后，可以使用 IHttpClientFactory 通过处理程序和证书获取命名实例。</span><span class="sxs-lookup"><span data-stu-id="84793-207">The IHttpClientFactory can then be used to get the named instance with the handler and the certificate.</span></span> <span data-ttu-id="84793-208">使用 Startup 类中定义的客户端名称的 CreateClient 方法来获取实例。</span><span class="sxs-lookup"><span data-stu-id="84793-208">The CreateClient method with the name of the client defined in the Startup class is used to get the instance.</span></span> <span data-ttu-id="84793-209">可根据需要使用客户端发送 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="84793-209">The HTTP request can be sent using the client as required.</span></span>
 
 ```csharp
 private readonly IHttpClientFactory _clientFactory;
@@ -416,13 +418,13 @@ private async Task<JsonDocument> GetApiDataWithNamedClient()
 }
 ```
 
-<span data-ttu-id="a5fc1-210">如果将正确的证书发送到服务器，则返回数据。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-210">If the correct certificate is sent to the server, the data is returned.</span></span> <span data-ttu-id="a5fc1-211">如果未发送证书或证书不正确，则返回 HTTP 403 状态代码。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-211">If no certificate or the wrong certificate is sent, an HTTP 403 status code is returned.</span></span>
+<span data-ttu-id="84793-210">如果将正确的证书发送到服务器，则返回数据。</span><span class="sxs-lookup"><span data-stu-id="84793-210">If the correct certificate is sent to the server, the data is returned.</span></span> <span data-ttu-id="84793-211">如果未发送证书或证书不正确，则返回 HTTP 403 状态代码。</span><span class="sxs-lookup"><span data-stu-id="84793-211">If no certificate or the wrong certificate is sent, an HTTP 403 status code is returned.</span></span>
 
-### <a name="create-certificates-in-powershell"></a><span data-ttu-id="a5fc1-212">在 PowerShell 中创建证书</span><span class="sxs-lookup"><span data-stu-id="a5fc1-212">Create certificates in PowerShell</span></span>
+### <a name="create-certificates-in-powershell"></a><span data-ttu-id="84793-212">在 PowerShell 中创建证书</span><span class="sxs-lookup"><span data-stu-id="84793-212">Create certificates in PowerShell</span></span>
 
-<span data-ttu-id="a5fc1-213">创建证书是最难设置此流的部分。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-213">Creating the certificates is the hardest part in setting up this flow.</span></span> <span data-ttu-id="a5fc1-214">可以使用 PowerShell cmdlet 创建根证书 `New-SelfSignedCertificate` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-214">A root certificate can be created using the `New-SelfSignedCertificate` PowerShell cmdlet.</span></span> <span data-ttu-id="a5fc1-215">创建证书时，请使用强密码。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-215">When creating the certificate, use a strong password.</span></span> <span data-ttu-id="a5fc1-216">`KeyUsageProperty`如图所示，添加参数和参数非常重要 `KeyUsage` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-216">It's important to add the `KeyUsageProperty` parameter and the `KeyUsage` parameter as shown.</span></span>
+<span data-ttu-id="84793-213">创建证书是最难设置此流的部分。</span><span class="sxs-lookup"><span data-stu-id="84793-213">Creating the certificates is the hardest part in setting up this flow.</span></span> <span data-ttu-id="84793-214">可以使用 PowerShell cmdlet 创建根证书 `New-SelfSignedCertificate` 。</span><span class="sxs-lookup"><span data-stu-id="84793-214">A root certificate can be created using the `New-SelfSignedCertificate` PowerShell cmdlet.</span></span> <span data-ttu-id="84793-215">创建证书时，请使用强密码。</span><span class="sxs-lookup"><span data-stu-id="84793-215">When creating the certificate, use a strong password.</span></span> <span data-ttu-id="84793-216">`KeyUsageProperty`如图所示，添加参数和参数非常重要 `KeyUsage` 。</span><span class="sxs-lookup"><span data-stu-id="84793-216">It's important to add the `KeyUsageProperty` parameter and the `KeyUsage` parameter as shown.</span></span>
 
-#### <a name="create-root-ca"></a><span data-ttu-id="a5fc1-217">创建根 CA</span><span class="sxs-lookup"><span data-stu-id="a5fc1-217">Create root CA</span></span>
+#### <a name="create-root-ca"></a><span data-ttu-id="84793-217">创建根 CA</span><span class="sxs-lookup"><span data-stu-id="84793-217">Create root CA</span></span>
 
 ```powershell
 New-SelfSignedCertificate -DnsName "root_ca_dev_damienbod.com", "root_ca_dev_damienbod.com" -CertStoreLocation "cert:\LocalMachine\My" -NotAfter (Get-Date).AddYears(20) -FriendlyName "root_ca_dev_damienbod.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature
@@ -435,19 +437,19 @@ Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath roo
 ```
 
 > [!NOTE]
-> <span data-ttu-id="a5fc1-218">`-DnsName`参数值必须与应用的部署目标匹配。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-218">The `-DnsName` parameter value must match the deployment target of the app.</span></span> <span data-ttu-id="a5fc1-219">例如，用于开发的 "localhost"。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-219">For example, "localhost" for development.</span></span>
+> <span data-ttu-id="84793-218">`-DnsName`参数值必须与应用的部署目标匹配。</span><span class="sxs-lookup"><span data-stu-id="84793-218">The `-DnsName` parameter value must match the deployment target of the app.</span></span> <span data-ttu-id="84793-219">例如，用于开发的 "localhost"。</span><span class="sxs-lookup"><span data-stu-id="84793-219">For example, "localhost" for development.</span></span>
 
-#### <a name="install-in-the-trusted-root"></a><span data-ttu-id="a5fc1-220">在受信任的根中安装</span><span class="sxs-lookup"><span data-stu-id="a5fc1-220">Install in the trusted root</span></span>
+#### <a name="install-in-the-trusted-root"></a><span data-ttu-id="84793-220">在受信任的根中安装</span><span class="sxs-lookup"><span data-stu-id="84793-220">Install in the trusted root</span></span>
 
-<span data-ttu-id="a5fc1-221">根证书需要在主机系统上受信任。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-221">The root certificate needs to be trusted on your host system.</span></span> <span data-ttu-id="a5fc1-222">默认情况下，不信任证书颁发机构创建的根证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-222">A root certificate which was not created by a certificate authority won't be trusted by default.</span></span> <span data-ttu-id="a5fc1-223">下面的链接说明了如何在 Windows 上完成此操作：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-223">The following link explains how this can be accomplished on Windows:</span></span>
+<span data-ttu-id="84793-221">根证书需要在主机系统上受信任。</span><span class="sxs-lookup"><span data-stu-id="84793-221">The root certificate needs to be trusted on your host system.</span></span> <span data-ttu-id="84793-222">默认情况下，不信任证书颁发机构创建的根证书。</span><span class="sxs-lookup"><span data-stu-id="84793-222">A root certificate which was not created by a certificate authority won't be trusted by default.</span></span> <span data-ttu-id="84793-223">下面的链接说明了如何在 Windows 上完成此操作：</span><span class="sxs-lookup"><span data-stu-id="84793-223">The following link explains how this can be accomplished on Windows:</span></span>
 
 https://social.msdn.microsoft.com/Forums/SqlServer/5ed119ef-1704-4be4-8a4f-ef11de7c8f34/a-certificate-chain-processed-but-terminated-in-a-root-certificate-which-is-not-trusted-by-the
 
-#### <a name="intermediate-certificate"></a><span data-ttu-id="a5fc1-224">中间证书</span><span class="sxs-lookup"><span data-stu-id="a5fc1-224">Intermediate certificate</span></span>
+#### <a name="intermediate-certificate"></a><span data-ttu-id="84793-224">中间证书</span><span class="sxs-lookup"><span data-stu-id="84793-224">Intermediate certificate</span></span>
 
-<span data-ttu-id="a5fc1-225">现在可以从根证书创建中间证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-225">An intermediate certificate can now be created from the root certificate.</span></span> <span data-ttu-id="a5fc1-226">这并不是所有用例所必需的，但你可能需要创建多个证书，或者需要激活或禁用证书组。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-226">This isn't required for all use cases, but you might need to create many certificates or need to activate or disable groups of certificates.</span></span> <span data-ttu-id="a5fc1-227">`TextExtension`参数是设置证书的基本约束中的路径长度所必需的。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-227">The `TextExtension` parameter is required to set the path length in the basic constraints of the certificate.</span></span>
+<span data-ttu-id="84793-225">现在可以从根证书创建中间证书。</span><span class="sxs-lookup"><span data-stu-id="84793-225">An intermediate certificate can now be created from the root certificate.</span></span> <span data-ttu-id="84793-226">这并不是所有用例所必需的，但你可能需要创建多个证书，或者需要激活或禁用证书组。</span><span class="sxs-lookup"><span data-stu-id="84793-226">This isn't required for all use cases, but you might need to create many certificates or need to activate or disable groups of certificates.</span></span> <span data-ttu-id="84793-227">`TextExtension`参数是设置证书的基本约束中的路径长度所必需的。</span><span class="sxs-lookup"><span data-stu-id="84793-227">The `TextExtension` parameter is required to set the path length in the basic constraints of the certificate.</span></span>
 
-<span data-ttu-id="a5fc1-228">然后，可以将中间证书添加到 Windows 主机系统中的受信任中间证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-228">The intermediate certificate can then be added to the trusted intermediate certificate in the Windows host system.</span></span>
+<span data-ttu-id="84793-228">然后，可以将中间证书添加到 Windows 主机系统中的受信任中间证书。</span><span class="sxs-lookup"><span data-stu-id="84793-228">The intermediate certificate can then be added to the trusted intermediate certificate in the Windows host system.</span></span>
 
 ```powershell
 $mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
@@ -461,9 +463,9 @@ Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertif
 Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath intermediate_dev_damienbod.crt
 ```
 
-#### <a name="create-child-certificate-from-intermediate-certificate"></a><span data-ttu-id="a5fc1-229">从中间证书创建子证书</span><span class="sxs-lookup"><span data-stu-id="a5fc1-229">Create child certificate from intermediate certificate</span></span>
+#### <a name="create-child-certificate-from-intermediate-certificate"></a><span data-ttu-id="84793-229">从中间证书创建子证书</span><span class="sxs-lookup"><span data-stu-id="84793-229">Create child certificate from intermediate certificate</span></span>
 
-<span data-ttu-id="a5fc1-230">可以从中间证书创建子证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-230">A child certificate can be created from the intermediate certificate.</span></span> <span data-ttu-id="a5fc1-231">这是最终实体，不需要创建更多的子证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-231">This is the end entity and doesn't need to create more child certificates.</span></span>
+<span data-ttu-id="84793-230">可以从中间证书创建子证书。</span><span class="sxs-lookup"><span data-stu-id="84793-230">A child certificate can be created from the intermediate certificate.</span></span> <span data-ttu-id="84793-231">这是最终实体，不需要创建更多的子证书。</span><span class="sxs-lookup"><span data-stu-id="84793-231">This is the end entity and doesn't need to create more child certificates.</span></span>
 
 ```powershell
 $parentcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint from the Intermediate certificate..." )
@@ -477,9 +479,9 @@ Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertif
 Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath child_a_dev_damienbod.crt
 ```
 
-#### <a name="create-child-certificate-from-root-certificate"></a><span data-ttu-id="a5fc1-232">从根证书创建子证书</span><span class="sxs-lookup"><span data-stu-id="a5fc1-232">Create child certificate from root certificate</span></span>
+#### <a name="create-child-certificate-from-root-certificate"></a><span data-ttu-id="84793-232">从根证书创建子证书</span><span class="sxs-lookup"><span data-stu-id="84793-232">Create child certificate from root certificate</span></span>
 
-<span data-ttu-id="a5fc1-233">还可以直接从根证书创建子证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-233">A child certificate can also be created from the root certificate directly.</span></span> 
+<span data-ttu-id="84793-233">还可以直接从根证书创建子证书。</span><span class="sxs-lookup"><span data-stu-id="84793-233">A child certificate can also be created from the root certificate directly.</span></span> 
 
 ```powershell
 $rootcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint from the root cert..." )
@@ -493,7 +495,7 @@ Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertif
 Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath child_a_dev_damienbod.crt
 ```
 
-#### <a name="example-root---intermediate-certificate---certificate"></a><span data-ttu-id="a5fc1-234">示例根中间证书证书</span><span class="sxs-lookup"><span data-stu-id="a5fc1-234">Example root - intermediate certificate - certificate</span></span>
+#### <a name="example-root---intermediate-certificate---certificate"></a><span data-ttu-id="84793-234">示例根中间证书证书</span><span class="sxs-lookup"><span data-stu-id="84793-234">Example root - intermediate certificate - certificate</span></span>
 
 ```powershell
 $mypwdroot = ConvertTo-SecureString -String "1234" -Force -AsPlainText
@@ -522,7 +524,7 @@ Get-ChildItem -Path cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F2
 Export-Certificate -Cert cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F28A -FilePath child_b_from_a_dev_damienbod.crt
 ```
 
-<span data-ttu-id="a5fc1-235">使用根证书、中间证书或子证书时，可以根据需要使用指纹或 PublicKey 来验证证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-235">When using the root, intermediate, or child certificates, the certificates can be validated using the Thumbprint or PublicKey as required.</span></span>
+<span data-ttu-id="84793-235">使用根证书、中间证书或子证书时，可以根据需要使用指纹或 PublicKey 来验证证书。</span><span class="sxs-lookup"><span data-stu-id="84793-235">When using the root, intermediate, or child certificates, the certificates can be validated using the Thumbprint or PublicKey as required.</span></span>
 
 ```csharp
 using System.Collections.Generic;
@@ -560,33 +562,33 @@ namespace AspNetCoreCertificateAuthApi
 
 <a name="occ"></a>
 
-## <a name="optional-client-certificates"></a><span data-ttu-id="a5fc1-236">可选客户端证书</span><span class="sxs-lookup"><span data-stu-id="a5fc1-236">Optional client certificates</span></span>
+## <a name="optional-client-certificates"></a><span data-ttu-id="84793-236">可选客户端证书</span><span class="sxs-lookup"><span data-stu-id="84793-236">Optional client certificates</span></span>
 
-<span data-ttu-id="a5fc1-237">本部分为必须使用证书保护应用程序子集的应用提供信息。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-237">This section provides information for apps that must protect a subset of the app with a certificate.</span></span> <span data-ttu-id="a5fc1-238">例如， Razor 应用中的页面或控制器可能需要客户端证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-238">For example, a Razor Page or controller in the app might require client certificates.</span></span> <span data-ttu-id="a5fc1-239">这是客户端证书带来的挑战：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-239">This presents challenges as client certificates:</span></span>
+<span data-ttu-id="84793-237">本部分为必须使用证书保护应用程序子集的应用提供信息。</span><span class="sxs-lookup"><span data-stu-id="84793-237">This section provides information for apps that must protect a subset of the app with a certificate.</span></span> <span data-ttu-id="84793-238">例如， Razor 应用中的页面或控制器可能需要客户端证书。</span><span class="sxs-lookup"><span data-stu-id="84793-238">For example, a Razor Page or controller in the app might require client certificates.</span></span> <span data-ttu-id="84793-239">这是客户端证书带来的挑战：</span><span class="sxs-lookup"><span data-stu-id="84793-239">This presents challenges as client certificates:</span></span>
   
-* <span data-ttu-id="a5fc1-240">是 TLS 功能，而不是 HTTP 功能。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-240">Are a TLS feature, not an HTTP feature.</span></span>
-* <span data-ttu-id="a5fc1-241">按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-241">Are negotiated per-connection and must be be negotiated at the start of the connection before any HTTP data is available.</span></span> <span data-ttu-id="a5fc1-242">在连接开始时，仅知道服务器名称指示（SNI） &dagger; 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-242">At the start of the connection, only the Server Name Indication (SNI)&dagger; is known.</span></span> <span data-ttu-id="a5fc1-243">客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-243">The client and server certificates are negotiated prior to the first request on a connection and requests generally won't be able to renegotiate.</span></span> <span data-ttu-id="a5fc1-244">HTTP/2 中禁止重新协商。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-244">Renegotiation is prohibited in HTTP/2.</span></span>
+* <span data-ttu-id="84793-240">是 TLS 功能，而不是 HTTP 功能。</span><span class="sxs-lookup"><span data-stu-id="84793-240">Are a TLS feature, not an HTTP feature.</span></span>
+* <span data-ttu-id="84793-241">按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。</span><span class="sxs-lookup"><span data-stu-id="84793-241">Are negotiated per-connection and must be be negotiated at the start of the connection before any HTTP data is available.</span></span> <span data-ttu-id="84793-242">在连接开始时，仅知道服务器名称指示（SNI） &dagger; 。</span><span class="sxs-lookup"><span data-stu-id="84793-242">At the start of the connection, only the Server Name Indication (SNI)&dagger; is known.</span></span> <span data-ttu-id="84793-243">客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。</span><span class="sxs-lookup"><span data-stu-id="84793-243">The client and server certificates are negotiated prior to the first request on a connection and requests generally won't be able to renegotiate.</span></span> <span data-ttu-id="84793-244">HTTP/2 中禁止重新协商。</span><span class="sxs-lookup"><span data-stu-id="84793-244">Renegotiation is prohibited in HTTP/2.</span></span>
 
-<span data-ttu-id="a5fc1-245">ASP.NET Core 5 预览版4及更高版本为可选的客户端证书添加了更方便的支持。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-245">ASP.NET Core 5 preview 4 and later adds more convenient support for optional client certificates.</span></span> <span data-ttu-id="a5fc1-246">有关详细信息，请参阅[可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-246">For more information, see the [Optional certificates sample](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample).</span></span>
+<span data-ttu-id="84793-245">ASP.NET Core 5 预览版4及更高版本为可选的客户端证书添加了更方便的支持。</span><span class="sxs-lookup"><span data-stu-id="84793-245">ASP.NET Core 5 preview 4 and later adds more convenient support for optional client certificates.</span></span> <span data-ttu-id="84793-246">有关详细信息，请参阅[可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。</span><span class="sxs-lookup"><span data-stu-id="84793-246">For more information, see the [Optional certificates sample](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample).</span></span>
 
-<span data-ttu-id="a5fc1-247">以下方法支持可选的客户端证书：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-247">The following approach supports optional client certificates:</span></span>
+<span data-ttu-id="84793-247">以下方法支持可选的客户端证书：</span><span class="sxs-lookup"><span data-stu-id="84793-247">The following approach supports optional client certificates:</span></span>
 
-* <span data-ttu-id="a5fc1-248">设置域和子域的绑定：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-248">Set up binding for the domain and subdomain:</span></span>
-  * <span data-ttu-id="a5fc1-249">例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-249">For example, set up bindings on `contoso.com` and `myClient.contoso.com`.</span></span> <span data-ttu-id="a5fc1-250">`contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-250">The `contoso.com` host doesn't require a client certificate but `myClient.contoso.com` does.</span></span>
-  * <span data-ttu-id="a5fc1-251">有关详细信息，请参阅：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-251">For more information, see:</span></span>
-    * <span data-ttu-id="a5fc1-252">[Kestrel](/fundamentals/servers/kestrel)：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-252">[Kestrel](/fundamentals/servers/kestrel):</span></span>
-      * [<span data-ttu-id="a5fc1-253">ListenOptions.UseHttps</span><span class="sxs-lookup"><span data-stu-id="a5fc1-253">ListenOptions.UseHttps</span></span>](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
+* <span data-ttu-id="84793-248">设置域和子域的绑定：</span><span class="sxs-lookup"><span data-stu-id="84793-248">Set up binding for the domain and subdomain:</span></span>
+  * <span data-ttu-id="84793-249">例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。</span><span class="sxs-lookup"><span data-stu-id="84793-249">For example, set up bindings on `contoso.com` and `myClient.contoso.com`.</span></span> <span data-ttu-id="84793-250">`contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。</span><span class="sxs-lookup"><span data-stu-id="84793-250">The `contoso.com` host doesn't require a client certificate but `myClient.contoso.com` does.</span></span>
+  * <span data-ttu-id="84793-251">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="84793-251">For more information, see:</span></span>
+    * <span data-ttu-id="84793-252">[Kestrel](/fundamentals/servers/kestrel)：</span><span class="sxs-lookup"><span data-stu-id="84793-252">[Kestrel](/fundamentals/servers/kestrel):</span></span>
+      * [<span data-ttu-id="84793-253">ListenOptions.UseHttps</span><span class="sxs-lookup"><span data-stu-id="84793-253">ListenOptions.UseHttps</span></span>](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
-      * <span data-ttu-id="a5fc1-254">请注意，Kestrel 目前不支持在一个绑定上支持多个 TLS 配置，需要两个具有唯一 Ip 或端口的绑定。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-254">Note Kestrel does not currently support multiple TLS configurations on one binding, you'll need two bindings with unique IPs or ports.</span></span> <span data-ttu-id="a5fc1-255">请参阅https://github.com/dotnet/runtime/issues/31097</span><span class="sxs-lookup"><span data-stu-id="a5fc1-255">See https://github.com/dotnet/runtime/issues/31097</span></span>
-    * <span data-ttu-id="a5fc1-256">IIS</span><span class="sxs-lookup"><span data-stu-id="a5fc1-256">IIS</span></span>
-      * [<span data-ttu-id="a5fc1-257">承载 IIS</span><span class="sxs-lookup"><span data-stu-id="a5fc1-257">Hosting IIS</span></span>](xref:host-and-deploy/iis/index#create-the-iis-site)
-      * [<span data-ttu-id="a5fc1-258">配置 IIS 上的安全性</span><span class="sxs-lookup"><span data-stu-id="a5fc1-258">Configure security on IIS</span></span>](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
-    * <span data-ttu-id="a5fc1-259">Http.Sys：[配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)</span><span class="sxs-lookup"><span data-stu-id="a5fc1-259">Http.Sys: [Configure Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)</span></span>
-* <span data-ttu-id="a5fc1-260">对于需要客户端证书且没有客户端证书的 web 应用的请求：</span><span class="sxs-lookup"><span data-stu-id="a5fc1-260">For requests to the web app that require a client certificate and don't have one:</span></span>
-  * <span data-ttu-id="a5fc1-261">使用客户端证书保护的子域重定向到同一页面。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-261">Redirect to the same page using the client certificate protected subdomain.</span></span>
-  * <span data-ttu-id="a5fc1-262">例如，重定向到 `myClient.contoso.com/requestedPage` 。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-262">For example, redirect to `myClient.contoso.com/requestedPage`.</span></span> <span data-ttu-id="a5fc1-263">由于与的请求 `myClient.contoso.com/requestedPage` 不同于的主机名 `contoso.com/requestedPage` ，因此客户端会建立一个不同的连接，并提供客户端证书。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-263">Because the request to `myClient.contoso.com/requestedPage` is a different hostname than `contoso.com/requestedPage`, the client establishes a different connection and the client certificate is provided.</span></span>
-  * <span data-ttu-id="a5fc1-264">有关详细信息，请参阅 <xref:security/authorization/introduction>。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-264">For more information, see <xref:security/authorization/introduction>.</span></span>
+      * <span data-ttu-id="84793-254">请注意，Kestrel 目前不支持在一个绑定上支持多个 TLS 配置，需要两个具有唯一 Ip 或端口的绑定。</span><span class="sxs-lookup"><span data-stu-id="84793-254">Note Kestrel does not currently support multiple TLS configurations on one binding, you'll need two bindings with unique IPs or ports.</span></span> <span data-ttu-id="84793-255">请参阅https://github.com/dotnet/runtime/issues/31097</span><span class="sxs-lookup"><span data-stu-id="84793-255">See https://github.com/dotnet/runtime/issues/31097</span></span>
+    * <span data-ttu-id="84793-256">IIS</span><span class="sxs-lookup"><span data-stu-id="84793-256">IIS</span></span>
+      * [<span data-ttu-id="84793-257">承载 IIS</span><span class="sxs-lookup"><span data-stu-id="84793-257">Hosting IIS</span></span>](xref:host-and-deploy/iis/index#create-the-iis-site)
+      * [<span data-ttu-id="84793-258">配置 IIS 上的安全性</span><span class="sxs-lookup"><span data-stu-id="84793-258">Configure security on IIS</span></span>](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
+    * <span data-ttu-id="84793-259">Http.Sys：[配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)</span><span class="sxs-lookup"><span data-stu-id="84793-259">Http.Sys: [Configure Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)</span></span>
+* <span data-ttu-id="84793-260">对于需要客户端证书且没有客户端证书的 web 应用的请求：</span><span class="sxs-lookup"><span data-stu-id="84793-260">For requests to the web app that require a client certificate and don't have one:</span></span>
+  * <span data-ttu-id="84793-261">使用客户端证书保护的子域重定向到同一页面。</span><span class="sxs-lookup"><span data-stu-id="84793-261">Redirect to the same page using the client certificate protected subdomain.</span></span>
+  * <span data-ttu-id="84793-262">例如，重定向到 `myClient.contoso.com/requestedPage` 。</span><span class="sxs-lookup"><span data-stu-id="84793-262">For example, redirect to `myClient.contoso.com/requestedPage`.</span></span> <span data-ttu-id="84793-263">由于与的请求 `myClient.contoso.com/requestedPage` 不同于的主机名 `contoso.com/requestedPage` ，因此客户端会建立一个不同的连接，并提供客户端证书。</span><span class="sxs-lookup"><span data-stu-id="84793-263">Because the request to `myClient.contoso.com/requestedPage` is a different hostname than `contoso.com/requestedPage`, the client establishes a different connection and the client certificate is provided.</span></span>
+  * <span data-ttu-id="84793-264">有关详细信息，请参阅 <xref:security/authorization/introduction>。</span><span class="sxs-lookup"><span data-stu-id="84793-264">For more information, see <xref:security/authorization/introduction>.</span></span>
 
-<span data-ttu-id="a5fc1-265">在[此 GitHub 讨论](https://github.com/dotnet/AspNetCore.Docs/issues/18720)问题中，对可选客户端证书留下疑问、评论和其他反馈。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-265">Leave questions, comments, and other feedback on optional client certificates in [this GitHub discussion](https://github.com/dotnet/AspNetCore.Docs/issues/18720) issue.</span></span>
+<span data-ttu-id="84793-265">在[此 GitHub 讨论](https://github.com/dotnet/AspNetCore.Docs/issues/18720)问题中，对可选客户端证书留下疑问、评论和其他反馈。</span><span class="sxs-lookup"><span data-stu-id="84793-265">Leave questions, comments, and other feedback on optional client certificates in [this GitHub discussion](https://github.com/dotnet/AspNetCore.Docs/issues/18720) issue.</span></span>
 
-<span data-ttu-id="a5fc1-266">&dagger;服务器名称指示（SNI）是一种 TLS 扩展，可将虚拟域作为 SSL 协商的一部分包括在内。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-266">&dagger; Server Name Indication (SNI) is a TLS extension to include a virtual domain as a part of SSL negotiation.</span></span> <span data-ttu-id="a5fc1-267">这实际上意味着，可以使用虚拟域名或主机名来识别网络终结点。</span><span class="sxs-lookup"><span data-stu-id="a5fc1-267">This effectively means the virtual domain name, or a hostname, can be used to identify the network end point.</span></span>
+<span data-ttu-id="84793-266">&dagger;服务器名称指示（SNI）是一种 TLS 扩展，可将虚拟域作为 SSL 协商的一部分包括在内。</span><span class="sxs-lookup"><span data-stu-id="84793-266">&dagger; Server Name Indication (SNI) is a TLS extension to include a virtual domain as a part of SSL negotiation.</span></span> <span data-ttu-id="84793-267">这实际上意味着，可以使用虚拟域名或主机名来识别网络终结点。</span><span class="sxs-lookup"><span data-stu-id="84793-267">This effectively means the virtual domain name, or a hostname, can be used to identify the network end point.</span></span>
