@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 11/08/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 6d9d8cf6ca9ca3afc570c2c68510125200b96c60
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: 86f9b0a3efea5315092d1c6435a1b764fbec0a1d
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074462"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402983"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
@@ -73,7 +75,7 @@ dotnet new react -o <output_directory_name> -au Individual
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * 使用其他 `AddIdentityServerJwt` 帮助器方法进行身份验证，该方法将应用程序配置为验证 IdentityServer 生成的 JWT 令牌：
+  * 包含附加 `AddIdentityServerJwt` 帮助器方法的身份验证，该方法将应用配置为验证由 IdentityServer 生成的 JWT 令牌：
 
     ```csharp
     services.AddAuthentication()
@@ -99,7 +101,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
 
-此帮助器方法将应用程序的策略方案配置为默认的身份验证处理程序。 此策略配置为允许 Identity 处理路由到 Identity URL 空间 "/" 中任何子路径的所有请求 Identity 。 `JwtBearerHandler`处理所有其他请求。 此外，此方法还会 `<<ApplicationName>>API` 将 IdentityServer 的 API 资源注册到的默认范围 `<<ApplicationName>>API` ，并将 JWT 持有者令牌中间件配置为验证 IdentityServer 为应用程序颁发的令牌。
+此帮助器方法将应用程序的策略方案配置为默认的身份验证处理程序。 此策略配置为允许 Identity 处理路由到 Identity URL 空间 "/" 中任何子路径的所有请求 Identity 。 `JwtBearerHandler` 处理所有其他请求。 此外，此方法还会 `<<ApplicationName>>API` 将 IdentityServer 的 API 资源注册到的默认范围 `<<ApplicationName>>API` ，并将 JWT 持有者令牌中间件配置为验证 IdentityServer 为应用程序颁发的令牌。
 
 ### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
@@ -117,7 +119,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-在项目根的*appsettings.js*文件中，有一个新 `IdentityServer` 部分描述了已配置的客户端的列表。 在下面的示例中，有一个客户端。 客户端名称对应于应用名称，并按约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 它在内部用于驱动约定，以简化服务器的配置过程。 有几个配置文件可用，如 "[应用程序配置文件](#application-profiles)" 部分中所述。
+在项目根的*appsettings.js*文件中，有一个新 `IdentityServer` 部分描述了已配置的客户端的列表。 下例中存在一个客户端。 客户端名称对应于应用名称，并通过约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 它在内部用于驱动约定，以简化服务器的配置过程。 有几个配置文件可用，如 "[应用程序配置文件](#application-profiles)" 部分中所述。
 
 ```json
 "IdentityServer": {

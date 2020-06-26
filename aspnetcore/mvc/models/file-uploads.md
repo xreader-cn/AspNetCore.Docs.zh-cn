@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/03/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 632cc9fafc5daf2923997f0113adee52491acdcc
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 055dc7295aad67f92fe5f4e8271a1543262257b5
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83838313"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404595"
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 

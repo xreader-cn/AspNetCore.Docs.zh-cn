@@ -1,32 +1,34 @@
 ---
-title: 迁移身份验证Identity和 ASP.NET Core
+title: 迁移身份验证和 Identity ASP.NET Core
 author: ardalis
 description: 了解如何从 ASP.NET MVC 项目将身份验证和标识迁移到 ASP.NET Core MVC 项目。
 ms.author: riande
 ms.date: 3/22/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: migration/identity
-ms.openlocfilehash: 0474d0d4f430d587acac5fdd8f391220f825ccee
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 995de894bc77c4db5e5683b36e691b0c5a3463d3
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775526"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403750"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core"></a>迁移身份验证Identity和 ASP.NET Core
+# <a name="migrate-authentication-and-identity-to-aspnet-core"></a>迁移身份验证和 Identity ASP.NET Core
 
 作者：[Steve Smith](https://ardalis.com/)
 
 在前面的文章中，我们[已将配置从 ASP.NET mvc 项目迁移到 ASP.NET CORE mvc](xref:migration/configuration)。 本文将迁移注册、登录和用户管理功能。
 
-## <a name="configure-identity-and-membership"></a>配置Identity和成员资格
+## <a name="configure-identity-and-membership"></a>配置 Identity 和成员资格
 
-在 ASP.NET MVC 中，身份验证和标识功能是使用Identity *Startup.Auth.cs*和*IdentityConfig.cs*中的 ASP.NET 配置的，位于*App_Start*文件夹中。 在 ASP.NET Core MVC 中，这些功能在*Startup.cs*中进行配置。
+在 ASP.NET MVC 中，身份验证和标识功能是使用 Identity *Startup.Auth.cs*和*IdentityConfig.cs*中的 ASP.NET 配置的，位于*App_Start*文件夹中。 在 ASP.NET Core MVC 中，这些功能在*Startup.cs*中进行配置。
 
 安装以下 NuGet 包：
 
@@ -34,7 +36,7 @@ ms.locfileid: "82775526"
 * `Microsoft.AspNetCore.Authentication.Cookies`
 * `Microsoft.EntityFrameworkCore.SqlServer`
 
-在*Startup.cs*中，更新`Startup.ConfigureServices`方法以使用实体框架和Identity服务：
+在*Startup.cs*中，更新 `Startup.ConfigureServices` 方法以使用实体框架和 Identity 服务：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -51,7 +53,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-此时，在上面的代码中引用了两个类型，这些类型尚未从 ASP.NET MVC 项目迁移： `ApplicationDbContext`和。 `ApplicationUser` 在 ASP.NET Core 项目中创建新的 "*模型*" 文件夹，并将两个与这些类型对应的类添加到其中。 你将在 */Models/IdentityModels.cs*中找到这些类的 ASP.NET MVC 版本，但我们会在迁移的项目中对每个类使用一个文件，因为这样做更为清晰。
+此时，在上面的代码中引用了两个类型，这些类型尚未从 ASP.NET MVC 项目迁移： `ApplicationDbContext` 和 `ApplicationUser` 。 在 ASP.NET Core 项目中创建新的 "*模型*" 文件夹，并将两个与这些类型对应的类添加到其中。 你将在 */Models/IdentityModels.cs*中找到这些类的 ASP.NET MVC 版本，但我们会在迁移的项目中对每个类使用一个文件，因为这样做更为清晰。
 
 *ApplicationUser.cs*：
 
@@ -92,9 +94,9 @@ namespace NewMvcProject.Models
 }
 ```
 
-ASP.NET Core MVC 初学者 Web 项目不包括很多自定义的用户或`ApplicationDbContext`。 迁移实际应用时，还需要迁移应用的用户和`DbContext`类的所有自定义属性和方法，以及应用所使用的任何其他模型类。 例如，如果`DbContext`具有`DbSet<Album>`，则需要迁移`Album`该类。
+ASP.NET Core MVC 初学者 Web 项目不包括很多自定义的用户或 `ApplicationDbContext` 。 迁移实际应用时，还需要迁移应用的用户和类的所有自定义属性和方法，以及应用所使用的 `DbContext` 任何其他模型类。 例如，如果 `DbContext` 具有 `DbSet<Album>` ，则需要迁移 `Album` 该类。
 
-将这些文件放入后， *Startup.cs*可通过更新其`using`语句对 Startup.cs 文件进行编译：
+将这些文件放入后，可通过更新其语句对*Startup.cs*文件进行编译 `using` ：
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -105,13 +107,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 ```
 
-现在，我们的应用程序已准备好Identity支持身份验证和服务。 只需将这些功能公开给用户。
+现在，我们的应用程序已准备好支持身份验证和 Identity 服务。 只需将这些功能公开给用户。
 
 ## <a name="migrate-registration-and-login-logic"></a>迁移注册和登录逻辑
 
-通过Identity为应用配置的服务和使用实体框架和 SQL Server 配置的数据访问，我们已准备好添加注册和登录到应用的支持。 请记住，在[迁移过程](xref:migration/mvc#migrate-the-layout-file)中，我们已注释掉对 *_Layout*中 *_LoginPartial*的引用。 现在可以返回到该代码，取消注释，并添加必要的控制器和视图以支持登录功能。
+通过为 Identity 应用配置的服务和使用实体框架和 SQL Server 配置的数据访问，我们已准备好添加注册和登录到应用的支持。 请记住，在[迁移过程](xref:migration/mvc#migrate-the-layout-file)中，我们已注释掉对 *_Layout*中 *_LoginPartial*的引用。 现在可以返回到该代码，取消注释，并添加必要的控制器和视图以支持登录功能。
 
-取消注释`@Html.Partial` *_Layout*中的行：
+取消注释 `@Html.Partial` *_Layout*中的行：
 
 ```cshtml
       <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -121,7 +123,7 @@ using Microsoft.Extensions.DependencyInjection;
 </div>
 ```
 
-现在，将名为Razor *_LoginPartial*的新视图添加到*Views/Shared*文件夹中：
+现在，将 Razor 名为 *_LoginPartial*的新视图添加到*Views/Shared*文件夹中：
 
 用以下代码更新 *_LoginPartial.* # （替换其所有内容）：
 
@@ -153,6 +155,6 @@ else
 
 此时，您应该能够在浏览器中刷新站点。
 
-## <a name="summary"></a>总结
+## <a name="summary"></a>摘要
 
-ASP.NET Core 引入了对 ASP.NET Identity功能的更改。 本文介绍了如何将 ASP.NET Identity的身份验证和用户管理功能迁移到 ASP.NET Core。
+ASP.NET Core 引入了对 ASP.NET 功能的更改 Identity 。 本文介绍了如何将 ASP.NET 的身份验证和用户管理功能迁移 Identity 到 ASP.NET Core。

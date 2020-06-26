@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 07/11/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/gdpr
-ms.openlocfilehash: 2e21f54ebfcb55be2b97da217b92a39843b5d702
-ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
+ms.openlocfilehash: 0fef14388f83d8b4c708194954f2b75b2164b746
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/09/2020
-ms.locfileid: "83003203"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404491"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>ASP.NET Core 中的欧盟一般数据保护条例（GDPR）支持
 
@@ -32,8 +34,8 @@ ASP.NET Core 提供了 Api 和模板来帮助满足某些[欧盟一般数据保�
 
 若要启用默认的 cookie 许可功能，如在 ASP.NET Core 3.0 模板生成的应用中的 ASP.NET Core 2.2 模板中找到的功能：
 
-* 将`using Microsoft.AspNetCore.Http`添加到 using 指令列表。
-* 将[CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)添加`Startup.ConfigureServices`到[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy) ， `Startup.Configure`并将其添加到：
+* 将添加 `using Microsoft.AspNetCore.Http` 到 using 指令列表。
+* 将[CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)添加 `Startup.ConfigureServices` 到[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy) ，并将其添加到 `Startup.Configure` ：
 
   [!code-csharp[Main](gdpr/sample/RP3.0/Startup.cs?name=snippet1&highlight=12-19,38)]
 
@@ -41,7 +43,7 @@ ASP.NET Core 提供了 Api 和模板来帮助满足某些[欧盟一般数据保�
 
   [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_Layout.cshtml?name=snippet&highlight=4)]
 
-* 将* \_CookieConsentPartial*文件添加到项目：
+* 将* \_ CookieConsentPartial*文件添加到项目：
 
   [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_CookieConsentPartial.cshtml)]
 
@@ -52,10 +54,10 @@ ASP.NET Core 提供了 Api 和模板来帮助满足某些[欧盟一般数据保�
 ::: moniker range="= aspnetcore-2.2"
 
 * 项目模板包括扩展点和用作存根标记，你可以将其替换为你的隐私和 cookie 使用策略。
-* 使用 cookie 同意功能，你可以要求你提供（并跟踪）用户同意以存储个人信息。 如果用户未同意数据收集，并且应用已将[CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded)设置为`true`，则不重要的 cookie 不会发送到浏览器。
+* 使用 cookie 同意功能，你可以要求你提供（并跟踪）用户同意以存储个人信息。 如果用户未同意数据收集，并且应用已将[CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded)设置为，则不 `true` 重要的 cookie 不会发送到浏览器。
 * Cookie 可以标记为必要。 即使用户尚未同意并禁用跟踪，也会将重要 cookie 发送到浏览器。
 * 禁用跟踪后[，TempData 和会话 cookie](#tempdata)不起作用。
-* "[标识管理](#pd)" 页提供了一个链接，用于下载和删除用户数据。
+* " [ Identity 管理](#pd)" 页提供了一个链接，用于下载和删除用户数据。
 
 该[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)允许你测试添加到 ASP.NET Core 2.1 模板的大多数 GDPR 扩展点和 api。 有关测试说明，请参阅[自述](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)文件。
 
@@ -63,33 +65,33 @@ ASP.NET Core 提供了 Api 和模板来帮助满足某些[欧盟一般数据保�
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>模板生成的代码中的 ASP.NET Core GDPR 支持
 
-用项目模板创建 Razor Pages 和 MVC 项目包含以下 GDPR 支持：
+Razor用项目模板创建的页和 MVC 项目包含以下 GDPR 支持：
 
-* [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)和[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)是在`Startup`类中设置的。
-* CookieConsentPartial 分部[视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 * \_* 此文件中包括 "**接受**" 按钮。 用户单击 "**接受**" 按钮时，会提供许可来存储 cookie。
-* *Pages/私密. cshtml*页面或*Views/Home/私密*视图提供了一个页面，用于详细描述您的站点的隐私策略。 CookieConsentPartial 文件生成指向隐私页面的链接。 * \_*
+* [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)和[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)是在类中设置的 `Startup` 。
+* * \_ CookieConsentPartial* [分部视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 此文件中包括 "**接受**" 按钮。 用户单击 "**接受**" 按钮时，会提供许可来存储 cookie。
+* *Pages/私密. cshtml*页面或*Views/Home/私密*视图提供了一个页面，用于详细描述您的站点的隐私策略。 * \_ CookieConsentPartial*文件生成指向隐私页面的链接。
 * 对于通过单独用户帐户创建的应用，"管理" 页提供了下载和删除[个人用户数据](#pd)的链接。
 
 ### <a name="cookiepolicyoptions-and-usecookiepolicy"></a>CookiePolicyOptions 和 UseCookiePolicy
 
-[CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)在中`Startup.ConfigureServices`进行初始化：
+[CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)在中进行初始化 `Startup.ConfigureServices` ：
 
 [!code-csharp[Main](gdpr/sample/Startup.cs?name=snippet1&highlight=14-20)]
 
-[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)在中`Startup.Configure`调用：
+[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)在中调用 `Startup.Configure` ：
 
 [!code-csharp[](gdpr/sample/Startup.cs?name=snippet1&highlight=51)]
 
 ### <a name="_cookieconsentpartialcshtml-partial-view"></a>\_CookieConsentPartial 分部视图
 
-CookieConsentPartial 分部视图： * \_*
+* \_ CookieConsentPartial*分部视图：
 
 [!code-html[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
 
 此部分内容：
 
-* 获取用户的跟踪状态。 如果应用配置为要求同意，则用户必须同意才能跟踪 cookie。 如果需要同意，cookie 许可面板将固定在由* \_布局 cshtml*文件创建的导航栏的顶部。
-* 提供一个 HTML `<p>`元素，用于汇总隐私和 cookie 使用策略。
+* 获取用户的跟踪状态。 如果应用配置为要求同意，则用户必须同意才能跟踪 cookie。 如果需要同意，cookie 许可面板将固定在由* \_ 布局 cshtml*文件创建的导航栏的顶部。
+* 提供一个 HTML `<p>` 元素，用于汇总隐私和 cookie 使用策略。
 * 提供指向隐私页面或视图的链接，您可以在其中详细说明网站的隐私策略。
 
 ## <a name="essential-cookies"></a>重要 cookie
@@ -102,7 +104,7 @@ CookieConsentPartial 分部视图： * \_*
 
 ### <a name="tempdata-provider-and-session-state-cookies-arent-essential"></a>TempData 提供程序和会话状态 cookie 不重要
 
-[TempData 提供程序](xref:fundamentals/app-state#tempdata)cookie 并不重要。 如果禁用跟踪，则 TempData 提供程序不起作用。 若要在禁用跟踪时启用 TempData 提供程序，请在中`Startup.ConfigureServices`将 TempData cookie 标记为重要：
+[TempData 提供程序](xref:fundamentals/app-state#tempdata)cookie 并不重要。 如果禁用跟踪，则 TempData 提供程序不起作用。 若要在禁用跟踪时启用 TempData 提供程序，请在中将 TempData cookie 标记为重要 `Startup.ConfigureServices` ：
 
 [!code-csharp[Main](gdpr/sample/RP2.2/Startup.cs?name=snippet1)]
 
@@ -122,9 +124,9 @@ ASP.NET Core 通过单独用户帐户创建的应用包括下载和删除个人�
 
 注意：
 
-* 若要生成`Account/Manage`代码，请参阅[基架标识](xref:security/authentication/scaffold-identity)。
-* "**删除**" 和 "**下载**" 链接仅作用于默认标识数据。 必须扩展用于创建自定义用户数据的应用，以删除/下载自定义用户数据。 有关详细信息，请参阅[向标识添加、下载和删除自定义用户数据](xref:security/authentication/add-user-data)。
-* 由于[外键](https://github.com/aspnet/Identity/blob/release/2.1/src/EF/IdentityUserContext.cs#L152)，通过级联删除行为删除用户时， `AspNetUserTokens`将删除存储在标识数据库表中的用户的已保存令牌。
+* 若要生成 `Account/Manage` 代码，请[参阅 Identity 基架](xref:security/authentication/scaffold-identity)。
+* "**删除**" 和 "**下载**" 链接仅作用于默认标识数据。 必须扩展用于创建自定义用户数据的应用，以删除/下载自定义用户数据。 有关详细信息，请参阅向[添加、下载和删除自定义用户 Identity 数据](xref:security/authentication/add-user-data)。
+* Identity `AspNetUserTokens` 由于[外键](https://github.com/aspnet/Identity/blob/release/2.1/src/EF/IdentityUserContext.cs#L152)，通过级联删除行为删除用户时，将删除存储在数据库表中的用户的已保存令牌。
 * [外部提供程序身份验证](xref:security/authentication/social/index)（如 Facebook 和 Google）在接受 cookie 策略之前不可用。
 
 ::: moniker-end

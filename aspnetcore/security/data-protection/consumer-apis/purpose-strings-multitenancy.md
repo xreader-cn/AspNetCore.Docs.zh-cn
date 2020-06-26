@@ -6,25 +6,27 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
-ms.openlocfilehash: 73edb8082d2df263bc1e6d73fee1360fa6840514
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 8f069da500e7bc06e4b8712fbf7b86d90a815758
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776768"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404374"
 ---
 # <a name="purpose-hierarchy-and-multi-tenancy-in-aspnet-core"></a>ASP.NET Core 中的用途层次结构和多租户
 
-由于也`IDataProtector`是隐式的`IDataProtectionProvider`，因此，目的可以链接在一起。 在这种意义`provider.CreateProtector([ "purpose1", "purpose2" ])`上，等效`provider.CreateProtector("purpose1").CreateProtector("purpose2")`于。
+由于 `IDataProtector` 也是隐式的 `IDataProtectionProvider` ，因此，目的可以链接在一起。 在这种意义上， `provider.CreateProtector([ "purpose1", "purpose2" ])` 等效于 `provider.CreateProtector("purpose1").CreateProtector("purpose2")` 。
 
-这允许通过数据保护系统实现一些有趣的层次结构关系。 在前面的[SecureMessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose)中，SecureMessage 组件可以提前调用`provider.CreateProtector("Contoso.Messaging.SecureMessage")` ，并将结果缓存到私有`_myProvider`字段。 以后可以通过对`_myProvider.CreateProtector("User: username")`的调用创建未来的保护程序，这些保护程序将用于保护单个消息。
+这允许通过数据保护系统实现一些有趣的层次结构关系。 在前面的[SecureMessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose)中，SecureMessage 组件可以提前调用， `provider.CreateProtector("Contoso.Messaging.SecureMessage")` 并将结果缓存到私有 `_myProvider` 字段。 以后可以通过对的调用创建未来的保护 `_myProvider.CreateProtector("User: username")` 程序，这些保护程序将用于保护单个消息。
 
-这也可以是反向的。 假设有一个逻辑应用程序托管多个租户（CMS 看似合理），并且每个租户都可以使用其自己的身份验证和状态管理系统进行配置。 该应用程序具有单个主提供程序，它调用`provider.CreateProtector("Tenant 1")`并`provider.CreateProtector("Tenant 2")`为每个租户提供自己的数据保护系统隔离切片。 然后，租户可以根据自己的需求来派生自己的单独保护程序，但不管它们尝试的情况如何，都不能创建与系统中任何其他租户发生冲突的保护程序。 以图形方式表示，如下所示。
+这也可以是反向的。 假设有一个逻辑应用程序托管多个租户（CMS 看似合理），并且每个租户都可以使用其自己的身份验证和状态管理系统进行配置。 该应用程序具有单个主提供程序，它调用 `provider.CreateProtector("Tenant 1")` 并为 `provider.CreateProtector("Tenant 2")` 每个租户提供自己的数据保护系统隔离切片。 然后，租户可以根据自己的需求来派生自己的单独保护程序，但不管它们尝试的情况如何，都不能创建与系统中任何其他租户发生冲突的保护程序。 以图形方式表示，如下所示。
 
 ![多租户用途](purpose-strings-multitenancy/_static/purposes-multi-tenancy.png)
 

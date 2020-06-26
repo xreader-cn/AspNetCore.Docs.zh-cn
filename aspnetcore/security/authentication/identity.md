@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 01/15/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 6d9532ed8ff89735f41c362b27826436c37c6cb5
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 97cbc5f68d20c06e92a56ead85c8377d4e8ef582
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452130"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404582"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
 
@@ -24,7 +26,7 @@ ms.locfileid: "84452130"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core Identity ：
+ASP.NET Core Identity：
 
 * 是支持用户界面（UI）登录功能的 API。
 * 管理用户、密码、配置文件数据、角色、声明、令牌、电子邮件确认等。
@@ -238,6 +240,7 @@ Identity了解更多详细信息：
 
 ## <a name="next-steps"></a>后续步骤
 
+* [ASP.NET Core Identity 源代码](https://github.com/dotnet/aspnetcore/tree/master/src/Identity)
 * 有关使用 SQLite 进行配置的信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity 。
 * [对Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>

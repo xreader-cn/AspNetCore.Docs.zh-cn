@@ -7,17 +7,19 @@ ms.author: bdorrans
 ms.date: 01/02/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: cf80f7009334f49d877d2bd296b512e23f7fded8
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: 493046e288c6b1ccd8e41f15a8e6e532a10a4adc
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "84724244"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403191"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -224,7 +226,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。
+> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。****
 
 ### <a name="iis"></a>IIS
 
@@ -573,7 +575,7 @@ ASP.NET Core 5 预览版4及更高版本为可选的客户端证书添加了更�
 
 * 设置域和子域的绑定：
   * 例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。 `contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。
-  * 有关详细信息，请参阅：
+  * 有关详情，请参阅：
     * [Kestrel](/fundamentals/servers/kestrel)：
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>

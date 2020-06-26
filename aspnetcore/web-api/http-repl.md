@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: 4c42ad56bbdb7b66824b290cd118903cbe4311e8
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: ead745ae8843173bb25b94672005cc6ce295db2e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452208"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403373"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -36,9 +38,9 @@ HTTP 读取–求值–打印循环 (REPL)：
 * [GET](#test-http-get-requests)
 * [头](#test-http-head-requests)
 * [选项](#test-http-options-requests)
-* [修补程序](#test-http-patch-requests)
+* [跳](#test-http-patch-requests)
 * [POST](#test-http-post-requests)
-* [准备](#test-http-put-requests)
+* [PUT](#test-http-put-requests)
 
 若要继续操作，请[查看或下载示例 ASP.NET Core Web API](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples)（[下载方式](xref:index#how-to-download-a-sample)）。
 
@@ -371,9 +373,9 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 
 默认情况下，HTTP REPL 具有一组相对路径，可用于在不使用 `--swagger` 选项执行 `connect` 命令时查找 Swagger 文档。 将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。 默认相对路径为：
 
-- *swagger。 json*
-- *swagger/v1/swagger*
-- */swagger.json*
+- *swagger.js*
+- *swagger/v1/swagger.js*
+- */swagger.js*
 - */swagger/v1/swagger.json*
 
 若要在环境中使用一组不同的搜索路径，请设置 `swagger.searchPaths` 首选项。 该值必须是以竖线分隔的相对路径列表。 例如：

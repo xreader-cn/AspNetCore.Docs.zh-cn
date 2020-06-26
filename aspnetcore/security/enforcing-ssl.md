@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/06/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: 26e6fb38cf31b5a2d5c88c19347c867641eb55df
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 8247d66900a0c15b3b386dca021c5c5922d26e71
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451727"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404557"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>在 ASP.NET Core 强制实施 HTTPS
 
@@ -58,7 +60,7 @@ ms.locfileid: "84451727"
 
 ::: moniker-end
 
-## <a name="require-https"></a>要求使用 HTTPS
+## <a name="require-https"></a>需要 HTTPS
 
 建议将生产 ASP.NET Core web 应用使用：
 
@@ -108,7 +110,7 @@ ms.locfileid: "84451727"
 
   * 在 "主机配置" 中。
   * 通过设置 `ASPNETCORE_HTTPS_PORT` 环境变量。
-  * 通过在*appsettings*中添加顶级条目：
+  * 通过在*appsettings.js上*的中添加顶级条目：
 
     [!code-json[](enforcing-ssl/sample-snapshot/3.x/appsettings.json?highlight=2)]
 
@@ -122,7 +124,7 @@ ms.locfileid: "84451727"
 
   * 在 "主机配置" 中。
   * 通过设置 `ASPNETCORE_HTTPS_PORT` 环境变量。
-  * 通过在*appsettings*中添加顶级条目：
+  * 通过在*appsettings.js上*的中添加顶级条目：
 
     [!code-json[](enforcing-ssl/sample-snapshot/2.x/appsettings.json?highlight=2)]
 
@@ -130,16 +132,16 @@ ms.locfileid: "84451727"
 
 ::: moniker-end
 
-* 在开发中，在*launchsettings.json*中设置 HTTPS URL。 当使用 IIS Express 时，启用 HTTPS。
+* 在开发中，在*launchsettings.js上*设置 HTTPS URL。 当使用 IIS Express 时，启用 HTTPS。
 
-* 为[Kestrel](xref:fundamentals/servers/kestrel) Server 或[http.sys](xref:fundamentals/servers/httpsys)服务器的面向公众的边缘部署配置 HTTPS URL 终结点。 此应用只使用**一个 HTTPS 端口**。 中间件通过发现端口 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> 。
+* 为[Kestrel](xref:fundamentals/servers/kestrel)服务器或[HTTP.sys](xref:fundamentals/servers/httpsys)服务器的面向公众的边缘部署配置 HTTPS URL 终结点。 此应用只使用**一个 HTTPS 端口**。 中间件通过发现端口 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> 。
 
 > [!NOTE]
 > 当应用在反向代理配置中运行时， <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> 不可用。 使用本部分中所述的其他方法之一设置端口。
 
 ### <a name="edge-deployments"></a>Edge 部署 
 
-当 Kestrel 或 http.sys 用作面向公众的边缘服务器时，必须将 Kestrel 或 http.sys 配置为侦听两者：
+当 Kestrel 或 HTTP.sys 用作面向公众的边缘服务器时，必须将 Kestrel 或 HTTP.sys 配置为侦听两者：
 
 * 重定向客户端的安全端口（通常为 5001 443）。
 * 不安全端口（在生产5000环境中通常为80）。

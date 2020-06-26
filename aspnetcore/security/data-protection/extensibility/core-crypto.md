@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 08/11/2017
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/extensibility/core-crypto
-ms.openlocfilehash: c63cc124e1893f23c18581841194fa66848a2a1e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: de34968f21eec28cf375ee9f75d3cb8b212c7e70
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776417"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404270"
 ---
 # <a name="core-cryptography-extensibility-in-aspnet-core"></a>ASP.NET Core 中的核心加密扩展性
 
@@ -126,10 +128,10 @@ IAuthenticatedEncryptor 和 IAuthenticatedEncryptorDescriptor 之间的主要区
 
 描述符可以通过其 ExportToXml 例程进行序列化。 此例程返回一个 XmlSerializedDescriptorInfo，其中包含两个属性：描述符的 System.xml.linq.xelement> 表示形式和表示[IAuthenticatedEncryptorDescriptorDeserializer](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptordeserializer)的类型，该类型可用于在给定相应 system.xml.linq.xelement> 的情况下恢复此描述符。
 
-序列化描述符可能包含敏感信息，如加密密钥材料。 数据保护系统在将信息保存到存储之前，对其进行内置支持。 若要利用这一点，描述符应标记包含具有属性名称 "requiresEncryption" （xmlns "<http://schemas.asp.net/2015/03/dataProtection>"）、值为 "true" 的敏感信息的元素。
+序列化描述符可能包含敏感信息，如加密密钥材料。 数据保护系统在将信息保存到存储之前，对其进行内置支持。 若要利用这一点，描述符应标记包含具有属性名称 "requiresEncryption" （xmlns " <http://schemas.asp.net/2015/03/dataProtection> "）、值为 "true" 的敏感信息的元素。
 
 >[!TIP]
-> 有一个用于设置此属性的帮助器 API。 调用 System.xml.linq.xelement> MarkAsRequiresEncryption （），该扩展方法位于命名空间 AspNetCore。
+> 有一个用于设置此属性的帮助器 API。 调用位于命名空间 Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel 中的扩展方法 MarkAsRequiresEncryption （）。
 
 也可能存在序列化描述符不包含敏感信息的情况。 再次考虑存储在 HSM 中的加密密钥的情况。 此描述符在序列化时无法写出密钥材料，因为 HSM 不会以纯文本形式公开材料。 相反，描述符可能会写出密钥的密钥包装版本（如果 HSM 允许以这种方式导出）或 HSM 自己的密钥唯一标识符。
 
