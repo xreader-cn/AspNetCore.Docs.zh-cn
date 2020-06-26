@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/02/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/cross-site-scripting
-ms.openlocfilehash: 5a14042db6250d5f7a47acaf4083b44272c606ab
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a94fe1612c023468238f09a91ddb0346b65d52ba
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777483"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408014"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>在 ASP.NET Core 中阻止跨站点脚本（XSS）
 
@@ -26,23 +28,23 @@ ms.locfileid: "82777483"
 
 ## <a name="protecting-your-application-against-xss"></a>针对 XSS 保护应用程序
 
-在基本级别上，XSS 通过引诱你的应用程序将`<script>`标记插入到呈现的页中，或通过`On*`将事件插入到元素中来发挥作用。 开发人员应使用以下预防步骤来避免向其应用程序引入 XSS。
+在基本级别上，XSS 通过引诱你的应用程序 `<script>` 将标记插入到呈现的页中，或通过 `On*` 将事件插入到元素中来发挥作用。 开发人员应使用以下预防步骤来避免向其应用程序引入 XSS。
 
 1. 请勿将不受信任的数据放入 HTML 输入，除非您按照以下步骤进行操作。 不受信任的数据是指攻击者可以控制的任何数据、HTML 窗体输入、查询字符串、HTTP 标头，甚至是源自数据库的数据，即使它们不能破坏您的应用程序，也可能会破坏您的数据库。
 
-2. 在 HTML 元素中放置不受信任的数据之前，请确保它经过 HTML 编码。 HTML 编码使用等字符&lt; ，并将其更改为像 lt 这样&amp;的安全形式;
+2. 在 HTML 元素中放置不受信任的数据之前，请确保它经过 HTML 编码。 HTML 编码使用等字符 &lt; ，并将其更改为像 lt 这样的安全形式 &amp; ;
 
 3. 将不受信任的数据放入 HTML 属性之前，请确保已对其进行 HTML 编码。 HTML 特性编码是 HTML 编码的超集，并对其他字符（如 "and"）进行编码。
 
-4. 将不受信任的数据放入 JavaScript 之前，请将数据放置在运行时检索其内容的 HTML 元素中。 如果无法做到这一点，请确保数据为 JavaScript 编码。 JavaScript 编码会为 JavaScript 使用危险字符，并将其替换为其十六进制&lt; ，例如，将`\u003C`编码为。
+4. 将不受信任的数据放入 JavaScript 之前，请将数据放置在运行时检索其内容的 HTML 元素中。 如果无法做到这一点，请确保数据为 JavaScript 编码。 JavaScript 编码会为 JavaScript 使用危险字符，并将其替换为其十六进制，例如，将 &lt; 编码为 `\u003C` 。
 
 5. 将不受信任的数据置于 URL 查询字符串之前，请确保其 URL 已编码。
 
 ## <a name="html-encoding-using-razor"></a>HTML 编码使用Razor
 
-MVC Razor中使用的引擎会自动对源自变量的所有输出进行编码，除非您确实很难避免这样做。 使用*@* 指令时，它将使用 HTML 属性编码规则。 HTML 特性编码是 HTML 编码的超集，这意味着您无需担心您应该使用 HTML 编码还是 HTML 特性编码。 您必须确保在 HTML 上下文中只使用 @，而不能在尝试将不受信任的输入直接插入 JavaScript 时使用。 标记帮助程序还将对在标记参数中使用的输入进行编码。
+RazorMVC 中使用的引擎会自动对源自变量的所有输出进行编码，除非您确实很难避免这样做。 使用指令时，它将使用 HTML 属性编码规则 *@* 。 HTML 特性编码是 HTML 编码的超集，这意味着您无需担心您应该使用 HTML 编码还是 HTML 特性编码。 您必须确保在 HTML 上下文中只使用 @，而不能在尝试将不受信任的输入直接插入 JavaScript 时使用。 标记帮助程序还将对在标记参数中使用的输入进行编码。
 
-获取以下Razor视图：
+获取以下 Razor 视图：
 
 ```cshtml
 @{
@@ -52,14 +54,14 @@ MVC Razor中使用的引擎会自动对源自变量的所有输出进行编码�
    @untrustedInput
    ```
 
-此视图输出*untrustedInput*变量的内容。 此变量包括在 XSS 攻击中使用的一些字符，即&lt;"和&gt;。 检查源会显示编码为的呈现输出：
+此视图输出*untrustedInput*变量的内容。 此变量包括在 XSS 攻击中使用的一些字符，即 &lt; "和 &gt; 。 检查源会显示编码为的呈现输出：
 
 ```html
 &lt;&quot;123&quot;&gt;
    ```
 
 >[!WARNING]
-> ASP.NET Core MVC 提供的`HtmlString`类在输出时不自动编码。 请勿将此项与不受信任的输入结合使用，因为这将公开 XSS 漏洞。
+> ASP.NET Core MVC 提供的 `HtmlString` 类在输出时不自动编码。 请勿将此项与不受信任的输入结合使用，因为这将公开 XSS 漏洞。
 
 ## <a name="javascript-encoding-using-razor"></a>JavaScript 编码使用Razor
 
@@ -144,11 +146,11 @@ MVC Razor中使用的引擎会自动对源自变量的所有输出进行编码�
 ```
 
 >[!WARNING]
-> 请勿连接 JavaScript 中不受信任的输入来创建 DOM 元素。 你应使用`createElement()`并适当地分配属性值（ `node.TextContent=`如）， `element.SetAttribute()` / `element[attribute]=`或使用，否则你会自行向基于 DOM 的 XSS 公开。
+> 请勿连接 JavaScript 中不受信任的输入来创建 DOM 元素。 你应使用 `createElement()` 并适当地分配属性值（如 `node.TextContent=` ），或使用， `element.SetAttribute()` / `element[attribute]=` 否则你会自行向基于 DOM 的 XSS 公开。
 
 ## <a name="accessing-encoders-in-code"></a>在代码中访问编码器
 
-HTML、JavaScript 和 URL 编码器通过两种方式提供给你的代码，你可以通过[依赖关系注入](xref:fundamentals/dependency-injection)来注入它们，也可以使用`System.Text.Encodings.Web`命名空间中包含的默认编码器。 如果使用默认编码器，则应用于字符范围的任何被视为安全的都不会生效-默认编码器可能会使用最安全的编码规则。
+HTML、JavaScript 和 URL 编码器通过两种方式提供给你的代码，你可以通过[依赖关系注入](xref:fundamentals/dependency-injection)来注入它们，也可以使用命名空间中包含的默认编码器 `System.Text.Encodings.Web` 。 如果使用默认编码器，则应用于字符范围的任何被视为安全的都不会生效-默认编码器可能会使用最安全的编码规则。
 
 若要通过 DI 使用可配置编码器，你的构造函数应适当地采用*HtmlEncoder*、 *JavaScriptEncoder*和*UrlEncoder*参数。 例如，
 
@@ -172,14 +174,14 @@ public class HomeController : Controller
 
 ## <a name="encoding-url-parameters"></a>编码 URL 参数
 
-如果要使用不受信任的输入生成 URL 查询字符串作为值，请使用`UrlEncoder`对值进行编码。 例如，应用于对象的
+如果要使用不受信任的输入生成 URL 查询字符串作为值，请使用 `UrlEncoder` 对值进行编码。 例如，
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";
    var encodedValue = _urlEncoder.Encode(example);
    ```
 
-编码后，Url-encodedvalue 变量将包含`%22Quoted%20Value%20with%20spaces%20and%20%26%22`。 空格、引号、标点符号和其他不安全字符的百分比将编码为其十六进制值，例如，空格字符将变为 %20。
+编码后，Url-encodedvalue 变量将包含 `%22Quoted%20Value%20with%20spaces%20and%20%26%22` 。 空格、引号、标点符号和其他不安全字符的百分比将编码为其十六进制值，例如，空格字符将变为 %20。
 
 >[!WARNING]
 > 请勿使用不受信任的输入作为 URL 路径的一部分。 始终将不受信任的输入传递为查询字符串值。
@@ -188,13 +190,13 @@ var example = "\"Quoted Value with spaces and &\"";
 
 ## <a name="customizing-the-encoders"></a>自定义编码器
 
-默认情况下，编码器使用限制为基本拉丁语 Unicode 范围的安全列表，并将该范围之外的所有字符编码为等效的字符代码。 此行为还会Razor影响 TagHelper 和 HtmlHelper 渲染，因为它将使用编码器输出字符串。
+默认情况下，编码器使用限制为基本拉丁语 Unicode 范围的安全列表，并将该范围之外的所有字符编码为等效的字符代码。 此行为还会影响 Razor TagHelper 和 HtmlHelper 渲染，因为它将使用编码器输出字符串。
 
 这种情况的原因是为了防止未知或将来的浏览器 bug （以前的浏览器 bug 基于非英语字符的处理来触发分析）。 如果你的网站大量使用非拉丁字符（如中文、西里尔语或其他），这可能不是你所希望的行为。
 
-在中，你可以自定义编码器安全列表，以包含在启动过程中`ConfigureServices()`适用于你的应用程序的 Unicode 范围。
+在中，你可以自定义编码器安全列表，以包含在启动过程中适用于你的应用程序的 Unicode 范围 `ConfigureServices()` 。
 
-例如，使用默认配置时，可以使用Razor HtmlHelper，如下所示：
+例如，使用默认配置时，可以使用 HtmlHelper， Razor 如下所示：
 
 ```html
 <p>This link text is in Chinese: @Html.ActionLink("汉语/漢語", "Index")</p>
@@ -206,7 +208,7 @@ var example = "\"Quoted Value with spaces and &\"";
 <p>This link text is in Chinese: <a href="/">&#x6C49;&#x8BED;/&#x6F22;&#x8A9E;</a></p>
    ```
 
-若要放宽编码器被视为安全字符，请将以下行插入到中`ConfigureServices()` `startup.cs`的方法;
+若要放宽编码器被视为安全字符，请将以下行插入到 `ConfigureServices()` 中的方法 `startup.cs` ;
 
 ```csharp
 services.AddSingleton<HtmlEncoder>(
@@ -223,7 +225,7 @@ services.AddSingleton<HtmlEncoder>(
 安全列表范围指定为 Unicode 代码图表，而不是语言。 [Unicode 标准](https://unicode.org/)包含可用来查找包含字符的图表的[代码图表](https://www.unicode.org/charts/index.html)列表。 每个编码器、Html、JavaScript 和 Url 都必须单独配置。
 
 > [!NOTE]
-> 安全列表的自定义仅影响通过 DI 的编码器。 如果直接通过`System.Text.Encodings.Web.*Encoder.Default`访问编码器，则默认情况下将使用仅限基本拉丁语的唯一安全安全。
+> 安全列表的自定义仅影响通过 DI 的编码器。 如果直接通过访问编码器 `System.Text.Encodings.Web.*Encoder.Default` ，则默认情况下将使用仅限基本拉丁语的唯一安全安全。
 
 ## <a name="where-should-encoding-take-place"></a>编码应发生在何处？
 

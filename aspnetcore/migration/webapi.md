@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 05/26/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: migration/webapi
-ms.openlocfilehash: 3c8bf27a97de92a42817d4af625976a4920001aa
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 530455c85c4c869f06ba795d9fb63dcfd1c8d5cf
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84145546"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407221"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>从 ASP.NET Web API 迁移到 ASP.NET Core
 
@@ -57,23 +59,23 @@ ASP.NET 4.x Web API 是一种 HTTP 服务，它可达到各种客户端，包括
 
 在 Visual Studio 中创建新的空白解决方案并添加 ASP.NET 4.x Web API 项目以进行迁移：
 
-1. 从“文件”菜单中选择“新建”>“项目”  。
+1. 从“文件”菜单中选择“新建”>“项目”**** **** ****。
 1. 选择 "**空白解决方案**" 模板，然后选择 "**下一步**"。
-1. 将解决方案命名为*WebAPIMigration*。 选择“创建”。
+1. 将解决方案命名为*WebAPIMigration*。 选择“创建” 。
 1. 将现有的*ProductsApp*项目添加到解决方案。
 
 添加要迁移到的新 API 项目：
 
 1. 向解决方案添加新的**ASP.NET Core Web 应用程序**项目。
 1. 在 "**配置新项目**" 对话框中，将项目命名为*ProductsCore*，然后选择 "**创建**"。
-1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”    。 选择“API”项目模板，然后选择“创建” 。
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”**** **** ****。 选择“API”项目模板，然后选择“创建” 。
 1. 从新的*ProductsCore*项目中删除*WeatherForecast.cs*和 controller */WeatherForecastController*示例文件。
 
 解决方案现在包含两个项目。 以下各节介绍了如何将*ProductsApp*项目的内容迁移到*ProductsCore*项目。
 
 ## <a name="migrate-configuration"></a>迁移配置
 
-ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件。 此外，在发布时添加*web.config 文件。*
+ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件。 此外，还会在发布时添加*web.config*文件。
 
 `Startup` 类：
 
@@ -186,7 +188,7 @@ ASP.NET Core *API*项目模板在生成的代码中包含终结点路由配置�
 ASP.NET Core 不使用：
 
 * *App_Start*文件夹或*global.asax*文件
-* 在发布时添加*web.config 文件。*
+* 在发布时添加*web.config*文件。
 
 `Startup` 类：
 

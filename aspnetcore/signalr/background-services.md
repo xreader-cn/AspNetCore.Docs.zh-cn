@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 7bc3b9535055e3fccf23ffa4638bd29676910348
-ms.sourcegitcommit: e87dfa08fec0be1008249b1be678e5f79dcc5acb
+ms.openlocfilehash: bf5fff213b2cd7db0b3227922a8c5babba2fc904
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/13/2020
-ms.locfileid: "83382564"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85409080"
 ---
 # <a name="host-aspnet-core-signalr-in-background-services"></a>SignalR在后台服务中托管 ASP.NET Core
 
@@ -31,12 +33,12 @@ ms.locfileid: "83382564"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/samples/3.x) [（如何下载）](xref:index#how-to-download-a-sample)
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/samples/3.x)[（如何下载）](xref:index#how-to-download-a-sample)
 
 ::: moniker-end
 ::: moniker range="<= aspnetcore-2.2"
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/samples/2.2) [（如何下载）](xref:index#how-to-download-a-sample)
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/samples/2.2)[（如何下载）](xref:index#how-to-download-a-sample)
 
 ::: moniker-end
 
@@ -62,7 +64,7 @@ SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.
 有关强类型化集线器的详细信息，请参阅[使用中 SignalR 的中心进行 ASP.NET Core](xref:signalr/hubs#strongly-typed-hubs)。
 
 > [!NOTE]
-> 此功能并不限于[中心 \< t>](xref:Microsoft.AspNetCore.SignalR.Hub`1)类。 从[中心](xref:Microsoft.AspNetCore.SignalR.Hub)继承的任何类（如[DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub)）都适用。
+> 此功能并不限于[集线器 \<T> ](xref:Microsoft.AspNetCore.SignalR.Hub`1)类。 从[中心](xref:Microsoft.AspNetCore.SignalR.Hub)继承的任何类（如[DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub)）都适用。
 
 ::: moniker range=">= aspnetcore-3.0"
 

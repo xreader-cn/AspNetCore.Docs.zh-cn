@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/policyschemes
-ms.openlocfilehash: ddedf62c5e8363bd93c9948fd2d3418abc566539
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a8bde9633f06f41ebcb55480eb2322544db4b4da
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767312"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408755"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>ASP.NET Core 中的策略方案
 
@@ -25,7 +27,7 @@ ms.locfileid: "82767312"
 * 可以轻松地将任何身份验证操作转发到另一个方案。
 * 根据请求动态转发。
 
-使用派生<xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions>的所有身份验证方案和关联[的\<AuthenticationHandler TOptions>](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1)：
+使用派生的 <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> 和关联的[AuthenticationHandler \<TOptions> ](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1)的所有身份验证方案：
 
 * 是 ASP.NET Core 2.1 及更高版本中自动的策略方案。
 * 可以通过配置方案的选项来启用。

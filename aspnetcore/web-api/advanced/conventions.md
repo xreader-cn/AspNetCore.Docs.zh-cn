@@ -8,23 +8,25 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/advanced/conventions
-ms.openlocfilehash: f74327cd5bb6a5794c90ffdd3896f2b343e175a6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: eece8130c152fdada1e1d86cf3c94932c5ee9f63
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774881"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408443"
 ---
 # <a name="use-web-api-conventions"></a>使用 Web API 约定
 
 作者：[Pranav Krishnamoorthy](https://github.com/pranavkm) 和 [Scott Addie](https://github.com/scottaddie)
 
-ASP.NET Core 2.2 及更高版本附带一种方法，可提取常见的 [API 文档](xref:tutorials/web-api-help-pages-using-swagger)并将其应用于多个操作、控制器或某程序集内的所有控制器。 Web API 约定是使用[`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute)修饰单独操作的替代方案。
+ASP.NET Core 2.2 及更高版本附带一种方法，可提取常见的 [API 文档](xref:tutorials/web-api-help-pages-using-swagger)并将其应用于多个操作、控制器或某程序集内的所有控制器。 Web API 约定是使用修饰单独操作的替代方案 [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 。
 
 使用此约定，可以：
 

@@ -8,21 +8,23 @@ ms.custom: mvc
 ms.date: 12/03/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/samesite/mvc21
-ms.openlocfilehash: 6a53c0d3c0a314c4137f071cf50062182b654658
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 4239321531f3a7696a15b1dea164450ea0860c2b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777301"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85409054"
 ---
 # <a name="aspnet-core-21-mvc-samesite-cookie-sample"></a>ASP.NET Core 2.1 MVC SameSite cookie 示例
 
-ASP.NET Core 2.1 内置了对[SameSite](https://www.owasp.org/index.php/SameSite)属性的支持，但它已写入原始标准。 修补后的[行为](https://github.com/dotnet/aspnetcore/issues/8212)更改了的`SameSite.None`含义，以发出值为的`None`sameSite 特性，而不是根本不发出值。 如果你不想发出该值，则可将 cookie 上`SameSite`的属性设置为-1。
+ASP.NET Core 2.1 内置了对[SameSite](https://www.owasp.org/index.php/SameSite)属性的支持，但它已写入原始标准。 修补后的[行为](https://github.com/dotnet/aspnetcore/issues/8212)更改了的含义 `SameSite.None` ，以发出值为的 sameSite 特性 `None` ，而不是根本不发出值。 如果你不想发出该值，则可将 `SameSite` cookie 上的属性设置为-1。
 
 ## <a name="writing-the-samesite-attribute"></a><a name="sampleCode"></a>编写 SameSite 属性
 
@@ -69,21 +71,21 @@ services.AddSession(options =>
 });
 ```
 
-在前面的代码中，cookie 身份验证和会话状态将其 sameSite 属性`None`设置为，发出具有`None`值的属性，同时将 Secure 特性设置为 true。
+在前面的代码中，cookie 身份验证和会话状态将其 sameSite 属性设置为 `None` ，发出具有值的属性， `None` 同时将 Secure 特性设置为 true。
 
 ### <a name="run-the-sample"></a>运行示例
 
-如果运行[示例项目](https://github.com/blowdart/AspNetSameSiteSamples/tree/master/AspNetCore21MVC)，请在初始页面上加载浏览器调试器，并使用它查看站点的 cookie 集合。 若要在 Edge 和 Chrome 中进行`F12`此操作， `Application`请按，选择选项卡，然后`Cookies`单击`Storage`节中的选项下的 "站点 URL"。
+如果运行[示例项目](https://github.com/blowdart/AspNetSameSiteSamples/tree/master/AspNetCore21MVC)，请在初始页面上加载浏览器调试器，并使用它查看站点的 cookie 集合。 若要在 Edge 和 Chrome 中进行此操作，请按， `F12` 选择 `Application` 选项卡，然后单击节中的选项下的 "站点 URL" `Cookies` `Storage` 。
 
 ![浏览器调试器 Cookie 列表](BrowserDebugger.png)
 
-你可以从上图中看到，当你单击 "创建 SameSite Cookie" 按钮的 SameSite 属性值为`Lax`时，此示例创建的 cookie 与[示例代码](#sampleCode)中设置的值匹配。
+你可以从上图中看到，当你单击 "创建 SameSite Cookie" 按钮的 SameSite 属性值为时，此示例创建的 cookie 与 `Lax` [示例代码](#sampleCode)中设置的值匹配。
 
 ## <a name="intercepting-cookies"></a><a name="interception"></a>截获 cookie
 
-为了截获 cookie，若要根据用户的浏览器代理中的支持调整 "无" 值，必须使用`CookiePolicy`中间件。 必须将其放入 http 请求管道，然后**才能**在中`ConfigureServices()`编写 cookie 和配置。
+为了截获 cookie，若要根据用户的浏览器代理中的支持调整 "无" 值，必须使用 `CookiePolicy` 中间件。 必须将其放入 http 请求管道，然后**才能**在中编写 cookie 和配置 `ConfigureServices()` 。
 
-若要将其插入管道中`app.UseCookiePolicy()` ，请`Configure(IApplicationBuilder, IHostingEnvironment)`在[Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs)的方法中使用。 例如：
+若要将其插入管道中，请在 Startup.cs 的方法中使用 `app.UseCookiePolicy()` `Configure(IApplicationBuilder, IHostingEnvironment)` 。 [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs) 例如：
 
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -113,7 +115,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-然后在中`ConfigureServices(IServiceCollection services)`配置 cookie 策略，以便在添加或删除 cookie 时调用帮助器类。 例如：
+然后在中 `ConfigureServices(IServiceCollection services)` 配置 cookie 策略，以便在添加或删除 cookie 时调用帮助器类。 例如：
 
 ```c#
 public void ConfigureServices(IServiceCollection services)
@@ -142,12 +144,12 @@ private void CheckSameSite(HttpContext httpContext, CookieOptions options)
 }
 ```
 
-Helper 函数`CheckSameSite(HttpContext, CookieOptions)`：
+Helper 函数 `CheckSameSite(HttpContext, CookieOptions)` ：
 
 * 当 cookie 追加到请求或从请求中删除时调用。
-* 检查`SameSite`属性是否设置为`None`。
-* 如果`SameSite`将设置为`None` ，并且已知当前用户代理不支持 none 特性值，则为。 使用[SameSiteSupport](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/samesite/sample/snippets/SameSiteSupport.cs)类完成检查：
-  * 设置`SameSite`为不通过将属性设置为来发出该值`(SameSiteMode)(-1)`
+* 检查 `SameSite` 属性是否设置为 `None` 。
+* 如果将 `SameSite` 设置为 `None` ，并且已知当前用户代理不支持 none 特性值，则为。 使用[SameSiteSupport](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/samesite/sample/snippets/SameSiteSupport.cs)类完成检查：
+  * 设置 `SameSite` 为不通过将属性设置为来发出该值`(SameSiteMode)(-1)`
 
 ## <a name="targeting-net-framework"></a>目标 .NET Framework
 
@@ -164,6 +166,6 @@ ASP.NET Core 和 System.web （ASP.NET 经典）具有 SameSite 的独立实现�
 
 ### <a name="more-information"></a>更多信息
  
-[Chrome 更新](https://www.chromium.org/updates/same-site)
-[ASP.NET Core SameSite 文档](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1)
+[Chrome 更新](https://www.chromium.org/updates/same-site) 
+[ASP.NET Core SameSite 文档](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1) 
 [ASP.NET Core 2.1 SameSite 更改公告](https://github.com/dotnet/aspnetcore/issues/8212)

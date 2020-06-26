@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 08/14/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: 42ddddeaa329ac5ff5b2b40cbf9ebffa68f6d4cf
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 4ed5a550b5d3ca00179ae0492bf61e7fe91e324c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774426"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408768"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>为 ASP.NET Core 中的 TOTP 验证器应用启用 QR 代码生成
 
@@ -36,22 +38,22 @@ ASP.NET Core web 应用模板支持验证器，但不要为 QRCode 生成提供�
 
 ## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a>将 QR 代码添加到 "2FA" 配置页
 
-这些说明使用*qrcode.js*存储库中的https://davidshimjs.github.io/qrcodejs/ qrcode。
+这些说明使用存储库中的*qrcode.js* https://davidshimjs.github.io/qrcodejs/ 。
 
-* 将[qrcode javascript 库](https://davidshimjs.github.io/qrcodejs/)下载到项目中的`wwwroot\lib`文件夹。
+* 将[qrcode.js javascript 库](https://davidshimjs.github.io/qrcodejs/)下载到 `wwwroot\lib` 项目中的文件夹。
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* 按照[ Identity基架](xref:security/authentication/scaffold-identity)中的说明生成 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*。
-* 在 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*中，找到`Scripts`文件末尾的部分：
+* 按照[基架 Identity ](xref:security/authentication/scaffold-identity)中的说明生成 */Areas/ Identity /Pages/Account/Manage/EnableAuthenticator.cshtml*。
+* 在 */Areas/ Identity /Pages/Account/Manage/EnableAuthenticator.cshtml*中，找到 `Scripts` 文件末尾的部分：
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-* 在*pages/Account/manage/EnableAuthenticator* （Razor pages）或*Views/manage/EnableAuthenticator* （MVC）中，找到文件末尾的`Scripts`部分：
+* 在*pages/Account/manage/EnableAuthenticator* （ Razor Pages）或*Views/manage/EnableAuthenticator* （MVC）中，找到 `Scripts` 文件末尾的部分：
 
 ::: moniker-end
 
@@ -63,7 +65,7 @@ ASP.NET Core web 应用模板支持验证器，但不要为 QRCode 生成提供�
 }
 ```
 
-* 更新`Scripts`节以添加对添加的`qrcodejs`库的引用，并调用以生成 QR 代码。 其外观应如下所示：
+* 更新 `Scripts` 节以添加对添加的库的引用 `qrcodejs` ，并调用以生成 QR 代码。 其外观应如下所示：
 
 ```cshtml
 @section Scripts {
@@ -91,13 +93,13 @@ ASP.NET Core web 应用模板支持验证器，但不要为 QRCode 生成提供�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-QR 代码中的站点名称取自最初创建项目时选择的项目名称。 可以通过在`GenerateQrCodeUri(string email, string unformattedKey)` */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*中查找方法来更改该方法。
+QR 代码中的站点名称取自最初创建项目时选择的项目名称。 可以通过在 `GenerateQrCodeUri(string email, string unformattedKey)` */Areas/ Identity /Pages/Account/Manage/EnableAuthenticator.cshtml.cs*中查找方法来更改该方法。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-QR 代码中的站点名称取自最初创建项目时选择的项目名称。 您可以通过在`GenerateQrCodeUri(string email, string unformattedKey)` *页面/帐户/管理/EnableAuthenticator* （Razor页）文件或*控制器/ManageController* （MVC）文件中查找方法来更改该方法。
+QR 代码中的站点名称取自最初创建项目时选择的项目名称。 您可以通过在 `GenerateQrCodeUri(string email, string unformattedKey)` *页面/帐户/管理/EnableAuthenticator* （ Razor 页）文件或*控制器/ManageController* （MVC）文件中查找方法来更改该方法。
 
 ::: moniker-end
 
@@ -116,16 +118,16 @@ private string GenerateQrCodeUri(string email, string unformattedKey)
 }
 ```
 
-对的调用中的第二`string.Format`个参数是您的站点名称，从您的解决方案名称获取。 可以将其更改为任何值，但必须始终以 URL 编码。
+对的调用中的第二个参数 `string.Format` 是您的站点名称，从您的解决方案名称获取。 可以将其更改为任何值，但必须始终以 URL 编码。
 
 ## <a name="using-a-different-qr-code-library"></a>使用其他 QR 码库
 
-可以将 QR 代码库替换为首选库。 HTML 包含一个`qrCode`元素，你可以在其中放置 QR 码，方法是使用库提供的任何机制。
+可以将 QR 代码库替换为首选库。 HTML 包含一个 `qrCode` 元素，你可以在其中放置 QR 码，方法是使用库提供的任何机制。
 
 可以在中找到 QR 码的格式正确的 URL：
 
 * `AuthenticatorUri`模型的属性。
-* `data-url`元素中的`qrCodeData`属性。
+* `data-url`元素中的属性 `qrCodeData` 。
 
 ## <a name="totp-client-and-server-time-skew"></a>TOTP 客户端和服务器时间偏差
 

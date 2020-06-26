@@ -8,29 +8,31 @@ ms.custom: mvc
 ms.date: 04/06/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: d3207969dfbeb9a81e0da88f38a38c6889bbfba9
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d92707ff06125a4b65f1ec18e402f5fe86547b5e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775864"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407910"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的部分标记帮助程序
 
 作者：[Scott Addie](https://github.com/scottaddie)
 
-有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="overview"></a>概述
 
-部分标记帮助器用于在页面和 MVC 应用中Razor呈现[分部视图](xref:mvc/views/partial)。 请考虑：
+部分标记帮助器用于在页面和 MVC 应用中呈现[分部视图](xref:mvc/views/partial) Razor 。 请考虑：
 
 * 需要 ASP.NET Core 2.1 或更高版本。
 * 是 [HTML 帮助程序语法](xref:mvc/views/partial#reference-a-partial-view)的替代方法。
@@ -57,7 +59,7 @@ ms.locfileid: "82775864"
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_Name)]
 
-## <a name="for"></a>for
+## <a name="for"></a>针对
 
 `for` 属性分配要根据当前模型评估的 [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression)。 `ModelExpression` 推断 `@Model.` 语法。 例如，可使用 `for="Product"` 而非 `for="@Model.Product"`。 通过使用 `@` 符号定义内联表达式来替代此默认推理行为。
 

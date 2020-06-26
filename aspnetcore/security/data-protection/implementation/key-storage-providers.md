@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: cdf10cd26f3eb9af386f782475eeabbda50f0df9
-ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
+ms.openlocfilehash: 1bbea6f16d57d5cc107c95293e2788271bfce601
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/12/2020
-ms.locfileid: "83153350"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408040"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>ASP.NET Core 中的密钥存储提供程序
 
@@ -147,7 +149,7 @@ public void ConfigureServices(IServiceCollection services)
 
 使用此包，可以在 web 应用的多个实例之间共享密钥。
 
-若要配置 EF Core 提供程序，请调用[PersistKeysToDbContext \< TContext>](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext)方法：
+若要配置 EF Core 提供程序，请[调用 \<TContext> PersistKeysToDbContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext)方法：
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-20)]
 

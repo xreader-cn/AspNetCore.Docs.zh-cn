@@ -7,17 +7,19 @@ ms.author: riande
 ms.date: 02/11/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/cookie
-ms.openlocfilehash: 7d2f338f8ece6bd3cc99d5f2ab8153b5c465c7a4
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: 401d03352b8c2c040202716bdddf484e3b778f52
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "84724232"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408820"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>在不 ASP.NET Core 的情况下使用 cookie 身份验证Identity
 
@@ -31,7 +33,7 @@ ASP.NET Core Identity 是完整的全功能身份验证提供程序，用于创�
 
 出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用**电子邮件**地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户通过 `AuthenticateUser` *页面/帐户/登录名. .cs*文件中的方法进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
 
-## <a name="configuration"></a>Configuration
+## <a name="configuration"></a>配置
 
 如果应用程序不使用[AspNetCore 元包](xref:fundamentals/metapackage-app)，请在 AspNetCore 包的项目文件中创建包引用（& [c](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) ）。
 
@@ -252,7 +254,7 @@ ASP.NET Core Identity 是完整的全功能身份验证提供程序，用于创�
 
 出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用**电子邮件**地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户通过 `AuthenticateUser` *页面/帐户/登录名. .cs*文件中的方法进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
 
-## <a name="configuration"></a>Configuration
+## <a name="configuration"></a>配置
 
 如果应用程序不使用[AspNetCore 元包](xref:fundamentals/metapackage-app)，请在 AspNetCore 包的项目文件中创建包引用（& [c](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) ）。
 

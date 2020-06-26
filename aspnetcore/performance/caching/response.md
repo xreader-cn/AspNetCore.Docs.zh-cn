@@ -7,17 +7,19 @@ ms.author: riande
 ms.date: 11/04/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: performance/caching/response
-ms.openlocfilehash: 87ff2633ded612eba2c996583b4a6cf997fe8e18
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 25d6bdae0fce7821ec7b9195817dc07ef9aed40f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84105761"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408183"
 ---
 # <a name="response-caching-in-aspnet-core"></a>ASP.NET Core 中的响应缓存
 
@@ -49,7 +51,7 @@ ms.locfileid: "84105761"
 
 | Header                                                     | 函数 |
 | ---------------------------------------------------------- | -------- |
-| [年龄](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
+| [Age](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
 | [完](https://tools.ietf.org/html/rfc7234#section-5.3) | 响应被视为过时的时间。 |
 | [杂](https://tools.ietf.org/html/rfc7234#section-5.4)  | 存在，以便向后兼容 HTTP/1.0 缓存以设置 `no-cache` 行为。 如果该 `Cache-Control` 标头存在，则将 `Pragma` 忽略该标头。 |
 | [大](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | 指定不能发送缓存的响应，除非 `Vary` 缓存响应的原始请求和新请求中的所有标头字段都匹配。 |

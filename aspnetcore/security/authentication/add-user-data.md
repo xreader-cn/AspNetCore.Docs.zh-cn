@@ -7,17 +7,19 @@ ms.date: 03/26/2020
 ms.custom: mvc, seodec18
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/add-user-data
-ms.openlocfilehash: 6b4de0a47cd7882852512040a08832942f20aa4c
-ms.sourcegitcommit: 1833870ad0845326fb764fef1b530a07b9b5b099
+ms.openlocfilehash: e5c23cc49a52b8772a43853e9e953dd416d69f69
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85347107"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408729"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>在 ASP.NET Core 项目中添加、下载和删除自定义用户数据 Identity
 
@@ -92,7 +94,7 @@ dotnet new webapp -o WebApp1
     * **帐户/管理/索引**
   * 选择 **+** 按钮以创建新的**数据上下文类**。 如果项目命名为**WebApp1**，则接受类型（**WebApp1. WebApp1Context。**
   * 选择 **+** 按钮以创建新的**用户类**。 接受类型（如果项目命名为 " **WebApp1**"，则为**WebApp1User** ） > "**添加**"。
-* 选择“添加”  。
+* 选择“添加”****。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 

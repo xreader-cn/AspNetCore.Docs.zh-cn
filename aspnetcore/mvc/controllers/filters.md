@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 02/04/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 068b471c1f5fa5f0ca87dd7b028badf70f8c1b67
-ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
+ms.openlocfilehash: 7fe33a620e43603388dd0cacb3ea42f5b5adc40f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/20/2020
-ms.locfileid: "85122160"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408287"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -282,7 +284,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>依赖项注入
+## <a name="dependency-injection"></a>依赖关系注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 
@@ -814,7 +816,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>依赖项注入
+## <a name="dependency-injection"></a>依赖关系注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 

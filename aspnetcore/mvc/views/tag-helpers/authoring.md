@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 0b60468b96ded559d180e7b3bf5f799ce2f4d7e3
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 5e250debb5c4c2ef00b844557d31ed8281d2ff2f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775084"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407585"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -55,9 +57,9 @@ ms.locfileid: "82775084"
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1EmailTagHelperCopy.cs)]
 
-   * 标记帮助程序使用面向根类名称的元素的命名约定（减去类名称的 TagHelper 部分）**。 在此示例中， **EmailTagHelper**的根名称为*email*，因此`<email>`标记将针对。 此命名约定应适用于大多数标记帮助程序，稍后将介绍如何重写它。
+   * 标记帮助程序使用面向根类名称的元素的命名约定（减去类名称的 TagHelper 部分）**。 在此示例中， **EmailTagHelper**的根名称为*email*，因此 `<email>` 标记将针对。 此命名约定应适用于大多数标记帮助程序，稍后将介绍如何重写它。
 
-   * `EmailTagHelper` 类派生自 `TagHelper`。 `TagHelper` 类提供编写标记帮助程序的方法和属性。
+   * `EmailTagHelper` 类从 `TagHelper` 派生。 `TagHelper` 类提供编写标记帮助程序的方法和属性。
 
    * 重写的 `Process` 方法控制标记帮助程序在执行时的操作。 `TagHelper` 类还提供具有相同参数的异步版本 (`ProcessAsync`)。
 
@@ -71,11 +73,11 @@ ms.locfileid: "82775084"
    public class Email : TagHelper
    ```
 
-1. 若要使`EmailTagHelper`类可用于所有Razor视图，请将`addTagHelper`指令添加到*views/_ViewImports cshtml*文件中：
+1. 若要使 `EmailTagHelper` 类可用于所有 Razor 视图，请将 `addTagHelper` 指令添加到*views/_ViewImports cshtml*文件中：
 
    [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
 
-   上面的代码使用通配符语法来指定程序集中的所有标记帮助程序都将可用。 `@addTagHelper` 之后的第一个字符串指定要加载的标记帮助程序（对所有标记帮助程序使用“*”），第二个字符串“AuthoringTagHelpers”指定标记帮助程序所在的程序集。 另请注意，第二行将使用通配符语法 ASP.NET Core MVC 标记帮助程序（[标记帮助程序简介](intro.md)中讨论了这些帮助程序。）它是使`@addTagHelper`标记帮助程序可用于该Razor视图的指令。 或者，也可以提供标记帮助程序的完全限定的名称 (FQN)，如下所示：
+   上面的代码使用通配符语法来指定程序集中的所有标记帮助程序都将可用。 `@addTagHelper` 之后的第一个字符串指定要加载的标记帮助程序（对所有标记帮助程序使用“*”），第二个字符串“AuthoringTagHelpers”指定标记帮助程序所在的程序集。 另请注意，第二行将使用通配符语法 ASP.NET Core MVC 标记帮助程序（[标记帮助程序简介](intro.md)中讨论了这些帮助程序。）它是 `@addTagHelper` 使标记帮助程序可用于该视图的指令 Razor 。 或者，也可以提供标记帮助程序的完全限定的名称 (FQN)，如下所示：
 
 ```csharp
 @using AuthoringTagHelpers
@@ -98,7 +100,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 ## <a name="setattribute-and-setcontent"></a>SetAttribute 和 SetContent
 
-在本部分中，我们将更新 `EmailTagHelper`，使其能够为电子邮件创建有效的定位标记。 我们将对其进行更新，以从Razor视图（ `mail-to`属性的形式）获取信息，并在生成定位点时使用该视图。
+在本部分中，我们将更新 `EmailTagHelper`，使其能够为电子邮件创建有效的定位标记。 我们将对其进行更新，以从 Razor 视图（属性的形式）获取信息 `mail-to` ，并在生成定位点时使用该视图。
 
 使用以下内容更新 `EmailTagHelper` 类：
 
@@ -191,7 +193,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 添加“Models”文件夹**。
 
-1. 将以下 `WebsiteContext` 类添加到“模型”文件夹**：
+1. 将以下 `WebsiteContext` 类添加到“模型”文件夹：
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Models/WebsiteContext.cs)]
 
@@ -199,7 +201,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/WebsiteInformationTagHelper.cs)]
 
-   * 如前所述，标记帮助程序会将标记帮助程序采用 Pascal 大小写格式的 C# 类名和属性转换为[短横线格式](https://wiki.c2.com/?KebabCase)。 因此，若要`WebsiteInformationTagHelper`在中Razor使用，你将`<website-information />`编写。
+   * 如前所述，标记帮助程序会将标记帮助程序采用 Pascal 大小写格式的 C# 类名和属性转换为[短横线格式](https://wiki.c2.com/?KebabCase)。 因此，若要 `WebsiteInformationTagHelper` 在中使用 Razor ，你将编写 `<website-information />` 。
 
    * 未显式标识具有 `[HtmlTargetElement]` 属性的目标元素，因此 `website-information` 的默认值将成为目标元素。 如果应用了以下属性（请注意，它虽不是短横线格式，但却与类名相匹配）：
 
@@ -213,7 +215,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
    [HtmlTargetElement("Website-Information")]
    ```
 
-   * 自结束的元素没有任何内容。 在Razor此示例中，标记将使用一个自结束标记，但标记帮助程序将创建[section](https://www.w3.org/TR/html5/sections.html#the-section-element)元素（该元素不会自行关闭，并且你将在`section`元素内编写内容）。 因此，需要将 `TagMode` 设置为 `StartTagAndEndTag` 以写入输出。 或者，可以标注出行设置 `TagMode` 并用结束标记编写标记。 （本教程后面将提供示例标记。）
+   * 自结束的元素没有任何内容。 在此示例中， Razor 标记将使用一个自结束标记，但标记帮助程序将创建[section](https://www.w3.org/TR/html5/sections.html#the-section-element)元素（该元素不会自行关闭，并且你将在元素内编写内容 `section` ）。 因此，需要将 `TagMode` 设置为 `StartTagAndEndTag` 以写入输出。 或者，可以标注出行设置 `TagMode` 并用结束标记编写标记。 （本教程后面将提供示例标记。）
 
    * 下一行中的 `$`（美元符号）使用[内插字符串](/dotnet/csharp/language-reference/keywords/interpolated-strings)：
 
@@ -226,11 +228,11 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
    [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
 
    > [!NOTE]
-   > 在下面Razor显示的标记中：
+   > 在 Razor 下面显示的标记中：
    >
    > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?range=18-18)]
    >
-   > Razor知道`info`属性是一个类，而不是字符串，并且您想要编写 c # 代码。 编写任何非字符串标记帮助程序属性时，都不应使用 `@` 字符。
+   > Razor知道 `info` 属性是一个类，而不是字符串，并且您想要编写 c # 代码。 编写任何非字符串标记帮助程序属性时，都不应使用 `@` 字符。
 
 1. 运行应用，并导航到“关于”视图查看 Web 站点信息。
 

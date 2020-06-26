@@ -8,17 +8,19 @@ ms.custom: signalr
 ms.date: 06/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 7d7ea0fe69f258c01177c7755eaee61ab42400ce
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: f2b864d47c98a031872be676a68143bd79f49829
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102940"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85409093"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core 中的日志记录和诊断SignalR
 
@@ -88,7 +90,7 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 下表显示了可用于 JavaScript 客户端的日志级别。 将日志级别设置为这些值之一，可以在表中对该级别和其之上的所有级别进行日志记录。
 
-| 级别 | 说明 |
+| Level | 说明 |
 | ----- | ----------- |
 | `None` | 不记录任何消息。 |
 | `Critical` | 指示整个应用程序中的失败的消息。 |

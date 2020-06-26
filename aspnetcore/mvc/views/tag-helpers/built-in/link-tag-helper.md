@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 09/24/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
-ms.openlocfilehash: 1efd7c1a63baea4312a4a01cd9cd9c7582375d97
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c767ff4c2a1e0d5d10ccb3ff855126f541c04f64
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777349"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408235"
 ---
 # <a name="link-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的链接标记帮助程序
 
@@ -29,7 +31,7 @@ ms.locfileid: "82777349"
 
 可以使用链接标记帮助程序指定 CSS 文件的 CDN 以及回退文件（CDN 不可用时）。 链接标记帮助程序借助本地宿主的可靠性提供 CDN 性能优势。
 
-以下Razor标记显示使用 ASP.NET Core `head` web 应用程序模板创建的布局文件的元素：
+以下 Razor 标记显示 `head` 使用 ASP.NET Core web 应用程序模板创建的布局文件的元素：
 
 [!code-html[](link-tag-helper/sample/_Layout.cshtml?name=snippet)]
 

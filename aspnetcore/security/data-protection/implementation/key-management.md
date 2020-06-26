@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-management
-ms.openlocfilehash: 0f54ceedf3558fb4fa2349903461fdfdb4dc02e6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 68913d13c97ba6be73dabf79e03c146a37388ad3
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776898"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408937"
 ---
 # <a name="key-management-in-aspnet-core"></a>ASP.NET Core 中的密钥管理
 
@@ -65,7 +67,7 @@ services.AddDataProtection()
        .SetDefaultKeyLifetime(TimeSpan.FromDays(14));
 ```
 
-管理员还可以更改系统范围内的默认值，尽管对`SetDefaultKeyLifetime`的显式调用将覆盖任何系统范围内的策略。 默认密钥生存期不能短于7天。
+管理员还可以更改系统范围内的默认值，尽管对的显式调用 `SetDefaultKeyLifetime` 将覆盖任何系统范围内的策略。 默认密钥生存期不能短于7天。
 
 ## <a name="automatic-key-ring-refresh"></a>自动密钥环刷新
 
@@ -74,11 +76,11 @@ services.AddDataProtection()
 >[!WARNING]
 > 开发人员极少需要直接使用密钥管理 Api。 数据保护系统将执行上述自动密钥管理。
 
-数据保护系统公开了一个接口`IKeyManager` ，该接口可用于检查和更改密钥环。 提供实例的 DI 系统还`IDataProtectionProvider`可以`IKeyManager`为你的消耗提供的实例。 或者，你可以`IKeyManager`直接从中拉取， `IServiceProvider`如以下示例中所示。
+数据保护系统公开了一个接口 `IKeyManager` ，该接口可用于检查和更改密钥环。 提供实例的 DI 系统 `IDataProtectionProvider` 还可以 `IKeyManager` 为你的消耗提供的实例。 或者，你可以 `IKeyManager` 直接从中拉取， `IServiceProvider` 如以下示例中所示。
 
-修改密钥环（显式创建新密钥或执行吊销）的任何操作都会使内存中缓存失效。 对`Protect`或`Unprotect`的下一个调用将导致数据保护系统重新读取键环并重新创建缓存。
+修改密钥环（显式创建新密钥或执行吊销）的任何操作都会使内存中缓存失效。 对或的下一个调用 `Protect` `Unprotect` 将导致数据保护系统重新读取键环并重新创建缓存。
 
-下面的示例演示如何使用`IKeyManager`接口来检查和操作密钥环，包括吊销现有密钥并手动生成新密钥。
+下面的示例演示如何使用 `IKeyManager` 接口来检查和操作密钥环，包括吊销现有密钥并手动生成新密钥。
 
 [!code-csharp[](key-management/samples/key-management.cs)]
 

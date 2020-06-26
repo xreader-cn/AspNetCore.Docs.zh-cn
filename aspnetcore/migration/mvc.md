@@ -6,17 +6,19 @@ ms.author: wpickett
 ms.date: 06/18/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: migration/mvc
-ms.openlocfilehash: d2b1cce4bf70893f164e77921df8122e0291be18
-ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
+ms.openlocfilehash: 6a645d0e5959b4301ee7d2bcfc692f7499574dc4
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85241015"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407318"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 
@@ -41,9 +43,9 @@ ms.locfileid: "85241015"
 
 在 Visual Studio 中创建一个示例 ASP.NET MVC 项目以进行迁移：
 
-1. 从“文件”菜单中选择“新建”>“项目”  。
+1. 从“文件”菜单中选择“新建”>“项目”**** **** ****。
 1. 选择 " **ASP.NET Web 应用程序（.NET Framework）** "，然后选择 "**下一步**"。
-1. 将项目命名为*WebApp1* ，使命名空间与下一步中创建的 ASP.NET Core 项目相匹配。 选择“创建”。
+1. 将项目命名为*WebApp1* ，使命名空间与下一步中创建的 ASP.NET Core 项目相匹配。 选择“创建” 。
 1. 选择 " **MVC**"，然后选择 "**创建**"。
 
 ## <a name="create-the-aspnet-core-project"></a>创建 ASP.NET Core 项目
@@ -51,11 +53,11 @@ ms.locfileid: "85241015"
 使用要迁移到的新 ASP.NET Core 项目创建新的解决方案：
 
 1. 启动 Visual Studio 的第二个实例。
-1. 从“文件”菜单中选择“新建”>“项目”  。
+1. 从“文件”菜单中选择“新建”>“项目”**** **** ****。
 1. 选择 " **ASP.NET Web Core Web 应用程序**"，然后选择 "**下一步**"。
 1. 在 "**配置新项目**" 对话框中，将项目命名为 " *WebApp1*"。
-1. 将位置设置为与上一个项目不同的目录，以使用相同的项目名称。 使用同一个命名空间可以更轻松地在两个项目之间复制代码。 选择“创建”。
-1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”  。 选择 " **Web 应用程序（模型-视图-控制器）** " 项目模板，然后选择 "**创建**"。
+1. 将位置设置为与上一个项目不同的目录，以使用相同的项目名称。 使用同一个命名空间可以更轻松地在两个项目之间复制代码。 选择“创建” 。
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”**** **** ****。 选择 " **Web 应用程序（模型-视图-控制器）** " 项目模板，然后选择 "**创建**"。
 
 ## <a name="configure-the-aspnet-core-site-to-use-mvc"></a>将 ASP.NET Core 网站配置为使用 MVC
 
@@ -104,7 +106,7 @@ ASP.NET Core *WebApp1*项目已包含与 ASP.NET MVC 项目相同的名称的最
 可以测试每个控制器终结点，但在本文档的后面部分介绍了布局和样式。
 
 1. 运行 ASP.NET Core 应用。
-1. 通过将当前端口号替换为 ASP.NET Core 项目中使用的端口号，在运行 ASP.NET Core 应用程序的浏览器中调用呈现的视图。 例如，`https://localhost:44375/home/about`。
+1. 通过将当前端口号替换为 ASP.NET Core 项目中使用的端口号，在运行 ASP.NET Core 应用程序的浏览器中调用呈现的视图。 例如 `https://localhost:44375/home/about`。
 
 ## <a name="migrate-static-content"></a>迁移静态内容
 

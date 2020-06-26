@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/22/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/hub-filters
-ms.openlocfilehash: afdb52039c0eff53a421038518c687c78e1d509b
-ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
+ms.openlocfilehash: c7ba0fff8bca53e2d6d12add693ee391ffa789ca
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2020
-ms.locfileid: "84756062"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408560"
 ---
 # <a name="use-hub-filters-in-aspnet-core-signalr"></a>在 ASP.NET Core 中使用集线器筛选器SignalR
 
@@ -191,7 +193,7 @@ public class CustomFilter : IHubFilter
 
 `HubInvocationContext`包含当前集线器方法调用的信息。
 
-| 属性 | 说明 | 类型 |
+| properties | 说明 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |
@@ -204,7 +206,7 @@ public class CustomFilter : IHubFilter
 
 `HubLifetimeContext`包含 `OnConnectedAsync` 和集线器方法的信息 `OnDisconnectedAsync` 。
 
-| 属性 | 说明 | 类型 |
+| properties | 说明 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |

@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/02/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: 4162221ef3401427c44fb54dee9c36b78b39564f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b9b90c1c40fccbc7bb6b6c9050bd525b5fa8cd92
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774660"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407403"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的脚本标记帮助程序
 
@@ -29,7 +31,7 @@ ms.locfileid: "82774660"
 
 可以使用脚本标记帮助程序指定脚本文件的 CDN 以及回退文件（CDN 不可用时）。 脚本标记帮助程序借助本地宿主的可靠性提供 CDN 性能优势。
 
-以下Razor标记显示了具有`script`回退的元素：
+以下 Razor 标记显示了 `script` 具有回退的元素：
 
 ```html
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"

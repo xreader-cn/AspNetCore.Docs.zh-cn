@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 03/28/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/docker-compose-https
-ms.openlocfilehash: 533d86fb17e3c89fdca59685b090645a11ba5473
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b282af3b9c657bda4432f0d60f100f65fa7cbae9
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775136"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408612"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a>通过 HTTPS Docker Compose 宿主 ASP.NET Core 映像
 
@@ -39,14 +41,14 @@ ms.locfileid: "82775136"
 
 针对域的[生产主机](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)需要[证书颁发机构颁发](https://wikipedia.org/wiki/Certificate_authority)的证书。 [Let's Encrypt](https://letsencrypt.org/)是提供免费证书的证书颁发机构。
 
-本文档使用[自签名开发证书](https://wikipedia.org/wiki/Self-signed_certificate)来托管预生成的映像`localhost`。 说明类似于使用生产证书。
+本文档使用[自签名开发证书](https://wikipedia.org/wiki/Self-signed_certificate)来托管预生成的映像 `localhost` 。 说明类似于使用生产证书。
 
 对于生产证书：
 
-* 此`dotnet dev-certs`工具不是必需的。
+* 此 `dotnet dev-certs` 工具不是必需的。
 * 无需将证书存储在说明中使用的位置。 将证书存储在站点目录之外的任何位置。
 
-以下部分中包含的说明使用`volumes` *docker-compose.yml. docker-compose.override.yml*中的属性将证书装载到容器中。 可以使用`COPY` *Dockerfile*中的命令将证书添加到容器映像中，但不建议这样做。 由于以下原因，不建议将证书复制到映像：
+以下部分中包含的说明使用 `volumes` *docker-compose.yml. docker-compose.override.yml*中的属性将证书装载到容器中。 可以使用 Dockerfile 中的命令将证书添加到容器映像 `COPY` 中，但不建议这样做。 *Dockerfile* 由于以下原因，不建议将证书复制到映像：
 
 * 这使得使用开发人员证书进行测试变得困难。
 * 这使得难以使用同一个映像来托管生产证书。
@@ -65,7 +67,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-在上述命令中，将`{ password here }`替换为密码。
+在上述命令中，将替换 `{ password here }` 为密码。
 
 创建包含以下内容的_docker-compose.yml docker-compose.override.yml_文件：
 
@@ -105,7 +107,7 @@ dotnet dev-certs https --trust
 
 `dotnet dev-certs https --trust`仅在 macOS 和 Windows 上受支持。 你需要以发行版支持的方式在 Linux 上信任证书。 可能需要在浏览器中信任该证书。
 
-在上述命令中，将`{ password here }`替换为密码。
+在上述命令中，将替换 `{ password here }` 为密码。
 
 创建包含以下内容的_docker-compose.yml docker-compose.override.yml_文件：
 
@@ -143,7 +145,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-在上述命令中，将`{ password here }`替换为密码。
+在上述命令中，将替换 `{ password here }` 为密码。
 
 创建包含以下内容的_docker-compose.yml docker-compose.override.yml_文件：
 
