@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/index
-ms.openlocfilehash: 413b4cf786c31ac3a538c8663014b53502d90d0c
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 2da3585df16cbec4b87db32cee1bb9138e6aeb16
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83838287"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406676"
 ---
 # <a name="overview-of-aspnet-core-security"></a>ASP.NET Core 安全性概述
 
@@ -42,4 +44,4 @@ ASP.NET Core 和 EF 提供维护应用安全、预防安全漏洞的功能。 �
 * [跨站点请求伪造 (CSRF)](xref:security/anti-request-forgery)
 * [打开重定向攻击](xref:security/preventing-open-redirects)
 
-还应注意其他漏洞。 有关详细信息，请参阅目录的“安全性和 Identity”部分中的其他文章。
+还应注意其他漏洞。 有关详细信息，请参阅目录的“安全性和 Identity”部分中的其他文章****。

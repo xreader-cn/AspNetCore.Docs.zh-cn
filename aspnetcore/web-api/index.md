@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/02/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/index
-ms.openlocfilehash: 5ea82d36d305b1f6ba58fba1b4c5bb4dca22f912
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7c9762d23ff612155846357bfadeaaad492c7299
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776521"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404725"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -92,7 +94,7 @@ Web API 包含一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.Controller
 * [Multipart/form-data 请求推理](#multipartform-data-request-inference)
 * [错误状态代码的问题详细信息](#problem-details-for-error-status-codes)
 
-必须有[兼容性版本](xref:mvc/compatibility-version) 2.2 或更高版本，才能使用“错误状态代码的问题详细信息”  功能。 必须有兼容性版本 2.1 或更高版本，才能使用其他功能。
+必须有[兼容性版本](xref:mvc/compatibility-version) 2.2 或更高版本，才能使用“错误状态代码的问题详细信息”** 功能。 必须有兼容性版本 2.1 或更高版本，才能使用其他功能。
 
 ::: moniker-end
 

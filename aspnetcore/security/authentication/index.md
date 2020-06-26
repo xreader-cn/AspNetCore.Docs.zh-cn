@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 03/03/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/index
-ms.openlocfilehash: 4e47bd91ce15836035d3e8f0a8ceed264f308b22
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a58d48d390eefdc26cf3feb394874b0ba733e9f3
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768632"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408339"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 

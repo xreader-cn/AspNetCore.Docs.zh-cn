@@ -1,11 +1,25 @@
 ---
-title: author: description: monikerRange: ms.author: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: .NET Core 上的 gRPC 的简介
+author: juntaoluo
+description: 了解使用 Kestrel 服务器和 ASP.NET Core 堆栈的 gRPC 服务。
+monikerRange: '>= aspnetcore-3.0'
+ms.author: johluo
+ms.date: 09/20/2019
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: grpc/index
+ms.openlocfilehash: 9f3a2041059c1d890ce72ce5f2a88151253d9bd9
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404179"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>.NET Core 上的 gRPC 的简介
 
@@ -29,7 +43,7 @@ gRPC 的主要优点是：
 
 ## <a name="c-tooling-support-for-proto-files"></a>.proto 文件的 C# 工具支持
 
-gRPC 使用协定优先方法进行 API 开发。 在 \*.proto 文件中定义服务和消息：
+gRPC 使用协定优先方法进行 API 开发。 在 \*.proto** 文件中定义服务和消息：
 
 ```protobuf
 syntax = "proto3";
@@ -47,10 +61,10 @@ message HelloReply {
 }
 ```
 
-通过在项目中包含 \*.proto 文件，可以自动生成用于服务、客户端和消息的 .NET 类型：
+通过在项目中包含 \*.proto** 文件，可以自动生成用于服务、客户端和消息的 .NET 类型：
 
 * 将包引用添加到 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包。
-* 将 \*.proto 文件添加到 `<Protobuf>` 项目组。
+* 将 \*.proto** 文件添加到 `<Protobuf>` 项目组。
 
 ```xml
 <ItemGroup>
@@ -88,7 +102,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-`GreeterService` 继承自 `GreeterBase` 类型，后者是从 \*.proto 文件的 `Greeter` 服务生成的。 Startup.cs 中的客户端可以访问该服务：
+`GreeterService` 继承自 `GreeterBase` 类型，后者是从 \*.proto** 文件的 `Greeter` 服务生成的。 Startup.cs** 中的客户端可以访问该服务：
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -101,7 +115,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="call-grpc-services-with-a-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
-gRPC 客户端是从 [\*.proto 文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto 文件中 gRPC 服务的方法。
+gRPC 客户端是从 [\*.proto** 文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto** 文件中 gRPC 服务的方法。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");

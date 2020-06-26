@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/index
-ms.openlocfilehash: 796d7da76da6723ea996b57510da9c45ab21b3e7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 79022af0e6ee1294e12c21492bc81bc40482a3fb
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775916"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403958"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>托管和部署 ASP.NET Core
 
@@ -32,15 +34,15 @@ ms.locfileid: "82775916"
 
 ## <a name="publish-to-a-folder"></a>发布到文件夹
 
-[dotnet publish](/dotnet/core/tools/dotnet-publish) 命令编译应用代码，并复制在“发布”  文件夹中运行应用所需的文件。 使用 Visual Studio 进行部署时，自动先执行 `dotnet publish` 步骤，再将文件复制到部署目标。
+[dotnet publish](/dotnet/core/tools/dotnet-publish) 命令编译应用代码，并复制在“发布”文件夹中运行应用所需的文件。 使用 Visual Studio 进行部署时，自动先执行 `dotnet publish` 步骤，再将文件复制到部署目标。
 
 ### <a name="folder-contents"></a>文件夹内容
 
-“发布”  文件夹包含一个或多个应用程序集文件、依赖项以及（可选）.NET 运行时。
+“发布”文件夹包含一个或多个应用程序集文件、依赖项以及（可选）.NET 运行时。
 
-.NET Core 应用可以发布为“独立式部署”  ，也可以发布为“依赖框架的部署”  。 如果应用是独立式，“发布”  文件夹中有包含 .NET 运行时的程序集文件。 如果应用依赖于框架，.NET 运行时文件就不包含在内，因为应用包含对服务器上安装的 .NET 版本的引用。 默认部署模型是依赖于框架的模型。 有关详细信息，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
+.NET Core 应用可以发布为“独立式部署”，也可以发布为“依赖框架的部署”。 如果应用是独立式，“发布”文件夹中有包含 .NET 运行时的程序集文件。 如果应用依赖于框架，.NET 运行时文件就不包含在内，因为应用包含对服务器上安装的 .NET 版本的引用。 默认部署模型是依赖于框架的模型。 有关详细信息，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
 
-除了“.exe”  和“.dll”  文件以外，ASP.NET Core 应用的“发布”  文件夹通常包含配置文件、静态资产和 MVC 视图。 有关详细信息，请参阅 <xref:host-and-deploy/directory-structure>。
+除了“.exe”和“.dll”文件以外，ASP.NET Core 应用的“发布”文件夹通常包含配置文件、静态资产和 MVC 视图。 有关详细信息，请参阅 <xref:host-and-deploy/directory-structure>。
 
 ## <a name="set-up-a-process-manager"></a>设置进程管理器
 
@@ -65,7 +67,7 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="use-visual-studio-and-msbuild-to-automate-deployments"></a>使用 Visual Studio 和 MSBuild 自动执行部署
 
-除将输出从 [dotnet publish](/dotnet/core/tools/dotnet-publish) 复制到服务器外，部署通常还需要其他任务。 例如，可能需要从“发布”  文件夹获取或排除额外文件。 Visual Studio 使用 MSBuild 进行 Web 部署，用户可以自定义 MSBuild 以在部署期间执行其他任务。 有关详细信息，请参阅 <xref:host-and-deploy/visual-studio-publish-profiles> 和[使用 MSBuild 和 Team Foundation Build](http://msbuildbook.com/) 一书。
+除将输出从 [dotnet publish](/dotnet/core/tools/dotnet-publish) 复制到服务器外，部署通常还需要其他任务。 例如，可能需要从“发布”文件夹获取或排除额外文件。 Visual Studio 使用 MSBuild 进行 Web 部署，用户可以自定义 MSBuild 以在部署期间执行其他任务。 有关详细信息，请参阅 <xref:host-and-deploy/visual-studio-publish-profiles> 和[使用 MSBuild 和 Team Foundation Build](http://msbuildbook.com/) 一书。
 
 通过[发布 Web 功能](xref:tutorials/publish-to-azure-webapp-using-vs)或[内置 Git 支持](xref:host-and-deploy/azure-apps/azure-continuous-deployment)，可以将应用从 Visual Studio 直接部署到 Azure 应用服务。 Azure DevOps Services 支持[对 Azure 应用服务进行持续部署](/azure/devops/pipelines/targets/webapp)。 有关详细信息，请参阅[通过 ASP.NET Core 和 Azure 实现 DevOps](xref:azure/devops/index)。
 
@@ -79,7 +81,7 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="internet-information-services-iis"></a>Internet 信息服务 (IIS)
 
-要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅 <xref:host-and-deploy/iis/index> 下的文章  。
+要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅 <xref:host-and-deploy/iis/index> 下的文章。
 
 ## <a name="host-in-a-web-farm"></a>在 Web 场中托管
 
@@ -110,15 +112,15 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="publish-to-a-folder"></a>发布到文件夹
 
-[dotnet publish](/dotnet/core/tools/dotnet-publish) 命令编译应用代码，并复制在“发布”  文件夹中运行应用所需的文件。 使用 Visual Studio 进行部署时，自动先执行 `dotnet publish` 步骤，再将文件复制到部署目标。
+[dotnet publish](/dotnet/core/tools/dotnet-publish) 命令编译应用代码，并复制在“发布”文件夹中运行应用所需的文件。 使用 Visual Studio 进行部署时，自动先执行 `dotnet publish` 步骤，再将文件复制到部署目标。
 
 ### <a name="folder-contents"></a>文件夹内容
 
-“发布”  文件夹包含一个或多个应用程序集文件、依赖项以及（可选）.NET 运行时。
+“发布”文件夹包含一个或多个应用程序集文件、依赖项以及（可选）.NET 运行时。
 
-.NET Core 应用可以发布为“独立式部署”  ，也可以发布为“依赖框架的部署”  。 如果应用是独立式，“发布”  文件夹中有包含 .NET 运行时的程序集文件。 如果应用依赖于框架，.NET 运行时文件就不包含在内，因为应用包含对服务器上安装的 .NET 版本的引用。 默认部署模型是依赖于框架的模型。 有关详细信息，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
+.NET Core 应用可以发布为“独立式部署”，也可以发布为“依赖框架的部署”。 如果应用是独立式，“发布”文件夹中有包含 .NET 运行时的程序集文件。 如果应用依赖于框架，.NET 运行时文件就不包含在内，因为应用包含对服务器上安装的 .NET 版本的引用。 默认部署模型是依赖于框架的模型。 有关详细信息，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
 
-除了“.exe”  和“.dll”  文件以外，ASP.NET Core 应用的“发布”  文件夹通常包含配置文件、静态资产和 MVC 视图。 有关详细信息，请参阅 <xref:host-and-deploy/directory-structure>。
+除了“.exe”和“.dll”文件以外，ASP.NET Core 应用的“发布”文件夹通常包含配置文件、静态资产和 MVC 视图。 有关详细信息，请参阅 <xref:host-and-deploy/directory-structure>。
 
 ## <a name="set-up-a-process-manager"></a>设置进程管理器
 
@@ -143,7 +145,7 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="use-visual-studio-and-msbuild-to-automate-deployments"></a>使用 Visual Studio 和 MSBuild 自动执行部署
 
-除将输出从 [dotnet publish](/dotnet/core/tools/dotnet-publish) 复制到服务器外，部署通常还需要其他任务。 例如，可能需要从“发布”  文件夹获取或排除额外文件。 Visual Studio 使用 MSBuild 进行 Web 部署，用户可以自定义 MSBuild 以在部署期间执行其他任务。 有关详细信息，请参阅 <xref:host-and-deploy/visual-studio-publish-profiles> 和[使用 MSBuild 和 Team Foundation Build](http://msbuildbook.com/) 一书。
+除将输出从 [dotnet publish](/dotnet/core/tools/dotnet-publish) 复制到服务器外，部署通常还需要其他任务。 例如，可能需要从“发布”文件夹获取或排除额外文件。 Visual Studio 使用 MSBuild 进行 Web 部署，用户可以自定义 MSBuild 以在部署期间执行其他任务。 有关详细信息，请参阅 <xref:host-and-deploy/visual-studio-publish-profiles> 和[使用 MSBuild 和 Team Foundation Build](http://msbuildbook.com/) 一书。
 
 通过[发布 Web 功能](xref:tutorials/publish-to-azure-webapp-using-vs)或[内置 Git 支持](xref:host-and-deploy/azure-apps/azure-continuous-deployment)，可以将应用从 Visual Studio 直接部署到 Azure 应用服务。 Azure DevOps Services 支持[对 Azure 应用服务进行持续部署](/azure/devops/pipelines/targets/webapp)。 有关详细信息，请参阅[通过 ASP.NET Core 和 Azure 实现 DevOps](xref:azure/devops/index)。
 
@@ -157,7 +159,7 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="internet-information-services-iis"></a>Internet 信息服务 (IIS)
 
-要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅 <xref:host-and-deploy/iis/index> 下的文章  。
+要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅 <xref:host-and-deploy/iis/index> 下的文章。
 
 ## <a name="host-in-a-web-farm"></a>在 Web 场中托管
 
