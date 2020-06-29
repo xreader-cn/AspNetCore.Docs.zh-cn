@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: 3345f545e230ada78e6c66fc9eb049060d5794d6
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: d4ebab0d8fc2ee48fa4d9c8b1f1b8e5cbf43cab9
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83851154"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242436"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
 
@@ -68,7 +68,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如果自定义线路处理程序的方法引发未处理异常，则该异常会导致 Blazor Server 线路产生严重错误。 若要容忍处理程序代码或被调用方法中的异常，请使用错误处理和日志记录将代码包装到一个或多个 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句中。
+如果自定义线路处理程序的方法引发未处理异常，则该异常会导致 Blazor Server 线路产生严重错误。 若要容忍处理程序代码或被调用方法中的异常，请使用错误处理和日志记录将代码包装到一个或多个 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句中。
 
 当线路因用户断开连接而结束且框架正在清除线路状态时，框架会处置线路的 DI 范围。 处置范围时会处置所有实现 <xref:System.IDisposable?displayProperty=fullName> 的区分线路范围的 DI 服务。 如果有任何 DI 服务在处置期间引发未处理异常，则框架会记录该异常。
 
@@ -133,11 +133,11 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不与执行顺序相关
 
-Razor 组件文件 (.razor) 始终被编译。 与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。
+Razor 组件文件 (`.razor`) 始终被编译。 与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。
 
 这些改进的关键示例涉及*序列号*。 序列号向运行时指示哪些输出来自哪些不同的已排序代码行。 运行时使用此信息在线性时间内生成高效的树上差分，这比常规树上差分算法通常可以做到的速度快得多。
 
-考虑以下 Razor 组件 (.razor) 文件：
+请考虑使用以下 Razor 组件（`.razor` 文件）：
 
 ```razor
 @if (someFlag)
@@ -217,9 +217,9 @@ builder.AddContent(seq++, "Second");
 
 * 如果动态生成序列号，则应用性能会受到影响。
 * 该框架无法在运行时自动创建自己的序列号，因为除非在编译时捕获了必需的信息，否则这些信息不存在。
-* 不要编写手动实现的冗长 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 逻辑块。 优先使用 *.razor* 文件并允许编译器处理序列号。 如果无法避免 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 手动逻辑，请将较长的代码块拆分为封装在 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A>/<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> 调用中的较小部分。 每个区域都有自己的独立序列号空间，因此可在每个区域内从零（或任何其他任意数）重新开始。
+* 不要编写手动实现的冗长 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 逻辑块。 优先使用 `.razor` 文件并允许编译器处理序列号。 如果无法避免 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 手动逻辑，请将较长的代码块拆分为封装在 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A>/<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> 调用中的较小部分。 每个区域都有自己的独立序列号空间，因此可在每个区域内从零（或任何其他任意数）重新开始。
 * 如果序列号已硬编码，则差分算法仅要求序列号的值增加。 初始值和间隔不相关。 一个合理选择是使用代码行号作为序列号，或者从零开始并以 1 或 100 的间隔（或任何首选间隔）增加。 
-* Blazor 使用序列号，而其他树上差分 UI 框架不使用它们。 使用序列号时，差分速度要快得多，并且 Blazor 的优势在于编译步骤可为编写 *.razor* 文件的开发人员自动处理序列号。
+* Blazor 使用序列号，而其他树上差分 UI 框架不使用它们。 使用序列号时，差分速度要快得多，并且 Blazor 的优势在于编译步骤可为编写 `.razor` 文件的开发人员自动处理序列号。
 
 ## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>在 Blazor Server 应用中执行大型数据传输
 

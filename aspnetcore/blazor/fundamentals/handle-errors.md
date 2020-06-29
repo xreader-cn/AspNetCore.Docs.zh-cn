@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/handle-errors
-ms.openlocfilehash: f0362fbce7f1fafb413d526809ec9191c603e494
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: e777991f4cbfd22b441fb198144bbdf023b4df6b
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103184"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242779"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -35,7 +35,7 @@ ms.locfileid: "85103184"
 
 此错误处理体验的 UI 属于 Blazor 项目模板。
 
-在 Blazor WebAssembly 应用的 wwwroot/index.html 文件中自定义体验：
+在 Blazor WebAssembly 应用的 `wwwroot/index.html` 文件中自定义体验：
 
 ```html
 <div id="blazor-error-ui">
@@ -45,7 +45,7 @@ ms.locfileid: "85103184"
 </div>
 ```
 
-在 Blazor 服务器应用的 Pages/_Host.cshtml 文件中自定义体验：
+在 Blazor Server 应用的 `Pages/_Host.cshtml` 文件中自定义体验：
 
 ```cshtml
 <div id="blazor-error-ui">
@@ -60,7 +60,7 @@ ms.locfileid: "85103184"
 </div>
 ```
 
-`blazor-error-ui` 元素被 Blazor 模板 (*wwwroot/css/site.css*) 附带的样式隐藏，并会在发生错误时显示：
+`blazor-error-ui` 元素被 Blazor 模板 (`wwwroot/css/site.css`) 附带的样式隐藏，并会在发生错误时显示：
 
 ```css
 #blazor-error-ui {
@@ -140,7 +140,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * 会调用该组件的构造函数。
 * 会调用通过 [`@inject`](xref:mvc/views/razor#inject) 指令或 [`[Inject]`](xref:blazor/fundamentals/dependency-injection#request-a-service-in-a-component) 特性提供给组件构造函数的非单一 DI 设备的构造函数。
 
-如果任何已执行的构造函数或任何 `[Inject]` 属性的资源库引发了未经处理的异常，则 Blazor 服务器线路会失败。 这是严重异常，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
+如果任何已执行的构造函数或任何 `[Inject]` 属性的资源库引发了未经处理的异常，则 Blazor 服务器线路会失败。 这是严重异常，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
 
 ### <a name="lifecycle-methods"></a>生命周期方法
 
@@ -155,7 +155,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 
 在下面的示例中，<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 会调用方法来获取产品：
 
-* 在 `ProductRepository.GetProductByIdAsync` 方法中抛出的异常由 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句进行处理。
+* `ProductRepository.GetProductByIdAsync` 方法中引发的异常由 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句处理。
 * 在执行 `catch` 块时：
   * `loadFailed` 设置为 `true`，用于向用户显示一条错误消息。
   * 错误会被记录。
@@ -185,7 +185,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 
 在这些情况下，事件处理程序代码可能会引发未经处理的异常。
 
-如果事件处理程序引发未经处理的异常（例如数据库查询失败），则该异常对于 Blazor 服务器线路来说是严重异常。 如果应用调用可能因外部原因而失败的代码，请使用 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
+如果事件处理程序引发未经处理的异常（例如数据库查询失败），则该异常对于 Blazor 服务器线路来说是严重异常。 如果应用调用可能因外部原因而失败的代码，请使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
 
 如果用户代码不会捕获和处理异常，则框架将记录异常并终止线路。
 
@@ -193,7 +193,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 
 例如，可从 UI 中删除组件，因为用户已导航到其他页面。 当从 UI 中删除实现 <xref:System.IDisposable?displayProperty=fullName> 的组件时，框架将调用该组件的 <xref:System.IDisposable.Dispose%2A> 方法。
 
-如果组件的 `Dispose` 方法引发未经处理的异常，则该异常对于 Blazor 服务器线路来说是严重异常。 如果处置逻辑可能引发异常，应用应使用 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
+如果组件的 `Dispose` 方法引发未经处理的异常，则该异常对于 Blazor 服务器线路来说是严重异常。 如果处置逻辑可能引发异常，应用应使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
 
 要详细了解组件处置，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
 
@@ -204,10 +204,10 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 以下条件适用于带有 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的错误处理：
 
 * 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行同步调用，则会发生 .NET 异常。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，因为不能序列化提供的自变量。 开发人员代码必须捕获异常。 如果事件处理程序或组件生命周期方法中的应用代码未处理异常，则该异常对于 Blazor 服务器线路来说是严重异常。
-* 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行异步调用，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，这是因为 JavaScript 端代码会引发异常或返回完成状态为 `rejected` 的 `Promise`。 开发人员代码必须捕获异常。 如果使用 [await](/dotnet/csharp/language-reference/keywords/await) 运算符，请考虑使用 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句包装方法调用，并进行错误处理和日志记录。 否则，失败的代码会导致未经处理的异常，这对于 Blazor 服务器线路来说是严重异常。
+* 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行异步调用，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，这是因为 JavaScript 端代码会引发异常或返回完成状态为 `rejected` 的 `Promise`。 开发人员代码必须捕获异常。 如果使用 [`await`](/dotnet/csharp/language-reference/keywords/await) 运算符，请考虑使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句包装方法调用，并进行错误处理和日志记录。 否则，失败的代码会导致未经处理的异常，这对于 Blazor 服务器线路来说是严重异常。
 * 默认情况下，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用必须在特定时间段内完成，否则调用会超时。默认超时期限为一分钟。 超时会保护代码免受网络连接丢失的影响，或者保护永远不会发回完成消息的 JavaScript 代码。 如果调用超时，则生成的 <xref:System.Threading.Tasks> 将失败，并出现 <xref:System.OperationCanceledException>。 捕获异常，并进行异常处理和日志记录。
 
-同样，JavaScript 代码可以对 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute)](xref:blazor/call-dotnet-from-javascript) 特性指明的 .NET 方法发起调用。 如果这些 .NET 方法引发未经处理的异常：
+同样，JavaScript 代码可以对 [`[JSInvokable]`](xref:blazor/call-dotnet-from-javascript) 特性指示的 .NET 方法发起调用。 如果这些 .NET 方法引发未经处理的异常：
 
 * 此异常不会被视为 Blazor 服务器线路的严重异常。
 * JavaScript 端 `Promise` 会被拒绝。
@@ -234,7 +234,7 @@ Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/buil
 
 在正常情况下，如果预呈现失败，则继续生成和呈现组件都将没有作用，因为无法呈现工作组件。
 
-若要容许在预呈现期间可能发生的错误，必须将错误处理逻辑置于可能引发异常的组件中。 请使用 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句，并进行错误处理和日志记录。 请勿将 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> 标记帮助程序包装在 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句中，而是将错误处理逻辑置于由 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> 标记帮助程序呈现的组件中。
+若要容许在预呈现期间可能发生的错误，必须将错误处理逻辑置于可能引发异常的组件中。 请使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句，并进行错误处理和日志记录。 请勿将 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> 标记帮助程序包装在 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句中，而是将错误处理逻辑放在由 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> 标记帮助程序呈现的组件中。
 
 ## <a name="advanced-scenarios"></a>高级方案
 
@@ -262,7 +262,7 @@ Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/buil
 
 ### <a name="custom-render-tree-logic"></a>自定义呈现器树逻辑
 
-大多数 Blazor 组件都实现为 .razor 文件，并经过编译以生成在 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 上运行的逻辑，目的是呈现其输出。 开发人员可使用程序 C# 代码手动实现 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 逻辑。 有关详细信息，请参阅 <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>。
+大多数 Blazor 组件都实现为 `.razor` 文件，并经过编译以生成在 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 上运行的逻辑，目的是呈现其输出。 开发人员可使用程序 C# 代码手动实现 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 逻辑。 有关详细信息，请参阅 <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>。
 
 > [!WARNING]
 > 手动呈现树生成器逻辑被视为一种高级且不安全的方案，不建议开发人员在常规组件开发工作中采用。

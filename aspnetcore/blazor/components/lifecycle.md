@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: c67903809de60b4b0ce7a98455b6917192512b5d
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 61c1dc383728f42c5dac6742fd19d1d22c988913
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103197"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242688"
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -45,9 +45,9 @@ public override async Task SetParametersAsync(ParameterView parameters)
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 的默认实现使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 或 [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) 特性（在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中具有对应的值）设置每个属性的值。 在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中没有对应值的参数保持不变。
 
-如果未调用 [base.SetParametersAync](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A)，则自定义代码可使用任何需要的方式解释传入的参数值。 例如，不要求将传入参数分配给类的属性。
+如果未调用 [`base.SetParametersAync`](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A)，则自定义代码可使用任何需要的方式解释传入的参数值。 例如，不要求将传入参数分配给类的属性。
 
-如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。
 
 ### <a name="component-initialization-methods"></a>组件初始化方法
 
@@ -64,7 +64,7 @@ protected override void OnInitialized()
 }
 ```
 
-若要执行异步操作，请替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 并对该操作使用 [await](/dotnet/csharp/language-reference/operators/await) 运算符：
+若要执行异步操作，请替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 并对该操作使用 [`await`](/dotnet/csharp/language-reference/operators/await) 运算符：
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -82,7 +82,7 @@ protected override async Task OnInitializedAsync()
 
 在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行特定操作（例如调用 JavaScript）。 预呈现时，组件可能需要进行不同的呈现。 有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。
 
-如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。
 
 ### <a name="after-parameters-are-set"></a>设置参数之后
 
@@ -110,7 +110,7 @@ protected override void OnParametersSet()
 }
 ```
 
-如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。
 
 ### <a name="after-component-render"></a>组件呈现之后
 
@@ -148,7 +148,7 @@ protected override void OnAfterRender(bool firstRender)
 
 *在服务器上进行预呈现时*未调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>。
 
-如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。
 
 ### <a name="suppress-ui-refreshing"></a>禁止 UI 刷新
 
@@ -179,13 +179,13 @@ protected override bool ShouldRender()
 
 在 Blazor 模板的 `FetchData` 组件中，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 以异步接收预测数据 (`forecasts`)。 当 `forecasts` 为 `null` 时，将向用户显示加载消息。 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 返回的 `Task` 完成后，该组件以更新后的状态重新呈现。
 
-Blazor Server 模板中的 *Pages/FetchData.razor*：
+Blazor 服务器模板中的 `Pages/FetchData.razor`：
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
 ## <a name="component-disposal-with-idisposable"></a>使用 IDisposable 处置组件
 
-如果组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时调用 [Dispose 方法](/dotnet/standard/garbage-collection/implementing-dispose)。 以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：
+如果组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时调用 [`Dispose` 方法](/dotnet/standard/garbage-collection/implementing-dispose)。 以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：
 
 ```razor
 @using System
@@ -220,7 +220,7 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 
 ## <a name="stateful-reconnection-after-prerendering"></a>预呈现后的有状态重新连接
 
-在 Blazor Server 应用中，当 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> 时，组件最初作为页面的一部分静态呈现。 浏览器重新建立与服务器的连接后，将*再次*呈现组件，并且该组件现在为交互式。 如果存在用于初始化组件的 [OnInitialized{Async}](#component-initialization-methods) 生命周期方法，则该方法执行*两次*：
+在 Blazor Server 应用中，当 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> 时，组件最初作为页面的一部分静态呈现。 浏览器重新建立与服务器的连接后，将*再次*呈现组件，并且该组件现在为交互式。 如果存在用于初始化组件的 [`OnInitialized{Async}`](#component-initialization-methods) 生命周期方法，则该方法执行两次：
 
 * 在静态预呈现组件时执行一次。
 * 在建立服务器连接后执行一次。
@@ -297,7 +297,7 @@ public class WeatherForecastService
 要在组件中实现可取消的后台工作模式：
 
 * 使用 <xref:System.Threading.CancellationTokenSource> 和 <xref:System.Threading.CancellationToken>。
-* 在[释放组件](#component-disposal-with-idisposable)时，以及需要随时通过手动取消标记进行取消时，请调用 [CancellationTokenSource.Cancel](xref:System.Threading.CancellationTokenSource.Cancel%2A) 以指示应取消后台工作。
+* 在[释放组件](#component-disposal-with-idisposable)时，以及需要随时通过手动取消标记进行取消时，请调用 [`CancellationTokenSource.Cancel`](xref:System.Threading.CancellationTokenSource.Cancel%2A) 以指示应取消后台工作。
 * 异步调用返回后，对该标记调用 <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A>。
 
 如下示例中：

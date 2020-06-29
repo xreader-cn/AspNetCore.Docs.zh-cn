@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 8244dfa4dfed8e44e9e149891d2071c48bebd5ab
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 588a24f7850c35bcbadc1c86edc61b23cc7a913e
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102371"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242662"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -196,7 +196,7 @@ public class Starship
 
 如下示例中：
 
-* 选择“提交”按钮时，将运行 `HandleSubmit` 方法。
+* 选择 `Submit` 按钮时，将运行 `HandleSubmit` 方法。
 * 使用窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 验证窗体。
 * 通过将 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 传递给 `ServerValidate` 方法来进一步验证窗体，该方法会调用服务器上的 Web API 终结点（*未显示*）。
 * 通过检查 `isValid` 获得客户端和服务器端验证的结果，并根据该结果运行其他代码。
@@ -248,7 +248,7 @@ public class Starship
 
 在下面的示例中，`CustomInputText` 组件继承框架的 `InputText` 组件，并将事件绑定 (<xref:Microsoft.AspNetCore.Components.EventCallbackFactoryBinderExtensions.CreateBinder%2A>) 设置为 `oninput` 事件。
 
-Shared/CustomInputText.razor：
+`Shared/CustomInputText.razor`：
 
 ```razor
 @inherits InputText
@@ -264,7 +264,7 @@ Shared/CustomInputText.razor：
 
 `CustomInputText` 组件可在任何使用 <xref:Microsoft.AspNetCore.Components.Forms.InputText> 的位置使用：
 
-Pages/TestForm.razor：
+`Pages/TestForm.razor`：
 
 ```razor
 @page  "/testform"
@@ -390,7 +390,7 @@ Pages/TestForm.razor：
 
 ## <a name="validation-support"></a>验证支持
 
-<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件使用数据注释将验证支持附加到级联的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext>。 使用数据注释启用对验证的支持需要此显式手势。 若要使用不同于数据注释的验证系统，请用自定义实现替换 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>。 可在以下参考源中检查 ASP.NET Core 的实现：[DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)。
+<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件使用数据注释将验证支持附加到级联的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext>。 使用数据注释启用对验证的支持需要此显式手势。 若要使用不同于数据注释的验证系统，请用自定义实现替换 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>。 可在以下参考源中检查 ASP.NET Core 的实现[`DataAnnotationsValidator`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[`AddDataAnnotationsValidation`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)： 前面的参考源链接提供了来自存储库 `master` 分支的代码，该分支表示产品单元当前对 ASP.NET Core 下一版本的开发。 若要为其他版本选择分支，请使用 GitHub 分支选择器（例如 `release/3.1`）。
 
 Blazor 执行两种类型的验证：
 
@@ -442,17 +442,17 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="blazor-data-annotations-validation-package"></a>Blazor 数据注释验证包
 
-[Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 是一个使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件填补验证体验缺口的验证包。 该包目前处于*试验阶段*。
+[`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 是使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件填补验证经验空白的包。 该包目前处于*试验阶段*。
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) 特性。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) 特性。
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>嵌套模型、集合类型和复杂类型
 
 Blazor 支持结合使用数据注释和内置的 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 来验证窗体输入。 但是，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 仅验证绑定到窗体的模型的顶级属性（不包括集合类型或复杂类型的属性）。
 
-若要验证绑定模型的整个对象图（包括集合类型和复杂类型的属性），请使用试验性 [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 包提供的 `ObjectGraphDataAnnotationsValidator`：
+若要验证绑定模型的整个对象图（包括集合类型和复杂类型的属性），请使用试验性 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 包提供的 `ObjectGraphDataAnnotationsValidator`：
 
 ```razor
 <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
@@ -463,7 +463,7 @@ Blazor 支持结合使用数据注释和内置的 <xref:Microsoft.AspNetCore.Com
 
 用 `[ValidateComplexType]` 注释模型属性。 在以下模型类中，`ShipDescription` 类包含附加数据注释，用于在将模型绑定到窗体时进行验证：
 
-*Starship.cs*：
+`Starship.cs`：
 
 ```csharp
 using System;
@@ -480,7 +480,7 @@ public class Starship
 }
 ```
 
-*ShipDescription.cs*：
+`ShipDescription.cs`：
 
 ```csharp
 using System;

@@ -24,7 +24,7 @@
 }
 ```
 
-对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数 。 该函数通过 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用，不返回值：
+对于上述示例代码，请在 `wwwroot/index.html` (Blazor WebAssembly) 或 `Pages/_Host.cshtml` (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数。 该函数通过 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用，不返回值：
 
 ```html
 <script>
@@ -72,7 +72,7 @@ Set value via JS interop call:
 }
 ```
 
-对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数 。 该函数通过 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> 进行调用，会返回值：
+对于上述示例代码，请在 `wwwroot/index.html` (Blazor WebAssembly) 或 `Pages/_Host.cshtml` (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数。 该函数通过 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> 进行调用，会返回值：
 
 ```html
 <script>

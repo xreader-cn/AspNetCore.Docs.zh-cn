@@ -13,31 +13,32 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 19e10c4eced47676c633a7d30a26726913373162
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: db1f6a357f63b405bf2f3b98e51c9aeffda97d66
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102425"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242519"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
 作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Juan De la Cruz](https://github.com/juandelacruz23)
 
+> [!NOTE]
+> 本主题适用于 Blazor WebAssembly。 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。 有关适用于 Blazor Server 的指南，请参阅 <xref:fundamentals/http-requests>。
+
 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 应用使用预配置的 <xref:System.Net.Http.HttpClient> 服务调用 Web API。 使用 Blazor JSON 帮助程序或通过 <xref:System.Net.Http.HttpRequestMessage> 撰写请求，其中可以包含 JavaScript [Fetch API ](https://developer.mozilla.org/docs/Web/API/Fetch_API) 选项。 Blazor WebAssembly 应用中的 <xref:System.Net.Http.HttpClient> 服务侧重于使请求返回源服务器。 本主题中的指导仅适用于 Blazor WebAssembly 应用。
 
-[Blazor 服务器](xref:blazor/hosting-models#blazor-server)应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。 本主题中的指导不适用于 Blazor 服务器应用。 开发 Blazor 服务器应用时，请按照 <xref:fundamentals/http-requests> 中的指导进行操作。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）：选择 `BlazorWebAssemblySample` 应用。
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）：选择“BlazorWebAssemblySample”应用。
+请查看 `BlazorWebAssemblySample` 示例应用中的以下组件：
 
-请查看 BlazorWebAssemblySample 示例应用中的以下组件：
-
-* 调用 Web API (Pages/CallWebAPI.razor)
-* HTTP 请求测试器 (Components/HTTPRequestTester.razor)
+* 调用 Web API (`Pages/CallWebAPI.razor`)
+* HTTP 请求测试程序 (`Components/HTTPRequestTester.razor`)
 
 ## <a name="packages"></a>package
 
-在项目文件中引用 [System.Net.Http.Json](https://www.nuget.org/packages/System.Net.Http.Json/) NuGet 包。
+在项目文件中引用 [`System.Net.Http.Json`](https://www.nuget.org/packages/System.Net.Http.Json/) NuGet 包。
 
 ## <a name="add-the-httpclient-service"></a>添加 HttpClient 服务
 
@@ -53,9 +54,9 @@ builder.Services.AddTransient(sp =>
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient 和 JSON 帮助程序
 
-在 Blazor WebAssembly 应用中，[HttpClient](xref:fundamentals/http-requests) 作为预配置服务提供，用于使请求返回源服务器。
+在 Blazor WebAssembly 应用中，[`HttpClient`](xref:fundamentals/http-requests) 作为预配置服务提供，用于使请求返回源服务器。
 
-默认情况下，Blazor 服务器应用不包含 <xref:System.Net.Http.HttpClient> 服务。 使用 [HttpClient 工厂基础结构](xref:fundamentals/http-requests)向应用提供 <xref:System.Net.Http.HttpClient>。
+默认情况下，Blazor 服务器应用不包含 <xref:System.Net.Http.HttpClient> 服务。 使用 [`HttpClient` 工厂基础结构](xref:fundamentals/http-requests)向应用提供 <xref:System.Net.Http.HttpClient>。
 
 <xref:System.Net.Http.HttpClient> 和 JSON 帮助程序还用于调用第三方 Web API 终结点。 <xref:System.Net.Http.HttpClient> 使用浏览器 [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) 来实现，受其限制制约，包括强制实施相同初始策略。
 
@@ -85,7 +86,7 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 
 * <xref:System.Net.Http.Json.HttpClientJsonExtensions.GetFromJsonAsync%2A>：发送 HTTP GET 请求，并分析 JSON 响应正文来创建对象。
 
-  在下面的代码中，`todoItems` 由组件显示。 当组件完成呈现 ([OnInitializedAsync](xref:blazor/components/lifecycle#component-initialization-methods)) 时，会触发 `GetTodoItems` 方法。 有关完整的示例，请参阅示例应用。
+  在下面的代码中，`todoItems` 由组件显示。 当组件完成呈现 ([`OnInitializedAsync`](xref:blazor/components/lifecycle#component-initialization-methods)) 时，会触发 `GetTodoItems` 方法。 有关完整的示例，请参阅示例应用。
 
   ```razor
   @using System.Net.Http
@@ -181,16 +182,16 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 
 支持已命名的 <xref:System.Net.Http.HttpClient> 的 <xref:System.Net.Http.IHttpClientFactory> 服务和配置。
 
-在项目文件中引用 [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet 包。
+在项目文件中引用 [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet 包。
 
-`Program.Main` (*Program.cs*)：
+`Program.Main` (`Program.cs`)：
 
 ```csharp
 builder.Services.AddHttpClient("ServerAPI", client => 
     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 ```
 
-`FetchData` component (*Pages/FetchData.razor*)：
+`FetchData` 组件 (`Pages/FetchData.razor`)：
 
 ```razor
 @inject IHttpClientFactory ClientFactory
@@ -214,7 +215,7 @@ builder.Services.AddHttpClient("ServerAPI", client =>
 
 类型化 <xref:System.Net.Http.HttpClient> 使用应用的一个或多个 <xref:System.Net.Http.HttpClient> 实例（默认或命名）从一个或多个 web API 终结点返回数据。
 
-WeatherForecastClient.cs：
+`WeatherForecastClient.cs`：
 
 ```csharp
 using System.Net.Http;
@@ -249,7 +250,7 @@ public class WeatherForecastClient
 }
 ```
 
-`Program.Main` (*Program.cs*)：
+`Program.Main` (`Program.cs`)：
 
 ```csharp
 builder.Services.AddHttpClient<WeatherForecastClient>(client => 
@@ -258,7 +259,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(client =>
 
 组件插入类型化的 <xref:System.Net.Http.HttpClient> 来调用 web API。
 
-`FetchData` component (*Pages/FetchData.razor*)：
+`FetchData` 组件 (`Pages/FetchData.razor`)：
 
 ```razor
 @inject WeatherForecastClient Client
@@ -309,7 +310,7 @@ protected override async Task OnInitializedAsync()
 
 浏览器安全可防止网页向不同域（而不是向网页提供服务的域）进行请求。 此限制称为同域策略。 同域策略可防止恶意站点从另一站点读取敏感数据。 若要从浏览器向具有不同源的终结点进行请求，终结点必须启用[跨域资源共享 (CORS)](https://www.w3.org/TR/cors/)。
 
-[Blazor WebAssembly 示例应用 (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) 演示如何在调用 Web API 组件 (Pages/CallWebAPI.razor) 中使用 CORS。
+[Blazor WebAssembly 示例应用 (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) 演示如何在调用 Web API 组件 (`Pages/CallWebAPI.razor`) 中使用 CORS。
 
 若要允许其他站点对应用进行跨域资源共享 (CORS) 请求，请参阅 <xref:security/cors>。
 

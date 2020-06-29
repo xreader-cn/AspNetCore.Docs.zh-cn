@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/14/2020
+ms.date: 06/21/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: ddb583f69758055500ff63960f469c1cea44c77e
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 34ed08a5b49b56fd37628032ac73fe03a34448e6
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102589"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85240847"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -197,9 +197,13 @@ public void ConfigureServices(IServiceCollection services)
 
 暂时生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient*>) 是每次从服务容器进行请求时创建的。 这种生存期适合轻量级、 无状态的服务。
 
+在处理请求的应用中，在请求结束时会释放临时服务。
+
 ### <a name="scoped"></a>范围内
 
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 以每个客户端请求（连接）一次的方式创建。
+
+在处理请求的应用中，在请求结束时会释放有作用域的服务。
 
 > [!WARNING]
 > 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
@@ -207,6 +211,8 @@ public void ConfigureServices(IServiceCollection services)
 ### <a name="singleton"></a>单例
 
 单一实例生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要实现单一实例设计模式并提供用户代码来管理对象在类中的生存期。
+
+在处理请求的应用中，在应用关闭，释放 <xref:Microsoft.Extensions.DependencyInjection.ServiceProvider> 时，会释放单一实例服务。
 
 > [!WARNING]
 > 从单一实例解析有作用域的服务很危险。 当处理后续请求时，它可能会导致服务处于不正确的状态。
@@ -774,9 +780,13 @@ public void ConfigureServices(IServiceCollection services)
 
 暂时生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient*>) 是每次从服务容器进行请求时创建的。 这种生存期适合轻量级、 无状态的服务。
 
+在处理请求的应用中，在请求结束时会释放临时服务。
+
 ### <a name="scoped"></a>范围内
 
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 以每个客户端请求（连接）一次的方式创建。
+
+在处理请求的应用中，在请求结束时会释放有作用域的服务。
 
 > [!WARNING]
 > 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
@@ -784,6 +794,8 @@ public void ConfigureServices(IServiceCollection services)
 ### <a name="singleton"></a>单例
 
 单一实例生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要实现单一实例设计模式并提供用户代码来管理对象在类中的生存期。
+
+在处理请求的应用中，在应用关闭，释放 <xref:Microsoft.Extensions.DependencyInjection.ServiceProvider> 时，会释放单一实例服务。
 
 > [!WARNING]
 > 从单一实例解析有作用域的服务很危险。 当处理后续请求时，它可能会导致服务处于不正确的状态。

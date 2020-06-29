@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/configuration
-ms.openlocfilehash: b43eae03c71cabbaafa2bc0d704765e89f743279
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 0e36b81d771b07e85158724c02210ee50a3ab118
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103186"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242675"
 ---
 # <a name="aspnet-core-blazor-configuration"></a>ASP.NET Core Blazor 配置
 
@@ -28,18 +28,18 @@ ms.locfileid: "85103186"
 Blazor WebAssembly 加载以下来源的配置：
 
 * 应用设置文件（默认）：
-  * wwwroot/appsettings.json**
-  * wwwroot/appsettings.{ENVIRONMENT}.json**
+  * `wwwroot/appsettings.json`
+  * `wwwroot/appsettings.{ENVIRONMENT}.json`
 * 应用注册的其他 [配置提供程序](xref:fundamentals/configuration/index)。 并非所有提供程序都适用于 Blazor WebAssembly 应用。 Blazor WASM 的[ Clarify 配置提供程序 (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134) 会跟踪有关 Blazor WebAssembly 所支持提供程序的说明。
 
 > [!WARNING]
-> Blazor WebAssembly 应用中的配置对用户可见。 请勿在配置中存储应用机密或凭据****。
+> Blazor WebAssembly 应用中的配置对用户可见。 请勿在配置中存储应用机密或凭据。
 
 有关配置提供程序的详细信息，请参阅 <xref:fundamentals/configuration/index>。
 
 ## <a name="app-settings-configuration"></a>应用设置配置
 
-wwwroot/appsettings.json**：
+`wwwroot/appsettings.json`：
 
 ```json
 {
@@ -112,9 +112,9 @@ builder.Configuration.Add(memoryConfig);
 }
 ```
 
-若要将 wwwroot 文件夹中的其他配置文件读入配置，请使用 <xref:System.Net.Http.HttpClient> 获取文件内容**。 使用此方法时，现有 <xref:System.Net.Http.HttpClient> 服务注册可以使用创建的本地客户端来读取文件，如以下示例所示：
+若要将 `wwwroot` 文件夹中的其他配置文件读入配置，请使用 <xref:System.Net.Http.HttpClient> 获取文件内容。 使用此方法时，现有 <xref:System.Net.Http.HttpClient> 服务注册可以使用创建的本地客户端来读取文件，如以下示例所示：
 
-wwwroot/cars.json**：
+`wwwroot/cars.json`：
 
 ```json
 {
@@ -144,7 +144,7 @@ builder.Configuration.AddJsonStream(stream);
 
 ## <a name="authentication-configuration"></a>身份验证配置
 
-wwwroot/appsettings.json**：
+`wwwroot/appsettings.json`：
 
 ```json
 {
@@ -164,13 +164,13 @@ builder.Services.AddOidcAuthentication(options =>
 
 ## <a name="logging-configuration"></a>日志记录配置
 
-为 [Microsoft.Extensions.Logging.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/) 添加包引用：
+添加 [`Microsoft.Extensions.Logging.Configuration`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/) 的包引用：
 
 ```xml
 <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="{VERSION}" />
 ```
 
-wwwroot/appsettings.json**：
+`wwwroot/appsettings.json`：
 
 ```json
 {
@@ -208,6 +208,6 @@ var hostname = builder.Configuration["HostName"];
 配置文件会缓存以供脱机使用。 使用[渐进式 Web 应用程序 (PWA)](xref:blazor/progressive-web-app) 时，只能在创建新部署时更新配置文件。 在部署之间编辑配置文件不起作用，原因如下：
 
 * 用户已拥有继续使用的文件的缓存版本。
-* PWA 的 service-worker.js 和 service-worker-assets.js 文件必须在编译时重新生成，这会在用户下一次联机访问时通知应用，指示应用已重新部署** **。
+* PWA 的 `service-worker.js` 和 `service-worker-assets.js` 文件必须在编译时重新生成，这会在用户下一次联机访问时通知应用，指示应用已重新部署。
 
 有关 PWA 如何处理后台更新的详细信息，请参阅 <xref:blazor/progressive-web-app#background-updates>。

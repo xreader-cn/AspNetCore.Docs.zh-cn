@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: c901ba0cbcd79bb14cb32a6a56a2595d159f8678
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 1654c0ce40d44ad4cc679c151ef99f155e31b514
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103199"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242493"
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
@@ -240,10 +240,10 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 无法在页面元素中使用 [`@bind`](xref:mvc/views/razor#bind) 语法实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可以将 [`@bind`](xref:mvc/views/razor#bind) 语法用于组件的参数。
 
-以下 `PasswordField` 组件 (PasswordField.razor)：
+以下 `PasswordField` 组件 (`PasswordField.razor`)：
 
 * 将 `<input>` 元素的值设置为 `Password` 属性。
-* 使用 [EventCallback](xref:blazor/components/event-handling#eventcallback) 向父组件公开 `Password` 属性的更改。
+* 使用 [`EventCallback`](xref:blazor/components/event-handling#eventcallback) 向父组件公开 `Password` 属性的更改。
 * 使用 `onclick` 事件触发 `ToggleShowPassword` 方法。 有关详细信息，请参阅 <xref:blazor/components/event-handling>。
 
 ```razor

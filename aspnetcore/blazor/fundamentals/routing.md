@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: 9668077d9b59ff20b1aab0b496278f2460e5ad2a
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: fde30109395065014433bebde52a9eb22458c451
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103190"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242740"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -32,11 +32,11 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-最典型的配置是将所有请求路由到 Razor 页面，该页面为 Blazor 服务器应用充当服务器端的主机。 按照约定，*主机*页通常命名为 *_Host.cshtml*。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以较低的优先级运行。 其他路由不匹配时，会考虑回退路由。 这让应用能够使用其他控制器和页面，而不会干扰 Blazor 服务器应用。
+最典型的配置是将所有请求路由到 Razor 页面，该页面为 Blazor 服务器应用充当服务器端的主机。 按照约定，“主机”页通常命名为 `_Host.cshtml`。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以较低的优先级运行。 其他路由不匹配时，会考虑回退路由。 这让应用能够使用其他控制器和页面，而不会干扰 Blazor 服务器应用。
 
 ## <a name="route-templates"></a>路由模板
 
-<xref:Microsoft.AspNetCore.Components.Routing.Router> 组件可实现到具有指定路由的每个组件的路由。 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件出现在 *App.razor* 文件中：
+<xref:Microsoft.AspNetCore.Components.Routing.Router> 组件可实现到具有指定路由的每个组件的路由。 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件出现在 `App.razor` 文件中：
 
 ```razor
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -49,14 +49,14 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 </Router>
 ```
 
-编译带有 `@page` 指令的 *.razor* 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Components.RouteAttribute>。
+编译带有 `@page` 指令的 `.razor` 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Components.RouteAttribute>。
 
 在运行时，<xref:Microsoft.AspNetCore.Components.RouteView> 组件：
 
 * 从 <xref:Microsoft.AspNetCore.Components.Routing.Router> 接收 <xref:Microsoft.AspNetCore.Components.RouteData> 以及任何所需的参数。
 * 通过指定参数使用指定组件的布局（或可选的默认布局）呈现该组件。
 
-可选择使用布局类指定 <xref:Microsoft.AspNetCore.Components.RouteView.DefaultLayout> 参数，以用于未指定布局的组件。 默认的 Blazor 模板指定 `MainLayout` 组件。 *MainLayout.razor* 在模板项目的 *Shared* 文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
+可选择使用布局类指定 <xref:Microsoft.AspNetCore.Components.RouteView.DefaultLayout> 参数，以用于未指定布局的组件。 默认的 Blazor 模板指定 `MainLayout` 组件。 `MainLayout.razor` 位于模板项目的 `Shared` 文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
 
 可将多个路由模板应用于一个组件。 以下组件响应对 `/BlazorRoute` 和 `/DifferentBlazorRoute` 的请求：
 
@@ -68,13 +68,13 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 ```
 
 > [!IMPORTANT]
-> 若要正确解析 URL，应用必须在其 wwwroot/index.html 文件 (Blazor WebAssembly) 或 Pages/_Host.cshtml 文件 (Blazor Server) 中包括 `<base>` 标记，并在 `href` 属性 (`<base href="/">`) 中指定应用基路径。 有关详细信息，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。
+> 若要正确解析 URL，应用必须在其 `wwwroot/index.html` 文件 (Blazor WebAssembly) 或 `Pages/_Host.cshtml` 文件 (Blazor Server) 中加入 `<base>` 标记，并在 `href` 属性 (`<base href="/">`) 中指定应用基路径。 有关详细信息，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>在找不到内容时提供自定义内容
 
 如果找不到所请求路由的内容，则 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件允许应用指定自定义内容。
 
-在 *App.razor* 文件中，在 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件的 <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> 模板参数中设置自定义内容：
+在 `App.razor` 文件中，在 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件的 <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> 模板参数中设置自定义内容：
 
 ```razor
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -154,7 +154,7 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 
 ### <a name="routing-with-urls-that-contain-dots"></a>使用包含点的 URL 进行路由
 
-在 Blazor 服务器应用中，_Host.cshtml 中的默认路由为 `/` (`@page "/"`)。 包含点 (`.`) 的请求 URL 与默认路由不匹配，因为 URL 似乎在请求文件。 Blazor 应用针对不存在的静态文件返回“404 - 找不到”响应。 若要使用包含点的路由，请使用以下路由模板配置 *_Host.cshtml*：
+在 Blazor Server 应用中，`_Host.cshtml` 中的默认路由为 `/` (`@page "/"`)。 包含点 (`.`) 的请求 URL 与默认路由不匹配，因为 URL 似乎在请求文件。 Blazor 应用针对不存在的静态文件返回“404 - 找不到”响应。 若要使用包含点的路由，请使用以下路由模板配置 `_Host.cshtml`：
 
 ```cshtml
 @page "/{**path}"
@@ -166,7 +166,7 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 * `path` 路由参数名称。
 
 > [!NOTE]
-> Razor 组件 (.razor) 不支持 Catch-all 参数语法 (`*`/`**`)。
+> Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)。
 
 有关详细信息，请参阅 <xref:fundamentals/routing>。
 
@@ -174,7 +174,7 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 
 创建导航链接时，请使用 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件代替 HTML 超链接元素 (`<a>`)。 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件的行为方式类似于 `<a>` 元素，但它根据其 `href` 是否与当前 URL 匹配来切换 `active` CSS 类。 `active` 类可帮助用户了解所显示导航链接中的哪个页面是活动页面。
 
-以下 `NavMenu` 组件创建[启动](https://getbootstrap.com/docs/)导航栏，该导航栏演示如何使用 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件：
+以下 `NavMenu` 组件创建 [`Bootstrap`](https://getbootstrap.com/docs/) 导航栏，该导航栏演示如何使用 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件：
 
 [!code-razor[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
@@ -204,7 +204,7 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 | 成员 | 描述 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.Uri> | 获取当前绝对 URI。 |
-| <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，<xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> 对应于 *wwwroot/index.html* (Blazor WebAssembly) 或 *Pages/_Host.cshtml* (Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。 |
+| <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，<xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> 对应于 `wwwroot/index.html` (Blazor WebAssembly) 或 (`Pages/_Host.cshtml`Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。 |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A> | 导航到指定 URI。 如果 `forceLoad` 为 `true`，则：<ul><li>客户端路由会被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都必须从服务器加载新页面。</li></ul> |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged> | 导航位置更改时触发的事件。 |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.ToAbsoluteUri%2A> | 将相对 URI 转换为绝对 URI。 |

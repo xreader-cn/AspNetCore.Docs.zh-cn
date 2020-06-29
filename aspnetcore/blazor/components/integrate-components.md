@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
-ms.openlocfilehash: 78d524bc0271fd2640302bb0de78571ab688bef5
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 1c71067528fb34ab141bb1ee846716834204ee40
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103206"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242454"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
 
@@ -37,7 +37,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 现有 Razor Pages 或 MVC 应用可以将 Razor 组件集成到页面和视图中：
 
-1. 在应用的布局文件 (_Layout.cshtml) 中：
+1. 在应用的布局文件 (`_Layout.cshtml`) 中：
 
    * 将以下 `<base>` 标记添加到 `<head>` 元素：
 
@@ -47,7 +47,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
      前面示例中的 `href` 值（应用基路径）假设应用驻留在根 URL 路径 (`/`) 处。 如果应用是子应用程序，请按照 <xref:blazor/host-and-deploy/index#app-base-path> 一文的“应用基路径”部分中的指导进行操作。
 
-     _Layout.cshtml 文件位于 Razor Pages 应用的 Pages/Shared 文件夹中，或 MVC 应用的 Views/Shared 文件夹中。
+     `_Layout.cshtml` 文件位于 Razor Pages 应用的 Pages/Shared 文件夹中，或 MVC 应用的 Views/Shared 文件夹中 。
 
    * 紧接在 `</body>` 结束标记前面，添加 blazor.server.js 脚本的 `<script>` 标记：
 
@@ -57,7 +57,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
      框架会将 blazor.server.js 脚本添加到应用。 无需手动将脚本添加到应用。
 
-1. 将 _Imports.razor 文件添加到项目的根文件夹，其中包含以下内容（将最后一个命名空间 `MyAppNamespace` 更改为应用的命名空间）：
+1. 将 `_Imports.razor` 文件添加到项目的根文件夹，其中包含以下内容（将最后一个命名空间 `MyAppNamespace` 更改为应用的命名空间）：
 
    ```razor
    @using System.Net.Http
@@ -92,7 +92,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 1. 按照[准备应用](#prepare-the-app)部分中的指南进行操作。
 
-1. 将具有以下内容的 App.razor 文件添加到项目根：
+1. 将具有以下内容的 `App.razor` 文件添加到项目根：
 
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
@@ -108,7 +108,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    </Router>
    ```
 
-1. 将具有以下内容的 _Host.cshtml 文件添加到 Pages 文件夹：
+1. 将具有以下内容的 `_Host.cshtml` 文件添加到 `Pages` 文件夹：
 
    ```cshtml
    @page "/blazor"
@@ -121,7 +121,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    </app>
    ```
 
-   组件将共享 _Layout.cshtml 文件用于布局。
+   组件将共享 `_Layout.cshtml` 文件用于布局。
 
    <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> 会配置 `App` 组件是否：
 
@@ -136,7 +136,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
    要详细了解组件标记帮助程序，请查看 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
 
-1. 在 `Startup.Configure` 中，将 _Host.cshtml 的低优先级路由添加到终结点配置：
+1. 在 `Startup.Configure` 中，将 `_Host.cshtml` 页的低优先级路由添加到终结点配置：
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -167,7 +167,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 1. 按照[准备应用](#prepare-the-app)部分中的指南进行操作。
 
-1. 将具有以下内容的 App.razor 文件添加到项目根：
+1. 将具有以下内容的 `App.razor` 文件添加到项目根：
 
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
@@ -183,7 +183,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    </Router>
    ```
 
-1. 将具有以下内容的 _Host.cshtml 文件添加到 Views/Home 文件夹：
+1. 将具有以下内容的 `_Host.cshtml` 文件添加到 `Views/Home` 文件夹：
 
    ```cshtml
    @{
@@ -195,7 +195,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    </app>
    ```
 
-   组件将共享 _Layout.cshtml 文件用于布局。
+   组件将共享 `_Layout.cshtml` 文件用于布局。
    
    <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> 会配置 `App` 组件是否：
 
@@ -219,7 +219,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    }
    ```
 
-1. 在 `Startup.Configure` 中，将返回 _Host.cshtml 视图的控制器操作的低优先级路由添加到终结点配置：
+1. 在 `Startup.Configure` 中，将返回 `_Host.cshtml` 视图的控制器操作的低优先级路由添加到终结点配置：
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -230,7 +230,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    });
    ```
 
-1. 创建 Pages 文件夹并将可路由组件添加到应用。 例如：
+1. 创建 `Pages` 文件夹并将可路由组件添加到应用。 例如：
 
    ```razor
    @page "/counter"
@@ -299,7 +299,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 ## <a name="component-namespaces"></a>组件命名空间
 
-使用自定义文件夹保存应用的组件时，将表示文件夹的命名空间添加到页面/视图或 _ViewImports.cshtml 文件。 如下示例中：
+使用自定义文件夹保存应用的组件时，将表示文件夹的命名空间添加到页面/视图或 `_ViewImports.cshtml` 文件。 如下示例中：
 
 * 将 `MyAppNamespace` 更改为应用的命名空间。
 * 如果不使用名为 Components 的文件夹来保存组件，请将 `Components` 更改为组件所在的文件夹。
@@ -308,6 +308,6 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 @using MyAppNamespace.Components
 ```
 
-_ViewImports.cshtml 文件位于 Razor Pages 应用的 Pages 文件夹中，或是 MVC 应用的 Views 文件夹中  。
+`_ViewImports.cshtml` 文件位于 Razor Pages 应用的 `Pages` 文件夹中，或是 MVC 应用的 `Views` 文件夹中。
 
 有关详细信息，请参阅 <xref:blazor/components/index#namespaces>。

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: ec55c5834093cc8c2095f25e91374d97902dd964
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 31e72eeac415f10d573de455f19aa8ff34743356
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83851141"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242391"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
 
@@ -36,7 +36,7 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 该示例应用包含一个 C# 方法，用于返回 `int` 数组。 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性应用于方法。
 
-Pages/JsInterop.razor：
+`Pages/JsInterop.razor`：
 
 ```razor
 <button type="button" class="btn btn-primary"
@@ -55,11 +55,11 @@ Pages/JsInterop.razor：
 
 为客户端提供的 JavaScript 会调用 C# .net 方法。
 
-wwwroot/exampleJsInterop.js：
+`wwwroot/exampleJsInterop.js`：
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
-如果选择了“触发 .NET 静态方法 ReturnArrayAsync”按钮，请在浏览器的 Web 开发人员工具中检查控制台输出。
+如果选择了“`Trigger .NET static method ReturnArrayAsync`”按钮，请在浏览器的 Web 开发人员工具中检查控制台输出。
 
 控制台输出为：
 
@@ -105,9 +105,9 @@ returnArrayAsyncJs: function () {
 > [!NOTE]
 > 示例应用会将消息记录到客户端控制台。 对于示例应用展示的以下示例，请在浏览器的开发人员工具中检查浏览器的控制台输出。
 
-选择“触发 .NET 实例方法 HelloHelper.SayHello”按钮时，将调用 `ExampleJsInterop.CallHelloHelperSayHello`，并将名称 `Blazor` 传递到方法。
+如果选择了“`Trigger .NET instance method HelloHelper.SayHello`”按钮，则 `ExampleJsInterop.CallHelloHelperSayHello` 会被调用并将名称 `Blazor` 传递给方法。
 
-Pages/JsInterop.razor：
+`Pages/JsInterop.razor`：
 
 ```razor
 <button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
@@ -125,17 +125,17 @@ Pages/JsInterop.razor：
 
 `CallHelloHelperSayHello` 使用 `HelloHelper` 的新实例调用 JavaScript 函数 `sayHello`。
 
-JsInteropClasses/ExampleJsInterop.cs：
+`JsInteropClasses/ExampleJsInterop.cs`：
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=11-18)]
 
-wwwroot/exampleJsInterop.js：
+`wwwroot/exampleJsInterop.js`：
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
 该名称将传递给 `HelloHelper` 的构造函数，该构造函数设置 `HelloHelper.Name` 属性。 执行 JavaScript 函数 `sayHello` 时，`HelloHelper.SayHello` 返回 `Hello, {Name}!` 消息，JavaScript 函数将该消息写入控制台。
 
-JsInteropClasses/HelloHelper.cs：
+`JsInteropClasses/HelloHelper.cs`：
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 
@@ -233,7 +233,7 @@ function updateMessageCallerJS() {
 }
 ```
 
-Pages/JSInteropComponent.razor：
+`Pages/JSInteropComponent.razor`：
 
 ```razor
 @page "/JSInteropComponent"
@@ -277,7 +277,7 @@ Pages/JSInteropComponent.razor：
 * 每个 `ListItem` 组件都由一个消息和一个按钮组成。
 * 选择 `ListItem` 组件按钮后，`ListItem` 的 `UpdateMessage` 方法会更改列表项文本并隐藏该按钮。
 
-MessageUpdateInvokeHelper.cs：
+`MessageUpdateInvokeHelper.cs`：
 
 ```csharp
 using System;
@@ -309,7 +309,7 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-Shared/ListItem.razor：
+`Shared/ListItem.razor`：
 
 ```razor
 @inject IJSRuntime JsRuntime
@@ -344,7 +344,7 @@ Shared/ListItem.razor：
 }
 ```
 
-Pages/JSInteropExample.razor：
+`Pages/JSInteropExample.razor`：
 
 ```razor
 @page "/JSInteropExample"
@@ -376,5 +376,5 @@ Pages/JSInteropExample.razor：
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:blazor/call-javascript-from-dotnet>
-* [InteropComponent.razor 示例（dotnet/AspNetCore GitHub 存储库，3.1 版本分支）](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
+* [`InteropComponent.razor` 示例（dotnet/AspNetCore GitHub 存储库，3.1 版本分支）](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
 * [在 Blazor 服务器应用中执行大型数据传输](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)

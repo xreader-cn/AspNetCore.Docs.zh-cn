@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 193dc656c2ee0154f0ae534bc00f8dc29bab3258
-ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.openlocfilehash: 75db5d5e69cb200ebf3bd1dc1e0afed0300214cc
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/16/2020
-ms.locfileid: "84239201"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242766"
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -51,13 +51,13 @@ ms.locfileid: "84239201"
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>在 Visual Studio 和 Visual Studio Code 中启用调试
 
-若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 launchSettings.json 文件，使每个启动配置文件包含以下 `inspectUri` 属性：
+若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 `launchSettings.json` 文件，使每个启动配置文件包含以下 `inspectUri` 属性：
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
 ```
 
-更新后，launchSettings.json 文件应类似于以下示例：
+更新后，`launchSettings.json` 文件应类似于以下示例：
 
 [!code-json[](debug/launchSettings.json?highlight=14,22)]
 
@@ -74,8 +74,8 @@ ms.locfileid: "84239201"
 
 1. 创建一个由 ASP.NET Core 托管的新 Blazor WebAssembly 应用。
 1. 按 <kbd>F5</kbd> 在调试器中运行应用。
-1. 在 `IncrementCount` 方法的 Counter.razor 中设置一个断点。
-1. 浏览到“计数器”选项卡，选择该按钮以命中断点：
+1. 在 `IncrementCount` 方法的 `Pages/Counter.razor` 中设置断点。
+1. 浏览到“`Counter`”选项卡，选择该按钮以命中断点：
 
    ![调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-counter.png)
 
@@ -87,9 +87,9 @@ ms.locfileid: "84239201"
 
 调试 Blazor WebAssembly 应用时，还可以调试服务器代码：
 
-1. 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 的 FetchData.razor 页面中设置一个断点。
+1. 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 的“`Pages/FetchData.razor`”页中设置断点。
 1. 在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。
-1. 浏览到“提取数据”选项卡，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中断点：
+1. 浏览到“`Fetch Data`”选项卡，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中该断点：
 
    ![调试提取数据](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-fetch-data.png)
 
@@ -145,11 +145,11 @@ ms.locfileid: "84239201"
 
 1. 在选择窗口中，选择托管解决方案中的“服务器”项目。
 
-这会生成一个 launch.json 文件，其中包含用于启动调试器的启动配置。
+这会生成一个 `launch.json` 文件，其中包含用于启动调试器的启动配置。
 
 ### <a name="attach-to-an-existing-debugging-session"></a>附加到现有的调试会话
 
-若要附加到正在运行的 Blazor 应用，请创建一个具有以下配置的 launch.json 文件：
+若要附加到正在运行的 Blazor 应用，请创建一个具有以下配置的 `launch.json` 文件：
 
 ```json
 {
@@ -222,7 +222,7 @@ ms.locfileid: "84239201"
 
 1. 浏览器必须在启用远程调试的情况下运行。 如果远程调试未启用，则系统会生成“无法找到可调试的浏览器标签页”错误页面。 该错误页面包含有关一些说明，指示应在调试端口处于打开状态的情况下运行浏览器以便 Blazor 调试代理可以连接到应用。 请关闭所有浏览器实例，并按照说明重启浏览器。
 
-在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式会打开新的调试程序标签页。片刻后，“源”选项卡显示应用中的 .NET 程序集的列表。 展开每个程序集并找到可用于调试的 *.cs*/ *.razor* 源文件。 设置断点，然后切换回应用的选项卡，断点在代码执行时被命中。 命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。
+在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式会打开新的调试程序标签页。片刻后，“源”选项卡显示应用中的 .NET 程序集的列表。 展开每个程序集并找到可用于调试的 `.cs`/`.razor` 源文件。 设置断点，然后切换回应用的选项卡，断点在代码执行时被命中。 命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。
 
 Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)，并使用特定于 .NET 的信息扩展该协议。 按下调试键盘快捷方式后，Blazor 会将 Chrome 开发者工具指向代理。 代理连接到要调试的浏览器窗口（因此需要启用远程调试）。
 

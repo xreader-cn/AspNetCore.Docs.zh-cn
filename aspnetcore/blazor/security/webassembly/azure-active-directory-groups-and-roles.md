@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 99ebe43da191153aa98cce6bae8fe98035bc7d6f
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: ed49ba13842f2b5805250d8c12535397c542cfd4
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103224"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242870"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Azure AD 组、管理角色和用户定义的角色
 
@@ -45,15 +45,15 @@ Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 AS
 要在 Azure 门户中配置应用以提供 `groups` 成员资格声明，请参阅以下 Azure 文章。 将用户分配到用户定义的 AAD 组和内置管理角色。
 
 * [使用 Azure AD 安全组的角色](/azure/architecture/multitenant-identity/app-roles#roles-using-azure-ad-security-groups)
-* [groupMembershipClaims 属性](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
+* [`groupMembershipClaims` 属性](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
 
-以下示例假定用户被分配到 AAD 内置“计费管理员”角色**。
+以下示例假定用户被分配到 AAD 内置“计费管理员”角色。
 
 AAD 发送的单个 `groups` 声明在 JSON 数组中将用户的组和角色作为对象 ID (GUID) 显示。 应用必须将组和角色的 JSON 数组转换为单个 `group` 声明，应用可以针对这些声明生成[策略](xref:security/authorization/policies)。
 
 扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 以包括组和角色的数组属性。
 
-*CustomUserAccount.cs*：
+`CustomUserAccount.cs`：
 
 ```csharp
 using System.Text.Json.Serialization;
@@ -115,7 +115,7 @@ public class CustomUserFactory
 
 无需提供代码来删除原始 `groups` 声明，因为框架会自动删除它。
 
-在托管解决方案的独立应用和客户端应用的 `Program.Main` (Program.cs) 中注册工厂**：
+在托管解决方案的独立应用或客户端应用的 `Program.Main` (`Program.cs`) 中注册工厂：
 
 ```csharp
 builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
@@ -131,7 +131,7 @@ builder.Services.AddMsalAuthentication<RemoteAuthenticationState,
     CustomUserFactory>();
 ```
 
-为 `Program.Main` 中的每个组或角色创建[策略](xref:security/authorization/policies)。 以下示例为 AAD 内置“计费管理员”创建策略角色**：
+为 `Program.Main` 中的每个组或角色创建[策略](xref:security/authorization/policies)。 以下示例为 AAD 内置“计费管理员”创建策略角色：
 
 ```csharp
 builder.Services.AddAuthorizationCore(options =>
@@ -145,7 +145,7 @@ builder.Services.AddAuthorizationCore(options =>
 
 在以下示例中，应用使用前面的策略来授权用户。
 
-[AuthorizeView 组件](xref:blazor/security/index#authorizeview-component)适用于以下策略：
+[`AuthorizeView` 组件](xref:blazor/security/index#authorizeview-component)适用于以下策略：
 
 ```razor
 <AuthorizeView Policy="BillingAdministrator">
@@ -226,7 +226,7 @@ builder.Services.AddAuthorizationCore(options =>
 > [!NOTE]
 > 尽管无法将角色分配给没有 Azure AD Premium 帐户的安全组，但你可以将用户分配给角色，并为具有标准 Azure 帐户的用户接收 `roles` 声明。 本部分中的指南不需要 Azure AD Premium 帐户。
 >
-> 通过为其他每个角色分配重新添加用户，在 Azure 门户中分配多个角色****__。
+> 通过为其他每个角色分配重新添加用户，在 Azure 门户中分配多个角色。
 
 AAD 发送的单个 `roles` 声明在 JSON 数组中将用户定义的角色作为 `appRoles` 的 `value` 显示。 应用必须将 JSON 角色数组转换为单个 `role` 声明。
 
@@ -245,7 +245,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 组件授权方法此时有效。 组件中的任何授权机制都可以使用 `admin` 角色来授权用户：
 
-* [AuthorizeView 组件](xref:blazor/security/index#authorizeview-component)（例如 `<AuthorizeView Roles="admin">`）
+* [`AuthorizeView` 组件](xref:blazor/security/index#authorizeview-component)（例如 `<AuthorizeView Roles="admin">`）
 * [`[Authorize]` 属性指令](xref:blazor/security/index#authorize-attribute) (<xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute>)（例如 `@attribute [Authorize(Roles = "admin")]`）
 * [过程逻辑](xref:blazor/security/index#procedural-logic)（例如 `if (user.IsInRole("admin")) { ... }`）
 

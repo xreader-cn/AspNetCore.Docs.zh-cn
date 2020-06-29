@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: e67738015f64ca7077c2f87a8f7eabe722aac9d8
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: 5ffb57f21c89e21fcbb14b933cb0d0cb29d9c71b
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652611"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85240943"
 ---
 # <a name="part-6-razor-pages-with-ef-core-in-aspnet-core---read-related-data"></a>第 6 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据
 
@@ -52,7 +52,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   ![单独查询示例](read-related-data/_static/separate-queries.png)
 
-  注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
+  **注意：** EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
 
 * [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如：
 
@@ -231,7 +231,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 从视图模型中的讲师列表检索所选讲师。 向视图模型的 `Courses` 属性加载来自讲师 `CourseAssignments` 导航属性的 `Course` 实体。
 
-`Where` 方法返回一个集合。 但在本例中，筛选器将选择单个实体。 因此，调用 `Single` 方法将集合转换为单个 `Instructor` 实体。 `Instructor` 实体提供对 `CourseAssignments` 属性的访问。 `CourseAssignments` 提供对相关 `Course` 实体的访问。
+`Where` 方法返回一个集合。 但在这种情况下，筛选器将选择单个实体，因此会调用 `Single` 方法将集合转换为单个 `Instructor` 实体。 `Instructor` 实体提供对 `CourseAssignments` 属性的访问。 `CourseAssignments` 提供对相关 `Course` 实体的访问。
 
 ![讲师-课程 m:M](complex-data-model/_static/courseassignment.png)
 

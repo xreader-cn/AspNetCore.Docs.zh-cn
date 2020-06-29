@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: de04992c3e3c7ce2dc73eee801484d5e3930fa3a
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: f39a1a3b78d8017738f83f4d191c7f11c7a6c9e6
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102448"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242534"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -34,13 +34,13 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 对于启用了预呈现的 Blazor 服务器应用，初始预呈现期间无法调入 JavaScript。 在建立与浏览器的连接之后，必须延迟 JavaScript 互操作调用。 有关详细信息，请参阅[检测 Blazor 服务器应用进行预呈现的时间](#detect-when-a-blazor-server-app-is-prerendering)部分。
 
-下面的示例基于 [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（一种基于 JavaScript 的解码器）。 此示例展示了如何通过 C# 方法调用 JavaScript 函数，以将要求从开发人员代码卸载到现有 JavaScript API。 JavaScript 函数从 C# 方法接受字节数组，对数组进行解码，并将文本返回给组件进行显示。
+下面的示例基于 [`TextDecoder`](https://developer.mozilla.org/docs/Web/API/TextDecoder)（一种基于 JavaScript 的解码器）。 此示例展示了如何通过 C# 方法调用 JavaScript 函数，以将要求从开发人员代码卸载到现有 JavaScript API。 JavaScript 函数从 C# 方法接受字节数组，对数组进行解码，并将文本返回给组件进行显示。
 
-在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
+在 `wwwroot/index.html` (Blazor WebAssembly) 或 `Pages/_Host.cshtml` (Blazor Server) 的 `<head>` 元素中，提供了一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
 
 [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-convertarray.html)]
 
-JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本文件的引用，从 JavaScript 文件 (.js) 加载：
+JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本文件的引用，从 JavaScript 文件 (`.js`) 加载：
 
 ```html
 <script src="exampleJsInterop.js"></script>
@@ -48,7 +48,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 以下组件：
 
-* 在选择了组件按钮（“转换数组”）时使用 `JSRuntime` 调用 `convertArray` JavaScript 函数。
+* 在选择了组件按钮（“`Convert Array`”）后，使用 `JSRuntime` 调用 `convertArray` JavaScript 函数。
 * 调用 JavaScript 函数之后，传递的数组会转换为字符串。 该字符串会返回给组件进行显示。
 
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
@@ -57,19 +57,19 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 若要使用 <xref:Microsoft.JSInterop.IJSRuntime> 抽象，请采用以下任何方法：
 
-* 将 <xref:Microsoft.JSInterop.IJSRuntime> 抽象注入 Razor 组件 (.razor) 中：
+* 将 <xref:Microsoft.JSInterop.IJSRuntime> 抽象注入 Razor 组件 (`.razor`) 中：
 
   [!code-razor[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用，不返回值：
+  在 `wwwroot/index.html` (Blazor WebAssembly) 或 `Pages/_Host.cshtml` (Blazor Server) 的 `<head>` 元素中，提供 `handleTickerChanged` JavaScript 函数。 该函数通过 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用，不返回值：
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged1.html)]
 
-* 将 <xref:Microsoft.JSInterop.IJSRuntime> 抽象注入一个类 (.cs)：
+* 将 <xref:Microsoft.JSInterop.IJSRuntime> 抽象注入类 (`.cs`)：
 
   [!code-csharp[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-  在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `JSRuntime.InvokeAsync` 进行调用，会返回值：
+  在 `wwwroot/index.html` (Blazor WebAssembly) 或 `Pages/_Host.cshtml` (Blazor Server) 的 `<head>` 元素中，提供 `handleTickerChanged` JavaScript 函数。 该函数通过 `JSRuntime.InvokeAsync` 进行调用，会返回值：
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged2.html)]
 
@@ -85,23 +85,23 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 * `showPrompt`：生成一个提示，用于接受用户输入（用户名），并将用户名返回给调用方。
 * `displayWelcome`：将来自调用方的欢迎消息分配给 `id` 为 `welcome` 的 DOM 对象。
 
-wwwroot/exampleJsInterop.js：
+`wwwroot/exampleJsInterop.js`：
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-将引用 JavaScript 文件的 `<script>` 标记置于 wwwroot/index.html 文件 (Blazor WebAssembly) 或 Pages/_Host.cshtml 文件（Blazor 服务器）中。
+将引用 JavaScript 文件的 `<script>` 标记置于 `wwwroot/index.html` 文件 (Blazor WebAssembly) 或 `Pages/_Host.cshtml` 文件 (Blazor Server) 中。
 
-wwwroot/index.html (Blazor WebAssembly)：
+`wwwroot/index.html` (Blazor WebAssembly)：
 
 [!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=22)]
 
-Pages/_Host.cshtml（Blazor 服务器）：
+`Pages/_Host.cshtml` (Blazor Server)：
 
 [!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=35)]
 
 请勿将 `<script>` 标记置于组件文件中，因为 `<script>` 标记无法动态更新。
 
-.NET 方法通过调用 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> 与 exampleJsInterop.js 文件中的 JavaScript 函数进行互操作。
+.NET 方法通过调用 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> 与 `exampleJsInterop.js` 文件中的 JavaScript 函数进行互操作。
 
 <xref:Microsoft.JSInterop.IJSRuntime> 抽象是异步的，以便可以实现 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 <xref:Microsoft.JSInterop.IJSInProcessRuntime> 并改为调用 <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A>。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
 
@@ -111,7 +111,7 @@ Pages/_Host.cshtml（Blazor 服务器）：
 * 将文本返回给组件进行处理。
 * 调用第二个 JavaScript 函数，该函数与 DOM 交互以显示欢迎消息。
 
-Pages/JSInterop.razor：
+`Pages/JsInterop.razor`：
 
 ```razor
 @page "/JSInterop"
@@ -142,7 +142,7 @@ Pages/JSInterop.razor：
 }
 ```
 
-1. 通过选择组件的“触发 JavaScript 提示符”按钮来执行 `TriggerJsPrompt` 时，则会调用在 wwwroot/exampleJsInterop.js 文件中提供的 JavaScript `showPrompt` 函数。
+1. 通过选择组件的“`Trigger JavaScript Prompt`”按钮来执行 `TriggerJsPrompt` 时，则会调用在 `wwwroot/exampleJsInterop.js` 文件中提供的 JavaScript `showPrompt` 函数。
 1. `showPrompt` 函数接受进行 HTML 编码并返回给组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量 `name` 中。
 1. 存储在 `name` 中的字符串会合并为欢迎消息，而该消息会传递给 JavaScript 函数 `displayWelcome`（它将欢迎消息呈现到标题标记中）。
 
@@ -193,7 +193,7 @@ Pages/JSInterop.razor：
 
 例如，以下代码定义一个 .NET 扩展方法，通过该方法可在元素上设置焦点：
 
-exampleJsInterop.js：
+`exampleJsInterop.js`：
 
 ```javascript
 window.exampleJsFunctions = {
@@ -222,7 +222,7 @@ public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRu
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/component2.razor?highlight=1-4,12)]
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `username` 变量。 如果将未填充的 <xref:Microsoft.AspNetCore.Components.ElementReference> 传递给 JavaScript 代码，则 JavaScript 代码会收到 `null` 值。 若要在组件完成呈现之后操作元素引用（用于对元素设置初始焦点），请使用 [OnAfterRenderAsync 或 OnAfterRender 组件生命周期方法](xref:blazor/components/lifecycle#after-component-render)。
+> 仅在呈现组件后填充 `username` 变量。 如果将未填充的 <xref:Microsoft.AspNetCore.Components.ElementReference> 传递给 JavaScript 代码，则 JavaScript 代码会收到 `null` 值。 若要在组件完成呈现之后操作元素引用（用于对元素设置初始焦点），请使用 [`OnAfterRenderAsync` 或 `OnAfterRender` 组件生命周期方法](xref:blazor/components/lifecycle#after-component-render)。
 
 使用泛型类型并返回值时，请使用 <xref:System.Threading.Tasks.ValueTask%601>：
 
@@ -250,7 +250,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 以下 Blazor WebAssembly 示例演示了该方法。
 
-在 wwwroot/index.html 的 `<head>` 中：
+在 `wwwroot/index.html` 的 `<head>` 中：
 
 ```html
 <style>
@@ -258,7 +258,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 </style>
 ```
 
-在 wwwroot/index.html 的 `<body>` 中：
+在 `wwwroot/index.html` 的 `<body>` 中：
 
 ```html
 <script>
@@ -270,7 +270,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 </script>
 ```
 
-Pages/Index.razor（父组件）：
+`Pages/Index.razor`（父组件）：
 
 ```razor
 @page "/"
@@ -282,7 +282,7 @@ Welcome to your new app.
 <SurveyPrompt Parent="this" Title="How is Blazor working for you?" />
 ```
 
-Pages/Index.razor.cs：
+`Pages/Index.razor.cs`：
 
 ```csharp
 using System;
@@ -366,7 +366,7 @@ namespace BlazorSample.Pages
 }
 ```
 
-Shared/SurveyPrompt.razor（子组件）：
+`Shared/SurveyPrompt.razor`（子组件）：
 
 ```razor
 @inject IJSRuntime JS
@@ -389,7 +389,7 @@ Shared/SurveyPrompt.razor（子组件）：
 }
 ```
 
-Shared/SurveyPrompt.razor.cs：
+`Shared/SurveyPrompt.razor.cs`：
 
 ```csharp
 using System;

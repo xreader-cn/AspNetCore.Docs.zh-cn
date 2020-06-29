@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 4f672c5117beeb09914e802012f0970389fea47f
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 7e0263200ebb9ce60f7234af3cbb18c5aeaa3e09
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103175"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243520"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -43,11 +43,11 @@ ms.locfileid: "85103175"
 
 Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管项目时，主机项目能够执行内容协商并提供静态压缩文件。 托管 Blazor WebAssembly 独立应用时，可能需要额外的工作来确保提供静态压缩文件：
 
-* 有关 IIS web.config** 压缩配置，请参阅 [IIS：Brotli 和 Gzip 压缩](#brotli-and-gzip-compression) 部分。 
+* 有关 IIS `web.config` 压缩配置，请参阅 [IIS：Brotli 和 Gzip 压缩](#brotli-and-gzip-compression) 部分。 
 * 如果在不支持静态压缩文件内容协商的静态托管解决方案（例如 GitHub 页面）上进行托管，请考虑配置应用以提取和解码 Brotli 压缩文件：
 
   * 从应用中的 [google/brotli GitHub 存储库](https://github.com/google/brotli/)中引用 Brotli 解码器。
-  * 更新应用以使用解码器。 将 wwwroot/index.html 中结束 `<body>` 标记内的标记更改为以下内容：**
+  * 更新应用以使用解码器。 将 `wwwroot/index.html` 中结束 `<body>` 标记内的标记更改为以下内容：
   
     ```html
     <script src="brotli.decode.min.js"></script>
@@ -87,29 +87,29 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 
 在 Blazor WebAssembly 应用中路由对页组件的请求不如在 Blazor Server 对托管应用中路由请求直接。 假设有一个 Blazor WebAssembly 应用包含以下两个组件：
 
-* Main.razor**：在应用的根目录处加载，并包含指向 `About` 组件 (`href="About"`) 的链接。
-* About.razor**：`About` 组件。
+* `Main.razor`：在应用的根目录处加载，并包含指向 `About` 组件 (`href="About"`) 的链接。
+* `About.razor`：`About` 组件。
 
 使用浏览器的地址栏（例如，`https://www.contoso.com/`）请求应用的默认文档：
 
 1. 浏览器发出请求。
-1. 返回默认页，通常为 index.html**。
-1. index.html 启动应用**。
+1. 返回默认页，通常为 `index.html`。
+1. `index.html` 启动应用。
 1. Blazor 的路由器进行加载，然后呈现 Razor `Main` 组件。
 
-在 Main 页中，选择指向 `About` 组件的链接适用于客户端，因为 Blazor 路由器阻止浏览器在 Internet 上发出请求，针对 `About` 转到 `www.contoso.com`，并为呈现的 `About` 组件本身提供服务。 针对 Blazor WebAssembly 应用中的** 内部终结点的所有请求，工作原理都相同：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
+在 Main 页中，选择指向 `About` 组件的链接适用于客户端，因为 Blazor 路由器阻止浏览器在 Internet 上发出请求，针对 `About` 转到 `www.contoso.com`，并为呈现的 `About` 组件本身提供服务。 针对 Blazor WebAssembly 应用中的内部终结点的所有请求，工作原理都相同：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
 
-如果针对 `www.contoso.com/About` 使用浏览器的地址栏发出请求，则请求会失败。 应用的 Internet 主机上不存在此类资源，所以返回的是“404 - 找不到”** 响应。
+如果针对 `www.contoso.com/About` 使用浏览器的地址栏发出请求，则请求会失败。 应用的 Internet 主机上不存在此类资源，所以返回的是“404 - 找不到”响应。
 
-由于浏览器针对客户端页面请求基于 Internet 的主机，因此 Web 服务器和托管服务必须将对服务器上非物理方式资源的所有请求重写为 index.html 页**。 如果返回 index.html，应用的 Blazor 路由器将接管工作并使用正确的资源响应**。
+由于浏览器针对客户端页面请求基于 Internet 的主机，因此 Web 服务器和托管服务必须将对服务器上非物理方式资源的所有请求重写为 `index.html` 页。 如果返回 `index.html`，应用的 Blazor 路由器将接管工作并使用正确的资源响应。
 
-部署到 IIS 服务器时，可以将 URL 重写模块与应用的已发布 web.config** 文件一起使用。 有关详细信息，请参阅 [IIS](#iis) 部分。
+部署到 IIS 服务器时，可以将 URL 重写模块与应用的已发布 `web.config` 文件一起使用。 有关详细信息，请参阅 [IIS](#iis) 部分。
 
 ## <a name="hosted-deployment-with-aspnet-core"></a>使用 ASP.NET Core 进行托管部署
 
-托管部署** 通过在 Web 服务器上运行的 [ASP.NET Core](xref:index) 应用为浏览器提供 Blazor WebAssembly 应用。
+托管部署通过在 Web 服务器上运行的 [ASP.NET Core](xref:index) 应用为浏览器提供 Blazor WebAssembly 应用。
 
-客户端 Blazor WebAssembly 应用将与服务器应用的任何其他静态 Web 资产一起发布到服务器应用的 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹**。 这两个应用一起部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 会在选择“托管”选项（使用 `dotnet new` 命令时为 `-ho|--hosted`）的情况下，包含 Blazor WebAssembly App 项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new)命令时为 `blazorwasm` 模板）**** ****。
+客户端 Blazor WebAssembly 应用将与服务器应用的任何其他静态 Web 资产一起发布到服务器应用的 `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` 文件夹。 这两个应用一起部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 会在选择 `Hosted` 选项（使用 `dotnet new` 命令时为 `-ho|--hosted`）的情况下，包含 Blazor WebAssembly App 项目模板（使用 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令时为 `blazorwasm` 模板） 。
 
 有关托管和部署 ASP.NET Core 应用的详细信息，请参阅 <xref:host-and-deploy/index>。
 
@@ -117,9 +117,9 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 
 ## <a name="standalone-deployment"></a>独立部署
 
-独立部署将 Blazor WebAssembly 应用作为客户端直接请求的一组静态文件提供**。 任何静态文件服务器均可提供 Blazor 应用。
+独立部署将 Blazor WebAssembly 应用作为客户端直接请求的一组静态文件提供。 任何静态文件服务器均可提供 Blazor 应用。
 
-独立部署资产发布到 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹中**。
+独立部署资产将发布到 `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` 文件夹。
 
 ### <a name="azure-app-service"></a>Azure 应用服务
 
@@ -131,41 +131,41 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 
 IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS 以托管 Blazor，请参阅[在 IIS 上生成静态网站](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis)。
 
-已发布的资产是在 /bin/Release/{TARGET FRAMEWORK}/publish** 文件夹中创建。 在 Web 服务器或托管服务上托管“publish”文件夹内容**。
+`/bin/Release/{TARGET FRAMEWORK}/publish` 文件夹中已创建发布的资产。 在 Web 服务器或托管服务上托管 `publish` 文件夹的内容。
 
 #### <a name="webconfig"></a>web.config
 
-发布 Blazor 项目时，将使用以下 IIS 配置创建 web.config ** 文件：
+发布 Blazor 项目时，将使用以下 IIS 配置创建 `web.config` 文件：
 
 * 对以下文件扩展名设置 MIME 类型：
-  * .dll**：`application/octet-stream`
-  * .json**：`application/json`
-  * .wasm**：`application/wasm`
-  * .woff**：`application/font-woff`
-  * .woff2**：`application/font-woff`
+  * `.dll`: `application/octet-stream`
+  * `.json`: `application/json`
+  * `.wasm`: `application/wasm`
+  * `.woff`: `application/font-woff`
+  * `.woff2`: `application/font-woff`
 * 对以下 MIME 类型启用 HTTP 压缩：
   * `application/octet-stream`
   * `application/wasm`
 * 建立 URL 重写模块规则：
-  * 提供应用的静态资产驻留所在的子目录 (wwwroot/{PATH REQUESTED})**。
-  * 创建 SPA 回退路由，以便非文件资产请求能够重定向到应用的静态资产文件夹中的默认文档 (wwwroot/index.html)**。
+  * 提供应用的静态资产所驻留的子目录 (`wwwroot/{PATH REQUESTED}`)。
+  * 创建 SPA 回退路由，以便非文件资产请求能够重定向到应用的静态资产文件夹中的默认文档 (`wwwroot/index.html`)。
   
 #### <a name="use-a-custom-webconfig"></a>使用自定义 web.config
 
-要使用自定义 web.config 文件，请将自定义 web.config 文件放在项目文件夹的根目录下，然后发布该项目** **。
+要使用自定义 `web.config` 文件，请将自定义 `web.config` 文件放在项目文件夹的根目录下，然后发布该项目。
 
 #### <a name="install-the-url-rewrite-module"></a>安装 URL 重写模块
 
 重写 URL 必须使用 [URL 重写模块](https://www.iis.net/downloads/microsoft/url-rewrite)。 此模块默认不安装，且不适用于安装为 Web 服务器 (IIS) 角色服务功能。 必须从 IIS 网站下载该模块。 使用 Web 平台安装程序安装模块：
 
-1. 以本地方式导航到 [URL 重写模块下载页](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads)。 对于英语版本，请选择“WebPI”以下载 WebPI 安装程序****。 对于其他语言，请选择适当的服务器体系结构 (x86/x64) 下载安装程序。
-1. 将安装程序复制到服务器。 运行安装程序。 选择“安装”按钮，并接受许可条款****。 安装完成后无需重启服务器。
+1. 以本地方式导航到 [URL 重写模块下载页](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads)。 对于英语版本，请选择“WebPI”以下载 WebPI 安装程序。 对于其他语言，请选择适当的服务器体系结构 (x86/x64) 下载安装程序。
+1. 将安装程序复制到服务器。 运行安装程序。 选择“安装”按钮，并接受许可条款。 安装完成后无需重启服务器。
 
 #### <a name="configure-the-website"></a>配置网站
 
-将网站的物理路径设置为应用的文件夹****。 该文件夹包含：
+将网站的物理路径设置为应用的文件夹。 该文件夹包含：
 
-* web.config 文件，IIS 使用该文件配置网站，包括所需的重定向规则和文件内容类型**。
+* `web.config` 文件，IIS 使用该文件配置网站，包括所需的重定向规则和文件内容类型。
 * 应用的静态资产文件夹。
 
 #### <a name="host-as-an-iis-sub-app"></a>作为 IIS 子应用托管
@@ -174,7 +174,7 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 
 * 禁用继承的 ASP.NET Core 模块处理程序。
 
-  通过向文件添加 `<handlers>` 部分，删除 Blazor 应用已发布 web.config ** 文件中的处理程序：
+  通过向文件添加 `<handlers>` 部分，删除 Blazor 应用的已发布 `web.config` 文件中的处理程序：
 
   ```xml
   <handlers>
@@ -198,15 +198,15 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
   </configuration>
   ```
 
-除[配置应用的基路径](xref:blazor/host-and-deploy/index#app-base-path)外，还需删除处理程序或禁用继承。 在 IIS 中配置子应用时，在应用的 index.html 文件中将应用基路径设置为 IIS 别名**。
+除[配置应用的基路径](xref:blazor/host-and-deploy/index#app-base-path)外，还需删除处理程序或禁用继承。 在 IIS 中配置子应用时，在应用的 `index.html` 文件中将应用基路径设置为 IIS 别名。
 
 #### <a name="brotli-and-gzip-compression"></a>Brotli 和 Gzip 压缩
 
-通过 web.config 可将 IIS 配置为提供 Brotli 或 Gzip 压缩的 Blazor 资产**。 有关示例配置，请参阅 [web.config](webassembly/_samples/web.config?raw=true)。
+通过 `web.config` 可将 IIS 配置为提供 Brotli 或 Gzip 压缩的 Blazor 资产。 有关示例配置，请参阅 [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true)。
 
 #### <a name="troubleshooting"></a>疑难解答
 
-如果你看到“500 - 内部服务器错误”**，且 IIS 管理器在尝试访问网站配置时抛出错误，请确认是否已安装 URL 重写模块。 如果未安装该模块，则 IIS 无法分析 web.config 文件**。 这可以防止 IIS 管理器加载网站配置，并防止网站对 Blazor 的静态文件提供服务。
+如果你看到“500 - 内部服务器错误”，且 IIS 管理器在尝试访问网站配置时抛出错误，请确认是否已安装 URL 重写模块。 如果未安装该模块，则 IIS 无法分析 `web.config` 文件。 这可以防止 IIS 管理器加载网站配置，并防止网站对 Blazor 的静态文件提供服务。
 
 有关排查部署到 IIS 的问题的详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。
 
@@ -216,8 +216,8 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 
 为存储帐户上的静态网站承载启用 blob 服务时：
 
-* 设置“索引文档名称”**** 到 `index.html`。
-* 设置“错误文档路径”**** 到 `index.html`。 Razor 组件和其他非文件终结点不会驻留在由 blob 服务存储的静态内容中的物理路径中。 当收到 Blazor 路由器应处理的对这些资源之一的请求时，由 blob 服务生成的“404 - 未找到”** 错误会将此请求路由到“错误文档路径”****。 返回 Index.html** blob，Blazor 路由器会加载并处理此路径。
+* 设置“索引文档名称”到 `index.html`。
+* 设置“错误文档路径”到 `index.html`。 Razor 组件和其他非文件终结点不会驻留在由 blob 服务存储的静态内容中的物理路径中。 当收到 Blazor 路由器应处理的对这些资源之一的请求时，由 blob 服务生成的“404 - 未找到”错误会将此请求路由到“错误文档路径”。 返回 `index.html` blob，Blazor 路由器会加载并处理此路径。
 
 如果由于文件的 `Content-Type` 标头中的 MIME 类型不正确，导致在运行时未加载文件，请执行以下任一操作：
 
@@ -226,14 +226,14 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 
   在每个文件的存储资源管理器（Azure 门户）中，执行以下操作：
   
-  1. 右键单击该文件并选择“属性”****。
-  1. 设置“ContentType”并选择“保存”按钮**** ****。
+  1. 右键单击该文件并选择“属性”。
+  1. 设置“ContentType”并选择“保存”按钮 。
 
 有关更多信息，请参阅 [Azure 存储中的静态网站承载](/azure/storage/blobs/storage-blob-static-website)。
 
 ### <a name="nginx"></a>Nginx
 
-以下 nginx.conf** 文件已简化，以展示如何将 Nginx 配置为，每当在磁盘上找不到相应文件时，发送 index.html** 文件。
+以下 `nginx.conf` 文件已简化，以展示如何配置 Nginx，以便每当在磁盘上找不到相应文件时，就发送 `index.html` 文件。
 
 ```
 events { }
@@ -253,7 +253,7 @@ http {
 
 ### <a name="nginx-in-docker"></a>Docker 中的 Nginx
 
-要使用 Nginx 在 Docker 中托管 Blazor，请设置 Dockerfile，以使用基于 Alpine 的 Nginx 映像。 更新 Dockerfile，以将 nginx.config 文件复制到容器**。
+要使用 Nginx 在 Docker 中托管 Blazor，请设置 Dockerfile，以使用基于 Alpine 的 Nginx 映像。 更新 Dockerfile，以将 `nginx.config` 文件复制到容器。
 
 向 Dockerfile 添加一行，如下面的示例中所示：
 
@@ -267,7 +267,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 若要将 Blazor WebAssembly 应用部署到 CentOS 7 或更高版本：
 
-1. 创建 Apache 配置文件。 下面的示例展示了一个简化的配置文件 (*blazorapp.config*)：
+1. 创建 Apache 配置文件。 下面的示例展示了一个简化的配置文件 (`blazorapp.config`)：
 
    ```
    <VirtualHost *:80>
@@ -309,13 +309,13 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 1. 重启 Apache 服务。
 
-有关详细信息，请参阅 [mod_mime](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) 和 [mod_deflate](https://httpd.apache.org/docs/current/mod/mod_deflate.html)。
+有关详细信息，请参阅 [`mod_mime`](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) 和 [`mod_deflate`](https://httpd.apache.org/docs/current/mod/mod_deflate.html)。
 
 ### <a name="github-pages"></a>GitHub 页
 
-要处理 URL 重写，请使用脚本添加 404.html 文件，该脚本可处理到 index.html 页的重定向请求** **。 关于社区提供的示例实现，请参阅[用于 GitHub 页的单页应用](https://spa-github-pages.rafrex.com/)（[GitHub 上的 rafrex/spa-github-pages](https://github.com/rafrex/spa-github-pages#readme)）。 可在 [GitHub 上的 blazor-demo/blazor-demo.github.io](https://github.com/blazor-demo/blazor-demo.github.io)（[实时站点](https://blazor-demo.github.io/)）查看使用社区方法的示例。
+要处理 URL 重写，请使用脚本添加 `404.html` 文件，该脚本可处理到 `index.html` 页的重定向请求。 关于社区提供的示例实现，请参阅[用于 GitHub 页的单页应用](https://spa-github-pages.rafrex.com/)（[GitHub 上的 rafrex/spa-github-pages](https://github.com/rafrex/spa-github-pages#readme)）。 可在 [GitHub 上的 blazor-demo/blazor-demo.github.io](https://github.com/blazor-demo/blazor-demo.github.io)（[实时站点](https://blazor-demo.github.io/)）查看使用社区方法的示例。
 
-如果使用项目站点而非组织站点，请在 index.html 中添加或更新 `<base>` 标记**。 将 `href` 属性值设置为，包含尾部斜杠的 GitHub 存储库名称（例如，`my-repository/`）。
+如果使用项目站点而非组织站点，请在 `index.html` 中添加或更新 `<base>` 标记。 将 `href` 属性值设置为，包含尾部斜杠的 GitHub 存储库名称（例如，`my-repository/`）。
 
 ## <a name="host-configuration-values"></a>主机配置值
 
@@ -331,13 +331,13 @@ COPY nginx.conf /etc/nginx/nginx.conf
   dotnet run --contentroot=/content-root-path
   ```
 
-* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目******。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
+* 在 IIS Express 配置文件中，向应用的 `launchSettings.json` 文件添加条目。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
 
   ```json
   "commandLineArgs": "--contentroot=/content-root-path"
   ```
 
-* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数**** **** ****。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件**。
+* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数  。 在 Visual Studio 属性页中设置参数可将参数添加到 `launchSettings.json` 文件。
 
   ```console
   --contentroot=/content-root-path
@@ -356,13 +356,13 @@ COPY nginx.conf /etc/nginx/nginx.conf
   dotnet run --pathbase=/relative-URL-path
   ```
 
-* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目******。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
+* 在 IIS Express 配置文件中，向应用的 `launchSettings.json` 文件添加条目。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
 
   ```json
   "commandLineArgs": "--pathbase=/relative-URL-path"
   ```
 
-* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数**** **** ****。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件**。
+* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数  。 在 Visual Studio 属性页中设置参数可将参数添加到 `launchSettings.json` 文件。
 
   ```console
   --pathbase=/relative-URL-path
@@ -378,13 +378,13 @@ COPY nginx.conf /etc/nginx/nginx.conf
   dotnet run --urls=http://127.0.0.1:0
   ```
 
-* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目******。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
+* 在 IIS Express 配置文件中，向应用的 `launchSettings.json` 文件添加条目。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
 
   ```json
   "commandLineArgs": "--urls=http://127.0.0.1:0"
   ```
 
-* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数**** **** ****。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件**。
+* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数  。 在 Visual Studio 属性页中设置参数可将参数添加到 `launchSettings.json` 文件。
 
   ```console
   --urls=http://127.0.0.1:0
@@ -398,7 +398,7 @@ Blazor 对每个发布版本执行中间语言 (IL) 链接，以从输出程序�
 
 Blazor WebAssembly 应用可使用 `loadBootResource` 函数进行初始化，以覆盖内置的启动资源加载机制。 在以下场景中使用 `loadBootResource`：
 
-* 允许用户从 CDN 加载静态资源，例如时区数据或 dotnet wasm**。
+* 允许用户从 CDN 加载静态资源，例如时区数据或 `dotnet.wasm`。
 * 使用 HTTP 请求加载压缩的程序集，并将其解压缩到不支持从服务器提取压缩内容的主机的客户端上。
 * 将每个 `fetch` 请求重定向到新名称，从而为资源提供别名。
 
@@ -413,10 +413,10 @@ Blazor WebAssembly 应用可使用 `loadBootResource` 函数进行初始化，�
 
 `loadBootResource` 返回以下任何内容以替代加载过程：
 
-* URI 字符串。 在以下示例中 (wwwroot/index.html)，以下文件来自 CDN (`https://my-awesome-cdn.com/`)**：
+* URI 字符串。 在以下示例 (`wwwroot/index.html`) 中，以下文件来自 CDN (`https://my-awesome-cdn.com/`)：
 
-  * dotnet.\*.js**
-  * dotnet.wasm**
+  * `dotnet.*.js`
+  * `dotnet.wasm`
   * 时区数据
 
   ```html
@@ -440,7 +440,7 @@ Blazor WebAssembly 应用可使用 `loadBootResource` 函数进行初始化，�
 
 * `Promise<Response>`。 在标头中传递 `integrity` 参数以保持默认的完整性检查行为。
 
-  以下示例 (wwwroot/index.html) 将一个自定义 HTTP 标头添加到出站请求，并将 `integrity` 参数传递到 `fetch` 调用**：
+  以下示例 (`wwwroot/index.html`) 将一个自定义 HTTP 标头添加到出站请求，并将 `integrity` 参数传递到 `fetch` 调用：
   
   ```html
   <script src="_framework/blazor.webassembly.js" autostart="false"></script>
@@ -465,11 +465,11 @@ Blazor WebAssembly 应用可使用 `loadBootResource` 函数进行初始化，�
 
 ## <a name="change-the-filename-extension-of-dll-files"></a>更改 DLL 文件的文件扩展名
 
-如果需要更改应用的已发布 .dll 文件的文件扩展名，请按照本部分中的指导进行操作**。
+如果需要更改应用的已发布 `.dll` 文件的文件扩展名，请按照本部分中的指导进行操作。
 
-发布应用后，使用 shell 脚本或 DevOps 生成管道将 .dll 文件重命名，以使用其他文件扩展名**。 将 .dll 文件的目标位置设为应用的已发布输出的 wwwroot 目录中（例如 {CONTENT ROOT}/bin/Release/netstandard2.1/publish/wwwroot）** ** **。
+发布应用后，使用 shell 脚本或 DevOps 生成管道将 `.dll` 文件重命名，以使用其他文件扩展名。 将 `.dll` 文件的目标位置设为应用的已发布输出的 `wwwroot` 目录中（例如 `{CONTENT ROOT}/bin/Release/netstandard2.1/publish/wwwroot`）。
 
-在下面的示例中，重命名 .dll 文件，以使用 .bin 文件扩展名** **。
+在下面的示例中，重命名 `.dll` 文件，以使用 `.bin` 文件扩展名。
 
 在 Windows 上：
 
@@ -497,18 +497,18 @@ sed -i 's/\.dll"/.bin"/g' _framework/blazor.boot.json
 sed -i 's/\.dll"/.bin"/g' service-worker-assets.js
 ```
    
-要使用不同于 .bin 的其他文件扩展名，请在前面的命令中替换 .bin** **。
+要使用不同于 `.bin` 的其他文件扩展名，请在前面的命令中替换 `.bin`。
 
-要处理压缩的 blazor.boot.json.gz 和 blazor.boot.json.br 文件，请采用以下方法之一** **：
+若要处理压缩的 `blazor.boot.json.gz` 和 `blazor.boot.json.br` 文件，请采用以下方法之一：
 
-* 删除压缩的 blazor.boot.json.gz 和 blazor.boot.json.br 文件** **。 此方法禁用压缩。
-* 重新压缩更新后的 blazor.boot.json 文件**。
+* 删除压缩的 `blazor.boot.json.gz` 和 `blazor.boot.json.br` 文件。 此方法禁用压缩。
+* 重新压缩更新后的 `blazor.boot.json` 文件。
 
-上述指导也适用于正在使用服务工作进程资产的情况。 删除或重新压缩 wwwroot/service-worker-assets.js.br** 和 wwwroot/service-worker-assets.js.gz**。 否则，浏览器中的文件完整性检查将失败。
+上述指导也适用于正在使用服务工作进程资产的情况。 删除或重新压缩 `wwwroot/service-worker-assets.js.br` 和 `wwwroot/service-worker-assets.js.gz`。 否则，浏览器中的文件完整性检查将失败。
 
 以下 Windows 示例使用项目根目录中的 PowerShell 脚本。
 
-ChangeDLLExtensions.ps1:**：
+`ChangeDLLExtensions.ps1:`：
 
 ```powershell
 param([string]$filepath,[string]$tfm)

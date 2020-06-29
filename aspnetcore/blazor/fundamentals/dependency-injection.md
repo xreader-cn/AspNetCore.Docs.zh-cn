@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/dependency-injection
-ms.openlocfilehash: b4ac0dbc6dabdeff4689544f2e11278b8302c553
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 24cd5ae837eeb4c89a15bab2948dde2eface0c0d
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103187"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242792"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -28,7 +28,7 @@ Blazor 支持[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)�
 
 DI 是一种技术，它用于访问配置在中心位置的服务。 该技术可在 Blazor 应用中用于以下方面：
 
-* 跨多个组件共享服务类的单个实例，称为“单一实例”服务**。
+* 跨多个组件共享服务类的单个实例，称为“单一实例”服务。
 * 通过使用引用抽象将组件与具体服务类分离。 例如，请考虑用接口 `IDataAccess` 来访问应用中数据。 该接口由具体的 `DataAccess` 类实现，并在应用的服务容器中注册为服务。 当组件使用 DI 接收 `IDataAccess` 实现时，组件不与具体类型耦合。 可交换实现，目的可能是为了单元测试中的模拟实现。
 
 ## <a name="default-services"></a>默认服务
@@ -47,7 +47,7 @@ DI 是一种技术，它用于访问配置在中心位置的服务。 该技术�
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-在 Program.cs 的 `Main` 方法中配置应用服务集合的服务**。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
+在 `Program.cs` 的 `Main` 方法中配置应用服务集合的服务。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
 
 ```csharp
 public class Program
@@ -84,7 +84,7 @@ public class Program
 }
 ```
 
-主机还会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 appsettings.json）传递到 `InitializeWeatherAsync`**：
+主机还会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 `appsettings.json`）传递到 `InitializeWeatherAsync`：
 
 ```csharp
 public class Program
@@ -132,9 +132,9 @@ public void ConfigureServices(IServiceCollection services)
 
 | 生存期 | 描述 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。 但是，Blazor 服务器托管模型支持 `Scoped` 生存期。 在 Blazor 服务器应用中，Scoped 服务注册的范围为“连接”**。 因此，即使当前意图是在浏览器中运行客户端，对于范围应限定为当前用户的服务来说，首选使用 Scoped 服务。 |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI 创建服务的单个实例**。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例**。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。 但是，Blazor 服务器托管模型支持 `Scoped` 生存期。 在 Blazor 服务器应用中，Scoped 服务注册的范围为“连接”。 因此，即使当前意图是在浏览器中运行客户端，对于范围应限定为当前用户的服务来说，首选使用 Scoped 服务。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI 创建服务的单个实例。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例。 |
 
 DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 <xref:fundamentals/dependency-injection>。
 
@@ -176,7 +176,7 @@ public class ComponentBase : IComponent
 
 ## <a name="use-di-in-services"></a>在服务中使用 DI
 
-复杂的服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性）在服务中不可用。 必须改用构造函数注入**。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。
+复杂的服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性）在服务中不可用。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。
 
 ```csharp
 public class DataAccess : IDataAccess
@@ -193,7 +193,7 @@ public class DataAccess : IDataAccess
 构造函数注入的先决条件：
 
 * 必须存在一个构造函数，其参数可完全通过 DI 实现。 如果指定默认值，则允许使用 DI 未涵盖的其他参数。
-* 适用的构造函数必须是公共函数**。
+* 适用的构造函数必须是 `public`。
 * 必须存在一个适用的构造函数。 如果出现歧义，DI 会引发异常。
 
 ## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>用于管理 DI 范围的实用工具基组件类
@@ -258,7 +258,7 @@ public class DataAccess : IDataAccess
 
 从 Web 应用中的 DI 检索的一种常见服务类型是实体框架 (EF) <xref:Microsoft.EntityFrameworkCore.DbContext> 对象。 默认情况下，使用 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> 注册 EF 服务会将 <xref:Microsoft.EntityFrameworkCore.DbContext> 添加为一项 Scoped 服务。 注册为 Scoped 服务可能会导致 Blazor 应用中出现问题，因为这会导致 <xref:Microsoft.EntityFrameworkCore.DbContext> 实例生存期较长且跨应用共享。 <xref:Microsoft.EntityFrameworkCore.DbContext> 不是线程安全的且不得同时使用。
 
-根据应用的不同，使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 将 <xref:Microsoft.EntityFrameworkCore.DbContext> 的范围限制为单个组件可能会解决此问题**。 如果组件不并行使用 <xref:Microsoft.EntityFrameworkCore.DbContext>，则从 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 派生该组件并从 <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> 检索 <xref:Microsoft.EntityFrameworkCore.DbContext> 就已足够，因为它可确保：
+根据应用的不同，使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 将 <xref:Microsoft.EntityFrameworkCore.DbContext> 的范围限制为单个组件可能会解决此问题。 如果组件不并行使用 <xref:Microsoft.EntityFrameworkCore.DbContext>，则从 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 派生该组件并从 <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> 检索 <xref:Microsoft.EntityFrameworkCore.DbContext> 就已足够，因为它可确保：
 
 * 单独的组件不共享 <xref:Microsoft.EntityFrameworkCore.DbContext>。
 * <xref:Microsoft.EntityFrameworkCore.DbContext> 的生存期与依赖它的组件的生存期一样长。
@@ -346,5 +346,5 @@ public class DataAccess : IDataAccess
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:fundamentals/dependency-injection>
-* [暂时和共享实例的 IDisposable 指南](xref:fundamentals/dependency-injection#idisposable-guidance-for-transient-and-shared-instances)
+* [暂时和共享实例的 `IDisposable` 指南](xref:fundamentals/dependency-injection#idisposable-guidance-for-transient-and-shared-instances)
 * <xref:mvc/views/dependency-injection>

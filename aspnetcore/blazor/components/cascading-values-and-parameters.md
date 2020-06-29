@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/cascading-values-and-parameters
-ms.openlocfilehash: 70f379b3b0e48dbb340f319f3346bbbf44588740
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 43fbaa6284fa45dee46a693ed858ed06130600b6
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103205"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242376"
 ---
 # <a name="aspnet-core-blazor-cascading-values-and-parameters"></a>ASP.NET Core Blazor 级联值和参数
 
@@ -30,7 +30,7 @@ ms.locfileid: "85103205"
 
 在示例应用的以下示例中，`ThemeInfo` 类指定了要沿组件层次结构向下传递的主题信息，以便应用中给定部分内的所有按钮共享相同样式。
 
-UIThemeClasses/ThemeInfo.cs**：
+`UIThemeClasses/ThemeInfo.cs`：
 
 ```csharp
 public class ThemeInfo
@@ -144,7 +144,7 @@ public class ThemeInfo
 
 ### <a name="tabset-example"></a>TabSet 示例
 
-级联参数还允许组件跨组件层次结构进行协作。 例如，请考虑示例应用中的以下 TabSet 示例**。
+级联参数还允许组件跨组件层次结构进行协作。 例如，请考虑示例应用中的以下 `TabSet` 示例。
 
 该示例应用包含一个选项卡实现的 `ITab` 接口：
 
@@ -176,7 +176,7 @@ public class ThemeInfo
 </TabSet>
 ```
 
-子 `Tab` 组件不会作为参数显式传递给 `TabSet`。 子 `Tab` 组件是 `TabSet` 的子内容的一部分。 但 `TabSet` 仍需要了解每个 `Tab` 组件，以便它可以呈现标头和活动选项卡。若要在不需要额外代码的情况下启用此协调，`TabSet` 组件可以将自身作为级联值提供，然后由子代 `Tab` 组件选取**。
+子 `Tab` 组件不会作为参数显式传递给 `TabSet`。 子 `Tab` 组件是 `TabSet` 的子内容的一部分。 但 `TabSet` 仍需要了解每个 `Tab` 组件，以便它可以呈现标头和活动选项卡。若要在不需要额外代码的情况下启用此协调，`TabSet` 组件可以将自身作为级联值提供，然后由子代 `Tab` 组件选取。
 
 `TabSet` 组件：
 

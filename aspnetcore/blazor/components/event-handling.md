@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/event-handling
-ms.openlocfilehash: 32f7595cffc2c31116c8d876c9f9526b84c52f14
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 4ac7b82d734f078cf50901d02e7d0c4eb8bb45bb
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103198"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242414"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Core Blazor 事件处理
 
@@ -73,7 +73,14 @@ UI 中的该复选框更改时，以下代码调用 `CheckChanged` 方法：
 
 ## <a name="event-argument-types"></a>事件参数类型
 
-对于某些事件，允许使用事件参数类型。 仅当方法中使用了事件类型时，才需要在方法调用中指定该事件类型。
+对于某些事件，允许使用事件参数类型。 在事件方法定义中指定事件参数是可选操作，只有当方法中使用了事件类型时才是必需的。 在下面的示例中，`ShowMessage` 方法中使用 `MouseEventArgs` 事件参数来设置消息文本：
+
+```csharp
+private void ShowMessage(MouseEventArgs e)
+{
+    messageText = $"The mouse is at coordinates: {e.ScreenX}:{e.ScreenY}";
+}
+```
 
 支持的 <xref:System.EventArgs> 显示在下表中。
 
@@ -82,7 +89,7 @@ UI 中的该复选框更改时，以下代码调用 `CheckChanged` 方法：
 | 剪贴板        | <xref:Microsoft.AspNetCore.Components.Web.ClipboardEventArgs> | `oncut`, `oncopy`, `onpaste` |
 | 拖动             | <xref:Microsoft.AspNetCore.Components.Web.DragEventArgs> | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br><xref:Microsoft.AspNetCore.Components.Web.DataTransfer> 和 <xref:Microsoft.AspNetCore.Components.Web.DataTransferItem> 保留拖动的项数据。 |
 | 错误            | <xref:Microsoft.AspNetCore.Components.Web.ErrorEventArgs> | `onerror` |
-| 事件            | <xref:System.EventArgs> | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*输入*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit><br><br>*介质*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting`<br><br><xref:Microsoft.AspNetCore.Components.Web.EventHandlers> 保留属性，以配置事件名称和事件参数类型之间的映射。 |
+| 事件            | <xref:System.EventArgs> | *常规*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*剪贴板*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*输入*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit><br><br>*介质*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onended`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting`<br><br><xref:Microsoft.AspNetCore.Components.Web.EventHandlers> 保留属性，以配置事件名称和事件参数类型之间的映射。 |
 | 焦点            | <xref:Microsoft.AspNetCore.Components.Web.FocusEventArgs> | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>不包含对 `relatedTarget` 的支持。 |
 | 输入            | <xref:Microsoft.AspNetCore.Components.ChangeEventArgs> | `onchange`，`oninput` |
 | 键盘         | <xref:Microsoft.AspNetCore.Components.Web.KeyboardEventArgs> | `onkeydown`, `onkeypress`, `onkeyup` |
@@ -94,7 +101,7 @@ UI 中的该复选框更改时，以下代码调用 `CheckChanged` 方法：
 
 有关更多信息，请参见以下资源：
 
-* [ASP.NET Core 引用源 (dotnet/aspnetcore release/3.1 branch) 中的 EventArgs 类](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)。
+* [ASP.NET Core 引用源 (dotnet/aspnetcore release/3.1 branch) 中的 `EventArgs` 类](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)。
 * [MDN Web 文档：GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers)：包含关于哪些 HTML 元素支持每个 DOM 事件的信息。
 
 ## <a name="lambda-expressions"></a>Lambda 表达式
@@ -132,19 +139,19 @@ UI 中的该复选框更改时，以下代码调用 `CheckChanged` 方法：
 ```
 
 > [!NOTE]
-> 不要直接在 Lambda 表达式中使用循环变量，如前面的 `for` 循环示例中的 `i` 或 `foreach` 循环中的引用变量****。 否则，所有 Lambda 表达式将使用相同的变量，这将导致在所有 Lambda 中使用相同的值。 始终在局部变量中捕获该变量的值，然后使用该值。 在前面的示例中，循环变量 `i` 分配给 `buttonNumber`。
+> 不要直接在 Lambda 表达式中使用循环变量，如前面的 `for` 循环示例中的 `i` 或 `foreach` 循环中的引用变量。 否则，所有 Lambda 表达式将使用相同的变量，这将导致在所有 Lambda 中使用相同的值。 始终在局部变量中捕获该变量的值，然后使用该值。 在前面的示例中，循环变量 `i` 分配给 `buttonNumber`。
 
 ## <a name="eventcallback"></a>EventCallback
 
 嵌套组件的一个常见场景：希望在子组件事件发生时运行父组件的方法。 子组件中发生的 `onclick` 事件是一个常见用例。 若要跨组件公开事件，请使用 <xref:Microsoft.AspNetCore.Components.EventCallback>。 父组件可向子组件的 <xref:Microsoft.AspNetCore.Components.EventCallback> 分配回调方法。
 
-示例应用 (Components/ChildComponent.razor) 中的 `ChildComponent` 演示如何设置按钮的 `onclick` 处理程序以从示例的 `ParentComponent` 接收 <xref:Microsoft.AspNetCore.Components.EventCallback> 委托**。 <xref:Microsoft.AspNetCore.Components.EventCallback> 是用 `MouseEventArgs` 键入的，这适用于来自外围设备的 `onclick` 事件：
+示例应用 (`Components/ChildComponent.razor`) 中的 `ChildComponent` 演示如何设置按钮的 `onclick` 处理程序以从示例的 `ParentComponent` 接收 <xref:Microsoft.AspNetCore.Components.EventCallback> 委托。 <xref:Microsoft.AspNetCore.Components.EventCallback> 是用 `MouseEventArgs` 键入的，这适用于来自外围设备的 `onclick` 事件：
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
 `ParentComponent` 将子级的 <xref:Microsoft.AspNetCore.Components.EventCallback%601> (`OnClickCallback`) 设置为其 `ShowMessage` 方法。
 
-Pages/ParentComponent**：
+`Pages/ParentComponent.razor`：
 
 ```razor
 @page "/ParentComponent"
@@ -172,7 +179,7 @@ Pages/ParentComponent**：
 在 `ChildComponent` 中选择该按钮时：
 
 * 调用 `ParentComponent` 的 `ShowMessage` 方法。 `messageText` 更新并显示在 `ParentComponent` 中。
-* 回调方法 (`ShowMessage`) 中不需要对 [StateHasChanged](xref:blazor/components/lifecycle#state-changes) 的调用。 自动调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 以重新呈现 `ParentComponent`，就像子事件触发组件重新呈现于在子级中执行的事件处理程序中一样。
+* 回调方法 (`ShowMessage`) 中不需要对 [`StateHasChanged`](xref:blazor/components/lifecycle#state-changes) 的调用。 自动调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 以重新呈现 `ParentComponent`，就像子事件触发组件重新呈现于在子级中执行的事件处理程序中一样。
 
 <xref:Microsoft.AspNetCore.Components.EventCallback> 和 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 允许异步委托。 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 为强类型，需要特定的参数类型。 <xref:Microsoft.AspNetCore.Components.EventCallback> 为弱类型，允许任何参数类型。
 
@@ -195,7 +202,7 @@ await OnClickCallback.InvokeAsync(arg);
 
 使用 [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault) 指令属性可阻止事件的默认操作。
 
-在输入设备上选择某个键并且元素焦点位于某个文本框上时，浏览器通常在该文本框中显示该键的字符。 在下面的示例中，通过指定 `@onkeypress:preventDefault` 指令属性来阻止默认行为。 计数器递增，且 + 键不会捕获到 `<input>` 元素的值中****：
+在输入设备上选择某个键并且元素焦点位于某个文本框上时，浏览器通常在该文本框中显示该键的字符。 在下面的示例中，通过指定 `@onkeypress:preventDefault` 指令属性来阻止默认行为。 计数器递增，且 + 键不会捕获到 `<input>` 元素的值中：
 
 ```razor
 <input value="@count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
