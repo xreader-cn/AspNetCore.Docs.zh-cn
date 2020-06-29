@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: a5323534cd76cfb60008636066ca5dcb7308d134
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: a54f92d1c951792e599992b82e6b6d5c85549292
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102273"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243494"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
@@ -36,9 +36,9 @@ Blazor 的主要托管模型在 WebAssembly 上的浏览器中运行客户端。
 
 ![Blazor WebAssembly：Blazor 应用在浏览器内部的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
 
-若要使用客户端托管模型创建 Blazor 应用，请使用 Blazor WebAssembly 应用模板 ([dotnet new blazorwasm](/dotnet/core/tools/dotnet-new))。
+若要使用客户端托管模型创建 Blazor 应用，请使用 Blazor WebAssembly 应用模板 ([`dotnet new blazorwasm`](/dotnet/core/tools/dotnet-new))。
 
-选择“Blazor WebAssembly 应用”模板后，可选中“ASP.NET Core 托管”复选框 ([dotnet new blazorwasm --hosted](/dotnet/core/tools/dotnet-new))，将应用配置为使用 ASP.NET Core 后端 。 ASP.NET Core 应用可将 Blazor 应用提供给客户端。 Blazor WebAssembly 应用可使用 Web API 调用或 [SignalR](xref:signalr/introduction) (<xref:tutorials/signalr-blazor-webassembly>) 通过网络与服务器交互。
+选择“Blazor WebAssembly 应用”模板后，可选中“ASP.NET Core 托管”复选框 ([`dotnet new blazorwasm --hosted`](/dotnet/core/tools/dotnet-new))，将应用配置为使用 ASP.NET Core 后端 。 ASP.NET Core 应用可将 Blazor 应用提供给客户端。 Blazor WebAssembly 应用可使用 Web API 调用或 [SignalR](xref:signalr/introduction) (<xref:tutorials/signalr-blazor-webassembly>) 通过网络与服务器交互。
 
 模板包括 `blazor.webassembly.js` 脚本，可处理以下任务：
 
@@ -67,7 +67,7 @@ Blazor 托管应用模型支持 [Docker 容器](/dotnet/standard/microservices-a
 
 ![浏览器通过 SignalR 连接与服务器上的应用进行交互（该应用托管在 ASP.NET Core 应用内部）。](hosting-models/_static/blazor-server.png)
 
-若要使用 Blazor 服务器托管模型创建 Blazor 应用，请使用 ASP.NET Core Blazor 服务器应用模板 ([dotnet new blazorserver](/dotnet/core/tools/dotnet-new))。 ASP.NET Core 应用会托管 Blazor 服务器应用，并在连接客户端的位置创建 SignalR 终结点。
+若要使用 Blazor 服务器托管模型创建 Blazor 应用，请使用 ASP.NET Core Blazor 服务器应用模板 ([`dotnet new blazorserver`](/dotnet/core/tools/dotnet-new))。 ASP.NET Core 应用会托管 Blazor 服务器应用，并在连接客户端的位置创建 SignalR 终结点。
 
 ASP.NET Core 应用会引用应用的 `Startup` 类以添加以下内容：
 

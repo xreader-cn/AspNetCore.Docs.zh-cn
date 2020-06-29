@@ -5,7 +5,7 @@ description: 了解如何为 ASP.NET Core 基础结构（如应用和数据库�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/15/2019
+ms.date: 06/22/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 00b2697a6b916718d9d0e01d1ea9f922eb2b5706
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: ca5540b4920bc92e968dcbc22a9407453041b01c
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074425"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292693"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -442,10 +442,10 @@ Unhealthy
 
 在某些托管方案中，会使用一对区分两种应用状态的运行状况检查：
 
-* 应用正常运行，但尚未准备好接收请求。 此状态是应用的就绪情况。
-* 应用正常运行并响应请求。 此状态是应用的运行情况。
+* “就绪情况”指示情况是否为应用正常运行，但未准备好接收请求。
+* “运行情况”指示情况是否为应用已崩溃且必须重启。
 
-就绪情况检查通常执行更广泛和耗时的检查集，以确定应用的所有子系统和资源是否都可用。 运行情况检查只是执行一个快速检查，以确定应用是否可用于处理请求。 应用通过其就绪情况检查之后，无需使用成本高昂的就绪情况检查集来进一步增加应用负荷 &mdash; 后续检查只需检查运行情况。
+请看下面的示例：应用必须下载大型配置文件才能处理请求。 如果初始下载失败，我们不希望重启该应用，因为该应用可以多次尝试下载该文件。 我们使用运行情况探测来描述进程的运行情况，不执行其他检查。 我们还想要在配置文件下载成功之前阻止将请求发送到应用。 我们使用就绪情况探测指示“未就绪”状态，直到下载成功并且应用已准备好接收请求。
 
 示例应用包含运行状况检查，以报告[托管服务](xref:fundamentals/host/hosted-services)中长时间运行的启动任务的完成。 `StartupHostedServiceHealthCheck` 公开了属性 `StartupTaskCompleted`，托管服务在其长时间运行的任务完成时可以将该属性设置为 `true` (StartupHostedServiceHealthCheck.cs)：
 
@@ -1155,10 +1155,10 @@ Unhealthy
 
 在某些托管方案中，会使用一对区分两种应用状态的运行状况检查：
 
-* 应用正常运行，但尚未准备好接收请求。 此状态是应用的就绪情况。
-* 应用正常运行并响应请求。 此状态是应用的运行情况。
+* “就绪情况”指示情况是否为应用正常运行，但未准备好接收请求。
+* “运行情况”指示情况是否为应用已崩溃且必须重启。
 
-就绪情况检查通常执行更广泛和耗时的检查集，以确定应用的所有子系统和资源是否都可用。 运行情况检查只是执行一个快速检查，以确定应用是否可用于处理请求。 应用通过其就绪情况检查之后，无需使用成本高昂的就绪情况检查集来进一步增加应用负荷 &mdash; 后续检查只需检查运行情况。
+请看下面的示例：应用必须下载大型配置文件才能处理请求。 如果初始下载失败，我们不希望重启该应用，因为该应用可以多次尝试下载该文件。 我们使用运行情况探测来描述进程的运行情况，不执行其他检查。 我们还想要在配置文件下载成功之前阻止将请求发送到应用。 我们使用就绪情况探测指示“未就绪”状态，直到下载成功并且应用已准备好接收请求。
 
 示例应用包含运行状况检查，以报告[托管服务](xref:fundamentals/host/hosted-services)中长时间运行的启动任务的完成。 `StartupHostedServiceHealthCheck` 公开了属性 `StartupTaskCompleted`，托管服务在其长时间运行的任务完成时可以将该属性设置为 `true` (StartupHostedServiceHealthCheck.cs)：
 

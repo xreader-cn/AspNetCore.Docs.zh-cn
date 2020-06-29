@@ -13,20 +13,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: ba6b3a333a021184ad8a42d6292915e908cc6eb7
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 5a05543c77f1ebaebadc27236aa8f7634e84f1fd
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103216"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243404"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)
 
-对于 Azure Active Directory (AAD) 和 Azure Active Directory B2C (AAD B2C)，请勿按照本主题中的指南进行操作。** 请参阅此目录节点中的 AAD 和 AAD B2C 主题。
+对于 Azure Active Directory (AAD) 和 Azure Active Directory B2C (AAD B2C)，请勿按照本主题中的指南进行操作。请参阅此目录节点中的 AAD 和 AAD B2C 主题。
 
-要创建使用 [Microsoft.AspNetCore.Components.WebAssembly.Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 库的 Blazor WebAssembly 独立应用，请在命令行界面中执行以下命令：
+要创建使用 Blazor[`Microsoft.AspNetCore.Components.WebAssembly.Authentication` 库的 ](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) WebAssembly 独立应用，请在命令行界面中执行以下命令：
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual
@@ -34,11 +34,11 @@ dotnet new blazorwasm -au Individual
 
 要指定输出位置（如果它不存在，则创建一个项目文件夹），请在命令中包含带有路径（例如 `-o BlazorSample`）的输出选项。 该文件夹名称还会成为项目名称的一部分。
 
-在 Visual Studio 中，[创建 Blazor WebAssembly 应用](xref:blazor/get-started)。 使用“存储应用内的用户帐户”选项将“身份验证”设置为“个人用户帐户”**** **** ****。
+在 Visual Studio 中，[创建 Blazor WebAssembly 应用](xref:blazor/get-started)。 使用“存储应用内的用户帐户”选项将“身份验证”设置为“个人用户帐户”  。
 
 ## <a name="authentication-package"></a>身份验证包
 
-创建应用以使用个人用户帐户时，该应用会在其项目文件中自动接收 [Microsoft.AspNetCore.Components.WebAssembly.Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包的包引用。 此包提供了一组基元，可帮助应用验证用户身份并获取令牌以调用受保护的 API。
+创建应用以使用个人用户帐户时，该应用会在其项目文件中自动接收 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包的包引用。 此包提供了一组基元，可帮助应用验证用户身份并获取令牌以调用受保护的 API。
 
 如果向应用添加身份验证，请手动将包添加到应用的项目文件中：
 
@@ -50,9 +50,9 @@ dotnet new blazorwasm -au Individual
 
 ## <a name="authentication-service-support"></a>身份验证服务支持
 
-使用由 [Microsoft.AspNetCore.Components.WebAssembly.Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> 扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。
+使用由 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> 扩展方法在服务容器中注册用户身份验证支持。 此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。
 
-Program.cs**:
+`Program.cs`：
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
@@ -61,7 +61,7 @@ builder.Services.AddOidcAuthentication(options =>
 });
 ```
 
-配置由 wwwroot/appsettings.json 文件提供**：
+配置由 `wwwroot/appsettings.json` 文件提供：
 
 ```json
 {
@@ -88,7 +88,7 @@ builder.Services.AddOidcAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/azure-scope.md)]
 
-有关详细信息，请参阅“其他方案”一文的以下部分**：
+有关详细信息，请参阅“其他方案”一文的以下部分：
 
 * [请求其他访问令牌](xref:blazor/security/webassembly/additional-scenarios#request-additional-access-tokens)
 * [将令牌附加到传出请求](xref:blazor/security/webassembly/additional-scenarios#attach-tokens-to-outgoing-requests)
@@ -111,7 +111,7 @@ builder.Services.AddOidcAuthentication(options =>
 
 ## <a name="logindisplay-component"></a>LoginDisplay 组件
 
-`LoginDisplay` 组件（Shared/LoginDisplay.razor**）在 `MainLayout` 组件（Shared/MainLayout.razor**）中呈现，并管理以下行为：
+`LoginDisplay` 组件 (`Shared/LoginDisplay.razor`) 在 `MainLayout` 组件 (`Shared/MainLayout.razor`) 中呈现并管理以下行为：
 
 * 对于经过身份验证的用户：
   * 显示当前用户名。

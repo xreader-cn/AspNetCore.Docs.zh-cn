@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: 726aafd2bf5d3469c30ebce1e4eea8ed8ec8d58e
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 72a8b59b06e40f6f85abe41217ae564f82c8d89c
+ms.sourcegitcommit: 1833870ad0845326fb764fef1b530a07b9b5b099
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103195"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85347068"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
@@ -28,14 +28,14 @@ ms.locfileid: "85103195"
 
 ### <a name="signalr-cross-origin-negotiation-for-authentication"></a>用于身份验证的 SignalR 跨源协商
 
-本部分适用于 Blazor WebAssembly。**
+本部分适用于 Blazor WebAssembly。
 
 若要将 SignalR 的基础客户端配置为发送凭据（如 Cookie 或 HTTP 身份验证标头），请执行以下操作：
 
-* 使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestCredentials%2A> 在跨源[提取](https://developer.mozilla.org/docs/Web/API/Fetch_API/Using_Fetch)请求中设置 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.BrowserRequestCredentials.Include>：
+* 使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestCredentials%2A> 在跨源 [`fetch`](https://developer.mozilla.org/docs/Web/API/Fetch_API/Using_Fetch) 提取请求中设置 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.BrowserRequestCredentials.Include>：
 
   ```csharp
-  public class IncludeRequestCredentialsMessagHandler : DelegatingHandler
+  public class IncludeRequestCredentialsMessageHandler : DelegatingHandler
   {
       protected override Task<HttpResponseMessage> SendAsync(
           HttpRequestMessage request, CancellationToken cancellationToken)
@@ -53,7 +53,7 @@ ms.locfileid: "85103195"
       .WithUrl(new Uri("http://signalr.example.com"), options =>
       {
           options.HttpMessageHandlerFactory = innerHandler => 
-              new IncludeRequestCredentialsMessagHandler { InnerHandler = innerHandler };
+              new IncludeRequestCredentialsMessageHandler { InnerHandler = innerHandler };
       }).Build();
   ```
 
@@ -61,11 +61,11 @@ ms.locfileid: "85103195"
 
 ## <a name="reflect-the-connection-state-in-the-ui"></a>反映 UI 中的连接状态
 
-本部分适用于 Blazor 服务器。**
+本部分适用于 Blazor 服务器。
 
 如果客户端检测到连接已丢失，在客户端尝试重新连接时会向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。
 
-若要自定义 UI，请在 _Host.cshtml** Razor 页面的 `<body>` 中定义一个 `id` 为 `components-reconnect-modal` 的元素：
+若要自定义 UI，请在 `_Host.cshtml` Razor 页面的 `<body>` 中定义一个 `id` 为 `components-reconnect-modal` 的元素：
 
 ```cshtml
 <div id="components-reconnect-modal">
@@ -84,9 +84,9 @@ ms.locfileid: "85103195"
 
 ## <a name="render-mode"></a>呈现模式
 
-本部分适用于 Blazor 服务器。**
+本部分适用于 Blazor 服务器。
 
-默认情况下，Blazor 服务器应用设置为：在客户端与服务器建立连接之前在服务器上预呈现 UI。 这是在 _Host.cshtml** Razor 页面中设置的：
+默认情况下，Blazor 服务器应用设置为：在客户端与服务器建立连接之前在服务器上预呈现 UI。 这是在 `_Host.cshtml` Razor 页中设置的：
 
 ```cshtml
 <body>
@@ -113,11 +113,11 @@ ms.locfileid: "85103195"
 
 ## <a name="configure-the-signalr-client-for-blazor-server-apps"></a>为 Blazor 服务器应用配置 SignalR 客户端
 
-本部分适用于 Blazor 服务器。**
+本部分适用于 Blazor 服务器。
 
 有时，需要配置 Blazor 服务器应用使用的 SignalR 客户端。 例如，可能需要在 SignalR 客户端上配置日志记录以诊断连接问题。
 
-若要在 Pages/_Host.cshtml 文件中配置 SignalR 客户端，请执行以下操作**：
+在 `Pages/_Host.cshtml` 文件中配置 SignalR 客户端：
 
 * 将 `autostart="false"` 属性添加到 `blazor.server.js` 脚本的 `<script>` 标记中。
 * 调用 `Blazor.start` 并传入指定 SignalR 生成器的配置对象。

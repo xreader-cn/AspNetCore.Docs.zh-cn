@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: 9332eddd3d428e8a25910d387f95b870926d5ae5
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 3a541df51a040291f390559842ecd05ba09cee8c
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103227"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243624"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -34,32 +34,32 @@ ms.locfileid: "85103227"
 
 ### <a name="register-a-server-api-app"></a>注册服务器 API 应用
 
-请按照[快速入门：向 Microsoft 标识平台注册应用程序](/azure/active-directory/develop/quickstart-register-app)中的指南和后续 Azure AAD 主题操作，以便为服务器 API 应用注册 AAD 应用，然后执行以下操作**：
+请按照[快速入门：向 Microsoft 标识平台注册应用程序](/azure/active-directory/develop/quickstart-register-app)中的指南和后续 Azure AAD 主题操作，以便为服务器 API 应用注册 AAD 应用，然后执行以下操作：
 
-1. 在“Azure Active Directory” > “应用注册”中，选择“新建注册”**** **** ****。
-1. 提供应用的名称（例如 Blazor 服务器 AAD）**** ****。
-1. 选择支持的帐户类型****。 为此体验选择“仅此组织目录中的帐户”（单个租户）****。
-1. 在这种情况下，“服务器 API 应用”不需要“重定向 URI”，因此请将下拉列表设置为 Web，并且不输入重定向 URI****** ****。
-1. 禁用“权限” > “授予对 openid 和 offline_access 权限的管理员同意”复选框**** ****。
-1. 选择“注册”****。
+1. 在“Azure Active Directory” > “应用注册”中，选择“新建注册”  。
+1. 提供应用的名称（例如 Blazor 服务器 AAD） 。
+1. 选择支持的帐户类型。 为此体验选择“仅此组织目录中的帐户”（单个租户）。
+1. 在这种情况下，“服务器 API 应用”不需要“重定向 URI”，因此请将下拉列表设置为 Web，并且不输入重定向 URI 。
+1. 禁用“权限” > “授予对 openid 和 offline_access 权限的管理员同意”复选框 。
+1. 选择“注册”。
 
 记录以下信息：
 
-* “服务器 API 应用”应用程序 ID（客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）**
+* “服务器 API 应用”应用程序 ID（客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）
 * 目录 ID（租户 ID）（例如 `222222222-2222-2222-2222-222222222222`）
-* AAD 租户域（例如 `contoso.onmicrosoft.com`）：该域在注册应用的 Azure 门户的“品牌”边栏选项卡中作为“发布者域”提供**** ****。
+* AAD 租户域（例如 `contoso.onmicrosoft.com`）：该域在注册应用的 Azure 门户的“品牌”边栏选项卡中作为“发布者域”提供 。
 
-在“API 权限”中，删除“Microsoft Graph” > “User.Read”权限，因为应用无需登录或用户配置文件访问权限**** **** ****。
+在“API 权限”中，删除“Microsoft Graph” > “User.Read”权限，因为应用无需登录或用户配置文件访问权限  。
 
-在“公开 API”中****：
+在“公开 API”中：
 
-1. 选择“添加范围”。****
-1. 选择“保存并继续”。****
-1. 提供“作用域名称”（例如 `API.Access`）****。
-1. 提供“管理员同意显示名称”（例如 `Access API`）****。
-1. 提供“管理员同意说明”（例如 `Allows the app to access server app API endpoints.`）****。
-1. 确认“状态”设置为“已启用”**** ****。
-1. 选择“添加范围”****。
+1. 选择“添加范围”。
+1. 选择“保存并继续”。
+1. 提供“作用域名称”（例如 `API.Access`）。
+1. 提供“管理员同意显示名称”（例如 `Access API`）。
+1. 提供“管理员同意说明”（例如 `Allows the app to access server app API endpoints.`）。
+1. 确认“状态”设置为“已启用” 。
+1. 选择“添加范围”。
 
 记录以下信息：
 
@@ -68,33 +68,33 @@ ms.locfileid: "85103227"
 
 ### <a name="register-a-client-app"></a>注册客户端应用
 
-请按照[快速入门：向 Microsoft 标识平台注册应用程序](/azure/active-directory/develop/quickstart-register-app)中的指南和后续 Azure AAD 主题操作，以便为服务器客户端应用注册 AAD 应用，然后执行以下操作**：
+请按照[快速入门：向 Microsoft 标识平台注册应用程序](/azure/active-directory/develop/quickstart-register-app)中的指南和后续 Azure AAD 主题操作，以便为服务器客户端应用注册 AAD 应用，然后执行以下操作：
 
-1. 在“Azure Active Directory” > “应用注册”中，选择“新建注册”**** **** ****。
-1. 提供应用的名称（例如 Blazor 客户端 AAD）**** ****。
-1. 选择支持的帐户类型****。 为此体验选择“仅此组织目录中的帐户”（单个租户）****。
-1. 将“重定向 URI”下拉列表设置为“Web”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback`**** ****。 在 Kestrel 上运行的应用的默认端口为 5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在“调试”面板的服务器应用属性中找到该应用随机生成的端口****。 由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。 [创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。
-1. 禁用“权限” > “授予对 openid 和 offline_access 权限的管理员同意”复选框**** ****。
-1. 选择“注册”****。
+1. 在“Azure Active Directory” > “应用注册”中，选择“新建注册”  。
+1. 提供应用的名称（例如 Blazor 客户端 AAD） 。
+1. 选择支持的帐户类型。 为此体验选择“仅此组织目录中的帐户”（单个租户）。
+1. 将“重定向 URI”下拉列表设置为“Web”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为 5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在“调试”面板的服务器应用属性中找到该应用随机生成的端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。 [创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。
+1. 禁用“权限” > “授予对 openid 和 offline_access 权限的管理员同意”复选框 。
+1. 选择“注册”。
 
-记录“客户端应用”应用程序 ID（客户端 ID）（例如 `33333333-3333-3333-3333-333333333333`）**。
+记录“客户端应用”应用程序 ID（客户端 ID）（例如 `33333333-3333-3333-3333-333333333333`）。
 
-在“身份验证” > “平台配置” > “Web”**** **** **** 中，执行以下操作：
+在“身份验证” > “平台配置” > “Web”  中，执行以下操作：
 
-1. 确认存在 `https://localhost:{PORT}/authentication/login-callback` 的重定向 URI****。
-1. 对于“隐式授权”，选中“访问令牌”和“ID 令牌”的复选框**** **** ****。
+1. 确认存在 `https://localhost:{PORT}/authentication/login-callback` 的重定向 URI。
+1. 对于“隐式授权”，选中“访问令牌”和“ID 令牌”的复选框  。
 1. 此体验可接受应用的其余默认值。
-1. 选择“保存”按钮****。
+1. 选择“保存”按钮。
 
-在“API 权限”中****：
+在“API 权限”中：
 
-1. 确认应用拥有“Microsoft Graph” > “User.Read”权限**** ****。
-1. 选择“添加权限”，然后选择“我的 API”**** ****。
-1. 从“名称”列（例如 Blazor 服务器 AAD）中选择“服务器 API 应用”****** ****。
-1. 打开 API 列表****。
+1. 确认应用拥有“Microsoft Graph” > “User.Read”权限 。
+1. 选择“添加权限”，然后选择“我的 API” 。
+1. 从“名称”列（例如 Blazor 服务器 AAD）中选择“服务器 API 应用” 。
+1. 打开 API 列表。
 1. 启用对 API 的访问（例如 `API.Access`）。
-1. 选择“添加权限”****。
-1. 选择“为 {TENANT NAME} 授予管理员内容”按钮****。 请选择“是”以确认。****
+1. 选择“添加权限”。
+1. 选择“为 {TENANT NAME} 授予管理员内容”按钮。 请选择“是”以确认。
 
 ### <a name="create-the-app"></a>创建应用
 
@@ -110,19 +110,19 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 > 将应用 ID URI 传递给 `app-id-uri` 选项，但请注意，客户端应用中可能需要更改配置，如[访问令牌作用域](#access-token-scopes)部分中所述。
 
 > [!NOTE]
-> 在 Azure 门户中，使用默认设置为在 Kestrel 服务器上运行的应用的端口 5001 配置了客户端应用的“身份验证” > “平台配置” > “Web” > “重定向 URI”****** **** **** ****。
+> 在 Azure 门户中，使用默认设置为在 Kestrel 服务器上运行的应用的端口 5001 配置了客户端应用的“身份验证” > “平台配置” > “Web” > “重定向 URI”   。
 >
-> 如果“客户端应用”是在随机 IIS Express 端口上运行的，则可以在“调试”面板的“服务器应用”属性中找到该应用的端口** ******。
+> 如果“客户端应用”是在随机 IIS Express 端口上运行的，则可以在“调试”面板的“服务器应用”属性中找到该应用的端口 。
 >
-> 如果端口之前未使用“客户端应用”的已知端口进行配置，请返回到 Azure 门户中“客户端应用”的注册，并使用正确的端口更新重定向 URI** **。
+> 如果端口之前未使用“客户端应用”的已知端口进行配置，请返回到 Azure 门户中“客户端应用”的注册，并使用正确的端口更新重定向 URI 。
 
 ## <a name="server-app-configuration"></a>服务器应用配置
 
-本部分涉及解决方案的服务器应用******。
+本部分涉及解决方案的 `Server` 应用**。
 
 ### <a name="authentication-package"></a>身份验证包
 
-[Microsoft.AspNetCore.Authentication.AzureAD.UI](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.AzureAD.UI/) 包提供验证和授权对 ASP.NET Core Web API 的调用的支持：
+[`Microsoft.AspNetCore.Authentication.AzureAD.UI`](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.AzureAD.UI/) 包提供验证和授权对 ASP.NET Core Web API 的调用的支持：
 
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" 
@@ -152,7 +152,7 @@ app.UseAuthorization();
 
 默认情况下，服务器应用 API 使用 `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` 声明类型（例如 `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`）中的值填充 `User.Identity.Name`。
 
-要将应用配置为从 `name` 声明类型接收值，请在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> 的 [TokenValidationParameters.NameClaimType](xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType)：
+要将应用配置为从 `name` 声明类型接收值，请在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> 的 <xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType>：
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -168,7 +168,7 @@ services.Configure<JwtBearerOptions>(
 
 ### <a name="app-settings"></a>应用设置
 
-Appsettings.json 文件包含用于配置 JWT 持有者处理程序（用于验证访问令牌）的选项**：
+`appsettings.json` 文件包含用于配置 JWT 持有者处理程序（用于验证访问令牌）的选项：
 
 ```json
 {
@@ -196,7 +196,7 @@ Appsettings.json 文件包含用于配置 JWT 持有者处理程序（用于验�
 
 ### <a name="weatherforecast-controller"></a>WeatherForecast 控制器
 
-WeatherForecast 控制器 (Controllers/WeatherForecastController.cs) 公开了一个受保护的 API，并将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性应用于控制器**。 务必了解以下内容****：
+WeatherForecast 控制器 (Controllers/WeatherForecastController.cs) 公开了一个受保护的 API，并将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性应用于控制器。 务必了解以下内容：
 
 * 仅此 API 控制器中的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性可以保护此 API 免受未经授权的访问。
 * Blazor WebAssembly 应用中使用的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性仅用作应用的提示，提示应用应授权用户才能正常运行。
@@ -217,11 +217,11 @@ public class WeatherForecastController : ControllerBase
 
 ## <a name="client-app-configuration"></a>客户端应用配置
 
-本部分涉及解决方案的客户端应用******。
+本部分涉及解决方案的 `Client` 应用**。
 
 ### <a name="authentication-package"></a>身份验证包
 
-创建应用以使用工作或学校帐户 (`SingleOrg`) 时，应用会自动接收 [Microsoft 身份验证库](/azure/active-directory/develop/msal-overview) ([Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)) 的包引用。 此包提供了一组基元，可帮助应用验证用户身份并获取令牌以调用受保护的 API。
+创建应用以使用工作或学校帐户 (`SingleOrg`) 时，应用会自动接收 [Microsoft 身份验证库](/azure/active-directory/develop/msal-overview) ([`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)) 的包引用。 此包提供了一组基元，可帮助应用验证用户身份并获取令牌以调用受保护的 API。
 
 如果向应用添加身份验证，请手动将包添加到应用的项目文件中：
 
@@ -230,13 +230,13 @@ public class WeatherForecastController : ControllerBase
   Version="3.2.0" />
 ```
 
-[Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) 包将 [Microsoft.AspNetCore.Components.WebAssembly.Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包间接添加到应用中。
+[`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) 包会间接将 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包传递到应用中。
 
 ### <a name="authentication-service-support"></a>身份验证服务支持
 
 添加了对 <xref:System.Net.Http.HttpClient> 实例的支持，这些实例在向服务器项目发出请求时包含访问令牌。
 
-Program.cs**:
+`Program.cs`：
 
 ```csharp
 builder.Services.AddHttpClient("{APP ASSEMBLY}.ServerAPI", client => 
@@ -249,9 +249,9 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
 
 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample.ServerAPI`）。
 
-使用由 [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。
+使用由 [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。
 
-Program.cs**:
+`Program.cs`：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -263,7 +263,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 方法接受回叫，以配置验证应用所需的参数。 注册应用时，可以从 Azure 门户 AAD 配置中获取配置应用所需的值。
 
-配置由 wwwroot/appsettings.json 文件提供**：
+配置由 `wwwroot/appsettings.json` 文件提供：
 
 ```json
 {
@@ -306,7 +306,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/azure-scope.md)]
 
-有关详细信息，请参阅“其他方案”一文的以下部分**：
+有关详细信息，请参阅“其他方案”一文的以下部分：
 
 * [请求其他访问令牌](xref:blazor/security/webassembly/additional-scenarios#request-additional-access-tokens)
 * [将令牌附加到传出请求](xref:blazor/security/webassembly/additional-scenarios#attach-tokens-to-outgoing-requests)
@@ -344,8 +344,8 @@ builder.Services.AddMsalAuthentication(options =>
 
 从服务器项目运行应用。 使用 Visual Studio 时，请执行以下任一操作：
 
-* 在工具栏中将“启动项目”下拉列表设置为“服务器 API 应用”，然后选择“运行”按钮**********。
-* 在“解决方案资源管理器”中选择服务器项目，然后选择工具栏中的“运行”按钮，或从“调试”菜单启动应用**** **** ****。
+* 在工具栏中将“启动项目”下拉列表设置为“服务器 API 应用”，然后选择“运行”按钮。
+* 在“解决方案资源管理器”中选择服务器项目，然后选择工具栏中的“运行”按钮，或从“调试”菜单启动应用  。
 
 <!-- HOLD
 [!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]

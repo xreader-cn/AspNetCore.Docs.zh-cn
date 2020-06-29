@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 0b9854b3848a204b28d0427bef08364be0139069
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 892663a533a207df84b0fce9af259a7dc212bc9b
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102839"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292771"
 ---
 # <a name="build-your-first-blazor-app"></a>生成首个 Blazor 应用
 
@@ -36,15 +36,15 @@ ms.locfileid: "85102839"
 
 ## <a name="build-components"></a>生成组件
 
-1. 按照 <xref:blazor/get-started> 文章中的指南创建用于本教程的 Blazor 项目。 将项目命名为 ToDoList。
+1. 按照 <xref:blazor/get-started> 文章中的指南创建用于本教程的 Blazor 项目。 将项目命名为 `ToDoList`。
 
-1. 在 Pages 文件夹中浏览应用的三个页面：主页、计数器和提取数据。 这些页面由 Razor 组件文件（Index.razor、Counter.razor 和 FetchData.razor）实现  。
+1. 在 `Pages` 文件夹中浏览应用的三个页面：`Home`、`Counter` 和 `Fetch data`。 这些页面由 Razor 组件文件 `Index.razor`、`Counter.razor` 和 `FetchData.razor` 实现。
 
-1. 在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。 增加网页的计数器值通常需要编写 JavaScript。 通过 Blazor，可以改为编写 C#。
+1. 在“`Counter`”页上，选择相关按钮，在不刷新页面的情况下增加计数器值。 增加网页的计数器值通常需要编写 JavaScript。 通过 Blazor，可以改为编写 C#。
 
-1. 检查 Counter.razor 文件中 `Counter` 组件的实现。
+1. 检查 `Counter.razor` 文件中 `Counter` 组件的实现。
 
-   *Pages/Counter.razor*：
+   `Pages/Counter.razor`：
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter1.razor)]
 
@@ -52,7 +52,7 @@ ms.locfileid: "85102839"
 
    组件类的成员在 `@code` 块中定义。 在 `@code` 块中，可以指定组件状态（属性、字段）和方法用于处理事件或定义其他组件逻辑。 然后，可以将这些成员用作组件呈现逻辑的一部分，并用于处理事件。
 
-   选中“单击我”按钮时：
+   选择计数器递增按钮后：
 
    * 调用 `Counter` 组件的已注册 `onclick` 处理程序（`IncrementCount` 方法）。
    * `Counter` 组件重新生成其呈现树。
@@ -63,17 +63,17 @@ ms.locfileid: "85102839"
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
 
-1. 重新生成并运行应用以查看更改。 选择“单击我”按钮。 计数器的值将增加 2。
+1. 重新生成并运行应用以查看更改。 选择该按钮。 计数器的值将增加 2。
 
 ## <a name="use-components"></a>使用组件
 
 使用 HTML 语法将组件加入到另一个组件中。
 
-1. 通过向 `Index` 组件 (Index.razor) 添加 `<Counter />` 元素，将 `Counter` 组件添加到应用的 `Index` 组件。
+1. 通过向 `Index` 组件 (`Index.razor`) 添加 `<Counter />` 元素，将 `Index` 组件添加到应用的 `Counter` 组件。
 
    如果在此体验中使用的是 Blazor WebAssembly，则 `Index` 组件使用 `SurveyPrompt` 组件。 将 `<SurveyPrompt>` 元素替换为 `<Counter />` 元素。 如果在此体验中使用的是 Blazor Server 应用，请向 `Index` 组件添加 `<Counter />` 元素：
 
-   *Pages/Index.razor*：
+   `Pages/Index.razor`：
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
@@ -88,7 +88,7 @@ ms.locfileid: "85102839"
    * 添加包含 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性的公共 `IncrementAmount` 属性。
    * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount` 属性。
 
-   *Pages/Counter.razor*：
+   `Pages/Counter.razor`：
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
@@ -99,15 +99,15 @@ ms.locfileid: "85102839"
 
 1. 使用属性在 `Index` 组件的 `<Counter>` 元素中指定 `IncrementAmount` 参数。 将计数器递增值设置为 10。
 
-   *Pages/Index.razor*：
+   `Pages/Index.razor`：
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-1. 重新加载 `Index` 组件。 每次选择“单击我”按钮时，计数器值递增 10。 `Counter` 组件中的计数器继续递增 1。
+1. 重新加载 `Index` 组件。 每次选择该按钮时，计数器值递增 10。 `Counter` 组件中的计数器继续递增 1。
 
 ## <a name="route-to-components"></a>路由到组件
 
-Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终结点。 `Counter` 组件处理发送到 `/counter` 的请求。 如果没有 `@page` 指令，组件将无法处理路由的请求，但该组件仍可以被其他组件使用。
+`Counter.razor` 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终结点。 `Counter` 组件处理发送到 `/counter` 的请求。 如果没有 `@page` 指令，组件将无法处理路由的请求，但该组件仍可以被其他组件使用。
 
 ## <a name="dependency-injection"></a>依赖关系注入
 
@@ -119,7 +119,7 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
 [`@inject`](xref:mvc/views/razor#inject) 指令用于将 `WeatherForecastService` 服务的实例注入到 `FetchData` 组件中。
 
-*Pages/FetchData.razor*：
+`Pages/FetchData.razor`：
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
 
@@ -129,9 +129,9 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
 ### <a name="blazor-webassembly-experience"></a>Blazor WebAssembly 体验
 
-如果使用的是 Blazor WebAssembly 应用，则注入了 <xref:System.Net.Http.HttpClient>，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据。 
+如果使用的是 Blazor WebAssembly 应用，则注入了 <xref:System.Net.Http.HttpClient>，以从 `wwwroot/sample-data` 文件夹的 `weather.json` 文件中获取天气预测数据。
 
-*Pages/FetchData.razor*：
+`Pages/FetchData.razor`：
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-9)]
 
@@ -143,7 +143,7 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
 向应用添加一个实现简单待办事项列表的新组件。
 
-1. 向 Pages 文件夹中的应用添加一个新的 `Todo` Razor 组件。 如果你使用的是 Visual Studio，请右键单击 Pages 文件夹，然后选择“添加” > “新项目” > “Razor 组件”   。 将组件的文件命名为 Todo.razor。 在其他开发环境中，将空白文件添加到名为 Todo.razor 的“页面”文件夹中。
+1. 向 `Pages` 文件夹中的应用添加一个新的 `Todo` Razor 组件。 如果你使用的是 Visual Studio，请右键单击 `Pages` 文件夹，然后选择“添加” > “新项目” > “Razor 组件”  。 将组件的文件命名为 `Todo.razor`。 在其他开发环境中，将空白文件添加到名为 `Todo.razor` 的 `Pages` 文件夹中。 Razor 组件文件名要求首字母大写，因此请确认 `Todo` 组件的文件名以大写字母 `T` 开头。
 
 1. 为组件提供初始标记：
 
@@ -155,9 +155,9 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
 1. 将 `Todo` 组件添加到导航栏。
 
-   `NavMenu` 组件 (Shared/NavMenu.razor) 用于应用的布局。 布局是可以避免应用中出现重复内容的组件。
+   `NavMenu` 组件 (`Shared/NavMenu.razor`) 用于应用的布局。 布局是可以避免应用中出现重复内容的组件。
 
-   通过在“Shared/NavMenu.razor”文件中的现有列表项下添加以下列表项标记，为 `Todo` 组件添加一个 `<NavLink>` 元素：
+   通过在 `Shared/NavMenu.razor` 文件中的现有列表项下添加以下列表项标记，为 `Todo` 组件添加一个 `<NavLink>` 元素：
 
    ```razor
    <li class="nav-item px-3">
@@ -169,11 +169,11 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
 1. 重新生成并运行应用。 访问新的“待办事项”页面，确认指向 `Todo` 组件的链接有效。
 
-1. 向项目的根目录添加“TodoItem.cs”文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
+1. 向项目的根目录添加 `TodoItem.cs` 文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 
    [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
-1. 返回到 `Todo` 组件 (Pages/Todo.razor)：
+1. 返回到 `Todo` 组件 (`Pages/Todo.razor`)：
 
    * 在 `@code` 块中为待办项添加一个字段。 `Todo` 组件使用此字段来维护待办项列表的状态。
    * 添加无序列表标记和 `foreach` 循环，以将每个待办项呈现为列表项 (`<li>`)。
@@ -184,7 +184,7 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
-1. 重新生成并运行应用。 选择“添加待办项”按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
+1. 重新生成并运行应用。 选择“`Add todo`”按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
 
 1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法以选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
 
@@ -214,7 +214,7 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
    <h3>Todo (@todos.Count(todo => !todo.IsDone))</h3>
    ```
 
-1. 完成的 `Todo` 组件 (Pages/Todo.razor)：
+1. 已完成的 `Todo` 组件 (`Pages/Todo.razor`)：
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
 

@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/threat-mitigation
-ms.openlocfilehash: 073a2a85369a100352a163693c5cba907203059e
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: a94dcd818c3f4e19ace57fad6390a84e704192bd
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103172"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242961"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>ASP.NET Core Blazor 服务器的威胁缓解指南
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)
 
-Blazor 服务器应用采用有状态数据处理模型，其中服务器和客户端保持长期的关系**。 持久状态通过[线路](xref:blazor/state-management)维持，该线路可在同样可能长期存在的连接中持续。
+Blazor 服务器应用采用有状态数据处理模型，其中服务器和客户端保持长期的关系。 持久状态通过[线路](xref:blazor/state-management)维持，该线路可在同样可能长期存在的连接中持续。
 
 当用户访问 Blazor 服务器站点时，服务器会在服务器内存中创建一条线路。 该线路向浏览器指示要呈现的内容和对事件的响应，例如当用户在 UI 中选择按钮时。 为执行这些操作，线路会在用户的浏览器中调用 JavaScript 函数，在服务器上调用 .NET 方法。 这种基于 JavaScript 的双向交互被称为 [JavaScript 互操作（JS 互操作）](xref:blazor/call-javascript-from-dotnet)。
 
@@ -55,7 +55,7 @@ Blazor 框架外部的资源，例如数据库和文件句柄（用于读取和�
 
 当一个或多个客户端强制服务器执行大量消耗 CPU 的工作时，可能会发生 CPU 耗尽的情况。
 
-例如，假设有一个 Blazor 服务器应用要计算 Fibonnacci 编号**。 Fibonnacci 编号是根据 Fibonnacci 序列生成的，其中序列中的每个编号都是前两个编号之和。 获得答案所需的工作量取决于序列的长度和初始值的大小。 如果应用不对客户端的请求进行限制，CPU 密集型计算可能会占用 CPU 的时间，并降低其他任务的性能。 资源过度消耗是一项影响可用性的安全问题。
+例如，假设有一个 Blazor 服务器应用要计算 Fibonnacci 编号。 Fibonnacci 编号是根据 Fibonnacci 序列生成的，其中序列中的每个编号都是前两个编号之和。 获得答案所需的工作量取决于序列的长度和初始值的大小。 如果应用不对客户端的请求进行限制，CPU 密集型计算可能会占用 CPU 的时间，并降低其他任务的性能。 资源过度消耗是一项影响可用性的安全问题。
 
 而 CPU 耗尽是所有面向公众的应用面临的一个问题。 在常规的 Web 应用中，请求和连接会超时（这用于保障安全），但是 Blazor 服务器应用不提供这样的安全措施。 Blazor 服务器应用必须包含适当的检查和限制，然后再执行可能会大量消耗 CPU 的工作。
 
@@ -71,7 +71,7 @@ Blazor 框架外部的资源，例如数据库和文件句柄（用于读取和�
 * 如果呈现时不采用分页方案，则 UI 中不可见的对象将在服务器上占用额外的内存。 如果不对项数进行限制，内存需求可能会导致可用服务器内存被耗尽。 若要防止这种情况，请使用以下方法之一：
   * 在呈现时使用分页列表。
   * 仅显示前 100 到 1000 项，并要求用户输入搜索条件来查找所显示项之外的项。
-  * 对于更高级的呈现方案，实现支持虚拟化的列表或网格**。 使用虚拟化时，列表只呈现用户当前可查看的部分项。 当用户与 UI 中的滚动条交互时，组件只呈现显示所需的项。 当前不需要显示的项可保存在辅助存储器中，这是理想的方法。 未显示的项也可保存在内存中，这种方法不太理想。
+  * 对于更高级的呈现方案，实现支持虚拟化的列表或网格。 使用虚拟化时，列表只呈现用户当前可查看的部分项。 当用户与 UI 中的滚动条交互时，组件只呈现显示所需的项。 当前不需要显示的项可保存在辅助存储器中，这是理想的方法。 未显示的项也可保存在内存中，这种方法不太理想。
 
 Blazor 服务器应用为有状态应用（如 WPF、Windows 窗体或 Blazor WebAssembly）提供了与其他 UI 框架类似的编程模型。 主要区别是，在一些 UI 框架中，应用消耗的内存属于客户端，只影响单个客户端。 例如，Blazor WebAssembly 应用完全在客户端上运行，只使用客户端内存资源。 在 Blazor 服务器方案中，应用消耗的内存属于服务器，并在服务器实例上的客户端之间共享。
 
@@ -101,7 +101,7 @@ Blazor 客户端会为每个会话建立一个连接，并且只要浏览器窗�
 
 拒绝服务 (DoS) 攻击包括客户端导致服务器耗尽其一个或多个资源，从而使应用不可用。 Blazor 服务器应用包含一些默认限制，并依赖其他 ASP.NET Core 和 SignalR 限制来防范 <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions> 上设置的 DoS 攻击。
 
-| Blazor 服务器应用限制 | 说明 | 默认 |
+| Blazor 服务器应用限制 | 描述 | 默认 |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitMaxRetained> | 给定服务器在内存中一次保留的断开连接的线路数上限。 | 100 |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitRetentionPeriod> | 断开连接的线路被移除前在内存中保留的最长时间。 | 3 分钟 |
@@ -110,7 +110,7 @@ Blazor 客户端会为每个会话建立一个连接，并且只要浏览器窗�
 
 使用 <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions> 设置单个传入中心消息的最大消息大小。
 
-| SignalR 和 ASP.NET Core 限制 | 说明 | 默认 |
+| SignalR 和 ASP.NET Core 限制 | 描述 | 默认 |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType> | 单个消息的大小。 | 32 KB |
 
@@ -134,7 +134,7 @@ Blazor 客户端会为每个会话建立一个连接，并且只要浏览器窗�
 
 请采取以下预防措施来防止出现上述情况：
 
-* 在 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句中包装 JS 互操作调用，来处理调用期间可能发生的错误。 有关详细信息，请参阅 <xref:blazor/fundamentals/handle-errors#javascript-interop>。
+* 在 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句中包装 JS 互操作调用，以处理调用期间可能发生的错误。 有关详细信息，请参阅 <xref:blazor/fundamentals/handle-errors#javascript-interop>。
 * 在执行任何操作之前，请验证从 JS 互操作调用返回的数据（包括错误消息）。
 
 ### <a name="net-methods-invoked-from-the-browser"></a>从浏览器调用的 .NET 方法
@@ -186,7 +186,7 @@ Blazor 服务器事件是异步的，因此在应用有时间通过生成新的�
 }
 ```
 
-在框架生成该组件的新呈现之前，客户端可调度一个或多个递增事件。 结果就是用户可将 `count` 递增三次以上，因为 UI 没有足够快地删除该按钮**。 以下示例显示了实现三次 `count` 递增限制的正确方法：
+在框架生成该组件的新呈现之前，客户端可调度一个或多个递增事件。 结果就是用户可将 `count` 递增三次以上，因为 UI 没有足够快地删除该按钮。 以下示例显示了实现三次 `count` 递增限制的正确方法：
 
 ```razor
 <p>Count: @count<p>
@@ -243,7 +243,7 @@ Blazor 服务器事件是异步的，因此在应用有时间通过生成新的�
 
 ### <a name="cancel-early-and-avoid-use-after-dispose"></a>提前取消，避免释放后使用
 
-除了使用[避免多次调度](#guard-against-multiple-dispatches)部分中描述的保护之外，还可考虑在释放组件时使用 <xref:System.Threading.CancellationToken> 取消长时间运行的操作。 该方法还有一个好处，就是避免组件中的“释放后使用”**：
+除了使用[避免多次调度](#guard-against-multiple-dispatches)部分中描述的保护之外，还可考虑在释放组件时使用 <xref:System.Threading.CancellationToken> 取消长时间运行的操作。 该方法还有一个好处，就是避免组件中的“释放后使用”：
 
 ```razor
 @implements IDisposable
@@ -302,7 +302,7 @@ ASP.NET Core 应用的保护指南适用于 Blazor 服务器应用，将在以�
 使用以下项在 JavaScript 中启用详细错误：
 
 * <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DetailedErrors?displayProperty=nameWithType>。
-* `DetailedErrors` 配置键设置为 `true`，可在应用设置文件 (appsettings.json) 中进行设置**. 也可使用值为 `true` 的 `ASPNETCORE_DETAILEDERRORS` 环境变量设置此键。
+* `DetailedErrors` 配置键设置为 `true`，在应用设置文件 (`appsettings.json`) 中可进行此设置。 也可使用值为 `true` 的 `ASPNETCORE_DETAILEDERRORS` 环境变量设置此键。
 
 > [!WARNING]
 > 在 Internet 上向客户端公开错误信息是一项始终应该避免的安全风险。
@@ -348,11 +348,11 @@ Blazor 服务器框架采取了一些步骤来防范前面的部分威胁：
 * 不要在 JavaScript 和 .NET 方法之间的任意方向信任 JS 互操作调用的输入。
 * 应用负责验证参数和结果的内容是否有效，即使参数或结果已正确反序列化也要验证。
 
-要使 XSS 漏洞存在，应用必须将用户输入合并到呈现的页面中。 Blazor 服务器组件会执行一个编译时步骤，其中 .razor 文件中的标记转换为过程 C# 逻辑**。 在运行时，C# 逻辑会生成一个呈现树来描述元素、文本和子组件**。 它通过一系列 JavaScript 指令应用于浏览器的 DOM（如果预呈现，则序列化为 HTML）：
+要使 XSS 漏洞存在，应用必须将用户输入合并到呈现的页面中。 Blazor Server 组件会执行一个编译时步骤，其中 `.razor` 文件中的标记转换为过程 C# 逻辑。 在运行时，C# 逻辑会生成一个呈现树来描述元素、文本和子组件。 它通过一系列 JavaScript 指令应用于浏览器的 DOM（如果预呈现，则序列化为 HTML）：
 
 * 通过常规 Razor 语法（例如 `@someStringValue`）呈现的用户输入不会公开 XSS 漏洞，因为 Razor 语法通过只能写入文本的命令添加到 DOM 中。 即使该值包含 HTML 标记，它也显示为静态文本。 预呈现时，输出经过 HTML 编码，它还将内容显示为静态文本。
 * 禁止使用脚本标记，也不得在应用的组件呈现树中包含它们。 如果组件标记中包含脚本标记，则会生成编译时错误。
-* 组件作者无需使用 Razor 就可在 C# 中编写组件。 组件作者负责在发出输出时使用正确的 API。 例如，使用 `builder.AddContent(0, someUserSuppliedString)` 而不是 `builder.AddMarkupContent(0, someUserSuppliedString)`，因为后者可能会导致出现 XSS 漏洞**。
+* 组件作者无需使用 Razor 就可在 C# 中编写组件。 组件作者负责在发出输出时使用正确的 API。 例如，使用 `builder.AddContent(0, someUserSuppliedString)` 而不是 `builder.AddMarkupContent(0, someUserSuppliedString)`，因为后者可能会导致出现 XSS 漏洞。
 
 作为防范 XSS 攻击的一部分，请考虑实施 XSS 缓解措施，例如[内容安全策略 (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP)。
 

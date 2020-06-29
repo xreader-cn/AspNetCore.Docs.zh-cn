@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 42b61c9af0c1809ecb7d9a45ec8edfa815e2df22
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 5050d99e5304c7edaf6faa43f05298b69882521d
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102323"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243585"
 ---
 # <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
@@ -71,7 +71,7 @@ Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozi
 
 默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 有关控制链接器行为的详细信息和指南，请参阅 <xref:blazor/host-and-deploy/configure-linker#configure-the-linker-for-internationalization>。
 
-虽然 Blazor 默认选择的区域性可能足以满足大多数用户的需求，但请考虑为用户提供一种指定其首选区域设置的方法。 如需获取具有区域性选取器的 Blazor WebAssembly 示例应用，请参阅 [LocSample](https://github.com/pranavkm/LocSample) 本地化示例应用。
+虽然 Blazor 默认选择的区域性可能足以满足大多数用户的需求，但请考虑为用户提供一种指定其首选区域设置的方法。 如需获取具有区域性选取器的 Blazor WebAssembly 示例应用，请参阅 [`LocSample`](https://github.com/pranavkm/LocSample) 本地化示例应用。
 
 ### <a name="blazor-server"></a>Blazor 服务器
 
@@ -92,7 +92,7 @@ Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#
 
 如果在本地化 cookie 中保留了区域性，则可以使用任意方法来分配区域性。 如果该应用已经为服务器端 ASP.NET Core 建立了本地化方案，请继续使用应用的现有本地化基础结构，并在应用方案中设置本地化区域性 cookie。
 
-下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Pages/_Host.cshtml 文件中的开始 `<body>` 标记内立即创建一个 Razor 表达式：
+下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 `Pages/_Host.cshtml` 文件中的开始 `<body>` 标记内立即创建一个 Razor 表达式：
 
 ```cshtml
 @using System.Globalization
@@ -118,7 +118,7 @@ Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#
 
 1. 浏览器向应用发送初始 HTTP 请求。
 1. 本地化中间件分配区域性。
-1. `_Host` 页面 (_Host.cshtml) 中的 Razor 表达式将区域性作为响应的一部分保留在 Cookie 中。
+1. `_Host` 页面 (`_Host.cshtml`) 中的 Razor 表达式将区域性作为响应的一部分保留在 Cookie 中。
 1. 浏览器打开 WebSocket 连接以创建交互式 Blazor 服务器会话。
 1. 本地化中间件读取 cookie 并分配区域性。
 1. Blazor 服务器会话以正确的区域性开始。

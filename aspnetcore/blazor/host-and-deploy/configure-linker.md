@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/configure-linker
-ms.openlocfilehash: efac62c325b03b5ee19cae58abb5227f3d300b69
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 76af450df70fe666ea1b951cb4b41696057c5e67
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103177"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243572"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
@@ -55,7 +55,7 @@ Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/man
 </ItemGroup>
 ```
 
-LinkerConfig.xml：
+`LinkerConfig.xml`：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -93,7 +93,7 @@ LinkerConfig.xml：
 
 要针对特定库配置链接器，请将 XML 链接器配置文件作为嵌入的资源添加到库中。 嵌入的资源必须与程序集同名。
 
-在以下示例中，LinkerConfig.xml 文件被指定为与库的程序集同名的嵌入资源：
+在以下示例中，`LinkerConfig.xml` 文件被指定为与库的程序集同名的嵌入资源：
 
 ```xml
 <ItemGroup>
@@ -118,12 +118,12 @@ LinkerConfig.xml：
 | 区域值     | Mono 区域程序集    |
 | ---------------- | ----------------------- |
 | `all`            | 包含的所有程序集 |
-| `cjk`            | I18N.CJK.dll           |
-| `mideast`        | I18N.MidEast.dll       |
+| `cjk`            | `I18N.CJK.dll`          |
+| `mideast`        | `I18N.MidEast.dll`      |
 | `none`（默认值） | None                    |
-| `other`          | I18N.Other.dll         |
-| `rare`           | I18N.Rare.dll          |
-| `west`           | I18N.West.dll          |
+| `other`          | `I18N.Other.dll`        |
+| `rare`           | `I18N.Rare.dll`         |
+| `west`           | `I18N.West.dll`         |
 
 各个值之间用逗号分隔（例如：`mideast,west`）。
 

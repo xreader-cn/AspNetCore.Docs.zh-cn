@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/environments
-ms.openlocfilehash: 203f29ce606a313463e416b068177ce02acd6231
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: a527e04cf97dd2d2b88dcc6e866475835498545d
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103183"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243611"
 ---
 # <a name="aspnet-core-blazor-environments"></a>ASP.NET Core Blazor 环境
 
@@ -31,7 +31,7 @@ ms.locfileid: "85103183"
 
 对于在本地运行的独立应用，开发服务器会添加 `blazor-environment` 标头来指定开发环境。 要为其他宿主环境指定环境，请添加 `blazor-environment` 标头。
 
-在下面的 IIS 示例中，将自定义标头添加到已发布的 web.config 文件中**。 web.config 文件位于 bin/Release/{TARGET FRAMEWORK}/publish 文件夹中** **：
+在下面的 IIS 示例中，将自定义标头添加到已发布的 `web.config` 文件中。 `web.config` 文件位于 `bin/Release/{TARGET FRAMEWORK}/publish` 文件夹中：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -50,7 +50,7 @@ ms.locfileid: "85103183"
 ```
 
 > [!NOTE]
-> 要对 IIS 使用在将应用发布到 publish 文件夹时不会被覆盖的自定义 web.config 文件，请参阅 <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig>** **。
+> 要对 IIS 使用在将应用发布到 `publish` 文件夹时不会被覆盖的自定义 `web.config` 文件，请参阅 <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig>。
 
 通过注入 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> 并读取 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.Environment> 属性，在组件中获取应用的环境：
 

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: c90c3bf7ccef420101c66fe04d579920209b066c
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 63fee0b6a3152640a5483c2a682eec7d04742145
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102329"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243598"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -70,7 +70,7 @@ ms.locfileid: "85102329"
 
    有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 
 
-1. 在 Visual Studio Code 中打开 *WebApplication1* 文件夹。
+1. 在 Visual Studio Code 中打开 `WebApplication1` 文件夹，
 
 1. IDE 要求添加资产以用于生成和调试项目。 选择 **“是”** 。
 
@@ -137,15 +137,15 @@ ms.locfileid: "85102329"
 * 计数器
 * 提取数据
 
-在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。 递增网页的计数器值通常需要编写 JavaScript，但借助 Blazor，可使用 C#。
+在“计数器”页上，选择相关按钮，在不刷新页面的情况下增加计数器值。 递增网页的计数器值通常需要编写 JavaScript，但借助 Blazor，可使用 C#。
 
-*Pages/Counter.razor*：
+`Pages/Counter.razor`：
 
 [!code-razor[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
 浏览器中针对 `/counter` 的请求（由顶部的 `@page` 指令指定）会导致 `Counter` 组件呈现其内容。 组件呈现为呈现树的内存中表现形式，之后可使用它灵活高效地更新 UI。
 
-每次选择“单击我”按钮时会出现以下情况：
+每次选择该按钮时会出现以下情况：
 
 * 触发 `onclick` 事件。
 * 调用 `IncrementCount` 方法。
@@ -156,7 +156,7 @@ ms.locfileid: "85102329"
 
 使用 HTML 语法将组件添加到另一个组件。 例如，通过将 `<Counter />` 元素添加到 `Index` 组件，可将 `Counter` 组件添加到应用的主页。
 
-*Pages/Index.razor*：
+`Pages/Index.razor`：
 
 [!code-razor[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
@@ -167,17 +167,17 @@ ms.locfileid: "85102329"
 * 使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性为 `IncrementAmount` 添加公共属性。
 * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
 
-*Pages/Counter.razor*：
+`Pages/Counter.razor`：
 
 [!code-razor[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
 使用特性在 `Index` 组件的 `<Counter>` 元素中指定 `IncrementAmount`。
 
-*Pages/Index.razor*：
+`Pages/Index.razor`：
 
 [!code-razor[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-运行应用。 `Index` 组件拥有其自己的计数器，每次选择“单击我”按钮时，计数器值递增 10。 `/counter` 处 `Counter` 组件 (*Counter.razor*) 的值继续递增 1。
+运行应用。 `Index` 组件拥有其自己的计数器，每次选择该按钮时，计数器值递增 10。 `/counter` 处 `Counter` 组件 (`Pages/Counter.razor`) 的值继续递增 1。
 
 ## <a name="next-steps"></a>后续步骤
 

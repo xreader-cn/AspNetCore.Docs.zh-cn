@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 3cc75406a1680dff4727527153a62856a594c8c7
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 59adcce972b503a6aa6e596bc9bff63225961f84
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102502"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243195"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -135,7 +135,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 
 ## <a name="protected-browser-storage-experimental-package"></a>受保护的浏览器存储实验性包
 
-[Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage) 就是一个为 `localStorage` 和 `sessionStorage` 提供[数据保护](xref:security/data-protection/introduction)的 NuGet 包示例。
+[`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage) 就是一个为 `localStorage` 和 `sessionStorage` 提供[数据保护](xref:security/data-protection/introduction)的 NuGet 包示例。
 
 > [!WARNING]
 > `Microsoft.AspNetCore.ProtectedBrowserStorage` 是一个不受支持的实验性包，目前不适合用于生产。
@@ -144,8 +144,8 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 
 安装 `Microsoft.AspNetCore.ProtectedBrowserStorage` 包：
 
-1. 在 Blazor 服务器应用项目中，将包引用添加到 [Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。
-1. 在顶级 HTML（例如，在默认项目模板中的“Pages/_Host.cshtml”文件中）中，添加以下 `<script>` 标记：
+1. 在 Blazor Server 应用项目中，将包引用添加到 [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。
+1. 在顶级 HTML（例如，在默认项目模板中的 `Pages/_Host.cshtml` 文件中）中，添加以下 `<script>` 标记：
 
    ```html
    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
@@ -171,7 +171,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 @inject ProtectedSessionStorage ProtectedSessionStore
 ```
 
-可将 `@using` 语句放置在“_Imports.razor”文件而不是组件中。 使用“_Imports.razor”文件可使命名空间可用于应用的较大部分或整个应用。
+可将 `@using` 语句放置在 `_Imports.razor` 文件而不是组件中。 使用 `_Imports.razor` 文件可使命名空间可用于应用的较大部分或整个应用。
 
 若要在项目模板的 `Counter` 组件中保留 `currentCount` 值，请修改 `IncrementCount` 方法以使用 `ProtectedSessionStore.SetAsync`：
 
@@ -215,7 +215,7 @@ protected override async Task OnInitializedAsync()
 private int? currentCount;
 ```
 
-请勿无条件地显示计数和“增量”按钮，而选择仅在数据已加载后才显示这些元素：
+请勿无条件地显示计数和“`Increment`”按钮，而选择仅在数据已加载后才显示这些元素：
 
 ```razor
 @if (currentCount.HasValue)
@@ -243,7 +243,7 @@ else
 
 解决此错误的一种方法是禁用预呈现。 如果应用大量使用基于浏览器的存储，则这通常是最佳选择。 预呈现会增加复杂性，且不会给应用带来好处，因为在 `localStorage` 或 `sessionStorage` 可用之前，应用无法预呈现任何有用的内容。
 
-若要禁用预呈现，请打开“Pages/_Host.cshtml”文件，并将[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)的 `render-mode` 更改为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server>。
+若要禁用预呈现，请打开 `Pages/_Host.cshtml` 文件，并将[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)的 `render-mode` 更改为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server>。
 
 对于不使用 `localStorage` 或 `sessionStorage` 的其他页面，预呈现可能很有用。 若要使预呈现保持启用状态，可延迟加载操作，直到浏览器连接到线路。 以下是存储计数器值的示例：
 
@@ -326,7 +326,7 @@ else
 
 `CounterStateProvider` 组件处理加载阶段的方式是在加载完成后才呈现其子内容。
 
-若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装该组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件 (App.razor) 中的 <xref:Microsoft.AspNetCore.Components.Routing.Router> 来包装 `CounterStateProvider` 组件：
+若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装该组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件 (`App.razor`) 中的 <xref:Microsoft.AspNetCore.Components.Routing.Router> 来包装 `CounterStateProvider` 组件：
 
 ```razor
 <CounterStateProvider>

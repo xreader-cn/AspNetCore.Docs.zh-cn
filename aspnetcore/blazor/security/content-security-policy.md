@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/content-security-policy
-ms.openlocfilehash: 63359260766846ccf14ececfae82bf02cc598cf9
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 360fff9383e25a6b5b9308cfebd397f7f4ee31a6
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103170"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242974"
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>为 ASP.NET Core Blazor 强制实施内容安全策略
 
@@ -30,7 +30,7 @@ ms.locfileid: "85103170"
 * 页面执行的操作，指定允许的表单 URL 目标。
 * 可加载的插件。
 
-要将 CSP 应用于应用，开发人员会在一个或多个 `Content-Security-Policy` 标头或 `<meta>` 标记中指定多个 CSP 内容安全指令**。
+要将 CSP 应用于应用，开发人员会在一个或多个 `Content-Security-Policy` 标头或 `<meta>` 标记中指定多个 CSP 内容安全指令。
 
 加载页面时，浏览器会对策略进行评估。 浏览器将检查页面的源并确定它们是否满足内容安全指令的要求。 如果资源不符合策略指令，浏览器不会加载资源。 例如，请考虑不允许第三方脚本的策略。 当某个页面的 `src` 属性中包含带有第三方来源的 `<script>` 标记时，浏览器将阻止加载该脚本。
 
@@ -81,11 +81,11 @@ ms.locfileid: "85103170"
 * 将指令置于 `content` 属性值中。 使用分号 (`;`) 分隔指令。
 * 始终将 `meta` 标记置于 `<head>` 内容中。
 
-以下各部分介绍 Blazor WebAssembly 和 Blazor 服务器的示例策略。 对于 Blazor 的每个版本，本文都对这些示例进行了版本控制。 要使用适用于你的版本的版本，请在此网页上使用“版本”下拉选择器选择文档版本****。
+以下各部分介绍 Blazor WebAssembly 和 Blazor 服务器的示例策略。 对于 Blazor 的每个版本，本文都对这些示例进行了版本控制。 要使用适用于你的版本的版本，请在此网页上使用“版本”下拉选择器选择文档版本。
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-在 wwwroot/index.html 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令**：
+在 `wwwroot/index.html` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：
 
 ```html
 <meta http-equiv="Content-Security-Policy" 
@@ -108,7 +108,7 @@ ms.locfileid: "85103170"
 
 ### <a name="blazor-server"></a>Blazor 服务器
 
-在 Pages/_Host.cshtml 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令**：
+在 `Pages/_Host.cshtml` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：
 
 ```cshtml
 <meta http-equiv="Content-Security-Policy" 
@@ -148,7 +148,7 @@ ms.locfileid: "85103170"
 * [report-to](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
 * [report-uri](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/report-uri)
 
-虽然不再建议使用 `report-uri`，但在所有主要浏览器都支持 `report-to` 之前，都应使用这两个指令。 不要只使用 `report-uri`，因为随时可能从浏览器中删除对 `report-uri` 的支持 **。 完全支持 `report-to` 时，请删除策略中对 `report-uri` 的支持。 要跟踪 `report-to` 的使用情况，请参阅[我可以使用：report-to](https://caniuse.com/#feat=mdn-http_headers_csp_content-security-policy_report-to)。
+虽然不再建议使用 `report-uri`，但在所有主要浏览器都支持 `report-to` 之前，都应使用这两个指令。 不要只使用 `report-uri`，因为随时可能从浏览器中删除对 `report-uri` 的支持 。 完全支持 `report-to` 时，请删除策略中对 `report-uri` 的支持。 要跟踪 `report-to` 的使用情况，请参阅[我可以使用：report-to](https://caniuse.com/#feat=mdn-http_headers_csp_content-security-policy_report-to)。
 
 每次发布时测试和更新应用的策略。
 

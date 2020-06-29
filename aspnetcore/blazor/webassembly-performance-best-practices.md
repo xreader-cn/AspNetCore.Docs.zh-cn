@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: c5169231eec67a43830f761bff7585deff774613
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 2b6d4e706856cb28f26c2502feca4f959ca4abac
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103212"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243026"
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
 
@@ -76,10 +76,10 @@ ms.locfileid: "85103212"
 
 组件提供了一种方便的方法来生成代码和标记的可重用片段。 通常，我们建议创作最符合应用要求的单个组件。 需要注意的是，每个附加的子组件都会增加呈现父组件所需的总时间。 对于大多数应用，额外的开销可以忽略不计。 生成大量组件的应用应考虑使用策略来减少处理开销，例如限制所呈现的组件的数量。
 
-例如，如果某网格或列表要呈现数百个包含组件的行，则该网格或列表呈现时会大量使用处理器。 请考虑将网格或列表布局虚拟化，以便在任何给定时间都只呈现其中的一部分组件。 有关组件子集呈现的示例，请参阅[虚拟化示例应用（aspnet/示例 GitHub 存储库）](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Virtualization)中的以下组件：
+例如，如果某网格或列表要呈现数百个包含组件的行，则该网格或列表呈现时会大量使用处理器。 请考虑将网格或列表布局虚拟化，以便在任何给定时间都只呈现其中的一部分组件。 有关组件子集呈现的示例，请参阅 [`Virtualization` 示例应用（aspnet/示例 GitHub 存储库）中的以下组件](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Virtualization)：
 
-* `Virtualize` 组件（[共享/Virtualize.razor](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs)）：用 C# 语言编写的一种组件，实现了 <xref:Microsoft.AspNetCore.Components.ComponentBase> 来根据用户滚动呈现一组天气数据行。
-* `FetchData` 组件（[页面/FetchData.razor](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor)）：使用 `Virtualize` 组件一次显示 25 行天气数据。
+* `Virtualize` 组件 ([`Shared/Virtualize.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs))：用 C# 语言编写的一种组件，实现了 <xref:Microsoft.AspNetCore.Components.ComponentBase> 来根据用户滚动呈现一组天气数据行。
+* `FetchData` 组件 ([`Pages/FetchData.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor))：使用 `Virtualize` 组件一次显示 25 行天气数据。
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a>不要用 JavaScript 互操作来封送数据
 
@@ -89,7 +89,7 @@ ms.locfileid: "85103212"
 
 Blazor 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性能高但内存分配较低的 JSON 序列化库。 与添加一个或多个备用 JSON 库相比，使用 <xref:System.Text.Json> 不会增加应用有效负载的大小。
 
-有关迁移指南，请参阅[如何从 Newtonsoft.Json 迁移到 System.Text.Json](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to)。
+有关迁移指南，请参阅[如何从 `Newtonsoft.Json` 迁移到 `System.Text.Json`](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to)。
 
 ## <a name="use-synchronous-and-unmarshalled-js-interop-apis-where-appropriate"></a>根据需要使用同步的和未封装的 JS 互操作 API
 
@@ -138,7 +138,7 @@ Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> �
 
 ### <a name="intermediate-language-il-linking"></a>中间语言 (IL) 链接
 
-通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。 默认情况下，仅在 `Release` 配置中生成时才启用链接器。 要从此中受益，请使用 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
+通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。 默认情况下，仅在 `Release` 配置中生成时才启用链接器。 要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
 
 ```dotnetcli
 dotnet publish -c Release
