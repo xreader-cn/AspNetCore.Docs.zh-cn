@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/response
-ms.openlocfilehash: 25d6bdae0fce7821ec7b9195817dc07ef9aed40f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5c3314991d05ea868fe9190bb3a0206b27fd920f
+ms.sourcegitcommit: b06511252f165dd4590ba9b5beca4153fa220779
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408183"
+ms.lasthandoff: 06/27/2020
+ms.locfileid: "85459761"
 ---
 # <a name="response-caching-in-aspnet-core"></a>ASP.NET Core 中的响应缓存
 
@@ -176,7 +176,17 @@ Cache-Control: public,max-age=10
 
 设置缓存配置文件。 下面的示例显示了示例应用中的30秒缓存配置文件 `Startup.ConfigureServices` ：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](response/samples/3.x/Startup.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Startup.cs?name=snippet1)]
+
+::: moniker-end
 
 示例应用的 Cache4 页面模型引用 `Default30` 缓存配置文件：
 
@@ -184,9 +194,9 @@ Cache-Control: public,max-age=10
 
 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>可应用于：
 
-* Razor页处理程序（类）：特性不能应用于处理程序方法。
-* MVC 控制器（类）。
-* MVC 操作（方法）：方法级特性会替代类级特性中指定的设置。
+* RazorPages：特性不能应用于处理程序方法。
+* MVC 控制器。
+* MVC 操作方法：方法级特性替代类级特性中指定的设置。
 
 缓存配置文件将生成的标头应用到 Cache4 页响应 `Default30` ：
 

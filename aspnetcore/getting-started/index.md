@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: getting-started
-ms.openlocfilehash: 565cde233d6fc5f085ae1709e167e73980d5c3c2
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b88460cdff5d8c30c6a28afdb4f67e8e0b6b819c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776228"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403360"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
@@ -50,7 +52,7 @@ dotnet new webapp -o aspnetcoreapp
 上面的命令：
 
 * 创建新 Web 应用。  
-* `-o aspnetcoreapp` 参数使用应用的源文件创建名为 aspnetcoreapp  的目录。
+* `-o aspnetcoreapp` 参数使用应用的源文件创建名为 aspnetcoreapp 的目录。
 
 ### <a name="trust-the-development-certificate"></a>信任开发证书
 
@@ -66,7 +68,7 @@ dotnet dev-certs https --trust
 
 ![安全警告对话](~/getting-started/_static/cert.png)
 
-如果你同意信任开发证书，请选择“是”。 
+如果你同意信任开发证书，请选择“是”。
 
 # <a name="macos"></a>[macOS](#tab/macos)
 
@@ -101,7 +103,7 @@ dotnet watch run
 
 ## <a name="edit-a-razor-page"></a>编辑 Razor 页面
 
-打开 Pages/Index.cshtml  ，并使用以下突出显示标记修改并保存页面：
+打开 Pages/Index.cshtml，并使用以下突出显示标记修改并保存页面：
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 

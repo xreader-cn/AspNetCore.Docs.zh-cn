@@ -5,20 +5,22 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/11/2020
+ms.date: 06/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: e1778d865edcfed8f5f45f4f53a57f1b3a3bd9aa
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 02e3f7f5442a5abde0b13b7bba14d9d0f29c1de7
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242429"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399083"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -427,11 +429,24 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 > [!NOTE]
 > 不要使用组件引用来改变子组件的状态。 请改用常规声明性参数将数据传递给子组件。 使用常规声明性参数使子组件在正确的时间自动重新呈现。
 
-## <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
+## <a name="synchronization-context"></a>同步上下文
 
 Blazor 使用同步上下文 (<xref:System.Threading.SynchronizationContext>) 来强制执行单个逻辑线程。 组件的[生命周期方法](xref:blazor/components/lifecycle)和 Blazor 引发的任何事件回调都在此同步上下文上执行。
 
-Blazor 服务器的同步上下文尝试模拟单线程环境，使其与浏览器（单线程）中的 WebAssembly 模型密切匹配。 在任意给定的时间点，工作只在一个线程上执行，从而造成单个逻辑线程的印象。 不会同时执行两个操作。
+Blazor Server的同步上下文尝试模拟单线程环境，使其与浏览器中的单线程 WebAssembly 模型紧密匹配。 在任意给定的时间点，工作只在一个线程上执行，从而造成单个逻辑线程的印象。 不会同时执行两个操作。
+
+### <a name="avoid-thread-blocking-calls"></a>避免阻止线程的调用
+
+通常，不要调用以下方法。 以下方法阻止线程，进而阻止应用继续工作，直到基础 <xref:System.Threading.Tasks.Task> 完成：
+
+* <xref:System.Threading.Tasks.Task%601.Result%2A>
+* <xref:System.Threading.Tasks.Task.Wait%2A>
+* <xref:System.Threading.Tasks.Task.WaitAny%2A>
+* <xref:System.Threading.Tasks.Task.WaitAll%2A>
+* <xref:System.Threading.Thread.Sleep%2A>
+* <xref:System.Runtime.CompilerServices.TaskAwaiter.GetResult%2A>
+
+### <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
 
 如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法来调度到 Blazor 的同步上下文。 例如，假设有一个可通知任何侦听组件更新状态的通告程序服务：
 
@@ -459,7 +474,7 @@ public class NotifierService
   builder.Services.AddSingleton<NotifierService>();
   ```
 
-* 在 Blazor 服务器中，在 `Startup.ConfigureServices` 中注册服务：
+* 在 Blazor Server中，在 `Startup.ConfigureServices` 中注册服务：
 
   ```csharp
   services.AddScoped<NotifierService>();
@@ -798,7 +813,7 @@ Razor 组件（`.razor` 文件）不支持 [`Tag Helpers`](xref:mvc/views/tag-he
 
 ## <a name="additional-resources"></a>其他资源
 
-* <xref:blazor/security/server/threat-mitigation>：包括有关如何生成必须应对资源耗尽的 Blazor 服务器应用的指南。
+* <xref:blazor/security/server/threat-mitigation>：包括有关如何生成必须应对资源耗尽的 Blazor Server应用的指南。
 
 <!--Reference links in article-->
 [1]: <xref:mvc/views/razor#code>
