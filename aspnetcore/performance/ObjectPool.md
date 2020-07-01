@@ -14,16 +14,16 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/ObjectPool
-ms.openlocfilehash: 8244acb39a345875d80c5528a822de23f78b6e38
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 9df7f370eb550172493478bcd8d94a9541926fec
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403542"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793552"
 ---
 # <a name="object-reuse-with-objectpool-in-aspnet-core"></a>在 ASP.NET Core 中使用 ObjectPool 进行对象重用
 
-作者： [Steve Gordon](https://twitter.com/stevejgordon)、 [Ryan Nowak](https://github.com/rynowak)和[Rick Anderson](https://twitter.com/RickAndMSFT)
+作者： [Steve Gordon](https://twitter.com/stevejgordon)、 [Ryan Nowak](https://github.com/rynowak)和[Günther Foidl](https://github.com/gfoidl)
 
 <xref:Microsoft.Extensions.ObjectPool>是 ASP.NET Core 基础结构的一部分，它支持在内存中保留一组对象以供重复使用，而不是允许对象被垃圾回收。
 
@@ -42,7 +42,9 @@ ms.locfileid: "85403542"
 
 仅在使用应用或库的现实方案收集性能数据后，才使用对象池。
 
-**警告： `ObjectPool` 没有实现 `IDisposable` 。建议不要将其与需要处置的类型一起使用。**
+::: moniker range="< aspnetcore-3.0"
+**警告： `ObjectPool` 没有实现 `IDisposable` 。建议不要将其与需要处置的类型一起使用。** `ObjectPool`ASP.NET Core 3.0 和更高版本支持 `IDisposable` 。
+::: moniker-end
 
 **注意： ObjectPool 不会对它将分配的对象数量施加限制，它会限制将保留的对象数。**
 
@@ -63,7 +65,20 @@ ms.locfileid: "85403542"
 
 ## <a name="how-to-use-objectpool"></a>如何使用 ObjectPool
 
-调用 <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1> 以获取对象并 <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Return*> 返回对象。  不要求你返回每个对象。 如果不返回对象，将对其进行垃圾回收。
+调用 <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Get*> 以获取对象并 <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Return*> 返回对象。  不要求你返回每个对象。 如果不返回对象，将对其进行垃圾回收。
+
+::: moniker range=">= aspnetcore-3.0"
+当 <xref:Microsoft.Extensions.ObjectPool.DefaultObjectPoolProvider> 使用并 `T` 实现时 `IDisposable` ：
+
+* ***不***返回到池的项将被释放。
+* 当使用 DI 释放池时，将释放池中的所有项。
+
+注意：释放池后：
+
+* 调用会 `Get` 引发 `ObjectDisposedException` 。
+* `return`释放给定的项。
+
+::: moniker-end
 
 ## <a name="objectpool-sample"></a>ObjectPool 示例
 

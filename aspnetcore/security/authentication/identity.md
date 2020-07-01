@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 97cbc5f68d20c06e92a56ead85c8377d4e8ef582
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 31970bd2b52ad83c116067d258aa9dca2d9b3b66
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404582"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793585"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
 
@@ -57,7 +57,7 @@ Identity通常使用 SQL Server 数据库配置以存储用户名、密码和配
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -93,7 +93,11 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-使用 SQLite 时，此步骤不需要迁移。 对于 LocalDB，请运行以下命令：
+使用 SQLite 时，此步骤不需要迁移。
+
+[!INCLUDE [more information on the CLI for EF Core](~/includes/ef-cli.md)]
+
+对于 LocalDB，请运行以下命令：
 
 ```dotnetcli
 dotnet ef database update
@@ -242,7 +246,7 @@ Identity了解更多详细信息：
 
 * [ASP.NET Core Identity 源代码](https://github.com/dotnet/aspnetcore/tree/master/src/Identity)
 * 有关使用 SQLite 进行配置的信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity 。
-* [对Identity](xref:security/authentication/identity-configuration)
+* [配置 Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>
@@ -284,7 +288,7 @@ Identity可以使用 SQL Server 数据库配置以存储用户名、密码和配
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -432,7 +436,7 @@ Identity了解更多详细信息：
 ## <a name="next-steps"></a>后续步骤
 
 * 有关使用 SQLite 进行配置的信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity 。
-* [对Identity](xref:security/authentication/identity-configuration)
+* [配置 Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>
