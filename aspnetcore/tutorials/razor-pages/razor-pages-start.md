@@ -1,22 +1,24 @@
 ---
-title: “教程：在 ASP.NET Core 中开始使用 Razor 页面”
+title: 教程：在 ASP.NET Core 中开始使用 Razor Pages
 author: rick-anderson
 description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Pages。 了解如何创建模型、为 Razor Pages 生成代码、将 Entity Framework Core 和 SQL Server 用于数据访问、添加搜索功能、添加输入验证及使用迁移更新模型。
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 3b8ccf639bb91234f81c67750fffa170e52d636f
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 97e3f60480bc8e7e88c8361e5b13f02d98765d9e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452329"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405297"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：在 ASP.NET Core 中开始使用 Razor Pages
 

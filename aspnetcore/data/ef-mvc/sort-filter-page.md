@@ -7,17 +7,19 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: d9cd3a74c35d531b5e8c91fc7f922b0cdf8e9558
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 45aabc644fbeaeaa31d534877ba93cb0611f3f34
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773505"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401332"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 
@@ -47,7 +49,7 @@ ms.locfileid: "82773505"
 
 ### <a name="add-sorting-functionality-to-the-index-method"></a>向 Index 方法添加排序功能
 
-在 StudentsController.cs  中，将 `Index` 方法替换为以下代码：
+在 StudentsController.cs 中，将 `Index` 方法替换为以下代码：
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_SortOnly)]
 
@@ -74,13 +76,13 @@ ms.locfileid: "82773505"
 
 ### <a name="add-column-heading-hyperlinks-to-the-student-index-view"></a>向“学生索引”视图添加列标题超链接
 
-将 Views / Students / Index.cshtml  中的代码替换为以下代码，以添加列标题超链接。 已更改的行为突出显示状态。
+将 Views / Students / Index.cshtml 中的代码替换为以下代码，以添加列标题超链接。 已更改的行为突出显示状态。
 
 [!code-html[](intro/samples/cu/Views/Students/Index2.cshtml?highlight=16,22)]
 
 此代码使用 `ViewData` 属性中的信息来设置具有相应查询字符串值的超链接。
 
-运行应用，选择“学生”  选项卡，然后单击“姓氏”和“注册日期”列标题以验证排序是否正常工作   。
+运行应用，选择“学生”选项卡，然后单击“姓氏”和“注册日期”列标题以验证排序是否正常工作 。
 
 ![按姓名顺序的学生索引页](sort-filter-page/_static/name-order.png)
 
@@ -90,7 +92,7 @@ ms.locfileid: "82773505"
 
 ### <a name="add-filtering-functionality-to-the-index-method"></a>向 Index 方法添加筛选功能
 
-在 StudentsController.cs  中，将 `Index` 方法替换为以下代码（所做的更改为突出显示状态）。
+在 StudentsController.cs 中，将 `Index` 方法替换为以下代码（所做的更改为突出显示状态）。
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_SortFilter&highlight=1,5,9-13)]
 
@@ -103,13 +105,13 @@ ms.locfileid: "82773505"
 
 ### <a name="add-a-search-box-to-the-student-index-view"></a>向“学生索引”视图添加搜索框
 
-在 Views/Student/Index.cshtml 中，请在打开表格标签之前立即添加突出显示的代码，以创建标题栏、文本框和搜索按钮   。
+在 Views/Student/Index.cshtml 中，请在打开表格标签之前立即添加突出显示的代码，以创建标题栏、文本框和搜索按钮。
 
 [!code-html[](intro/samples/cu/Views/Students/Index3.cshtml?range=9-23&highlight=5-13)]
 
 此代码使用 `<form>` [标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器使用 POST 提交表单数据，这意味着参数在 HTTP 消息正文中传递，而不是作为查询字符串在 URL 中传递。 当指定 HTTP GET 时，表单数据作为查询字符串在 URL 中传递，从而使用户能够将 URL 加入书签。 W3C 指南建议在操作不会导致更新时使用 GET。
 
-运行应用，选择“学生”选项卡，输入搜索字符串，然后单击“搜索”以验证筛选是否正常工作  。
+运行应用，选择“学生”选项卡，输入搜索字符串，然后单击“搜索”以验证筛选是否正常工作。
 
 ![带有筛选功能的学生索引页](sort-filter-page/_static/filtering.png)
 
@@ -121,7 +123,7 @@ http://localhost:5813/Students?SearchString=an
 
 如果将此页加入书签，当使用书签时，将获得已筛选的列表。 向 `form` 标记添加 `method="get"` 是导致生成查询字符串的原因。
 
-在此阶段，如果单击列标题排序链接，则会丢失已在“搜索”框中输入的筛选器值  。 此问题将在下一部分得以解决。
+在此阶段，如果单击列标题排序链接，则会丢失已在“搜索”框中输入的筛选器值。 此问题将在下一部分得以解决。
 
 ## <a name="add-paging-to-students-index"></a>向学生索引添加分页
 
@@ -133,13 +135,13 @@ http://localhost:5813/Students?SearchString=an
 
 [!code-csharp[](intro/samples/cu/PaginatedList.cs)]
 
-此代码中的 `CreateAsync` 方法将提取页面大小和页码，并将相应的 `Skip` 和 `Take` 语句应用于 `IQueryable`。 当在 `IQueryable` 上调用 `ToListAsync` 时，它将返回仅包含请求页的列表。 属性 `HasPreviousPage` 和 `HasNextPage` 可用于启用或禁用“上一页”和“下一页”的分页按钮   。
+此代码中的 `CreateAsync` 方法将提取页面大小和页码，并将相应的 `Skip` 和 `Take` 语句应用于 `IQueryable`。 当在 `IQueryable` 上调用 `ToListAsync` 时，它将返回仅包含请求页的列表。 属性 `HasPreviousPage` 和 `HasNextPage` 可用于启用或禁用“上一页”和“下一页”的分页按钮 。
 
 由于构造函数不能运行异步代码，因此使用 `CreateAsync` 方法来创建 `PaginatedList<T>` 对象，而非构造函数。
 
 ## <a name="add-paging-to-index-method"></a>向 Index 方法添加分页
 
-在 StudentsController.cs  中，将 `Index` 方法替换为以下代码。
+在 StudentsController.cs 中，将 `Index` 方法替换为以下代码。
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_SortFilterPage&highlight=1-5,7,11-18,45-46)]
 
@@ -182,7 +184,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 ## <a name="add-paging-links"></a>添加分页链接
 
-在 Views/Students/Index.cshtml  中，将现有代码替换为以下代码。 突出显示所作更改。
+在 Views/Students/Index.cshtml 中，将现有代码替换为以下代码。 突出显示所作更改。
 
 [!code-html[](intro/samples/cu/Views/Students/Index.cshtml?highlight=1,27,30,33,61-79)]
 
@@ -214,7 +216,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 ## <a name="create-an-about-page"></a>创建“关于”页
 
-对于 Contoso 大学网站的“关于”页  ，将显示每个注册日期注册了多少名学生。 这需要对组进行分组和简单计算。 若要完成此操作，需要执行以下操作：
+对于 Contoso 大学网站的“关于”页，将显示每个注册日期注册了多少名学生。 这需要对组进行分组和简单计算。 若要完成此操作，需要执行以下操作：
 
 * 为需要传递给视图的数据创建一个视图模型类。
 * 创建主控制器中的“关于”方法。
@@ -222,15 +224,15 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 ### <a name="create-the-view-model"></a>创建视图模型
 
-在 Models 文件夹中创建一个 SchoolViewModels 文件夹   。
+在 Models 文件夹中创建一个 SchoolViewModels 文件夹 。
 
-在新文件夹中，添加一个类文件 EnrollmentDateGroup.cs  ，并用以下代码替换模板代码：
+在新文件夹中，添加一个类文件 EnrollmentDateGroup.cs，并用以下代码替换模板代码：
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/EnrollmentDateGroup.cs)]
 
 ### <a name="modify-the-home-controller"></a>修改主控制器
 
-在 HomeController.cs  中，使用文件顶部的语句添加以下内容：
+在 HomeController.cs 中，使用文件顶部的语句添加以下内容：
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_Usings1)]
 
@@ -246,7 +248,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 ### <a name="create-the-about-view"></a>创建“关于”视图
 
-使用以下代码添加 Views/Home/About.cshtml 文件  ：
+使用以下代码添加 Views/Home/About.cshtml 文件：
 
 [!code-html[](intro/samples/cu/Views/Home/About.cshtml)]
 

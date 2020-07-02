@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 04/13/2017
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/validation
-ms.openlocfilehash: 70cc66955fdaee6ff93648523c2977587e6b05d6
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: 9a04beab6c00c24e47acca11cfa61d7ca59ab333
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652444"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407923"
 ---
 # <a name="part-9-add-validation-to-an-aspnet-core-mvc-app"></a>第 9 部分，将验证添加到 ASP.NET Core MVC 应用
 

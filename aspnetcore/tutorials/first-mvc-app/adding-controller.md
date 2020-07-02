@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 08/05/2017
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 1bb2d96d7b58bdd88ce9c2266c33f6e7de9e9209
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: 30272900b2ff19879921f1954a1c9b3eba203ca4
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84653028"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400448"
 ---
 # <a name="part-2-add-a-controller-to-an-aspnet-core-mvc-app"></a>第 2 部分，将控制器添加到 ASP.NET Core MVC 应用
 

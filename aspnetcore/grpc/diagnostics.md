@@ -5,13 +5,21 @@ description: 了解如何从 .NET 上的 gRPC 应用收集诊断。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/23/2019
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/diagnostics
-ms.openlocfilehash: 131144bf7a2c637eb2c1a1d5c54990dd4d429502
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: ca87ba5b03e7657132e5ebaba72370bde85c85d4
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80417518"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406766"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>.NET 上 gRPC 中的日志记录和诊断
 
@@ -77,7 +85,7 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 
 #### <a name="as-a-console-app"></a>作为控制台应用
 
-如果在控制台应用中运行，则默认情况下应启用[控制台记录器](xref:fundamentals/logging/index#console-provider)。 gRPC 日志将在控制台中显示。
+如果在控制台应用中运行，则默认情况下应启用[控制台记录器](xref:fundamentals/logging/index#console)。 gRPC 日志将在控制台中显示。
 
 #### <a name="other-environments"></a>其他环境
 

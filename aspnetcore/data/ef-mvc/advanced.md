@@ -8,17 +8,19 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 74153b9a185d382a3418dd9470ce6ca4c3c70041
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7233d6baf139d2ef362f4e3d1a56cf7f0e2514d2
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773609"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403113"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
@@ -57,11 +59,11 @@ ms.locfileid: "82773609"
 
 `DbSet<TEntity>` 类提供了一种方法，可用于执行返回 `TEntity` 类型实体的查询。 若要查看实现细节，你需要更改院系控制器中 `Details` 方法的代码。
 
-在 DepartmentsController.cs  的 `Details` 方法中，使用 `FromSql` 方法调用替换检索院系的代码，如以下突出显示的代码所示：
+在 DepartmentsController.cs 的 `Details` 方法中，使用 `FromSql` 方法调用替换检索院系的代码，如以下突出显示的代码所示：
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
-为了验证新代码是否正常工作，请选择“院系”选项卡，然后选择其中某一院系的“详细信息”   。
+为了验证新代码是否正常工作，请选择“院系”选项卡，然后选择其中某一院系的“详细信息” 。
 
 ![院系详细信息](advanced/_static/department-details.png)
 
@@ -87,7 +89,7 @@ ms.locfileid: "82773609"
 
 ![“更新课程学分”页面](advanced/_static/update-credits.png)
 
-在 CoursesController.cs 中，为 HttpGet 和 HttpPost 添加 UpdateCourseCredits 方法： 
+在 CoursesController.cs 中，为 HttpGet 和 HttpPost 添加 UpdateCourseCredits 方法：
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_UpdateGet)]
 
@@ -97,9 +99,9 @@ ms.locfileid: "82773609"
 
 当单击**Update**按钮时，将调用 HttpPost 方法，且从文本框中输入的值获取乘数。 代码接着执行 SQL 语句更新课程，并向视图的`ViewData`返回受影响的行数。 当视图获取`RowsAffected`值，它将显示更新的行数。
 
-在“解决方案资源管理器”中，右键单击“Views/Courses”文件夹，然后依次单击“添加”和“新建项”    。
+在“解决方案资源管理器”中，右键单击“Views/Courses”文件夹，然后依次单击“添加”和“新建项”。
 
-在“添加新项”对话框中，在左侧窗格的“已安装”下单击“ASP.NET Core”，单击“Razor 视图”，并将新视图命名为“UpdateCourseCredits.cshtml”      。
+在“添加新项”对话框中，在左侧窗格的“已安装”下单击“ASP.NET Core”，单击“Razor 视图”，并将新视图命名为“UpdateCourseCredits.cshtml”   。
 
 在*Views/Courses/UpdateCourseCredits.cshtml*中，将模板代码替换为以下代码：
 
@@ -113,7 +115,7 @@ ms.locfileid: "82773609"
 
 ![“更新课程学分”页面中受影响的行](advanced/_static/update-credits-rows-affected.png)
 
-单击“返回列表”可以查看课程列表，其中学分已替换为修改后的数字。 
+单击“返回列表”可以查看课程列表，其中学分已替换为修改后的数字。
 
 请注意，生产代码将确保更新最终生成有效的数据。 此处所示的简化代码可将学分的数字进行相乘，以便足以生成大于 5 的数字。 (`Credits` 属性具有 `[Range(0, 5)]` 特性。)更新查询会起作用，但无效数据可能在系统的其他部分中产生意外结果，这些部分假定学分为 5 或更少。
 

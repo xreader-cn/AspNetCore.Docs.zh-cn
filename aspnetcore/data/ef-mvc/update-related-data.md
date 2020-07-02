@@ -8,17 +8,19 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 32d3a22b85675d817286e3e72b8b9c8e63df6ca6
-ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.openlocfilehash: 59bf94f6818108f09e9af147559fc304f48936bc
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82850417"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401306"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 
@@ -47,7 +49,7 @@ ms.locfileid: "82850417"
 
 创建新的课程实体时，新实体必须与现有院系有关系。 为此，基架代码需包括控制器方法、创建视图和编辑视图，且视图中应包括用于选择院系的下拉列表。 下拉列表设置了 `Course.DepartmentID` 外键属性，而这正是 Entity Framework 使用适当的 Department 实体加载 `Department` 导航属性所需要的。 将用到基架代码，但需对其稍作更改，以便添加错误处理和对下拉列表进行排序。
 
-在 CoursesController.cs 中，删除四种 Create 和 Edit 方法，并将其替换为以下代码  ：
+在 CoursesController.cs 中，删除四种 Create 和 Edit 方法，并将其替换为以下代码：
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_CreateGet)]
 
@@ -83,37 +85,37 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 ### <a name="modify-the-course-views"></a>修改课程视图
 
-在 Views/Courses/Create.cshtml 中，向“院系”下拉列表添加一个“选择院系”选项，将标题从 DepartmentID 更改为 Department，并添加一条验证消息     。
+在 Views/Courses/Create.cshtml 中，向“院系”下拉列表添加一个“选择院系”选项，将标题从 DepartmentID 更改为 Department，并添加一条验证消息  。
 
 [!code-html[](intro/samples/cu/Views/Courses/Create.cshtml?highlight=2-6&range=29-34)]
 
-在 Views/Courses/Edit.cshtml 中，对“院系”字段进行与 Create.cshtml 中相同的更改   。
+在 Views/Courses/Edit.cshtml 中，对“院系”字段进行与 Create.cshtml 中相同的更改 。
 
-另外，在 Views/Courses/Edit.cshtml 中，在“标题”字段之前添加一个课程编号字段   。 课程编号是主键，因此只会显示，无法更改。
+另外，在 Views/Courses/Edit.cshtml 中，在“标题”字段之前添加一个课程编号字段。 课程编号是主键，因此只会显示，无法更改。
 
 [!code-html[](intro/samples/cu/Views/Courses/Edit.cshtml?range=15-18)]
 
-“编辑”视图中已有一个隐藏的课程编号字段（`<input type="hidden">`。 添加 `<label>` 标记帮助器后仍然需要该隐藏字段，因为添加标记帮助器后，用户在“编辑”页面上单击“保存”时，已发布数据中并不会包含课程编号   。
+“编辑”视图中已有一个隐藏的课程编号字段（`<input type="hidden">`。 添加 `<label>` 标记帮助器后仍然需要该隐藏字段，因为添加标记帮助器后，用户在“编辑”页面上单击“保存”时，已发布数据中并不会包含课程编号 。
 
-在 Views/Courses/Delete.cshtml 中，在顶部添加一个课程编号字段，并将院系 ID 更改为院系名称  。
+在 Views/Courses/Delete.cshtml 中，在顶部添加一个课程编号字段，并将院系 ID 更改为院系名称。
 
 [!code-html[](intro/samples/cu/Views/Courses/Delete.cshtml?highlight=14-19,36)]
 
-在 Views/Courses/Details.cshtml 中，进行对 Delete.cshtml 所作相同的更改   。
+在 Views/Courses/Details.cshtml 中，进行对 Delete.cshtml 所作相同的更改 。
 
 ### <a name="test-the-course-pages"></a>测试“课程”页
 
-运行应用，选择“课程”选项卡，单击“新建”，然后输入新课程的数据   ：
+运行应用，选择“课程”选项卡，单击“新建”，然后输入新课程的数据 ：
 
 ![课程创建页面](update-related-data/_static/course-create.png)
 
 单击 **“创建”** 。 课程索引页面随即显示，并且新课程已添加在列表中。 索引页列表中的院系名称来自导航属性，表明已正确建立关系。
 
-在课程索引页中的课程上，单击“编辑”  。
+在课程索引页中的课程上，单击“编辑”。
 
 ![“课程编辑”页面](update-related-data/_static/course-edit.png)
 
-更改页面上的数据，然后单击“保存”  。 含有更新后的课程数据的“课程索引”页面随即显示。
+更改页面上的数据，然后单击“保存”。 含有更新后的课程数据的“课程索引”页面随即显示。
 
 ## <a name="add-instructors-edit-page"></a>添加“讲师编辑”页
 
@@ -127,7 +129,7 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 ### <a name="update-the-instructors-controller"></a>更新讲师控制器
 
-在 InstructorsController.cs  中，更改 HttpGet `Edit` 方法中的代码，使其加载 Instructor 实体的 `OfficeAssignment` 导航属性并调用 `AsNoTracking`：
+在 InstructorsController.cs 中，更改 HttpGet `Edit` 方法中的代码，使其加载 Instructor 实体的 `OfficeAssignment` 导航属性并调用 `AsNoTracking`：
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=8-11&name=snippet_EditGetOA)]
 
@@ -167,11 +169,11 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 ### <a name="update-the-instructor-edit-view"></a>更新讲师编辑视图
 
-在 Views/Instructors/Edit.cshtml 中，在“保存”按钮之前的末尾处，添加一个用于编辑办公室位置的新字段   ：
+在 Views/Instructors/Edit.cshtml 中，在“保存”按钮之前的末尾处，添加一个用于编辑办公室位置的新字段：
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=30-34)]
 
-运行应用，选择“讲师”选项卡，然后单击讲师页面上的“编辑”   。 更改“办公室位置”，然后单击“保存”   。
+运行应用，选择“讲师”选项卡，然后单击讲师页面上的“编辑” 。 更改“办公室位置”，然后单击“保存” 。
 
 ![“讲师编辑”页面](update-related-data/_static/instructor-edit-office.png)
 
@@ -189,11 +191,11 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 若要为复选框列表的视图提供数据，将使用视图模型类。
 
-在 SchoolViewModels 文件夹中创建 AssignedCourseData.cs，并将现有代码替换为以下代码   ：
+在 SchoolViewModels 文件夹中创建 AssignedCourseData.cs，并将现有代码替换为以下代码 ：
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/AssignedCourseData.cs)]
 
-在 InstructorsController.cs 中，将 HttpGet `Edit` 方法替换为以下代码  。 突出显示所作更改。
+在 InstructorsController.cs 中，将 HttpGet `Edit` 方法替换为以下代码。 突出显示所作更改。
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=10,17,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36&name=snippet_EditGetCourses)]
 
@@ -201,7 +203,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 `PopulateAssignedCourseData` 方法中的代码会读取所有 Course 实体，以便使用视图模型类加载课程列表。 对每门课程而言，该代码都会检查讲师的 `Courses` 导航属性中是否存在该课程。 为高效检查某门课程是否被分配给了讲师，可将分配给该讲师的课程放置于 `HashSet` 集合中。 对于讲师分配到的课程，`Assigned` 属性则设置为 true。 视图将使用此属性来确定应将哪些复选框显示为选中状态。 最后，该列表会被传递给 `ViewData` 中的视图。
 
-接下来，添加用户单击“保存”时执行的代码  。 将 `EditPost` 方法替换为以下代码，并添加一个新方法，用于更新 Instructor 实体的 `Courses` 导航属性。
+接下来，添加用户单击“保存”时执行的代码。 将 `EditPost` 方法替换为以下代码，并添加一个新方法，用于更新 Instructor 实体的 `Courses` 导航属性。
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=1,3,12,13,25,39-40&name=snippet_EditPostCourses)]
 
@@ -227,7 +229,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 ### <a name="update-the-instructor-views"></a>更新讲师视图
 
-在 Views/Instructors/Edit.cshtml 中，通过在“办公室”字段的 `div` 元素之后和“保存”按钮的 `div` 元素之前添加以下代码，以便添加带有一系列复选框的“课程”字段     。
+在 Views/Instructors/Edit.cshtml 中，通过在“办公室”字段的 `div` 元素之后和“保存”按钮的 `div` 元素之前添加以下代码，以便添加带有一系列复选框的“课程”字段  。
 
 <a id="notepad"></a>
 > [!NOTE]
@@ -239,7 +241,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 这些复选框最开始呈现时，对于分配给讲师的课程的复选框，其特性处于选中状态。
 
-运行应用，选择“讲师”选项卡，然后单击讲师页面上的“编辑”以查看“编辑”页面    。
+运行应用，选择“讲师”选项卡，然后单击讲师页面上的“编辑”以查看“编辑”页面  。
 
 ![带课程信息的讲师“编辑”页](update-related-data/_static/instructor-edit-courses.png)
 
@@ -250,7 +252,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 ## <a name="update-delete-page"></a>更新“删除”页
 
-在 InstructorsController.cs 中，删除 `DeleteConfirmed` 方法，并在其位置插入以下代码  。
+在 InstructorsController.cs 中，删除 `DeleteConfirmed` 方法，并在其位置插入以下代码。
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=5-7,9-12&name=snippet_DeleteConfirmed)]
 
@@ -262,7 +264,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 ## <a name="add-office-location-and-courses-to-create-page"></a>向“创建”页添加办公室位置和课程
 
-在 InstructorsController.cs 中，删除 HttpGet 和 HttpPost `Create` 方法，然后在其位置添加以下代码  ：
+在 InstructorsController.cs 中，删除 HttpGet 和 HttpPost `Create` 方法，然后在其位置添加以下代码：
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_Create&highlight=3-5,12,14-22,29)]
 
@@ -295,7 +297,7 @@ public ICollection<CourseAssignment> CourseAssignments
 
 如果通过这种方式修改 `CourseAssignments` 属性，则可以删除控制器中的显式属性初始化代码。
 
-在 Views/Instructor/Create.cshtml 中，添加一个办公室位置文本框和课程的复选框，然后按“提交”按钮  。 与“编辑”页面中一样，[如果粘贴代码时 Visual Studio 重新设置了其格式，则修复该格式](#notepad)。
+在 Views/Instructor/Create.cshtml 中，添加一个办公室位置文本框和课程的复选框，然后按“提交”按钮。 与“编辑”页面中一样，[如果粘贴代码时 Visual Studio 重新设置了其格式，则修复该格式](#notepad)。
 
 [!code-html[](intro/samples/cu/Views/Instructors/Create.cshtml?range=29-61)]
 

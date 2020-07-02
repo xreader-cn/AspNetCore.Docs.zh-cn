@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 01/13/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 29f70d6bd1d5c1223ef35b4e24e5b9c0a8465d1d
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: 0974abfe632fd897c08435b82a7c695534cc3139
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652382"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793595"
 ---
 # <a name="part-4-add-a-model-to-an-aspnet-core-mvc-app"></a>第 4 部分，将模型添加到 ASP.NET Core MVC 应用
 
@@ -259,6 +261,8 @@ Update-Database
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
+[!INCLUDE [more information on the CLI for EF Core](~/includes/ef-cli.md)]
+
 运行以下 .NET Core CLI 命令：
 
 ```dotnetcli
@@ -269,8 +273,6 @@ dotnet ef database update
 * `ef migrations add InitialCreate`：生成 Migrations/{timestamp}_InitialCreate.cs 迁移文件。 `InitialCreate` 参数是迁移名称。 可以使用任何名称，但是按照惯例，会选择可说明迁移的名称。 因为这是首次迁移，所以生成的类包含用于创建数据库架构的代码。 数据库架构基于在 `MvcMovieContext` 类中（位于 Data/MvcMovieContext.cs 文件中）中指定的模型。
 
 * `ef database update`：将数据库更新到上一个命令创建的最新迁移。 此命令在用于创建数据库的 Migrations/{time-stamp}_InitialCreate.cs 文件中运行 `Up` 方法。
-
-[!INCLUDE [more information on the CLI for EF Core](~/includes/ef-cli.md)]
 
 ---
 

@@ -8,17 +8,19 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: bbf04e3500b11a339dc59b6086d910b76eace735
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 3038ae8f01273013e6c35694583d9674a1668bac
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773596"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401553"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>教程：处理并发 - ASP.NET MVC 和 EF Core
 
@@ -63,15 +65,15 @@ ms.locfileid: "82773596"
 
 ![将预算更改为零](concurrency/_static/change-budget.png)
 
-在 Jane 单击“保存”之前，John 访问了相同页面，并将开始日期字段从 2007/1/9 更改为 2013/1/9  。
+在 Jane 单击“保存”之前，John 访问了相同页面，并将开始日期字段从 2007/1/9 更改为 2013/1/9。
 
 ![将开始日期更改为 2013](concurrency/_static/change-date.png)
 
-Jane 先单击“保存”，并在浏览器返回索引页时看到她的更改  。
+Jane 先单击“保存”，并在浏览器返回索引页时看到她的更改。
 
 ![预算已更改为零](concurrency/_static/budget-zero.png)
 
-然后 John 单击“编辑”页面上的“保存”，但页面上预算仍显示为 350,000.00 美元  。 接下来的情况取决于并发冲突的处理方式。
+然后 John 单击“编辑”页面上的“保存”，但页面上预算仍显示为 350,000.00 美元。 接下来的情况取决于并发冲突的处理方式。
 
 其中一些选项包括：
 
@@ -81,11 +83,11 @@ Jane 先单击“保存”，并在浏览器返回索引页时看到她的更改
 
 * 可让 John 的更改覆盖 Jane 的更改。
 
-     下次有人浏览英语系时，将看到 2013/1/9 和还原的值 350,000.00 美元。 这称为“客户端优先”或“最后一个优先”   。 （客户端的所有值优先于数据存储的值。）正如本部分的介绍所述，如果不为并发处理编写任何代码，则自动执行此操作。
+     下次有人浏览英语系时，将看到 2013/1/9 和还原的值 350,000.00 美元。 这称为“客户端优先”或“最后一个优先” 。 （客户端的所有值优先于数据存储的值。）正如本部分的介绍所述，如果不为并发处理编写任何代码，则自动执行此操作。
 
 * 可以阻止在数据库中更新 John 的更改。
 
-     通常，将显示一条错误消息，向他显示数据的当前状态，并允许他重新应用其更改（若他仍想更改）。 这称为“存储优先”方案  。 （数据存储值优先于客户端提交的值。）本教程将执行“存储优先”方案。 此方法可确保用户在未收到具体发生内容的警报时，不会覆盖任何更改。
+     通常，将显示一条错误消息，向他显示数据的当前状态，并允许他重新应用其更改（若他仍想更改）。 这称为“存储优先”方案。 （数据存储值优先于客户端提交的值。）本教程将执行“存储优先”方案。 此方法可确保用户在未收到具体发生内容的警报时，不会覆盖任何更改。
 
 ### <a name="detecting-concurrency-conflicts"></a>检测并发冲突
 
@@ -105,13 +107,13 @@ Jane 先单击“保存”，并在浏览器返回索引页时看到她的更改
 
 ## <a name="add-a-tracking-property"></a>添加跟踪属性
 
-在 Models/Department.cs 中，添加名为 RowVersion 的跟踪属性  ：
+在 Models/Department.cs 中，添加名为 RowVersion 的跟踪属性：
 
 [!code-csharp[](intro/samples/cu/Models/Department.cs?name=snippet_Final&highlight=26,27)]
 
 `Timestamp` 属性指定此列将包含在发送到数据库的 Update 和 Delete 命令的 Where 子句中。 该属性称为 `Timestamp`，因为 SQL Server 的之前版本在 SQL `rowversion` 类型将其替换之前使用 SQL `timestamp` 数据类型。 用于 `rowversion` 的 .NET 类型为字节数组。
 
-如果更愿意使用 Fluent API，可使用 `IsConcurrencyToken` 方法（路径为 Data/SchoolContext.cs  ）指定跟踪属性，如下例所示：
+如果更愿意使用 Fluent API，可使用 `IsConcurrencyToken` 方法（路径为 Data/SchoolContext.cs）指定跟踪属性，如下例所示：
 
 ```csharp
 modelBuilder.Entity<Department>()
@@ -136,7 +138,7 @@ dotnet ef database update
 
 ![“为院系”创建基架](concurrency/_static/add-departments-controller.png)
 
-在 DepartmentsController.cs 文件中，将出现的 4 次“FirstMidName”更改为“FullName”，以便院系管理员下拉列表将包含讲师的全名，而不仅仅是姓氏  。
+在 DepartmentsController.cs 文件中，将出现的 4 次“FirstMidName”更改为“FullName”，以便院系管理员下拉列表将包含讲师的全名，而不仅仅是姓氏。
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_Dropdown)]
 
@@ -144,7 +146,7 @@ dotnet ef database update
 
 基架引擎在索引视图中创建 RowVersion 列，但不应显示该字段。
 
-将 Views/Departments/Index.cshtml 中的代码替换为以下代码  。
+将 Views/Departments/Index.cshtml 中的代码替换为以下代码。
 
 [!code-html[](intro/samples/cu/Views/Departments/Index.cshtml?highlight=4,7,44)]
 
@@ -182,7 +184,7 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?range=174-178)]
 
-最后，该代码将 `departmentToUpdate` 的 `RowVersion` 值设置为从数据库中检索到的新值。 重新显示“编辑”页时，这个新的 `RowVersion` 值将存储在隐藏字段中，当用户下次单击“保存”时  ，将只捕获自“编辑”页重新显示起发生的并发错误。
+最后，该代码将 `departmentToUpdate` 的 `RowVersion` 值设置为从数据库中检索到的新值。 重新显示“编辑”页时，这个新的 `RowVersion` 值将存储在隐藏字段中，当用户下次单击“保存”时，将只捕获自“编辑”页重新显示起发生的并发错误。
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?range=199-200)]
 
@@ -190,7 +192,7 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 ## <a name="update-edit-view"></a>更新“编辑”视图
 
-在 Views/Departments/Edit.cshtml  中，进行以下更改：
+在 Views/Departments/Edit.cshtml 中，进行以下更改：
 
 * 添加隐藏字段以保存 `RowVersion` 属性值，紧跟在 `DepartmentID` 属性的隐藏字段后面。
 
@@ -200,9 +202,9 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 ## <a name="test-concurrency-conflicts"></a>测试并发冲突
 
-运行应用并转到“院系索引”页。 右键单击英语系的“编辑”超链接  ，并选择“在新选项卡中打开”  ，然后单击英语系的“编辑”超链接  。 现在，两个浏览器选项卡显示相同的信息。
+运行应用并转到“院系索引”页。 右键单击英语系的“编辑”超链接，并选择“在新选项卡中打开”，然后单击英语系的“编辑”超链接。 现在，两个浏览器选项卡显示相同的信息。
 
-在第一个浏览器选项卡中更改一个字段，然后单击“保存”  。
+在第一个浏览器选项卡中更改一个字段，然后单击“保存”。
 
 ![更改后的“院系编辑”页 1](concurrency/_static/edit-after-change-1.png)
 
@@ -212,11 +214,11 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 ![更改后的“院系编辑”页 2](concurrency/_static/edit-after-change-2.png)
 
-单击“保存”  。 看见一条错误消息：
+单击“保存” 。 看见一条错误消息：
 
 ![“院系编辑”页错误消息](concurrency/_static/edit-error.png)
 
-再次单击“保存”  。 保存在第二个浏览器选项卡中输入的值。 在索引页中出现时，可以看到已保存的值。
+再次单击“保存”。 保存在第二个浏览器选项卡中输入的值。 在索引页中出现时，可以看到已保存的值。
 
 ## <a name="update-the-delete-page"></a>更新“删除”页
 
@@ -224,7 +226,7 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 ### <a name="update-the-delete-methods-in-the-departments-controller"></a>更新“院系”控制器中的删除方法
 
-在 DepartmentsController.cs 中，将 HttpGet `Delete` 方法替换为以下代码  ：
+在 DepartmentsController.cs 中，将 HttpGet `Delete` 方法替换为以下代码：
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_DeleteGet&highlight=1,10,14-17,21-29)]
 
@@ -254,7 +256,7 @@ public async Task<IActionResult> Delete(Department department)
 
 ### <a name="update-the-delete-view"></a>更新“删除”视图
 
-在 Views/Departments/Delete.cshtml 中，将基架代码替换为添加 DepartmentID 和 RowVersion 属性的错误消息字段和隐藏字段的以下代码  。 突出显示所作更改。
+在 Views/Departments/Delete.cshtml 中，将基架代码替换为添加 DepartmentID 和 RowVersion 属性的错误消息字段和隐藏字段的以下代码。 突出显示所作更改。
 
 [!code-html[](intro/samples/cu/Views/Departments/Delete.cshtml?highlight=9,38,44,45,48)]
 
@@ -262,33 +264,33 @@ public async Task<IActionResult> Delete(Department department)
 
 * 在 `h2` 和 `h3` 标题之间添加错误消息。
 
-* 将“管理员”字段中的 FirstMidName 替换为 FullName  。
+* 将“管理员”字段中的 FirstMidName 替换为 FullName。
 
 * 删除 RowVersion 字段。
 
 * 添加 `RowVersion` 属性的隐藏字段。
 
-运行应用并转到“院系索引”页。 右键单击英语系的“删除”超链接  ，并选择“在新选项卡中打开”  ，然后在第一个选项卡中单击英语系的“编辑”超链接  。
+运行应用并转到“院系索引”页。 右键单击英语系的“删除”超链接，并选择“在新选项卡中打开”，然后在第一个选项卡中单击英语系的“编辑”超链接。
 
-在第一个窗口中，更改其中一个值，然后单击“保存”  ：
+在第一个窗口中，更改其中一个值，然后单击“保存”：
 
 ![删除之前显示的更改后的“院系删除”页面](concurrency/_static/edit-after-change-for-delete.png)
 
-在第二个选项卡中，单击“删除”  。 你将看到并发错误消息，且已使用数据库中的当前内容刷新了“院系”值。
+在第二个选项卡中，单击“删除”。 你将看到并发错误消息，且已使用数据库中的当前内容刷新了“院系”值。
 
 ![显示有并发错误的“院系删除”确认页](concurrency/_static/delete-error.png)
 
-如果再次单击“删除”  ，会重定向到已删除显示院系的索引页。
+如果再次单击“删除”，会重定向到已删除显示院系的索引页。
 
 ## <a name="update-details-and-create-views"></a>更新“详细信息”和“创建”视图
 
 可选择性地清理“详细信息”和“创建”视图中的基架代码。
 
-替换 Views/Departments/Details.cshtml  中的代码，以删除 RowVersion 列并显示管理员的全名。
+替换 Views/Departments/Details.cshtml 中的代码，以删除 RowVersion 列并显示管理员的全名。
 
 [!code-html[](intro/samples/cu/Views/Departments/Details.cshtml?highlight=35)]
 
-替换 Views/Departments/Create.cshtml  中的代码，向下拉列表添加“选择”选项。
+替换 Views/Departments/Create.cshtml 中的代码，向下拉列表添加“选择”选项。
 
 [!code-html[](intro/samples/cu/Views/Departments/Create.cshtml?highlight=32-34)]
 

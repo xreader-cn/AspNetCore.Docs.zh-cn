@@ -8,23 +8,25 @@ ms.date: 02/06/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 7f17352d2e7e3f4239b338ec961120ab3088c77a
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 3a42ce1773bef74fab35884025765d147c534dd2
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773544"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403217"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
-本教程没有升级至 ASP.NET Core 3.0  。 [Razor Pages 版本](xref:data/ef-rp/intro)已更新。 针对本教程的 ASP.NET Core 3.0 及更高版本的大多数代码更改：
+本教程没有升级至 ASP.NET Core 3.0。 [Razor Pages 版本](xref:data/ef-rp/intro)已更新。 针对本教程的 ASP.NET Core 3.0 及更高版本的大多数代码更改：
 
-* 在 Startup.cs  和 Program.cs  文件中。
+* 在 Startup.cs 和 Program.cs 文件中。
 * 可在 [Razor Pages 版本](xref:data/ef-rp/intro)中找到。 
 
 有关此版本的更新时间的详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/13920)。
@@ -52,8 +54,8 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 
 * [.NET Core SDK 2.2](https://dotnet.microsoft.com/download)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 包含以下工作负荷：
-  * ASP.NET 和 Web 开发工作负荷 
-  * .NET Core 跨平台开发工作负荷 
+  * ASP.NET 和 Web 开发工作负荷
+  * .NET Core 跨平台开发工作负荷
 
 ## <a name="troubleshooting"></a>疑难解答
 
@@ -76,23 +78,23 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 
 * 打开 Visual Studio。
 
-* 从“文件”菜单中选择“新建”>“项目”   。
+* 从“文件”菜单中选择“新建”>“项目” 。
 
-* 从左窗格中依次选择“已安装”>“Visual C#”>“Web”  。
+* 从左窗格中依次选择“已安装”>“Visual C#”>“Web”。
 
-* 选择“ASP.NET Core Web 应用程序”项目模板  。
+* 选择“ASP.NET Core Web 应用程序”项目模板。
 
-* 输入“ContosoUniversity”作为名称，然后单击“确定”   。
+* 输入“ContosoUniversity”作为名称，然后单击“确定” 。
 
   ![“新建项目”对话框](intro/_static/new-project2.png)
 
-* 等待“新建 ASP.NET Core Web 应用程序”对话框显示出来  。
+* 等待“新建 ASP.NET Core Web 应用程序”对话框显示出来。
 
-* 选择“.NET Core”、“ASP.NET Core 2.2”和“Web 应用程序(模型-视图-控制器)”模板    。
+* 选择“.NET Core”、“ASP.NET Core 2.2”和“Web 应用程序(模型-视图-控制器)”模板  。
 
 * 请确保 **身份验证** 设置为  **不进行身份验证**。
 
-* 选择“确定” 
+* 选择“确定”
 
   ![新的 ASP.NET Core 项目对话框](intro/_static/new-aspnet2.png)
 
@@ -100,11 +102,11 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 
 通过几个简单的更改设置站点菜单、 布局和主页。
 
-打开 Views/Shared/_Layout.cshtml 并进行以下更改  ：
+打开 Views/Shared/_Layout.cshtml 并进行以下更改：
 
 * 将文件中的"ContosoUniversity"更改为"Contoso University"。 需要更改三个地方。
 
-* 添加“关于”  、“学生”  、“课程”  “讲师”  和“院系”  的菜单项，并删除“隐私”  菜单项。
+* 添加“关于”、“学生”、“课程”“讲师”和“院系”的菜单项，并删除“隐私”菜单项。
 
 突出显示所作更改。
 
@@ -212,7 +214,7 @@ ASP.NET Core 默认实现 [依赖注入](../../fundamentals/dependency-injection
 
 [!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_Usings)]
 
-打开 appsettings.json 文件，并如以下示例所示添加连接字符串  。
+打开 appsettings.json 文件，并如以下示例所示添加连接字符串。
 
 [!code-json[](./intro/samples/cu/appsettings1.json?highlight=2-4)]
 
@@ -256,17 +258,17 @@ CRUD 操作方法和视图的自动创建被称为基架。 基架与代码生�
 
 * 右键单击 **解决方案资源管理器** 中的 **Controllers** 文件夹选择 **添加 > 新搭建基架的项目**。
 
-* 在“添加基架”对话框中  ：
+* 在“添加基架”对话框中：
 
   * 选择 **视图使用 Entity Framework 的 MVC 控制器**。
 
-  * 单击 **添加**。 随即将显示“使用 Entity Framework 添加包含视图的 MVC 控制器”  对话框。
+  * 单击 **添加**。 随即将显示“使用 Entity Framework 添加包含视图的 MVC 控制器”对话框。
 
     ![构架 Student](intro/_static/scaffold-student2.png)
 
   * 在 **模型类** 选择 **Student**。
 
-  * 在“数据上下文类”中选择 SchoolContext   。
+  * 在“数据上下文类”中选择 SchoolContext 。
 
   * 使用 **StudentsController** 作为默认名称。
 
@@ -310,7 +312,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 在 SSOX 中，单击 **(localdb) \MSSQLLocalDB > 数据库**，然后单击和 *appsettings.json* 文件中的连接字符串对应的数据库。
 
-展开“表”节点，查看数据库中的表  。
+展开“表”节点，查看数据库中的表。
 
 ![SSOX 中的表](intro/_static/ssox-tables.png)
 
@@ -318,7 +320,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 ![SSOX 中的 Student 表](intro/_static/ssox-student-table.png)
 
-.mdf 和 .ldf 数据库文件位于 C:\Users\\\<yourusername> 文件夹中    。
+*.mdf* 和 *.ldf* 数据库文件位于 *C:\Users\\\<yourusername>* 文件夹中。
 
 因为调用 `EnsureCreated` 的初始化方法在启动应用程序时才运行，所以在这之前你可以更改 `Student` 类、 删除数据库、 再运行一次应用程序，这时候数据库将自动重新创建，以匹配所做的更改。 例如，如果向 `Student` 类添加 `EmailAddress` 属性，重新的创建表中会有 `EmailAddress` 列。
 
@@ -332,7 +334,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 * 以 ID 或 classnameID 命名的实体属性被视为主键属性。
 
-* 如果属性名为 \<导航属性名>\<主键属性名>（例如，`StudentID` 对应 `Student` 导航属性，因为 `Student` 实体的主键是 `ID`），其将被解释为外键属性。  此外还可以将外键属性仅命名为 \<主键属性名>（例如 `EnrollmentID`，因为 `Enrollment` 实体的主键为 `EnrollmentID`）  。
+* 如果属性名为 *\<navigation property name>\<primary key property name>* 将被解释为外键属性 (例如，`StudentID` 对应 `Student` 导航属性，`Student` 实体的主键是`ID`，所以`StudentID`被解释为外键属性)。 此外也可以将外键属性命名为 *\<primary key property name>* (例如，`EnrollmentID`，由于 `Enrollment` 实体的主键是 `EnrollmentID`，因此被解释为外键)。
 
 约定行为可以重写。 例如，本教程前半部分显式指定表名称。 本系列 [后面教程](complex-data-model.md) 则设置列名称并将任何属性设置为主键或外键。
 

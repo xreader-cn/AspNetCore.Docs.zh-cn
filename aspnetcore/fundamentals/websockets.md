@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: da713f22582cf17f60a4deda1b689662a4e4ae06
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: e2aff39db621ea6e71dce1f1560b1aa70fa865f0
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775435"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404088"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -28,11 +30,11 @@ ms.locfileid: "82775435"
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)（[如何下载](xref:index#how-to-download-a-sample)）。 [如何运行](#sample-app)。
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
 [ASP.NET Core SignalR](xref:signalr/introduction) 是一个库，可用于简化向应用添加实时 Web 功能。 它会尽可能地使用 WebSocket。
 
-对于大多数应用程序，我们建议使用 SignalR，而不是原始 Websocket。 SignalR 可为 Websocket 不可用的环境提供传输回退。 它还可提供简单的远程过程调用应用模型。 并且在大多数情况下，与使用原始 Websocket 相比，SignalR 没有显著的性能缺点。
+对于大多数应用程序，我们建议使用 SignalR，而不是原始 WebSocket。 SignalR 可为 WebSocket 不可用的环境提供传输回退。 它还可提供简单的远程过程调用应用模型。 并且在大多数情况下，与使用原始 WebSocket 相比，SignalR 没有显著的性能缺点。
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -101,7 +103,7 @@ ms.locfileid: "82775435"
 
 WebSocket 请求可以来自任何 URL，但此示例代码只接受 `/ws` 的请求。
 
-使用 WebSocket 时，“必须”  在连接期间保持中间件管道运行。 如果在中间件管道结束后尝试发送或接收 WebSocket 消息，可能会遇到以下异常情况：
+使用 WebSocket 时，“必须”在连接期间保持中间件管道运行。 如果在中间件管道结束后尝试发送或接收 WebSocket 消息，可能会遇到以下异常情况：
 
 ```
 System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake. ---> System.ObjectDisposedException: Cannot write to the response body, the response has completed.
@@ -144,7 +146,7 @@ app.Use(async (context, next) => {
 
 ## <a name="websocket-origin-restriction"></a>WebSocket 源限制
 
-CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
+CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 
 * 执行 CORS 预检请求。
 * 在发出 WebSocket 请求时，遵守 `Access-Control` 标头中指定的限制。
@@ -156,7 +158,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
 [!code-csharp[](websockets/samples/2.x/WebSocketsSample/Startup.cs?name=UseWebSocketsOptionsAO&highlight=6-7)]
 
 > [!NOTE]
-> 与 `Referer` 标头一样，`Origin` 标头由客户端控制，并可以伪造。  请勿将这些标头用作身份验证机制。
+> 与 `Referer` 标头一样，`Origin` 标头由客户端控制，并可以伪造。 请勿将这些标头用作身份验证机制。
 
 ::: moniker-end
 
@@ -174,27 +176,27 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
 > [!NOTE]
 > 使用 IIS Express 时无需执行这些步骤
 
-1. 通过“管理”  菜单或“服务器管理器”  中的链接使用“添加角色和功能”  向导。
-1. 选择“基于角色或基于功能的安装”  。 选择“下一步”  。
-1. 选择适当的服务器（默认情况下选择本地服务器）。 选择“下一步”  。
-1. 在“角色”树中展开“Web 服务器 (IIS)”、然后依次展开“Web 服务器”和“应用程序开发”     。
-1. 选择“WebSocket 协议”  。 选择“下一步”  。
-1. 如果无需其他功能，请选择“下一步”  。
-1. 选择“安装”  。
-1. 安装完成后，选择“关闭”以退出向导  。
+1. 通过“管理”菜单或“服务器管理器”中的链接使用“添加角色和功能”向导。
+1. 选择“基于角色或基于功能的安装”。 选择“下一步”。
+1. 选择适当的服务器（默认情况下选择本地服务器）。 选择“下一步”。
+1. 在“角色”树中展开“Web 服务器 (IIS)”、然后依次展开“Web 服务器”和“应用程序开发”   。
+1. 选择“WebSocket 协议”。 选择“下一步”。
+1. 如果无需其他功能，请选择“下一步”。
+1. 选择“安装” 。
+1. 安装完成后，选择“关闭”以退出向导。
 
 在 Windows 8 或更高版本上启用对 WebSocket 协议的支持：
 
 > [!NOTE]
 > 使用 IIS Express 时无需执行这些步骤
 
-1. 导航到“控制面板” > “程序” > “程序和功能” > “启用或禁用 Windows 功能”（位于屏幕左侧）     。
-1. 打开以下节点：“Internet Information Services” > “万维网服务” > “应用程序开发功能”    。
-1. 选择“WebSocket 协议”  功能。 选择“确定”  。
+1. 导航到“控制面板” > “程序” > “程序和功能” > “启用或禁用 Windows 功能”（位于屏幕左侧）   。
+1. 打开以下节点：“Internet Information Services” > “万维网服务” > “应用程序开发功能”  。
+1. 选择“WebSocket 协议”功能。 选择“确定”。
 
 ### <a name="disable-websocket-when-using-socketio-on-nodejs"></a>在 Node.js 上使用 socket.io 时禁用 WebSocket
 
-如果在 [Node.js](https://nodejs.org/) 的 [socket.io](https://socket.io/) 中使用 WebSocket 支持，请使用 web.config 或 applicationHost.config 中的 `webSocket` 元素禁用默认的 IIS WebSocket 模块   。如果不执行此步骤，IIS WebSocket 模块将尝试处理 WebSocket 通信而不是 Node.js 和应用。
+如果在 [Node.js](https://nodejs.org/) 的 [socket.io](https://socket.io/) 中使用 WebSocket 支持，请使用 web.config 或 applicationHost.config 中的 `webSocket` 元素禁用默认的 IIS WebSocket 模块 。如果不执行此步骤，IIS WebSocket 模块将尝试处理 WebSocket 通信而不是 Node.js 和应用。
 
 ```xml
 <system.webServer>
@@ -208,7 +210,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
 
 ![网页的初始状态](websockets/_static/start.png)
 
-选择“连接”，向显示的 URL 发送 WebSocket 请求  。 输入测试消息并选择“发送”  。 完成后，请选择“关闭套接字”  。 “通信日志”  部分会报告每一个发生的“打开”、“发送”和“关闭”操作。
+选择“连接”，向显示的 URL 发送 WebSocket 请求。 输入测试消息并选择“发送”。 完成后，请选择“关闭套接字”。 “通信日志”部分会报告每一个发生的“打开”、“发送”和“关闭”操作。
 
 ![网页的初始状态](websockets/_static/end.png)
 
