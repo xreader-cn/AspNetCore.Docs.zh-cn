@@ -15,12 +15,12 @@ no-loc:
 - SignalR
 - Electron
 uid: security/samesite
-ms.openlocfilehash: 68766591ec86e12e5602d741de74e20aec67cf49
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3e3c12e17de3e12ead15c405e9339761a3f2f711
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399499"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944266"
 ---
 # <a name="work-with-samesite-cookies-in-aspnet-core"></a>在 ASP.NET Core 中使用 SameSite cookie
 
@@ -37,6 +37,10 @@ SameSite 是一种[IETF](https://ietf.org/about/)草案标准，旨在提供一�
 此 `SameSite=Lax` 设置适用于大多数应用程序 cookie。 某些形式的身份验证，例如[OpenID connect](https://openid.net/connect/) （OIDC）和[ws-federation](https://auth0.com/docs/protocols/ws-fed)默认为基于 POST 的重定向。 基于后期的重定向会触发 SameSite 浏览器保护，因此，对这些组件禁用了 SameSite。 由于请求的流动方式不同，大多数[OAuth](https://oauth.net/)登录名不受影响。
 
 发出 cookie 的每个 ASP.NET Core 组件都需要确定 SameSite 是否合适。
+
+## <a name="samesite-and-identity"></a>SameSite 和Identity
+
+[!INCLUDE[](~/includes/SameSiteIdentity.md)]
 
 ## <a name="samesite-test-sample-code"></a>SameSite 测试示例代码
 
