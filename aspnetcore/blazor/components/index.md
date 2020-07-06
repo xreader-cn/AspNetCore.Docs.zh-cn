@@ -15,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: d25dc3441c2373655558dfc101b899252a280814
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 0a8335461b4c9cd628d9c65b97f7ab6a74487fca
+ms.sourcegitcommit: 7f423602a1475736f61fc361327d4de0976c9649
 ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944440"
+ms.locfileid: "85950894"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
 作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Tobias Bartsch](https://www.aveo-solutions.com/)
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/../common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 Blazor 应用是使用组件构建的。 组件是自包含的用户界面 (UI) 块，例如页、对话框或窗体。 组件包含插入数据或响应 UI 事件所需的 HTML 标记和处理逻辑。 组件非常灵活且轻量。 可在项目之间嵌套、重复使用和共享。
 
