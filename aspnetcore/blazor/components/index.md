@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 02e3f7f5442a5abde0b13b7bba14d9d0f29c1de7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d25dc3441c2373655558dfc101b899252a280814
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399083"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944440"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -420,7 +420,22 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 呈现组件时，将用 `MyLoginDialog` 子组件实例填充 `loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在这之前，没有任何内容可引用。 若要在组件完成呈现后操作组件引用，请使用 [`OnAfterRenderAsync` 或 `OnAfterRender` 方法](xref:blazor/components/lifecycle#after-component-render)。
+> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在呈现组件之前，没有任何可引用的内容。
+>
+> 若要在组件完成呈现后操作组件引用，请使用 [`OnAfterRenderAsync` 或 `OnAfterRender` 方法](xref:blazor/components/lifecycle#after-component-render)。
+>
+> 若要结合使用事件处理程序和引用变量，请使用 Lambda 表达式，或在 [`OnAfterRenderAsync` 或 `OnAfterRender` 方法](xref:blazor/components/lifecycle#after-component-render)中分配事件处理程序委托。 这可确保在分配事件处理程序之前先分配引用变量。
+>
+> ```razor
+> <button type="button" 
+>     @onclick="@(() => loginDialog.DoSomething())">Do Something</button>
+>
+> <MyLoginDialog @ref="loginDialog" ... />
+>
+> @code {
+>     private MyLoginDialog loginDialog;
+> }
+> ```
 
 要引用循环中的组件，请参阅[捕获对多个相似子组件的引用 (dotnet/aspnetcore #13358)](https://github.com/dotnet/aspnetcore/issues/13358)。
 

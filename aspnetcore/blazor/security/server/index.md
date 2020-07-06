@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: ab3baad30f78c5d5e2f969b3292d4886fcd0406d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 69a24fc955a0f2fb524ec817eb50372052f538a1
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402307"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944251"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
 
@@ -34,7 +34,7 @@ Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。 有关�
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-请按照 <xref:blazor/get-started> 一文中的 Visual Studio 指南操作，新建具有身份验证机制的 Blazor Server项目。
+请按照 <xref:blazor/tooling> 中的 Visual Studio 指南操作，新建具有身份验证机制的 Blazor Server项目。
 
 在“新建 ASP.NET Core Web 应用”对话框中选择“Blazor Server应用”模板后，选择“身份验证”下的“更改”。
 
@@ -49,7 +49,7 @@ Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。 有关�
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-请按照 <xref:blazor/get-started> 一文中的 Visual Studio Code 指南操作，新建具有身份验证机制的 Blazor Server项目：
+请按照 <xref:blazor/tooling> 中的 Visual Studio Code 指南操作，新建具有身份验证机制的 Blazor Server项目：
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -75,7 +75,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. 请按照 <xref:blazor/get-started> 一文中的 Visual Studio for Mac 指南进行操作。
+1. 请按照 <xref:blazor/tooling> 中的 Visual Studio for Mac 指南进行操作。
 
 1. 在“配置新的 Blazor Server应用”步骤中，从“身份验证”下拉列表中选择“个人身份验证(应用内)”。
 
@@ -83,7 +83,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-请按照 <xref:blazor/get-started> 一文中的 .NET Core CLI 指南操作，新建具有身份验证机制的 Blazor Server项目：
+在命令行界面中使用以下命令，新建具有身份验证机制的 Blazor Server项目：
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}

@@ -79,7 +79,7 @@
               uid: tutorials/first-mvc-app/details
         - name: Blazor
           displayName: tutorial
-          uid: tutorials/first-blazor-app
+          uid: tutorials/build-a-blazor-app
     - name: Web API 应用
       items:
         - name: 创建 Web API
@@ -285,14 +285,14 @@
           uid: blazor/index
         - name: 受支持的平台
           uid: blazor/supported-platforms
-        - name: 入门
-          uid: blazor/get-started
+        - name: 工具
+          uid: blazor/tooling
         - name: 托管模型
           uid: blazor/hosting-models
         - name: 教程
           items:
-            - name: 生成首个应用
-              uid: tutorials/first-blazor-app
+            - name: 生成 Blazor 待办事项列表应用
+              uid: tutorials/build-a-blazor-app
             - name: 使用 Blazor WebAssembly 的 SignalR
               uid: tutorials/signalr-blazor-webassembly
         - name: 模板
