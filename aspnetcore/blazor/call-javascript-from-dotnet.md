@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: f39a1a3b78d8017738f83f4d191c7f11c7a6c9e6
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 8a2df6ca55985a1cff49abb09113e49bfeae6829
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242534"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400513"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -32,7 +33,7 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 若要从 .NET 调入 JavaScript，请使用 <xref:Microsoft.JSInterop.IJSRuntime> 抽象。 若要发出 JS 互操作调用，请在组件中注入 <xref:Microsoft.JSInterop.IJSRuntime> 抽象。 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 需要使用你要调用的 JavaScript 函数的标识符，以及任意数量的 JSON 可序列化参数。 函数标识符相对于全局范围 (`window`)。 如果要调用 `window.someScope.someFunction`，则标识符是 `someScope.someFunction`。 无需在调用函数之前进行注册。 返回类型 `T` 也必须可进行 JSON 序列化。 `T` 应该与最能映射到所返回 JSON 类型的 .NET 类型匹配。
 
-对于启用了预呈现的 Blazor 服务器应用，初始预呈现期间无法调入 JavaScript。 在建立与浏览器的连接之后，必须延迟 JavaScript 互操作调用。 有关详细信息，请参阅[检测 Blazor 服务器应用进行预呈现的时间](#detect-when-a-blazor-server-app-is-prerendering)部分。
+对于启用了预呈现的 Blazor Server 应用，初始预呈现期间无法调入 JavaScript。 在建立与浏览器的连接之后，必须延迟 JavaScript 互操作调用。 有关详细信息，请参阅[检测 Blazor Server 应用进行预呈现的时间](#detect-when-a-blazor-server-app-is-prerendering)部分。
 
 下面的示例基于 [`TextDecoder`](https://developer.mozilla.org/docs/Web/API/TextDecoder)（一种基于 JavaScript 的解码器）。 此示例展示了如何通过 C# 方法调用 JavaScript 函数，以将要求从开发人员代码卸载到现有 JavaScript API。 JavaScript 函数从 C# 方法接受字节数组，对数组进行解码，并将文本返回给组件进行显示。
 
@@ -103,7 +104,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 .NET 方法通过调用 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> 与 `exampleJsInterop.js` 文件中的 JavaScript 函数进行互操作。
 
-<xref:Microsoft.JSInterop.IJSRuntime> 抽象是异步的，以便可以实现 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 <xref:Microsoft.JSInterop.IJSInProcessRuntime> 并改为调用 <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A>。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
+<xref:Microsoft.JSInterop.IJSRuntime> 抽象是异步的，以便可以实现 Blazor Server 方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 <xref:Microsoft.JSInterop.IJSInProcessRuntime> 并改为调用 <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A>。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
 
 该示例应用包含一个用于演示 JS 互操作的组件。 该组件：
 
@@ -150,7 +151,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 返回 [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) 或 [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) 的 JavaScript 函数使用 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用。
 
-## <a name="detect-when-a-blazor-server-app-is-prerendering"></a>检测 Blazor 服务器应用进行预呈现的时间
+## <a name="detect-when-a-blazor-server-app-is-prerendering"></a>检测 Blazor Server 应用进行预呈现的时间
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
@@ -248,7 +249,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 * 允许子组件注册回调。
 * 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 事件期间，通过传递的元素引用调用注册的回调。 此方法间接地允许子组件与父级的元素引用交互。
 
-以下 Blazor WebAssembly 示例演示了该方法。
+下面的 Blazor WebAssembly 示例阐释了这种方法。
 
 在 `wwwroot/index.html` 的 `<head>` 中：
 
@@ -443,7 +444,7 @@ namespace BlazorSample.Shared
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 
-JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 默认情况下，Blazor 服务器应用会在一分钟后，使服务器上的 JS 互操作调用超时。 如果应用可以容忍更激进的超时，请使用以下方法之一设置超时：
+JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 默认情况下，Blazor Server 应用会在一分钟后，使服务器上的 JS 互操作调用超时。 如果应用可以容忍更激进的超时，请使用以下方法之一设置超时：
 
 * 在 `Startup.ConfigureServices` 中全局指定超时：
 
@@ -479,4 +480,4 @@ JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 �
 
 * <xref:blazor/call-dotnet-from-javascript>
 * [InteropComponent.razor 示例（dotnet/AspNetCore GitHub 存储库，3.1 版本分支）](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
-* [在 Blazor 服务器应用中执行大型数据传输](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)
+* [在 Blazor Server 应用中执行大型数据传输](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)

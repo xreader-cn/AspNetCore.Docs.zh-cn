@@ -8,17 +8,18 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 4883c697e950cac298dec961b4cd5a5096d8e946
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: cea19044294482adf834d998b75e0f3fc386cc46
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773570"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400526"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>教程：实现继承 - ASP.NET MVC 和 EF Core
 
@@ -79,17 +80,17 @@ TPC 和 TPH 继承模式的性能通常比 TPT 继承模式好，因为 TPT 模�
 
 ## <a name="update-instructor-and-student"></a>更新 Instructor 和 Student
 
-在 Instructor.cs  中，从 Person 类派生 Instructor 类并删除键和姓名字段。 代码将如下所示：
+在 Instructor.cs 中，从 Person 类派生 Instructor 类并删除键和姓名字段。 代码将如下所示：
 
 [!code-csharp[](intro/samples/cu/Models/Instructor.cs?name=snippet_AfterInheritance&highlight=8)]
 
-在 Student.cs  中做出相同更改。
+在 Student.cs 中做出相同更改。
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_AfterInheritance&highlight=8)]
 
 ## <a name="add-person-to-the-model"></a>向模型添加 Person
 
-将 Person 实体类型添加到 SchoolContext.cs  。 新的行突出显示。
+将 Person 实体类型添加到 SchoolContext.cs。 新的行突出显示。
 
 [!code-csharp[](intro/samples/cu/Data/SchoolContext.cs?name=snippet_AfterInheritance&highlight=19,30)]
 
@@ -105,7 +106,7 @@ dotnet ef migrations add Inheritance
 
 暂不运行 `database update` 命令。 该命令将导致数据丢失，因为它将删除 Instructor 表并将 Student 表重命名为 Person。 需要提供自定义代码来保留现有数据。
 
-打开 Migrations/\<timestamp>_Inheritance.cs  并使用以下代码替换 `Up` 方法：
+打开 Migrations/\<timestamp>_Inheritance.cs 并使用以下代码替换 `Up` 方法：
 
 [!code-csharp[](intro/samples/cu/Migrations/20170216215525_Inheritance.cs?name=snippet_Up)]
 
@@ -146,11 +147,11 @@ dotnet ef database update
 
 运行应用并尝试各种页面。 一切都和以前一样。
 
-在“SQL Server 对象资源管理器”  中，展开“数据连接/SchoolContext”  和“表”  ，将看到 Student 和 Instructor 表已替换为 Person 表。 打开 Person 表设计器，将看到它包含在 Student 和 Instructor 表中使用的所有列。
+在“SQL Server 对象资源管理器” 中，展开“数据连接/SchoolContext”和“表”，将看到 Student 和 Instructor 表已替换为 Person 表。 打开 Person 表设计器，将看到它包含在 Student 和 Instructor 表中使用的所有列。
 
 ![SSOX 中的 Person 表](inheritance/_static/ssox-person-table.png)
 
-右键单击 Person 表，然后单击“显示表数据”  以查看鉴别器列。
+右键单击 Person 表，然后单击“显示表数据”以查看鉴别器列。
 
 ![SSOX 中的 Person 表 - 表数据](inheritance/_static/ssox-person-data.png)
 

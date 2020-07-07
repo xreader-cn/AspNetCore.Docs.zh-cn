@@ -8,23 +8,24 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-azure-active-directory
-ms.openlocfilehash: 1852ff5637cff9aef9ad713dc470ea0354b3fb47
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 0f7bf6de44b3fb62291b4698b67de3a350817a45
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243429"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402073"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 独立应用
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)
 
-若要创建使用 [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) 进行身份验证的 Blazor WebAssembly 独立应用，请执行以下操作：
+若要创建使用 [Azure Active Directory (AAD) ](https://azure.microsoft.com/services/active-directory/) 进行身份验证的 Blazor WebAssembly 独立应用，请执行以下操作：
 
 [创建 AAD 租户和 Web 应用程序](/azure/active-directory/develop/v2-overview)：
 

@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/01/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 61c1dc383728f42c5dac6742fd19d1d22c988913
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 312a265dd251eadf876b4252e3d9f9858adcde1b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242688"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400981"
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -73,14 +74,14 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-[预呈现其内容](xref:blazor/fundamentals/additional-scenarios#render-mode)的 Blazor Server 应用调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_两次_**：
+[预呈现其内容](xref:blazor/fundamentals/additional-scenarios#render-mode)的 Blazor Server 应用调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 两次：
 
 * 在组件最初作为页面的一部分静态呈现时调用一次。
 * 在浏览器重新建立与服务器的连接时调用第二次。
 
 为了防止 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 中的开发人员代码运行两次，请参阅[预呈现后的有状态重新连接](#stateful-reconnection-after-prerendering)部分。
 
-在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行特定操作（例如调用 JavaScript）。 预呈现时，组件可能需要进行不同的呈现。 有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。
+在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行调用 JavaScript 等特定操作。 预呈现时，组件可能需要进行不同的呈现。 有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。
 
 如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。
 
@@ -179,7 +180,7 @@ protected override bool ShouldRender()
 
 在 Blazor 模板的 `FetchData` 组件中，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 以异步接收预测数据 (`forecasts`)。 当 `forecasts` 为 `null` 时，将向用户显示加载消息。 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 返回的 `Task` 完成后，该组件以更新后的状态重新呈现。
 
-Blazor 服务器模板中的 `Pages/FetchData.razor`：
+Blazor Server 模板中的 `Pages/FetchData.razor`：
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 

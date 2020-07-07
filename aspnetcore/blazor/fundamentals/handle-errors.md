@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 04/23/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/fundamentals/handle-errors
-ms.openlocfilehash: e777991f4cbfd22b441fb198144bbdf023b4df6b
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 23118193ec3829fddce392123210856839471058
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242779"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402840"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -83,9 +84,9 @@ ms.locfileid: "85242779"
 }
 ```
 
-## <a name="how-a-blazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor 服务器应用如何应对未经处理的异常
+## <a name="how-a-blazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor Server 应用如何应对未经处理的异常
 
-Blazor 服务器是一种有状态框架。 用户与应用进行交互时，会与服务器保持名为“线路”的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
+Blazor Server 是一种有状态框架。 用户与应用进行交互时，会与服务器保持名为“线路”的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
 
 * 最新呈现的组件输出。
 * 可由客户端事件触发的事件处理委托的当前集合。
@@ -129,7 +130,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * [事件处理程序](#event-handlers)
 * [组件处置](#component-disposal)
 * [JavaScript 互操作](#javascript-interop)
-* [Blazor服务器重新呈现](#blazor-server-prerendering)
+* [Blazor Server 重新呈现](#blazor-server-prerendering)
 
 本文的以下部分介绍了上述未经处理的异常。
 
@@ -140,7 +141,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * 会调用该组件的构造函数。
 * 会调用通过 [`@inject`](xref:mvc/views/razor#inject) 指令或 [`[Inject]`](xref:blazor/fundamentals/dependency-injection#request-a-service-in-a-component) 特性提供给组件构造函数的非单一 DI 设备的构造函数。
 
-如果任何已执行的构造函数或任何 `[Inject]` 属性的资源库引发了未经处理的异常，则 Blazor 服务器线路会失败。 这是严重异常，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
+如果任何已执行的构造函数或任何 `[Inject]` 属性的资源库引发了未经处理的异常，则 Blazor Server 线路会失败。 这是严重异常，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
 
 ### <a name="lifecycle-methods"></a>生命周期方法
 
@@ -151,7 +152,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>
 * <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> / <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>
 
-如果任何生命周期方法以同步或异步方式引发异常，则该异常对于 Blazor 服务器线路而言是严重异常。 若要使组件处理生命周期方法中的错误，请添加错误处理逻辑。
+如果任何生命周期方法以同步或异步方式引发异常，则该异常对于 Blazor Server 线路而言是严重异常。 若要使组件处理生命周期方法中的错误，请添加错误处理逻辑。
 
 在下面的示例中，<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 会调用方法来获取产品：
 
@@ -166,7 +167,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 
 `.razor` 组件文件中的声明性标记被编译到名为 <xref:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree%2A> 的 C# 方法中。 当组件呈现时，<xref:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree%2A> 会执行并构建一个数据结构，该结构描述所呈现组件的元素、文本和子组件。
 
-呈现逻辑可能会引发异常。 例如评估了 `@someObject.PropertyName`，但 `@someObject` 为 `null` 时，就会发生这种情况。 呈现逻辑引发的未经处理的异常对于 Blazor 服务器线路来说是严重异常。
+呈现逻辑可能会引发异常。 例如评估了 `@someObject.PropertyName`，但 `@someObject` 为 `null` 时，就会发生这种情况。 呈现逻辑引发的未经处理的异常对于 Blazor Server 线路来说是严重异常。
 
 为防止呈现逻辑中出现空引用异常，请在访问其成员之前检查 `null` 对象。 在以下示例中，如果 `person.Address` 为 `null`，则不访问 `person.Address` 属性：
 
@@ -185,7 +186,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 
 在这些情况下，事件处理程序代码可能会引发未经处理的异常。
 
-如果事件处理程序引发未经处理的异常（例如数据库查询失败），则该异常对于 Blazor 服务器线路来说是严重异常。 如果应用调用可能因外部原因而失败的代码，请使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
+如果事件处理程序引发未经处理的异常（例如数据库查询失败），则该异常对于 Blazor Server 线路来说是严重异常。 如果应用调用可能因外部原因而失败的代码，请使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
 
 如果用户代码不会捕获和处理异常，则框架将记录异常并终止线路。
 
@@ -193,7 +194,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 
 例如，可从 UI 中删除组件，因为用户已导航到其他页面。 当从 UI 中删除实现 <xref:System.IDisposable?displayProperty=fullName> 的组件时，框架将调用该组件的 <xref:System.IDisposable.Dispose%2A> 方法。
 
-如果组件的 `Dispose` 方法引发未经处理的异常，则该异常对于 Blazor 服务器线路来说是严重异常。 如果处置逻辑可能引发异常，应用应使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
+如果组件的 `Dispose` 方法引发未经处理的异常，则该异常对于 Blazor Server 线路来说是严重异常。 如果处置逻辑可能引发异常，应用应使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
 
 要详细了解组件处置，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
 
@@ -203,13 +204,13 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 
 以下条件适用于带有 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的错误处理：
 
-* 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行同步调用，则会发生 .NET 异常。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，因为不能序列化提供的自变量。 开发人员代码必须捕获异常。 如果事件处理程序或组件生命周期方法中的应用代码未处理异常，则该异常对于 Blazor 服务器线路来说是严重异常。
-* 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行异步调用，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，这是因为 JavaScript 端代码会引发异常或返回完成状态为 `rejected` 的 `Promise`。 开发人员代码必须捕获异常。 如果使用 [`await`](/dotnet/csharp/language-reference/keywords/await) 运算符，请考虑使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句包装方法调用，并进行错误处理和日志记录。 否则，失败的代码会导致未经处理的异常，这对于 Blazor 服务器线路来说是严重异常。
+* 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行同步调用，则会发生 .NET 异常。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，因为不能序列化提供的自变量。 开发人员代码必须捕获异常。 如果事件处理程序或组件生命周期方法中的应用代码未处理异常，则该异常对于 Blazor Server 线路来说是严重异常。
+* 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行异步调用，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，这是因为 JavaScript 端代码会引发异常或返回完成状态为 `rejected` 的 `Promise`。 开发人员代码必须捕获异常。 如果使用 [`await`](/dotnet/csharp/language-reference/keywords/await) 运算符，请考虑使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句包装方法调用，并进行错误处理和日志记录。 否则，失败的代码会导致未经处理的异常，这对于 Blazor Server 线路来说是严重异常。
 * 默认情况下，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用必须在特定时间段内完成，否则调用会超时。默认超时期限为一分钟。 超时会保护代码免受网络连接丢失的影响，或者保护永远不会发回完成消息的 JavaScript 代码。 如果调用超时，则生成的 <xref:System.Threading.Tasks> 将失败，并出现 <xref:System.OperationCanceledException>。 捕获异常，并进行异常处理和日志记录。
 
 同样，JavaScript 代码可以对 [`[JSInvokable]`](xref:blazor/call-dotnet-from-javascript) 特性指示的 .NET 方法发起调用。 如果这些 .NET 方法引发未经处理的异常：
 
-* 此异常不会被视为 Blazor 服务器线路的严重异常。
+* 此异常不会被视为 Blazor Server 线路的严重异常。
 * JavaScript 端 `Promise` 会被拒绝。
 
 可选择在方法调用的 .NET 端或 JavaScript 端使用错误处理代码。
@@ -219,7 +220,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * <xref:blazor/call-javascript-from-dotnet>
 * <xref:blazor/call-dotnet-from-javascript>
 
-### <a name="blazor-server-prerendering"></a>Blazor 服务器预呈现
+### <a name="blazor-server-prerendering"></a>Blazor Server 预呈现
 
 Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)进行预呈现，以便在用户的初始 HTTP 请求过程中返回其呈现的 HTML 标记。 实现方式如下：
 
@@ -253,7 +254,7 @@ Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/buil
 * 会导致呈现过程永久地继续下去。
 * 相当于创建不终止的循环。
 
-在这些情况下，受影响的 Blazor 服务器线路会失败，并且该线程通常会尝试执行以下操作：
+在这些情况下，受影响的 Blazor Server 线路会失败，并且该线程通常会尝试执行以下操作：
 
 * 在操作系统允许范围内无限期地消耗 CPU 时间。
 * 消耗不限量的服务器内存。 消耗不限量的内存相当于不终止的循环在每次迭代时向集合添加条目的情况。

@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: 3a541df51a040291f390559842ecd05ba09cee8c
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 2c1454d4fc3cd5923100e27748013873c6b4a74a
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243624"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402372"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -37,7 +38,7 @@ ms.locfileid: "85243624"
 请按照[快速入门：向 Microsoft 标识平台注册应用程序](/azure/active-directory/develop/quickstart-register-app)中的指南和后续 Azure AAD 主题操作，以便为服务器 API 应用注册 AAD 应用，然后执行以下操作：
 
 1. 在“Azure Active Directory” > “应用注册”中，选择“新建注册”  。
-1. 提供应用的名称（例如 Blazor 服务器 AAD） 。
+1. 提供应用的名称（例如 Blazor Server AAD） 。
 1. 选择支持的帐户类型。 为此体验选择“仅此组织目录中的帐户”（单个租户）。
 1. 在这种情况下，“服务器 API 应用”不需要“重定向 URI”，因此请将下拉列表设置为 Web，并且不输入重定向 URI 。
 1. 禁用“权限” > “授予对 openid 和 offline_access 权限的管理员同意”复选框 。
@@ -90,7 +91,7 @@ ms.locfileid: "85243624"
 
 1. 确认应用拥有“Microsoft Graph” > “User.Read”权限 。
 1. 选择“添加权限”，然后选择“我的 API” 。
-1. 从“名称”列（例如 Blazor 服务器 AAD）中选择“服务器 API 应用” 。
+1. 从“名称”列（例如 Blazor Server AAD）中选择“服务器 API 应用” 。
 1. 打开 API 列表。
 1. 启用对 API 的访问（例如 `API.Access`）。
 1. 选择“添加权限”。
@@ -199,7 +200,7 @@ services.Configure<JwtBearerOptions>(
 WeatherForecast 控制器 (Controllers/WeatherForecastController.cs) 公开了一个受保护的 API，并将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性应用于控制器。 务必了解以下内容：
 
 * 仅此 API 控制器中的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性可以保护此 API 免受未经授权的访问。
-* Blazor WebAssembly 应用中使用的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性仅用作应用的提示，提示应用应授权用户才能正常运行。
+* Blazor WebAssembly 应用中使用的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性仅用作应用的提示，提示应授权用户应用才能正常运行。
 
 ```csharp
 [Authorize]

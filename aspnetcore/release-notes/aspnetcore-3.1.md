@@ -7,17 +7,18 @@ ms.custom: mvc
 ms.date: 02/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 6a03e35495e2ae545dc0a3cdd38578b433d8df6b
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
-ms.translationtype: HT
+ms.openlocfilehash: 92804d168381526100ddb8a368f71d201bd4cad9
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102587"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407663"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 的新增功能
 
@@ -37,7 +38,7 @@ Razor 组件现作为分部类生成。 可使用定义为分部类的代码隐�
 
 HTML 帮助程序在 ASP.NET Core 3.1 仍受支持，但建议使用组件标记帮助程序。
 
-Blazor 服务器应用现可在初始呈现期间将参数传递给顶级组件。 之前，你只能将参数传递给具有 [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) 的顶级组件。 在此版本中，[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) 和 [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) 均受支持。 任何指定的参数值均序列化为 JSON，并包含在初始响应中。
+Blazor Server 应用现可在初始呈现期间将参数传递给顶级组件。 之前，你只能将参数传递给具有 [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) 的顶级组件。 在此版本中，[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) 和 [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) 均受支持。 任何指定的参数值均序列化为 JSON，并包含在初始响应中。
 
 例如，通过增量 (`IncrementAmount`) 预呈现一个 `Counter` 组件：
 

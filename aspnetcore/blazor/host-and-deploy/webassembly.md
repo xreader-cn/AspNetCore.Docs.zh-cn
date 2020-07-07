@@ -8,23 +8,24 @@ ms.custom: mvc
 ms.date: 06/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 7e0263200ebb9ce60f7234af3cbb18c5aeaa3e09
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 2b100ba029c08e0ce68d208df761f22a712fbbfd
+ms.sourcegitcommit: 99c784a873b62fbd97a73c5c07f4fe7a7f5db638
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243520"
+ms.lasthandoff: 06/27/2020
+ms.locfileid: "85503508"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
 作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com)、[Daniel Roth](https://github.com/danroth27)、[Ben Adams](https://twitter.com/ben_a_adams) 和 [Safia Abdalla](https://safia.rocks)
 
-使用 [Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)：
+利用 [Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)：
 
 * 将 Blazor 应用、其依赖项及 .NET 运行时并行下载到浏览器。
 * 应用将在浏览器线程中直接执行。
@@ -65,16 +66,16 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
             const originalResponseArray = new Int8Array(originalResponseBuffer);
             const decompressedResponseArray = BrotliDecode(originalResponseArray);
             const contentType = type === 
-          'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+              'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
             return new Response(decompressedResponseArray, 
-          { headers: { 'content-type': contentType } });
+              { headers: { 'content-type': contentType } });
           })();
         }
       }
     });
-  </script>
-  ```
-   
+    </script>
+    ```
+ 
 若要禁用压缩，请将 `BlazorEnableCompression` MSBuild 属性添加到应用的项目文件，并将值设置为 `false`：
 
 ```xml
@@ -85,7 +86,7 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 
 ## <a name="rewrite-urls-for-correct-routing"></a>重写 URL，以实现正确路由
 
-在 Blazor WebAssembly 应用中路由对页组件的请求不如在 Blazor Server 对托管应用中路由请求直接。 假设有一个 Blazor WebAssembly 应用包含以下两个组件：
+在 Blazor WebAssembly 应用中路由对页组件的请求不如在 Blazor Server 托管应用中路由请求直接。 假设有一个具有两个组件的 Blazor WebAssembly 应用：
 
 * `Main.razor`：在应用的根目录处加载，并包含指向 `About` 组件 (`href="About"`) 的链接。
 * `About.razor`：`About` 组件。
@@ -109,7 +110,7 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 
 托管部署通过在 Web 服务器上运行的 [ASP.NET Core](xref:index) 应用为浏览器提供 Blazor WebAssembly 应用。
 
-客户端 Blazor WebAssembly 应用将与服务器应用的任何其他静态 Web 资产一起发布到服务器应用的 `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` 文件夹。 这两个应用一起部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 会在选择 `Hosted` 选项（使用 `dotnet new` 命令时为 `-ho|--hosted`）的情况下，包含 Blazor WebAssembly App 项目模板（使用 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令时为 `blazorwasm` 模板） 。
+客户端 Blazor WebAssembly 应用与服务器应用的其他任何静态 Web 资产一起发布到服务器应用的 `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` 文件夹。 这两个应用一起部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 会在选择 `Hosted` 选项（使用 `dotnet new` 命令时为 `-ho|--hosted`）的情况下，包含 Blazor WebAssembly 应用项目模板（使用 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令时为 `blazorwasm` 模板） 。
 
 有关托管和部署 ASP.NET Core 应用的详细信息，请参阅 <xref:host-and-deploy/index>。
 
@@ -265,7 +266,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ### <a name="apache"></a>Apache
 
-若要将 Blazor WebAssembly 应用部署到 CentOS 7 或更高版本：
+若要将 Blazor WebAssembly 应用部署到 CentOS 7 或更高版本，请执行以下操作：
 
 1. 创建 Apache 配置文件。 下面的示例展示了一个简化的配置文件 (`blazorapp.config`)：
 

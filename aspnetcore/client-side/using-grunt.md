@@ -6,17 +6,18 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: client-side/using-grunt
-ms.openlocfilehash: b51973e82bb1bd382be68a501c40ba613217fb03
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: fc871e22f9bd5a9c137008f1d87019542c45b5d2
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773635"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401761"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>在 ASP.NET Core 中使用 Grunt
 
@@ -44,7 +45,7 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
 
 1. 在 Visual Studio 中，新建一个 `ASP.NET Web Application`。
 
-2. 在“新建 ASP.NET 项目”对话框中，选择 ASP.NET Core“空”模板，然后单击“确定”按钮   。
+2. 在“新建 ASP.NET 项目”对话框中，选择 ASP.NET Core“空”模板，然后单击“确定”按钮 。
 
 3. 在“解决方案资源管理器”中，查看项目结构。 `\src` 文件夹包含空的 `wwwroot` 和 `Dependencies` 节点。
 
@@ -52,17 +53,17 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
 
 4. 将名为 `TypeScript` 的新文件夹添加到项目目录中。
 
-5. 在添加任何文件之前，请确保 Visual Studio 已为 TypeScript 文件勾选“在保存时编译”选项。 导航至“工具” > “选项” > “文本编辑器” > “Typescript” > “项目”      ：
+5. 在添加任何文件之前，请确保 Visual Studio 已为 TypeScript 文件勾选“在保存时编译”选项。 导航至“工具” > “选项” > “文本编辑器” > “Typescript” > “项目”    ：
 
     ![设置 TypeScript 文件自动编译的选项](using-grunt/_static/typescript-options.png)
 
-6. 右键单击 `TypeScript` 目录，然后从上下文菜单中选择“添加”>“新建项”  。 选择“JavaScript 文件”项，并将文件命名为“Tastes.ts”（注意 \*.ts 扩展名   ）。 将下面这行 TypeScript 代码复制到文件中，保存后，将显示一个新的 Tastes.js 文件，其中包含 JavaScript 源  。
+6. 右键单击 `TypeScript` 目录，然后从上下文菜单中选择“添加”>“新建项”。 选择“JavaScript 文件”项，并将文件命名为“Tastes.ts”（注意 \*.ts 扩展名）。 将下面这行 TypeScript 代码复制到文件中，保存后，将显示一个新的 Tastes.js 文件，其中包含 JavaScript 源。
 
     ```typescript
     enum Tastes { Sweet, Sour, Salty, Bitter }
     ```
 
-7. 将第二个文件添加到 TypeScript 目录，并将其命名为 `Food.ts`  。 将下面的代码复制到该文件中。
+7. 将第二个文件添加到 TypeScript 目录，并将其命名为 `Food.ts`。 将下面的代码复制到该文件中。
 
     ```typescript
     class Food {
@@ -93,16 +94,16 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
 
 接下来，配置 NPM 以下载 grunt 和 grunt 任务。
 
-1. 在“解决方案资源管理器”中右键单击项目，并从上下文菜单中选择“添加”>“新建项”  。 选择“NPM 配置文件”项，保留默认名称 (package.json) 并单击“添加”按钮    。
+1. 在“解决方案资源管理器”中右键单击项目，并从上下文菜单中选择“添加”>“新建项”。 选择“NPM 配置文件”项，保留默认名称 (package.json) 并单击“添加”按钮。
 
-2. 在 package.json 文件中的 `devDependencies` 对象大括号内输入“grunt”  。 从 Intellisense 列表中选择 `grunt` 并按下 Enter 键。 Visual Studio 将引用 grunt 包名称，并添加一个冒号。 在冒号右侧，从 Intellisense 列表顶部选择包的最新稳定版本（如果 Intellisense 列表未显示，请按 `Ctrl-Space`）。
+2. 在 package.json 文件中的 `devDependencies` 对象大括号内输入“grunt”。 从 Intellisense 列表中选择 `grunt` 并按下 Enter 键。 Visual Studio 将引用 grunt 包名称，并添加一个冒号。 在冒号右侧，从 Intellisense 列表顶部选择包的最新稳定版本（如果 Intellisense 列表未显示，请按 `Ctrl-Space`）。
 
     ![Grunt Intellisense](using-grunt/_static/devdependencies-grunt.png)
 
     > [!NOTE]
-    > NPM 使用[语义化版本控制](https://semver.org/)来组织依赖项。 语义化版本控制（也称为 SemVer）使用编号方案 \<major>.\<minor>.\<patch> 识别包。 Intellisense 只显示几个常见选项，从而简化语义化版本控制。 Intellisense 列表的第一项（在上面的示例中为 0.4.5）被视为程序包的最新稳定版本。 脱字号 (^) 匹配最新的主版本，波形符 (~) 匹配最新的次版本。 有关 SemVer 提供的完整表达能力，请参阅 [NPM semver 版本分析程序参考](https://www.npmjs.com/package/semver)。
+    > NPM 使用[语义化版本控制](https://semver.org/)来组织依赖项。 语义化版本控制（也称为 SemVer）使用编号方案 \<major>.\<minor>.\<patch> 识别包。Intellisense 只显示几个常见选项，从而简化语义化版本控制。 Intellisense 列表的第一项（在上面的示例中为 0.4.5）被视为程序包的最新稳定版本。 脱字号 (^) 匹配最新的主版本，波形符 (~) 匹配最新的次版本。 有关 SemVer 提供的完整表达能力，请参阅 [NPM semver 版本分析程序参考](https://www.npmjs.com/package/semver)。
 
-3. 添加更多依赖项以加载 clean、jshint、concat、uglify 和 watch 的 grunt-contrib-\* 包，如以下示例中所示      。 版本不需要与示例匹配。
+3. 添加更多依赖项以加载 clean、jshint、concat、uglify 和 watch 的 grunt-contrib-\* 包，如以下示例中所示    。 版本不需要与示例匹配。
 
     ```json
     "devDependencies": {
@@ -115,24 +116,24 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
     }
     ```
 
-4. 保存 package.json 文件  。
+4. 保存 package.json 文件。
 
-每个 `devDependencies` 项的包将随每个包需要的所有文件一起下载。 在解决方案资源管理器中启用“显示所有文件”按钮，可以找到 node_modules 目录中的包文件    。
+每个 `devDependencies` 项的包将随每个包需要的所有文件一起下载。 在解决方案资源管理器中启用“显示所有文件”按钮，可以找到 node_modules 目录中的包文件 。
 
 ![grunt node_modules](using-grunt/_static/node-modules.png)
 
 > [!NOTE]
-> 若有需要，可以在解决方案资源管理器中手动还原依赖项，方法是右键单击 `Dependencies\NPM` 并选择“还原包”菜单选项   。
+> 若有需要，可以在解决方案资源管理器中手动还原依赖项，方法是右键单击 `Dependencies\NPM` 并选择“还原包”菜单选项 。
 
 ![还原包](using-grunt/_static/restore-packages.png)
 
 ## <a name="configuring-grunt"></a>配置 Grunt
 
-使用名为 Gruntfile.js 的清单配置 Grunt，该清单定义、加载和注册了多个任务，这些任务可手动运行或配置为基于 Visual Studio 中的事件自动运行  。
+使用名为 Gruntfile.js 的清单配置 Grunt，该清单定义、加载和注册了多个任务，这些任务可手动运行或配置为基于 Visual Studio 中的事件自动运行。
 
-1. 右键单击该项目，选择“添加” > “新建项”   。 选择“JavaScript 文件”项模板，将名称更改为 Gruntfile.js，然后单击“添加”按钮    。
+1. 右键单击该项目，选择“添加” > “新建项” 。 选择“JavaScript 文件”项模板，将名称更改为 Gruntfile.js，然后单击“添加”按钮。
 
-1. 将以下代码添加到 Gruntfile.js  。 `initConfig` 函数设置每个包的选项，模块的其余部分加载并注册任务。
+1. 将以下代码添加到 Gruntfile.js。 `initConfig` 函数设置每个包的选项，模块的其余部分加载并注册任务。
 
    ```javascript
    module.exports = function (grunt) {
@@ -141,7 +142,7 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
    };
    ```
 
-1. 在 `initConfig` 函数中，添加 `clean` 任务的选项，如下面的示例 Gruntfile.js 中所示  。 `clean` 任务接受目录字符串的数组。 此任务从 wwwroot/lib 删除文件，并删除整个 /temp 目录   。
+1. 在 `initConfig` 函数中，添加 `clean` 任务的选项，如下面的示例 Gruntfile.js 中所示。 `clean` 任务接受目录字符串的数组。 此任务从 wwwroot/lib 删除文件，并删除整个 /temp 目录 。
 
     ```javascript
     module.exports = function (grunt) {
@@ -157,19 +158,19 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
     grunt.loadNpmTasks("grunt-contrib-clean");
     ```
 
-1. 保存 Gruntfile.js  。 该文件应类似于下面的屏幕截图所示。
+1. 保存 Gruntfile.js。 该文件应类似于下面的屏幕截图所示。
 
     ![初始 gruntfile](using-grunt/_static/gruntfile-js-initial.png)
 
-1. 右键单击 Gruntfile.js 并从上下文菜单中选择“任务运行程序资源管理器”   。 随即打开任务运行程序浏览器窗口  。
+1. 右键单击 Gruntfile.js 并从上下文菜单中选择“任务运行程序资源管理器”。 随即打开任务运行程序浏览器窗口。
 
     ![任务运行程序资源管理器菜单](using-grunt/_static/task-runner-explorer-menu.png)
 
-1. 验证任务运行程序资源管理器中的“任务”下是否显示 `clean`   。
+1. 验证任务运行程序资源管理器中的“任务”下是否显示 `clean` 。
 
     ![任务运行程序资源管理器任务列表](using-grunt/_static/task-runner-explorer-tasks.png)
 
-1. 右键单击清理任务并在上下文菜单中选择“运行”  。 显示任务进度的命令窗口。
+1. 右键单击清理任务并在上下文菜单中选择“运行”。 显示任务进度的命令窗口。
 
     ![任务运行程序资源管理器运行清理任务](using-grunt/_static/task-runner-explorer-run-clean.png)
 
@@ -194,7 +195,7 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
 
 1. 使用以下代码添加 `jshint` 任务。
 
-    系统会对在 temp 目录中找到的每个 JavaScript 文件运行 jshint `code-quality` 实用工具  。
+    系统会对在 temp 目录中找到的每个 JavaScript 文件运行 jshint `code-quality` 实用工具。
 
     ```javascript
     jshint: {
@@ -210,7 +211,7 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
 
 1. 使用以下代码添加 `uglify` 任务。
 
-    该任务缩减在 temp 目录中找到 combined.js 文件，并按照标准命名约定 \<file name\>.min.js 在 wwwroot/lib 中创建结果文件   。
+    该任务缩减在 temp 目录中找到 combined.js 文件，并按照标准命名约定 \<file name\>.min.js 在 wwwroot/lib 中创建结果文件 。
 
     ```javascript
     uglify: {
@@ -229,15 +230,15 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
     grunt.loadNpmTasks('grunt-contrib-uglify');
     ```
 
-1. 保存 Gruntfile.js  。 该文件应类似于以下示例所示。
+1. 保存 Gruntfile.js。 该文件应类似于以下示例所示。
 
     ![完成 grunt 文件示例](using-grunt/_static/gruntfile-js-complete.png)
 
-1. 请注意，任务运行程序资源管理器的“任务”列表包括 `clean`、`concat`、`jshint` 和 `uglify` 任务  。 按顺序运行每个任务，并在解决方案资源管理器中观察结果  。 每个任务都应正常运行，不会出错。
+1. 请注意，任务运行程序资源管理器的“任务”列表包括 `clean`、`concat`、`jshint` 和 `uglify` 任务。 按顺序运行每个任务，并在解决方案资源管理器中观察结果。 每个任务都应正常运行，不会出错。
 
     ![任务运行程序资源管理器运行每个任务](using-grunt/_static/task-runner-explorer-run-each-task.png)
 
-    concat 任务会创建一个新的 combined.js 文件，并将其放入 temp 目录  。 `jshint` 任务仅运行，并不生成输出。 `uglify` 任务创建新的 combined.min.js 文件，并将其放入 wwwroot/lib 中   。 完成后，解决方案应类似于下面的屏幕截图所示：
+    concat 任务会创建一个新的 combined.js 文件，并将其放入 temp 目录。 `jshint` 任务仅运行，并不生成输出。 `uglify` 任务创建新的 combined.min.js 文件，并将其放入 wwwroot/lib 中 。 完成后，解决方案应类似于下面的屏幕截图所示：
 
     ![完成所有任务之后的解决方案资源管理器](using-grunt/_static/solution-explorer-after-all-tasks.png)
 
@@ -279,9 +280,9 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 
 ## <a name="binding-to-visual-studio-events"></a>绑定到 Visual Studio 事件
 
-请将任务绑定到“生成前”、“生成后”、“清理”和“项目打开”事件，除非想在每次在 Visual Studio 中工作时都手动启动任务     。
+请将任务绑定到“生成前”、“生成后”、“清理”和“项目打开”事件，除非想在每次在 Visual Studio 中工作时都手动启动任务   。
 
-绑定 `watch`，使其在每次打开 Visual Studio 时运行。 右键单击任务运行程序资源管理器中的监视任务，然后在上下文菜单中选择“绑定” > “项目打开”   。
+绑定 `watch`，使其在每次打开 Visual Studio 时运行。 右键单击任务运行程序资源管理器中的监视任务，然后在上下文菜单中选择“绑定” > “项目打开” 。
 
 ![将任务绑定到项目开头](using-grunt/_static/bindings-project-open.png)
 

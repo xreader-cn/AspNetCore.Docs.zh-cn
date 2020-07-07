@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/fundamentals/environments
-ms.openlocfilehash: a527e04cf97dd2d2b88dcc6e866475835498545d
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: f8d0fc3cba22973628f405b4399cef39d562d6ed
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243611"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402892"
 ---
 # <a name="aspnet-core-blazor-environments"></a>ASP.NET Core Blazor 环境
 

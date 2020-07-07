@@ -7,17 +7,18 @@ ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 4523ba299d5c5e50a442f84acadf06bf57c69c5d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: de7c155189008e1f78bfb1eba062fcc86f9e4839
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82770948"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401904"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>ASP.NET Core 中的捆绑和缩小静态资产
 
@@ -75,40 +76,40 @@ MVC 和 Razor Pages 项目模板提供了一种用于捆绑和缩小的解决方
 
 ::: moniker range="<= aspnetcore-2.0"
 
-在 ASP.NET Core 2.0 或更早版本中，MVC 和 Razor Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项  ：
+在 ASP.NET Core 2.0 或更早版本中，MVC 和 Razor Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项：
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 Razor Pages 项目根  。 在该文件中包含以下 JSON 作为起点：
+在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 Razor Pages 项目根目录。 在该文件中包含以下 JSON 作为起点：
 
 ::: moniker-end
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/bundleconfig.json)]
 
-bundleconfig.json 文件定义每个捆绑的选项  。 在前面的示例中，为自定义 JavaScript (wwwroot/js/site.js) 和样式表 (wwwroot/css/site.css) 文件定义了单一捆绑配置   。
+bundleconfig.json 文件定义每个捆绑的选项。 在前面的示例中，为自定义 JavaScript (wwwroot/js/site.js) 和样式表 (wwwroot/css/site.css) 文件定义了单一捆绑配置 。
 
 配置选项包括：
 
-* `outputFileName`：要输出的捆绑文件的名称。 可包含 bundleconfig.json 文件中的相对路径  。 （必需） 
-* `inputFiles`：要捆绑在一起的文件数组。 这些是配置文件的相对路径。 可以选择使用空值，*这将导致输出文件为空  。 支持 [glob](https://www.tldp.org/LDP/abs/html/globbingref.html) 模式。
-* `minify`：输出类型的缩小选项。 可选，默认值 - `minify: { enabled: true }` 
+* `outputFileName`：要输出的捆绑文件的名称。 可包含 bundleconfig.json 文件中的相对路径。 （必需）
+* `inputFiles`：要捆绑在一起的文件数组。 这些是配置文件的相对路径。 可以选择使用空值，*这将导致输出文件为空。 支持 [glob](https://www.tldp.org/LDP/abs/html/globbingref.html) 模式。
+* `minify`：输出类型的缩小选项。 可选，默认值 - `minify: { enabled: true }`
   * 每个输出文件类型都有配置选项。
     * [CSS 缩小程序](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [JavaScript 缩减程序](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
     * [HTML 缩小程序](https://github.com/madskristensen/BundlerMinifier/wiki)
-* `includeInProject`：指示是否将生成的文件添加到项目文件的标记。 可选，默认值 - false  
-* `sourceMap`：指示是否为捆绑的文件生成源映射的标记。 可选，默认值 - false  
+* `includeInProject`：指示是否将生成的文件添加到项目文件的标记。 可选，默认值 - false
+* `sourceMap`：指示是否为捆绑的文件生成源映射的标记。 可选，默认值 - false
 * `sourceMapRootPath`：用于存储所生成的源映射文件的根路径。
 
 ## <a name="add-files-to-workflow"></a>向工作流添加文件
 
-假设添加了额外的 custom.css 文件，类似于以下内容  ：
+假设添加了额外的 custom.css 文件，类似于以下内容：
 
 [!code-css[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/wwwroot/css/custom.css)]
 
-若要缩小 custom.css 并将其与 site.css 捆绑到 site.min.css 文件中，请将相对路径添加到 bundleconfig.json     ：
+若要缩小 custom.css 并将其与 site.css 捆绑到 site.min.css 文件中，请将相对路径添加到 bundleconfig.json   ：
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/bundleconfig2.json?highlight=6)]
 
@@ -121,7 +122,7 @@ bundleconfig.json 文件定义每个捆绑的选项  。 在前面的示例中�
 >
 > 此通配模式匹配所有 CSS 文件，并排除缩小的文件模式。
 
-生成应用程序。 打开 site.min.css 并注意 custom.css 的内容将追加到文件末尾   。
+生成应用程序。 打开 site.min.css 并注意 custom.css 的内容将追加到文件末尾 。
 
 ## <a name="environment-based-bundling-and-minification"></a>基于环境的捆绑和缩小
 
@@ -163,14 +164,14 @@ bundleconfig.json 文件定义每个捆绑的选项  。 在前面的示例中�
 
 ### <a name="manually-convert-the-bundling-and-minification-workflow-to-use-gulp"></a>手动转换捆绑和缩小工作流以使用 Gulp
 
-将 package.json 文件（包含以下 `devDependencies`）添加到项目根  ：
+将 package.json 文件（包含以下 `devDependencies`）添加到项目根：
 
 > [!WARNING]
 > `gulp-uglify` 模块不支持 ECMAScript (ES) 2015/ES6 和更高版本。 安装 [gulp-terser](https://www.npmjs.com/package/gulp-terser) 而不是 `gulp-uglify` 来使用 ES2015/ES6 或更高版本。
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/package.json?range=5-13)]
 
-通过在与 package.json 相同的级别运行以下命令来安装依赖项  ：
+通过在与 package.json 相同的级别运行以下命令来安装依赖项：
 
 ```console
 npm i
@@ -182,7 +183,7 @@ npm i
 npm i -g gulp-cli
 ```
 
-将以下 gulpfile.js 文件复制到项目根  ：
+将以下 gulpfile.js 文件复制到项目根：
 
 [!code-javascript[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/gulpfile.js?range=1-11,14-)]
 

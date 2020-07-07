@@ -7,17 +7,18 @@ ms.custom: mvc, seodec18
 ms.date: 07/10/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: azure/devops/monitor
-ms.openlocfilehash: 3af36a37124968e13952e8bf5de1b643265a4a5b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: a94b1e0b5ce2a24cf22eb665c9bcd03c25ffa67f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766883"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400370"
 ---
 # <a name="monitor-and-debug"></a>监视和调试
 
@@ -37,13 +38,13 @@ ms.locfileid: "82766883"
 
 应用服务 Web 应用可轻松地实时进行监视。 Azure 门户在易于理解的图表和图形中呈现指标。
 
-1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\>  应用服务。
+1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\> 应用服务。
 
-1. “概览”  选项卡显示有用的“一览式”信息，其中包括显示最近指标的图形。
+1. “概览”选项卡显示有用的“一览式”信息，其中包括显示最近指标的图形。
 
     ![显示概览面板的屏幕截图](./media/monitoring/overview.png)
 
-    * Http 5xx  ：服务器端错误计数，通常是 ASP.NET Core 代码中的异常。
+    * Http 5xx：服务器端错误计数，通常是 ASP.NET Core 代码中的异常。
     * **数据输入**：进入 Web 应用的数据流入量。
     * **数据输出**：从 Web 应用到客户端的数据流出量。
     * **请求**：HTTP 请求计数。
@@ -53,9 +54,9 @@ ms.locfileid: "82766883"
 
     ![显示自助服务工具的屏幕截图](./media/monitoring/wizards.png)
 
-    * “诊断并解决问题”  是一种自助服务故障排除程序。
-    * Application Insights  用于分析性能和应用行为，会在此部分后面进行讨论。
-    * “应用服务顾问”  为优化应用体验提供建议。
+    * “诊断并解决问题”是一种自助服务故障排除程序。
+    * Application Insights 用于分析性能和应用行为，会在此部分后面进行讨论。
+    * “应用服务顾问”为优化应用体验提供建议。
 
 ## <a name="advanced-monitoring"></a>高级监视
 
@@ -65,22 +66,22 @@ ms.locfileid: "82766883"
 
 [Application Insights](/azure/application-insights/app-insights-overview) 是一种 Azure 服务，用于分析 Web 应用的性能和稳定性以及用户使用它们的方式。 Application Insights 中的数据比 Azure Monitor 更广泛且更深入。 数据可以为开发者和管理员提供重要信息来改善应用。 Application Insights 可以添加到 Azure 应用服务资源，而无需更改代码。
 
-1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\>  应用服务。
-1. 在“概览”  选项卡上，单击“Application Insights”  磁贴。
+1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\> 应用服务。
+1. 在“概览”选项卡上，单击“Application Insights”磁贴。
 
     ![Application Insights 磁贴](./media/monitoring/app-insights.png)
 
-1. 选择“新建资源”  单选按钮。 使用默认资源名称，并选择 Application Insights 资源的位置。 该位置不需要与 Web 应用的位置匹配。
+1. 选择“新建资源”单选按钮。 使用默认资源名称，并选择 Application Insights 资源的位置。 该位置不需要与 Web 应用的位置匹配。
 
     ![Application Insights 设置](./media/monitoring/new-app-insights.png)
 
-1. 对于“运行时/框架”  ，选择“ASP.NET Core”  。 接受默认设置。
-1. 选择“确定”  。 如果系统提示进行确认，请选择“继续”  。
+1. 对于“运行时/框架”，选择“ASP.NET Core”。 接受默认设置。
+1. 选择“确定”。 如果系统提示进行确认，请选择“继续”。
 1. 创建资源之后，单击 Application Insights 资源的名称，直接导航到 Application Insights 页面。
 
     ![新 Application Insights 资源已准备就绪](./media/monitoring/new-app-insights-done.png)
 
-使用应用时，数据会累积。 选择“刷新”  以使用新数据重载边栏选项卡。
+使用应用时，数据会累积。 选择“刷新”以使用新数据重载边栏选项卡。
 
 ![Application Insights 概览选项卡](./media/monitoring/app-insights-overview.png)
 
@@ -90,15 +91,15 @@ Application Insights 可提供有用的服务器端信息，无需额外配置�
 
 默认情况下，Web 服务器和应用日志在 Azure 应用服务中处于禁用状态。 可通过以下步骤启用日志：
 
-1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\>  应用服务。
-1. 在左侧菜单中，向下滚动到“监视”部分  。 选择“诊断日志”  。
+1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\> 应用服务。
+1. 在左侧菜单中，向下滚动到“监视”部分。 选择“诊断日志”。
 
     ![诊断日志链接](./media/monitoring/logging.png)
 
-1. 打开“应用程序日志记录(文件系统)”  。 如果出现提示，请单击框来安装扩展，以在 Web 应用中启用应用日志记录。
-1. 将“Web 服务器日志记录”  设置为“文件系统”  。
-1. 输入“保留期”  （以天为单位）。 例如 30。
-1. 单击“保存”  。
+1. 打开“应用程序日志记录(文件系统)”。 如果出现提示，请单击框来安装扩展，以在 Web 应用中启用应用日志记录。
+1. 将“Web 服务器日志记录”设置为“文件系统”。
+1. 输入“保留期”（以天为单位）。 例如 30。
+1. 单击“保存” 。
 
 会为 Web 应用生成 ASP.NET Core 和 Web 服务器（应用服务）日志。 可以使用显示的 FTP/FTPS 信息下载它们。 密码与本指南前面部分中创建的部署凭据相同。 日志可以[通过 PowerShell 或 Azure CLI 直接流式传输到本地计算机](/azure/app-service/web-sites-enable-diagnostic-log#download)。 也可以[在 Application Insights 中查看](/azure/app-service/web-sites-enable-diagnostic-log#how-to-view-logs-in-application-insights)日志。
 
@@ -106,8 +107,8 @@ Application Insights 可提供有用的服务器端信息，无需额外配置�
 
 应用和 Web 服务器日志可以通过门户实时流式传输。
 
-1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\>  应用服务。
-1. 在左侧菜单中，向下滚动到“监视”部分  并选择“日志流”  。
+1. 打开 [Azure 门户](https://portal.azure.com)，然后导航到 mywebapp\<unique_number\> 应用服务。
+1. 在左侧菜单中，向下滚动到“监视”部分并选择“日志流”。
 
     ![显示日志流链接的屏幕截图](./media/monitoring/log-stream.png)
 
@@ -119,7 +120,7 @@ Azure Monitor 还会基于指标、管理事件和其他条件提供[实时警�
 
 > *注意：当前仅在警报（经典）服务中提供有关 Web 应用指标的警报。*
 
-[警报（经典）服务](/azure/monitoring-and-diagnostics/monitor-quick-resource-metric-alert-portal)可以在 Azure Monitor 或是应用服务设置的“监视”  部分下找到。
+[警报（经典）服务](/azure/monitoring-and-diagnostics/monitor-quick-resource-metric-alert-portal)可以在 Azure Monitor 或是应用服务设置的“监视”部分下找到。
 
 ![警报（经典）链接](./media/monitoring/alerts.png)
 

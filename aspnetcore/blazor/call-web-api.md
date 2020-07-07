@@ -1,31 +1,32 @@
 ---
 title: 从 ASP.NET Core Blazor WebAssembly 调用 Web API
 author: guardrex
-description: 了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用调用 Web API，包括发出跨域资源共享 (CORS) 请求。
+description: 了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用程序调用 Web API，包括进行跨域资源共享 (CORS) 请求。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/28/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: db1f6a357f63b405bf2f3b98e51c9aeffda97d66
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 2d910def31e4035c1d9cbacb3aaa721dd699c273
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242519"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400737"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
 作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Juan De la Cruz](https://github.com/juandelacruz23)
 
 > [!NOTE]
-> 本主题适用于 Blazor WebAssembly。 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。 有关适用于 Blazor Server 的指南，请参阅 <xref:fundamentals/http-requests>。
+> 本主题适用于 Blazor WebAssembly。 [Blazor Server](xref:blazor/hosting-models#blazor-server) 应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。 有关适用于 Blazor Server 的指南，请参阅 <xref:fundamentals/http-requests>。
 
 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 应用使用预配置的 <xref:System.Net.Http.HttpClient> 服务调用 Web API。 使用 Blazor JSON 帮助程序或通过 <xref:System.Net.Http.HttpRequestMessage> 撰写请求，其中可以包含 JavaScript [Fetch API ](https://developer.mozilla.org/docs/Web/API/Fetch_API) 选项。 Blazor WebAssembly 应用中的 <xref:System.Net.Http.HttpClient> 服务侧重于使请求返回源服务器。 本主题中的指导仅适用于 Blazor WebAssembly 应用。
 
@@ -56,7 +57,7 @@ builder.Services.AddTransient(sp =>
 
 在 Blazor WebAssembly 应用中，[`HttpClient`](xref:fundamentals/http-requests) 作为预配置服务提供，用于使请求返回源服务器。
 
-默认情况下，Blazor 服务器应用不包含 <xref:System.Net.Http.HttpClient> 服务。 使用 [`HttpClient` 工厂基础结构](xref:fundamentals/http-requests)向应用提供 <xref:System.Net.Http.HttpClient>。
+默认情况下，Blazor Server 应用不包含 <xref:System.Net.Http.HttpClient> 服务。 使用 [`HttpClient` 工厂基础结构](xref:fundamentals/http-requests)向应用提供 <xref:System.Net.Http.HttpClient>。
 
 <xref:System.Net.Http.HttpClient> 和 JSON 帮助程序还用于调用第三方 Web API 终结点。 <xref:System.Net.Http.HttpClient> 使用浏览器 [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) 来实现，受其限制制约，包括强制实施相同初始策略。
 

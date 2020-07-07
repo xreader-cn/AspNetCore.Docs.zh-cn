@@ -5,20 +5,21 @@ description: 了解如何为其他安全方案配置 Blazor WebAssembly。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/10/2020
+ms.date: 06/24/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 13007df4ddddd31dd0508e9526775a6d33e0fd97
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 4e7f7c89e7dbc1851069b6e7024065e96495a317
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242909"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402177"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -116,7 +117,7 @@ builder.Services.AddTransient(sp =>
 });
 ```
 
-为了方便起见，包含 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler>，它预先配置了应用基址作为授权的 URL。 支持身份验证的 Blazor WebAssembly 模板现在使用 Server API 项目中的 <xref:System.Net.Http.IHttpClientFactory>（[`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http/) 包），通过 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> 设置 <xref:System.Net.Http.HttpClient>：
+为了方便起见，包含 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler>，它预先配置了应用基址作为授权的 URL。 支持身份验证的 Blazor WebAssembly 模板现在使用服务器 API 项目中的 <xref:System.Net.Http.IHttpClientFactory>（[`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http/) 包），通过 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> 设置 <xref:System.Net.Http.HttpClient>：
 
 ```csharp
 using System.Net.Http;
@@ -255,7 +256,7 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
 
 先前的注册是对现有安全默认 <xref:System.Net.Http.HttpClient> 注册的补充。
 
-组件从 <xref:System.Net.Http.IHttpClientFactory>（[`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http/) 包）创建 <xref:System.Net.Http.HttpClient>以发出未经身份验证或未经授权的请求：
+组件从 <xref:System.Net.Http.IHttpClientFactory>（[`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) 包）创建 <xref:System.Net.Http.HttpClient>以发出未经身份验证或未经授权的请求：
 
 ```razor
 @inject IHttpClientFactory ClientFactory
@@ -277,6 +278,10 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
 
 > [!NOTE]
 > 服务器 API 中的控制器（上述示例中为 `WeatherForecastNoAuthenticationController`）未标记 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性。
+
+开发人员决定使用安全客户端还是使用不安全的客户端作为默认 <xref:System.Net.Http.HttpClient> 实例。 做出此决定的一种方法是，考虑应用联系的经过身份验证的终结点数与未经过身份验证的终结点数。 如果应用的大部分请求都要保护 API 终结点，请使用经过身份验证的 <xref:System.Net.Http.HttpClient> 实例作为默认实例。 否则，将未经身份验证的 <xref:System.Net.Http.HttpClient> 实例注册为默认实例。
+
+使用 <xref:System.Net.Http.IHttpClientFactory> 的另一种方法是创建[类型化客户端](#typed-httpclient)，以便对匿名终结点进行未经身份验证的访问。
 
 ## <a name="request-additional-access-tokens"></a>请求其他访问令牌
 

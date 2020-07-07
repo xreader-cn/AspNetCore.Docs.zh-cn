@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/error-handling
-ms.openlocfilehash: bbd16e2e045a24f018eb59b67dfdf50d9bed6f32
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: 857b4935816d0010fa425ce98f938c87eb35a581
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775032"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793450"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -30,14 +31,14 @@ ms.locfileid: "82775032"
 
 ## <a name="developer-exception-page"></a>开发人员异常页
 
-开发人员异常页  显示请求异常的详细信息。 此页是通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。 向 `Startup.Configure` 方法添加代码，以当应用在开发[环境](xref:fundamentals/environments)中运行时启用此页：
+开发人员异常页显示请求异常的详细信息。 此页是通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。 向 `Startup.Configure` 方法添加代码，以当应用在开发[环境](xref:fundamentals/environments)中运行时启用此页：
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=1-4)]
 
 将 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> 调用置于要捕获其异常的任何中间件前面。
 
 > [!WARNING]
-> 仅当应用程序在开发环境中运行时才启用开发人员异常页  。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
+> 仅当应用程序在开发环境中运行时才启用开发人员异常页。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
 
 该页包括关于异常和请求的以下信息：
 
@@ -46,7 +47,7 @@ ms.locfileid: "82775032"
 * Cookie（如果有）
 * 标头
 
-若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看开发人员异常页，请使用 `DevEnvironment` 预处理器指令，并选择主页上的“触发异常”  。
+若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看开发人员异常页，请使用 `DevEnvironment` 预处理器指令，并选择主页上的“触发异常”。
 
 ## <a name="exception-handler-page"></a>异常处理程序页
 
@@ -59,7 +60,7 @@ ms.locfileid: "82775032"
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=5-9)]
 
-Razor Pages 应用模板在 Pages 文件夹中提供了一个“错误”页面 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`)   。 对于 MVC 应用，项目模板包括 Error 操作方法和 Error 视图。 操作方法如下：
+Razor Pages 应用模板在 Pages 文件夹中提供了一个“错误”页面 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`) 。 对于 MVC 应用，项目模板包括 Error 操作方法和 Error 视图。 操作方法如下：
 
 ```csharp
 [AllowAnonymous]
@@ -79,9 +80,9 @@ public IActionResult Error()
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/Error.cshtml.cs?name=snippet_ExceptionHandlerPathFeature&3,7)]
 
 > [!WARNING]
-> 请勿  向客户端提供敏感错误信息。 提供服务的错误是一种安全风险。
+> 请勿向客户端提供敏感错误信息。 提供服务的错误是一种安全风险。
 
-若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理页，请使用 `ProdEnvironment` 和 `ErrorHandlerPage` 预处理器指令，并选择主页上的“触发异常”  。
+若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理页，请使用 `ProdEnvironment` 和 `ErrorHandlerPage` 预处理器指令，并选择主页上的“触发异常”。
 
 ## <a name="exception-handler-lambda"></a>异常处理程序 lambda
 
@@ -94,13 +95,13 @@ public IActionResult Error()
 在前面的代码中，添加了 `await context.Response.WriteAsync(new string(' ', 512));`，以便 Internet Explorer 浏览器显示相应的错误消息，而非显示 IE 错误消息。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/16144)。
 
 > [!WARNING]
-> 不要  向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。 提供服务的错误是一种安全风险。
+> 不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。 提供服务的错误是一种安全风险。
 
-若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理 lambda 的结果，请使用 `ProdEnvironment` 和 `ErrorHandlerLambda` 预处理器指令，并选择主页上的“触发异常”  。
+若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理 lambda 的结果，请使用 `ProdEnvironment` 和 `ErrorHandlerLambda` 预处理器指令，并选择主页上的“触发异常”。
 
 ## <a name="usestatuscodepages"></a>UseStatusCodePages
 
-默认情况下，ASP.NET Core 应用不会为 HTTP 状态代码（如“404 - 未找到”  ）提供状态代码页。 应用返回状态代码和空响应正文。 若要提供状态代码页，请使用状态代码页中间件。
+默认情况下，ASP.NET Core 应用不会为 HTTP 状态代码（如“404 - 未找到”）提供状态代码页。 应用返回状态代码和空响应正文。 若要提供状态代码页，请使用状态代码页中间件。
 
 此中间件是通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。
 
@@ -116,7 +117,7 @@ public IActionResult Error()
 Status Code: 404; Not Found
 ```
 
-若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看各种状态代码页格式之一，请使用以 `StatusCodePages` 开头的预处理器指令之一，并选择主页上的“触发 404”  。
+若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看各种状态代码页格式之一，请使用以 `StatusCodePages` 开头的预处理器指令之一，并选择主页上的“触发 404”。
 
 ## <a name="usestatuscodepages-with-format-string"></a>包含格式字符串的 UseStatusCodePages
 
@@ -134,12 +135,12 @@ Status Code: 404; Not Found
 
 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*> 扩展方法：
 
-* 向客户端发送“302 - 已找到”  状态代码。
+* 向客户端发送“302 - 已找到”状态代码。
 * 将客户端重定向到 URL 模板中的位置。
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
 
-URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所示。 如果 URL 模板以波形符 (~) 开头，波形符会替换为应用的 `PathBase`。 如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml  。
+URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所示。 如果 URL 模板以波形符 (~) 开头，波形符会替换为应用的 `PathBase`。 如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。
 
 使用此方法通常是当应用：
 
@@ -155,7 +156,7 @@ URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithReExecute)]
 
-如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml  。
+如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。
 
 使用此方法通常是当应用应：
 
@@ -200,7 +201,7 @@ if (statusCodePagesFeature != null)
 
 ## <a name="server-exception-handling"></a>服务器异常处理
 
-除了应用中的异常处理逻辑外，[HTTP 服务器实现](xref:fundamentals/servers/index)还能处理一些异常。 如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”  响应。 如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。 应用程序无法处理的请求将由服务器进行处理。 当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。 应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。
+除了应用中的异常处理逻辑外，[HTTP 服务器实现](xref:fundamentals/servers/index)还能处理一些异常。 如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”响应。 如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。 应用程序无法处理的请求将由服务器进行处理。 当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。 应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。
 
 ## <a name="startup-exception-handling"></a>启动异常处理
 
@@ -212,7 +213,7 @@ if (statusCodePagesFeature != null)
 * dotnet 进程崩溃。
 * 不会在 HTTP 服务器为 [Kestrel](xref:fundamentals/servers/kestrel) 时显示任何错误页。
 
-在 [IIS](/iis)（或 Azure 应用服务）或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”  。 有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。
+在 [IIS](/iis)（或 Azure 应用服务）或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”。 有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。
 
 ## <a name="database-error-page"></a>数据库错误页
 
@@ -224,6 +225,8 @@ if (env.IsDevelopment())
     app.UseDatabaseErrorPage();
 }
 ```
+
+<xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage%2A> 需要 [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/) NuGet 包。
 
 <!-- FUTURE UPDATE: On the next topic overhaul/release update, add API crosslink to this section for xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage* when available via the API docs. -->
 

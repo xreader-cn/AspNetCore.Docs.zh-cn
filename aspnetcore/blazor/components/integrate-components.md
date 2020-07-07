@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 04/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
-ms.openlocfilehash: 1c71067528fb34ab141bb1ee846716834204ee40
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 29360174ea86623491d5d8aacd4038162855bba8
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242454"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399057"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
 
@@ -70,7 +71,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    @using MyAppNamespace
    ```
 
-1. 在 `Startup.ConfigureServices` 中，注册 Blazor 服务器服务：
+1. 在 `Startup.ConfigureServices`中，注册 Blazor Server 服务：
 
    ```csharp
    services.AddServerSideBlazor();
@@ -131,7 +132,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    | 呈现模式 | 描述 |
    | ----------- | ----------- |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现 `App` 组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor Server 应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
 
    要详细了解组件标记帮助程序，请查看 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
@@ -205,7 +206,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    | 呈现模式 | 描述 |
    | ----------- | ----------- |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现 `App` 组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor Server 应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
 
    要详细了解组件标记帮助程序，请查看 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。

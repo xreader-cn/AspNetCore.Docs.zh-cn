@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: 31e72eeac415f10d573de455f19aa8ff34743356
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 91f2aa893c06728b4b71d010241a2cb5a307ae0b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242391"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400188"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
 
@@ -32,7 +33,7 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 ## <a name="static-net-method-call"></a>静态 .NET 方法调用
 
-要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称以及任意自变量。 异步版本是支持 Blazor 服务器方案的首选。 .NET 方法必须是公共的静态方法，并且包含 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性。 当前不支持调用开放式泛型方法。
+要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称以及任意自变量。 异步版本是支持 Blazor Server 方案的首选。 .NET 方法必须是公共的静态方法，并且包含 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性。 当前不支持调用开放式泛型方法。
 
 该示例应用包含一个 C# 方法，用于返回 `int` 数组。 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性应用于方法。
 
@@ -377,4 +378,4 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 
 * <xref:blazor/call-javascript-from-dotnet>
 * [`InteropComponent.razor` 示例（dotnet/AspNetCore GitHub 存储库，3.1 版本分支）](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
-* [在 Blazor 服务器应用中执行大型数据传输](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)
+* [在 Blazor Server 应用中执行大型数据传输](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)

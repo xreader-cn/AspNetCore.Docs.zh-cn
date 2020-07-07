@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/fundamentals/dependency-injection
-ms.openlocfilehash: 24cd5ae837eeb4c89a15bab2948dde2eface0c0d
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 0e99e2e3e2dafae0c35d2cfe6903bf4f511f5dc1
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242792"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402879"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -37,15 +38,15 @@ DI 是一种技术，它用于访问配置在中心位置的服务。 该技术�
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 暂时 | 提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 <xref:System.Net.Http.HttpClient> 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor 服务器应用不包含配置为服务的 <xref:System.Net.Http.HttpClient>。 向 Blazor 服务器应用提供 <xref:System.Net.Http.HttpClient>。<br><br>有关详细信息，请参阅 <xref:blazor/call-web-api>。 |
-| <xref:Microsoft.JSInterop.IJSRuntime> | 单一实例 (Blazor WebAssembly)<br>范围内（Blazor 服务器） | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。 |
-| <xref:Microsoft.AspNetCore.Components.NavigationManager> | 单一实例 (Blazor WebAssembly)<br>范围内（Blazor 服务器） | 包含用于处理 URI 和导航状态的帮助程序。 有关详细信息，请参阅 [URI 和导航状态帮助程序](xref:blazor/fundamentals/routing#uri-and-navigation-state-helpers)。 |
+| <xref:System.Net.Http.HttpClient> | 暂时 | 提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 <xref:System.Net.Http.HttpClient> 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor Server 应用不包含配置为服务的 <xref:System.Net.Http.HttpClient>。 向 Blazor Server 应用提供 <xref:System.Net.Http.HttpClient>。<br><br>有关详细信息，请参阅 <xref:blazor/call-web-api>。 |
+| <xref:Microsoft.JSInterop.IJSRuntime> | 单一实例 (Blazor WebAssembly)<br>范围内 (Blazor Server) | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。 |
+| <xref:Microsoft.AspNetCore.Components.NavigationManager> | 单一实例 (Blazor WebAssembly)<br>范围内 (Blazor Server) | 包含用于处理 URI 和导航状态的帮助程序。 有关详细信息，请参阅 [URI 和导航状态帮助程序](xref:blazor/fundamentals/routing#uri-and-navigation-state-helpers)。 |
 
 自定义服务提供程序不会自动提供表中列出的默认服务。 如果你使用自定义服务提供程序且需要表中所示的任何服务，请将所需服务添加到新的服务提供程序。
 
 ## <a name="add-services-to-an-app"></a>向应用添加服务
 
-### <a name="blazor-webassembly"></a>Blazor WebAssembly
+### Blazor WebAssembly
 
 在 `Program.cs` 的 `Main` 方法中配置应用服务集合的服务。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
 
@@ -106,7 +107,7 @@ public class Program
 }
 ```
 
-### <a name="blazor-server"></a>Blazor 服务器
+### Blazor Server
 
 创建新应用后，请检查 `Startup.ConfigureServices` 方法：
 
@@ -132,7 +133,7 @@ public void ConfigureServices(IServiceCollection services)
 
 | 生存期 | 描述 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。 但是，Blazor 服务器托管模型支持 `Scoped` 生存期。 在 Blazor 服务器应用中，Scoped 服务注册的范围为“连接”。 因此，即使当前意图是在浏览器中运行客户端，对于范围应限定为当前用户的服务来说，首选使用 Scoped 服务。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。 但是，Blazor Server 托管模型支持 `Scoped` 生存期。 在 Blazor Server 应用中，范围内服务注册的范围为“连接”。 因此，即使当前意图是在浏览器中运行客户端，对于范围应限定为当前用户的服务来说，首选使用 Scoped 服务。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI 创建服务的单个实例。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例。 |
 
@@ -198,7 +199,10 @@ public class DataAccess : IDataAccess
 
 ## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>用于管理 DI 范围的实用工具基组件类
 
-在 ASP.NET Core 应用中，Scoped 服务的范围通常限定为当前请求。 请求完成后，DI 系统将处置所有 Scoped 或 Transient 服务。 在 Blazor 服务器应用中，请求范围会在客户端连接期间一直持续，这可能导致 Transient 和 Scoped 服务的生存期比预期要长得多。 在 Blazor WebAssembly 应用中，已注册 Scoped 生存期的服务被视为单一实例，因此它们的生存期比典型 ASP.NET Core 应用中的 Scoped 服务要长。
+在 ASP.NET Core 应用中，Scoped 服务的范围通常限定为当前请求。 请求完成后，DI 系统将处置所有 Scoped 或 Transient 服务。 在 Blazor Server 应用中，请求范围会在客户端连接期间一直持续存在，这可能导致暂时性和范围内服务的生存期比预期要长得多。 在 Blazor WebAssembly 应用中，已注册范围内生存期的服务被视为单一实例，因此它们的生存期比典型 ASP.NET Core 应用中的范围内服务要长。
+
+> [!NOTE]
+> 若要在应用中检测可释放的暂时性服务，请参阅[检测暂时性可释放对象](#detect-transient-disposables)部分。
 
 限制 Blazor 应用中服务生存期的一种方法是使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 类型。 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 是派生自 <xref:Microsoft.AspNetCore.Components.ComponentBase> 的一种抽象类型，它会创建与组件生存期相对应的 DI 范围。 通过使用此范围，可使用具有 Scoped 生存期的 DI 服务，并使其生存期与组件的生存期一样长。 销毁组件时，也会处置组件的 Scoped 服务提供程序提供的服务。 这对以下服务很有用：
 
@@ -342,6 +346,34 @@ public class DataAccess : IDataAccess
         }
     }
     ```
+
+## <a name="detect-transient-disposables"></a>检测暂时性可释放对象
+
+下面的示例演示如何在应使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 的应用中检测可释放的暂时性服务。 有关详细信息，请参阅[用于管理 DI 范围的实用工具基组件类](#utility-base-component-classes-to-manage-a-di-scope)部分。
+
+### Blazor WebAssembly
+
+`DetectIncorrectUsagesOfTransientDisposables.cs`：
+
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-wasm.cs)]
+
+在以下示例中检测到 `TransientDisposable` (`Program.cs`)：
+
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/wasm-program.cs?highlight=6,9,17,22-25)]
+
+### Blazor Server
+
+`DetectIncorrectUsagesOfTransientDisposables.cs`：
+
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-server.cs)]
+
+`Program`：
+
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/server-program.cs?highlight=3)]
+
+在以下示例中检测到 `TransientDependency` (`Startup.cs`)：
+
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/server-startup.cs?highlight=6-8,11-32)]
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/startup
-ms.openlocfilehash: 39fba5ccc99ec0ecf32df5681cfc025c52bc5469
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: 0d1bf0dd23b7f3b99d6e9383ffc72291c1b138ec
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776430"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400708"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core 中的应用启动
 
@@ -32,7 +33,7 @@ ms.locfileid: "82776430"
 
 ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `Startup` 类：
 
-* 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务  。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中注册服务，并通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用服务  。
+* 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中注册服务，并通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用服务。
 * 包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> 方法以创建应用的请求处理管道。
 
 在应用启动时，ASP.NET Core 运行时会调用 `ConfigureServices` 和 `Configure`：
@@ -42,7 +43,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 前面的示例适用于 [Razor Pages](xref:razor-pages/index)；MVC 版本类似。
 
 
-在构建应用[主机](xref:fundamentals/index#host)时指定 `Startup` 类。 通常通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：
+在构建应用[主机](xref:fundamentals/index#host)时指定 `Startup` 类。 通常，通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：
 
 [!code-csharp[](startup/3.0_samples/Program3.cs?name=snippet_Program&highlight=12)]
 
@@ -167,14 +168,14 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `Startup` 类：
 
-* 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务  。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中注册服务，并通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用服务  。
+* 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中注册服务，并通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用服务。
 * 包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> 方法以创建应用的请求处理管道。
 
 在应用启动时，ASP.NET Core 运行时会调用 `ConfigureServices` 和 `Configure`：
 
 [!code-csharp[](startup/sample_snapshot/Startup1.cs)]
 
-在构建应用[主机](xref:fundamentals/index#host)时指定 `Startup` 类。 通常通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：
+在构建应用[主机](xref:fundamentals/index#host)时指定 `Startup` 类。 通常，通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：
 
 [!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=12)]
 

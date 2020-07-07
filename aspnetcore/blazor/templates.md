@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: ce46d562285b95ff656ed43b3a63ca5e7315f4c8
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 6359a02b23803f26c4a40772c68d39e804396403
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243208"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401891"
 ---
 # <a name="aspnet-core-blazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -74,7 +75,7 @@ dotnet new blazorserver --help
     * 加载 `_framework/blazor.server.js` JavaScript 文件，该文件用于在浏览器和服务器之间建立实时 SignalR 连接。
     * 此主机页面指定根 `App` 组件 (`App.razor`) 的呈现位置。
   * `Counter` (`Pages/Counter.razor`)：实现“计数器”页面。
-  * `Error`（`Error.razor`，仅限 Blazor Server 应用）：当应用中发生未经处理的异常时呈现。
+  * `Error`（`Error.razor`，仅 Blazor Server 应用）：当应用中发生未经处理的异常时呈现。
   * `FetchData` (`Pages/FetchData.razor`)：实现“提取数据”页面。
   * `Index` (`Pages/Index.razor`)：实现主页。
 
@@ -84,7 +85,7 @@ dotnet new blazorserver --help
 
 * `_Imports.razor`：包括要包含在应用组件 (`.razor`) 中的常见 Razor 指令，如用于命名空间的 [`@using`](xref:mvc/views/razor#using) 指令。
 
-* `Data` folder (Blazor Server)：包含 `WeatherForecast` 类和 `WeatherForecastService` 的实现，它们向应用的 `FetchData` 组件提供示例天气数据。
+* `Data` 文件夹 (Blazor Server)：包含 `WeatherForecast` 类和 `WeatherForecastService` 的实现，它们向应用的 `FetchData` 组件提供示例天气数据。
 
 * `wwwroot`：应用的 [Web 根目录](xref:fundamentals/index#web-root)文件夹，其中包含应用的公共静态资产。
 

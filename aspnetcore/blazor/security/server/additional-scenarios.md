@@ -1,34 +1,35 @@
 ---
-title: ASP.NET Core Blazor 服务器其他安全方案
+title: ASP.NET Core Blazor Server 其他安全方案
 author: guardrex
-description: 了解如何为其他安全方案配置 Blazor 服务器。
+description: 了解如何为其他安全方案配置 Blazor Server。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/server/additional-scenarios
-ms.openlocfilehash: 7f92f82d6e78771494b9f2358ee19153502f8dcb
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 46de9a22dec540b8dfda7583b7a3c5c2dcbbc549
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243039"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402320"
 ---
-# <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor 服务器其他安全方案
+# <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server 其他安全方案
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)
 
-## <a name="pass-tokens-to-a-blazor-server-app"></a>将令牌传递到 Blazor 服务器应用
+## <a name="pass-tokens-to-a-blazor-server-app"></a>将令牌传递到 Blazor Server 应用
 
-可以使用本节中介绍的方法将 Blazor 服务器应用中 Razor 组件外部可用的令牌传递给组件。 有关示例代码（包括完整的 `Startup.ConfigureServices` 示例），请参阅[将令牌传递到服务器端 Blazor 应用程序](https://github.com/javiercn/blazor-server-aad-sample)。
+可以使用本节中介绍的方法将 Blazor Server 应用中 Razor 组件外部可用的令牌传递给组件。 有关示例代码（包括完整的 `Startup.ConfigureServices` 示例），请参阅[将令牌传递到服务器端 Blazor 应用程序](https://github.com/javiercn/blazor-server-aad-sample)。
 
-与对常规 Razor Pages 或 MVC 应用进行身份验证一样，对 Blazor 服务器应用进行身份验证。 预配令牌并将其保存到身份验证 cookie。 例如：
+与对常规 Razor Pages 或 MVC 应用进行身份验证一样，对 Blazor Server 应用进行身份验证。 预配令牌并将其保存到身份验证 cookie。 例如：
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;

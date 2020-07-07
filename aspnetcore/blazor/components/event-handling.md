@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/components/event-handling
-ms.openlocfilehash: 4ac7b82d734f078cf50901d02e7d0c4eb8bb45bb
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 2fce394202be5df9af67e8afca27a0914f410402
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242414"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399031"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Core Blazor 事件处理
 
@@ -139,7 +140,7 @@ private void ShowMessage(MouseEventArgs e)
 ```
 
 > [!NOTE]
-> 不要直接在 Lambda 表达式中使用循环变量，如前面的 `for` 循环示例中的 `i` 或 `foreach` 循环中的引用变量。 否则，所有 Lambda 表达式将使用相同的变量，这将导致在所有 Lambda 中使用相同的值。 始终在局部变量中捕获该变量的值，然后使用该值。 在前面的示例中，循环变量 `i` 分配给 `buttonNumber`。
+> 不要直接在 Lambda 表达式中使用循环变量，如前面的 `for` 循环示例中的 `i`。 否则，所有 Lambda 表达式将使用相同的变量，这将导致在所有 Lambda 中使用相同的值。 始终在局部变量中捕获该变量的值，然后使用该值。 在前面的示例中，循环变量 `i` 分配给 `buttonNumber`。
 
 ## <a name="eventcallback"></a>EventCallback
 

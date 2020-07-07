@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 02/18/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: d4ebab0d8fc2ee48fa4d9c8b1f1b8e5cbf43cab9
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: bdea9f2fe5c552b56414bb49588733c8dc2a34db
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242436"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400214"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
 
@@ -26,7 +27,7 @@ ms.locfileid: "85242436"
 
 ## <a name="blazor-server-circuit-handler"></a>Blazor Server 线路处理程序
 
-Blazor 服务器允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。 线路处理程序通过从 `CircuitHandler` 派生并在应用的服务容器中注册该类实现。 以下线路处理程序示例跟踪打开的 SignalR 连接：
+Blazor Server 允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。 线路处理程序通过从 `CircuitHandler` 派生并在应用的服务容器中注册该类实现。 以下线路处理程序示例跟踪打开的 SignalR 连接：
 
 ```csharp
 using System.Collections.Generic;

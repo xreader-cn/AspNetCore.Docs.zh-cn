@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: c02d005aa5e37bc359e1c104a19c387f1c16fa34
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: e59579046ecbfdbb4cca79bfb0e39d299e26913c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243546"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402593"
 ---
 # <a name="host-and-deploy-blazor-server"></a>托管和部署 Blazor Server
 
@@ -54,7 +55,7 @@ ms.locfileid: "85243546"
 
 ### <a name="signalr-configuration"></a>SignalR 配置
 
-Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [SignalR 的托管和缩放条件 ](xref:signalr/publish-to-azure-web-app) 适用于 Blazor Server 应用。
+Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [SignalR 的托管和缩放条件](xref:signalr/publish-to-azure-web-app)适用于 Blazor Server 应用。
 
 由于低延迟、可靠性和[安全性](xref:signalr/security)，使用 WebSocket 作为 SignalR 传输时，Blazor 的效果最佳。 当 WebSocket 不可用时，或在将应用显式配置为使用长轮询时，SignalR 将使用长轮询。 部署到 Azure 应用服务时，请在服务的 Azure 门户设置中将应用配置为使用 WebSocket。 有关为 Azure 应用服务配置应用的详细信息，请参阅 [SignalR 发布指南](xref:signalr/publish-to-azure-web-app)。
 

@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/21/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 34ed08a5b49b56fd37628032ac73fe03a34448e6
-ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
-ms.translationtype: HT
+ms.openlocfilehash: 2074aa75029cf27922b43545ec18c0cd8a50eb02
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85240847"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793345"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -414,6 +415,8 @@ public class Program
 请求服务表示作为应用的一部分配置和请求的服务。 当对象指定依赖关系时，`RequestServices`（而不是 `ApplicationServices`）中的类型将满足这些要求。
 
 通常，应用不应直接使用这些属性。 相反，通过类构造函数请求类所需的类型，并允许框架注入依赖关系。 这样生成的类更易于测试。
+
+ASP.NET Core 为每个请求创建一个范围，`RequestServices` 公开范围内服务提供程序。 只要请求处于活动状态，所有范围内的服务都有效。
 
 > [!NOTE]
 > 与访问 `RequestServices` 集合相比，以构造函数参数的形式请求依赖项是更优先的选择。

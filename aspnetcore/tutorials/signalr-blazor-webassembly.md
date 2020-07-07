@@ -8,23 +8,24 @@ ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 3f8aeec1e0471bab5034d1dcc8a42023f6b13c0d
-ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
-ms.translationtype: HT
+ms.openlocfilehash: 5a58e7ae28842e2e8a0f3bae8f47e252839903fe
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/20/2020
-ms.locfileid: "85122095"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408872"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
-本教程介绍使用 SignalR 和 Blazor WebAssembly 生成实时应用的基础知识。 您将学习如何：
+本教程介绍结合使用 SignalR 和 Blazor WebAssembly 生成实时应用的基础知识。 您将学习如何：
 
 > [!div class="checklist"]
 > * 创建 Blazor WebAssembly 托管应用项目

@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: f56fb0f09845ded6ef6907221a27f71621a155d1
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 237a8fceb75ba724625f018cf94c8d5bc5acfdad
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242805"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402580"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>利用 ASP.NET Core Blazor WebAssembly 生成渐进式 Web 应用程序
 
@@ -192,7 +193,7 @@ const shouldServeIndexHtml = event.request.mode === 'navigate'
 * 任何 Blazor 管理的资源（如 .NET 程序集）以及脱机工作所需的 .NET WebAssembly 运行时文件。
 * 用于发布到应用的 `wwwroot` 目录的所有资源，例如图像、样式表和 JavaScript 文件，包括由外部项目和 NuGet 包提供的静态 Web 资产。
 
-通过编辑 `service-worker.published.js` 中 `onInstall` 中的逻辑，可控制服务工作进程所提取和缓存的资源。 默认情况下，服务工作进程将提取并缓存与典型 Web 文件扩展名匹配的文件，例如 `.html`、`.css`、`.js` 和 `.wasm` 等文件，以及特定于 Blazor WebAssembly 的文件类型（`.dll`、`.pdb`）。
+通过编辑 `service-worker.published.js` 中 `onInstall` 中的逻辑，可控制服务工作进程所提取和缓存的资源。 默认情况下，服务工作进程将提取并缓存与典型 Web 文件扩展名（例如 `.html`、`.css`、`.js` 和 `.wasm`）匹配的文件，以及特定于 Blazor WebAssembly 的文件类型（`.dll`、`.pdb`）。
 
 要包括应用的 `wwwroot` 目录中不存在的其他资源，请定义额外的 MSBuild `ItemGroup` 条目，如以下示例所示：
 

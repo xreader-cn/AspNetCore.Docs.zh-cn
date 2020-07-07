@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/fundamentals/configuration
-ms.openlocfilehash: 0e36b81d771b07e85158724c02210ee50a3ab118
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 9c83784676e061664b2ae980faadcbe0f84c9985
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242675"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402918"
 ---
 # <a name="aspnet-core-blazor-configuration"></a>ASP.NET Core Blazor 配置
 
@@ -30,7 +31,7 @@ Blazor WebAssembly 加载以下来源的配置：
 * 应用设置文件（默认）：
   * `wwwroot/appsettings.json`
   * `wwwroot/appsettings.{ENVIRONMENT}.json`
-* 应用注册的其他 [配置提供程序](xref:fundamentals/configuration/index)。 并非所有提供程序都适用于 Blazor WebAssembly 应用。 Blazor WASM 的[ Clarify 配置提供程序 (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134) 会跟踪有关 Blazor WebAssembly 所支持提供程序的说明。
+* 应用注册的其他 [配置提供程序](xref:fundamentals/configuration/index)。 并非所有提供程序都适用于 Blazor WebAssembly 应用。 Blazor WASM 的 [Clarify 配置提供程序 (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134) 会跟踪有关 Blazor WebAssembly 所支持提供程序的说明。
 
 > [!WARNING]
 > Blazor WebAssembly 应用中的配置对用户可见。 请勿在配置中存储应用机密或凭据。

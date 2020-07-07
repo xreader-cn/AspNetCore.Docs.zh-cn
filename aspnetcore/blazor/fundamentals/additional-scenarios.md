@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: 72a8b59b06e40f6f85abe41217ae564f82c8d89c
-ms.sourcegitcommit: 1833870ad0845326fb764fef1b530a07b9b5b099
-ms.translationtype: HT
+ms.openlocfilehash: 236dffd829bcd7c30ae1145242ce07cd8e9857e6
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85347068"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402944"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
@@ -61,7 +62,7 @@ ms.locfileid: "85347068"
 
 ## <a name="reflect-the-connection-state-in-the-ui"></a>反映 UI 中的连接状态
 
-本部分适用于 Blazor 服务器。
+本部分适用于 Blazor Server。
 
 如果客户端检测到连接已丢失，在客户端尝试重新连接时会向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。
 
@@ -84,9 +85,9 @@ ms.locfileid: "85347068"
 
 ## <a name="render-mode"></a>呈现模式
 
-本部分适用于 Blazor 服务器。
+本部分适用于 Blazor Server。
 
-默认情况下，Blazor 服务器应用设置为：在客户端与服务器建立连接之前在服务器上预呈现 UI。 这是在 `_Host.cshtml` Razor 页中设置的：
+默认情况下，Blazor Server 应用设置为：在客户端与服务器建立连接之前在服务器上预呈现 UI。 这是在 `_Host.cshtml` Razor 页中设置的：
 
 ```cshtml
 <body>
@@ -105,17 +106,17 @@ ms.locfileid: "85347068"
 
 | <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> | 描述 |
 | --- | --- |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 将组件呈现为静态 HTML，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor Server 应用的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 将组件呈现为静态 HTML。 |
 
 不支持从静态 HTML 页面呈现服务器组件。
 
-## <a name="configure-the-signalr-client-for-blazor-server-apps"></a>为 Blazor 服务器应用配置 SignalR 客户端
+## <a name="configure-the-signalr-client-for-blazor-server-apps"></a>为 Blazor Server 应用配置 SignalR 客户端
 
-本部分适用于 Blazor 服务器。
+本部分适用于 Blazor Server。
 
-有时，需要配置 Blazor 服务器应用使用的 SignalR 客户端。 例如，可能需要在 SignalR 客户端上配置日志记录以诊断连接问题。
+有时，需要配置 Blazor Server 应用使用的 SignalR 客户端。 例如，可能需要在 SignalR 客户端上配置日志记录以诊断连接问题。
 
 在 `Pages/_Host.cshtml` 文件中配置 SignalR 客户端：
 

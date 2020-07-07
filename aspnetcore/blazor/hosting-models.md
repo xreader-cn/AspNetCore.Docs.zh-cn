@@ -1,36 +1,37 @@
 ---
 title: ASP.NET Core Blazor 托管模型
 author: guardrex
-description: 了解 Blazor WebAssembly 和 Blazor 服务器托管模型。
+description: 了解 Blazor WebAssembly 和 Blazor Server 托管模型。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: a54f92d1c951792e599992b82e6b6d5c85549292
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: ba43ff052fbd290412fa27cf57ace3ee3491f8d0
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243494"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402554"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
 作者：[Daniel Roth](https://github.com/danroth27)
 
-Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassembly.org/) 的 .NET 运行时 (Blazor WebAssembly) 上的浏览器中运行客户端，或在 ASP.NET Core（Blazor 服务器）中运行服务器端 。 对于任意托管模型，应用和组件模型都相同。
+Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassembly.org/) 的 .NET 运行时 (Blazor WebAssembly) 上的浏览器中运行客户端，或在 ASP.NET Core (Blazor Server) 中运行服务器端 。 对于任意托管模型，应用和组件模型都相同。
 
 若要为本文所述的托管模型创建项目，请参阅 <xref:blazor/get-started>。
 
 对于高级配置，请参阅 <xref:blazor/fundamentals/configuration>。
 
-## <a name="blazor-webassembly"></a>Blazor WebAssembly
+## Blazor WebAssembly
 
 Blazor 的主要托管模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理在同一进程中进行。 应用资产作为静态文件部署到可为客户端提供静态内容的 Web 服务器或服务中。
 
@@ -61,13 +62,13 @@ Blazor WebAssembly 托管具有以下缺点：
 
 Blazor 托管应用模型支持 [Docker 容器](/dotnet/standard/microservices-architecture/container-docker-introduction/index)。 在 Visual Studio 中右键单击 Server 项目，然后选择“添加” > “Docker 支持” 。
 
-## <a name="blazor-server"></a>Blazor 服务器
+## Blazor Server
 
-使用 Blazor 服务器托管模型可从 ASP.NET Core 应用中在服务器上执行应用。 UI 更新、事件处理和 JavaScript 调用是通过 [SignalR](xref:signalr/introduction) 连接进行处理。
+使用 Blazor Server 托管模型可从 ASP.NET Core 应用中在服务器上执行应用。 UI 更新、事件处理和 JavaScript 调用是通过 [SignalR](xref:signalr/introduction) 连接进行处理。
 
 ![浏览器通过 SignalR 连接与服务器上的应用进行交互（该应用托管在 ASP.NET Core 应用内部）。](hosting-models/_static/blazor-server.png)
 
-若要使用 Blazor 服务器托管模型创建 Blazor 应用，请使用 ASP.NET Core Blazor 服务器应用模板 ([`dotnet new blazorserver`](/dotnet/core/tools/dotnet-new))。 ASP.NET Core 应用会托管 Blazor 服务器应用，并在连接客户端的位置创建 SignalR 终结点。
+若要使用 Blazor Server 托管模型创建 Blazor 应用，请使用 ASP.NET Core Blazor Server 应用模板 ([`dotnet new blazorserver`](/dotnet/core/tools/dotnet-new))。 ASP.NET Core 应用会托管 Blazor Server 应用，并在连接客户端的位置创建 SignalR 终结点。
 
 ASP.NET Core 应用会引用应用的 `Startup` 类以添加以下内容：
 
@@ -76,15 +77,15 @@ ASP.NET Core 应用会引用应用的 `Startup` 类以添加以下内容：
 
 `blazor.server.js` 脚本会建立客户端连接。 应用负责根据需要保存和还原应用状态（例如在网络连接丢失时）。 `blazor.server.js` 脚本由 ASP.NET Core 共享框架中的嵌入资源提供。
 
-Blazor 服务器托管模型具有以下优点：
+Blazor Server 托管模型具有以下优点：
 
 * 下载项大小明显小于 Blazor WebAssembly 应用，且应用加载速度快得多。
 * 应用可充分利用服务器功能，包括使用任何与 .NET Core 兼容的 API。
 * 服务器上的 .NET Core 用于运行应用，因此调试等现有 .NET 工具可按预期正常工作。
-* 支持瘦客户端。 例如，Blazor 服务器应用适用于不支持 WebAssembly 的浏览器以及资源受限的设备。
+* 支持瘦客户端。 例如，Blazor Server 应用适用于不支持 WebAssembly 的浏览器以及资源受限的设备。
 * 应用的 .NET/C# 代码库（其中包括应用的组件代码）不适用于客户端。
 
-Blazor 服务器托管具有以下缺点：
+Blazor Server 托管具有以下缺点：
 
 * 通常延迟较高。 每次用户交互都涉及到网络跃点。
 * 不支持脱机工作。 如果客户端连接失败，应用会停止工作。
@@ -95,7 +96,7 @@ Blazor Server 应用模型支持 [Docker 容器](/dotnet/standard/microservices-
 
 ### <a name="comparison-to-server-rendered-ui"></a>与服务器呈现的 UI 进行比较
 
-理解 Blazor 服务器应用的一种方法是，了解其与使用 Razor 视图或 Razor Pages 在 ASP.NET Core 应用中呈现 UI 的惯用模型之间的差异。 这两种模型都使用 Razor 语言描述 HTML 内容，但两者在标记的呈现方式上差别显著。
+理解 Blazor Server 应用的一种方法是，了解其与使用 Razor 视图或 Razor Pages 在 ASP.NET Core 应用中呈现 UI 的惯用模型之间的差异。 这两种模型都使用 Razor 语言描述 HTML 内容，但两者在标记的呈现方式上差别显著。
 
 呈现 Razor 页面或视图时，每行 Razor 代码都以文本形式发出 HTML。 呈现后，服务器会丢弃页面或视图实例，包括生成的任何状态。 出现另一个对该页面的请求时，例如，服务器验证失败并显示验证摘要时：
 
@@ -116,36 +117,36 @@ Blazor 中的 UI 更新由以下内容触发：
 
 图已呈现，且 UI diff（差异）已计算。 此差异是更新客户端上的 UI 所需的最小一组 DOM 编辑。 差异以二进制格式发送到客户端，并由浏览器应用。
 
-用户在客户端上退出组件之后，组件会被丢弃。 用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于服务器可能同时保存多个组件的状态，因此必须解决内存不足的问题。 要了解如何创作 Blazor 服务器应用以确保充分使用服务器内存，请参阅 <xref:blazor/security/server/threat-mitigation>。
+用户在客户端上退出组件之后，组件会被丢弃。 用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于服务器可能同时保存多个组件的状态，因此必须解决内存不足的问题。 要了解如何创作 Blazor Server 应用以确保充分使用服务器内存，请参阅 <xref:blazor/security/server/threat-mitigation>。
 
 ### <a name="circuits"></a>线路
 
-Blazor 服务器应用基于 [ASP.NET CoreSignalR](xref:signalr/introduction) 构建。 每个客户端通过一个或多个称为“线路”的 SignalR 连接与服务器通信。 线路是 Blazor 对可容忍短暂网络中断的 SignalR 连接的抽象。 Blazor 客户端发现 SignalR 连接已断开时，它会尝试使用新的 SignalR 连接来重新连接到服务器。
+Blazor Server 应用基于 [ASP.NET CoreSignalR](xref:signalr/introduction) 构建。 每个客户端通过一个或多个称为“线路”的 SignalR 连接与服务器通信。 线路是 Blazor 对可容忍短暂网络中断的 SignalR 连接的抽象。 Blazor 客户端发现 SignalR 连接已断开时，它会尝试使用新的 SignalR 连接来重新连接到服务器。
 
-连接到 Blazor 服务器应用的每个浏览器屏幕（浏览器标签页或 iframe）均使用 SignalR 连接。 与典型服务器呈现应用相比，这是另一个关键差异。 在服务器呈现应用的多个浏览器屏幕中打开同一应用通常不需要服务器上的其他资源。 在 Blazor 服务器应用中，若服务器要管理浏览器屏幕，则每个浏览器屏幕均需要独立线路和组件状态的独立实例。
+连接到 Blazor Server 应用的每个浏览器屏幕（浏览器标签页或 iframe）均使用 SignalR 连接。 与典型服务器呈现应用相比，这是另一个关键差异。 在服务器呈现应用的多个浏览器屏幕中打开同一应用通常不需要服务器上的其他资源。 在 Blazor Server 应用中，若服务器要管理浏览器屏幕，则每个浏览器屏幕均需要独立线路和组件状态的独立实例。
 
-Blazor 将关闭浏览器标签页或访问外部 URL 视为正常终止。 如果正常终止，则会立即释放线路和关联的资源。 例如，由于网络中断，客户端也可能异常地断开连接。 Blazor 服务器会将断开连接的路线存储一段时间（可配置），以便客户端重新连接。
+Blazor 将关闭浏览器标签页或访问外部 URL 视为正常终止。 如果正常终止，则会立即释放线路和关联的资源。 例如，由于网络中断，客户端也可能异常地断开连接。 Blazor Server 会将断开连接的路线存储一段时间（可配置），以便客户端重新连接。
 
-Blazor 服务器允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。 有关详细信息，请参阅 <xref:blazor/advanced-scenarios#blazor-server-circuit-handler>。
+Blazor Server 允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。 有关详细信息，请参阅 <xref:blazor/advanced-scenarios#blazor-server-circuit-handler>。
 
 ### <a name="ui-latency"></a>UI 延迟
 
-UI 延迟是指从启动操作到 UI 更新所需的时间。 要使应用对用户进行响应，需要 UI 延迟值较小。 在 Blazor 服务器应用中，每个操作都会发送到服务器并进行处理，然后发回 UI 差异。 因此，UI 延迟是网络延迟和处理操作时的服务器延迟的总和。
+UI 延迟是指从启动操作到 UI 更新所需的时间。 要使应用对用户进行响应，需要 UI 延迟值较小。 在 Blazor Server 应用中，每个操作都会发送到服务器并进行处理，然后发回 UI 差异。 因此，UI 延迟是网络延迟和处理操作时的服务器延迟的总和。
 
 如果是仅用于专用公司网络的业务线应用，用户通常不易感受到因网络延迟而导致的延迟。 如果是通过 Internet 部署的应用，用户可能会更容易感受到延迟，用户分布广泛时感受尤为明显。
 
 内存使用也会导致应用延迟。 内存使用率增大会导致垃圾收集频繁或内存分页到磁盘，两者均会降低应用性能，进而增大 UI 延迟。
 
-Blazor 服务器应用应降低网络延迟和内存使用率，从而优化以最大限度地降低 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:blazor/host-and-deploy/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅以下内容：
+Blazor Server 应用应降低网络延迟和内存使用率，从而优化以最大限度地降低 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:blazor/host-and-deploy/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅以下内容：
 
 * <xref:blazor/host-and-deploy/server>
 * <xref:blazor/security/server/threat-mitigation>
 
 ### <a name="connection-to-the-server"></a>连接到服务器
 
-Blazor 服务器应用需要与服务器建立有效的 SignalR 连接。 如果连接丢失，应用会尝试重新连接到服务器。 只要客户端的状态仍在内存中，客户端会话即可恢复，且不会失去状态。
+Blazor Server 应用需要与服务器建立有效的 SignalR 连接。 如果连接丢失，应用会尝试重新连接到服务器。 只要客户端的状态仍在内存中，客户端会话即可恢复，且不会失去状态。
 
-Blazor 服务器应用预呈现以响应第一个客户端请求，这会在服务器上设置 UI 状态。 客户端尝试创建 SignalR 连接时，必须重新连接到同一服务器。 使用多个后端服务器的 Blazor 服务器应用应实现粘滞会话，从而建立 SignalR 连接。
+Blazor Server 应用预呈现以响应第一个客户端请求，这会在服务器上设置 UI 状态。 客户端尝试创建 SignalR 连接时，必须重新连接到同一服务器。 使用多个后端服务器的 Blazor Server 应用应实现粘滞会话，从而建立 SignalR 连接。
 
 我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 可将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，从而为 Azure SignalR 服务启用粘滞会话。 有关详细信息，请参阅 <xref:blazor/host-and-deploy/server#signalr-configuration>。
 

@@ -4,26 +4,32 @@ author: jamesnk
 description: 了解如何配置 ASP.NET Core 上的 gRPC 服务，以使其可以从使用 gRPC-Web 的浏览器应用中进行调用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 05/26/2020
+ms.date: 06/29/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: 6f66a94b41e6e13550396e2e19fdf48f9dc63d46
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
-ms.translationtype: HT
+ms.openlocfilehash: 20f72deb9895111a6e691eb1ee5cd7419c8c4cb4
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106593"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793510"
 ---
 # <a name="use-grpc-in-browser-apps"></a>在浏览器应用中使用 gRPC
 
 作者：[James Newton-King](https://twitter.com/jamesnk)
 
-无法从基于浏览器的应用中调用 HTTP/2 gRPC 服务。 [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) 是一种允许浏览器 JavaScript 和 Blazor 应用调用 gRPC 服务的协议。 本文介绍如何使用 .NET Core 中的 gRPC-Web。
+ 了解如何配置现有 ASP.NET Core gRPC 服务，以使其可以从使用 [gRPC-Web](https://github.com/grpc/grpc/blob/2a388793792cc80944334535b7c729494d209a7e/doc/PROTOCOL-WEB.md) 协议的浏览器应用中进行调用。 gRPC-Web 允许浏览器 JavaScript 和 Blazor 应用调用 gRPC 服务。 无法从基于浏览器的应用中调用 HTTP/2 gRPC 服务。 可将托管于 ASP.NET Core 中的 gRPC 服务配置为随 HTTP/2 gRPC 一起支持 gRPC-Web。
+
+
+有关将 gRPC 服务添加到现有 ASP.NET Core 应用的说明，请参阅[将 gRPC 服务添加到 ASP.NET Core 应用](xref:grpc/aspnetcore#add-grpc-services-to-an-aspnet-core-app)。
+
+有关创建 gRPC 项目的说明，请参阅 <xref:tutorials/grpc/grpc-start>。
 
 ## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>.NET Core 中的 gRPC-Web 与Envoy
 
@@ -32,7 +38,7 @@ ms.locfileid: "84106593"
 * 在 ASP.NET Core 中同时支持 gRPC-Web 和 gRPC HTTP/2。 此选项会使用 `Grpc.AspNetCore.Web` 包提供的中间件。
 * 使用 [Envoy 代理](https://www.envoyproxy.io/)的 gRPC-Web 支持将 gRPC-Web 转换为 gRPC HTTP/2。 转换后的调用随后会转发给 ASP.NET Core 应用。
 
-每种方法既有优点，也有缺点。 如果已在应用的环境中使用 Envoy 作为代理，则合理的做法可能是还用它来提供 gRPC-Web 支持。 如果想向 gRPC-Web 提供一种仅需要 ASP.NET Core 的简单解决方案，则 `Grpc.AspNetCore.Web` 是一个不错的选择。
+每种方法既有优点，也有缺点。 如果应用的环境已将 Envoy 用作代理，则也可以使用 Envoy 提供 gRPC-Web 支持。 对于仅需要 ASP.NET Core 的 gRPC-Web 的基本解决方案，`Grpc.AspNetCore.Web` 是一个不错的选择。
 
 ## <a name="configure-grpc-web-in-aspnet-core"></a>配置 ASP.NET Core 中的 gRPC-Web
 
@@ -63,7 +69,7 @@ ms.locfileid: "84106593"
 
 浏览器安全性可防止网页向不处理网页的域发送请求。 此限制适用于使用浏览器应用发出 gRPC-Web 调用。 例如，由 `https://www.contoso.com` 提供服务的浏览器应用对托管于 `https://services.contoso.com` 上的 gRPC-Web 服务的调用会被阻止。 跨域资源共享 (CORS) 可用于放宽此限制。
 
-若要允许浏览器应用进行跨域 gRPC-Web 调用，请[在 ASP.NET Core 中设置 CORS](xref:security/cors)。 使用内置 CORS 支持，并使用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*> 公开特定于 gRPC 的标头。
+若要允许浏览器应用进行跨域 gRPC-Web 调用，请[在 ASP.NET Core 中设置 CORS](xref:security/cors)。 使用内置 CORS 支持，并使用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders%2A> 公开特定于 gRPC 的标头。
 
 [!code-csharp[](~/grpc/browser/sample/CORS_Startup.cs?name=snippet_1&highlight=5-11,19,24)]
 

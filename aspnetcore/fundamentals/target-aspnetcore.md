@@ -7,17 +7,18 @@ ms.custom: mvc
 ms.date: 12/16/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/target-aspnetcore
-ms.openlocfilehash: 70a445d109a1a9553178e94d79df87cd373e6b06
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
-ms.translationtype: HT
+ms.openlocfilehash: 1c794092b856a916a318956d7cfb357d46a22d1d
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103022"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399642"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>使用类库中的 ASP.NET Core API
 
@@ -29,8 +30,8 @@ ms.locfileid: "85103022"
 
 ASP.NET Core 遵从 [.NET Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)。 确定库要支持哪些 ASP.NET Core 版本时，请参阅支持策略。 库应符合以下条件：
 
-* 努力支持列为“长期支持”(LTS) 类别的所有 ASP.NET Core 版本。**
-* 无需支持列为“生命周期结束”(EOL) 类别的 ASP.NET Core 版本。**
+* 努力支持列为“长期支持”(LTS) 类别的所有 ASP.NET Core 版本。
+* 无需支持列为“生命周期结束”(EOL) 类别的 ASP.NET Core 版本。
 
 由于 ASP.NET Core 预览版已推出，因此已在 [aspnet/Announcements](https://github.com/aspnet/Announcements/issues) GitHub 存储库中发布中断性变更。 开发框架功能时，可执行库兼容性测试。
 
@@ -52,11 +53,11 @@ Blazor 支持 WebAssembly (WASM) 和服务器[托管模型](xref:blazor/hosting-
 
 ### <a name="support-both-hosting-models"></a>同时支持两种托管模型
 
-请针对自己的编辑器使用以下说明，以同时支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
+请针对自己的编辑器使用以下说明，以同时支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-使用 Razor 类库项目模板****。 应取消选中此模板的“支持页和视图”复选框。****
+使用 Razor 类库项目模板。 应取消选中此模板的“支持页和视图”复选框。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -68,7 +69,7 @@ dotnet new razorclasslib
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-使用 Razor 类库项目模板****。
+使用 Razor 类库项目模板。
 
 ---
 
@@ -86,7 +87,7 @@ dotnet new razorclasslib
 
 ### <a name="support-a-specific-hosting-model"></a>支持特定托管模型
 
-支持单个 Blazor 托管模型并不常见。 例如，通过完成以下操作来仅支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)项目的 Razor 组件消耗：
+支持单个 Blazor 托管模型并不常见。 例如，通过完成以下操作来仅支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 项目的 Razor 组件消耗：
 
 * 面向 .NET Core 3.x。
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
@@ -116,11 +117,11 @@ dotnet new razorclasslib
 * `AddRazorSupportForMvc` MSBuild 属性设置为 `true`。
 * 具有针对共享框架的 `<FrameworkReference>` 元素。
 
-Razor 类库项目模板符合针对面向 .NET Core 3.x 的项目的上述要求****。 请针对自己的编辑器使用以下说明。
+Razor 类库项目模板符合针对面向 .NET Core 3.x 的项目的上述要求。 请针对自己的编辑器使用以下说明。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-使用 Razor 类库项目模板****。 应选中此模板的“支持页和视图”复选框。****
+使用 Razor 类库项目模板。 应选中此模板的“支持页和视图”复选框。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 

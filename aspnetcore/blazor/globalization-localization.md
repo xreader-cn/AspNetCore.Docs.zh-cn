@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 5050d99e5304c7edaf6faa43f05298b69882521d
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 1d24ebe900dfcdeb8b7bcc97f1d212deea9cecae
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243585"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402723"
 ---
 # <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
@@ -63,7 +64,7 @@ Blazor 的 [`@bind`](xref:mvc/views/razor#bind) 功能基于用户的当前区�
 
 ## <a name="localization"></a>本地化
 
-### <a name="blazor-webassembly"></a>Blazor WebAssembly
+### Blazor WebAssembly
 
 Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)设置区域性。
 
@@ -73,9 +74,9 @@ Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozi
 
 虽然 Blazor 默认选择的区域性可能足以满足大多数用户的需求，但请考虑为用户提供一种指定其首选区域设置的方法。 如需获取具有区域性选取器的 Blazor WebAssembly 示例应用，请参阅 [`LocSample`](https://github.com/pranavkm/LocSample) 本地化示例应用。
 
-### <a name="blazor-server"></a>Blazor 服务器
+### Blazor Server
 
-Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#localization-middleware)进行本地化。 中间件为从应用请求资源的用户选择相应的区域性。
+Blazor Server 应用使用[本地化中间件](xref:fundamentals/localization#localization-middleware)进行本地化。 中间件为从应用请求资源的用户选择相应的区域性。
 
 可使用以下方法之一设置区域性：
 
@@ -119,9 +120,9 @@ Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#
 1. 浏览器向应用发送初始 HTTP 请求。
 1. 本地化中间件分配区域性。
 1. `_Host` 页面 (`_Host.cshtml`) 中的 Razor 表达式将区域性作为响应的一部分保留在 Cookie 中。
-1. 浏览器打开 WebSocket 连接以创建交互式 Blazor 服务器会话。
+1. 浏览器打开 WebSocket 连接以创建交互式 Blazor Server 会话。
 1. 本地化中间件读取 cookie 并分配区域性。
-1. Blazor 服务器会话以正确的区域性开始。
+1. Blazor Server 会话以正确的区域性开始。
 
 #### <a name="provide-ui-to-choose-the-culture"></a>提供用于选择区域性的 UI
 

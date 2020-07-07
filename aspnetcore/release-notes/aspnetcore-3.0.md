@@ -7,17 +7,18 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: f2588665c26887a6e3864866425b887e97e656d5
-ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
-ms.translationtype: HT
+ms.openlocfilehash: 6e31a8f49ca535f98f4e073af13896386a4a0feb
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2020
-ms.locfileid: "84755867"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408209"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -43,9 +44,9 @@ Blazor 框架支持的方案：
 
 有关详细信息，请参阅 <xref:blazor/index>。
 
-### <a name="blazor-server"></a>Blazor 服务器
+### Blazor Server
 
-Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 SignalR 连接处理 UI 更新。 ASP.NET Core 3.0 支持 Blazor Server。
+Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor Server在 ASP.NET Core 应用中支持在服务器上托管 Razor 组件。 可通过 SignalR 连接处理 UI 更新。 ASP.NET Core 3.0 支持 Blazor Server。
 
 ### <a name="blazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
 

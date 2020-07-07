@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: 5a05543c77f1ebaebadc27236aa8f7634e84f1fd
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: be87257c5f901e9b3d1ba6a8d7c6b811419c433f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243404"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402190"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -26,7 +27,7 @@ ms.locfileid: "85243404"
 
 对于 Azure Active Directory (AAD) 和 Azure Active Directory B2C (AAD B2C)，请勿按照本主题中的指南进行操作。请参阅此目录节点中的 AAD 和 AAD B2C 主题。
 
-要创建使用 Blazor[`Microsoft.AspNetCore.Components.WebAssembly.Authentication` 库的 ](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) WebAssembly 独立应用，请在命令行界面中执行以下命令：
+要创建使用 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 库的 Blazor WebAssembly 独立应用，请在命令行界面中执行以下命令：
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual

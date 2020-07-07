@@ -5,20 +5,21 @@ description: 用于提高 ASP.NET Core Blazor WebAssembly 应用性能并避免�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/08/2020
+ms.date: 06/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 2b6d4e706856cb28f26c2502feca4f959ca4abac
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: f7bd0d356030e6ddb95c77d7376995320e3ec40e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243026"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401878"
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
 
@@ -38,7 +39,7 @@ ms.locfileid: "85243026"
 }
 ```
 
-大多数应用不需要精细控制，但是 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 也可用于选择性地呈现响应 UI 事件的组件。
+大多数应用不需要精细控制，但是 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 可用于选择性地呈现响应 UI 事件的组件。 在呈现大量组件的情况下，使用 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 可能也很重要。 假设有一个网格，其中在网格的一个单元中的一个组件中使用 <xref:Microsoft.AspNetCore.Components.EventCallback> 会在网格上调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 会导致每个子组件重新呈现。 如果只有少量单元格需要重新呈现，请使用 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 避免不必要的呈现的性能损失。
 
 如下示例中：
 
@@ -93,7 +94,7 @@ Blazor 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性
 
 ## <a name="use-synchronous-and-unmarshalled-js-interop-apis-where-appropriate"></a>根据需要使用同步的和未封装的 JS 互操作 API
 
-Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> 版本，而 Blazor 服务器应用只有一个版本：
+Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> 版本，而 Blazor Server 应用只有一个版本：
 
 * <xref:Microsoft.JSInterop.IJSInProcessRuntime> 允许同步调用 JS 互操作调用，其开销低于异步版本：
 

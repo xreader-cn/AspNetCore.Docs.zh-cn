@@ -1,24 +1,31 @@
 ---
-title: ASP.NET Core 中 Razor 页面的路由和应用约定
+title: ASP.NET Core 中的 Razor Pages 路由和应用约定
 author: rick-anderson
 description: 了解路由和应用模型提供程序约定如何帮助控制页面路由、发现和处理。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: 6124554d5f9859179edfb5c545cf0b082369c0c9
-ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
-ms.translationtype: HT
+ms.openlocfilehash: 308ca4401289a55e5dba8d61de50644cb2a53433
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/18/2020
-ms.locfileid: "81642738"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405245"
 ---
-# <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core 中 Razor 页面的路由和应用约定
+# <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 路由和应用约定
 
 ::: moniker range=">= aspnetcore-3.0"
 
-了解如何使用[页面路由和应用模型提供程序约定](xref:mvc/controllers/application-model#conventions)来控制 Razor 页面应用中的页面路由、发现和处理。
+了解如何使用页面[路由和应用模型提供程序约定](xref:mvc/controllers/application-model#conventions)来控制 Razor Pages 应用中的页面路由、发现和处理。
 
 需要为各个页面配置自定义页面路由时，可使用本主题稍后所述的 [AddPageRoute 约定](#configure-a-page-route)配置页面路由。
 
@@ -95,7 +102,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 * 本主题后面会添加 `TheContactPage/{text?}` 的路由模板。 “联系人”页面路由具有默认顺序 `null` (`Order = 0`)，因此它在 `{globalTemplate?}` 路由模板之前进行匹配。
 * 本主题后面会添加 `{aboutTemplate?}` 路由模板。 为 `{aboutTemplate?}` 模板指定的 `Order` 为 `2`。 当在 `/About/RouteDataValue` 中请求“关于”页面时，由于设置了 `Order` 属性，“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 而不是 `RouteData.Values["aboutTemplate"]` (`Order = 2`) 中。
-* 本主题后面会添加 `{otherPagesTemplate?}` 路由模板。 为 `{otherPagesTemplate?}` 模板指定的 `Order` 为 `2`。 当使用路由参数请求 Pages/OtherPages  文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
+* 本主题后面会添加 `{otherPagesTemplate?}` 路由模板。 为 `{otherPagesTemplate?}` 模板指定的 `Order` 为 `2`。 当使用路由参数请求 Pages/OtherPages 文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
 
 尽可能不要将 `Order` 设置为 `Order = 0`。 依赖路由选择正确的路由。
 
@@ -147,7 +154,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet3)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> 的 <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> 属性设置为 `2`。 这样可确保，当提供单个路由值时，优先将 `{globalTemplate?}` 的模板（已在本主题的前面部分设置为 `1`）作为第一个路由数据值位置。 如果使用路由参数值请求 Pages/OtherPages  文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> 的 <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> 属性设置为 `2`。 这样可确保，当提供单个路由值时，优先将 `{globalTemplate?}` 的模板（已在本主题的前面部分设置为 `1`）作为第一个路由数据值位置。 如果使用路由参数值请求 Pages/OtherPages 文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
 
 尽可能不要将 `Order` 设置为 `Order = 0`。 依赖路由选择正确的路由。
 
@@ -175,7 +182,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 可以使用参数转换程序自定义 ASP.NET Core 生成的页面路由。 参数转换程序实现 `IOutboundParameterTransformer` 并转换参数值。 例如，一个自定义 `SlugifyParameterTransformer` 参数转换程序可将 `SubscriptionManagement` 路由值更改为 `subscription-management`。
 
-`PageRouteTransformerConvention` 页面路由模型约定将参数转换程序应用于应用中自动生成的页面路由的文件夹和文件名段。 例如，/Pages/SubscriptionManagement/ViewAll.cshtml  处的 Razor Pages 文件会将其路由从 `/SubscriptionManagement/ViewAll` 重写为 `/subscription-management/view-all`。
+`PageRouteTransformerConvention` 页面路由模型约定将参数转换程序应用于应用中自动生成的页面路由的文件夹和文件名段。 例如，/Pages/SubscriptionManagement/ViewAll.cshtml 处的 Razor Pages 文件会将其路由从 `/SubscriptionManagement/ViewAll` 重写为 `/subscription-management/view-all`。
 
 `PageRouteTransformerConvention` 仅转换来自 Razor Pages 文件夹和文件名的自动生成页面路由段。 它不会转换使用 `@page` 指令添加的路由段。 该约定也不会转换 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> 添加的路由。
 
@@ -264,7 +271,7 @@ public void ConfigureServices(IServiceCollection services)
 
 页面应用模型用于检查指向 *OtherPages* 文件夹中 Page2 页面的段的相对路径。 如果条件通过，则添加标头。 如果不通过，则应用 `EmptyFilter`。
 
-`EmptyFilter` 是一种[操作筛选器](xref:mvc/controllers/filters#action-filters)。 由于 Razor Pages 会忽略操作筛选器，因此，如果路径不包含 `OtherPages/Page2`，`EmptyFilter` 会按预期没有影响。
+`EmptyFilter` 是一种[操作筛选器](xref:mvc/controllers/filters#action-filters)。 由于 Razor Pages 会忽略操作筛选器，因此，如果路径不包含 `OtherPages/Page2`，`EmptyFilter` 应该无效。
 
 在 `localhost:5000/OtherPages/Page2` 中请求示例的 Page2 页面，并检查标头以查看结果：
 
@@ -288,9 +295,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="mvc-filters-and-the-page-filter-ipagefilter"></a>MVC 筛选器和页面筛选器 (IPageFilter)
 
-Razor 页面会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-filters)，因为 Razor 页面使用处理程序方法。 可以使用其他类型的 MVC 筛选器：[授权](xref:mvc/controllers/filters#authorization-filters)、[异常](xref:mvc/controllers/filters#exception-filters)、[资源](xref:mvc/controllers/filters#resource-filters)和[结果](xref:mvc/controllers/filters#result-filters)。 有关详细信息，请参阅[筛选器](xref:mvc/controllers/filters)主题。
+Razor Pages 会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-filters)，因为 Razor Pages 使用处理程序方法。 可以使用其他类型的 MVC 筛选器：[授权](xref:mvc/controllers/filters#authorization-filters)、[异常](xref:mvc/controllers/filters#exception-filters)、[资源](xref:mvc/controllers/filters#resource-filters)和[结果](xref:mvc/controllers/filters#result-filters)。 有关详细信息，请参阅[筛选器](xref:mvc/controllers/filters)主题。
 
-页面筛选器 (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) 是应用于 Razor Pages 的一种筛选器。 有关详细信息，请参阅 [Razor 页面的筛选方法](xref:razor-pages/filter)。
+页面筛选器 (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) 是应用于 Razor Pages 的一种筛选器。 有关详细信息，请参阅 [Razor Pages 的筛选方法](xref:razor-pages/filter)。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -301,7 +308,7 @@ Razor 页面会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-
 
 ::: moniker range="= aspnetcore-2.2"
 
-了解如何使用[页面路由和应用模型提供程序约定](xref:mvc/controllers/application-model#conventions)来控制 Razor 页面应用中的页面路由、发现和处理。
+了解如何使用页面[路由和应用模型提供程序约定](xref:mvc/controllers/application-model#conventions)来控制 Razor Pages 应用中的页面路由、发现和处理。
 
 需要为各个页面配置自定义页面路由时，可使用本主题稍后所述的 [AddPageRoute 约定](#configure-a-page-route)配置页面路由。
 
@@ -378,7 +385,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 * 本主题后面会添加 `TheContactPage/{text?}` 的路由模板。 “联系人”页面路由具有默认顺序 `null` (`Order = 0`)，因此它在 `{globalTemplate?}` 路由模板之前进行匹配。
 * 本主题后面会添加 `{aboutTemplate?}` 路由模板。 为 `{aboutTemplate?}` 模板指定的 `Order` 为 `2`。 当在 `/About/RouteDataValue` 中请求“关于”页面时，由于设置了 `Order` 属性，“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 而不是 `RouteData.Values["aboutTemplate"]` (`Order = 2`) 中。
-* 本主题后面会添加 `{otherPagesTemplate?}` 路由模板。 为 `{otherPagesTemplate?}` 模板指定的 `Order` 为 `2`。 当使用路由参数请求 Pages/OtherPages  文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
+* 本主题后面会添加 `{otherPagesTemplate?}` 路由模板。 为 `{otherPagesTemplate?}` 模板指定的 `Order` 为 `2`。 当使用路由参数请求 Pages/OtherPages 文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
 
 尽可能不要将 `Order` 设置为 `Order = 0`。 依赖路由选择正确的路由。
 
@@ -430,7 +437,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet3)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> 的 <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> 属性设置为 `2`。 这样可确保，当提供单个路由值时，优先将 `{globalTemplate?}` 的模板（已在本主题的前面部分设置为 `1`）作为第一个路由数据值位置。 如果使用路由参数值请求 Pages/OtherPages  文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> 的 <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> 属性设置为 `2`。 这样可确保，当提供单个路由值时，优先将 `{globalTemplate?}` 的模板（已在本主题的前面部分设置为 `1`）作为第一个路由数据值位置。 如果使用路由参数值请求 Pages/OtherPages 文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
 
 尽可能不要将 `Order` 设置为 `Order = 0`。 依赖路由选择正确的路由。
 
@@ -458,7 +465,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 可以使用参数转换程序自定义 ASP.NET Core 生成的页面路由。 参数转换程序实现 `IOutboundParameterTransformer` 并转换参数值。 例如，一个自定义 `SlugifyParameterTransformer` 参数转换程序可将 `SubscriptionManagement` 路由值更改为 `subscription-management`。
 
-`PageRouteTransformerConvention` 页面路由模型约定将参数转换程序应用于应用中自动生成的页面路由的文件夹和文件名段。 例如，/Pages/SubscriptionManagement/ViewAll.cshtml  处的 Razor Pages 文件会将其路由从 `/SubscriptionManagement/ViewAll` 重写为 `/subscription-management/view-all`。
+`PageRouteTransformerConvention` 页面路由模型约定将参数转换程序应用于应用中自动生成的页面路由的文件夹和文件名段。 例如，/Pages/SubscriptionManagement/ViewAll.cshtml 处的 Razor Pages 文件会将其路由从 `/SubscriptionManagement/ViewAll` 重写为 `/subscription-management/view-all`。
 
 `PageRouteTransformerConvention` 仅转换来自 Razor Pages 文件夹和文件名的自动生成页面路由段。 它不会转换使用 `@page` 指令添加的路由段。 该约定也不会转换 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> 添加的路由。
 
@@ -554,7 +561,7 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 页面应用模型用于检查指向 *OtherPages* 文件夹中 Page2 页面的段的相对路径。 如果条件通过，则添加标头。 如果不通过，则应用 `EmptyFilter`。
 
-`EmptyFilter` 是一种[操作筛选器](xref:mvc/controllers/filters#action-filters)。 由于 Razor Pages 会忽略操作筛选器，因此，如果路径不包含 `OtherPages/Page2`，`EmptyFilter` 会按预期没有影响。
+`EmptyFilter` 是一种[操作筛选器](xref:mvc/controllers/filters#action-filters)。 由于 Razor Pages 会忽略操作筛选器，因此，如果路径不包含 `OtherPages/Page2`，`EmptyFilter` 应该无效。
 
 在 `localhost:5000/OtherPages/Page2` 中请求示例的 Page2 页面，并检查标头以查看结果：
 
@@ -578,9 +585,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="mvc-filters-and-the-page-filter-ipagefilter"></a>MVC 筛选器和页面筛选器 (IPageFilter)
 
-Razor 页面会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-filters)，因为 Razor 页面使用处理程序方法。 可以使用其他类型的 MVC 筛选器：[授权](xref:mvc/controllers/filters#authorization-filters)、[异常](xref:mvc/controllers/filters#exception-filters)、[资源](xref:mvc/controllers/filters#resource-filters)和[结果](xref:mvc/controllers/filters#result-filters)。 有关详细信息，请参阅[筛选器](xref:mvc/controllers/filters)主题。
+Razor Pages 会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-filters)，因为 Razor Pages 使用处理程序方法。 可以使用其他类型的 MVC 筛选器：[授权](xref:mvc/controllers/filters#authorization-filters)、[异常](xref:mvc/controllers/filters#exception-filters)、[资源](xref:mvc/controllers/filters#resource-filters)和[结果](xref:mvc/controllers/filters#result-filters)。 有关详细信息，请参阅[筛选器](xref:mvc/controllers/filters)主题。
 
-页面筛选器 (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) 是应用于 Razor Pages 的一种筛选器。 有关详细信息，请参阅 [Razor 页面的筛选方法](xref:razor-pages/filter)。
+页面筛选器 (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) 是应用于 Razor Pages 的一种筛选器。 有关详细信息，请参阅 [Razor Pages 的筛选方法](xref:razor-pages/filter)。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -591,7 +598,7 @@ Razor 页面会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-
 
 ::: moniker range="< aspnetcore-2.2"
 
-了解如何使用[页面路由和应用模型提供程序约定](xref:mvc/controllers/application-model#conventions)来控制 Razor 页面应用中的页面路由、发现和处理。
+了解如何使用页面[路由和应用模型提供程序约定](xref:mvc/controllers/application-model#conventions)来控制 Razor Pages 应用中的页面路由、发现和处理。
 
 需要为各个页面配置自定义页面路由时，可使用本主题稍后所述的 [AddPageRoute 约定](#configure-a-page-route)配置页面路由。
 
@@ -668,7 +675,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 * 本主题后面会添加 `TheContactPage/{text?}` 的路由模板。 “联系人”页面路由具有默认顺序 `null` (`Order = 0`)，因此它在 `{globalTemplate?}` 路由模板之前进行匹配。
 * 本主题后面会添加 `{aboutTemplate?}` 路由模板。 为 `{aboutTemplate?}` 模板指定的 `Order` 为 `2`。 当在 `/About/RouteDataValue` 中请求“关于”页面时，由于设置了 `Order` 属性，“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 而不是 `RouteData.Values["aboutTemplate"]` (`Order = 2`) 中。
-* 本主题后面会添加 `{otherPagesTemplate?}` 路由模板。 为 `{otherPagesTemplate?}` 模板指定的 `Order` 为 `2`。 当使用路由参数请求 Pages/OtherPages  文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
+* 本主题后面会添加 `{otherPagesTemplate?}` 路由模板。 为 `{otherPagesTemplate?}` 模板指定的 `Order` 为 `2`。 当使用路由参数请求 Pages/OtherPages 文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
 
 尽可能不要将 `Order` 设置为 `Order = 0`。 依赖路由选择正确的路由。
 
@@ -720,7 +727,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet3)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> 的 <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> 属性设置为 `2`。 这样可确保，当提供单个路由值时，优先将 `{globalTemplate?}` 的模板（已在本主题的前面部分设置为 `1`）作为第一个路由数据值位置。 如果使用路由参数值请求 Pages/OtherPages  文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> 的 <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> 属性设置为 `2`。 这样可确保，当提供单个路由值时，优先将 `{globalTemplate?}` 的模板（已在本主题的前面部分设置为 `1`）作为第一个路由数据值位置。 如果使用路由参数值请求 Pages/OtherPages 文件夹中的任何页面（例如，`/OtherPages/Page1/RouteDataValue`）时，由于设置了 `Order` 属性，因此“RouteDataValue”会加载到 `RouteData.Values["globalTemplate"]` (`Order = 1`) 中，而不是 `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) 中。
 
 尽可能不要将 `Order` 设置为 `Order = 0`。 依赖路由选择正确的路由。
 
@@ -810,7 +817,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 页面应用模型用于检查指向 *OtherPages* 文件夹中 Page2 页面的段的相对路径。 如果条件通过，则添加标头。 如果不通过，则应用 `EmptyFilter`。
 
-`EmptyFilter` 是一种[操作筛选器](xref:mvc/controllers/filters#action-filters)。 由于 Razor Pages 会忽略操作筛选器，因此，如果路径不包含 `OtherPages/Page2`，`EmptyFilter` 会按预期没有影响。
+`EmptyFilter` 是一种[操作筛选器](xref:mvc/controllers/filters#action-filters)。 由于 Razor Pages 会忽略操作筛选器，因此，如果路径不包含 `OtherPages/Page2`，`EmptyFilter` 应该无效。
 
 在 `localhost:5000/OtherPages/Page2` 中请求示例的 Page2 页面，并检查标头以查看结果：
 
@@ -834,9 +841,9 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 ## <a name="mvc-filters-and-the-page-filter-ipagefilter"></a>MVC 筛选器和页面筛选器 (IPageFilter)
 
-Razor 页面会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-filters)，因为 Razor 页面使用处理程序方法。 可以使用其他类型的 MVC 筛选器：[授权](xref:mvc/controllers/filters#authorization-filters)、[异常](xref:mvc/controllers/filters#exception-filters)、[资源](xref:mvc/controllers/filters#resource-filters)和[结果](xref:mvc/controllers/filters#result-filters)。 有关详细信息，请参阅[筛选器](xref:mvc/controllers/filters)主题。
+Razor Pages 会忽略 MVC [操作筛选器](xref:mvc/controllers/filters#action-filters)，因为 Razor Pages 使用处理程序方法。 可以使用其他类型的 MVC 筛选器：[授权](xref:mvc/controllers/filters#authorization-filters)、[异常](xref:mvc/controllers/filters#exception-filters)、[资源](xref:mvc/controllers/filters#resource-filters)和[结果](xref:mvc/controllers/filters#result-filters)。 有关详细信息，请参阅[筛选器](xref:mvc/controllers/filters)主题。
 
-页面筛选器 (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) 是应用于 Razor Pages 的一种筛选器。 有关详细信息，请参阅 [Razor 页面的筛选方法](xref:razor-pages/filter)。
+页面筛选器 (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) 是应用于 Razor Pages 的一种筛选器。 有关详细信息，请参阅 [Razor Pages 的筛选方法](xref:razor-pages/filter)。
 
 ## <a name="additional-resources"></a>其他资源
 

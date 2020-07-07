@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/content-security-policy
-ms.openlocfilehash: 360fff9383e25a6b5b9308cfebd397f7f4ee31a6
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 5c53ac64d3ae1b365b40c519eb119f913d58cad1
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242974"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402437"
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>为 ASP.NET Core Blazor 强制实施内容安全策略
 
@@ -38,7 +39,7 @@ ms.locfileid: "85242974"
 
 ## <a name="policy-directives"></a>策略指令
 
-至少为 Blazor 应用指定以下指令和源。 按需添加其他指令和源。 本文的[应用策略](#apply-the-policy)部分中使用了以下指令，其中提供了 Blazor WebAssembly 和 Blazor 服务器的示例安全策略：
+至少为 Blazor 应用指定以下指令和源。 按需添加其他指令和源。 本文的[应用策略](#apply-the-policy)部分中使用了以下指令，其中提供了 Blazor WebAssembly 和 Blazor Server 的示例安全策略：
 
 * [base-uri](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri)：限制页面的 `<base>` 标记的 URL。 指定 `self`，以指示应用的来源（包括方案和端口号）是有效源。
 * [block-all-mixed-content](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content)：阻止加载混合 HTTP 和 HTTPS 内容。
@@ -56,11 +57,11 @@ ms.locfileid: "85242974"
       * `sha256-If//FtbPc03afjLezvWHnC3Nbu4fDM04IIzkPaf3pH0=`
       * `sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=`
     * 指定 `unsafe-eval`，以使用 `eval()` 以及通过字符串创建代码的方法。
-  * 在 Blazor 服务器应用中，为针对样式表执行回退检测的内联脚本指定 `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` 哈希。
+  * 在 Blazor Server 应用中，为针对样式表执行回退检测的内联脚本指定 `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` 哈希。
 * [style-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src)：指示样式表的有效源。
   * 指定用于启动样式表的 `https://stackpath.bootstrapcdn.com/` 主机源。
   * 指定 `self`，以指示应用的来源（包括方案和端口号）是有效源。
-  * 指定 `unsafe-inline`，以允许使用内联样式。 Blazor 服务器应用中的 UI 需要内联声明，以便在初始请求后重新连接客户端和服务器。 在将来的版本中，可能会删除内联样式，以便不再需要 `unsafe-inline`。
+  * 指定 `unsafe-inline`，以允许使用内联样式。 Blazor Server 应用中的 UI 需要内联声明，以便在初始请求后重新连接客户端和服务器。 在将来的版本中，可能会删除内联样式，以便不再需要 `unsafe-inline`。
 * [upgrade-insecure-requests](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests)：指示应通过 HTTPS 安全地获取来自不安全 (HTTP) 源的内容 URL。
 
 除 Microsoft Internet Explorer 外的所有浏览器都支持上述指令。
@@ -81,9 +82,9 @@ ms.locfileid: "85242974"
 * 将指令置于 `content` 属性值中。 使用分号 (`;`) 分隔指令。
 * 始终将 `meta` 标记置于 `<head>` 内容中。
 
-以下各部分介绍 Blazor WebAssembly 和 Blazor 服务器的示例策略。 对于 Blazor 的每个版本，本文都对这些示例进行了版本控制。 要使用适用于你的版本的版本，请在此网页上使用“版本”下拉选择器选择文档版本。
+以下各部分介绍 Blazor WebAssembly 和 Blazor Server 的示例策略。 对于 Blazor 的每个版本，本文都对这些示例进行了版本控制。 要使用适用于你的版本的版本，请在此网页上使用“版本”下拉选择器选择文档版本。
 
-### <a name="blazor-webassembly"></a>Blazor WebAssembly
+### Blazor WebAssembly
 
 在 `wwwroot/index.html` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：
 
@@ -106,7 +107,7 @@ ms.locfileid: "85242974"
                upgrade-insecure-requests;">
 ```
 
-### <a name="blazor-server"></a>Blazor 服务器
+### Blazor Server
 
 在 `Pages/_Host.cshtml` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：
 

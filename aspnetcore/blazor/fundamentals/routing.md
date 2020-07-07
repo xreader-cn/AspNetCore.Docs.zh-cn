@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: fde30109395065014433bebde52a9eb22458c451
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: ba85cc901127725d674b699638fef5fe363081a8
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242740"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402788"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -28,11 +29,11 @@ ms.locfileid: "85242740"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core 终结点路由集成
 
-Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中带有 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A> 的交互式组件的传入连接：
+Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中带有 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A> 的交互式组件的传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-最典型的配置是将所有请求路由到 Razor 页面，该页面为 Blazor 服务器应用充当服务器端的主机。 按照约定，“主机”页通常命名为 `_Host.cshtml`。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以较低的优先级运行。 其他路由不匹配时，会考虑回退路由。 这让应用能够使用其他控制器和页面，而不会干扰 Blazor 服务器应用。
+最典型的配置是将所有请求路由到 Razor 页面，该页面充当 Blazor Server 应用的服务器端部分的主机。 按照约定，“主机”页通常命名为 `_Host.cshtml`。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以较低的优先级运行。 其他路由不匹配时，会考虑回退路由。 这让应用能够使用其他控制器和页面，而不会干扰 Blazor Server 应用。
 
 ## <a name="route-templates"></a>路由模板
 
@@ -204,7 +205,7 @@ Blazor 服务器已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/ro
 | 成员 | 描述 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.Uri> | 获取当前绝对 URI。 |
-| <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，<xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> 对应于 `wwwroot/index.html` (Blazor WebAssembly) 或 (`Pages/_Host.cshtml`Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。 |
+| <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，<xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> 对应于 `wwwroot/index.html` (Blazor WebAssembly) 或 `Pages/_Host.cshtml` (Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。 |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A> | 导航到指定 URI。 如果 `forceLoad` 为 `true`，则：<ul><li>客户端路由会被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都必须从服务器加载新页面。</li></ul> |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged> | 导航位置更改时触发的事件。 |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.ToAbsoluteUri%2A> | 将相对 URI 转换为绝对 URI。 |

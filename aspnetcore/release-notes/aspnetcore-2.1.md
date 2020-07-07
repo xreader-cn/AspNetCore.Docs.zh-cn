@@ -7,17 +7,18 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 1f68bd5347ba1f67e56b7a2fe8914ffdaef8010c
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: bf041965b009d5c10b96ad4f2a349c6efb346eb5
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774075"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408157"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
@@ -49,7 +50,7 @@ ms.locfileid: "82774075"
 
 ASP.NET Core 2.1 提供 [ASP.NET Core Identity](xref:security/authentication/identity) 作为 [Razor 类库](xref:razor-pages/ui-class)。 包含 Identity 的应用可以应用新的 Identity 基架，以便有选择地添加 Identity Razor 类库 (RCL) 中包含的源代码。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。
 
-不包含身份验证的应用可以应用 Identity 基架来添加 RCL Identity 包  。 可以选择要生成的 Identity 代码。
+不包含身份验证的应用可以应用 Identity 基架来添加 RCL Identity 包。 可以选择要生成的 Identity 代码。
 
 有关详细信息，请参阅 [ASP.NET Core 项目中的基架 Identity](xref:security/authentication/scaffold-identity)。
 
@@ -87,7 +88,7 @@ ASP.NET Core 提供 API 和模板，帮助满足[欧盟一般数据保护条例 
 
 引入了可简化创建和执行测试的新包。 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/) 包可处理以下任务：
 
-* 将依赖项文件 (\*.deps) 从已测试的应用复制到测试项目的 bin 文件夹中   。
+* 将依赖项文件 (\*.deps) 从已测试的应用复制到测试项目的 bin 文件夹中 。
 * 将内容根目录设置为已测试应用的项目根目录，以便可在执行测试时找到静态文件和页面/视图。
 * 提供 [WebApplicationFactory](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) 类，以简化已测试应用在 [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) 中的启动过程。
 
@@ -151,7 +152,7 @@ ASP.NET Core 2.1 引入了新的 `IHttpClientFactory` 服务，方便在应用�
 
 Angular 模板基于 Angular CLI，而 React 模板基于 create-react-app。
 
-有关详细信息，请参见:
+有关详情，请参阅：
 
 * <xref:spa/angular>
 * <xref:spa/react>
@@ -162,12 +163,12 @@ Angular 模板基于 Angular CLI，而 React 模板基于 create-react-app。
 在 2.1 中，Razor Pages 按所列顺序搜索以下目录中的 Razor 资产（例如布局和分区）：
 
 1. 当前 Pages 文件夹。
-1. /Pages/Shared/ 
-1. /Views/Shared/ 
+1. /Pages/Shared/
+1. /Views/Shared/
 
 ## <a name="razor-pages-in-an-area"></a>某个区域内的 Razor Pages
 
-Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。 要查看区域示例，请使用个人用户帐户创建新 Razor Pages Web 应用。 使用个人用户帐户的 Razor Pages Web 应用包括 /Areas/Identity/Pages  。
+Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。 要查看区域示例，请使用个人用户帐户创建新 Razor Pages Web 应用。 使用个人用户帐户的 Razor Pages Web 应用包括 /Areas/Identity/Pages。
 
 ## <a name="mvc-compatibility-version"></a>MVC 兼容性版本
 

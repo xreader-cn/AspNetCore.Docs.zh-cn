@@ -5,26 +5,27 @@ description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/31/2020
+ms.date: 06/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 75db5d5e69cb200ebf3bd1dc1e0afed0300214cc
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 9fe51b8c7eafdd62cc6fc1a820135d9ee5ff010e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242766"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401007"
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
 [Daniel Roth](https://github.com/danroth27)
 
-可以使用基于 Chromium 的浏览器 (Microsoft Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。 也可以使用 Visual Studio 或 Visual Studio Code 调试应用。
+可以使用基于 Chromium 的浏览器 (Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。 也可以使用 Visual Studio 或 Visual Studio Code 调试应用。
 
 可用方案包括：
 
@@ -72,7 +73,7 @@ ms.locfileid: "85242766"
 
 要在 Visual Studio 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
 
-1. 创建一个由 ASP.NET Core 托管的新 Blazor WebAssembly 应用。
+1. 创建新的 ASP.NET Core 托管 Blazor WebAssembly 应用。
 1. 按 <kbd>F5</kbd> 在调试器中运行应用。
 1. 在 `IncrementCount` 方法的 `Pages/Counter.razor` 中设置断点。
 1. 浏览到“`Counter`”选项卡，选择该按钮以命中断点：
@@ -135,7 +136,7 @@ ms.locfileid: "85242766"
 
    ![VS Code 中的调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
 
-### <a name="debug-hosted-blazor-webassembly"></a>调试托管的 Blazor WebAssembly
+### <a name="debug-hosted-blazor-webassembly"></a>调试托管 Blazor WebAssembly
 
 1. 在 VS Code 中打开托管的 Blazor WebAssembly 应用。
 
@@ -236,3 +237,4 @@ Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://c
 
 * 在“调试程序”选项卡中，在浏览器中打开开发人员工具。 在控制台中，执行 `localStorage.clear()` 以删除所有断点。
 * 确认你已安装并信任 ASP.NET Core HTTPS 开发证书。 有关详细信息，请参阅 <xref:security/enforcing-ssl#troubleshoot-certificate-problems>。
+* Visual Studio 要求在“工具” > “选项” > “调试” > “常规”中选择“对 ASP.NET 启用 JavaScript 调试(Chrome、Edge 和 IE)”选项。     这是 Visual Studio 的默认设置。 如果调试不起作用，请确认已选中该选项。

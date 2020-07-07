@@ -8,17 +8,18 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 8251658a2bb99ec17424ec26b8a44171082fab05
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: cce6b6b1ec144e362415fe34645aef567269c873
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243459"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402203"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>使用 Identity 服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
 

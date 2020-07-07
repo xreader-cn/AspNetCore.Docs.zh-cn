@@ -7,17 +7,18 @@ ms.author: riande
 ms.date: 07/04/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: 58f7aa30d3e916307437d56c61e80765ac0c21cf
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: a106654c8a37e84e9186a2f06d90605df753e8a7
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766467"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405596"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -62,8 +63,8 @@ dotnet aspnet-codegenerator [-h|--help]
 | ----------------- | ------------ | 
 | area      | [搭建区域的基架](/aspnet/core/mvc/controllers/areas) |
   controller| [搭建控制器的基架](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  标识  | [搭建标识的基架](/aspnet/core/security/authentication/scaffold-identity) |
-  razorpage | [搭建 Razor Pages 的基架](/aspnet/core/tutorials/razor-pages/model) |
+  标识  | [构建 Identity](/aspnet/core/security/authentication/scaffold-identity) |
+  razorpage | [构建 Razor Pages](/aspnet/core/tutorials/razor-pages/model) |
   查看      | [搭建视图的基架](/aspnet/core/mvc/views/overview) |
 
 ## <a name="options"></a>选项
@@ -102,7 +103,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 * 区域
 * 控制器
-* 标识  
+* Identity  
 * Razorpage
 * 视图
 
@@ -110,17 +111,17 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ### <a name="area-options"></a>区域选项
 
-此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。 它不适用于Razor Pages 应用。
+此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。 它不适用于 Razor Pages 应用。
 
 用法：`dotnet aspnet-codegenerator area AreaNameToGenerate`
 
 前面的命令生成以下文件夹：
 
 * *Areas*
-  * AreaNameToGenerate 
+  * AreaNameToGenerate
     * *Controllers*
     * *Data*
-    * Models 
+    * Models
     * *Views*
 
 <a name="ctl"></a>
@@ -137,7 +138,7 @@ dotnet aspnet-codegenerator [-h|--help]
 | ----------------- | ------------ |
 | --controllerName 或 -name | 控制器的名称。 |
 | --useAsyncActions 或 -async | 生成异步控制器操作。 |
-| --noViews 或 -nv | 不生成任何视图  。 |
+| --noViews 或 -nv | 不生成任何视图。 |
 | --restWithNoViews 或 -api  | 生成具有 REST 样式 API 的控制器。 假设 `noViews` 并且忽略任何与视图相关的选项。 |
 | --readWriteActions 或 -actions | 不使用模型生成具有读/写操作的控制器。 |
 
@@ -162,7 +163,7 @@ dotnet aspnet-codegenerator controller -h
 * `Details`
 * `List`
 
-例如，以下命令使用 Edit 模板生成MyEdit.cshtml  和 MyEdit.cshtml.cs  ：
+例如，以下命令使用 Edit 模板生成MyEdit.cshtml  和 MyEdit.cshtml.cs：
 
 ```dotnetcli
 dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieContext -outDir Pages/Movies

@@ -7,17 +7,18 @@ ms.custom: mvc
 ms.date: 04/17/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: index
-ms.openlocfilehash: 7f46051193681ecac59428b77ca1e36830c7bb63
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: f58c25ec8b47b2bd8d425d0bfd0d52df9bbc2655
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "84466988"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408196"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -44,7 +45,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 * [Model-View-Controller (MVC) 模式](xref:mvc/overview) 使 Web API 和 Web 应用可测试。
 * [Razor Pages](xref:razor-pages/index) 是基于页面的编程模型，它让 Web UI 的生成更加简单高效。
-* [Razor 标记](xref:mvc/views/razor)提供了适用于 [Razor 页面](xref:razor-pages/index)和 [MVC 视图](xref:mvc/views/overview)的高效语法。
+* [Razor 标记](xref:mvc/views/razor)提供了适用于 [Razor Pages](xref:razor-pages/index) 和 [MVC 视图](xref:mvc/views/overview)的高效语法。
 * [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。
 * 内置的[多数据格式和内容协商](xref:web-api/advanced/formatting)支持使 Web API 可访问多种客户端，包括浏览器和移动设备。
 * [模型绑定](xref:mvc/models/model-binding)自动将 HTTP 请求中的数据映射到操作方法参数。
@@ -76,18 +77,18 @@ ASP.NET Core 3.x 和更高版本只能面向 .NET Core。 通常，ASP.NET Core 
 
    |应用类型  |方案  |教程  |
    |----------|----------|----------|
-   |Web 应用                   | 新的服务器端 Web UI 开发 |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
+   |Web 应用                   | 新的服务器端 Web UI 开发 |[Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start) |
    |Web 应用                   | 维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
-   |Web 应用                   | 客户端 Web UI 开发 |[Blazor 入门](xref:tutorials/first-blazor-app) |
+   |Web 应用                   | 客户端 Web UI 开发 |[开始使用 Blazor](xref:tutorials/first-blazor-app) |
    |Web API                   | RESTful HTTP 服务 |[创建 Web API](xref:tutorials/first-web-api)&dagger; |
    |远程过程调用应用 | 使用协议缓冲区的协定优先服务 |[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start) |
-   |实时应用             | 服务器和连接的客户端之间的双向通信 |[SignalR 入门](xref:tutorials/signalr) |
+   |实时应用             | 服务器和连接的客户端之间的双向通信 |[开始使用 SignalR](xref:tutorials/signalr) |
 
 1. 按照介绍如何进行基本数据访问的教程操作。
 
    |方案  |教程  |
    |----------|----------|
-   |新的开发        |[结合使用 Razor Pages 和 Entity Framework Core](xref:data/ef-rp/intro) |
+   |新的开发        |[带 Entity Framework Core 的 Razor 页面](xref:data/ef-rp/intro) |
    |维护 MVC 应用 |[结合使用 MVC 和 Entity Framework Core](xref:data/ef-mvc/intro) |
 
 1. 阅读适用于所有应用类型的 ASP.NET Core [基础知识](xref:fundamentals/index)的概述。
@@ -123,7 +124,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 * [Model-View-Controller (MVC) 模式](xref:mvc/overview) 使 Web API 和 Web 应用可测试。
 * [Razor Pages](xref:razor-pages/index) 是基于页面的编程模型，它让 Web UI 的生成更加简单高效。
-* [Razor 标记](xref:mvc/views/razor)提供了适用于 [Razor 页面](xref:razor-pages/index)和 [MVC 视图](xref:mvc/views/overview)的高效语法。
+* [Razor 标记](xref:mvc/views/razor)提供了适用于 [Razor Pages](xref:razor-pages/index) 和 [MVC 视图](xref:mvc/views/overview)的高效语法。
 * [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。
 * 内置的[多数据格式和内容协商](xref:web-api/advanced/formatting)支持使 Web API 可访问多种客户端，包括浏览器和移动设备。
 * [模型绑定](xref:mvc/models/model-binding)自动将 HTTP 请求中的数据映射到操作方法参数。
@@ -164,10 +165,10 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
    |应用类型  |方案  |教程  |
    |----------|----------|----------|
-   |Web 应用                   | 用于新的开发        |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
+   |Web 应用                   | 用于新的开发        |[Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start) |
    |Web 应用                   | 用于维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
    |Web API                   |                            |[创建 Web API](xref:tutorials/first-web-api)&dagger; |
-   |实时应用             |                            |[SignalR 入门](xref:tutorials/signalr) |
+   |实时应用             |                            |[开始使用 SignalR](xref:tutorials/signalr) |
 
 1. 按照介绍如何进行基本数据访问的教程操作。
 
