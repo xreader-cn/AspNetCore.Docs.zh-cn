@@ -8,38 +8,39 @@ ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/fundamentals/configuration
-ms.openlocfilehash: 0e36b81d771b07e85158724c02210ee50a3ab118
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
-ms.translationtype: HT
+ms.openlocfilehash: 9c83784676e061664b2ae980faadcbe0f84c9985
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242675"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402918"
 ---
-# <a name="aspnet-core-blazor-configuration"></a><span data-ttu-id="73920-103">ASP.NET Core Blazor 配置</span><span class="sxs-lookup"><span data-stu-id="73920-103">ASP.NET Core Blazor configuration</span></span>
+# <a name="aspnet-core-blazor-configuration"></a><span data-ttu-id="87704-103">ASP.NET Core Blazor 配置</span><span class="sxs-lookup"><span data-stu-id="87704-103">ASP.NET Core Blazor configuration</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="73920-104">本主题适用于 Blazor WebAssembly。</span><span class="sxs-lookup"><span data-stu-id="73920-104">This topic applies to Blazor WebAssembly.</span></span> <span data-ttu-id="73920-105">若要获取 ASP.NET Core 应用配置的通用指南，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="73920-105">For general guidance on ASP.NET Core app configuration, see <xref:fundamentals/configuration/index>.</span></span>
+> <span data-ttu-id="87704-104">本主题适用于 Blazor WebAssembly。</span><span class="sxs-lookup"><span data-stu-id="87704-104">This topic applies to Blazor WebAssembly.</span></span> <span data-ttu-id="87704-105">若要获取 ASP.NET Core 应用配置的通用指南，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="87704-105">For general guidance on ASP.NET Core app configuration, see <xref:fundamentals/configuration/index>.</span></span>
 
-Blazor<span data-ttu-id="73920-106"> WebAssembly 加载以下来源的配置：</span><span class="sxs-lookup"><span data-stu-id="73920-106"> WebAssembly loads configuration from:</span></span>
+Blazor WebAssembly<span data-ttu-id="87704-106"> 加载以下来源的配置：</span><span class="sxs-lookup"><span data-stu-id="87704-106"> loads configuration from:</span></span>
 
-* <span data-ttu-id="73920-107">应用设置文件（默认）：</span><span class="sxs-lookup"><span data-stu-id="73920-107">App settings files by default:</span></span>
+* <span data-ttu-id="87704-107">应用设置文件（默认）：</span><span class="sxs-lookup"><span data-stu-id="87704-107">App settings files by default:</span></span>
   * `wwwroot/appsettings.json`
   * `wwwroot/appsettings.{ENVIRONMENT}.json`
-* <span data-ttu-id="73920-108">应用注册的其他 [配置提供程序](xref:fundamentals/configuration/index)。</span><span class="sxs-lookup"><span data-stu-id="73920-108">Other [configuration providers](xref:fundamentals/configuration/index) registered by the app.</span></span> <span data-ttu-id="73920-109">并非所有提供程序都适用于 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="73920-109">Not all providers are appropriate for Blazor WebAssembly apps.</span></span> <span data-ttu-id="73920-110">Blazor WASM 的[ Clarify 配置提供程序 (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134) 会跟踪有关 Blazor WebAssembly 所支持提供程序的说明。</span><span class="sxs-lookup"><span data-stu-id="73920-110">Clarification on which providers are supported for Blazor WebAssembly is tracked by [Clarify configuration providers for Blazor WASM (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).</span></span>
+* <span data-ttu-id="87704-108">应用注册的其他 [配置提供程序](xref:fundamentals/configuration/index)。</span><span class="sxs-lookup"><span data-stu-id="87704-108">Other [configuration providers](xref:fundamentals/configuration/index) registered by the app.</span></span> <span data-ttu-id="87704-109">并非所有提供程序都适用于 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="87704-109">Not all providers are appropriate for Blazor WebAssembly apps.</span></span> <span data-ttu-id="87704-110">Blazor WASM 的 [Clarify 配置提供程序 (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134) 会跟踪有关 Blazor WebAssembly 所支持提供程序的说明。</span><span class="sxs-lookup"><span data-stu-id="87704-110">Clarification on which providers are supported for Blazor WebAssembly is tracked by [Clarify configuration providers for Blazor WASM (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="73920-111">Blazor WebAssembly 应用中的配置对用户可见。</span><span class="sxs-lookup"><span data-stu-id="73920-111">Configuration in a Blazor WebAssembly app is visible to users.</span></span> <span data-ttu-id="73920-112">请勿在配置中存储应用机密或凭据。</span><span class="sxs-lookup"><span data-stu-id="73920-112">**Don't store app secrets or credentials in configuration.**</span></span>
+> <span data-ttu-id="87704-111">Blazor WebAssembly 应用中的配置对用户可见。</span><span class="sxs-lookup"><span data-stu-id="87704-111">Configuration in a Blazor WebAssembly app is visible to users.</span></span> <span data-ttu-id="87704-112">请勿在配置中存储应用机密或凭据。</span><span class="sxs-lookup"><span data-stu-id="87704-112">**Don't store app secrets or credentials in configuration.**</span></span>
 
-<span data-ttu-id="73920-113">有关配置提供程序的详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="73920-113">For more information on configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
+<span data-ttu-id="87704-113">有关配置提供程序的详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="87704-113">For more information on configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
 
-## <a name="app-settings-configuration"></a><span data-ttu-id="73920-114">应用设置配置</span><span class="sxs-lookup"><span data-stu-id="73920-114">App settings configuration</span></span>
+## <a name="app-settings-configuration"></a><span data-ttu-id="87704-114">应用设置配置</span><span class="sxs-lookup"><span data-stu-id="87704-114">App settings configuration</span></span>
 
-<span data-ttu-id="73920-115">`wwwroot/appsettings.json`：</span><span class="sxs-lookup"><span data-stu-id="73920-115">`wwwroot/appsettings.json`:</span></span>
+<span data-ttu-id="87704-115">`wwwroot/appsettings.json`：</span><span class="sxs-lookup"><span data-stu-id="87704-115">`wwwroot/appsettings.json`:</span></span>
 
 ```json
 {
@@ -47,7 +48,7 @@ Blazor<span data-ttu-id="73920-106"> WebAssembly 加载以下来源的配置：<
 }
 ```
 
-<span data-ttu-id="73920-116">将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入组件，以访问配置数据：</span><span class="sxs-lookup"><span data-stu-id="73920-116">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
+<span data-ttu-id="87704-116">将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入组件，以访问配置数据：</span><span class="sxs-lookup"><span data-stu-id="87704-116">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
 
 ```razor
 @page "/"
@@ -59,11 +60,11 @@ Blazor<span data-ttu-id="73920-106"> WebAssembly 加载以下来源的配置：<
 <p>Message: @Configuration["message"]</p>
 ```
 
-## <a name="provider-configuration"></a><span data-ttu-id="73920-117">提供程序配置</span><span class="sxs-lookup"><span data-stu-id="73920-117">Provider configuration</span></span>
+## <a name="provider-configuration"></a><span data-ttu-id="87704-117">提供程序配置</span><span class="sxs-lookup"><span data-stu-id="87704-117">Provider configuration</span></span>
 
-<span data-ttu-id="73920-118">以下示例使用 <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> 提供其他配置：</span><span class="sxs-lookup"><span data-stu-id="73920-118">The following example uses a <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> to supply additional configuration:</span></span>
+<span data-ttu-id="87704-118">以下示例使用 <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> 提供其他配置：</span><span class="sxs-lookup"><span data-stu-id="87704-118">The following example uses a <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> to supply additional configuration:</span></span>
 
-<span data-ttu-id="73920-119">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="73920-119">`Program.Main`:</span></span>
+<span data-ttu-id="87704-119">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="87704-119">`Program.Main`:</span></span>
 
 ```csharp
 using Microsoft.Extensions.Configuration.Memory;
@@ -87,7 +88,7 @@ var memoryConfig = new MemoryConfigurationSource { InitialData = vehicleData };
 builder.Configuration.Add(memoryConfig);
 ```
 
-<span data-ttu-id="73920-120">将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入组件，以访问配置数据：</span><span class="sxs-lookup"><span data-stu-id="73920-120">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
+<span data-ttu-id="87704-120">将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入组件，以访问配置数据：</span><span class="sxs-lookup"><span data-stu-id="87704-120">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
 
 ```razor
 @page "/"
@@ -112,9 +113,9 @@ builder.Configuration.Add(memoryConfig);
 }
 ```
 
-<span data-ttu-id="73920-121">若要将 `wwwroot` 文件夹中的其他配置文件读入配置，请使用 <xref:System.Net.Http.HttpClient> 获取文件内容。</span><span class="sxs-lookup"><span data-stu-id="73920-121">To read other configuration files from the `wwwroot` folder into configuration, use an <xref:System.Net.Http.HttpClient> to obtain the file's content.</span></span> <span data-ttu-id="73920-122">使用此方法时，现有 <xref:System.Net.Http.HttpClient> 服务注册可以使用创建的本地客户端来读取文件，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="73920-122">When using this approach, the existing <xref:System.Net.Http.HttpClient> service registration can use the local client created to read the file, as the following example shows:</span></span>
+<span data-ttu-id="87704-121">若要将 `wwwroot` 文件夹中的其他配置文件读入配置，请使用 <xref:System.Net.Http.HttpClient> 获取文件内容。</span><span class="sxs-lookup"><span data-stu-id="87704-121">To read other configuration files from the `wwwroot` folder into configuration, use an <xref:System.Net.Http.HttpClient> to obtain the file's content.</span></span> <span data-ttu-id="87704-122">使用此方法时，现有 <xref:System.Net.Http.HttpClient> 服务注册可以使用创建的本地客户端来读取文件，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="87704-122">When using this approach, the existing <xref:System.Net.Http.HttpClient> service registration can use the local client created to read the file, as the following example shows:</span></span>
 
-<span data-ttu-id="73920-123">`wwwroot/cars.json`：</span><span class="sxs-lookup"><span data-stu-id="73920-123">`wwwroot/cars.json`:</span></span>
+<span data-ttu-id="87704-123">`wwwroot/cars.json`：</span><span class="sxs-lookup"><span data-stu-id="87704-123">`wwwroot/cars.json`:</span></span>
 
 ```json
 {
@@ -122,7 +123,7 @@ builder.Configuration.Add(memoryConfig);
 }
 ```
 
-<span data-ttu-id="73920-124">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="73920-124">`Program.Main`:</span></span>
+<span data-ttu-id="87704-124">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="87704-124">`Program.Main`:</span></span>
 
 ```csharp
 using Microsoft.Extensions.Configuration;
@@ -142,9 +143,9 @@ using var stream = await response.Content.ReadAsStreamAsync();
 builder.Configuration.AddJsonStream(stream);
 ```
 
-## <a name="authentication-configuration"></a><span data-ttu-id="73920-125">身份验证配置</span><span class="sxs-lookup"><span data-stu-id="73920-125">Authentication configuration</span></span>
+## <a name="authentication-configuration"></a><span data-ttu-id="87704-125">身份验证配置</span><span class="sxs-lookup"><span data-stu-id="87704-125">Authentication configuration</span></span>
 
-<span data-ttu-id="73920-126">`wwwroot/appsettings.json`：</span><span class="sxs-lookup"><span data-stu-id="73920-126">`wwwroot/appsettings.json`:</span></span>
+<span data-ttu-id="87704-126">`wwwroot/appsettings.json`：</span><span class="sxs-lookup"><span data-stu-id="87704-126">`wwwroot/appsettings.json`:</span></span>
 
 ```json
 {
@@ -155,22 +156,22 @@ builder.Configuration.AddJsonStream(stream);
 }
 ```
 
-<span data-ttu-id="73920-127">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="73920-127">`Program.Main`:</span></span>
+<span data-ttu-id="87704-127">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="87704-127">`Program.Main`:</span></span>
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
     builder.Configuration.Bind("Local", options.ProviderOptions));
 ```
 
-## <a name="logging-configuration"></a><span data-ttu-id="73920-128">日志记录配置</span><span class="sxs-lookup"><span data-stu-id="73920-128">Logging configuration</span></span>
+## <a name="logging-configuration"></a><span data-ttu-id="87704-128">日志记录配置</span><span class="sxs-lookup"><span data-stu-id="87704-128">Logging configuration</span></span>
 
-<span data-ttu-id="73920-129">添加 [`Microsoft.Extensions.Logging.Configuration`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/) 的包引用：</span><span class="sxs-lookup"><span data-stu-id="73920-129">Add a package reference for [`Microsoft.Extensions.Logging.Configuration`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/):</span></span>
+<span data-ttu-id="87704-129">添加 [`Microsoft.Extensions.Logging.Configuration`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/) 的包引用：</span><span class="sxs-lookup"><span data-stu-id="87704-129">Add a package reference for [`Microsoft.Extensions.Logging.Configuration`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/):</span></span>
 
 ```xml
 <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="{VERSION}" />
 ```
 
-<span data-ttu-id="73920-130">`wwwroot/appsettings.json`：</span><span class="sxs-lookup"><span data-stu-id="73920-130">`wwwroot/appsettings.json`:</span></span>
+<span data-ttu-id="87704-130">`wwwroot/appsettings.json`：</span><span class="sxs-lookup"><span data-stu-id="87704-130">`wwwroot/appsettings.json`:</span></span>
 
 ```json
 {
@@ -184,7 +185,7 @@ builder.Services.AddOidcAuthentication(options =>
 }
 ```
 
-<span data-ttu-id="73920-131">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="73920-131">`Program.Main`:</span></span>
+<span data-ttu-id="87704-131">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="87704-131">`Program.Main`:</span></span>
 
 ```csharp
 using Microsoft.Extensions.Logging;
@@ -195,19 +196,19 @@ builder.Logging.AddConfiguration(
     builder.Configuration.GetSection("Logging"));
 ```
 
-## <a name="host-builder-configuration"></a><span data-ttu-id="73920-132">主机生成器配置</span><span class="sxs-lookup"><span data-stu-id="73920-132">Host builder configuration</span></span>
+## <a name="host-builder-configuration"></a><span data-ttu-id="87704-132">主机生成器配置</span><span class="sxs-lookup"><span data-stu-id="87704-132">Host builder configuration</span></span>
 
-<span data-ttu-id="73920-133">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="73920-133">`Program.Main`:</span></span>
+<span data-ttu-id="87704-133">`Program.Main`：</span><span class="sxs-lookup"><span data-stu-id="87704-133">`Program.Main`:</span></span>
 
 ```csharp
 var hostname = builder.Configuration["HostName"];
 ```
 
-## <a name="cached-configuration"></a><span data-ttu-id="73920-134">缓存的配置</span><span class="sxs-lookup"><span data-stu-id="73920-134">Cached configuration</span></span>
+## <a name="cached-configuration"></a><span data-ttu-id="87704-134">缓存的配置</span><span class="sxs-lookup"><span data-stu-id="87704-134">Cached configuration</span></span>
 
-<span data-ttu-id="73920-135">配置文件会缓存以供脱机使用。</span><span class="sxs-lookup"><span data-stu-id="73920-135">Configuration files are cached for offline use.</span></span> <span data-ttu-id="73920-136">使用[渐进式 Web 应用程序 (PWA)](xref:blazor/progressive-web-app) 时，只能在创建新部署时更新配置文件。</span><span class="sxs-lookup"><span data-stu-id="73920-136">With [Progressive Web Applications (PWAs)](xref:blazor/progressive-web-app), you can only update configuration files when creating a new deployment.</span></span> <span data-ttu-id="73920-137">在部署之间编辑配置文件不起作用，原因如下：</span><span class="sxs-lookup"><span data-stu-id="73920-137">Editing configuration files between deployments has no effect because:</span></span>
+<span data-ttu-id="87704-135">配置文件会缓存以供脱机使用。</span><span class="sxs-lookup"><span data-stu-id="87704-135">Configuration files are cached for offline use.</span></span> <span data-ttu-id="87704-136">使用[渐进式 Web 应用程序 (PWA)](xref:blazor/progressive-web-app) 时，只能在创建新部署时更新配置文件。</span><span class="sxs-lookup"><span data-stu-id="87704-136">With [Progressive Web Applications (PWAs)](xref:blazor/progressive-web-app), you can only update configuration files when creating a new deployment.</span></span> <span data-ttu-id="87704-137">在部署之间编辑配置文件不起作用，原因如下：</span><span class="sxs-lookup"><span data-stu-id="87704-137">Editing configuration files between deployments has no effect because:</span></span>
 
-* <span data-ttu-id="73920-138">用户已拥有继续使用的文件的缓存版本。</span><span class="sxs-lookup"><span data-stu-id="73920-138">Users have cached versions of the files that they continue to use.</span></span>
-* <span data-ttu-id="73920-139">PWA 的 `service-worker.js` 和 `service-worker-assets.js` 文件必须在编译时重新生成，这会在用户下一次联机访问时通知应用，指示应用已重新部署。</span><span class="sxs-lookup"><span data-stu-id="73920-139">The PWA's `service-worker.js` and `service-worker-assets.js` files must be rebuilt on compilation, which signal to the app on the user's next online visit that the app has been redeployed.</span></span>
+* <span data-ttu-id="87704-138">用户已拥有继续使用的文件的缓存版本。</span><span class="sxs-lookup"><span data-stu-id="87704-138">Users have cached versions of the files that they continue to use.</span></span>
+* <span data-ttu-id="87704-139">PWA 的 `service-worker.js` 和 `service-worker-assets.js` 文件必须在编译时重新生成，这会在用户下一次联机访问时通知应用，指示应用已重新部署。</span><span class="sxs-lookup"><span data-stu-id="87704-139">The PWA's `service-worker.js` and `service-worker-assets.js` files must be rebuilt on compilation, which signal to the app on the user's next online visit that the app has been redeployed.</span></span>
 
-<span data-ttu-id="73920-140">有关 PWA 如何处理后台更新的详细信息，请参阅 <xref:blazor/progressive-web-app#background-updates>。</span><span class="sxs-lookup"><span data-stu-id="73920-140">For more information on how background updates are handled by PWAs, see <xref:blazor/progressive-web-app#background-updates>.</span></span>
+<span data-ttu-id="87704-140">有关 PWA 如何处理后台更新的详细信息，请参阅 <xref:blazor/progressive-web-app#background-updates>。</span><span class="sxs-lookup"><span data-stu-id="87704-140">For more information on how background updates are handled by PWAs, see <xref:blazor/progressive-web-app#background-updates>.</span></span>
