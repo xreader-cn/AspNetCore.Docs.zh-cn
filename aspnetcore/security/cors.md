@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cors
-ms.openlocfilehash: 76e79c2d9762e242dc44857370b0ce1d13f1d1cb
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0a2be31092ab491e23ab9de9be676b5b4d3963ee
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403776"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060275"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>在 ASP.NET Core 中启用跨域请求（CORS）
 
@@ -794,7 +794,7 @@ CORS 中间件始终允许发送四个标头， `Access-Control-Request-Headers`
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-CORS 中间件使用以下请求标头成功响应了预检请求，因为 `Content-Language` 始终为白名单：
+CORS 中间件使用以下请求标头成功响应到预检请求，因为 `Content-Language` 始终允许：
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language

@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: f039772f4276d0e8bcec2629350eba2ec0e7418c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: afad542a18a357a77f4542511a3d2c3108dbfb31
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399681"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059768"
 ---
 # <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>从 ASP.NET 成员身份验证迁移到 ASP.NET Core 2。0Identity
 
@@ -44,7 +44,7 @@ ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入
 
 查看 ASP.NET Core 2.0 的架构的最快方法 Identity 是创建新的 ASP.NET Core 2.0 应用。 在 Visual Studio 2017 中执行以下步骤：
 
-1. 选择“文件” > “新建” > “项目”  。
+1. 选择“文件” > “新建” > “项目”。
 1. 创建一个名为*CoreIdentitySample*的新**ASP.NET Core Web 应用程序**项目。
 1. 在下拉列表中选择**ASP.NET Core 2.0** ，然后选择 " **Web 应用程序**"。 此模板生成[ Razor 页面](xref:razor-pages/index)应用。 单击 **"确定"** 之前，请单击 "**更改身份验证**"。
 1. 为模板选择**单个用户帐户** Identity 。 最后，单击 **"确定**"，然后单击 **"确定"**。 Visual Studio 使用 ASP.NET Core 模板创建项目 Identity 。
@@ -75,36 +75,33 @@ ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入
 
 ### <a name="users"></a>用户
 
-|*Identity<br>供.AspNetUsers*        ||*成员身份 <br> （aspnet_Users/dbo. aspnet_Membership）*||
-|----------------------------------------|-----------------------------------------------------------|
-|**字段名称**                 |**Type**|**字段名称**                                    |**Type**|
-|`Id`                           |string  |`aspnet_Users.UserId`                             |string  |
-|`UserName`                     |string  |`aspnet_Users.UserName`                           |string  |
-|`Email`                        |string  |`aspnet_Membership.Email`                         |string  |
-|`NormalizedUserName`           |string  |`aspnet_Users.LoweredUserName`                    |string  |
-|`NormalizedEmail`              |string  |`aspnet_Membership.LoweredEmail`                  |string  |
-|`PhoneNumber`                  |string  |`aspnet_Users.MobileAlias`                        |string  |
-|`LockoutEnabled`               |bit     |`aspnet_Membership.IsLockedOut`                   |bit     |
+|Identity<br>（ `dbo.AspNetUsers` ）列  |类型     |Membership<br>（ `dbo.aspnet_Users`  /  `dbo.aspnet_Membership` ）列|类型      |
+|-------------------------------------------|-----------------------------------------------------------------------|
+| `Id`                            | `string`| `aspnet_Users.UserId`                                      | `string` |
+| `UserName`                      | `string`| `aspnet_Users.UserName`                                    | `string` |
+| `Email`                         | `string`| `aspnet_Membership.Email`                                  | `string` |
+| `NormalizedUserName`            | `string`| `aspnet_Users.LoweredUserName`                             | `string` |
+| `NormalizedEmail`               | `string`| `aspnet_Membership.LoweredEmail`                           | `string` |
+| `PhoneNumber`                   | `string`| `aspnet_Users.MobileAlias`                                 | `string` |
+| `LockoutEnabled`                | `bit`   | `aspnet_Membership.IsLockedOut`                            | `bit`    |
 
 > [!NOTE]
 > 并非所有字段映射都类似于从成员身份到 ASP.NET Core 的一对一关系 Identity 。 上表采用默认的成员资格用户架构，并将其映射到 ASP.NET Core Identity 架构。 需要手动映射用于成员身份的任何其他自定义字段。 在此映射中，无密码映射，因为密码条件和密码 salts 不会在两者之间迁移。 **建议将密码保留为 null 并要求用户重置其密码。** 在 ASP.NET Core 中 Identity ， `LockoutEnd` 如果用户被锁定，则应设置为将来的某个日期。这会显示在迁移脚本中。
 
 ### <a name="roles"></a>角色
 
-|*Identity<br>供.AspNetRoles)*        ||*成员身份 <br> （aspnet_Roles）*||
+|Identity<br>（ `dbo.AspNetRoles` ）列|类型|Membership<br>（ `dbo.aspnet_Roles` ）列|类型|
 |----------------------------------------|-----------------------------------|
-|**字段名称**                 |**Type**|**字段名称**   |**Type**         |
-|`Id`                           |string  |`RoleId`         | string          |
-|`Name`                         |string  |`RoleName`       | string          |
-|`NormalizedName`               |string  |`LoweredRoleName`| string          |
+|`Id`                           |`string`|`RoleId`         | `string`        |
+|`Name`                         |`string`|`RoleName`       | `string`        |
+|`NormalizedName`               |`string`|`LoweredRoleName`| `string`        |
 
 ### <a name="user-roles"></a>用户角色
 
-|*Identity<br>供.AspNetUserRoles*||*成员身份 <br> （aspnet_UsersInRoles）*||
-|------------------------------------|------------------------------------------|
-|**字段名称**           |**Type**  |**字段名称**|**Type**                   |
-|`RoleId`                 |string    |`RoleId`      |string                     |
-|`UserId`                 |string    |`UserId`      |string                     |
+|Identity<br>（ `dbo.AspNetUserRoles` ）列|类型|Membership<br>（ `dbo.aspnet_UsersInRoles` ）列|类型|
+|-------------------------|----------|--------------|---------------------------|
+|`RoleId`                 |`string`  |`RoleId`      |`string`                   |
+|`UserId`                 |`string`  |`UserId`      |`string`                   |
 
 创建*用户*和*角色*的迁移脚本时引用前面的映射表。 下面的示例假定数据库服务器上有两个数据库。 一个数据库包含现有的 ASP.NET 成员身份架构和数据。 使用前面所述的步骤创建了另一个*CoreIdentitySample*数据库。 有关详细信息，请以内联方式包含注释。
 

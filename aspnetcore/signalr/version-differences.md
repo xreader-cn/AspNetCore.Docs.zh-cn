@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/version-differences
-ms.openlocfilehash: d63e9077ba23c3783d7ce1ceb9c9683bcb0d3a29
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b5b5686f87d6e511672f6a50db7be8e2613a8a9e
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408885"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060145"
 ---
 # <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>ASP.NET SignalR 与 ASP.NET Core 之间的差异SignalR
 
@@ -31,12 +31,12 @@ ASP.NET Core SignalR 与 ASP.NET 的客户端或服务器不兼容 SignalR 。 �
 
 |                      | ASP.NETSignalR | ASP.NET CoreSignalR |
 | -------------------- | --------------- | -------------------- |
-| 服务器 NuGet 包 | [Microsoft。SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | 无。 包含在[AspNetCore](xref:fundamentals/metapackage-app)共享框架中。 |
-| 客户端 NuGet 包 | [Microsoft SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft SignalR 。JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [AspNetCore SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
-| JavaScript 客户端 npm 包 | [signalr](https://www.npmjs.com/package/signalr) | [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) |
-| Java 客户端 | [GitHub 存储库](https://github.com/SignalR/java-client)（已弃用）  | Maven 包[signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| 服务器应用类型 | ASP.NET （System.web）或 OWIN 自承载 | ASP.NET Core |
-| 支持的服务器平台 | .NET Framework 4.5 或更高版本 | .NET Core 3.0 或更高版本 |
+| **服务器 NuGet 包** | [Microsoft。SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | 无。 包含在[AspNetCore](xref:fundamentals/metapackage-app)共享框架中。 |
+| **客户端 NuGet 包** | [Microsoft SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft SignalR 。JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [AspNetCore SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
+| **JavaScript 客户端 npm 包** | [signalr](https://www.npmjs.com/package/signalr) | [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) |
+| **Java 客户端** | [GitHub 存储库](https://github.com/SignalR/java-client)（已弃用）  | Maven 包[signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
+| **服务器应用类型** | ASP.NET （System.web）或 OWIN 自承载 | ASP.NET Core |
+| **支持的服务器平台** | .NET Framework 4.5 或更高版本 | .NET Core 3.0 或更高版本 |
 
 ::: moniker-end
 
@@ -44,12 +44,12 @@ ASP.NET Core SignalR 与 ASP.NET 的客户端或服务器不兼容 SignalR 。 �
 
 |                      | ASP.NETSignalR | ASP.NET CoreSignalR |
 | -------------------- | --------------- | -------------------- |
-| 服务器 NuGet 包 | [Microsoft。SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) （.net Core）<br>[AspNetCore。SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
-| 客户端 NuGet 包 | [Microsoft SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft SignalR 。JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [AspNetCore SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
-| JavaScript 客户端 npm 包 | [signalr](https://www.npmjs.com/package/signalr) | [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) |
-| Java 客户端 | [GitHub 存储库](https://github.com/SignalR/java-client)（已弃用）  | Maven 包[signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| 服务器应用类型 | ASP.NET （System.web）或 OWIN 自承载 | ASP.NET Core |
-| 支持的服务器平台 | .NET Framework 4.5 或更高版本 | .NET Framework 4.6.1 或更高版本<br>.NET Core 2.1 或更高版本 |
+| **服务器 NuGet 包** | [Microsoft。SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) （.net Core）<br>[AspNetCore。SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
+| **客户端 NuGet 包** | [Microsoft SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft SignalR 。JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [AspNetCore SignalR 。机](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
+| **JavaScript 客户端 npm 包** | [signalr](https://www.npmjs.com/package/signalr) | [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) |
+| **Java 客户端** | [GitHub 存储库](https://github.com/SignalR/java-client)（已弃用）  | Maven 包[signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
+| **服务器应用类型** | ASP.NET （System.web）或 OWIN 自承载 | ASP.NET Core |
+| **支持的服务器平台** | .NET Framework 4.5 或更高版本 | .NET Framework 4.6.1 或更高版本<br>.NET Core 2.1 或更高版本 |
 
 ::: moniker-end
 
