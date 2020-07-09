@@ -15,21 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: ba43ff052fbd290412fa27cf57ace3ee3491f8d0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 56681e713e008188d57166da9c8fd4eb6923928c
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402554"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944212"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
 作者：[Daniel Roth](https://github.com/danroth27)
 
 Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassembly.org/) 的 .NET 运行时 (Blazor WebAssembly) 上的浏览器中运行客户端，或在 ASP.NET Core (Blazor Server) 中运行服务器端 。 对于任意托管模型，应用和组件模型都相同。
-
-若要为本文所述的托管模型创建项目，请参阅 <xref:blazor/get-started>。
-
-对于高级配置，请参阅 <xref:blazor/fundamentals/configuration>。
 
 ## Blazor WebAssembly
 
@@ -154,7 +151,6 @@ Blazor Server 应用预呈现以响应第一个客户端请求，这会在服务
 
 ## <a name="additional-resources"></a>其他资源
 
-* <xref:blazor/get-started>
 * <xref:signalr/introduction>
 * <xref:blazor/fundamentals/additional-scenarios>
 * <xref:tutorials/signalr-blazor-webassembly>

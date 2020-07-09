@@ -14,11 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: index
-ms.openlocfilehash: f58c25ec8b47b2bd8d425d0bfd0d52df9bbc2655
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2ad97dd7eb38b4cb69fa7af5ae1e1d1837a97443
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408196"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944551"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -79,7 +80,7 @@ ASP.NET Core 3.x 和更高版本只能面向 .NET Core。 通常，ASP.NET Core 
    |----------|----------|----------|
    |Web 应用                   | 新的服务器端 Web UI 开发 |[Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start) |
    |Web 应用                   | 维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
-   |Web 应用                   | 客户端 Web UI 开发 |[开始使用 Blazor](xref:tutorials/first-blazor-app) |
+   |Web 应用                   | 客户端 Web UI 开发 |[开始使用 Blazor](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro) |
    |Web API                   | RESTful HTTP 服务 |[创建 Web API](xref:tutorials/first-web-api)&dagger; |
    |远程过程调用应用 | 使用协议缓冲区的协定优先服务 |[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start) |
    |实时应用             | 服务器和连接的客户端之间的双向通信 |[开始使用 SignalR](xref:tutorials/signalr) |

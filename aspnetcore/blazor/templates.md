@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 6359a02b23803f26c4a40772c68d39e804396403
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f1b131947a242323295a763ba2f2473af0ccfb4f
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401891"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944533"
 ---
 # <a name="aspnet-core-blazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -31,8 +32,6 @@ Blazor 框架提供了一些模板，用于为每个 Blazor 托管模型开发�
 * Blazor Server (`blazorserver`)
 
 有关 Blazor 的托管模型的详细信息，请参阅 <xref:blazor/hosting-models>。
-
-有关基于模板创建 Blazor 应用的分步说明，请参阅 <xref:blazor/get-started>。
 
 通过将 `--help` 选项传递给 [`dotnet new`](/dotnet/core/tools/dotnet-new) CLI 命令，可提供模板选项：
 

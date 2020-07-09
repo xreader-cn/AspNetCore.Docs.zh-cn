@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: b54eb7142fc7e1665cc0aaaad068a67852ac2f74
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b172059407f9a08dacc0fadd804864c7aee7fb90
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399070"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944494"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -35,8 +35,6 @@ ms.locfileid: "85399070"
 正如组件是常规的 .NET 类型一样，RCL 提供的组件也是普通的 .NET 程序集。
 
 ## <a name="create-an-rcl"></a>创建 RCL
-
-按照 <xref:blazor/get-started> 文章中的指导，为 Blazor 配置环境。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 

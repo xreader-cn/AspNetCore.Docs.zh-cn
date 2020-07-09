@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: b60fa81b3bf180cd2ba15f285df9474be42f95f8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5e04d54bedf7cce8b7a6ab546920e7dec1213a20
+ms.sourcegitcommit: d1fa3d69dda675d7a52c7100742dfa6297413376
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400084"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86093352"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -36,7 +36,7 @@ ASP.NET Core 模块是插入 IIS 管道的本机 IIS 模块，用于：
 受支持的 Windows 版本：
 
 * Windows 7 或更高版本
-* Windows Server 2008 R2 或更高版本
+* Windows Server 2012 R2 或更高版本
 
 在进程内托管时，该模块会使用 IIS 进程内服务器实现，即 IIS HTTP 服务器 (`IISHttpServer`)。
 
