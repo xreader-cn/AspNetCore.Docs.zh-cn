@@ -5,7 +5,7 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/25/2020
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 0a8335461b4c9cd628d9c65b97f7ab6a74487fca
-ms.sourcegitcommit: 7f423602a1475736f61fc361327d4de0976c9649
+ms.openlocfilehash: 23aab2504368559b8d3dd21b3c0896ffc3348e2f
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85950894"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059813"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -83,15 +83,15 @@ Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 
 
 ### <a name="namespaces"></a>命名空间
 
-通常，组件的命名空间是从应用的根命名空间和该组件在应用内的位置（文件夹）派生而来的。 如果应用的根命名空间是 `BlazorApp`，并且 `Counter` 组件位于 `Pages` 文件夹中：
+通常，组件的命名空间是从应用的根命名空间和该组件在应用内的位置（文件夹）派生而来的。 如果应用的根命名空间是 `BlazorSample`，并且 `Counter` 组件位于 `Pages` 文件夹中：
 
-* `Counter` 组件的命名空间为 `BlazorApp.Pages`。
-* 组件的完全限定类型名称为 `BlazorApp.Pages.Counter`。
+* `Counter` 组件的命名空间为 `BlazorSample.Pages`。
+* 组件的完全限定类型名称为 `BlazorSample.Pages.Counter`。
 
 对于保存组件的自定义文件夹，将 [`@using`][2] 指令添加到父组件或应用的 `_Imports.razor` 文件。 下面的示例提供 `Components` 文件夹中的组件：
 
 ```razor
-@using BlazorApp.Components
+@using BlazorSample.Components
 ```
 
 还可以使用其完全限定的名称来引用组件，而不需要 [`@using`][2] 指令：
@@ -162,7 +162,7 @@ Razor 组件作为分部类生成。 使用以下方法之一创建 Razor 组件
 `Counter.razor.cs`：
 
 ```csharp
-namespace BlazorApp.Pages
+namespace BlazorSample.Pages
 {
     public partial class Counter
     {
@@ -481,15 +481,15 @@ public class NotifierService
 }
 ```
 
-将 `NotifierService` 注册为单一实例：
+注册 `NotifierService`：
 
-* 在 Blazor WebAssembly 中，在 `Program.Main` 中注册服务：
+* 在 Blazor WebAssembly 中，在 `Program.Main` 中将服务注册为单一实例：
 
   ```csharp
   builder.Services.AddSingleton<NotifierService>();
   ```
 
-* 在 Blazor Server中，在 `Startup.ConfigureServices` 中注册服务：
+* 在 Blazor Server 中，在 `Startup.ConfigureServices` 中将服务注册为有作用域：
 
   ```csharp
   services.AddScoped<NotifierService>();
@@ -619,13 +619,19 @@ public class NotifierService
 * 切换以使用组件参数显示子内容。
 
 ```razor
-<div @onclick="@Toggle">
-    Toggle (Expanded = @Expanded)
+<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+    <div class="card-body">
+        <div class="panel-heading">
+            <h2>Toggle (Expanded = @Expanded)</h2>
+        </div>
 
-    @if (Expanded)
-    {
-        @ChildContent
-    }
+        @if (Expanded)
+        {
+            <div class="card-text">
+                @ChildContent
+            </div>
+        }
+    </div>
 </div>
 
 @code {
@@ -645,13 +651,15 @@ public class NotifierService
 `Expander` 组件会添加到可调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>的父组件中：
 
 ```razor
+@page "/expander"
+
 <Expander Expanded="true">
-    <h1>Hello, world!</h1>
+    Expander 1 content
 </Expander>
 
 <Expander Expanded="true" />
 
-<button @onclick="@(() => StateHasChanged())">
+<button @onclick="StateHasChanged">
     Call StateHasChanged
 </button>
 ```
@@ -660,30 +668,36 @@ public class NotifierService
 
 要维持在前述情况中的状态，请在 `Expander` 组件中使用私有字段来保留它的切换状态。
 
-以下 `Expander` 组件：
+以下经修定的 `Expander` 组件：
 
 * 接受父项中的 `Expanded` 组件参数值。
 * 将组件参数值分配给 [OnInitialized 事件](xref:blazor/components/lifecycle#component-initialization-methods)中的私有字段 (`expanded`)。
 * 使用私有字段来维持它的内部切换状态。
 
 ```razor
-<div @onclick="@Toggle">
-    Toggle (Expanded = @expanded)
+<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+    <div class="card-body">
+        <div class="panel-heading">
+            <h2>Toggle (Expanded = @expanded)</h2>
+        </div>
 
-    @if (expanded)
-    {
-        @ChildContent
-    }
+        @if (Expanded)
+        {
+            <div class="card-text">
+                @ChildContent
+            </div>
+        }
+    </div>
 </div>
 
 @code {
+    private bool expanded;
+
     [Parameter]
     public bool Expanded { get; set; }
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
-
-    private bool expanded;
 
     protected override void OnInitialized()
     {
