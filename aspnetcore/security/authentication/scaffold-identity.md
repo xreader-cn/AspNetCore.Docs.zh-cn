@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 155bdfbeea06022d35bbb551d5b2d0ee5a51a093
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e2ae82b9c26771ee5da16b1611026c6d62804bce
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400812"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212938"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>IdentityASP.NET Core 项目中的基架
 
@@ -28,7 +28,7 @@ ms.locfileid: "85400812"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core 提供[ Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core Identity ](xref:security/authentication/identity) 。 包含的应用程序 Identity 可以应用 scaffolder 来有选择地添加类库中包含的源代码 Identity Razor （RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完整 Identity UI 源](#full)部分。
+ASP.NET Core 提供[ Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core Identity ](xref:security/authentication/identity) 。 包含的应用程序 Identity 可以应用 scaffolder 将类库中包含的源代码选择性地添加 Identity Razor (RCL) 。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完整 Identity UI 源](#full)部分。
 
 **不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL Identity 包。 可以选择要生成的 Identity 代码。
 
@@ -48,7 +48,7 @@ ASP.NET Core 提供[ Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core Iden
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupRemove.cs?name=snippet)]
 
-前面的代码注释掉*区域/ Identity /IdentityHostingStartup.cs*中的重复代码。
+前面的代码注释了*区域/ Identity / Identity HostingStartup.cs*中的重复代码。
 
 通常，使用各个帐户创建的应用***不***应创建新的数据上下文。
 
@@ -93,7 +93,7 @@ before dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="efm"></a>
 
@@ -113,9 +113,9 @@ Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详�
 
 ### <a name="layout-changes"></a>布局更改
 
-可选：将登录名 partial （ `_LoginPartial` ）添加到布局文件中：
+可选：将登录部分 (`_LoginPartial`) 添加到布局文件中：
 
-[!code-html[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
+[!code-cshtml[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
 ## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>Identity Razor 使用授权基架到项目中
 
@@ -132,7 +132,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-某些 Identity 选项在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>基架 Identity 到没有现有授权的 MVC 项目
 
@@ -152,13 +152,13 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-可选：将登录名 partial （ `_LoginPartial` ）添加到*Views/Shared/_Layout cshtml*文件中：
+可选：将登录名部分 (`_LoginPartial`) 添加到*Views/Shared/_Layout*文件中：
 
-[!code-html[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
+[!code-cshtml[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
 * 将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*
 
-Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
@@ -184,7 +184,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ### <a name="migrations"></a>迁移
 
@@ -195,7 +195,7 @@ Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详�
 可以将令牌传递给组件：
 
 * 设置身份验证令牌并将其保存到身份验证 cookie 后，可以将其传递给组件。
-* Razor组件不能 `HttpContext` 直接使用，因此无法获取要在其上发布到的注销终结点的[反请求伪造（XSRF）令牌](xref:security/anti-request-forgery) Identity `/Identity/Account/Logout` 。 可以将 XSRF 令牌传递给组件。
+* Razor组件不能 `HttpContext` 直接使用，因此无法获取[ (XSRF 的) 令牌的反请求伪造](xref:security/anti-request-forgery) Identity `/Identity/Account/Logout` 。 可以将 XSRF 令牌传递给组件。
 
 有关详细信息，请参阅 <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>。
 
@@ -214,7 +214,7 @@ var tokens = new InitialApplicationState
 };
 ```
 
-更新 `App` 组件（*app.config*）以分配 `InitialState.XsrfToken` ：
+`App`将组件更新 (*App.razor*) ，以分配 `InitialState.XsrfToken` ：
 
 ```csharp
 @inject TokenProvider TokenProvider
@@ -242,7 +242,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 
 ### <a name="layout-and-authentication-flow-changes"></a>布局和身份验证流更改
 
-将 `RedirectToLogin` 组件（*RedirectToLogin*）添加到项目根目录中的应用的*共享*文件夹：
+将 `RedirectToLogin` *RedirectToLogin*) 的 (组件添加到项目根目录中应用的*共享*文件夹中：
 
 ```razor
 @inject NavigationManager Navigation
@@ -255,7 +255,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 }
 ```
 
-将 `LoginDisplay` 组件（*LoginDisplay*）添加到应用的*共享*文件夹。 [TokenProvider 服务](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)提供 HTML 窗体的 XSRF 标记，该标记将发布到 Identity 注销终结点：
+将 `LoginDisplay` () 的*LoginDisplay.razor*组件添加到应用的*共享*文件夹。 [TokenProvider 服务](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)提供 HTML 窗体的 XSRF 标记，该标记将发布到 Identity 注销终结点：
 
 ```razor
 @using Microsoft.AspNetCore.Components.Authorization
@@ -280,7 +280,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 </AuthorizeView>
 ```
 
-在 `MainLayout` 组件（*Shared/MainLayout*）中，将 `LoginDisplay` 组件添加到顶层行 `<div>` 元素的内容：
+在 `MainLayout` (*Shared/MainLayout*) 的组件中，将组件添加 `LoginDisplay` 到顶层行 `<div>` 元素的内容：
 
 ```razor
 <div class="top-row px-4 auth">
@@ -304,7 +304,7 @@ Identity可以修改页面布局和样式，以生成使用默认主题的页面
 > [!NOTE]
 > 本节中的示例只是一个自定义的起点。 为了获得最佳用户体验，可能需要额外的工作。
 
-创建新 `NavMenu_IdentityLayout` 组件（*Shared/NavMenu_IdentityLayout*）。 对于组件的标记和代码，请使用应用 `NavMenu` 组件（*Shared/NavMenu*）的相同内容。 去除 `NavLink` 无法匿名访问的组件，因为组件中的自动重定向 `RedirectToLogin` 对于需要身份验证或授权的组件失败。
+`NavMenu_IdentityLayout` (*Shared/NavMenu_ Identity Layout*) 创建新的组件。 对于组件的标记和代码，请 `NavMenu` (*Shared/NavMenu*) 使用应用组件的相同内容。 去除 `NavLink` 无法匿名访问的组件，因为组件中的自动重定向 `RedirectToLogin` 对于需要身份验证或授权的组件失败。
 
 在*Pages/Shared/Layout*文件中，进行以下更改：
 
@@ -366,7 +366,7 @@ Identity可以修改页面布局和样式，以生成使用默认主题的页面
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-某些 Identity 选项在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="full"></a>
 
@@ -480,7 +480,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 2.1 和更高版本提供了[ Identity ASP.NET Core](xref:security/authentication/identity)为[ Razor 类库](xref:razor-pages/ui-class)。 包含的应用程序 Identity 可以应用 scaffolder 来有选择地添加类库中包含的源代码 Identity Razor （RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
+ASP.NET Core 2.1 和更高版本提供了[ Identity ASP.NET Core](xref:security/authentication/identity)为[ Razor 类库](xref:razor-pages/ui-class)。 包含的应用程序 Identity 可以应用 scaffolder 将类库中包含的源代码选择性地添加 Identity Razor (RCL) 。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
 
 **不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL Identity 包。 可以选择要生成的 Identity 代码。
 
@@ -526,7 +526,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="efm"></a>
 
@@ -546,9 +546,9 @@ Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详�
 
 ### <a name="layout-changes"></a>布局更改
 
-可选：将登录名 partial （ `_LoginPartial` ）添加到布局文件中：
+可选：将登录部分 (`_LoginPartial`) 添加到布局文件中：
 
-[!code-html[](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
+[!code-cshtml[](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
 
 ## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>Identity Razor 使用授权基架到项目中
 
@@ -565,7 +565,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-某些 Identity 选项在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>基架 Identity 到没有现有授权的 MVC 项目
 
@@ -585,13 +585,13 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-可选：将登录名 partial （ `_LoginPartial` ）添加到*Views/Shared/_Layout cshtml*文件中：
+可选：将登录名部分 (`_LoginPartial`) 添加到*Views/Shared/_Layout*文件中：
 
-[!code-html[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
+[!code-cshtml[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
 
 * 将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*
 
-Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 

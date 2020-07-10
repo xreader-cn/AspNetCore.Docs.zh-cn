@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 06d5d6e2db1cf3ccb148c24c40c264016d47a0ed
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7a92f2b5bc791f268b897878db08a9f9f4f7bf0c
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406584"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212407"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -45,7 +45,7 @@ ms.locfileid: "85406584"
 
 示例：
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/RegisterFormOnly.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/RegisterFormOnly.cshtml)]
 
 上述表单标记帮助程序生成以下 HTML：
 
@@ -62,7 +62,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 
 `asp-route` 标记帮助程序属性还可为 HTML `action` 属性生成标记。 具有名为 `register` 的[路由](../../fundamentals/routing.md)的应用可将以下标记用于注册页：
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterRoute.cshtml)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterRoute.cshtml)]
 
 *Views/Account* 文件夹中的许多视图（在新建使用*个人用户帐户*身份验证的 Web 应用时生成）包含 [asp-route-returnurl](xref:mvc/views/working-with-forms) 属性：
 
@@ -81,7 +81,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 
 用于控制 `formaction` 值的受支持的 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 属性：
 
-|特性|说明|
+|属性|说明|
 |---|---|
 |[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|控制器的名称。|
 |[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|操作方法的名称。|
@@ -89,7 +89,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 |[asp-page](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|页的名称 Razor 。|
 |[asp-page-handler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Razor页面处理程序的名称。|
 |[asp-route](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|路由的名称。|
-|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|单个 URL 路由值。 例如 `asp-route-id="1234"`。|
+|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|单个 URL 路由值。 例如，`asp-route-id="1234"`。|
 |[asp-all-route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|所有路由值。|
 |[asp-fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|URL 片段。|
 
@@ -207,7 +207,7 @@ Type expected
 |.NET 类型|输入类型|
 |---|---|
 |Bool|type="checkbox"|
-|String|type="text"|
+|字符串|type="text"|
 |DateTime|type=["datetime-local"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
 |Byte|type="number"|
 |int|type="number"|
@@ -215,7 +215,7 @@ Type expected
 
 下表显示输入标记帮助程序会映射到特定输入类型的一些常见[数据注释](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)属性（并未列出每个验证属性）：
 
-|特性|输入类型|
+|属性|输入类型|
 |---|---|
 |[EmailAddress]|type="email"|
 |[Url]|type="url"|
@@ -229,7 +229,7 @@ Type expected
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/RegisterViewModel.cs)]
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/RegisterInput.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/RegisterInput.cshtml)]
 
 上述代码生成以下 HTML：
 
@@ -249,7 +249,7 @@ Type expected
    </form>
 ```
 
-应用于 `Email` 和 `Password` 属性的数据注释在模型中生成元数据。 输入标记帮助程序使用模型元数据并生成 [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-val-*` 属性（请参阅[模型验证](../models/validation.md)）。 这些属性描述要附加到输入字段的验证程序。 这样可以提供非介入式 HTML5 和 [jQuery](https://jquery.com/) 验证。 不引人注目的特性具有格式 `data-val-rule="Error Message"` ，其中 rule 是验证规则的名称（例如、、等 `data-val-required` `data-val-email` `data-val-maxlength` ）。如果属性中提供错误消息，则该消息将显示为该属性的值 `data-val-rule` 。 还有表单 `data-val-ruleName-argumentName="argumentValue"` 的属性，这些属性提供有关规则的其他详细信息，例如，`data-val-maxlength-max="1024"`。
+应用于 `Email` 和 `Password` 属性的数据注释在模型中生成元数据。 输入标记帮助程序使用模型元数据并生成 [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-val-*` 属性（请参阅[模型验证](../models/validation.md)）。 这些属性描述要附加到输入字段的验证程序。 这样可以提供非介入式 HTML5 和 [jQuery](https://jquery.com/) 验证。 不引人注目的特性具有格式 `data-val-rule="Error Message"` ，其中 rule 是验证规则 (如 `data-val-required` 、、等）的名称 `data-val-email` `data-val-maxlength` 。 ) 如果属性中提供错误消息，则该属性将显示为属性的值 `data-val-rule` 。 还有表单 `data-val-ruleName-argumentName="argumentValue"` 的属性，这些属性提供有关规则的其他详细信息，例如，`data-val-maxlength-max="1024"`。
 
 ### <a name="html-helper-alternatives-to-input-tag-helper"></a>输入标记帮助程序的 HTML 帮助程序替代项
 
@@ -299,7 +299,7 @@ Type expected
 
 在视图中，绑定到 `Address.AddressLine1`：
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterAddress.cshtml?highlight=6)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterAddress.cshtml?highlight=6)]
 
 为 `Address.AddressLine1` 生成以下 HTML：
 
@@ -325,11 +325,11 @@ public IActionResult Edit(int id, int colorIndex)
 
 下面 Razor 演示了如何访问特定 `Color` 元素：
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/EditColor.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/EditColor.cshtml)]
 
 *Views/Shared/EditorTemplates/String.cshtml* 模板：
 
-[!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/String.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/String.cshtml)]
 
 使用 `List<T>` 的示例：
 
@@ -337,11 +337,11 @@ public IActionResult Edit(int id, int colorIndex)
 
 下面 Razor 演示如何循环访问集合：
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/Edit.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/Edit.cshtml)]
 
 *Views/Shared/EditorTemplates/ToDoItem.cshtml* 模板：
 
-[!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
 
 应尽量在 `asp-for` 或 `Html.DisplayFor` 等效上下文中使用值 `foreach`。 一般情况下，`for` 优于 `foreach`（如果情况允许使用的话），因为它不需要分配枚举器，但在 LINQ 表达式中评估索引器的成本高昂，应最大限度地减少使用它。
 
@@ -364,7 +364,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/DescriptionViewModel.cs)]
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterTextArea.cshtml?highlight=4)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterTextArea.cshtml?highlight=4)]
 
 生成以下 HTML：
 
@@ -400,7 +400,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/SimpleViewModel.cs)]
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterLabel.cshtml?highlight=4)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterLabel.cshtml?highlight=4)]
 
 为 `<label>` 元素生成以下 HTML：
 
@@ -461,7 +461,7 @@ public IActionResult Edit(int id, int colorIndex)
 |asp-validation-summary|显示的验证消息|
 |--- |--- |
 |ValidationSummary.All|属性和模型级别|
-|ValidationSummary.ModelOnly|“模型”|
+|ValidationSummary.ModelOnly|型号|
 |ValidationSummary.None|无|
 
 ### <a name="sample"></a>示例
@@ -470,7 +470,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/RegisterViewModel.cs)]
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterValidation.cshtml?highlight=4,6,8&range=1-10)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterValidation.cshtml?highlight=4,6,8&range=1-10)]
 
 生成的 HTML（如果模型有效）：
 
@@ -501,7 +501,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 `Select Tag Helper` `asp-for` 为 [select](https://www.w3.org/wiki/HTML/Elements/select) 元素指定模型属性名称，`asp-items` 指定 [option](https://www.w3.org/wiki/HTML/Elements/option) 元素。  例如：
 
-[!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
 示例：
 
@@ -538,7 +538,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 `asp-for` 属性值是特殊情况，它不要求提供 `Model` 前缀，但其他标记帮助程序属性需要该前缀（例如 `asp-items`）
 
-[!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
 ### <a name="enum-binding"></a>枚举绑定
 
@@ -552,7 +552,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 `GetEnumSelectList` 方法为枚举生成 `SelectList` 对象。
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEnum.cshtml?highlight=5)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEnum.cshtml?highlight=5)]
 
 可使用 `Display` 属性标记枚举器列表，以获取更丰富的 UI：
 
@@ -617,7 +617,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 及以下视图：
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexMultiSelect.cshtml?highlight=4)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexMultiSelect.cshtml?highlight=4)]
 
 则会生成以下 HTML：
 
@@ -641,17 +641,17 @@ HTTP POST `Index` 方法显示选定内容：
 
 如果发现自己在多个页面中使用“未指定”选项，可创建模板用于消除重复的 HTML：
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEmptyTemplate.cshtml?highlight=5)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEmptyTemplate.cshtml?highlight=5)]
 
 *Views/Shared/EditorTemplates/CountryViewModel.cshtml* 模板：
 
-[!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/CountryViewModel.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/CountryViewModel.cshtml)]
 
 添加 HTML [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 元素的情况并不限于 "*无选择*"。 例如，以下视图和操作方法会生成与上述代码类似的 HTML：
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?name=snippetNone)]
 
-[!code-HTML[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
 
 根据当前的 `Country` 值选择正确的 `<option>` 元素（包含 `selected="selected"` 属性）。
 

@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
-ms.openlocfilehash: c767ff4c2a1e0d5d10ccb3ff855126f541c04f64
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ac9f6449e2b7b135318ecf116e1dba7b33ddff83
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408235"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212394"
 ---
 # <a name="link-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的链接标记帮助程序
 
@@ -33,11 +33,11 @@ ms.locfileid: "85408235"
 
 以下 Razor 标记显示 `head` 使用 ASP.NET Core web 应用程序模板创建的布局文件的元素：
 
-[!code-html[](link-tag-helper/sample/_Layout.cshtml?name=snippet)]
+[!code-cshtml[](link-tag-helper/sample/_Layout.cshtml?name=snippet)]
 
 以下是上述代码呈现的 HTML（非开发环境）：
 
-[!code-csharp[](link-tag-helper/sample/HtmlPage1.html)]
+[!code-html[](link-tag-helper/sample/HtmlPage1.html)]
 
 在上述代码中，链接标记帮助程序生成 `<meta name="x-stylesheet-fallback-test" content="" class="sr-only" />` 元素以及以下 JavaScript（用于验证是否可以从 CDN 获取请求的 bootstrap.min.css 文件）**。 在此示例中，可以获取 CSS 文件，因此标记帮助程序使用 CDN CSS 文件生成 `<link />` 元素。
 

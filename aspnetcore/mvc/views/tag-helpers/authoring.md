@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 5e250debb5c4c2ef00b844557d31ed8281d2ff2f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e630bf4b0c121796315be077623abae73d240b37
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407585"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212458"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -77,7 +77,7 @@ ms.locfileid: "85407585"
 
    [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
 
-   上面的代码使用通配符语法来指定程序集中的所有标记帮助程序都将可用。 `@addTagHelper` 之后的第一个字符串指定要加载的标记帮助程序（对所有标记帮助程序使用“*”），第二个字符串“AuthoringTagHelpers”指定标记帮助程序所在的程序集。 另请注意，第二行将使用通配符语法 ASP.NET Core MVC 标记帮助程序（[标记帮助程序简介](intro.md)中讨论了这些帮助程序。）它是 `@addTagHelper` 使标记帮助程序可用于该视图的指令 Razor 。 或者，也可以提供标记帮助程序的完全限定的名称 (FQN)，如下所示：
+   上面的代码使用通配符语法来指定程序集中的所有标记帮助程序都将可用。 `@addTagHelper` 之后的第一个字符串指定要加载的标记帮助程序（对所有标记帮助程序使用“*”），第二个字符串“AuthoringTagHelpers”指定标记帮助程序所在的程序集。 另请注意，第二行将使用通配符语法的 ASP.NET Core MVC 标记帮助程序 (在[标记帮助程序简介](intro.md)中讨论了这些帮助程序。 ) 这是 `@addTagHelper` 使标记帮助程序可用于该视图的指令 Razor 。 或者，也可以提供标记帮助程序的完全限定的名称 (FQN)，如下所示：
 
 ```csharp
 @using AuthoringTagHelpers
@@ -87,20 +87,20 @@ ms.locfileid: "85407585"
 
 <!--
 the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
-    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImports.cshtml?highlight=3&range=1-3)]
+    [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImports.cshtml?highlight=3&range=1-3)]
 -->
 
 若要使用 FQN 将标记帮助程序添加到视图中，请依次添加 FQN (`AuthoringTagHelpers.TagHelpers.EmailTagHelper`) 和程序集名称****（AuthoringTagHelpers**，不一定是 `namespace`）。 大多数开发者更喜欢使用通配符语法。 [标记帮助程序简介](intro.md)详细介绍了标记帮助程序的添加和删除方法，以及层次结构和通配符语法。
 
 1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记：**
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
 1. 运行应用并使用你喜爱的浏览器来查看 HTML 源，以便验证电子邮件标记是否替换为定位标记（例如，`<a>Support</a>`）。 Support 和 Marketing 呈现为链接，但它们不具备使其正常工作的 `href` 属性****。 此问题将在下一部分得以解决。
 
 ## <a name="setattribute-and-setcontent"></a>SetAttribute 和 SetContent
 
-在本部分中，我们将更新 `EmailTagHelper`，使其能够为电子邮件创建有效的定位标记。 我们将对其进行更新，以从 Razor 视图（属性的形式）获取信息 `mail-to` ，并在生成定位点时使用该视图。
+在本部分中，我们将更新 `EmailTagHelper`，使其能够为电子邮件创建有效的定位标记。 我们将对其进行更新，以 Razor 使用属性) 形式从视图中获取信息 `mail-to` ，并在生成定位点时使用该 (。
 
 使用以下内容更新 `EmailTagHelper` 类：
 
@@ -118,7 +118,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记：**
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
 
 1. 运行应用并验证它是否生成正确的链接。
 
@@ -139,7 +139,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelper.cs?range=6-17)]
 
-   **注意：**
+   注意：
 
    * 此版本使用异步 `ProcessAsync` 方法。 异步 `GetChildContentAsync` 返回包含 `TagHelperContent` 的 `Task`。
 
@@ -147,7 +147,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 对 Views/Home/Contact.cshtml 文件进行以下更改，以便标记帮助程序能够获取目标电子邮件**。
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
 1. 运行应用并验证它是否生成有效的电子邮件链接。
 
@@ -163,7 +163,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 修改 About.cshtml 视图，以包含 `bold` 属性值**。 完成的代码如下所示。
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutBoldOnly.cshtml?highlight=7)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutBoldOnly.cshtml?highlight=7)]
 
 1. 运行应用。 可以使用你喜爱的浏览器来检查源并验证标记。
 
@@ -215,7 +215,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
    [HtmlTargetElement("Website-Information")]
    ```
 
-   * 自结束的元素没有任何内容。 在此示例中， Razor 标记将使用一个自结束标记，但标记帮助程序将创建[section](https://www.w3.org/TR/html5/sections.html#the-section-element)元素（该元素不会自行关闭，并且你将在元素内编写内容 `section` ）。 因此，需要将 `TagMode` 设置为 `StartTagAndEndTag` 以写入输出。 或者，可以标注出行设置 `TagMode` 并用结束标记编写标记。 （本教程后面将提供示例标记。）
+   * 自结束的元素没有任何内容。 在此示例中， Razor 标记将使用一个自结束标记，但标记帮助程序将创建一个[节](https://www.w3.org/TR/html5/sections.html#the-section-element)元素，该 (元素不会自行关闭，并且你在) 元素内编写内容 `section` 。 因此，需要将 `TagMode` 设置为 `StartTagAndEndTag` 以写入输出。 或者，可以标注出行设置 `TagMode` 并用结束标记编写标记。 （本教程后面将提供示例标记。）
 
    * 下一行中的 `$`（美元符号）使用[内插字符串](/dotnet/csharp/language-reference/keywords/interpolated-strings)：
 
@@ -225,7 +225,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 将以下标记添加到 About.cshtml 视图**。 突出显示的标记显示 Web 站点信息。
 
-   [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
+   [!code-cshtml[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
 
    > [!NOTE]
    > 在 Razor 下面显示的标记中：
@@ -251,7 +251,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 将 Views/Home/Index.cshtml 文件的内容** 替换为以下标记：
 
-   [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Index.cshtml)]
+   [!code-cshtml[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Index.cshtml)]
 
 1. 将 `Home` 控制器中的 `Index` 方法替换为以下代码：
 
@@ -281,7 +281,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 将以下标记添加到 Views/Home/Contact.cshtml 文件的末尾**：
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=19)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=19)]
 
 1. 运行应用并验证标记帮助程序是否正确呈现定位点。
 

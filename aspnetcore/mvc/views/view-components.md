@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/view-components
-ms.openlocfilehash: 40902da52217505822abd9bfd889ecafdd4d88e0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 272b5a89601a9e6ef24f3e60a3da7e2a40297c97
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407832"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213110"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -100,7 +100,7 @@ ms.locfileid: "85407832"
 
 若要自定义视图搜索路径，请修改 Razor 的 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.ViewLocationFormats> 集合。 例如，将新项添加到集合，以搜索路径“/Components/{视图组件名称}/{视图名称}”中的视图：
 
-[!code-cs[](view-components/samples_snapshot/2.x/Startup.cs?name=snippet_ViewLocationFormats&highlight=4)]
+[!code-csharp[](view-components/samples_snapshot/2.x/Startup.cs?name=snippet_ViewLocationFormats&highlight=4)]
 
 在前面的代码中，占位符“{0}”表示路径“Components/{视图组件名称}/{视图名称}”。
 
@@ -287,7 +287,7 @@ public class PriorityList : ViewComponent
 }
 ```
 
-视图组件的 Razor 文件列出传递给方法的字符串 `Invoke` （*Views/Home/Components/PriorityList/* default.aspx）：
+视图组件的 Razor 文件列出传递给方法的字符串 `Invoke` (*Views/Home/component/PriorityList/*) ：
 
 ```cshtml
 @model List<string>
@@ -303,7 +303,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker range=">= aspnetcore-1.1"
 
-Razor使用以下方法之一在文件中调用视图组件（例如， *Views/Home/Index*）：
+视图组件在文件中调用 Razor (例如， *Views/Home/*) 使用以下方法之一：
 
 * <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>
 * [标记帮助程序](xref:mvc/views/tag-helpers/intro)
@@ -314,7 +314,7 @@ Razor使用以下方法之一在文件中调用视图组件（例如， *Views/H
 
 ::: moniker range="< aspnetcore-1.1"
 
-视图组件在文件中调用 Razor （例如， *Views/Home/Index*） <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> 。
+视图组件在文件中调用 Razor (例如， *Views/Home/索引*) 使用 <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> 。
 
 调用 `Component.InvokeAsync`：
 

@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 7fe33a620e43603388dd0cacb3ea42f5b5adc40f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0141ad2df5216183424980a6ca50bf6bcd64ade5
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408287"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213058"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -98,7 +98,7 @@ ms.locfileid: "85408287"
 * 异步：<xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncActionFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
 * <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter>
 
-筛选器接口的同步和异步版本任意实现一个，而不是同时实现   。 运行时会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果在一个类中同时实现异步和同步接口，则仅调用异步方法。 使用抽象类（如 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>）时，将为每种筛选器类型仅重写同步方法或仅重写异步方法。
+筛选器接口的同步和异步版本任意实现一个，而不是同时实现 。 运行时会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果在一个类中同时实现异步和同步接口，则仅调用异步方法。 使用抽象类（如 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>）时，将为每种筛选器类型仅重写同步方法或仅重写异步方法。
 
 ### <a name="built-in-filter-attributes"></a>内置筛选器属性
 
@@ -112,7 +112,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-使用[浏览器开发人员工具](https://developer.mozilla.org/docs/Learn/Common_questions/What_are_browser_developer_tools)等工具来检查标头。 在响应标头下，将显示 `author: Rick Anderson` 。
+使用[浏览器开发人员工具](https://developer.mozilla.org/docs/Learn/Common_questions/What_are_browser_developer_tools)等工具来检查标头。 在响应标头下，将显示 `author: Rick Anderson`。
 
 以下代码实现了 `ActionFilterAttribute`：
 
@@ -123,7 +123,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 使用[选项模式](xref:fundamentals/configuration/options)从[配置系统](xref:fundamentals/configuration/index)中提供配置选项。 例如，从 appsettings.json 文件中：**
 
-[!code-csharp[](filters/3.1sample/FiltersSample/appsettings.json)]
+[!code-json[](filters/3.1sample/FiltersSample/appsettings.json)]
 
 在 `StartUp.ConfigureServices` 中：
 
@@ -674,7 +674,7 @@ What's a non-named attribute?
 
 可以在单个类中实现多个筛选器阶段的接口。 例如，<xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute> 类实现 `IActionFilter`、`IResultFilter` 及其异步等效接口。
 
-筛选器接口的同步和异步版本任意实现一个，而不是同时实现   。 运行时会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果在一个类中同时实现异步和同步接口，则仅调用异步方法。 使用抽象类时（如 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>），将为每种筛选器类型仅重写同步方法或仅重写异步方法。
+筛选器接口的同步和异步版本任意实现一个，而不是同时实现 。 运行时会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果在一个类中同时实现异步和同步接口，则仅调用异步方法。 使用抽象类时（如 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>），将为每种筛选器类型仅重写同步方法或仅重写异步方法。
 
 ### <a name="built-in-filter-attributes"></a>内置筛选器属性
 

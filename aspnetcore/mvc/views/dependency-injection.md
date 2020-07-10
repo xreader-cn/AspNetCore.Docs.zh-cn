@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: 0cc452b25392fe92c87ef346b2e16350fb3ec19a
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 335eac4b1533f4156e00f9d0140f921fa492e71a
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405882"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212971"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>在 ASP.NET Core 中将依赖项注入到视图
 
@@ -61,7 +61,7 @@ appsettings.json** 文件示例：
 
 可以使用 `@inject` 指令将服务注入到视图。 可以将 `@inject` 视为向视图添加属性，然后使用 DI 填充属性。
 
-[!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
+[!code-cshtml[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
 
 此视图显示 `ToDoItem` 实例的列表，以及显示总体统计信息的摘要。 摘要从已注入的 `StatisticsService` 中填充。 在 Startup.cs 的 `ConfigureServices` 中为依赖关系注入注册此服务**：
 

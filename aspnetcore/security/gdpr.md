@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core 中的一般数据保护条例（GDPR）支持
+title: ASP.NET Core 中一般数据保护条例 (GDPR) 支持
 author: rick-anderson
 description: 了解如何访问 ASP.NET Core web 应用中的 GDPR 扩展点。
 ms.author: riande
@@ -14,18 +14,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/gdpr
-ms.openlocfilehash: 0fef14388f83d8b4c708194954f2b75b2164b746
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8a7041a976ea9f0e99bfd1eba792d0e919eaf6d3
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404491"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212821"
 ---
-# <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>ASP.NET Core 中的欧盟一般数据保护条例（GDPR）支持
+# <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>欧盟一般数据保护条例 (GDPR) 支持 ASP.NET Core
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core 提供了 Api 和模板来帮助满足某些[欧盟一般数据保护条例（GDPR）](https://ec.europa.eu/info/law/law-topic/data-protection/reform/what-does-general-data-protection-regulation-gdpr-govern_en)要求：
+ASP.NET Core 提供 Api 和模板来帮助满足某些[欧盟一般数据保护条例 (GDPR) ](https://ec.europa.eu/info/law/law-topic/data-protection/reform/what-does-general-data-protection-regulation-gdpr-govern_en)要求：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -54,7 +54,7 @@ ASP.NET Core 提供了 Api 和模板来帮助满足某些[欧盟一般数据保�
 ::: moniker range="= aspnetcore-2.2"
 
 * 项目模板包括扩展点和用作存根标记，你可以将其替换为你的隐私和 cookie 使用策略。
-* 使用 cookie 同意功能，你可以要求你提供（并跟踪）用户同意以存储个人信息。 如果用户未同意数据收集，并且应用已将[CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded)设置为，则不 `true` 重要的 cookie 不会发送到浏览器。
+* 使用 cookie 同意功能，你可以要求 (和跟踪用户的) 同意，以存储个人信息。 如果用户未同意数据收集，并且应用已将[CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded)设置为，则不 `true` 重要的 cookie 不会发送到浏览器。
 * Cookie 可以标记为必要。 即使用户尚未同意并禁用跟踪，也会将重要 cookie 发送到浏览器。
 * 禁用跟踪后[，TempData 和会话 cookie](#tempdata)不起作用。
 * " [ Identity 管理](#pd)" 页提供了一个链接，用于下载和删除用户数据。
@@ -86,7 +86,7 @@ Razor用项目模板创建的页和 MVC 项目包含以下 GDPR 支持：
 
 * \_ CookieConsentPartial*分部视图：
 
-[!code-html[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
+[!code-cshtml[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
 
 此部分内容：
 
@@ -122,7 +122,7 @@ ASP.NET Core 通过单独用户帐户创建的应用包括下载和删除个人�
 
 ![管理个人数据页](gdpr/_static/pd.png)
 
-注意：
+说明：
 
 * 若要生成 `Account/Manage` 代码，请[参阅 Identity 基架](xref:security/authentication/scaffold-identity)。
 * "**删除**" 和 "**下载**" 链接仅作用于默认标识数据。 必须扩展用于创建自定义用户数据的应用，以删除/下载自定义用户数据。 有关详细信息，请参阅向[添加、下载和删除自定义用户 Identity 数据](xref:security/authentication/add-user-data)。
@@ -142,7 +142,7 @@ ASP.NET Core 通过单独用户帐户创建的应用包括下载和删除个人�
 
 例如：
 
-* Microsoft SQL 和 Azure SQL 提供[透明数据加密](/sql/relational-databases/security/encryption/transparent-data-encryption)（TDE）。
+* Microsoft SQL 和 Azure SQL 提供[透明数据加密](/sql/relational-databases/security/encryption/transparent-data-encryption) (TDE) 。
 * [默认情况下，SQL Azure 加密数据库](https://azure.microsoft.com/updates/newly-created-azure-sql-databases-encrypted-by-default/)
 * [默认情况下，加密 Azure blob、文件、表和队列存储](https://azure.microsoft.com/blog/announcing-default-encryption-for-azure-blobs-files-table-and-queue-storage/)。
 
