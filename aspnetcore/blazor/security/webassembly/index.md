@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: 3fdea9f553cbd37f2c27740487cfe030ebd81937
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0ff580dd7cbefdfe3121b30490f99e0235d93bc3
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402086"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176146"
 ---
 # <a name="secure-aspnet-core-blazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
@@ -55,6 +55,18 @@ Blazor WebAssembly 中的身份验证支持建立在 `oidc-client.js` 库的基�
 * 当 Blazor WebAssembly 应用加载登录回叫终结点 (`/authentication/login-callback`) 时，就处理了身份验证响应。
   * 如果身份验证进程成功完成，则用户通过身份验证，可以选择返回该用户请求的原受保护 URL。
   * 如果身份验证进程由于任何原因而失败，会将用户导向登录失败页 (`/authentication/login-failed`)，并显示错误。
+
+## <a name="authentication-component"></a>`Authentication` 组件
+
+`Authentication` 组件 (`Pages/Authentication.razor`) 会处理远程身份验证操作并允许应用：
+
+* 为身份验证状态配置应用路由。
+* 为身份验证状态设置 UI 内容。
+* 管理身份验证状态。
+
+身份验证操作（例如注册用户或使用户登录）传递到 Blazor 框架的 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore%601> 组件，该组件会保留和控制整个身份验证操作中的状态。
+
+有关更多信息和示例，请参见<xref:blazor/security/webassembly/additional-scenarios>。
 
 ## <a name="authorization"></a>授权
 
