@@ -5,7 +5,7 @@ description: 了解如何在 Blazor 应用中从 JavaScript 函数调用 .NET �
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/07/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 8a2df6ca55985a1cff49abb09113e49bfeae6829
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5c22220871fdba7fea43c38fa4bc826c07135ffc
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400513"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060028"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -116,7 +117,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 ```razor
 @page "/JSInterop"
-@using BlazorSample.JsInteropClasses
+@using {APP ASSEMBLY}.JsInteropClasses
 @inject IJSRuntime JSRuntime
 
 <h1>JavaScript Interop</h1>
@@ -142,6 +143,8 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
     }
 }
 ```
+
+占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。
 
 1. 通过选择组件的“`Trigger JavaScript Prompt`”按钮来执行 `TriggerJsPrompt` 时，则会调用在 `wwwroot/exampleJsInterop.js` 文件中提供的 JavaScript `showPrompt` 函数。
 1. `showPrompt` 函数接受进行 HTML 编码并返回给组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量 `name` 中。
@@ -290,7 +293,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorSample.Pages
+namespace {APP ASSEMBLY}.Pages
 {
     public partial class Index : 
         ComponentBase, IObservable<ElementReference>, IDisposable
@@ -367,6 +370,8 @@ namespace BlazorSample.Pages
 }
 ```
 
+占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。
+
 `Shared/SurveyPrompt.razor`（子组件）：
 
 ```razor
@@ -396,7 +401,7 @@ namespace BlazorSample.Pages
 using System;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorSample.Shared
+namespace {APP ASSEMBLY}.Shared
 {
     public partial class SurveyPrompt : 
         ComponentBase, IObserver<ElementReference>, IDisposable
@@ -441,6 +446,8 @@ namespace BlazorSample.Shared
     }
 }
 ```
+
+占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 

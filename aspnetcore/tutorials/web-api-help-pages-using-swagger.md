@@ -4,7 +4,7 @@ author: RicoSuter
 description: 本教程提供添加 Swagger 以生成文档的演练和针对 Web API 应用的帮助页。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/07/2019
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,18 +14,18 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: 815581bbee3169f04f1da67227f6fa8c7275071b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 66b8278e84df5ee56582254ebe2dc99ada98a9dc
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408807"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060301"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>带有 Swagger/OpenAPI 的 ASP.NET Core Web API 帮助页
 
 作者：[Christoph Nienaber](https://twitter.com/zuckerthoben) 和 [Rico Suter](https://blog.rsuter.com/)
 
-使用 Web API 时，了解其各种方法对开发人员来说可能是一项挑战。 [Swagger](https://swagger.io/) 也称为[OpenAPI](https://www.openapis.org/)，解决了为 Web API 生成有用文档和帮助页的问题。 它具有诸如交互式文档、客户端 SDK 生成和 API 可发现性等优点。
+使用 Web API 时，了解其各种方法对开发人员来说可能是一项挑战。 [Swagger](https://swagger.io/) 也称为 [OpenAPI](https://www.openapis.org/)，解决了为 Web API 生成有用文档和帮助页的问题。 它具有诸如交互式文档、客户端 SDK 生成和 API 可发现性等优点。
 
 本文展示了 [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) 和 [NSwag](https://github.com/RicoSuter/NSwag) .NET Swagger 实现：
 
@@ -37,82 +37,99 @@ ms.locfileid: "85408807"
 
 Swagger 是一个与语言无关的规范，用于描述 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) API。 Swagger 项目已捐赠给 [OpenAPI 计划](https://www.openapis.org/)，现在它被称为开放 API。 这两个名称可互换使用，但 OpenAPI 是首选。 它允许计算机和人员了解服务的功能，而无需直接访问实现（源代码、网络访问、文档）。 其中一个目标是尽量减少连接取消关联的服务所需的工作量。 另一个目标是减少准确记录服务所需的时间。
 
-## <a name="swagger-specification-swaggerjson"></a>Swagger 规范 (swagger.json)
+## <a name="openapi-specification-openapijson"></a>OpenAPI 规范 (openapi.json)
 
-Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json 的文档。 它由 Swagger 工具链（或其第三方实现）根据你的服务生成。 它描述了 API 的功能以及使用 HTTP 对其进行访问的方式。 它驱动 Swagger UI，并由工具链用来启用发现和客户端代码生成。 下面是为简洁起见而缩减的 Swagger 规范的示例：
+OpenAPI 流的核心是规范，默认情况下是名为 openapi.json 的文档。 它由 OpenAPI 工具链（或其第三方实现）根据你的服务生成。 它描述了 API 的功能以及使用 HTTP 对其进行访问的方式。 它驱动 Swagger UI，并由工具链用来启用发现和客户端代码生成。 下面是为简洁起见而缩减的 OpenAPI 规范的示例：
 
 ```json
 {
-   "swagger": "2.0",
-   "info": {
-       "version": "v1",
-       "title": "API V1"
-   },
-   "basePath": "/",
-   "paths": {
-       "/api/Todo": {
-           "get": {
-               "tags": [
-                   "Todo"
-               ],
-               "operationId": "ApiTodoGet",
-               "consumes": [],
-               "produces": [
-                   "text/plain",
-                   "application/json",
-                   "text/json"
-               ],
-               "responses": {
-                   "200": {
-                       "description": "Success",
-                       "schema": {
-                           "type": "array",
-                           "items": {
-                               "$ref": "#/definitions/TodoItem"
-                           }
-                       }
-                   }
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Todo": {
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "operationId": "ApiTodoGet",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToDoItem"
+                  }
                 }
-           },
-           "post": {
-               ...
-           }
-       },
-       "/api/Todo/{id}": {
-           "get": {
-               ...
-           },
-           "put": {
-               ...
-           },
-           "delete": {
-               ...
-   },
-   "definitions": {
-       "TodoItem": {
-           "type": "object",
-            "properties": {
-                "id": {
-                    "format": "int64",
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "isComplete": {
-                    "default": false,
-                    "type": "boolean"
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToDoItem"
+                  }
                 }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToDoItem"
+                  }
+                }
+              }
             }
-       }
-   },
-   "securityDefinitions": {}
+          }
+        }
+      },
+      "post": {
+        …
+      }
+    },
+    "/api/Todo/{id}": {
+      "get": {
+        …
+      },
+      "put": {
+        …
+      },
+      "delete": {
+        …
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ToDoItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCompleted": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
 }
 ```
 
 ## <a name="swagger-ui"></a>Swagger UI
 
-[Swagger UI](https://swagger.io/swagger-ui/) 提供了基于 Web 的 UI，它使用生成的 Swagger 规范提供有关服务的信息。 Swashbuckle 和 NSwag 均包含 Swagger UI 的嵌入式版本，因此可使用中间件注册调用将该嵌入式版本托管在 ASP.NET Core 应用中。 Web UI 如下所示：
+[Swagger UI](https://swagger.io/swagger-ui/) 提供了基于 Web 的 UI，它使用生成的 OpenAPI 规范提供有关服务的信息。 Swashbuckle 和 NSwag 均包含 Swagger UI 的嵌入式版本，因此可使用中间件注册调用将该嵌入式版本托管在 ASP.NET Core 应用中。 Web UI 如下所示：
 
 ![Swagger UI](web-api-help-pages-using-swagger/_static/swagger-ui.png)
 

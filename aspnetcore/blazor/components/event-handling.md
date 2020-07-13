@@ -5,7 +5,7 @@ description: 了解 Blazor 的事件处理特性，包括事件参数类型、�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/04/2020
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/event-handling
-ms.openlocfilehash: 2fce394202be5df9af67e8afca27a0914f410402
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f15f7e0fc7ef460cefffd817a7d0fa40c1f919b2
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399031"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059794"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Core Blazor 事件处理
 
@@ -182,7 +183,7 @@ private void ShowMessage(MouseEventArgs e)
 * 调用 `ParentComponent` 的 `ShowMessage` 方法。 `messageText` 更新并显示在 `ParentComponent` 中。
 * 回调方法 (`ShowMessage`) 中不需要对 [`StateHasChanged`](xref:blazor/components/lifecycle#state-changes) 的调用。 自动调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 以重新呈现 `ParentComponent`，就像子事件触发组件重新呈现于在子级中执行的事件处理程序中一样。
 
-<xref:Microsoft.AspNetCore.Components.EventCallback> 和 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 允许异步委托。 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 为强类型，需要特定的参数类型。 <xref:Microsoft.AspNetCore.Components.EventCallback> 为弱类型，允许任何参数类型。
+<xref:Microsoft.AspNetCore.Components.EventCallback> 和 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 允许异步委托。 <xref:Microsoft.AspNetCore.Components.EventCallback> 是弱类型，允许将任何类型参数传入 `InvokeAsync(Object)`。 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 是强类型，需要将 `T` 参数传入可分配到 `TValue` 的 `InvokeAsync(T)` 中。
 
 ```razor
 <ChildComponent 
@@ -228,8 +229,6 @@ await OnClickCallback.InvokeAsync(arg);
 ```razor
 <input @onkeypress:preventDefault="shouldPreventDefault" />
 ```
-
-不需要事件处理程序来阻止默认操作。 事件处理程序和阻止默认操作场景可以独立使用。
 
 ## <a name="stop-event-propagation"></a>停止事件传播
 

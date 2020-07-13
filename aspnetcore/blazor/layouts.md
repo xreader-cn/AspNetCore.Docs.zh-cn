@@ -5,7 +5,7 @@ description: 了解如何为 Blazor 应用创建可重用布局组件。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 06/23/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: f405bb655b2879bd546420d99ff645401ead92fc
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: fe78a144b413bf97be83d20b11148e1856608f78
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402515"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944225"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor 布局
 
@@ -80,6 +80,9 @@ ms.locfileid: "85402515"
 `_Imports.razor` 文件类似于 [Razor 视图和页面的 _ViewImports.cshtml 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 Razor 组件文件。
 
 在 `_Imports.razor` 中指定布局会替代指定为路由器默认布局的布局。
+
+> [!WARNING]
+> 请勿向根 `_Imports.razor` 文件添加 Razor `@layout` 指令，这会导致应用中的布局形成无限循环。 请在 `Router` 组件中指定布局，以控制默认应用布局。 有关详细信息，请参阅[默认布局](#default-layout)部分。
 
 ## <a name="nested-layouts"></a>嵌套布局
 

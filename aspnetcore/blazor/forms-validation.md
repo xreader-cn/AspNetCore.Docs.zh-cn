@@ -5,7 +5,7 @@ description: 了解如何在 Blazor 中使用窗体和字段验证方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/04/2020
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 1ed87b4aa2519334d2339b500a615aa96ef4d57d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f31a1f1d8942c9d9654dc26e946c022cf21ed9d1
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402957"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059859"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -302,7 +302,7 @@ public class Starship
 }
 ```
 
-## <a name="work-with-radio-buttons"></a>使用单选按钮
+## <a name="radio-buttons"></a>单选按钮
 
 使用窗体中的单选按钮时，数据绑定的处理方式与其他元素不同，因为单选按钮是作为一个组进行计算的。 每个单选按钮的值是固定的，但单选按钮组的值是所选单选按钮的值。 以下示例介绍如何：
 
@@ -390,6 +390,30 @@ public class Starship
 }
 ```
 
+## <a name="binding-select-element-options-to-c-object-null-values"></a>将 `<select>` 元素选项绑定到 C# 对象 `null` 值
+
+由于以下原因，没有将 `<select>` 元素选项值表示为 C# 对象 `null` 值的合理方法：
+
+* HTML 属性不能具有 `null` 值。 HTML 中最接近的 `null` 等效项是 `<option>` 元素中缺少 HTML `value` 属性。
+* 选择没有 `value` 属性的 `<option>` 时，浏览器会将值视为该 `<option>` 的元素的 文本内容。
+
+Blazor 框架不会尝试取消默认行为，因为这会涉及以下操作：
+
+* 在框架中创建一系列特殊的解决办法。
+* 对当前框架行为进行重大更改。
+
+::: moniker range=">= aspnetcore-5.0"
+
+HTML 中最合理的 `null` 等效项是空字符串 `value`。 Blazor 框架处理 `null` 到空字符串之间的转换，以便双向绑定到 `<select>` 的值。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+尝试双向绑定到 `<select>` 的值时，Blazor 框架不会自动处理 `null` 到空字符串之间的转换。 有关详细信息，请参阅[修复 `<select>` 到 null 值的绑定 (dotnet/aspnetcore #23221)](https://github.com/dotnet/aspnetcore/pull/23221)。
+
+::: moniker-end
+
 ## <a name="validation-support"></a>验证支持
 
 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件使用数据注释将验证支持附加到级联的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext>。 使用数据注释启用对验证的支持需要此显式手势。 若要使用不同于数据注释的验证系统，请用自定义实现替换 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>。 可在以下参考源中检查 ASP.NET Core 的实现[`DataAnnotationsValidator`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[`AddDataAnnotationsValidation`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)： 前面的参考源链接提供了来自存储库 `master` 分支的代码，该分支表示产品单元当前对 ASP.NET Core 下一版本的开发。 若要为其他版本选择分支，请使用 GitHub 分支选择器（例如 `release/3.1`）。
@@ -421,6 +445,14 @@ Blazor 执行两种类型的验证：
 
 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601> 和 <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> 组件支持任意属性。 与某个组件参数不匹配的所有属性都将添加到生成的 `<div>` 或 `<ul>` 元素中。
 
+在应用的样式表（`wwwroot/css/app.css` 或 `wwwroot/css/site.css`）中控制验证消息的样式。 默认 `validation-message` 类将验证消息的文本颜色设置为红色：
+
+```css
+.validation-message {
+    color: red;
+}
+```
+
 ### <a name="custom-validation-attributes"></a>自定义验证属性
 
 当使用[自定义验证属性](xref:mvc/models/validation#custom-attributes)时，为确保验证结果与字段正确关联，请在创建 <xref:System.ComponentModel.DataAnnotations.ValidationResult> 时传递验证上下文的 <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName>：
@@ -429,7 +461,7 @@ Blazor 执行两种类型的验证：
 using System;
 using System.ComponentModel.DataAnnotations;
 
-private class MyCustomValidator : ValidationAttribute
+private class CustomValidator : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, 
         ValidationContext validationContext)
@@ -441,6 +473,9 @@ private class MyCustomValidator : ValidationAttribute
     }
 }
 ```
+
+> [!NOTE]
+> <xref:System.ComponentModel.DataAnnotations.ValidationContext.GetService%2A?displayProperty=nameWithType> 为 `null`。 不支持在 `IsValid` 方法中注入用于验证的服务。
 
 ### <a name="blazor-data-annotations-validation-package"></a>Blazor 数据注释验证包
 

@@ -4,7 +4,7 @@ author: jamesnk
 description: 了解如何配置 ASP.NET Core 上的 gRPC 服务，以使其可以从使用 gRPC-Web 的浏览器应用中进行调用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 06/29/2020
+ms.date: 06/30/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,11 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: 20f72deb9895111a6e691eb1ee5cd7419c8c4cb4
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 05ff343f7116509128b7370a50bcfa3c67ffb9fe
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793510"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944231"
 ---
 # <a name="use-grpc-in-browser-apps"></a>在浏览器应用中使用 gRPC
 
@@ -78,6 +79,15 @@ ms.locfileid: "85793510"
 * 调用 `AddCors` 以添加 CORS 服务，并配置公开特定于 gRPC 的标头的 CORS 策略。
 * 调用 `UseCors` 以在路由之后、终结点之前添加 CORS 中间件。
 * 指定 `endpoints.MapGrpcService<GreeterService>()` 方法支持带有 `RequiresCors`的 CORS。
+
+### <a name="grpc-web-and-streaming"></a>gRPC-Web 和流式处理
+
+HTTP/2 上的传统 gRPC 支持所有方向的流式处理。 gRPC-Web 对流式处理提供有限的支持：
+
+* gRPC-Web 浏览器客户端不支持调用客户端流式处理和双向流式处理方法。
+* 托管在 Azure 应用服务和 IIS 上的 ASP.NET Core gRPC 服务不支持双向流式处理。
+
+使用 gRPC 时，仅建议使用一元方法和服务器流式处理方法。
 
 ## <a name="call-grpc-web-from-the-browser"></a>从浏览器调用 gRPC-Web
 

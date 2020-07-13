@@ -5,7 +5,7 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/08/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-microsoft-accounts
-ms.openlocfilehash: 38452c3e9578d8a942035174a28d945e58e4008d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 58dd791718a820e1a326db309afcd173d73c667b
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402034"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147707"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-microsoft-accounts"></a>使用 Microsoft 帐户保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -37,7 +38,7 @@ ms.locfileid: "85402034"
 1. 禁用“权限” > “授予对 openid 和 offline_access 权限的管理员同意”复选框 。
 1. 选择“注册”。
 
-记录应用程序 ID（客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）。
+记录应用程序（客户端）ID（例如 `41451fa7-82d9-4673-8fa5-69eff5a761fd`）。
 
 在“身份验证” > “平台配置” > “Web”  中，执行以下操作：
 
@@ -49,10 +50,15 @@ ms.locfileid: "85402034"
 创建应用。 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行以下命令：
 
 ```dotnetcli
-dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "common"
+dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "common" -o {APP NAME}
 ```
 
-要指定输出位置（如果它不存在，则创建一个项目文件夹），请在命令中包含带有路径（例如 `-o BlazorSample`）的输出选项。 该文件夹名称还会成为项目名称的一部分。
+| 占位符   | Azure 门户中的名称       | 示例                                |
+| ------------- | ----------------------- | -------------------------------------- |
+| `{APP NAME}`  | &mdash;                 | `BlazorSample`                         |
+| `{CLIENT ID}` | 应用程序（客户端）ID | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+
+使用 `-o|--output` 选项指定的输出位置将创建一个项目文件夹（如果该文件夹不存在）并成为应用程序名称的一部分。
 
 > [!NOTE]
 > 在 Azure 门户中，使用默认设置为在 Kestrel 服务器上运行的应用的端口 5001 配置应用的“身份验证” > “平台配置” > “Web” > “重定向 URI”   。

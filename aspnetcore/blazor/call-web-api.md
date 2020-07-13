@@ -5,7 +5,7 @@ description: 了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2020
+ms.date: 06/24/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 2d910def31e4035c1d9cbacb3aaa721dd699c273
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 9c90e2a6c03e02b771cfa8f589e381d52637dc26
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400737"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147637"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
@@ -157,7 +158,7 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
   调用 <xref:System.Net.Http.Json.HttpClientJsonExtensions.PutAsJsonAsync%2A> 会返回 <xref:System.Net.Http.HttpResponseMessage>。 若要对响应消息中的 JSON 内容进行反序列化处理，请使用 <xref:System.Net.Http.Json.HttpContentJsonExtensions.ReadFromJsonAsync%2A> 扩展方法：
   
   ```csharp
-  var content = response.content.ReadFromJsonAsync<WeatherForecast>();
+  var content = response.Content.ReadFromJsonAsync<WeatherForecast>();
   ```
 
 <xref:System.Net.Http> 包括用于发送 HTTP 请求和接收 HTTP 响应的附加扩展方法。 <xref:System.Net.Http.HttpClient.DeleteAsync%2A?displayProperty=nameWithType> 用于将 HTTP DELETE 请求发送到 Web API。
@@ -303,7 +304,7 @@ protected override async Task OnInitializedAsync()
 ```
 
 > [!NOTE]
-> 前面示例代码为了方便本文演示。 即使终结点不存在或服务器上发生未处理的异常，也可将 web API 服务器应用配置为返回 JSON。
+> 前面示例代码为了方便本文演示。 即使终结点不存在或服务器上发生未处理的异常，也可将 Web API 服务器应用配置为返回 JSON。
 
 有关详细信息，请参阅 <xref:blazor/fundamentals/handle-errors>。
 
@@ -313,7 +314,9 @@ protected override async Task OnInitializedAsync()
 
 [Blazor WebAssembly 示例应用 (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) 演示如何在调用 Web API 组件 (`Pages/CallWebAPI.razor`) 中使用 CORS。
 
-若要允许其他站点对应用进行跨域资源共享 (CORS) 请求，请参阅 <xref:security/cors>。
+有关 CORS 与 Blazor 应用中的安全请求的详细信息，请参阅 <xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors>。
+
+有关 CORS 与 ASP.NET Core 应用的一般信息，请参阅 <xref:security/cors>。
 
 ## <a name="additional-resources"></a>其他资源
 

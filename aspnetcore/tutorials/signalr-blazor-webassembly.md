@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 5a58e7ae28842e2e8a0f3bae8f47e252839903fe
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d5aa7520a637b18e014519134dfe2d2139e7c11d
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408872"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147785"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly
 
@@ -103,14 +104,7 @@ ms.locfileid: "85408872"
 
 1. 选择“Blazor WebAssembly 应用”模板。 选择“下一步”。
 
-   确认以下配置：
-
-   * “目标框架”设置为“.NET Core 3.1” 。
-   * “身份验证”设置为“无身份验证” 。
-
-   选中“托管的 ASP.NET Core”复选框。
-
-   选择“下一步”。
+1. 确认已将“身份验证”设置为“无身份验证”。 选中“托管的 ASP.NET Core”复选框。 选择“下一步”。
 
 1. 在“项目名称”字段中，将应用命名为 `BlazorSignalRApp`。 选择“创建”。
 

@@ -5,7 +5,7 @@ description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/25/2020
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 9fe51b8c7eafdd62cc6fc1a820135d9ee5ff010e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: c48eb19c5a1759aace112e2afb1637c649173a3d
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401007"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059898"
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -104,13 +105,7 @@ ms.locfileid: "85401007"
 
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
-要在 Visual Studio Code 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
- 
-安装 [C# 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)和 [JavaScript 调试程序（Nightly 版）](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly)，并将 `debug.javascript.usePreview` 设置为 `true`。
-
-![扩展](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-extensions.png)
-
-![JS 预览版调试程序](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-js-use-preview.png)
+有关为 Blazor 应用开发安装 Visual Studio Code 的信息，请参阅 <xref:blazor/tooling>。
 
 ### <a name="debug-standalone-blazor-webassembly"></a>调试独立 Blazor WebAssembly
 
@@ -219,11 +214,17 @@ ms.locfileid: "85401007"
 
 1. 在开发环境中运行该应用的调试版本。
 
-1. 按 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>。
+1. 启动浏览器并导航到应用程序的 URL（例如 `https://localhost:5001`）。
 
-1. 浏览器必须在启用远程调试的情况下运行。 如果远程调试未启用，则系统会生成“无法找到可调试的浏览器标签页”错误页面。 该错误页面包含有关一些说明，指示应在调试端口处于打开状态的情况下运行浏览器以便 Blazor 调试代理可以连接到应用。 请关闭所有浏览器实例，并按照说明重启浏览器。
+1. 在浏览器中，尝试通过按 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd> 启动远程调试。
 
-在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式会打开新的调试程序标签页。片刻后，“源”选项卡显示应用中的 .NET 程序集的列表。 展开每个程序集并找到可用于调试的 `.cs`/`.razor` 源文件。 设置断点，然后切换回应用的选项卡，断点在代码执行时被命中。 命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。
+   浏览器必须在已启用远程调试的情况下运行，而这并不是默认设置。 如果远程调试处于禁用状态，将呈现“无法找到可调试的浏览器选项卡”错误页，并且其中包含关于在调试端口打开的情况下启动浏览器的说明。 按照适用于你的浏览器的说明操作，接下来将打开一个新的浏览器窗口。 关闭上一个浏览器窗口。
+
+1. 在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式 (<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>) 会打开新的调试程序标签页。
+
+1. 片刻后，“源”选项卡显示 `file://` 节点中应用的 .NET 程序集的列表。
+
+1. 在组件代码（`.razor` 文件）和 C# 代码文件 (`.cs`) 中，当代码执行时将命中你设置的断点。 命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。
 
 Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)，并使用特定于 .NET 的信息扩展该协议。 按下调试键盘快捷方式后，Blazor 会将 Chrome 开发者工具指向代理。 代理连接到要调试的浏览器窗口（因此需要启用远程调试）。
 

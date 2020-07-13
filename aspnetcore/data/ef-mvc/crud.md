@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 0be63811874709db95285f4013e47bc1706050b1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e7e4c4b15cca9612a552c58029ae8b34b79070d1
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401475"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060119"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
@@ -187,7 +187,7 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 新代码读取现有实体并调用 `TryUpdateModel`，以[基于已发布表单数据中的用户输入](xref:mvc/models/model-binding)更新已检索实体中的字段。 Entity Framework 的自动更改跟踪在由表单输入更改的字段上设置 `Modified` 标记。 调用 `SaveChanges` 方法时，Entity Framework 会创建 SQL 语句，以更新数据库行。 忽略并发冲突，并且仅在数据库中更新由用户更新的表列。 （下一个教程将介绍如何处理并发冲突。）
 
-作为防止过多发布的最佳做法，请将希望通过“编辑”页更新的字段列入 `TryUpdateModel` 参数。 （参数列表中字段列表之前的空字符串用于与表单字段名称一起使用的前缀。）目前没有要保护的额外字段，但是列出希望模型绑定器绑定的字段可确保以后将字段添加到数据模型时，它们将自动受到保护，直到明确将其添加到此处为止。
+作为防止过多发布的最佳做法，请在 `TryUpdateModel` 参数中声明希望通过“编辑”页更新的字段。 （参数列表中字段列表之前的空字符串用于与表单字段名称一起使用的前缀。）目前没有要保护的额外字段，但是列出希望模型绑定器绑定的字段可确保以后将字段添加到数据模型时，它们将自动受到保护，直到明确将其添加到此处为止。
 
 这些更改会导致 HttpPost `Edit` 方法与 HttpGet `Edit` 方法的方法签名相同，因此已重命名 `EditPost` 方法。
 

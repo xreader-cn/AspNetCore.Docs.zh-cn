@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: 08efb79f5085acff455744e46ca411777b2641e5
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: caf9e99bcd4a1887fe5d69a3641fabee08573ef1
+ms.sourcegitcommit: d1fa3d69dda675d7a52c7100742dfa6297413376
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406155"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86093308"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
@@ -104,7 +104,7 @@ gRPC 非常适合以下方案：
 gRPC-Web 并不支持所有 gRPC 功能。 不支持客户端和双向流式传输，并且对服务器流式传输的支持有限。
 
 > [!TIP]
-> .NET Core 对 gRPC-Web 提供实验性支持。 有关详细信息，请访问 <xref:grpc/browser>。
+> .NET Core 对 gRPC-Web 提供支持。 有关详细信息，请访问 <xref:grpc/browser>。
 
 ### <a name="not-human-readable"></a>非人工可读取
 

@@ -5,7 +5,7 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/08/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: 123b664b87eb41a8f07344608713d9aed7a0aa37
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b9125526db9a7484aca50f2ffa6175fd99b11453
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402242"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147769"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -33,10 +34,7 @@ ms.locfileid: "85402242"
 
 请按照[教程：创建 Azure Active Directory B2C 租户](/azure/active-directory-b2c/tutorial-create-tenant)里的指南创建 AAD B2C 租户。
 
-记录以下信息：
-
-* AAD B2C 实例（例如 `https://contoso.b2clogin.com/`，其中包含尾部斜杠）
-* AAD B2C 租户域（例如 `contoso.onmicrosoft.com`）
+记录 AAD B2C 实例（例如 `https://contoso.b2clogin.com/`，其中包含尾部斜杠）。 此实例是 Azure B2C 应用注册的方案和宿主，可以通过从 Azure 门户的“应用注册”页打开“终结点”窗口找到它。 
 
 ### <a name="register-a-server-api-app"></a>注册服务器 API 应用
 
@@ -51,9 +49,8 @@ ms.locfileid: "85402242"
 
 记录以下信息：
 
-* “服务器 API 应用”应用程序 ID（客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）
-* 目录 ID（租户 ID）（例如 `222222222-2222-2222-2222-222222222222`）
-* AAD 租户域（例如 `contoso.onmicrosoft.com`）：该域在注册应用的 Azure 门户的“品牌”边栏选项卡中作为“发布者域”提供 。
+* “服务器 API 应用”应用程序（客户端）ID（例如 `41451fa7-82d9-4673-8fa5-69eff5a761fd`）
+* AAD 主域/发布者域/租户域（例如 `contoso.onmicrosoft.com`）：该域在注册应用的 Azure 门户的“品牌”边栏选项卡中作为“发布者域”提供 。
 
 在“公开 API”中：
 
@@ -67,8 +64,10 @@ ms.locfileid: "85402242"
 
 记录以下信息：
 
-* 应用 ID URI（例如 `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111`、`api://11111111-1111-1111-1111-111111111111` 或你提供的自定义值）
+* 应用 ID URI（例如 `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd`、`api://41451fa7-82d9-4673-8fa5-69eff5a761fd` 或你提供的自定义值）
 * 默认作用域（例如 `API.Access`）
+
+应用 ID URI 可能需要在客户端应用中进行专门的配置，如本主题的后续部分[访问令牌作用域](#access-token-scopes)中所述。
 
 ### <a name="register-a-client-app"></a>注册客户端应用
 
@@ -81,7 +80,7 @@ ms.locfileid: "85402242"
 1. 确认已启用“权限” > “授予对 openid 和 offline_access 权限的管理员同意” 。
 1. 选择“注册”。
 
-记录应用程序 ID（客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）。
+记录应用程序（客户端）ID（例如 `4369008b-21fa-427c-abaa-9b53bf58e538`）。
 
 在“身份验证” > “平台配置” > “Web”  中，执行以下操作：
 
@@ -112,10 +111,21 @@ ms.locfileid: "85402242"
 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行该命令：
 
 ```dotnetcli
-dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho -ssp "{SIGN UP OR SIGN IN POLICY}" --tenant-id "{TENANT ID}"
+dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho -o {APP NAME} -ssp "{SIGN UP OR SIGN IN POLICY}"
 ```
 
-要指定输出位置（如果它不存在，则创建一个项目文件夹），请在命令中包含带有路径（例如 `-o BlazorSample`）的输出选项。 该文件夹名称还会成为项目名称的一部分。
+| 占位符                   | Azure 门户中的名称                                     | 示例                                |
+| ----------------------------- | ----------------------------------------------------- | -------------------------------------- |
+| `{AAD B2C INSTANCE}`          | 实例                                              | `https://contoso.b2clogin.com/`        |
+| `{APP NAME}`                  | &mdash;                                               | `BlazorSample`                         |
+| `{CLIENT APP CLIENT ID}`      | “客户端应用”的应用程序（客户端）ID          | `4369008b-21fa-427c-abaa-9b53bf58e538` |
+| `{DEFAULT SCOPE}`             | 作用域名                                            | `API.Access`                           |
+| `{SERVER API APP CLIENT ID}`  | “服务器 API 应用”的应用程序（客户端）ID      | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+| `{SERVER API APP ID URI}`     | 应用程序 ID URI（[请参阅说明](#access-token-scopes)） | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+| `{SIGN UP OR SIGN IN POLICY}` | 注册/登录用户流                             | `B2C_1_signupsignin1`                  |
+| `{TENANT DOMAIN}`             | 主域/发布者域/租户域                       | `contoso.onmicrosoft.com`              |
+
+使用 `-o|--output` 选项指定的输出位置将创建一个项目文件夹（如果该文件夹不存在）并成为应用程序名称的一部分。
 
 > [!NOTE]
 > 将应用 ID URI 传递给 `app-id-uri` 选项，但请注意，客户端应用中可能需要更改配置，如[访问令牌作用域](#access-token-scopes)部分中所述。
@@ -125,7 +135,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 > [!NOTE]
 > 在 Azure 门户中，使用默认设置为在 Kestrel 服务器上运行的应用的端口 5001 配置了客户端应用的“身份验证” > “平台配置” > “Web” > “重定向 URI”   。
 >
-> 如果“客户端应用”是在随机 IIS Express 端口上运行的，则可以在“调试”面板的“服务器应用”属性中找到该应用的端口 。
+> 如果“客户端应用”是在随机 IIS Express 端口上运行的，则可以在“调试”面板的“服务器 API 应用”属性中找到该应用的端口 。
 >
 > 如果端口之前未使用“客户端应用”的已知端口进行配置，请返回到 Azure 门户中“客户端应用”的注册，并使用正确的端口更新重定向 URI 。
 

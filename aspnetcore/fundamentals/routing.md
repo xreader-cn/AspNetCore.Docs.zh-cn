@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 7ac6dc983454153792610a07c1df01fbc38c8d67
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 25464817314f79c5bfd11d982cc9b09a3c72df15
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400825"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060340"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -1437,25 +1437,25 @@ routes.MapRoute(
 下表演示示例路由约束及其预期行为。
 
 | 约束 | 示例 | 匹配项示例 | 说明 |
-| ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数。 |
-| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true` 或 `false`。 不区分大小写。 |
+|------------|---------|-----------------|-------|
+| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数。|
+| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true` 或 `false`。 不区分大小写。|
 | `datetime` | `{dob:datetime}` | `2016-12-31`，`2016-12-31 7:32pm` | 在固定区域性中匹配有效的 `DateTime` 值。 请参阅前面的警告。|
 | `decimal` | `{price:decimal}` | `49.99`，`-1,000.01` | 在固定区域性中匹配有效的 `decimal` 值。 请参阅前面的警告。|
 | `double` | `{weight:double}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `double` 值。 请参阅前面的警告。|
 | `float` | `{weight:float}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `float` 值。 请参阅前面的警告。|
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值。 |
-| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值。 |
-| `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符。 |
-| `maxlength(value)` | `{filename:maxlength(8)}` | `MyFile` | 字符串最多包含 8 个字符。 |
-| `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符。 |
-| `length(min,max)` | `{filename:length(8,16)}` | `somefile.txt` | 字符串必须至少为 8 个字符，且最多包含 16 个字符。 |
-| `min(value)` | `{age:min(18)}` | `19` | 整数值必须至少为 18 个字符。 |
-| `max(value)` | `{age:max(120)}` | `91` | 整数值最多包含 120 个字符。 |
-| `range(min,max)` | `{age:range(18,120)}` | `91` | 整数值必须至少为 18 个字符，且最多包含 120 个字符。 |
-| `alpha` | `{name:alpha}` | `Rick` | 字符串必须由一个或多个字母字符组成，`a`-`z`。  不区分大小写。 |
-| `regex(expression)` | `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}` | `123-45-6789` | 字符串必须与正则表达式匹配。 请参阅有关定义正则表达式的提示。 |
-| `required` | `{name:required}` | `Rick` | 用于强制在 URL 生成过程中存在非参数值。 |
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值。|
+| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值。|
+| `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符。|
+| `maxlength(value)` | `{filename:maxlength(8)}` | `MyFile` | 字符串最多包含 8 个字符。|
+| `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符。|
+| `length(min,max)` | `{filename:length(8,16)}` | `somefile.txt` | 字符串必须至少为 8 个字符，且最多包含 16 个字符。|
+| `min(value)` | `{age:min(18)}` | `19` | 整数值必须至少为 18 个字符。|
+| `max(value)` | `{age:max(120)}` | `91` | 整数值最多包含 120 个字符。|
+| `range(min,max)` | `{age:range(18,120)}` | `91` | 整数值必须至少为 18 个字符，且最多包含 120 个字符。|
+| `alpha` | `{name:alpha}` | `Rick` | 字符串必须由一个或多个字母字符组成，`a`-`z`。 不区分大小写。|
+| `regex(expression)` | `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}` | `123-45-6789` | 字符串必须与正则表达式匹配。 请参阅有关定义正则表达式的提示。|
+| `required` | `{name:required}` | `Rick` | 用于强制在 URL 生成过程中存在非参数值。|
 
 可向单个参数应用多个由冒号分隔的约束。 例如，以下约束将参数限制为大于或等于 1 的整数值：
 

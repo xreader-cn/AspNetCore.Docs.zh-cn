@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: c41ba2e067c8dc978b1359db548733c5f8890a2b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: dbdb7cd86218fd9ba63ae4ac2aa516836d4fd1a1
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408378"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944290"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>ASP.NET Core 中的 URL 重写中间件
 
@@ -325,7 +325,7 @@ public void Configure(IApplicationBuilder app)
 
 使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> 在方法中实现自己的规则逻辑。 `Add` 公开 <xref:Microsoft.AspNetCore.Rewrite.RewriteContext>，这使 <xref:Microsoft.AspNetCore.Http.HttpContext> 可用于方法中。 [RewriteContext.Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) 决定如何处理其他管道进程。 将值设置为下表中的 <xref:Microsoft.AspNetCore.Rewrite.RuleResult> 字段之一。
 
-| `RewriteContext.Result`              | 操作                                                           |
+| 重写上下文结果               | 操作                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
 | `RuleResult.ContinueRules`（默认值） | 继续应用规则。                                         |
 | `RuleResult.EndResponse`             | 停止应用规则并发送响应。                       |
@@ -679,7 +679,7 @@ public void Configure(IApplicationBuilder app)
 
 使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> 在方法中实现自己的规则逻辑。 `Add` 公开 <xref:Microsoft.AspNetCore.Rewrite.RewriteContext>，这使 <xref:Microsoft.AspNetCore.Http.HttpContext> 可用于方法中。 [RewriteContext.Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) 决定如何处理其他管道进程。 将值设置为下表中的 <xref:Microsoft.AspNetCore.Rewrite.RuleResult> 字段之一。
 
-| `RewriteContext.Result`              | 操作                                                           |
+| 重写上下文结果               | 操作                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
 | `RuleResult.ContinueRules`（默认值） | 继续应用规则。                                         |
 | `RuleResult.EndResponse`             | 停止应用规则并发送响应。                       |

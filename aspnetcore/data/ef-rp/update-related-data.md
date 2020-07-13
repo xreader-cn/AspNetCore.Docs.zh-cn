@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: b084404a7fdd8b2fc18c407bd11705ccd1c496c1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b442a4ce1f63c047c123315626f559155fd06424
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406298"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060132"
 ---
 # <a name="part-7-razor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>第 7 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据
 
@@ -158,7 +158,7 @@ Razor 页面使用[选择标记帮助程序](xref:mvc/views/working-with-forms#t
 
 `InstructorCoursesPageModel` 是将用于“编辑”和“创建”页模型的基类。 `PopulateAssignedCourseData` 读取所有 `Course` 实体以填充 `AssignedCourseDataList`。 该代码将设置每门课程的 `CourseID` 和标题，并决定是否为讲师分配该课程。 [HashSet](/dotnet/api/system.collections.generic.hashset-1) 用于高效查找。
 
-Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更新 `CourseAssignments` 导航属性。 可在新的 `UpdateInstructorCourses` 方法中更新 `CourseAssignments` 导航属性，而不必使用模型绑定器。 为此，需要从模型绑定中排除 `CourseAssignments` 属性。 此操作无需对调用 `TryUpdateModel` 的代码进行任何更改，因为使用的是允许列表重载，并且 `CourseAssignments` 不包括在该列表中。
+Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更新 `CourseAssignments` 导航属性。 可在新的 `UpdateInstructorCourses` 方法中更新 `CourseAssignments` 导航属性，而不必使用模型绑定器。 为此，需要从模型绑定中排除 `CourseAssignments` 属性。 此操作无需对调用 `TryUpdateModel` 的代码进行任何更改，因为使用的重载包含已声明的属性，并且 `CourseAssignments` 不包括在该列表中。
 
 如果未选中任何复选框，则 `UpdateInstructorCourses` 中的代码将使用空集合初始化 `CourseAssignments` 导航属性，并返回以下内容：
 

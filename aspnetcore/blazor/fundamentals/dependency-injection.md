@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/dependency-injection
-ms.openlocfilehash: 0e99e2e3e2dafae0c35d2cfe6903bf4f511f5dc1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e88a471a35e1c2be5f77407a6c594cd6a97e1737
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402879"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944362"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -51,6 +52,12 @@ DI 是一种技术，它用于访问配置在中心位置的服务。 该技术�
 在 `Program.cs` 的 `Main` 方法中配置应用服务集合的服务。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
 
 ```csharp
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
 public class Program
 {
     public static async Task Main(string[] args)
@@ -58,6 +65,9 @@ public class Program
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
         builder.Services.AddSingleton<IMyDependency, MyDependency>();
         builder.RootComponents.Add<App>("app");
+        
+        builder.Services.AddTransient(sp => 
+            new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
         await builder.Build().RunAsync();
     }
@@ -74,6 +84,9 @@ public class Program
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
         builder.Services.AddSingleton<WeatherService>();
         builder.RootComponents.Add<App>("app");
+        
+        builder.Services.AddTransient(sp => 
+            new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
         var host = builder.Build();
 
@@ -95,6 +108,9 @@ public class Program
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
         builder.Services.AddSingleton<WeatherService>();
         builder.RootComponents.Add<App>("app");
+        
+        builder.Services.AddTransient(sp => 
+            new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
         var host = builder.Build();
 
@@ -112,13 +128,17 @@ public class Program
 创建新应用后，请检查 `Startup.ConfigureServices` 方法：
 
 ```csharp
+using Microsoft.Extensions.DependencyInjection;
+
+...
+
 public void ConfigureServices(IServiceCollection services)
 {
-    // Add custom services here
+    ...
 }
 ```
 
-向 <xref:Microsoft.Extensions.Hosting.IHostBuilder.ConfigureServices%2A> 方法传递 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>，它是服务描述符对象 (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) 的列表。 通过向服务集合提供服务描述符来添加服务。 下面的示例演示了 `IDataAccess` 接口的概念及其具体实现 `DataAccess`：
+向 <xref:Microsoft.Extensions.Hosting.IHostBuilder.ConfigureServices%2A> 方法传递 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>，它是服务描述符对象 (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) 的列表。 通过向服务集合提供服务描述符来在 `ConfigureServices` 方法中添加服务。 下面的示例演示了 `IDataAccess` 接口的概念及其具体实现 `DataAccess`：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -157,11 +177,13 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 
 在内部，生成的属性 (`DataRepository`) 使用 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性。 通常，不直接使用此特性。 如果组件需要基类，并且基类也需要注入的属性，请手动添加 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性：
 
 ```csharp
+using Microsoft.AspNetCore.Components;
+
 public class ComponentBase : IComponent
 {
-    // DI works even if using the InjectAttribute in a component's base class.
     [Inject]
     protected IDataAccess DataRepository { get; set; }
+
     ...
 }
 ```
@@ -177,13 +199,11 @@ public class ComponentBase : IComponent
 
 ## <a name="use-di-in-services"></a>在服务中使用 DI
 
-复杂的服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性）在服务中不可用。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。
+复杂的服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性）在服务中不可用。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。 在下面的示例中，构造函数通过 DI 接收 <xref:System.Net.Http.HttpClient>。 <xref:System.Net.Http.HttpClient> 是默认服务。
 
 ```csharp
 public class DataAccess : IDataAccess
 {
-    // The constructor receives an HttpClient via dependency
-    // injection. HttpClient is a default service.
     public DataAccess(HttpClient client)
     {
         ...

@@ -5,7 +5,7 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/08/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: f98afc3d5dd73dca23be9a9c1202802f270bcee7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3b477b45ae70c6ad66578fbf0ed18589cecbec8d
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402112"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147747"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -33,8 +34,8 @@ ms.locfileid: "85402112"
 
 记录以下信息：
 
-* AAD B2C 实例（例如 `https://contoso.b2clogin.com/`，其中包含尾部斜杠）。
-* AAD B2C 租户域（例如 `contoso.onmicrosoft.com`）。
+* AAD B2C 实例（例如 `https://contoso.b2clogin.com/`，其中包含尾部斜杠）：此实例是 Azure B2C 应用注册的方案和宿主，可以通过从 Azure 门户的“应用注册”页打开“终结点”窗口找到它。 
+* AAD B2C 主域/发布者域/租户域（例如 `contoso.onmicrosoft.com`）：该域在注册应用的 Azure 门户的“品牌”边栏选项卡中作为“发布者域”提供 。
 
 请按照[教程：在 Azure Active Directory B2C 中注册应用程序](/azure/active-directory-b2c/tutorial-register-applications)中的指南操作，再次为客户端应用注册 AAD 应用，然后执行以下操作：
 
@@ -45,7 +46,7 @@ ms.locfileid: "85402112"
 1. 确认已启用“权限” > “授予对 openid 和 offline_access 权限的管理员同意” 。
 1. 选择“注册”。
 
-记录应用程序 ID（客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）。
+记录应用程序（客户端）ID（例如 `41451fa7-82d9-4673-8fa5-69eff5a761fd`）。
 
 在“身份验证” > “平台配置” > “Web”  中，执行以下操作：
 
@@ -62,13 +63,21 @@ ms.locfileid: "85402112"
 
 记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin`）。
 
-将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行该命令：
+在空文件夹中，将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行该命令：
 
 ```dotnetcli
-dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --client-id "{CLIENT ID}" --domain "{TENANT DOMAIN}" -ssp "{SIGN UP OR SIGN IN POLICY}"
+dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --client-id "{CLIENT ID}" --domain "{TENANT DOMAIN}" -o {APP NAME} -ssp "{SIGN UP OR SIGN IN POLICY}"
 ```
 
-要指定输出位置（如果它不存在，则创建一个项目文件夹），请在命令中包含带有路径（例如 `-o BlazorSample`）的输出选项。 该文件夹名称还会成为项目名称的一部分。
+| 占位符                   | Azure 门户中的名称               | 示例                                |
+| ----------------------------- | ------------------------------- | -------------------------------------- |
+| `{AAD B2C INSTANCE}`          | 实例                        | `https://contoso.b2clogin.com/`        |
+| `{APP NAME}`                  | &mdash;                         | `BlazorSample`                         |
+| `{CLIENT ID}`                 | 应用程序（客户端）ID         | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+| `{SIGN UP OR SIGN IN POLICY}` | 注册/登录用户流       | `B2C_1_signupsignin1`                  |
+| `{TENANT DOMAIN}`             | 主域/发布者域/租户域 | `contoso.onmicrosoft.com`              |
+
+使用 `-o|--output` 选项指定的输出位置将创建一个项目文件夹（如果该文件夹不存在）并成为应用程序名称的一部分。
 
 > [!NOTE]
 > 在 Azure 门户中，使用默认设置为在 Kestrel 服务器上运行的应用的端口 5001 配置应用的“身份验证” > “平台配置” > “Web” > “重定向 URI”   。
