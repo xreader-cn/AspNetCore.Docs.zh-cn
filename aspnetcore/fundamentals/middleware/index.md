@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 69c253171c51e08802b82415245a66921168ec80
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ea11b2fa70b9aef96971c41910136f0b09a31f55
+ms.sourcegitcommit: e216e8f4afa21215dc38124c28d5ee19f5ed7b1e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404257"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86239655"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -58,7 +58,7 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 当委托不将请求传递给下一个委托时，它被称为“让请求管道短路”。 通常需要短路，因为这样可以避免不必要的工作。 例如，[静态文件中间件](xref:fundamentals/static-files)可以处理对静态文件的请求，并让管道的其余部分短路，从而起到终端中间件的作用。 如果中间件添加到管道中，且位于终止进一步处理的中间件前，它们仍处理 `next.Invoke` 语句后面的代码。 不过，请参阅下面有关尝试对已发送的响应执行写入操作的警告。
 
 > [!WARNING]
-> 在向客户端发送响应后，请勿调用 `next.Invoke`。 响应启动后，针对 <xref:Microsoft.AspNetCore.Http.HttpResponse> 的更改将引发异常。 例如，设置标头和状态代码更改将引发异常。 调用 `next` 后写入响应正文：
+> 在向客户端发送响应后，请勿调用 `next.Invoke`。 响应启动后，针对 <xref:Microsoft.AspNetCore.Http.HttpResponse> 的更改将引发异常。 例如，[设置标头和状态代码更改将引发异常](xref:performance/performance-best-practices#do-not-modify-the-status-code-or-headers-after-the-response-body-has-started)。 调用 `next` 后写入响应正文：
 >
 > * 可能导致违反协议。 例如，写入的长度超过规定的 `Content-Length`。
 > * 可能损坏正文格式。 例如，向 CSS 文件中写入 HTML 页脚。
