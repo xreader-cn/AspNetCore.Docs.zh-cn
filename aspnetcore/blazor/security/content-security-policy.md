@@ -17,6 +17,7 @@ no-loc:
 uid: blazor/security/content-security-policy
 ms.openlocfilehash: 5c53ac64d3ae1b365b40c519eb119f913d58cad1
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85402437"
@@ -35,7 +36,7 @@ ms.locfileid: "85402437"
 
 加载页面时，浏览器会对策略进行评估。 浏览器将检查页面的源并确定它们是否满足内容安全指令的要求。 如果资源不符合策略指令，浏览器不会加载资源。 例如，请考虑不允许第三方脚本的策略。 当某个页面的 `src` 属性中包含带有第三方来源的 `<script>` 标记时，浏览器将阻止加载该脚本。
 
-大多数新式桌面和移动浏览器（包括 Chrome、Edge、Firefox、Opera 和 Safari）都支持 CSP。 建议将 CSP 用于 Blazor 应用。
+大多数新式桌面和移动浏览器（包括 Chrome、Microsoft Edge、Firefox、Opera 和 Safari）都支持 CSP。 建议将 CSP 用于 Blazor 应用。
 
 ## <a name="policy-directives"></a>策略指令
 
