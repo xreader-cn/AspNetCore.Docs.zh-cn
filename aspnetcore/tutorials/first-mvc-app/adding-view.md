@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 841751ffb834f77184365c3022293dbadc9f6f2c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d6a541e9633d3ecc2768744956c3b43d830b0b2b
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403529"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213127"
 ---
 # <a name="part-3-add-a-view-to-an-aspnet-core-mvc-app"></a>第 3 部分，将视图添加到 ASP.NET Core MVC 应用
 
@@ -80,7 +80,7 @@ ms.locfileid: "85403529"
 
 使用以下内容替换 Razor 视图文件 Views/HelloWorld/Index.cshtml 的内容：
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
 导航到 `https://localhost:{PORT}/HelloWorld`。 `HelloWorldController` 中的 `Index` 方法作用不大；它运行 `return View();` 语句，指定此方法应使用视图模板文件来呈现对浏览器的响应。 由于未指定视图模板文件名称，MVC 默认使用默认视图文件。 默认视图文件具有与方法 (`Index`) 相同的名称，因此在 /Views/HelloWorld/Index.cshtml 中使用视图模板。 下面图片显示了视图中硬编码的 字符串“Hello from our View Template!”
 
@@ -96,7 +96,7 @@ ms.locfileid: "85403529"
 
 将 Views/Shared/_Layout.cshtml 文件的内容替换为以下标记。 突出显示所作更改：
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Views/Shared/_Layout.cshtml?highlight=6,14,40)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Views/Shared/_Layout.cshtml?highlight=6,14,40)]
 
 上述标记进行以下更改：
 
@@ -125,7 +125,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 
 更改 Views/HelloWorld/Index.cshtml 视图文件的 `<h2>` 元素：
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
 
 稍稍对标题和 `<h2>` 元素进行一些更改，这样可以看出哪一段代码更改了显示。
 
@@ -161,7 +161,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 在 Welcome.cshtml 视图模板中创建一个循环，显示“Hello” `NumTimes`。 使用以下内容替换 Views/HelloWorld/Welcome.cshtml 的内容：
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 
 保存更改并浏览到以下 URL：
 
@@ -237,7 +237,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 使用以下内容替换 Razor 视图文件 Views/HelloWorld/Index.cshtml 的内容：
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
 导航到 `https://localhost:{PORT}/HelloWorld`。 `HelloWorldController` 中的 `Index` 方法作用不大；它运行 `return View();` 语句，指定此方法应使用视图模板文件来呈现对浏览器的响应。 由于未指定视图模板文件名称，MVC 默认使用默认视图文件。 默认视图文件具有与方法 (`Index`) 相同的名称，因此在 /Views/HelloWorld/Index.cshtml 中使用。 下面图片显示了视图中硬编码的 字符串“Hello from our View Template!”
 
@@ -256,7 +256,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 下列标记显示了突出显示的更改：
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Shared/_Layout.cshtml?highlight=6,24,51)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Shared/_Layout.cshtml?highlight=6,24,51)]
 
 在前面的标记中，省略了 `asp-area` [定位点标记帮助程序属性](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)，因为此应用未使用[区域](xref:mvc/controllers/areas)。
 
@@ -285,7 +285,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 
 更改 Views/HelloWorld/Index.cshtml 视图文件的 `<h2>` 元素：
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
 
 稍稍对标题和 `<h2>` 元素进行一些更改，这样可以看出哪一段代码更改了显示。
 
@@ -321,7 +321,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 
 在 Welcome.cshtml 视图模板中创建一个循环，显示“Hello” `NumTimes`。 使用以下内容替换 Views/HelloWorld/Welcome.cshtml 的内容：
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 
 保存更改并浏览到以下 URL：
 

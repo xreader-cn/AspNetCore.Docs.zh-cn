@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 3038ae8f01273013e6c35694583d9674a1668bac
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f6ee60bf5e75256a9bf330f56b2f09b06f720a85
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401553"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212802"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>教程：处理并发 - ASP.NET MVC 和 EF Core
 
@@ -148,7 +148,7 @@ dotnet ef database update
 
 将 Views/Departments/Index.cshtml 中的代码替换为以下代码。
 
-[!code-html[](intro/samples/cu/Views/Departments/Index.cshtml?highlight=4,7,44)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Index.cshtml?highlight=4,7,44)]
 
 这会将标题更改为“院系”，删除 RowVersion 列，并显示全名（而非管理员的名字）。
 
@@ -198,7 +198,7 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 * 向下拉列表添加“选择管理员”选项。
 
-[!code-html[](intro/samples/cu/Views/Departments/Edit.cshtml?highlight=16,34-36)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Edit.cshtml?highlight=16,34-36)]
 
 ## <a name="test-concurrency-conflicts"></a>测试并发冲突
 
@@ -258,7 +258,7 @@ public async Task<IActionResult> Delete(Department department)
 
 在 Views/Departments/Delete.cshtml 中，将基架代码替换为添加 DepartmentID 和 RowVersion 属性的错误消息字段和隐藏字段的以下代码。 突出显示所作更改。
 
-[!code-html[](intro/samples/cu/Views/Departments/Delete.cshtml?highlight=9,38,44,45,48)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Delete.cshtml?highlight=9,38,44,45,48)]
 
 这将进行以下更改：
 
@@ -288,11 +288,11 @@ public async Task<IActionResult> Delete(Department department)
 
 替换 Views/Departments/Details.cshtml 中的代码，以删除 RowVersion 列并显示管理员的全名。
 
-[!code-html[](intro/samples/cu/Views/Departments/Details.cshtml?highlight=35)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Details.cshtml?highlight=35)]
 
 替换 Views/Departments/Create.cshtml 中的代码，向下拉列表添加“选择”选项。
 
-[!code-html[](intro/samples/cu/Views/Departments/Create.cshtml?highlight=32-34)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Create.cshtml?highlight=32-34)]
 
 ## <a name="get-the-code"></a>获取代码
 

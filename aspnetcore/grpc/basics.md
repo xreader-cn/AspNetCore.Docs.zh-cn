@@ -4,7 +4,7 @@ author: juntaoluo
 description: 了解使用 C# 编写 gRPC 服务时的基本概念。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 07/03/2019
+ms.date: 07/09/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/basics
-ms.openlocfilehash: 08c755cf078fe71d09e8c7af2cc16f5c427495f1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a99e5c78e291469bdce5c2b5cfa6eec86caa9735
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407286"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176300"
 ---
 # <a name="grpc-services-with-c"></a>使用 C\# 的 gRPC 服务
 
@@ -50,6 +50,13 @@ gRPC 使用协定优先方法进行 API 开发。 默认情况下，协议缓冲
 通过将 \*.proto 文件添加到 `<Protobuf>` 项组中，可将该文件包含在项目中：
 
 [!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
+
+默认情况下，`<Protobuf>` 引用将生成具体的客户端和服务基类。 可使用引用元素的 `GrpcServices` 特性来限制 C# 资产生成。 有效 `GrpcServices` 选项如下：
+
+* `Both`（如果不存在，则为默认值）
+* `Server`
+* `Client`
+* `None`
 
 ## <a name="c-tooling-support-for-proto-files"></a>.proto 文件的 C# 工具支持
 

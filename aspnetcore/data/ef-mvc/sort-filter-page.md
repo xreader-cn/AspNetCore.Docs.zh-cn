@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: 45aabc644fbeaeaa31d534877ba93cb0611f3f34
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 24643931ed84ac257d98ceb8cc6c64d0767cfc14
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401332"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212593"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 
@@ -78,7 +78,7 @@ ms.locfileid: "85401332"
 
 将 Views / Students / Index.cshtml 中的代码替换为以下代码，以添加列标题超链接。 已更改的行为突出显示状态。
 
-[!code-html[](intro/samples/cu/Views/Students/Index2.cshtml?highlight=16,22)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Index2.cshtml?highlight=16,22)]
 
 此代码使用 `ViewData` 属性中的信息来设置具有相应查询字符串值的超链接。
 
@@ -107,7 +107,7 @@ ms.locfileid: "85401332"
 
 在 Views/Student/Index.cshtml 中，请在打开表格标签之前立即添加突出显示的代码，以创建标题栏、文本框和搜索按钮。
 
-[!code-html[](intro/samples/cu/Views/Students/Index3.cshtml?range=9-23&highlight=5-13)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Index3.cshtml?range=9-23&highlight=5-13)]
 
 此代码使用 `<form>` [标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器使用 POST 提交表单数据，这意味着参数在 HTTP 消息正文中传递，而不是作为查询字符串在 URL 中传递。 当指定 HTTP GET 时，表单数据作为查询字符串在 URL 中传递，从而使用户能够将 URL 加入书签。 W3C 指南建议在操作不会导致更新时使用 GET。
 
@@ -186,7 +186,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 在 Views/Students/Index.cshtml 中，将现有代码替换为以下代码。 突出显示所作更改。
 
-[!code-html[](intro/samples/cu/Views/Students/Index.cshtml?highlight=1,27,30,33,61-79)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Index.cshtml?highlight=1,27,30,33,61-79)]
 
 页面顶部的 `@model` 语句指定视图现在获取的是 `PaginatedList<T>` 对象，而不是 `List<T>` 对象。
 
@@ -250,7 +250,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 使用以下代码添加 Views/Home/About.cshtml 文件：
 
-[!code-html[](intro/samples/cu/Views/Home/About.cshtml)]
+[!code-cshtml[](intro/samples/cu/Views/Home/About.cshtml)]
 
 运行应用并转到“关于”页面。 表格中会显示每个注册日期的学生计数。
 

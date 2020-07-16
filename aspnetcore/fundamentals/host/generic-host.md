@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 5a2d39af6c921323ae9113fd4aca27dcdedd44a5
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 26aef561ba299403df0dad9893fecd5e2a15ab0e
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793470"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213011"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
@@ -649,7 +650,7 @@ var host = new HostBuilder()
 
 hostsettings.json：
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
 
 可以通过 [applicationName](#application-key-name) 和 [contentRoot](#content-root) 键提供其他配置。
 
@@ -669,15 +670,15 @@ hostsettings.json：
 
 appsettings.json：
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
 
 appsettings.Development.json：
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
 
 appsettings.Production.json：
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
 
 要将设置文件移动到输出目录，请在项目文件中将设置文件指定为 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)。 示例应用移动具有以下 `<Content>` 项的 JSON 应用设置文件和 hostsettings.json：
 

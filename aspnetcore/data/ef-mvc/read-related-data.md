@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: f2e989b2c6370d862b4d1e6550b09cb47b5747c1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: abd5c4e474e30c119e2bea9e3cce3d2b277e0daf
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401514"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212746"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
@@ -83,7 +83,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 在 Views/Courses/Index.cshtml 中，将模板代码替换为以下代码。 突出显示所作更改：
 
-[!code-html[](intro/samples/cu/Views/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
+[!code-cshtml[](intro/samples/cu/Views/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
 
 已对基架代码进行了如下更改：
 
@@ -179,7 +179,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 在 Views/Instructors/Index.cshtml 中，将模板代码替换为以下代码。 突出显示所作更改。
 
-[!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-64&highlight=1,3-7,15-19,24,26-31,41-54,56)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-64&highlight=1,3-7,15-19,24,26-31,41-54,56)]
 
 已对现有代码进行了如下更改：
 
@@ -221,7 +221,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 在 Views/Instructors/Index.cshtml 文件中，关闭表格元素（在文件末尾）后，添加以下代码。 选择讲师时，此代码显示与讲师相关的课程列表。
 
-[!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=66-101)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=66-101)]
 
 此代码读取视图模型的 `Courses` 属性以显示课程列表。 它还提供 Select 超链接，该链接可将所选课程的 ID 发送到 `Index` 操作方法。
 
@@ -231,7 +231,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 在刚刚添加的代码块后，添加以下代码。 选择课程后，代码将显示参与课程的学生列表。
 
-[!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=103-125)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=103-125)]
 
 此代码读取视图模型的 Enrollment 属性，从而显示参与课程的学生列表。
 

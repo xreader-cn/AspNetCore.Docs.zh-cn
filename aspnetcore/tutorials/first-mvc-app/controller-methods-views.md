@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: a22bc9f9156b671d7bf17b56b62e384a60b2568b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b473b8575a870b91d83e5494103d39486ef4fee1
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405258"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213047"
 ---
 # <a name="part-6-controller-methods-and-views-in-aspnet-core"></a>第 6 部分，ASP.NET Core 中的控制器方法和视图
 
@@ -42,7 +42,7 @@ ms.locfileid: "85405258"
 
 “编辑”、“详细信息”和“删除”链接是在 Views/Movies/Index.cshtml 文件中由 Core MVC 定位标记帮助程序生成的  。
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexOriginal.cshtml?highlight=1-3&range=46-50)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexOriginal.cshtml?highlight=1-3&range=46-50)]
 
 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 在上面的代码中，`AnchorTagHelper` 从控制器操作方法和路由 ID 动态生成 HTML `href` 特性值。在最喜欢的浏览器中使用“查看源”，或使用开发人员工具来检查生成的标记。 生成的 HTML 的一部分如下所示：
 
@@ -106,7 +106,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 `ValidateAntiForgeryToken` 特性用于[防止请求伪造](xref:security/anti-request-forgery)，并与编辑视图文件 (Views/Movies/Edit.cshtml) 中生成的防伪标记相配对。 编辑视图文件使用[表单标记帮助程序](xref:mvc/views/working-with-forms)生成防伪标记。
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/Edit.cshtml?range=9)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/Edit.cshtml?range=9)]
 
 [表单标记帮助程序](xref:mvc/views/working-with-forms)会生成隐藏的防伪标记，此标记必须与电影控制器的 `Edit` 方法中 `[ValidateAntiForgeryToken]` 生成的防伪标记相匹配。 有关详细信息，请参阅[反请求伪造](xref:security/anti-request-forgery)。
 
@@ -116,7 +116,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 当基架系统创建“编辑”视图时，它会检查 `Movie` 类并创建代码为类的每个属性呈现 `<label>` 和 `<input>` 元素。 以下示例显示由 Visual Studio 基架系统生成的“编辑”视图：
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/EditOriginal.cshtml)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/EditOriginal.cshtml)]
 
 请注意视图模板在文件顶端有一个 `@model MvcMovie.Models.Movie` 语句。 `@model MvcMovie.Models.Movie` 指定视图期望的视图模板的模型为 `Movie` 类型。
 

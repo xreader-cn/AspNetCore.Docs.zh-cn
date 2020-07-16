@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/logging/loggermessage
-ms.openlocfilehash: dc90c6cdbcea7c36079bcb4a032014998056b56d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: cf391c773a1187dd96e3719e0fb11d6244c8e94d
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401163"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212769"
 ---
 # <a name="high-performance-logging-with-loggermessage-in-aspnet-core"></a>在 ASP.NET Core 中使用 LoggerMessage 的高性能日志记录
 
@@ -153,7 +153,7 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 
 在 appsettings.json 的控制台记录器部分启用 `IncludeScopes`：
 
-[!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
+[!code-json[](loggermessage/samples/3.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
 要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。 示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs) 的字段：
 
@@ -321,7 +321,7 @@ Parameter name: entity
 
 在 appsettings.json 的控制台记录器部分启用 `IncludeScopes`：
 
-[!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
+[!code-json[](loggermessage/samples/2.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
 要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。 示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs) 的字段：
 

@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/crud
-ms.openlocfilehash: e7e4c4b15cca9612a552c58029ae8b34b79070d1
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: c33ff357ec6b467435325578047ac851a39e533e
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060119"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212717"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
@@ -102,11 +102,11 @@ http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 
 打开 *Views/Students/Details.cshtml*。 每个字段都使用 `DisplayNameFor` 和 `DisplayFor` 帮助器来显示，如下面的示例中所示：
 
-[!code-html[](intro/samples/cu/Views/Students/Details.cshtml?range=13-18&highlight=2,5)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Details.cshtml?range=13-18&highlight=2,5)]
 
 在最后一个字段之后和 `</dl>` 闭合标记之前，添加以下代码以显示注册列表：
 
-[!code-html[](intro/samples/cu/Views/Students/Details.cshtml?range=31-52)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Details.cshtml?range=31-52)]
 
 如果代码缩进在粘贴代码后出现错误，请按 CTRL+K+D 进行更正。
 
@@ -267,7 +267,7 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 在 Views/Student/Delete.cshtml 中，在 H2 标题和 H3 标题之间添加错误消息，如以下示例所示：
 
-[!code-html[](intro/samples/cu/Views/Students/Delete.cshtml?range=7-9&highlight=2)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Delete.cshtml?range=7-9&highlight=2)]
 
 运行应用，选择“学生”选项卡，并单击“删除”超链接：
 
