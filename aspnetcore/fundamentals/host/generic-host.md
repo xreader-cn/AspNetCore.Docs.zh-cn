@@ -15,39 +15,40 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 5a2d39af6c921323ae9113fd4aca27dcdedd44a5
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 26aef561ba299403df0dad9893fecd5e2a15ab0e
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793470"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213011"
 ---
-# <a name="net-generic-host"></a><span data-ttu-id="79dae-103">.NET 通用主机</span><span class="sxs-lookup"><span data-stu-id="79dae-103">.NET Generic Host</span></span>
+# <a name="net-generic-host"></a><span data-ttu-id="35be4-103">.NET 通用主机</span><span class="sxs-lookup"><span data-stu-id="35be4-103">.NET Generic Host</span></span>
 
 ::: moniker range=">= aspnetcore-3.0 <= aspnetcore-3.1"
 
-<span data-ttu-id="79dae-104">ASP.NET Core 模板会创建一个 .NET Core 泛型主机 <xref:Microsoft.Extensions.Hosting.HostBuilder>。</span><span class="sxs-lookup"><span data-stu-id="79dae-104">The ASP.NET Core templates create a .NET Core Generic Host, <xref:Microsoft.Extensions.Hosting.HostBuilder>.</span></span>
+<span data-ttu-id="35be4-104">ASP.NET Core 模板会创建一个 .NET Core 泛型主机 <xref:Microsoft.Extensions.Hosting.HostBuilder>。</span><span class="sxs-lookup"><span data-stu-id="35be4-104">The ASP.NET Core templates create a .NET Core Generic Host, <xref:Microsoft.Extensions.Hosting.HostBuilder>.</span></span>
 
-## <a name="host-definition"></a><span data-ttu-id="79dae-105">主机定义</span><span class="sxs-lookup"><span data-stu-id="79dae-105">Host definition</span></span>
+## <a name="host-definition"></a><span data-ttu-id="35be4-105">主机定义</span><span class="sxs-lookup"><span data-stu-id="35be4-105">Host definition</span></span>
 
-<span data-ttu-id="79dae-106">主机是封装应用资源的对象，例如：</span><span class="sxs-lookup"><span data-stu-id="79dae-106">A *host* is an object that encapsulates an app's resources, such as:</span></span>
+<span data-ttu-id="35be4-106">主机是封装应用资源的对象，例如：</span><span class="sxs-lookup"><span data-stu-id="35be4-106">A *host* is an object that encapsulates an app's resources, such as:</span></span>
 
-* <span data-ttu-id="79dae-107">依赖关系注入 (DI)</span><span class="sxs-lookup"><span data-stu-id="79dae-107">Dependency injection (DI)</span></span>
-* <span data-ttu-id="79dae-108">Logging</span><span class="sxs-lookup"><span data-stu-id="79dae-108">Logging</span></span>
-* <span data-ttu-id="79dae-109">Configuration</span><span class="sxs-lookup"><span data-stu-id="79dae-109">Configuration</span></span>
-* <span data-ttu-id="79dae-110">`IHostedService` 实现</span><span class="sxs-lookup"><span data-stu-id="79dae-110">`IHostedService` implementations</span></span>
+* <span data-ttu-id="35be4-107">依赖关系注入 (DI)</span><span class="sxs-lookup"><span data-stu-id="35be4-107">Dependency injection (DI)</span></span>
+* <span data-ttu-id="35be4-108">Logging</span><span class="sxs-lookup"><span data-stu-id="35be4-108">Logging</span></span>
+* <span data-ttu-id="35be4-109">Configuration</span><span class="sxs-lookup"><span data-stu-id="35be4-109">Configuration</span></span>
+* <span data-ttu-id="35be4-110">`IHostedService` 实现</span><span class="sxs-lookup"><span data-stu-id="35be4-110">`IHostedService` implementations</span></span>
 
-<span data-ttu-id="79dae-111">当主机启动时，它将对在托管服务的服务容器集合中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的每个实现调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="79dae-111">When a host starts, it calls <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType> on each implementation of <xref:Microsoft.Extensions.Hosting.IHostedService> registered in the service container's collection of hosted services.</span></span> <span data-ttu-id="79dae-112">在 web 应用中，其中一个 `IHostedService` 实现是启动 [HTTP 服务器实现](xref:fundamentals/index#servers)的 web 服务。</span><span class="sxs-lookup"><span data-stu-id="79dae-112">In a web app, one of the `IHostedService` implementations is a web service that starts an [HTTP server implementation](xref:fundamentals/index#servers).</span></span>
+<span data-ttu-id="35be4-111">当主机启动时，它将对在托管服务的服务容器集合中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的每个实现调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="35be4-111">When a host starts, it calls <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType> on each implementation of <xref:Microsoft.Extensions.Hosting.IHostedService> registered in the service container's collection of hosted services.</span></span> <span data-ttu-id="35be4-112">在 web 应用中，其中一个 `IHostedService` 实现是启动 [HTTP 服务器实现](xref:fundamentals/index#servers)的 web 服务。</span><span class="sxs-lookup"><span data-stu-id="35be4-112">In a web app, one of the `IHostedService` implementations is a web service that starts an [HTTP server implementation](xref:fundamentals/index#servers).</span></span>
 
-<span data-ttu-id="79dae-113">一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。</span><span class="sxs-lookup"><span data-stu-id="79dae-113">The main reason for including all of the app's interdependent resources in one object is lifetime management: control over app startup and graceful shutdown.</span></span>
+<span data-ttu-id="35be4-113">一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。</span><span class="sxs-lookup"><span data-stu-id="35be4-113">The main reason for including all of the app's interdependent resources in one object is lifetime management: control over app startup and graceful shutdown.</span></span>
 
-## <a name="set-up-a-host"></a><span data-ttu-id="79dae-114">设置主机</span><span class="sxs-lookup"><span data-stu-id="79dae-114">Set up a host</span></span>
+## <a name="set-up-a-host"></a><span data-ttu-id="35be4-114">设置主机</span><span class="sxs-lookup"><span data-stu-id="35be4-114">Set up a host</span></span>
 
-<span data-ttu-id="79dae-115">主机通常由 `Program` 类中的代码配置、生成和运行。</span><span class="sxs-lookup"><span data-stu-id="79dae-115">The host is typically configured, built, and run by code in the `Program` class.</span></span> <span data-ttu-id="79dae-116">`Main` 方法：</span><span class="sxs-lookup"><span data-stu-id="79dae-116">The `Main` method:</span></span>
+<span data-ttu-id="35be4-115">主机通常由 `Program` 类中的代码配置、生成和运行。</span><span class="sxs-lookup"><span data-stu-id="35be4-115">The host is typically configured, built, and run by code in the `Program` class.</span></span> <span data-ttu-id="35be4-116">`Main` 方法：</span><span class="sxs-lookup"><span data-stu-id="35be4-116">The `Main` method:</span></span>
 
-* <span data-ttu-id="79dae-117">调用 `CreateHostBuilder` 方法以创建和配置生成器对象。</span><span class="sxs-lookup"><span data-stu-id="79dae-117">Calls a `CreateHostBuilder` method to create and configure a builder object.</span></span>
-* <span data-ttu-id="79dae-118">对生成器对象调用 `Build` 和 `Run` 方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-118">Calls `Build` and `Run` methods on the builder object.</span></span>
+* <span data-ttu-id="35be4-117">调用 `CreateHostBuilder` 方法以创建和配置生成器对象。</span><span class="sxs-lookup"><span data-stu-id="35be4-117">Calls a `CreateHostBuilder` method to create and configure a builder object.</span></span>
+* <span data-ttu-id="35be4-118">对生成器对象调用 `Build` 和 `Run` 方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-118">Calls `Build` and `Run` methods on the builder object.</span></span>
 
-<span data-ttu-id="79dae-119">ASP.NET Core Web 模板会生成以下代码来创建泛型主机：</span><span class="sxs-lookup"><span data-stu-id="79dae-119">The ASP.NET Core web templates generate the following code to create a Generic Host:</span></span>
+<span data-ttu-id="35be4-119">ASP.NET Core Web 模板会生成以下代码来创建泛型主机：</span><span class="sxs-lookup"><span data-stu-id="35be4-119">The ASP.NET Core web templates generate the following code to create a Generic Host:</span></span>
 
 ```csharp
 public class Program
@@ -66,7 +67,7 @@ public class Program
 }
 ```
 
-<span data-ttu-id="79dae-120">以下代码会使用非 HTTP 工作负载创建一个泛型主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-120">The following code creates a Generic Host using non-HTTP workload.</span></span> <span data-ttu-id="79dae-121">`IHostedService` 实现会添加到 DI 容器中：</span><span class="sxs-lookup"><span data-stu-id="79dae-121">The `IHostedService` implementation is added to the DI container:</span></span>
+<span data-ttu-id="35be4-120">以下代码会使用非 HTTP 工作负载创建一个泛型主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-120">The following code creates a Generic Host using non-HTTP workload.</span></span> <span data-ttu-id="35be4-121">`IHostedService` 实现会添加到 DI 容器中：</span><span class="sxs-lookup"><span data-stu-id="35be4-121">The `IHostedService` implementation is added to the DI container:</span></span>
 
 ```csharp
 public class Program
@@ -85,7 +86,7 @@ public class Program
 }
 ```
 
-<span data-ttu-id="79dae-122">对于 HTTP 工作负荷，`Main` 方法相同，但 `CreateHostBuilder` 调用 `ConfigureWebHostDefaults`：</span><span class="sxs-lookup"><span data-stu-id="79dae-122">For an HTTP workload, the `Main` method is the same but `CreateHostBuilder` calls `ConfigureWebHostDefaults`:</span></span>
+<span data-ttu-id="35be4-122">对于 HTTP 工作负荷，`Main` 方法相同，但 `CreateHostBuilder` 调用 `ConfigureWebHostDefaults`：</span><span class="sxs-lookup"><span data-stu-id="35be4-122">For an HTTP workload, the `Main` method is the same but `CreateHostBuilder` calls `ConfigureWebHostDefaults`:</span></span>
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -96,127 +97,127 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-<span data-ttu-id="79dae-123">上述代码是由 ASP.NET Core 模板生成的。</span><span class="sxs-lookup"><span data-stu-id="79dae-123">The preceding code is generated by the ASP.NET Core templates.</span></span>
+<span data-ttu-id="35be4-123">上述代码是由 ASP.NET Core 模板生成的。</span><span class="sxs-lookup"><span data-stu-id="35be4-123">The preceding code is generated by the ASP.NET Core templates.</span></span>
 
-<span data-ttu-id="79dae-124">如果应用使用 Entity Framework Core，不要更改 `CreateHostBuilder` 方法的名称或签名。</span><span class="sxs-lookup"><span data-stu-id="79dae-124">If the app uses Entity Framework Core, don't change the name or signature of the `CreateHostBuilder` method.</span></span> <span data-ttu-id="79dae-125">[Entity Framework Core 工具](/ef/core/miscellaneous/cli/)应查找一个无需运行应用即可配置主机的 `CreateHostBuilder` 方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-125">The [Entity Framework Core tools](/ef/core/miscellaneous/cli/) expect to find a `CreateHostBuilder` method that configures the host without running the app.</span></span> <span data-ttu-id="79dae-126">有关详细信息，请参阅[设计时 DbContext 创建](/ef/core/miscellaneous/cli/dbcontext-creation)。</span><span class="sxs-lookup"><span data-stu-id="79dae-126">For more information, see [Design-time DbContext Creation](/ef/core/miscellaneous/cli/dbcontext-creation).</span></span>
+<span data-ttu-id="35be4-124">如果应用使用 Entity Framework Core，不要更改 `CreateHostBuilder` 方法的名称或签名。</span><span class="sxs-lookup"><span data-stu-id="35be4-124">If the app uses Entity Framework Core, don't change the name or signature of the `CreateHostBuilder` method.</span></span> <span data-ttu-id="35be4-125">[Entity Framework Core 工具](/ef/core/miscellaneous/cli/)应查找一个无需运行应用即可配置主机的 `CreateHostBuilder` 方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-125">The [Entity Framework Core tools](/ef/core/miscellaneous/cli/) expect to find a `CreateHostBuilder` method that configures the host without running the app.</span></span> <span data-ttu-id="35be4-126">有关详细信息，请参阅[设计时 DbContext 创建](/ef/core/miscellaneous/cli/dbcontext-creation)。</span><span class="sxs-lookup"><span data-stu-id="35be4-126">For more information, see [Design-time DbContext Creation](/ef/core/miscellaneous/cli/dbcontext-creation).</span></span>
 
-## <a name="default-builder-settings"></a><span data-ttu-id="79dae-127">默认生成器设置</span><span class="sxs-lookup"><span data-stu-id="79dae-127">Default builder settings</span></span>
+## <a name="default-builder-settings"></a><span data-ttu-id="35be4-127">默认生成器设置</span><span class="sxs-lookup"><span data-stu-id="35be4-127">Default builder settings</span></span>
 
-<span data-ttu-id="79dae-128"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 方法：</span><span class="sxs-lookup"><span data-stu-id="79dae-128">The <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> method:</span></span>
+<span data-ttu-id="35be4-128"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 方法：</span><span class="sxs-lookup"><span data-stu-id="35be4-128">The <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> method:</span></span>
 
-* <span data-ttu-id="79dae-129">将[内容根目录](xref:fundamentals/index#content-root)设置为由 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的路径。</span><span class="sxs-lookup"><span data-stu-id="79dae-129">Sets the [content root](xref:fundamentals/index#content-root) to the path returned by <xref:System.IO.Directory.GetCurrentDirectory*>.</span></span>
-* <span data-ttu-id="79dae-130">通过以下项加载主机配置：</span><span class="sxs-lookup"><span data-stu-id="79dae-130">Loads host configuration from:</span></span>
-  * <span data-ttu-id="79dae-131">前缀为 `DOTNET_` 的环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-131">Environment variables prefixed with `DOTNET_`.</span></span>
-  * <span data-ttu-id="79dae-132">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="79dae-132">Command-line arguments.</span></span>
-* <span data-ttu-id="79dae-133">通过以下对象加载应用配置：</span><span class="sxs-lookup"><span data-stu-id="79dae-133">Loads app configuration from:</span></span>
-  * <span data-ttu-id="79dae-134">appsettings.json。</span><span class="sxs-lookup"><span data-stu-id="79dae-134">*appsettings.json*.</span></span>
-  * <span data-ttu-id="79dae-135">appsettings.{Environment}.json。</span><span class="sxs-lookup"><span data-stu-id="79dae-135">*appsettings.{Environment}.json*.</span></span>
-  * <span data-ttu-id="79dae-136">[密钥管理器](xref:security/app-secrets) 当应用在 `Development` 环境中运行时。</span><span class="sxs-lookup"><span data-stu-id="79dae-136">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
-  * <span data-ttu-id="79dae-137">环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-137">Environment variables.</span></span>
-  * <span data-ttu-id="79dae-138">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="79dae-138">Command-line arguments.</span></span>
-* <span data-ttu-id="79dae-139">添加以下[日志记录](xref:fundamentals/logging/index)提供程序：</span><span class="sxs-lookup"><span data-stu-id="79dae-139">Adds the following [logging](xref:fundamentals/logging/index) providers:</span></span>
-  * <span data-ttu-id="79dae-140">控制台</span><span class="sxs-lookup"><span data-stu-id="79dae-140">Console</span></span>
-  * <span data-ttu-id="79dae-141">调试</span><span class="sxs-lookup"><span data-stu-id="79dae-141">Debug</span></span>
-  * <span data-ttu-id="79dae-142">EventSource</span><span class="sxs-lookup"><span data-stu-id="79dae-142">EventSource</span></span>
-  * <span data-ttu-id="79dae-143">EventLog（仅当在 Windows 上运行时）</span><span class="sxs-lookup"><span data-stu-id="79dae-143">EventLog (only when running on Windows)</span></span>
-* <span data-ttu-id="79dae-144">当环境为“开发”时，启用[范围验证](xref:fundamentals/dependency-injection#scope-validation)和[依赖关系验证](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild)。</span><span class="sxs-lookup"><span data-stu-id="79dae-144">Enables [scope validation](xref:fundamentals/dependency-injection#scope-validation) and [dependency validation](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild) when the environment is Development.</span></span>
+* <span data-ttu-id="35be4-129">将[内容根目录](xref:fundamentals/index#content-root)设置为由 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的路径。</span><span class="sxs-lookup"><span data-stu-id="35be4-129">Sets the [content root](xref:fundamentals/index#content-root) to the path returned by <xref:System.IO.Directory.GetCurrentDirectory*>.</span></span>
+* <span data-ttu-id="35be4-130">通过以下项加载主机配置：</span><span class="sxs-lookup"><span data-stu-id="35be4-130">Loads host configuration from:</span></span>
+  * <span data-ttu-id="35be4-131">前缀为 `DOTNET_` 的环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-131">Environment variables prefixed with `DOTNET_`.</span></span>
+  * <span data-ttu-id="35be4-132">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="35be4-132">Command-line arguments.</span></span>
+* <span data-ttu-id="35be4-133">通过以下对象加载应用配置：</span><span class="sxs-lookup"><span data-stu-id="35be4-133">Loads app configuration from:</span></span>
+  * <span data-ttu-id="35be4-134">appsettings.json。</span><span class="sxs-lookup"><span data-stu-id="35be4-134">*appsettings.json*.</span></span>
+  * <span data-ttu-id="35be4-135">appsettings.{Environment}.json。</span><span class="sxs-lookup"><span data-stu-id="35be4-135">*appsettings.{Environment}.json*.</span></span>
+  * <span data-ttu-id="35be4-136">[密钥管理器](xref:security/app-secrets) 当应用在 `Development` 环境中运行时。</span><span class="sxs-lookup"><span data-stu-id="35be4-136">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
+  * <span data-ttu-id="35be4-137">环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-137">Environment variables.</span></span>
+  * <span data-ttu-id="35be4-138">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="35be4-138">Command-line arguments.</span></span>
+* <span data-ttu-id="35be4-139">添加以下[日志记录](xref:fundamentals/logging/index)提供程序：</span><span class="sxs-lookup"><span data-stu-id="35be4-139">Adds the following [logging](xref:fundamentals/logging/index) providers:</span></span>
+  * <span data-ttu-id="35be4-140">控制台</span><span class="sxs-lookup"><span data-stu-id="35be4-140">Console</span></span>
+  * <span data-ttu-id="35be4-141">调试</span><span class="sxs-lookup"><span data-stu-id="35be4-141">Debug</span></span>
+  * <span data-ttu-id="35be4-142">EventSource</span><span class="sxs-lookup"><span data-stu-id="35be4-142">EventSource</span></span>
+  * <span data-ttu-id="35be4-143">EventLog（仅当在 Windows 上运行时）</span><span class="sxs-lookup"><span data-stu-id="35be4-143">EventLog (only when running on Windows)</span></span>
+* <span data-ttu-id="35be4-144">当环境为“开发”时，启用[范围验证](xref:fundamentals/dependency-injection#scope-validation)和[依赖关系验证](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild)。</span><span class="sxs-lookup"><span data-stu-id="35be4-144">Enables [scope validation](xref:fundamentals/dependency-injection#scope-validation) and [dependency validation](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild) when the environment is Development.</span></span>
 
-<span data-ttu-id="79dae-145">`ConfigureWebHostDefaults` 方法：</span><span class="sxs-lookup"><span data-stu-id="79dae-145">The `ConfigureWebHostDefaults` method:</span></span>
+<span data-ttu-id="35be4-145">`ConfigureWebHostDefaults` 方法：</span><span class="sxs-lookup"><span data-stu-id="35be4-145">The `ConfigureWebHostDefaults` method:</span></span>
 
-* <span data-ttu-id="79dae-146">从前缀为 `ASPNETCORE_` 的环境变量加载主机配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-146">Loads host configuration from environment variables prefixed with `ASPNETCORE_`.</span></span>
-* <span data-ttu-id="79dae-147">使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-147">Sets [Kestrel](xref:fundamentals/servers/kestrel) server as the web server and configures it using the app's hosting configuration providers.</span></span> <span data-ttu-id="79dae-148">有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel#kestrel-options>。</span><span class="sxs-lookup"><span data-stu-id="79dae-148">For the Kestrel server's default options, see <xref:fundamentals/servers/kestrel#kestrel-options>.</span></span>
-* <span data-ttu-id="79dae-149">添加[主机筛选中间件](xref:fundamentals/servers/kestrel#host-filtering)。</span><span class="sxs-lookup"><span data-stu-id="79dae-149">Adds [Host Filtering middleware](xref:fundamentals/servers/kestrel#host-filtering).</span></span>
-* <span data-ttu-id="79dae-150">如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 等于 `true`，则添加[转接头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers)。</span><span class="sxs-lookup"><span data-stu-id="79dae-150">Adds [Forwarded Headers middleware](xref:host-and-deploy/proxy-load-balancer#forwarded-headers) if `ASPNETCORE_FORWARDEDHEADERS_ENABLED` equals `true`.</span></span>
-* <span data-ttu-id="79dae-151">支持 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="79dae-151">Enables IIS integration.</span></span> <span data-ttu-id="79dae-152">有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。</span><span class="sxs-lookup"><span data-stu-id="79dae-152">For the IIS default options, see <xref:host-and-deploy/iis/index#iis-options>.</span></span>
+* <span data-ttu-id="35be4-146">从前缀为 `ASPNETCORE_` 的环境变量加载主机配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-146">Loads host configuration from environment variables prefixed with `ASPNETCORE_`.</span></span>
+* <span data-ttu-id="35be4-147">使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-147">Sets [Kestrel](xref:fundamentals/servers/kestrel) server as the web server and configures it using the app's hosting configuration providers.</span></span> <span data-ttu-id="35be4-148">有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel#kestrel-options>。</span><span class="sxs-lookup"><span data-stu-id="35be4-148">For the Kestrel server's default options, see <xref:fundamentals/servers/kestrel#kestrel-options>.</span></span>
+* <span data-ttu-id="35be4-149">添加[主机筛选中间件](xref:fundamentals/servers/kestrel#host-filtering)。</span><span class="sxs-lookup"><span data-stu-id="35be4-149">Adds [Host Filtering middleware](xref:fundamentals/servers/kestrel#host-filtering).</span></span>
+* <span data-ttu-id="35be4-150">如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 等于 `true`，则添加[转接头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers)。</span><span class="sxs-lookup"><span data-stu-id="35be4-150">Adds [Forwarded Headers middleware](xref:host-and-deploy/proxy-load-balancer#forwarded-headers) if `ASPNETCORE_FORWARDEDHEADERS_ENABLED` equals `true`.</span></span>
+* <span data-ttu-id="35be4-151">支持 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="35be4-151">Enables IIS integration.</span></span> <span data-ttu-id="35be4-152">有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。</span><span class="sxs-lookup"><span data-stu-id="35be4-152">For the IIS default options, see <xref:host-and-deploy/iis/index#iis-options>.</span></span>
 
-<span data-ttu-id="79dae-153">本文中后面的[所有应用类型的设置](#settings-for-all-app-types)和[ web 应用的设置](#settings-for-web-apps)部分介绍如何替代默认生成器设置。</span><span class="sxs-lookup"><span data-stu-id="79dae-153">The [Settings for all app types](#settings-for-all-app-types) and [Settings for web apps](#settings-for-web-apps) sections later in this article show how to override default builder settings.</span></span>
+<span data-ttu-id="35be4-153">本文中后面的[所有应用类型的设置](#settings-for-all-app-types)和[ web 应用的设置](#settings-for-web-apps)部分介绍如何替代默认生成器设置。</span><span class="sxs-lookup"><span data-stu-id="35be4-153">The [Settings for all app types](#settings-for-all-app-types) and [Settings for web apps](#settings-for-web-apps) sections later in this article show how to override default builder settings.</span></span>
 
-## <a name="framework-provided-services"></a><span data-ttu-id="79dae-154">框架提供的服务</span><span class="sxs-lookup"><span data-stu-id="79dae-154">Framework-provided services</span></span>
+## <a name="framework-provided-services"></a><span data-ttu-id="35be4-154">框架提供的服务</span><span class="sxs-lookup"><span data-stu-id="35be4-154">Framework-provided services</span></span>
 
-<span data-ttu-id="79dae-155">自动注册以下服务：</span><span class="sxs-lookup"><span data-stu-id="79dae-155">The following services are registered automatically:</span></span>
+<span data-ttu-id="35be4-155">自动注册以下服务：</span><span class="sxs-lookup"><span data-stu-id="35be4-155">The following services are registered automatically:</span></span>
 
-* [<span data-ttu-id="79dae-156">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-156">IHostApplicationLifetime</span></span>](#ihostapplicationlifetime)
-* [<span data-ttu-id="79dae-157">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-157">IHostLifetime</span></span>](#ihostlifetime)
-* [<span data-ttu-id="79dae-158">IHostEnvironment / IWebHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="79dae-158">IHostEnvironment / IWebHostEnvironment</span></span>](#ihostenvironment)
+* [<span data-ttu-id="35be4-156">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-156">IHostApplicationLifetime</span></span>](#ihostapplicationlifetime)
+* [<span data-ttu-id="35be4-157">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-157">IHostLifetime</span></span>](#ihostlifetime)
+* [<span data-ttu-id="35be4-158">IHostEnvironment / IWebHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="35be4-158">IHostEnvironment / IWebHostEnvironment</span></span>](#ihostenvironment)
 
-<span data-ttu-id="79dae-159">有关框架提供的服务的详细信息，请参阅 <xref:fundamentals/dependency-injection#framework-provided-services>。</span><span class="sxs-lookup"><span data-stu-id="79dae-159">For more information on framework-provided services, see <xref:fundamentals/dependency-injection#framework-provided-services>.</span></span>
+<span data-ttu-id="35be4-159">有关框架提供的服务的详细信息，请参阅 <xref:fundamentals/dependency-injection#framework-provided-services>。</span><span class="sxs-lookup"><span data-stu-id="35be4-159">For more information on framework-provided services, see <xref:fundamentals/dependency-injection#framework-provided-services>.</span></span>
 
-## <a name="ihostapplicationlifetime"></a><span data-ttu-id="79dae-160">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-160">IHostApplicationLifetime</span></span>
+## <a name="ihostapplicationlifetime"></a><span data-ttu-id="35be4-160">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-160">IHostApplicationLifetime</span></span>
 
-<span data-ttu-id="79dae-161">将 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime>（以前称为 `IApplicationLifetime`）服务注入任何类以处理启动后和正常关闭任务。</span><span class="sxs-lookup"><span data-stu-id="79dae-161">Inject the <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> (formerly `IApplicationLifetime`) service into any class to handle post-startup and graceful shutdown tasks.</span></span> <span data-ttu-id="79dae-162">接口上的三个属性是用于注册应用启动和应用停止事件处理程序方法的取消令牌。</span><span class="sxs-lookup"><span data-stu-id="79dae-162">Three properties on the interface are cancellation tokens used to register app start and app stop event handler methods.</span></span> <span data-ttu-id="79dae-163">该接口还包括 `StopApplication` 方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-163">The interface also includes a `StopApplication` method.</span></span>
+<span data-ttu-id="35be4-161">将 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime>（以前称为 `IApplicationLifetime`）服务注入任何类以处理启动后和正常关闭任务。</span><span class="sxs-lookup"><span data-stu-id="35be4-161">Inject the <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> (formerly `IApplicationLifetime`) service into any class to handle post-startup and graceful shutdown tasks.</span></span> <span data-ttu-id="35be4-162">接口上的三个属性是用于注册应用启动和应用停止事件处理程序方法的取消令牌。</span><span class="sxs-lookup"><span data-stu-id="35be4-162">Three properties on the interface are cancellation tokens used to register app start and app stop event handler methods.</span></span> <span data-ttu-id="35be4-163">该接口还包括 `StopApplication` 方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-163">The interface also includes a `StopApplication` method.</span></span>
 
-<span data-ttu-id="79dae-164">以下示例是注册 `IHostApplicationLifetime` 事件的 `IHostedService` 实现：</span><span class="sxs-lookup"><span data-stu-id="79dae-164">The following example is an `IHostedService` implementation that registers `IHostApplicationLifetime` events:</span></span>
+<span data-ttu-id="35be4-164">以下示例是注册 `IHostApplicationLifetime` 事件的 `IHostedService` 实现：</span><span class="sxs-lookup"><span data-stu-id="35be4-164">The following example is an `IHostedService` implementation that registers `IHostApplicationLifetime` events:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/3.x/LifetimeEventsHostedService.cs?name=snippet_LifetimeEvents)]
 
-## <a name="ihostlifetime"></a><span data-ttu-id="79dae-165">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-165">IHostLifetime</span></span>
+## <a name="ihostlifetime"></a><span data-ttu-id="35be4-165">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-165">IHostLifetime</span></span>
 
-<span data-ttu-id="79dae-166"><xref:Microsoft.Extensions.Hosting.IHostLifetime> 实现控制主机何时启动和何时停止。</span><span class="sxs-lookup"><span data-stu-id="79dae-166">The <xref:Microsoft.Extensions.Hosting.IHostLifetime> implementation controls when the host starts and when it stops.</span></span> <span data-ttu-id="79dae-167">使用了已注册的最后一个实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-167">The last implementation registered is used.</span></span>
+<span data-ttu-id="35be4-166"><xref:Microsoft.Extensions.Hosting.IHostLifetime> 实现控制主机何时启动和何时停止。</span><span class="sxs-lookup"><span data-stu-id="35be4-166">The <xref:Microsoft.Extensions.Hosting.IHostLifetime> implementation controls when the host starts and when it stops.</span></span> <span data-ttu-id="35be4-167">使用了已注册的最后一个实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-167">The last implementation registered is used.</span></span>
 
-<span data-ttu-id="79dae-168">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` 是默认的 `IHostLifetime` 实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-168">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` is the default `IHostLifetime` implementation.</span></span> <span data-ttu-id="79dae-169">`ConsoleLifetime`：</span><span class="sxs-lookup"><span data-stu-id="79dae-169">`ConsoleLifetime`:</span></span>
+<span data-ttu-id="35be4-168">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` 是默认的 `IHostLifetime` 实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-168">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` is the default `IHostLifetime` implementation.</span></span> <span data-ttu-id="35be4-169">`ConsoleLifetime`：</span><span class="sxs-lookup"><span data-stu-id="35be4-169">`ConsoleLifetime`:</span></span>
 
-* <span data-ttu-id="79dae-170">侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> 来启动关闭进程。</span><span class="sxs-lookup"><span data-stu-id="79dae-170">Listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM and calls <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> to start the shutdown process.</span></span>
-* <span data-ttu-id="79dae-171">解除阻止 [RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。</span><span class="sxs-lookup"><span data-stu-id="79dae-171">Unblocks extensions such as [RunAsync](#runasync) and [WaitForShutdownAsync](#waitforshutdownasync).</span></span>
+* <span data-ttu-id="35be4-170">侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> 来启动关闭进程。</span><span class="sxs-lookup"><span data-stu-id="35be4-170">Listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM and calls <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> to start the shutdown process.</span></span>
+* <span data-ttu-id="35be4-171">解除阻止 [RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。</span><span class="sxs-lookup"><span data-stu-id="35be4-171">Unblocks extensions such as [RunAsync](#runasync) and [WaitForShutdownAsync](#waitforshutdownasync).</span></span>
 
-## <a name="ihostenvironment"></a><span data-ttu-id="79dae-172">IHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="79dae-172">IHostEnvironment</span></span>
+## <a name="ihostenvironment"></a><span data-ttu-id="35be4-172">IHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="35be4-172">IHostEnvironment</span></span>
 
-<span data-ttu-id="79dae-173">将 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 服务注册到一个类，获取关于以下设置的信息：</span><span class="sxs-lookup"><span data-stu-id="79dae-173">Inject the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> service into a class to get information about the following settings:</span></span>
+<span data-ttu-id="35be4-173">将 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 服务注册到一个类，获取关于以下设置的信息：</span><span class="sxs-lookup"><span data-stu-id="35be4-173">Inject the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> service into a class to get information about the following settings:</span></span>
 
-* [<span data-ttu-id="79dae-174">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="79dae-174">ApplicationName</span></span>](#applicationname)
-* [<span data-ttu-id="79dae-175">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="79dae-175">EnvironmentName</span></span>](#environmentname)
-* [<span data-ttu-id="79dae-176">ContentRootPath</span><span class="sxs-lookup"><span data-stu-id="79dae-176">ContentRootPath</span></span>](#contentroot)
+* [<span data-ttu-id="35be4-174">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="35be4-174">ApplicationName</span></span>](#applicationname)
+* [<span data-ttu-id="35be4-175">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="35be4-175">EnvironmentName</span></span>](#environmentname)
+* [<span data-ttu-id="35be4-176">ContentRootPath</span><span class="sxs-lookup"><span data-stu-id="35be4-176">ContentRootPath</span></span>](#contentroot)
 
-<span data-ttu-id="79dae-177">Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironment` 并添加 [WebRootPath](#webroot)。</span><span class="sxs-lookup"><span data-stu-id="79dae-177">Web apps implement the `IWebHostEnvironment` interface, which inherits `IHostEnvironment` and adds the [WebRootPath](#webroot).</span></span>
+<span data-ttu-id="35be4-177">Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironment` 并添加 [WebRootPath](#webroot)。</span><span class="sxs-lookup"><span data-stu-id="35be4-177">Web apps implement the `IWebHostEnvironment` interface, which inherits `IHostEnvironment` and adds the [WebRootPath](#webroot).</span></span>
 
-## <a name="host-configuration"></a><span data-ttu-id="79dae-178">主机配置</span><span class="sxs-lookup"><span data-stu-id="79dae-178">Host configuration</span></span>
+## <a name="host-configuration"></a><span data-ttu-id="35be4-178">主机配置</span><span class="sxs-lookup"><span data-stu-id="35be4-178">Host configuration</span></span>
 
-<span data-ttu-id="79dae-179">主机配置用于 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 实现的属性。</span><span class="sxs-lookup"><span data-stu-id="79dae-179">Host configuration is used for the properties of the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> implementation.</span></span>
+<span data-ttu-id="35be4-179">主机配置用于 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 实现的属性。</span><span class="sxs-lookup"><span data-stu-id="35be4-179">Host configuration is used for the properties of the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> implementation.</span></span>
 
-<span data-ttu-id="79dae-180">主机配置可以从 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 内的 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) 获取。</span><span class="sxs-lookup"><span data-stu-id="79dae-180">Host configuration is available from [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) inside <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>.</span></span> <span data-ttu-id="79dae-181">在 `ConfigureAppConfiguration` 后，`HostBuilderContext.Configuration` 被替换为应用配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-181">After `ConfigureAppConfiguration`, `HostBuilderContext.Configuration` is replaced with the app config.</span></span>
+<span data-ttu-id="35be4-180">主机配置可以从 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 内的 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) 获取。</span><span class="sxs-lookup"><span data-stu-id="35be4-180">Host configuration is available from [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) inside <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>.</span></span> <span data-ttu-id="35be4-181">在 `ConfigureAppConfiguration` 后，`HostBuilderContext.Configuration` 被替换为应用配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-181">After `ConfigureAppConfiguration`, `HostBuilderContext.Configuration` is replaced with the app config.</span></span>
 
-<span data-ttu-id="79dae-182">若要添加主机配置，请对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>。</span><span class="sxs-lookup"><span data-stu-id="79dae-182">To add host configuration, call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="79dae-183">可多次调用 `ConfigureHostConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="79dae-183">`ConfigureHostConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="79dae-184">主机使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="79dae-184">The host uses whichever option sets a value last on a given key.</span></span>
+<span data-ttu-id="35be4-182">若要添加主机配置，请对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>。</span><span class="sxs-lookup"><span data-stu-id="35be4-182">To add host configuration, call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="35be4-183">可多次调用 `ConfigureHostConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="35be4-183">`ConfigureHostConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="35be4-184">主机使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="35be4-184">The host uses whichever option sets a value last on a given key.</span></span>
 
-<span data-ttu-id="79dae-185">`CreateDefaultBuilder` 包含前缀为 `DOTNET_` 的环境变量提供程序和命令行参数。</span><span class="sxs-lookup"><span data-stu-id="79dae-185">The environment variable provider with prefix `DOTNET_` and command-line arguments are included by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="79dae-186">对于 web 应用程序，添加前缀为 `ASPNETCORE_` 的环境变量提供程序。</span><span class="sxs-lookup"><span data-stu-id="79dae-186">For web apps, the environment variable provider with prefix `ASPNETCORE_` is added.</span></span> <span data-ttu-id="79dae-187">当系统读取环境变量时，便会删除前缀。</span><span class="sxs-lookup"><span data-stu-id="79dae-187">The prefix is removed when the environment variables are read.</span></span> <span data-ttu-id="79dae-188">例如，`ASPNETCORE_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。</span><span class="sxs-lookup"><span data-stu-id="79dae-188">For example, the environment variable value for `ASPNETCORE_ENVIRONMENT` becomes the host configuration value for the `environment` key.</span></span>
+<span data-ttu-id="35be4-185">`CreateDefaultBuilder` 包含前缀为 `DOTNET_` 的环境变量提供程序和命令行参数。</span><span class="sxs-lookup"><span data-stu-id="35be4-185">The environment variable provider with prefix `DOTNET_` and command-line arguments are included by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="35be4-186">对于 web 应用程序，添加前缀为 `ASPNETCORE_` 的环境变量提供程序。</span><span class="sxs-lookup"><span data-stu-id="35be4-186">For web apps, the environment variable provider with prefix `ASPNETCORE_` is added.</span></span> <span data-ttu-id="35be4-187">当系统读取环境变量时，便会删除前缀。</span><span class="sxs-lookup"><span data-stu-id="35be4-187">The prefix is removed when the environment variables are read.</span></span> <span data-ttu-id="35be4-188">例如，`ASPNETCORE_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。</span><span class="sxs-lookup"><span data-stu-id="35be4-188">For example, the environment variable value for `ASPNETCORE_ENVIRONMENT` becomes the host configuration value for the `environment` key.</span></span>
 
-<span data-ttu-id="79dae-189">以下示例创建主机配置：</span><span class="sxs-lookup"><span data-stu-id="79dae-189">The following example creates host configuration:</span></span>
+<span data-ttu-id="35be4-189">以下示例创建主机配置：</span><span class="sxs-lookup"><span data-stu-id="35be4-189">The following example creates host configuration:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/3.x/Program.cs?name=snippet_HostConfig)]
 
-## <a name="app-configuration"></a><span data-ttu-id="79dae-190">应用配置</span><span class="sxs-lookup"><span data-stu-id="79dae-190">App configuration</span></span>
+## <a name="app-configuration"></a><span data-ttu-id="35be4-190">应用配置</span><span class="sxs-lookup"><span data-stu-id="35be4-190">App configuration</span></span>
 
-<span data-ttu-id="79dae-191">通过对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-191">App configuration is created by calling <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="79dae-192">可多次调用 `ConfigureAppConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="79dae-192">`ConfigureAppConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="79dae-193">应用使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="79dae-193">The app uses whichever option sets a value last on a given key.</span></span> 
+<span data-ttu-id="35be4-191">通过对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-191">App configuration is created by calling <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="35be4-192">可多次调用 `ConfigureAppConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="35be4-192">`ConfigureAppConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="35be4-193">应用使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="35be4-193">The app uses whichever option sets a value last on a given key.</span></span> 
 
-<span data-ttu-id="79dae-194">由 `ConfigureAppConfiguration` 创建的配置可以通过 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 获取以用于后续操作，也可以通过 DI 作为服务获取。</span><span class="sxs-lookup"><span data-stu-id="79dae-194">The configuration created by `ConfigureAppConfiguration` is available at [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) for subsequent operations and as a service from DI.</span></span> <span data-ttu-id="79dae-195">主机配置也会添加到应用配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-195">The host configuration is also added to the app configuration.</span></span>
+<span data-ttu-id="35be4-194">由 `ConfigureAppConfiguration` 创建的配置可以通过 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 获取以用于后续操作，也可以通过 DI 作为服务获取。</span><span class="sxs-lookup"><span data-stu-id="35be4-194">The configuration created by `ConfigureAppConfiguration` is available at [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) for subsequent operations and as a service from DI.</span></span> <span data-ttu-id="35be4-195">主机配置也会添加到应用配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-195">The host configuration is also added to the app configuration.</span></span>
 
-<span data-ttu-id="79dae-196">有关详细信息，请参阅 [ ASP.NET Core 中的配置](xref:fundamentals/configuration/index#configureappconfiguration)。</span><span class="sxs-lookup"><span data-stu-id="79dae-196">For more information, see [Configuration in ASP.NET Core](xref:fundamentals/configuration/index#configureappconfiguration).</span></span>
+<span data-ttu-id="35be4-196">有关详细信息，请参阅 [ ASP.NET Core 中的配置](xref:fundamentals/configuration/index#configureappconfiguration)。</span><span class="sxs-lookup"><span data-stu-id="35be4-196">For more information, see [Configuration in ASP.NET Core](xref:fundamentals/configuration/index#configureappconfiguration).</span></span>
 
-## <a name="settings-for-all-app-types"></a><span data-ttu-id="79dae-197">适用于所有应用类型的设置</span><span class="sxs-lookup"><span data-stu-id="79dae-197">Settings for all app types</span></span>
+## <a name="settings-for-all-app-types"></a><span data-ttu-id="35be4-197">适用于所有应用类型的设置</span><span class="sxs-lookup"><span data-stu-id="35be4-197">Settings for all app types</span></span>
 
-<span data-ttu-id="79dae-198">本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。</span><span class="sxs-lookup"><span data-stu-id="79dae-198">This section lists host settings that apply to both HTTP and non-HTTP workloads.</span></span> <span data-ttu-id="79dae-199">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="79dae-199">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
+<span data-ttu-id="35be4-198">本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。</span><span class="sxs-lookup"><span data-stu-id="35be4-198">This section lists host settings that apply to both HTTP and non-HTTP workloads.</span></span> <span data-ttu-id="35be4-199">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="35be4-199">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
 
 <!-- In the following sections, two spaces at end of line are used to force line breaks in the rendered page. -->
 
-### <a name="applicationname"></a><span data-ttu-id="79dae-200">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="79dae-200">ApplicationName</span></span>
+### <a name="applicationname"></a><span data-ttu-id="35be4-200">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="35be4-200">ApplicationName</span></span>
 
-<span data-ttu-id="79dae-201">[IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。</span><span class="sxs-lookup"><span data-stu-id="79dae-201">The [IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) property is set from host configuration during host construction.</span></span>
+<span data-ttu-id="35be4-201">[IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。</span><span class="sxs-lookup"><span data-stu-id="35be4-201">The [IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) property is set from host configuration during host construction.</span></span>
 
-<span data-ttu-id="79dae-202">键：`applicationName`</span><span class="sxs-lookup"><span data-stu-id="79dae-202">**Key**: `applicationName`</span></span>  
-<span data-ttu-id="79dae-203">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-203">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-204">**默认**：包含应用入口点的程序集的名称。</span><span class="sxs-lookup"><span data-stu-id="79dae-204">**Default**: The name of the assembly that contains the app's entry point.</span></span>  
-<span data-ttu-id="79dae-205">**环境变量**：`<PREFIX_>APPLICATIONNAME`</span><span class="sxs-lookup"><span data-stu-id="79dae-205">**Environment variable**: `<PREFIX_>APPLICATIONNAME`</span></span>
+<span data-ttu-id="35be4-202">键：`applicationName`</span><span class="sxs-lookup"><span data-stu-id="35be4-202">**Key**: `applicationName`</span></span>  
+<span data-ttu-id="35be4-203">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-203">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-204">**默认**：包含应用入口点的程序集的名称。</span><span class="sxs-lookup"><span data-stu-id="35be4-204">**Default**: The name of the assembly that contains the app's entry point.</span></span>  
+<span data-ttu-id="35be4-205">**环境变量**：`<PREFIX_>APPLICATIONNAME`</span><span class="sxs-lookup"><span data-stu-id="35be4-205">**Environment variable**: `<PREFIX_>APPLICATIONNAME`</span></span>
 
-<span data-ttu-id="79dae-206">要设置此值，请使用环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-206">To set this value, use the environment variable.</span></span> 
+<span data-ttu-id="35be4-206">要设置此值，请使用环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-206">To set this value, use the environment variable.</span></span> 
 
-### <a name="contentroot"></a><span data-ttu-id="79dae-207">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-207">ContentRoot</span></span>
+### <a name="contentroot"></a><span data-ttu-id="35be4-207">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-207">ContentRoot</span></span>
 
-<span data-ttu-id="79dae-208">[IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) 属性决定主机从什么位置开始搜索内容文件。</span><span class="sxs-lookup"><span data-stu-id="79dae-208">The [IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) property determines where the host begins searching for content files.</span></span> <span data-ttu-id="79dae-209">如果路径不存在，主机将无法启动。</span><span class="sxs-lookup"><span data-stu-id="79dae-209">If the path doesn't exist, the host fails to start.</span></span>
+<span data-ttu-id="35be4-208">[IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) 属性决定主机从什么位置开始搜索内容文件。</span><span class="sxs-lookup"><span data-stu-id="35be4-208">The [IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) property determines where the host begins searching for content files.</span></span> <span data-ttu-id="35be4-209">如果路径不存在，主机将无法启动。</span><span class="sxs-lookup"><span data-stu-id="35be4-209">If the path doesn't exist, the host fails to start.</span></span>
 
-<span data-ttu-id="79dae-210">键：`contentRoot`</span><span class="sxs-lookup"><span data-stu-id="79dae-210">**Key**: `contentRoot`</span></span>  
-<span data-ttu-id="79dae-211">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-211">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-212">**默认**：应用程序集所在的文件夹。</span><span class="sxs-lookup"><span data-stu-id="79dae-212">**Default**: The folder where the app assembly resides.</span></span>  
-<span data-ttu-id="79dae-213">**环境变量**：`<PREFIX_>CONTENTROOT`</span><span class="sxs-lookup"><span data-stu-id="79dae-213">**Environment variable**: `<PREFIX_>CONTENTROOT`</span></span>
+<span data-ttu-id="35be4-210">键：`contentRoot`</span><span class="sxs-lookup"><span data-stu-id="35be4-210">**Key**: `contentRoot`</span></span>  
+<span data-ttu-id="35be4-211">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-211">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-212">**默认**：应用程序集所在的文件夹。</span><span class="sxs-lookup"><span data-stu-id="35be4-212">**Default**: The folder where the app assembly resides.</span></span>  
+<span data-ttu-id="35be4-213">**环境变量**：`<PREFIX_>CONTENTROOT`</span><span class="sxs-lookup"><span data-stu-id="35be4-213">**Environment variable**: `<PREFIX_>CONTENTROOT`</span></span>
 
-<span data-ttu-id="79dae-214">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseContentRoot`：</span><span class="sxs-lookup"><span data-stu-id="79dae-214">To set this value, use the environment variable or call `UseContentRoot` on `IHostBuilder`:</span></span>
+<span data-ttu-id="35be4-214">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseContentRoot`：</span><span class="sxs-lookup"><span data-stu-id="35be4-214">To set this value, use the environment variable or call `UseContentRoot` on `IHostBuilder`:</span></span>
 
 ```csharp
 Host.CreateDefaultBuilder(args)
@@ -224,21 +225,21 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-<span data-ttu-id="79dae-215">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="79dae-215">For more information, see:</span></span>
+<span data-ttu-id="35be4-215">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="35be4-215">For more information, see:</span></span>
 
-* [<span data-ttu-id="79dae-216">基础知识：内容根目录</span><span class="sxs-lookup"><span data-stu-id="79dae-216">Fundamentals: Content root</span></span>](xref:fundamentals/index#content-root)
-* [<span data-ttu-id="79dae-217">WebRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-217">WebRoot</span></span>](#webroot)
+* [<span data-ttu-id="35be4-216">基础知识：内容根目录</span><span class="sxs-lookup"><span data-stu-id="35be4-216">Fundamentals: Content root</span></span>](xref:fundamentals/index#content-root)
+* [<span data-ttu-id="35be4-217">WebRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-217">WebRoot</span></span>](#webroot)
 
-### <a name="environmentname"></a><span data-ttu-id="79dae-218">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="79dae-218">EnvironmentName</span></span>
+### <a name="environmentname"></a><span data-ttu-id="35be4-218">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="35be4-218">EnvironmentName</span></span>
 
-<span data-ttu-id="79dae-219">[IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) 属性可以设置为任何值。</span><span class="sxs-lookup"><span data-stu-id="79dae-219">The [IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) property can be set to any value.</span></span> <span data-ttu-id="79dae-220">框架定义的值包括 `Development``Staging` 和 `Production`。</span><span class="sxs-lookup"><span data-stu-id="79dae-220">Framework-defined values include `Development`, `Staging`, and `Production`.</span></span> <span data-ttu-id="79dae-221">值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="79dae-221">Values aren't case-sensitive.</span></span>
+<span data-ttu-id="35be4-219">[IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) 属性可以设置为任何值。</span><span class="sxs-lookup"><span data-stu-id="35be4-219">The [IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) property can be set to any value.</span></span> <span data-ttu-id="35be4-220">框架定义的值包括 `Development``Staging` 和 `Production`。</span><span class="sxs-lookup"><span data-stu-id="35be4-220">Framework-defined values include `Development`, `Staging`, and `Production`.</span></span> <span data-ttu-id="35be4-221">值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="35be4-221">Values aren't case-sensitive.</span></span>
 
-<span data-ttu-id="79dae-222">键：`environment`</span><span class="sxs-lookup"><span data-stu-id="79dae-222">**Key**: `environment`</span></span>  
-<span data-ttu-id="79dae-223">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-223">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-224">**默认**：`Production`</span><span class="sxs-lookup"><span data-stu-id="79dae-224">**Default**: `Production`</span></span>  
-<span data-ttu-id="79dae-225">**环境变量**：`<PREFIX_>ENVIRONMENT`</span><span class="sxs-lookup"><span data-stu-id="79dae-225">**Environment variable**: `<PREFIX_>ENVIRONMENT`</span></span>
+<span data-ttu-id="35be4-222">键：`environment`</span><span class="sxs-lookup"><span data-stu-id="35be4-222">**Key**: `environment`</span></span>  
+<span data-ttu-id="35be4-223">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-223">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-224">**默认**：`Production`</span><span class="sxs-lookup"><span data-stu-id="35be4-224">**Default**: `Production`</span></span>  
+<span data-ttu-id="35be4-225">**环境变量**：`<PREFIX_>ENVIRONMENT`</span><span class="sxs-lookup"><span data-stu-id="35be4-225">**Environment variable**: `<PREFIX_>ENVIRONMENT`</span></span>
 
-<span data-ttu-id="79dae-226">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：</span><span class="sxs-lookup"><span data-stu-id="79dae-226">To set this value, use the environment variable or call `UseEnvironment` on `IHostBuilder`:</span></span>
+<span data-ttu-id="35be4-226">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：</span><span class="sxs-lookup"><span data-stu-id="35be4-226">To set this value, use the environment variable or call `UseEnvironment` on `IHostBuilder`:</span></span>
 
 ```csharp
 Host.CreateDefaultBuilder(args)
@@ -246,29 +247,29 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-### <a name="shutdowntimeout"></a><span data-ttu-id="79dae-227">ShutdownTimeout</span><span class="sxs-lookup"><span data-stu-id="79dae-227">ShutdownTimeout</span></span>
+### <a name="shutdowntimeout"></a><span data-ttu-id="35be4-227">ShutdownTimeout</span><span class="sxs-lookup"><span data-stu-id="35be4-227">ShutdownTimeout</span></span>
 
-<span data-ttu-id="79dae-228">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) 设置 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 的超时。</span><span class="sxs-lookup"><span data-stu-id="79dae-228">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) sets the timeout for <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span> <span data-ttu-id="79dae-229">默认值为 5 秒。</span><span class="sxs-lookup"><span data-stu-id="79dae-229">The default value is five seconds.</span></span>  <span data-ttu-id="79dae-230">在超时时间段中，主机：</span><span class="sxs-lookup"><span data-stu-id="79dae-230">During the timeout period, the host:</span></span>
+<span data-ttu-id="35be4-228">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) 设置 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 的超时。</span><span class="sxs-lookup"><span data-stu-id="35be4-228">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) sets the timeout for <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span> <span data-ttu-id="35be4-229">默认值为 5 秒。</span><span class="sxs-lookup"><span data-stu-id="35be4-229">The default value is five seconds.</span></span>  <span data-ttu-id="35be4-230">在超时时间段中，主机：</span><span class="sxs-lookup"><span data-stu-id="35be4-230">During the timeout period, the host:</span></span>
 
-* <span data-ttu-id="79dae-231">触发 [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping)。</span><span class="sxs-lookup"><span data-stu-id="79dae-231">Triggers [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping).</span></span>
-* <span data-ttu-id="79dae-232">尝试停止托管服务，对服务停止失败的错误进行日志记录。</span><span class="sxs-lookup"><span data-stu-id="79dae-232">Attempts to stop hosted services, logging errors for services that fail to stop.</span></span>
+* <span data-ttu-id="35be4-231">触发 [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping)。</span><span class="sxs-lookup"><span data-stu-id="35be4-231">Triggers [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping).</span></span>
+* <span data-ttu-id="35be4-232">尝试停止托管服务，对服务停止失败的错误进行日志记录。</span><span class="sxs-lookup"><span data-stu-id="35be4-232">Attempts to stop hosted services, logging errors for services that fail to stop.</span></span>
 
-<span data-ttu-id="79dae-233">如果在所有托管服务停止之前就达到了超时时间，则会在应用关闭时会终止剩余的所有活动的服务。</span><span class="sxs-lookup"><span data-stu-id="79dae-233">If the timeout period expires before all of the hosted services stop, any remaining active services are stopped when the app shuts down.</span></span> <span data-ttu-id="79dae-234">即使没有完成处理工作，服务也会停止。</span><span class="sxs-lookup"><span data-stu-id="79dae-234">The services stop even if they haven't finished processing.</span></span> <span data-ttu-id="79dae-235">如果停止服务需要额外的时间，请增加超时时间。</span><span class="sxs-lookup"><span data-stu-id="79dae-235">If services require additional time to stop, increase the timeout.</span></span>
+<span data-ttu-id="35be4-233">如果在所有托管服务停止之前就达到了超时时间，则会在应用关闭时会终止剩余的所有活动的服务。</span><span class="sxs-lookup"><span data-stu-id="35be4-233">If the timeout period expires before all of the hosted services stop, any remaining active services are stopped when the app shuts down.</span></span> <span data-ttu-id="35be4-234">即使没有完成处理工作，服务也会停止。</span><span class="sxs-lookup"><span data-stu-id="35be4-234">The services stop even if they haven't finished processing.</span></span> <span data-ttu-id="35be4-235">如果停止服务需要额外的时间，请增加超时时间。</span><span class="sxs-lookup"><span data-stu-id="35be4-235">If services require additional time to stop, increase the timeout.</span></span>
 
-<span data-ttu-id="79dae-236">键：`shutdownTimeoutSeconds`</span><span class="sxs-lookup"><span data-stu-id="79dae-236">**Key**: `shutdownTimeoutSeconds`</span></span>  
-<span data-ttu-id="79dae-237">类型：`int`</span><span class="sxs-lookup"><span data-stu-id="79dae-237">**Type**: `int`</span></span>  
-<span data-ttu-id="79dae-238">**默认**：5 秒</span><span class="sxs-lookup"><span data-stu-id="79dae-238">**Default**: 5 seconds</span></span>  
-<span data-ttu-id="79dae-239">**环境变量**：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span><span class="sxs-lookup"><span data-stu-id="79dae-239">**Environment variable**: `<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span></span>
+<span data-ttu-id="35be4-236">键：`shutdownTimeoutSeconds`</span><span class="sxs-lookup"><span data-stu-id="35be4-236">**Key**: `shutdownTimeoutSeconds`</span></span>  
+<span data-ttu-id="35be4-237">类型：`int`</span><span class="sxs-lookup"><span data-stu-id="35be4-237">**Type**: `int`</span></span>  
+<span data-ttu-id="35be4-238">**默认**：5 秒</span><span class="sxs-lookup"><span data-stu-id="35be4-238">**Default**: 5 seconds</span></span>  
+<span data-ttu-id="35be4-239">**环境变量**：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span><span class="sxs-lookup"><span data-stu-id="35be4-239">**Environment variable**: `<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span></span>
 
-<span data-ttu-id="79dae-240">若要设置此值，请使用环境变量或配置 `HostOptions`。</span><span class="sxs-lookup"><span data-stu-id="79dae-240">To set this value, use the environment variable or configure `HostOptions`.</span></span> <span data-ttu-id="79dae-241">以下示例将超时设置为 20 秒：</span><span class="sxs-lookup"><span data-stu-id="79dae-241">The following example sets the timeout to 20 seconds:</span></span>
+<span data-ttu-id="35be4-240">若要设置此值，请使用环境变量或配置 `HostOptions`。</span><span class="sxs-lookup"><span data-stu-id="35be4-240">To set this value, use the environment variable or configure `HostOptions`.</span></span> <span data-ttu-id="35be4-241">以下示例将超时设置为 20 秒：</span><span class="sxs-lookup"><span data-stu-id="35be4-241">The following example sets the timeout to 20 seconds:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/3.x/Program.cs?name=snippet_HostOptions)]
 
-## <a name="settings-for-web-apps"></a><span data-ttu-id="79dae-242">适用于 Web 应用的设置</span><span class="sxs-lookup"><span data-stu-id="79dae-242">Settings for web apps</span></span>
+## <a name="settings-for-web-apps"></a><span data-ttu-id="35be4-242">适用于 Web 应用的设置</span><span class="sxs-lookup"><span data-stu-id="35be4-242">Settings for web apps</span></span>
 
-<span data-ttu-id="79dae-243">一些主机设置仅适用于 HTTP 工作负荷。</span><span class="sxs-lookup"><span data-stu-id="79dae-243">Some host settings apply only to HTTP workloads.</span></span> <span data-ttu-id="79dae-244">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="79dae-244">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
+<span data-ttu-id="35be4-243">一些主机设置仅适用于 HTTP 工作负荷。</span><span class="sxs-lookup"><span data-stu-id="35be4-243">Some host settings apply only to HTTP workloads.</span></span> <span data-ttu-id="35be4-244">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="35be4-244">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
 
-<span data-ttu-id="79dae-245">`IWebHostBuilder` 上的扩展方法适用于这些设置。</span><span class="sxs-lookup"><span data-stu-id="79dae-245">Extension methods on `IWebHostBuilder` are available for these settings.</span></span> <span data-ttu-id="79dae-246">显示如何调用扩展方法的示例代码假定 `webBuilder` 是 `IWebHostBuilder` 的实例，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="79dae-246">Code samples that show how to call the extension methods assume `webBuilder` is an instance of `IWebHostBuilder`, as in the following example:</span></span>
+<span data-ttu-id="35be4-245">`IWebHostBuilder` 上的扩展方法适用于这些设置。</span><span class="sxs-lookup"><span data-stu-id="35be4-245">Extension methods on `IWebHostBuilder` are available for these settings.</span></span> <span data-ttu-id="35be4-246">显示如何调用扩展方法的示例代码假定 `webBuilder` 是 `IWebHostBuilder` 的实例，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="35be4-246">Code samples that show how to call the extension methods assume `webBuilder` is an instance of `IWebHostBuilder`, as in the following example:</span></span>
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -280,121 +281,121 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-### <a name="capturestartuperrors"></a><span data-ttu-id="79dae-247">CaptureStartupErrors</span><span class="sxs-lookup"><span data-stu-id="79dae-247">CaptureStartupErrors</span></span>
+### <a name="capturestartuperrors"></a><span data-ttu-id="35be4-247">CaptureStartupErrors</span><span class="sxs-lookup"><span data-stu-id="35be4-247">CaptureStartupErrors</span></span>
 
-<span data-ttu-id="79dae-248">当 `false` 时，启动期间出错导致主机退出。</span><span class="sxs-lookup"><span data-stu-id="79dae-248">When `false`, errors during startup result in the host exiting.</span></span> <span data-ttu-id="79dae-249">当 `true` 时，主机在启动期间捕获异常并尝试启动服务器。</span><span class="sxs-lookup"><span data-stu-id="79dae-249">When `true`, the host captures exceptions during startup and attempts to start the server.</span></span>
+<span data-ttu-id="35be4-248">当 `false` 时，启动期间出错导致主机退出。</span><span class="sxs-lookup"><span data-stu-id="35be4-248">When `false`, errors during startup result in the host exiting.</span></span> <span data-ttu-id="35be4-249">当 `true` 时，主机在启动期间捕获异常并尝试启动服务器。</span><span class="sxs-lookup"><span data-stu-id="35be4-249">When `true`, the host captures exceptions during startup and attempts to start the server.</span></span>
 
-<span data-ttu-id="79dae-250">键：`captureStartupErrors`</span><span class="sxs-lookup"><span data-stu-id="79dae-250">**Key**: `captureStartupErrors`</span></span>  
-<span data-ttu-id="79dae-251">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-251">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-252">**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。</span><span class="sxs-lookup"><span data-stu-id="79dae-252">**Default**: Defaults to `false` unless the app runs with Kestrel behind IIS, where the default is `true`.</span></span>  
-<span data-ttu-id="79dae-253">**环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`</span><span class="sxs-lookup"><span data-stu-id="79dae-253">**Environment variable**: `<PREFIX_>CAPTURESTARTUPERRORS`</span></span>
+<span data-ttu-id="35be4-250">键：`captureStartupErrors`</span><span class="sxs-lookup"><span data-stu-id="35be4-250">**Key**: `captureStartupErrors`</span></span>  
+<span data-ttu-id="35be4-251">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-251">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-252">**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。</span><span class="sxs-lookup"><span data-stu-id="35be4-252">**Default**: Defaults to `false` unless the app runs with Kestrel behind IIS, where the default is `true`.</span></span>  
+<span data-ttu-id="35be4-253">**环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`</span><span class="sxs-lookup"><span data-stu-id="35be4-253">**Environment variable**: `<PREFIX_>CAPTURESTARTUPERRORS`</span></span>
 
-<span data-ttu-id="79dae-254">若要设置此值，使用配置或调用 `CaptureStartupErrors`：</span><span class="sxs-lookup"><span data-stu-id="79dae-254">To set this value, use configuration or call `CaptureStartupErrors`:</span></span>
+<span data-ttu-id="35be4-254">若要设置此值，使用配置或调用 `CaptureStartupErrors`：</span><span class="sxs-lookup"><span data-stu-id="35be4-254">To set this value, use configuration or call `CaptureStartupErrors`:</span></span>
 
 ```csharp
 webBuilder.CaptureStartupErrors(true);
 ```
 
-### <a name="detailederrors"></a><span data-ttu-id="79dae-255">DetailedErrors</span><span class="sxs-lookup"><span data-stu-id="79dae-255">DetailedErrors</span></span>
+### <a name="detailederrors"></a><span data-ttu-id="35be4-255">DetailedErrors</span><span class="sxs-lookup"><span data-stu-id="35be4-255">DetailedErrors</span></span>
 
-<span data-ttu-id="79dae-256">如果启用，或环境为 `Development`，应用会捕获详细错误。</span><span class="sxs-lookup"><span data-stu-id="79dae-256">When enabled, or when the environment is `Development`, the app captures detailed errors.</span></span>
+<span data-ttu-id="35be4-256">如果启用，或环境为 `Development`，应用会捕获详细错误。</span><span class="sxs-lookup"><span data-stu-id="35be4-256">When enabled, or when the environment is `Development`, the app captures detailed errors.</span></span>
 
-<span data-ttu-id="79dae-257">键：`detailedErrors`</span><span class="sxs-lookup"><span data-stu-id="79dae-257">**Key**: `detailedErrors`</span></span>  
-<span data-ttu-id="79dae-258">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-258">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-259">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="79dae-259">**Default**: `false`</span></span>  
-<span data-ttu-id="79dae-260">**环境变量**：`<PREFIX_>_DETAILEDERRORS`</span><span class="sxs-lookup"><span data-stu-id="79dae-260">**Environment variable**: `<PREFIX_>_DETAILEDERRORS`</span></span>
+<span data-ttu-id="35be4-257">键：`detailedErrors`</span><span class="sxs-lookup"><span data-stu-id="35be4-257">**Key**: `detailedErrors`</span></span>  
+<span data-ttu-id="35be4-258">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-258">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-259">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="35be4-259">**Default**: `false`</span></span>  
+<span data-ttu-id="35be4-260">**环境变量**：`<PREFIX_>_DETAILEDERRORS`</span><span class="sxs-lookup"><span data-stu-id="35be4-260">**Environment variable**: `<PREFIX_>_DETAILEDERRORS`</span></span>
 
-<span data-ttu-id="79dae-261">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-261">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-261">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-261">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
 ```
 
-### <a name="hostingstartupassemblies"></a><span data-ttu-id="79dae-262">HostingStartupAssemblies</span><span class="sxs-lookup"><span data-stu-id="79dae-262">HostingStartupAssemblies</span></span>
+### <a name="hostingstartupassemblies"></a><span data-ttu-id="35be4-262">HostingStartupAssemblies</span><span class="sxs-lookup"><span data-stu-id="35be4-262">HostingStartupAssemblies</span></span>
 
-<span data-ttu-id="79dae-263">承载启动程序集的以分号分隔的字符串在启动时加载。</span><span class="sxs-lookup"><span data-stu-id="79dae-263">A semicolon-delimited string of hosting startup assemblies to load on startup.</span></span> <span data-ttu-id="79dae-264">虽然配置值默认为空字符串，但是承载启动程序集会始终包含应用的程序集。</span><span class="sxs-lookup"><span data-stu-id="79dae-264">Although the configuration value defaults to an empty string, the hosting startup assemblies always include the app's assembly.</span></span> <span data-ttu-id="79dae-265">提供承载启动程序集时，当应用在启动过程中生成其公用服务时将它们添加到应用的程序集加载。</span><span class="sxs-lookup"><span data-stu-id="79dae-265">When hosting startup assemblies are provided, they're added to the app's assembly for loading when the app builds its common services during startup.</span></span>
+<span data-ttu-id="35be4-263">承载启动程序集的以分号分隔的字符串在启动时加载。</span><span class="sxs-lookup"><span data-stu-id="35be4-263">A semicolon-delimited string of hosting startup assemblies to load on startup.</span></span> <span data-ttu-id="35be4-264">虽然配置值默认为空字符串，但是承载启动程序集会始终包含应用的程序集。</span><span class="sxs-lookup"><span data-stu-id="35be4-264">Although the configuration value defaults to an empty string, the hosting startup assemblies always include the app's assembly.</span></span> <span data-ttu-id="35be4-265">提供承载启动程序集时，当应用在启动过程中生成其公用服务时将它们添加到应用的程序集加载。</span><span class="sxs-lookup"><span data-stu-id="35be4-265">When hosting startup assemblies are provided, they're added to the app's assembly for loading when the app builds its common services during startup.</span></span>
 
-<span data-ttu-id="79dae-266">键：`hostingStartupAssemblies`</span><span class="sxs-lookup"><span data-stu-id="79dae-266">**Key**: `hostingStartupAssemblies`</span></span>  
-<span data-ttu-id="79dae-267">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-267">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-268">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="79dae-268">**Default**: Empty string</span></span>  
-<span data-ttu-id="79dae-269">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="79dae-269">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span></span>
+<span data-ttu-id="35be4-266">键：`hostingStartupAssemblies`</span><span class="sxs-lookup"><span data-stu-id="35be4-266">**Key**: `hostingStartupAssemblies`</span></span>  
+<span data-ttu-id="35be4-267">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-267">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-268">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="35be4-268">**Default**: Empty string</span></span>  
+<span data-ttu-id="35be4-269">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="35be4-269">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span></span>
 
-<span data-ttu-id="79dae-270">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-270">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-270">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-270">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;assembly2");
 ```
 
-### <a name="hostingstartupexcludeassemblies"></a><span data-ttu-id="79dae-271">HostingStartupExcludeAssemblies</span><span class="sxs-lookup"><span data-stu-id="79dae-271">HostingStartupExcludeAssemblies</span></span>
+### <a name="hostingstartupexcludeassemblies"></a><span data-ttu-id="35be4-271">HostingStartupExcludeAssemblies</span><span class="sxs-lookup"><span data-stu-id="35be4-271">HostingStartupExcludeAssemblies</span></span>
 
-<span data-ttu-id="79dae-272">承载启动程序集的以分号分隔的字符串在启动时排除。</span><span class="sxs-lookup"><span data-stu-id="79dae-272">A semicolon-delimited string of hosting startup assemblies to exclude on startup.</span></span>
+<span data-ttu-id="35be4-272">承载启动程序集的以分号分隔的字符串在启动时排除。</span><span class="sxs-lookup"><span data-stu-id="35be4-272">A semicolon-delimited string of hosting startup assemblies to exclude on startup.</span></span>
 
-<span data-ttu-id="79dae-273">键：`hostingStartupExcludeAssemblies`</span><span class="sxs-lookup"><span data-stu-id="79dae-273">**Key**: `hostingStartupExcludeAssemblies`</span></span>  
-<span data-ttu-id="79dae-274">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-274">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-275">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="79dae-275">**Default**: Empty string</span></span>  
-<span data-ttu-id="79dae-276">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="79dae-276">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span></span>
+<span data-ttu-id="35be4-273">键：`hostingStartupExcludeAssemblies`</span><span class="sxs-lookup"><span data-stu-id="35be4-273">**Key**: `hostingStartupExcludeAssemblies`</span></span>  
+<span data-ttu-id="35be4-274">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-274">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-275">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="35be4-275">**Default**: Empty string</span></span>  
+<span data-ttu-id="35be4-276">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="35be4-276">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span></span>
 
-<span data-ttu-id="79dae-277">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-277">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-277">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-277">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assembly1;assembly2");
 ```
 
-### <a name="https_port"></a><span data-ttu-id="79dae-278">HTTPS_Port</span><span class="sxs-lookup"><span data-stu-id="79dae-278">HTTPS_Port</span></span>
+### <a name="https_port"></a><span data-ttu-id="35be4-278">HTTPS_Port</span><span class="sxs-lookup"><span data-stu-id="35be4-278">HTTPS_Port</span></span>
 
-<span data-ttu-id="79dae-279">HTTPS 重定向端口。</span><span class="sxs-lookup"><span data-stu-id="79dae-279">The HTTPS redirect port.</span></span> <span data-ttu-id="79dae-280">用于[强制实施 HTTPS](xref:security/enforcing-ssl)。</span><span class="sxs-lookup"><span data-stu-id="79dae-280">Used in [enforcing HTTPS](xref:security/enforcing-ssl).</span></span>
+<span data-ttu-id="35be4-279">HTTPS 重定向端口。</span><span class="sxs-lookup"><span data-stu-id="35be4-279">The HTTPS redirect port.</span></span> <span data-ttu-id="35be4-280">用于[强制实施 HTTPS](xref:security/enforcing-ssl)。</span><span class="sxs-lookup"><span data-stu-id="35be4-280">Used in [enforcing HTTPS](xref:security/enforcing-ssl).</span></span>
 
-<span data-ttu-id="79dae-281">键：`https_port`</span><span class="sxs-lookup"><span data-stu-id="79dae-281">**Key**: `https_port`</span></span>  
-<span data-ttu-id="79dae-282">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-282">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-283">**默认**：未设置默认值。</span><span class="sxs-lookup"><span data-stu-id="79dae-283">**Default**: A default value isn't set.</span></span>  
-<span data-ttu-id="79dae-284">**环境变量**：`<PREFIX_>HTTPS_PORT`</span><span class="sxs-lookup"><span data-stu-id="79dae-284">**Environment variable**: `<PREFIX_>HTTPS_PORT`</span></span>
+<span data-ttu-id="35be4-281">键：`https_port`</span><span class="sxs-lookup"><span data-stu-id="35be4-281">**Key**: `https_port`</span></span>  
+<span data-ttu-id="35be4-282">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-282">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-283">**默认**：未设置默认值。</span><span class="sxs-lookup"><span data-stu-id="35be4-283">**Default**: A default value isn't set.</span></span>  
+<span data-ttu-id="35be4-284">**环境变量**：`<PREFIX_>HTTPS_PORT`</span><span class="sxs-lookup"><span data-stu-id="35be4-284">**Environment variable**: `<PREFIX_>HTTPS_PORT`</span></span>
 
-<span data-ttu-id="79dae-285">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-285">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-285">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-285">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting("https_port", "8080");
 ```
 
-### <a name="preferhostingurls"></a><span data-ttu-id="79dae-286">PreferHostingUrls</span><span class="sxs-lookup"><span data-stu-id="79dae-286">PreferHostingUrls</span></span>
+### <a name="preferhostingurls"></a><span data-ttu-id="35be4-286">PreferHostingUrls</span><span class="sxs-lookup"><span data-stu-id="35be4-286">PreferHostingUrls</span></span>
 
-<span data-ttu-id="79dae-287">指示主机是否应该侦听使用 `IWebHostBuilder` 配置的 URL，而不是使用 `IServer` 实现配置的 URL。</span><span class="sxs-lookup"><span data-stu-id="79dae-287">Indicates whether the host should listen on the URLs configured with the `IWebHostBuilder` instead of those URLs configured with the `IServer` implementation.</span></span>
+<span data-ttu-id="35be4-287">指示主机是否应该侦听使用 `IWebHostBuilder` 配置的 URL，而不是使用 `IServer` 实现配置的 URL。</span><span class="sxs-lookup"><span data-stu-id="35be4-287">Indicates whether the host should listen on the URLs configured with the `IWebHostBuilder` instead of those URLs configured with the `IServer` implementation.</span></span>
 
-<span data-ttu-id="79dae-288">键：`preferHostingUrls`</span><span class="sxs-lookup"><span data-stu-id="79dae-288">**Key**: `preferHostingUrls`</span></span>  
-<span data-ttu-id="79dae-289">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-289">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-290">**默认**：`true`</span><span class="sxs-lookup"><span data-stu-id="79dae-290">**Default**: `true`</span></span>  
-<span data-ttu-id="79dae-291">**环境变量**：`<PREFIX_>_PREFERHOSTINGURLS`</span><span class="sxs-lookup"><span data-stu-id="79dae-291">**Environment variable**: `<PREFIX_>_PREFERHOSTINGURLS`</span></span>
+<span data-ttu-id="35be4-288">键：`preferHostingUrls`</span><span class="sxs-lookup"><span data-stu-id="35be4-288">**Key**: `preferHostingUrls`</span></span>  
+<span data-ttu-id="35be4-289">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-289">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-290">**默认**：`true`</span><span class="sxs-lookup"><span data-stu-id="35be4-290">**Default**: `true`</span></span>  
+<span data-ttu-id="35be4-291">**环境变量**：`<PREFIX_>_PREFERHOSTINGURLS`</span><span class="sxs-lookup"><span data-stu-id="35be4-291">**Environment variable**: `<PREFIX_>_PREFERHOSTINGURLS`</span></span>
 
-<span data-ttu-id="79dae-292">若要设置此值，请使用环境变量或调用 `PreferHostingUrls`：</span><span class="sxs-lookup"><span data-stu-id="79dae-292">To set this value, use the environment variable or call `PreferHostingUrls`:</span></span>
+<span data-ttu-id="35be4-292">若要设置此值，请使用环境变量或调用 `PreferHostingUrls`：</span><span class="sxs-lookup"><span data-stu-id="35be4-292">To set this value, use the environment variable or call `PreferHostingUrls`:</span></span>
 
 ```csharp
 webBuilder.PreferHostingUrls(false);
 ```
 
-### <a name="preventhostingstartup"></a><span data-ttu-id="79dae-293">PreventHostingStartup</span><span class="sxs-lookup"><span data-stu-id="79dae-293">PreventHostingStartup</span></span>
+### <a name="preventhostingstartup"></a><span data-ttu-id="35be4-293">PreventHostingStartup</span><span class="sxs-lookup"><span data-stu-id="35be4-293">PreventHostingStartup</span></span>
 
-<span data-ttu-id="79dae-294">阻止承载启动程序集自动加载，包括应用的程序集所配置的承载启动程序集。</span><span class="sxs-lookup"><span data-stu-id="79dae-294">Prevents the automatic loading of hosting startup assemblies, including hosting startup assemblies configured by the app's assembly.</span></span> <span data-ttu-id="79dae-295">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="79dae-295">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+<span data-ttu-id="35be4-294">阻止承载启动程序集自动加载，包括应用的程序集所配置的承载启动程序集。</span><span class="sxs-lookup"><span data-stu-id="35be4-294">Prevents the automatic loading of hosting startup assemblies, including hosting startup assemblies configured by the app's assembly.</span></span> <span data-ttu-id="35be4-295">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="35be4-295">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
 
-<span data-ttu-id="79dae-296">键：`preventHostingStartup`</span><span class="sxs-lookup"><span data-stu-id="79dae-296">**Key**: `preventHostingStartup`</span></span>  
-<span data-ttu-id="79dae-297">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-297">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-298">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="79dae-298">**Default**: `false`</span></span>  
-<span data-ttu-id="79dae-299">**环境变量**：`<PREFIX_>_PREVENTHOSTINGSTARTUP`</span><span class="sxs-lookup"><span data-stu-id="79dae-299">**Environment variable**: `<PREFIX_>_PREVENTHOSTINGSTARTUP`</span></span>
+<span data-ttu-id="35be4-296">键：`preventHostingStartup`</span><span class="sxs-lookup"><span data-stu-id="35be4-296">**Key**: `preventHostingStartup`</span></span>  
+<span data-ttu-id="35be4-297">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-297">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-298">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="35be4-298">**Default**: `false`</span></span>  
+<span data-ttu-id="35be4-299">**环境变量**：`<PREFIX_>_PREVENTHOSTINGSTARTUP`</span><span class="sxs-lookup"><span data-stu-id="35be4-299">**Environment variable**: `<PREFIX_>_PREVENTHOSTINGSTARTUP`</span></span>
 
-<span data-ttu-id="79dae-300">若要设置此值，请使用环境变量或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-300">To set this value, use the environment variable or call `UseSetting` :</span></span>
+<span data-ttu-id="35be4-300">若要设置此值，请使用环境变量或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-300">To set this value, use the environment variable or call `UseSetting` :</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 ```
 
-### <a name="startupassembly"></a><span data-ttu-id="79dae-301">StartupAssembly</span><span class="sxs-lookup"><span data-stu-id="79dae-301">StartupAssembly</span></span>
+### <a name="startupassembly"></a><span data-ttu-id="35be4-301">StartupAssembly</span><span class="sxs-lookup"><span data-stu-id="35be4-301">StartupAssembly</span></span>
 
-<span data-ttu-id="79dae-302">要搜索 `Startup` 类的程序集。</span><span class="sxs-lookup"><span data-stu-id="79dae-302">The assembly to search for the `Startup` class.</span></span>
+<span data-ttu-id="35be4-302">要搜索 `Startup` 类的程序集。</span><span class="sxs-lookup"><span data-stu-id="35be4-302">The assembly to search for the `Startup` class.</span></span>
 
-<span data-ttu-id="79dae-303">键：`startupAssembly`</span><span class="sxs-lookup"><span data-stu-id="79dae-303">**Key**: `startupAssembly`</span></span>  
-<span data-ttu-id="79dae-304">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-304">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-305">**默认**：应用的程序集</span><span class="sxs-lookup"><span data-stu-id="79dae-305">**Default**: The app's assembly</span></span>  
-<span data-ttu-id="79dae-306">**环境变量**：`<PREFIX_>STARTUPASSEMBLY`</span><span class="sxs-lookup"><span data-stu-id="79dae-306">**Environment variable**: `<PREFIX_>STARTUPASSEMBLY`</span></span>
+<span data-ttu-id="35be4-303">键：`startupAssembly`</span><span class="sxs-lookup"><span data-stu-id="35be4-303">**Key**: `startupAssembly`</span></span>  
+<span data-ttu-id="35be4-304">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-304">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-305">**默认**：应用的程序集</span><span class="sxs-lookup"><span data-stu-id="35be4-305">**Default**: The app's assembly</span></span>  
+<span data-ttu-id="35be4-306">**环境变量**：`<PREFIX_>STARTUPASSEMBLY`</span><span class="sxs-lookup"><span data-stu-id="35be4-306">**Environment variable**: `<PREFIX_>STARTUPASSEMBLY`</span></span>
 
-<span data-ttu-id="79dae-307">若要设置此值，请使用环境变量或调用 `UseStartup`。</span><span class="sxs-lookup"><span data-stu-id="79dae-307">To set this value, use the environment variable or call `UseStartup`.</span></span> <span data-ttu-id="79dae-308">`UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。</span><span class="sxs-lookup"><span data-stu-id="79dae-308">`UseStartup` can take an assembly name (`string`) or a type (`TStartup`).</span></span> <span data-ttu-id="79dae-309">如果调用多个 `UseStartup` 方法，优先选择最后一个方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-309">If multiple `UseStartup` methods are called, the last one takes precedence.</span></span>
+<span data-ttu-id="35be4-307">若要设置此值，请使用环境变量或调用 `UseStartup`。</span><span class="sxs-lookup"><span data-stu-id="35be4-307">To set this value, use the environment variable or call `UseStartup`.</span></span> <span data-ttu-id="35be4-308">`UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。</span><span class="sxs-lookup"><span data-stu-id="35be4-308">`UseStartup` can take an assembly name (`string`) or a type (`TStartup`).</span></span> <span data-ttu-id="35be4-309">如果调用多个 `UseStartup` 方法，优先选择最后一个方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-309">If multiple `UseStartup` methods are called, the last one takes precedence.</span></span>
 
 ```csharp
 webBuilder.UseStartup("StartupAssemblyName");
@@ -404,84 +405,84 @@ webBuilder.UseStartup("StartupAssemblyName");
 webBuilder.UseStartup<Startup>();
 ```
 
-### <a name="urls"></a><span data-ttu-id="79dae-310">URL</span><span class="sxs-lookup"><span data-stu-id="79dae-310">URLs</span></span>
+### <a name="urls"></a><span data-ttu-id="35be4-310">URL</span><span class="sxs-lookup"><span data-stu-id="35be4-310">URLs</span></span>
 
-<span data-ttu-id="79dae-311">IP 地址或主机地址的分号分隔列表，其中包含服务器应针对请求侦听的端口和协议。</span><span class="sxs-lookup"><span data-stu-id="79dae-311">A semicolon-delimited list of IP addresses or host addresses with ports and protocols that the server should listen on for requests.</span></span> <span data-ttu-id="79dae-312">例如 `http://localhost:123`。</span><span class="sxs-lookup"><span data-stu-id="79dae-312">For example, `http://localhost:123`.</span></span> <span data-ttu-id="79dae-313">使用“\*”指示服务器应针对请求侦听的使用特定端口和协议（例如 `http://*:5000`）的 IP 地址或主机名。</span><span class="sxs-lookup"><span data-stu-id="79dae-313">Use "\*" to indicate that the server should listen for requests on any IP address or hostname using the specified port and protocol (for example, `http://*:5000`).</span></span> <span data-ttu-id="79dae-314">协议（`http://` 或 `https://`）必须包含每个 URL。</span><span class="sxs-lookup"><span data-stu-id="79dae-314">The protocol (`http://` or `https://`) must be included with each URL.</span></span> <span data-ttu-id="79dae-315">不同的服务器支持的格式有所不同。</span><span class="sxs-lookup"><span data-stu-id="79dae-315">Supported formats vary among servers.</span></span>
+<span data-ttu-id="35be4-311">IP 地址或主机地址的分号分隔列表，其中包含服务器应针对请求侦听的端口和协议。</span><span class="sxs-lookup"><span data-stu-id="35be4-311">A semicolon-delimited list of IP addresses or host addresses with ports and protocols that the server should listen on for requests.</span></span> <span data-ttu-id="35be4-312">例如 `http://localhost:123`。</span><span class="sxs-lookup"><span data-stu-id="35be4-312">For example, `http://localhost:123`.</span></span> <span data-ttu-id="35be4-313">使用“\*”指示服务器应针对请求侦听的使用特定端口和协议（例如 `http://*:5000`）的 IP 地址或主机名。</span><span class="sxs-lookup"><span data-stu-id="35be4-313">Use "\*" to indicate that the server should listen for requests on any IP address or hostname using the specified port and protocol (for example, `http://*:5000`).</span></span> <span data-ttu-id="35be4-314">协议（`http://` 或 `https://`）必须包含每个 URL。</span><span class="sxs-lookup"><span data-stu-id="35be4-314">The protocol (`http://` or `https://`) must be included with each URL.</span></span> <span data-ttu-id="35be4-315">不同的服务器支持的格式有所不同。</span><span class="sxs-lookup"><span data-stu-id="35be4-315">Supported formats vary among servers.</span></span>
 
-<span data-ttu-id="79dae-316">键：`urls`</span><span class="sxs-lookup"><span data-stu-id="79dae-316">**Key**: `urls`</span></span>  
-<span data-ttu-id="79dae-317">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-317">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-318">**默认值**：`http://localhost:5000` 和 `https://localhost:5001`</span><span class="sxs-lookup"><span data-stu-id="79dae-318">**Default**: `http://localhost:5000` and `https://localhost:5001`</span></span>  
-<span data-ttu-id="79dae-319">**环境变量**：`<PREFIX_>URLS`</span><span class="sxs-lookup"><span data-stu-id="79dae-319">**Environment variable**: `<PREFIX_>URLS`</span></span>
+<span data-ttu-id="35be4-316">键：`urls`</span><span class="sxs-lookup"><span data-stu-id="35be4-316">**Key**: `urls`</span></span>  
+<span data-ttu-id="35be4-317">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-317">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-318">**默认值**：`http://localhost:5000` 和 `https://localhost:5001`</span><span class="sxs-lookup"><span data-stu-id="35be4-318">**Default**: `http://localhost:5000` and `https://localhost:5001`</span></span>  
+<span data-ttu-id="35be4-319">**环境变量**：`<PREFIX_>URLS`</span><span class="sxs-lookup"><span data-stu-id="35be4-319">**Environment variable**: `<PREFIX_>URLS`</span></span>
 
-<span data-ttu-id="79dae-320">若要设置此值，请使用环境变量或调用 `UseUrls`：</span><span class="sxs-lookup"><span data-stu-id="79dae-320">To set this value, use the environment variable or call `UseUrls`:</span></span>
+<span data-ttu-id="35be4-320">若要设置此值，请使用环境变量或调用 `UseUrls`：</span><span class="sxs-lookup"><span data-stu-id="35be4-320">To set this value, use the environment variable or call `UseUrls`:</span></span>
 
 ```csharp
 webBuilder.UseUrls("http://*:5000;http://localhost:5001;https://hostname:5002");
 ```
 
-<span data-ttu-id="79dae-321">Kestrel 具有自己的终结点配置 API。</span><span class="sxs-lookup"><span data-stu-id="79dae-321">Kestrel has its own endpoint configuration API.</span></span> <span data-ttu-id="79dae-322">有关详细信息，请参阅 <xref:fundamentals/servers/kestrel#endpoint-configuration>。</span><span class="sxs-lookup"><span data-stu-id="79dae-322">For more information, see <xref:fundamentals/servers/kestrel#endpoint-configuration>.</span></span>
+<span data-ttu-id="35be4-321">Kestrel 具有自己的终结点配置 API。</span><span class="sxs-lookup"><span data-stu-id="35be4-321">Kestrel has its own endpoint configuration API.</span></span> <span data-ttu-id="35be4-322">有关详细信息，请参阅 <xref:fundamentals/servers/kestrel#endpoint-configuration>。</span><span class="sxs-lookup"><span data-stu-id="35be4-322">For more information, see <xref:fundamentals/servers/kestrel#endpoint-configuration>.</span></span>
 
-### <a name="webroot"></a><span data-ttu-id="79dae-323">WebRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-323">WebRoot</span></span>
+### <a name="webroot"></a><span data-ttu-id="35be4-323">WebRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-323">WebRoot</span></span>
 
-<span data-ttu-id="79dae-324">[IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) 属性可确定应用静态资产的相对路径。</span><span class="sxs-lookup"><span data-stu-id="79dae-324">The [IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) property determines the relative path to the app's static assets.</span></span> <span data-ttu-id="79dae-325">如果该路径不存在，则使用无操作文件提供程序。</span><span class="sxs-lookup"><span data-stu-id="79dae-325">If the path doesn't exist, a no-op file provider is used.</span></span>  
+<span data-ttu-id="35be4-324">[IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) 属性可确定应用静态资产的相对路径。</span><span class="sxs-lookup"><span data-stu-id="35be4-324">The [IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) property determines the relative path to the app's static assets.</span></span> <span data-ttu-id="35be4-325">如果该路径不存在，则使用无操作文件提供程序。</span><span class="sxs-lookup"><span data-stu-id="35be4-325">If the path doesn't exist, a no-op file provider is used.</span></span>  
 
-<span data-ttu-id="79dae-326">键：`webroot`</span><span class="sxs-lookup"><span data-stu-id="79dae-326">**Key**: `webroot`</span></span>  
-<span data-ttu-id="79dae-327">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-327">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-328">**默认**：默认值为 `wwwroot`。</span><span class="sxs-lookup"><span data-stu-id="79dae-328">**Default**: The default is `wwwroot`.</span></span> <span data-ttu-id="79dae-329">{content root}/wwwroot 的路径必须存在。</span><span class="sxs-lookup"><span data-stu-id="79dae-329">The path to *{content root}/wwwroot* must exist.</span></span>  
-<span data-ttu-id="79dae-330">**环境变量**：`<PREFIX_>WEBROOT`</span><span class="sxs-lookup"><span data-stu-id="79dae-330">**Environment variable**: `<PREFIX_>WEBROOT`</span></span>
+<span data-ttu-id="35be4-326">键：`webroot`</span><span class="sxs-lookup"><span data-stu-id="35be4-326">**Key**: `webroot`</span></span>  
+<span data-ttu-id="35be4-327">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-327">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-328">**默认**：默认值为 `wwwroot`。</span><span class="sxs-lookup"><span data-stu-id="35be4-328">**Default**: The default is `wwwroot`.</span></span> <span data-ttu-id="35be4-329">{content root}/wwwroot 的路径必须存在。</span><span class="sxs-lookup"><span data-stu-id="35be4-329">The path to *{content root}/wwwroot* must exist.</span></span>  
+<span data-ttu-id="35be4-330">**环境变量**：`<PREFIX_>WEBROOT`</span><span class="sxs-lookup"><span data-stu-id="35be4-330">**Environment variable**: `<PREFIX_>WEBROOT`</span></span>
 
-<span data-ttu-id="79dae-331">若要设置此值，请使用环境变量或对 `IWebHostBuilder` 调用 `UseWebRoot`：</span><span class="sxs-lookup"><span data-stu-id="79dae-331">To set this value, use the environment variable or call `UseWebRoot` on `IWebHostBuilder`:</span></span>
+<span data-ttu-id="35be4-331">若要设置此值，请使用环境变量或对 `IWebHostBuilder` 调用 `UseWebRoot`：</span><span class="sxs-lookup"><span data-stu-id="35be4-331">To set this value, use the environment variable or call `UseWebRoot` on `IWebHostBuilder`:</span></span>
 
 ```csharp
 webBuilder.UseWebRoot("public");
 ```
 
-<span data-ttu-id="79dae-332">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="79dae-332">For more information, see:</span></span>
+<span data-ttu-id="35be4-332">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="35be4-332">For more information, see:</span></span>
 
-* [<span data-ttu-id="79dae-333">基础知识：Web 根目录</span><span class="sxs-lookup"><span data-stu-id="79dae-333">Fundamentals: Web root</span></span>](xref:fundamentals/index#web-root)
-* [<span data-ttu-id="79dae-334">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-334">ContentRoot</span></span>](#contentroot)
+* [<span data-ttu-id="35be4-333">基础知识：Web 根目录</span><span class="sxs-lookup"><span data-stu-id="35be4-333">Fundamentals: Web root</span></span>](xref:fundamentals/index#web-root)
+* [<span data-ttu-id="35be4-334">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-334">ContentRoot</span></span>](#contentroot)
 
-## <a name="manage-the-host-lifetime"></a><span data-ttu-id="79dae-335">管理主机生存期</span><span class="sxs-lookup"><span data-stu-id="79dae-335">Manage the host lifetime</span></span>
+## <a name="manage-the-host-lifetime"></a><span data-ttu-id="35be4-335">管理主机生存期</span><span class="sxs-lookup"><span data-stu-id="35be4-335">Manage the host lifetime</span></span>
 
-<span data-ttu-id="79dae-336">对生成的 <xref:Microsoft.Extensions.Hosting.IHost> 实现调用方法，以启动和停止应用。</span><span class="sxs-lookup"><span data-stu-id="79dae-336">Call methods on the built <xref:Microsoft.Extensions.Hosting.IHost> implementation to start and stop the app.</span></span> <span data-ttu-id="79dae-337">这些方法会影响所有在服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-337">These methods affect all  <xref:Microsoft.Extensions.Hosting.IHostedService> implementations that are registered in the service container.</span></span>
+<span data-ttu-id="35be4-336">对生成的 <xref:Microsoft.Extensions.Hosting.IHost> 实现调用方法，以启动和停止应用。</span><span class="sxs-lookup"><span data-stu-id="35be4-336">Call methods on the built <xref:Microsoft.Extensions.Hosting.IHost> implementation to start and stop the app.</span></span> <span data-ttu-id="35be4-337">这些方法会影响所有在服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-337">These methods affect all  <xref:Microsoft.Extensions.Hosting.IHostedService> implementations that are registered in the service container.</span></span>
 
-### <a name="run"></a><span data-ttu-id="79dae-338">运行</span><span class="sxs-lookup"><span data-stu-id="79dae-338">Run</span></span>
+### <a name="run"></a><span data-ttu-id="35be4-338">运行</span><span class="sxs-lookup"><span data-stu-id="35be4-338">Run</span></span>
 
-<span data-ttu-id="79dae-339"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> 运行应用并阻止调用线程，直到关闭主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-339"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> runs the app and blocks the calling thread until the host is shut down.</span></span>
+<span data-ttu-id="35be4-339"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> 运行应用并阻止调用线程，直到关闭主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-339"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> runs the app and blocks the calling thread until the host is shut down.</span></span>
 
-### <a name="runasync"></a><span data-ttu-id="79dae-340">RunAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-340">RunAsync</span></span>
+### <a name="runasync"></a><span data-ttu-id="35be4-340">RunAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-340">RunAsync</span></span>
 
-<span data-ttu-id="79dae-341"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="79dae-341"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> runs the app and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span>
+<span data-ttu-id="35be4-341"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="35be4-341"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> runs the app and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span>
 
-### <a name="runconsoleasync"></a><span data-ttu-id="79dae-342">RunConsoleAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-342">RunConsoleAsync</span></span>
+### <a name="runconsoleasync"></a><span data-ttu-id="35be4-342">RunConsoleAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-342">RunConsoleAsync</span></span>
 
-<span data-ttu-id="79dae-343"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 关闭。</span><span class="sxs-lookup"><span data-stu-id="79dae-343"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> enables console support, builds and starts the host, and waits for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM to shut down.</span></span>
+<span data-ttu-id="35be4-343"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 关闭。</span><span class="sxs-lookup"><span data-stu-id="35be4-343"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> enables console support, builds and starts the host, and waits for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM to shut down.</span></span>
 
-### <a name="start"></a><span data-ttu-id="79dae-344">Start</span><span class="sxs-lookup"><span data-stu-id="79dae-344">Start</span></span>
+### <a name="start"></a><span data-ttu-id="35be4-344">Start</span><span class="sxs-lookup"><span data-stu-id="35be4-344">Start</span></span>
 
-<span data-ttu-id="79dae-345"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> 同步启动主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-345"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> starts the host synchronously.</span></span>
+<span data-ttu-id="35be4-345"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> 同步启动主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-345"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> starts the host synchronously.</span></span>
 
-### <a name="startasync"></a><span data-ttu-id="79dae-346">StartAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-346">StartAsync</span></span>
+### <a name="startasync"></a><span data-ttu-id="35be4-346">StartAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-346">StartAsync</span></span>
 
-<span data-ttu-id="79dae-347"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 启动主机并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="79dae-347"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> starts the host and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span> 
+<span data-ttu-id="35be4-347"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 启动主机并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="35be4-347"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> starts the host and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span> 
 
-<span data-ttu-id="79dae-348">在 `StartAsync` 开始时调用 <xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*>，在继续之前，会一直等待该操作完成。</span><span class="sxs-lookup"><span data-stu-id="79dae-348"><xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*> is called at the start of `StartAsync`, which waits until it's complete before continuing.</span></span> <span data-ttu-id="79dae-349">它可用于延迟启动，直到外部事件发出信号。</span><span class="sxs-lookup"><span data-stu-id="79dae-349">This can be used to delay startup until signaled by an external event.</span></span>
+<span data-ttu-id="35be4-348">在 `StartAsync` 开始时调用 <xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*>，在继续之前，会一直等待该操作完成。</span><span class="sxs-lookup"><span data-stu-id="35be4-348"><xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*> is called at the start of `StartAsync`, which waits until it's complete before continuing.</span></span> <span data-ttu-id="35be4-349">它可用于延迟启动，直到外部事件发出信号。</span><span class="sxs-lookup"><span data-stu-id="35be4-349">This can be used to delay startup until signaled by an external event.</span></span>
 
-### <a name="stopasync"></a><span data-ttu-id="79dae-350">StopAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-350">StopAsync</span></span>
+### <a name="stopasync"></a><span data-ttu-id="35be4-350">StopAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-350">StopAsync</span></span>
 
-<span data-ttu-id="79dae-351"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> 尝试在提供的超时时间内停止主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-351"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> attempts to stop the host within the provided timeout.</span></span>
+<span data-ttu-id="35be4-351"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> 尝试在提供的超时时间内停止主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-351"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> attempts to stop the host within the provided timeout.</span></span>
 
-### <a name="waitforshutdown"></a><span data-ttu-id="79dae-352">WaitForShutdown</span><span class="sxs-lookup"><span data-stu-id="79dae-352">WaitForShutdown</span></span>
+### <a name="waitforshutdown"></a><span data-ttu-id="35be4-352">WaitForShutdown</span><span class="sxs-lookup"><span data-stu-id="35be4-352">WaitForShutdown</span></span>
 
-<span data-ttu-id="79dae-353"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 阻止调用线程，直到 IHostLifetime 触发关闭，例如通过 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM。</span><span class="sxs-lookup"><span data-stu-id="79dae-353"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> blocks the calling thread until shutdown is triggered by the IHostLifetime, such as via <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM.</span></span>
+<span data-ttu-id="35be4-353"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 阻止调用线程，直到 IHostLifetime 触发关闭，例如通过 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM。</span><span class="sxs-lookup"><span data-stu-id="35be4-353"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> blocks the calling thread until shutdown is triggered by the IHostLifetime, such as via <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM.</span></span>
 
-### <a name="waitforshutdownasync"></a><span data-ttu-id="79dae-354">WaitForShutdownAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-354">WaitForShutdownAsync</span></span>
+### <a name="waitforshutdownasync"></a><span data-ttu-id="35be4-354">WaitForShutdownAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-354">WaitForShutdownAsync</span></span>
 
-<span data-ttu-id="79dae-355"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="79dae-355"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> returns a <xref:System.Threading.Tasks.Task> that completes when shutdown is triggered via the given token and calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
+<span data-ttu-id="35be4-355"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="35be4-355"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> returns a <xref:System.Threading.Tasks.Task> that completes when shutdown is triggered via the given token and calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
 
-### <a name="external-control"></a><span data-ttu-id="79dae-356">外部控件</span><span class="sxs-lookup"><span data-stu-id="79dae-356">External control</span></span>
+### <a name="external-control"></a><span data-ttu-id="35be4-356">外部控件</span><span class="sxs-lookup"><span data-stu-id="35be4-356">External control</span></span>
 
-<span data-ttu-id="79dae-357">使用可从外部调用的方法，能够实现对主机生存期的直接控制：</span><span class="sxs-lookup"><span data-stu-id="79dae-357">Direct control of the host lifetime can be achieved using methods that can be called externally:</span></span>
+<span data-ttu-id="35be4-357">使用可从外部调用的方法，能够实现对主机生存期的直接控制：</span><span class="sxs-lookup"><span data-stu-id="35be4-357">Direct control of the host lifetime can be achieved using methods that can be called externally:</span></span>
 
 ```csharp
 public class Program
@@ -513,44 +514,44 @@ public class Program
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="79dae-358">ASP.NET Core 应用配置和启动主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-358">ASP.NET Core apps configure and launch a host.</span></span> <span data-ttu-id="79dae-359">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="79dae-359">The host is responsible for app startup and lifetime management.</span></span>
+<span data-ttu-id="35be4-358">ASP.NET Core 应用配置和启动主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-358">ASP.NET Core apps configure and launch a host.</span></span> <span data-ttu-id="35be4-359">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="35be4-359">The host is responsible for app startup and lifetime management.</span></span>
 
-<span data-ttu-id="79dae-360">本文介绍 ASP.NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)，该主机用于无法处理 HTTP 请求的应用。</span><span class="sxs-lookup"><span data-stu-id="79dae-360">This article covers the ASP.NET Core Generic Host (<xref:Microsoft.Extensions.Hosting.HostBuilder>), which is used for apps that don't process HTTP requests.</span></span>
+<span data-ttu-id="35be4-360">本文介绍 ASP.NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)，该主机用于无法处理 HTTP 请求的应用。</span><span class="sxs-lookup"><span data-stu-id="35be4-360">This article covers the ASP.NET Core Generic Host (<xref:Microsoft.Extensions.Hosting.HostBuilder>), which is used for apps that don't process HTTP requests.</span></span>
 
-<span data-ttu-id="79dae-361">泛型主机的用途是将 HTTP 管道从 Web 主机 API 中分离出来，从而启用更多的主机方案。</span><span class="sxs-lookup"><span data-stu-id="79dae-361">The purpose of Generic Host is to decouple the HTTP pipeline from the Web Host API to enable a wider array of host scenarios.</span></span> <span data-ttu-id="79dae-362">基于泛型主机的消息、后台任务和其他非 HTTP 工作负载可从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。</span><span class="sxs-lookup"><span data-stu-id="79dae-362">Messaging, background tasks, and other non-HTTP workloads based on Generic Host benefit from cross-cutting capabilities, such as configuration, dependency injection (DI), and logging.</span></span>
+<span data-ttu-id="35be4-361">泛型主机的用途是将 HTTP 管道从 Web 主机 API 中分离出来，从而启用更多的主机方案。</span><span class="sxs-lookup"><span data-stu-id="35be4-361">The purpose of Generic Host is to decouple the HTTP pipeline from the Web Host API to enable a wider array of host scenarios.</span></span> <span data-ttu-id="35be4-362">基于泛型主机的消息、后台任务和其他非 HTTP 工作负载可从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。</span><span class="sxs-lookup"><span data-stu-id="35be4-362">Messaging, background tasks, and other non-HTTP workloads based on Generic Host benefit from cross-cutting capabilities, such as configuration, dependency injection (DI), and logging.</span></span>
 
-<span data-ttu-id="79dae-363">泛型主机是 ASP.NET Core 2.1 中的新增功能，不适用于 Web 承载方案。</span><span class="sxs-lookup"><span data-stu-id="79dae-363">Generic Host is new in ASP.NET Core 2.1 and isn't suitable for web hosting scenarios.</span></span> <span data-ttu-id="79dae-364">对于 Web 承载方案，请使用 [Web 主机](xref:fundamentals/host/web-host)。</span><span class="sxs-lookup"><span data-stu-id="79dae-364">For web hosting scenarios, use the [Web Host](xref:fundamentals/host/web-host).</span></span> <span data-ttu-id="79dae-365">泛型主机将在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。</span><span class="sxs-lookup"><span data-stu-id="79dae-365">Generic Host will replace Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios.</span></span>
+<span data-ttu-id="35be4-363">泛型主机是 ASP.NET Core 2.1 中的新增功能，不适用于 Web 承载方案。</span><span class="sxs-lookup"><span data-stu-id="35be4-363">Generic Host is new in ASP.NET Core 2.1 and isn't suitable for web hosting scenarios.</span></span> <span data-ttu-id="35be4-364">对于 Web 承载方案，请使用 [Web 主机](xref:fundamentals/host/web-host)。</span><span class="sxs-lookup"><span data-stu-id="35be4-364">For web hosting scenarios, use the [Web Host](xref:fundamentals/host/web-host).</span></span> <span data-ttu-id="35be4-365">泛型主机将在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。</span><span class="sxs-lookup"><span data-stu-id="35be4-365">Generic Host will replace Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios.</span></span>
 
-<span data-ttu-id="79dae-366">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="79dae-366">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="35be4-366">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="35be4-366">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="79dae-367">在 [Visual Studio Code](https://code.visualstudio.com/) 中运行示例应用时，请使用外部或集成终端。</span><span class="sxs-lookup"><span data-stu-id="79dae-367">When running the sample app in [Visual Studio Code](https://code.visualstudio.com/), use an *external or integrated terminal*.</span></span> <span data-ttu-id="79dae-368">请勿在 `internalConsole` 中运行示例。</span><span class="sxs-lookup"><span data-stu-id="79dae-368">Don't run the sample in an `internalConsole`.</span></span>
+<span data-ttu-id="35be4-367">在 [Visual Studio Code](https://code.visualstudio.com/) 中运行示例应用时，请使用外部或集成终端。</span><span class="sxs-lookup"><span data-stu-id="35be4-367">When running the sample app in [Visual Studio Code](https://code.visualstudio.com/), use an *external or integrated terminal*.</span></span> <span data-ttu-id="35be4-368">请勿在 `internalConsole` 中运行示例。</span><span class="sxs-lookup"><span data-stu-id="35be4-368">Don't run the sample in an `internalConsole`.</span></span>
 
-<span data-ttu-id="79dae-369">在 Visual Studio Code 中设置控制台：</span><span class="sxs-lookup"><span data-stu-id="79dae-369">To set the console in Visual Studio Code:</span></span>
+<span data-ttu-id="35be4-369">在 Visual Studio Code 中设置控制台：</span><span class="sxs-lookup"><span data-stu-id="35be4-369">To set the console in Visual Studio Code:</span></span>
 
-1. <span data-ttu-id="79dae-370">打开 .vscode/launch.json 文件。</span><span class="sxs-lookup"><span data-stu-id="79dae-370">Open the *.vscode/launch.json* file.</span></span>
-1. <span data-ttu-id="79dae-371">在 .NET Core 启动（控制台）配置中，找到控制台条目 。</span><span class="sxs-lookup"><span data-stu-id="79dae-371">In the **.NET Core Launch (console)** configuration, locate the **console** entry.</span></span> <span data-ttu-id="79dae-372">将值设置为 `externalTerminal` 或 `integratedTerminal`。</span><span class="sxs-lookup"><span data-stu-id="79dae-372">Set the value to either `externalTerminal` or `integratedTerminal`.</span></span>
+1. <span data-ttu-id="35be4-370">打开 .vscode/launch.json 文件。</span><span class="sxs-lookup"><span data-stu-id="35be4-370">Open the *.vscode/launch.json* file.</span></span>
+1. <span data-ttu-id="35be4-371">在 .NET Core 启动（控制台）配置中，找到控制台条目 。</span><span class="sxs-lookup"><span data-stu-id="35be4-371">In the **.NET Core Launch (console)** configuration, locate the **console** entry.</span></span> <span data-ttu-id="35be4-372">将值设置为 `externalTerminal` 或 `integratedTerminal`。</span><span class="sxs-lookup"><span data-stu-id="35be4-372">Set the value to either `externalTerminal` or `integratedTerminal`.</span></span>
 
-## <a name="introduction"></a><span data-ttu-id="79dae-373">介绍</span><span class="sxs-lookup"><span data-stu-id="79dae-373">Introduction</span></span>
+## <a name="introduction"></a><span data-ttu-id="35be4-373">介绍</span><span class="sxs-lookup"><span data-stu-id="35be4-373">Introduction</span></span>
 
-<span data-ttu-id="79dae-374">通用主机库位于 <xref:Microsoft.Extensions.Hosting> 命名空间中，由 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/) 包提供。</span><span class="sxs-lookup"><span data-stu-id="79dae-374">The Generic Host library is available in the <xref:Microsoft.Extensions.Hosting> namespace and provided by the [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/) package.</span></span> <span data-ttu-id="79dae-375">[Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)（ASP.NET Core 2.1 或更高版本）中包括 `Microsoft.Extensions.Hosting` 包。</span><span class="sxs-lookup"><span data-stu-id="79dae-375">The `Microsoft.Extensions.Hosting` package is included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2.1 or later).</span></span>
+<span data-ttu-id="35be4-374">通用主机库位于 <xref:Microsoft.Extensions.Hosting> 命名空间中，由 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/) 包提供。</span><span class="sxs-lookup"><span data-stu-id="35be4-374">The Generic Host library is available in the <xref:Microsoft.Extensions.Hosting> namespace and provided by the [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/) package.</span></span> <span data-ttu-id="35be4-375">[Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)（ASP.NET Core 2.1 或更高版本）中包括 `Microsoft.Extensions.Hosting` 包。</span><span class="sxs-lookup"><span data-stu-id="35be4-375">The `Microsoft.Extensions.Hosting` package is included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2.1 or later).</span></span>
 
-<span data-ttu-id="79dae-376"><xref:Microsoft.Extensions.Hosting.IHostedService> 是执行代码的入口点。</span><span class="sxs-lookup"><span data-stu-id="79dae-376"><xref:Microsoft.Extensions.Hosting.IHostedService> is the entry point to code execution.</span></span> <span data-ttu-id="79dae-377">每个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现都按照 [ConfigureServices 中服务注册](#configureservices)的顺序执行。</span><span class="sxs-lookup"><span data-stu-id="79dae-377">Each <xref:Microsoft.Extensions.Hosting.IHostedService> implementation is executed in the order of [service registration in ConfigureServices](#configureservices).</span></span> <span data-ttu-id="79dae-378">主机启动时，每个 <xref:Microsoft.Extensions.Hosting.IHostedService> 上都会调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*>，主机正常关闭时，以反向注册顺序调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*>。</span><span class="sxs-lookup"><span data-stu-id="79dae-378"><xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*> is called on each <xref:Microsoft.Extensions.Hosting.IHostedService> when the host starts, and <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*> is called in reverse registration order when the host shuts down gracefully.</span></span>
+<span data-ttu-id="35be4-376"><xref:Microsoft.Extensions.Hosting.IHostedService> 是执行代码的入口点。</span><span class="sxs-lookup"><span data-stu-id="35be4-376"><xref:Microsoft.Extensions.Hosting.IHostedService> is the entry point to code execution.</span></span> <span data-ttu-id="35be4-377">每个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现都按照 [ConfigureServices 中服务注册](#configureservices)的顺序执行。</span><span class="sxs-lookup"><span data-stu-id="35be4-377">Each <xref:Microsoft.Extensions.Hosting.IHostedService> implementation is executed in the order of [service registration in ConfigureServices](#configureservices).</span></span> <span data-ttu-id="35be4-378">主机启动时，每个 <xref:Microsoft.Extensions.Hosting.IHostedService> 上都会调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*>，主机正常关闭时，以反向注册顺序调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*>。</span><span class="sxs-lookup"><span data-stu-id="35be4-378"><xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*> is called on each <xref:Microsoft.Extensions.Hosting.IHostedService> when the host starts, and <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*> is called in reverse registration order when the host shuts down gracefully.</span></span>
 
-## <a name="set-up-a-host"></a><span data-ttu-id="79dae-379">设置主机</span><span class="sxs-lookup"><span data-stu-id="79dae-379">Set up a host</span></span>
+## <a name="set-up-a-host"></a><span data-ttu-id="35be4-379">设置主机</span><span class="sxs-lookup"><span data-stu-id="35be4-379">Set up a host</span></span>
 
-<span data-ttu-id="79dae-380"><xref:Microsoft.Extensions.Hosting.IHostBuilder> 是供库和应用初始化、生成和运行主机的主要组件：</span><span class="sxs-lookup"><span data-stu-id="79dae-380"><xref:Microsoft.Extensions.Hosting.IHostBuilder> is the main component that libraries and apps use to initialize, build, and run the host:</span></span>
+<span data-ttu-id="35be4-380"><xref:Microsoft.Extensions.Hosting.IHostBuilder> 是供库和应用初始化、生成和运行主机的主要组件：</span><span class="sxs-lookup"><span data-stu-id="35be4-380"><xref:Microsoft.Extensions.Hosting.IHostBuilder> is the main component that libraries and apps use to initialize, build, and run the host:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_HostBuilder)]
 
-## <a name="options"></a><span data-ttu-id="79dae-381">选项</span><span class="sxs-lookup"><span data-stu-id="79dae-381">Options</span></span>
+## <a name="options"></a><span data-ttu-id="35be4-381">选项</span><span class="sxs-lookup"><span data-stu-id="35be4-381">Options</span></span>
 
-<span data-ttu-id="79dae-382"><xref:Microsoft.Extensions.Hosting.HostOptions> 配置 <xref:Microsoft.Extensions.Hosting.IHost> 的选项。</span><span class="sxs-lookup"><span data-stu-id="79dae-382"><xref:Microsoft.Extensions.Hosting.HostOptions> configure options for the <xref:Microsoft.Extensions.Hosting.IHost>.</span></span>
+<span data-ttu-id="35be4-382"><xref:Microsoft.Extensions.Hosting.HostOptions> 配置 <xref:Microsoft.Extensions.Hosting.IHost> 的选项。</span><span class="sxs-lookup"><span data-stu-id="35be4-382"><xref:Microsoft.Extensions.Hosting.HostOptions> configure options for the <xref:Microsoft.Extensions.Hosting.IHost>.</span></span>
 
-### <a name="shutdown-timeout"></a><span data-ttu-id="79dae-383">关闭超时值</span><span class="sxs-lookup"><span data-stu-id="79dae-383">Shutdown timeout</span></span>
+### <a name="shutdown-timeout"></a><span data-ttu-id="35be4-383">关闭超时值</span><span class="sxs-lookup"><span data-stu-id="35be4-383">Shutdown timeout</span></span>
 
-<span data-ttu-id="79dae-384"><xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> 设置 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 的超时值。</span><span class="sxs-lookup"><span data-stu-id="79dae-384"><xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> sets the timeout for <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span> <span data-ttu-id="79dae-385">默认值为 5 秒。</span><span class="sxs-lookup"><span data-stu-id="79dae-385">The default value is five seconds.</span></span>
+<span data-ttu-id="35be4-384"><xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> 设置 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 的超时值。</span><span class="sxs-lookup"><span data-stu-id="35be4-384"><xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> sets the timeout for <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span> <span data-ttu-id="35be4-385">默认值为 5 秒。</span><span class="sxs-lookup"><span data-stu-id="35be4-385">The default value is five seconds.</span></span>
 
-<span data-ttu-id="79dae-386">`Program.Main` 中的以下选项配置将默认值为 5 秒的关闭超时值增加至 20 秒：</span><span class="sxs-lookup"><span data-stu-id="79dae-386">The following option configuration in `Program.Main` increases the default five-second shutdown timeout to 20 seconds:</span></span>
+<span data-ttu-id="35be4-386">`Program.Main` 中的以下选项配置将默认值为 5 秒的关闭超时值增加至 20 秒：</span><span class="sxs-lookup"><span data-stu-id="35be4-386">The following option configuration in `Program.Main` increases the default five-second shutdown timeout to 20 seconds:</span></span>
 
 ```csharp
 var host = new HostBuilder()
@@ -564,122 +565,122 @@ var host = new HostBuilder()
     .Build();
 ```
 
-## <a name="default-services"></a><span data-ttu-id="79dae-387">默认服务</span><span class="sxs-lookup"><span data-stu-id="79dae-387">Default services</span></span>
+## <a name="default-services"></a><span data-ttu-id="35be4-387">默认服务</span><span class="sxs-lookup"><span data-stu-id="35be4-387">Default services</span></span>
 
-<span data-ttu-id="79dae-388">在主机初始化期间注册以下服务：</span><span class="sxs-lookup"><span data-stu-id="79dae-388">The following services are registered during host initialization:</span></span>
+<span data-ttu-id="35be4-388">在主机初始化期间注册以下服务：</span><span class="sxs-lookup"><span data-stu-id="35be4-388">The following services are registered during host initialization:</span></span>
 
-* <span data-ttu-id="79dae-389">[环境](xref:fundamentals/environments) (<xref:Microsoft.Extensions.Hosting.IHostingEnvironment>)</span><span class="sxs-lookup"><span data-stu-id="79dae-389">[Environment](xref:fundamentals/environments) (<xref:Microsoft.Extensions.Hosting.IHostingEnvironment>)</span></span>
+* <span data-ttu-id="35be4-389">[环境](xref:fundamentals/environments) (<xref:Microsoft.Extensions.Hosting.IHostingEnvironment>)</span><span class="sxs-lookup"><span data-stu-id="35be4-389">[Environment](xref:fundamentals/environments) (<xref:Microsoft.Extensions.Hosting.IHostingEnvironment>)</span></span>
 * <xref:Microsoft.Extensions.Hosting.HostBuilderContext>
-* <span data-ttu-id="79dae-390">[配置](xref:fundamentals/configuration/index) (<xref:Microsoft.Extensions.Configuration.IConfiguration>)</span><span class="sxs-lookup"><span data-stu-id="79dae-390">[Configuration](xref:fundamentals/configuration/index) (<xref:Microsoft.Extensions.Configuration.IConfiguration>)</span></span>
-* <span data-ttu-id="79dae-391"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> (`Microsoft.Extensions.Hosting.Internal.ApplicationLifetime`)</span><span class="sxs-lookup"><span data-stu-id="79dae-391"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> (`Microsoft.Extensions.Hosting.Internal.ApplicationLifetime`)</span></span>
-* <span data-ttu-id="79dae-392"><xref:Microsoft.Extensions.Hosting.IHostLifetime> (`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime`)</span><span class="sxs-lookup"><span data-stu-id="79dae-392"><xref:Microsoft.Extensions.Hosting.IHostLifetime> (`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime`)</span></span>
+* <span data-ttu-id="35be4-390">[配置](xref:fundamentals/configuration/index) (<xref:Microsoft.Extensions.Configuration.IConfiguration>)</span><span class="sxs-lookup"><span data-stu-id="35be4-390">[Configuration](xref:fundamentals/configuration/index) (<xref:Microsoft.Extensions.Configuration.IConfiguration>)</span></span>
+* <span data-ttu-id="35be4-391"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> (`Microsoft.Extensions.Hosting.Internal.ApplicationLifetime`)</span><span class="sxs-lookup"><span data-stu-id="35be4-391"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> (`Microsoft.Extensions.Hosting.Internal.ApplicationLifetime`)</span></span>
+* <span data-ttu-id="35be4-392"><xref:Microsoft.Extensions.Hosting.IHostLifetime> (`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime`)</span><span class="sxs-lookup"><span data-stu-id="35be4-392"><xref:Microsoft.Extensions.Hosting.IHostLifetime> (`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime`)</span></span>
 * <xref:Microsoft.Extensions.Hosting.IHost>
-* <span data-ttu-id="79dae-393">[选项](xref:fundamentals/configuration/options) (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions*>)</span><span class="sxs-lookup"><span data-stu-id="79dae-393">[Options](xref:fundamentals/configuration/options) (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions*>)</span></span>
-* <span data-ttu-id="79dae-394">[日志记录](xref:fundamentals/logging/index) (<xref:Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions.AddLogging*>)</span><span class="sxs-lookup"><span data-stu-id="79dae-394">[Logging](xref:fundamentals/logging/index) (<xref:Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions.AddLogging*>)</span></span>
+* <span data-ttu-id="35be4-393">[选项](xref:fundamentals/configuration/options) (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions*>)</span><span class="sxs-lookup"><span data-stu-id="35be4-393">[Options](xref:fundamentals/configuration/options) (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions*>)</span></span>
+* <span data-ttu-id="35be4-394">[日志记录](xref:fundamentals/logging/index) (<xref:Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions.AddLogging*>)</span><span class="sxs-lookup"><span data-stu-id="35be4-394">[Logging](xref:fundamentals/logging/index) (<xref:Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions.AddLogging*>)</span></span>
 
-## <a name="host-configuration"></a><span data-ttu-id="79dae-395">主机配置</span><span class="sxs-lookup"><span data-stu-id="79dae-395">Host configuration</span></span>
+## <a name="host-configuration"></a><span data-ttu-id="35be4-395">主机配置</span><span class="sxs-lookup"><span data-stu-id="35be4-395">Host configuration</span></span>
 
-<span data-ttu-id="79dae-396">主机配置的创建方式如下：</span><span class="sxs-lookup"><span data-stu-id="79dae-396">Host configuration is created by:</span></span>
+<span data-ttu-id="35be4-396">主机配置的创建方式如下：</span><span class="sxs-lookup"><span data-stu-id="35be4-396">Host configuration is created by:</span></span>
 
-* <span data-ttu-id="79dae-397">调用 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 上的扩展方法以设置[“内容根”](#content-root)和[“环境”](#environment)。</span><span class="sxs-lookup"><span data-stu-id="79dae-397">Calling extension methods on <xref:Microsoft.Extensions.Hosting.IHostBuilder> to set the [content root](#content-root) and [environment](#environment).</span></span>
-* <span data-ttu-id="79dae-398">从 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 中的配置提供程序读取配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-398">Reading configuration from configuration providers in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>.</span></span>
+* <span data-ttu-id="35be4-397">调用 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 上的扩展方法以设置[“内容根”](#content-root)和[“环境”](#environment)。</span><span class="sxs-lookup"><span data-stu-id="35be4-397">Calling extension methods on <xref:Microsoft.Extensions.Hosting.IHostBuilder> to set the [content root](#content-root) and [environment](#environment).</span></span>
+* <span data-ttu-id="35be4-398">从 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 中的配置提供程序读取配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-398">Reading configuration from configuration providers in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>.</span></span>
 
-### <a name="extension-methods"></a><span data-ttu-id="79dae-399">扩展方法</span><span class="sxs-lookup"><span data-stu-id="79dae-399">Extension methods</span></span>
+### <a name="extension-methods"></a><span data-ttu-id="35be4-399">扩展方法</span><span class="sxs-lookup"><span data-stu-id="35be4-399">Extension methods</span></span>
 
-### <a name="application-key-name"></a><span data-ttu-id="79dae-400">应用程序键（名称）</span><span class="sxs-lookup"><span data-stu-id="79dae-400">Application key (name)</span></span>
+### <a name="application-key-name"></a><span data-ttu-id="35be4-400">应用程序键（名称）</span><span class="sxs-lookup"><span data-stu-id="35be4-400">Application key (name)</span></span>
 
-<span data-ttu-id="79dae-401">[IHostingEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。</span><span class="sxs-lookup"><span data-stu-id="79dae-401">The [IHostingEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ApplicationName*) property is set from host configuration during host construction.</span></span> <span data-ttu-id="79dae-402">要显式设置值，请使用 [HostDefaults.ApplicationKey](xref:Microsoft.Extensions.Hosting.HostDefaults.ApplicationKey)：</span><span class="sxs-lookup"><span data-stu-id="79dae-402">To set the value explicitly, use the [HostDefaults.ApplicationKey](xref:Microsoft.Extensions.Hosting.HostDefaults.ApplicationKey):</span></span>
+<span data-ttu-id="35be4-401">[IHostingEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。</span><span class="sxs-lookup"><span data-stu-id="35be4-401">The [IHostingEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ApplicationName*) property is set from host configuration during host construction.</span></span> <span data-ttu-id="35be4-402">要显式设置值，请使用 [HostDefaults.ApplicationKey](xref:Microsoft.Extensions.Hosting.HostDefaults.ApplicationKey)：</span><span class="sxs-lookup"><span data-stu-id="35be4-402">To set the value explicitly, use the [HostDefaults.ApplicationKey](xref:Microsoft.Extensions.Hosting.HostDefaults.ApplicationKey):</span></span>
 
-<span data-ttu-id="79dae-403">键：`applicationName`</span><span class="sxs-lookup"><span data-stu-id="79dae-403">**Key**: `applicationName`</span></span>  
-<span data-ttu-id="79dae-404">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-404">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-405">**默认**：包含应用入口点的程序集的名称。</span><span class="sxs-lookup"><span data-stu-id="79dae-405">**Default**: The name of the assembly containing the app's entry point.</span></span>  
-<span data-ttu-id="79dae-406">**设置使用**：`HostBuilderContext.HostingEnvironment.ApplicationName`</span><span class="sxs-lookup"><span data-stu-id="79dae-406">**Set using**: `HostBuilderContext.HostingEnvironment.ApplicationName`</span></span>  
-<span data-ttu-id="79dae-407">**环境变量**：`<PREFIX_>APPLICATIONNAME`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）</span><span class="sxs-lookup"><span data-stu-id="79dae-407">**Environment variable**: `<PREFIX_>APPLICATIONNAME` (`<PREFIX_>` is [optional and user-defined](#configurehostconfiguration))</span></span>
+<span data-ttu-id="35be4-403">键：`applicationName`</span><span class="sxs-lookup"><span data-stu-id="35be4-403">**Key**: `applicationName`</span></span>  
+<span data-ttu-id="35be4-404">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-404">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-405">**默认**：包含应用入口点的程序集的名称。</span><span class="sxs-lookup"><span data-stu-id="35be4-405">**Default**: The name of the assembly containing the app's entry point.</span></span>  
+<span data-ttu-id="35be4-406">**设置使用**：`HostBuilderContext.HostingEnvironment.ApplicationName`</span><span class="sxs-lookup"><span data-stu-id="35be4-406">**Set using**: `HostBuilderContext.HostingEnvironment.ApplicationName`</span></span>  
+<span data-ttu-id="35be4-407">**环境变量**：`<PREFIX_>APPLICATIONNAME`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）</span><span class="sxs-lookup"><span data-stu-id="35be4-407">**Environment variable**: `<PREFIX_>APPLICATIONNAME` (`<PREFIX_>` is [optional and user-defined](#configurehostconfiguration))</span></span>
 
-### <a name="content-root"></a><span data-ttu-id="79dae-408">内容根</span><span class="sxs-lookup"><span data-stu-id="79dae-408">Content root</span></span>
+### <a name="content-root"></a><span data-ttu-id="35be4-408">内容根</span><span class="sxs-lookup"><span data-stu-id="35be4-408">Content root</span></span>
 
-<span data-ttu-id="79dae-409">此设置确定主机从哪里开始搜索内容文件。</span><span class="sxs-lookup"><span data-stu-id="79dae-409">This setting determines where the host begins searching for content files.</span></span>
+<span data-ttu-id="35be4-409">此设置确定主机从哪里开始搜索内容文件。</span><span class="sxs-lookup"><span data-stu-id="35be4-409">This setting determines where the host begins searching for content files.</span></span>
 
-<span data-ttu-id="79dae-410">键：`contentRoot`</span><span class="sxs-lookup"><span data-stu-id="79dae-410">**Key**: `contentRoot`</span></span>  
-<span data-ttu-id="79dae-411">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-411">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-412">**默认**：默认为应用程序集所在的文件夹。</span><span class="sxs-lookup"><span data-stu-id="79dae-412">**Default**: Defaults to the folder where the app assembly resides.</span></span>  
-<span data-ttu-id="79dae-413">**设置使用**：`UseContentRoot`</span><span class="sxs-lookup"><span data-stu-id="79dae-413">**Set using**: `UseContentRoot`</span></span>  
-<span data-ttu-id="79dae-414">**环境变量**：`<PREFIX_>CONTENTROOT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）</span><span class="sxs-lookup"><span data-stu-id="79dae-414">**Environment variable**: `<PREFIX_>CONTENTROOT` (`<PREFIX_>` is [optional and user-defined](#configurehostconfiguration))</span></span>
+<span data-ttu-id="35be4-410">键：`contentRoot`</span><span class="sxs-lookup"><span data-stu-id="35be4-410">**Key**: `contentRoot`</span></span>  
+<span data-ttu-id="35be4-411">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-411">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-412">**默认**：默认为应用程序集所在的文件夹。</span><span class="sxs-lookup"><span data-stu-id="35be4-412">**Default**: Defaults to the folder where the app assembly resides.</span></span>  
+<span data-ttu-id="35be4-413">**设置使用**：`UseContentRoot`</span><span class="sxs-lookup"><span data-stu-id="35be4-413">**Set using**: `UseContentRoot`</span></span>  
+<span data-ttu-id="35be4-414">**环境变量**：`<PREFIX_>CONTENTROOT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）</span><span class="sxs-lookup"><span data-stu-id="35be4-414">**Environment variable**: `<PREFIX_>CONTENTROOT` (`<PREFIX_>` is [optional and user-defined](#configurehostconfiguration))</span></span>
 
-<span data-ttu-id="79dae-415">如果路径不存在，主机将无法启动。</span><span class="sxs-lookup"><span data-stu-id="79dae-415">If the path doesn't exist, the host fails to start.</span></span>
+<span data-ttu-id="35be4-415">如果路径不存在，主机将无法启动。</span><span class="sxs-lookup"><span data-stu-id="35be4-415">If the path doesn't exist, the host fails to start.</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseContentRoot)]
 
-<span data-ttu-id="79dae-416">有关详细信息，请参阅[基础知识：内容根目录](xref:fundamentals/index#content-root)。</span><span class="sxs-lookup"><span data-stu-id="79dae-416">For more information, see [Fundamentals: Content root](xref:fundamentals/index#content-root).</span></span>
+<span data-ttu-id="35be4-416">有关详细信息，请参阅[基础知识：内容根目录](xref:fundamentals/index#content-root)。</span><span class="sxs-lookup"><span data-stu-id="35be4-416">For more information, see [Fundamentals: Content root](xref:fundamentals/index#content-root).</span></span>
 
-### <a name="environment"></a><span data-ttu-id="79dae-417">环境</span><span class="sxs-lookup"><span data-stu-id="79dae-417">Environment</span></span>
+### <a name="environment"></a><span data-ttu-id="35be4-417">环境</span><span class="sxs-lookup"><span data-stu-id="35be4-417">Environment</span></span>
 
-<span data-ttu-id="79dae-418">设置应用的[环境](xref:fundamentals/environments)。</span><span class="sxs-lookup"><span data-stu-id="79dae-418">Sets the app's [environment](xref:fundamentals/environments).</span></span>
+<span data-ttu-id="35be4-418">设置应用的[环境](xref:fundamentals/environments)。</span><span class="sxs-lookup"><span data-stu-id="35be4-418">Sets the app's [environment](xref:fundamentals/environments).</span></span>
 
-<span data-ttu-id="79dae-419">键：`environment`</span><span class="sxs-lookup"><span data-stu-id="79dae-419">**Key**: `environment`</span></span>  
-<span data-ttu-id="79dae-420">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-420">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-421">**默认**：`Production`</span><span class="sxs-lookup"><span data-stu-id="79dae-421">**Default**: `Production`</span></span>  
-<span data-ttu-id="79dae-422">**设置使用**：`UseEnvironment`</span><span class="sxs-lookup"><span data-stu-id="79dae-422">**Set using**: `UseEnvironment`</span></span>  
-<span data-ttu-id="79dae-423">**环境变量**：`<PREFIX_>ENVIRONMENT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）</span><span class="sxs-lookup"><span data-stu-id="79dae-423">**Environment variable**: `<PREFIX_>ENVIRONMENT` (`<PREFIX_>` is [optional and user-defined](#configurehostconfiguration))</span></span>
+<span data-ttu-id="35be4-419">键：`environment`</span><span class="sxs-lookup"><span data-stu-id="35be4-419">**Key**: `environment`</span></span>  
+<span data-ttu-id="35be4-420">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-420">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-421">**默认**：`Production`</span><span class="sxs-lookup"><span data-stu-id="35be4-421">**Default**: `Production`</span></span>  
+<span data-ttu-id="35be4-422">**设置使用**：`UseEnvironment`</span><span class="sxs-lookup"><span data-stu-id="35be4-422">**Set using**: `UseEnvironment`</span></span>  
+<span data-ttu-id="35be4-423">**环境变量**：`<PREFIX_>ENVIRONMENT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）</span><span class="sxs-lookup"><span data-stu-id="35be4-423">**Environment variable**: `<PREFIX_>ENVIRONMENT` (`<PREFIX_>` is [optional and user-defined](#configurehostconfiguration))</span></span>
 
-<span data-ttu-id="79dae-424">可将环境设置为任何值。</span><span class="sxs-lookup"><span data-stu-id="79dae-424">The environment can be set to any value.</span></span> <span data-ttu-id="79dae-425">框架定义的值包括 `Development``Staging` 和 `Production`。</span><span class="sxs-lookup"><span data-stu-id="79dae-425">Framework-defined values include `Development`, `Staging`, and `Production`.</span></span> <span data-ttu-id="79dae-426">值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="79dae-426">Values aren't case-sensitive.</span></span>
+<span data-ttu-id="35be4-424">可将环境设置为任何值。</span><span class="sxs-lookup"><span data-stu-id="35be4-424">The environment can be set to any value.</span></span> <span data-ttu-id="35be4-425">框架定义的值包括 `Development``Staging` 和 `Production`。</span><span class="sxs-lookup"><span data-stu-id="35be4-425">Framework-defined values include `Development`, `Staging`, and `Production`.</span></span> <span data-ttu-id="35be4-426">值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="35be4-426">Values aren't case-sensitive.</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseEnvironment)]
 
-### <a name="configurehostconfiguration"></a><span data-ttu-id="79dae-427">ConfigureHostConfiguration</span><span class="sxs-lookup"><span data-stu-id="79dae-427">ConfigureHostConfiguration</span></span>
+### <a name="configurehostconfiguration"></a><span data-ttu-id="35be4-427">ConfigureHostConfiguration</span><span class="sxs-lookup"><span data-stu-id="35be4-427">ConfigureHostConfiguration</span></span>
 
-<span data-ttu-id="79dae-428"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为主机创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="79dae-428"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> uses an <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> to create an <xref:Microsoft.Extensions.Configuration.IConfiguration> for the host.</span></span> <span data-ttu-id="79dae-429">主机配置用于初始化 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment>，以供在应用的构建过程中使用。</span><span class="sxs-lookup"><span data-stu-id="79dae-429">The host configuration is used to initialize the <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> for use in the app's build process.</span></span>
+<span data-ttu-id="35be4-428"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为主机创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="35be4-428"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> uses an <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> to create an <xref:Microsoft.Extensions.Configuration.IConfiguration> for the host.</span></span> <span data-ttu-id="35be4-429">主机配置用于初始化 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment>，以供在应用的构建过程中使用。</span><span class="sxs-lookup"><span data-stu-id="35be4-429">The host configuration is used to initialize the <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> for use in the app's build process.</span></span>
 
-<span data-ttu-id="79dae-430">可多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="79dae-430"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> can be called multiple times with additive results.</span></span> <span data-ttu-id="79dae-431">主机使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="79dae-431">The host uses whichever option sets a value last on a given key.</span></span>
+<span data-ttu-id="35be4-430">可多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="35be4-430"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> can be called multiple times with additive results.</span></span> <span data-ttu-id="35be4-431">主机使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="35be4-431">The host uses whichever option sets a value last on a given key.</span></span>
 
-<span data-ttu-id="79dae-432">默认情况下不包括提供程序。</span><span class="sxs-lookup"><span data-stu-id="79dae-432">No providers are included by default.</span></span> <span data-ttu-id="79dae-433">必须在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 中显式指定应用所需的任何配置提供程序，包括：</span><span class="sxs-lookup"><span data-stu-id="79dae-433">You must explicitly specify whatever configuration providers the app requires in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>, including:</span></span>
+<span data-ttu-id="35be4-432">默认情况下不包括提供程序。</span><span class="sxs-lookup"><span data-stu-id="35be4-432">No providers are included by default.</span></span> <span data-ttu-id="35be4-433">必须在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 中显式指定应用所需的任何配置提供程序，包括：</span><span class="sxs-lookup"><span data-stu-id="35be4-433">You must explicitly specify whatever configuration providers the app requires in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>, including:</span></span>
 
-* <span data-ttu-id="79dae-434">文件配置（例如，来自 hostsettings.json 文件）。</span><span class="sxs-lookup"><span data-stu-id="79dae-434">File configuration (for example, from a *hostsettings.json* file).</span></span>
-* <span data-ttu-id="79dae-435">环境变量配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-435">Environment variable configuration.</span></span>
-* <span data-ttu-id="79dae-436">命令行参数配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-436">Command-line argument configuration.</span></span>
-* <span data-ttu-id="79dae-437">任何其他所需的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="79dae-437">Any other required configuration providers.</span></span>
+* <span data-ttu-id="35be4-434">文件配置（例如，来自 hostsettings.json 文件）。</span><span class="sxs-lookup"><span data-stu-id="35be4-434">File configuration (for example, from a *hostsettings.json* file).</span></span>
+* <span data-ttu-id="35be4-435">环境变量配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-435">Environment variable configuration.</span></span>
+* <span data-ttu-id="35be4-436">命令行参数配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-436">Command-line argument configuration.</span></span>
+* <span data-ttu-id="35be4-437">任何其他所需的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="35be4-437">Any other required configuration providers.</span></span>
 
-<span data-ttu-id="79dae-438">通过使用 `SetBasePath` 指定应用的基本路径，然后调用其中一个[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)，可以启用主机的文件配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-438">File configuration of the host is enabled by specifying the app's base path with `SetBasePath` followed by a call to one of the [file configuration providers](xref:fundamentals/configuration/index#file-configuration-provider).</span></span> <span data-ttu-id="79dae-439">示例应用使用 JSON 文件 hostsettings.json，并调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 来使用文件的主机配置设置。</span><span class="sxs-lookup"><span data-stu-id="79dae-439">The sample app uses a JSON file, *hostsettings.json*, and calls <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> to consume the file's host configuration settings.</span></span>
+<span data-ttu-id="35be4-438">通过使用 `SetBasePath` 指定应用的基本路径，然后调用其中一个[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)，可以启用主机的文件配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-438">File configuration of the host is enabled by specifying the app's base path with `SetBasePath` followed by a call to one of the [file configuration providers](xref:fundamentals/configuration/index#file-configuration-provider).</span></span> <span data-ttu-id="35be4-439">示例应用使用 JSON 文件 hostsettings.json，并调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 来使用文件的主机配置设置。</span><span class="sxs-lookup"><span data-stu-id="35be4-439">The sample app uses a JSON file, *hostsettings.json*, and calls <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> to consume the file's host configuration settings.</span></span>
 
-<span data-ttu-id="79dae-440">要添加主机的[环境变量配置](xref:fundamentals/configuration/index#environment-variables-configuration-provider)，请在主机生成器上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>。</span><span class="sxs-lookup"><span data-stu-id="79dae-440">To add [environment variable configuration](xref:fundamentals/configuration/index#environment-variables-configuration-provider) of the host, call <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> on the host builder.</span></span> <span data-ttu-id="79dae-441">`AddEnvironmentVariables` 接受用户定义的前缀（可选）。</span><span class="sxs-lookup"><span data-stu-id="79dae-441">`AddEnvironmentVariables` accepts an optional user-defined prefix.</span></span> <span data-ttu-id="79dae-442">示例应用使用前缀 `PREFIX_`。</span><span class="sxs-lookup"><span data-stu-id="79dae-442">The sample app uses a prefix of `PREFIX_`.</span></span> <span data-ttu-id="79dae-443">当系统读取环境变量时，便会删除前缀。</span><span class="sxs-lookup"><span data-stu-id="79dae-443">The prefix is removed when the environment variables are read.</span></span> <span data-ttu-id="79dae-444">配置示例应用的主机后，`PREFIX_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。</span><span class="sxs-lookup"><span data-stu-id="79dae-444">When the sample app's host is configured, the environment variable value for `PREFIX_ENVIRONMENT` becomes the host configuration value for the `environment` key.</span></span>
+<span data-ttu-id="35be4-440">要添加主机的[环境变量配置](xref:fundamentals/configuration/index#environment-variables-configuration-provider)，请在主机生成器上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>。</span><span class="sxs-lookup"><span data-stu-id="35be4-440">To add [environment variable configuration](xref:fundamentals/configuration/index#environment-variables-configuration-provider) of the host, call <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> on the host builder.</span></span> <span data-ttu-id="35be4-441">`AddEnvironmentVariables` 接受用户定义的前缀（可选）。</span><span class="sxs-lookup"><span data-stu-id="35be4-441">`AddEnvironmentVariables` accepts an optional user-defined prefix.</span></span> <span data-ttu-id="35be4-442">示例应用使用前缀 `PREFIX_`。</span><span class="sxs-lookup"><span data-stu-id="35be4-442">The sample app uses a prefix of `PREFIX_`.</span></span> <span data-ttu-id="35be4-443">当系统读取环境变量时，便会删除前缀。</span><span class="sxs-lookup"><span data-stu-id="35be4-443">The prefix is removed when the environment variables are read.</span></span> <span data-ttu-id="35be4-444">配置示例应用的主机后，`PREFIX_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。</span><span class="sxs-lookup"><span data-stu-id="35be4-444">When the sample app's host is configured, the environment variable value for `PREFIX_ENVIRONMENT` becomes the host configuration value for the `environment` key.</span></span>
 
-<span data-ttu-id="79dae-445">在开发过程中，如果使用 [Visual Studio](https://visualstudio.microsoft.com) 或通过 `dotnet run` 运行应用，可能会在 Properties/launchSettings.json 文件中设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-445">During development when using [Visual Studio](https://visualstudio.microsoft.com) or running an app with `dotnet run`, environment variables may be set in the *Properties/launchSettings.json* file.</span></span> <span data-ttu-id="79dae-446">若在开发过程中使用 [Visual Studio Code](https://code.visualstudio.com/)，可能会在 .vscode/launch.json 文件中设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-446">In [Visual Studio Code](https://code.visualstudio.com/), environment variables may be set in the *.vscode/launch.json* file during development.</span></span> <span data-ttu-id="79dae-447">有关详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="79dae-447">For more information, see <xref:fundamentals/environments>.</span></span>
+<span data-ttu-id="35be4-445">在开发过程中，如果使用 [Visual Studio](https://visualstudio.microsoft.com) 或通过 `dotnet run` 运行应用，可能会在 Properties/launchSettings.json 文件中设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-445">During development when using [Visual Studio](https://visualstudio.microsoft.com) or running an app with `dotnet run`, environment variables may be set in the *Properties/launchSettings.json* file.</span></span> <span data-ttu-id="35be4-446">若在开发过程中使用 [Visual Studio Code](https://code.visualstudio.com/)，可能会在 .vscode/launch.json 文件中设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-446">In [Visual Studio Code](https://code.visualstudio.com/), environment variables may be set in the *.vscode/launch.json* file during development.</span></span> <span data-ttu-id="35be4-447">有关详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="35be4-447">For more information, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="79dae-448">通过调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 可添加[命令行配置](xref:fundamentals/configuration/index#command-line-configuration-provider)。</span><span class="sxs-lookup"><span data-stu-id="79dae-448">[Command-line configuration](xref:fundamentals/configuration/index#command-line-configuration-provider) is added by calling <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span> <span data-ttu-id="79dae-449">最后添加命令行配置以允许命令行参数替代之前配置提供程序提供的配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-449">Command-line configuration is added last to permit command-line arguments to override configuration provided by the earlier configuration providers.</span></span>
+<span data-ttu-id="35be4-448">通过调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 可添加[命令行配置](xref:fundamentals/configuration/index#command-line-configuration-provider)。</span><span class="sxs-lookup"><span data-stu-id="35be4-448">[Command-line configuration](xref:fundamentals/configuration/index#command-line-configuration-provider) is added by calling <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span> <span data-ttu-id="35be4-449">最后添加命令行配置以允许命令行参数替代之前配置提供程序提供的配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-449">Command-line configuration is added last to permit command-line arguments to override configuration provided by the earlier configuration providers.</span></span>
 
-<span data-ttu-id="79dae-450">hostsettings.json：</span><span class="sxs-lookup"><span data-stu-id="79dae-450">*hostsettings.json*:</span></span>
+<span data-ttu-id="35be4-450">hostsettings.json：</span><span class="sxs-lookup"><span data-stu-id="35be4-450">*hostsettings.json*:</span></span>
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
 
-<span data-ttu-id="79dae-451">可以通过 [applicationName](#application-key-name) 和 [contentRoot](#content-root) 键提供其他配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-451">Additional configuration can be provided with the [applicationName](#application-key-name) and [contentRoot](#content-root) keys.</span></span>
+<span data-ttu-id="35be4-451">可以通过 [applicationName](#application-key-name) 和 [contentRoot](#content-root) 键提供其他配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-451">Additional configuration can be provided with the [applicationName](#application-key-name) and [contentRoot](#content-root) keys.</span></span>
 
-<span data-ttu-id="79dae-452">示例 `HostBuilder` 配置使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="79dae-452">Example `HostBuilder` configuration using <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>:</span></span>
+<span data-ttu-id="35be4-452">示例 `HostBuilder` 配置使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="35be4-452">Example `HostBuilder` configuration using <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureHostConfiguration)]
 
-## <a name="configureappconfiguration"></a><span data-ttu-id="79dae-453">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="79dae-453">ConfigureAppConfiguration</span></span>
+## <a name="configureappconfiguration"></a><span data-ttu-id="35be4-453">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="35be4-453">ConfigureAppConfiguration</span></span>
 
-<span data-ttu-id="79dae-454">通过在 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 实现上调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-454">App configuration is created by calling <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> on the <xref:Microsoft.Extensions.Hosting.IHostBuilder> implementation.</span></span> <span data-ttu-id="79dae-455"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为应用创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="79dae-455"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> uses an <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> to create an <xref:Microsoft.Extensions.Configuration.IConfiguration> for the app.</span></span> <span data-ttu-id="79dae-456">可多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="79dae-456"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> can be called multiple times with additive results.</span></span> <span data-ttu-id="79dae-457">应用使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="79dae-457">The app uses whichever option sets a value last on a given key.</span></span> <span data-ttu-id="79dae-458">[HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 中提供 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建的配置，以供进行后续操作和在 <xref:Microsoft.Extensions.Hosting.IHost.Services*> 中使用。</span><span class="sxs-lookup"><span data-stu-id="79dae-458">The configuration created by <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> is available at [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) for subsequent operations and in <xref:Microsoft.Extensions.Hosting.IHost.Services*>.</span></span>
+<span data-ttu-id="35be4-454">通过在 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 实现上调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-454">App configuration is created by calling <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> on the <xref:Microsoft.Extensions.Hosting.IHostBuilder> implementation.</span></span> <span data-ttu-id="35be4-455"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为应用创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="35be4-455"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> uses an <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> to create an <xref:Microsoft.Extensions.Configuration.IConfiguration> for the app.</span></span> <span data-ttu-id="35be4-456">可多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="35be4-456"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> can be called multiple times with additive results.</span></span> <span data-ttu-id="35be4-457">应用使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="35be4-457">The app uses whichever option sets a value last on a given key.</span></span> <span data-ttu-id="35be4-458">[HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 中提供 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建的配置，以供进行后续操作和在 <xref:Microsoft.Extensions.Hosting.IHost.Services*> 中使用。</span><span class="sxs-lookup"><span data-stu-id="35be4-458">The configuration created by <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> is available at [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) for subsequent operations and in <xref:Microsoft.Extensions.Hosting.IHost.Services*>.</span></span>
 
-<span data-ttu-id="79dae-459">应用配置会自动接收 [ConfigureHostConfiguration](#configurehostconfiguration) 提供的主机配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-459">App configuration automatically receives host configuration provided by [ConfigureHostConfiguration](#configurehostconfiguration).</span></span>
+<span data-ttu-id="35be4-459">应用配置会自动接收 [ConfigureHostConfiguration](#configurehostconfiguration) 提供的主机配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-459">App configuration automatically receives host configuration provided by [ConfigureHostConfiguration](#configurehostconfiguration).</span></span>
 
-<span data-ttu-id="79dae-460">示例应用配置使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="79dae-460">Example app configuration using <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>:</span></span>
+<span data-ttu-id="35be4-460">示例应用配置使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="35be4-460">Example app configuration using <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureAppConfiguration)]
 
-<span data-ttu-id="79dae-461">appsettings.json：</span><span class="sxs-lookup"><span data-stu-id="79dae-461">*appsettings.json*:</span></span>
+<span data-ttu-id="35be4-461">appsettings.json：</span><span class="sxs-lookup"><span data-stu-id="35be4-461">*appsettings.json*:</span></span>
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
 
-<span data-ttu-id="79dae-462">appsettings.Development.json：</span><span class="sxs-lookup"><span data-stu-id="79dae-462">*appsettings.Development.json*:</span></span>
+<span data-ttu-id="35be4-462">appsettings.Development.json：</span><span class="sxs-lookup"><span data-stu-id="35be4-462">*appsettings.Development.json*:</span></span>
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
 
-<span data-ttu-id="79dae-463">appsettings.Production.json：</span><span class="sxs-lookup"><span data-stu-id="79dae-463">*appsettings.Production.json*:</span></span>
+<span data-ttu-id="35be4-463">appsettings.Production.json：</span><span class="sxs-lookup"><span data-stu-id="35be4-463">*appsettings.Production.json*:</span></span>
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
 
-<span data-ttu-id="79dae-464">要将设置文件移动到输出目录，请在项目文件中将设置文件指定为 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)。</span><span class="sxs-lookup"><span data-stu-id="79dae-464">To move settings files to the output directory, specify the settings files as [MSBuild project items](/visualstudio/msbuild/common-msbuild-project-items) in the project file.</span></span> <span data-ttu-id="79dae-465">示例应用移动具有以下 `<Content>` 项的 JSON 应用设置文件和 hostsettings.json：</span><span class="sxs-lookup"><span data-stu-id="79dae-465">The sample app moves its JSON app settings files and *hostsettings.json* with the following `<Content>` item:</span></span>
+<span data-ttu-id="35be4-464">要将设置文件移动到输出目录，请在项目文件中将设置文件指定为 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)。</span><span class="sxs-lookup"><span data-stu-id="35be4-464">To move settings files to the output directory, specify the settings files as [MSBuild project items](/visualstudio/msbuild/common-msbuild-project-items) in the project file.</span></span> <span data-ttu-id="35be4-465">示例应用移动具有以下 `<Content>` 项的 JSON 应用设置文件和 hostsettings.json：</span><span class="sxs-lookup"><span data-stu-id="35be4-465">The sample app moves its JSON app settings files and *hostsettings.json* with the following `<Content>` item:</span></span>
 
 ```xml
 <ItemGroup>
@@ -689,51 +690,51 @@ var host = new HostBuilder()
 ```
 
 > [!NOTE]
-> <span data-ttu-id="79dae-466">配置扩展方法（如 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 和 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>）需要其他 NuGet 包（如 [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json) 和 [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables)）。</span><span class="sxs-lookup"><span data-stu-id="79dae-466">Configuration extension methods, such as <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> and <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> require additional NuGet packages, such as [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json) and [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables).</span></span> <span data-ttu-id="79dae-467">除非应用使用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)，否则除了核心 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration) 包之外，还必须将这些包添加到项目。</span><span class="sxs-lookup"><span data-stu-id="79dae-467">Unless the app uses the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app), these packages must be added to the project in addition to the core [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration) package.</span></span> <span data-ttu-id="79dae-468">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="79dae-468">For more information, see <xref:fundamentals/configuration/index>.</span></span>
+> <span data-ttu-id="35be4-466">配置扩展方法（如 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 和 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>）需要其他 NuGet 包（如 [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json) 和 [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables)）。</span><span class="sxs-lookup"><span data-stu-id="35be4-466">Configuration extension methods, such as <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> and <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> require additional NuGet packages, such as [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json) and [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables).</span></span> <span data-ttu-id="35be4-467">除非应用使用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)，否则除了核心 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration) 包之外，还必须将这些包添加到项目。</span><span class="sxs-lookup"><span data-stu-id="35be4-467">Unless the app uses the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app), these packages must be added to the project in addition to the core [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration) package.</span></span> <span data-ttu-id="35be4-468">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="35be4-468">For more information, see <xref:fundamentals/configuration/index>.</span></span>
 
-## <a name="configureservices"></a><span data-ttu-id="79dae-469">ConfigureServices</span><span class="sxs-lookup"><span data-stu-id="79dae-469">ConfigureServices</span></span>
+## <a name="configureservices"></a><span data-ttu-id="35be4-469">ConfigureServices</span><span class="sxs-lookup"><span data-stu-id="35be4-469">ConfigureServices</span></span>
 
-<span data-ttu-id="79dae-470"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> 将服务添加到应用的[依赖关系](xref:fundamentals/dependency-injection)注入容器。</span><span class="sxs-lookup"><span data-stu-id="79dae-470"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> adds services to the app's [dependency injection](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="79dae-471">可多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*>，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="79dae-471"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> can be called multiple times with additive results.</span></span>
+<span data-ttu-id="35be4-470"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> 将服务添加到应用的[依赖关系](xref:fundamentals/dependency-injection)注入容器。</span><span class="sxs-lookup"><span data-stu-id="35be4-470"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> adds services to the app's [dependency injection](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="35be4-471">可多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*>，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="35be4-471"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> can be called multiple times with additive results.</span></span>
 
-<span data-ttu-id="79dae-472">托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。</span><span class="sxs-lookup"><span data-stu-id="79dae-472">A hosted service is a class with background task logic that implements the <xref:Microsoft.Extensions.Hosting.IHostedService> interface.</span></span> <span data-ttu-id="79dae-473">有关详细信息，请参阅 <xref:fundamentals/host/hosted-services>。</span><span class="sxs-lookup"><span data-stu-id="79dae-473">For more information, see <xref:fundamentals/host/hosted-services>.</span></span>
+<span data-ttu-id="35be4-472">托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。</span><span class="sxs-lookup"><span data-stu-id="35be4-472">A hosted service is a class with background task logic that implements the <xref:Microsoft.Extensions.Hosting.IHostedService> interface.</span></span> <span data-ttu-id="35be4-473">有关详细信息，请参阅 <xref:fundamentals/host/hosted-services>。</span><span class="sxs-lookup"><span data-stu-id="35be4-473">For more information, see <xref:fundamentals/host/hosted-services>.</span></span>
 
-<span data-ttu-id="79dae-474">[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)使用 `AddHostedService` 扩展方法向应用添加生存期事件 `LifetimeEventsHostedService` 和定时后台任务 `TimedHostedService` 服务：</span><span class="sxs-lookup"><span data-stu-id="79dae-474">The [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) uses the `AddHostedService` extension method to add a service for lifetime events, `LifetimeEventsHostedService`, and a timed background task, `TimedHostedService`, to the app:</span></span>
+<span data-ttu-id="35be4-474">[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)使用 `AddHostedService` 扩展方法向应用添加生存期事件 `LifetimeEventsHostedService` 和定时后台任务 `TimedHostedService` 服务：</span><span class="sxs-lookup"><span data-stu-id="35be4-474">The [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) uses the `AddHostedService` extension method to add a service for lifetime events, `LifetimeEventsHostedService`, and a timed background task, `TimedHostedService`, to the app:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureServices)]
 
-## <a name="configurelogging"></a><span data-ttu-id="79dae-475">ConfigureLogging</span><span class="sxs-lookup"><span data-stu-id="79dae-475">ConfigureLogging</span></span>
+## <a name="configurelogging"></a><span data-ttu-id="35be4-475">ConfigureLogging</span><span class="sxs-lookup"><span data-stu-id="35be4-475">ConfigureLogging</span></span>
 
-<span data-ttu-id="79dae-476"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> 添加了一个委托来配置提供的 <xref:Microsoft.Extensions.Logging.ILoggingBuilder>。</span><span class="sxs-lookup"><span data-stu-id="79dae-476"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> adds a delegate for configuring the provided <xref:Microsoft.Extensions.Logging.ILoggingBuilder>.</span></span> <span data-ttu-id="79dae-477">可以利用相加结果多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*>。</span><span class="sxs-lookup"><span data-stu-id="79dae-477"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> may be called multiple times with additive results.</span></span>
+<span data-ttu-id="35be4-476"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> 添加了一个委托来配置提供的 <xref:Microsoft.Extensions.Logging.ILoggingBuilder>。</span><span class="sxs-lookup"><span data-stu-id="35be4-476"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> adds a delegate for configuring the provided <xref:Microsoft.Extensions.Logging.ILoggingBuilder>.</span></span> <span data-ttu-id="35be4-477">可以利用相加结果多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*>。</span><span class="sxs-lookup"><span data-stu-id="35be4-477"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> may be called multiple times with additive results.</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureLogging)]
 
-### <a name="useconsolelifetime"></a><span data-ttu-id="79dae-478">UseConsoleLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-478">UseConsoleLifetime</span></span>
+### <a name="useconsolelifetime"></a><span data-ttu-id="35be4-478">UseConsoleLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-478">UseConsoleLifetime</span></span>
 
-<span data-ttu-id="79dae-479"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> 侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 来启动关闭进程。</span><span class="sxs-lookup"><span data-stu-id="79dae-479"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM and calls <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> to start the shutdown process.</span></span> <span data-ttu-id="79dae-480"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> 解除阻止 [ RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。</span><span class="sxs-lookup"><span data-stu-id="79dae-480"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> unblocks extensions such as [RunAsync](#runasync) and [WaitForShutdownAsync](#waitforshutdownasync).</span></span> <span data-ttu-id="79dae-481">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` 预注册为默认生存期实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-481">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` is pre-registered as the default lifetime implementation.</span></span> <span data-ttu-id="79dae-482">使用注册的最后一个生存期。</span><span class="sxs-lookup"><span data-stu-id="79dae-482">The last lifetime registered is used.</span></span>
+<span data-ttu-id="35be4-479"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> 侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 来启动关闭进程。</span><span class="sxs-lookup"><span data-stu-id="35be4-479"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM and calls <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> to start the shutdown process.</span></span> <span data-ttu-id="35be4-480"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> 解除阻止 [ RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。</span><span class="sxs-lookup"><span data-stu-id="35be4-480"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> unblocks extensions such as [RunAsync](#runasync) and [WaitForShutdownAsync](#waitforshutdownasync).</span></span> <span data-ttu-id="35be4-481">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` 预注册为默认生存期实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-481">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` is pre-registered as the default lifetime implementation.</span></span> <span data-ttu-id="35be4-482">使用注册的最后一个生存期。</span><span class="sxs-lookup"><span data-stu-id="35be4-482">The last lifetime registered is used.</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseConsoleLifetime)]
 
-## <a name="container-configuration"></a><span data-ttu-id="79dae-483">容器配置</span><span class="sxs-lookup"><span data-stu-id="79dae-483">Container configuration</span></span>
+## <a name="container-configuration"></a><span data-ttu-id="35be4-483">容器配置</span><span class="sxs-lookup"><span data-stu-id="35be4-483">Container configuration</span></span>
 
-<span data-ttu-id="79dae-484">为支持插入其他容器中，主机可以接受 <xref:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory%601>。</span><span class="sxs-lookup"><span data-stu-id="79dae-484">To support plugging in other containers, the host can accept an <xref:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory%601>.</span></span> <span data-ttu-id="79dae-485">提供工厂不属于 DI 容器注册，而是用于创建具体 DI 容器的主机内部函数。</span><span class="sxs-lookup"><span data-stu-id="79dae-485">Providing a factory isn't part of the DI container registration but is instead a host intrinsic used to create the concrete DI container.</span></span> <span data-ttu-id="79dae-486">[UseServiceProviderFactory(IServiceProviderFactory&lt;TContainerBuilder&gt;)](xref:Microsoft.Extensions.Hosting.HostBuilder.UseServiceProviderFactory*) 重写用于创建应用的服务提供程序的默认工厂。</span><span class="sxs-lookup"><span data-stu-id="79dae-486">[UseServiceProviderFactory(IServiceProviderFactory&lt;TContainerBuilder&gt;)](xref:Microsoft.Extensions.Hosting.HostBuilder.UseServiceProviderFactory*) overrides the default factory used to create the app's service provider.</span></span>
+<span data-ttu-id="35be4-484">为支持插入其他容器中，主机可以接受 <xref:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory%601>。</span><span class="sxs-lookup"><span data-stu-id="35be4-484">To support plugging in other containers, the host can accept an <xref:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory%601>.</span></span> <span data-ttu-id="35be4-485">提供工厂不属于 DI 容器注册，而是用于创建具体 DI 容器的主机内部函数。</span><span class="sxs-lookup"><span data-stu-id="35be4-485">Providing a factory isn't part of the DI container registration but is instead a host intrinsic used to create the concrete DI container.</span></span> <span data-ttu-id="35be4-486">[UseServiceProviderFactory(IServiceProviderFactory&lt;TContainerBuilder&gt;)](xref:Microsoft.Extensions.Hosting.HostBuilder.UseServiceProviderFactory*) 重写用于创建应用的服务提供程序的默认工厂。</span><span class="sxs-lookup"><span data-stu-id="35be4-486">[UseServiceProviderFactory(IServiceProviderFactory&lt;TContainerBuilder&gt;)](xref:Microsoft.Extensions.Hosting.HostBuilder.UseServiceProviderFactory*) overrides the default factory used to create the app's service provider.</span></span>
 
-<span data-ttu-id="79dae-487"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> 方法托管自定义容器配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-487">Custom container configuration is managed by the <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> method.</span></span> <span data-ttu-id="79dae-488"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> 提供在基础主机 API 的基础之上配置容器的强类型体验。</span><span class="sxs-lookup"><span data-stu-id="79dae-488"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> provides a strongly-typed experience for configuring the container on top of the underlying host API.</span></span> <span data-ttu-id="79dae-489">可以利用相加结果多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*>。</span><span class="sxs-lookup"><span data-stu-id="79dae-489"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> can be called multiple times with additive results.</span></span>
+<span data-ttu-id="35be4-487"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> 方法托管自定义容器配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-487">Custom container configuration is managed by the <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> method.</span></span> <span data-ttu-id="35be4-488"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> 提供在基础主机 API 的基础之上配置容器的强类型体验。</span><span class="sxs-lookup"><span data-stu-id="35be4-488"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> provides a strongly-typed experience for configuring the container on top of the underlying host API.</span></span> <span data-ttu-id="35be4-489">可以利用相加结果多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*>。</span><span class="sxs-lookup"><span data-stu-id="35be4-489"><xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> can be called multiple times with additive results.</span></span>
 
-<span data-ttu-id="79dae-490">为应用创建服务容器：</span><span class="sxs-lookup"><span data-stu-id="79dae-490">Create a service container for the app:</span></span>
+<span data-ttu-id="35be4-490">为应用创建服务容器：</span><span class="sxs-lookup"><span data-stu-id="35be4-490">Create a service container for the app:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/ServiceContainer.cs)]
 
-<span data-ttu-id="79dae-491">提供服务容器工厂：</span><span class="sxs-lookup"><span data-stu-id="79dae-491">Provide a service container factory:</span></span>
+<span data-ttu-id="35be4-491">提供服务容器工厂：</span><span class="sxs-lookup"><span data-stu-id="35be4-491">Provide a service container factory:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/ServiceContainerFactory.cs)]
 
-<span data-ttu-id="79dae-492">使用该工厂并为应用配置自定义服务容器：</span><span class="sxs-lookup"><span data-stu-id="79dae-492">Use the factory and configure the custom service container for the app:</span></span>
+<span data-ttu-id="35be4-492">使用该工厂并为应用配置自定义服务容器：</span><span class="sxs-lookup"><span data-stu-id="35be4-492">Use the factory and configure the custom service container for the app:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ContainerConfiguration)]
 
-## <a name="extensibility"></a><span data-ttu-id="79dae-493">扩展性</span><span class="sxs-lookup"><span data-stu-id="79dae-493">Extensibility</span></span>
+## <a name="extensibility"></a><span data-ttu-id="35be4-493">扩展性</span><span class="sxs-lookup"><span data-stu-id="35be4-493">Extensibility</span></span>
 
-<span data-ttu-id="79dae-494">在 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 上使用扩展方法实现主机扩展性。</span><span class="sxs-lookup"><span data-stu-id="79dae-494">Host extensibility is performed with extension methods on <xref:Microsoft.Extensions.Hosting.IHostBuilder>.</span></span> <span data-ttu-id="79dae-495">以下示例介绍扩展方法如何使用 <xref:fundamentals/host/hosted-services> 中所示的 [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) 示例来扩展 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-495">The following example shows how an extension method extends an <xref:Microsoft.Extensions.Hosting.IHostBuilder> implementation with the [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) example demonstrated in <xref:fundamentals/host/hosted-services>.</span></span>
+<span data-ttu-id="35be4-494">在 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 上使用扩展方法实现主机扩展性。</span><span class="sxs-lookup"><span data-stu-id="35be4-494">Host extensibility is performed with extension methods on <xref:Microsoft.Extensions.Hosting.IHostBuilder>.</span></span> <span data-ttu-id="35be4-495">以下示例介绍扩展方法如何使用 <xref:fundamentals/host/hosted-services> 中所示的 [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) 示例来扩展 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-495">The following example shows how an extension method extends an <xref:Microsoft.Extensions.Hosting.IHostBuilder> implementation with the [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) example demonstrated in <xref:fundamentals/host/hosted-services>.</span></span>
 
 ```csharp
 var host = new HostBuilder()
@@ -743,7 +744,7 @@ var host = new HostBuilder()
 await host.StartAsync();
 ```
 
-<span data-ttu-id="79dae-496">应用建立 `UseHostedService` 扩展方法，以注册在 `T` 中传递的托管服务：</span><span class="sxs-lookup"><span data-stu-id="79dae-496">An app establishes the `UseHostedService` extension method to register the hosted service passed in `T`:</span></span>
+<span data-ttu-id="35be4-496">应用建立 `UseHostedService` 扩展方法，以注册在 `T` 中传递的托管服务：</span><span class="sxs-lookup"><span data-stu-id="35be4-496">An app establishes the `UseHostedService` extension method to register the hosted service passed in `T`:</span></span>
 
 ```csharp
 using System;
@@ -761,13 +762,13 @@ public static class Extensions
 }
 ```
 
-## <a name="manage-the-host"></a><span data-ttu-id="79dae-497">管理主机</span><span class="sxs-lookup"><span data-stu-id="79dae-497">Manage the host</span></span>
+## <a name="manage-the-host"></a><span data-ttu-id="35be4-497">管理主机</span><span class="sxs-lookup"><span data-stu-id="35be4-497">Manage the host</span></span>
 
-<span data-ttu-id="79dae-498"><xref:Microsoft.Extensions.Hosting.IHost> 实现负责启动和停止服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-498">The <xref:Microsoft.Extensions.Hosting.IHost> implementation is responsible for starting and stopping the <xref:Microsoft.Extensions.Hosting.IHostedService> implementations that are registered in the service container.</span></span>
+<span data-ttu-id="35be4-498"><xref:Microsoft.Extensions.Hosting.IHost> 实现负责启动和停止服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-498">The <xref:Microsoft.Extensions.Hosting.IHost> implementation is responsible for starting and stopping the <xref:Microsoft.Extensions.Hosting.IHostedService> implementations that are registered in the service container.</span></span>
 
-### <a name="run"></a><span data-ttu-id="79dae-499">运行</span><span class="sxs-lookup"><span data-stu-id="79dae-499">Run</span></span>
+### <a name="run"></a><span data-ttu-id="35be4-499">运行</span><span class="sxs-lookup"><span data-stu-id="35be4-499">Run</span></span>
 
-<span data-ttu-id="79dae-500"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> 运行应用并阻止调用线程，直到关闭主机：</span><span class="sxs-lookup"><span data-stu-id="79dae-500"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> runs the app and blocks the calling thread until the host is shut down:</span></span>
+<span data-ttu-id="35be4-500"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> 运行应用并阻止调用线程，直到关闭主机：</span><span class="sxs-lookup"><span data-stu-id="35be4-500"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> runs the app and blocks the calling thread until the host is shut down:</span></span>
 
 ```csharp
 public class Program
@@ -782,9 +783,9 @@ public class Program
 }
 ```
 
-### <a name="runasync"></a><span data-ttu-id="79dae-501">RunAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-501">RunAsync</span></span>
+### <a name="runasync"></a><span data-ttu-id="35be4-501">RunAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-501">RunAsync</span></span>
 
-<span data-ttu-id="79dae-502"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>：</span><span class="sxs-lookup"><span data-stu-id="79dae-502"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> runs the app and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered:</span></span>
+<span data-ttu-id="35be4-502"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>：</span><span class="sxs-lookup"><span data-stu-id="35be4-502"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> runs the app and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered:</span></span>
 
 ```csharp
 public class Program
@@ -799,9 +800,9 @@ public class Program
 }
 ```
 
-### <a name="runconsoleasync"></a><span data-ttu-id="79dae-503">RunConsoleAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-503">RunConsoleAsync</span></span>
+### <a name="runconsoleasync"></a><span data-ttu-id="35be4-503">RunConsoleAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-503">RunConsoleAsync</span></span>
 
-<span data-ttu-id="79dae-504"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 关闭。</span><span class="sxs-lookup"><span data-stu-id="79dae-504"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> enables console support, builds and starts the host, and waits for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM to shut down.</span></span>
+<span data-ttu-id="35be4-504"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 关闭。</span><span class="sxs-lookup"><span data-stu-id="35be4-504"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> enables console support, builds and starts the host, and waits for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM to shut down.</span></span>
 
 ```csharp
 public class Program
@@ -815,11 +816,11 @@ public class Program
 }
 ```
 
-### <a name="start-and-stopasync"></a><span data-ttu-id="79dae-505">Start 和 StopAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-505">Start and StopAsync</span></span>
+### <a name="start-and-stopasync"></a><span data-ttu-id="35be4-505">Start 和 StopAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-505">Start and StopAsync</span></span>
 
-<span data-ttu-id="79dae-506"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> 同步启动主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-506"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> starts the host synchronously.</span></span>
+<span data-ttu-id="35be4-506"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> 同步启动主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-506"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> starts the host synchronously.</span></span>
 
-<span data-ttu-id="79dae-507"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> 尝试在提供的超时时间内停止主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-507"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> attempts to stop the host within the provided timeout.</span></span>
+<span data-ttu-id="35be4-507"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> 尝试在提供的超时时间内停止主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-507"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> attempts to stop the host within the provided timeout.</span></span>
 
 ```csharp
 public class Program
@@ -839,11 +840,11 @@ public class Program
 }
 ```
 
-### <a name="startasync-and-stopasync"></a><span data-ttu-id="79dae-508">StartAsync 和 StopAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-508">StartAsync and StopAsync</span></span>
+### <a name="startasync-and-stopasync"></a><span data-ttu-id="35be4-508">StartAsync 和 StopAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-508">StartAsync and StopAsync</span></span>
 
-<span data-ttu-id="79dae-509"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 启动应用。</span><span class="sxs-lookup"><span data-stu-id="79dae-509"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> starts the app.</span></span>
+<span data-ttu-id="35be4-509"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 启动应用。</span><span class="sxs-lookup"><span data-stu-id="35be4-509"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> starts the app.</span></span>
 
-<span data-ttu-id="79dae-510"><xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 停止应用。</span><span class="sxs-lookup"><span data-stu-id="79dae-510"><xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> stops the app.</span></span>
+<span data-ttu-id="35be4-510"><xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 停止应用。</span><span class="sxs-lookup"><span data-stu-id="35be4-510"><xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> stops the app.</span></span>
 
 ```csharp
 public class Program
@@ -863,9 +864,9 @@ public class Program
 }
 ```
 
-### <a name="waitforshutdown"></a><span data-ttu-id="79dae-511">WaitForShutdown</span><span class="sxs-lookup"><span data-stu-id="79dae-511">WaitForShutdown</span></span>
+### <a name="waitforshutdown"></a><span data-ttu-id="35be4-511">WaitForShutdown</span><span class="sxs-lookup"><span data-stu-id="35be4-511">WaitForShutdown</span></span>
 
-<span data-ttu-id="79dae-512"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 通过 <xref:Microsoft.Extensions.Hosting.IHostLifetime> 触发，例如 `Microsoft.Extensions.Hosting.Internal.ConsoleLifetime`（侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM）。</span><span class="sxs-lookup"><span data-stu-id="79dae-512"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> is triggered via the <xref:Microsoft.Extensions.Hosting.IHostLifetime>, such as `Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` (listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM).</span></span> <span data-ttu-id="79dae-513"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>。</span><span class="sxs-lookup"><span data-stu-id="79dae-513"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
+<span data-ttu-id="35be4-512"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 通过 <xref:Microsoft.Extensions.Hosting.IHostLifetime> 触发，例如 `Microsoft.Extensions.Hosting.Internal.ConsoleLifetime`（侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM）。</span><span class="sxs-lookup"><span data-stu-id="35be4-512"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> is triggered via the <xref:Microsoft.Extensions.Hosting.IHostLifetime>, such as `Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` (listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM).</span></span> <span data-ttu-id="35be4-513"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>。</span><span class="sxs-lookup"><span data-stu-id="35be4-513"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
 
 ```csharp
 public class Program
@@ -885,9 +886,9 @@ public class Program
 }
 ```
 
-### <a name="waitforshutdownasync"></a><span data-ttu-id="79dae-514">WaitForShutdownAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-514">WaitForShutdownAsync</span></span>
+### <a name="waitforshutdownasync"></a><span data-ttu-id="35be4-514">WaitForShutdownAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-514">WaitForShutdownAsync</span></span>
 
-<span data-ttu-id="79dae-515"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="79dae-515"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> returns a <xref:System.Threading.Tasks.Task> that completes when shutdown is triggered via the given token and calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
+<span data-ttu-id="35be4-515"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="35be4-515"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> returns a <xref:System.Threading.Tasks.Task> that completes when shutdown is triggered via the given token and calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
 
 ```csharp
 public class Program
@@ -908,9 +909,9 @@ public class Program
 }
 ```
 
-### <a name="external-control"></a><span data-ttu-id="79dae-516">外部控件</span><span class="sxs-lookup"><span data-stu-id="79dae-516">External control</span></span>
+### <a name="external-control"></a><span data-ttu-id="35be4-516">外部控件</span><span class="sxs-lookup"><span data-stu-id="35be4-516">External control</span></span>
 
-<span data-ttu-id="79dae-517">使用可从外部调用的方法，能够实现主机的外部控件：</span><span class="sxs-lookup"><span data-stu-id="79dae-517">External control of the host can be achieved using methods that can be called externally:</span></span>
+<span data-ttu-id="35be4-517">使用可从外部调用的方法，能够实现主机的外部控件：</span><span class="sxs-lookup"><span data-stu-id="35be4-517">External control of the host can be achieved using methods that can be called externally:</span></span>
 
 ```csharp
 public class Program
@@ -938,11 +939,11 @@ public class Program
 }
 ```
 
-<span data-ttu-id="79dae-518">在 <xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 开始时调用 <xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*>，在继续之前，会一直等待该操作完成。</span><span class="sxs-lookup"><span data-stu-id="79dae-518"><xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*> is called at the start of <xref:Microsoft.Extensions.Hosting.IHost.StartAsync*>, which waits until it's complete before continuing.</span></span> <span data-ttu-id="79dae-519">它可用于延迟启动，直到外部事件发出信号。</span><span class="sxs-lookup"><span data-stu-id="79dae-519">This can be used to delay startup until signaled by an external event.</span></span>
+<span data-ttu-id="35be4-518">在 <xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 开始时调用 <xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*>，在继续之前，会一直等待该操作完成。</span><span class="sxs-lookup"><span data-stu-id="35be4-518"><xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*> is called at the start of <xref:Microsoft.Extensions.Hosting.IHost.StartAsync*>, which waits until it's complete before continuing.</span></span> <span data-ttu-id="35be4-519">它可用于延迟启动，直到外部事件发出信号。</span><span class="sxs-lookup"><span data-stu-id="35be4-519">This can be used to delay startup until signaled by an external event.</span></span>
 
-## <a name="ihostingenvironment-interface"></a><span data-ttu-id="79dae-520">IHostingEnvironment 接口</span><span class="sxs-lookup"><span data-stu-id="79dae-520">IHostingEnvironment interface</span></span>
+## <a name="ihostingenvironment-interface"></a><span data-ttu-id="35be4-520">IHostingEnvironment 接口</span><span class="sxs-lookup"><span data-stu-id="35be4-520">IHostingEnvironment interface</span></span>
 
-<span data-ttu-id="79dae-521"><xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 提供有关应用托管环境的信息。</span><span class="sxs-lookup"><span data-stu-id="79dae-521"><xref:Microsoft.Extensions.Hosting.IHostingEnvironment> provides information about the app's hosting environment.</span></span> <span data-ttu-id="79dae-522">使用[构造函数注入](xref:fundamentals/dependency-injection)获取 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 以使用其属性和扩展方法：</span><span class="sxs-lookup"><span data-stu-id="79dae-522">Use [constructor injection](xref:fundamentals/dependency-injection) to obtain the <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> in order to use its properties and extension methods:</span></span>
+<span data-ttu-id="35be4-521"><xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 提供有关应用托管环境的信息。</span><span class="sxs-lookup"><span data-stu-id="35be4-521"><xref:Microsoft.Extensions.Hosting.IHostingEnvironment> provides information about the app's hosting environment.</span></span> <span data-ttu-id="35be4-522">使用[构造函数注入](xref:fundamentals/dependency-injection)获取 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 以使用其属性和扩展方法：</span><span class="sxs-lookup"><span data-stu-id="35be4-522">Use [constructor injection](xref:fundamentals/dependency-injection) to obtain the <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> in order to use its properties and extension methods:</span></span>
 
 ```csharp
 public class MyClass
@@ -961,25 +962,25 @@ public class MyClass
 }
 ```
 
-<span data-ttu-id="79dae-523">有关详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="79dae-523">For more information, see <xref:fundamentals/environments>.</span></span>
+<span data-ttu-id="35be4-523">有关详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="35be4-523">For more information, see <xref:fundamentals/environments>.</span></span>
 
-## <a name="iapplicationlifetime-interface"></a><span data-ttu-id="79dae-524">IApplicationLifetime 接口</span><span class="sxs-lookup"><span data-stu-id="79dae-524">IApplicationLifetime interface</span></span>
+## <a name="iapplicationlifetime-interface"></a><span data-ttu-id="35be4-524">IApplicationLifetime 接口</span><span class="sxs-lookup"><span data-stu-id="35be4-524">IApplicationLifetime interface</span></span>
 
-<span data-ttu-id="79dae-525"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 允许启动后和关闭活动，包括正常关闭请求。</span><span class="sxs-lookup"><span data-stu-id="79dae-525"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> allows for post-startup and shutdown activities, including graceful shutdown requests.</span></span> <span data-ttu-id="79dae-526">接口上的三个属性是用于注册 <xref:System.Action> 方法（用于定义启动和关闭事件）的取消标记。</span><span class="sxs-lookup"><span data-stu-id="79dae-526">Three properties on the interface are cancellation tokens used to register <xref:System.Action> methods that define startup and shutdown events.</span></span>
+<span data-ttu-id="35be4-525"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 允许启动后和关闭活动，包括正常关闭请求。</span><span class="sxs-lookup"><span data-stu-id="35be4-525"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime> allows for post-startup and shutdown activities, including graceful shutdown requests.</span></span> <span data-ttu-id="35be4-526">接口上的三个属性是用于注册 <xref:System.Action> 方法（用于定义启动和关闭事件）的取消标记。</span><span class="sxs-lookup"><span data-stu-id="35be4-526">Three properties on the interface are cancellation tokens used to register <xref:System.Action> methods that define startup and shutdown events.</span></span>
 
-| <span data-ttu-id="79dae-527">取消标记</span><span class="sxs-lookup"><span data-stu-id="79dae-527">Cancellation Token</span></span> | <span data-ttu-id="79dae-528">触发条件</span><span class="sxs-lookup"><span data-stu-id="79dae-528">Triggered when&#8230;</span></span> |
+| <span data-ttu-id="35be4-527">取消标记</span><span class="sxs-lookup"><span data-stu-id="35be4-527">Cancellation Token</span></span> | <span data-ttu-id="35be4-528">触发条件</span><span class="sxs-lookup"><span data-stu-id="35be4-528">Triggered when&#8230;</span></span> |
 | ------------------ | --------------------- |
-| <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStarted*> | <span data-ttu-id="79dae-529">主机已完全启动。</span><span class="sxs-lookup"><span data-stu-id="79dae-529">The host has fully started.</span></span> |
-| <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopped*> | <span data-ttu-id="79dae-530">主机正在完成正常关闭。</span><span class="sxs-lookup"><span data-stu-id="79dae-530">The host is completing a graceful shutdown.</span></span> <span data-ttu-id="79dae-531">应处理所有请求。</span><span class="sxs-lookup"><span data-stu-id="79dae-531">All requests should be processed.</span></span> <span data-ttu-id="79dae-532">关闭受到阻止，直到完成此事件。</span><span class="sxs-lookup"><span data-stu-id="79dae-532">Shutdown blocks until this event completes.</span></span> |
-| <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopping*> | <span data-ttu-id="79dae-533">主机正在执行正常关闭。</span><span class="sxs-lookup"><span data-stu-id="79dae-533">The host is performing a graceful shutdown.</span></span> <span data-ttu-id="79dae-534">仍在处理请求。</span><span class="sxs-lookup"><span data-stu-id="79dae-534">Requests may still be processing.</span></span> <span data-ttu-id="79dae-535">关闭受到阻止，直到完成此事件。</span><span class="sxs-lookup"><span data-stu-id="79dae-535">Shutdown blocks until this event completes.</span></span> |
+| <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStarted*> | <span data-ttu-id="35be4-529">主机已完全启动。</span><span class="sxs-lookup"><span data-stu-id="35be4-529">The host has fully started.</span></span> |
+| <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopped*> | <span data-ttu-id="35be4-530">主机正在完成正常关闭。</span><span class="sxs-lookup"><span data-stu-id="35be4-530">The host is completing a graceful shutdown.</span></span> <span data-ttu-id="35be4-531">应处理所有请求。</span><span class="sxs-lookup"><span data-stu-id="35be4-531">All requests should be processed.</span></span> <span data-ttu-id="35be4-532">关闭受到阻止，直到完成此事件。</span><span class="sxs-lookup"><span data-stu-id="35be4-532">Shutdown blocks until this event completes.</span></span> |
+| <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopping*> | <span data-ttu-id="35be4-533">主机正在执行正常关闭。</span><span class="sxs-lookup"><span data-stu-id="35be4-533">The host is performing a graceful shutdown.</span></span> <span data-ttu-id="35be4-534">仍在处理请求。</span><span class="sxs-lookup"><span data-stu-id="35be4-534">Requests may still be processing.</span></span> <span data-ttu-id="35be4-535">关闭受到阻止，直到完成此事件。</span><span class="sxs-lookup"><span data-stu-id="35be4-535">Shutdown blocks until this event completes.</span></span> |
 
-<span data-ttu-id="79dae-536">构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。</span><span class="sxs-lookup"><span data-stu-id="79dae-536">Constructor-inject the <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> service into any class.</span></span> <span data-ttu-id="79dae-537">[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。</span><span class="sxs-lookup"><span data-stu-id="79dae-537">The [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) uses constructor injection into a `LifetimeEventsHostedService` class (an <xref:Microsoft.Extensions.Hosting.IHostedService> implementation) to register the events.</span></span>
+<span data-ttu-id="35be4-536">构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。</span><span class="sxs-lookup"><span data-stu-id="35be4-536">Constructor-inject the <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> service into any class.</span></span> <span data-ttu-id="35be4-537">[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。</span><span class="sxs-lookup"><span data-stu-id="35be4-537">The [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) uses constructor injection into a `LifetimeEventsHostedService` class (an <xref:Microsoft.Extensions.Hosting.IHostedService> implementation) to register the events.</span></span>
 
-<span data-ttu-id="79dae-538">LifetimeEventsHostedService.cs：</span><span class="sxs-lookup"><span data-stu-id="79dae-538">*LifetimeEventsHostedService.cs*:</span></span>
+<span data-ttu-id="35be4-538">LifetimeEventsHostedService.cs：</span><span class="sxs-lookup"><span data-stu-id="35be4-538">*LifetimeEventsHostedService.cs*:</span></span>
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/LifetimeEventsHostedService.cs?name=snippet1)]
 
-<span data-ttu-id="79dae-539"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 请求终止应用。</span><span class="sxs-lookup"><span data-stu-id="79dae-539"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> requests termination of the app.</span></span> <span data-ttu-id="79dae-540">以下类在调用类的 `Shutdown` 方法时使用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 正常关闭应用：</span><span class="sxs-lookup"><span data-stu-id="79dae-540">The following class uses <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> to gracefully shut down an app when the class's `Shutdown` method is called:</span></span>
+<span data-ttu-id="35be4-539"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 请求终止应用。</span><span class="sxs-lookup"><span data-stu-id="35be4-539"><xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> requests termination of the app.</span></span> <span data-ttu-id="35be4-540">以下类在调用类的 `Shutdown` 方法时使用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 正常关闭应用：</span><span class="sxs-lookup"><span data-stu-id="35be4-540">The following class uses <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> to gracefully shut down an app when the class's `Shutdown` method is called:</span></span>
 
 ```csharp
 public class MyClass
@@ -1002,29 +1003,29 @@ public class MyClass
 
 ::: moniker range=">= aspnetcore-5.0"
 
-<span data-ttu-id="79dae-541">ASP.NET Core 模板会创建一个 .NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)。</span><span class="sxs-lookup"><span data-stu-id="79dae-541">The ASP.NET Core templates create a .NET Core Generic Host (<xref:Microsoft.Extensions.Hosting.HostBuilder>).</span></span>
+<span data-ttu-id="35be4-541">ASP.NET Core 模板会创建一个 .NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)。</span><span class="sxs-lookup"><span data-stu-id="35be4-541">The ASP.NET Core templates create a .NET Core Generic Host (<xref:Microsoft.Extensions.Hosting.HostBuilder>).</span></span>
 
-## <a name="host-definition"></a><span data-ttu-id="79dae-542">主机定义</span><span class="sxs-lookup"><span data-stu-id="79dae-542">Host definition</span></span>
+## <a name="host-definition"></a><span data-ttu-id="35be4-542">主机定义</span><span class="sxs-lookup"><span data-stu-id="35be4-542">Host definition</span></span>
 
-<span data-ttu-id="79dae-543">主机是封装应用资源的对象，例如：</span><span class="sxs-lookup"><span data-stu-id="79dae-543">A *host* is an object that encapsulates an app's resources, such as:</span></span>
+<span data-ttu-id="35be4-543">主机是封装应用资源的对象，例如：</span><span class="sxs-lookup"><span data-stu-id="35be4-543">A *host* is an object that encapsulates an app's resources, such as:</span></span>
 
-* <span data-ttu-id="79dae-544">依赖关系注入 (DI)</span><span class="sxs-lookup"><span data-stu-id="79dae-544">Dependency injection (DI)</span></span>
-* <span data-ttu-id="79dae-545">Logging</span><span class="sxs-lookup"><span data-stu-id="79dae-545">Logging</span></span>
-* <span data-ttu-id="79dae-546">Configuration</span><span class="sxs-lookup"><span data-stu-id="79dae-546">Configuration</span></span>
-* <span data-ttu-id="79dae-547">`IHostedService` 实现</span><span class="sxs-lookup"><span data-stu-id="79dae-547">`IHostedService` implementations</span></span>
+* <span data-ttu-id="35be4-544">依赖关系注入 (DI)</span><span class="sxs-lookup"><span data-stu-id="35be4-544">Dependency injection (DI)</span></span>
+* <span data-ttu-id="35be4-545">Logging</span><span class="sxs-lookup"><span data-stu-id="35be4-545">Logging</span></span>
+* <span data-ttu-id="35be4-546">Configuration</span><span class="sxs-lookup"><span data-stu-id="35be4-546">Configuration</span></span>
+* <span data-ttu-id="35be4-547">`IHostedService` 实现</span><span class="sxs-lookup"><span data-stu-id="35be4-547">`IHostedService` implementations</span></span>
 
-<span data-ttu-id="79dae-548">当主机启动时，它将对在托管服务的服务容器集合中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的每个实现调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="79dae-548">When a host starts, it calls <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType> on each implementation of <xref:Microsoft.Extensions.Hosting.IHostedService> registered in the service container's collection of hosted services.</span></span> <span data-ttu-id="79dae-549">在 web 应用中，其中一个 `IHostedService` 实现是启动 [HTTP 服务器实现](xref:fundamentals/index#servers)的 web 服务。</span><span class="sxs-lookup"><span data-stu-id="79dae-549">In a web app, one of the `IHostedService` implementations is a web service that starts an [HTTP server implementation](xref:fundamentals/index#servers).</span></span>
+<span data-ttu-id="35be4-548">当主机启动时，它将对在托管服务的服务容器集合中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的每个实现调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="35be4-548">When a host starts, it calls <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType> on each implementation of <xref:Microsoft.Extensions.Hosting.IHostedService> registered in the service container's collection of hosted services.</span></span> <span data-ttu-id="35be4-549">在 web 应用中，其中一个 `IHostedService` 实现是启动 [HTTP 服务器实现](xref:fundamentals/index#servers)的 web 服务。</span><span class="sxs-lookup"><span data-stu-id="35be4-549">In a web app, one of the `IHostedService` implementations is a web service that starts an [HTTP server implementation](xref:fundamentals/index#servers).</span></span>
 
-<span data-ttu-id="79dae-550">一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。</span><span class="sxs-lookup"><span data-stu-id="79dae-550">The main reason for including all of the app's interdependent resources in one object is lifetime management: control over app startup and graceful shutdown.</span></span>
+<span data-ttu-id="35be4-550">一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。</span><span class="sxs-lookup"><span data-stu-id="35be4-550">The main reason for including all of the app's interdependent resources in one object is lifetime management: control over app startup and graceful shutdown.</span></span>
 
-## <a name="set-up-a-host"></a><span data-ttu-id="79dae-551">设置主机</span><span class="sxs-lookup"><span data-stu-id="79dae-551">Set up a host</span></span>
+## <a name="set-up-a-host"></a><span data-ttu-id="35be4-551">设置主机</span><span class="sxs-lookup"><span data-stu-id="35be4-551">Set up a host</span></span>
 
-<span data-ttu-id="79dae-552">主机通常由 `Program` 类中的代码配置、生成和运行。</span><span class="sxs-lookup"><span data-stu-id="79dae-552">The host is typically configured, built, and run by code in the `Program` class.</span></span> <span data-ttu-id="79dae-553">`Main` 方法：</span><span class="sxs-lookup"><span data-stu-id="79dae-553">The `Main` method:</span></span>
+<span data-ttu-id="35be4-552">主机通常由 `Program` 类中的代码配置、生成和运行。</span><span class="sxs-lookup"><span data-stu-id="35be4-552">The host is typically configured, built, and run by code in the `Program` class.</span></span> <span data-ttu-id="35be4-553">`Main` 方法：</span><span class="sxs-lookup"><span data-stu-id="35be4-553">The `Main` method:</span></span>
 
-* <span data-ttu-id="79dae-554">调用 `CreateHostBuilder` 方法以创建和配置生成器对象。</span><span class="sxs-lookup"><span data-stu-id="79dae-554">Calls a `CreateHostBuilder` method to create and configure a builder object.</span></span>
-* <span data-ttu-id="79dae-555">对生成器对象调用 `Build` 和 `Run` 方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-555">Calls `Build` and `Run` methods on the builder object.</span></span>
+* <span data-ttu-id="35be4-554">调用 `CreateHostBuilder` 方法以创建和配置生成器对象。</span><span class="sxs-lookup"><span data-stu-id="35be4-554">Calls a `CreateHostBuilder` method to create and configure a builder object.</span></span>
+* <span data-ttu-id="35be4-555">对生成器对象调用 `Build` 和 `Run` 方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-555">Calls `Build` and `Run` methods on the builder object.</span></span>
 
-<span data-ttu-id="79dae-556">ASP.NET Core Web 模板会生成以下代码来创建一个主机：</span><span class="sxs-lookup"><span data-stu-id="79dae-556">The ASP.NET Core web templates generate the following code to create a host:</span></span>
+<span data-ttu-id="35be4-556">ASP.NET Core Web 模板会生成以下代码来创建一个主机：</span><span class="sxs-lookup"><span data-stu-id="35be4-556">The ASP.NET Core web templates generate the following code to create a host:</span></span>
 
 ```csharp
 public class Program
@@ -1043,7 +1044,7 @@ public class Program
 }
 ```
 
-<span data-ttu-id="79dae-557">以下代码会使用添加到 DI 容器中的 `IHostedService` 实现创建一个非 HTTP 工作负载。</span><span class="sxs-lookup"><span data-stu-id="79dae-557">The following code creates a non-HTTP workload with a `IHostedService` implementation added to the DI container.</span></span>
+<span data-ttu-id="35be4-557">以下代码会使用添加到 DI 容器中的 `IHostedService` 实现创建一个非 HTTP 工作负载。</span><span class="sxs-lookup"><span data-stu-id="35be4-557">The following code creates a non-HTTP workload with a `IHostedService` implementation added to the DI container.</span></span>
 
 ```csharp
 public class Program
@@ -1062,7 +1063,7 @@ public class Program
 }
 ```
 
-<span data-ttu-id="79dae-558">对于 HTTP 工作负荷，`Main` 方法相同，但 `CreateHostBuilder` 调用 `ConfigureWebHostDefaults`：</span><span class="sxs-lookup"><span data-stu-id="79dae-558">For an HTTP workload, the `Main` method is the same but `CreateHostBuilder` calls `ConfigureWebHostDefaults`:</span></span>
+<span data-ttu-id="35be4-558">对于 HTTP 工作负荷，`Main` 方法相同，但 `CreateHostBuilder` 调用 `ConfigureWebHostDefaults`：</span><span class="sxs-lookup"><span data-stu-id="35be4-558">For an HTTP workload, the `Main` method is the same but `CreateHostBuilder` calls `ConfigureWebHostDefaults`:</span></span>
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -1073,125 +1074,125 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-<span data-ttu-id="79dae-559">如果应用使用 Entity Framework Core，不要更改 `CreateHostBuilder` 方法的名称或签名。</span><span class="sxs-lookup"><span data-stu-id="79dae-559">If the app uses Entity Framework Core, don't change the name or signature of the `CreateHostBuilder` method.</span></span> <span data-ttu-id="79dae-560">[Entity Framework Core 工具](/ef/core/miscellaneous/cli/)应查找一个无需运行应用即可配置主机的 `CreateHostBuilder` 方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-560">The [Entity Framework Core tools](/ef/core/miscellaneous/cli/) expect to find a `CreateHostBuilder` method that configures the host without running the app.</span></span> <span data-ttu-id="79dae-561">有关详细信息，请参阅[设计时 DbContext 创建](/ef/core/miscellaneous/cli/dbcontext-creation)。</span><span class="sxs-lookup"><span data-stu-id="79dae-561">For more information, see [Design-time DbContext Creation](/ef/core/miscellaneous/cli/dbcontext-creation).</span></span>
+<span data-ttu-id="35be4-559">如果应用使用 Entity Framework Core，不要更改 `CreateHostBuilder` 方法的名称或签名。</span><span class="sxs-lookup"><span data-stu-id="35be4-559">If the app uses Entity Framework Core, don't change the name or signature of the `CreateHostBuilder` method.</span></span> <span data-ttu-id="35be4-560">[Entity Framework Core 工具](/ef/core/miscellaneous/cli/)应查找一个无需运行应用即可配置主机的 `CreateHostBuilder` 方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-560">The [Entity Framework Core tools](/ef/core/miscellaneous/cli/) expect to find a `CreateHostBuilder` method that configures the host without running the app.</span></span> <span data-ttu-id="35be4-561">有关详细信息，请参阅[设计时 DbContext 创建](/ef/core/miscellaneous/cli/dbcontext-creation)。</span><span class="sxs-lookup"><span data-stu-id="35be4-561">For more information, see [Design-time DbContext Creation](/ef/core/miscellaneous/cli/dbcontext-creation).</span></span>
 
-## <a name="default-builder-settings"></a><span data-ttu-id="79dae-562">默认生成器设置</span><span class="sxs-lookup"><span data-stu-id="79dae-562">Default builder settings</span></span>
+## <a name="default-builder-settings"></a><span data-ttu-id="35be4-562">默认生成器设置</span><span class="sxs-lookup"><span data-stu-id="35be4-562">Default builder settings</span></span>
 
-<span data-ttu-id="79dae-563"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 方法：</span><span class="sxs-lookup"><span data-stu-id="79dae-563">The <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> method:</span></span>
+<span data-ttu-id="35be4-563"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 方法：</span><span class="sxs-lookup"><span data-stu-id="35be4-563">The <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> method:</span></span>
 
-* <span data-ttu-id="79dae-564">将[内容根目录](xref:fundamentals/index#content-root)设置为由 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的路径。</span><span class="sxs-lookup"><span data-stu-id="79dae-564">Sets the [content root](xref:fundamentals/index#content-root) to the path returned by <xref:System.IO.Directory.GetCurrentDirectory*>.</span></span>
-* <span data-ttu-id="79dae-565">通过以下项加载主机配置：</span><span class="sxs-lookup"><span data-stu-id="79dae-565">Loads host configuration from:</span></span>
-  * <span data-ttu-id="79dae-566">前缀为 `DOTNET_` 的环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-566">Environment variables prefixed with `DOTNET_`.</span></span>
-  * <span data-ttu-id="79dae-567">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="79dae-567">Command-line arguments.</span></span>
-* <span data-ttu-id="79dae-568">通过以下对象加载应用配置：</span><span class="sxs-lookup"><span data-stu-id="79dae-568">Loads app configuration from:</span></span>
-  * <span data-ttu-id="79dae-569">appsettings.json。</span><span class="sxs-lookup"><span data-stu-id="79dae-569">*appsettings.json*.</span></span>
-  * <span data-ttu-id="79dae-570">appsettings.{Environment}.json。</span><span class="sxs-lookup"><span data-stu-id="79dae-570">*appsettings.{Environment}.json*.</span></span>
-  * <span data-ttu-id="79dae-571">[密钥管理器](xref:security/app-secrets) 当应用在 `Development` 环境中运行时。</span><span class="sxs-lookup"><span data-stu-id="79dae-571">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
-  * <span data-ttu-id="79dae-572">环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-572">Environment variables.</span></span>
-  * <span data-ttu-id="79dae-573">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="79dae-573">Command-line arguments.</span></span>
-* <span data-ttu-id="79dae-574">添加以下[日志记录](xref:fundamentals/logging/index)提供程序：</span><span class="sxs-lookup"><span data-stu-id="79dae-574">Adds the following [logging](xref:fundamentals/logging/index) providers:</span></span>
-  * <span data-ttu-id="79dae-575">控制台</span><span class="sxs-lookup"><span data-stu-id="79dae-575">Console</span></span>
-  * <span data-ttu-id="79dae-576">调试</span><span class="sxs-lookup"><span data-stu-id="79dae-576">Debug</span></span>
-  * <span data-ttu-id="79dae-577">EventSource</span><span class="sxs-lookup"><span data-stu-id="79dae-577">EventSource</span></span>
-  * <span data-ttu-id="79dae-578">EventLog（仅当在 Windows 上运行时）</span><span class="sxs-lookup"><span data-stu-id="79dae-578">EventLog (only when running on Windows)</span></span>
-* <span data-ttu-id="79dae-579">当环境为“开发”时，启用[范围验证](xref:fundamentals/dependency-injection#scope-validation)和[依赖关系验证](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild)。</span><span class="sxs-lookup"><span data-stu-id="79dae-579">Enables [scope validation](xref:fundamentals/dependency-injection#scope-validation) and [dependency validation](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild) when the environment is Development.</span></span>
+* <span data-ttu-id="35be4-564">将[内容根目录](xref:fundamentals/index#content-root)设置为由 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的路径。</span><span class="sxs-lookup"><span data-stu-id="35be4-564">Sets the [content root](xref:fundamentals/index#content-root) to the path returned by <xref:System.IO.Directory.GetCurrentDirectory*>.</span></span>
+* <span data-ttu-id="35be4-565">通过以下项加载主机配置：</span><span class="sxs-lookup"><span data-stu-id="35be4-565">Loads host configuration from:</span></span>
+  * <span data-ttu-id="35be4-566">前缀为 `DOTNET_` 的环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-566">Environment variables prefixed with `DOTNET_`.</span></span>
+  * <span data-ttu-id="35be4-567">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="35be4-567">Command-line arguments.</span></span>
+* <span data-ttu-id="35be4-568">通过以下对象加载应用配置：</span><span class="sxs-lookup"><span data-stu-id="35be4-568">Loads app configuration from:</span></span>
+  * <span data-ttu-id="35be4-569">appsettings.json。</span><span class="sxs-lookup"><span data-stu-id="35be4-569">*appsettings.json*.</span></span>
+  * <span data-ttu-id="35be4-570">appsettings.{Environment}.json。</span><span class="sxs-lookup"><span data-stu-id="35be4-570">*appsettings.{Environment}.json*.</span></span>
+  * <span data-ttu-id="35be4-571">[密钥管理器](xref:security/app-secrets) 当应用在 `Development` 环境中运行时。</span><span class="sxs-lookup"><span data-stu-id="35be4-571">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
+  * <span data-ttu-id="35be4-572">环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-572">Environment variables.</span></span>
+  * <span data-ttu-id="35be4-573">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="35be4-573">Command-line arguments.</span></span>
+* <span data-ttu-id="35be4-574">添加以下[日志记录](xref:fundamentals/logging/index)提供程序：</span><span class="sxs-lookup"><span data-stu-id="35be4-574">Adds the following [logging](xref:fundamentals/logging/index) providers:</span></span>
+  * <span data-ttu-id="35be4-575">控制台</span><span class="sxs-lookup"><span data-stu-id="35be4-575">Console</span></span>
+  * <span data-ttu-id="35be4-576">调试</span><span class="sxs-lookup"><span data-stu-id="35be4-576">Debug</span></span>
+  * <span data-ttu-id="35be4-577">EventSource</span><span class="sxs-lookup"><span data-stu-id="35be4-577">EventSource</span></span>
+  * <span data-ttu-id="35be4-578">EventLog（仅当在 Windows 上运行时）</span><span class="sxs-lookup"><span data-stu-id="35be4-578">EventLog (only when running on Windows)</span></span>
+* <span data-ttu-id="35be4-579">当环境为“开发”时，启用[范围验证](xref:fundamentals/dependency-injection#scope-validation)和[依赖关系验证](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild)。</span><span class="sxs-lookup"><span data-stu-id="35be4-579">Enables [scope validation](xref:fundamentals/dependency-injection#scope-validation) and [dependency validation](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild) when the environment is Development.</span></span>
 
-<span data-ttu-id="79dae-580">`ConfigureWebHostDefaults` 方法：</span><span class="sxs-lookup"><span data-stu-id="79dae-580">The `ConfigureWebHostDefaults` method:</span></span>
+<span data-ttu-id="35be4-580">`ConfigureWebHostDefaults` 方法：</span><span class="sxs-lookup"><span data-stu-id="35be4-580">The `ConfigureWebHostDefaults` method:</span></span>
 
-* <span data-ttu-id="79dae-581">从前缀为 `ASPNETCORE_` 的环境变量加载主机配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-581">Loads host configuration from environment variables prefixed with `ASPNETCORE_`.</span></span>
-* <span data-ttu-id="79dae-582">使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-582">Sets [Kestrel](xref:fundamentals/servers/kestrel) server as the web server and configures it using the app's hosting configuration providers.</span></span> <span data-ttu-id="79dae-583">有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel#kestrel-options>。</span><span class="sxs-lookup"><span data-stu-id="79dae-583">For the Kestrel server's default options, see <xref:fundamentals/servers/kestrel#kestrel-options>.</span></span>
-* <span data-ttu-id="79dae-584">添加[主机筛选中间件](xref:fundamentals/servers/kestrel#host-filtering)。</span><span class="sxs-lookup"><span data-stu-id="79dae-584">Adds [Host Filtering middleware](xref:fundamentals/servers/kestrel#host-filtering).</span></span>
-* <span data-ttu-id="79dae-585">如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 等于 `true`，则添加[转接头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers)。</span><span class="sxs-lookup"><span data-stu-id="79dae-585">Adds [Forwarded Headers middleware](xref:host-and-deploy/proxy-load-balancer#forwarded-headers) if `ASPNETCORE_FORWARDEDHEADERS_ENABLED` equals `true`.</span></span>
-* <span data-ttu-id="79dae-586">支持 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="79dae-586">Enables IIS integration.</span></span> <span data-ttu-id="79dae-587">有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。</span><span class="sxs-lookup"><span data-stu-id="79dae-587">For the IIS default options, see <xref:host-and-deploy/iis/index#iis-options>.</span></span>
+* <span data-ttu-id="35be4-581">从前缀为 `ASPNETCORE_` 的环境变量加载主机配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-581">Loads host configuration from environment variables prefixed with `ASPNETCORE_`.</span></span>
+* <span data-ttu-id="35be4-582">使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-582">Sets [Kestrel](xref:fundamentals/servers/kestrel) server as the web server and configures it using the app's hosting configuration providers.</span></span> <span data-ttu-id="35be4-583">有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel#kestrel-options>。</span><span class="sxs-lookup"><span data-stu-id="35be4-583">For the Kestrel server's default options, see <xref:fundamentals/servers/kestrel#kestrel-options>.</span></span>
+* <span data-ttu-id="35be4-584">添加[主机筛选中间件](xref:fundamentals/servers/kestrel#host-filtering)。</span><span class="sxs-lookup"><span data-stu-id="35be4-584">Adds [Host Filtering middleware](xref:fundamentals/servers/kestrel#host-filtering).</span></span>
+* <span data-ttu-id="35be4-585">如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 等于 `true`，则添加[转接头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers)。</span><span class="sxs-lookup"><span data-stu-id="35be4-585">Adds [Forwarded Headers middleware](xref:host-and-deploy/proxy-load-balancer#forwarded-headers) if `ASPNETCORE_FORWARDEDHEADERS_ENABLED` equals `true`.</span></span>
+* <span data-ttu-id="35be4-586">支持 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="35be4-586">Enables IIS integration.</span></span> <span data-ttu-id="35be4-587">有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。</span><span class="sxs-lookup"><span data-stu-id="35be4-587">For the IIS default options, see <xref:host-and-deploy/iis/index#iis-options>.</span></span>
 
-<span data-ttu-id="79dae-588">本文中后面的[所有应用类型的设置](#settings-for-all-app-types)和[ web 应用的设置](#settings-for-web-apps)部分介绍如何替代默认生成器设置。</span><span class="sxs-lookup"><span data-stu-id="79dae-588">The [Settings for all app types](#settings-for-all-app-types) and [Settings for web apps](#settings-for-web-apps) sections later in this article show how to override default builder settings.</span></span>
+<span data-ttu-id="35be4-588">本文中后面的[所有应用类型的设置](#settings-for-all-app-types)和[ web 应用的设置](#settings-for-web-apps)部分介绍如何替代默认生成器设置。</span><span class="sxs-lookup"><span data-stu-id="35be4-588">The [Settings for all app types](#settings-for-all-app-types) and [Settings for web apps](#settings-for-web-apps) sections later in this article show how to override default builder settings.</span></span>
 
-## <a name="framework-provided-services"></a><span data-ttu-id="79dae-589">框架提供的服务</span><span class="sxs-lookup"><span data-stu-id="79dae-589">Framework-provided services</span></span>
+## <a name="framework-provided-services"></a><span data-ttu-id="35be4-589">框架提供的服务</span><span class="sxs-lookup"><span data-stu-id="35be4-589">Framework-provided services</span></span>
 
-<span data-ttu-id="79dae-590">自动注册以下服务：</span><span class="sxs-lookup"><span data-stu-id="79dae-590">The following services are registered automatically:</span></span>
+<span data-ttu-id="35be4-590">自动注册以下服务：</span><span class="sxs-lookup"><span data-stu-id="35be4-590">The following services are registered automatically:</span></span>
 
-* [<span data-ttu-id="79dae-591">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-591">IHostApplicationLifetime</span></span>](#ihostapplicationlifetime)
-* [<span data-ttu-id="79dae-592">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-592">IHostLifetime</span></span>](#ihostlifetime)
-* [<span data-ttu-id="79dae-593">IHostEnvironment / IWebHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="79dae-593">IHostEnvironment / IWebHostEnvironment</span></span>](#ihostenvironment)
+* [<span data-ttu-id="35be4-591">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-591">IHostApplicationLifetime</span></span>](#ihostapplicationlifetime)
+* [<span data-ttu-id="35be4-592">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-592">IHostLifetime</span></span>](#ihostlifetime)
+* [<span data-ttu-id="35be4-593">IHostEnvironment / IWebHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="35be4-593">IHostEnvironment / IWebHostEnvironment</span></span>](#ihostenvironment)
 
-<span data-ttu-id="79dae-594">有关框架提供的服务的详细信息，请参阅 <xref:fundamentals/dependency-injection#framework-provided-services>。</span><span class="sxs-lookup"><span data-stu-id="79dae-594">For more information on framework-provided services, see <xref:fundamentals/dependency-injection#framework-provided-services>.</span></span>
+<span data-ttu-id="35be4-594">有关框架提供的服务的详细信息，请参阅 <xref:fundamentals/dependency-injection#framework-provided-services>。</span><span class="sxs-lookup"><span data-stu-id="35be4-594">For more information on framework-provided services, see <xref:fundamentals/dependency-injection#framework-provided-services>.</span></span>
 
-## <a name="ihostapplicationlifetime"></a><span data-ttu-id="79dae-595">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-595">IHostApplicationLifetime</span></span>
+## <a name="ihostapplicationlifetime"></a><span data-ttu-id="35be4-595">IHostApplicationLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-595">IHostApplicationLifetime</span></span>
 
-<span data-ttu-id="79dae-596">将 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime>（以前称为 `IApplicationLifetime`）服务注入任何类以处理启动后和正常关闭任务。</span><span class="sxs-lookup"><span data-stu-id="79dae-596">Inject the <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> (formerly `IApplicationLifetime`) service into any class to handle post-startup and graceful shutdown tasks.</span></span> <span data-ttu-id="79dae-597">接口上的三个属性是用于注册应用启动和应用停止事件处理程序方法的取消令牌。</span><span class="sxs-lookup"><span data-stu-id="79dae-597">Three properties on the interface are cancellation tokens used to register app start and app stop event handler methods.</span></span> <span data-ttu-id="79dae-598">该接口还包括 `StopApplication` 方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-598">The interface also includes a `StopApplication` method.</span></span>
+<span data-ttu-id="35be4-596">将 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime>（以前称为 `IApplicationLifetime`）服务注入任何类以处理启动后和正常关闭任务。</span><span class="sxs-lookup"><span data-stu-id="35be4-596">Inject the <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> (formerly `IApplicationLifetime`) service into any class to handle post-startup and graceful shutdown tasks.</span></span> <span data-ttu-id="35be4-597">接口上的三个属性是用于注册应用启动和应用停止事件处理程序方法的取消令牌。</span><span class="sxs-lookup"><span data-stu-id="35be4-597">Three properties on the interface are cancellation tokens used to register app start and app stop event handler methods.</span></span> <span data-ttu-id="35be4-598">该接口还包括 `StopApplication` 方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-598">The interface also includes a `StopApplication` method.</span></span>
 
-<span data-ttu-id="79dae-599">以下示例是注册 `IHostApplicationLifetime` 事件的 `IHostedService` 实现：</span><span class="sxs-lookup"><span data-stu-id="79dae-599">The following example is an `IHostedService` implementation that registers `IHostApplicationLifetime` events:</span></span>
+<span data-ttu-id="35be4-599">以下示例是注册 `IHostApplicationLifetime` 事件的 `IHostedService` 实现：</span><span class="sxs-lookup"><span data-stu-id="35be4-599">The following example is an `IHostedService` implementation that registers `IHostApplicationLifetime` events:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/3.x/LifetimeEventsHostedService.cs?name=snippet_LifetimeEvents)]
 
-## <a name="ihostlifetime"></a><span data-ttu-id="79dae-600">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="79dae-600">IHostLifetime</span></span>
+## <a name="ihostlifetime"></a><span data-ttu-id="35be4-600">IHostLifetime</span><span class="sxs-lookup"><span data-stu-id="35be4-600">IHostLifetime</span></span>
 
-<span data-ttu-id="79dae-601"><xref:Microsoft.Extensions.Hosting.IHostLifetime> 实现控制主机何时启动和何时停止。</span><span class="sxs-lookup"><span data-stu-id="79dae-601">The <xref:Microsoft.Extensions.Hosting.IHostLifetime> implementation controls when the host starts and when it stops.</span></span> <span data-ttu-id="79dae-602">使用了已注册的最后一个实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-602">The last implementation registered is used.</span></span>
+<span data-ttu-id="35be4-601"><xref:Microsoft.Extensions.Hosting.IHostLifetime> 实现控制主机何时启动和何时停止。</span><span class="sxs-lookup"><span data-stu-id="35be4-601">The <xref:Microsoft.Extensions.Hosting.IHostLifetime> implementation controls when the host starts and when it stops.</span></span> <span data-ttu-id="35be4-602">使用了已注册的最后一个实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-602">The last implementation registered is used.</span></span>
 
-<span data-ttu-id="79dae-603">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` 是默认的 `IHostLifetime` 实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-603">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` is the default `IHostLifetime` implementation.</span></span> <span data-ttu-id="79dae-604">`ConsoleLifetime`：</span><span class="sxs-lookup"><span data-stu-id="79dae-604">`ConsoleLifetime`:</span></span>
+<span data-ttu-id="35be4-603">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` 是默认的 `IHostLifetime` 实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-603">`Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` is the default `IHostLifetime` implementation.</span></span> <span data-ttu-id="35be4-604">`ConsoleLifetime`：</span><span class="sxs-lookup"><span data-stu-id="35be4-604">`ConsoleLifetime`:</span></span>
 
-* <span data-ttu-id="79dae-605">侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> 来启动关闭进程。</span><span class="sxs-lookup"><span data-stu-id="79dae-605">Listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM and calls <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> to start the shutdown process.</span></span>
-* <span data-ttu-id="79dae-606">解除阻止 [RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。</span><span class="sxs-lookup"><span data-stu-id="79dae-606">Unblocks extensions such as [RunAsync](#runasync) and [WaitForShutdownAsync](#waitforshutdownasync).</span></span>
+* <span data-ttu-id="35be4-605">侦听 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> 来启动关闭进程。</span><span class="sxs-lookup"><span data-stu-id="35be4-605">Listens for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM and calls <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> to start the shutdown process.</span></span>
+* <span data-ttu-id="35be4-606">解除阻止 [RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。</span><span class="sxs-lookup"><span data-stu-id="35be4-606">Unblocks extensions such as [RunAsync](#runasync) and [WaitForShutdownAsync](#waitforshutdownasync).</span></span>
 
-## <a name="ihostenvironment"></a><span data-ttu-id="79dae-607">IHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="79dae-607">IHostEnvironment</span></span>
+## <a name="ihostenvironment"></a><span data-ttu-id="35be4-607">IHostEnvironment</span><span class="sxs-lookup"><span data-stu-id="35be4-607">IHostEnvironment</span></span>
 
-<span data-ttu-id="79dae-608">将 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 服务注册到一个类，获取关于以下设置的信息：</span><span class="sxs-lookup"><span data-stu-id="79dae-608">Inject the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> service into a class to get information about the following settings:</span></span>
+<span data-ttu-id="35be4-608">将 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 服务注册到一个类，获取关于以下设置的信息：</span><span class="sxs-lookup"><span data-stu-id="35be4-608">Inject the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> service into a class to get information about the following settings:</span></span>
 
-* [<span data-ttu-id="79dae-609">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="79dae-609">ApplicationName</span></span>](#applicationname)
-* [<span data-ttu-id="79dae-610">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="79dae-610">EnvironmentName</span></span>](#environmentname)
-* [<span data-ttu-id="79dae-611">ContentRootPath</span><span class="sxs-lookup"><span data-stu-id="79dae-611">ContentRootPath</span></span>](#contentroot)
+* [<span data-ttu-id="35be4-609">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="35be4-609">ApplicationName</span></span>](#applicationname)
+* [<span data-ttu-id="35be4-610">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="35be4-610">EnvironmentName</span></span>](#environmentname)
+* [<span data-ttu-id="35be4-611">ContentRootPath</span><span class="sxs-lookup"><span data-stu-id="35be4-611">ContentRootPath</span></span>](#contentroot)
 
-<span data-ttu-id="79dae-612">Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironment` 并添加 [WebRootPath](#webroot)。</span><span class="sxs-lookup"><span data-stu-id="79dae-612">Web apps implement the `IWebHostEnvironment` interface, which inherits `IHostEnvironment` and adds the [WebRootPath](#webroot).</span></span>
+<span data-ttu-id="35be4-612">Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironment` 并添加 [WebRootPath](#webroot)。</span><span class="sxs-lookup"><span data-stu-id="35be4-612">Web apps implement the `IWebHostEnvironment` interface, which inherits `IHostEnvironment` and adds the [WebRootPath](#webroot).</span></span>
 
-## <a name="host-configuration"></a><span data-ttu-id="79dae-613">主机配置</span><span class="sxs-lookup"><span data-stu-id="79dae-613">Host configuration</span></span>
+## <a name="host-configuration"></a><span data-ttu-id="35be4-613">主机配置</span><span class="sxs-lookup"><span data-stu-id="35be4-613">Host configuration</span></span>
 
-<span data-ttu-id="79dae-614">主机配置用于 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 实现的属性。</span><span class="sxs-lookup"><span data-stu-id="79dae-614">Host configuration is used for the properties of the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> implementation.</span></span>
+<span data-ttu-id="35be4-614">主机配置用于 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 实现的属性。</span><span class="sxs-lookup"><span data-stu-id="35be4-614">Host configuration is used for the properties of the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> implementation.</span></span>
 
-<span data-ttu-id="79dae-615">主机配置可以从 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 内的 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) 获取。</span><span class="sxs-lookup"><span data-stu-id="79dae-615">Host configuration is available from [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) inside <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>.</span></span> <span data-ttu-id="79dae-616">在 `ConfigureAppConfiguration` 后，`HostBuilderContext.Configuration` 被替换为应用配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-616">After `ConfigureAppConfiguration`, `HostBuilderContext.Configuration` is replaced with the app config.</span></span>
+<span data-ttu-id="35be4-615">主机配置可以从 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 内的 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) 获取。</span><span class="sxs-lookup"><span data-stu-id="35be4-615">Host configuration is available from [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) inside <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>.</span></span> <span data-ttu-id="35be4-616">在 `ConfigureAppConfiguration` 后，`HostBuilderContext.Configuration` 被替换为应用配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-616">After `ConfigureAppConfiguration`, `HostBuilderContext.Configuration` is replaced with the app config.</span></span>
 
-<span data-ttu-id="79dae-617">若要添加主机配置，请对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>。</span><span class="sxs-lookup"><span data-stu-id="79dae-617">To add host configuration, call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="79dae-618">可多次调用 `ConfigureHostConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="79dae-618">`ConfigureHostConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="79dae-619">主机使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="79dae-619">The host uses whichever option sets a value last on a given key.</span></span>
+<span data-ttu-id="35be4-617">若要添加主机配置，请对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>。</span><span class="sxs-lookup"><span data-stu-id="35be4-617">To add host configuration, call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="35be4-618">可多次调用 `ConfigureHostConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="35be4-618">`ConfigureHostConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="35be4-619">主机使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="35be4-619">The host uses whichever option sets a value last on a given key.</span></span>
 
-<span data-ttu-id="79dae-620">`CreateDefaultBuilder` 包含前缀为 `DOTNET_` 的环境变量提供程序和命令行参数。</span><span class="sxs-lookup"><span data-stu-id="79dae-620">The environment variable provider with prefix `DOTNET_` and command-line arguments are included by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="79dae-621">对于 web 应用程序，添加前缀为 `ASPNETCORE_` 的环境变量提供程序。</span><span class="sxs-lookup"><span data-stu-id="79dae-621">For web apps, the environment variable provider with prefix `ASPNETCORE_` is added.</span></span> <span data-ttu-id="79dae-622">当系统读取环境变量时，便会删除前缀。</span><span class="sxs-lookup"><span data-stu-id="79dae-622">The prefix is removed when the environment variables are read.</span></span> <span data-ttu-id="79dae-623">例如，`ASPNETCORE_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。</span><span class="sxs-lookup"><span data-stu-id="79dae-623">For example, the environment variable value for `ASPNETCORE_ENVIRONMENT` becomes the host configuration value for the `environment` key.</span></span>
+<span data-ttu-id="35be4-620">`CreateDefaultBuilder` 包含前缀为 `DOTNET_` 的环境变量提供程序和命令行参数。</span><span class="sxs-lookup"><span data-stu-id="35be4-620">The environment variable provider with prefix `DOTNET_` and command-line arguments are included by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="35be4-621">对于 web 应用程序，添加前缀为 `ASPNETCORE_` 的环境变量提供程序。</span><span class="sxs-lookup"><span data-stu-id="35be4-621">For web apps, the environment variable provider with prefix `ASPNETCORE_` is added.</span></span> <span data-ttu-id="35be4-622">当系统读取环境变量时，便会删除前缀。</span><span class="sxs-lookup"><span data-stu-id="35be4-622">The prefix is removed when the environment variables are read.</span></span> <span data-ttu-id="35be4-623">例如，`ASPNETCORE_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。</span><span class="sxs-lookup"><span data-stu-id="35be4-623">For example, the environment variable value for `ASPNETCORE_ENVIRONMENT` becomes the host configuration value for the `environment` key.</span></span>
 
-<span data-ttu-id="79dae-624">以下示例创建主机配置：</span><span class="sxs-lookup"><span data-stu-id="79dae-624">The following example creates host configuration:</span></span>
+<span data-ttu-id="35be4-624">以下示例创建主机配置：</span><span class="sxs-lookup"><span data-stu-id="35be4-624">The following example creates host configuration:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/3.x/Program.cs?name=snippet_HostConfig)]
 
-## <a name="app-configuration"></a><span data-ttu-id="79dae-625">应用配置</span><span class="sxs-lookup"><span data-stu-id="79dae-625">App configuration</span></span>
+## <a name="app-configuration"></a><span data-ttu-id="35be4-625">应用配置</span><span class="sxs-lookup"><span data-stu-id="35be4-625">App configuration</span></span>
 
-<span data-ttu-id="79dae-626">通过对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-626">App configuration is created by calling <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="79dae-627">可多次调用 `ConfigureAppConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="79dae-627">`ConfigureAppConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="79dae-628">应用使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="79dae-628">The app uses whichever option sets a value last on a given key.</span></span> 
+<span data-ttu-id="35be4-626">通过对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-626">App configuration is created by calling <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> on `IHostBuilder`.</span></span> <span data-ttu-id="35be4-627">可多次调用 `ConfigureAppConfiguration`，并得到累计结果。</span><span class="sxs-lookup"><span data-stu-id="35be4-627">`ConfigureAppConfiguration` can be called multiple times with additive results.</span></span> <span data-ttu-id="35be4-628">应用使用上一次在一个给定键上设置值的选项。</span><span class="sxs-lookup"><span data-stu-id="35be4-628">The app uses whichever option sets a value last on a given key.</span></span> 
 
-<span data-ttu-id="79dae-629">由 `ConfigureAppConfiguration` 创建的配置可以通过 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 获取以用于后续操作，也可以通过 DI 作为服务获取。</span><span class="sxs-lookup"><span data-stu-id="79dae-629">The configuration created by `ConfigureAppConfiguration` is available at [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) for subsequent operations and as a service from DI.</span></span> <span data-ttu-id="79dae-630">主机配置也会添加到应用配置。</span><span class="sxs-lookup"><span data-stu-id="79dae-630">The host configuration is also added to the app configuration.</span></span>
+<span data-ttu-id="35be4-629">由 `ConfigureAppConfiguration` 创建的配置可以通过 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 获取以用于后续操作，也可以通过 DI 作为服务获取。</span><span class="sxs-lookup"><span data-stu-id="35be4-629">The configuration created by `ConfigureAppConfiguration` is available at [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) for subsequent operations and as a service from DI.</span></span> <span data-ttu-id="35be4-630">主机配置也会添加到应用配置。</span><span class="sxs-lookup"><span data-stu-id="35be4-630">The host configuration is also added to the app configuration.</span></span>
 
-<span data-ttu-id="79dae-631">有关详细信息，请参阅 [ ASP.NET Core 中的配置](xref:fundamentals/configuration/index#configureappconfiguration)。</span><span class="sxs-lookup"><span data-stu-id="79dae-631">For more information, see [Configuration in ASP.NET Core](xref:fundamentals/configuration/index#configureappconfiguration).</span></span>
+<span data-ttu-id="35be4-631">有关详细信息，请参阅 [ ASP.NET Core 中的配置](xref:fundamentals/configuration/index#configureappconfiguration)。</span><span class="sxs-lookup"><span data-stu-id="35be4-631">For more information, see [Configuration in ASP.NET Core](xref:fundamentals/configuration/index#configureappconfiguration).</span></span>
 
-## <a name="settings-for-all-app-types"></a><span data-ttu-id="79dae-632">适用于所有应用类型的设置</span><span class="sxs-lookup"><span data-stu-id="79dae-632">Settings for all app types</span></span>
+## <a name="settings-for-all-app-types"></a><span data-ttu-id="35be4-632">适用于所有应用类型的设置</span><span class="sxs-lookup"><span data-stu-id="35be4-632">Settings for all app types</span></span>
 
-<span data-ttu-id="79dae-633">本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。</span><span class="sxs-lookup"><span data-stu-id="79dae-633">This section lists host settings that apply to both HTTP and non-HTTP workloads.</span></span> <span data-ttu-id="79dae-634">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="79dae-634">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
+<span data-ttu-id="35be4-633">本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。</span><span class="sxs-lookup"><span data-stu-id="35be4-633">This section lists host settings that apply to both HTTP and non-HTTP workloads.</span></span> <span data-ttu-id="35be4-634">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="35be4-634">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
 
 <!-- In the following sections, two spaces at end of line are used to force line breaks in the rendered page. -->
 
-### <a name="applicationname"></a><span data-ttu-id="79dae-635">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="79dae-635">ApplicationName</span></span>
+### <a name="applicationname"></a><span data-ttu-id="35be4-635">ApplicationName</span><span class="sxs-lookup"><span data-stu-id="35be4-635">ApplicationName</span></span>
 
-<span data-ttu-id="79dae-636">[IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。</span><span class="sxs-lookup"><span data-stu-id="79dae-636">The [IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) property is set from host configuration during host construction.</span></span>
+<span data-ttu-id="35be4-636">[IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。</span><span class="sxs-lookup"><span data-stu-id="35be4-636">The [IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) property is set from host configuration during host construction.</span></span>
 
-<span data-ttu-id="79dae-637">键：`applicationName`</span><span class="sxs-lookup"><span data-stu-id="79dae-637">**Key**: `applicationName`</span></span>  
-<span data-ttu-id="79dae-638">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-638">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-639">**默认**：包含应用入口点的程序集的名称。</span><span class="sxs-lookup"><span data-stu-id="79dae-639">**Default**: The name of the assembly that contains the app's entry point.</span></span>  
-<span data-ttu-id="79dae-640">**环境变量**：`<PREFIX_>APPLICATIONNAME`</span><span class="sxs-lookup"><span data-stu-id="79dae-640">**Environment variable**: `<PREFIX_>APPLICATIONNAME`</span></span>
+<span data-ttu-id="35be4-637">键：`applicationName`</span><span class="sxs-lookup"><span data-stu-id="35be4-637">**Key**: `applicationName`</span></span>  
+<span data-ttu-id="35be4-638">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-638">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-639">**默认**：包含应用入口点的程序集的名称。</span><span class="sxs-lookup"><span data-stu-id="35be4-639">**Default**: The name of the assembly that contains the app's entry point.</span></span>  
+<span data-ttu-id="35be4-640">**环境变量**：`<PREFIX_>APPLICATIONNAME`</span><span class="sxs-lookup"><span data-stu-id="35be4-640">**Environment variable**: `<PREFIX_>APPLICATIONNAME`</span></span>
 
-<span data-ttu-id="79dae-641">要设置此值，请使用环境变量。</span><span class="sxs-lookup"><span data-stu-id="79dae-641">To set this value, use the environment variable.</span></span> 
+<span data-ttu-id="35be4-641">要设置此值，请使用环境变量。</span><span class="sxs-lookup"><span data-stu-id="35be4-641">To set this value, use the environment variable.</span></span> 
 
-### <a name="contentroot"></a><span data-ttu-id="79dae-642">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-642">ContentRoot</span></span>
+### <a name="contentroot"></a><span data-ttu-id="35be4-642">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-642">ContentRoot</span></span>
 
-<span data-ttu-id="79dae-643">[IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) 属性决定主机从什么位置开始搜索内容文件。</span><span class="sxs-lookup"><span data-stu-id="79dae-643">The [IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) property determines where the host begins searching for content files.</span></span> <span data-ttu-id="79dae-644">如果路径不存在，主机将无法启动。</span><span class="sxs-lookup"><span data-stu-id="79dae-644">If the path doesn't exist, the host fails to start.</span></span>
+<span data-ttu-id="35be4-643">[IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) 属性决定主机从什么位置开始搜索内容文件。</span><span class="sxs-lookup"><span data-stu-id="35be4-643">The [IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) property determines where the host begins searching for content files.</span></span> <span data-ttu-id="35be4-644">如果路径不存在，主机将无法启动。</span><span class="sxs-lookup"><span data-stu-id="35be4-644">If the path doesn't exist, the host fails to start.</span></span>
 
-<span data-ttu-id="79dae-645">键：`contentRoot`</span><span class="sxs-lookup"><span data-stu-id="79dae-645">**Key**: `contentRoot`</span></span>  
-<span data-ttu-id="79dae-646">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-646">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-647">**默认**：应用程序集所在的文件夹。</span><span class="sxs-lookup"><span data-stu-id="79dae-647">**Default**: The folder where the app assembly resides.</span></span>  
-<span data-ttu-id="79dae-648">**环境变量**：`<PREFIX_>CONTENTROOT`</span><span class="sxs-lookup"><span data-stu-id="79dae-648">**Environment variable**: `<PREFIX_>CONTENTROOT`</span></span>
+<span data-ttu-id="35be4-645">键：`contentRoot`</span><span class="sxs-lookup"><span data-stu-id="35be4-645">**Key**: `contentRoot`</span></span>  
+<span data-ttu-id="35be4-646">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-646">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-647">**默认**：应用程序集所在的文件夹。</span><span class="sxs-lookup"><span data-stu-id="35be4-647">**Default**: The folder where the app assembly resides.</span></span>  
+<span data-ttu-id="35be4-648">**环境变量**：`<PREFIX_>CONTENTROOT`</span><span class="sxs-lookup"><span data-stu-id="35be4-648">**Environment variable**: `<PREFIX_>CONTENTROOT`</span></span>
 
-<span data-ttu-id="79dae-649">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseContentRoot`：</span><span class="sxs-lookup"><span data-stu-id="79dae-649">To set this value, use the environment variable or call `UseContentRoot` on `IHostBuilder`:</span></span>
+<span data-ttu-id="35be4-649">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseContentRoot`：</span><span class="sxs-lookup"><span data-stu-id="35be4-649">To set this value, use the environment variable or call `UseContentRoot` on `IHostBuilder`:</span></span>
 
 ```csharp
 Host.CreateDefaultBuilder(args)
@@ -1199,21 +1200,21 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-<span data-ttu-id="79dae-650">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="79dae-650">For more information, see:</span></span>
+<span data-ttu-id="35be4-650">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="35be4-650">For more information, see:</span></span>
 
-* [<span data-ttu-id="79dae-651">基础知识：内容根目录</span><span class="sxs-lookup"><span data-stu-id="79dae-651">Fundamentals: Content root</span></span>](xref:fundamentals/index#content-root)
-* [<span data-ttu-id="79dae-652">WebRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-652">WebRoot</span></span>](#webroot)
+* [<span data-ttu-id="35be4-651">基础知识：内容根目录</span><span class="sxs-lookup"><span data-stu-id="35be4-651">Fundamentals: Content root</span></span>](xref:fundamentals/index#content-root)
+* [<span data-ttu-id="35be4-652">WebRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-652">WebRoot</span></span>](#webroot)
 
-### <a name="environmentname"></a><span data-ttu-id="79dae-653">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="79dae-653">EnvironmentName</span></span>
+### <a name="environmentname"></a><span data-ttu-id="35be4-653">EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="35be4-653">EnvironmentName</span></span>
 
-<span data-ttu-id="79dae-654">[IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) 属性可以设置为任何值。</span><span class="sxs-lookup"><span data-stu-id="79dae-654">The [IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) property can be set to any value.</span></span> <span data-ttu-id="79dae-655">框架定义的值包括 `Development``Staging` 和 `Production`。</span><span class="sxs-lookup"><span data-stu-id="79dae-655">Framework-defined values include `Development`, `Staging`, and `Production`.</span></span> <span data-ttu-id="79dae-656">值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="79dae-656">Values aren't case-sensitive.</span></span>
+<span data-ttu-id="35be4-654">[IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) 属性可以设置为任何值。</span><span class="sxs-lookup"><span data-stu-id="35be4-654">The [IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) property can be set to any value.</span></span> <span data-ttu-id="35be4-655">框架定义的值包括 `Development``Staging` 和 `Production`。</span><span class="sxs-lookup"><span data-stu-id="35be4-655">Framework-defined values include `Development`, `Staging`, and `Production`.</span></span> <span data-ttu-id="35be4-656">值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="35be4-656">Values aren't case-sensitive.</span></span>
 
-<span data-ttu-id="79dae-657">键：`environment`</span><span class="sxs-lookup"><span data-stu-id="79dae-657">**Key**: `environment`</span></span>  
-<span data-ttu-id="79dae-658">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-658">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-659">**默认**：`Production`</span><span class="sxs-lookup"><span data-stu-id="79dae-659">**Default**: `Production`</span></span>  
-<span data-ttu-id="79dae-660">**环境变量**：`<PREFIX_>ENVIRONMENT`</span><span class="sxs-lookup"><span data-stu-id="79dae-660">**Environment variable**: `<PREFIX_>ENVIRONMENT`</span></span>
+<span data-ttu-id="35be4-657">键：`environment`</span><span class="sxs-lookup"><span data-stu-id="35be4-657">**Key**: `environment`</span></span>  
+<span data-ttu-id="35be4-658">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-658">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-659">**默认**：`Production`</span><span class="sxs-lookup"><span data-stu-id="35be4-659">**Default**: `Production`</span></span>  
+<span data-ttu-id="35be4-660">**环境变量**：`<PREFIX_>ENVIRONMENT`</span><span class="sxs-lookup"><span data-stu-id="35be4-660">**Environment variable**: `<PREFIX_>ENVIRONMENT`</span></span>
 
-<span data-ttu-id="79dae-661">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：</span><span class="sxs-lookup"><span data-stu-id="79dae-661">To set this value, use the environment variable or call `UseEnvironment` on `IHostBuilder`:</span></span>
+<span data-ttu-id="35be4-661">若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：</span><span class="sxs-lookup"><span data-stu-id="35be4-661">To set this value, use the environment variable or call `UseEnvironment` on `IHostBuilder`:</span></span>
 
 ```csharp
 Host.CreateDefaultBuilder(args)
@@ -1221,42 +1222,42 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-### <a name="shutdowntimeout"></a><span data-ttu-id="79dae-662">ShutdownTimeout</span><span class="sxs-lookup"><span data-stu-id="79dae-662">ShutdownTimeout</span></span>
+### <a name="shutdowntimeout"></a><span data-ttu-id="35be4-662">ShutdownTimeout</span><span class="sxs-lookup"><span data-stu-id="35be4-662">ShutdownTimeout</span></span>
 
-<span data-ttu-id="79dae-663">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) 设置 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 的超时。</span><span class="sxs-lookup"><span data-stu-id="79dae-663">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) sets the timeout for <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span> <span data-ttu-id="79dae-664">默认值为 5 秒。</span><span class="sxs-lookup"><span data-stu-id="79dae-664">The default value is five seconds.</span></span>  <span data-ttu-id="79dae-665">在超时时间段中，主机：</span><span class="sxs-lookup"><span data-stu-id="79dae-665">During the timeout period, the host:</span></span>
+<span data-ttu-id="35be4-663">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) 设置 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 的超时。</span><span class="sxs-lookup"><span data-stu-id="35be4-663">[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) sets the timeout for <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span> <span data-ttu-id="35be4-664">默认值为 5 秒。</span><span class="sxs-lookup"><span data-stu-id="35be4-664">The default value is five seconds.</span></span>  <span data-ttu-id="35be4-665">在超时时间段中，主机：</span><span class="sxs-lookup"><span data-stu-id="35be4-665">During the timeout period, the host:</span></span>
 
-* <span data-ttu-id="79dae-666">触发 [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping)。</span><span class="sxs-lookup"><span data-stu-id="79dae-666">Triggers [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping).</span></span>
-* <span data-ttu-id="79dae-667">尝试停止托管服务，对服务停止失败的错误进行日志记录。</span><span class="sxs-lookup"><span data-stu-id="79dae-667">Attempts to stop hosted services, logging errors for services that fail to stop.</span></span>
+* <span data-ttu-id="35be4-666">触发 [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping)。</span><span class="sxs-lookup"><span data-stu-id="35be4-666">Triggers [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.extensions.hosting.ihostapplicationlifetime.applicationstopping).</span></span>
+* <span data-ttu-id="35be4-667">尝试停止托管服务，对服务停止失败的错误进行日志记录。</span><span class="sxs-lookup"><span data-stu-id="35be4-667">Attempts to stop hosted services, logging errors for services that fail to stop.</span></span>
 
-<span data-ttu-id="79dae-668">如果在所有托管服务停止之前就达到了超时时间，则会在应用关闭时会终止剩余的所有活动的服务。</span><span class="sxs-lookup"><span data-stu-id="79dae-668">If the timeout period expires before all of the hosted services stop, any remaining active services are stopped when the app shuts down.</span></span> <span data-ttu-id="79dae-669">即使没有完成处理工作，服务也会停止。</span><span class="sxs-lookup"><span data-stu-id="79dae-669">The services stop even if they haven't finished processing.</span></span> <span data-ttu-id="79dae-670">如果停止服务需要额外的时间，请增加超时时间。</span><span class="sxs-lookup"><span data-stu-id="79dae-670">If services require additional time to stop, increase the timeout.</span></span>
+<span data-ttu-id="35be4-668">如果在所有托管服务停止之前就达到了超时时间，则会在应用关闭时会终止剩余的所有活动的服务。</span><span class="sxs-lookup"><span data-stu-id="35be4-668">If the timeout period expires before all of the hosted services stop, any remaining active services are stopped when the app shuts down.</span></span> <span data-ttu-id="35be4-669">即使没有完成处理工作，服务也会停止。</span><span class="sxs-lookup"><span data-stu-id="35be4-669">The services stop even if they haven't finished processing.</span></span> <span data-ttu-id="35be4-670">如果停止服务需要额外的时间，请增加超时时间。</span><span class="sxs-lookup"><span data-stu-id="35be4-670">If services require additional time to stop, increase the timeout.</span></span>
 
-<span data-ttu-id="79dae-671">键：`shutdownTimeoutSeconds`</span><span class="sxs-lookup"><span data-stu-id="79dae-671">**Key**: `shutdownTimeoutSeconds`</span></span>  
-<span data-ttu-id="79dae-672">类型：`int`</span><span class="sxs-lookup"><span data-stu-id="79dae-672">**Type**: `int`</span></span>  
-<span data-ttu-id="79dae-673">**默认**：5 秒</span><span class="sxs-lookup"><span data-stu-id="79dae-673">**Default**: 5 seconds</span></span>  
-<span data-ttu-id="79dae-674">**环境变量**：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span><span class="sxs-lookup"><span data-stu-id="79dae-674">**Environment variable**: `<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span></span>
+<span data-ttu-id="35be4-671">键：`shutdownTimeoutSeconds`</span><span class="sxs-lookup"><span data-stu-id="35be4-671">**Key**: `shutdownTimeoutSeconds`</span></span>  
+<span data-ttu-id="35be4-672">类型：`int`</span><span class="sxs-lookup"><span data-stu-id="35be4-672">**Type**: `int`</span></span>  
+<span data-ttu-id="35be4-673">**默认**：5 秒</span><span class="sxs-lookup"><span data-stu-id="35be4-673">**Default**: 5 seconds</span></span>  
+<span data-ttu-id="35be4-674">**环境变量**：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span><span class="sxs-lookup"><span data-stu-id="35be4-674">**Environment variable**: `<PREFIX_>SHUTDOWNTIMEOUTSECONDS`</span></span>
 
-<span data-ttu-id="79dae-675">若要设置此值，请使用环境变量或配置 `HostOptions`。</span><span class="sxs-lookup"><span data-stu-id="79dae-675">To set this value, use the environment variable or configure `HostOptions`.</span></span> <span data-ttu-id="79dae-676">以下示例将超时设置为 20 秒：</span><span class="sxs-lookup"><span data-stu-id="79dae-676">The following example sets the timeout to 20 seconds:</span></span>
+<span data-ttu-id="35be4-675">若要设置此值，请使用环境变量或配置 `HostOptions`。</span><span class="sxs-lookup"><span data-stu-id="35be4-675">To set this value, use the environment variable or configure `HostOptions`.</span></span> <span data-ttu-id="35be4-676">以下示例将超时设置为 20 秒：</span><span class="sxs-lookup"><span data-stu-id="35be4-676">The following example sets the timeout to 20 seconds:</span></span>
 
 [!code-csharp[](generic-host/samples-snapshot/3.x/Program.cs?name=snippet_HostOptions)]
 
-### <a name="disable-app-configuration-reload-on-change"></a><span data-ttu-id="79dae-677">禁用“在更改时重载应用配置”</span><span class="sxs-lookup"><span data-stu-id="79dae-677">Disable app configuration reload on change</span></span>
+### <a name="disable-app-configuration-reload-on-change"></a><span data-ttu-id="35be4-677">禁用“在更改时重载应用配置”</span><span class="sxs-lookup"><span data-stu-id="35be4-677">Disable app configuration reload on change</span></span>
 
-<span data-ttu-id="79dae-678">[默认情况下](xref:fundamentals/configuration/index#default)，appsettings.json 和 appsettings.{Environment}.json 会在文件更改时重载 。</span><span class="sxs-lookup"><span data-stu-id="79dae-678">By [default](xref:fundamentals/configuration/index#default), *appsettings.json* and *appsettings.{Environment}.json* are reloaded when the file changes.</span></span> <span data-ttu-id="79dae-679">要在 ASP.NET Core 5.0 Preview 3 或更高版本中禁用此重载行为，请将 `hostBuilder:reloadConfigOnChange` 键设置为 `false`。</span><span class="sxs-lookup"><span data-stu-id="79dae-679">To disable this reload behavior in ASP.NET Core 5.0 Preview 3 or later, set the `hostBuilder:reloadConfigOnChange` key to `false`.</span></span>
+<span data-ttu-id="35be4-678">[默认情况下](xref:fundamentals/configuration/index#default)，appsettings.json 和 appsettings.{Environment}.json 会在文件更改时重载 。</span><span class="sxs-lookup"><span data-stu-id="35be4-678">By [default](xref:fundamentals/configuration/index#default), *appsettings.json* and *appsettings.{Environment}.json* are reloaded when the file changes.</span></span> <span data-ttu-id="35be4-679">要在 ASP.NET Core 5.0 Preview 3 或更高版本中禁用此重载行为，请将 `hostBuilder:reloadConfigOnChange` 键设置为 `false`。</span><span class="sxs-lookup"><span data-stu-id="35be4-679">To disable this reload behavior in ASP.NET Core 5.0 Preview 3 or later, set the `hostBuilder:reloadConfigOnChange` key to `false`.</span></span>
 
-<span data-ttu-id="79dae-680">键：`hostBuilder:reloadConfigOnChange`</span><span class="sxs-lookup"><span data-stu-id="79dae-680">**Key**: `hostBuilder:reloadConfigOnChange`</span></span>  
-<span data-ttu-id="79dae-681">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-681">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-682">**默认**：`true`</span><span class="sxs-lookup"><span data-stu-id="79dae-682">**Default**: `true`</span></span>  
-<span data-ttu-id="79dae-683">命令行参数：`hostBuilder:reloadConfigOnChange`</span><span class="sxs-lookup"><span data-stu-id="79dae-683">**Command-line argument**: `hostBuilder:reloadConfigOnChange`</span></span>  
-<span data-ttu-id="79dae-684">**环境变量**：`<PREFIX_>hostBuilder:reloadConfigOnChange`</span><span class="sxs-lookup"><span data-stu-id="79dae-684">**Environment variable**: `<PREFIX_>hostBuilder:reloadConfigOnChange`</span></span>
+<span data-ttu-id="35be4-680">键：`hostBuilder:reloadConfigOnChange`</span><span class="sxs-lookup"><span data-stu-id="35be4-680">**Key**: `hostBuilder:reloadConfigOnChange`</span></span>  
+<span data-ttu-id="35be4-681">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-681">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-682">**默认**：`true`</span><span class="sxs-lookup"><span data-stu-id="35be4-682">**Default**: `true`</span></span>  
+<span data-ttu-id="35be4-683">命令行参数：`hostBuilder:reloadConfigOnChange`</span><span class="sxs-lookup"><span data-stu-id="35be4-683">**Command-line argument**: `hostBuilder:reloadConfigOnChange`</span></span>  
+<span data-ttu-id="35be4-684">**环境变量**：`<PREFIX_>hostBuilder:reloadConfigOnChange`</span><span class="sxs-lookup"><span data-stu-id="35be4-684">**Environment variable**: `<PREFIX_>hostBuilder:reloadConfigOnChange`</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="79dae-685">所有平台上的环境变量分层键都不支持冒号 (`:`) 分隔符。</span><span class="sxs-lookup"><span data-stu-id="79dae-685">The colon (`:`) separator doesn't work with environment variable hierarchical keys on all platforms.</span></span> <span data-ttu-id="79dae-686">有关详细信息，请参阅[环境变量](xref:fundamentals/configuration/index#environment-variables)。</span><span class="sxs-lookup"><span data-stu-id="79dae-686">For more information, see [Environment variables](xref:fundamentals/configuration/index#environment-variables).</span></span>
+> <span data-ttu-id="35be4-685">所有平台上的环境变量分层键都不支持冒号 (`:`) 分隔符。</span><span class="sxs-lookup"><span data-stu-id="35be4-685">The colon (`:`) separator doesn't work with environment variable hierarchical keys on all platforms.</span></span> <span data-ttu-id="35be4-686">有关详细信息，请参阅[环境变量](xref:fundamentals/configuration/index#environment-variables)。</span><span class="sxs-lookup"><span data-stu-id="35be4-686">For more information, see [Environment variables](xref:fundamentals/configuration/index#environment-variables).</span></span>
 
-## <a name="settings-for-web-apps"></a><span data-ttu-id="79dae-687">适用于 Web 应用的设置</span><span class="sxs-lookup"><span data-stu-id="79dae-687">Settings for web apps</span></span>
+## <a name="settings-for-web-apps"></a><span data-ttu-id="35be4-687">适用于 Web 应用的设置</span><span class="sxs-lookup"><span data-stu-id="35be4-687">Settings for web apps</span></span>
 
-<span data-ttu-id="79dae-688">一些主机设置仅适用于 HTTP 工作负荷。</span><span class="sxs-lookup"><span data-stu-id="79dae-688">Some host settings apply only to HTTP workloads.</span></span> <span data-ttu-id="79dae-689">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="79dae-689">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
+<span data-ttu-id="35be4-688">一些主机设置仅适用于 HTTP 工作负荷。</span><span class="sxs-lookup"><span data-stu-id="35be4-688">Some host settings apply only to HTTP workloads.</span></span> <span data-ttu-id="35be4-689">默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。</span><span class="sxs-lookup"><span data-stu-id="35be4-689">By default, environment variables used to configure these settings can have a `DOTNET_` or `ASPNETCORE_` prefix.</span></span>
 
-<span data-ttu-id="79dae-690">`IWebHostBuilder` 上的扩展方法适用于这些设置。</span><span class="sxs-lookup"><span data-stu-id="79dae-690">Extension methods on `IWebHostBuilder` are available for these settings.</span></span> <span data-ttu-id="79dae-691">显示如何调用扩展方法的示例代码假定 `webBuilder` 是 `IWebHostBuilder` 的实例，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="79dae-691">Code samples that show how to call the extension methods assume `webBuilder` is an instance of `IWebHostBuilder`, as in the following example:</span></span>
+<span data-ttu-id="35be4-690">`IWebHostBuilder` 上的扩展方法适用于这些设置。</span><span class="sxs-lookup"><span data-stu-id="35be4-690">Extension methods on `IWebHostBuilder` are available for these settings.</span></span> <span data-ttu-id="35be4-691">显示如何调用扩展方法的示例代码假定 `webBuilder` 是 `IWebHostBuilder` 的实例，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="35be4-691">Code samples that show how to call the extension methods assume `webBuilder` is an instance of `IWebHostBuilder`, as in the following example:</span></span>
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -1268,121 +1269,121 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-### <a name="capturestartuperrors"></a><span data-ttu-id="79dae-692">CaptureStartupErrors</span><span class="sxs-lookup"><span data-stu-id="79dae-692">CaptureStartupErrors</span></span>
+### <a name="capturestartuperrors"></a><span data-ttu-id="35be4-692">CaptureStartupErrors</span><span class="sxs-lookup"><span data-stu-id="35be4-692">CaptureStartupErrors</span></span>
 
-<span data-ttu-id="79dae-693">当 `false` 时，启动期间出错导致主机退出。</span><span class="sxs-lookup"><span data-stu-id="79dae-693">When `false`, errors during startup result in the host exiting.</span></span> <span data-ttu-id="79dae-694">当 `true` 时，主机在启动期间捕获异常并尝试启动服务器。</span><span class="sxs-lookup"><span data-stu-id="79dae-694">When `true`, the host captures exceptions during startup and attempts to start the server.</span></span>
+<span data-ttu-id="35be4-693">当 `false` 时，启动期间出错导致主机退出。</span><span class="sxs-lookup"><span data-stu-id="35be4-693">When `false`, errors during startup result in the host exiting.</span></span> <span data-ttu-id="35be4-694">当 `true` 时，主机在启动期间捕获异常并尝试启动服务器。</span><span class="sxs-lookup"><span data-stu-id="35be4-694">When `true`, the host captures exceptions during startup and attempts to start the server.</span></span>
 
-<span data-ttu-id="79dae-695">键：`captureStartupErrors`</span><span class="sxs-lookup"><span data-stu-id="79dae-695">**Key**: `captureStartupErrors`</span></span>  
-<span data-ttu-id="79dae-696">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-696">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-697">**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。</span><span class="sxs-lookup"><span data-stu-id="79dae-697">**Default**: Defaults to `false` unless the app runs with Kestrel behind IIS, where the default is `true`.</span></span>  
-<span data-ttu-id="79dae-698">**环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`</span><span class="sxs-lookup"><span data-stu-id="79dae-698">**Environment variable**: `<PREFIX_>CAPTURESTARTUPERRORS`</span></span>
+<span data-ttu-id="35be4-695">键：`captureStartupErrors`</span><span class="sxs-lookup"><span data-stu-id="35be4-695">**Key**: `captureStartupErrors`</span></span>  
+<span data-ttu-id="35be4-696">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-696">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-697">**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。</span><span class="sxs-lookup"><span data-stu-id="35be4-697">**Default**: Defaults to `false` unless the app runs with Kestrel behind IIS, where the default is `true`.</span></span>  
+<span data-ttu-id="35be4-698">**环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`</span><span class="sxs-lookup"><span data-stu-id="35be4-698">**Environment variable**: `<PREFIX_>CAPTURESTARTUPERRORS`</span></span>
 
-<span data-ttu-id="79dae-699">若要设置此值，使用配置或调用 `CaptureStartupErrors`：</span><span class="sxs-lookup"><span data-stu-id="79dae-699">To set this value, use configuration or call `CaptureStartupErrors`:</span></span>
+<span data-ttu-id="35be4-699">若要设置此值，使用配置或调用 `CaptureStartupErrors`：</span><span class="sxs-lookup"><span data-stu-id="35be4-699">To set this value, use configuration or call `CaptureStartupErrors`:</span></span>
 
 ```csharp
 webBuilder.CaptureStartupErrors(true);
 ```
 
-### <a name="detailederrors"></a><span data-ttu-id="79dae-700">DetailedErrors</span><span class="sxs-lookup"><span data-stu-id="79dae-700">DetailedErrors</span></span>
+### <a name="detailederrors"></a><span data-ttu-id="35be4-700">DetailedErrors</span><span class="sxs-lookup"><span data-stu-id="35be4-700">DetailedErrors</span></span>
 
-<span data-ttu-id="79dae-701">如果启用，或环境为 `Development`，应用会捕获详细错误。</span><span class="sxs-lookup"><span data-stu-id="79dae-701">When enabled, or when the environment is `Development`, the app captures detailed errors.</span></span>
+<span data-ttu-id="35be4-701">如果启用，或环境为 `Development`，应用会捕获详细错误。</span><span class="sxs-lookup"><span data-stu-id="35be4-701">When enabled, or when the environment is `Development`, the app captures detailed errors.</span></span>
 
-<span data-ttu-id="79dae-702">键：`detailedErrors`</span><span class="sxs-lookup"><span data-stu-id="79dae-702">**Key**: `detailedErrors`</span></span>  
-<span data-ttu-id="79dae-703">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-703">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-704">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="79dae-704">**Default**: `false`</span></span>  
-<span data-ttu-id="79dae-705">**环境变量**：`<PREFIX_>_DETAILEDERRORS`</span><span class="sxs-lookup"><span data-stu-id="79dae-705">**Environment variable**: `<PREFIX_>_DETAILEDERRORS`</span></span>
+<span data-ttu-id="35be4-702">键：`detailedErrors`</span><span class="sxs-lookup"><span data-stu-id="35be4-702">**Key**: `detailedErrors`</span></span>  
+<span data-ttu-id="35be4-703">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-703">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-704">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="35be4-704">**Default**: `false`</span></span>  
+<span data-ttu-id="35be4-705">**环境变量**：`<PREFIX_>_DETAILEDERRORS`</span><span class="sxs-lookup"><span data-stu-id="35be4-705">**Environment variable**: `<PREFIX_>_DETAILEDERRORS`</span></span>
 
-<span data-ttu-id="79dae-706">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-706">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-706">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-706">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
 ```
 
-### <a name="hostingstartupassemblies"></a><span data-ttu-id="79dae-707">HostingStartupAssemblies</span><span class="sxs-lookup"><span data-stu-id="79dae-707">HostingStartupAssemblies</span></span>
+### <a name="hostingstartupassemblies"></a><span data-ttu-id="35be4-707">HostingStartupAssemblies</span><span class="sxs-lookup"><span data-stu-id="35be4-707">HostingStartupAssemblies</span></span>
 
-<span data-ttu-id="79dae-708">承载启动程序集的以分号分隔的字符串在启动时加载。</span><span class="sxs-lookup"><span data-stu-id="79dae-708">A semicolon-delimited string of hosting startup assemblies to load on startup.</span></span> <span data-ttu-id="79dae-709">虽然配置值默认为空字符串，但是承载启动程序集会始终包含应用的程序集。</span><span class="sxs-lookup"><span data-stu-id="79dae-709">Although the configuration value defaults to an empty string, the hosting startup assemblies always include the app's assembly.</span></span> <span data-ttu-id="79dae-710">提供承载启动程序集时，当应用在启动过程中生成其公用服务时将它们添加到应用的程序集加载。</span><span class="sxs-lookup"><span data-stu-id="79dae-710">When hosting startup assemblies are provided, they're added to the app's assembly for loading when the app builds its common services during startup.</span></span>
+<span data-ttu-id="35be4-708">承载启动程序集的以分号分隔的字符串在启动时加载。</span><span class="sxs-lookup"><span data-stu-id="35be4-708">A semicolon-delimited string of hosting startup assemblies to load on startup.</span></span> <span data-ttu-id="35be4-709">虽然配置值默认为空字符串，但是承载启动程序集会始终包含应用的程序集。</span><span class="sxs-lookup"><span data-stu-id="35be4-709">Although the configuration value defaults to an empty string, the hosting startup assemblies always include the app's assembly.</span></span> <span data-ttu-id="35be4-710">提供承载启动程序集时，当应用在启动过程中生成其公用服务时将它们添加到应用的程序集加载。</span><span class="sxs-lookup"><span data-stu-id="35be4-710">When hosting startup assemblies are provided, they're added to the app's assembly for loading when the app builds its common services during startup.</span></span>
 
-<span data-ttu-id="79dae-711">键：`hostingStartupAssemblies`</span><span class="sxs-lookup"><span data-stu-id="79dae-711">**Key**: `hostingStartupAssemblies`</span></span>  
-<span data-ttu-id="79dae-712">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-712">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-713">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="79dae-713">**Default**: Empty string</span></span>  
-<span data-ttu-id="79dae-714">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="79dae-714">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span></span>
+<span data-ttu-id="35be4-711">键：`hostingStartupAssemblies`</span><span class="sxs-lookup"><span data-stu-id="35be4-711">**Key**: `hostingStartupAssemblies`</span></span>  
+<span data-ttu-id="35be4-712">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-712">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-713">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="35be4-713">**Default**: Empty string</span></span>  
+<span data-ttu-id="35be4-714">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="35be4-714">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`</span></span>
 
-<span data-ttu-id="79dae-715">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-715">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-715">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-715">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;assembly2");
 ```
 
-### <a name="hostingstartupexcludeassemblies"></a><span data-ttu-id="79dae-716">HostingStartupExcludeAssemblies</span><span class="sxs-lookup"><span data-stu-id="79dae-716">HostingStartupExcludeAssemblies</span></span>
+### <a name="hostingstartupexcludeassemblies"></a><span data-ttu-id="35be4-716">HostingStartupExcludeAssemblies</span><span class="sxs-lookup"><span data-stu-id="35be4-716">HostingStartupExcludeAssemblies</span></span>
 
-<span data-ttu-id="79dae-717">承载启动程序集的以分号分隔的字符串在启动时排除。</span><span class="sxs-lookup"><span data-stu-id="79dae-717">A semicolon-delimited string of hosting startup assemblies to exclude on startup.</span></span>
+<span data-ttu-id="35be4-717">承载启动程序集的以分号分隔的字符串在启动时排除。</span><span class="sxs-lookup"><span data-stu-id="35be4-717">A semicolon-delimited string of hosting startup assemblies to exclude on startup.</span></span>
 
-<span data-ttu-id="79dae-718">键：`hostingStartupExcludeAssemblies`</span><span class="sxs-lookup"><span data-stu-id="79dae-718">**Key**: `hostingStartupExcludeAssemblies`</span></span>  
-<span data-ttu-id="79dae-719">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-719">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-720">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="79dae-720">**Default**: Empty string</span></span>  
-<span data-ttu-id="79dae-721">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="79dae-721">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span></span>
+<span data-ttu-id="35be4-718">键：`hostingStartupExcludeAssemblies`</span><span class="sxs-lookup"><span data-stu-id="35be4-718">**Key**: `hostingStartupExcludeAssemblies`</span></span>  
+<span data-ttu-id="35be4-719">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-719">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-720">**默认**：空字符串</span><span class="sxs-lookup"><span data-stu-id="35be4-720">**Default**: Empty string</span></span>  
+<span data-ttu-id="35be4-721">**环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span><span class="sxs-lookup"><span data-stu-id="35be4-721">**Environment variable**: `<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`</span></span>
 
-<span data-ttu-id="79dae-722">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-722">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-722">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-722">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assembly1;assembly2");
 ```
 
-### <a name="https_port"></a><span data-ttu-id="79dae-723">HTTPS_Port</span><span class="sxs-lookup"><span data-stu-id="79dae-723">HTTPS_Port</span></span>
+### <a name="https_port"></a><span data-ttu-id="35be4-723">HTTPS_Port</span><span class="sxs-lookup"><span data-stu-id="35be4-723">HTTPS_Port</span></span>
 
-<span data-ttu-id="79dae-724">HTTPS 重定向端口。</span><span class="sxs-lookup"><span data-stu-id="79dae-724">The HTTPS redirect port.</span></span> <span data-ttu-id="79dae-725">用于[强制实施 HTTPS](xref:security/enforcing-ssl)。</span><span class="sxs-lookup"><span data-stu-id="79dae-725">Used in [enforcing HTTPS](xref:security/enforcing-ssl).</span></span>
+<span data-ttu-id="35be4-724">HTTPS 重定向端口。</span><span class="sxs-lookup"><span data-stu-id="35be4-724">The HTTPS redirect port.</span></span> <span data-ttu-id="35be4-725">用于[强制实施 HTTPS](xref:security/enforcing-ssl)。</span><span class="sxs-lookup"><span data-stu-id="35be4-725">Used in [enforcing HTTPS](xref:security/enforcing-ssl).</span></span>
 
-<span data-ttu-id="79dae-726">键：`https_port`</span><span class="sxs-lookup"><span data-stu-id="79dae-726">**Key**: `https_port`</span></span>  
-<span data-ttu-id="79dae-727">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-727">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-728">**默认**：未设置默认值。</span><span class="sxs-lookup"><span data-stu-id="79dae-728">**Default**: A default value isn't set.</span></span>  
-<span data-ttu-id="79dae-729">**环境变量**：`<PREFIX_>HTTPS_PORT`</span><span class="sxs-lookup"><span data-stu-id="79dae-729">**Environment variable**: `<PREFIX_>HTTPS_PORT`</span></span>
+<span data-ttu-id="35be4-726">键：`https_port`</span><span class="sxs-lookup"><span data-stu-id="35be4-726">**Key**: `https_port`</span></span>  
+<span data-ttu-id="35be4-727">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-727">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-728">**默认**：未设置默认值。</span><span class="sxs-lookup"><span data-stu-id="35be4-728">**Default**: A default value isn't set.</span></span>  
+<span data-ttu-id="35be4-729">**环境变量**：`<PREFIX_>HTTPS_PORT`</span><span class="sxs-lookup"><span data-stu-id="35be4-729">**Environment variable**: `<PREFIX_>HTTPS_PORT`</span></span>
 
-<span data-ttu-id="79dae-730">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-730">To set this value, use configuration or call `UseSetting`:</span></span>
+<span data-ttu-id="35be4-730">要设置此值，使用配置或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-730">To set this value, use configuration or call `UseSetting`:</span></span>
 
 ```csharp
 webBuilder.UseSetting("https_port", "8080");
 ```
 
-### <a name="preferhostingurls"></a><span data-ttu-id="79dae-731">PreferHostingUrls</span><span class="sxs-lookup"><span data-stu-id="79dae-731">PreferHostingUrls</span></span>
+### <a name="preferhostingurls"></a><span data-ttu-id="35be4-731">PreferHostingUrls</span><span class="sxs-lookup"><span data-stu-id="35be4-731">PreferHostingUrls</span></span>
 
-<span data-ttu-id="79dae-732">指示主机是否应该侦听使用 `IWebHostBuilder` 配置的 URL，而不是使用 `IServer` 实现配置的 URL。</span><span class="sxs-lookup"><span data-stu-id="79dae-732">Indicates whether the host should listen on the URLs configured with the `IWebHostBuilder` instead of those URLs configured with the `IServer` implementation.</span></span>
+<span data-ttu-id="35be4-732">指示主机是否应该侦听使用 `IWebHostBuilder` 配置的 URL，而不是使用 `IServer` 实现配置的 URL。</span><span class="sxs-lookup"><span data-stu-id="35be4-732">Indicates whether the host should listen on the URLs configured with the `IWebHostBuilder` instead of those URLs configured with the `IServer` implementation.</span></span>
 
-<span data-ttu-id="79dae-733">键：`preferHostingUrls`</span><span class="sxs-lookup"><span data-stu-id="79dae-733">**Key**: `preferHostingUrls`</span></span>  
-<span data-ttu-id="79dae-734">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-734">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-735">**默认**：`true`</span><span class="sxs-lookup"><span data-stu-id="79dae-735">**Default**: `true`</span></span>  
-<span data-ttu-id="79dae-736">**环境变量**：`<PREFIX_>_PREFERHOSTINGURLS`</span><span class="sxs-lookup"><span data-stu-id="79dae-736">**Environment variable**: `<PREFIX_>_PREFERHOSTINGURLS`</span></span>
+<span data-ttu-id="35be4-733">键：`preferHostingUrls`</span><span class="sxs-lookup"><span data-stu-id="35be4-733">**Key**: `preferHostingUrls`</span></span>  
+<span data-ttu-id="35be4-734">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-734">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-735">**默认**：`true`</span><span class="sxs-lookup"><span data-stu-id="35be4-735">**Default**: `true`</span></span>  
+<span data-ttu-id="35be4-736">**环境变量**：`<PREFIX_>_PREFERHOSTINGURLS`</span><span class="sxs-lookup"><span data-stu-id="35be4-736">**Environment variable**: `<PREFIX_>_PREFERHOSTINGURLS`</span></span>
 
-<span data-ttu-id="79dae-737">若要设置此值，请使用环境变量或调用 `PreferHostingUrls`：</span><span class="sxs-lookup"><span data-stu-id="79dae-737">To set this value, use the environment variable or call `PreferHostingUrls`:</span></span>
+<span data-ttu-id="35be4-737">若要设置此值，请使用环境变量或调用 `PreferHostingUrls`：</span><span class="sxs-lookup"><span data-stu-id="35be4-737">To set this value, use the environment variable or call `PreferHostingUrls`:</span></span>
 
 ```csharp
 webBuilder.PreferHostingUrls(false);
 ```
 
-### <a name="preventhostingstartup"></a><span data-ttu-id="79dae-738">PreventHostingStartup</span><span class="sxs-lookup"><span data-stu-id="79dae-738">PreventHostingStartup</span></span>
+### <a name="preventhostingstartup"></a><span data-ttu-id="35be4-738">PreventHostingStartup</span><span class="sxs-lookup"><span data-stu-id="35be4-738">PreventHostingStartup</span></span>
 
-<span data-ttu-id="79dae-739">阻止承载启动程序集自动加载，包括应用的程序集所配置的承载启动程序集。</span><span class="sxs-lookup"><span data-stu-id="79dae-739">Prevents the automatic loading of hosting startup assemblies, including hosting startup assemblies configured by the app's assembly.</span></span> <span data-ttu-id="79dae-740">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="79dae-740">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+<span data-ttu-id="35be4-739">阻止承载启动程序集自动加载，包括应用的程序集所配置的承载启动程序集。</span><span class="sxs-lookup"><span data-stu-id="35be4-739">Prevents the automatic loading of hosting startup assemblies, including hosting startup assemblies configured by the app's assembly.</span></span> <span data-ttu-id="35be4-740">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="35be4-740">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
 
-<span data-ttu-id="79dae-741">键：`preventHostingStartup`</span><span class="sxs-lookup"><span data-stu-id="79dae-741">**Key**: `preventHostingStartup`</span></span>  
-<span data-ttu-id="79dae-742">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="79dae-742">**Type**: `bool` (`true` or `1`)</span></span>  
-<span data-ttu-id="79dae-743">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="79dae-743">**Default**: `false`</span></span>  
-<span data-ttu-id="79dae-744">**环境变量**：`<PREFIX_>_PREVENTHOSTINGSTARTUP`</span><span class="sxs-lookup"><span data-stu-id="79dae-744">**Environment variable**: `<PREFIX_>_PREVENTHOSTINGSTARTUP`</span></span>
+<span data-ttu-id="35be4-741">键：`preventHostingStartup`</span><span class="sxs-lookup"><span data-stu-id="35be4-741">**Key**: `preventHostingStartup`</span></span>  
+<span data-ttu-id="35be4-742">类型：`bool`（`true` 或 `1`）</span><span class="sxs-lookup"><span data-stu-id="35be4-742">**Type**: `bool` (`true` or `1`)</span></span>  
+<span data-ttu-id="35be4-743">**默认**：`false`</span><span class="sxs-lookup"><span data-stu-id="35be4-743">**Default**: `false`</span></span>  
+<span data-ttu-id="35be4-744">**环境变量**：`<PREFIX_>_PREVENTHOSTINGSTARTUP`</span><span class="sxs-lookup"><span data-stu-id="35be4-744">**Environment variable**: `<PREFIX_>_PREVENTHOSTINGSTARTUP`</span></span>
 
-<span data-ttu-id="79dae-745">若要设置此值，请使用环境变量或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="79dae-745">To set this value, use the environment variable or call `UseSetting` :</span></span>
+<span data-ttu-id="35be4-745">若要设置此值，请使用环境变量或调用 `UseSetting`：</span><span class="sxs-lookup"><span data-stu-id="35be4-745">To set this value, use the environment variable or call `UseSetting` :</span></span>
 
 ```csharp
 webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 ```
 
-### <a name="startupassembly"></a><span data-ttu-id="79dae-746">StartupAssembly</span><span class="sxs-lookup"><span data-stu-id="79dae-746">StartupAssembly</span></span>
+### <a name="startupassembly"></a><span data-ttu-id="35be4-746">StartupAssembly</span><span class="sxs-lookup"><span data-stu-id="35be4-746">StartupAssembly</span></span>
 
-<span data-ttu-id="79dae-747">要搜索 `Startup` 类的程序集。</span><span class="sxs-lookup"><span data-stu-id="79dae-747">The assembly to search for the `Startup` class.</span></span>
+<span data-ttu-id="35be4-747">要搜索 `Startup` 类的程序集。</span><span class="sxs-lookup"><span data-stu-id="35be4-747">The assembly to search for the `Startup` class.</span></span>
 
-<span data-ttu-id="79dae-748">键：`startupAssembly`</span><span class="sxs-lookup"><span data-stu-id="79dae-748">**Key**: `startupAssembly`</span></span>  
-<span data-ttu-id="79dae-749">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-749">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-750">**默认**：应用的程序集</span><span class="sxs-lookup"><span data-stu-id="79dae-750">**Default**: The app's assembly</span></span>  
-<span data-ttu-id="79dae-751">**环境变量**：`<PREFIX_>STARTUPASSEMBLY`</span><span class="sxs-lookup"><span data-stu-id="79dae-751">**Environment variable**: `<PREFIX_>STARTUPASSEMBLY`</span></span>
+<span data-ttu-id="35be4-748">键：`startupAssembly`</span><span class="sxs-lookup"><span data-stu-id="35be4-748">**Key**: `startupAssembly`</span></span>  
+<span data-ttu-id="35be4-749">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-749">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-750">**默认**：应用的程序集</span><span class="sxs-lookup"><span data-stu-id="35be4-750">**Default**: The app's assembly</span></span>  
+<span data-ttu-id="35be4-751">**环境变量**：`<PREFIX_>STARTUPASSEMBLY`</span><span class="sxs-lookup"><span data-stu-id="35be4-751">**Environment variable**: `<PREFIX_>STARTUPASSEMBLY`</span></span>
 
-<span data-ttu-id="79dae-752">若要设置此值，请使用环境变量或调用 `UseStartup`。</span><span class="sxs-lookup"><span data-stu-id="79dae-752">To set this value, use the environment variable or call `UseStartup`.</span></span> <span data-ttu-id="79dae-753">`UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。</span><span class="sxs-lookup"><span data-stu-id="79dae-753">`UseStartup` can take an assembly name (`string`) or a type (`TStartup`).</span></span> <span data-ttu-id="79dae-754">如果调用多个 `UseStartup` 方法，优先选择最后一个方法。</span><span class="sxs-lookup"><span data-stu-id="79dae-754">If multiple `UseStartup` methods are called, the last one takes precedence.</span></span>
+<span data-ttu-id="35be4-752">若要设置此值，请使用环境变量或调用 `UseStartup`。</span><span class="sxs-lookup"><span data-stu-id="35be4-752">To set this value, use the environment variable or call `UseStartup`.</span></span> <span data-ttu-id="35be4-753">`UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。</span><span class="sxs-lookup"><span data-stu-id="35be4-753">`UseStartup` can take an assembly name (`string`) or a type (`TStartup`).</span></span> <span data-ttu-id="35be4-754">如果调用多个 `UseStartup` 方法，优先选择最后一个方法。</span><span class="sxs-lookup"><span data-stu-id="35be4-754">If multiple `UseStartup` methods are called, the last one takes precedence.</span></span>
 
 ```csharp
 webBuilder.UseStartup("StartupAssemblyName");
@@ -1392,84 +1393,84 @@ webBuilder.UseStartup("StartupAssemblyName");
 webBuilder.UseStartup<Startup>();
 ```
 
-### <a name="urls"></a><span data-ttu-id="79dae-755">URL</span><span class="sxs-lookup"><span data-stu-id="79dae-755">URLs</span></span>
+### <a name="urls"></a><span data-ttu-id="35be4-755">URL</span><span class="sxs-lookup"><span data-stu-id="35be4-755">URLs</span></span>
 
-<span data-ttu-id="79dae-756">IP 地址或主机地址的分号分隔列表，其中包含服务器应针对请求侦听的端口和协议。</span><span class="sxs-lookup"><span data-stu-id="79dae-756">A semicolon-delimited list of IP addresses or host addresses with ports and protocols that the server should listen on for requests.</span></span> <span data-ttu-id="79dae-757">例如 `http://localhost:123`。</span><span class="sxs-lookup"><span data-stu-id="79dae-757">For example, `http://localhost:123`.</span></span> <span data-ttu-id="79dae-758">使用“\*”指示服务器应针对请求侦听的使用特定端口和协议（例如 `http://*:5000`）的 IP 地址或主机名。</span><span class="sxs-lookup"><span data-stu-id="79dae-758">Use "\*" to indicate that the server should listen for requests on any IP address or hostname using the specified port and protocol (for example, `http://*:5000`).</span></span> <span data-ttu-id="79dae-759">协议（`http://` 或 `https://`）必须包含每个 URL。</span><span class="sxs-lookup"><span data-stu-id="79dae-759">The protocol (`http://` or `https://`) must be included with each URL.</span></span> <span data-ttu-id="79dae-760">不同的服务器支持的格式有所不同。</span><span class="sxs-lookup"><span data-stu-id="79dae-760">Supported formats vary among servers.</span></span>
+<span data-ttu-id="35be4-756">IP 地址或主机地址的分号分隔列表，其中包含服务器应针对请求侦听的端口和协议。</span><span class="sxs-lookup"><span data-stu-id="35be4-756">A semicolon-delimited list of IP addresses or host addresses with ports and protocols that the server should listen on for requests.</span></span> <span data-ttu-id="35be4-757">例如 `http://localhost:123`。</span><span class="sxs-lookup"><span data-stu-id="35be4-757">For example, `http://localhost:123`.</span></span> <span data-ttu-id="35be4-758">使用“\*”指示服务器应针对请求侦听的使用特定端口和协议（例如 `http://*:5000`）的 IP 地址或主机名。</span><span class="sxs-lookup"><span data-stu-id="35be4-758">Use "\*" to indicate that the server should listen for requests on any IP address or hostname using the specified port and protocol (for example, `http://*:5000`).</span></span> <span data-ttu-id="35be4-759">协议（`http://` 或 `https://`）必须包含每个 URL。</span><span class="sxs-lookup"><span data-stu-id="35be4-759">The protocol (`http://` or `https://`) must be included with each URL.</span></span> <span data-ttu-id="35be4-760">不同的服务器支持的格式有所不同。</span><span class="sxs-lookup"><span data-stu-id="35be4-760">Supported formats vary among servers.</span></span>
 
-<span data-ttu-id="79dae-761">键：`urls`</span><span class="sxs-lookup"><span data-stu-id="79dae-761">**Key**: `urls`</span></span>  
-<span data-ttu-id="79dae-762">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-762">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-763">**默认值**：`http://localhost:5000` 和 `https://localhost:5001`</span><span class="sxs-lookup"><span data-stu-id="79dae-763">**Default**: `http://localhost:5000` and `https://localhost:5001`</span></span>  
-<span data-ttu-id="79dae-764">**环境变量**：`<PREFIX_>URLS`</span><span class="sxs-lookup"><span data-stu-id="79dae-764">**Environment variable**: `<PREFIX_>URLS`</span></span>
+<span data-ttu-id="35be4-761">键：`urls`</span><span class="sxs-lookup"><span data-stu-id="35be4-761">**Key**: `urls`</span></span>  
+<span data-ttu-id="35be4-762">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-762">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-763">**默认值**：`http://localhost:5000` 和 `https://localhost:5001`</span><span class="sxs-lookup"><span data-stu-id="35be4-763">**Default**: `http://localhost:5000` and `https://localhost:5001`</span></span>  
+<span data-ttu-id="35be4-764">**环境变量**：`<PREFIX_>URLS`</span><span class="sxs-lookup"><span data-stu-id="35be4-764">**Environment variable**: `<PREFIX_>URLS`</span></span>
 
-<span data-ttu-id="79dae-765">若要设置此值，请使用环境变量或调用 `UseUrls`：</span><span class="sxs-lookup"><span data-stu-id="79dae-765">To set this value, use the environment variable or call `UseUrls`:</span></span>
+<span data-ttu-id="35be4-765">若要设置此值，请使用环境变量或调用 `UseUrls`：</span><span class="sxs-lookup"><span data-stu-id="35be4-765">To set this value, use the environment variable or call `UseUrls`:</span></span>
 
 ```csharp
 webBuilder.UseUrls("http://*:5000;http://localhost:5001;https://hostname:5002");
 ```
 
-<span data-ttu-id="79dae-766">Kestrel 具有自己的终结点配置 API。</span><span class="sxs-lookup"><span data-stu-id="79dae-766">Kestrel has its own endpoint configuration API.</span></span> <span data-ttu-id="79dae-767">有关详细信息，请参阅 <xref:fundamentals/servers/kestrel#endpoint-configuration>。</span><span class="sxs-lookup"><span data-stu-id="79dae-767">For more information, see <xref:fundamentals/servers/kestrel#endpoint-configuration>.</span></span>
+<span data-ttu-id="35be4-766">Kestrel 具有自己的终结点配置 API。</span><span class="sxs-lookup"><span data-stu-id="35be4-766">Kestrel has its own endpoint configuration API.</span></span> <span data-ttu-id="35be4-767">有关详细信息，请参阅 <xref:fundamentals/servers/kestrel#endpoint-configuration>。</span><span class="sxs-lookup"><span data-stu-id="35be4-767">For more information, see <xref:fundamentals/servers/kestrel#endpoint-configuration>.</span></span>
 
-### <a name="webroot"></a><span data-ttu-id="79dae-768">WebRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-768">WebRoot</span></span>
+### <a name="webroot"></a><span data-ttu-id="35be4-768">WebRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-768">WebRoot</span></span>
 
-<span data-ttu-id="79dae-769">[IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) 属性可确定应用静态资产的相对路径。</span><span class="sxs-lookup"><span data-stu-id="79dae-769">The [IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) property determines the relative path to the app's static assets.</span></span> <span data-ttu-id="79dae-770">如果该路径不存在，则使用无操作文件提供程序。</span><span class="sxs-lookup"><span data-stu-id="79dae-770">If the path doesn't exist, a no-op file provider is used.</span></span>  
+<span data-ttu-id="35be4-769">[IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) 属性可确定应用静态资产的相对路径。</span><span class="sxs-lookup"><span data-stu-id="35be4-769">The [IWebHostEnvironment.WebRootPath](xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath) property determines the relative path to the app's static assets.</span></span> <span data-ttu-id="35be4-770">如果该路径不存在，则使用无操作文件提供程序。</span><span class="sxs-lookup"><span data-stu-id="35be4-770">If the path doesn't exist, a no-op file provider is used.</span></span>  
 
-<span data-ttu-id="79dae-771">键：`webroot`</span><span class="sxs-lookup"><span data-stu-id="79dae-771">**Key**: `webroot`</span></span>  
-<span data-ttu-id="79dae-772">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="79dae-772">**Type**: `string`</span></span>  
-<span data-ttu-id="79dae-773">**默认**：默认值为 `wwwroot`。</span><span class="sxs-lookup"><span data-stu-id="79dae-773">**Default**: The default is `wwwroot`.</span></span> <span data-ttu-id="79dae-774">{content root}/wwwroot 的路径必须存在。</span><span class="sxs-lookup"><span data-stu-id="79dae-774">The path to *{content root}/wwwroot* must exist.</span></span>  
-<span data-ttu-id="79dae-775">**环境变量**：`<PREFIX_>WEBROOT`</span><span class="sxs-lookup"><span data-stu-id="79dae-775">**Environment variable**: `<PREFIX_>WEBROOT`</span></span>
+<span data-ttu-id="35be4-771">键：`webroot`</span><span class="sxs-lookup"><span data-stu-id="35be4-771">**Key**: `webroot`</span></span>  
+<span data-ttu-id="35be4-772">类型：`string`</span><span class="sxs-lookup"><span data-stu-id="35be4-772">**Type**: `string`</span></span>  
+<span data-ttu-id="35be4-773">**默认**：默认值为 `wwwroot`。</span><span class="sxs-lookup"><span data-stu-id="35be4-773">**Default**: The default is `wwwroot`.</span></span> <span data-ttu-id="35be4-774">{content root}/wwwroot 的路径必须存在。</span><span class="sxs-lookup"><span data-stu-id="35be4-774">The path to *{content root}/wwwroot* must exist.</span></span>  
+<span data-ttu-id="35be4-775">**环境变量**：`<PREFIX_>WEBROOT`</span><span class="sxs-lookup"><span data-stu-id="35be4-775">**Environment variable**: `<PREFIX_>WEBROOT`</span></span>
 
-<span data-ttu-id="79dae-776">若要设置此值，请使用环境变量或对 `IWebHostBuilder` 调用 `UseWebRoot`：</span><span class="sxs-lookup"><span data-stu-id="79dae-776">To set this value, use the environment variable or call `UseWebRoot` on `IWebHostBuilder`:</span></span>
+<span data-ttu-id="35be4-776">若要设置此值，请使用环境变量或对 `IWebHostBuilder` 调用 `UseWebRoot`：</span><span class="sxs-lookup"><span data-stu-id="35be4-776">To set this value, use the environment variable or call `UseWebRoot` on `IWebHostBuilder`:</span></span>
 
 ```csharp
 webBuilder.UseWebRoot("public");
 ```
 
-<span data-ttu-id="79dae-777">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="79dae-777">For more information, see:</span></span>
+<span data-ttu-id="35be4-777">有关详情，请参阅：</span><span class="sxs-lookup"><span data-stu-id="35be4-777">For more information, see:</span></span>
 
-* [<span data-ttu-id="79dae-778">基础知识：Web 根目录</span><span class="sxs-lookup"><span data-stu-id="79dae-778">Fundamentals: Web root</span></span>](xref:fundamentals/index#web-root)
-* [<span data-ttu-id="79dae-779">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="79dae-779">ContentRoot</span></span>](#contentroot)
+* [<span data-ttu-id="35be4-778">基础知识：Web 根目录</span><span class="sxs-lookup"><span data-stu-id="35be4-778">Fundamentals: Web root</span></span>](xref:fundamentals/index#web-root)
+* [<span data-ttu-id="35be4-779">ContentRoot</span><span class="sxs-lookup"><span data-stu-id="35be4-779">ContentRoot</span></span>](#contentroot)
 
-## <a name="manage-the-host-lifetime"></a><span data-ttu-id="79dae-780">管理主机生存期</span><span class="sxs-lookup"><span data-stu-id="79dae-780">Manage the host lifetime</span></span>
+## <a name="manage-the-host-lifetime"></a><span data-ttu-id="35be4-780">管理主机生存期</span><span class="sxs-lookup"><span data-stu-id="35be4-780">Manage the host lifetime</span></span>
 
-<span data-ttu-id="79dae-781">对生成的 <xref:Microsoft.Extensions.Hosting.IHost> 实现调用方法，以启动和停止应用。</span><span class="sxs-lookup"><span data-stu-id="79dae-781">Call methods on the built <xref:Microsoft.Extensions.Hosting.IHost> implementation to start and stop the app.</span></span> <span data-ttu-id="79dae-782">这些方法会影响所有在服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。</span><span class="sxs-lookup"><span data-stu-id="79dae-782">These methods affect all  <xref:Microsoft.Extensions.Hosting.IHostedService> implementations that are registered in the service container.</span></span>
+<span data-ttu-id="35be4-781">对生成的 <xref:Microsoft.Extensions.Hosting.IHost> 实现调用方法，以启动和停止应用。</span><span class="sxs-lookup"><span data-stu-id="35be4-781">Call methods on the built <xref:Microsoft.Extensions.Hosting.IHost> implementation to start and stop the app.</span></span> <span data-ttu-id="35be4-782">这些方法会影响所有在服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。</span><span class="sxs-lookup"><span data-stu-id="35be4-782">These methods affect all  <xref:Microsoft.Extensions.Hosting.IHostedService> implementations that are registered in the service container.</span></span>
 
-### <a name="run"></a><span data-ttu-id="79dae-783">运行</span><span class="sxs-lookup"><span data-stu-id="79dae-783">Run</span></span>
+### <a name="run"></a><span data-ttu-id="35be4-783">运行</span><span class="sxs-lookup"><span data-stu-id="35be4-783">Run</span></span>
 
-<span data-ttu-id="79dae-784"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> 运行应用并阻止调用线程，直到关闭主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-784"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> runs the app and blocks the calling thread until the host is shut down.</span></span>
+<span data-ttu-id="35be4-784"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> 运行应用并阻止调用线程，直到关闭主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-784"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> runs the app and blocks the calling thread until the host is shut down.</span></span>
 
-### <a name="runasync"></a><span data-ttu-id="79dae-785">RunAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-785">RunAsync</span></span>
+### <a name="runasync"></a><span data-ttu-id="35be4-785">RunAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-785">RunAsync</span></span>
 
-<span data-ttu-id="79dae-786"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="79dae-786"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> runs the app and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span>
+<span data-ttu-id="35be4-786"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="35be4-786"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> runs the app and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span>
 
-### <a name="runconsoleasync"></a><span data-ttu-id="79dae-787">RunConsoleAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-787">RunConsoleAsync</span></span>
+### <a name="runconsoleasync"></a><span data-ttu-id="35be4-787">RunConsoleAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-787">RunConsoleAsync</span></span>
 
-<span data-ttu-id="79dae-788"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 关闭。</span><span class="sxs-lookup"><span data-stu-id="79dae-788"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> enables console support, builds and starts the host, and waits for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM to shut down.</span></span>
+<span data-ttu-id="35be4-788"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM 关闭。</span><span class="sxs-lookup"><span data-stu-id="35be4-788"><xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> enables console support, builds and starts the host, and waits for <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM to shut down.</span></span>
 
-### <a name="start"></a><span data-ttu-id="79dae-789">Start</span><span class="sxs-lookup"><span data-stu-id="79dae-789">Start</span></span>
+### <a name="start"></a><span data-ttu-id="35be4-789">Start</span><span class="sxs-lookup"><span data-stu-id="35be4-789">Start</span></span>
 
-<span data-ttu-id="79dae-790"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> 同步启动主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-790"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> starts the host synchronously.</span></span>
+<span data-ttu-id="35be4-790"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> 同步启动主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-790"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> starts the host synchronously.</span></span>
 
-### <a name="startasync"></a><span data-ttu-id="79dae-791">StartAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-791">StartAsync</span></span>
+### <a name="startasync"></a><span data-ttu-id="35be4-791">StartAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-791">StartAsync</span></span>
 
-<span data-ttu-id="79dae-792"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 启动主机并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="79dae-792"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> starts the host and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span> 
+<span data-ttu-id="35be4-792"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 启动主机并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="35be4-792"><xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> starts the host and returns a <xref:System.Threading.Tasks.Task> that completes when the cancellation token or shutdown is triggered.</span></span> 
 
-<span data-ttu-id="79dae-793">在 `StartAsync` 开始时调用 <xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*>，在继续之前，会一直等待该操作完成。</span><span class="sxs-lookup"><span data-stu-id="79dae-793"><xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*> is called at the start of `StartAsync`, which waits until it's complete before continuing.</span></span> <span data-ttu-id="79dae-794">它可用于延迟启动，直到外部事件发出信号。</span><span class="sxs-lookup"><span data-stu-id="79dae-794">This can be used to delay startup until signaled by an external event.</span></span>
+<span data-ttu-id="35be4-793">在 `StartAsync` 开始时调用 <xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*>，在继续之前，会一直等待该操作完成。</span><span class="sxs-lookup"><span data-stu-id="35be4-793"><xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*> is called at the start of `StartAsync`, which waits until it's complete before continuing.</span></span> <span data-ttu-id="35be4-794">它可用于延迟启动，直到外部事件发出信号。</span><span class="sxs-lookup"><span data-stu-id="35be4-794">This can be used to delay startup until signaled by an external event.</span></span>
 
-### <a name="stopasync"></a><span data-ttu-id="79dae-795">StopAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-795">StopAsync</span></span>
+### <a name="stopasync"></a><span data-ttu-id="35be4-795">StopAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-795">StopAsync</span></span>
 
-<span data-ttu-id="79dae-796"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> 尝试在提供的超时时间内停止主机。</span><span class="sxs-lookup"><span data-stu-id="79dae-796"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> attempts to stop the host within the provided timeout.</span></span>
+<span data-ttu-id="35be4-796"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> 尝试在提供的超时时间内停止主机。</span><span class="sxs-lookup"><span data-stu-id="35be4-796"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> attempts to stop the host within the provided timeout.</span></span>
 
-### <a name="waitforshutdown"></a><span data-ttu-id="79dae-797">WaitForShutdown</span><span class="sxs-lookup"><span data-stu-id="79dae-797">WaitForShutdown</span></span>
+### <a name="waitforshutdown"></a><span data-ttu-id="35be4-797">WaitForShutdown</span><span class="sxs-lookup"><span data-stu-id="35be4-797">WaitForShutdown</span></span>
 
-<span data-ttu-id="79dae-798"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 阻止调用线程，直到 IHostLifetime 触发关闭，例如通过 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM。</span><span class="sxs-lookup"><span data-stu-id="79dae-798"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> blocks the calling thread until shutdown is triggered by the IHostLifetime, such as via <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM.</span></span>
+<span data-ttu-id="35be4-798"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 阻止调用线程，直到 IHostLifetime 触发关闭，例如通过 <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT 或 SIGTERM。</span><span class="sxs-lookup"><span data-stu-id="35be4-798"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> blocks the calling thread until shutdown is triggered by the IHostLifetime, such as via <kbd>Ctrl</kbd>+<kbd>C</kbd>/SIGINT or SIGTERM.</span></span>
 
-### <a name="waitforshutdownasync"></a><span data-ttu-id="79dae-799">WaitForShutdownAsync</span><span class="sxs-lookup"><span data-stu-id="79dae-799">WaitForShutdownAsync</span></span>
+### <a name="waitforshutdownasync"></a><span data-ttu-id="35be4-799">WaitForShutdownAsync</span><span class="sxs-lookup"><span data-stu-id="35be4-799">WaitForShutdownAsync</span></span>
 
-<span data-ttu-id="79dae-800"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="79dae-800"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> returns a <xref:System.Threading.Tasks.Task> that completes when shutdown is triggered via the given token and calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
+<span data-ttu-id="35be4-800"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。</span><span class="sxs-lookup"><span data-stu-id="35be4-800"><xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> returns a <xref:System.Threading.Tasks.Task> that completes when shutdown is triggered via the given token and calls <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.</span></span>
 
-### <a name="external-control"></a><span data-ttu-id="79dae-801">外部控件</span><span class="sxs-lookup"><span data-stu-id="79dae-801">External control</span></span>
+### <a name="external-control"></a><span data-ttu-id="35be4-801">外部控件</span><span class="sxs-lookup"><span data-stu-id="35be4-801">External control</span></span>
 
-<span data-ttu-id="79dae-802">使用可从外部调用的方法，能够实现对主机生存期的直接控制：</span><span class="sxs-lookup"><span data-stu-id="79dae-802">Direct control of the host lifetime can be achieved using methods that can be called externally:</span></span>
+<span data-ttu-id="35be4-802">使用可从外部调用的方法，能够实现对主机生存期的直接控制：</span><span class="sxs-lookup"><span data-stu-id="35be4-802">Direct control of the host lifetime can be achieved using methods that can be called externally:</span></span>
 
 ```csharp
 public class Program
@@ -1499,6 +1500,6 @@ public class Program
 
 ::: moniker-end
 
-## <a name="additional-resources"></a><span data-ttu-id="79dae-803">其他资源</span><span class="sxs-lookup"><span data-stu-id="79dae-803">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="35be4-803">其他资源</span><span class="sxs-lookup"><span data-stu-id="35be4-803">Additional resources</span></span>
 
 * <xref:fundamentals/host/hosted-services>
