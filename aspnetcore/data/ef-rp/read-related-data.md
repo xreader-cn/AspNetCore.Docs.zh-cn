@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 14b28f04f4077cb5622858dad1bd18b81b198f3d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 171607544bfe89fdd0a1ed9efb68f7a532f9aee1
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405791"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212662"
 ---
 # <a name="part-6-razor-pages-with-ef-core-in-aspnet-core---read-related-data"></a>第 6 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据
 
@@ -420,7 +420,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 使用以下突出显示的标记更新 Pages/Courses/Index.cshtml：
 
-[!code-html[](intro/samples/cu/Pages/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
+[!code-cshtml[](intro/samples/cu/Pages/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
 
 对基架代码进行了以下更改：
 
@@ -515,7 +515,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 使用以下标记更新 Pages/Instructors/Index.cshtml：
 
-[!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=1-65&highlight=1,5,8,16-21,25-32,43-57)]
+[!code-cshtml[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=1-65&highlight=1,5,8,16-21,25-32,43-57)]
 
 上述标记进行以下更改：
 
@@ -595,7 +595,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 在 Pages/Instructors/Index.cshtml Razor 页面末尾添加以下标记：
 
-[!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=60-102&highlight=7-999)]
+[!code-cshtml[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=60-102&highlight=7-999)]
 
 上述标记显示选中某讲师时与该讲师相关的课程列表。
 
@@ -611,7 +611,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 更新 Pages/Instructors/Index.cshtml。 在文件末尾添加以下标记：
 
-[!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=103-)]
+[!code-cshtml[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=103-)]
 
 上述标记显示已注册所选课程的学生列表。
 

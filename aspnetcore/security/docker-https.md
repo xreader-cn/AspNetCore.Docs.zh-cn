@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-https
-ms.openlocfilehash: fd2338f433e1651fb974c95b293eaa3fb2009046
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6a83695ff2a9ac7229d1d5086ed13594626476ee
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403100"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407653"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>通过 HTTPS 在 Docker 上宿主 ASP.NET Core 映像
 
@@ -34,7 +34,7 @@ ms.locfileid: "85403100"
 
 此示例需要 docker [17.06](https://docs.docker.com/release-notes/docker-ce)或更高版本的[docker 客户端](https://www.docker.com/products/docker)。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 本文档中的某些说明需要[.Net Core 2.2 SDK](https://dotnet.microsoft.com/download)或更高版本。
 
@@ -90,7 +90,7 @@ dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { password her
 dotnet dev-certs https --trust
 ```
 
-`dotnet dev-certs https --trust`仅在 macOS 和 Windows 上受支持。 你需要以发行版支持的方式信任 Linux 上的证书。 可能需要在浏览器中信任该证书。
+`dotnet dev-certs https --trust`仅在 macOS 和 Windows 上受支持。 你需要以分发的支持方式信任 Linux 上的证书。 可能需要在浏览器中信任该证书。
 
 在上述命令中，将替换 `{ password here }` 为密码。
 

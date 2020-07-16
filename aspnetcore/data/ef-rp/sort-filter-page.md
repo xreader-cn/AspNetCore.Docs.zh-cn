@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 0a87fe2f4cf7014cc15752dcf25545ce7aaa4687
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 496221bb4e34e1f9e4177d1934786a77d8c9b411
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408599"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212538"
 ---
 # <a name="part-3-razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>第 3 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页
 
@@ -337,7 +337,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 将 Students/Index.cshtml 中的代码替换为以下突出显示的代码：
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
 
 前面的代码：
 
@@ -393,7 +393,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 在 Pages/Students/Index.cshtml中，添加以下突出显示的代码以创建“搜索”按钮和各种 chrome。
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index3.cshtml?highlight=14-23&range=1-25)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index3.cshtml?highlight=14-23&range=1-25)]
 
 上述代码使用 `<form>` [标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器利用 POST 提交表单数据。 借助 POST，会在 HTTP 消息正文中而不是在 URL 中传递参数。 使用 HTTP GET 时，表单数据作为查询字符串在 URL 中进行传递。 通过查询字符串传递数据时，用户可对 URL 添加书签。 [W3C 指南](https://www.w3.org/2001/tag/doc/whenToUseGet.html)建议应在操作不引起更新的情况下使用 GET。
 
@@ -471,15 +471,15 @@ http://localhost:5000/Students?SearchString=an
 
 更新 Students/Index.cshtml 中的标记。 突出显示所作更改：
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?highlight=28-31,37-40,68-999)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index.cshtml?highlight=28-31,37-40,68-999)]
 
 列标题链接使用查询字符串将当前搜索字符串传递到 `OnGetAsync` 方法，让用户可对筛选结果进行排序：
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?range=28-31)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index.cshtml?range=28-31)]
 
 分页按钮由标记帮助器显示：
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?range=72-)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index.cshtml?range=72-)]
 
 运行应用并导航到学生页面。
 
@@ -525,7 +525,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 将 Pages/About.cshtml 文件中的代码替换为以下代码：
 
-[!code-html[](intro/samples/cu21/Pages/About.cshtml)]
+[!code-cshtml[](intro/samples/cu21/Pages/About.cshtml)]
 
 运行应用并导航到“关于”页面。 表格中会显示每个注册日期的学生计数。
 

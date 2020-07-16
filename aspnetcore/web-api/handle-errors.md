@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/handle-errors
-ms.openlocfilehash: f756d9abfb92fd4d6d51d8762967ac2288b54b2a
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0abb5e78e1971925c8e741386c65bdf71a0f0072
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405752"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407627"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>处理 ASP.NET Core Web API 中的错误
 
@@ -42,7 +42,7 @@ curl -i https://localhost:5001/weatherforecast/chicago
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 ASP.NET Core 3.0 及更高版本中，如果客户端不请求 HTML 格式的输出，则开发人员异常页将显示纯文本响应。 将显示以下输出：
+在 ASP.NET Core 3.0 及更高版本中，如果客户端不请求 HTML 格式的输出，则开发人员异常页将显示纯文本响应。 随即显示以下输出：
 
 ```console
 HTTP/1.1 500 Internal Server Error
@@ -123,7 +123,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 ::: moniker-end
 
 > [!WARNING]
-> 仅当应用程序在开发环境中运行时才启用开发人员异常页  。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
+> 仅当应用程序在开发环境中运行时才启用开发人员异常页。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
 
 ## <a name="exception-handler"></a>异常处理程序
 
@@ -290,11 +290,11 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 1. [实现 ProblemDetailsFactory](#implement-problemdetailsfactory)
 1. [使用 ApiBehaviorOptions.ClientErrorMapping](#use-apibehavioroptionsclienterrormapping)
 
-### <a name="implement-problemdetailsfactory"></a>实现 ProblemDetailsFactory
+### <a name="implement-problemdetailsfactory"></a>实现 `ProblemDetailsFactory`
 
-MVC 使用 `Microsoft.AspNetCore.Mvc.ProblemDetailsFactory` 生成 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 和 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 的所有实例。 这包括客户端错误响应、验证失败错误响应以及 `Microsoft.AspNetCore.Mvc.ControllerBase.Problem` 和 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem> 帮助程序方法。
+MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ProblemDetailsFactory?displayProperty=fullName> 生成 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 和 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 的所有实例。 这包括客户端错误响应、验证失败错误响应以及 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Problem%2A?displayProperty=nameWithType> 和 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem%2A?displayProperty=nameWithType> 帮助程序方法。
 
-若要自定义问题详细信息响应，请在 `Startup.ConfigureServices` 中注册 `ProblemDetailsFactory` 的自定义实现：
+若要自定义问题详细信息响应，请在 `Startup.ConfigureServices` 中注册 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ProblemDetailsFactory> 的自定义实现：
 
 ```csharp
 public void ConfigureServices(IServiceCollection serviceCollection)

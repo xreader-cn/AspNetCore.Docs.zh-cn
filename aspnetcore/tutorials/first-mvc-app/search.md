@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: 652ee8c4bfe8980eb09246720f9ddf1743021f34
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 65bf5e6b022699268f9e7e5677ea8632f1a489c7
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399044"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213142"
 ---
 # <a name="part-7-add-search-to-an-aspnet-core-mvc-app"></a>第 7 部分，将搜索添加到 ASP.NET Core MVC 应用
 
@@ -75,7 +75,7 @@ var movies = from m in _context.Movie
 
 打开“Views/Movies/Index.cshtml”文件，并添加以下突出显示的 `<form>` 标记：
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexForm1.cshtml?highlight=10-16&range=4-21)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexForm1.cshtml?highlight=10-16&range=4-21)]
 
 此 HTML `<form>` 标记使用[表单标记帮助程序](xref:mvc/views/working-with-forms)，因此提交表单时，筛选器字符串会发布到电影控制器的 `Index` 操作。 保存更改，然后测试筛选器。
 
@@ -101,7 +101,7 @@ var movies = from m in _context.Movie
 
 搜索参数位于请求正文而非 URL 中，因此无法捕获该搜索信息进行书签设定或与他人共享。 修复方法是指定：请求应为 Views/Movies/Index.cshtml 文件中的 `HTTP GET`。
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
 
 现在提交搜索后，URL 将包含搜索查询字符串。 即使具备 `HttpPost Index` 方法，搜索也将转到 `HttpGet Index` 操作方法。
 

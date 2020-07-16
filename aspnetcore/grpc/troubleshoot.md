@@ -5,7 +5,7 @@ description: 排查使用 .NET Core 上的 gRPC 时遇到的错误。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 05/26/2020
+ms.date: 07/09/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/troubleshoot
-ms.openlocfilehash: 9a3e7269db04b79146686668879bf47f1a7dd6af
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 385291ec6bb6719a5fade927fa9f599af8c94045
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400032"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176177"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>对 .NET Core 上的 gRPC 进行故障排除
 
@@ -135,13 +135,6 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 * 对 gRPC 工具包 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 的包引用。
 
 有关生成 gRPC C# 资产的详细信息，请参阅 <xref:grpc/basics>。
-
-默认情况下，`<Protobuf>` 引用将生成具体的客户端和服务基类。 可使用引用元素的 `GrpcServices` 特性来限制 C# 资产生成。 有效 `GrpcServices` 选项如下：
-
-* `Both`（如果不存在，则为默认值）
-* `Server`
-* `Client`
-* `None`
 
 托管 gRPC 服务的 ASP.NET Core web 应用仅需要已生成的服务基类：
 
