@@ -5,7 +5,7 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 07/14/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 23aab2504368559b8d3dd21b3c0896ffc3348e2f
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: c444b331f44382db885a8bac33b46dac8505dd20
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059813"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407679"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -280,6 +280,29 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 `Pages/ParentComponent.razor`：
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=7-8)]
+
+由于 Blazor 呈现子内容的方式，如果在子组件的内容中使用递增循环变量，则在 `for` 循环内呈现组件需要本地索引变量：
+>
+> ```razor
+> @for (int c = 0; c < 10; c++)
+> {
+>     var current = c;
+>     <ChildComponent Param1="@c">
+>         Child Content: Count: @current
+>     </ChildComponent>
+> }
+> ```
+>
+> 或者，将 `foreach` 循环用于 <xref:System.Linq.Enumerable.Range%2A?displayProperty=nameWithType>：
+>
+> ```razor
+> @foreach(var c in Enumerable.Range(0,10))
+> {
+>     <ChildComponent Param1="@c">
+>         Child Content: Count: @c
+>     </ChildComponent>
+> }
+> ```
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>属性展开和任意参数
 

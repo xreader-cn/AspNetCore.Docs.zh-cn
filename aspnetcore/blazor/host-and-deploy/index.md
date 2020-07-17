@@ -5,7 +5,7 @@ description: 了解如何托管和部署 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/15/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/index
-ms.openlocfilehash: 040f9560bd51841063ca2785b0c0730c6bb16002
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 77202cd60d357c27237cdb925e0adc00e66d2e56
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402645"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407705"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>托管和部署 ASP.NET Core Blazor
 
@@ -106,6 +106,20 @@ dotnet run --pathbase=/CoolApp
 ```
 
 Blazor WebAssembly 应用在 `http://localhost:port/CoolApp` 本地响应。
+
+**Blazor Server `MapFallbackToPage` 配置**
+
+在 `Startup.Configure` 中向 <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A> 添加以下路径：
+
+```csharp
+endpoints.MapFallbackToPage("/{RELATIVE PATH}/{**path:nonfile}");
+```
+
+占位符 `{RELATIVE PATH}` 是服务器上的非根路径。 例如，如果应用的非根 URL 是 `https://{HOST}:{PORT}/CoolApp/`，`CoolApp` 就是占位符段：
+
+```csharp
+endpoints.MapFallbackToPage("/CoolApp/{**path:nonfile}");
+```
 
 ## <a name="deployment"></a>部署
 
