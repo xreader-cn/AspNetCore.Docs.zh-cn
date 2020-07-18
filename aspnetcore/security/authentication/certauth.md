@@ -4,7 +4,7 @@ author: blowdart
 description: 了解如何在 ASP.NET Core for IIS 和 HTTP.sys 中配置证书身份验证。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 01/02/2020
+ms.date: 07/16/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 493046e288c6b1ccd8e41f15a8e6e532a10a4adc
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2c58a274e8de0b1205b223287b7690b1d5caed23
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403191"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445120"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -40,11 +40,38 @@ ms.locfileid: "85403191"
 
 获取并应用 HTTPS 证书，并将[服务器配置](#configure-your-server-to-require-certificates)为需要证书。
 
-在 web 应用中，添加对包的引用 `Microsoft.AspNetCore.Authentication.Certificate` 。 然后在 `Startup.ConfigureServices` 方法中， `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` 使用你的选项调用，同时提供一个委托，用于对 `OnCertificateValidated` 随请求发送的客户端证书进行任何补充验证。 将该信息转换为 `ClaimsPrincipal` 并在属性上设置 `context.Principal` 。
+在 web 应用中，添加对[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Certificate)包的引用。 然后在 `Startup.ConfigureServices` 方法中， `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` 使用你的选项调用，同时提供一个委托，用于对 `OnCertificateValidated` 随请求发送的客户端证书进行任何补充验证。 将该信息转换为 `ClaimsPrincipal` 并在属性上设置 `context.Principal` 。
 
 如果身份验证失败，此处理程序将 `403 (Forbidden)` `401 (Unauthorized)` 像你所料，返回响应，而不是。 原因是，在初次 TLS 连接期间应进行身份验证。 当它到达处理程序时，它的时间太晚。 无法将连接从匿名连接升级到证书。
 
 还会 `app.UseAuthentication();` 在方法中添加 `Startup.Configure` 。 否则， `HttpContext.User` 将不会设置为 `ClaimsPrincipal` 从证书创建。 例如：
+
+::: moniker range=">= aspnetcore-5.0"
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+        .AddCertificate()
+        // Adding an ICertificateValidationCache results in certificate auth caching the results.
+        // The default implementation uses a memory cache.
+        .AddCertificateCache();
+
+    // All other service configuration
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    app.UseAuthentication();
+
+    // All other app configuration
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -52,16 +79,19 @@ public void ConfigureServices(IServiceCollection services)
     services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)
         .AddCertificate();
-    // All the other service configuration.
+
+    // All other service configuration
 }
 
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
     app.UseAuthentication();
 
-    // All the other app configuration.
+    // All other app configuration
 }
 ```
+
+::: moniker-end
 
 前面的示例演示了添加证书身份验证的默认方法。 处理程序使用通用证书属性构造用户主体。
 
@@ -226,7 +256,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。****
+> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。
 
 ### <a name="iis"></a>IIS
 
@@ -343,7 +373,7 @@ namespace AspNetCoreCertificateAuthApi
 
 #### <a name="implement-an-httpclient-using-a-certificate-and-the-httpclienthandler"></a>使用证书和 HttpClientHandler 实现 HttpClient
 
-HttpClientHandler 可以直接添加到 HttpClient 类的构造函数中。 创建 HttpClient 的实例时应格外小心。 然后，HttpClient 将随每个请求发送证书。
+`HttpClientHandler`可以直接在类的构造函数中添加 `HttpClient` 。 创建实例时应小心谨慎 `HttpClient` 。 `HttpClient`然后，将随每个请求发送证书。
 
 ```csharp
 private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
@@ -372,7 +402,7 @@ private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
 
 #### <a name="implement-an-httpclient-using-a-certificate-and-a-named-httpclient-from-ihttpclientfactory"></a>使用证书和 IHttpClientFactory 中的命名 HttpClient 实现 HttpClient 
 
-在下面的示例中，使用处理程序中的 ClientCertificates 属性将客户端证书添加到 HttpClientHandler 中。 然后，可以使用 ConfigurePrimaryHttpMessageHandler 方法在 HttpClient 的命名实例中使用此处理程序。 这是在 ConfigureServices 方法中的 Startup 类中设置的。
+在下面的示例中， `HttpClientHandler` 使用来自处理程序的属性将客户端证书添加到 `ClientCertificates` 。 然后，可以使用方法在的命名实例中使用此处理程序 `HttpClient` `ConfigurePrimaryHttpMessageHandler` 。 这是在中设置的 `Startup.ConfigureServices` ：
 
 ```csharp
 var clientCertificate = 
@@ -387,7 +417,7 @@ services.AddHttpClient("namedClient", c =>
 }).ConfigurePrimaryHttpMessageHandler(() => handler);
 ```
 
-然后，可以使用 IHttpClientFactory 通过处理程序和证书获取命名实例。 使用 Startup 类中定义的客户端名称的 CreateClient 方法来获取实例。 可根据需要使用客户端发送 HTTP 请求。
+`IHttpClientFactory`然后，可以使用处理程序和证书获取命名实例。 使用 `CreateClient` 在类中定义的客户端名称的方法 `Startup` 来获取实例。 可根据需要使用客户端发送 HTTP 请求。
 
 ```csharp
 private readonly IHttpClientFactory _clientFactory;
@@ -562,12 +592,43 @@ namespace AspNetCoreCertificateAuthApi
 
 <a name="occ"></a>
 
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="certificate-validation-caching"></a>证书验证缓存
+
+ASP.NET Core 5.0 及更高版本支持启用验证结果缓存的功能。 缓存极大地提高了证书身份验证的性能，因为验证是一种代价高昂的操作。
+
+默认情况下，证书身份验证禁用缓存。 若要启用缓存，请调用 `AddCertificateCache` 中的 `Startup.ConfigureServices` ：
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+            .AddCertificate()
+            .AddCertificateCache(options =>
+            {
+                options.CacheSize = 1024;
+                options.CacheEntryExpiration = TimeSpan.FromMinutes(2);
+            });
+}
+```
+
+默认的缓存实现将结果存储在内存中。 可以通过实现 `ICertificateValidationCache` 并将其注册到依赖关系注入来提供自己的缓存。 例如 `services.AddSingleton<ICertificateValidationCache, YourCache>()`。
+
+::: moniker-end
+
 ## <a name="optional-client-certificates"></a>可选客户端证书
 
 本部分为必须使用证书保护应用程序子集的应用提供信息。 例如， Razor 应用中的页面或控制器可能需要客户端证书。 这是客户端证书带来的挑战：
   
 * 是 TLS 功能，而不是 HTTP 功能。
-* 按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。 在连接开始时，仅知道服务器名称指示（SNI） &dagger; 。 客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。 HTTP/2 中禁止重新协商。
+* 按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。 在连接开始时，仅知道服务器名称指示（SNI） &dagger; 。 客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。
+
+TLS 重新协商是实现可选客户端证书的一种方法。 不建议这样做，因为：
+- 在 HTTP/1.1 中，在 POST 请求期间 renegotiating 可能会导致死锁，其中，请求正文填充 TCP 窗口，而重新协商数据包无法接收。
+- HTTP/2[显式禁止](https://tools.ietf.org/html/rfc7540#section-9.2.1)重新协商。
+- TLS 1.3 已[删除](https://tools.ietf.org/html/rfc8740#section-1)对重新协商的支持。
 
 ASP.NET Core 5 预览版4及更高版本为可选的客户端证书添加了更方便的支持。 有关详细信息，请参阅[可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。
 
@@ -575,7 +636,7 @@ ASP.NET Core 5 预览版4及更高版本为可选的客户端证书添加了更�
 
 * 设置域和子域的绑定：
   * 例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。 `contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。
-  * 有关详情，请参阅：
+  * 有关详细信息，请参阅：
     * [Kestrel](/fundamentals/servers/kestrel)：
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>

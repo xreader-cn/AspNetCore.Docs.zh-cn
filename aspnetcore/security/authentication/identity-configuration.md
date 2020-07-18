@@ -3,6 +3,7 @@ title: 配置 ASP.NET CoreIdentity
 author: AdrienTorris
 description: 了解 ASP.NET Core Identity 默认值，并了解如何配置 Identity 属性以使用自定义值。
 ms.author: riande
+ms.custom: mvc
 ms.date: 02/11/2019
 no-loc:
 - Blazor
@@ -13,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-configuration
-ms.openlocfilehash: 95c19b671602b45ba217dcb551110854cbbee359
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 262101594d57ad63bb0bac4da3cefa8d8d380908
+ms.sourcegitcommit: 3544941682869734ea0113e24e02ed0ec9e1a9ec
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408963"
+ms.lasthandoff: 07/18/2020
+ms.locfileid: "86464522"
 ---
 # <a name="configure-aspnet-core-identity"></a>配置 ASP.NET CoreIdentity
 
@@ -26,13 +27,13 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 ## <a name="identity-options"></a>Identity选项
 
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions)类表示可用于配置系统的选项 Identity 。 `IdentityOptions`必须**在**调用或之后 `AddIdentity` 设置 `AddDefaultIdentity` 。
+[ Identity Options](/dotnet/api/microsoft.aspnetcore.identity.identityoptions)类表示可用于配置系统的选项 Identity 。 `IdentityOptions`必须**在**调用或之后 `AddIdentity` 设置 `AddDefaultIdentity` 。
 
 ### <a name="claims-identity"></a>支付Identity
 
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.claimsidentity)指定[ClaimsIdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions) ，其中包含下表所示的属性。
+[ Identity Options。声明 Identity ](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.claimsidentity)指定[声明 Identity 选项](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions)，其中包含下表中所示的属性。
 
-| properties | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [RoleClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.roleclaimtype) | 获取或设置用于角色声明的声明类型。 | [ClaimTypes](/dotnet/api/system.security.claims.claimtypes.role) |
 | [SecurityStampClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.securitystampclaimtype) | 获取或设置用于安全戳声明的声明类型。 | `AspNet.Identity.SecurityStamp` |
@@ -51,13 +52,13 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_lock)]
 
-前面的代码将[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) [LockoutOptions](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions)设置为默认值。
+前面的代码将[ Identity 选项](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) [LockoutOptions](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions)设置为默认值。
 
 身份验证成功后，将重置失败的访问尝试计数并重置时钟。
 
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.lockout)指定[LockoutOptions](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions) ，其中包含表中所示的属性。
+[ Identity 选项。锁定](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.lockout)将指定[LockoutOptions](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions) ，其中包含表中所示的属性。
 
-| properties | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [AllowedForNewUsers](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.allowedfornewusers) | 确定新用户是否可以锁定。 | `true` |
 | [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan) | 锁定发生时用户被锁定的时间长度。 | 5 分钟 |
@@ -65,31 +66,20 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 ### <a name="password"></a>密码
 
-默认情况下， Identity 要求密码包含大写字符、小写字符、数字以及非字母数字字符。 密码长度必须至少为6个字符。 [PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions)可以在中设置 PasswordOptions `Startup.ConfigureServices` 。
+默认情况下， Identity 要求密码包含大写字符、小写字符、数字以及非字母数字字符。 密码长度必须至少为6个字符。
 
-::: moniker range=">= aspnetcore-2.1"
+密码配置为：
+
+* `Startup.ConfigureServices` 中的 <xref:Microsoft.AspNetCore.Identity.PasswordOptions>。
+* [ `[StringLength]` ](xref:System.ComponentModel.DataAnnotations.StringLengthAttribute) `Password` 如果 Identity 将[基架到应用程序中](xref:security/authentication/scaffold-identity)，则为属性的属性。 `InputModel``Password`在以下文件中可以找到属性：
+  * `Areas/Identity/Pages/Account/Register.cshtml.cs`
+  * `Areas/Identity/Pages/Account/ResetPassword.cshtml.cs`
 
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_pw)]
 
-::: moniker-end
+[ Identity Options. Password](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.password)指定[PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions) ，其中包含表中所示的属性。
 
-::: moniker range="= aspnetcore-2.0"
-
-[!code-csharp[](identity/sample/src/ASPNETv2-IdentityDemo-Configuration/Startup.cs?range=29-37,50-52)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-1.1"
-
-[!code-csharp[](identity/sample/src/ASPNET-IdentityDemo-PrimaryKeysConfig/Startup.cs?range=58-65,84)]
-
-::: moniker-end
-
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.password)指定[PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions) ，其中包含表中所示的属性。
-
-::: moniker range=">= aspnetcore-2.0"
-
-| properties | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [RequireDigit](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredigit) | 要求密码中的数字介于0-9 之间。 | `true` |
 | [RequiredLength](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredlength) | 密码的最小长度。 | 6 |
@@ -98,63 +88,39 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 | [RequiredUniqueChars](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireduniquechars) | 仅适用于 ASP.NET Core 2.0 或更高版本。<br><br> 需要密码中的非重复字符数。 | 1 |
 | [RequireUppercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireuppercase) | 密码中需要大写字符。 | `true` |
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-| properties | 说明 | 默认 |
-| -------- | ----------- | :-----: |
-| [RequireDigit](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredigit) | 要求密码中的数字介于0-9 之间。 | `true` |
-| [RequiredLength](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredlength) | 密码的最小长度。 | 6 |
-| [RequireLowercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirelowercase) | 密码中需要小写字符。 | `true` |
-| [RequireNonAlphanumeric](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirenonalphanumeric) | 密码中需要一个非字母数字字符。 | `true` |
-| [RequireUppercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireuppercase) | 密码中需要大写字符。 | `true` |
-
-::: moniker-end
-
 ### <a name="sign-in"></a>登录
 
 下面的代码将设置 `SignIn` （到默认值）：
 
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_si)]
 
-::: moniker-end
+" [ Identity 登录](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.signin)" 指定[SignInOptions](/dotnet/api/microsoft.aspnetcore.identity.signinoptions) ，其中包含表中所示的属性。
 
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](identity/sample/src/ASPNETv2-IdentityDemo-Configuration/Startup.cs?range=29-30,44-46,50-52)] 
-
-::: moniker-end
-
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.signin)指定[SignInOptions](/dotnet/api/microsoft.aspnetcore.identity.signinoptions) ，其中包含表中所示的属性。
-
-| properties | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [RequireConfirmedEmail](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedemail) | 需要确认电子邮件登录。 | `false` |
 | [RequireConfirmedPhoneNumber](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedphonenumber) | 需要确认电话号码才能登录。 | `false` |
 
 ### <a name="tokens"></a>令牌
 
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.tokens)指定[TokenOptions](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions) ，其中包含表中所示的属性。
+[ Identity 选项。标记](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.tokens)指定[TokenOptions](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions) ，其中包含表中所示的属性。
 
-|                                                        properties                                                         |                                                                                      说明                                                                                      |
-|-------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|     [AuthenticatorTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.authenticatortokenprovider)     |                                       获取或设置 `AuthenticatorTokenProvider` 用于使用验证器验证双重登录的。                                       |
-|       [ChangeEmailTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changeemailtokenprovider)       |                                     获取或设置 `ChangeEmailTokenProvider` 用于生成电子邮件更改确认电子邮件中使用的令牌的。                                     |
-| [ChangePhoneNumberTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changephonenumbertokenprovider) |                                      获取或设置 `ChangePhoneNumberTokenProvider` 用于生成更改电话号码时使用的令牌的。                                      |
-| [EmailConfirmationTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.emailconfirmationtokenprovider) |                                             获取或设置用于生成帐户确认电子邮件中使用的令牌的令牌提供程序。                                              |
-|     [PasswordResetTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.passwordresettokenprovider)     | 获取或设置用于生成密码重置电子邮件中使用的令牌的[IUserTwoFactorTokenProvider \<TUser> ](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactortokenprovider-1) 。 |
-|                    [ProviderMap](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.providermap)                    |                用于使用用作提供程序名称的密钥构造[用户令牌提供程序](/dotnet/api/microsoft.aspnetcore.identity.tokenproviderdescriptor)。                 |
+| 属性 | 描述 |
+| -------- | ----------- |
+| [AuthenticatorTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.authenticatortokenprovider) | 获取或设置 `AuthenticatorTokenProvider` 用于使用验证器验证双重登录的。 |
+| [ChangeEmailTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changeemailtokenprovider) | 获取或设置 `ChangeEmailTokenProvider` 用于生成电子邮件更改确认电子邮件中使用的令牌的。 |
+| [ChangePhoneNumberTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changephonenumbertokenprovider) | 获取或设置 `ChangePhoneNumberTokenProvider` 用于生成更改电话号码时使用的令牌的。 |
+| [EmailConfirmationTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.emailconfirmationtokenprovider) | 获取或设置用于生成帐户确认电子邮件中使用的令牌的令牌提供程序。 |
+| [PasswordResetTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.passwordresettokenprovider) | 获取或设置用于生成密码重置电子邮件中使用的令牌的[IUserTwoFactorTokenProvider \<TUser> ](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactortokenprovider-1) 。 |
+| [ProviderMap](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.providermap) | 用于使用用作提供程序名称的密钥构造[用户令牌提供程序](/dotnet/api/microsoft.aspnetcore.identity.tokenproviderdescriptor)。 |
 
-### <a name="user"></a>用户
+### <a name="user"></a>User
 
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_user)]
 
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.user)指定[UserOptions](/dotnet/api/microsoft.aspnetcore.identity.useroptions) ，其中包含表中所示的属性。
+[ Identity Options。 User](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.user)指定[UserOptions](/dotnet/api/microsoft.aspnetcore.identity.useroptions) ，其中包含表中所示的属性。
 
-| properties | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [AllowedUserNameCharacters](/dotnet/api/microsoft.aspnetcore.identity.useroptions.allowedusernamecharacters) | 用户名中允许使用的字符。 | abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>0123456789<br>-.\_@+ |
 | [RequireUniqueEmail](/dotnet/api/microsoft.aspnetcore.identity.useroptions.requireuniqueemail) | 要求每个用户都有唯一的电子邮件。 | `false` |
@@ -163,23 +129,7 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 在中配置应用的 cookie `Startup.ConfigureServices` 。 调用或**后**，必须调用[ConfigureApplicationCookie](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.configureapplicationcookie#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionExtensions_ConfigureApplicationCookie_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Authentication_Cookies_CookieAuthenticationOptions__) `AddIdentity` `AddDefaultIdentity` 。
 
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_cookie)]
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-[!code-csharp[](identity/sample/src/ASPNETv2-IdentityDemo-Configuration/Startup.cs?name=snippet_configurecookie)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-1.1"
-
-[!code-csharp[](identity/sample/src/ASPNET-IdentityDemo-PrimaryKeysConfig/Startup.cs?range=58-59,72-80,84)]
-
-::: moniker-end
 
 有关详细信息，请参阅[cookieauthenticationoptions.authenticationtype](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions)。
 
@@ -187,7 +137,7 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions>获取和设置用于密码哈希的选项。
 
-| 选项 | 说明 |
+| 选项 | 描述 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> | 对新密码进行哈希处理时使用的兼容性模式。 默认为 <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>。 哈希密码的第一个字节称为*格式标记*，它指定用于对密码进行哈希处理的哈希算法的版本。 针对哈希验证密码时，该方法会根据 <xref:Microsoft.AspNetCore.Identity.PasswordHasher`1.VerifyHashedPassword*> 第一个字节选择正确的算法。 无论使用哪个版本的算法对密码进行哈希处理，客户端都可以进行身份验证。 设置兼容性模式会影响*新密码*的哈希。 |
 | <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount> | 使用 PBKDF2 对密码进行哈希处理时使用的迭代次数。 仅当设置为时，才使用此值 <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3> 。 该值必须是正整数并且默认值为 `10000` 。 |
