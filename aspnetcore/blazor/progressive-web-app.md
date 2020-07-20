@@ -17,6 +17,7 @@ no-loc:
 uid: blazor/progressive-web-app
 ms.openlocfilehash: 237a8fceb75ba724625f018cf94c8d5bc5acfdad
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85402580"
@@ -66,7 +67,7 @@ dotnet new blazorwasm -o MyNewProject --pwa
 
 ## <a name="installation-and-app-manifest"></a>安装和应用部件清单 (manifest)
 
-访问使用 PWA 模板创建的应用时，用户可以选择将应用安装到其 OS 的开始菜单、扩展坞或主屏幕。 此选项的显示方式取决于用户的浏览器。 使用基于桌面 Chromium 的浏览器（如 Edge 或 Chrome）时，URL 栏中会出现“添加”按钮。 用户选择“添加”按钮后，他们将收到一个确认对话框：
+访问使用 PWA 模板创建的应用时，用户可以选择将应用安装到其 OS 的开始菜单、扩展坞或主屏幕。 此选项的显示方式取决于用户的浏览器。 使用基于桌面 Chromium 的浏览器（如 Microsoft Edge 或 Chrome）时，URL 栏中会出现“添加”按钮。 用户选择“添加”按钮后，他们将收到一个确认对话框：
 
 ![Google Chrome 中的确认对话框会向用户显示“MyBlazorPwa”应用的“安装”按钮。](progressive-web-app/_static/image2.png)
 
