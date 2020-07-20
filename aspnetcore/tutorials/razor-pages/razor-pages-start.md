@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 97e3f60480bc8e7e88c8361e5b13f02d98765d9e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 77b230f14b4eef60d771daf8fe09288a9dd3c69c
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405297"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212988"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：在 ASP.NET Core 中开始使用 Razor Pages
 
@@ -67,7 +67,7 @@ ms.locfileid: "85405297"
 * 从 Visual Studio“文件”菜单中选择“新建”>“项目”。
 * 创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”。
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
-* 将项目命名为“RazorPagesMovie”。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时命名空间就会匹配。
+* 将项目命名为“RazorPagesMovie”。 请务必将项目命名为“RazorPagesMovie”，这样在复制和粘贴代码时命名空间就会匹配。
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
 * 在下拉列表中选择“ASP.NET Core 3.1”，然后依次选择“Web 应用程序”和“创建”  。
@@ -91,10 +91,10 @@ ms.locfileid: "85405297"
   code -r RazorPagesMovie
   ```
 
-  * `dotnet new` 命令可在 RazorPagesMovie 文件夹中创建新的 Razor 页面项目。
-  * `code` 命令在 Visual Studio Code 的当前实例中打开 RazorPagesMovie 文件夹。
+  * `dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。
+  * `code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。
 
-* 状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?” 选择 **“是”** 。
+* 在状态栏的 OmniSharp 火焰图标变绿后，对话框就会询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?” 选择 **“是”** 。
 
   将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。  
 
@@ -108,16 +108,14 @@ ms.locfileid: "85405297"
 
   ![macOS Web 应用模板选择](razor-pages-start/_static/web_app_template_vsmac.png)
 
-* 确认以下配置：
+* 在“配置新的 Web 应用”对话框中：
 
-  * “目标框架”设置为“.NET Core 3.1” 。
-  * “身份验证”设置为“无身份验证” 。
-   
+  * 确认已将“身份验证”设置为“无身份验证”。
+  * 如果看到用于选择“目标框架”的选项，请选择最新的 3.x 版本。
+
   选择“下一步”。
 
-  ![macOS .NET Core 3.1 选择](razor-pages-start/_static/targetframework3.png)
-
-* 将项目命名为“RazorPagesMovie”，然后选择“创建”。 
+* 将项目命名为“RazorPagesMovie”，然后选择“创建”。
 
   ![macOS 命名项目](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -216,7 +214,7 @@ ms.locfileid: "85405297"
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 
-* 将项目命名为“RazorPagesMovie”。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时命名空间就会匹配。
+* 将项目命名为“RazorPagesMovie”。 请务必将项目命名为“RazorPagesMovie”，这样在复制和粘贴代码时命名空间就会匹配。
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
@@ -241,10 +239,10 @@ ms.locfileid: "85405297"
   code -r RazorPagesMovie
   ```
 
-  * `dotnet new` 命令可在 RazorPagesMovie 文件夹中创建新的 Razor 页面项目。
-  * `code` 命令在 Visual Studio Code 的当前实例中打开 RazorPagesMovie 文件夹。
+  * `dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。
+  * `code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。
 
-* 状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?” 选择 **“是”** 。
+* 在状态栏的 OmniSharp 火焰图标变绿后，对话框就会询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?” 选择 **“是”** 。
 
   将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。  
 
@@ -256,11 +254,14 @@ ms.locfileid: "85405297"
 
 * 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序” > “下一步”   。 在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序” > “下一步”。   
 
-* 在“配置新的 ASP.NET Core Web API”对话框中，将目标框架设置为“.NET Core 3.1”  。
+* 在“配置新的 Web 应用”对话框中：
 
-  ![macOS .NET Core 3.0 选择](razor-pages-start/_static/targetframework3.png)
+  * 确认已将“身份验证”设置为“无身份验证”。
+  * 如果看到用于选择“目标框架”的选项，请选择最新的 2.x 版本。
 
-* 将项目命名为“RazorPagesMovie”，然后选择“创建”。 
+  选择“下一步”。
+
+* 将项目命名为“RazorPagesMovie”，然后选择“创建”。
 
   ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
 

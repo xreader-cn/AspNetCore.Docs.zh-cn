@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 726380c42c952f47d6fdff09a811f35a20462d96
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 174a8e561701bb3ebd68ed05e42dfc3d70a9b450
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944911"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176223"
 ---
 # <a name="build-a-blazor-todo-list-app"></a>生成 Blazor 待办事项列表应用
 
@@ -142,7 +142,7 @@ ms.locfileid: "85944911"
 > * 在组件中使用事件处理和数据绑定
 > * 在 Blazor 应用中使用依赖关系注入 (DI) 和路由
 
-了解 Blazor 项目模板：
+了解用于 ASP.NET Core Blazor 的工具：
 
 > [!div class="nextstepaction"]
-> <xref:blazor/templates>
+> <xref:blazor/tooling>

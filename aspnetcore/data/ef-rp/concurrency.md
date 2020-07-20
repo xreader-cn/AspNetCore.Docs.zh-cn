@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: 597f396237151f49a9ae333973e91d8f4f7c6ff1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ff9e01df002ac0fc94ced6d5d093099d66a14f36
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401371"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176281"
 ---
 # <a name="part-8-razor-pages-with-ef-core-in-aspnet-core---concurrency"></a>第 8 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 并发
 
@@ -86,7 +86,7 @@ EF Core 在检测到冲突时会引发 `DbConcurrencyException` 异常。 数据
 
 * 配置 EF Core，在 Update 或 Delete 命令的 Where 子句中包含配置为[并发令牌](/ef/core/modeling/concurrency)的列的原始值。
 
-  调用 `SaveChanges` 时，Where 子句查找使用 [ConcurrencyCheck](/dotnet/api/system.componentmodel.dataannotations.concurrencycheckattribute) 特性注释的所有属性的原始值。 如果在第一次读取行之后有任意并发令牌属性发生了更改，更新语句将无法查找到要更新的行。 EF Core 将其解释为并发冲突。 对于包含许多列的数据库表，此方法可能导致非常多的 Where 子句，并且可能需要大量的状态。 因此通常不建议使用此方法，并且它也不是本教程中使用的方法。
+  调用 `SaveChanges` 时，Where 子句查找使用 <xref:System.ComponentModel.DataAnnotations.ConcurrencyCheckAttribute> 特性注释的所有属性的原始值。 如果在第一次读取行之后有任意并发令牌属性发生了更改，更新语句将无法查找到要更新的行。 EF Core 将其解释为并发冲突。 对于包含许多列的数据库表，此方法可能导致非常多的 Where 子句，并且可能需要大量的状态。 因此通常不建议使用此方法，并且它也不是本教程中使用的方法。
 
 * 数据库表中包含一个可用于确定某行更改时间的跟踪列。
 
@@ -98,7 +98,7 @@ EF Core 在检测到冲突时会引发 `DbConcurrencyException` 异常。 数据
 
 [!code-csharp[](intro/samples/cu30/Models/Department.cs?highlight=26,27)]
 
-[Timestamp](/dotnet/api/system.componentmodel.dataannotations.timestampattribute) 特性用于将列标识为并发跟踪列。 Fluent API 是指定跟踪属性的另一种方法：
+<xref:System.ComponentModel.DataAnnotations.TimestampAttribute> 特性用于将列标识为并发跟踪列。 Fluent API 是指定跟踪属性的另一种方法：
 
 ```csharp
 modelBuilder.Entity<Department>()
@@ -250,7 +250,7 @@ modelBuilder.Entity<Department>()
 
 以下代码显示更新后的页面：
 
-[!code-html[](intro/samples/cu30/Pages/Departments/Index.cshtml?highlight=5,8,29,48,51)]
+[!code-cshtml[](intro/samples/cu30/Pages/Departments/Index.cshtml?highlight=5,8,29,48,51)]
 
 ## <a name="update-the-edit-page-model"></a>更新编辑页模型
 
@@ -258,7 +258,7 @@ modelBuilder.Entity<Department>()
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_All)]
 
-在 `OnGet` 方法中提取 [OriginalValue](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyentry.originalvalue?view=efcore-2.0#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyEntry_OriginalValue) 时，该值使用实体中的 `rowVersion` 值更新。 EF Core 使用包含原始 `RowVersion` 值的 WHERE 子句生成 SQL UPDATE 命令。 如果没有行受到 UPDATE 命令影响（没有行具有原始 `RowVersion` 值），将引发 `DbUpdateConcurrencyException` 异常。
+当在 `OnGet` 方法中提取时，<xref:Microsoft.EntityFrameworkCore.ChangeTracking.PropertyEntry.OriginalValue> 是使用实体中的 `rowVersion` 值进行更新。 EF Core 使用包含原始 `RowVersion` 值的 WHERE 子句生成 SQL UPDATE 命令。 如果没有行受到 UPDATE 命令影响（没有行具有原始 `RowVersion` 值），将引发 `DbUpdateConcurrencyException` 异常。
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_RowVersion&highlight=17-18)]
 
@@ -282,16 +282,16 @@ modelBuilder.Entity<Department>()
 
 `ModelState` 具有旧的 `RowVersion` 值，因此需使用 `ModelState.Remove` 语句。 在 Razor 页面中，当两者都存在时，字段的 `ModelState` 值优于模型属性值。
 
-### <a name="update-the-razor-page"></a>更新 Razor 页面
+### <a name="update-the-edit-page"></a>更新“编辑”页
 
 使用以下代码更新 Pages/Departments/Edit.cshtml：
 
-[!code-html[](intro/samples/cu30/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
+[!code-cshtml[](intro/samples/cu30/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
 
 前面的代码：
 
 * 将 `page` 指令从 `@page` 更新为 `@page "{id:int}"`。
-* 添加隐藏的行版本。 必须添加 `RowVersion`，以便回发绑定值。
+* 添加隐藏的行版本。 必须添加 `RowVersion`，以便回发能够绑定值。
 * 显示 `RowVersion` 的最后一个字节以进行调试。
 * 将 `ViewData` 替换为强类型 `InstructorNameSL`。
 
@@ -323,7 +323,7 @@ modelBuilder.Entity<Department>()
 
 再次单击“保存”。 保存在第二个浏览器选项卡中输入的值。 在索引页中可以看到保存的值。
 
-## <a name="update-the-delete-page"></a>更新“删除”页
+## <a name="update-the-delete-page-model"></a>更新“删除”页面模型
 
 使用以下代码更新 Pages/Departments/Delete.cshtml.cs：
 
@@ -335,11 +335,11 @@ modelBuilder.Entity<Department>()
 * 引发 DbUpdateConcurrencyException 异常。
 * 使用 `concurrencyError` 调用 `OnGetAsync`。
 
-### <a name="update-the-delete-razor-page"></a>更新“删除 Razor”页面
+### <a name="update-the-delete-page"></a>更新“删除”页
 
 使用以下代码更新 Pages/Departments/Delete.cshtml：
 
-[!code-html[](intro/samples/cu30/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
+[!code-cshtml[](intro/samples/cu30/Pages/Departments/Delete.cshtml?highlight=1,10,39,42,51)]
 
 上面的代码执行以下更改：
 
@@ -347,7 +347,7 @@ modelBuilder.Entity<Department>()
 * 添加错误消息。
 * 将“管理员”字段中的 FirstMidName 替换为 FullName。
 * 更改 `RowVersion` 以显示最后一个字节。
-* 添加隐藏的行版本。 必须添加 `RowVersion`，以便回发绑定值。
+* 添加隐藏的行版本。 必须添加 `RowVersion`，以便回发能够绑定值。
 
 ### <a name="test-concurrency-conflicts"></a>测试并发冲突
 
@@ -365,7 +365,7 @@ modelBuilder.Entity<Department>()
 
 浏览器显示更改值并更新 rowVersion 标记后的索引页。 请注意更新后的 rowVersion 标记，它在其他选项卡的第二回发中显示。
 
-从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”将删除实体，除非 `RowVersion` 已更新，院系已删除。
+从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”删除实体，除非 `RowVersion` 已更新。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -550,7 +550,7 @@ dotnet ef database update
 
 以下标记显示更新后的页面：
 
-[!code-html[](intro/samples/cu/Pages/Departments/Index.cshtml?highlight=5,8,29,47,50)]
+[!code-cshtml[](intro/samples/cu/Pages/Departments/Index.cshtml?highlight=5,8,29,47,50)]
 
 ### <a name="update-the-edit-page-model"></a>更新编辑页模型
 
@@ -582,7 +582,7 @@ dotnet ef database update
 
 使用以下标记更新 Pages/Departments/Edit.cshtml：
 
-[!code-html[](intro/samples/cu/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
+[!code-cshtml[](intro/samples/cu/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
 
 前面的标记：
 
@@ -637,7 +637,7 @@ dotnet ef database update
 
 使用以下代码更新 Pages/Departments/Delete.cshtml：
 
-[!code-html[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
+[!code-cshtml[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
 
 上面的代码执行以下更改：
 
@@ -663,7 +663,7 @@ dotnet ef database update
 
 浏览器显示更改值并更新 rowVersion 标记后的索引页。 请注意更新后的 rowVersion 标记，它在其他选项卡的第二回发中显示。
 
-从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”将删除实体，除非 `RowVersion` 已更新，院系已删除。
+从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”删除实体，除非 `RowVersion` 已更新。
 
 请参阅[继承](xref:data/ef-mvc/inheritance)了解如何继承数据模型。
 

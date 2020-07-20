@@ -14,11 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: 4ecbf6920980e293e8c274996c6a4f25e74a5cb7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 30123e043a7c152b5719af8092b2ab42a70d2787
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403620"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407614"
 ---
 # <a name="session-and-state-management-in-aspnet-core"></a>ASP.NET Core 中的会话和状态管理
 
@@ -74,7 +75,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 * 应用在上次请求后保留会话的时间有限。 应用设置会话超时，或者使用 20 分钟的默认值。 在以下情况下，会话状态适合存储用户数据：
   * 特定于某个特定会话。
   * 数据不需要跨会话永久存储。
-* 调用 [ISession.Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) 实现或者会话过期时，会删除会话数据。
+* 会话数据在调用 <xref:Microsoft.AspNetCore.Http.ISession.Clear%2A?displayProperty=nameWithType> 实现或会话到期时删除。
 * 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 Cookie 被删除或过期的应用代码。
 * 默认情况下，会话状态 Cookie 不标记为“基本”。 除非站点访问者允许跟踪，否则会话状态不起作用。 有关详细信息，请参阅 <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>。
 
@@ -84,7 +85,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 内存中缓存提供程序在应用驻留的服务器内存中存储会话数据。 在服务器场方案中：
 
 * 使用粘性会话将每个会话加入到单独服务器上的特定应用实例。 默认情况下，[Azure 应用服务](https://azure.microsoft.com/services/app-service/)使用[应用程序请求路由 (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) 强制实施粘性会话。 然而，粘性会话可能会影响可伸缩性，并使 Web 应用更新变得复杂。 更好的方法是使用 Redis 或 SQL Server 分布式缓存，它们不需要粘性会话。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
-* 通过 [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) 加密会话 Cookie。 必须正确配置数据保护，以在每台计算机上读取会话 Cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
+* 会话 Cookie 通过 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 进行加密。 必须正确配置数据保护，以在每台计算机上读取会话 Cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
 
 ### <a name="configure-session-state"></a>配置会话状态
 
@@ -95,9 +96,9 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 若要启用会话中间件，`Startup` 必须包含：
 
-* 任一 [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) 内存缓存。 `IDistributedCache` 实现用作会话后备存储。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
-* 对 `ConfigureServices` 中 [AddSession](/dotnet/api/microsoft.extensions.dependencyinjection.sessionservicecollectionextensions.addsession) 的调用。
-* 对 `Configure` 中 [UseSession](/dotnet/api/microsoft.aspnetcore.builder.sessionmiddlewareextensions.usesession#Microsoft_AspNetCore_Builder_SessionMiddlewareExtensions_UseSession_Microsoft_AspNetCore_Builder_IApplicationBuilder_) 的调用。
+* 任何 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 内存缓存。 `IDistributedCache` 实现用作会话后备存储。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
+* 对 `ConfigureServices` 中 <xref:Microsoft.Extensions.DependencyInjection.SessionServiceCollectionExtensions.AddSession%2A> 的调用。
+* 对 `Configure` 中 <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> 的调用。
 
 以下代码演示如何使用 `IDistributedCache` 的默认内存中实现设置内存中会话提供程序：
 
@@ -115,43 +116,43 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 ### <a name="load-session-state-asynchronously"></a>以异步方式加载会话状态
 
-只有在 [TryGetValue](/dotnet/api/microsoft.aspnetcore.http.isession.trygetvalue)、[Set](/dotnet/api/microsoft.aspnetcore.http.isession.set) 或 [Remove](/dotnet/api/microsoft.aspnetcore.http.isession.remove) 方法之前显式调用 [ISession.LoadAsync](/dotnet/api/microsoft.aspnetcore.http.isession.loadasync) 方法，ASP.NET Core 中的默认会话提供程序才会从基础 [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) 后备存储以异步方式加载会话记录。 如果未先调用 `LoadAsync`，则会同步加载基础会话记录，这可能对性能产生大规模影响。
+只有当 <xref:Microsoft.AspNetCore.Http.ISession.LoadAsync%2A?displayProperty=nameWithType> 方法是先于 <xref:Microsoft.AspNetCore.Http.ISession.TryGetValue%2A>、<xref:Microsoft.AspNetCore.Http.ISession.Set%2A> 或 <xref:Microsoft.AspNetCore.Http.ISession.Remove%2A> 方法显式调用时，ASP.NET Core 中的默认会话提供程序才会从基础 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 后备存储中异步加载会话记录。 如果未先调用 `LoadAsync`，则会同步加载基础会话记录，这可能对性能产生大规模影响。
 
-若要让应用强制实施此模式，如果未在 `TryGetValue`、`Set` 或 `Remove` 之前调用 `LoadAsync` 方法，那么使用引起异常的版本包装 [DistributedSessionStore](/dotnet/api/microsoft.aspnetcore.session.distributedsessionstore) 和 [DistributedSession](/dotnet/api/microsoft.aspnetcore.session.distributedsession) 实现。 在服务容器中注册的已包装的版本。
+若要让应用强制执行此模式，请使用在 `LoadAsync` 方法没有先于 `TryGetValue`、`Set` 或 `Remove` 调用时抛出异常的版本来包装 <xref:Microsoft.AspNetCore.Session.DistributedSessionStore> 和 <xref:Microsoft.AspNetCore.Session.DistributedSession> 实现。 在服务容器中注册的已包装的版本。
 
 ### <a name="session-options"></a>会话选项
 
-若要替代会话默认值，请使用 [SessionOptions](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions)。
+若要重写会话默认值，请使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions>。
 
 | 选项 | 描述 |
 | ------ | ----------- |
-| [Cookie](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookie) | 确定用于创建 Cookie 的设置。 [名称](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.name)默认为 [SessionDefaults.CookieName](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiename) (`.AspNetCore.Session`)。 [路径](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.path)默认为 [SessionDefaults.CookiePath](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiepath) (`/`)。 [SameSite](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.samesite) 默认为 [SameSiteMode.Lax](/dotnet/api/microsoft.aspnetcore.http.samesitemode) (`1`)。 [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) 默认为 `true`。 [IsEssential](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.isessential) 默认为 `false`。 |
-| [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 Cookie。 默认为 20 分钟。 |
-| [IOTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.iotimeout) | 允许从存储加载会话或者将其提交回存储的最大时长。 此设置可能仅适用于异步操作。 可以使用 [InfiniteTimeSpan](/dotnet/api/system.threading.timeout.infinitetimespan) 禁用超时。 默认值为 1 分钟。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | 确定用于创建 Cookie 的设置。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> (`.AspNetCore.Session`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> (`/`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> 默认为 <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> (`1`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 默认为 `false`。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 Cookie。 默认为 20 分钟。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | 允许从存储加载会话或者将其提交回存储的最大时长。 此设置可能仅适用于异步操作。 可以使用 <xref:System.Threading.Timeout.InfiniteTimeSpan> 来禁用此超时。 默认值为 1 分钟。 |
 
-会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNetCore.Session` ，并使用路径 `/`。 由于 Cookie 默认值不指定域，因此它不提供页上的客户端脚本（因为 [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) 默认为 `true`）。
+会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNetCore.Session` ，并使用路径 `/`。 由于 Cookie 默认值没有指定域，因此页面上的客户端脚本无法使用它（因为 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`）。
 
 若要替换 Cookie 会话默认值，请使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions>：
 
 [!code-csharp[](app-state/samples/3.x/SessionSample/Startup2.cs?name=snippet1&highlight=5-10)]
 
-应用使用 [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) 属性确定放弃服务器缓存中的内容前，内容可以空闲多长时间。 此属性独立于 Cookie 到期时间。 通过[会话中间件](/dotnet/api/microsoft.aspnetcore.session.sessionmiddleware)传递的每个请求都会重置超时。
+应用使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> 属性来确定在会话空闲多长时间后它在服务器缓存中的内容就会被放弃。 此属性独立于 Cookie 到期时间。 通过[会话中间件](xref:Microsoft.AspNetCore.Session.SessionMiddleware)传递的每个请求都会重置超时。
 
 会话状态为“非锁定”。 如果两个请求同时尝试修改同一会话的内容，则后一个请求替代前一个请求。 `Session` 是作为一个连贯会话实现的，这意味着所有内容都存储在一起。 两个请求试图修改不同的会话值时，后一个请求可能替代前一个做出的会话更改。
 
 ### <a name="set-and-get-session-values"></a>设置和获取会话值
 
-使用 [HttpContext.Session](/dotnet/api/microsoft.aspnetcore.http.httpcontext.session) 从 Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) 类或 MVC [控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)类访问会话状态。 此属性是 [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) 实现。
+会话状态是通过 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类或包含 <xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType> 的 MVC <xref:Microsoft.AspNetCore.Mvc.Controller> 类进行访问。 此属性是 <xref:Microsoft.AspNetCore.Http.ISession> 实现。
 
-`ISession` 实现提供用于设置和检索整数和字符串值的若干扩展方法。 扩展方法位于 [Microsoft.AspNetCore.Http](/dotnet/api/microsoft.aspnetcore.http) 命名空间中。
+`ISession` 实现提供用于设置和检索整数和字符串值的若干扩展方法。 扩展方法位于 <xref:Microsoft.AspNetCore.Http> 命名空间中。
 
 `ISession` 扩展方法：
 
-* [Get(ISession, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.get)
-* [GetInt32(ISession, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getint32)
-* [GetString(ISession, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getstring)
-* [SetInt32(ISession, String, Int32)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setint32)
-* [SetString(ISession, String, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setstring)
+* [Get(ISession, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.Get%2A)
+* [GetInt32(ISession, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetInt32%2A)
+* [GetString(ISession, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetString%2A)
+* [SetInt32(ISession, String, Int32)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetInt32%2A)
+* [SetString(ISession, String, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetString%2A)
 
 以下示例在 Razor Pages 页中检索 `IndexModel.SessionKeyName` 键（示例应用中的 `_Name`）的会话值：
 
@@ -169,7 +170,7 @@ Name: @HttpContext.Session.GetString(IndexModel.SessionKeyName)
 
 [!code-csharp[](app-state/samples/3.x/SessionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=18-19,22-23)]
 
-必须对所有会话数据进行序列化以启用分布式缓存方案，即使是在使用内存中缓存的时候。 字符串和整数序列化程序由 [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) 的扩展方法提供。 用户必须使用另一种机制（例如 JSON）序列化复杂类型。
+必须对所有会话数据进行序列化以启用分布式缓存方案，即使是在使用内存中缓存的时候。 字符串和整数序列化程序是由 <xref:Microsoft.AspNetCore.Http.ISession> 的扩展方法提供。 用户必须使用另一种机制（例如 JSON）序列化复杂类型。
 
 使用以下示例代码序列化对象：
 
@@ -212,7 +213,7 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 基于 cookie 的 TempData 提供程序默认用于存储 cookie 中的 TempData。
 
-使用由 [Base64UrlTextEncoder](/dotnet/api/microsoft.aspnetcore.webutilities.base64urltextencoder) 编码的 [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) 对 Cookie 数据进行加密，然后进行分块。 由于加密和分块，最大 Cookie 大小小于 [4096 个字节](http://www.faqs.org/rfcs/rfc2965.html)。 未压缩 Cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 有关基于 Cookie 的 TempData 提供程序的详细信息，请参阅 [CookieTempDataProvider](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.cookietempdataprovider)。
+Cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector>（用 <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> 编码）进行加密，再进行区块处理。 由于加密和分块，最大 Cookie 大小小于 [4096 个字节](http://www.faqs.org/rfcs/rfc2965.html)。 未压缩 Cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 若要详细了解基于 Cookie 的 TempData 提供程序，请参阅 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>。
 
 ### <a name="choose-a-tempdata-provider"></a>选择 TempData 提供程序
 
@@ -228,9 +229,9 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 默认情况下启用基于 Cookie 的 TempData 提供程序。
 
-若要启用基于会话的 TempData 提供程序，请使用 [AddSessionStateTempDataProvider](/dotnet/api/microsoft.extensions.dependencyinjection.mvcviewfeaturesmvcbuilderextensions.addsessionstatetempdataprovider) 扩展方法。 只需要调用 `AddSessionStateTempDataProvider`：
+若要启用基于会话的 TempData 提供程序，请使用 <xref:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddSessionStateTempDataProvider%2A> 扩展方法。 只需要调用 `AddSessionStateTempDataProvider`：
 
-[!code-csharp[](app-state/samples/3.x/SessionSample/Startup3.cs?name=snippet1&highlight=4,6,30)]
+[!code-csharp[](app-state/samples/3.x/SessionSample/Startup3.cs?name=snippet1&highlight=4,6,8,30)]
 
 ## <a name="query-strings"></a>查询字符串
 
@@ -244,7 +245,7 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 ## <a name="httpcontextitems"></a>HttpContext.Items
 
-处理单个请求时，使用 [HttpContext.Items](/dotnet/api/microsoft.aspnetcore.http.httpcontext.items) 集合存储数据。 处理请求后，放弃集合的内容。 通常使用 `Items` 集合允许组件或中间件在请求期间在不同时间点操作且没有直接传递参数的方法时进行通信。
+<xref:Microsoft.AspNetCore.Http.HttpContext.Items?displayProperty=nameWithType> 集合用于在处理单个请求时存储数据。 处理请求后，放弃集合的内容。 通常使用 `Items` 集合允许组件或中间件在请求期间在不同时间点操作且没有直接传递参数的方法时进行通信。
 
 在下面示例中，[中间件](xref:fundamentals/middleware/index)将 `isVerified` 添加到 `Items` 集合：
 
@@ -341,7 +342,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 * 如果收到过期的会话 Cookie，则创建使用相同会话 Cookie 的新会话。
 * 不会保留空会话 - 会话中必须设置了至少一个值以保存所有请求的会话。 会话未保留时，为每个新的请求生成新会话 ID。
 * 应用在上次请求后保留会话的时间有限。 应用设置会话超时，或者使用 20 分钟的默认值。 会话状态适用于存储特定于特定会话的用户数据，但该数据无需永久的会话存储。
-* 调用 [ISession.Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) 实现或者会话过期时，会删除会话数据。
+* 会话数据在调用 <xref:Microsoft.AspNetCore.Http.ISession.Clear%2A?displayProperty=nameWithType> 实现或会话到期时删除。
 * 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 Cookie 被删除或过期的应用代码。
 * ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 的支持。 默认情况下，会话状态 cookie 不标记为“基本”，因此，除非站点访问者允许跟踪，否则会话状态不起作用。 有关详细信息，请参阅 <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>。
 
@@ -351,15 +352,15 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 内存中缓存提供程序在应用驻留的服务器内存中存储会话数据。 在服务器场方案中：
 
 * 使用粘性会话将每个会话加入到单独服务器上的特定应用实例。 默认情况下，[Azure 应用服务](https://azure.microsoft.com/services/app-service/)使用[应用程序请求路由 (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) 强制实施粘性会话。 然而，粘性会话可能会影响可伸缩性，并使 Web 应用更新变得复杂。 更好的方法是使用 Redis 或 SQL Server 分布式缓存，它们不需要粘性会话。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
-* 通过 [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) 加密会话 Cookie。 必须正确配置数据保护，以在每台计算机上读取会话 Cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
+* 会话 Cookie 通过 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 进行加密。 必须正确配置数据保护，以在每台计算机上读取会话 Cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
 
 ### <a name="configure-session-state"></a>配置会话状态
 
 [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) 中包含的 [Microsoft.AspNetCore.Session](https://www.nuget.org/packages/Microsoft.AspNetCore.Session/) 包提供中间件来管理会话状态。 若要启用会话中间件，`Startup` 必须包含：
 
-* 任一 [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) 内存缓存。 `IDistributedCache` 实现用作会话后备存储。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
-* 对 `ConfigureServices` 中 [AddSession](/dotnet/api/microsoft.extensions.dependencyinjection.sessionservicecollectionextensions.addsession) 的调用。
-* 对 `Configure` 中 [UseSession](/dotnet/api/microsoft.aspnetcore.builder.sessionmiddlewareextensions.usesession#Microsoft_AspNetCore_Builder_SessionMiddlewareExtensions_UseSession_Microsoft_AspNetCore_Builder_IApplicationBuilder_) 的调用。
+* 任何 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 内存缓存。 `IDistributedCache` 实现用作会话后备存储。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
+* 对 `ConfigureServices` 中 <xref:Microsoft.Extensions.DependencyInjection.SessionServiceCollectionExtensions.AddSession%2A> 的调用。
+* 对 `Configure` 中 <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> 的调用。
 
 以下代码演示如何使用 `IDistributedCache` 的默认内存中实现设置内存中会话提供程序：
 
@@ -367,7 +368,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 中间件的顺序很重要。 在前面的示例中，在 `UseMvc` 之后调用 `UseSession` 时会发生 `InvalidOperationException` 异常。 有关详细信息，请参阅[中间件排序](xref:fundamentals/middleware/index#order)。
 
-配置会话状态后，[HttpContext.Session](/dotnet/api/microsoft.aspnetcore.http.httpcontext.session) 可用。
+<xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType> 在会话状态配置后可用。
 
 调用 `UseSession` 以前无法访问 `HttpContext.Session`。
 
@@ -375,43 +376,43 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 ### <a name="load-session-state-asynchronously"></a>以异步方式加载会话状态
 
-只有在 [TryGetValue](/dotnet/api/microsoft.aspnetcore.http.isession.trygetvalue)、[Set](/dotnet/api/microsoft.aspnetcore.http.isession.set) 或 [Remove](/dotnet/api/microsoft.aspnetcore.http.isession.remove) 方法之前显式调用 [ISession.LoadAsync](/dotnet/api/microsoft.aspnetcore.http.isession.loadasync) 方法，ASP.NET Core 中的默认会话提供程序才会从基础 [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) 后备存储以异步方式加载会话记录。 如果未先调用 `LoadAsync`，则会同步加载基础会话记录，这可能对性能产生大规模影响。
+只有当 <xref:Microsoft.AspNetCore.Http.ISession.LoadAsync%2A?displayProperty=nameWithType> 方法是先于 <xref:Microsoft.AspNetCore.Http.ISession.TryGetValue%2A>、<xref:Microsoft.AspNetCore.Http.ISession.Set%2A> 或 <xref:Microsoft.AspNetCore.Http.ISession.Remove%2A> 方法显式调用时，ASP.NET Core 中的默认会话提供程序才会从基础 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 后备存储中异步加载会话记录。 如果未先调用 `LoadAsync`，则会同步加载基础会话记录，这可能对性能产生大规模影响。
 
-若要让应用强制实施此模式，如果未在 `TryGetValue`、`Set` 或 `Remove` 之前调用 `LoadAsync` 方法，那么使用引起异常的版本包装 [DistributedSessionStore](/dotnet/api/microsoft.aspnetcore.session.distributedsessionstore) 和 [DistributedSession](/dotnet/api/microsoft.aspnetcore.session.distributedsession) 实现。 在服务容器中注册的已包装的版本。
+若要让应用强制执行此模式，请使用在 `LoadAsync` 方法没有先于 `TryGetValue`、`Set` 或 `Remove` 调用时抛出异常的版本来包装 <xref:Microsoft.AspNetCore.Session.DistributedSessionStore> 和 <xref:Microsoft.AspNetCore.Session.DistributedSession> 实现。 在服务容器中注册的已包装的版本。
 
 ### <a name="session-options"></a>会话选项
 
-若要替代会话默认值，请使用 [SessionOptions](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions)。
+若要重写会话默认值，请使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions>。
 
 | 选项 | 描述 |
 | ------ | ----------- |
-| [Cookie](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookie) | 确定用于创建 Cookie 的设置。 [名称](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.name)默认为 [SessionDefaults.CookieName](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiename) (`.AspNetCore.Session`)。 [路径](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.path)默认为 [SessionDefaults.CookiePath](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiepath) (`/`)。 [SameSite](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.samesite) 默认为 [SameSiteMode.Lax](/dotnet/api/microsoft.aspnetcore.http.samesitemode) (`1`)。 [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) 默认为 `true`。 [IsEssential](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.isessential) 默认为 `false`。 |
-| [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 Cookie。 默认为 20 分钟。 |
-| [IOTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.iotimeout) | 允许从存储加载会话或者将其提交回存储的最大时长。 此设置可能仅适用于异步操作。 可以使用 [InfiniteTimeSpan](/dotnet/api/system.threading.timeout.infinitetimespan) 禁用超时。 默认值为 1 分钟。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | 确定用于创建 Cookie 的设置。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> (`.AspNetCore.Session`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> (`/`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> 默认为 <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> (`1`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 默认为 `false`。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 Cookie。 默认为 20 分钟。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | 允许从存储加载会话或者将其提交回存储的最大时长。 此设置可能仅适用于异步操作。 可以使用 <xref:System.Threading.Timeout.InfiniteTimeSpan> 来禁用此超时。 默认值为 1 分钟。 |
 
-会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNetCore.Session` ，并使用路径 `/`。 由于 Cookie 默认值不指定域，因此它不提供页上的客户端脚本（因为 [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) 默认为 `true`）。
+会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNetCore.Session` ，并使用路径 `/`。 由于 Cookie 默认值没有指定域，因此页面上的客户端脚本无法使用它（因为 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`）。
 
 若要替换 Cookie 会话默认值，请使用 `SessionOptions`：
 
 [!code-csharp[](app-state/samples_snapshot/2.x/SessionSample/Startup.cs?name=snippet1&highlight=14-19)]
 
-应用使用 [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) 属性确定放弃服务器缓存中的内容前，内容可以空闲多长时间。 此属性独立于 Cookie 到期时间。 通过[会话中间件](/dotnet/api/microsoft.aspnetcore.session.sessionmiddleware)传递的每个请求都会重置超时。
+应用使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> 属性来确定在会话空闲多长时间后它在服务器缓存中的内容就会被放弃。 此属性独立于 Cookie 到期时间。 通过[会话中间件](xref:Microsoft.AspNetCore.Session.SessionMiddleware)传递的每个请求都会重置超时。
 
 会话状态为“非锁定”。 如果两个请求同时尝试修改同一会话的内容，则后一个请求替代前一个请求。 `Session` 是作为一个连贯会话实现的，这意味着所有内容都存储在一起。 两个请求试图修改不同的会话值时，后一个请求可能替代前一个做出的会话更改。
 
 ### <a name="set-and-get-session-values"></a>设置和获取会话值
 
-使用 [HttpContext.Session](/dotnet/api/microsoft.aspnetcore.http.httpcontext.session) 从 Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) 类或 MVC [控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)类访问会话状态。 此属性是 [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) 实现。
+会话状态是通过 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类或包含 <xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType> 的 MVC <xref:Microsoft.AspNetCore.Mvc.Controller> 类进行访问。 此属性是 <xref:Microsoft.AspNetCore.Http.ISession> 实现。
 
-`ISession` 实现提供用于设置和检索整数和字符串值的若干扩展方法。 项目引用 [Microsoft.AspNetCore.Http.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions/) 包时，扩展方法位于 [Microsoft.AspNetCore.Http](/dotnet/api/microsoft.aspnetcore.http) 命名空间中（添加 `using Microsoft.AspNetCore.Http;` 语句获取对扩展方法的访问权限）。 这两个包均包括在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+`ISession` 实现提供用于设置和检索整数和字符串值的若干扩展方法。 当项目引用 [Microsoft.AspNetCore.Http.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions/) 包时，扩展方法位于 <xref:Microsoft.AspNetCore.Http> 命名空间中（添加 `using Microsoft.AspNetCore.Http;` 语句可以获取对扩展方法的访问权限）。 这两个包均包括在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 `ISession` 扩展方法：
 
-* [Get(ISession, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.get)
-* [GetInt32(ISession, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getint32)
-* [GetString(ISession, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getstring)
-* [SetInt32(ISession, String, Int32)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setint32)
-* [SetString(ISession, String, String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setstring)
+* [Get(ISession, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.Get%2A)
+* [GetInt32(ISession, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetInt32%2A)
+* [GetString(ISession, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetString%2A)
+* [SetInt32(ISession, String, Int32)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetInt32%2A)
+* [SetString(ISession, String, String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetString%2A)
 
 以下示例在 Razor Pages 页中检索 `IndexModel.SessionKeyName` 键（示例应用中的 `_Name`）的会话值：
 
@@ -429,7 +430,7 @@ Name: @HttpContext.Session.GetString(IndexModel.SessionKeyName)
 
 [!code-csharp[](app-state/samples/2.x/SessionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=18-19,22-23)]
 
-必须对所有会话数据进行序列化以启用分布式缓存方案，即使是在使用内存中缓存的时候。 字符串和整数序列化程序由 [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) 的扩展方法提供。 用户必须使用另一种机制（例如 JSON）序列化复杂类型。
+必须对所有会话数据进行序列化以启用分布式缓存方案，即使是在使用内存中缓存的时候。 字符串和整数序列化程序是由 <xref:Microsoft.AspNetCore.Http.ISession> 的扩展方法提供。 用户必须使用另一种机制（例如 JSON）序列化复杂类型。
 
 添加以下扩展方法以设置和获取可序列化的对象：
 
@@ -469,7 +470,7 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 基于 cookie 的 TempData 提供程序默认用于存储 cookie 中的 TempData。
 
-使用由 [Base64UrlTextEncoder](/dotnet/api/microsoft.aspnetcore.webutilities.base64urltextencoder) 编码的 [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) 对 Cookie 数据进行加密，然后进行分块。 因为 Cookie 进行了分块，所以 ASP.NET Core 1.x 中的单个 Cookie 大小限制不适用。 未压缩 Cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 有关基于 Cookie 的 TempData 提供程序的详细信息，请参阅 [CookieTempDataProvider](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.cookietempdataprovider)。
+Cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector>（用 <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> 编码）进行加密，再进行区块处理。 因为 Cookie 进行了分块，所以 ASP.NET Core 1.x 中的单个 Cookie 大小限制不适用。 未压缩 Cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 若要详细了解基于 Cookie 的 TempData 提供程序，请参阅 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>。
 
 ### <a name="choose-a-tempdata-provider"></a>选择 TempData 提供程序
 
@@ -486,7 +487,7 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 默认情况下启用基于 Cookie 的 TempData 提供程序。
 
-若要启用基于会话的 TempData 提供程序，请使用 [AddSessionStateTempDataProvider](/dotnet/api/microsoft.extensions.dependencyinjection.mvcviewfeaturesmvcbuilderextensions.addsessionstatetempdataprovider) 扩展方法：
+若要启用基于会话的 TempData 提供程序，请使用 <xref:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddSessionStateTempDataProvider%2A> 扩展方法：
 
 [!code-csharp[](app-state/samples_snapshot_2/2.x/SessionSample/Startup.cs?name=snippet1&highlight=11,13,32)]
 
@@ -507,7 +508,7 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 ## <a name="httpcontextitems"></a>HttpContext.Items
 
-处理单个请求时，使用 [HttpContext.Items](/dotnet/api/microsoft.aspnetcore.http.httpcontext.items) 集合存储数据。 处理请求后，放弃集合的内容。 通常使用 `Items` 集合允许组件或中间件在请求期间在不同时间点操作且没有直接传递参数的方法时进行通信。
+<xref:Microsoft.AspNetCore.Http.HttpContext.Items?displayProperty=nameWithType> 集合用于在处理单个请求时存储数据。 处理请求后，放弃集合的内容。 通常使用 `Items` 集合允许组件或中间件在请求期间在不同时间点操作且没有直接传递参数的方法时进行通信。
 
 在下面示例中，[中间件](xref:fundamentals/middleware/index)将 `isVerified` 添加到 `Items` 集合。
 

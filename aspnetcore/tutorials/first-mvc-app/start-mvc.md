@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: 01321d68defafbe79371250669f921307bcfdba6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d4eb1744b1186704603430584b3da0793f90ee49
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407039"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213091"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC 入门
 
@@ -106,14 +106,12 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   ![macOS Web 应用模板选择](start-mvc/_static/web_app_template_vsmac.png)
 
-* 确认以下配置：
+* 在“配置新的 Web 应用”对话框中：
 
-  * “目标框架”设置为“.NET Core 3.1” 。
-  * “身份验证”设置为“无身份验证” 。
-   
+  * 确认已将“身份验证”设置为“无身份验证”。
+  * 如果看到用于选择“目标框架”的选项，请选择最新的 3.x 版本。
+
   选择“下一步”。
-
-  ![macOS .NET Core 3.1 选择](start-mvc/_static/new_project_31_vsmac.png)
 
 * 将项目命名为“MvcMovie”，然后选择“创建”。 
 
@@ -259,9 +257,12 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 * 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序(模型-视图-控制器)” > “下一步”。    在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序(模型-视图-控制器)” > “下一步”。   
 
-* 在“配置新的 ASP.NET Core Web API”对话框中，接受默认的 .NET Core 2.2“目标框架”  。
+* 在“配置新的 Web 应用”对话框中：
 
-  ![macOS .NET Core 2.2 选择](./start-mvc/_static/new_project_22_vsmac.png)
+  * 确认已将“身份验证”设置为“无身份验证”。
+  * 如果看到用于选择“目标框架”的选项，请选择最新的 2.x 版本。
+
+  选择“下一步”。
 
 * 将项目命名为“MvcMovie”，然后选择“创建”。 
 
