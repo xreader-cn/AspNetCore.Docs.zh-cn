@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 2c58a274e8de0b1205b223287b7690b1d5caed23
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 06803ee57824bbfac5725763938abbb9db0e360a
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445120"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568842"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -614,7 +614,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-默认的缓存实现将结果存储在内存中。 可以通过实现 `ICertificateValidationCache` 并将其注册到依赖关系注入来提供自己的缓存。 例如 `services.AddSingleton<ICertificateValidationCache, YourCache>()`。
+默认的缓存实现将结果存储在内存中。 可以通过实现 `ICertificateValidationCache` 并将其注册到依赖关系注入来提供自己的缓存。 例如，`services.AddSingleton<ICertificateValidationCache, YourCache>()`。
 
 ::: moniker-end
 
@@ -630,7 +630,7 @@ TLS 重新协商是实现可选客户端证书的一种方法。 不建议这样
 - HTTP/2[显式禁止](https://tools.ietf.org/html/rfc7540#section-9.2.1)重新协商。
 - TLS 1.3 已[删除](https://tools.ietf.org/html/rfc8740#section-1)对重新协商的支持。
 
-ASP.NET Core 5 预览版4及更高版本为可选的客户端证书添加了更方便的支持。 有关详细信息，请参阅[可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。
+ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更方便的支持。 有关详细信息，请参阅[可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。
 
 以下方法支持可选的客户端证书：
 
