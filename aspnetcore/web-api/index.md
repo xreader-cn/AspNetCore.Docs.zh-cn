@@ -5,7 +5,7 @@ description: 了解在 ASP.NET Core 中创建 Web API 的基础知识。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/02/2020
+ms.date: 07/20/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/index
-ms.openlocfilehash: 7c9762d23ff612155846357bfadeaaad492c7299
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 98fb8c0a26f5f8e7ce5f07066f2f36e748ab2398
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404725"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568738"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -94,11 +94,9 @@ Web API 包含一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.Controller
 * [Multipart/form-data 请求推理](#multipartform-data-request-inference)
 * [错误状态代码的问题详细信息](#problem-details-for-error-status-codes)
 
-必须有[兼容性版本](xref:mvc/compatibility-version) 2.2 或更高版本，才能使用“错误状态代码的问题详细信息”** 功能。 必须有兼容性版本 2.1 或更高版本，才能使用其他功能。
+必须有[兼容性版本](xref:mvc/compatibility-version) 2.2 或更高版本，才能使用“错误状态代码的问题详细信息”功能。 必须有兼容性版本 2.1 或更高版本，才能使用其他功能。
 
 ::: moniker-end
-
-::: moniker range="= aspnetcore-2.1"
 
 * [属性路由要求](#attribute-routing-requirement)
 * [自动 HTTP 400 响应](#automatic-http-400-responses)
@@ -106,8 +104,6 @@ Web API 包含一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.Controller
 * [Multipart/form-data 请求推理](#multipartform-data-request-inference)
 
 这些功能需要[兼容性版本](xref:mvc/compatibility-version)为 2.1 或更高版本。
-
-::: moniker-end
 
 ### <a name="attribute-on-specific-controllers"></a>特定控制器上的属性
 
@@ -232,9 +228,11 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 
 ::: moniker-end
 
+要使自动和自定义响应保持一致，请调用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem%2A> 方法，而不是 <xref:System.Web.Http.ApiController.BadRequest%2A>。 `ValidationProblem` 返回 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 对象以及自动响应。
+
 ### <a name="log-automatic-400-responses"></a>记录自动 400 响应
 
-请参阅[如何对模型验证错误记录自动 400 响应 (aspnet/AspNetCore.Docs #12157)](https://github.com/dotnet/AspNetCore.Docs/issues/12157)。
+请参阅[如何对模型验证错误记录自动 400 响应 (dotnet/AspNetCore.Docs#12157)](https://github.com/dotnet/AspNetCore.Docs/issues/12157)。
 
 ### <a name="disable-automatic-400-response"></a>禁用自动 400 响应
 
