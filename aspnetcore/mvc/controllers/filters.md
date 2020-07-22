@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 0141ad2df5216183424980a6ca50bf6bcd64ade5
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 96d24940af6c591e3c02bfa26ed9d7d6ea60d27d
+ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86213058"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86869973"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -83,6 +83,8 @@ ms.locfileid: "86213058"
 同步筛选器在其管道阶段之前和之后运行代码。 例如，<xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuting*> 在调用操作方法之前调用。 <xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuted*> 在操作方法返回之后调用。
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Filters/MySampleActionFilter.cs?name=snippet_ActionFilter)]
+
+在上面的代码中， [MyDebug](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs)是[示例下载](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs)中的实用工具函数。
 
 异步筛选器定义 `On-Stage-ExecutionAsync` 方法。 例如，<xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*>：
 
@@ -212,6 +214,8 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/TestController.cs?name=snippet)]
 
+[!INCLUDE[](~/includes/MyDisplayRouteInfo.md)]
+
 <!-- test via  webBuilder.UseStartup<Startup>(); -->
 
 导航到 `https://localhost:5001/Test2/FilterTest2` 运行以下代码：
@@ -284,7 +288,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>依赖关系注入
+## <a name="dependency-injection"></a>依赖项注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 
@@ -816,7 +820,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>依赖关系注入
+## <a name="dependency-injection"></a>依赖项注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 
