@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 79f36168d0430ceee3794cfb5a4e29f3671ac73f
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 2383934070a65b8131e890a170186b736d3fcec0
+ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212625"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86869986"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -110,7 +110,7 @@ ms.locfileid: "86212625"
 
   ![macOS 新建解决方案](first-web-api-mac/_static/sln.png)
 
-* 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “API” > “下一步”   。 在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “API” > “下一步”。   
+* 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “API” > “下一步”   。 在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “API” > “下一步”。
 
   ![macOS API 模板选择](first-web-api-mac/_static/api_template.png)
 
@@ -232,7 +232,7 @@ ms.locfileid: "86212625"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-### <a name="add-microsoftentityframeworkcoresqlserver"></a>添加 Add Microsoft.EntityFrameworkCore.SqlServer
+### <a name="add-nuget-packages"></a>添加 NuGet 包
 
 * 在“工具”菜单中，依次选择“NuGet 包管理器”、“管理解决方案的 NuGet 包” 。
 * 选择“浏览”选项卡，然后在搜索框中输入 Microsoft.EntityFrameworkCore.SqlServer 。
@@ -590,7 +590,7 @@ DTO 可用于：
 
   ![macOS 新建解决方案](first-web-api-mac/_static/sln.png)
 
-* 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “API” > “下一步”   。 在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “API” > “下一步”。   
+* 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “API” > “下一步”   。 在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “API” > “下一步”。
   
 * 在“配置新的 ASP.NET Core Web API”对话框中，选择最新的 .NET Core 2.x 目标框架。 选择“下一步”。
 
