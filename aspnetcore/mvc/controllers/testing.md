@@ -5,7 +5,7 @@ description: 了解如何使用 Moq 和 xUnit 测试 ASP.NET Core 中的控制�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 7/22/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/testing
-ms.openlocfilehash: 487e054675e40c158250fff5d38fc0e6930a68a8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e75c3a382904011e30ed50dfd465a15210c64368
+ms.sourcegitcommit: c86b4e2955dc1724f2eaa7c97894ad8b3bf763fb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408638"
+ms.lasthandoff: 07/22/2020
+ms.locfileid: "86949077"
 ---
 # <a name="unit-test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的单元测试控制器逻辑
 
@@ -357,4 +357,5 @@ ms.locfileid: "85408638"
 * <xref:test/integration-tests>
 * [用 Visual Studio 创建和运行单元测试](/visualstudio/test/unit-test-your-code)
 * [MyTested AspNetCore-ASP.NET CORE mvc 的流畅测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc)：强类型单元测试库，提供用于测试 Mvc 和 web API 应用的流畅界面。 （*不由 Microsoft 进行支持或维护*。）
+* [JustMockLite](https://github.com/telerik/JustMockLite)： .net 开发人员的模拟框架。 （*不由 Microsoft 进行支持或维护*。）
 
