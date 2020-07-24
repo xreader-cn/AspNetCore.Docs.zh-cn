@@ -1,0 +1,1 @@
+<span data-ttu-id="258c0-101">有关如何全局要求所有用户进行身份验证的信息，请参阅[需要经过身份验证的用户](xref:security/authorization/secure-data#rau)。</span><span class="sxs-lookup"><span data-stu-id="258c0-101">For information on how to globally require all users to be authenticated, see [Require authenticated users](xref:security/authorization/secure-data#rau).</span></span>
