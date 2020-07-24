@@ -1,35 +1,29 @@
 ---
 title: 使用授权保护的用户数据创建 ASP.NET Core 应用
 author: rick-anderson
-description: 了解如何 Razor 使用授权保护的用户数据创建页面应用。 包括 HTTPS、身份验证、安全性 ASP.NET Core Identity 。
+description: '了解如何使用授权保护的用户数据创建 ASP.NET Core web 应用。 包括 HTTPS、身份验证、安全性 ASP.NET Core :::no-loc(Identity)::: 。'
 ms.author: riande
-ms.date: 12/18/2018
+ms.date: 7/18/2020
 ms.custom: mvc, seodec18
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- ':::no-loc(Blazor):::'
+- ':::no-loc(Blazor Server):::'
+- ':::no-loc(Blazor WebAssembly):::'
+- ':::no-loc(Identity):::'
+- ":::no-loc(Let's Encrypt):::"
+- ':::no-loc(Razor):::'
+- ':::no-loc(SignalR):::'
 uid: security/authorization/secure-data
-ms.openlocfilehash: f50015af864a4a62abd5e2eab508aac915cb6370
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7d4c10fa0b1c569179fc3e0a518917ec0185c51f
+ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404712"
+ms.lasthandoff: 07/24/2020
+ms.locfileid: "87160278"
 ---
-# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>使用授权保护的用户数据创建 ASP.NET Core 应用
+# <a name="create-an-aspnet-core-web-app-with-user-data-protected-by-authorization"></a>使用受授权保护的用户数据创建 ASP.NET Core web 应用
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Joe Audette](https://twitter.com/joeaudette)
-
-::: moniker range="<= aspnetcore-1.1"
-
-请参阅[此 PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf)以获取 ASP.NET Core MVC 版本。 本教程的 ASP.NET Core 1.1 版本位于[此](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data)文件夹中。 1.1 ASP.NET Core 示例位于[示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2)中。
-
-::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
@@ -85,7 +79,7 @@ ms.locfileid: "85404712"
 * [身份验证](xref:security/authentication/identity)
 * [帐户确认和密码恢复](xref:security/authentication/accconfirm)
 * [授权](xref:security/authorization/introduction)
-* [Entity Framework Core](xref:data/ef-mvc/intro)
+* [实体框架核心](xref:data/ef-mvc/intro)
 
 ## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
 
@@ -103,11 +97,11 @@ ms.locfileid: "85404712"
 
 ### <a name="tie-the-contact-data-to-the-user"></a>将联系人数据与用户关联
 
-使用 ASP.NET [Identity](xref:security/authentication/identity) 用户 ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和添加 `ContactStatus` 到 `Contact` 模型：
+使用 ASP.NET [:::no-loc(Identity):::](xref:security/authentication/identity) 用户 ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和添加 `ContactStatus` 到 `Contact` 模型：
 
 [!code-csharp[](secure-data/samples/final3/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID`数据库中的表的用户 ID `AspNetUser` [Identity](xref:security/authentication/identity) 。 此 `Status` 字段确定常规用户是否可查看联系人。
+`OwnerID`数据库中的表的用户 ID `AspNetUser` [:::no-loc(Identity):::](xref:security/authentication/identity) 。 此 `Status` 字段确定常规用户是否可查看联系人。
 
 创建新的迁移并更新数据库：
 
@@ -116,21 +110,39 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>将角色服务添加到Identity
+### <a name="add-role-services-to-no-locidentity"></a>将角色服务添加到:::no-loc(Identity):::
 
-追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
+追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_:::no-loc(Identity):::_:::no-loc(Identity):::Builder_AddRoles__1)以添加角色服务：
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet2&highlight=9)]
 
+<a name="rau"></a>
+
 ### <a name="require-authenticated-users"></a>需要经过身份验证的用户
 
-将默认的 "身份验证策略" 设置为 "要求用户进行身份验证"：
+设置后备身份验证策略，要求对用户进行身份验证：
 
-[!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=15-99)] 
+[!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=13-99)]
 
- 您可以 Razor 通过属性在页、控制器或操作方法级别选择不进行身份验证 `[AllowAnonymous]` 。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor 页面和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor 页面以包括属性更安全 `[Authorize]` 。
+前面突出显示的代码设置了[后备身份验证策略](xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.FallbackPolicy)。 回退身份验证策略要求对***所有***用户进行身份验证，但 :::no-loc(Razor)::: 页面、控制器或操作方法除外，具有身份验证属性。 例如， :::no-loc(Razor)::: 使用或的页、控制器或操作方法 `[AllowAnonymous]` `[Authorize(PolicyName="MyPolicy")]` 使用应用的身份验证属性而不是后备身份验证策略。
 
-将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 "索引" 和 "隐私" 页，以便匿名用户在注册之前可以获取有关站点的信息。
+回退身份验证策略：
+
+* 应用于所有未显式指定身份验证策略的请求。 对于终结点路由服务的请求，这将包括未指定授权属性的任何终结点。 对于在授权中间件之后由其他中间件提供服务的请求，例如[静态文件](xref:fundamentals/static-files)，这会将该策略应用到所有请求。
+
+将后备身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 :::no-loc(Razor)::: 页面和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 :::no-loc(Razor)::: 页面以包括属性更安全 `[Authorize]` 。
+
+<xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions>类还包含 <xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.DefaultPolicy?displayProperty=nameWithType> 。 `DefaultPolicy` `[Authorize]` 当未指定策略时，是与特性一起使用的策略。 `[Authorize]`不包含命名策略，与不同 `[Authorize(PolicyName="MyPolicy")]` 。
+
+有关策略的详细信息，请参阅 <xref:security/authorization/policies> 。
+
+MVC 控制器和 :::no-loc(Razor)::: 页面要求对所有用户进行身份验证的另一种方法是添加授权筛选器：
+
+[!code-csharp[](secure-data/samples/final3/Startup2.cs?name=snippet&highlight=14-99)]
+
+前面的代码使用授权筛选器，设置回退策略使用终结点路由。 设置回退策略是要求对所有用户进行身份验证的首选方式。
+
+将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 `Index` 和 `Privacy` 页面，以便匿名用户在注册之前可以获取有关站点的信息：
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
@@ -187,7 +199,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ## <a name="register-the-authorization-handlers"></a>注册授权处理程序
 
-Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
+Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [:::no-loc(Identity):::](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
@@ -195,7 +207,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 ## <a name="support-authorization"></a>支持授权
 
-在本部分中，将更新 Razor 页面并添加操作要求类。
+在本部分中，将更新 :::no-loc(Razor)::: 页面并添加操作要求类。
 
 ### <a name="review-the-contact-operations-requirements-class"></a>查看联系操作要求类
 
@@ -203,16 +215,16 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人页创建基类 Razor
+### <a name="create-a-base-class-for-the-contacts-no-locrazor-pages"></a>为联系人页创建基类 :::no-loc(Razor):::
 
-创建一个包含联系人页中使用的服务的基类 Razor 。 基类将初始化代码放在一个位置：
+创建一个包含联系人页中使用的服务的基类 :::no-loc(Razor)::: 。 基类将初始化代码放在一个位置：
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/DI_BasePageModel.cs)]
 
 前面的代码：
 
 * 添加 `IAuthorizationService` 服务以访问授权处理程序。
-* 添加 Identity `UserManager` 服务。
+* 添加 :::no-loc(Identity)::: `UserManager` 服务。
 * 添加 `ApplicationDbContext`。
 
 ### <a name="update-the-createmodel"></a>更新 CreateModel
@@ -261,7 +273,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor页或控制器必须强制进行访问检查以确保数据的安全。
+> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 :::no-loc(Razor):::页或控制器必须强制进行访问检查以确保数据的安全。
 
 ### <a name="update-details"></a>更新详细信息
 
@@ -284,7 +296,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 ## <a name="differences-between-challenge-and-forbid"></a>质询和禁止之间的差异
 
-此应用将默认策略设置为 "[需要经过身份验证的用户](#require-authenticated-users)"。 以下代码允许匿名用户。 允许匿名用户显示质询与禁止之间的差异。
+此应用将默认策略设置为 "[需要经过身份验证的用户](#rau)"。 以下代码允许匿名用户。 允许匿名用户显示质询与禁止之间的差异。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details2.cshtml.cs?name=snippet)]
 
@@ -326,7 +338,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 ## <a name="create-the-starter-app"></a>创建初学者应用
 
-* 创建 Razor 名为 "ContactManager" 的页面应用
+* 创建 :::no-loc(Razor)::: 名为 "ContactManager" 的页面应用
   * 创建具有**单个用户帐户**的应用。
   * 将其命名为 "ContactManager"，使命名空间与该示例中使用的命名空间匹配。
   * `-uld`指定 LocalDB 而不是 SQLite
@@ -421,7 +433,7 @@ dotnet ef database update
 * [身份验证](xref:security/authentication/identity)
 * [帐户确认和密码恢复](xref:security/authentication/accconfirm)
 * [授权](xref:security/authorization/introduction)
-* [Entity Framework Core](xref:data/ef-mvc/intro)
+* [实体框架核心](xref:data/ef-mvc/intro)
 
 ## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
 
@@ -439,11 +451,11 @@ dotnet ef database update
 
 ### <a name="tie-the-contact-data-to-the-user"></a>将联系人数据与用户关联
 
-使用 ASP.NET [Identity](xref:security/authentication/identity) 用户 ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和添加 `ContactStatus` 到 `Contact` 模型：
+使用 ASP.NET [:::no-loc(Identity):::](xref:security/authentication/identity) 用户 ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和添加 `ContactStatus` 到 `Contact` 模型：
 
 [!code-csharp[](secure-data/samples/final2.1/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID`数据库中的表的用户 ID `AspNetUser` [Identity](xref:security/authentication/identity) 。 此 `Status` 字段确定常规用户是否可查看联系人。
+`OwnerID`数据库中的表的用户 ID `AspNetUser` [:::no-loc(Identity):::](xref:security/authentication/identity) 。 此 `Status` 字段确定常规用户是否可查看联系人。
 
 创建新的迁移并更新数据库：
 
@@ -452,11 +464,11 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>将角色服务添加到Identity
+### <a name="add-role-services-to-no-locidentity"></a>将角色服务添加到:::no-loc(Identity):::
 
-追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
+追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_:::no-loc(Identity):::_:::no-loc(Identity):::Builder_AddRoles__1)以添加角色服务：
 
-[!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet2&highlight=12)]
+[!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet2&highlight=11)]
 
 ### <a name="require-authenticated-users"></a>需要经过身份验证的用户
 
@@ -464,7 +476,7 @@ dotnet ef database update
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet&highlight=17-99)] 
 
- 您可以 Razor 通过属性在页、控制器或操作方法级别选择不进行身份验证 `[AllowAnonymous]` 。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor 页面和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor 页面以包括属性更安全 `[Authorize]` 。
+ 您可以 :::no-loc(Razor)::: 通过属性在页、控制器或操作方法级别选择不进行身份验证 `[AllowAnonymous]` 。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 :::no-loc(Razor)::: 页面和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 :::no-loc(Razor)::: 页面以包括属性更安全 `[Authorize]` 。
 
 将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 "索引"、"关于" 和 "联系人" 页，以便匿名用户在注册之前可以获取有关站点的信息。
 
@@ -523,7 +535,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ## <a name="register-the-authorization-handlers"></a>注册授权处理程序
 
-Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
+Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [:::no-loc(Identity):::](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
@@ -531,7 +543,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 ## <a name="support-authorization"></a>支持授权
 
-在本部分中，将更新 Razor 页面并添加操作要求类。
+在本部分中，将更新 :::no-loc(Razor)::: 页面并添加操作要求类。
 
 ### <a name="review-the-contact-operations-requirements-class"></a>查看联系操作要求类
 
@@ -539,16 +551,16 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人页创建基类 Razor
+### <a name="create-a-base-class-for-the-contacts-no-locrazor-pages"></a>为联系人页创建基类 :::no-loc(Razor):::
 
-创建一个包含联系人页中使用的服务的基类 Razor 。 基类将初始化代码放在一个位置：
+创建一个包含联系人页中使用的服务的基类 :::no-loc(Razor)::: 。 基类将初始化代码放在一个位置：
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/DI_BasePageModel.cs)]
 
 前面的代码：
 
 * 添加 `IAuthorizationService` 服务以访问授权处理程序。
-* 添加 Identity `UserManager` 服务。
+* 添加 :::no-loc(Identity)::: `UserManager` 服务。
 * 添加 `ApplicationDbContext`。
 
 ### <a name="update-the-createmodel"></a>更新 CreateModel
@@ -597,7 +609,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor页或控制器必须强制进行访问检查以确保数据的安全。
+> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 :::no-loc(Razor):::页或控制器必须强制进行访问检查以确保数据的安全。
 
 ### <a name="update-details"></a>更新详细信息
 
@@ -653,7 +665,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 ## <a name="create-the-starter-app"></a>创建初学者应用
 
-* 创建 Razor 名为 "ContactManager" 的页面应用
+* 创建 :::no-loc(Razor)::: 名为 "ContactManager" 的页面应用
   * 创建具有**单个用户帐户**的应用。
   * 将其命名为 "ContactManager"，使命名空间与该示例中使用的命名空间匹配。
   * `-uld`指定 LocalDB 而不是 SQLite

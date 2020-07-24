@@ -13,12 +13,12 @@ no-loc:
 - ':::no-loc(Razor):::'
 - ':::no-loc(SignalR):::'
 uid: security/authentication/identity
-ms.openlocfilehash: dd3296db568700a363c427398f02239846a46ada
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: 25070e90050db9dca8b003ae782662811096526a
+ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86445421"
+ms.lasthandoff: 07/24/2020
+ms.locfileid: "87160299"
 ---
 # <a name="introduction-to-no-locidentity-on-aspnet-core"></a>ASP.NET Core 简介 :::no-loc(Identity):::
 
@@ -32,6 +32,8 @@ ASP.NET Core :::no-loc(Identity):::：
 * 管理用户、密码、配置文件数据、角色、声明、令牌、电子邮件确认等。
 
 用户可以使用存储在中的登录信息创建一个帐户， :::no-loc(Identity)::: 也可以使用外部登录提供程序。 支持的外部登录提供程序包括[Facebook、Google、Microsoft 帐户和 Twitter](xref:security/authentication/social/index)。
+
+[!INCLUDE[](~/includes/requireAuth.md)]
 
 GitHub 上提供了[ :::no-loc(Identity)::: 源代码](https://github.com/dotnet/AspNetCore/tree/master/src/:::no-loc(Identity):::)。 [基架 :::no-loc(Identity)::: ](xref:security/authentication/scaffold-identity)并查看生成的文件以查看与的模板交互 :::no-loc(Identity)::: 。
 
@@ -57,7 +59,7 @@ GitHub 上提供了[ :::no-loc(Identity)::: 源代码](https://github.com/dotnet
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”  。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -291,7 +293,7 @@ ASP.NET Core :::no-loc(Identity)::: 是将登录功能添加到 ASP.NET Core 应
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”  。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
