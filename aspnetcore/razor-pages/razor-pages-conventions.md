@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: 308ca4401289a55e5dba8d61de50644cb2a53433
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3cb83d8cfd058c4d0a93ece9a4f19b6407dac384
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405245"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568855"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 路由和应用约定
 
@@ -41,28 +42,27 @@ ms.locfileid: "85405245"
 | [页面路由操作约定](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | 将路由模板添加到某个文件夹中的页面以及单个页面。 |
 | [页面模型操作约定](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter（筛选器类、Lambda 表达式或筛选器工厂）</li></ul> | 将标头添加到某个文件夹中的多个页面，将标头添加到单个页面，以及配置[筛选器工厂](xref:mvc/controllers/filters#ifilterfactory)以将标头添加到应用的页面。 |
 
-使用 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 扩展方法向 `Startup` 类中服务集合的 <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> 添加和配置 Razor Pages 约定。 本主题稍后会介绍以下约定示例：
+Razor Pages 约定是使用在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions> 的 <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddRazorPages%2A> 重载配置的。 本主题稍后会介绍以下约定示例：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddRazorPages()
-        .AddRazorPagesOptions(options =>
-        {
-            options.Conventions.Add( ... );
-            options.Conventions.AddFolderRouteModelConvention(
-                "/OtherPages", model => { ... });
-            options.Conventions.AddPageRouteModelConvention(
-                "/About", model => { ... });
-            options.Conventions.AddPageRoute(
-                "/Contact", "TheContactPage/{text?}");
-            options.Conventions.AddFolderApplicationModelConvention(
-                "/OtherPages", model => { ... });
-            options.Conventions.AddPageApplicationModelConvention(
-                "/About", model => { ... });
-            options.Conventions.ConfigureFilter(model => { ... });
-            options.Conventions.ConfigureFilter( ... );
-        });
+    services.AddRazorPages(options =>
+    {
+        options.Conventions.Add( ... );
+        options.Conventions.AddFolderRouteModelConvention(
+            "/OtherPages", model => { ... });
+        options.Conventions.AddPageRouteModelConvention(
+            "/About", model => { ... });
+        options.Conventions.AddPageRoute(
+            "/Contact", "TheContactPage/{text?}");
+        options.Conventions.AddFolderApplicationModelConvention(
+            "/OtherPages", model => { ... });
+        options.Conventions.AddPageApplicationModelConvention(
+            "/About", model => { ... });
+        options.Conventions.ConfigureFilter(model => { ... });
+        options.Conventions.ConfigureFilter( ... );
+    });
 }
 ```
 
@@ -106,7 +106,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 尽可能不要将 `Order` 设置为 `Order = 0`。 依赖路由选择正确的路由。
 
-将 MVC 添加到 `Startup.ConfigureServices` 中的服务集合时，会添加 Razor Pages 选项，例如添加 <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>。 有关示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)。
+将 Razor Pages 添加到 `Startup.ConfigureServices` 中的服务集合时，会添加 Razor Pages 选项，例如添加 <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>。 有关示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -191,13 +191,12 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddRazorPages()
-        .AddRazorPagesOptions(options =>
-        {
-            options.Conventions.Add(
-                new PageRouteTransformerConvention(
-                    new SlugifyParameterTransformer()));
-        });
+    services.AddRazorPages(options =>
+    {
+        options.Conventions.Add(
+            new PageRouteTransformerConvention(
+                new SlugifyParameterTransformer()));
+    });
 }
 ```
 

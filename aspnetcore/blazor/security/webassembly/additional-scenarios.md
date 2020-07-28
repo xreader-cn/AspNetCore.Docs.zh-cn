@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 0cf2c2d2ef0d199ca5df6c27ddcc39e84db46ebd
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 79f7b2177d6d07101c73cde841c062b0e1468593
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059755"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445146"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -59,7 +59,7 @@ public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
 在 `Program.Main` (`Program.cs`) 中，使用自定义授权消息处理程序配置 <xref:System.Net.Http.HttpClient>：
 
 ```csharp
-builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
+builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
 
 builder.Services.AddHttpClient("ServerAPI",
         client => client.BaseAddress = new Uri("https://www.example.com/base"))
@@ -108,16 +108,14 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 ...
 
-builder.Services.AddTransient(sp =>
-{
-    return new HttpClient(sp.GetRequiredService<AuthorizationMessageHandler>()
-        .ConfigureHandler(
-            authorizedUrls: new [] { "https://www.example.com/base" },
-            scopes: new[] { "example.read", "example.write" }))
-        {
-            BaseAddress = new Uri("https://www.example.com/base")
-        };
-});
+builder.Services.AddScoped(sp => new HttpClient(
+    sp.GetRequiredService<AuthorizationMessageHandler>()
+    .ConfigureHandler(
+        authorizedUrls: new[] { "https://www.example.com/base" },
+        scopes: new[] { "example.read", "example.write" }))
+    {
+        BaseAddress = new Uri("https://www.example.com/base")
+    });
 ```
 
 对于基于 Blazor WebAssembly 托管的模板的 Blazor 应用，可将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> 分配到：
@@ -137,7 +135,7 @@ builder.Services.AddHttpClient("ServerAPI",
         client => client.BaseAddress = new Uri("https://www.example.com/base"))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("ServerAPI"));
 ```
 
@@ -175,7 +173,7 @@ protected override async Task OnInitializedAsync()
 
 可以定义类型化的客户端，以使用它处理单个类中的所有 HTTP 和令牌获取问题。
 
-`WeatherForecastClient.cs`：
+`WeatherForecastClient.cs`:
 
 ```csharp
 using System.Net.Http;
@@ -214,7 +212,7 @@ public class WeatherForecastClient
 
 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `using static BlazorSample.Data;`）。
 
-`Program.Main` (`Program.cs`)：
+`Program.Main` (`Program.cs`):
 
 ```csharp
 using System.Net.Http;
@@ -246,7 +244,7 @@ protected override async Task OnInitializedAsync()
 
 可以使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> 为出站 HTTP 请求进一步配置处理程序。
 
-`Program.Main` (`Program.cs`)：
+`Program.Main` (`Program.cs`):
 
 ```csharp
 builder.Services.AddHttpClient<WeatherForecastClient>(
@@ -266,7 +264,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(
 
 如果 Blazor WebAssembly 应用通常使用安全的默认 <xref:System.Net.Http.HttpClient>，则该应用还可以通过配置命名的 <xref:System.Net.Http.HttpClient> 来发出未经身份验证或未经授权的 Web API 请求：
 
-`Program.Main` (`Program.cs`)：
+`Program.Main` (`Program.cs`):
 
 ```csharp
 builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient", 
@@ -310,7 +308,7 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
 
 在以下示例中，应用需要其他 Azure Active Directory (AAD) Microsoft Graph API 作用域才能读取用户数据和发送邮件。 在 Azure AAD 门户中添加 Microsoft Graph API 权限后，将在客户端应用中配置其他作用域。
 
-`Program.Main` (`Program.cs`)：
+`Program.Main` (`Program.cs`):
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -611,7 +609,7 @@ public class StateContainer
 
 从 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState> 创建 `ApplicationAuthenticationState`。 提供 `Id` 属性，该属性用作本地存储状态的标识符。
 
-`ApplicationAuthenticationState.cs`：
+`ApplicationAuthenticationState.cs`:
 
 ```csharp
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -722,7 +720,7 @@ builder.Services.AddSingleton<StateContainer>();
 }
 ```
 
-`Program.Main` (`Program.cs`)：
+`Program.Main` (`Program.cs`):
 
 ```csharp
 builder.Services.AddApiAuthorization(options => { 
@@ -839,7 +837,7 @@ public class CustomAccountFactory
 
 为正在使用的验证提供程序注册 `CustomAccountFactory`。 以下任何注册均有效： 
 
-* <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A>：
+* <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A>:
 
   ```csharp
   using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -855,7 +853,7 @@ public class CustomAccountFactory
       CustomUserAccount, CustomAccountFactory>();
   ```
 
-* <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>：
+* <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>:
 
   ```csharp
   using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -871,7 +869,7 @@ public class CustomAccountFactory
       CustomUserAccount, CustomAccountFactory>();
   ```
   
-* <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization%2A>：
+* <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization%2A>:
 
   ```csharp
   using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -904,10 +902,11 @@ public class Program
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
         builder.RootComponents.Add<App>("app");
 
-        builder.Services.AddTransient(new HttpClient 
-        {
-            BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-        });
+        builder.Services.AddScoped(sp => 
+            new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            });
 
         services.Add...;
 
@@ -1043,3 +1042,79 @@ builder.Services.Configure<JwtBearerOptions>(
 如果将段添加到授权不适合应用的 OIDC 提供程序（例如，使用非 AAD 提供程序），则直接设置 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> 属性。 使用 `Authority` 键在 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> 或应用设置文件 (`appsettings.json`) 中设置属性。
 
 ID 令牌中的声明列表针对 v2.0 终结点会发生更改。 有关详细信息，请参阅[为什么要更新到 Microsoft 标识平台 (v2.0)？](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison)。
+
+## <a name="configure-and-use-grpc-in-components"></a>在组件中配置和使用 gRPC
+
+若要将 Blazor WebAssembly 应用配置为使用 [ASP.NET Core gRPC 框架](xref:grpc/index)：
+
+* 在服务器上启用 gRPC-Web。 有关详细信息，请参阅 <xref:grpc/browser>。
+* 为应用的消息处理程序注册 gRPC 服务。 下面的示例将应用的授权消息处理程序配置为使用 [gRPC 教程中的 `GreeterClient` 服务](xref:tutorials/grpc/grpc-start#create-a-grpc-service) (`Program.Main`)：
+
+```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
+using {APP ASSEMBLY}.Shared;
+
+...
+
+builder.Services.AddScoped(sp =>
+{
+    var baseAddressMessageHandler = 
+        sp.GetRequiredService<BaseAddressAuthorizationMessageHandler>();
+    baseAddressMessageHandler.InnerHandler = new HttpClientHandler();
+    var grpcWebHandler = 
+        new GrpcWebHandler(GrpcWebMode.GrpcWeb, baseAddressMessageHandler);
+    var channel = GrpcChannel.ForAddress(builder.HostEnvironment.BaseAddress, 
+        new GrpcChannelOptions { HttpHandler = grpcWebHandler });
+
+    return new Greeter.GreeterClient(channel);
+});
+```
+
+占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample`）。 将 `.proto` 文件放在托管的 Blazor 解决方案的 `Shared` 项目中。
+
+客户端应用中的组件可使用 gRPC 客户端 (`Pages/Grpc.razor`) 发出 gRPC 调用：
+
+```razor
+@page "/grpc"
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
+@using {APP ASSEMBLY}.Shared
+@inject Greeter.GreeterClient GreeterClient
+
+<h1>Invoke gRPC service</h1>
+
+<p>
+    <input @bind="name" placeholder="Type your name" />
+    <button @onclick="GetGreeting" class="btn btn-primary">Call gRPC service</button>
+</p>
+
+Server response: <strong>@serverResponse</strong>
+
+@code {
+    private string name = "Bert";
+    private string serverResponse;
+
+    private async Task GetGreeting()
+    {
+        try
+        {
+            var request = new HelloRequest { Name = name };
+            var reply = await GreeterClient.SayHelloAsync(request);
+            serverResponse = reply.Message;
+        }
+        catch (Grpc.Core.RpcException ex)
+            when (ex.Status.DebugException is 
+                AccessTokenNotAvailableException tokenEx)
+        {
+            tokenEx.Redirect();
+        }
+    }
+}
+```
+
+占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample`）。 若要使用 `Status.DebugException` 属性，请使用 [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) 版本 2.30.0 或更高版本。
+
+有关详细信息，请参阅 <xref:grpc/browser>。

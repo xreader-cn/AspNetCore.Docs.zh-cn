@@ -5,7 +5,7 @@ description: 了解如何在 Ubuntu 16.04 上将 Nginx 设置为反向代理，�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/10/2020
+ms.date: 07/09/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: c936ff9a7aadd21ce99a0c37184ae8cf911c3070
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8038c63200c7c9aaadb9e0e7a68ae315ff620197
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403971"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445289"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -394,6 +395,9 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 编辑 /etc/nginx/nginx.conf 配置文件。 示例包含一个配置文件中的 `http` 和 `server` 部分。
 
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
+
+> [!NOTE]
+> Blazor WebAssembly 应用需要更大的 `burst` 参数值才能容纳应用发出的更大量的请求。 有关详细信息，请参阅 <xref:blazor/host-and-deploy/webassembly#nginx>。
 
 #### <a name="secure-nginx-from-clickjacking"></a>保护 Nginx 免受点击劫持的侵害
 

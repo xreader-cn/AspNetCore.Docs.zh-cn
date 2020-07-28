@@ -5,7 +5,7 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/07/2020
+ms.date: 07/09/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 2b100ba029c08e0ce68d208df761f22a712fbbfd
-ms.sourcegitcommit: 99c784a873b62fbd97a73c5c07f4fe7a7f5db638
+ms.openlocfilehash: 2a2b0dabc26c14624144ce7eceb5861fe56f1054
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/27/2020
-ms.locfileid: "85503508"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445133"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -243,12 +244,30 @@ http {
         listen 80;
 
         location / {
-            root /usr/share/nginx/html;
+            root      /usr/share/nginx/html;
             try_files $uri $uri/ /index.html =404;
         }
     }
 }
 ```
+
+使用 [`limit_req`](https://nginx.org/docs/http/ngx_http_limit_req_module.html#limit_req) 设置 [NGINX 突发速率限制](https://www.nginx.com/blog/rate-limiting-nginx/#bursts)时，Blazor WebAssembly 应用可能需要一个较大的 `burst` 参数值来容纳应用发出的请求数。 首先，将值设置为不低于 60：
+
+```
+http {
+    server {
+        ...
+
+        location / {
+            ...
+
+            limit_req zone=one burst=60 nodelay;
+        }
+    }
+}
+```
+
+如果浏览器开发人员工具或网络流量工具指示请求收到“503 - 服务不可用”状态代码，则将该值调高。
 
 有关生产 Nginx Web 服务器配置的详细信息，请参阅 [Creating NGINX Plus and NGINX Configuration Files](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/)（创建 NGINX 增强版和 NGINX 配置文件）。
 
@@ -439,7 +458,7 @@ Blazor WebAssembly 应用可使用 `loadBootResource` 函数进行初始化，�
   </script>
   ```
 
-* `Promise<Response>`。 在标头中传递 `integrity` 参数以保持默认的完整性检查行为。
+* `Promise<Response>`. 在标头中传递 `integrity` 参数以保持默认的完整性检查行为。
 
   以下示例 (`wwwroot/index.html`) 将一个自定义 HTTP 标头添加到出站请求，并将 `integrity` 参数传递到 `fetch` 调用：
   
@@ -509,7 +528,7 @@ sed -i 's/\.dll"/.bin"/g' service-worker-assets.js
 
 以下 Windows 示例使用项目根目录中的 PowerShell 脚本。
 
-`ChangeDLLExtensions.ps1:`：
+`ChangeDLLExtensions.ps1:`:
 
 ```powershell
 param([string]$filepath,[string]$tfm)

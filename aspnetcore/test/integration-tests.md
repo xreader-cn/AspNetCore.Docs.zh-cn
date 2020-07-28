@@ -5,7 +5,7 @@ description: 了解集成测试如何在基础结构级别（包括数据库、�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/20/2020
+ms.date: 07/14/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/integration-tests
-ms.openlocfilehash: 6e4a0065486f6d9d6744dcd21de10ec76782f210
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: c050665f630c0973abe6c9d08a4652597441639f
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405869"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445276"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>ASP.NET Core 中的集成测试
 
@@ -310,7 +310,7 @@ IntegrationTests.IndexPageTests.cs：
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet4&highlight=11-18)]
 
-当身份验证方案设置为 `Test`（其中为 `ConfigureTestServices` 注册了 `AddAuthentication`）时，会调用 `TestAuthHandler` 以对用户进行身份验证：
+当身份验证方案设置为 `Test`（其中为 `ConfigureTestServices` 注册了 `AddAuthentication`）时，会调用 `TestAuthHandler` 以对用户进行身份验证。 `Test` 架构必须与应用所需的架构匹配，这一点很重要。 否则，身份验证将不起作用。
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet3&highlight=7-12)]
 
@@ -579,7 +579,7 @@ Razor Pages 应用与 MVC 应用的测试配置之间几乎没有任何区别。
 
 下表显示在创建 `HttpClient` 实例时可用的默认 [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)。
 
-| 选项 | 描述 | 默认 |
+| 选项 | 说明 | 默认 |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | 获取或设置 `HttpClient` 实例是否应自动追随重定向响应。 | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | 获取或设置 `HttpClient` 实例的基址。 | `http://localhost` |

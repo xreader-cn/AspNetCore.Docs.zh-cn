@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 0f2741a78b58d7380fcbe84e97f5a08ef291c27b
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 896eed0e55986678b6bb86638ca92b04a77b4fef
+ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944509"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86869934"
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
@@ -167,7 +167,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.EventCallback%601> 在 <xref:blazor/components/event-handling#eventcallback> 中进行了说明。
+<xref:Microsoft.AspNetCore.Components.EventCallback%601> 必须命名为组件参数名后跟 `Changed` 后缀 (`{PARAMETER NAME}Changed`)，即前面的示例中的 `YearChanged`。 有关 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 的详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。
 
 以下父组件使用：
 

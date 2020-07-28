@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 65095f3990c72224d95f1f5fe46d320ab8f12040
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 17ada36c40997353528f922bece5acc34ce760d2
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404829"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445380"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>对 Azure 应用服务和 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -298,34 +299,24 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 
 ### <a name="aspnet-core-module-stdout-log-azure-app-service"></a>ASP.NET Core 模块 stdout 日志（Azure 应用服务）
 
-ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不到的有用错误消息。 若要启用和查看 stdout 日志，请执行以下操作：
-
-1. 在 Azure 门户中导航到“诊断并解决问题”边栏选项卡。
-1. 在“选择问题类别”下，选择“Web 应用关闭”按钮。
-1. 在“建议的解决方案”>“启用 Stdout 日志重定向”下，选择“打开 Kudu 控制台以编辑 Web.Config”对应的按钮  。
-1. 在 Kudu 诊断控制台中，打开路径“站点 > wwwroot”下的文件夹。 向下滚动以在列表底部显示“web.config”文件。
-1. 单击“web.config”文件旁边的铅笔图标。
-1. 将“stdoutLogEnabled”设置为 `true`，并将“stdoutLogFile”路径更改为 `\\?\%home%\LogFiles\stdout`。
-1. 选择“保存”以保存已更新的 web.config 文件。
-1. 向应用发出请求。
-1. 返回到 Azure 门户。 选择“开发工具”区域中的“高级工具”边栏选项卡。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
-1. 使用页面顶部的导航栏，打开“调试控制台”并选择“CMD”。
-1. 选择“LogFiles”文件夹。
-1. 检查“已修改”列并选择铅笔图标以编辑具有最新修改日期的 stdout 日志。
-1. 打开日志文件后，将显示错误。
-
-故障排除完成后，禁用 stdout 日志记录：
-
-1. 在 Kudu 诊断控制台中，返回到路径“site > wwwroot”以显示 web.config 文件。 通过选择铅笔图标再次打开 web.config 文件。
-1. 将“stdoutLogEnabled”设置为 `false`。
-1. 选择“保存”以保存文件。
-
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。
-
 > [!WARNING]
 > 无法禁用 stdout 日志可能会导致应用或服务器出现故障。 日志文件大小或创建的日志文件数没有限制。 仅使用 stdout 日志记录来解决应用启动问题。
 >
 > 对于在 ASP.NET Core 应用启动后生成的常规日志记录，使用限制日志文件大小和旋转日志的日志记录库。 有关详细信息，请参阅[第三方日志记录提供程序](xref:fundamentals/logging/index#third-party-logging-providers)。
+
+ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不到的有用错误消息。 若要启用和查看 stdout 日志，请执行以下操作：
+
+1. 在 Azure 门户中，导航到 Web 应用。
+1. 在“应用服务”边栏选项卡中，在搜索框中输入 kudu 。
+1. 依次选择“高级工具”>“Go” 。
+1. 选择“调试控制台”>“CMD”。
+1. 导航到 site/wwwroot
+1. 选择铅笔图标以编辑 web.config 文件。
+1. 在 `<aspNetCore />` 元素中，设置 `stdoutLogEnabled="true"` 并选择“保存”。
+
+故障排除完成后，通过设置 `stdoutLogEnabled="false"` 来禁用 stdout 日志记录。
+
+有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。
 
 ### <a name="aspnet-core-module-debug-log-azure-app-service"></a>ASP.NET Core 模块调试日志（Azure 应用服务）
 
@@ -765,7 +756,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`（`{X.Y}` 是运行时版本）
 1. 运行应用：`dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
-来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
 
 #### <a name="test-a-64-bit-x64-app"></a>测试 64 位 (x64) 应用
 
@@ -778,7 +769,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
   1. `cd D:\home\site\wwwroot`
   1. 运行应用：`{ASSEMBLY NAME}.exe`
 
-来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
 
 **在预览版上运行的依赖框架的部署**
 
@@ -1243,7 +1234,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`（`{X.Y}` 是运行时版本）
 1. 运行应用：`dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
-来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
 
 #### <a name="test-a-64-bit-x64-app"></a>测试 64 位 (x64) 应用
 
@@ -1256,7 +1247,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
   1. `cd D:\home\site\wwwroot`
   1. 运行应用：`{ASSEMBLY NAME}.exe`
 
-来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
 
 **在预览版上运行的依赖框架的部署**
 

@@ -7,9 +7,9 @@
 >
 > 请参阅 GitHub bug [18677](https://github.com/dotnet/aspnetcore/issues/18677) 和 [16579](https://github.com/dotnet/aspnetcore/issues/16579)，了解遇到此 bug 的示例。
 >
-> 此 bug 的选择加入修复包含在[.Net Core 3.1.301 SDK 和更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.1)中。 下面的代码设置修复此 bug 的内部开关：
+> [.NET Core 3.1.301 SDK 及更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.1)中包含此 bug 的修补程序（可选用）。 以下代码设置了一个可修复此 bug 的内部开关：
 >
->```
+>```csharp
 >public static void Main(string[] args)
 >{
 >    AppContext.SetSwitch("Microsoft.AspNetCore.Routing.UseCorrectCatchAllBehavior", 

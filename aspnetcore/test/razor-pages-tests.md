@@ -5,7 +5,7 @@ description: 了解如何为 Razor Pages 应用创建单元测试。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2019
+ms.date: 7/22/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,11 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/razor-pages-tests
-ms.openlocfilehash: 756af7f2b14512bd43aefd1a4e63e195c2daa138
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ed048d600b629335b8267b63b3cfd57b525d608e
+ms.sourcegitcommit: c86b4e2955dc1724f2eaa7c97894ad8b3bf763fb
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407754"
+ms.lasthandoff: 07/22/2020
+ms.locfileid: "86949089"
 ---
 # <a name="razor-pages-unit-tests-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 单元测试
 
@@ -44,10 +45,10 @@ ASP.NET Core 支持 Razor Pages 应用的单元测试。 数据访问层 (DAL) �
 
 | 应用         | 项目文件夹                     | 描述 |
 | ----------- | ---------------------------------- | ----------- |
-| 消息应用 | *src/RazorPagesTestSample*         | 允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。 |
-| 测试应用    | *tests/RazorPagesTestSample.Tests* | 用于对消息应用的 DAL 和索引页面模型进行单元测试。 |
+| 消息应用 | src/RazorPagesTestSample         | 允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。 |
+| 测试应用    | tests/RazorPagesTestSample.Tests | 用于对消息应用的 DAL 和索引页面模型进行单元测试。 |
 
-可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。 如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 *tests/RazorPagesTestSample.Tests* 文件夹中的命令提示符处执行以下命令：
+可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。 如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 tests/RazorPagesTestSample.Tests 文件夹中的命令提示符处执行以下命令：
 
 ```dotnetcli
 dotnet test
@@ -69,7 +70,7 @@ dotnet test
 
 ## <a name="test-app-organization"></a>测试应用组织
 
-测试应用是 *tests/RazorPagesTestSample.Tests* 文件夹中的控制台应用。
+测试应用是 tests/RazorPagesTestSample.Tests 文件夹中的控制台应用。
 
 | 测试应用文件夹 | 描述 |
 | --------------- | ----------- |
@@ -80,7 +81,7 @@ dotnet test
 
 ## <a name="unit-tests-of-the-data-access-layer-dal"></a>数据访问层 (DAL) 的单元测试
 
-消息应用具有 DAL，其中 `AppDbContext` 类 (*src/RazorPagesTestSample/Data/AppDbContext.cs*) 中包含四个方法。 每个方法在测试应用中都有一到两个单元测试。
+消息应用具有 DAL，其中 `AppDbContext` 类 (src/RazorPagesTestSample/Data/AppDbContext.cs) 中包含 4 个方法。 每个方法在测试应用中都有一到两个单元测试。
 
 | DAL 方法               | 函数                                                                   |
 | ------------------------ | -------------------------------------------------------------------------- |
@@ -101,7 +102,7 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。 尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。 若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。 测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (*tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs*) 执行此操作：
+此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。 尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。 若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。 测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs) 执行此操作：
 
 [!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
@@ -120,7 +121,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 1. 执行：执行测试。
 1. 断言：进行断言以确定测试结果是否成功。
 
-例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (*src/RazorPagesTestSample/Data/AppDbContext.cs*) 标识的单个消息：
+例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (src/RazorPagesTestSample/Data/AppDbContext.cs) 标识的单个消息：
 
 [!code-csharp[](razor-pages-tests/samples/3.x/src/RazorPagesTestSample/Data/AppDbContext.cs?name=snippet4)]
 
@@ -151,7 +152,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 ## <a name="unit-tests-of-the-page-model-methods"></a>页面模型方法的单元测试
 
-另一组单元测试负责测试页面模型方法。 在消息应用中，可在 *src/RazorPagesTestSample/Pages/Index.cshtml.cs* 的 `IndexModel` 类中找到索引页面模型。
+另一组单元测试负责测试页面模型方法。 在消息应用中，可在 src/RazorPagesTestSample/Pages/Index.cshtml.cs 的 `IndexModel` 类中找到索引页面模型。
 
 | 页面模型方法 | 函数 |
 | ----------------- | -------- |
@@ -161,7 +162,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 | `OnPostDeleteMessageAsync` | 执行 `DeleteMessageAsync` 以删除指定了 `Id` 的消息。 |
 | `OnPostAnalyzeMessagesAsync` | 如果数据库中有一条或多条消息，请计算每条消息的平均字词数。 |
 
-使用 `IndexPageTests` 类 (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*) 中的七个测试来测试页面模型方法。 测试使用熟悉的安排-断言-执行模式。 这些测试的重点在于：
+使用 `IndexPageTests` 类 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs) 中的 7 个测试来测试页面模型方法。 测试使用熟悉的安排-断言-执行模式。 这些测试的重点在于：
 
 * 确定 [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) 无效时方法是否遵循正确的行为模式。
 * 确认方法是否会生成正确的 <xref:Microsoft.AspNetCore.Mvc.IActionResult>。
@@ -175,11 +176,11 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 在“执行”步骤中执行 `OnGetAsync` 方法时，它会调用页面模型的 `GetMessagesAsync` 方法。
 
-单元测试“执行”步骤 (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*)：
+单元测试“执行”步骤 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs)：
 
 [!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
 
-`IndexPage` 页面模型的 `OnGetAsync` 方法 (*src/RazorPagesTestSample/Pages/Index.cshtml.cs*)：
+`IndexPage` 页面模型的 `OnGetAsync` 方法 (src/RazorPagesTestSample/Pages/Index.cshtml.cs)：
 
 [!code-csharp[](razor-pages-tests/samples/3.x/src/RazorPagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
 
@@ -228,10 +229,10 @@ ASP.NET Core 支持 Razor Pages 应用的单元测试。 数据访问层 (DAL) �
 
 | 应用         | 项目文件夹                     | 描述 |
 | ----------- | ---------------------------------- | ----------- |
-| 消息应用 | *src/RazorPagesTestSample*         | 允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。 |
-| 测试应用    | *tests/RazorPagesTestSample.Tests* | 用于对消息应用的 DAL 和索引页面模型进行单元测试。 |
+| 消息应用 | src/RazorPagesTestSample         | 允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。 |
+| 测试应用    | tests/RazorPagesTestSample.Tests | 用于对消息应用的 DAL 和索引页面模型进行单元测试。 |
 
-可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。 如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 *tests/RazorPagesTestSample.Tests* 文件夹中的命令提示符处执行以下命令：
+可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。 如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 tests/RazorPagesTestSample.Tests 文件夹中的命令提示符处执行以下命令：
 
 ```dotnetcli
 dotnet test
@@ -253,7 +254,7 @@ dotnet test
 
 ## <a name="test-app-organization"></a>测试应用组织
 
-测试应用是 *tests/RazorPagesTestSample.Tests* 文件夹中的控制台应用。
+测试应用是 tests/RazorPagesTestSample.Tests 文件夹中的控制台应用。
 
 | 测试应用文件夹 | 描述 |
 | --------------- | ----------- |
@@ -264,7 +265,7 @@ dotnet test
 
 ## <a name="unit-tests-of-the-data-access-layer-dal"></a>数据访问层 (DAL) 的单元测试
 
-消息应用具有 DAL，其中 `AppDbContext` 类 (*src/RazorPagesTestSample/Data/AppDbContext.cs*) 中包含四个方法。 每个方法在测试应用中都有一到两个单元测试。
+消息应用具有 DAL，其中 `AppDbContext` 类 (src/RazorPagesTestSample/Data/AppDbContext.cs) 中包含 4 个方法。 每个方法在测试应用中都有一到两个单元测试。
 
 | DAL 方法               | 函数                                                                   |
 | ------------------------ | -------------------------------------------------------------------------- |
@@ -285,7 +286,7 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。 尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。 若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。 测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (*tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs*) 执行此操作：
+此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。 尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。 若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。 测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs) 执行此操作：
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
@@ -304,7 +305,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 1. 执行：执行测试。
 1. 断言：进行断言以确定测试结果是否成功。
 
-例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (*src/RazorPagesTestSample/Data/AppDbContext.cs*) 标识的单个消息：
+例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (src/RazorPagesTestSample/Data/AppDbContext.cs) 标识的单个消息：
 
 [!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Data/AppDbContext.cs?name=snippet4)]
 
@@ -335,7 +336,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 ## <a name="unit-tests-of-the-page-model-methods"></a>页面模型方法的单元测试
 
-另一组单元测试负责测试页面模型方法。 在消息应用中，可在 *src/RazorPagesTestSample/Pages/Index.cshtml.cs* 的 `IndexModel` 类中找到索引页面模型。
+另一组单元测试负责测试页面模型方法。 在消息应用中，可在 src/RazorPagesTestSample/Pages/Index.cshtml.cs 的 `IndexModel` 类中找到索引页面模型。
 
 | 页面模型方法 | 函数 |
 | ----------------- | -------- |
@@ -345,7 +346,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 | `OnPostDeleteMessageAsync` | 执行 `DeleteMessageAsync` 以删除指定了 `Id` 的消息。 |
 | `OnPostAnalyzeMessagesAsync` | 如果数据库中有一条或多条消息，请计算每条消息的平均字词数。 |
 
-使用 `IndexPageTests` 类 (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*) 中的七个测试来测试页面模型方法。 测试使用熟悉的安排-断言-执行模式。 这些测试的重点在于：
+使用 `IndexPageTests` 类 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs) 中的 7 个测试来测试页面模型方法。 测试使用熟悉的安排-断言-执行模式。 这些测试的重点在于：
 
 * 确定 [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) 无效时方法是否遵循正确的行为模式。
 * 确认方法是否会生成正确的 <xref:Microsoft.AspNetCore.Mvc.IActionResult>。
@@ -359,11 +360,11 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 在“执行”步骤中执行 `OnGetAsync` 方法时，它会调用页面模型的 `GetMessagesAsync` 方法。
 
-单元测试“执行”步骤 (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*)：
+单元测试“执行”步骤 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs)：
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
 
-`IndexPage` 页面模型的 `OnGetAsync` 方法 (*src/RazorPagesTestSample/Pages/Index.cshtml.cs*)：
+`IndexPage` 页面模型的 `OnGetAsync` 方法 (src/RazorPagesTestSample/Pages/Index.cshtml.cs)：
 
 [!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
 
@@ -388,5 +389,6 @@ DAL 中的 `GetMessagesAsync` 方法不会返回此方法调用的结果。 方�
 * [Getting started with xUnit.net:Using .NET Core with the .NET SDK command line](https://xunit.github.io/docs/getting-started-dotnet-core)（xUnit.net 入门：将 .NET Core 与 .NET SDK 命令行配合使用）
 * [Moq](https://github.com/moq/moq4)
 * [Moq Quickstart](https://github.com/Moq/moq4/wiki/Quickstart)（Moq 快速入门）
+* [JustMockLite](https://github.com/telerik/JustMockLite)：面向 .NET 开发人员的模拟框架。 （*不由 Microsoft 进行支持或维护*。）
 
 ::: moniker-end
