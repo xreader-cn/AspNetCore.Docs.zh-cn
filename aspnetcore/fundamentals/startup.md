@@ -7,16 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: fundamentals/startup
 ms.openlocfilehash: 0d1bf0dd23b7f3b99d6e9383ffc72291c1b138ec
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85400708"
@@ -40,7 +41,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-前面的示例适用于 [Razor Pages](xref:razor-pages/index)；MVC 版本类似。
+前面的示例适用于 [[Razor Pages](xref:razor-pages/index)；MVC 版本类似。
 
 
 在构建应用[主机](xref:fundamentals/index#host)时指定 `Startup` 类。 通常，通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：
@@ -92,12 +93,12 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 * [HTTP 严格传输安全性 (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [HTTPS 重定向](xref:security/enforcing-ssl)
 * [静态文件](xref:fundamentals/static-files)
-* ASP.NET Core [MVC](xref:mvc/overview) 和 [Razor Pages](xref:razor-pages/index)
+* ASP.NET Core [MVC](xref:mvc/overview) 和 [[Razor Pages](xref:razor-pages/index)
 
 
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-前面的示例适用于 [Razor Pages](xref:razor-pages/index)；MVC 版本类似。
+前面的示例适用于 [[Razor Pages](xref:razor-pages/index)；MVC 版本类似。
 
 每个 `Use` 扩展方法将一个或多个中间件组件添加到请求管道。 例如，<xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> 配置[中间件](xref:fundamentals/middleware/index)提供[静态文件](xref:fundamentals/static-files)。
 
@@ -226,7 +227,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 * [HTTP 严格传输安全性 (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [HTTPS 重定向](xref:security/enforcing-ssl)
 * [静态文件](xref:fundamentals/static-files)
-* ASP.NET Core [MVC](xref:mvc/overview) 和 [Razor Pages](xref:razor-pages/index)
+* ASP.NET Core [MVC](xref:mvc/overview) 和 [[Razor Pages](xref:razor-pages/index)
 * [一般数据保护条例 (GDPR)](xref:security/gdpr)
 
 [!code-csharp[](startup/sample_snapshot/Startup4.cs)]

@@ -1,31 +1,32 @@
 ---
-title: ASP.NET Core Blazor 状态管理
+title: ASP.NET Core [Blazor 状态管理
 author: guardrex
-description: 了解如何在 Blazor Server 应用中保留状态。
+description: 了解如何在 [Blazor Server 应用中保留状态。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: blazor/state-management
 ms.openlocfilehash: a6c646425145855538f408ec6cafdb151cd24b86
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85401943"
 ---
-# <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状态管理
+# <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core [Blazor 状态管理
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
-Blazor Server 是有状态的应用框架。 大多数情况下，应用保持与服务器的持续连接。 用户的状态保留在线路中的服务器内存中。 
+[Blazor Server 是有状态的应用框架。 大多数情况下，应用保持与服务器的持续连接。 用户的状态保留在线路中的服务器内存中。 
 
 为用户线路保留的状态示例包括：
 
@@ -34,11 +35,11 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 * 在线路范围内的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 服务实例中保留的数据。
 
 > [!NOTE]
-> 本文介绍 Blazor Server 应用中的状态暂留。 Blazor WebAssembly 应用可以利用[浏览器中的客户端状态暂留](#client-side-in-the-browser)，但需要自定义解决方案或第三方包（这些并不在本文的讨论范围之内）。
+> 本文介绍 [Blazor Server 应用中的状态暂留。 [Blazor WebAssembly 应用可以利用[浏览器中的客户端状态暂留](#client-side-in-the-browser)，但需要自定义解决方案或第三方包（这些并不在本文的讨论范围之内）。
 
-## <a name="blazor-circuits"></a>Blazor 线路
+## <a name="blazor-circuits"></a>[Blazor 线路
 
-如果用户遇到暂时的网络连接丢失问题，Blazor 会尝试将用户重新连接到其原始线路，以便用户继续使用该应用。 但是，将用户重新连接到服务器内存中的原始电路并非总是能够实现的：
+如果用户遇到暂时的网络连接丢失问题，[Blazor 会尝试将用户重新连接到其原始线路，以便用户继续使用该应用。 但是，将用户重新连接到服务器内存中的原始电路并非总是能够实现的：
 
 * 服务器不能永久保留断开连接的线路。 超时后或在服务器面临内存压力时，服务器必须释放断开连接的线路。
 * 在多服务器、负载均衡的部署环境中，任何服务器处理请求在任何给定时间都可能变得不可用。 不再需要单个服务器处理整个请求量时，它可能会失败或被自动删除。 当用户尝试重新连接时，原始服务器可能不可用。
@@ -69,7 +70,7 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 
 ## <a name="where-to-persist-state"></a>保留状态的位置
 
-有三个常见位置用于保留 Blazor Server 应用中的状态。 每种方法分别适用于不同的应用场景，且有不同的注意事项：
+有三个常见位置用于保留 [Blazor Server 应用中的状态。 每种方法分别适用于不同的应用场景，且有不同的注意事项：
 
 * [数据库中的服务器端](#server-side-in-a-database)
 * [URL](#url)
@@ -107,7 +108,7 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 对于用户正在主动创建的暂时性数据，通用后备存储是浏览器的 `localStorage` 和 `sessionStorage` 集合。 如果放弃该线路，则应用无需管理或清除存储的状态。与服务器端存储相比，这是一项优势。
 
 > [!NOTE]
-> 本节中的“客户端”是指浏览器中的客户端方案，而不是 [Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)。 `localStorage` 和 `sessionStorage` 可用于 Blazor WebAssembly 应用，但只能通过编写自定义代码或使用第三方包进行使用。
+> 本节中的“客户端”是指浏览器中的客户端方案，而不是 [[Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)。 `localStorage` 和 `sessionStorage` 可用于 [Blazor WebAssembly 应用，但只能通过编写自定义代码或使用第三方包进行使用。
 
 `localStorage` 和 `sessionStorage` 的区别如下：
 
@@ -125,7 +126,7 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 
 * 与使用服务器端数据库类似，加载和保存数据都是异步的。
 * 与服务器端数据库不同，在预呈现期间，存储不可用，因为在预呈现阶段，请求的页面在浏览器中不存在。
-* 保留状态的位置对于 Blazor Server 应用，持久存储几千字节的数据是合理的。 超出几千字节后，你就须考虑性能影响，因为数据是跨网络加载和保存的。
+* 保留状态的位置对于 [Blazor Server 应用，持久存储几千字节的数据是合理的。 超出几千字节后，你就须考虑性能影响，因为数据是跨网络加载和保存的。
 * 用户可以查看或篡改数据。 ASP.NET Core [数据保护](xref:security/data-protection/introduction)可以降低风险。
 
 ## <a name="third-party-browser-storage-solutions"></a>第三方浏览器存储解决方案
@@ -145,7 +146,7 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 
 安装 `Microsoft.AspNetCore.ProtectedBrowserStorage` 包：
 
-1. 在 Blazor Server 应用项目中，将包引用添加到 [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。
+1. 在 [Blazor Server 应用项目中，将包引用添加到 [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。
 1. 在顶级 HTML（例如，在默认项目模板中的 `Pages/_Host.cshtml` 文件中）中，添加以下 `<script>` 标记：
 
    ```html

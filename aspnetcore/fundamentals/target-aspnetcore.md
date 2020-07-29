@@ -6,16 +6,17 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/16/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: fundamentals/target-aspnetcore
 ms.openlocfilehash: 1c794092b856a916a318956d7cfb357d46a22d1d
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85399642"
@@ -39,7 +40,7 @@ ASP.NET Core 遵从 [.NET Core 支持策略](https://dotnet.microsoft.com/platfo
 
 随着 .NET Core 3.0 发布，许多 ASP.NET Core 程序集不再作为包发布到 NuGet。 而是改为将这些程序集包含在通过 .NET Core SDK 和运行时安装程序安装的 `Microsoft.AspNetCore.App` 共享框架中。 若要查看不再发布的包列表，请参阅[删除过时的包引用](xref:migration/22-to-30#remove-obsolete-package-references)。
 
-自 .NET Core 3.0 起，使用 `Microsoft.NET.Sdk.Web` MSBuild SDK 的项目隐式引用此共享框架。 使用 `Microsoft.NET.Sdk` 或 `Microsoft.NET.Sdk.Razor` SDK 的项目必须引用 ASP.NET Core，才能使用共享框架中的 ASP.NET Core API。
+自 .NET Core 3.0 起，使用 `Microsoft.NET.Sdk.Web` MSBuild SDK 的项目隐式引用此共享框架。 使用 `Microsoft.NET.Sdk` 或 `Microsoft.NET.Sdk.[Razor` SDK 的项目必须引用 ASP.NET Core，才能使用共享框架中的 ASP.NET Core API。
 
 若要引用 ASP.NET Core，请将以下 `<FrameworkReference>` 元素添加到项目文件：
 
@@ -47,17 +48,17 @@ ASP.NET Core 遵从 [.NET Core 支持策略](https://dotnet.microsoft.com/platfo
 
 仅面向 .NET Core 3.x 的项目支持使用此方式引用 ASP.NET Core。
 
-## <a name="include-blazor-extensibility"></a>包括 Blazor 扩展性
+## <a name="include-blazor-extensibility"></a>包括 [Blazor 扩展性
 
-Blazor 支持 WebAssembly (WASM) 和服务器[托管模型](xref:blazor/hosting-models)。 除非出于特定原因无法实现支持，否则 [Razor 组件](xref:blazor/components/index)库应同时支持这两种托管模型。 Razor 组件库必须使用 [Microsoft.NET.Sdk.RazorSDK](xref:razor-pages/sdk)。
+[Blazor 支持 WebAssembly (WASM) 和服务器[托管模型](xref:blazor/hosting-models)。 除非出于特定原因无法实现支持，否则 [[Razor 组件](xref:blazor/components/index)库应同时支持这两种托管模型。 [Razor 组件库必须使用 [Microsoft.NET.Sdk.[RazorSDK](xref:razor-pages/sdk)。
 
 ### <a name="support-both-hosting-models"></a>同时支持两种托管模型
 
-请针对自己的编辑器使用以下说明，以同时支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
+请针对自己的编辑器使用以下说明，以同时支持 [[Blazor Server](xref:blazor/hosting-models#blazor-server) 和 [[Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 [Razor 组件消耗。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-使用 Razor 类库项目模板。 应取消选中此模板的“支持页和视图”复选框。
+使用 [Razor 类库项目模板。 应取消选中此模板的“支持页和视图”复选框。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -69,7 +70,7 @@ dotnet new razorclasslib
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-使用 Razor 类库项目模板。
+使用 [Razor 类库项目模板。
 
 ---
 
@@ -87,7 +88,7 @@ dotnet new razorclasslib
 
 ### <a name="support-a-specific-hosting-model"></a>支持特定托管模型
 
-支持单个 Blazor 托管模型并不常见。 例如，通过完成以下操作来仅支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 项目的 Razor 组件消耗：
+支持单个 [Blazor 托管模型并不常见。 例如，通过完成以下操作来仅支持 [[Blazor Server](xref:blazor/hosting-models#blazor-server) 项目的 [Razor 组件消耗：
 
 * 面向 .NET Core 3.x。
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
@@ -96,32 +97,32 @@ dotnet new razorclasslib
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-components-library.csproj)]
 
-有关包含 Razor 组件的库的详细信息，请参阅 [ASP.NET Core Razor 组件类库](xref:blazor/components/class-libraries)。
+有关包含 [Razor 组件的库的详细信息，请参阅 [ASP.NET Core [Razor 组件类库](xref:blazor/components/class-libraries)。
 
 ## <a name="include-mvc-extensibility"></a>包括 MVC 扩展性
 
 此部分概述了针对包括以下内容的库的建议：
 
-* [Razor 视图或 Razor 页面](#razor-views-or-razor-pages)
+* [[Razor 视图或 [Razor 页面](#razor-views-or-razor-pages)
 * [标记帮助程序](#tag-helpers)
 * [视图组件](#view-components)
 
 此部分未探讨用于支持多个 MVC 版本的多目标。 若要查看关于支持多个 ASP.NET Core 版本的指南，请参阅[支持多个 ASP.NET Core 版本](#support-multiple-aspnet-core-versions)。
 
-### <a name="razor-views-or-razor-pages"></a>Razor 视图或 Razor 页面
+### <a name="razor-views-or-razor-pages"></a>[Razor 视图或 [Razor 页面
 
-包括 [Razor 视图](xref:mvc/views/overview)或 [Razor 页面](xref:razor-pages/index)的项目必须使用 [Microsoft.NET.Sdk.RazorSDK](xref:razor-pages/sdk)。
+包括 [[Razor 视图](xref:mvc/views/overview)或 [[Razor 页面](xref:razor-pages/index)的项目必须使用 [Microsoft.NET.Sdk.[RazorSDK](xref:razor-pages/sdk)。
 
 若项目面向 .NET Core 3.x，它必须满足以下要求：
 
 * `AddRazorSupportForMvc` MSBuild 属性设置为 `true`。
 * 具有针对共享框架的 `<FrameworkReference>` 元素。
 
-Razor 类库项目模板符合针对面向 .NET Core 3.x 的项目的上述要求。 请针对自己的编辑器使用以下说明。
+[Razor 类库项目模板符合针对面向 .NET Core 3.x 的项目的上述要求。 请针对自己的编辑器使用以下说明。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-使用 Razor 类库项目模板。 应选中此模板的“支持页和视图”复选框。
+使用 [Razor 类库项目模板。 应选中此模板的“支持页和视图”复选框。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -151,7 +152,7 @@ dotnet new razorclasslib -s
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加对 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.Razor` 包移到了共享框架，因此不再发布。 例如：
+若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加对 [Microsoft.AspNetCore.Mvc.[Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.[Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.[Razor` 包移到了共享框架，因此不再发布。 例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-tag-helpers-library.csproj)]
 
@@ -180,8 +181,8 @@ dotnet new razorclasslib -s
 上面的项目文件将完成以下操作：
 
 * 为所有使用者添加 `Markdig` 包。
-* [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的引用 已针对面向 .NET Framework 4.6.1 或更高版本或者 .NET Core 2.x 的使用者添加。 由于向后兼容性，此包的版本 2.1.0 适用于 ASP.NET Core 2.2。
-* 为面向 .NET Core 3.x 的使用者引用共享框架。 共享框架中包括 `Microsoft.AspNetCore.Mvc.Razor` 包。
+* [Microsoft.AspNetCore.Mvc.[Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.[Razor) 的引用 已针对面向 .NET Framework 4.6.1 或更高版本或者 .NET Core 2.x 的使用者添加。 由于向后兼容性，此包的版本 2.1.0 适用于 ASP.NET Core 2.2。
+* 为面向 .NET Core 3.x 的使用者引用共享框架。 共享框架中包括 `Microsoft.AspNetCore.Mvc.[Razor` 包。
 
 或者，可以面向 .NET Standard 2.0，而不面向 .NET Core 2.1 和 .NET Framework 4.6.1：
 

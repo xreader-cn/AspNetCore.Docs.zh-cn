@@ -6,16 +6,17 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
 ms.openlocfilehash: a106654c8a37e84e9186a2f06d90605df753e8a7
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85405596"
@@ -63,8 +64,8 @@ dotnet aspnet-codegenerator [-h|--help]
 | ----------------- | ------------ | 
 | area      | [搭建区域的基架](/aspnet/core/mvc/controllers/areas) |
   controller| [搭建控制器的基架](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  标识  | [构建 Identity](/aspnet/core/security/authentication/scaffold-identity) |
-  razorpage | [构建 Razor Pages](/aspnet/core/tutorials/razor-pages/model) |
+  标识  | [构建 [Identity](/aspnet/core/security/authentication/scaffold-identity) |
+  razorpage | [构建 [Razor Pages](/aspnet/core/tutorials/razor-pages/model) |
   查看      | [搭建视图的基架](/aspnet/core/mvc/views/overview) |
 
 ## <a name="options"></a>选项
@@ -103,7 +104,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 * 区域
 * 控制器
-* Identity  
+* [Identity  
 * Razorpage
 * 视图
 
@@ -111,7 +112,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ### <a name="area-options"></a>区域选项
 
-此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。 它不适用于 Razor Pages 应用。
+此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。 它不适用于 [Razor Pages 应用。
 
 用法：`dotnet aspnet-codegenerator area AreaNameToGenerate`
 
@@ -154,7 +155,7 @@ dotnet aspnet-codegenerator controller -h
 
 <a name="rp"></a>
 
-可以通过指定新页面的名称和要使用的模板来单独搭建 Razor Pages 的基架。 支持如下模板：
+可以通过指定新页面的名称和要使用的模板来单独搭建 [Razor Pages 的基架。 支持如下模板：
 
 * `Empty`
 * `Create`
@@ -197,6 +198,6 @@ dotnet aspnet-codegenerator razorpage -h
 
 请参阅[搭建 movie 模型的基架](/aspnet/core/tutorials/razor-pages/model)，查看 `dotnet aspnet-codegenerator razorpage` 示例。
 
-### Identity
+### [Identity
 
-请参阅[基架Identity](/aspnet/core/security/authentication/scaffold-identity)
+请参阅[基架[Identity](/aspnet/core/security/authentication/scaffold-identity)

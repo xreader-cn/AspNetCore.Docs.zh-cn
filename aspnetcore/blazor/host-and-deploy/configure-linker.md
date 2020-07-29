@@ -1,37 +1,38 @@
 ---
-title: 配置 ASP.NET Core Blazor 链接器
+title: 配置 ASP.NET Core [Blazor 链接器
 author: guardrex
-description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。
+description: 了解在构建 [Blazor 应用时如何控制中间语言 (IL) 链接器。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: blazor/host-and-deploy/configure-linker
 ms.openlocfilehash: 568efe9971aefc11841c42789ac7f2af3004003f
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85402697"
 ---
-# <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core [Blazor 链接器
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中剪裁不必要的 IL。 在调试配置中生成时，将禁用链接器。 应用必须在发布配置中生成才能启用链接器。 部署 Blazor WebAssembly 应用时，建议在发布中生成。 
+[Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中剪裁不必要的 IL。 在调试配置中生成时，将禁用链接器。 应用必须在发布配置中生成才能启用链接器。 部署 [Blazor WebAssembly 应用时，建议在发布中生成。 
 
 链接应用可以优化大小，但可能会造成不利影响。 使用反射或相关动态功能的应用可能会在剪裁时中断，因为链接器不知道此动态行为，而且通常无法确定在运行时反射所需的类型。 若要剪裁此类应用，必须通知链接器应用所依赖的代码和包或框架中的反射所需的任何类型。 
 
 若要确保剪裁后的应用在部署后正常工作，请务必在开发时经常对应用的发行版本进行测试。
 
-可以使用以下 MSBuild 功能配置 Blazor 应用的链接：
+可以使用以下 MSBuild 功能配置 [Blazor 应用的链接：
 
 * 使用 [MSBuild 属性](#control-linking-with-an-msbuild-property)全局配置链接。
 * 使用[配置文件](#control-linking-with-a-configuration-file)按程序集控制链接。
@@ -61,7 +62,7 @@ Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/man
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This file specifies which parts of the BCL or Blazor packages must not be
+  This file specifies which parts of the BCL or [Blazor packages must not be
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
@@ -106,7 +107,7 @@ Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/man
 
 ### <a name="configure-the-linker-for-internationalization"></a>配置链接器以实现国际化
 
-默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
+默认情况下，[Blazor 对于 [Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
 
 要控制保留哪些国际化程序集，请在项目文件中设置 `<BlazorWebAssemblyI18NAssemblies>` MSBuild 属性：
 

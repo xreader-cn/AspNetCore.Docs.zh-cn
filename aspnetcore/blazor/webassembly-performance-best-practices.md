@@ -1,35 +1,36 @@
 ---
-title: ASP.NET Core Blazor WebAssembly 性能最佳做法
+title: ASP.NET Core [Blazor WebAssembly 性能最佳做法
 author: pranavkm
-description: 用于提高 ASP.NET Core Blazor WebAssembly 应用性能并避免常见性能问题的提示。
+description: 用于提高 ASP.NET Core [Blazor WebAssembly 应用性能并避免常见性能问题的提示。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/25/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: blazor/webassembly-performance-best-practices
 ms.openlocfilehash: f7bd0d356030e6ddb95c77d7376995320e3ec40e
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85401878"
 ---
-# <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
+# <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>ASP.NET Core [Blazor WebAssembly 性能最佳做法
 
 作者：[Pranav Krishnamoorthy](https://github.com/pranavkm)
 
-本文提供了 ASP.NET Core Blazor WebAssembly 性能最佳做法的准则。
+本文提供了 ASP.NET Core [Blazor WebAssembly 性能最佳做法的准则。
 
 ## <a name="avoid-unnecessary-component-renders"></a>避免不必要的组件呈现
 
-借助 Blazor 的差分算法，当算法感知到组件未更改时，不用重新呈现组件。 可重写 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> 来实现对组件呈现的精细控制。
+借助 [Blazor 的差分算法，当算法感知到组件未更改时，不用重新呈现组件。 可重写 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> 来实现对组件呈现的精细控制。
 
 如果创作了一个仅限 UI 的组件，且该组件在最初呈现后从未更改，则请将 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 配置为返回 `false`：
 
@@ -84,17 +85,17 @@ ms.locfileid: "85401878"
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a>不要用 JavaScript 互操作来封送数据
 
-在 Blazor WebAssembly 中，JavaScript (JS) 互操作调用必须遍历 WebAssembly-JS 边界。 如果跨两个上下文序列化和反序列化内容，会产生应用处理开销。 频繁的 JS 互操作调用通常会对性能产生负面影响。 为了减少数据的跨边界封送，请确定应用能否将许多小的有效负载合并到一个大的有效负载中，以避免在 WebAssembly 与 JS 之间频繁切换上下文。
+在 [Blazor WebAssembly 中，JavaScript (JS) 互操作调用必须遍历 WebAssembly-JS 边界。 如果跨两个上下文序列化和反序列化内容，会产生应用处理开销。 频繁的 JS 互操作调用通常会对性能产生负面影响。 为了减少数据的跨边界封送，请确定应用能否将许多小的有效负载合并到一个大的有效负载中，以避免在 WebAssembly 与 JS 之间频繁切换上下文。
 
 ## <a name="use-systemtextjson"></a>使用 System.Text.Json
 
-Blazor 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性能高但内存分配较低的 JSON 序列化库。 与添加一个或多个备用 JSON 库相比，使用 <xref:System.Text.Json> 不会增加应用有效负载的大小。
+[Blazor 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性能高但内存分配较低的 JSON 序列化库。 与添加一个或多个备用 JSON 库相比，使用 <xref:System.Text.Json> 不会增加应用有效负载的大小。
 
 有关迁移指南，请参阅[如何从 `Newtonsoft.Json` 迁移到 `System.Text.Json`](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to)。
 
 ## <a name="use-synchronous-and-unmarshalled-js-interop-apis-where-appropriate"></a>根据需要使用同步的和未封装的 JS 互操作 API
 
-Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> 版本，而 Blazor Server 应用只有一个版本：
+[Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> 版本，而 [Blazor Server 应用只有一个版本：
 
 * <xref:Microsoft.JSInterop.IJSInProcessRuntime> 允许同步调用 JS 互操作调用，其开销低于异步版本：
 
@@ -139,7 +140,7 @@ Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> �
 
 ### <a name="intermediate-language-il-linking"></a>中间语言 (IL) 链接
 
-通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。 默认情况下，仅在 `Release` 配置中生成时才启用链接器。 要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
+通过[链接 [Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。 默认情况下，仅在 `Release` 配置中生成时才启用链接器。 要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
 
 ```dotnetcli
 dotnet publish -c Release
@@ -147,13 +148,13 @@ dotnet publish -c Release
 
 ### <a name="compression"></a>压缩
 
-发布 Blazor WebAssembly 应用时，将在发布过程中对输出内容进行静态压缩，从而减小应用的大小，并免去运行时压缩的开销。 Blazor 依赖服务器来执行内容协商和提供静态压缩的文件。
+发布 [Blazor WebAssembly 应用时，将在发布过程中对输出内容进行静态压缩，从而减小应用的大小，并免去运行时压缩的开销。 [Blazor 依赖服务器来执行内容协商和提供静态压缩的文件。
 
 部署应用后，请验证该应用是否提供压缩的文件。 检查浏览器开发人员工具中的“网络”选项卡，并验证文件是否具有 `Content-Encoding: br` 或 `Content-Encoding: gz`。 如果主机未提供压缩的文件，请按照 <xref:blazor/host-and-deploy/webassembly#compression> 中的说明操作。
 
 ### <a name="disable-unused-features"></a>禁用未使用的功能
 
-Blazor WebAssembly 的运行时包含以下 .NET 功能；如果应用不需要这些功能就能减少有效负载的大小，可将它们禁用：
+[Blazor WebAssembly 的运行时包含以下 .NET 功能；如果应用不需要这些功能就能减少有效负载的大小，可将它们禁用：
 
 * 包含数据文件来确保时区信息正确。 如果应用不需要此功能，请考虑通过将应用项目文件中的 `BlazorEnableTimeZoneSupport` MSBuild 属性设置为 `false` 来禁用它：
 

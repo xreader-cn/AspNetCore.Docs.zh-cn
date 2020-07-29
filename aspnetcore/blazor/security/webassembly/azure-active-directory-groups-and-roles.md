@@ -1,22 +1,23 @@
 ---
-title: ASP.NET Core Blazor WebAssembly 与 Azure Active Directory 组和角色
+title: ASP.NET Core [Blazor WebAssembly 与 Azure Active Directory 组和角色
 author: guardrex
-description: 了解如何配置 Blazor WebAssembly 以使用 Azure Active Directory 组和角色。
+description: 了解如何配置 [Blazor WebAssembly 以使用 Azure Active Directory 组和角色。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: blazor/security/webassembly/aad-groups-roles
 ms.openlocfilehash: 6e27b062d7b5a1b72804fe5d4ea31ec65358ce45
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85402151"
@@ -25,7 +26,7 @@ ms.locfileid: "85402151"
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Javier Calvarro Nelson](https://github.com/javiercn)
 
-Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 ASP.NET Core Identity 结合使用：
+Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 ASP.NET Core [Identity 结合使用：
 
 * 用户定义的组
   * 安全性
@@ -35,7 +36,7 @@ Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 AS
   * 内置管理角色
   * 用户定义的角色
 
-本文中的指南适用于以下主题中所述的 Blazor WebAssembly AAD 部署方案：
+本文中的指南适用于以下主题中所述的 [Blazor WebAssembly AAD 部署方案：
 
 * [包含 Microsoft 帐户的独立产品](xref:blazor/security/webassembly/standalone-with-microsoft-accounts)
 * [包含 AAD 的独立产品](xref:blazor/security/webassembly/standalone-with-azure-active-directory)
@@ -94,9 +95,9 @@ public class CustomUserFactory
     {
         var initialUser = await base.CreateUserAsync(account, options);
 
-        if (initialUser.Identity.IsAuthenticated)
+        if (initialUser.[Identity.IsAuthenticated)
         {
-            var userIdentity = (ClaimsIdentity)initialUser.Identity;
+            var userIdentity = (ClaimsIdentity)initialUser.[Identity;
 
             foreach (var role in account.Roles)
             {
@@ -285,7 +286,7 @@ B2C 用户流属性管理员 | dd0baca0-a535-48c1-b871-8431abe16452
 目录读者 | e1fc84a6-7762-4b9b-8e29-518b4adbc23b
 Dynamics 365 管理员 | f20a9cfa-9fdf-49a8-a977-1afe446a1d6e
 Exchange 管理员 | b2ec2cc0-d5c9-4864-ad9b-38dd9dba2652
-外部 Identity 提供者管理员 | febfaeb4-e478-407a-b4b3-f4d9716618a2
+外部 [Identity 提供者管理员 | febfaeb4-e478-407a-b4b3-f4d9716618a2
 全局管理员 | a45ba61b-44db-462c-924b-3b2719152588
 全局读取者 | f6903b21-6aba-4124-b44c-76671796b9d5
 组管理员 | 158b3e5a-d89d-460b-92b5-3b34985f0197

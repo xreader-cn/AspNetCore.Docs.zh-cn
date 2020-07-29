@@ -5,13 +5,13 @@ description: 了解如何使用授权属性限制对 ASP.NET Core 控制器和�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authorization/simple
 ms.openlocfilehash: 09514032349d489b73d5bb785f11e44ca18b169c
 ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
@@ -24,7 +24,7 @@ ms.locfileid: "87160243"
 
 <a name="security-authorization-simple"></a>
 
-ASP.NET Core 中的授权通过 <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> 和其各种参数来控制。 在最简单的形式中，将 `[Authorize]` 属性应用于控制器、操作或 :::no-loc(Razor)::: 页面，将对该组件的访问限制为任何经过身份验证的用户。
+ASP.NET Core 中的授权通过 <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> 和其各种参数来控制。 在最简单的形式中，将 `[Authorize]` 属性应用于控制器、操作或 Razor 页面，将对该组件的访问限制为任何经过身份验证的用户。
 
 例如，以下代码将访问权限限制为 `AccountController` 任何经过身份验证的用户。
 
@@ -86,11 +86,11 @@ public class AccountController : Controller
 
 <a name="aarp"></a>
 
-## <a name="authorize-attribute-and-no-locrazor-pages"></a>授权属性和 :::no-loc(Razor)::: Pages
+## <a name="authorize-attribute-and-no-locrazor-pages"></a>授权属性和 Razor Pages
 
-<xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute>***不***能应用于 :::no-loc(Razor)::: 页面处理程序。 例如， `[Authorize]` 不能应用于 `OnGet` 、 `OnPost` 或任何其他页处理程序。 请考虑对具有不同处理程序的不同授权要求的页面使用 ASP.NET Core MVC 控制器。
+<xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute>***不***能应用于 Razor 页面处理程序。 例如， `[Authorize]` 不能应用于 `OnGet` 、 `OnPost` 或任何其他页处理程序。 请考虑对具有不同处理程序的不同授权要求的页面使用 ASP.NET Core MVC 控制器。
 
-以下两种方法可用于将授权应用于 :::no-loc(Razor)::: 页面处理程序方法：
+以下两种方法可用于将授权应用于 Razor 页面处理程序方法：
 
 * 对于需要不同授权的页面处理程序，请使用单独的页面。 将共享内容移动到一个或多个[分部视图](xref:mvc/views/partial)中。 如果可能，建议使用这种方法。
 * 对于必须共享公共页面的内容，请编写一个作为[IAsyncPageFilter](xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter.OnPageHandlerSelectionAsync%2A)的一部分执行授权的筛选器。 [PageHandlerAuth](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/simple/samples/3.1/PageHandlerAuth) GitHub 项目演示了这种方法：
@@ -103,4 +103,4 @@ public class AccountController : Controller
 > * 结合应用于页面、页面模型或全局的授权属性进行撰写。 如果将一个或多个实例应用于页面，则组合授权属性会导致身份验证和授权多次执行 `AuthorizeAttribute` `AuthorizeFilter` 。
 > * 与其他 ASP.NET Core 身份验证和授权系统一起工作。 你必须验证此方法是否适用于你的应用程序。
 
-没有计划支持 `AuthorizeAttribute` :::no-loc(Razor)::: 页处理程序。 
+没有计划支持 `AuthorizeAttribute` Razor 页处理程序。 

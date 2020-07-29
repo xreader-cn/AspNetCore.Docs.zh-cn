@@ -5,16 +5,17 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 11/30/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: fundamentals/localization
 ms.openlocfilehash: 412cd7a39a0eed6800e15d235102ed367da5f746
 ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 07/01/2020
 ms.locfileid: "85793473"
@@ -74,7 +75,7 @@ ms.locfileid: "85793473"
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 Razor 标记：
+`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 [Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 [Razor 标记：
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -162,7 +163,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 | Resources/Controllers.HomeController.fr.resx | 圆点  |
 | Resources/Controllers/HomeController.fr.resx  | 路径 |
 
-Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
+[Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 [Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
 
 * Resources/Views/Home/About.fr.resx
 
@@ -333,7 +334,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
-不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor 部分。
+不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 [Razor 部分。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
 
@@ -428,7 +429,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 Razor 标记：
+`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 [Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 [Razor 标记：
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -516,7 +517,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 | Resources/Controllers.HomeController.fr.resx | 圆点  |
 | Resources/Controllers/HomeController.fr.resx  | 路径 |
 
-Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
+[Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 [Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
 
 * Resources/Views/Home/About.fr.resx
 
@@ -689,7 +690,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
-不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor 部分。
+不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 [Razor 部分。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
 
@@ -783,7 +784,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 Razor 标记：
+`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 [Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 [Razor 标记：
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -871,7 +872,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 | Resources/Controllers.HomeController.fr.resx | 圆点  |
 | Resources/Controllers/HomeController.fr.resx  | 路径 |
 
-Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
+[Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 [Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
 
 * Resources/Views/Home/About.fr.resx
 
@@ -1067,7 +1068,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
-不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor 部分。
+不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 [Razor 部分。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
 

@@ -6,16 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: aspnetcore-2.1
 ms.openlocfilehash: bf041965b009d5c10b96ad4f2a349c6efb346eb5
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85408157"
@@ -24,9 +25,9 @@ ms.locfileid: "85408157"
 
 本文重点介绍 ASP.NET Core 2.1 中最重要的更改，并提供相关文档的链接。
 
-## SignalR
+## [SignalR
 
-已针对 ASP.NET Core 2.1 重新编写 SignalR。 ASP.NET Core SignalR 包含大量改进：
+已针对 ASP.NET Core 2.1 重新编写 [SignalR。 ASP.NET Core [SignalR 包含大量改进：
 
 * 简化横向扩展模型。
 * 新 JavaScript 客户端不具有 jQuery 依赖项。
@@ -35,24 +36,24 @@ ms.locfileid: "85408157"
 * 新的流式处理响应模型。
 * 支持基于裸机 WebSocket 的客户端。
 
-有关详细信息，请参阅 [ASP.NET Core SignalR](xref:signalr/introduction)。
+有关详细信息，请参阅 [ASP.NET Core [SignalR](xref:signalr/introduction)。
 
-## <a name="razor-class-libraries"></a>Razor 类库
+## <a name="razor-class-libraries"></a>[Razor 类库
 
-通过 ASP.NET Core 2.1 可以更容易地在库中生成和包含基于 Razor 的 UI，并跨多个项目共享 UI。 新 Razor SDK 支持将 Razor 文件生成到可打包为 NuGet 包的类库项目中。 应用可以自动发现和覆盖库中的视图和页面。 通过将 Razor 编译集成到生成中：
+通过 ASP.NET Core 2.1 可以更容易地在库中生成和包含基于 [Razor 的 UI，并跨多个项目共享 UI。 新 [Razor SDK 支持将 [Razor 文件生成到可打包为 NuGet 包的类库项目中。 应用可以自动发现和覆盖库中的视图和页面。 通过将 [Razor 编译集成到生成中：
 
 * 应用启动时间可显著加快。
-* 在迭代开发工作流过程中，仍可在运行时快速更新 Razor 视图和页面。
+* 在迭代开发工作流过程中，仍可在运行时快速更新 [Razor 视图和页面。
 
-有关详细信息，请参阅[使用 Razor 类库项目创建可重用 UI](xref:razor-pages/ui-class)。
+有关详细信息，请参阅[使用 [Razor 类库项目创建可重用 UI](xref:razor-pages/ui-class)。
 
-## <a name="identity-ui-library--scaffolding"></a>Identity UI 库和基架
+## <a name="identity-ui-library--scaffolding"></a>[Identity UI 库和基架
 
-ASP.NET Core 2.1 提供 [ASP.NET Core Identity](xref:security/authentication/identity) 作为 [Razor 类库](xref:razor-pages/ui-class)。 包含 Identity 的应用可以应用新的 Identity 基架，以便有选择地添加 Identity Razor 类库 (RCL) 中包含的源代码。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。
+ASP.NET Core 2.1 提供 [ASP.NET Core [Identity](xref:security/authentication/identity) 作为 [[Razor 类库](xref:razor-pages/ui-class)。 包含 [Identity 的应用可以应用新的 [Identity 基架，以便有选择地添加 [Identity [Razor 类库 (RCL) 中包含的源代码。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 [Identity RCL 中的相同代码。
 
-不包含身份验证的应用可以应用 Identity 基架来添加 RCL Identity 包。 可以选择要生成的 Identity 代码。
+不包含身份验证的应用可以应用 [Identity 基架来添加 RCL [Identity 包。 可以选择要生成的 [Identity 代码。
 
-有关详细信息，请参阅 [ASP.NET Core 项目中的基架 Identity](xref:security/authentication/scaffold-identity)。
+有关详细信息，请参阅 [ASP.NET Core 项目中的基架 [Identity](xref:security/authentication/scaffold-identity)。
 
 ## <a name="https"></a>HTTPS
 
@@ -158,17 +159,17 @@ Angular 模板基于 Angular CLI，而 React 模板基于 create-react-app。
 * <xref:spa/react>
 * <xref:spa/react-with-redux>
 
-## <a name="razor-pages-search-for-razor-assets"></a>Razor Pages 搜索 Razor 资产
+## <a name="razor-pages-search-for-razor-assets"></a>[Razor Pages 搜索 [Razor 资产
 
-在 2.1 中，Razor Pages 按所列顺序搜索以下目录中的 Razor 资产（例如布局和分区）：
+在 2.1 中，[Razor Pages 按所列顺序搜索以下目录中的 [Razor 资产（例如布局和分区）：
 
 1. 当前 Pages 文件夹。
 1. /Pages/Shared/
 1. /Views/Shared/
 
-## <a name="razor-pages-in-an-area"></a>某个区域内的 Razor Pages
+## <a name="razor-pages-in-an-area"></a>某个区域内的 [Razor Pages
 
-Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。 要查看区域示例，请使用个人用户帐户创建新 Razor Pages Web 应用。 使用个人用户帐户的 Razor Pages Web 应用包括 /Areas/Identity/Pages。
+[Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。 要查看区域示例，请使用个人用户帐户创建新 [Razor Pages Web 应用。 使用个人用户帐户的 [Razor Pages Web 应用包括 /Areas/[Identity/Pages。
 
 ## <a name="mvc-compatibility-version"></a>MVC 兼容性版本
 

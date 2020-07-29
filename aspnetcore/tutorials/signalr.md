@@ -1,41 +1,42 @@
 ---
-title: ASP.NET Core SignalR 入门
+title: ASP.NET Core [SignalR 入门
 author: bradygaster
-description: 在本教程中，可以创建使用 ASP.NET Core SignalR 的聊天应用。
+description: 在本教程中，可以创建使用 ASP.NET Core [SignalR 的聊天应用。
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/21/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: tutorials/signalr
 ms.openlocfilehash: 91d7108748f3e2ae4d7db3791ebc1536e104e2a8
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85406948"
 ---
-# <a name="tutorial-get-started-with-aspnet-core-signalr"></a>教程：ASP.NET Core SignalR 入门
+# <a name="tutorial-get-started-with-aspnet-core-signalr"></a>教程：ASP.NET Core [SignalR 入门
 
 ::: moniker range=">= aspnetcore-3.0"
 
-本教程介绍使用 SignalR 生成实时应用的基础知识。 您将学习如何：
+本教程介绍使用 [SignalR 生成实时应用的基础知识。 您将学习如何：
 
 > [!div class="checklist"]
 > * 创建 Web 项目。
-> * 添加 SignalR 客户端库。
-> * 创建 SignalR 中心。
-> * 配置项目以使用 SignalR。
+> * 添加 [SignalR 客户端库。
+> * 创建 [SignalR 中心。
+> * 配置项目以使用 [SignalR。
 > * 添加可将消息从任何客户端发送到所有连接客户端的代码。
 
 最终将创建一个正常运行的聊天应用：
 
-![SignalR 示例应用](signalr/_static/3.x/signalr-get-started-finished.png)
+![[SignalR 示例应用](signalr/_static/3.x/signalr-get-started-finished.png)
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -65,7 +66,7 @@ ms.locfileid: "85406948"
 
 * 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择“.NET Core”和“ASP.NET Core 3.0”  。 
 
-* 选择“Web 应用程序”以创建使用 Razor Pages 的项目，然后选择“创建” 。
+* 选择“Web 应用程序”以创建使用 [Razor Pages 的项目，然后选择“创建” 。
 
   ![Visual Studio 中的“新建项目”对话框](signalr/_static/3.x/signalr-new-project-dialog.png)
 
@@ -92,9 +93,9 @@ ms.locfileid: "85406948"
 
 ---
 
-## <a name="add-the-signalr-client-library"></a>添加 SignalR 客户端库
+## <a name="add-the-signalr-client-library"></a>添加 [SignalR 客户端库
 
-SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg 获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。
+[SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg 获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -120,7 +121,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。 可能需要等待几秒钟的时间才能看到输出。
+* 使用 LibMan 运行以下命令，以获取 [SignalR 客户端库。 可能需要等待几秒钟的时间才能看到输出。
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
@@ -149,7 +150,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 导航到项目文件夹（包含 SignalRChat.csproj 文件的文件夹）。
 
-* 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。
+* 使用 LibMan 运行以下命令，以获取 [SignalR 客户端库。
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
@@ -170,7 +171,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 ---
 
-## <a name="create-a-signalr-hub"></a>创建 SignalR 中心
+## <a name="create-a-signalr-hub"></a>创建 [SignalR 中心
 
 *中心*是一个类，用作处理客户端 - 服务器通信的高级管道。
 
@@ -180,21 +181,21 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
   [!code-csharp[ChatHub](signalr/sample-snapshot/3.x/ChatHub.cs)]
 
-  `ChatHub` 类继承自 SignalR `Hub` 类。 `Hub` 类管理连接、组和消息。
+  `ChatHub` 类继承自 [SignalR `Hub` 类。 `Hub` 类管理连接、组和消息。
 
-  可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。 本教程后面部分将显示调用该方法的 JavaScript 客户端代码。 SignalR 代码是异步模式，可提供最大的可伸缩性。
+  可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。 本教程后面部分将显示调用该方法的 JavaScript 客户端代码。 [SignalR 代码是异步模式，可提供最大的可伸缩性。
 
-## <a name="configure-signalr"></a>配置 SignalR
+## <a name="configure-signalr"></a>配置 [SignalR
 
-必须将 SignalR 服务器配置为将 SignalR 请求传递给 SignalR。
+必须将 [SignalR 服务器配置为将 [SignalR 请求传递给 [SignalR。
 
 * 将以下突出显示的代码添加到 Startup.cs 文件。
 
   [!code-csharp[Startup](signalr/sample-snapshot/3.x/Startup.cs?highlight=11,28,55)]
 
-  这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入和路由系统。
+  这些更改将 [SignalR 添加到 ASP.NET Core 依赖关系注入和路由系统。
 
-## <a name="add-signalr-client-code"></a>添加 SignalR 客户端代码
+## <a name="add-signalr-client-code"></a>添加 [SignalR 客户端代码
 
 * 使用以下代码替换 Pages\Index.cshtml 中的内容：
 
@@ -203,8 +204,8 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
   前面的代码：
 
   * 创建名称以及消息文本的文本框和“提交”按钮。
-  * 使用 `id="messagesList"` 创建一个列表，用于显示从 SignalR 中心接收的消息。
-  * 包含对 SignalR 的脚本引用以及在下一步中创建的“chat.js”应用程序代码。
+  * 使用 `id="messagesList"` 创建一个列表，用于显示从 [SignalR 中心接收的消息。
+  * 包含对 [SignalR 的脚本引用以及在下一步中创建的“chat.js”应用程序代码。
 
 * 在 wwwroot/js 文件夹中，使用以下代码创建 chat.js 文件 ：
 
@@ -242,7 +243,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
   两个页面上立即显示名称和消息。
 
-  ![SignalR 示例应用](signalr/_static/3.x/signalr-get-started-finished.png)
+  ![[SignalR 示例应用](signalr/_static/3.x/signalr-get-started-finished.png)
 
 > [!TIP]
 > * 如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。 可能会看到与 HTML 和 JavaScript 代码相关的错误。 例如，假设将 signalr.js 放在不同于系统指示的文件夹中。 在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。
@@ -258,15 +259,15 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 ::: moniker range="< aspnetcore-3.0"
 
-本教程介绍使用 SignalR 生成实时应用的基础知识。 您将学习如何： 
+本教程介绍使用 [SignalR 生成实时应用的基础知识。 您将学习如何： 
 
 > [!div class="checklist"]  
 > * 创建 Web 项目。   
-> * 添加 SignalR 客户端库。   
-> * 创建 SignalR 中心。 
-> * 配置项目以使用 SignalR。 
+> * 添加 [SignalR 客户端库。   
+> * 创建 [SignalR 中心。 
+> * 配置项目以使用 [SignalR。 
 > * 添加可将消息从任何客户端发送到所有连接客户端的代码。  
-最终，你将拥有一个工作聊天应用：![SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png)   
+最终，你将拥有一个工作聊天应用：![[SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png)   
 
 ## <a name="prerequisites"></a>先决条件    
 
@@ -294,7 +295,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
   ![Visual Studio 中的“新建项目”对话框](signalr/_static/2.x/signalr-new-project-dialog.png)    
 
-* 选择“Web 应用”，以创建使用 Razor Pages 的项目。   
+* 选择“Web 应用”，以创建使用 [Razor Pages 的项目。   
 
 * 选择“.NET Core”目标框架，选择“ASP.NET Core 2.2”，然后单击“确定”  。    
 
@@ -323,9 +324,9 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 --- 
 
-## <a name="add-the-signalr-client-library"></a>添加 SignalR 客户端库 
+## <a name="add-the-signalr-client-library"></a>添加 [SignalR 客户端库 
 
-`Microsoft.AspNetCore.App` 元包中包括 SignalR 服务器库。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg 获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。   
+`Microsoft.AspNetCore.App` 元包中包括 [SignalR 服务器库。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg 获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。   
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)  
 
@@ -353,7 +354,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli   
   ```   
 
-* 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。 可能需要等待几秒钟的时间才能看到输出。 
+* 使用 LibMan 运行以下命令，以获取 [SignalR 客户端库。 可能需要等待几秒钟的时间才能看到输出。 
 
   ```console    
   libman install @microsoft/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js 
@@ -382,7 +383,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 导航到项目文件夹（包含 SignalRChat.csproj 文件的文件夹）。 
 
-* 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。    
+* 使用 LibMan 运行以下命令，以获取 [SignalR 客户端库。    
 
   ```console    
   libman install @microsoft/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js 
@@ -403,7 +404,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 --- 
 
-## <a name="create-a-signalr-hub"></a>创建 SignalR 中心   
+## <a name="create-a-signalr-hub"></a>创建 [SignalR 中心   
 
 *中心*是一个类，用作处理客户端 - 服务器通信的高级管道。   
 
@@ -413,21 +414,21 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/ChatHub.cs)]   
 
-  `ChatHub` 类继承自 SignalR `Hub` 类。 `Hub` 类管理连接、组和消息。  
+  `ChatHub` 类继承自 [SignalR `Hub` 类。 `Hub` 类管理连接、组和消息。  
 
-  可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。 本教程后面部分将显示调用该方法的 JavaScript 客户端代码。 SignalR 代码是异步模式，可提供最大的可伸缩性。    
+  可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。 本教程后面部分将显示调用该方法的 JavaScript 客户端代码。 [SignalR 代码是异步模式，可提供最大的可伸缩性。    
 
-## <a name="configure-signalr"></a>配置 SignalR  
+## <a name="configure-signalr"></a>配置 [SignalR  
 
-必须将 SignalR 服务器配置为将 SignalR 请求传递给 SignalR。    
+必须将 [SignalR 服务器配置为将 [SignalR 请求传递给 [SignalR。    
 
 * 将以下突出显示的代码添加到 Startup.cs 文件。  
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/Startup.cs?highlight=7,33,52-55)]  
 
-  这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入系统和中间件管道。  
+  这些更改将 [SignalR 添加到 ASP.NET Core 依赖关系注入系统和中间件管道。  
 
-## <a name="add-signalr-client-code"></a>添加 SignalR 客户端代码    
+## <a name="add-signalr-client-code"></a>添加 [SignalR 客户端代码    
 
 * 使用以下代码替换 Pages\Index.cshtml 中的内容：  
 
@@ -436,8 +437,8 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
   前面的代码：   
 
   * 创建名称以及消息文本的文本框和“提交”按钮。  
-  * 使用 `id="messagesList"` 创建一个列表，用于显示从 SignalR 中心接收的消息。   
-  * 包含对 SignalR 的脚本引用以及在下一步中创建的“chat.js”应用程序代码。    
+  * 使用 `id="messagesList"` 创建一个列表，用于显示从 [SignalR 中心接收的消息。   
+  * 包含对 [SignalR 的脚本引用以及在下一步中创建的“chat.js”应用程序代码。    
 
 * 在 wwwroot/js 文件夹中，使用以下代码创建 chat.js 文件 ：  
 
@@ -475,7 +476,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
   两个页面上立即显示名称和消息。   
 
-  ![SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png) 
+  ![[SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png) 
 
 > [!TIP]    
 > 如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。 可能会看到与 HTML 和 JavaScript 代码相关的错误。 例如，假设将 signalr.js 放在不同于系统指示的文件夹中。 在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。   
