@@ -7,16 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/03/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: tutorials/publish-to-iis
 ms.openlocfilehash: 837a66ef36f1394df87d56132e146ef23a5d5659
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85407884"
@@ -66,9 +67,9 @@ ms.locfileid: "85407884"
 
 1. <span data-ttu-id="ccf05-135">提供网站名称，并将“物理路径”设置为所创建应用的部署文件夹 。</span><span class="sxs-lookup"><span data-stu-id="ccf05-135">Provide a **Site name** and set the **Physical path** to the app's deployment folder that you created.</span></span> <span data-ttu-id="ccf05-136">提供“绑定”配置，并通过选择“确定”创建网站 。</span><span class="sxs-lookup"><span data-stu-id="ccf05-136">Provide the **Binding** configuration and create the website by selecting **OK**.</span></span>
 
-## <a name="create-an-aspnet-core-razor-pages-app"></a><span data-ttu-id="ccf05-137">创建 ASP.NET Core Razor Pages 应用</span><span class="sxs-lookup"><span data-stu-id="ccf05-137">Create an ASP.NET Core Razor Pages app</span></span>
+## <a name="create-an-aspnet-core-razor-pages-app"></a><span data-ttu-id="ccf05-137">创建 ASP.NET Core [Razor Pages 应用</span><span class="sxs-lookup"><span data-stu-id="ccf05-137">Create an ASP.NET Core [Razor Pages app</span></span>
 
-<span data-ttu-id="ccf05-138">按照 <xref:getting-started> 教程创建 Razor Pages 应用。</span><span class="sxs-lookup"><span data-stu-id="ccf05-138">Follow the <xref:getting-started> tutorial to create a Razor Pages app.</span></span>
+<span data-ttu-id="ccf05-138">按照 <xref:getting-started> 教程创建 [Razor Pages 应用。</span><span class="sxs-lookup"><span data-stu-id="ccf05-138">Follow the <xref:getting-started> tutorial to create a [Razor Pages app.</span></span>
 
 ## <a name="publish-and-deploy-the-app"></a><span data-ttu-id="ccf05-139">发布和部署应用</span><span class="sxs-lookup"><span data-stu-id="ccf05-139">Publish and deploy the app</span></span>
 

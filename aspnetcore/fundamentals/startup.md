@@ -7,16 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: fundamentals/startup
 ms.openlocfilehash: 0d1bf0dd23b7f3b99d6e9383ffc72291c1b138ec
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85400708"
@@ -40,7 +41,7 @@ ms.locfileid: "85400708"
 
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-<span data-ttu-id="c576c-114">前面的示例适用于 [Razor Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c576c-114">The preceding sample is for [Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
+<span data-ttu-id="c576c-114">前面的示例适用于 [[Razor Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c576c-114">The preceding sample is for [[Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
 
 
 <span data-ttu-id="c576c-115">在构建应用[主机](xref:fundamentals/index#host)时指定 `Startup` 类。</span><span class="sxs-lookup"><span data-stu-id="c576c-115">The `Startup` class is specified when the app's [host](xref:fundamentals/index#host) is built.</span></span> <span data-ttu-id="c576c-116">通常，通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="c576c-116">The `Startup` class is typically specified by calling the [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) method on the host builder:</span></span>
@@ -92,12 +93,12 @@ ms.locfileid: "85400708"
 * [<span data-ttu-id="c576c-148">HTTP 严格传输安全性 (HSTS)</span><span class="sxs-lookup"><span data-stu-id="c576c-148">HTTP Strict Transport Security (HSTS)</span></span>](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [<span data-ttu-id="c576c-149">HTTPS 重定向</span><span class="sxs-lookup"><span data-stu-id="c576c-149">HTTPS redirection</span></span>](xref:security/enforcing-ssl)
 * [<span data-ttu-id="c576c-150">静态文件</span><span class="sxs-lookup"><span data-stu-id="c576c-150">Static files</span></span>](xref:fundamentals/static-files)
-* <span data-ttu-id="c576c-151">ASP.NET Core [MVC](xref:mvc/overview) 和 [Razor Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c576c-151">ASP.NET Core [MVC](xref:mvc/overview) and [Razor Pages](xref:razor-pages/index)</span></span>
+* <span data-ttu-id="c576c-151">ASP.NET Core [MVC](xref:mvc/overview) 和 [[Razor Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c576c-151">ASP.NET Core [MVC](xref:mvc/overview) and [[Razor Pages](xref:razor-pages/index)</span></span>
 
 
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-<span data-ttu-id="c576c-152">前面的示例适用于 [Razor Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c576c-152">The preceding sample is for [Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
+<span data-ttu-id="c576c-152">前面的示例适用于 [[Razor Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c576c-152">The preceding sample is for [[Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
 
 <span data-ttu-id="c576c-153">每个 `Use` 扩展方法将一个或多个中间件组件添加到请求管道。</span><span class="sxs-lookup"><span data-stu-id="c576c-153">Each `Use` extension method adds one or more middleware components to the request pipeline.</span></span> <span data-ttu-id="c576c-154">例如，<xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> 配置[中间件](xref:fundamentals/middleware/index)提供[静态文件](xref:fundamentals/static-files)。</span><span class="sxs-lookup"><span data-stu-id="c576c-154">For instance, <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> configures [middleware](xref:fundamentals/middleware/index) to serve [static files](xref:fundamentals/static-files).</span></span>
 
@@ -226,7 +227,7 @@ ms.locfileid: "85400708"
 * [<span data-ttu-id="c576c-238">HTTP 严格传输安全性 (HSTS)</span><span class="sxs-lookup"><span data-stu-id="c576c-238">HTTP Strict Transport Security (HSTS)</span></span>](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [<span data-ttu-id="c576c-239">HTTPS 重定向</span><span class="sxs-lookup"><span data-stu-id="c576c-239">HTTPS redirection</span></span>](xref:security/enforcing-ssl)
 * [<span data-ttu-id="c576c-240">静态文件</span><span class="sxs-lookup"><span data-stu-id="c576c-240">Static files</span></span>](xref:fundamentals/static-files)
-* <span data-ttu-id="c576c-241">ASP.NET Core [MVC](xref:mvc/overview) 和 [Razor Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c576c-241">ASP.NET Core [MVC](xref:mvc/overview) and [Razor Pages](xref:razor-pages/index)</span></span>
+* <span data-ttu-id="c576c-241">ASP.NET Core [MVC](xref:mvc/overview) 和 [[Razor Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c576c-241">ASP.NET Core [MVC](xref:mvc/overview) and [[Razor Pages](xref:razor-pages/index)</span></span>
 * [<span data-ttu-id="c576c-242">一般数据保护条例 (GDPR)</span><span class="sxs-lookup"><span data-stu-id="c576c-242">General Data Protection Regulation (GDPR)</span></span>](xref:security/gdpr)
 
 [!code-csharp[](startup/sample_snapshot/Startup4.cs)]

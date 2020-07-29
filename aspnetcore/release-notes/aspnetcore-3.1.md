@@ -6,16 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/12/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: aspnetcore-3.1
 ms.openlocfilehash: 92804d168381526100ddb8a368f71d201bd4cad9
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85407663"
@@ -24,13 +25,13 @@ ms.locfileid: "85407663"
 
 <span data-ttu-id="ed9b8-104">本文重点介绍 ASP.NET Core 3.1 中最重要的更改，并提供相关文档的链接。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-104">This article highlights the most significant changes in ASP.NET Core 3.1 with links to relevant documentation.</span></span>
 
-## <a name="partial-class-support-for-razor-components"></a><span data-ttu-id="ed9b8-105">Razor 组件的分部类支持</span><span class="sxs-lookup"><span data-stu-id="ed9b8-105">Partial class support for Razor components</span></span>
+## <a name="partial-class-support-for-razor-components"></a><span data-ttu-id="ed9b8-105">[Razor 组件的分部类支持</span><span class="sxs-lookup"><span data-stu-id="ed9b8-105">Partial class support for [Razor components</span></span>
 
-Razor<span data-ttu-id="ed9b8-106"> 组件现作为分部类生成。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-106"> components are now generated as partial classes.</span></span> <span data-ttu-id="ed9b8-107">可使用定义为分部类的代码隐藏文件来编写 Razor 组件的代码，而不是在单个文件中定义该组件的所有代码。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-107">Code for a Razor component can be written using a code-behind file defined as a partial class rather than defining all the code for the component in a single file.</span></span> <span data-ttu-id="ed9b8-108">有关详细信息，请参阅[分部类支持](xref:blazor/components/index#partial-class-support)。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-108">For more information, see [Partial class support](xref:blazor/components/index#partial-class-support).</span></span>
+<span data-ttu-id="ed9b8-106">[Razor 组件现作为分部类生成。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-106">[Razor components are now generated as partial classes.</span></span> <span data-ttu-id="ed9b8-107">可使用定义为分部类的代码隐藏文件来编写 [Razor 组件的代码，而不是在单个文件中定义该组件的所有代码。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-107">Code for a [Razor component can be written using a code-behind file defined as a partial class rather than defining all the code for the component in a single file.</span></span> <span data-ttu-id="ed9b8-108">有关详细信息，请参阅[分部类支持](xref:blazor/components/index#partial-class-support)。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-108">For more information, see [Partial class support](xref:blazor/components/index#partial-class-support).</span></span>
 
-## <a name="blazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>Blazor<span data-ttu-id="ed9b8-109"> 组件标记帮助程序和将参数传递到顶级组件</span><span class="sxs-lookup"><span data-stu-id="ed9b8-109"> Component Tag Helper and pass parameters to top-level components</span></span>
+## <a name="blazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a><span data-ttu-id="ed9b8-109">[Blazor 组件标记帮助程序和将参数传递到顶级组件</span><span class="sxs-lookup"><span data-stu-id="ed9b8-109">[Blazor Component Tag Helper and pass parameters to top-level components</span></span>
 
-<span data-ttu-id="ed9b8-110">在 ASP.NET Core 3.0 的 Blazor 中，使用 HTML 帮助程序 (`Html.RenderComponentAsync`) 将组件呈现到页面和视图中。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-110">In Blazor with ASP.NET Core 3.0, components were rendered into pages and views using an HTML Helper (`Html.RenderComponentAsync`).</span></span> <span data-ttu-id="ed9b8-111">在 ASP.NET Core 3.1 中，使用新的组件标记帮助程序从页面或视图呈现组件：</span><span class="sxs-lookup"><span data-stu-id="ed9b8-111">In ASP.NET Core 3.1, render a component from a page or view with the new Component Tag Helper:</span></span>
+<span data-ttu-id="ed9b8-110">在 ASP.NET Core 3.0 的 [Blazor 中，使用 HTML 帮助程序 (`Html.RenderComponentAsync`) 将组件呈现到页面和视图中。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-110">In [Blazor with ASP.NET Core 3.0, components were rendered into pages and views using an HTML Helper (`Html.RenderComponentAsync`).</span></span> <span data-ttu-id="ed9b8-111">在 ASP.NET Core 3.1 中，使用新的组件标记帮助程序从页面或视图呈现组件：</span><span class="sxs-lookup"><span data-stu-id="ed9b8-111">In ASP.NET Core 3.1, render a component from a page or view with the new Component Tag Helper:</span></span>
 
 ```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
@@ -38,7 +39,7 @@ Razor<span data-ttu-id="ed9b8-106"> 组件现作为分部类生成。</span><spa
 
 <span data-ttu-id="ed9b8-112">HTML 帮助程序在 ASP.NET Core 3.1 仍受支持，但建议使用组件标记帮助程序。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-112">The HTML Helper remains supported in ASP.NET Core 3.1, but the Component Tag Helper is recommended.</span></span>
 
-Blazor Server<span data-ttu-id="ed9b8-113"> 应用现可在初始呈现期间将参数传递给顶级组件。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-113"> apps can now pass parameters to top-level components during the initial render.</span></span> <span data-ttu-id="ed9b8-114">之前，你只能将参数传递给具有 [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) 的顶级组件。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-114">Previously you could only pass parameters to a top-level component with [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static).</span></span> <span data-ttu-id="ed9b8-115">在此版本中，[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) 和 [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) 均受支持。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-115">With this release, both [RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) and [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) are supported.</span></span> <span data-ttu-id="ed9b8-116">任何指定的参数值均序列化为 JSON，并包含在初始响应中。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-116">Any specified parameter values are serialized as JSON and included in the initial response.</span></span>
+<span data-ttu-id="ed9b8-113">[Blazor Server 应用现可在初始呈现期间将参数传递给顶级组件。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-113">[Blazor Server apps can now pass parameters to top-level components during the initial render.</span></span> <span data-ttu-id="ed9b8-114">之前，你只能将参数传递给具有 [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) 的顶级组件。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-114">Previously you could only pass parameters to a top-level component with [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static).</span></span> <span data-ttu-id="ed9b8-115">在此版本中，[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) 和 [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) 均受支持。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-115">With this release, both [RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) and [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) are supported.</span></span> <span data-ttu-id="ed9b8-116">任何指定的参数值均序列化为 JSON，并包含在初始响应中。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-116">Any specified parameter values are serialized as JSON and included in the initial response.</span></span>
 
 <span data-ttu-id="ed9b8-117">例如，通过增量 (`IncrementAmount`) 预呈现一个 `Counter` 组件：</span><span class="sxs-lookup"><span data-stu-id="ed9b8-117">For example, prerender a `Counter` component with an increment amount (`IncrementAmount`):</span></span>
 
@@ -47,7 +48,7 @@ Blazor Server<span data-ttu-id="ed9b8-113"> 应用现可在初始呈现期间将
     param-IncrementAmount="10" />
 ```
 
-<span data-ttu-id="ed9b8-118">有关详细信息，请参阅[将组件集成到 Razor Pages 和 MVC 应用](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps)。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-118">For more information, see [Integrate components into Razor Pages and MVC apps](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps).</span></span>
+<span data-ttu-id="ed9b8-118">有关详细信息，请参阅[将组件集成到 [Razor Pages 和 MVC 应用](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps)。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-118">For more information, see [Integrate components into [Razor Pages and MVC apps](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps).</span></span>
 
 ## <a name="support-for-shared-queues-in-httpsys"></a><span data-ttu-id="ed9b8-119">HTTP.sys 中对共享队列的支持</span><span class="sxs-lookup"><span data-stu-id="ed9b8-119">Support for shared queues in HTTP.sys</span></span>
 
@@ -59,7 +60,7 @@ Blazor Server<span data-ttu-id="ed9b8-113"> 应用现可在初始呈现期间将
 
 <span data-ttu-id="ed9b8-125">SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-125">The behavior of SameSite cookies has changed to reflect upcoming browser changes.</span></span> <span data-ttu-id="ed9b8-126">这可能会影响 AzureAd、OpenIdConnect 或 WsFederation 等身份验证场景。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-126">This may affect authentication scenarios like AzureAd, OpenIdConnect, or WsFederation.</span></span> <span data-ttu-id="ed9b8-127">有关详细信息，请参阅 <xref:security/samesite>。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-127">For more information, see <xref:security/samesite>.</span></span>
 
-## <a name="prevent-default-actions-for-events-in-blazor-apps"></a><span data-ttu-id="ed9b8-128">在 Blazor 应用中阻止事件的默认操作</span><span class="sxs-lookup"><span data-stu-id="ed9b8-128">Prevent default actions for events in Blazor apps</span></span>
+## <a name="prevent-default-actions-for-events-in-blazor-apps"></a><span data-ttu-id="ed9b8-128">在 [Blazor 应用中阻止事件的默认操作</span><span class="sxs-lookup"><span data-stu-id="ed9b8-128">Prevent default actions for events in [Blazor apps</span></span>
 
 <span data-ttu-id="ed9b8-129">使用 `@on{EVENT}:preventDefault` 指令属性可阻止事件的默认操作。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-129">Use the `@on{EVENT}:preventDefault` directive attribute to prevent the default action for an event.</span></span> <span data-ttu-id="ed9b8-130">在下例中，阻止在文本框中显示键字符的默认操作：</span><span class="sxs-lookup"><span data-stu-id="ed9b8-130">In the following example, the default action of displaying the key's character in the text box is prevented:</span></span>
 
@@ -69,7 +70,7 @@ Blazor Server<span data-ttu-id="ed9b8-113"> 应用现可在初始呈现期间将
 
 <span data-ttu-id="ed9b8-131">有关详细信息，请参阅[阻止默认操作](xref:blazor/components/event-handling#prevent-default-actions)。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-131">For more information, see [Prevent default actions](xref:blazor/components/event-handling#prevent-default-actions).</span></span>
 
-## <a name="stop-event-propagation-in-blazor-apps"></a><span data-ttu-id="ed9b8-132">在 Blazor 应用中停止事件传播</span><span class="sxs-lookup"><span data-stu-id="ed9b8-132">Stop event propagation in Blazor apps</span></span>
+## <a name="stop-event-propagation-in-blazor-apps"></a><span data-ttu-id="ed9b8-132">在 [Blazor 应用中停止事件传播</span><span class="sxs-lookup"><span data-stu-id="ed9b8-132">Stop event propagation in [Blazor apps</span></span>
 
 <span data-ttu-id="ed9b8-133">使用 `@on{EVENT}:stopPropagation` 指令属性来停止事件传播。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-133">Use the `@on{EVENT}:stopPropagation` directive attribute to stop event propagation.</span></span> <span data-ttu-id="ed9b8-134">在下例中，选中复选框可阻止子 `<div>` 中的单击事件传播到父 `<div>`：</span><span class="sxs-lookup"><span data-stu-id="ed9b8-134">In the following example, selecting the check box prevents click events from the child `<div>` from propagating to the parent `<div>`:</span></span>
 
@@ -89,9 +90,9 @@ Blazor Server<span data-ttu-id="ed9b8-113"> 应用现可在初始呈现期间将
 
 <span data-ttu-id="ed9b8-135">有关详细信息，请参阅[停止事件传播](xref:blazor/components/event-handling#stop-event-propagation)。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-135">For more information, see [Stop event propagation](xref:blazor/components/event-handling#stop-event-propagation).</span></span>
 
-## <a name="detailed-errors-during-blazor-app-development"></a><span data-ttu-id="ed9b8-136">Blazor 应用开发过程中的错误详细信息</span><span class="sxs-lookup"><span data-stu-id="ed9b8-136">Detailed errors during Blazor app development</span></span>
+## <a name="detailed-errors-during-blazor-app-development"></a><span data-ttu-id="ed9b8-136">[Blazor 应用开发过程中的错误详细信息</span><span class="sxs-lookup"><span data-stu-id="ed9b8-136">Detailed errors during [Blazor app development</span></span>
 
-<span data-ttu-id="ed9b8-137">当 Blazor 应用在开发过程中运行不正常时，从该应用接收详细的错误信息有助于故障排除和修复问题。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-137">When a Blazor app isn't functioning properly during development, receiving detailed error information from the app assists in troubleshooting and fixing the issue.</span></span> <span data-ttu-id="ed9b8-138">出现错误时，Blazor 应用会在屏幕底部显示一个黄色条框：</span><span class="sxs-lookup"><span data-stu-id="ed9b8-138">When an error occurs, Blazor apps display a gold bar at the bottom of the screen:</span></span>
+<span data-ttu-id="ed9b8-137">当 [Blazor 应用在开发过程中运行不正常时，从该应用接收详细的错误信息有助于故障排除和修复问题。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-137">When a [Blazor app isn't functioning properly during development, receiving detailed error information from the app assists in troubleshooting and fixing the issue.</span></span> <span data-ttu-id="ed9b8-138">出现错误时，[Blazor 应用会在屏幕底部显示一个黄色条框：</span><span class="sxs-lookup"><span data-stu-id="ed9b8-138">When an error occurs, [Blazor apps display a gold bar at the bottom of the screen:</span></span>
 
 * <span data-ttu-id="ed9b8-139">在开发过程中，黄色条框会将你定向到浏览器控制台，你可在其中查看异常。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-139">During development, the gold bar directs you to the browser console, where you can see the exception.</span></span>
 * <span data-ttu-id="ed9b8-140">在生产过程中，黄色条框会通知用户发生了错误，并建议刷新浏览器。</span><span class="sxs-lookup"><span data-stu-id="ed9b8-140">In production, the gold bar notifies the user that an error has occurred and recommends refreshing the browser.</span></span>

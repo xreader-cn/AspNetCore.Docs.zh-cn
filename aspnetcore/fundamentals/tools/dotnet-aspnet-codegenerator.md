@@ -6,16 +6,17 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
 ms.openlocfilehash: a106654c8a37e84e9186a2f06d90605df753e8a7
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85405596"
@@ -63,8 +64,8 @@ dotnet aspnet-codegenerator [-h|--help]
 | ----------------- | ------------ | 
 | <span data-ttu-id="63fe4-120">area</span><span class="sxs-lookup"><span data-stu-id="63fe4-120">area</span></span>      | [<span data-ttu-id="63fe4-121">搭建区域的基架</span><span class="sxs-lookup"><span data-stu-id="63fe4-121">Scaffolds an Area</span></span>](/aspnet/core/mvc/controllers/areas) |
   <span data-ttu-id="63fe4-122">controller</span><span class="sxs-lookup"><span data-stu-id="63fe4-122">controller</span></span>| [<span data-ttu-id="63fe4-123">搭建控制器的基架</span><span class="sxs-lookup"><span data-stu-id="63fe4-123">Scaffolds a controller</span></span>](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  <span data-ttu-id="63fe4-124">标识</span><span class="sxs-lookup"><span data-stu-id="63fe4-124">identity</span></span>  | <span data-ttu-id="63fe4-125">[构建 Identity](/aspnet/core/security/authentication/scaffold-identity)</span><span class="sxs-lookup"><span data-stu-id="63fe4-125">[Scaffolds Identity](/aspnet/core/security/authentication/scaffold-identity)</span></span> |
-  <span data-ttu-id="63fe4-126">razorpage</span><span class="sxs-lookup"><span data-stu-id="63fe4-126">razorpage</span></span> | <span data-ttu-id="63fe4-127">[构建 Razor Pages](/aspnet/core/tutorials/razor-pages/model)</span><span class="sxs-lookup"><span data-stu-id="63fe4-127">[Scaffolds Razor Pages](/aspnet/core/tutorials/razor-pages/model)</span></span> |
+  <span data-ttu-id="63fe4-124">标识</span><span class="sxs-lookup"><span data-stu-id="63fe4-124">identity</span></span>  | <span data-ttu-id="63fe4-125">[构建 [Identity](/aspnet/core/security/authentication/scaffold-identity)</span><span class="sxs-lookup"><span data-stu-id="63fe4-125">[Scaffolds [Identity](/aspnet/core/security/authentication/scaffold-identity)</span></span> |
+  <span data-ttu-id="63fe4-126">razorpage</span><span class="sxs-lookup"><span data-stu-id="63fe4-126">razorpage</span></span> | <span data-ttu-id="63fe4-127">[构建 [Razor Pages](/aspnet/core/tutorials/razor-pages/model)</span><span class="sxs-lookup"><span data-stu-id="63fe4-127">[Scaffolds [Razor Pages](/aspnet/core/tutorials/razor-pages/model)</span></span> |
   <span data-ttu-id="63fe4-128">查看</span><span class="sxs-lookup"><span data-stu-id="63fe4-128">view</span></span>      | [<span data-ttu-id="63fe4-129">搭建视图的基架</span><span class="sxs-lookup"><span data-stu-id="63fe4-129">Scaffolds a view</span></span>](/aspnet/core/mvc/views/overview) |
 
 ## <a name="options"></a><span data-ttu-id="63fe4-130">选项</span><span class="sxs-lookup"><span data-stu-id="63fe4-130">Options</span></span>
@@ -103,7 +104,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 * <span data-ttu-id="63fe4-144">区域</span><span class="sxs-lookup"><span data-stu-id="63fe4-144">Area</span></span>
 * <span data-ttu-id="63fe4-145">控制器</span><span class="sxs-lookup"><span data-stu-id="63fe4-145">Controller</span></span>
-* Identity  
+* [Identity  
 * <span data-ttu-id="63fe4-146">Razorpage</span><span class="sxs-lookup"><span data-stu-id="63fe4-146">Razorpage</span></span>
 * <span data-ttu-id="63fe4-147">视图</span><span class="sxs-lookup"><span data-stu-id="63fe4-147">View</span></span>
 
@@ -111,7 +112,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ### <a name="area-options"></a><span data-ttu-id="63fe4-148">区域选项</span><span class="sxs-lookup"><span data-stu-id="63fe4-148">Area options</span></span>
 
-<span data-ttu-id="63fe4-149">此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。</span><span class="sxs-lookup"><span data-stu-id="63fe4-149">This tool is intended for ASP.NET Core web projects with controllers and views.</span></span> <span data-ttu-id="63fe4-150">它不适用于 Razor Pages 应用。</span><span class="sxs-lookup"><span data-stu-id="63fe4-150">It's not intended for Razor Pages apps.</span></span>
+<span data-ttu-id="63fe4-149">此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。</span><span class="sxs-lookup"><span data-stu-id="63fe4-149">This tool is intended for ASP.NET Core web projects with controllers and views.</span></span> <span data-ttu-id="63fe4-150">它不适用于 [Razor Pages 应用。</span><span class="sxs-lookup"><span data-stu-id="63fe4-150">It's not intended for [Razor Pages apps.</span></span>
 
 <span data-ttu-id="63fe4-151">用法：`dotnet aspnet-codegenerator area AreaNameToGenerate`</span><span class="sxs-lookup"><span data-stu-id="63fe4-151">Usage: `dotnet aspnet-codegenerator area AreaNameToGenerate`</span></span>
 
@@ -154,7 +155,7 @@ dotnet aspnet-codegenerator controller -h
 
 <a name="rp"></a>
 
-<span data-ttu-id="63fe4-178">可以通过指定新页面的名称和要使用的模板来单独搭建 Razor Pages 的基架。</span><span class="sxs-lookup"><span data-stu-id="63fe4-178">Razor Pages can be individually scaffolded by specifying the name of the new page and the template to use.</span></span> <span data-ttu-id="63fe4-179">支持如下模板：</span><span class="sxs-lookup"><span data-stu-id="63fe4-179">The supported templates are:</span></span>
+<span data-ttu-id="63fe4-178">可以通过指定新页面的名称和要使用的模板来单独搭建 [Razor Pages 的基架。</span><span class="sxs-lookup"><span data-stu-id="63fe4-178">[Razor Pages can be individually scaffolded by specifying the name of the new page and the template to use.</span></span> <span data-ttu-id="63fe4-179">支持如下模板：</span><span class="sxs-lookup"><span data-stu-id="63fe4-179">The supported templates are:</span></span>
 
 * `Empty`
 * `Create`
@@ -197,6 +198,6 @@ dotnet aspnet-codegenerator razorpage -h
 
 <span data-ttu-id="63fe4-194">请参阅[搭建 movie 模型的基架](/aspnet/core/tutorials/razor-pages/model)，查看 `dotnet aspnet-codegenerator razorpage` 示例。</span><span class="sxs-lookup"><span data-stu-id="63fe4-194">See [Scaffold the movie model](/aspnet/core/tutorials/razor-pages/model) for an example of `dotnet aspnet-codegenerator razorpage`.</span></span>
 
-### Identity
+### [Identity
 
-<span data-ttu-id="63fe4-195">请参阅[基架Identity](/aspnet/core/security/authentication/scaffold-identity)</span><span class="sxs-lookup"><span data-stu-id="63fe4-195">See [Scaffold Identity](/aspnet/core/security/authentication/scaffold-identity)</span></span>
+<span data-ttu-id="63fe4-195">请参阅[基架[Identity](/aspnet/core/security/authentication/scaffold-identity)</span><span class="sxs-lookup"><span data-stu-id="63fe4-195">See [Scaffold [Identity](/aspnet/core/security/authentication/scaffold-identity)</span></span>

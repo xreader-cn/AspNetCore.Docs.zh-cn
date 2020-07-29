@@ -6,16 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: aspnetcore-2.1
 ms.openlocfilehash: bf041965b009d5c10b96ad4f2a349c6efb346eb5
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85408157"
@@ -24,9 +25,9 @@ ms.locfileid: "85408157"
 
 <span data-ttu-id="d9431-104">本文重点介绍 ASP.NET Core 2.1 中最重要的更改，并提供相关文档的链接。</span><span class="sxs-lookup"><span data-stu-id="d9431-104">This article highlights the most significant changes in ASP.NET Core 2.1, with links to relevant documentation.</span></span>
 
-## SignalR
+## [SignalR
 
-<span data-ttu-id="d9431-105">已针对 ASP.NET Core 2.1 重新编写 SignalR。</span><span class="sxs-lookup"><span data-stu-id="d9431-105">SignalR has been rewritten for ASP.NET Core 2.1.</span></span> <span data-ttu-id="d9431-106">ASP.NET Core SignalR 包含大量改进：</span><span class="sxs-lookup"><span data-stu-id="d9431-106">ASP.NET Core SignalR includes a number of improvements:</span></span>
+<span data-ttu-id="d9431-105">已针对 ASP.NET Core 2.1 重新编写 [SignalR。</span><span class="sxs-lookup"><span data-stu-id="d9431-105">[SignalR has been rewritten for ASP.NET Core 2.1.</span></span> <span data-ttu-id="d9431-106">ASP.NET Core [SignalR 包含大量改进：</span><span class="sxs-lookup"><span data-stu-id="d9431-106">ASP.NET Core [SignalR includes a number of improvements:</span></span>
 
 * <span data-ttu-id="d9431-107">简化横向扩展模型。</span><span class="sxs-lookup"><span data-stu-id="d9431-107">A simplified scale-out model.</span></span>
 * <span data-ttu-id="d9431-108">新 JavaScript 客户端不具有 jQuery 依赖项。</span><span class="sxs-lookup"><span data-stu-id="d9431-108">A new JavaScript client with no jQuery dependency.</span></span>
@@ -35,24 +36,24 @@ ms.locfileid: "85408157"
 * <span data-ttu-id="d9431-111">新的流式处理响应模型。</span><span class="sxs-lookup"><span data-stu-id="d9431-111">A new streaming response model.</span></span>
 * <span data-ttu-id="d9431-112">支持基于裸机 WebSocket 的客户端。</span><span class="sxs-lookup"><span data-stu-id="d9431-112">Support for clients based on bare WebSockets.</span></span>
 
-<span data-ttu-id="d9431-113">有关详细信息，请参阅 [ASP.NET Core SignalR](xref:signalr/introduction)。</span><span class="sxs-lookup"><span data-stu-id="d9431-113">For more information, see [ASP.NET Core SignalR](xref:signalr/introduction).</span></span>
+<span data-ttu-id="d9431-113">有关详细信息，请参阅 [ASP.NET Core [SignalR](xref:signalr/introduction)。</span><span class="sxs-lookup"><span data-stu-id="d9431-113">For more information, see [ASP.NET Core [SignalR](xref:signalr/introduction).</span></span>
 
-## <a name="razor-class-libraries"></a>Razor<span data-ttu-id="d9431-114"> 类库</span><span class="sxs-lookup"><span data-stu-id="d9431-114"> class libraries</span></span>
+## <a name="razor-class-libraries"></a><span data-ttu-id="d9431-114">[Razor 类库</span><span class="sxs-lookup"><span data-stu-id="d9431-114">[Razor class libraries</span></span>
 
-<span data-ttu-id="d9431-115">通过 ASP.NET Core 2.1 可以更容易地在库中生成和包含基于 Razor 的 UI，并跨多个项目共享 UI。</span><span class="sxs-lookup"><span data-stu-id="d9431-115">ASP.NET Core 2.1 makes it easier to build and include Razor-based UI in a library and share it across multiple projects.</span></span> <span data-ttu-id="d9431-116">新 Razor SDK 支持将 Razor 文件生成到可打包为 NuGet 包的类库项目中。</span><span class="sxs-lookup"><span data-stu-id="d9431-116">The new Razor SDK enables building Razor files into a class library project that can be packaged into a NuGet package.</span></span> <span data-ttu-id="d9431-117">应用可以自动发现和覆盖库中的视图和页面。</span><span class="sxs-lookup"><span data-stu-id="d9431-117">Views and pages in libraries are automatically discovered and can be overridden by the app.</span></span> <span data-ttu-id="d9431-118">通过将 Razor 编译集成到生成中：</span><span class="sxs-lookup"><span data-stu-id="d9431-118">By integrating Razor compilation into the build:</span></span>
+<span data-ttu-id="d9431-115">通过 ASP.NET Core 2.1 可以更容易地在库中生成和包含基于 [Razor 的 UI，并跨多个项目共享 UI。</span><span class="sxs-lookup"><span data-stu-id="d9431-115">ASP.NET Core 2.1 makes it easier to build and include [Razor-based UI in a library and share it across multiple projects.</span></span> <span data-ttu-id="d9431-116">新 [Razor SDK 支持将 [Razor 文件生成到可打包为 NuGet 包的类库项目中。</span><span class="sxs-lookup"><span data-stu-id="d9431-116">The new [Razor SDK enables building [Razor files into a class library project that can be packaged into a NuGet package.</span></span> <span data-ttu-id="d9431-117">应用可以自动发现和覆盖库中的视图和页面。</span><span class="sxs-lookup"><span data-stu-id="d9431-117">Views and pages in libraries are automatically discovered and can be overridden by the app.</span></span> <span data-ttu-id="d9431-118">通过将 [Razor 编译集成到生成中：</span><span class="sxs-lookup"><span data-stu-id="d9431-118">By integrating [Razor compilation into the build:</span></span>
 
 * <span data-ttu-id="d9431-119">应用启动时间可显著加快。</span><span class="sxs-lookup"><span data-stu-id="d9431-119">The app startup time is significantly faster.</span></span>
-* <span data-ttu-id="d9431-120">在迭代开发工作流过程中，仍可在运行时快速更新 Razor 视图和页面。</span><span class="sxs-lookup"><span data-stu-id="d9431-120">Fast updates to Razor views and pages at runtime are still available as part of an iterative development workflow.</span></span>
+* <span data-ttu-id="d9431-120">在迭代开发工作流过程中，仍可在运行时快速更新 [Razor 视图和页面。</span><span class="sxs-lookup"><span data-stu-id="d9431-120">Fast updates to [Razor views and pages at runtime are still available as part of an iterative development workflow.</span></span>
 
-<span data-ttu-id="d9431-121">有关详细信息，请参阅[使用 Razor 类库项目创建可重用 UI](xref:razor-pages/ui-class)。</span><span class="sxs-lookup"><span data-stu-id="d9431-121">For more information, see [Create reusable UI using the Razor Class Library project](xref:razor-pages/ui-class).</span></span>
+<span data-ttu-id="d9431-121">有关详细信息，请参阅[使用 [Razor 类库项目创建可重用 UI](xref:razor-pages/ui-class)。</span><span class="sxs-lookup"><span data-stu-id="d9431-121">For more information, see [Create reusable UI using the [Razor Class Library project](xref:razor-pages/ui-class).</span></span>
 
-## <a name="identity-ui-library--scaffolding"></a>Identity<span data-ttu-id="d9431-122"> UI 库和基架</span><span class="sxs-lookup"><span data-stu-id="d9431-122"> UI library & scaffolding</span></span>
+## <a name="identity-ui-library--scaffolding"></a><span data-ttu-id="d9431-122">[Identity UI 库和基架</span><span class="sxs-lookup"><span data-stu-id="d9431-122">[Identity UI library & scaffolding</span></span>
 
-<span data-ttu-id="d9431-123">ASP.NET Core 2.1 提供 [ASP.NET Core Identity](xref:security/authentication/identity) 作为 [Razor 类库](xref:razor-pages/ui-class)。</span><span class="sxs-lookup"><span data-stu-id="d9431-123">ASP.NET Core 2.1 provides [ASP.NET Core Identity](xref:security/authentication/identity) as a [Razor Class Library](xref:razor-pages/ui-class).</span></span> <span data-ttu-id="d9431-124">包含 Identity 的应用可以应用新的 Identity 基架，以便有选择地添加 Identity Razor 类库 (RCL) 中包含的源代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-124">Apps that include Identity can apply the new Identity scaffolder to selectively add the source code contained in the Identity Razor Class Library (RCL).</span></span> <span data-ttu-id="d9431-125">建议生成源代码，以便修改代码和更改行为。</span><span class="sxs-lookup"><span data-stu-id="d9431-125">You might want to generate source code so you can modify the code and change the behavior.</span></span> <span data-ttu-id="d9431-126">例如，可以指示基架生成在注册过程中使用的代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-126">For example, you could instruct the scaffolder to generate the code used in registration.</span></span> <span data-ttu-id="d9431-127">生成的代码优先于 Identity RCL 中的相同代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-127">Generated code takes precedence over the same code in the Identity RCL.</span></span>
+<span data-ttu-id="d9431-123">ASP.NET Core 2.1 提供 [ASP.NET Core [Identity](xref:security/authentication/identity) 作为 [[Razor 类库](xref:razor-pages/ui-class)。</span><span class="sxs-lookup"><span data-stu-id="d9431-123">ASP.NET Core 2.1 provides [ASP.NET Core [Identity](xref:security/authentication/identity) as a [[Razor Class Library](xref:razor-pages/ui-class).</span></span> <span data-ttu-id="d9431-124">包含 [Identity 的应用可以应用新的 [Identity 基架，以便有选择地添加 [Identity [Razor 类库 (RCL) 中包含的源代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-124">Apps that include [Identity can apply the new [Identity scaffolder to selectively add the source code contained in the [Identity [Razor Class Library (RCL).</span></span> <span data-ttu-id="d9431-125">建议生成源代码，以便修改代码和更改行为。</span><span class="sxs-lookup"><span data-stu-id="d9431-125">You might want to generate source code so you can modify the code and change the behavior.</span></span> <span data-ttu-id="d9431-126">例如，可以指示基架生成在注册过程中使用的代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-126">For example, you could instruct the scaffolder to generate the code used in registration.</span></span> <span data-ttu-id="d9431-127">生成的代码优先于 [Identity RCL 中的相同代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-127">Generated code takes precedence over the same code in the [Identity RCL.</span></span>
 
-<span data-ttu-id="d9431-128">不包含身份验证的应用可以应用 Identity 基架来添加 RCL Identity 包。</span><span class="sxs-lookup"><span data-stu-id="d9431-128">Apps that do **not** include authentication can apply the Identity scaffolder to add the RCL Identity package.</span></span> <span data-ttu-id="d9431-129">可以选择要生成的 Identity 代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-129">You have the option of selecting Identity code to be generated.</span></span>
+<span data-ttu-id="d9431-128">不包含身份验证的应用可以应用 [Identity 基架来添加 RCL [Identity 包。</span><span class="sxs-lookup"><span data-stu-id="d9431-128">Apps that do **not** include authentication can apply the [Identity scaffolder to add the RCL [Identity package.</span></span> <span data-ttu-id="d9431-129">可以选择要生成的 [Identity 代码。</span><span class="sxs-lookup"><span data-stu-id="d9431-129">You have the option of selecting [Identity code to be generated.</span></span>
 
-<span data-ttu-id="d9431-130">有关详细信息，请参阅 [ASP.NET Core 项目中的基架 Identity](xref:security/authentication/scaffold-identity)。</span><span class="sxs-lookup"><span data-stu-id="d9431-130">For more information, see [Scaffold Identity in ASP.NET Core projects](xref:security/authentication/scaffold-identity).</span></span>
+<span data-ttu-id="d9431-130">有关详细信息，请参阅 [ASP.NET Core 项目中的基架 [Identity](xref:security/authentication/scaffold-identity)。</span><span class="sxs-lookup"><span data-stu-id="d9431-130">For more information, see [Scaffold [Identity in ASP.NET Core projects](xref:security/authentication/scaffold-identity).</span></span>
 
 ## <a name="https"></a><span data-ttu-id="d9431-131">HTTPS</span><span class="sxs-lookup"><span data-stu-id="d9431-131">HTTPS</span></span>
 
@@ -158,17 +159,17 @@ public class BasicTests
 * <xref:spa/react>
 * <xref:spa/react-with-redux>
 
-## <a name="razor-pages-search-for-razor-assets"></a>Razor<span data-ttu-id="d9431-195"> Pages 搜索 Razor 资产</span><span class="sxs-lookup"><span data-stu-id="d9431-195"> Pages search for Razor assets</span></span>
+## <a name="razor-pages-search-for-razor-assets"></a><span data-ttu-id="d9431-195">[Razor Pages 搜索 [Razor 资产</span><span class="sxs-lookup"><span data-stu-id="d9431-195">[Razor Pages search for [Razor assets</span></span>
 
-<span data-ttu-id="d9431-196">在 2.1 中，Razor Pages 按所列顺序搜索以下目录中的 Razor 资产（例如布局和分区）：</span><span class="sxs-lookup"><span data-stu-id="d9431-196">In 2.1, Razor Pages search for Razor assets (such as layouts and partials) in the following directories in the listed order:</span></span>
+<span data-ttu-id="d9431-196">在 2.1 中，[Razor Pages 按所列顺序搜索以下目录中的 [Razor 资产（例如布局和分区）：</span><span class="sxs-lookup"><span data-stu-id="d9431-196">In 2.1, [Razor Pages search for [Razor assets (such as layouts and partials) in the following directories in the listed order:</span></span>
 
 1. <span data-ttu-id="d9431-197">当前 Pages 文件夹。</span><span class="sxs-lookup"><span data-stu-id="d9431-197">Current Pages folder.</span></span>
 1. <span data-ttu-id="d9431-198">/Pages/Shared/</span><span class="sxs-lookup"><span data-stu-id="d9431-198">*/Pages/Shared/*</span></span>
 1. <span data-ttu-id="d9431-199">/Views/Shared/</span><span class="sxs-lookup"><span data-stu-id="d9431-199">*/Views/Shared/*</span></span>
 
-## <a name="razor-pages-in-an-area"></a><span data-ttu-id="d9431-200">某个区域内的 Razor Pages</span><span class="sxs-lookup"><span data-stu-id="d9431-200">Razor Pages in an area</span></span>
+## <a name="razor-pages-in-an-area"></a><span data-ttu-id="d9431-200">某个区域内的 [Razor Pages</span><span class="sxs-lookup"><span data-stu-id="d9431-200">[Razor Pages in an area</span></span>
 
-Razor<span data-ttu-id="d9431-201"> Pages 现在支持[区域](xref:mvc/controllers/areas)。</span><span class="sxs-lookup"><span data-stu-id="d9431-201"> Pages now support [areas](xref:mvc/controllers/areas).</span></span> <span data-ttu-id="d9431-202">要查看区域示例，请使用个人用户帐户创建新 Razor Pages Web 应用。</span><span class="sxs-lookup"><span data-stu-id="d9431-202">To see an example of areas, create a new Razor Pages web app with individual user accounts.</span></span> <span data-ttu-id="d9431-203">使用个人用户帐户的 Razor Pages Web 应用包括 /Areas/Identity/Pages。</span><span class="sxs-lookup"><span data-stu-id="d9431-203">A Razor Pages web app with individual user accounts includes */Areas/Identity/Pages*.</span></span>
+<span data-ttu-id="d9431-201">[Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。</span><span class="sxs-lookup"><span data-stu-id="d9431-201">[Razor Pages now support [areas](xref:mvc/controllers/areas).</span></span> <span data-ttu-id="d9431-202">要查看区域示例，请使用个人用户帐户创建新 [Razor Pages Web 应用。</span><span class="sxs-lookup"><span data-stu-id="d9431-202">To see an example of areas, create a new [Razor Pages web app with individual user accounts.</span></span> <span data-ttu-id="d9431-203">使用个人用户帐户的 [Razor Pages Web 应用包括 /Areas/[Identity/Pages。</span><span class="sxs-lookup"><span data-stu-id="d9431-203">A [Razor Pages web app with individual user accounts includes */Areas/[Identity/Pages*.</span></span>
 
 ## <a name="mvc-compatibility-version"></a><span data-ttu-id="d9431-204">MVC 兼容性版本</span><span class="sxs-lookup"><span data-stu-id="d9431-204">MVC compatibility version</span></span>
 

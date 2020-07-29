@@ -6,16 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: test/troubleshoot
 ms.openlocfilehash: f3c975567ee9ea5a1d9f317d3bc77997f68be928
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85398992"
@@ -82,7 +83,7 @@ ms.locfileid: "85398992"
 
 * <span data-ttu-id="8e458-148">请求：方法、方案、主机、基路径、路径、查询字符串、标头</span><span class="sxs-lookup"><span data-stu-id="8e458-148">Request: Method, scheme, host, pathbase, path, query string, headers</span></span>
 * <span data-ttu-id="8e458-149">连接: 远程 IP 地址、远程端口、本地 IP 地址、本地端口、客户端证书</span><span class="sxs-lookup"><span data-stu-id="8e458-149">Connection: Remote IP address, remote port, local IP address, local port, client certificate</span></span>
-* Identity<span data-ttu-id="8e458-150">：名称、显示名称</span><span class="sxs-lookup"><span data-stu-id="8e458-150">: Name, display name</span></span>
+* <span data-ttu-id="8e458-150">[Identity：名称、显示名称</span><span class="sxs-lookup"><span data-stu-id="8e458-150">[Identity: Name, display name</span></span>
 * <span data-ttu-id="8e458-151">配置设置</span><span class="sxs-lookup"><span data-stu-id="8e458-151">Configuration settings</span></span>
 * <span data-ttu-id="8e458-152">环境变量</span><span class="sxs-lookup"><span data-stu-id="8e458-152">Environment variables</span></span>
 
@@ -124,8 +125,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             sb.Append($"LocalPort: {context.Connection.LocalPort}{nl}");
             sb.Append($"ClientCert: {context.Connection.ClientCertificate}{nl}{nl}");
 
-            sb.Append($"Identity{rule}");
-            sb.Append($"User: {context.User.Identity.Name}{nl}");
+            sb.Append($"[Identity{rule}");
+            sb.Append($"User: {context.User.[Identity.Name}{nl}");
             var scheme = await authSchemeProvider
                 .GetSchemeAsync(IISDefaults.AuthenticationScheme);
             sb.Append($"DisplayName: {scheme?.DisplayName}{nl}{nl}");

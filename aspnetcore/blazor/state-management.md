@@ -1,31 +1,32 @@
 ---
-title: ASP.NET Core Blazor 状态管理
+title: ASP.NET Core [Blazor 状态管理
 author: guardrex
-description: 了解如何在 Blazor Server 应用中保留状态。
+description: 了解如何在 [Blazor Server 应用中保留状态。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: blazor/state-management
 ms.openlocfilehash: a6c646425145855538f408ec6cafdb151cd24b86
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85401943"
 ---
-# <a name="aspnet-core-blazor-state-management"></a><span data-ttu-id="8664e-103">ASP.NET Core Blazor 状态管理</span><span class="sxs-lookup"><span data-stu-id="8664e-103">ASP.NET Core Blazor state management</span></span>
+# <a name="aspnet-core-blazor-state-management"></a><span data-ttu-id="8664e-103">ASP.NET Core [Blazor 状态管理</span><span class="sxs-lookup"><span data-stu-id="8664e-103">ASP.NET Core [Blazor state management</span></span>
 
 <span data-ttu-id="8664e-104">作者：[Steve Sanderson](https://github.com/SteveSandersonMS)</span><span class="sxs-lookup"><span data-stu-id="8664e-104">By [Steve Sanderson](https://github.com/SteveSandersonMS)</span></span>
 
-Blazor Server<span data-ttu-id="8664e-105"> 是有状态的应用框架。</span><span class="sxs-lookup"><span data-stu-id="8664e-105"> is a stateful app framework.</span></span> <span data-ttu-id="8664e-106">大多数情况下，应用保持与服务器的持续连接。</span><span class="sxs-lookup"><span data-stu-id="8664e-106">Most of the time, the app maintains an ongoing connection to the server.</span></span> <span data-ttu-id="8664e-107">用户的状态保留在线路中的服务器内存中。</span><span class="sxs-lookup"><span data-stu-id="8664e-107">The user's state is held in the server's memory in a *circuit*.</span></span> 
+<span data-ttu-id="8664e-105">[Blazor Server 是有状态的应用框架。</span><span class="sxs-lookup"><span data-stu-id="8664e-105">[Blazor Server is a stateful app framework.</span></span> <span data-ttu-id="8664e-106">大多数情况下，应用保持与服务器的持续连接。</span><span class="sxs-lookup"><span data-stu-id="8664e-106">Most of the time, the app maintains an ongoing connection to the server.</span></span> <span data-ttu-id="8664e-107">用户的状态保留在线路中的服务器内存中。</span><span class="sxs-lookup"><span data-stu-id="8664e-107">The user's state is held in the server's memory in a *circuit*.</span></span> 
 
 <span data-ttu-id="8664e-108">为用户线路保留的状态示例包括：</span><span class="sxs-lookup"><span data-stu-id="8664e-108">Examples of state held for a user's circuit include:</span></span>
 
@@ -34,11 +35,11 @@ Blazor Server<span data-ttu-id="8664e-105"> 是有状态的应用框架。</span
 * <span data-ttu-id="8664e-111">在线路范围内的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 服务实例中保留的数据。</span><span class="sxs-lookup"><span data-stu-id="8664e-111">Data held in [dependency injection (DI)](xref:fundamentals/dependency-injection) service instances that are scoped to the circuit.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="8664e-112">本文介绍 Blazor Server 应用中的状态暂留。</span><span class="sxs-lookup"><span data-stu-id="8664e-112">This article addresses state persistence in Blazor Server apps.</span></span> Blazor WebAssembly<span data-ttu-id="8664e-113"> 应用可以利用[浏览器中的客户端状态暂留](#client-side-in-the-browser)，但需要自定义解决方案或第三方包（这些并不在本文的讨论范围之内）。</span><span class="sxs-lookup"><span data-stu-id="8664e-113"> apps can take advantage of [client-side state persistence in the browser](#client-side-in-the-browser) but require custom solutions or 3rd party packages beyond the scope of this article.</span></span>
+> <span data-ttu-id="8664e-112">本文介绍 [Blazor Server 应用中的状态暂留。</span><span class="sxs-lookup"><span data-stu-id="8664e-112">This article addresses state persistence in [Blazor Server apps.</span></span> <span data-ttu-id="8664e-113">[Blazor WebAssembly 应用可以利用[浏览器中的客户端状态暂留](#client-side-in-the-browser)，但需要自定义解决方案或第三方包（这些并不在本文的讨论范围之内）。</span><span class="sxs-lookup"><span data-stu-id="8664e-113">[Blazor WebAssembly apps can take advantage of [client-side state persistence in the browser](#client-side-in-the-browser) but require custom solutions or 3rd party packages beyond the scope of this article.</span></span>
 
-## <a name="blazor-circuits"></a>Blazor<span data-ttu-id="8664e-114"> 线路</span><span class="sxs-lookup"><span data-stu-id="8664e-114"> circuits</span></span>
+## <a name="blazor-circuits"></a><span data-ttu-id="8664e-114">[Blazor 线路</span><span class="sxs-lookup"><span data-stu-id="8664e-114">[Blazor circuits</span></span>
 
-<span data-ttu-id="8664e-115">如果用户遇到暂时的网络连接丢失问题，Blazor 会尝试将用户重新连接到其原始线路，以便用户继续使用该应用。</span><span class="sxs-lookup"><span data-stu-id="8664e-115">If a user experiences a temporary network connection loss, Blazor attempts to reconnect the user to their original circuit so they can continue to use the app.</span></span> <span data-ttu-id="8664e-116">但是，将用户重新连接到服务器内存中的原始电路并非总是能够实现的：</span><span class="sxs-lookup"><span data-stu-id="8664e-116">However, reconnecting a user to their original circuit in the server's memory isn't always possible:</span></span>
+<span data-ttu-id="8664e-115">如果用户遇到暂时的网络连接丢失问题，[Blazor 会尝试将用户重新连接到其原始线路，以便用户继续使用该应用。</span><span class="sxs-lookup"><span data-stu-id="8664e-115">If a user experiences a temporary network connection loss, [Blazor attempts to reconnect the user to their original circuit so they can continue to use the app.</span></span> <span data-ttu-id="8664e-116">但是，将用户重新连接到服务器内存中的原始电路并非总是能够实现的：</span><span class="sxs-lookup"><span data-stu-id="8664e-116">However, reconnecting a user to their original circuit in the server's memory isn't always possible:</span></span>
 
 * <span data-ttu-id="8664e-117">服务器不能永久保留断开连接的线路。</span><span class="sxs-lookup"><span data-stu-id="8664e-117">The server can't retain a disconnected circuit forever.</span></span> <span data-ttu-id="8664e-118">超时后或在服务器面临内存压力时，服务器必须释放断开连接的线路。</span><span class="sxs-lookup"><span data-stu-id="8664e-118">The server must release a disconnected circuit after a timeout or when the server is under memory pressure.</span></span>
 * <span data-ttu-id="8664e-119">在多服务器、负载均衡的部署环境中，任何服务器处理请求在任何给定时间都可能变得不可用。</span><span class="sxs-lookup"><span data-stu-id="8664e-119">In multiserver, load-balanced deployment environments, any server processing requests may become unavailable at any given time.</span></span> <span data-ttu-id="8664e-120">不再需要单个服务器处理整个请求量时，它可能会失败或被自动删除。</span><span class="sxs-lookup"><span data-stu-id="8664e-120">Individual servers may fail or be automatically removed when no longer required to handle the overall volume of requests.</span></span> <span data-ttu-id="8664e-121">当用户尝试重新连接时，原始服务器可能不可用。</span><span class="sxs-lookup"><span data-stu-id="8664e-121">The original server may not be available when the user attempts to reconnect.</span></span>
@@ -69,7 +70,7 @@ Blazor Server<span data-ttu-id="8664e-105"> 是有状态的应用框架。</span
 
 ## <a name="where-to-persist-state"></a><span data-ttu-id="8664e-147">保留状态的位置</span><span class="sxs-lookup"><span data-stu-id="8664e-147">Where to persist state</span></span>
 
-<span data-ttu-id="8664e-148">有三个常见位置用于保留 Blazor Server 应用中的状态。</span><span class="sxs-lookup"><span data-stu-id="8664e-148">Three common locations exist for persisting state in a Blazor Server app.</span></span> <span data-ttu-id="8664e-149">每种方法分别适用于不同的应用场景，且有不同的注意事项：</span><span class="sxs-lookup"><span data-stu-id="8664e-149">Each approach is best suited to different scenarios and has different caveats:</span></span>
+<span data-ttu-id="8664e-148">有三个常见位置用于保留 [Blazor Server 应用中的状态。</span><span class="sxs-lookup"><span data-stu-id="8664e-148">Three common locations exist for persisting state in a [Blazor Server app.</span></span> <span data-ttu-id="8664e-149">每种方法分别适用于不同的应用场景，且有不同的注意事项：</span><span class="sxs-lookup"><span data-stu-id="8664e-149">Each approach is best suited to different scenarios and has different caveats:</span></span>
 
 * [<span data-ttu-id="8664e-150">数据库中的服务器端</span><span class="sxs-lookup"><span data-stu-id="8664e-150">Server-side in a database</span></span>](#server-side-in-a-database)
 * [<span data-ttu-id="8664e-151">URL</span><span class="sxs-lookup"><span data-stu-id="8664e-151">URL</span></span>](#url)
@@ -107,7 +108,7 @@ Blazor Server<span data-ttu-id="8664e-105"> 是有状态的应用框架。</span
 <span data-ttu-id="8664e-173">对于用户正在主动创建的暂时性数据，通用后备存储是浏览器的 `localStorage` 和 `sessionStorage` 集合。</span><span class="sxs-lookup"><span data-stu-id="8664e-173">For transient data that the user is actively creating, a common backing store is the browser's `localStorage` and `sessionStorage` collections.</span></span> <span data-ttu-id="8664e-174">如果放弃该线路，则应用无需管理或清除存储的状态。与服务器端存储相比，这是一项优势。</span><span class="sxs-lookup"><span data-stu-id="8664e-174">The app isn't required to manage or clear the stored state if the circuit is abandoned, which is an advantage over server-side storage.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="8664e-175">本节中的“客户端”是指浏览器中的客户端方案，而不是 [Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="8664e-175">"Client-side" in this section refers to client-side scenarios in the browser, not the [Blazor WebAssembly hosting model](xref:blazor/hosting-models#blazor-webassembly).</span></span> <span data-ttu-id="8664e-176">`localStorage` 和 `sessionStorage` 可用于 Blazor WebAssembly 应用，但只能通过编写自定义代码或使用第三方包进行使用。</span><span class="sxs-lookup"><span data-stu-id="8664e-176">`localStorage` and `sessionStorage` can be used in Blazor WebAssembly apps but only by writing custom code or using a 3rd party package.</span></span>
+> <span data-ttu-id="8664e-175">本节中的“客户端”是指浏览器中的客户端方案，而不是 [[Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="8664e-175">"Client-side" in this section refers to client-side scenarios in the browser, not the [[Blazor WebAssembly hosting model](xref:blazor/hosting-models#blazor-webassembly).</span></span> <span data-ttu-id="8664e-176">`localStorage` 和 `sessionStorage` 可用于 [Blazor WebAssembly 应用，但只能通过编写自定义代码或使用第三方包进行使用。</span><span class="sxs-lookup"><span data-stu-id="8664e-176">`localStorage` and `sessionStorage` can be used in [Blazor WebAssembly apps but only by writing custom code or using a 3rd party package.</span></span>
 
 <span data-ttu-id="8664e-177">`localStorage` 和 `sessionStorage` 的区别如下：</span><span class="sxs-lookup"><span data-stu-id="8664e-177">`localStorage` and `sessionStorage` differ as follows:</span></span>
 
@@ -125,7 +126,7 @@ Blazor Server<span data-ttu-id="8664e-105"> 是有状态的应用框架。</span
 
 * <span data-ttu-id="8664e-191">与使用服务器端数据库类似，加载和保存数据都是异步的。</span><span class="sxs-lookup"><span data-stu-id="8664e-191">Similar to the use of a server-side database, loading and saving data are asynchronous.</span></span>
 * <span data-ttu-id="8664e-192">与服务器端数据库不同，在预呈现期间，存储不可用，因为在预呈现阶段，请求的页面在浏览器中不存在。</span><span class="sxs-lookup"><span data-stu-id="8664e-192">Unlike a server-side database, storage isn't available during prerendering because the requested page doesn't exist in the browser during the prerendering stage.</span></span>
-* <span data-ttu-id="8664e-193">保留状态的位置对于 Blazor Server 应用，持久存储几千字节的数据是合理的。</span><span class="sxs-lookup"><span data-stu-id="8664e-193">Storage of a few kilobytes of data is reasonable to persist for Blazor Server apps.</span></span> <span data-ttu-id="8664e-194">超出几千字节后，你就须考虑性能影响，因为数据是跨网络加载和保存的。</span><span class="sxs-lookup"><span data-stu-id="8664e-194">Beyond a few kilobytes, you must consider the performance implications because the data is loaded and saved across the network.</span></span>
+* <span data-ttu-id="8664e-193">保留状态的位置对于 [Blazor Server 应用，持久存储几千字节的数据是合理的。</span><span class="sxs-lookup"><span data-stu-id="8664e-193">Storage of a few kilobytes of data is reasonable to persist for [Blazor Server apps.</span></span> <span data-ttu-id="8664e-194">超出几千字节后，你就须考虑性能影响，因为数据是跨网络加载和保存的。</span><span class="sxs-lookup"><span data-stu-id="8664e-194">Beyond a few kilobytes, you must consider the performance implications because the data is loaded and saved across the network.</span></span>
 * <span data-ttu-id="8664e-195">用户可以查看或篡改数据。</span><span class="sxs-lookup"><span data-stu-id="8664e-195">Users may view or tamper with the data.</span></span> <span data-ttu-id="8664e-196">ASP.NET Core [数据保护](xref:security/data-protection/introduction)可以降低风险。</span><span class="sxs-lookup"><span data-stu-id="8664e-196">ASP.NET Core [Data Protection](xref:security/data-protection/introduction) can mitigate the risk.</span></span>
 
 ## <a name="third-party-browser-storage-solutions"></a><span data-ttu-id="8664e-197">第三方浏览器存储解决方案</span><span class="sxs-lookup"><span data-stu-id="8664e-197">Third-party browser storage solutions</span></span>
@@ -145,7 +146,7 @@ Blazor Server<span data-ttu-id="8664e-105"> 是有状态的应用框架。</span
 
 <span data-ttu-id="8664e-209">安装 `Microsoft.AspNetCore.ProtectedBrowserStorage` 包：</span><span class="sxs-lookup"><span data-stu-id="8664e-209">To install the `Microsoft.AspNetCore.ProtectedBrowserStorage` package:</span></span>
 
-1. <span data-ttu-id="8664e-210">在 Blazor Server 应用项目中，将包引用添加到 [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。</span><span class="sxs-lookup"><span data-stu-id="8664e-210">In the Blazor Server app project, add a package reference to [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).</span></span>
+1. <span data-ttu-id="8664e-210">在 [Blazor Server 应用项目中，将包引用添加到 [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。</span><span class="sxs-lookup"><span data-stu-id="8664e-210">In the [Blazor Server app project, add a package reference to [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).</span></span>
 1. <span data-ttu-id="8664e-211">在顶级 HTML（例如，在默认项目模板中的 `Pages/_Host.cshtml` 文件中）中，添加以下 `<script>` 标记：</span><span class="sxs-lookup"><span data-stu-id="8664e-211">In the top-level HTML (for example, in the `Pages/_Host.cshtml` file in the default project template), add the following `<script>` tag:</span></span>
 
    ```html

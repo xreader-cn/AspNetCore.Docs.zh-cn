@@ -1,35 +1,36 @@
 ---
-title: ASP.NET Core Blazor WebAssembly 性能最佳做法
+title: ASP.NET Core [Blazor WebAssembly 性能最佳做法
 author: pranavkm
-description: 用于提高 ASP.NET Core Blazor WebAssembly 应用性能并避免常见性能问题的提示。
+description: 用于提高 ASP.NET Core [Blazor WebAssembly 应用性能并避免常见性能问题的提示。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/25/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: blazor/webassembly-performance-best-practices
 ms.openlocfilehash: f7bd0d356030e6ddb95c77d7376995320e3ec40e
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85401878"
 ---
-# <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a><span data-ttu-id="95721-103">ASP.NET Core Blazor WebAssembly 性能最佳做法</span><span class="sxs-lookup"><span data-stu-id="95721-103">ASP.NET Core Blazor WebAssembly performance best practices</span></span>
+# <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a><span data-ttu-id="95721-103">ASP.NET Core [Blazor WebAssembly 性能最佳做法</span><span class="sxs-lookup"><span data-stu-id="95721-103">ASP.NET Core [Blazor WebAssembly performance best practices</span></span>
 
 <span data-ttu-id="95721-104">作者：[Pranav Krishnamoorthy](https://github.com/pranavkm)</span><span class="sxs-lookup"><span data-stu-id="95721-104">By [Pranav Krishnamoorthy](https://github.com/pranavkm)</span></span>
 
-<span data-ttu-id="95721-105">本文提供了 ASP.NET Core Blazor WebAssembly 性能最佳做法的准则。</span><span class="sxs-lookup"><span data-stu-id="95721-105">This article provides guidelines for ASP.NET Core Blazor WebAssembly performance best practices.</span></span>
+<span data-ttu-id="95721-105">本文提供了 ASP.NET Core [Blazor WebAssembly 性能最佳做法的准则。</span><span class="sxs-lookup"><span data-stu-id="95721-105">This article provides guidelines for ASP.NET Core [Blazor WebAssembly performance best practices.</span></span>
 
 ## <a name="avoid-unnecessary-component-renders"></a><span data-ttu-id="95721-106">避免不必要的组件呈现</span><span class="sxs-lookup"><span data-stu-id="95721-106">Avoid unnecessary component renders</span></span>
 
-<span data-ttu-id="95721-107">借助 Blazor 的差分算法，当算法感知到组件未更改时，不用重新呈现组件。</span><span class="sxs-lookup"><span data-stu-id="95721-107">Blazor's diffing algorithm avoids rerendering a component when the algorithm perceives that the component hasn't changed.</span></span> <span data-ttu-id="95721-108">可重写 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> 来实现对组件呈现的精细控制。</span><span class="sxs-lookup"><span data-stu-id="95721-108">Override <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> for fine-grained control over component rendering.</span></span>
+<span data-ttu-id="95721-107">借助 [Blazor 的差分算法，当算法感知到组件未更改时，不用重新呈现组件。</span><span class="sxs-lookup"><span data-stu-id="95721-107">[Blazor's diffing algorithm avoids rerendering a component when the algorithm perceives that the component hasn't changed.</span></span> <span data-ttu-id="95721-108">可重写 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> 来实现对组件呈现的精细控制。</span><span class="sxs-lookup"><span data-stu-id="95721-108">Override <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> for fine-grained control over component rendering.</span></span>
 
 <span data-ttu-id="95721-109">如果创作了一个仅限 UI 的组件，且该组件在最初呈现后从未更改，则请将 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 配置为返回 `false`：</span><span class="sxs-lookup"><span data-stu-id="95721-109">If authoring a UI-only component that never changes after the initial render, configure <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> to return `false`:</span></span>
 
@@ -84,17 +85,17 @@ ms.locfileid: "85401878"
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a><span data-ttu-id="95721-131">不要用 JavaScript 互操作来封送数据</span><span class="sxs-lookup"><span data-stu-id="95721-131">Avoid JavaScript interop to marshal data</span></span>
 
-<span data-ttu-id="95721-132">在 Blazor WebAssembly 中，JavaScript (JS) 互操作调用必须遍历 WebAssembly-JS 边界。</span><span class="sxs-lookup"><span data-stu-id="95721-132">In Blazor WebAssembly, a JavaScript (JS) interop call must traverse the WebAssembly-JS boundary.</span></span> <span data-ttu-id="95721-133">如果跨两个上下文序列化和反序列化内容，会产生应用处理开销。</span><span class="sxs-lookup"><span data-stu-id="95721-133">Serializing and deserializing content across the two contexts creates processing overhead for the app.</span></span> <span data-ttu-id="95721-134">频繁的 JS 互操作调用通常会对性能产生负面影响。</span><span class="sxs-lookup"><span data-stu-id="95721-134">Frequent JS interop calls often adversely affects performance.</span></span> <span data-ttu-id="95721-135">为了减少数据的跨边界封送，请确定应用能否将许多小的有效负载合并到一个大的有效负载中，以避免在 WebAssembly 与 JS 之间频繁切换上下文。</span><span class="sxs-lookup"><span data-stu-id="95721-135">To reduce the marshalling of data across the boundary, determine if the app can consolidate many small payloads into a single large payload to avoid the high volume of context switching between WebAssembly and JS.</span></span>
+<span data-ttu-id="95721-132">在 [Blazor WebAssembly 中，JavaScript (JS) 互操作调用必须遍历 WebAssembly-JS 边界。</span><span class="sxs-lookup"><span data-stu-id="95721-132">In [Blazor WebAssembly, a JavaScript (JS) interop call must traverse the WebAssembly-JS boundary.</span></span> <span data-ttu-id="95721-133">如果跨两个上下文序列化和反序列化内容，会产生应用处理开销。</span><span class="sxs-lookup"><span data-stu-id="95721-133">Serializing and deserializing content across the two contexts creates processing overhead for the app.</span></span> <span data-ttu-id="95721-134">频繁的 JS 互操作调用通常会对性能产生负面影响。</span><span class="sxs-lookup"><span data-stu-id="95721-134">Frequent JS interop calls often adversely affects performance.</span></span> <span data-ttu-id="95721-135">为了减少数据的跨边界封送，请确定应用能否将许多小的有效负载合并到一个大的有效负载中，以避免在 WebAssembly 与 JS 之间频繁切换上下文。</span><span class="sxs-lookup"><span data-stu-id="95721-135">To reduce the marshalling of data across the boundary, determine if the app can consolidate many small payloads into a single large payload to avoid the high volume of context switching between WebAssembly and JS.</span></span>
 
 ## <a name="use-systemtextjson"></a><span data-ttu-id="95721-136">使用 System.Text.Json</span><span class="sxs-lookup"><span data-stu-id="95721-136">Use System.Text.Json</span></span>
 
-Blazor<span data-ttu-id="95721-137"> 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性能高但内存分配较低的 JSON 序列化库。</span><span class="sxs-lookup"><span data-stu-id="95721-137">'s JS interop implementation relies on <xref:System.Text.Json>, which is a high-performance JSON serialization library with low memory allocation.</span></span> <span data-ttu-id="95721-138">与添加一个或多个备用 JSON 库相比，使用 <xref:System.Text.Json> 不会增加应用有效负载的大小。</span><span class="sxs-lookup"><span data-stu-id="95721-138">Using <xref:System.Text.Json> doesn't result in additional app payload size over adding one or more alternate JSON libraries.</span></span>
+<span data-ttu-id="95721-137">[Blazor 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性能高但内存分配较低的 JSON 序列化库。</span><span class="sxs-lookup"><span data-stu-id="95721-137">[Blazor's JS interop implementation relies on <xref:System.Text.Json>, which is a high-performance JSON serialization library with low memory allocation.</span></span> <span data-ttu-id="95721-138">与添加一个或多个备用 JSON 库相比，使用 <xref:System.Text.Json> 不会增加应用有效负载的大小。</span><span class="sxs-lookup"><span data-stu-id="95721-138">Using <xref:System.Text.Json> doesn't result in additional app payload size over adding one or more alternate JSON libraries.</span></span>
 
 <span data-ttu-id="95721-139">有关迁移指南，请参阅[如何从 `Newtonsoft.Json` 迁移到 `System.Text.Json`](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to)。</span><span class="sxs-lookup"><span data-stu-id="95721-139">For migration guidance, see [How to migrate from `Newtonsoft.Json` to `System.Text.Json`](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to).</span></span>
 
 ## <a name="use-synchronous-and-unmarshalled-js-interop-apis-where-appropriate"></a><span data-ttu-id="95721-140">根据需要使用同步的和未封装的 JS 互操作 API</span><span class="sxs-lookup"><span data-stu-id="95721-140">Use synchronous and unmarshalled JS interop APIs where appropriate</span></span>
 
-Blazor WebAssembly<span data-ttu-id="95721-141"> 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> 版本，而 Blazor Server 应用只有一个版本：</span><span class="sxs-lookup"><span data-stu-id="95721-141"> offers two additional versions of <xref:Microsoft.JSInterop.IJSRuntime> over the single version available to Blazor Server apps:</span></span>
+<span data-ttu-id="95721-141">[Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> 版本，而 [Blazor Server 应用只有一个版本：</span><span class="sxs-lookup"><span data-stu-id="95721-141">[Blazor WebAssembly offers two additional versions of <xref:Microsoft.JSInterop.IJSRuntime> over the single version available to [Blazor Server apps:</span></span>
 
 * <span data-ttu-id="95721-142"><xref:Microsoft.JSInterop.IJSInProcessRuntime> 允许同步调用 JS 互操作调用，其开销低于异步版本：</span><span class="sxs-lookup"><span data-stu-id="95721-142"><xref:Microsoft.JSInterop.IJSInProcessRuntime> allows invoking JS interop calls synchronously, which has less overhead than the asynchronous versions:</span></span>
 
@@ -139,7 +140,7 @@ Blazor WebAssembly<span data-ttu-id="95721-141"> 额外提供了两个 <xref:Mic
 
 ### <a name="intermediate-language-il-linking"></a><span data-ttu-id="95721-146">中间语言 (IL) 链接</span><span class="sxs-lookup"><span data-stu-id="95721-146">Intermediate Language (IL) linking</span></span>
 
-<span data-ttu-id="95721-147">通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。</span><span class="sxs-lookup"><span data-stu-id="95721-147">[Linking a Blazor WebAssembly app](xref:blazor/host-and-deploy/configure-linker) reduces the app's size by trimming unused code in the app's binaries.</span></span> <span data-ttu-id="95721-148">默认情况下，仅在 `Release` 配置中生成时才启用链接器。</span><span class="sxs-lookup"><span data-stu-id="95721-148">By default, the linker is only enabled when building in `Release` configuration.</span></span> <span data-ttu-id="95721-149">要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：</span><span class="sxs-lookup"><span data-stu-id="95721-149">To benefit from this, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:</span></span>
+<span data-ttu-id="95721-147">通过[链接 [Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。</span><span class="sxs-lookup"><span data-stu-id="95721-147">[Linking a [Blazor WebAssembly app](xref:blazor/host-and-deploy/configure-linker) reduces the app's size by trimming unused code in the app's binaries.</span></span> <span data-ttu-id="95721-148">默认情况下，仅在 `Release` 配置中生成时才启用链接器。</span><span class="sxs-lookup"><span data-stu-id="95721-148">By default, the linker is only enabled when building in `Release` configuration.</span></span> <span data-ttu-id="95721-149">要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：</span><span class="sxs-lookup"><span data-stu-id="95721-149">To benefit from this, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:</span></span>
 
 ```dotnetcli
 dotnet publish -c Release
@@ -147,13 +148,13 @@ dotnet publish -c Release
 
 ### <a name="compression"></a><span data-ttu-id="95721-150">压缩</span><span class="sxs-lookup"><span data-stu-id="95721-150">Compression</span></span>
 
-<span data-ttu-id="95721-151">发布 Blazor WebAssembly 应用时，将在发布过程中对输出内容进行静态压缩，从而减小应用的大小，并免去运行时压缩的开销。</span><span class="sxs-lookup"><span data-stu-id="95721-151">When a Blazor WebAssembly app is published, the output is statically compressed during publish to reduce the app's size and remove the overhead for runtime compression.</span></span> Blazor<span data-ttu-id="95721-152"> 依赖服务器来执行内容协商和提供静态压缩的文件。</span><span class="sxs-lookup"><span data-stu-id="95721-152"> relies on the server to perform content negotation and serve statically-compressed files.</span></span>
+<span data-ttu-id="95721-151">发布 [Blazor WebAssembly 应用时，将在发布过程中对输出内容进行静态压缩，从而减小应用的大小，并免去运行时压缩的开销。</span><span class="sxs-lookup"><span data-stu-id="95721-151">When a [Blazor WebAssembly app is published, the output is statically compressed during publish to reduce the app's size and remove the overhead for runtime compression.</span></span> <span data-ttu-id="95721-152">[Blazor 依赖服务器来执行内容协商和提供静态压缩的文件。</span><span class="sxs-lookup"><span data-stu-id="95721-152">[Blazor relies on the server to perform content negotation and serve statically-compressed files.</span></span>
 
 <span data-ttu-id="95721-153">部署应用后，请验证该应用是否提供压缩的文件。</span><span class="sxs-lookup"><span data-stu-id="95721-153">After an app is deployed, verify that the app serves compressed files.</span></span> <span data-ttu-id="95721-154">检查浏览器开发人员工具中的“网络”选项卡，并验证文件是否具有 `Content-Encoding: br` 或 `Content-Encoding: gz`。</span><span class="sxs-lookup"><span data-stu-id="95721-154">Inspect the Network tab in a browser's Developer Tools and verify that the files are served with `Content-Encoding: br` or `Content-Encoding: gz`.</span></span> <span data-ttu-id="95721-155">如果主机未提供压缩的文件，请按照 <xref:blazor/host-and-deploy/webassembly#compression> 中的说明操作。</span><span class="sxs-lookup"><span data-stu-id="95721-155">If the host isn't serving compressed files, follow the instructions in <xref:blazor/host-and-deploy/webassembly#compression>.</span></span>
 
 ### <a name="disable-unused-features"></a><span data-ttu-id="95721-156">禁用未使用的功能</span><span class="sxs-lookup"><span data-stu-id="95721-156">Disable unused features</span></span>
 
-Blazor WebAssembly<span data-ttu-id="95721-157"> 的运行时包含以下 .NET 功能；如果应用不需要这些功能就能减少有效负载的大小，可将它们禁用：</span><span class="sxs-lookup"><span data-stu-id="95721-157">'s runtime includes the following .NET features that can be disabled if the app doesn't require them for a smaller payload size:</span></span>
+<span data-ttu-id="95721-157">[Blazor WebAssembly 的运行时包含以下 .NET 功能；如果应用不需要这些功能就能减少有效负载的大小，可将它们禁用：</span><span class="sxs-lookup"><span data-stu-id="95721-157">[Blazor WebAssembly's runtime includes the following .NET features that can be disabled if the app doesn't require them for a smaller payload size:</span></span>
 
 * <span data-ttu-id="95721-158">包含数据文件来确保时区信息正确。</span><span class="sxs-lookup"><span data-stu-id="95721-158">A data file is included to make timezone information correct.</span></span> <span data-ttu-id="95721-159">如果应用不需要此功能，请考虑通过将应用项目文件中的 `BlazorEnableTimeZoneSupport` MSBuild 属性设置为 `false` 来禁用它：</span><span class="sxs-lookup"><span data-stu-id="95721-159">If the app doesn't require this feature, consider disabling it by setting the `BlazorEnableTimeZoneSupport` MSBuild property in the app's project file to `false`:</span></span>
 

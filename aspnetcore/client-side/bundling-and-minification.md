@@ -6,16 +6,17 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- '[Blazor'
+- '[Blazor Server'
+- '[Blazor WebAssembly'
+- '[Identity'
+- "[Let's Encrypt"
+- '[Razor'
+- '[SignalR'
 uid: client-side/bundling-and-minification
 ms.openlocfilehash: de7c155189008e1f78bfb1eba062fcc86f9e4839
 ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 06/26/2020
 ms.locfileid: "85401904"
@@ -70,19 +71,19 @@ ms.locfileid: "85401904"
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a><span data-ttu-id="312c8-151">选择捆绑和缩小策略</span><span class="sxs-lookup"><span data-stu-id="312c8-151">Choose a bundling and minification strategy</span></span>
 
-<span data-ttu-id="312c8-152">MVC 和 Razor Pages 项目模板提供了一种用于捆绑和缩小的解决方案，它们构成 JSON 配置文件。</span><span class="sxs-lookup"><span data-stu-id="312c8-152">The MVC and Razor Pages project templates provide a solution for bundling and minification consisting of a JSON configuration file.</span></span> <span data-ttu-id="312c8-153">第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。</span><span class="sxs-lookup"><span data-stu-id="312c8-153">Third-party tools, such as the [Grunt](xref:client-side/using-grunt) task runner, accomplish the same tasks with a bit more complexity.</span></span> <span data-ttu-id="312c8-154">开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。</span><span class="sxs-lookup"><span data-stu-id="312c8-154">A third-party tool is a great fit when your development workflow requires processing beyond bundling and minification&mdash;such as linting and image optimization.</span></span> <span data-ttu-id="312c8-155">通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。</span><span class="sxs-lookup"><span data-stu-id="312c8-155">By using design-time bundling and minification, the minified files are created prior to the app's deployment.</span></span> <span data-ttu-id="312c8-156">在部署之前进行捆绑和缩小具有减少服务器负载的优点。</span><span class="sxs-lookup"><span data-stu-id="312c8-156">Bundling and minifying before deployment provides the advantage of reduced server load.</span></span> <span data-ttu-id="312c8-157">但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。</span><span class="sxs-lookup"><span data-stu-id="312c8-157">However, it's important to recognize that design-time bundling and minification increases build complexity and only works with static files.</span></span>
+<span data-ttu-id="312c8-152">MVC 和 [Razor Pages 项目模板提供了一种用于捆绑和缩小的解决方案，它们构成 JSON 配置文件。</span><span class="sxs-lookup"><span data-stu-id="312c8-152">The MVC and [Razor Pages project templates provide a solution for bundling and minification consisting of a JSON configuration file.</span></span> <span data-ttu-id="312c8-153">第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。</span><span class="sxs-lookup"><span data-stu-id="312c8-153">Third-party tools, such as the [Grunt](xref:client-side/using-grunt) task runner, accomplish the same tasks with a bit more complexity.</span></span> <span data-ttu-id="312c8-154">开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。</span><span class="sxs-lookup"><span data-stu-id="312c8-154">A third-party tool is a great fit when your development workflow requires processing beyond bundling and minification&mdash;such as linting and image optimization.</span></span> <span data-ttu-id="312c8-155">通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。</span><span class="sxs-lookup"><span data-stu-id="312c8-155">By using design-time bundling and minification, the minified files are created prior to the app's deployment.</span></span> <span data-ttu-id="312c8-156">在部署之前进行捆绑和缩小具有减少服务器负载的优点。</span><span class="sxs-lookup"><span data-stu-id="312c8-156">Bundling and minifying before deployment provides the advantage of reduced server load.</span></span> <span data-ttu-id="312c8-157">但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。</span><span class="sxs-lookup"><span data-stu-id="312c8-157">However, it's important to recognize that design-time bundling and minification increases build complexity and only works with static files.</span></span>
 
 ## <a name="configure-bundling-and-minification"></a><span data-ttu-id="312c8-158">配置捆绑和缩小</span><span class="sxs-lookup"><span data-stu-id="312c8-158">Configure bundling and minification</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="312c8-159">在 ASP.NET Core 2.0 或更早版本中，MVC 和 Razor Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项：</span><span class="sxs-lookup"><span data-stu-id="312c8-159">In ASP.NET Core 2.0 or earlier, the MVC and Razor Pages project templates provide a *bundleconfig.json* configuration file that defines the options for each bundle:</span></span>
+<span data-ttu-id="312c8-159">在 ASP.NET Core 2.0 或更早版本中，MVC 和 [Razor Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项：</span><span class="sxs-lookup"><span data-stu-id="312c8-159">In ASP.NET Core 2.0 or earlier, the MVC and [Razor Pages project templates provide a *bundleconfig.json* configuration file that defines the options for each bundle:</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="312c8-160">在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 Razor Pages 项目根目录。</span><span class="sxs-lookup"><span data-stu-id="312c8-160">In ASP.NET Core 2.1 or later, add a new JSON file, named *bundleconfig.json*, to the MVC or Razor Pages project root.</span></span> <span data-ttu-id="312c8-161">在该文件中包含以下 JSON 作为起点：</span><span class="sxs-lookup"><span data-stu-id="312c8-161">Include the following JSON in that file as a starting point:</span></span>
+<span data-ttu-id="312c8-160">在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 [Razor Pages 项目根目录。</span><span class="sxs-lookup"><span data-stu-id="312c8-160">In ASP.NET Core 2.1 or later, add a new JSON file, named *bundleconfig.json*, to the MVC or [Razor Pages project root.</span></span> <span data-ttu-id="312c8-161">在该文件中包含以下 JSON 作为起点：</span><span class="sxs-lookup"><span data-stu-id="312c8-161">Include the following JSON in that file as a starting point:</span></span>
 
 ::: moniker-end
 
