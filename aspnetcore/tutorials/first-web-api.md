@@ -960,11 +960,11 @@ jQuery 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accep
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-## <a name="additional-resources"></a>其他资源
+## <a name="additional-resources"></a>[!INCLUDE[](~/includes/IdentityServer4.md)]
 
-[查看或下载本教程的示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。 请参阅[如何下载](xref:index#how-to-download-a-sample)。
+其他资源 [查看或下载本教程的示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。
 
-有关更多信息，请参见以下资源：
+请参阅[如何下载](xref:index#how-to-download-a-sample)。
 
 * <xref:web-api/index>
 * <xref:tutorials/web-api-help-pages-using-swagger>
@@ -973,4 +973,4 @@ jQuery 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accep
 * <xref:web-api/action-return-types>
 * <xref:host-and-deploy/azure-apps/index>
 * <xref:host-and-deploy/index>
-* [本教程的 YouTube 版本](https://www.youtube.com/watch?v=TTkhEyGBfAk)
+* 有关更多信息，请参见以下资源：
