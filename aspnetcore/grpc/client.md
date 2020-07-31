@@ -4,7 +4,7 @@ author: jamesnk
 description: 了解如何使用 .NET gRPC 客户端调用 gRPC 服务。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 04/21/2020
+ms.date: 07/27/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 9ebe36cdb17e858fd82216b090e3e89169197101
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0d8856bba5afaaed4d9552480e4ae5dcbb7704d5
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406181"
+ms.lasthandoff: 07/28/2020
+ms.locfileid: "87303542"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
@@ -50,6 +50,19 @@ var counterClient = new Count.CounterClient(channel);
 // Use clients to call gRPC services
 ```
 
+### <a name="configure-tls"></a>配置 TLS
+
+gRPC 客户端必须使用与被调用服务相同的连接级别安全性。 gRPC 客户端传输层安全性 (TLS) 是在创建 gRPC 通道时配置的。 如果在调用服务时通道和服务的连接级别安全性不一致，gRPC 客户端就会抛出错误。
+
+若要将 gRPC 通道配置为使用 TLS，请确保服务器地址以 `https` 开头。 例如，`GrpcChannel.ForAddress("https://localhost:5001")` 使用 HTTPS 协议。 gRPC 通道自动协商由 TLS 保护的连接，并使用安全连接进行 gRPC 调用。
+
+> [!TIP]
+> gRPC 支持通过 TLS 进行客户端证书身份验证。 若要了解如何为 gRPC 通道配置客户端证书，请参阅 <xref:grpc/authn-and-authz#client-certificate-authentication>。
+
+若要调用不安全的 gRPC 服务，请确保服务器地址以 `http` 开头。 例如，`GrpcChannel.ForAddress("http://localhost:5000")` 使用 HTTP 协议。 在 .NET Core 3.1 或更高版本中，必须进行其他配置，才能[使用 .NET 客户端调用不安全的 gRPC 服务](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)。
+
+### <a name="client-performance"></a>客户端性能
+
 通道及客户端性能和使用情况：
 
 * 创建通道成本高昂。 重用 gRPC 调用的通道可提高性能。
@@ -59,9 +72,6 @@ var counterClient = new Count.CounterClient(channel);
 * 从通道创建的客户端可同时进行多个调用。
 
 `GrpcChannel.ForAddress` 不是创建 gRPC 客户端的唯一选项。 如果要从 ASP.NET Core 应用调用 gRPC 服务，请考虑 [gRPC 客户端工厂集成](xref:grpc/clientfactory)。 gRPC 与 `HttpClientFactory` 集成是创建 gRPC 客户端的集中式操作备选方案。
-
-> [!NOTE]
-> 要[使用 .NET 客户端调用不安全的 gRPC 服务](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)，需要其他配置。
 
 > [!NOTE]
 > Xamarin 当前不支持通过 HTTP/2 使用 `Grpc.Net.Client` 调用 gRPC。 我们正在改进 Xamarin 未来版本中的 HTTP/2 支持。 [Grpc.Core](https://www.nuget.org/packages/Grpc.Core) 和 [gRPC-Web](xref:grpc/browser) 是立即生效的可行备选方案。
@@ -196,7 +206,7 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 
 var trailers = call.GetTrailers();
-var myValue = trailers.First(e => e.Key == "my-trailer-name");
+var myValue = trailers.GetValue("my-trailer-name");
 ```
 
 服务器和双向流式调用必须等到出现响应流，然后才能调用 `GetTrailers()`：
@@ -212,7 +222,7 @@ await foreach (var response in call.ResponseStream.ReadAllAsync())
 }
 
 var trailers = call.GetTrailers();
-var myValue = trailers.First(e => e.Key == "my-trailer-name");
+var myValue = trailers.GetValue("my-trailer-name");
 ```
 
 gRPC 尾部也可通过 `RpcException` 进行访问。 服务可能会同时返回尾部和“异常”gRPC 状态。 在这种情况下，尾部是从 gRPC 客户端引起的异常中检索得到的：
@@ -230,12 +240,12 @@ try
     // Greeting: Hello World
 
     var trailers = call.GetTrailers();
-    myValue = trailers.First(e => e.Key == "my-trailer-name");
+    myValue = trailers.GetValue("my-trailer-name");
 }
 catch (RpcException ex)
 {
     var trailers = ex.Trailers;
-    myValue = trailers.First(e => e.Key == "my-trailer-name");
+    myValue = trailers.GetValue("my-trailer-name");
 }
 ```
 

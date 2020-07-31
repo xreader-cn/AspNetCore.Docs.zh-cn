@@ -5,7 +5,7 @@ description: 了解如何在 Visual Studio 中创建发布配置文件，并将�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/14/2020
+ms.date: 07/28/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: a386066f8d780c5e71c3634065c4e06b74e83c8c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7ad85de1a566c993e59203a5efe31458f3acdc53
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403854"
+ms.lasthandoff: 07/28/2020
+ms.locfileid: "87303620"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件 (.pubxml)
 
@@ -160,21 +160,15 @@ Visual Studio 的生成工具会生成一个 Properties/PublishProfiles/{PROFILE
 
 敏感信息（如发布密码）在每个用户/机器级别均进行加密。 它存储在 Properties/PublishProfiles/{PROFILE NAME}.pubxml.user 文件中。 由于此文件可以存储敏感信息，因此不应将其签入源代码管理。
 
-要简要了解如何发布 ASP.NET Core Web 应用，请参阅 <xref:host-and-deploy/index>。 发布 ASP.NET Core Web 应用所需的 MSBuild 任务和目标已在 [aspnet/websdk repository](https://github.com/aspnet/websdk) 中开源。
+要简要了解如何发布 ASP.NET Core Web 应用，请参阅 <xref:host-and-deploy/index>。 发布 ASP.NET Core Web 应用所需的 MSBuild 任务和目标在 [dotnet/websdk repository](https://github.com/dotnet/websdk) 中是开放源代码的。
 
 以下命令可使用文件夹、MSDeploy 和 [Kudu](https://github.com/projectkudu/kudu/wiki) 发布配置文件。 MSDeploy 缺少跨平台支持，因此仅支持在 Windows 上使用以下 MSDeploy 选项。
 
 文件夹（跨平台工作）：
 
-<!--
-
-NOTE: Add back the following 'dotnet publish' folder publish example after https://github.com/aspnet/websdk/issues/888 is resolved.
-
 ```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<FolderProfileName>
 ```
-
--->
 
 ```dotnetcli
 dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<FolderProfileName>
@@ -205,7 +199,7 @@ dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDe
 * `dotnet publish` 和 `dotnet build` 支持 Kudu API 从任何平台发布到 Azure。 Visual Studio 发布支持 Kudu API，但 WebSDK 支持其跨平台发布到 Azure。
 * 不要将 `DeployOnBuild` 传递到 `dotnet publish` 命令。
 
-有关详细信息，请参阅 [Microsoft.NET.Sdk.Publish](https://github.com/aspnet/websdk#microsoftnetsdkpublish)。
+有关详细信息，请参阅 [Microsoft.NET.Sdk.Publish](https://github.com/dotnet/websdk#microsoftnetsdkpublish)。
 
 向项目的 Properties/PublishProfiles 文件夹添加包含以下内容的发布配置文件：
 
@@ -222,18 +216,19 @@ dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDe
 
 ## <a name="folder-publish-example"></a>文件夹发布示例
 
-发布名为 FolderProfile 的配置文件时，使用以下命令之一：
+当使用名为 FolderProfile 的配置文件发布时，请使用以下命令之一：
 
-<!--
+```dotnetcli
+dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile`
+```
 
-NOTE: Temporarily removed until https://github.com/aspnet/websdk/issues/888 is resolved.
+```dotnetcli
+dotnet build /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+```
 
-* `dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile`
-
--->
-
-* `dotnet build /p:DeployOnBuild=true /p:PublishProfile=FolderProfile`
-* `msbuild /p:DeployOnBuild=true /p:PublishProfile=FolderProfile`
+```bash
+msbuild /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+```
 
 .NET Core CLI 的 [dotnet build](/dotnet/core/tools/dotnet-build) 命令会调用 `msbuild` 来运行生成和发布过程。 在文件夹配置文件中传递时，`dotnet build` 和 `msbuild` 命令作用相同。 在 Windows 上直接调用 `msbuild` 时，将使用 MSBuild 的 .NET Framework 版本。 在非文件夹配置文件上调用 `dotnet build`：
 
@@ -269,19 +264,12 @@ MSBuild file.
 在上面的示例中：
 
 * `<ExcludeApp_Data>` 属性仅为满足 XML 架构要求。 `<ExcludeApp_Data>` 属性不影响发布过程，即使项目根中存在 App_Data 文件夹也是如此。 App_Data 文件夹不会像在 ASP.NET 4.x 项目中那样得到特殊对待。
-
-<!--
-
-NOTE: Temporarily removed from 'Using the .NET Core CLI' below until https://github.com/aspnet/websdk/issues/888 is resolved.
+* `<LastUsedBuildConfiguration>` 属性设置为 `Release`。 从 Visual Studio 发布时，启动发布过程后将使用该值设置 `<LastUsedBuildConfiguration>` 的值。 `<LastUsedBuildConfiguration>` 比较特殊，不得在导入的 MSBuild 文件中覆盖它。 但是，可通过下述方法之一在命令行中覆盖此属性。
+  * 使用 .NET Core CLI：
 
     ```dotnetcli
     dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile
     ```
-
--->
-
-* `<LastUsedBuildConfiguration>` 属性设置为 `Release`。 从 Visual Studio 发布时，启动发布过程后将使用该值设置 `<LastUsedBuildConfiguration>` 的值。 `<LastUsedBuildConfiguration>` 比较特殊，不得在导入的 MSBuild 文件中覆盖它。 但是，可通过下述方法之一在命令行中覆盖此属性。
-  * 使用 .NET Core CLI：
 
     ```dotnetcli
     dotnet build -c Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
@@ -289,7 +277,7 @@ NOTE: Temporarily removed from 'Using the .NET Core CLI' below until https://git
 
   * 使用 MSBuild：
 
-    ```console
+    ```bash
     msbuild /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
     ```
 
@@ -303,7 +291,7 @@ NOTE: Temporarily removed from 'Using the .NET Core CLI' below until https://git
 
 MSBuild 使用以下命令语法：
 
-```console
+```bash
 msbuild {PATH} 
     /p:DeployOnBuild=true 
     /p:PublishProfile={PROFILE} 
@@ -311,16 +299,16 @@ msbuild {PATH}
     /p:Password={PASSWORD}
 ```
 
-* {PATH}：应用的项目文件的路径。
-* {PROFILE}：发布配置文件的名称。
-* {USERNAME}：MSDeploy 用户名。 可在发布配置文件中找到 {USERNAME}。
-* {PASSWORD}：MSDeploy 密码。 从 {PROFILE}.PublishSettings 文件中获取 {PASSWORD}。 可以从以下位置下载 .PublishSettings 文件：
+* `{PATH}`：应用的项目文件的路径。
+* `{PROFILE}`：发布配置文件的名称。
+* `{USERNAME}`：MSDeploy 用户名。 可以在发布配置文件中找到 `{USERNAME}`。
+* `{PASSWORD}`：MSDeploy 密码。 从 {PROFILE}.PublishSettings 文件中获取 `{PASSWORD}`。 可以从以下位置下载 .PublishSettings 文件：
   * 解决方案资源管理器：选择“视图” > “Cloud Explorer” 。 连接你的 Azure 订阅。 打开“应用服务”。 右键单击应用。 选择“下载发布配置文件”。
   * Azure 门户：选择 Web 应用“概述”面板上的“获取发布配置文件” 。
 
 下面的示例使用名为“AzureWebApp - Web 部署”的发布配置文件：
 
-```console
+```bash
 msbuild "AzureWebApp.csproj" 
     /p:DeployOnBuild=true 
     /p:PublishProfile="AzureWebApp - Web Deploy" 
@@ -482,7 +470,7 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 </ResolvedFileToPublish>
 ```
 
-有关更多部署示例，请参阅 [Web SDK 存储库自述文件](https://github.com/aspnet/websdk)。
+有关更多部署示例，请参阅 [Web SDK README 文件](https://github.com/dotnet/sdk/tree/master/src/WebSdk)。
 
 ## <a name="run-a-target-before-or-after-publishing"></a>在发布前或发布后运行目标
 
@@ -521,6 +509,6 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 ## <a name="additional-resources"></a>其他资源
 
 * [Web 部署](https://www.iis.net/downloads/microsoft/web-deploy) (MSDeploy) 简化了 Web 应用和网站到 IIS 服务器的部署。
-* [Web SDK GitHub 存储库](https://github.com/aspnet/websdk/issues)：文件问题和部署的请求功能。
+* [Web SDK GitHub 存储库](https://github.com/dotnet/websdk/issues)：文件问题和部署的请求功能。
 * [从 Visual Studio 将 ASP.NET Web 应用发布到 Azure VM](/azure/virtual-machines/windows/publish-web-app-from-visual-studio)
 * <xref:host-and-deploy/iis/transform-webconfig>

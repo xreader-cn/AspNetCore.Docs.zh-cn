@@ -4,22 +4,22 @@ author: scottaddie
 description: 了解如何通过应用捆绑和缩小技术优化 ASP.NET Core Web 应用程序中的静态资源。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 04/15/2020
+ms.date: 07/23/2020
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: de7c155189008e1f78bfb1eba062fcc86f9e4839
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5db6ab3d790257c677c0a4ed7e605eb39c2982ed
+ms.sourcegitcommit: cc845634a490c49ff869c89b6e422b6d65d0e886
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401904"
+ms.lasthandoff: 07/24/2020
+ms.locfileid: "87159724"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>ASP.NET Core 中的捆绑和缩小静态资产
 
@@ -71,19 +71,19 @@ ms.locfileid: "85401904"
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a>选择捆绑和缩小策略
 
-MVC 和 [Razor Pages 项目模板提供了一种用于捆绑和缩小的解决方案，它们构成 JSON 配置文件。 第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。 开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。 通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。 在部署之前进行捆绑和缩小具有减少服务器负载的优点。 但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。
+MVC 和 Razor Pages 项目模板提供了一种用于捆绑和缩小的解决方案，它们构成 JSON 配置文件。 第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。 开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。 通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。 在部署之前进行捆绑和缩小具有减少服务器负载的优点。 但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。
 
 ## <a name="configure-bundling-and-minification"></a>配置捆绑和缩小
 
 ::: moniker range="<= aspnetcore-2.0"
 
-在 ASP.NET Core 2.0 或更早版本中，MVC 和 [Razor Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项：
+在 ASP.NET Core 2.0 或更早版本中，MVC 和 Razor Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项：
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 [Razor Pages 项目根目录。 在该文件中包含以下 JSON 作为起点：
+在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 Razor Pages 项目根目录。 在该文件中包含以下 JSON 作为起点：
 
 ::: moniker-end
 
@@ -174,13 +174,13 @@ bundleconfig.json 文件定义每个捆绑的选项。 在前面的示例中，�
 
 通过在与 package.json 相同的级别运行以下命令来安装依赖项：
 
-```console
+```bash
 npm i
 ```
 
 安装 Gulp CLI 作为全局依赖项：
 
-```console
+```bash
 npm i -g gulp-cli
 ```
 
@@ -190,9 +190,12 @@ npm i -g gulp-cli
 
 ### <a name="run-gulp-tasks"></a>运行 Gulp 任务
 
-若要在 Visual Studio 中生成项目之前触发 Gulp 缩小任务，请将以下 [MSBuild 目标](/visualstudio/msbuild/msbuild-targets)添加到 *.csproj 文件：
+若要在 Visual Studio 中生成项目之前触发 Gulp 缩小任务：
 
-[!code-xml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/BuildBundlerMinifierApp.csproj?range=14-16)]
+1. 安装 [BuildBundlerMinifier](https://www.nuget.org/packages/BuildBundlerMinifier) NuGet 包。
+1. 将以下 [MSBuild 目标](/visualstudio/msbuild/msbuild-targets)添加到项目文件：
+
+    [!code-xml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/BuildBundlerMinifierApp.csproj?range=14-16)]
 
 在此示例中，`MyPreCompileTarget` 目标内定义的所有任务在预定义的 `Build` 目标之前运行。 Visual Studio 的输出窗口中显示类似于以下内容的输出：
 

@@ -5,7 +5,7 @@ description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/15/2020
+ms.date: 07/27/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 828fb0ce5101407b6f40195138d59c335eec389f
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: b4199c3a99af5875c5d9a87f29f7c7e2758ffd71
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407666"
+ms.lasthandoff: 07/28/2020
+ms.locfileid: "87303555"
 ---
-# <a name="debug-aspnet-core-blazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
+# <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
 [Daniel Roth](https://github.com/danroth27)
 
@@ -105,19 +105,19 @@ ms.locfileid: "86407666"
 
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
-有关为 Blazor 应用开发安装 Visual Studio Code 的信息，请参阅 <xref:blazor/tooling>。
-
-### <a name="debug-standalone-blazor-webassembly"></a>调试独立 Blazor WebAssembly
+### <a name="debug-standalone-no-locblazor-webassembly"></a>调试独立 Blazor WebAssembly
 
 1. 在 VS Code 中打开独立 Blazor WebAssembly 应用。
 
-   如果收到下图所示的通知，指示还需要其他设置才能启用调试，请执行以下操作：
+   可能会收到以下指明还需要其他设置才能启用调试的通知：
    
-   * 确认已安装正确的扩展。
-   * 确认已启用 JavaScript 预览调试。
-   * 重载窗口。
-
    ![其他设置要求](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
+   
+   如果收到通知，请执行以下操作：
+
+   * 确认是否已安装最新的[适用于 Visual Studio Code 的 C# 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)。 若要检查是否已安装此扩展，请在菜单栏中依次打开“视图” > “扩展”，或选择“活动”边栏中的“扩展”图标。
+   * 确认已启用 JavaScript 预览调试。 在菜单栏中打开设置（依次选择“文件” > “首选项” > “设置”）。 使用关键字 `debug preview` 进行搜索。 在搜索结果中，确认是否已选中“调试”>“JavaScript:使用预览”复选框。
+   * 重载窗口。
 
 1. 使用 <kbd>F5</kbd> 键盘快捷方式或菜单项启动调试。
 
@@ -131,7 +131,7 @@ ms.locfileid: "86407666"
 
    ![VS Code 中的调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
 
-### <a name="debug-hosted-blazor-webassembly"></a>调试托管 Blazor WebAssembly
+### <a name="debug-hosted-no-locblazor-webassembly"></a>调试托管 Blazor WebAssembly
 
 1. 在 VS Code 中打开托管 Blazor WebAssembly 应用的“解决方案”文件夹。
 
@@ -177,7 +177,7 @@ ms.locfileid: "86407666"
 
 ### <a name="example-launch-configurations"></a>启动配置示例
 
-#### <a name="launch-and-debug-a-standalone-blazor-webassembly-app"></a>启动并调试独立 Blazor WebAssembly 应用
+#### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a>启动并调试独立 Blazor WebAssembly 应用
 
 ```json
 {
@@ -198,7 +198,7 @@ ms.locfileid: "86407666"
 }
 ```
 
-#### <a name="launch-and-debug-a-hosted-blazor-webassembly-app-with-microsoft-edge"></a>使用 Microsoft Edge 启动并调试托管 Blazor WebAssembly 应用
+#### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a>使用 Microsoft Edge 启动并调试托管 Blazor WebAssembly 应用
 
 浏览器默认配置为 Google Chrome。 使用 Microsoft Edge 进行调试时，将 `browser` 设置为 `edge`。 若要使用 Google Chrome，要么不要设置 `browser` 选项，要么将选项值设置为 `chrome`。
 
@@ -244,4 +244,4 @@ Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://c
 
 * 在“调试程序”选项卡中，在浏览器中打开开发人员工具。 在控制台中，执行 `localStorage.clear()` 以删除所有断点。
 * 确认你已安装并信任 ASP.NET Core HTTPS 开发证书。 有关详细信息，请参阅 <xref:security/enforcing-ssl#troubleshoot-certificate-problems>。
-* Visual Studio 要求在“工具” > “选项” > “调试” > “常规”中选择“对 ASP.NET 启用 JavaScript 调试(Chrome、Edge 和 IE)”选项。     这是 Visual Studio 的默认设置。 如果调试不起作用，请确认已选中该选项。
+* Visual Studio 要求在“工具” > “选项” > “调试” > “常规”中选择“对 ASP.NET 启用 JavaScript 调试(Chrome、Edge 和 IE)”选项。 这是 Visual Studio 的默认设置。 如果调试不起作用，请确认已选中该选项。
