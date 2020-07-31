@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/samples
-ms.openlocfilehash: 95915c28b132a1a48fb772b2663794754006627f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3e5e487adafc09d38400ea58936c5c2e8385e84f
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405349"
+ms.lasthandoff: 07/28/2020
+ms.locfileid: "87303594"
 ---
 # <a name="authentication-samples-for-aspnet-core"></a>ASP.NET Core 的身份验证示例
 
@@ -49,17 +49,17 @@ ms.locfileid: "85405349"
 
 [ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：
 
-* [声明转换](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/ClaimsTransformation)
-* [Cookie 身份验证](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/Cookies)
-* [自定义策略提供程序-IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)
-* [动态身份验证方案和选项](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/DynamicSchemes)
-* [外部声明](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/Identity.ExternalClaims)
-* [选择 cookie 和其他基于请求的身份验证方案](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/PathSchemeSelection)
-* [限制对静态文件的访问](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/StaticFilesAuth)
+* [声明转换](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/ClaimsTransformation)
+* [Cookie 身份验证](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)
+* [自定义策略提供程序-IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/CustomPolicyProvider)
+* [动态身份验证方案和选项](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/DynamicSchemes)
+* [外部声明](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Identity.ExternalClaims)
+* [选择 cookie 和其他基于请求的身份验证方案](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/PathSchemeSelection)
+* [限制对静态文件的访问](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/StaticFilesAuth)
 
 ## <a name="run-the-samples"></a>运行示例
 
-* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如： `release/2.2`
+* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如： `release/2.1`
 * 克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。
 * 验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)版本。
 * 导航到*AspNetCore/src/Security/samples*中的示例，并使用运行该示例 `dotnet run` 。

@@ -14,10 +14,10 @@ no-loc:
 - SignalR
 uid: security/authentication/identity
 ms.openlocfilehash: 25070e90050db9dca8b003ae782662811096526a
-ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2020
+ms.lasthandoff: 07/28/2020
 ms.locfileid: "87160299"
 ---
 # <a name="introduction-to-no-locidentity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
@@ -59,7 +59,7 @@ Identity通常使用 SQL Server 数据库配置以存储用户名、密码和配
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”  。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -293,7 +293,7 @@ Identity可以使用 SQL Server 数据库配置以存储用户名、密码和配
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”  。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
