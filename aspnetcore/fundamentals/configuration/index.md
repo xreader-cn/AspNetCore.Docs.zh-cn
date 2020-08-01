@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 6e47e627915bd8988d161f7d5af4a89f3671c0a7
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: a08993a7909d67be34446815b10d32089d9e0629
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445445"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444149"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -148,7 +148,7 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json：  
+测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json：
 
 * 使用 Visual Studio：退出并重启 Visual Studio。
 * 使用 CLI：启动新的命令窗口并输入 `dotnet run`。
@@ -322,7 +322,7 @@ dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 配置提供程序的典型顺序为：
 
 1. *appsettings.json*
-1. appsettings.`Environment`.json 
+1. appsettings.`Environment`.json
 1. [机密管理器](xref:security/app-secrets)
 1. 使用[环境变量配置提供程序](#evcp)通过环境变量提供。
 1. 使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。
@@ -675,7 +675,7 @@ Extensions/EntityFrameworkExtensions.cs：
 
 下面的代码演示如何在 Program.cs 中使用自定义的 `EFConfigurationProvider`：
 
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
+[!code-csharp[](index/samples_snippets/3.x/ConfigurationSample/Program.cs?highlight=7-8)]
 
 <a name="acs"></a>
 
@@ -687,7 +687,7 @@ Extensions/EntityFrameworkExtensions.cs：
 
 有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。
 
-## <a name="access-configuration-in-razor-pages"></a>访问 Razor Pages 中的配置
+## <a name="access-configuration-in-no-locrazor-pages"></a>访问 Razor Pages 中的配置
 
 以下代码显示 Razor Pages 中的配置数据：
 
@@ -949,7 +949,7 @@ public class HomeController : Controller
 
 配置提供程序的典型顺序为：
 
-1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境） 
+1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）
 1. [Azure 密钥保管库](xref:security/key-vault-configuration)
 1. [用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）
 1. 环境变量
@@ -1060,8 +1060,8 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 | 键前缀               | 示例                                                |
 | ------------------------ | ------------------------------------------------------ |
 | 无前缀                | `CommandLineKey1=value1`                               |
-| 双划线 (`--`)        | `--CommandLineKey2=value2`，`--CommandLineKey2 value2` |
-| 正斜杠 (`/`)      | `/CommandLineKey3=value3`，`/CommandLineKey3 value3`   |
+| 双划线 (`--`)        | `--CommandLineKey2=value2`, `--CommandLineKey2 value2` |
+| 正斜杠 (`/`)      | `/CommandLineKey3=value3`, `/CommandLineKey3 value3`   |
 
 在同一命令中，不要将使用等号的命令行参数键值对与使用空格的键值对混合使用。
 
@@ -1108,7 +1108,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 键       | “值”             |
+| 密钥       | 值             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1307,7 +1307,7 @@ key=value
 
 首先建立 JSON 配置提供程序。 因此，用户机密、环境变量和命令行参数会替代由 appsettings 文件设置的配置。
 
-构建主机时调用 `ConfigureAppConfiguration` 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置： 
+构建主机时调用 `ConfigureAppConfiguration` 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置：
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1685,7 +1685,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 键             | “值”  |
+| 密钥             | 值  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1708,7 +1708,7 @@ config.AddJsonFile(
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 键                     | “值”  |
+| 键                     | 值  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |
@@ -1799,7 +1799,7 @@ public class Startup
 
 有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。
 
-## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a>在 Razor Pages 页面或 MVC 视图中访问配置
+## <a name="access-configuration-in-a-no-locrazor-pages-page-or-mvc-view"></a>在 Razor Pages 页面或 MVC 视图中访问配置
 
 若要访问 Razor Pages 页面或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) 命名空间添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入该页面或视图。
 
