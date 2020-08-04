@@ -14,14 +14,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: e7e9bc76a2bba1c15b32c97f0f3629285f256499
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: bd9f991a2aba32cbbeb193ad422005f910e6795b
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568700"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444080"
 ---
-# <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 介绍
+# <a name="introduction-to-no-locrazor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 介绍
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -51,7 +51,7 @@ ms.locfileid: "86568700"
 
 <a name="rpvs17"></a>
 
-## <a name="create-a-razor-pages-project"></a>创建 Razor Pages 项目
+## <a name="create-a-no-locrazor-pages-project"></a>创建 Razor Pages 项目
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -67,7 +67,7 @@ ms.locfileid: "86568700"
 
 ---
 
-## <a name="razor-pages"></a>Razor Pages
+## <a name="no-locrazor-pages"></a>Razor Pages
 
 Startup.cs 中已启用 Razor 页面：
 
@@ -108,6 +108,8 @@ Pages/Index2.cshtml.cs 页面模型：
 由于 Razor Pages 的设计，在构建应用时可轻松实施用于 Web 浏览器的常用模式。 [模型绑定](xref:mvc/models/model-binding)、[标记帮助程序](xref:mvc/views/tag-helpers/intro)和 HTML 帮助程序均只可用于 Razor Page 类中定义的属性。 请参考为 `Contact` 模型实现的基本的“联系我们”窗体页面：
 
 在本文档中的示例中，`DbContext` 在 [Startup.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/razor-pages/index/3.0sample/RazorPagesContacts/Startup.cs#L23-L24) 文件中进行初始化。
+
+内存中数据库需要 `Microsoft.EntityFrameworkCore.InMemory` NuGet 包。
 
 [!code-csharp[](index/3.0sample/RazorPagesContacts/Startup.cs?name=snippet)]
 
@@ -169,7 +171,7 @@ Pages/Create.cshtml 中呈现的 HTML：
 
 * 对于有效数据：
 
-  * `OnPostAsync` 处理程序方法调用 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.RedirectToPage*> 帮助程序方法。 `RedirectToPage` 返回 <xref:Microsoft.AspNetCore.Mvc.RedirectToPageResult> 的实例。 `RedirectToPage`：
+  * `OnPostAsync` 处理程序方法调用 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.RedirectToPage*> 帮助程序方法。 `RedirectToPage` 返回 <xref:Microsoft.AspNetCore.Mvc.RedirectToPageResult> 的实例。 `RedirectToPage`:
 
     * 是操作结果。
     * 类似于 `RedirectToAction` 或 `RedirectToRoute`（用于控制器和视图）。
@@ -323,7 +325,7 @@ Edit.cshtml.cs 文件：
 
 ![带有多个 jQuery 客户端验证错误的电影视图表单](~/tutorials/razor-pages/validation/_static/val.png)
 
-有关详情，请参阅：
+有关详细信息，请参见:
 
 * [将验证添加到电影应用](xref:tutorials/razor-pages/validation)
 * [ASP.NET Core 中的模型验证](xref:mvc/models/validation).
@@ -340,13 +342,13 @@ Edit.cshtml.cs 文件：
 
 <a name="xsrf"></a>
 
-## <a name="xsrfcsrf-and-razor-pages"></a>XSRF/CSRF 和 Razor Pages
+## <a name="xsrfcsrf-and-no-locrazor-pages"></a>XSRF/CSRF 和 Razor Pages
 
 Razor Pages 由 [防伪造验证](xref:security/anti-request-forgery)保护。 [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) 将防伪造令牌注入 HTML 窗体元素。
 
 <a name="layout"></a>
 
-## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>将布局、分区、模板和标记帮助程序用于 Razor Pages
+## <a name="using-layouts-partials-templates-and-tag-helpers-with-no-locrazor-pages"></a>将布局、分区、模板和标记帮助程序用于 Razor Pages
 
 页面可使用 Razor 视图引擎的所有功能。 布局、分区、模板、标记帮助程序、_ViewStart.cshtml 和 _ViewImports.cshtml 的工作方式与它们在传统的 Razor 视图中的工作方式相同。
 
@@ -585,13 +587,13 @@ public string Message { get; set; }
 
 若要预编译视图，请参阅 [Razor 视图编译](xref:mvc/views/view-compilation)。
 
-### <a name="specify-that-razor-pages-are-at-the-content-root"></a>指定 Razor Pages 位于内容根目录中
+### <a name="specify-that-no-locrazor-pages-are-at-the-content-root"></a>指定 Razor Pages 位于内容根目录中
 
 默认情况下，Razor Pages 位于 /Pages 目录的根位置。 添加 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.WithRazorPagesAtContentRoot*> 以指定 Razor Pages 位于应用的[内容根](xref:fundamentals/index#content-root) (<xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath>)：
 
 [!code-csharp[](index/3.0sample/RazorPagesContacts/StartupWithRazorPagesAtContentRoot.cs?name=snippet)]
 
-### <a name="specify-that-razor-pages-are-at-a-custom-root-directory"></a>指定 Razor Pages 位于自定义根目录中
+### <a name="specify-that-no-locrazor-pages-are-at-a-custom-root-directory"></a>指定 Razor Pages 位于自定义根目录中
 
 添加 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuilderExtensions.WithRazorPagesRoot*>，以指定 Razor Pages 位于应用中自定义根目录位置（提供相对路径）：
 
@@ -642,7 +644,7 @@ Razor Pages 是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 <a name="rpvs17"></a>
 
-## <a name="create-a-razor-pages-project"></a>创建 Razor Pages 项目
+## <a name="create-a-no-locrazor-pages-project"></a>创建 Razor Pages 项目
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -660,7 +662,7 @@ Razor Pages 是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 ---
 
-## <a name="razor-pages"></a>Razor Pages
+## <a name="no-locrazor-pages"></a>Razor Pages
 
 Startup.cs 中已启用 Razor 页面：
 
@@ -860,13 +862,13 @@ services.AddMvc()
 
 <a name="xsrf"></a>
 
-## <a name="xsrfcsrf-and-razor-pages"></a>XSRF/CSRF 和 Razor Pages
+## <a name="xsrfcsrf-and-no-locrazor-pages"></a>XSRF/CSRF 和 Razor Pages
 
 无需为[防伪验证](xref:security/anti-request-forgery)编写任何代码。 Razor Pages 自动将防伪标记生成过程和验证过程包含在内。
 
 <a name="layout"></a>
 
-## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>将布局、分区、模板和标记帮助程序用于 Razor Pages
+## <a name="using-layouts-partials-templates-and-tag-helpers-with-no-locrazor-pages"></a>将布局、分区、模板和标记帮助程序用于 Razor Pages
 
 页面可使用 Razor 视图引擎的所有功能。 布局、分区、模板、标记帮助程序、_ViewStart.cshtml 和 _ViewImports.cshtml 的工作方式与它们在传统的 Razor 视图中的工作方式相同。
 
@@ -1094,7 +1096,7 @@ public string Message { get; set; }
 
 请参阅 [Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start)这篇文章以本文为基础撰写。
 
-### <a name="specify-that-razor-pages-are-at-the-content-root"></a>指定 Razor Pages 位于内容根目录中
+### <a name="specify-that-no-locrazor-pages-are-at-the-content-root"></a>指定 Razor Pages 位于内容根目录中
 
 默认情况下，Razor Pages 位于 /Pages 目录的根位置。 向 [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) 添加 [WithRazorPagesAtContentRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvcbuilderextensions.withrazorpagesatcontentroot)，以指定 Razor Pages 位于应用的[根目录](xref:fundamentals/index#content-root) ([ContentRootPath](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.contentrootpath))：
 
@@ -1107,7 +1109,7 @@ services.AddMvc()
     .WithRazorPagesAtContentRoot();
 ```
 
-### <a name="specify-that-razor-pages-are-at-a-custom-root-directory"></a>指定 Razor Pages 位于自定义根目录中
+### <a name="specify-that-no-locrazor-pages-are-at-a-custom-root-directory"></a>指定 Razor Pages 位于自定义根目录中
 
 向 [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) 添加 [WithRazorPagesRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvccorebuilderextensions.withrazorpagesroot)，以指定 Razor Pages 位于应用中的自定义根目录（提供相对路径）：
 
