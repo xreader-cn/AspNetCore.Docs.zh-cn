@@ -6,20 +6,20 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: a106654c8a37e84e9186a2f06d90605df753e8a7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: af151b65d3fefb5863529de1cd97c6315f11ca82
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405596"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444131"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -60,13 +60,13 @@ dotnet aspnet-codegenerator [-h|--help]
 
 要运行的代码生成器。 以下是可用的生成器：
 
-| Generator | 操作 |
-| ----------------- | ------------ | 
-| area      | [搭建区域的基架](/aspnet/core/mvc/controllers/areas) |
-  controller| [搭建控制器的基架](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  标识  | [构建 [Identity](/aspnet/core/security/authentication/scaffold-identity) |
-  razorpage | [构建 [Razor Pages](/aspnet/core/tutorials/razor-pages/model) |
-  查看      | [搭建视图的基架](/aspnet/core/mvc/views/overview) |
+| Generator  | 操作                                                            |
+| ---------- | -------------------------------------------------------------------- |
+| area       | [搭建区域的基架](xref:mvc/controllers/areas)                      |
+| controller | [搭建控制器的基架](xref:tutorials/first-mvc-app/adding-model)  |
+| 标识   | [构建 Identity](xref:security/authentication/scaffold-identity) |
+| razorpage  | [构建 Razor Pages](xref:tutorials/razor-pages/model)            |
+| 查看       | [搭建视图的基架](xref:mvc/views/overview)                          |
 
 ## <a name="options"></a>选项
 
@@ -104,7 +104,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 * 区域
 * 控制器
-* [Identity  
+* Identity  
 * Razorpage
 * 视图
 
@@ -112,7 +112,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ### <a name="area-options"></a>区域选项
 
-此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。 它不适用于 [Razor Pages 应用。
+此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。 它不适用于 Razor Pages 应用。
 
 用法：`dotnet aspnet-codegenerator area AreaNameToGenerate`
 
@@ -135,13 +135,13 @@ dotnet aspnet-codegenerator [-h|--help]
 
 下表列出了对于 `aspnet-codegenerator controller` 是唯一的选项：
 
-| 选项               | 描述|
-| ----------------- | ------------ |
-| --controllerName 或 -name | 控制器的名称。 |
-| --useAsyncActions 或 -async | 生成异步控制器操作。 |
-| --noViews 或 -nv | 不生成任何视图。 |
-| --restWithNoViews 或 -api  | 生成具有 REST 样式 API 的控制器。 假设 `noViews` 并且忽略任何与视图相关的选项。 |
-| --readWriteActions 或 -actions | 不使用模型生成具有读/写操作的控制器。 |
+| 选项                         | 描述                                                                                               |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| --controllerName 或 -name      | 控制器的名称。                                                                                   |
+| --useAsyncActions 或 -async    | 生成异步控制器操作。                                                                        |
+| --noViews 或 -nv               | 不生成任何视图。                                                                                    |
+| --restWithNoViews 或 -api      | 生成具有 REST 样式 API 的控制器。 假设 `noViews` 并且忽略任何与视图相关的选项。 |
+| --readWriteActions 或 -actions | 不使用模型生成具有读/写操作的控制器。                                              |
 
 使用 `-h` 开关获取 `aspnet-codegenerator controller` 命令方面的帮助：
 
@@ -149,13 +149,13 @@ dotnet aspnet-codegenerator [-h|--help]
 dotnet aspnet-codegenerator controller -h
 ```
 
-请参阅[搭建 movie 模型的基架](/aspnet/core/tutorials/razor-pages/model)，查看 `dotnet aspnet-codegenerator controller` 示例。
+请参阅[搭建 movie 模型的基架](xref:tutorials/first-mvc-app/adding-model)，查看 `dotnet aspnet-codegenerator controller` 示例。
 
-### <a name="razorpage"></a>Razorpage
+### <a name="no-locrazorpage"></a>Razorpage
 
 <a name="rp"></a>
 
-可以通过指定新页面的名称和要使用的模板来单独搭建 [Razor Pages 的基架。 支持如下模板：
+可以通过指定新页面的名称和要使用的模板来单独搭建 Razor Pages 的基架。 支持如下模板：
 
 * `Empty`
 * `Create`
@@ -184,11 +184,11 @@ dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieCo
 
 下表列出了对于 `aspnet-codegenerator razorpage` 是唯一的选项：
 
-| 选项               | 描述|
-| ----------------- | ------------ |
-|   --namespaceName 或 -namespace | 用于生成的 PageModel 的命名空间的名称 |
-| --partialView 或 -partial | 生成分部视图。 如果指定此选项，将忽略布局选项 -l 和 -udl。 |
-| --noPageModel 或 -npm | 切换为不针对 Empty 模板生成 PageModel 类 |
+| 选项                        | 描述                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------- |
+| --namespaceName 或 -namespace | 用于生成的 PageModel 的命名空间的名称                          |
+| --partialView 或 -partial     | 生成分部视图。 如果指定此选项，将忽略布局选项 -l 和 -udl。 |
+| --noPageModel 或 -npm         | 切换为不针对 Empty 模板生成 PageModel 类                           |
 
 使用 `-h` 开关获取 `aspnet-codegenerator razorpage` 命令方面的帮助：
 
@@ -196,8 +196,8 @@ dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieCo
 dotnet aspnet-codegenerator razorpage -h
 ```
 
-请参阅[搭建 movie 模型的基架](/aspnet/core/tutorials/razor-pages/model)，查看 `dotnet aspnet-codegenerator razorpage` 示例。
+请参阅[搭建 movie 模型的基架](xref:tutorials/razor-pages/model)，查看 `dotnet aspnet-codegenerator razorpage` 示例。
 
-### [Identity
+### Identity
 
-请参阅[基架[Identity](/aspnet/core/security/authentication/scaffold-identity)
+请参阅[基架Identity](xref:security/authentication/scaffold-identity)
