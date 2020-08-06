@@ -1,7 +1,7 @@
 ---
 title: ASP.NET Core 中的多重身份验证
 author: damienbod
-description: 了解如何在 ASP.NET Core 的应用程序中设置多重身份验证（MFA）。
+description: 了解如何在 ASP.NET Core 应用中 (MFA) 设置多重身份验证。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: rick-anderson
 ms.custom: mvc
@@ -15,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/mfa
-ms.openlocfilehash: cb7d63aa2f04b0c53fd403dfa6e4885b2d94da0b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1ab6e5802e177aeaf77584838feea09a7ff79db7
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408989"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819173"
 ---
 # <a name="multi-factor-authentication-in-aspnet-core"></a>ASP.NET Core 中的多重身份验证
 
 作者： [Damien Bowden](https://github.com/damienbod)
 
-多重身份验证（MFA）是一种过程，在此过程中，用户在登录事件期间请求进行其他形式的标识。 此提示可以是输入手机中的代码，使用 FIDO2 键，或提供指纹扫描。 当你需要另一种形式的身份验证时，安全性得到了增强。 攻击者无法轻松获取或复制额外的因素。
+多重身份验证 (MFA) 是在登录事件期间请求用户执行其他形式的标识的过程。 此提示可以是输入手机中的代码，使用 FIDO2 键，或提供指纹扫描。 当你需要另一种形式的身份验证时，安全性得到了增强。 攻击者无法轻松获取或复制额外的因素。
 
 本文涵盖以下几个方面：
 
@@ -39,9 +39,9 @@ ms.locfileid: "85408989"
 
 MFA 至少需要两种或更多类型的身份验证，如你知道的东西、你拥有的内容或对用户进行身份验证的生物识别验证。
 
-双因素身份验证（2FA）与 MFA 的子集相似，但不同之处在于，MFA 可能需要两个或多个因素来证明身份。
+双因素身份验证 (2FA) 类似于 MFA 的子集，但不同之处在于，MFA 可能需要两个或多个因素来证明身份。
 
-### <a name="mfa-totp-time-based-one-time-password-algorithm"></a>MFA TOTP （基于时间的一次性密码算法）
+### <a name="mfa-totp-time-based-one-time-password-algorithm"></a>MFA TOTP (基于时间的一次性密码算法) 
 
 使用 TOTP 的 MFA 是受支持的实现，它使用 ASP.NET Core Identity 。 这可以与任何兼容的验证器应用一起使用，包括：
 
@@ -65,11 +65,11 @@ Azure Active Directory 提供对 FIDO2 和无密码流的支持。 有关详细�
 
 ### <a name="mfa-sms"></a>MFA 短信
 
-与密码身份验证（单个因素）相比，与 SMS 的 MFA 增加了高度的安全性。 但是，不再建议使用短信作为第二个因素。 此类型的实现存在太多已知攻击媒介。
+与密码身份验证相比，具有短信的 MFA 增加了高度的安全性 (单个因素) 。 但是，不再建议使用短信作为第二个因素。 此类型的实现存在太多已知攻击媒介。
 
 [NIST 指导原则](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
-## <a name="configure-mfa-for-administration-pages-using-aspnet-core-identity"></a>使用 ASP.NET Core 为管理页配置 MFAIdentity
+## <a name="configure-mfa-for-administration-pages-using-aspnet-core-no-locidentity"></a>使用 ASP.NET Core 为管理页配置 MFAIdentity
 
 可以强制用户在 ASP.NET Core 应用中访问敏感页面 Identity 。 对于不同标识存在不同级别访问权限的应用，这可能很有用。 例如，用户可以使用密码登录名查看配置文件数据，但管理员需要使用 MFA 来访问管理页面。
 
@@ -220,7 +220,7 @@ services.AddAuthorization(options =>
 @inject IAuthorizationService AuthorizationService
 ```
 
-如果标识已使用 MFA 登录，则会显示 "**管理**" 菜单而不显示工具提示警告。 如果用户已登录而没有 MFA，则会显示 "**管理员（未启用）** " 菜单以及通知用户的工具提示（说明警告）。
+如果标识已使用 MFA 登录，则会显示 "**管理**" 菜单而不显示工具提示警告。 如果用户登录时未启用 MFA，将显示 "**管理员 (未启用") **菜单与工具提示一起显示，通知用户 (解释警告) 。
 
 ```cshtml
 @if (SignInManager.IsSignedIn(User))
@@ -259,11 +259,11 @@ services.AddAuthorization(options =>
 `acr_values`参数可用于 `mfa` 在身份验证请求中将所需的值从客户端传递到服务器。
 
 > [!NOTE]
-> `acr_values`需要在 OPEN ID Connect 服务器上处理参数，此参数才有效。
+> `acr_values`需要在 OpenID connect 服务器上处理参数，此参数才有效。
 
 ### <a name="openid-connect-aspnet-core-client"></a>OpenID Connect ASP.NET Core 客户端
 
-ASP.NET Core Razor 页面打开 Id connect 客户端应用使用 `AddOpenIdConnect` 方法登录到 Open ID connect 服务器。 `acr_values`参数设置为 `mfa` 值，并随身份验证请求一起发送。 `OpenIdConnectEvents`用于添加此。
+ASP.NET Core Razor 页面 OpenID connect 客户端应用使用 `AddOpenIdConnect` 方法登录到 OpenID connect 服务器。 `acr_values`参数设置为 `mfa` 值，并随身份验证请求一起发送。 `OpenIdConnectEvents`用于添加此。
 
 有关推荐的 `acr_values` 参数值，请参阅[身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08)。
 
@@ -302,7 +302,7 @@ public void ConfigureServices(IServiceCollection services)
     });
 ```
 
-### <a name="example-openid-connect-identityserver-4-server-with-aspnet-core-identity"></a>示例 OpenID Connect IdentityServer 4 server 与 ASP.NET CoreIdentity
+### <a name="example-openid-connect-no-locidentityserver-4-server-with-aspnet-core-no-locidentity"></a>示例 OpenID Connect Identity server 4 server 与 ASP.NET CoreIdentity
 
 在使用 ASP.NET Core 和 MVC 视图实现的 OpenID Connect 服务器上 Identity ，将创建一个名为*ErrorEnable2FA*的新视图。 视图：
 
@@ -325,7 +325,7 @@ You can enable MFA to login here:
 <a asp-controller="Manage" asp-action="TwoFactorAuthentication">Enable MFA</a>
 ```
 
-在 `Login` 方法中， `IIdentityServerInteractionService` 接口实现 `_interaction` 用于访问 Open ID Connect 请求参数。 `acr_values`使用属性访问参数 `AcrValues` 。 当客户端通过集发送此时 `mfa` ，可以检查此情况。
+在 `Login` 方法中， `IIdentityServerInteractionService` 接口实现 `_interaction` 用于访问 OpenID connect 请求参数。 `acr_values`使用属性访问参数 `AcrValues` 。 当客户端通过集发送此时 `mfa` ，可以检查此情况。
 
 如果需要 MFA，并且 ASP.NET Core 中的用户 Identity 启用了 mfa，则登录将继续。 如果用户未启用 MFA，则会将用户重定向到自定义视图*ErrorEnable2FA*。 然后 ASP.NET Core Identity 在中对用户进行签名。
 
@@ -352,7 +352,7 @@ public async Task<IActionResult> Login(LoginInputModel model)
     // code omitted for brevity
 ```
 
-`ExternalLoginCallback`方法的工作方式类似于 Identity 本地登录。 将 `AcrValues` 检查该属性的 `mfa` 值。 如果 `mfa` 值存在，则在登录完成之前强制执行 MFA （例如，重定向到 `ErrorEnable2FA` 视图）。
+`ExternalLoginCallback`方法的工作方式类似于 Identity 本地登录。 将 `AcrValues` 检查该属性的 `mfa` 值。 如果 `mfa` 值存在，则在登录完成之前强制执行 MFA (例如，重定向到) 的 `ErrorEnable2FA` 视图。
 
 ```csharp
 //
@@ -429,9 +429,9 @@ namespace AspNetCoreRequireMfaOidc
 
 `AuthorizationHandler`实现，它将使用 `amr` 声明并检查值 `mfa` 。 `amr`在 `id_token` 身份验证成功的中返回，并且可以有多个不同的值，如[身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08)规范中所定义。
 
-返回的值取决于身份如何进行身份验证以及打开 ID 连接服务器实现。
+返回的值取决于标识身份验证的方式，以及 OpenID Connect 服务器实现上的身份验证方式。
 
-`AuthorizationHandler`使用 `RequireMfa` 要求并验证 `amr` 声明。 OpenID Connect 服务器可以通过使用 IdentityServer4 和 ASP.NET Core 来实现 Identity 。 当用户使用 TOTP 登录时，将 `amr` 使用 MFA 值返回声明。 如果使用不同的 OpenID Connect 服务器实现或不同的 MFA 类型，则 `amr` 声明或可以具有不同的值。 要接受此代码，还必须对代码进行扩展。
+`AuthorizationHandler`使用 `RequireMfa` 要求并验证 `amr` 声明。 OpenID Connect 服务器可以通过使用 Identity 服务器4和 ASP.NET Core 来实现 Identity 。 当用户使用 TOTP 登录时，将 `amr` 使用 MFA 值返回声明。 如果使用不同的 OpenID Connect 服务器实现或不同的 MFA 类型，则 `amr` 声明或可以具有不同的值。 要接受此代码，还必须对代码进行扩展。
 
 ```csharp
 using Microsoft.AspNetCore.Authorization;
@@ -559,9 +559,9 @@ You require MFA to login here
 <a href="https://localhost:44352/Manage/TwoFactorAuthentication">Enable MFA</a>
 ```
 
-现在只有通过 MFA 进行身份验证的用户才能访问该页面或网站。 如果使用不同的 MFA 类型，或2FA 为正常，则 `amr` 声明将具有不同的值，并且需要正确处理。 不同的打开 ID 连接服务器也会为此声明返回不同的值，并且可能不遵循[身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08)规范。
+现在只有通过 MFA 进行身份验证的用户才能访问该页面或网站。 如果使用不同的 MFA 类型，或2FA 为正常，则 `amr` 声明将具有不同的值，并且需要正确处理。 不同的 OpenID Connect 服务器还为此声明返回不同的值，并且可能不遵循[身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08)规范。
 
-在没有 MFA 的情况下登录时（例如只使用密码）：
+如果不使用 MFA 登录 (例如，只使用密码) ：
 
 * `amr`具有 `pwd` 值：
 

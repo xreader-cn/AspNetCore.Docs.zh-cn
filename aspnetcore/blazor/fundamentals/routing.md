@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: 4f85c4a9803482f39446dda599f10829c9879f27
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: f7110688a7a03dd0cf533fa5f9759af3363169f8
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407757"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818932"
 ---
-# <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
+# <a name="aspnet-core-no-locblazor-routing"></a>ASP.NET Core Blazor 路由
 
 作者：[Luke Latham](https://github.com/guardrex)
 
@@ -43,7 +43,7 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件可实现到具有指定路由的每个组件的路由。 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件出现在 `App.razor` 文件中：
 
 ```razor
-<Router AppAssembly="typeof(Startup).Assembly">
+<Router AppAssembly="@typeof(Startup).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
@@ -100,7 +100,7 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 
 ```razor
 <Router
-    AppAssembly="typeof(Program).Assembly"
+    AppAssembly="@typeof(Program).Assembly"
     AdditionalAssemblies="new[] { typeof(Component1).Assembly }">
     ...
 </Router>
@@ -144,14 +144,14 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 
 | 约束 | 示例           | 匹配项示例                                                                  | 固定条件<br>区域性<br>匹配 |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`，`FALSE`                                                                  | 否                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`，`2016-12-31 7:32pm`                                                | 是                              |
-| `decimal`  | `{price:decimal}` | `49.99`，`-1,000.01`                                                             | 是                              |
-| `double`   | `{weight:double}` | `1.234`，`-1,001.01e8`                                                           | 是                              |
-| `float`    | `{weight:float}`  | `1.234`，`-1,001.01e8`                                                           | 是                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 否                               |
-| `int`      | `{id:int}`        | `123456789`，`-123456789`                                                        | 是                              |
-| `long`     | `{ticks:long}`    | `123456789`，`-123456789`                                                        | 是                              |
+| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | 否                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | 是                              |
+| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | 是                              |
+| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | 是                              |
+| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | 是                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 否                               |
+| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | 是                              |
+| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | 是                              |
 
 > [!WARNING]
 > 验证 URL 的路由约束并将转换为始终使用固定区域性的 CLR 类型（例如 `int` 或 <xref:System.DateTime>）。 这些约束假定 URL 不可本地化。

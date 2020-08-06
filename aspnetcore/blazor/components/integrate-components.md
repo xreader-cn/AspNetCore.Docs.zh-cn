@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
-ms.openlocfilehash: 6aef51a0f8bf4ec2e7cb6115856bc465a90ec2ee
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: a28c43ed68adb7af9c30f7ae62872811361d8f9c
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059840"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819088"
 ---
-# <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
+# <a name="integrate-aspnet-core-no-locrazor-components-into-no-locrazor-pages-and-mvc-apps"></a>将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
@@ -86,7 +86,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 1. 将组件集成到任何页面或视图。 有关详细信息，请参阅[从页面或视图呈现组件](#render-components-from-a-page-or-view)部分。
 
-## <a name="use-routable-components-in-a-razor-pages-app"></a>在 Razor Pages 应用中使用可路由组件
+## <a name="use-routable-components-in-a-no-locrazor-pages-app"></a>在 Razor Pages 应用中使用可路由组件
 
 本部分介绍如何添加可直接从用户请求路由的组件。
 
@@ -99,7 +99,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
 
-   <Router AppAssembly="typeof(Program).Assembly">
+   <Router AppAssembly="@typeof(Program).Assembly">
        <Found Context="routeData">
            <RouteView RouteData="routeData" />
        </Found>
@@ -174,7 +174,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
 
-   <Router AppAssembly="typeof(Program).Assembly">
+   <Router AppAssembly="@typeof(Program).Assembly">
        <Found Context="routeData">
            <RouteView RouteData="routeData" />
        </Found>
