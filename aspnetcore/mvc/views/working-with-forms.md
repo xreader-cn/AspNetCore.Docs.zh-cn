@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 7a92f2b5bc791f268b897878db08a9f9f4f7bf0c
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 833939417c4973c61eca4d41aaeabe7856680190
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212407"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913864"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -81,7 +81,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 
 用于控制 `formaction` 值的受支持的 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 属性：
 
-|属性|说明|
+|Attribute|描述|
 |---|---|
 |[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|控制器的名称。|
 |[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|操作方法的名称。|
@@ -89,7 +89,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 |[asp-page](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|页的名称 Razor 。|
 |[asp-page-handler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Razor页面处理程序的名称。|
 |[asp-route](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|路由的名称。|
-|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|单个 URL 路由值。 例如，`asp-route-id="1234"`。|
+|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|单个 URL 路由值。 例如 `asp-route-id="1234"`。|
 |[asp-all-route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|所有路由值。|
 |[asp-fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|URL 片段。|
 
@@ -191,23 +191,23 @@ public class HomeController : Controller
 
 * 提供强类型化。 如果属性的名称更改，但未更新标记帮助程序，则会收到类似如下内容的错误：
 
-```
-An error occurred during the compilation of a resource required to process
-this request. Please review the following specific error details and modify
-your source code appropriately.
+  ```
+  An error occurred during the compilation of a resource required to process
+  this request. Please review the following specific error details and modify
+  your source code appropriately.
 
-Type expected
- 'RegisterViewModel' does not contain a definition for 'Email' and no
- extension method 'Email' accepting a first argument of type 'RegisterViewModel'
- could be found (are you missing a using directive or an assembly reference?)
-```
+  Type expected
+   'RegisterViewModel' does not contain a definition for 'Email' and no
+   extension method 'Email' accepting a first argument of type 'RegisterViewModel'
+   could be found (are you missing a using directive or an assembly reference?)
+  ```
 
 `Input` 标记帮助程序根据 .NET 类型设置 HTML `type` 属性。 下表列出一些常见的 .NET 类型和生成的 HTML 类型（并未列出每个 .NET 类型）。
 
 |.NET 类型|输入类型|
 |---|---|
 |Bool|type="checkbox"|
-|字符串|type="text"|
+|String|type="text"|
 |DateTime|type=["datetime-local"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
 |Byte|type="number"|
 |int|type="number"|
@@ -215,7 +215,7 @@ Type expected
 
 下表显示输入标记帮助程序会映射到特定输入类型的一些常见[数据注释](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)属性（并未列出每个验证属性）：
 
-|属性|输入类型|
+|Attribute|输入类型|
 |---|---|
 |[EmailAddress]|type="email"|
 |[Url]|type="url"|
@@ -461,7 +461,7 @@ public IActionResult Edit(int id, int colorIndex)
 |asp-validation-summary|显示的验证消息|
 |--- |--- |
 |ValidationSummary.All|属性和模型级别|
-|ValidationSummary.ModelOnly|型号|
+|ValidationSummary.ModelOnly|模型|
 |ValidationSummary.None|无|
 
 ### <a name="sample"></a>示例

@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/introduction
-ms.openlocfilehash: 60cf659c720012d05bb2a6f1433c18d347469462
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: bf41d5a756c988b239824c19ef7a9d177a93a4a1
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399525"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913821"
 ---
 # <a name="aspnet-core-data-protection"></a>ASP.NET Core 数据保护
 
@@ -31,7 +31,7 @@ ASP.NET Core 的数据保护堆栈旨在充当 &lt; ASP.NET 1.x-4.x 中 machineK
 
 整体问题声明可在一个句子中简单地表述：我需要保存可信信息供以后检索，但不信任持久性机制。 在 web 术语中，这可能被编写为 "我需要通过不受信任的客户端往返的受信任状态。"
 
-此规范的典型示例是身份验证 cookie 或持有者令牌。 服务器生成一个 "I Groot" 和 "xyz 权限" 令牌并将其交给客户端。 在将来的某个日期，客户端会将该令牌提供给服务器，但服务器需要某种形式的保证，那就是客户端未伪造令牌。 因此，第一要求：真实性（也称为 完整性，防篡改。
+此规范的典型示例是身份验证 cookie 或持有者令牌。 服务器生成一个 "I Groot" 和 "xyz 权限" 令牌并将其交给客户端。 在将来的某个日期，客户端会将该令牌提供给服务器，但服务器需要某种形式的保证，那就是客户端未伪造令牌。 因此，第一个要求是 (也称为 完整性、防篡改) 。
 
 由于持久状态受服务器信任，因此我们预计此状态可能包含特定于操作环境的信息。 这可能是文件路径、权限、句柄或其他间接引用的形式，也可能是其他特定于服务器的数据的形式。 此类信息通常不会泄露给不受信任的客户端。 因此，第二个要求：保密性。
 
@@ -43,7 +43,7 @@ ASP.NET Core 的数据保护堆栈旨在充当 &lt; ASP.NET 1.x-4.x 中 machineK
 
 首先，我们要找出现有堆栈的问题。 完成这一工作后，我们调查了现有解决方案的前景，并最终找不到现有解决方案。 然后，基于多个指导原则对解决方案进行了设计。
 
-* 系统应简化配置。 理想情况下，系统将是零配置，开发人员可以在运行。 在开发人员需要配置特定方面（如密钥存储库）的情况下，应考虑将这些特定的配置简化。
+* 系统应简化配置。 理想情况下，系统将是零配置，开发人员可以在运行。 当开发人员需要配置特定的方面 (例如密钥存储库) 时，应考虑将这些特定的配置简化。
 
 * 提供简单的面向用户的 API。 Api 应易于使用，并且难以正确使用。
 
@@ -53,7 +53,7 @@ ASP.NET Core 的数据保护堆栈旨在充当 &lt; ASP.NET 1.x-4.x 中 machineK
 
 考虑到这些原则，我们开发了简单[易用](xref:security/data-protection/using-data-protection)的数据保护堆栈。
 
-ASP.NET Core 的数据保护 Api 主要用于机密负载的无限持久性。 其他技术（如[WINDOWS CNG DPAPI](https://msdn.microsoft.com/library/windows/desktop/hh706794%28v=vs.85%29.aspx)和[Azure Rights Management](/rights-management/) ）更适用于无限存储的情况，并且具有相应的强大密钥管理功能。 也就是说，不会阻止开发人员使用 ASP.NET Core 的数据保护 Api 来长期保护机密数据。
+ASP.NET Core 的数据保护 Api 主要用于机密负载的无限持久性。 其他技术（如[WINDOWS CNG DPAPI](/windows/win32/seccng/cng-dpapi)和[Azure Rights Management](/rights-management/) ）更适用于无限存储的情况，并且具有相应的强大密钥管理功能。 也就是说，不会阻止开发人员使用 ASP.NET Core 的数据保护 Api 来长期保护机密数据。
 
 ## <a name="audience"></a>目标受众
 
@@ -75,11 +75,11 @@ ASP.NET Core 的数据保护 Api 主要用于机密负载的无限持久性。 �
 
 数据保护堆栈包含5个包。
 
-* [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/)包含 <xref:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider> <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 用于创建数据保护服务的和接口。 它还包含用于处理这些类型的有用扩展方法（例如[IDataProtector](xref:Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Protect*)）。 如果数据保护系统在其他位置进行了实例化，而你使用的是 API，请参考 `Microsoft.AspNetCore.DataProtection.Abstractions` 。
+* [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/)包含 <xref:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider> <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 用于创建数据保护服务的和接口。 它还包含用于处理这些类型的有用扩展方法 (例如[IDataProtector](xref:Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Protect*)) 。 如果数据保护系统在其他位置进行了实例化，而你使用的是 API，请参考 `Microsoft.AspNetCore.DataProtection.Abstractions` 。
 
-* [AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/)包含数据保护系统的核心实现，包括核心加密操作、密钥管理、配置和扩展性。 若要实例化数据保护系统（例如，将其添加到 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> ）或修改或扩展其行为，请参考 `Microsoft.AspNetCore.DataProtection` 。
+* [AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/)包含数据保护系统的核心实现，包括核心加密操作、密钥管理、配置和扩展性。 若要实例化数据保护系统 (例如，将其添加到 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>) 或修改或扩展其行为，引用 `Microsoft.AspNetCore.DataProtection` 。
 
-* [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)包含开发人员可能会发现但不属于核心包的其他 api。 例如，此包包含实例化数据保护系统的工厂方法，用于将密钥存储在文件系统上的某个位置，而无需注入依赖项（请参见 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider> ）。 它还包含用于限制受保护负载的生存期的扩展方法（请参见 <xref:Microsoft.AspNetCore.DataProtection.ITimeLimitedDataProtector> ）。
+* [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)包含开发人员可能会发现但不属于核心包的其他 api。 例如，此包包含实例化数据保护系统的工厂方法，用于将密钥存储在文件系统上的某个位置，而无需进行依赖关系注入 (请参阅 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider>) 。 它还包含用于限制受保护负载的生存期的扩展方法 (参阅 <xref:Microsoft.AspNetCore.DataProtection.ITimeLimitedDataProtector>) 。
 
 * [Microsoft.AspNetCore.DataProtection.Sys](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.SystemWeb/)可以将 temWeb 安装到现有的 ASP.NET 4.x 应用程序中，以将其操作重定向 `<machineKey>` 为使用新的 ASP.NET Core 数据保护堆栈。 有关详细信息，请参阅 <xref:security/data-protection/compatibility/replacing-machinekey>。
 

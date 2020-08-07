@@ -14,20 +14,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/dangerous-unprotect
-ms.openlocfilehash: a0b5bb29c509e8cc999b998776da3ab4ec27ec29
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 55a7ec4052b3ab47d5ff41bbce3fc3f9662f609c
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408391"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913852"
 ---
 # <a name="unprotect-payloads-whose-keys-have-been-revoked-in-aspnet-core"></a>取消保护已在 ASP.NET Core 中吊销其密钥的负载
 
 <a name="data-protection-consumer-apis-dangerous-unprotect"></a>
 
-ASP.NET Core 的数据保护 Api 主要用于机密负载的无限持久性。 其他技术（如[WINDOWS CNG DPAPI](https://msdn.microsoft.com/library/windows/desktop/hh706794%28v=vs.85%29.aspx)和[Azure Rights Management](/rights-management/) ）更适用于无限存储的情况，并且具有相应的强大密钥管理功能。 也就是说，不会阻止开发人员使用 ASP.NET Core 的数据保护 Api 来长期保护机密数据。 密钥永远不会从密钥环中删除，因此， `IDataProtector.Unprotect` 只要密钥可用且有效，就可以始终恢复现有有效负载。
+ASP.NET Core 的数据保护 Api 主要用于机密负载的无限持久性。 其他技术（如[WINDOWS CNG DPAPI](/windows/win32/seccng/cng-dpapi)和[Azure Rights Management](/rights-management/) ）更适用于无限存储的情况，并且具有相应的强大密钥管理功能。 也就是说，不会阻止开发人员使用 ASP.NET Core 的数据保护 Api 来长期保护机密数据。 密钥永远不会从密钥环中删除，因此， `IDataProtector.Unprotect` 只要密钥可用且有效，就可以始终恢复现有有效负载。
 
-但是，当开发人员尝试取消保护已被吊销密钥保护的数据时，会出现问题， `IDataProtector.Unprotect` 这种情况下会引发异常。 这对于短期或暂时性负载（例如身份验证令牌）可能很合适，因为系统可以轻松地重新创建这种类型的负载，并且在最糟糕的情况下，站点访问者可能需要再次登录。 但对于持久化有效负载， `Unprotect` 引发 throw 可能导致数据丢失不可接受。
+但是，当开发人员尝试取消保护已被吊销密钥保护的数据时，会出现问题， `IDataProtector.Unprotect` 这种情况下会引发异常。 这可能适用于短期或暂时性负载 (例如身份验证令牌) ，因为系统可以轻松地重新创建这种类型的负载，并且在最糟糕的情况下，站点访问者可能需要再次登录。 但对于持久化有效负载， `Unprotect` 引发 throw 可能导致数据丢失不可接受。
 
 ## <a name="ipersisteddataprotector"></a>IPersistedDataProtector
 
@@ -43,7 +43,7 @@ DangerousUnprotect(byte[] protectedData, bool ignoreRevocationErrors,
      out bool requiresMigration, out bool wasRevoked) : byte[]
 ```
 
-此 API 获取受保护的负载（作为字节数组）并返回未受保护的负载。 没有基于字符串的重载。 这两个 out 参数如下所示。
+此 API 使用受保护的负载 (作为字节数组) 并返回未受保护的负载。 没有基于字符串的重载。 这两个 out 参数如下所示。
 
 * `requiresMigration`：如果用于保护此有效负载的密钥不再是活动的默认密钥，则将设置为 true，例如，用于保护此有效负载的密钥是旧的，并且已发生密钥滚动操作。 调用方可能需要考虑根据其业务需求重新保护负载。
 
