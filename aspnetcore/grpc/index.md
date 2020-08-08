@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/20/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/index
-ms.openlocfilehash: 9f3a2041059c1d890ce72ce5f2a88151253d9bd9
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d21d808181d44b4c7e800df61ec1f3accdb58539
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404179"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016097"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>.NET Core 上的 gRPC 的简介
 
@@ -64,7 +66,7 @@ message HelloReply {
 通过在项目中包含 \*.proto** 文件，可以自动生成用于服务、客户端和消息的 .NET 类型：
 
 * 将包引用添加到 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包。
-* 将 \*.proto** 文件添加到 `<Protobuf>` 项目组。
+* 将 \*.proto 文件添加到 `<Protobuf>` 项目组。
 
 ```xml
 <ItemGroup>
@@ -115,7 +117,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="call-grpc-services-with-a-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
-gRPC 客户端是从 [\*.proto** 文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto** 文件中 gRPC 服务的方法。
+gRPC 客户端是从 [\*.proto  文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto  文件中 gRPC 服务的方法。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");

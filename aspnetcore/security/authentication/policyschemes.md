@@ -5,6 +5,8 @@ description: 使用身份验证策略方案，可以更轻松地创建一个逻�
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,16 +15,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/policyschemes
-ms.openlocfilehash: a8bde9633f06f41ebcb55480eb2322544db4b4da
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ddee613bf9c603542f17adf59a835a2ddbdc25a3
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408755"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017800"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>ASP.NET Core 中的策略方案
 
-使用身份验证策略方案，可以更方便地使用多种方法。 例如，策略方案可能使用 Google 身份验证，并对其他所有内容使用 cookie 身份验证。 身份验证策略方案：
+使用身份验证策略方案，可以更方便地使用多种方法。 例如，策略方案可能会使用 Google 身份验证，并对 cookie 其他所有内容进行身份验证。 身份验证策略方案：
 
 * 可以轻松地将任何身份验证操作转发到另一个方案。
 * 根据请求动态转发。
@@ -36,7 +38,7 @@ ms.locfileid: "85408755"
 
 ## <a name="examples"></a>示例
 
-下面的示例演示了结合较低级别方案的更高级别的方案。 Google 身份验证用于质询，cookie 身份验证用于所有其他操作：
+下面的示例演示了结合较低级别方案的更高级别的方案。 Google 身份验证用于质询，而 cookie 身份验证用于所有其他操作：
 
 [!code-csharp[sample](policyschemes/samples/Startup.cs?name=snippet1)]
 

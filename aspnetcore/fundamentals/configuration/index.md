@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 9f143523a6d02ac018ad2a869cc9d768ee25681f
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: 2352bbaa3c4123cd588609e22b65cd9e268f5637
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87819258"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017657"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -356,6 +358,8 @@ dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 | `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | 键：`ConnectionStrings:{KEY}_ProviderName`：<br>值：`System.Data.SqlClient`  |
 | `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | 键：`ConnectionStrings:{KEY}_ProviderName`：<br>值：`System.Data.SqlClient`  |
 
+<a name="fcp"></a>
+
 ## <a name="file-configuration-provider"></a>文件配置提供程序
 
 <xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> 是从文件系统加载配置的基类。 以下配置提供程序派生自 `FileConfigurationProvider`：
@@ -425,8 +429,6 @@ dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
-
-<a name="fcp"></a>
 
 ### <a name="xml-configuration-provider"></a>XML 配置提供程序
 
@@ -1108,7 +1110,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 密钥       | 值             |
+| 密钥       | “值”             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1685,7 +1687,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 密钥             | 值  |
+| 密钥             | “值”  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1708,7 +1710,7 @@ config.AddJsonFile(
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 键                     | 值  |
+| 键                     | “值”  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |

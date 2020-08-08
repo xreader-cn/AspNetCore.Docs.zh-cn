@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 静态数据保护密钥加密的实现细节�
 ms.author: riande
 ms.date: 07/16/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-encryption-at-rest
-ms.openlocfilehash: eaa855d48437f80ab912780205530843a9c56476
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6e767c5a34f8bf4c512147e7966f7e2c363c57c5
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399694"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018411"
 ---
 # <a name="key-encryption-at-rest-in-windows-and-azure-using-aspnet-core"></a>Windows 和 Azure 中的静态密钥加密使用 ASP.NET Core
 
@@ -50,7 +52,7 @@ public void ConfigureServices(IServiceCollection services)
 
 **仅适用于 Windows 部署。**
 
-使用 Windows DPAPI 时，将使用[CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata)对密钥材料进行加密，然后将其保存到存储中。 DPAPI 是一种适用于从不在当前计算机之外读取的数据的适当加密机制（尽管可以将这些密钥备份到 Active Directory; 请参阅[DPAPI 和漫游配置文件](https://support.microsoft.com/kb/309408/#6)）。 若要配置 DPAPI 静态密钥加密，请调用[ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi)扩展方法之一：
+使用 Windows DPAPI 时，将使用[CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata)对密钥材料进行加密，然后将其保存到存储中。 DPAPI 是一种适用于当前计算机之外从不读取的数据的适当加密机制 (不过，可以将这些密钥上移到 Active Directory;请参阅[DPAPI 和漫游配置文件](https://support.microsoft.com/kb/309408/#6)) 。 若要配置 DPAPI 静态密钥加密，请调用[ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi)扩展方法之一：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -61,7 +63,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如果 `ProtectKeysWithDpapi` 在没有参数的情况下调用，则只有当前的 Windows 用户帐户才能解密持久化密钥环。 您可以选择指定计算机上的任何用户帐户（而不只是当前用户帐户）能够破译密钥环：
+如果 `ProtectKeysWithDpapi` 在没有参数的情况下调用，则只有当前的 Windows 用户帐户才能解密持久化密钥环。 您可以选择指定计算机上的任何用户帐户 (不只是当前用户帐户，) 能够破译密钥环：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -94,7 +96,7 @@ public void ConfigureServices(IServiceCollection services)
 
 **此机制仅在 Windows 8/Windows Server 2012 或更高版本上可用。**
 
-从 Windows 8 开始，Windows OS 支持 DPAPI-NG （也称为 CNG DPAPI）。 有关详细信息，请参阅[关于 CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi)。
+从 Windows 8 开始，Windows OS 支持 DPAPI-NG (也称为 CNG DPAPI) 。 有关详细信息，请参阅[关于 CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi)。
 
 主体编码为保护描述符规则。 在以下调用[ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping)的示例中，只有具有指定 SID 的已加入域的用户才能解密密钥环：
 
@@ -119,7 +121,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-在此方案中，AD 域控制器负责分发由 DPAPI-NG 操作使用的加密密钥。 目标用户可以从任何已加入域的计算机（前提是进程在其标识下运行）解密已加密的有效负载。
+在此方案中，AD 域控制器负责分发由 DPAPI-NG 操作使用的加密密钥。 如果进程在其标识) 下运行，则目标用户可以通过任何已加入域的计算机来解密已加密的有效负载 (。
 
 ## <a name="certificate-based-encryption-with-windows-dpapi-ng"></a>基于证书的加密和 Windows DPAPI-NG
 

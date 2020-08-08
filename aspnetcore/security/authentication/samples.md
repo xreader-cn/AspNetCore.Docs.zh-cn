@@ -5,6 +5,8 @@ description: 提供指向 ASP.NET Core 存储库中的身份验证示例的链�
 ms.author: riande
 ms.date: 01/31/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/samples
-ms.openlocfilehash: 3e5e487adafc09d38400ea58936c5c2e8385e84f
-ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
+ms.openlocfilehash: 71e614eb3d91e8425ec430d775b8a0163dc7258f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/28/2020
-ms.locfileid: "87303594"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017787"
 ---
 # <a name="authentication-samples-for-aspnet-core"></a>ASP.NET Core 的身份验证示例
 
@@ -29,11 +31,11 @@ ms.locfileid: "87303594"
 [ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：
 
 * [声明转换](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/ClaimsTransformation)
-* [Cookie 身份验证](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Cookies)
+* [Cookie验证](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Cookies)
 * [自定义策略提供程序-IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/CustomPolicyProvider)
 * [动态身份验证方案和选项](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/DynamicSchemes)
 * [外部声明](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Identity.ExternalClaims)
-* [选择 cookie 和其他基于请求的身份验证方案](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/PathSchemeSelection)
+* [cookie基于请求选择和其他身份验证方案](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/PathSchemeSelection)
 * [限制对静态文件的访问](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/StaticFilesAuth)
 
 ## <a name="run-the-samples"></a>运行示例
@@ -50,11 +52,11 @@ ms.locfileid: "87303594"
 [ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：
 
 * [声明转换](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/ClaimsTransformation)
-* [Cookie 身份验证](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)
+* [Cookie验证](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)
 * [自定义策略提供程序-IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/CustomPolicyProvider)
 * [动态身份验证方案和选项](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/DynamicSchemes)
 * [外部声明](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Identity.ExternalClaims)
-* [选择 cookie 和其他基于请求的身份验证方案](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/PathSchemeSelection)
+* [cookie基于请求选择和其他身份验证方案](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/PathSchemeSelection)
 * [限制对静态文件的访问](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/StaticFilesAuth)
 
 ## <a name="run-the-samples"></a>运行示例

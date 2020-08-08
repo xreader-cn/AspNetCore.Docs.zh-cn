@@ -5,6 +5,8 @@ description: 了解如何在 ASP.NET Core 数据保护 Api 中使用目的字符
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/purpose-strings
-ms.openlocfilehash: b52961fd33ce2d3708754f73ea38456d8d5f8f3c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 33139f6e5e36aed2cb54738fbd2487969844edc7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404283"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018398"
 ---
 # <a name="purpose-strings-in-aspnet-core"></a>ASP.NET Core 中的用途字符串
 
@@ -54,9 +56,9 @@ ms.locfileid: "85404283"
 
 * 对于给定的 `IDataProtectionProvider` 对象， `CreateProtector` 方法会创建一个 `IDataProtector` 唯一绑定到 `IDataProtectionProvider` 创建它的对象和传递到该方法的用途参数的对象。
 
-* 用途参数不得为 null。 （如果将目的指定为数组，这意味着数组的长度不能为零，且数组的所有元素都必须为非 null。）在技术上允许空字符串目的，但不建议使用。
+* 用途参数不得为 null。  (如果将目的指定为数组，这意味着数组的长度不能为零，且数组的所有元素都必须为非 null。 ) 在技术上允许空字符串目的，但不鼓励这样做。
 
-* 当且仅当它们包含相同的字符串（使用序号比较器）时，两个用途参数等效。 单个用途参数等效于相应的单元素用途数组。
+* 当且仅当它们包含相同的字符串 (按相同顺序) 使用序号比较器时，两个用途参数相等。 单个用途参数等效于相应的单元素用途数组。
 
 * `IDataProtector`如果和的对象是从 `IDataProtectionProvider` 具有等效目的参数的等效对象创建的，则这两个对象是等效的。
 

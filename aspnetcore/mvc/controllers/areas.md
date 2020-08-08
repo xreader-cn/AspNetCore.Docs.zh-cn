@@ -5,6 +5,8 @@ description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的
 ms.author: riande
 ms.date: 03/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/areas
-ms.openlocfilehash: f4471f54e92b940ecb0eabab82f03e0c77a0509f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: af765eebfa8bfd147bd3b721508b5794d15d64a7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406402"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018437"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -64,7 +66,7 @@ ms.locfileid: "85406402"
 * 项目名称
   * Areas
     * 产品
-      * Controllers
+      * 控制器
         * HomeController.cs
         * ManageController.cs
       * 视图
@@ -74,7 +76,7 @@ ms.locfileid: "85406402"
           * Index.cshtml
           * About.cshtml
     * 服务
-      * Controllers
+      * 控制器
         * HomeController.cs
       * 视图
         * 主页
@@ -162,24 +164,24 @@ ms.locfileid: "85406402"
 
 <a name="arp"></a>
 
-## <a name="areas-with-razor-pages"></a>包含页面的区域 Razor
+## <a name="areas-with-no-locrazor-pages"></a>包含页面的区域 Razor
 
 包含页面的区域 Razor `Areas/<area name>/Pages` 在应用的根目录中需要一个文件夹。 以下文件夹结构用于[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples)：
 
 * 项目名称
   * Areas
     * 产品
-      * Pages
+      * 页数
         * _ViewImports
         * 关于
         * 索引
     * 服务
-      * Pages
+      * 页数
         * 管理
           * 关于
           * 索引
 
-### <a name="link-generation-with-razor-pages-and-areas"></a>与 Razor 页面和区域一起生成链接
+### <a name="link-generation-with-no-locrazor-pages-and-areas"></a>与 Razor 页面和区域一起生成链接
 
 [示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas)中的以下代码显示指定区域（例如 `asp-area="Products"`）的链接生成：
 
@@ -222,7 +224,7 @@ ms.locfileid: "85406402"
 
 有关详细信息，请参阅[管理标记帮助程序范围](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope)和[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。
 
-### <a name="shared-layout-for-razor-pages-areas"></a>页面区域的共享布局 Razor
+### <a name="shared-layout-for-no-locrazor-pages-areas"></a>页面区域的共享布局 Razor
 
 要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹**。
 
@@ -266,7 +268,7 @@ ms.locfileid: "85406402"
 * 项目名称
   * Areas
     * 产品
-      * Controllers
+      * 控制器
         * HomeController.cs
         * ManageController.cs
       * 视图
@@ -276,7 +278,7 @@ ms.locfileid: "85406402"
           * Index.cshtml
           * About.cshtml
     * 服务
-      * Controllers
+      * 控制器
         * HomeController.cs
       * 视图
         * 主页
@@ -349,24 +351,24 @@ ms.locfileid: "85406402"
 
 <a name="arp"></a>
 
-## <a name="areas-with-razor-pages"></a>包含页面的区域 Razor
+## <a name="areas-with-no-locrazor-pages"></a>包含页面的区域 Razor
 
 包含页面的区域 Razor `Areas/<area name>/Pages` 在应用的根目录中需要一个文件夹。 以下文件夹结构用于[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)：
 
 * 项目名称
   * Areas
     * 产品
-      * Pages
+      * 页数
         * _ViewImports
         * 关于
         * 索引
     * 服务
-      * Pages
+      * 页数
         * 管理
           * 关于
           * 索引
 
-### <a name="link-generation-with-razor-pages-and-areas"></a>与 Razor 页面和区域一起生成链接
+### <a name="link-generation-with-no-locrazor-pages-and-areas"></a>与 Razor 页面和区域一起生成链接
 
 [示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas)中的以下代码显示指定区域（例如 `asp-area="Products"`）的链接生成：
 
@@ -411,7 +413,7 @@ ms.locfileid: "85406402"
 
 有关详细信息，请参阅[管理标记帮助程序范围](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope)和[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。
 
-### <a name="shared-layout-for-razor-pages-areas"></a>页面区域的共享布局 Razor
+### <a name="shared-layout-for-no-locrazor-pages-areas"></a>页面区域的共享布局 Razor
 
 要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹**。
 

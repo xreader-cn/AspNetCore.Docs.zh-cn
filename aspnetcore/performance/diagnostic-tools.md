@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 04/11/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/diagnostic-tools
-ms.openlocfilehash: 631dedddecfe3b443e38c6f5a1a182f98c79f0ad
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 53c613b208c142e1323e593d0c57a42de3150621
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399590"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018060"
 ---
 # <a name="performance-diagnostic-tools"></a>性能诊断工具
 
@@ -65,13 +67,13 @@ Application Insights 可用于各种环境：
 
 ## <a name="windows-performance-toolkit"></a>Windows 性能工具包
 
-[Windows 性能工具包](/windows-hardware/test/wpt/)（WPT）由两个组件组成： Windows 性能记录器（"）和 Windows 性能分析器（WPA）。 这些工具会生成 Windows 操作系统和应用的深入性能配置文件。 WPT 提供了更丰富的数据可视化方法，但其数据收集功能不如 PerfView。
+[Windows 性能工具包](/windows-hardware/test/wpt/) (WPT) 包含两个组件： Windows 性能记录器 (") 和 Windows 性能分析器 (WPA) 。 这些工具会生成 Windows 操作系统和应用的深入性能配置文件。 WPT 提供了更丰富的数据可视化方法，但其数据收集功能不如 PerfView。
 
 ## <a name="perfcollect"></a>PerfCollect
 
 尽管 PerfView 是适用于 .NET 方案的有用性能分析工具，但它仅在 Windows 上运行，因此不能使用它从 Linux 环境中运行的 ASP.NET Core 应用程序收集跟踪。
 
-[PerfCollect](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)是一个 bash 脚本，它使用本机 Linux 分析工具（[Perf](https://perf.wiki.kernel.org/index.php/Main_Page)和[LTTng](https://lttng.org/)）在 Linux 上收集可由 PerfView 分析的跟踪。 当在不能直接使用 PerfView 的 Linux 环境中出现性能问题时，PerfCollect 非常有用。 相反，PerfCollect 可以从 .NET Core 应用收集跟踪，然后使用 PerfView 在 Windows 计算机上进行分析。
+[PerfCollect](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)是一种 bash 脚本，它使用本机 Linux 分析工具 ([Perf](https://perf.wiki.kernel.org/index.php/Main_Page)和[LTTng](https://lttng.org/)) 收集 Linux 上可通过 PerfView 分析的跟踪。 当在不能直接使用 PerfView 的 Linux 环境中出现性能问题时，PerfCollect 非常有用。 相反，PerfCollect 可以从 .NET Core 应用收集跟踪，然后使用 PerfView 在 Windows 计算机上进行分析。
 
 [GitHub 上](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)提供了有关如何安装和开始使用 PerfCollect 的详细信息。
 
