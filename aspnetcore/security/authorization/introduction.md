@@ -5,6 +5,8 @@ description: 了解授权基础知识和授权在 ASP.NET Core 应用中的工�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,29 +15,29 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/introduction
-ms.openlocfilehash: b0d6c91adfb5dc273aeb662cb2c249626ef1d3c6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 215c61b034abf530010b7beeb58100a1ff0e8eb3
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405427"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022116"
 ---
-# <a name="introduction-to-authorization-in-aspnet-core"></a><span data-ttu-id="ef1df-103">ASP.NET Core 中的授权简介</span><span class="sxs-lookup"><span data-stu-id="ef1df-103">Introduction to authorization in ASP.NET Core</span></span>
+# <a name="introduction-to-authorization-in-aspnet-core"></a><span data-ttu-id="6bacd-103">ASP.NET Core 中的授权简介</span><span class="sxs-lookup"><span data-stu-id="6bacd-103">Introduction to authorization in ASP.NET Core</span></span>
 
 <a name="security-authorization-introduction"></a>
 
-<span data-ttu-id="ef1df-104">授权是指确定用户可执行的操作的过程。</span><span class="sxs-lookup"><span data-stu-id="ef1df-104">Authorization refers to the process that determines what a user is able to do.</span></span> <span data-ttu-id="ef1df-105">例如，允许管理用户创建文档库、添加文档、编辑文档和删除文档。</span><span class="sxs-lookup"><span data-stu-id="ef1df-105">For example, an administrative user is allowed to create a document library, add documents, edit documents, and delete them.</span></span> <span data-ttu-id="ef1df-106">使用库的非管理用户仅获得读取文档的权限。</span><span class="sxs-lookup"><span data-stu-id="ef1df-106">A non-administrative user working with the library is only authorized to read the documents.</span></span>
+<span data-ttu-id="6bacd-104">授权是指确定用户可执行的操作的过程。</span><span class="sxs-lookup"><span data-stu-id="6bacd-104">Authorization refers to the process that determines what a user is able to do.</span></span> <span data-ttu-id="6bacd-105">例如，允许管理用户创建文档库、添加文档、编辑文档和删除文档。</span><span class="sxs-lookup"><span data-stu-id="6bacd-105">For example, an administrative user is allowed to create a document library, add documents, edit documents, and delete them.</span></span> <span data-ttu-id="6bacd-106">使用库的非管理用户仅获得读取文档的权限。</span><span class="sxs-lookup"><span data-stu-id="6bacd-106">A non-administrative user working with the library is only authorized to read the documents.</span></span>
 
-<span data-ttu-id="ef1df-107">授权与身份验证相互独立。</span><span class="sxs-lookup"><span data-stu-id="ef1df-107">Authorization is orthogonal and independent from authentication.</span></span> <span data-ttu-id="ef1df-108">但是，授权需要一种身份验证机制。</span><span class="sxs-lookup"><span data-stu-id="ef1df-108">However, authorization requires an authentication mechanism.</span></span> <span data-ttu-id="ef1df-109">身份验证是认定用户的过程。</span><span class="sxs-lookup"><span data-stu-id="ef1df-109">Authentication is the process of ascertaining who a user is.</span></span> <span data-ttu-id="ef1df-110">身份验证可为当前用户创建一个或多个标识。</span><span class="sxs-lookup"><span data-stu-id="ef1df-110">Authentication may create one or more identities for the current user.</span></span>
+<span data-ttu-id="6bacd-107">授权与身份验证相互独立。</span><span class="sxs-lookup"><span data-stu-id="6bacd-107">Authorization is orthogonal and independent from authentication.</span></span> <span data-ttu-id="6bacd-108">但是，授权需要一种身份验证机制。</span><span class="sxs-lookup"><span data-stu-id="6bacd-108">However, authorization requires an authentication mechanism.</span></span> <span data-ttu-id="6bacd-109">身份验证是认定用户的过程。</span><span class="sxs-lookup"><span data-stu-id="6bacd-109">Authentication is the process of ascertaining who a user is.</span></span> <span data-ttu-id="6bacd-110">身份验证可为当前用户创建一个或多个标识。</span><span class="sxs-lookup"><span data-stu-id="6bacd-110">Authentication may create one or more identities for the current user.</span></span>
 
-<span data-ttu-id="ef1df-111">有关 ASP.NET Core 中的身份验证的详细信息，请参阅 <xref:security/authentication/index> 。</span><span class="sxs-lookup"><span data-stu-id="ef1df-111">For more information about authentication in ASP.NET Core, see <xref:security/authentication/index>.</span></span>
+<span data-ttu-id="6bacd-111">有关 ASP.NET Core 中的身份验证的详细信息，请参阅 <xref:security/authentication/index> 。</span><span class="sxs-lookup"><span data-stu-id="6bacd-111">For more information about authentication in ASP.NET Core, see <xref:security/authentication/index>.</span></span>
 
-## <a name="authorization-types"></a><span data-ttu-id="ef1df-112">授权类型</span><span class="sxs-lookup"><span data-stu-id="ef1df-112">Authorization types</span></span>
+## <a name="authorization-types"></a><span data-ttu-id="6bacd-112">授权类型</span><span class="sxs-lookup"><span data-stu-id="6bacd-112">Authorization types</span></span>
 
-<span data-ttu-id="ef1df-113">ASP.NET Core 授权提供简单的声明性[角色](xref:security/authorization/roles)和[基于策略](xref:security/authorization/policies)的丰富模型。</span><span class="sxs-lookup"><span data-stu-id="ef1df-113">ASP.NET Core authorization provides a simple, declarative [role](xref:security/authorization/roles) and a rich [policy-based](xref:security/authorization/policies) model.</span></span> <span data-ttu-id="ef1df-114">授权在要求中表示，而处理程序根据要求评估用户的声明。</span><span class="sxs-lookup"><span data-stu-id="ef1df-114">Authorization is expressed in requirements, and handlers evaluate a user's claims against requirements.</span></span> <span data-ttu-id="ef1df-115">命令式检查可以基于简单的策略或策略，这些策略可评估用户尝试访问的资源的用户标识和属性。</span><span class="sxs-lookup"><span data-stu-id="ef1df-115">Imperative checks can be based on simple policies or policies which evaluate both the user identity and properties of the resource that the user is attempting to access.</span></span>
+<span data-ttu-id="6bacd-113">ASP.NET Core 授权提供简单的声明性[角色](xref:security/authorization/roles)和[基于策略](xref:security/authorization/policies)的丰富模型。</span><span class="sxs-lookup"><span data-stu-id="6bacd-113">ASP.NET Core authorization provides a simple, declarative [role](xref:security/authorization/roles) and a rich [policy-based](xref:security/authorization/policies) model.</span></span> <span data-ttu-id="6bacd-114">授权在要求中表示，而处理程序根据要求评估用户的声明。</span><span class="sxs-lookup"><span data-stu-id="6bacd-114">Authorization is expressed in requirements, and handlers evaluate a user's claims against requirements.</span></span> <span data-ttu-id="6bacd-115">命令式检查可以基于简单的策略或策略，这些策略可评估用户尝试访问的资源的用户标识和属性。</span><span class="sxs-lookup"><span data-stu-id="6bacd-115">Imperative checks can be based on simple policies or policies which evaluate both the user identity and properties of the resource that the user is attempting to access.</span></span>
 
-## <a name="namespaces"></a><span data-ttu-id="ef1df-116">命名空间</span><span class="sxs-lookup"><span data-stu-id="ef1df-116">Namespaces</span></span>
+## <a name="namespaces"></a><span data-ttu-id="6bacd-116">命名空间</span><span class="sxs-lookup"><span data-stu-id="6bacd-116">Namespaces</span></span>
 
-<span data-ttu-id="ef1df-117">`AuthorizeAttribute` `AllowAnonymousAttribute` 可在命名空间中找到授权组件，包括和属性 `Microsoft.AspNetCore.Authorization` 。</span><span class="sxs-lookup"><span data-stu-id="ef1df-117">Authorization components, including the `AuthorizeAttribute` and `AllowAnonymousAttribute` attributes, are found in the `Microsoft.AspNetCore.Authorization` namespace.</span></span>
+<span data-ttu-id="6bacd-117">`AuthorizeAttribute` `AllowAnonymousAttribute` 可在命名空间中找到授权组件，包括和属性 `Microsoft.AspNetCore.Authorization` 。</span><span class="sxs-lookup"><span data-stu-id="6bacd-117">Authorization components, including the `AuthorizeAttribute` and `AllowAnonymousAttribute` attributes, are found in the `Microsoft.AspNetCore.Authorization` namespace.</span></span>
 
-<span data-ttu-id="ef1df-118">请查阅有关[简单授权](xref:security/authorization/simple)的文档。</span><span class="sxs-lookup"><span data-stu-id="ef1df-118">Consult the documentation on [simple authorization](xref:security/authorization/simple).</span></span>
+<span data-ttu-id="6bacd-118">请查阅有关[简单授权](xref:security/authorization/simple)的文档。</span><span class="sxs-lookup"><span data-stu-id="6bacd-118">Consult the documentation on [simple authorization](xref:security/authorization/simple).</span></span>

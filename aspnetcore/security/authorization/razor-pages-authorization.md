@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,121 +17,121 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/razor-pages-authorization
-ms.openlocfilehash: 0f4022e46993c6a957d3d0c133b3db56fa650edc
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: 5e0c76ea6c6b4af8e24693b1bfe8ac28bf2ce3a9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568816"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022272"
 ---
-# <a name="razor-pages-authorization-conventions-in-aspnet-core"></a>Razor<span data-ttu-id="0b693-103">页面中的授权约定 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="0b693-103"> Pages authorization conventions in ASP.NET Core</span></span>
+# <a name="no-locrazor-pages-authorization-conventions-in-aspnet-core"></a><span data-ttu-id="43bd0-103">Razor页面中的授权约定 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="43bd0-103">Razor Pages authorization conventions in ASP.NET Core</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="0b693-104">在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。</span><span class="sxs-lookup"><span data-stu-id="0b693-104">One way to control access in your Razor Pages app is to use authorization conventions at startup.</span></span> <span data-ttu-id="0b693-105">这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。</span><span class="sxs-lookup"><span data-stu-id="0b693-105">These conventions allow you to authorize users and allow anonymous users to access individual pages or folders of pages.</span></span> <span data-ttu-id="0b693-106">本主题中所述的约定会自动应用[授权筛选器](xref:mvc/controllers/filters#authorization-filters)来控制访问权限。</span><span class="sxs-lookup"><span data-stu-id="0b693-106">The conventions described in this topic automatically apply [authorization filters](xref:mvc/controllers/filters#authorization-filters) to control access.</span></span>
+<span data-ttu-id="43bd0-104">在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。</span><span class="sxs-lookup"><span data-stu-id="43bd0-104">One way to control access in your Razor Pages app is to use authorization conventions at startup.</span></span> <span data-ttu-id="43bd0-105">这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。</span><span class="sxs-lookup"><span data-stu-id="43bd0-105">These conventions allow you to authorize users and allow anonymous users to access individual pages or folders of pages.</span></span> <span data-ttu-id="43bd0-106">本主题中所述的约定会自动应用[授权筛选器](xref:mvc/controllers/filters#authorization-filters)来控制访问权限。</span><span class="sxs-lookup"><span data-stu-id="43bd0-106">The conventions described in this topic automatically apply [authorization filters](xref:mvc/controllers/filters#authorization-filters) to control access.</span></span>
 
-<span data-ttu-id="0b693-107">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="0b693-107">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="43bd0-107">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="43bd0-107">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="0b693-108">示例应用使用[cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。</span><span class="sxs-lookup"><span data-stu-id="0b693-108">The sample app uses [cookie authentication without ASP.NET Core Identity](xref:security/authentication/cookie).</span></span> <span data-ttu-id="0b693-109">本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。</span><span class="sxs-lookup"><span data-stu-id="0b693-109">The concepts and examples shown in this topic apply equally to apps that use ASP.NET Core Identity.</span></span> <span data-ttu-id="0b693-110">若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。</span><span class="sxs-lookup"><span data-stu-id="0b693-110">To use ASP.NET Core Identity, follow the guidance in <xref:security/authentication/identity>.</span></span>
+<span data-ttu-id="43bd0-108">示例应用使用[ cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。</span><span class="sxs-lookup"><span data-stu-id="43bd0-108">The sample app uses [cookie authentication without ASP.NET Core Identity](xref:security/authentication/cookie).</span></span> <span data-ttu-id="43bd0-109">本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。</span><span class="sxs-lookup"><span data-stu-id="43bd0-109">The concepts and examples shown in this topic apply equally to apps that use ASP.NET Core Identity.</span></span> <span data-ttu-id="43bd0-110">若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。</span><span class="sxs-lookup"><span data-stu-id="43bd0-110">To use ASP.NET Core Identity, follow the guidance in <xref:security/authentication/identity>.</span></span>
 
-## <a name="require-authorization-to-access-a-page"></a><span data-ttu-id="0b693-111">需要授权才能访问页面</span><span class="sxs-lookup"><span data-stu-id="0b693-111">Require authorization to access a page</span></span>
+## <a name="require-authorization-to-access-a-page"></a><span data-ttu-id="43bd0-111">需要授权才能访问页面</span><span class="sxs-lookup"><span data-stu-id="43bd0-111">Require authorization to access a page</span></span>
 
-<span data-ttu-id="0b693-112">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到页面中的指定路径：</span><span class="sxs-lookup"><span data-stu-id="0b693-112">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the page at the specified path:</span></span>
+<span data-ttu-id="43bd0-112">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到页面中的指定路径：</span><span class="sxs-lookup"><span data-stu-id="43bd0-112">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the page at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=3)]
 
-<span data-ttu-id="0b693-113">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="0b693-113">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
+<span data-ttu-id="43bd0-113">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="43bd0-113">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
 
-<span data-ttu-id="0b693-114">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-114">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizePage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*):</span></span>
+<span data-ttu-id="43bd0-114">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-114">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizePage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizePage("/Contact", "AtLeast21");
 ```
 
 > [!NOTE]
-> <span data-ttu-id="0b693-115"><xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。</span><span class="sxs-lookup"><span data-stu-id="0b693-115">An <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> can be applied to a page model class with the `[Authorize]` filter attribute.</span></span> <span data-ttu-id="0b693-116">有关详细信息，请参阅[授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。</span><span class="sxs-lookup"><span data-stu-id="0b693-116">For more information, see [Authorize filter attribute](xref:razor-pages/filter#authorize-filter-attribute).</span></span>
+> <span data-ttu-id="43bd0-115"><xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。</span><span class="sxs-lookup"><span data-stu-id="43bd0-115">An <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> can be applied to a page model class with the `[Authorize]` filter attribute.</span></span> <span data-ttu-id="43bd0-116">有关详细信息，请参阅[授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。</span><span class="sxs-lookup"><span data-stu-id="43bd0-116">For more information, see [Authorize filter attribute](xref:razor-pages/filter#authorize-filter-attribute).</span></span>
 
-## <a name="require-authorization-to-access-a-folder-of-pages"></a><span data-ttu-id="0b693-117">需要授权才能访问页的文件夹</span><span class="sxs-lookup"><span data-stu-id="0b693-117">Require authorization to access a folder of pages</span></span>
+## <a name="require-authorization-to-access-a-folder-of-pages"></a><span data-ttu-id="43bd0-117">需要授权才能访问页的文件夹</span><span class="sxs-lookup"><span data-stu-id="43bd0-117">Require authorization to access a folder of pages</span></span>
 
-<span data-ttu-id="0b693-118">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-118">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the pages in a folder at the specified path:</span></span>
+<span data-ttu-id="43bd0-118">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-118">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the pages in a folder at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=4)]
 
-<span data-ttu-id="0b693-119">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="0b693-119">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
+<span data-ttu-id="43bd0-119">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="43bd0-119">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
 
-<span data-ttu-id="0b693-120">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-120">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*):</span></span>
+<span data-ttu-id="43bd0-120">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-120">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizeFolder("/Private", "AtLeast21");
 ```
 
-## <a name="require-authorization-to-access-an-area-page"></a><span data-ttu-id="0b693-121">需要授权才能访问区域页</span><span class="sxs-lookup"><span data-stu-id="0b693-121">Require authorization to access an area page</span></span>
+## <a name="require-authorization-to-access-an-area-page"></a><span data-ttu-id="43bd0-121">需要授权才能访问区域页</span><span class="sxs-lookup"><span data-stu-id="43bd0-121">Require authorization to access an area page</span></span>
 
-<span data-ttu-id="0b693-122">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到指定路径处的区域页：</span><span class="sxs-lookup"><span data-stu-id="0b693-122">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the area page at the specified path:</span></span>
+<span data-ttu-id="43bd0-122">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到指定路径处的区域页：</span><span class="sxs-lookup"><span data-stu-id="43bd0-122">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the area page at the specified path:</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts");
 ```
 
-<span data-ttu-id="0b693-123">页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。</span><span class="sxs-lookup"><span data-stu-id="0b693-123">The page name is the path of the file without an extension relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="0b693-124">例如，文件*区域/ Identity /Pages/Manage/Accounts.cshtml*的页面名称为 */Manage/Accounts*。</span><span class="sxs-lookup"><span data-stu-id="0b693-124">For example, the page name for the file *Areas/Identity/Pages/Manage/Accounts.cshtml* is */Manage/Accounts*.</span></span>
+<span data-ttu-id="43bd0-123">页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。</span><span class="sxs-lookup"><span data-stu-id="43bd0-123">The page name is the path of the file without an extension relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="43bd0-124">例如，文件*区域/ Identity /Pages/Manage/Accounts.cshtml*的页面名称为 */Manage/Accounts*。</span><span class="sxs-lookup"><span data-stu-id="43bd0-124">For example, the page name for the file *Areas/Identity/Pages/Manage/Accounts.cshtml* is */Manage/Accounts*.</span></span>
 
-<span data-ttu-id="0b693-125">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-125">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaPage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*):</span></span>
+<span data-ttu-id="43bd0-125">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-125">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaPage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts", "AtLeast21");
 ```
 
-## <a name="require-authorization-to-access-a-folder-of-areas"></a><span data-ttu-id="0b693-126">需要授权才能访问区域文件夹</span><span class="sxs-lookup"><span data-stu-id="0b693-126">Require authorization to access a folder of areas</span></span>
+## <a name="require-authorization-to-access-a-folder-of-areas"></a><span data-ttu-id="43bd0-126">需要授权才能访问区域文件夹</span><span class="sxs-lookup"><span data-stu-id="43bd0-126">Require authorization to access a folder of areas</span></span>
 
-<span data-ttu-id="0b693-127">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有区域：</span><span class="sxs-lookup"><span data-stu-id="0b693-127">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the areas in a folder at the specified path:</span></span>
+<span data-ttu-id="43bd0-127">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有区域：</span><span class="sxs-lookup"><span data-stu-id="43bd0-127">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the areas in a folder at the specified path:</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
 ```
 
-<span data-ttu-id="0b693-128">文件夹路径是文件夹相对于指定区域的页面根目录的路径。</span><span class="sxs-lookup"><span data-stu-id="0b693-128">The folder path is the path of the folder relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="0b693-129">例如，*区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。</span><span class="sxs-lookup"><span data-stu-id="0b693-129">For example, the folder path for the files under *Areas/Identity/Pages/Manage/* is */Manage*.</span></span>
+<span data-ttu-id="43bd0-128">文件夹路径是文件夹相对于指定区域的页面根目录的路径。</span><span class="sxs-lookup"><span data-stu-id="43bd0-128">The folder path is the path of the folder relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="43bd0-129">例如，*区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。</span><span class="sxs-lookup"><span data-stu-id="43bd0-129">For example, the folder path for the files under *Areas/Identity/Pages/Manage/* is */Manage*.</span></span>
 
-<span data-ttu-id="0b693-130">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-130">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*):</span></span>
+<span data-ttu-id="43bd0-130">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-130">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
 ```
 
-## <a name="allow-anonymous-access-to-a-page"></a><span data-ttu-id="0b693-131">允许匿名访问页面</span><span class="sxs-lookup"><span data-stu-id="0b693-131">Allow anonymous access to a page</span></span>
+## <a name="allow-anonymous-access-to-a-page"></a><span data-ttu-id="43bd0-131">允许匿名访问页面</span><span class="sxs-lookup"><span data-stu-id="43bd0-131">Allow anonymous access to a page</span></span>
 
-<span data-ttu-id="0b693-132">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到位于指定路径的页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-132">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to a page at the specified path:</span></span>
+<span data-ttu-id="43bd0-132">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到位于指定路径的页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-132">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to a page at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=5)]
 
-<span data-ttu-id="0b693-133">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="0b693-133">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
+<span data-ttu-id="43bd0-133">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="43bd0-133">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
 
-## <a name="allow-anonymous-access-to-a-folder-of-pages"></a><span data-ttu-id="0b693-134">允许匿名访问页面文件夹</span><span class="sxs-lookup"><span data-stu-id="0b693-134">Allow anonymous access to a folder of pages</span></span>
+## <a name="allow-anonymous-access-to-a-folder-of-pages"></a><span data-ttu-id="43bd0-134">允许匿名访问页面文件夹</span><span class="sxs-lookup"><span data-stu-id="43bd0-134">Allow anonymous access to a folder of pages</span></span>
 
-<span data-ttu-id="0b693-135">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-135">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to all of the pages in a folder at the specified path:</span></span>
+<span data-ttu-id="43bd0-135">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> 约定将添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-135">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> convention to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to all of the pages in a folder at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=6)]
 
-<span data-ttu-id="0b693-136">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="0b693-136">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
+<span data-ttu-id="43bd0-136">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="43bd0-136">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
 
-## <a name="note-on-combining-authorized-and-anonymous-access"></a><span data-ttu-id="0b693-137">合并授权访问和匿名访问时的注意事项</span><span class="sxs-lookup"><span data-stu-id="0b693-137">Note on combining authorized and anonymous access</span></span>
+## <a name="note-on-combining-authorized-and-anonymous-access"></a><span data-ttu-id="43bd0-137">合并授权访问和匿名访问时的注意事项</span><span class="sxs-lookup"><span data-stu-id="43bd0-137">Note on combining authorized and anonymous access</span></span>
 
-<span data-ttu-id="0b693-138">有效的方法是指定页面的文件夹需要授权，然后指定该文件夹中的页面允许匿名访问：</span><span class="sxs-lookup"><span data-stu-id="0b693-138">It's valid to specify that a folder of pages requires authorization and then specify that a page within that folder allows anonymous access:</span></span>
+<span data-ttu-id="43bd0-138">有效的方法是指定页面的文件夹需要授权，然后指定该文件夹中的页面允许匿名访问：</span><span class="sxs-lookup"><span data-stu-id="43bd0-138">It's valid to specify that a folder of pages requires authorization and then specify that a page within that folder allows anonymous access:</span></span>
 
 ```csharp
 // This works.
 .AuthorizeFolder("/Private").AllowAnonymousToPage("/Private/Public")
 ```
 
-<span data-ttu-id="0b693-139">但是，反之则无效。</span><span class="sxs-lookup"><span data-stu-id="0b693-139">The reverse, however, isn't valid.</span></span> <span data-ttu-id="0b693-140">不能声明用于匿名访问的页面文件夹，然后在该文件夹中指定需要授权的页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-140">You can't declare a folder of pages for anonymous access and then specify a page within that folder that requires authorization:</span></span>
+<span data-ttu-id="43bd0-139">但是，反之则无效。</span><span class="sxs-lookup"><span data-stu-id="43bd0-139">The reverse, however, isn't valid.</span></span> <span data-ttu-id="43bd0-140">不能声明用于匿名访问的页面文件夹，然后在该文件夹中指定需要授权的页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-140">You can't declare a folder of pages for anonymous access and then specify a page within that folder that requires authorization:</span></span>
 
 ```csharp
 // This doesn't work!
 .AllowAnonymousToFolder("/Public").AuthorizePage("/Public/Private")
 ```
 
-<span data-ttu-id="0b693-141">在专用页面上要求授权失败。</span><span class="sxs-lookup"><span data-stu-id="0b693-141">Requiring authorization on the Private page fails.</span></span> <span data-ttu-id="0b693-142">当 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 都应用于页面时，将 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 优先并控制访问。</span><span class="sxs-lookup"><span data-stu-id="0b693-142">When both the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> and <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> are applied to the page, the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> takes precedence and controls access.</span></span>
+<span data-ttu-id="43bd0-141">在专用页面上要求授权失败。</span><span class="sxs-lookup"><span data-stu-id="43bd0-141">Requiring authorization on the Private page fails.</span></span> <span data-ttu-id="43bd0-142">当 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 都应用于页面时，将 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 优先并控制访问。</span><span class="sxs-lookup"><span data-stu-id="43bd0-142">When both the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> and <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> are applied to the page, the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> takes precedence and controls access.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="0b693-143">其他资源</span><span class="sxs-lookup"><span data-stu-id="0b693-143">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="43bd0-143">其他资源</span><span class="sxs-lookup"><span data-stu-id="43bd0-143">Additional resources</span></span>
 
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>
@@ -138,110 +140,110 @@ options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="0b693-144">在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。</span><span class="sxs-lookup"><span data-stu-id="0b693-144">One way to control access in your Razor Pages app is to use authorization conventions at startup.</span></span> <span data-ttu-id="0b693-145">这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。</span><span class="sxs-lookup"><span data-stu-id="0b693-145">These conventions allow you to authorize users and allow anonymous users to access individual pages or folders of pages.</span></span> <span data-ttu-id="0b693-146">本主题中所述的约定会自动应用[授权筛选器](xref:mvc/controllers/filters#authorization-filters)来控制访问权限。</span><span class="sxs-lookup"><span data-stu-id="0b693-146">The conventions described in this topic automatically apply [authorization filters](xref:mvc/controllers/filters#authorization-filters) to control access.</span></span>
+<span data-ttu-id="43bd0-144">在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。</span><span class="sxs-lookup"><span data-stu-id="43bd0-144">One way to control access in your Razor Pages app is to use authorization conventions at startup.</span></span> <span data-ttu-id="43bd0-145">这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。</span><span class="sxs-lookup"><span data-stu-id="43bd0-145">These conventions allow you to authorize users and allow anonymous users to access individual pages or folders of pages.</span></span> <span data-ttu-id="43bd0-146">本主题中所述的约定会自动应用[授权筛选器](xref:mvc/controllers/filters#authorization-filters)来控制访问权限。</span><span class="sxs-lookup"><span data-stu-id="43bd0-146">The conventions described in this topic automatically apply [authorization filters](xref:mvc/controllers/filters#authorization-filters) to control access.</span></span>
 
-<span data-ttu-id="0b693-147">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="0b693-147">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="43bd0-147">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="43bd0-147">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="0b693-148">示例应用使用[cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。</span><span class="sxs-lookup"><span data-stu-id="0b693-148">The sample app uses [cookie authentication without ASP.NET Core Identity](xref:security/authentication/cookie).</span></span> <span data-ttu-id="0b693-149">本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。</span><span class="sxs-lookup"><span data-stu-id="0b693-149">The concepts and examples shown in this topic apply equally to apps that use ASP.NET Core Identity.</span></span> <span data-ttu-id="0b693-150">若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。</span><span class="sxs-lookup"><span data-stu-id="0b693-150">To use ASP.NET Core Identity, follow the guidance in <xref:security/authentication/identity>.</span></span>
+<span data-ttu-id="43bd0-148">示例应用使用[ cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。</span><span class="sxs-lookup"><span data-stu-id="43bd0-148">The sample app uses [cookie authentication without ASP.NET Core Identity](xref:security/authentication/cookie).</span></span> <span data-ttu-id="43bd0-149">本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。</span><span class="sxs-lookup"><span data-stu-id="43bd0-149">The concepts and examples shown in this topic apply equally to apps that use ASP.NET Core Identity.</span></span> <span data-ttu-id="43bd0-150">若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。</span><span class="sxs-lookup"><span data-stu-id="43bd0-150">To use ASP.NET Core Identity, follow the guidance in <xref:security/authentication/identity>.</span></span>
 
-## <a name="require-authorization-to-access-a-page"></a><span data-ttu-id="0b693-151">需要授权才能访问页面</span><span class="sxs-lookup"><span data-stu-id="0b693-151">Require authorization to access a page</span></span>
+## <a name="require-authorization-to-access-a-page"></a><span data-ttu-id="43bd0-151">需要授权才能访问页面</span><span class="sxs-lookup"><span data-stu-id="43bd0-151">Require authorization to access a page</span></span>
 
-<span data-ttu-id="0b693-152">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到页面中的指定路径：</span><span class="sxs-lookup"><span data-stu-id="0b693-152">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the page at the specified path:</span></span>
+<span data-ttu-id="43bd0-152">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到页面中的指定路径：</span><span class="sxs-lookup"><span data-stu-id="43bd0-152">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the page at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/2.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,4)]
 
-<span data-ttu-id="0b693-153">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="0b693-153">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
+<span data-ttu-id="43bd0-153">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="43bd0-153">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
 
-<span data-ttu-id="0b693-154">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-154">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizePage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*):</span></span>
+<span data-ttu-id="43bd0-154">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-154">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizePage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizePage("/Contact", "AtLeast21");
 ```
 
 > [!NOTE]
-> <span data-ttu-id="0b693-155"><xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。</span><span class="sxs-lookup"><span data-stu-id="0b693-155">An <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> can be applied to a page model class with the `[Authorize]` filter attribute.</span></span> <span data-ttu-id="0b693-156">有关详细信息，请参阅[授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。</span><span class="sxs-lookup"><span data-stu-id="0b693-156">For more information, see [Authorize filter attribute](xref:razor-pages/filter#authorize-filter-attribute).</span></span>
+> <span data-ttu-id="43bd0-155"><xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。</span><span class="sxs-lookup"><span data-stu-id="43bd0-155">An <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> can be applied to a page model class with the `[Authorize]` filter attribute.</span></span> <span data-ttu-id="43bd0-156">有关详细信息，请参阅[授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。</span><span class="sxs-lookup"><span data-stu-id="43bd0-156">For more information, see [Authorize filter attribute](xref:razor-pages/filter#authorize-filter-attribute).</span></span>
 
-## <a name="require-authorization-to-access-a-folder-of-pages"></a><span data-ttu-id="0b693-157">需要授权才能访问页的文件夹</span><span class="sxs-lookup"><span data-stu-id="0b693-157">Require authorization to access a folder of pages</span></span>
+## <a name="require-authorization-to-access-a-folder-of-pages"></a><span data-ttu-id="43bd0-157">需要授权才能访问页的文件夹</span><span class="sxs-lookup"><span data-stu-id="43bd0-157">Require authorization to access a folder of pages</span></span>
 
-<span data-ttu-id="0b693-158">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-158">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the pages in a folder at the specified path:</span></span>
+<span data-ttu-id="43bd0-158">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-158">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the pages in a folder at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/2.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,5)]
 
-<span data-ttu-id="0b693-159">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="0b693-159">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
+<span data-ttu-id="43bd0-159">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="43bd0-159">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
 
-<span data-ttu-id="0b693-160">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-160">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*):</span></span>
+<span data-ttu-id="43bd0-160">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-160">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizeFolder("/Private", "AtLeast21");
 ```
 
-## <a name="require-authorization-to-access-an-area-page"></a><span data-ttu-id="0b693-161">需要授权才能访问区域页</span><span class="sxs-lookup"><span data-stu-id="0b693-161">Require authorization to access an area page</span></span>
+## <a name="require-authorization-to-access-an-area-page"></a><span data-ttu-id="43bd0-161">需要授权才能访问区域页</span><span class="sxs-lookup"><span data-stu-id="43bd0-161">Require authorization to access an area page</span></span>
 
-<span data-ttu-id="0b693-162">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到指定路径处的区域页：</span><span class="sxs-lookup"><span data-stu-id="0b693-162">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the area page at the specified path:</span></span>
+<span data-ttu-id="43bd0-162">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到指定路径处的区域页：</span><span class="sxs-lookup"><span data-stu-id="43bd0-162">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to the area page at the specified path:</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts");
 ```
 
-<span data-ttu-id="0b693-163">页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。</span><span class="sxs-lookup"><span data-stu-id="0b693-163">The page name is the path of the file without an extension relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="0b693-164">例如，文件*区域/ Identity /Pages/Manage/Accounts.cshtml*的页面名称为 */Manage/Accounts*。</span><span class="sxs-lookup"><span data-stu-id="0b693-164">For example, the page name for the file *Areas/Identity/Pages/Manage/Accounts.cshtml* is */Manage/Accounts*.</span></span>
+<span data-ttu-id="43bd0-163">页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。</span><span class="sxs-lookup"><span data-stu-id="43bd0-163">The page name is the path of the file without an extension relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="43bd0-164">例如，文件*区域/ Identity /Pages/Manage/Accounts.cshtml*的页面名称为 */Manage/Accounts*。</span><span class="sxs-lookup"><span data-stu-id="43bd0-164">For example, the page name for the file *Areas/Identity/Pages/Manage/Accounts.cshtml* is */Manage/Accounts*.</span></span>
 
-<span data-ttu-id="0b693-165">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-165">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaPage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*):</span></span>
+<span data-ttu-id="43bd0-165">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-165">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaPage overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts", "AtLeast21");
 ```
 
-## <a name="require-authorization-to-access-a-folder-of-areas"></a><span data-ttu-id="0b693-166">需要授权才能访问区域文件夹</span><span class="sxs-lookup"><span data-stu-id="0b693-166">Require authorization to access a folder of areas</span></span>
+## <a name="require-authorization-to-access-a-folder-of-areas"></a><span data-ttu-id="43bd0-166">需要授权才能访问区域文件夹</span><span class="sxs-lookup"><span data-stu-id="43bd0-166">Require authorization to access a folder of areas</span></span>
 
-<span data-ttu-id="0b693-167">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有区域：</span><span class="sxs-lookup"><span data-stu-id="0b693-167">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the areas in a folder at the specified path:</span></span>
+<span data-ttu-id="43bd0-167">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 到文件夹中指定路径的所有区域：</span><span class="sxs-lookup"><span data-stu-id="43bd0-167">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> to all of the areas in a folder at the specified path:</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
 ```
 
-<span data-ttu-id="0b693-168">文件夹路径是文件夹相对于指定区域的页面根目录的路径。</span><span class="sxs-lookup"><span data-stu-id="0b693-168">The folder path is the path of the folder relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="0b693-169">例如，*区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。</span><span class="sxs-lookup"><span data-stu-id="0b693-169">For example, the folder path for the files under *Areas/Identity/Pages/Manage/* is */Manage*.</span></span>
+<span data-ttu-id="43bd0-168">文件夹路径是文件夹相对于指定区域的页面根目录的路径。</span><span class="sxs-lookup"><span data-stu-id="43bd0-168">The folder path is the path of the folder relative to the pages root directory for the specified area.</span></span> <span data-ttu-id="43bd0-169">例如，*区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。</span><span class="sxs-lookup"><span data-stu-id="43bd0-169">For example, the folder path for the files under *Areas/Identity/Pages/Manage/* is */Manage*.</span></span>
 
-<span data-ttu-id="0b693-170">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：</span><span class="sxs-lookup"><span data-stu-id="0b693-170">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*):</span></span>
+<span data-ttu-id="43bd0-170">若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：</span><span class="sxs-lookup"><span data-stu-id="43bd0-170">To specify an [authorization policy](xref:security/authorization/policies), use an [AuthorizeAreaFolder overload](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*):</span></span>
 
 ```csharp
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
 ```
 
-## <a name="allow-anonymous-access-to-a-page"></a><span data-ttu-id="0b693-171">允许匿名访问页面</span><span class="sxs-lookup"><span data-stu-id="0b693-171">Allow anonymous access to a page</span></span>
+## <a name="allow-anonymous-access-to-a-page"></a><span data-ttu-id="43bd0-171">允许匿名访问页面</span><span class="sxs-lookup"><span data-stu-id="43bd0-171">Allow anonymous access to a page</span></span>
 
-<span data-ttu-id="0b693-172">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到位于指定路径的页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-172">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to a page at the specified path:</span></span>
+<span data-ttu-id="43bd0-172">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到位于指定路径的页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-172">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to a page at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/2.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,6)]
 
-<span data-ttu-id="0b693-173">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="0b693-173">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
+<span data-ttu-id="43bd0-173">指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。</span><span class="sxs-lookup"><span data-stu-id="43bd0-173">The specified path is the View Engine path, which is the Razor Pages root relative path without an extension and containing only forward slashes.</span></span>
 
-## <a name="allow-anonymous-access-to-a-folder-of-pages"></a><span data-ttu-id="0b693-174">允许匿名访问页面文件夹</span><span class="sxs-lookup"><span data-stu-id="0b693-174">Allow anonymous access to a folder of pages</span></span>
+## <a name="allow-anonymous-access-to-a-folder-of-pages"></a><span data-ttu-id="43bd0-174">允许匿名访问页面文件夹</span><span class="sxs-lookup"><span data-stu-id="43bd0-174">Allow anonymous access to a folder of pages</span></span>
 
-<span data-ttu-id="0b693-175">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-175">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to all of the pages in a folder at the specified path:</span></span>
+<span data-ttu-id="43bd0-175">使用 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> 约定通过将 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 添加 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 到文件夹中指定路径的所有页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-175">Use the <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> convention via <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> to add an <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> to all of the pages in a folder at the specified path:</span></span>
 
 [!code-csharp[](razor-pages-authorization/samples/2.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,7)]
 
-<span data-ttu-id="0b693-176">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="0b693-176">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
+<span data-ttu-id="43bd0-176">指定的路径是视图引擎路径，它是 Razor 页面根相对路径。</span><span class="sxs-lookup"><span data-stu-id="43bd0-176">The specified path is the View Engine path, which is the Razor Pages root relative path.</span></span>
 
-## <a name="note-on-combining-authorized-and-anonymous-access"></a><span data-ttu-id="0b693-177">合并授权访问和匿名访问时的注意事项</span><span class="sxs-lookup"><span data-stu-id="0b693-177">Note on combining authorized and anonymous access</span></span>
+## <a name="note-on-combining-authorized-and-anonymous-access"></a><span data-ttu-id="43bd0-177">合并授权访问和匿名访问时的注意事项</span><span class="sxs-lookup"><span data-stu-id="43bd0-177">Note on combining authorized and anonymous access</span></span>
 
-<span data-ttu-id="0b693-178">有效的方法是，指定需要授权的页面文件夹，并指定该文件夹中的页面允许匿名访问：</span><span class="sxs-lookup"><span data-stu-id="0b693-178">It's valid to specify that a folder of pages that require authorization and than specify that a page within that folder allows anonymous access:</span></span>
+<span data-ttu-id="43bd0-178">有效的方法是，指定需要授权的页面文件夹，并指定该文件夹中的页面允许匿名访问：</span><span class="sxs-lookup"><span data-stu-id="43bd0-178">It's valid to specify that a folder of pages that require authorization and than specify that a page within that folder allows anonymous access:</span></span>
 
 ```csharp
 // This works.
 .AuthorizeFolder("/Private").AllowAnonymousToPage("/Private/Public")
 ```
 
-<span data-ttu-id="0b693-179">但是，反之则无效。</span><span class="sxs-lookup"><span data-stu-id="0b693-179">The reverse, however, isn't valid.</span></span> <span data-ttu-id="0b693-180">不能声明用于匿名访问的页面文件夹，然后在该文件夹中指定需要授权的页面：</span><span class="sxs-lookup"><span data-stu-id="0b693-180">You can't declare a folder of pages for anonymous access and then specify a page within that folder that requires authorization:</span></span>
+<span data-ttu-id="43bd0-179">但是，反之则无效。</span><span class="sxs-lookup"><span data-stu-id="43bd0-179">The reverse, however, isn't valid.</span></span> <span data-ttu-id="43bd0-180">不能声明用于匿名访问的页面文件夹，然后在该文件夹中指定需要授权的页面：</span><span class="sxs-lookup"><span data-stu-id="43bd0-180">You can't declare a folder of pages for anonymous access and then specify a page within that folder that requires authorization:</span></span>
 
 ```csharp
 // This doesn't work!
 .AllowAnonymousToFolder("/Public").AuthorizePage("/Public/Private")
 ```
 
-<span data-ttu-id="0b693-181">在专用页面上要求授权失败。</span><span class="sxs-lookup"><span data-stu-id="0b693-181">Requiring authorization on the Private page fails.</span></span> <span data-ttu-id="0b693-182">当 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 都应用于页面时，将 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 优先并控制访问。</span><span class="sxs-lookup"><span data-stu-id="0b693-182">When both the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> and <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> are applied to the page, the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> takes precedence and controls access.</span></span>
+<span data-ttu-id="43bd0-181">在专用页面上要求授权失败。</span><span class="sxs-lookup"><span data-stu-id="43bd0-181">Requiring authorization on the Private page fails.</span></span> <span data-ttu-id="43bd0-182">当 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> 都应用于页面时，将 <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> 优先并控制访问。</span><span class="sxs-lookup"><span data-stu-id="43bd0-182">When both the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> and <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> are applied to the page, the <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> takes precedence and controls access.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="0b693-183">其他资源</span><span class="sxs-lookup"><span data-stu-id="0b693-183">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="43bd0-183">其他资源</span><span class="sxs-lookup"><span data-stu-id="43bd0-183">Additional resources</span></span>
 
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>
