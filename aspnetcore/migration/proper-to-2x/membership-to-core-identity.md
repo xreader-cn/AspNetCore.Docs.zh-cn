@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/10/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: afad542a18a357a77f4542511a3d2c3108dbfb31
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 97039ac1c7bcd6a1ff7b53e1579c623b26564d26
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059768"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014888"
 ---
-# <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>从 ASP.NET 成员身份验证迁移到 ASP.NET Core 2。0Identity
+# <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-no-locidentity"></a>从 ASP.NET 成员身份验证迁移到 ASP.NET Core 2。0Identity
 
 作者：[Isaac Levin](https://isaaclevin.com)
 
@@ -38,18 +40,18 @@ ms.locfileid: "86059768"
 
 若要将现有应用迁移到 ASP.NET Core 2.0 Identity ，需要将这些表中的数据迁移到新架构使用的表中 Identity 。
 
-## <a name="aspnet-core-identity-20-schema"></a>ASP.NET Core Identity 2.0 架构
+## <a name="aspnet-core-no-locidentity-20-schema"></a>ASP.NET Core Identity 2.0 架构
 
-ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入的原则。 尽管原则是共享的，但在不同版本的 ASP.NET Core （请参阅[迁移身份验证和 Identity ASP.NET Core 2.0](xref:migration/1x-to-2x/index)）之间的实现不同。
+ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入的原则。 尽管原则是共享的，但在不同版本的 ASP.NET Core 中，框架之间的实现是不同的 (请参阅[迁移身份验证和 Identity ASP.NET Core 2.0](xref:migration/1x-to-2x/index)) 。
 
 查看 ASP.NET Core 2.0 的架构的最快方法 Identity 是创建新的 ASP.NET Core 2.0 应用。 在 Visual Studio 2017 中执行以下步骤：
 
-1. 选择“文件” > “新建” > “项目”。
-1. 创建一个名为*CoreIdentitySample*的新**ASP.NET Core Web 应用程序**项目。
+1. 选择“文件” > “新建” > “项目”  。
+1. 创建名为*Core Identity Sample*的新**ASP.NET Core Web 应用程序**项目。
 1. 在下拉列表中选择**ASP.NET Core 2.0** ，然后选择 " **Web 应用程序**"。 此模板生成[ Razor 页面](xref:razor-pages/index)应用。 单击 **"确定"** 之前，请单击 "**更改身份验证**"。
 1. 为模板选择**单个用户帐户** Identity 。 最后，单击 **"确定**"，然后单击 **"确定"**。 Visual Studio 使用 ASP.NET Core 模板创建项目 Identity 。
-1. 选择 "**工具**" "  >  **NuGet 包管理器**" "  >  **包管理器控制台**" 打开**包管理器控制台**（PMC）窗口。
-1. 导航到 PMC 中的项目根，并运行[实体框架（EF） Core](/ef/core) `Update-Database` 命令。
+1. 选择 "**工具**" "  >  **NuGet 包管理器**" "  >  **包管理器控制台**" 打开**包管理器控制台** (PMC) "窗口。
+1. 导航到 PMC 中的项目根，并运行[实体框架 (EF) Core](/ef/core) `Update-Database` 命令。
 
     ASP.NET Core 2.0 Identity 使用 EF Core 与存储身份验证数据的数据库进行交互。 为了使新创建的应用程序正常工作，需要有数据库来存储此数据。 创建新应用后，在数据库环境中检查架构的最快方法是使用[EF Core 迁移](/ef/core/managing-schemas/migrations/)来创建数据库。 此过程将创建一个在本地或其他位置模拟该架构的数据库。 有关详细信息，请查看前面的文档。
 
@@ -67,7 +69,7 @@ ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入
 
     该 `Update-Database` 命令创建了用架构指定的数据库以及应用初始化所需的任何数据。 下图描绘了在前面的步骤中创建的表结构。
 
-    ![Identity张](identity/_static/identity-tables.png)
+    ![：： no (Identity) ：：： Tables](identity/_static/identity-tables.png)
 
 ## <a name="migrate-the-schema"></a>迁移架构
 
@@ -75,7 +77,7 @@ ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入
 
 ### <a name="users"></a>用户
 
-|Identity<br>（ `dbo.AspNetUsers` ）列  |类型     |Membership<br>（ `dbo.aspnet_Users`  /  `dbo.aspnet_Membership` ）列|类型      |
+|Identity<br> (`dbo.AspNetUsers`) 列  |类型     |Membership<br> (`dbo.aspnet_Users`  /  `dbo.aspnet_Membership`) 列|类型      |
 |-------------------------------------------|-----------------------------------------------------------------------|
 | `Id`                            | `string`| `aspnet_Users.UserId`                                      | `string` |
 | `UserName`                      | `string`| `aspnet_Users.UserName`                                    | `string` |
@@ -90,7 +92,7 @@ ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入
 
 ### <a name="roles"></a>角色
 
-|Identity<br>（ `dbo.AspNetRoles` ）列|类型|Membership<br>（ `dbo.aspnet_Roles` ）列|类型|
+|Identity<br> (`dbo.AspNetRoles`) 列|类型|Membership<br> (`dbo.aspnet_Roles`) 列|类型|
 |----------------------------------------|-----------------------------------|
 |`Id`                           |`string`|`RoleId`         | `string`        |
 |`Name`                         |`string`|`RoleName`       | `string`        |
@@ -98,12 +100,12 @@ ASP.NET Core 2.0 遵循 [Identity](/aspnet/identity/index) ASP.NET 4.5 中引入
 
 ### <a name="user-roles"></a>用户角色
 
-|Identity<br>（ `dbo.AspNetUserRoles` ）列|类型|Membership<br>（ `dbo.aspnet_UsersInRoles` ）列|类型|
+|Identity<br> (`dbo.AspNetUserRoles`) 列|类型|Membership<br> (`dbo.aspnet_UsersInRoles`) 列|类型|
 |-------------------------|----------|--------------|---------------------------|
 |`RoleId`                 |`string`  |`RoleId`      |`string`                   |
 |`UserId`                 |`string`  |`UserId`      |`string`                   |
 
-创建*用户*和*角色*的迁移脚本时引用前面的映射表。 下面的示例假定数据库服务器上有两个数据库。 一个数据库包含现有的 ASP.NET 成员身份架构和数据。 使用前面所述的步骤创建了另一个*CoreIdentitySample*数据库。 有关详细信息，请以内联方式包含注释。
+创建*用户*和*角色*的迁移脚本时引用前面的映射表。 下面的示例假定数据库服务器上有两个数据库。 一个数据库包含现有的 ASP.NET 成员身份架构和数据。 其他*核心 Identity 示例*数据库是使用前面所述的步骤创建的。 有关详细信息，请以内联方式包含注释。
 
 ```sql
 -- THIS SCRIPT NEEDS TO RUN FROM THE CONTEXT OF THE MEMBERSHIP DB

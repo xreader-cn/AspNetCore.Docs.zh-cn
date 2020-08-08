@@ -5,6 +5,8 @@ description: ''
 ms.author: riande
 ms.date: 12/07/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/http-modules
-ms.openlocfilehash: 362dd16db358f7ceb6730bde908fff9854c73a84
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 92672b2d05ee6bbdfcf0255ae14529a5c28c41b7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403646"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014979"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 
@@ -44,7 +46,7 @@ ms.locfileid: "85403646"
 
 * 为每个请求调用
 
-* 能够短路（停止进一步处理请求）
+* 能够短路 (停止进一步处理请求) 
 
 * 可以添加到 HTTP 响应，或创建自己的响应
 
@@ -62,7 +64,7 @@ ms.locfileid: "85403646"
 
 **中间件比 HTTP 模块和处理程序更简单：**
 
-* 模块、处理程序、 *Global.asax.cs*、 *Web.config* （IIS 配置除外）和应用程序生命周期已消失
+* 除 IIS 配置) 和应用程序生命周期外，模块、处理程序、 *Global.asax.cs*、 *Web.config* (
 
 * 中间件已使用模块和处理程序的角色
 
@@ -137,7 +139,7 @@ ms.locfileid: "85403646"
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=16)]
 
-插入新中间件的管道中的确切位置取决于它在Web.config的模块列表中处理为模块（ `BeginRequest` 、等）的事件 `EndRequest` 及其顺序。 * *
+插入新中间件的管道中的确切位置取决于它作为模块处理的事件 `BeginRequest` ， (、等 `EndRequest` ) 及其在*Web.config*的模块列表中的顺序。
 
 如前所述，ASP.NET Core 中没有应用程序生命周期，中间件的处理响应顺序与模块使用的顺序不同。 这可能会使你的排序决策更具挑战性。
 
@@ -199,7 +201,7 @@ HTTP 处理程序如下所示：
 
 3. 将选项值与 options 类相关联
 
-    Options 模式使用 ASP.NET Core 的依赖项注入框架将选项类型（如 `MyMiddlewareOptions` ）与 `MyMiddlewareOptions` 具有实际选项的对象相关联。
+    Options 模式使用 ASP.NET Core 的依赖项注入框架将选项类型 (例如 `MyMiddlewareOptions`) 与 `MyMiddlewareOptions` 具有实际选项的对象相关联。
 
     更新你的 `Startup` 类：
 
@@ -237,11 +239,11 @@ Options 模式的优点在于，它在选项值与其使用者之间产生松散
 
    [!code-json[](http-modules/sample/Asp.Net.Core/appsettings.json?range=1,10-18&highlight=2-5)]
 
-2. 检索选项值并将其传递给中间件。 `Use...`扩展方法（将中间件添加到管道）是要传入选项值的逻辑位置： 
+2. 检索选项值并将其传递给中间件。 `Use...`将中间件添加到管道的扩展方法 () 是要传入选项值的逻辑位置： 
 
    [!code-csharp[](http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=20-23)]
 
-3. 启用中间件以采用 options 参数。 提供 `Use...` 扩展方法（采用 options 参数并将其传递给）的重载 `UseMiddleware` 。 当 `UseMiddleware` 用参数调用时，它会在实例化中间件对象时将参数传递给中间件构造函数。
+3. 启用中间件以采用 options 参数。 提供 `Use...` 扩展方法 (的重载，该重载采用 options 参数，并将其传递给 `UseMiddleware`) 。 当 `UseMiddleware` 用参数调用时，它会在实例化中间件对象时将参数传递给中间件构造函数。
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_Extensions&highlight=9-14)]
 
@@ -263,7 +265,7 @@ public async Task Invoke(HttpContext context)
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Items)]
 
-**唯一的请求 ID （不含 System.web）**
+**唯一的请求 ID (不) **
 
 提供每个请求的唯一 id。 在日志中包含非常有用。
 
@@ -291,7 +293,7 @@ public async Task Invoke(HttpContext context)
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Host)]
 
-**Httpcontext.current**转换为：
+**Httpcontext.current Cookie 。s**转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Cookies)]
 
@@ -374,9 +376,9 @@ public async Task Invoke(HttpContext httpContext)
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetHeaders)]
 
-**HttpContext. Cookie**
+**HttpContext 响应。 Cookie些**
 
-Cookie 在*设置 cookie*响应标头中传递到浏览器。 因此，发送 cookie 需要与用于发送响应标头的回调相同：
+Cookie在*设置 Cookie *响应标头中传递到浏览器。 因此，发送需要与 cookie 用于发送响应标头的回调相同：
 
 ```csharp
 public async Task Invoke(HttpContext httpContext)

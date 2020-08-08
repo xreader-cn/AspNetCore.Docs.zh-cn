@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/14/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 1312ae531b0acb0ce09137cc2bae6299ddda5c32
-ms.sourcegitcommit: e6b3dd344521ce320d5c2121bbc27c211df87e57
+ms.openlocfilehash: a145cfd551650445f9ff35259cbedf71ebb686f0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/19/2020
-ms.locfileid: "86468842"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014589"
 ---
-# <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
+# <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
 作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Tobias Bartsch](https://www.aveo-solutions.com/)
 
@@ -34,7 +36,7 @@ Blazor 应用是使用组件构建的。 组件是自包含的用户界面 (UI) 
 
 组件是使用 C# 和 HTML 标记的组合在 [Razor](xref:mvc/views/razor) 组件文件 (`.razor`) 中实现的。 Blazor 中的组件正式称为 Razor 组件。
 
-### <a name="razor-syntax"></a>Razor 语法
+### <a name="no-locrazor-syntax"></a>Razor 语法
 
 Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 Razor 标记语言，建议先阅读 <xref:mvc/views/razor>，然后再继续。
 
@@ -124,7 +126,7 @@ Razor 组件作为分部类生成。 使用以下方法之一创建 Razor 组件
 
 下面的示例显示了从 Blazor 模板生成的应用中具有 [`@code`][1] 块的默认 `Counter` 组件。 HTML 标记、Razor 代码和 C# 代码位于同一个文件中：
 
-`Pages/Counter.razor`：
+`Pages/Counter.razor`:
 
 ```razor
 @page "/counter"
@@ -147,7 +149,7 @@ Razor 组件作为分部类生成。 使用以下方法之一创建 Razor 组件
 
 还可以使用具有分部类的代码隐藏文件创建 `Counter` 组件：
 
-`Pages/Counter.razor`：
+`Pages/Counter.razor`:
 
 ```razor
 @page "/counter"
@@ -159,7 +161,7 @@ Razor 组件作为分部类生成。 使用以下方法之一创建 Razor 组件
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
 
-`Counter.razor.cs`：
+`Counter.razor.cs`:
 
 ```csharp
 namespace BlazorSample.Pages
@@ -194,7 +196,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 [`@inherits`][6] 指令可用于指定组件的基类。 下面的示例演示组件如何继承基类 `BlazorRocksBase` 以提供组件的属性和方法。 基类应派生自 <xref:Microsoft.AspNetCore.Components.ComponentBase>。
 
-`Pages/BlazorRocks.razor`：
+`Pages/BlazorRocks.razor`:
 
 ```razor
 @page "/BlazorRocks"
@@ -203,7 +205,7 @@ using Microsoft.AspNetCore.Components.Web;
 <h1>@BlazorRocksText</h1>
 ```
 
-`BlazorRocksBase.cs`：
+`BlazorRocksBase.cs`:
 
 ```csharp
 using Microsoft.AspNetCore.Components;
@@ -228,7 +230,7 @@ namespace BlazorSample
 <HeadingComponent />
 ```
 
-`Components/HeadingComponent.razor`：
+`Components/HeadingComponent.razor`:
 
 [!code-razor[](index/samples_snapshot/HeadingComponent.razor)]
 
@@ -240,7 +242,7 @@ namespace BlazorSample
 
 组件可以接收来自 [`@page`][9] 指令所提供的路由模板的路由参数。 路由器使用路由参数来填充相应的组件参数。
 
-`Pages/RouteParameter.razor`：
+`Pages/RouteParameter.razor`:
 
 [!code-razor[](index/samples_snapshot/RouteParameter.razor?highlight=2,7-8)]
 
@@ -252,13 +254,13 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 
 组件可以有组件参数，这些参数是使用组件类中包含 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性的公共属性定义的。 使用这些属性在标记中为组件指定参数。
 
-`Components/ChildComponent.razor`：
+`Components/ChildComponent.razor`:
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=2,11-12)]
 
 在示例应用的以下示例中，`ParentComponent` 设置 `ChildComponent` 的 `Title` 属性的值。
 
-`Pages/ParentComponent.razor`：
+`Pages/ParentComponent.razor`:
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
@@ -271,7 +273,7 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 
 在下面的示例中，`ChildComponent` 具有一个表示 <xref:Microsoft.AspNetCore.Components.RenderFragment>（表示要呈现的 UI 段）的 `ChildContent` 属性。 `ChildContent` 的值放置在应呈现内容的组件标记中。 `ChildContent` 的值是从父组件接收的，并呈现在启动面板的 `panel-body` 中。
 
-`Components/ChildComponent.razor`：
+`Components/ChildComponent.razor`:
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
@@ -280,7 +282,7 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 
 示例应用中的 `ParentComponent` 可以通过将内容置于 `<ChildComponent>` 标记中，提供用于呈现 `ChildComponent` 的内容。
 
-`Pages/ParentComponent.razor`：
+`Pages/ParentComponent.razor`:
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=7-8)]
 
@@ -379,13 +381,13 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 
 相对于元素特性位置的 [`@attributes`][3] 位置很重要。 在元素上展开 [`@attributes`][3] 时，将从右到左（从最后一个到第一个）处理特性。 请考虑以下使用 `Child` 组件的组件示例：
 
-`ParentComponent.razor`：
+`ParentComponent.razor`:
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-`ChildComponent.razor`：
+`ChildComponent.razor`:
 
 ```razor
 <div @attributes="AdditionalAttributes" extra="5" />
@@ -402,13 +404,13 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 在下面的示例中，`extra` 和 [`@attributes`][3] 的顺序在 `Child` 组件的 `<div>` 中反转：
 
-`ParentComponent.razor`：
+`ParentComponent.razor`:
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-`ChildComponent.razor`：
+`ChildComponent.razor`:
 
 ```razor
 <div extra="5" @attributes="AdditionalAttributes" />
@@ -796,7 +798,7 @@ HTML 元素属性基于 .NET 值有条件地呈现。 如果值为 `false` 或 `
 }
 ```
 
-## <a name="razor-templates"></a>Razor 模板
+## <a name="no-locrazor-templates"></a>Razor 模板
 
 可以使用 Razor 模板语法来定义呈现片段。 Razor 模板是一种定义 UI 代码片段的方法，请使用以下格式：
 

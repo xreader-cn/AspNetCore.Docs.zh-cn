@@ -5,6 +5,8 @@ description: 了解如何开始将 ASP.NET MVC 项目迁移到 ASP.NET Core MVC�
 ms.author: wpickett
 ms.date: 06/18/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/mvc
-ms.openlocfilehash: 6a645d0e5959b4301ee7d2bcfc692f7499574dc4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 17f2a2532c58c3796835328260231d63f8fb2e40
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407318"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015044"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 
@@ -43,9 +45,9 @@ ms.locfileid: "85407318"
 
 在 Visual Studio 中创建一个示例 ASP.NET MVC 项目以进行迁移：
 
-1. 从“文件”菜单中选择“新建”>“项目”**** **** ****。
-1. 选择 " **ASP.NET Web 应用程序（.NET Framework）** "，然后选择 "**下一步**"。
-1. 将项目命名为*WebApp1* ，使命名空间与下一步中创建的 ASP.NET Core 项目相匹配。 选择“创建” 。
+1. 从“文件”菜单中选择“新建”>“项目”  。
+1. 选择 " **ASP.NET Web 应用程序 ( .NET Framework") ** ，然后选择 "**下一步**"。
+1. 将项目命名为*WebApp1* ，使命名空间与下一步中创建的 ASP.NET Core 项目相匹配。 选择“创建”。
 1. 选择 " **MVC**"，然后选择 "**创建**"。
 
 ## <a name="create-the-aspnet-core-project"></a>创建 ASP.NET Core 项目
@@ -53,11 +55,11 @@ ms.locfileid: "85407318"
 使用要迁移到的新 ASP.NET Core 项目创建新的解决方案：
 
 1. 启动 Visual Studio 的第二个实例。
-1. 从“文件”菜单中选择“新建”>“项目”**** **** ****。
+1. 从“文件”菜单中选择“新建”>“项目”  。
 1. 选择 " **ASP.NET Web Core Web 应用程序**"，然后选择 "**下一步**"。
 1. 在 "**配置新项目**" 对话框中，将项目命名为 " *WebApp1*"。
-1. 将位置设置为与上一个项目不同的目录，以使用相同的项目名称。 使用同一个命名空间可以更轻松地在两个项目之间复制代码。 选择“创建” 。
-1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”**** **** ****。 选择 " **Web 应用程序（模型-视图-控制器）** " 项目模板，然后选择 "**创建**"。
+1. 将位置设置为与上一个项目不同的目录，以使用相同的项目名称。 使用同一个命名空间可以更轻松地在两个项目之间复制代码。 选择“创建”。
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”  。 选择 " **Web 应用程序 (模型-视图-控制器) ** " 项目模板，然后选择 "**创建**"。
 
 ## <a name="configure-the-aspnet-core-site-to-use-mvc"></a>将 ASP.NET Core 网站配置为使用 MVC
 
@@ -106,7 +108,7 @@ ASP.NET Core *WebApp1*项目已包含与 ASP.NET MVC 项目相同的名称的最
 可以测试每个控制器终结点，但在本文档的后面部分介绍了布局和样式。
 
 1. 运行 ASP.NET Core 应用。
-1. 通过将当前端口号替换为 ASP.NET Core 项目中使用的端口号，在运行 ASP.NET Core 应用程序的浏览器中调用呈现的视图。 例如 `https://localhost:44375/home/about`。
+1. 通过将当前端口号替换为 ASP.NET Core 项目中使用的端口号，在运行 ASP.NET Core 应用程序的浏览器中调用呈现的视图。 例如，`https://localhost:44375/home/about`。
 
 ## <a name="migrate-static-content"></a>迁移静态内容
 
@@ -136,7 +138,7 @@ ASP.NET Core *WebApp1*项目已包含与 ASP.NET MVC 项目相同的名称的最
 
 更新启动 CSS 包含项以匹配以下已完成的代码：
 
-1. 替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素（见下文）。
+1. 替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素 (参阅下面的) 。
 1. 删除 `@Scripts.Render("~/bundles/modernizr")`。
 
 已完成的启动 CSS 包含的替换标记：
@@ -150,8 +152,8 @@ ASP.NET Core *WebApp1*项目已包含与 ASP.NET MVC 项目相同的名称的最
 
 更新 jQuery 和启动 JavaScript 包含项以匹配以下已完成的代码：
 
-1. 替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素（见下文）。
-1. 替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素（见下文）。
+1. 替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素 (参见下面的) 。
+1. 替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素 (参见下面的) 。
 
 JQuery 和启动 JavaScript 包含的已完成替换标记：
 
@@ -212,11 +214,11 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 !["新建 Web 应用程序" 对话框：在 "ASP.NET 模板" 面板中选择的 MVC 项目模板](mvc/_static/new-project-select-mvc-template.png)
 
-*可选：* 将解决方案的名称从*WebApp1*更改为*Mvc5*。 Visual Studio 将显示新的解决方案名称（*Mvc5*），这样就可以更轻松地从下一个项目通知此项目。
+*可选：* 将解决方案的名称从*WebApp1*更改为*Mvc5*。 Visual Studio 将显示新的解决方案名称 (*Mvc5*) ，这使你可以更轻松地从下一个项目中通知此项目。
 
 ## <a name="create-the-aspnet-core-project"></a>创建 ASP.NET Core 项目
 
-使用与上一个项目相同的名称创建新的*空*ASP.NET Core web 应用（*WebApp1*），以便两个项目中的命名空间匹配。 通过具有相同的命名空间，可以更轻松地在两个项目之间复制代码。 在与前一个项目相同的目录中创建此项目。
+使用与上一个项目相同的名称创建新的*空*ASP.NET Core web 应用 (*WebApp1*) ，使这两个项目中的命名空间匹配。 通过具有相同的命名空间，可以更轻松地在两个项目之间复制代码。 在与前一个项目相同的目录中创建此项目。
 
 ![“新建项目”对话框](mvc/_static/new_core.png)
 
@@ -272,7 +274,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 以下功能需要从示例 ASP.NET MVC 项目迁移到 ASP.NET Core 项目：
 
-* 客户端内容（CSS、字体和脚本）
+*  (CSS、字体和脚本的客户端内容) 
 
 * 控制器
 
@@ -284,7 +286,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 * 筛选器
 
-* 登录/注销， Identity （在下一教程中完成此操作。）
+* 登录/注销， Identity (在下一教程中完成此操作。 ) 
 
 ## <a name="controllers-and-views"></a>控制器和视图
 
@@ -308,7 +310,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 * 将*favicon*文件从 ASP.NET MVC 项目复制到 ASP.NET Core 项目中的*wwwroot*目录。
 
-ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，并将启动文件存储在*Content*和*Scripts*目录中。 生成 ASP.NET MVC 项目的模板引用布局文件（*Views/Shared/_Layout*）中的启动。 *bootstrap.js*和*启动 .css*文件可从 ASP.NET MVC 项目复制到新项目中的*wwwroot*目录。 本文档改为在下一部分中使用 Cdn 添加对启动（和其他客户端库）的支持。
+ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，并将启动文件存储在*Content*和*Scripts*目录中。 生成 ASP.NET MVC 项目的模板引用布局文件中的启动 (*Views/Shared/_Layout*) 。 *bootstrap.js*和*启动 .css*文件可从 ASP.NET MVC 项目复制到新项目中的*wwwroot*目录。 本文档改为使用 Cdn 在下一节中添加对) 使用的启动 (和其他客户端库的支持。
 
 ## <a name="migrate-the-layout-file"></a>迁移布局文件
 
@@ -320,17 +322,17 @@ ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，
 
 * 将 *_Layout*的 ASP.NET 文件从 MVC 项目的*视图/共享*目录复制到 ASP.NET Core 项目的 "*视图"/"共享*目录" 中。
 
-打开 *_Layout 的 cshtml*文件并进行以下更改（完成的代码如下所示）：
+打开 *_Layout.* # 文件，并进行以下更改 (完成的代码如下所示) ：
 
-* 替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素（见下文）。
+* 替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素 (参阅下面的) 。
 
 * 删除 `@Scripts.Render("~/bundles/modernizr")`。
 
-* 注释掉 `@Html.Partial("_LoginPartial")` 行（将该行环绕 `@*...*@` ）。 有关详细信息，请参阅[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)
+* 注释掉 `@Html.Partial("_LoginPartial")`) 行 (环绕行的行 `@*...*@` 。 有关详细信息，请参阅[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)
 
-* 替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素（见下文）。
+* 替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素 (参见下面的) 。
 
-* 替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素（见下文）。
+* 替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素 (参见下面的) 。
 
 用于启动 CSS 的替换标记包含：
 
@@ -398,11 +400,11 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 !["新建 Web 应用程序" 对话框：在 "ASP.NET 模板" 面板中选择的 MVC 项目模板](mvc/_static/new-project-select-mvc-template.png)
 
-*可选：* 将解决方案的名称从*WebApp1*更改为*Mvc5*。 Visual Studio 将显示新的解决方案名称（*Mvc5*），这样就可以更轻松地从下一个项目通知此项目。
+*可选：* 将解决方案的名称从*WebApp1*更改为*Mvc5*。 Visual Studio 将显示新的解决方案名称 (*Mvc5*) ，这使你可以更轻松地从下一个项目中通知此项目。
 
 ## <a name="create-the-aspnet-core-project"></a>创建 ASP.NET Core 项目
 
-使用与上一个项目相同的名称创建新的*空*ASP.NET Core web 应用（*WebApp1*），以便两个项目中的命名空间匹配。 通过具有相同的命名空间，可以更轻松地在两个项目之间复制代码。 在与前一个项目相同的目录中创建此项目。
+使用与上一个项目相同的名称创建新的*空*ASP.NET Core web 应用 (*WebApp1*) ，使这两个项目中的命名空间匹配。 通过具有相同的命名空间，可以更轻松地在两个项目之间复制代码。 在与前一个项目相同的目录中创建此项目。
 
 ![“新建项目”对话框](mvc/_static/new_core.png)
 
@@ -458,7 +460,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 以下功能需要从示例 ASP.NET MVC 项目迁移到 ASP.NET Core 项目：
 
-* 客户端内容（CSS、字体和脚本）
+*  (CSS、字体和脚本的客户端内容) 
 
 * 控制器
 
@@ -470,7 +472,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 * 筛选器
 
-* 登录/注销， Identity （在下一教程中完成此操作。）
+* 登录/注销， Identity (在下一教程中完成此操作。 ) 
 
 ## <a name="controllers-and-views"></a>控制器和视图
 
@@ -494,7 +496,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 * 将*favicon*文件从 ASP.NET MVC 项目复制到 ASP.NET Core 项目中的*wwwroot*目录。
 
-ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，并将启动文件存储在*Content*和*Scripts*目录中。 生成 ASP.NET MVC 项目的模板引用布局文件（*Views/Shared/_Layout*）中的启动。 *bootstrap.js*和*启动 .css*文件可从 ASP.NET MVC 项目复制到新项目中的*wwwroot*目录。 本文档改为在下一部分中使用 Cdn 添加对启动（和其他客户端库）的支持。
+ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，并将启动文件存储在*Content*和*Scripts*目录中。 生成 ASP.NET MVC 项目的模板引用布局文件中的启动 (*Views/Shared/_Layout*) 。 *bootstrap.js*和*启动 .css*文件可从 ASP.NET MVC 项目复制到新项目中的*wwwroot*目录。 本文档改为使用 Cdn 在下一节中添加对) 使用的启动 (和其他客户端库的支持。
 
 ## <a name="migrate-the-layout-file"></a>迁移布局文件
 
@@ -506,17 +508,17 @@ ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，
 
 * 将 *_Layout*的 ASP.NET 文件从 MVC 项目的*视图/共享*目录复制到 ASP.NET Core 项目的 "*视图"/"共享*目录" 中。
 
-打开 *_Layout 的 cshtml*文件并进行以下更改（完成的代码如下所示）：
+打开 *_Layout.* # 文件，并进行以下更改 (完成的代码如下所示) ：
 
-* 替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素（见下文）。
+* 替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素 (参阅下面的) 。
 
 * 删除 `@Scripts.Render("~/bundles/modernizr")`。
 
-* 注释掉 `@Html.Partial("_LoginPartial")` 行（将该行环绕 `@*...*@` ）。 有关详细信息，请参阅[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)
+* 注释掉 `@Html.Partial("_LoginPartial")`) 行 (环绕行的行 `@*...*@` 。 有关详细信息，请参阅[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)
 
-* 替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素（见下文）。
+* 替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素 (参见下面的) 。
 
-* 替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素（见下文）。
+* 替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素 (参见下面的) 。
 
 用于启动 CSS 的替换标记包含：
 

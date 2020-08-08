@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: d2791422e50082eab51c0735e2209e5b829d22f2
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 067698687268ac072d8944fd5d9ae47c49fd4a24
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212500"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015006"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序
 
@@ -133,7 +135,7 @@ public class Movie
 
 在以下代码图像中，标记帮助程序前缀设置为 `th:`，所以只有使用前缀 `th:` 的元素才支持标记帮助程序（可使用标记帮助程序的元素以独特字体显示）。 `<label>` 和 `<input>` 元素具有标记帮助程序前缀，可使用标记帮助程序，而 `<span>` 元素则相反。
 
-![image](intro/_static/thp.png)
+![图像](intro/_static/thp.png)
 
 适用于 `@addTagHelper` 的层次结构规则也适用于 `@tagHelperPrefix`。
 
@@ -163,39 +165,39 @@ public class Movie
 
 请考虑编写 HTML `<label>` 元素。 只要在 Visual Studio 编辑器中输入 `<l`，IntelliSense 就会显示匹配的元素：
 
-![image](intro/_static/label.png)
+![图像](intro/_static/label.png)
 
 不仅会获得 HTML 帮助，还会有图标（下方带有“<>”的“@" symbol with "）
 
-![image](intro/_static/tagSym.png)
+![图像](intro/_static/tagSym.png)
 
 将该元素标识为标记帮助程序的目标。 纯 HTML 元素（如 `fieldset`）显示“<>”图标。
 
 纯 HTML `<label>` 标记以棕色字体显示 HTML 标记（使用默认 Visual Studio 颜色主题时），以红色字体显示属性，并以蓝色字体显示属性值。
 
-![image](intro/_static/LableHtmlTag.png)
+![图像](intro/_static/LableHtmlTag.png)
 
 输入 `<label` 后，IntelliSense 会列出可用的 HTML/CSS 属性和以标记帮助程序为目标的属性：
 
-![image](intro/_static/labelattr.png)
+![图像](intro/_static/labelattr.png)
 
 通过 IntelliSense 语句完成功能，按 Tab 键即可用选择的值完成语句：
 
-![image](intro/_static/stmtcomplete.png)
+![图像](intro/_static/stmtcomplete.png)
 
 只要输入标记帮助程序属性，标记和属性字体就会更改。 如果使用默认的 Visual Studio“蓝色”或“浅色”颜色主题，则字体是粗体紫色。 如果使用“深色”主题，则字体为粗体青色。 本文档中的图像在使用默认主题时截取的。
 
-![image](intro/_static/labelaspfor2.png)
+![图像](intro/_static/labelaspfor2.png)
 
 可在双引号 ("") 内输入 Visual Studio CompleteWord 快捷方式（[默认值](/visualstudio/ide/default-keyboard-shortcuts-in-visual-studio)为 Ctrl+空格键），即可使用 C#，就像在 C# 类中一样。** IntelliSense 会显示页面模型上的所有方法和属性。 由于属性类型是 `ModelExpression`，所以这些方法和属性可用。 在下图中，我正在编辑 `Register` 视图，所以 `RegisterViewModel` 是可用的。
 
-![image](intro/_static/intellemail.png)
+![图像](intro/_static/intellemail.png)
 
 IntelliSense 会列出页面上模型可用的属性和方法。 丰富 IntelliSense 环境可帮助选择 CSS 类：
 
-![image](intro/_static/iclass.png)
+![图像](intro/_static/iclass.png)
 
-![image](intro/_static/intel3.png)
+![图像](intro/_static/intel3.png)
 
 ## <a name="tag-helpers-compared-to-html-helpers"></a>标记帮助程序与 HTML 帮助程序的比较
 
@@ -221,13 +223,13 @@ new {@class="caption"}
 
 使用标记帮助程序版本，只要在 Visual Studio 编辑器中输入 `<l`，IntelliSense 就会显示匹配的元素：
 
-![image](intro/_static/label.png)
+![图像](intro/_static/label.png)
 
 IntelliSense 可帮助编写整行。
 
 下面的代码图显示了从 Visual Studio 附带的 ASP.NET 4.5. x MVC 模板生成的*视图/帐户/注册. cshtml*视图的窗体部分 Razor 。
 
-![image](intro/_static/regCS.png)
+![图像](intro/_static/regCS.png)
 
 Visual Studio 编辑器以灰色背景显示 C# 代码。 例如，`AntiForgeryToken` HTML 帮助程序：
 
@@ -237,7 +239,7 @@ Visual Studio 编辑器以灰色背景显示 C# 代码。 例如，`AntiForgeryT
 
 以灰色背景显示。 Register 视图中的标记大部分是 C#。 将其与使用标记帮助程序的等效方法进行比较：
 
-![image](intro/_static/regTH.png)
+![图像](intro/_static/regTH.png)
 
 与 HTML 帮助程序方法相比，此标记更清晰，更容易阅读、编辑和维护。 C# 代码会被减少至服务器需要知道的最小值。 Visual Studio 编辑器以独特的字体显示标记帮助程序的目标标记。
 
@@ -271,7 +273,7 @@ Visual Studio 编辑器可帮助编写注册窗体的标记帮助程序方法中
 
 可以从 "**工具**" "选项" "环境" "  >  **Options**  >  **Environment**  >  **字体和颜色**" 中自定义字体和着色：
 
-![image](intro/_static/fontoptions2.png)
+![图像](intro/_static/fontoptions2.png)
 
 [!INCLUDE[](~/includes/built-in-TH.md)]
 

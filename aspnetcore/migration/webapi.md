@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/26/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/webapi
-ms.openlocfilehash: 530455c85c4c869f06ba795d9fb63dcfd1c8d5cf
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4888de6ad55037be540cb62b6e4f02878e2b57ab
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407221"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014810"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>从 ASP.NET Web API 迁移到 ASP.NET Core
 
@@ -59,16 +61,16 @@ ASP.NET 4.x Web API 是一种 HTTP 服务，它可达到各种客户端，包括
 
 在 Visual Studio 中创建新的空白解决方案并添加 ASP.NET 4.x Web API 项目以进行迁移：
 
-1. 从“文件”菜单中选择“新建”>“项目”**** **** ****。
+1. 从“文件”菜单中选择“新建”>“项目”  。
 1. 选择 "**空白解决方案**" 模板，然后选择 "**下一步**"。
-1. 将解决方案命名为*WebAPIMigration*。 选择“创建” 。
+1. 将解决方案命名为*WebAPIMigration*。 选择“创建”。
 1. 将现有的*ProductsApp*项目添加到解决方案。
 
 添加要迁移到的新 API 项目：
 
 1. 向解决方案添加新的**ASP.NET Core Web 应用程序**项目。
 1. 在 "**配置新项目**" 对话框中，将项目命名为*ProductsCore*，然后选择 "**创建**"。
-1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”**** **** ****。 选择“API”项目模板，然后选择“创建” 。
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”  。 选择“API”项目模板，然后选择“创建” 。
 1. 从新的*ProductsCore*项目中删除*WeatherForecast.cs*和 controller */WeatherForecastController*示例文件。
 
 解决方案现在包含两个项目。 以下各节介绍了如何将*ProductsApp*项目的内容迁移到*ProductsCore*项目。
@@ -177,7 +179,7 @@ ASP.NET Core *API*项目模板在生成的代码中包含终结点路由配置�
 
 在 Visual Studio 中完成以下步骤：
 
-* 中转到 "**文件**" "  >  **新建**  >  **项目**" "  >  **其他项目类型**" "  >  **Visual Studio 解决方案**"。 选择 "**空白解决方案**"，并将解决方案命名为 " *WebAPIMigration*"。 单击“确定”**** 按钮。
+* 中转到 "**文件**" "  >  **新建**  >  **项目**" "  >  **其他项目类型**" "  >  **Visual Studio 解决方案**"。 选择 "**空白解决方案**"，并将解决方案命名为 " *WebAPIMigration*"。 单击“确定”按钮。
 * 将现有的*ProductsApp*项目添加到解决方案。
 * 向解决方案添加新的**ASP.NET Core Web 应用程序**项目。 从下拉选择 " **.Net Core**目标框架"，然后选择 " **API**项目" 模板。 将项目命名为 " *ProductsCore*"，然后单击 **"确定"** 按钮。
 
@@ -280,7 +282,7 @@ Web API 兼容性填充码旨在用作一种临时度量，以支持将大型 AS
     * `InvalidModelStateResult`
     * `NegotiatedContentResult`
     * `ResponseMessageResult`
-* 将的实例添加 `IContentNegotiator` 到应用的依赖项注入（DI）容器，并使[WebApi](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)中与内容协商相关的类型可用。 此类类型的示例包括 `DefaultContentNegotiator` 和 `MediaTypeFormatter` 。
+* 将的实例添加 `IContentNegotiator` 到应用的依赖项注入 (DI) 容器，并使[WebApi](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)中的内容协商相关类型可用。 此类类型的示例包括 `DefaultContentNegotiator` 和 `MediaTypeFormatter` 。
 
 使用兼容性填充码：
 

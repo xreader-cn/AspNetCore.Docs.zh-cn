@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/26/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/claimsprincipal-current
-ms.openlocfilehash: f3b56b005906847e86d598f0630b8cf9534761cb
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: faa3db1a4b9cb7ff3fb54ec8a7caf21e8a9bfb7b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399733"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015122"
 ---
 # <a name="migrate-from-claimsprincipalcurrent"></a>从 ClaimsPrincipal 迁移
 
@@ -27,16 +29,16 @@ ms.locfileid: "85399733"
 
 ## <a name="context-specific-state-instead-of-static-state"></a>上下文特定的状态而不是静态状态
 
-使用 ASP.NET Core 时， `ClaimsPrincipal.Current` 不会设置和的值 `Thread.CurrentPrincipal` 。 这些属性都表示静态状态，这 ASP.NET Core 通常会避免这种情况。 相反，ASP.NET Core 使用[依赖关系注入](xref:fundamentals/dependency-injection)（DI）来提供诸如当前用户的标识等依赖项。 从 DI 获取当前用户的标识也更易于测试，因为可以轻松注入测试标识。
+使用 ASP.NET Core 时， `ClaimsPrincipal.Current` 不会设置和的值 `Thread.CurrentPrincipal` 。 这些属性都表示静态状态，这 ASP.NET Core 通常会避免这种情况。 相反，ASP.NET Core 使用[依赖关系注入](xref:fundamentals/dependency-injection) (DI) 来提供当前用户的标识等依赖项。 从 DI 获取当前用户的标识也更易于测试，因为可以轻松注入测试标识。
 
 ## <a name="retrieve-the-current-user-in-an-aspnet-core-app"></a>在 ASP.NET Core 应用程序中检索当前用户
 
 有几个选项可用于检索 ASP.NET Core 的当前已验证身份的用户的 `ClaimsPrincipal` 位置 `ClaimsPrincipal.Current` ：
 
 * **ControllerBase**。 MVC 控制器可以使用[用户的用户](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.user)属性来访问当前已经过身份验证的用户。
-* **Httpcontext.current**。 有权访问当前的组件 `HttpContext` （例如中间件）可以从 HttpContext 获取当前用户的 `ClaimsPrincipal` 。 [HttpContext.User](/dotnet/api/microsoft.aspnetcore.http.httpcontext.user)
+* **Httpcontext.current**。 有权访问当前 `HttpContext` (中间件的组件，例如) 可以从 HttpContext 获取当前用户 `ClaimsPrincipal` 的[HttpContext.User](/dotnet/api/microsoft.aspnetcore.http.httpcontext.user)。
 * **从调用方传入**。 `HttpContext`通常从控制器或中间件组件调用不具有当前访问权限的库，并且可以将当前用户的标识作为参数传递。
-* **IHttpContextAccessor**。 正在迁移到 ASP.NET Core 的项目可能太大，无法轻松地将当前用户的标识传递到所有必要的位置。 在这种情况下，可以使用[IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor)作为一种解决方法。 `IHttpContextAccessor`可以访问当前的 `HttpContext` （如果存在）。 如果正在使用 DI，请参阅 <xref:fundamentals/httpcontext> 。 一种短期解决方案，用于在代码中获取当前用户的标识，但尚未更新为使用 ASP.NET Core 的 DI 驱动的体系结构：
+* **IHttpContextAccessor**。 正在迁移到 ASP.NET Core 的项目可能太大，无法轻松地将当前用户的标识传递到所有必要的位置。 在这种情况下，可以使用[IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor)作为一种解决方法。 `IHttpContextAccessor`如果) 存在，则能够访问当前 `HttpContext` (。 如果正在使用 DI，请参阅 <xref:fundamentals/httpcontext> 。 一种短期解决方案，用于在代码中获取当前用户的标识，但尚未更新为使用 ASP.NET Core 的 DI 驱动的体系结构：
 
   * `IHttpContextAccessor`在中调用[AddHttpContextAccessor](https://github.com/aspnet/Hosting/issues/793) ，使其在 DI 容器中可用 `Startup.ConfigureServices` 。
   * `IHttpContextAccessor`在启动过程中获取实例，并将其存储在静态变量中。 此实例可用于以前从静态属性中检索当前用户的代码。

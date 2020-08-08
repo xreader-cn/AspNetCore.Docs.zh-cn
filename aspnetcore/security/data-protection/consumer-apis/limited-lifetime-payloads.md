@@ -5,6 +5,8 @@ description: 了解如何使用 ASP.NET Core 数据保护 Api 限制受保护负
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/limited-lifetime-payloads
-ms.openlocfilehash: d8c83ca46b1993af1f5e7985571ff012d90b1e01
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: c7bc86cd42a725f21cf66187c033376a8c5a9e65
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408365"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014823"
 ---
 # <a name="limit-the-lifetime-of-protected-payloads-in-aspnet-core"></a>在 ASP.NET Core 中限制受保护负载的生存期
 
@@ -32,29 +34,29 @@ ms.locfileid: "85408365"
 
 `ITimeLimitedDataProtector`公开以下 API surface 和 extension 方法：
 
-* CreateProtector （string 目的）： ITimeLimitedDataProtector-此 API 类似于现有的 `IDataProtectionProvider.CreateProtector` ，它可用于从根时间限制的保护程序创建[用途链](xref:security/data-protection/consumer-apis/purpose-strings)。
+* CreateProtector (string 目的) ： ITimeLimitedDataProtector-此 API 类似于现有的 `IDataProtectionProvider.CreateProtector` ，因为它可用于从根时间限制的保护程序创建[用途链](xref:security/data-protection/consumer-apis/purpose-strings)。
 
-* 保护（byte [] 纯文本、DateTimeOffset 过期）： byte []
+* 保护 (byte [] 纯文本、DateTimeOffset 过期) ： byte []
 
-* 保护（byte [] 纯文本，TimeSpan 生存期）： byte []
+* 保护 (byte [] 纯文本、TimeSpan 生存期) ： byte []
 
-* 保护（byte [] 纯文本）： byte []
+* 保护 (byte [] 纯文本) ： byte []
 
-* 保护（字符串纯文本、DateTimeOffset 过期）：字符串
+* 保护 (字符串纯文本、DateTimeOffset 过期) ： string
 
-* 保护（字符串纯文本、TimeSpan 生存期）：字符串
+* 保护 (字符串纯文本、TimeSpan 生存期) ： string
 
-* 保护（字符串纯文本）：字符串
+* 保护 (字符串纯文本) ： string
 
-除了使用 `Protect` 纯文本的核心方法之外，还有一些新的重载，可用于指定有效负载的到期日期。 可以将到期日期指定为绝对日期（通过 `DateTimeOffset` ），或指定为相对时间（通过从当前系统时间开始 `TimeSpan` ）。 如果调用不带过期的重载，则假定负载永不过期。
+除了使用 `Protect` 纯文本的核心方法之外，还有一些新的重载，可用于指定有效负载的到期日期。 可以通过) 将到期日期指定为通过 `DateTimeOffset`) 或从当前系统时间 (的相对时间 (的绝对日期 `TimeSpan` 。 如果调用不带过期的重载，则假定负载永不过期。
 
-* 取消保护（byte [] protectedData，out DateTimeOffset 过期）： byte []
+* 取消保护 (byte [] protectedData，out DateTimeOffset 过期) ： byte []
 
-* 取消保护（byte [] protectedData）： byte []
+* 取消保护 (byte [] protectedData) ： byte []
 
-* 取消保护（string protectedData，out DateTimeOffset 过期）：字符串
+* 取消保护 (字符串 protectedData，out DateTimeOffset 过期) ： string
 
-* 取消保护（string protectedData）：字符串
+* 取消保护 (字符串 protectedData) ： string
 
 `Unprotect`方法返回未受保护的原始数据。 如果负载尚未过期，则将以可选的 out 参数形式返回绝对过期，并将其作为不受保护的原始数据。 如果有效负载已过期，则解除保护方法的所有重载都将引发 System.security.cryptography.cryptographicexception。
 

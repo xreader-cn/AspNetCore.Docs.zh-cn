@@ -5,6 +5,8 @@ description: 了解如何将配置从 ASP.NET MVC 项目迁移到 ASP.NET Core M
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/configuration
-ms.openlocfilehash: 9be321850b14847973877fb6a32217bd2dbb5171
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7c1f2feb40e115d71fb087201acdf52197a52c88
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399811"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015096"
 ---
 # <a name="migrate-configuration-to-aspnet-core"></a>将配置迁移到 ASP.NET Core
 
@@ -56,6 +58,6 @@ using Microsoft.Extensions.Configuration;
 
 在上面所示的突出显示的行中，将数据库的名称从 **_CHANGE_ME**更改为数据库的名称。
 
-## <a name="summary"></a>摘要
+## <a name="summary"></a>总结
 
 ASP.NET Core 将应用程序的所有启动逻辑放在一个文件中，可以在其中定义和配置所需的服务和依赖项。 它将*web.config*文件替换为灵活的配置功能，该功能可利用各种文件格式（如 JSON）以及环境变量。

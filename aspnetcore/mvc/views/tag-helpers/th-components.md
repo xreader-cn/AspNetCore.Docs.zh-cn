@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 58781880764b26a67d71e70c225ab4ed4e5da109
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 736288b6e7d2e9be7f23f6df02183a813951eb56
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406701"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014719"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序组件
 
@@ -80,7 +82,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 [!code-csharp[](th-components/samples/RazorPagesSample/Startup.cs?name=snippet_ConfigureServices&highlight=12-15)]
 
-### <a name="registration-via-razor-file"></a>通过 Razor 文件注册
+### <a name="registration-via-no-locrazor-file"></a>通过 Razor 文件注册
 
 如果标记帮助程序组件未使用 DI 注册，则可以从 Razor 页面页或 MVC 视图注册。 此方法用于控制来自文件的注入标记和组件执行顺序 Razor 。
 

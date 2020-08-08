@@ -5,6 +5,8 @@ description: 本文概述迁移 ASP.NET Core 1.x 身份验证和 ASP.NET Core 2.
 ms.author: scaddie
 ms.date: 06/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: dacf6fa7191f51f36b9ba65a90746a26f958fc03
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 46f10df25235b532f188eda2a079aef71070cd6d
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408664"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015285"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>将身份验证和升级 Identity 到 ASP.NET Core 2。0
+# <a name="migrate-authentication-and-no-locidentity-to-aspnet-core-20"></a>将身份验证和升级 Identity 到 ASP.NET Core 2。0
 
 作者： [Scott Addie](https://github.com/scottaddie)和[Hao Kung](https://github.com/HaoK)
 
@@ -86,7 +88,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 下面是每个主要身份验证方案的2.0 迁移说明。
 
-### <a name="cookie-based-authentication"></a>基于 Cookie 的身份验证
+### <a name="no-loccookie-based-authentication"></a>Cookie基于的身份验证
 
 选择以下两个选项之一，并在*Startup.cs*中进行必要的更改：
 
@@ -108,7 +110,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
         services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
         ```
 
-2. 使用 cookie 而不Identity
+2. 使用 cookie 不带Identity
     - `UseCookieAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：
 
         ```csharp
@@ -150,7 +152,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
     此代码段不使用 Identity ，因此应通过传递给方法来设置默认方案 `JwtBearerDefaults.AuthenticationScheme` `AddAuthentication` 。
 
-### <a name="openid-connect-oidc-authentication"></a>OpenID Connect （OIDC）身份验证
+### <a name="openid-connect-oidc-authentication"></a>OpenID Connect (OIDC) 身份验证
 
 在*Startup.cs*中进行以下更改：
 
@@ -277,7 +279,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 
-在上面的代码段中，将默认方案设置为 `CookieAuthenticationDefaults.AuthenticationScheme` "（cookie）"。
+在上面的代码段中，默认方案设置为 `CookieAuthenticationDefaults.AuthenticationScheme` ( " Cookie s" ) 。
 
 或者，使用方法的重载版本 `AddAuthentication` 设置多个属性。 在下面的重载方法示例中，将默认方案设置为 `CookieAuthenticationDefaults.AuthenticationScheme` 。 也可以在单个 `[Authorize]` 属性或授权策略中指定身份验证方案。
 
@@ -293,7 +295,7 @@ services.AddAuthentication(options =>
 - 希望用户自动登录
 - 在 `[Authorize]` 不指定方案的情况下使用属性或授权策略
 
-此规则的例外情况是 `AddIdentity` 方法。 此方法为你添加 cookie，并将默认身份验证和质询方案设置为应用程序 cookie `IdentityConstants.ApplicationScheme` 。 此外，它还将默认登录方案设置为外部 cookie `IdentityConstants.ExternalScheme` 。
+此规则的例外情况是 `AddIdentity` 方法。 此方法 cookie 为你添加了，并将默认身份验证和质询方案设置为应用程序 cookie `IdentityConstants.ApplicationScheme` 。 此外，它还将默认登录方案设置为外部 cookie `IdentityConstants.ExternalScheme` 。
 
 <a name="obsolete-interface"></a>
 
@@ -311,7 +313,7 @@ services.AddAuthentication(options =>
 
 <a name="windows-auth-changes"></a>
 
-## <a name="windows-authentication-httpsys--iisintegration"></a>Windows 身份验证（HTTP.sys/IISIntegration）
+## <a name="windows-authentication-httpsys--iisintegration"></a>Windows 身份验证 ( # A0/IISIntegration) 
 
 Windows 身份验证有两种变体：
 
@@ -334,7 +336,7 @@ Windows 身份验证有两种变体：
   services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
   ```
 
-  未能设置默认方案会阻止授权（质询）请求使用以下例外：
+  未能设置默认方案会阻止授权 (质询) 请求使用以下例外：
 
   > `System.InvalidOperationException`：未指定 authenticationScheme，且未找到 DefaultChallengeScheme。
 
@@ -342,11 +344,11 @@ Windows 身份验证有两种变体：
 
 <a name="identity-cookie-options"></a>
 
-## <a name="identitycookieoptions-instances"></a>IdentityCookieOptions 实例
+## <a name="no-locidentityno-loccookieoptions-instances"></a>IdentityCookie选项实例
 
 2.0 更改的副作用是切换到使用命名选项而不是 cookie 选项实例。 将删除自定义 Identity cookie 方案名称的功能。
 
-例如，1.x 项目使用[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)将 `IdentityCookieOptions` 参数传递到*AccountController.cs*和*ManageController.cs*中。 可从提供的实例中访问外部 cookie 身份验证方案：
+例如，1.x 项目使用[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)将 `IdentityCookieOptions` 参数传递到*AccountController.cs*和*ManageController.cs*中。 cookie可从提供的实例中访问外部身份验证方案：
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor&highlight=4,11)]
 
@@ -368,9 +370,9 @@ Windows 身份验证有两种变体：
 
 <a name="navigation-properties"></a>
 
-## <a name="add-identityuser-poco-navigation-properties"></a>添加 IdentityUser POCO 导航属性
+## <a name="add-no-locidentityuser-poco-navigation-properties"></a>添加 Identity 用户 POCO 导航属性
 
-已 `IdentityUser` 删除基本 POCO （普通旧 CLR 对象）的实体框架（EF）核心导航属性。 如果你的1.x 项目使用这些属性，请将其手动添加回2.0 项目：
+已 `IdentityUser` 删除基本 POCO (普通旧 CLR 对象) 的实体框架 (EF) Core 导航属性。 如果你的1.x 项目使用这些属性，请将其手动添加回2.0 项目：
 
 ```csharp
 /// <summary>
@@ -389,7 +391,7 @@ public virtual ICollection<IdentityUserClaim<int>> Claims { get; } = new List<Id
 public virtual ICollection<IdentityUserLogin<int>> Logins { get; } = new List<IdentityUserLogin<int>>();
 ```
 
-若要防止在运行 EF Core 迁移时出现重复的外键，请将以下内容添加到 `IdentityDbContext` 类的 `OnModelCreating` 方法（ `base.OnModelCreating();` 调用后）：
+若要防止在运行 EF Core 迁移时出现重复的外键，请在 `IdentityDbContext` 调用) 后将以下内容添加到类的 `OnModelCreating` 方法 (`base.OnModelCreating();` ：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder builder)

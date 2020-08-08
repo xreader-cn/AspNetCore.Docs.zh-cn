@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/02/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,20 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 69a24fc955a0f2fb524ec817eb50372052f538a1
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 4dc9040b9410304eb33e5df7c47db2f9a42152d3
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944251"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013991"
 ---
-# <a name="secure-aspnet-core-blazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
+# <a name="secure-aspnet-core-no-locblazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
 
 作者：[Luke Latham](https://github.com/guardrex)
 
 Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。 有关详细信息，请参阅 <xref:security/index> 下的文章。 此“概述”下的主题特别适用于 Blazor Server。 
 
-## <a name="blazor-server-project-template"></a>Blazor Server项目模板
+## <a name="no-locblazor-server-project-template"></a>Blazor Server项目模板
 
 创建项目后，可配置 Blazor Server项目模板来进行身份验证。
 
@@ -109,7 +111,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 ---
 
-## <a name="scaffold-identity"></a>设置Identity的基架
+## <a name="scaffold-no-locidentity"></a>设置Identity的基架
 
 将 Identity 架构到 Blazor Server项目中：
 

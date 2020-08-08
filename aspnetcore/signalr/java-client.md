@@ -7,6 +7,8 @@ ms.author: mimengis
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/java-client
-ms.openlocfilehash: 27ab8cc1b6e419b59aadb97a8a1fbdddc3579276
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ec1d83853b1596824914328d546c6c68cce3bfe7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408794"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012548"
 ---
-# <a name="aspnet-core-signalr-java-client"></a>ASP.NET Core SignalR Java 客户端
+# <a name="aspnet-core-no-locsignalr-java-client"></a>ASP.NET Core SignalR Java 客户端
 
 作者：[Mikael Mengistu](https://twitter.com/MikaelM_12)
 
@@ -32,7 +34,7 @@ Java 客户端允许 SignalR 从 java 代码（包括 Android 应用）连接到
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="install-the-signalr-java-client-package"></a>安装 SignalR Java 客户端包
+## <a name="install-the-no-locsignalr-java-client-package"></a>安装 SignalR Java 客户端包
 
 *Signalr-1.0.0* JAR 文件允许客户端连接到 SignalR 中心。 若要查找最新的 JAR 文件版本号，请参阅[Maven 搜索结果](https://search.maven.org/search?q=g:com.microsoft.signalr%20AND%20a:signalr)。
 
@@ -90,7 +92,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 对于客户端功能 Android SDK 兼容性 SignalR ，在指定目标 Android SDK 版本时，请考虑以下各项：
 
 * SignalRJava 客户端将在 ANDROID API Level 16 和更高版本上运行。
-* 通过 Azure 服务连接 SignalR 将需要 ANDROID API 级别20和更高版本，因为[Azure SignalR 服务](/azure/azure-signalr/signalr-overview)需要 TLS 1.2，并且不支持基于 sha-1 的密码套件。 Android[增加了对 API 级别20中的 SHA-256 （及更高版本）密码套件的支持](https://developer.android.com/reference/javax/net/ssl/SSLSocket)。
+* 通过 Azure 服务连接 SignalR 将需要 ANDROID API 级别20和更高版本，因为[Azure SignalR 服务](/azure/azure-signalr/signalr-overview)需要 TLS 1.2，并且不支持基于 sha-1 的密码套件。 Android[增加了对 SHA-256 (及更) 高](https://developer.android.com/reference/javax/net/ssl/SSLSocket)版本的支持。
 
 ## <a name="configure-bearer-token-authentication"></a>配置持有者令牌身份验证
 
