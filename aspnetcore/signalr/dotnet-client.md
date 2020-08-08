@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/14/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 54e86479b9f9f0acc861769f9ab78958f79acfd3
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a03598f887d628c8a2b6720d99826d4aef4e52fa
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400136"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019997"
 ---
-# <a name="aspnet-core-signalr-net-client"></a>ASP.NET Core SignalR .Net 客户端
+# <a name="aspnet-core-no-locsignalr-net-client"></a>ASP.NET Core SignalR .Net 客户端
 
 通过 ASP.NET Core SignalR .net 客户端库，你可以 SignalR 从 .net 应用程序与中心进行通信。
 
@@ -30,7 +32,7 @@ ms.locfileid: "85400136"
 
 本文中的代码示例是使用 .Net 客户端 ASP.NET Core 的 WPF 应用程序 SignalR 。
 
-## <a name="install-the-signalr-net-client-package"></a>安装 SignalR .net 客户端包
+## <a name="install-the-no-locsignalr-net-client-package"></a>安装 SignalR .net 客户端包
 
 [AspNetCore. SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)若要连接到集线器，.net 客户端需要客户端包 SignalR 。
 
@@ -264,7 +266,7 @@ connection.Closed += (error) => {
 
 ## <a name="additional-resources"></a>其他资源
 
-* [中心](xref:signalr/hubs)
+* [集线器](xref:signalr/hubs)
 * [JavaScript 客户端](xref:signalr/javascript-client)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)
 * [Azure SignalR Service 无服务器文档](/azure/azure-signalr/signalr-concept-serverless-development-config)

@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: 8247d66900a0c15b3b386dca021c5c5922d26e71
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5dcdf50ff9f750e4966ed3bdf24a71b9f433240a
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404557"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018996"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>在 ASP.NET Core 强制实施 HTTPS
 
@@ -40,7 +42,7 @@ ms.locfileid: "85404557"
 > 不要**对**接收敏感信息的 Web Api 使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) 。 `RequireHttpsAttribute`使用 HTTP 状态代码将浏览器从 HTTP 重定向到 HTTPS。 API 客户端可能不理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可以通过 HTTP 发送信息。 Web Api 应：
 >
 > * 不侦听 HTTP。
-> * 关闭状态代码为400（错误请求）的连接，并且不为请求提供服务。
+> * 关闭状态代码为400的连接 (错误请求) 并且不处理请求。
 >
 > ## <a name="hsts-and-api-projects"></a>HSTS 和 API 项目
 >
@@ -56,7 +58,7 @@ ms.locfileid: "85404557"
 > 不要**对**接收敏感信息的 Web Api 使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) 。 `RequireHttpsAttribute`使用 HTTP 状态代码将浏览器从 HTTP 重定向到 HTTPS。 API 客户端可能不理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可以通过 HTTP 发送信息。 Web Api 应：
 >
 > * 不侦听 HTTP。
-> * 关闭状态代码为400（错误请求）的连接，并且不为请求提供服务。
+> * 关闭状态代码为400的连接 (错误请求) 并且不处理请求。
 
 ::: moniker-end
 
@@ -64,11 +66,11 @@ ms.locfileid: "85404557"
 
 建议将生产 ASP.NET Core web 应用使用：
 
-* HTTPS 重定向中间件（ <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> ），用于将 HTTP 请求重定向到 HTTPS。
-* HSTS 中间件（[UseHsts](#http-strict-transport-security-protocol-hsts)）用于向客户端发送 HTTP 严格传输安全协议（HSTS）标头。
+* HTTPS 重定向中间件 (<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>) 将 HTTP 请求重定向到 HTTPS。
+* HSTS 中间件 ([UseHsts](#http-strict-transport-security-protocol-hsts)) 将 HTTP 严格传输安全协议 (HSTS) 标头发送到客户端。
 
 > [!NOTE]
-> 使用反向代理配置部署的应用允许代理处理连接安全（HTTPS）。 如果代理还处理 HTTPS 重定向，则无需使用 HTTPS 重定向中间件。 如果代理服务器还处理写入 HSTS 标头（例如， [IIS 10.0 （1709）或更高版本中的本机 HSTS 支持](/iis/get-started/whats-new-in-iis-10-version-1709/iis-10-version-1709-hsts#iis-100-version-1709-native-hsts-support)），则应用程序不需要 HSTS 中间件。 有关详细信息，请参阅[在创建项目时选择退出 HTTPS/HSTS](#opt-out-of-httpshsts-on-project-creation)。
+> 使用反向代理配置部署的应用允许代理处理 (HTTPS) 的连接安全。 如果代理还处理 HTTPS 重定向，则无需使用 HTTPS 重定向中间件。 如果代理服务器还处理写入 HSTS 标头 (例如， [IIS 10.0 (1709) 或更高版本) 中的本机 HSTS 支持](/iis/get-started/whats-new-in-iis-10-version-1709/iis-10-version-1709-hsts#iis-100-version-1709-native-hsts-support)，则该应用程序不要求 HSTS 中间件。 有关详细信息，请参阅[在创建项目时选择退出 HTTPS/HSTS](#opt-out-of-httpshsts-on-project-creation)。
 
 ### <a name="usehttpsredirection"></a>UseHttpsRedirection
 
@@ -88,10 +90,10 @@ ms.locfileid: "85404557"
 
 前面突出显示的代码：
 
-* 使用默认的[HttpsRedirectionOptions. RedirectStatusCode](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.redirectstatuscode) （[Status307TemporaryRedirect](/dotnet/api/microsoft.aspnetcore.http.statuscodes.status307temporaryredirect)）。
-* 除非由[HttpsRedirectionOptions.HttpsPort](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.httpsport) `ASPNETCORE_HTTPS_PORT` 环境变量或[IServerAddressesFeature](/dotnet/api/microsoft.aspnetcore.hosting.server.features.iserveraddressesfeature)重写，否则将使用默认的 HttpsRedirectionOptions HttpsPort （null）。
+* 使用默认的[HttpsRedirectionOptions. RedirectStatusCode](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.redirectstatuscode) ([Status307TemporaryRedirect](/dotnet/api/microsoft.aspnetcore.http.statuscodes.status307temporaryredirect)) 。
+* 使用默认的[HttpsRedirectionOptions. HttpsPort](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.httpsport) (null) ，除非由 `ASPNETCORE_HTTPS_PORT` 环境变量或[IServerAddressesFeature](/dotnet/api/microsoft.aspnetcore.hosting.server.features.iserveraddressesfeature)重写。
 
-建议使用临时重定向，而不是永久重定向。 链接缓存会导致开发环境中的行为不稳定。 如果希望在应用处于非开发环境中时发送永久重定向状态代码，请参阅在[生产中配置永久重定向](#configure-permanent-redirects-in-production)部分。 建议使用[HSTS](#http-strict-transport-security-protocol-hsts)向仅应将安全资源请求发送到应用的客户端发送信号（仅在生产中）。
+建议使用临时重定向，而不是永久重定向。 链接缓存会导致开发环境中的行为不稳定。 如果希望在应用处于非开发环境中时发送永久重定向状态代码，请参阅在[生产中配置永久重定向](#configure-permanent-redirects-in-production)部分。 我们建议使用[HSTS](#http-strict-transport-security-protocol-hsts)来向仅应将安全资源请求发送到应用的客户端发出信号， (仅在生产) 中发送。
 
 ### <a name="port-configuration"></a>端口配置
 
@@ -143,8 +145,8 @@ ms.locfileid: "85404557"
 
 当 Kestrel 或 HTTP.sys 用作面向公众的边缘服务器时，必须将 Kestrel 或 HTTP.sys 配置为侦听两者：
 
-* 重定向客户端的安全端口（通常为 5001 443）。
-* 不安全端口（在生产5000环境中通常为80）。
+* 重定向客户端的安全端口 (通常是443在生产和5001开发) 。
+* 在生产环境中，80 (通常为，开发5000环境中) 。
 
 客户端必须能够访问不安全的端口，以便应用接收不安全的请求，并将客户端重定向到安全端口。
 
@@ -232,15 +234,15 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="https-redirection-middleware-alternative-approach"></a>HTTPS 重定向中间件备用方法
 
-使用 HTTPS 重定向中间件（）的一种替代方法 `UseHttpsRedirection` 是使用 URL 重写中间件（ `AddRedirectToHttps` ）。 `AddRedirectToHttps`执行重定向时，还可以设置状态代码和端口。 有关详细信息，请参阅[URL 重写中间件](xref:fundamentals/url-rewriting)。
+ () 使用 HTTPS 重定向中间件的替代方法 `UseHttpsRedirection` 是使用 URL 重写中间件 (`AddRedirectToHttps`) 。 `AddRedirectToHttps`执行重定向时，还可以设置状态代码和端口。 有关详细信息，请参阅[URL 重写中间件](xref:fundamentals/url-rewriting)。
 
-在不需要其他重定向规则的情况下重定向到 HTTPS 时，我们建议使用本主题中介绍的 HTTPS 重定向中间件（ `UseHttpsRedirection` ）。
+在不需要其他重定向规则的情况下重定向到 HTTPS 时，我们建议使用 HTTPS 重定向中间件 (`UseHttpsRedirection` 本主题中所述) 。
 
 <a name="hsts"></a>
 
-## <a name="http-strict-transport-security-protocol-hsts"></a>HTTP 严格传输安全协议（HSTS）
+## <a name="http-strict-transport-security-protocol-hsts"></a>HTTP 严格传输安全协议 (HSTS) 
 
-根据[OWASP](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)， [HTTP 严格传输安全（HSTS）](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)是由 web 应用通过使用响应标头指定的选择加入安全增强功能。 当[支持 HSTS 的浏览器](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#browser-support)收到此标头时：
+根据[OWASP](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)， [HTTP 严格传输安全 (HSTS) ](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)是通过使用响应标头由 web 应用指定的选择加入安全增强功能。 当[支持 HSTS 的浏览器](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#browser-support)收到此标头时：
 
 * 浏览器存储域的配置，阻止通过 HTTP 发送任何通信。 浏览器强制通过 HTTPS 进行的所有通信。
 * 浏览器阻止用户使用不受信任或无效的证书。 浏览器将禁用允许用户暂时信任此类证书的提示。
@@ -364,7 +366,7 @@ dotnet dev-certs https --help
 
 ## <a name="trust-https-certificate-from-windows-subsystem-for-linux"></a>从适用于 Linux 的 Windows 子系统信任 HTTPS 证书
 
-适用于 Linux 的 Windows 子系统（WSL）生成 HTTPS 自签名证书。若要将 Windows 证书存储配置为信任 WSL 证书，请执行以下操作：
+适用于 Linux 的 Windows 子系统 (WSL) 生成一个 HTTPS 自签名证书。若要将 Windows 证书存储配置为信任 WSL 证书，请执行以下操作：
 
 * 运行以下命令以导出 WSL 生成的证书：
 
@@ -433,7 +435,7 @@ dotnet dev-certs https --trust
 
 关闭所有打开的浏览器实例。 在应用程序中打开新的浏览器窗口。
 
-若要解决 Visual Studio 的证书问题，请参阅[使用 IIS Express （dotnet/AspNetCore #16892）进行 HTTPS 错误](https://github.com/dotnet/AspNetCore/issues/16892)。
+请参阅[HTTPS 错误，使用 IIS Express (dotnet/AspNetCore #16892) ](https://github.com/dotnet/AspNetCore/issues/16892)用于排查 Visual Studio 的证书问题。
 
 ### <a name="iis-express-ssl-certificate-used-with-visual-studio"></a>用于 Visual Studio 的 IIS Express SSL 证书
 

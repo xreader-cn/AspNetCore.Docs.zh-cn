@@ -5,6 +5,8 @@ description: 了解如何为使用 ASP.NET Core 双因素身份验证的 TOTP �
 ms.author: riande
 ms.date: 08/14/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: 4ed5a550b5d3ca00179ae0492bf61e7fe91e324c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4ccfd83c273f7179ac26b075eb33f138e724b967
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408768"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019555"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>为 ASP.NET Core 中的 TOTP 验证器应用启用 QR 代码生成
 
@@ -30,7 +32,7 @@ QR 码需要 ASP.NET Core 2.0 或更高版本。
 
 ::: moniker range=">= aspnetcore-2.0"
 
-ASP.NET Core 附带了对验证程序应用程序的支持，以便进行单个身份验证。 使用基于时间的一次性密码算法（TOTP）的双因素身份验证（2FA）验证器应用是适用于2FA 的行业建议方法。 2FA 使用 TOTP 是 SMS 2FA 的首选。 验证器应用提供6到8位的数字代码，用户在确认其用户名和密码后必须输入。 通常会在智能手机上安装验证器应用。
+ASP.NET Core 附带了对验证程序应用程序的支持，以便进行单个身份验证。 双因素身份验证 (2FA) 验证器应用，使用基于时间的一次性密码算法 (TOTP) ，是2FA 的行业建议方法。 2FA 使用 TOTP 是 SMS 2FA 的首选。 验证器应用提供6到8位的数字代码，用户在确认其用户名和密码后必须输入。 通常会在智能手机上安装验证器应用。
 
 ASP.NET Core web 应用模板支持验证器，但不要为 QRCode 生成提供支持。 QRCode 生成器简化了2FA 的设置。 本文档将指导你完成将[QR 代码](https://wikipedia.org/wiki/QR_code)生成添加到 "2FA" 配置页的步骤。
 
@@ -53,7 +55,7 @@ ASP.NET Core web 应用模板支持验证器，但不要为 QRCode 生成提供�
 
 ::: moniker range="= aspnetcore-2.0"
 
-* 在*pages/Account/manage/EnableAuthenticator* （ Razor Pages）或*Views/manage/EnableAuthenticator* （MVC）中，找到 `Scripts` 文件末尾的部分：
+* 在 "*页面/帐户/管理/EnableAuthenticator* " (Razor 页面) 或*视图/管理/EnableAuthenticator* (MVC) 中，找到 `Scripts` 文件末尾的部分：
 
 ::: moniker-end
 
@@ -99,7 +101,7 @@ QR 代码中的站点名称取自最初创建项目时选择的项目名称。 �
 
 ::: moniker range="= aspnetcore-2.0"
 
-QR 代码中的站点名称取自最初创建项目时选择的项目名称。 您可以通过在 `GenerateQrCodeUri(string email, string unformattedKey)` *页面/帐户/管理/EnableAuthenticator* （ Razor 页）文件或*控制器/ManageController* （MVC）文件中查找方法来更改该方法。
+QR 代码中的站点名称取自最初创建项目时选择的项目名称。 您可以通过在 `GenerateQrCodeUri(string email, string unformattedKey)` "*页面/帐户/管理/EnableAuthenticator* " (Razor 页面) 文件或*控制器/ManageController* (MVC) 文件中查找方法来更改该方法。
 
 ::: moniker-end
 
@@ -131,6 +133,6 @@ private string GenerateQrCodeUri(string email, string unformattedKey)
 
 ## <a name="totp-client-and-server-time-skew"></a>TOTP 客户端和服务器时间偏差
 
-TOTP （基于时间的一次性密码）身份验证取决于服务器和验证器设备的时间是否准确。 标记只持续30秒。 如果 TOTP 2FA 登录失败，请检查服务器时间是否准确，并最好是同步到准确的 NTP 服务。
+TOTP (基于时间的一次性密码) 身份验证取决于服务器和验证器设备的时间是否准确。 标记只持续30秒。 如果 TOTP 2FA 登录失败，请检查服务器时间是否准确，并最好是同步到准确的 NTP 服务。
 
 ::: moniker-end

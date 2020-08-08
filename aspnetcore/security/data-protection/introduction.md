@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/introduction
-ms.openlocfilehash: bf41d5a756c988b239824c19ef7a9d177a93a4a1
-ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
+ms.openlocfilehash: b29711e8e1ef1558731ba58ca2ff14000af19ca2
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/07/2020
-ms.locfileid: "87913821"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019351"
 ---
 # <a name="aspnet-core-data-protection"></a>ASP.NET Core 数据保护
 
@@ -31,7 +33,7 @@ ASP.NET Core 的数据保护堆栈旨在充当 &lt; ASP.NET 1.x-4.x 中 machineK
 
 整体问题声明可在一个句子中简单地表述：我需要保存可信信息供以后检索，但不信任持久性机制。 在 web 术语中，这可能被编写为 "我需要通过不受信任的客户端往返的受信任状态。"
 
-此规范的典型示例是身份验证 cookie 或持有者令牌。 服务器生成一个 "I Groot" 和 "xyz 权限" 令牌并将其交给客户端。 在将来的某个日期，客户端会将该令牌提供给服务器，但服务器需要某种形式的保证，那就是客户端未伪造令牌。 因此，第一个要求是 (也称为 完整性、防篡改) 。
+此规范的典型示例是身份验证 cookie 令牌或持有者令牌。 服务器生成一个 "I Groot" 和 "xyz 权限" 令牌并将其交给客户端。 在将来的某个日期，客户端会将该令牌提供给服务器，但服务器需要某种形式的保证，那就是客户端未伪造令牌。 因此，第一个要求是 (也称为 完整性、防篡改) 。
 
 由于持久状态受服务器信任，因此我们预计此状态可能包含特定于操作环境的信息。 这可能是文件路径、权限、句柄或其他间接引用的形式，也可能是其他特定于服务器的数据的形式。 此类信息通常不会泄露给不受信任的客户端。 因此，第二个要求：保密性。
 

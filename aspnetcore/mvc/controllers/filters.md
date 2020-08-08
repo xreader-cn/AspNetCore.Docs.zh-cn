@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/04/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 96d24940af6c591e3c02bfa26ed9d7d6ea60d27d
-ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
+ms.openlocfilehash: 11d0c514dd15e787224510991ffb81680c9fc479
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86869973"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019337"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -746,7 +748,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 * 方法筛选器已嵌套在控制器筛选器中。
 * 控制器筛选器已嵌套在全局筛选器中。
 
-### <a name="controller-and-razor-page-level-filters"></a>控制器和 Razor 页级筛选器
+### <a name="controller-and-no-locrazor-page-level-filters"></a>控制器和 Razor 页级筛选器
 
 继承自 <xref:Microsoft.AspNetCore.Mvc.Controller> 基类的每个控制器包括 [Controller.OnActionExecuting](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuting*)、[Controller.OnActionExecutionAsync](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*) 和 [Controller.OnActionExecuted](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuted*)
 `OnActionExecuted` 方法。 这些方法：

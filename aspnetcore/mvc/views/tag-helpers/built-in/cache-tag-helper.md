@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: 65d8bbcdaed76a308b924ba024219e8f520bb585
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7d2ff774b7654993e2cd9b126db252f81a3032d3
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399278"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018749"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的缓存标记帮助程序
 
@@ -73,7 +75,7 @@ ms.locfileid: "85399278"
 
 ### <a name="expires-after"></a>expires-after
 
-| 属性类型 | 示例                      | 默认    |
+| 属性类型 | 示例                      | 默认值    |
 | -------------- | ---------------------------- | ---------- |
 | `TimeSpan`     | `@TimeSpan.FromSeconds(120)` | 20 分钟 |
 
@@ -109,7 +111,7 @@ Razor视图引擎将默认值设置 `expires-after` 为20分钟。
 
 | 属性类型 | 示例                                    |
 | -------------- | ------------------------------------------- |
-| String         | `User-Agent`, `User-Agent,content-encoding` |
+| 字符串         | `User-Agent`, `User-Agent,content-encoding` |
 
 `vary-by-header` 接受逗号分隔的标头值列表，在标头值发生更改时触发缓存刷新。
 
@@ -125,7 +127,7 @@ Razor视图引擎将默认值设置 `expires-after` 为20分钟。
 
 | 属性类型 | 示例             |
 | -------------- | -------------------- |
-| String         | `Make`, `Make,Model` |
+| 字符串         | `Make`, `Make,Model` |
 
 `vary-by-query` 接受查询字符串(<xref:Microsoft.AspNetCore.Http.HttpRequest.Query*>) 中逗号分隔的 <xref:Microsoft.AspNetCore.Http.IQueryCollection.Keys*> 列表，它们在任何列出的键值发生更改时触发缓存刷新。
 
@@ -141,7 +143,7 @@ Razor视图引擎将默认值设置 `expires-after` 为20分钟。
 
 | 属性类型 | 示例             |
 | -------------- | -------------------- |
-| String         | `Make`, `Make,Model` |
+| 字符串         | `Make`, `Make,Model` |
 
 `vary-by-route` 接受路由参数名称的逗号分隔列表，用于在路由数据参数值发生更改时触发缓存刷新。
 
@@ -163,15 +165,15 @@ routes.MapRoute(
 </cache>
 ```
 
-### <a name="vary-by-cookie"></a>vary-by-cookie
+### <a name="vary-by-no-loccookie"></a>依cookie
 
 | 属性类型 | 示例                                                                         |
 | -------------- | -------------------------------------------------------------------------------- |
-| String         | `.AspNetCore.Identity.Application`, `.AspNetCore.Identity.Application,HairColor` |
+| 字符串         | `.AspNetCore.Identity.Application`, `.AspNetCore.Identity.Application,HairColor` |
 
-`vary-by-cookie` 接受 Cookie 名称的逗号分隔列表，用于在 Cookie 值发生更改时触发缓存刷新。
+`vary-by-cookie`接受以逗号分隔的名称列表 cookie ，这些名称会在值更改时触发缓存刷新 cookie 。
 
-以下示例监视与 ASP.NET Core 关联的 cookie Identity 。 对用户进行身份验证时，cookie 中的更改会 Identity 触发缓存刷新：
+以下示例监视 cookie 与 ASP.NET Core 关联的 Identity 。 对用户进行身份验证时，中的更改会 Identity cookie 触发缓存刷新：
 
 ```cshtml
 <cache vary-by-cookie=".AspNetCore.Identity.Application">
@@ -195,13 +197,13 @@ routes.MapRoute(
 </cache>
 ```
 
-通过登录和注销周期，使用此属性将内容维护在缓存中。 当值设置为 `true` 时，身份验证周期会使已经过身份验证的用户的缓存失效。 缓存无效是因为用户进行身份验证时生成了一个新的唯一 cookie 值。 如果 cookie 不存在或已过期，则会维持缓存以呈现匿名状态。 如果用户未经过**** 身份验证，则会维持缓存。
+通过登录和注销周期，使用此属性将内容维护在缓存中。 当值设置为 `true` 时，身份验证周期会使已经过身份验证的用户的缓存失效。 缓存会失效，因为 cookie 在对用户进行身份验证时，会生成一个新的唯一值。 如果不 cookie 存在或已过期，则会为匿名状态维护缓存 cookie 。 如果用户未经过**** 身份验证，则会维持缓存。
 
 ### <a name="vary-by"></a>vary-by
 
 | 属性类型 | 示例  |
 | -------------- | -------- |
-| String         | `@Model` |
+| 字符串         | `@Model` |
 
 `vary-by` 允许自定义缓存的数据。 当属性的字符串值引用的对象发生更改时，会更新缓存标记帮助程序的内容。 通常将模型值的字符串串联分配给此属性。 从效果上看，这导致了更新任何已连接的值都会使缓存无效。
 

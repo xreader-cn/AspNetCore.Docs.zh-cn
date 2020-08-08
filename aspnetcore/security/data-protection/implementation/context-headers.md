@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 数据保护上下文标题的实现细节。
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/context-headers
-ms.openlocfilehash: 0995cd80c10f638c90a60630378518988ffb89ed
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 572f930dbf78aaef1ed47d1a154b5ba56633b4f1
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060093"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018814"
 ---
 # <a name="context-headers-in-aspnet-core"></a>ASP.NET Core 中的上下文标题
 
@@ -26,11 +28,11 @@ ms.locfileid: "86060093"
 
 ## <a name="background-and-theory"></a>背景和理论
 
-在数据保护系统中，"密钥" 是指可提供经过身份验证的加密服务的对象。 每个密钥都是由唯一 id （GUID）标识的，它附带了算法信息和 entropic 材料。 它的目的是，每个密钥都具有唯一的平均信息量，但系统不能强制实施这一点，并且我们还需要考虑到通过修改密钥环中现有密钥的算法信息来手动更改密钥环的开发人员。 为实现安全要求，在这种情况下，数据保护系统具有[加密灵活性](https://www.microsoft.com/research/publication/cryptographic-agility-and-its-relation-to-circular-encryption)，这允许使用跨多个加密算法的单个 entropic 值安全地使用。
+在数据保护系统中，"密钥" 是指可提供经过身份验证的加密服务的对象。 每个密钥都是由 GUID)  (唯一 id 标识的，它附带了它的算法信息和 entropic 材料。 它的目的是，每个密钥都具有唯一的平均信息量，但系统不能强制实施这一点，并且我们还需要考虑到通过修改密钥环中现有密钥的算法信息来手动更改密钥环的开发人员。 为实现安全要求，在这种情况下，数据保护系统具有[加密灵活性](https://www.microsoft.com/research/publication/cryptographic-agility-and-its-relation-to-circular-encryption)，这允许使用跨多个加密算法的单个 entropic 值安全地使用。
 
-大多数支持加密灵活性的系统通过在有效负载中包含有关算法的一些识别信息来实现此目的。 通常，该算法的 OID 是一个不错的候选项。 但我们遇到的一个问题是，有多种方法可以指定相同的算法： "AES" （CNG），托管的 Aes、AesManaged、AesCryptoServiceProvider、AesCng 和 RijndaelManaged （给定特定参数）类实际上是相同的，因此我们需要维护所有这些类的映射到正确的 OID。 如果开发人员想要提供自定义算法（甚至是 AES！的另一实现），则必须告诉我们其 OID。 此额外注册步骤使系统配置特别令人头痛。
+大多数支持加密灵活性的系统通过在有效负载中包含有关算法的一些识别信息来实现此目的。 通常，该算法的 OID 是一个不错的候选项。 但是，我们遇到的一个问题是，有多种方法可以指定相同的算法： "AES" (CNG) ，托管的 Aes、AesManaged、AesCryptoServiceProvider、AesCng 和 RijndaelManaged (给定特定参数的特定参数) 类实际上是相同的，因此，我们需要维护所有这些参数到正确 OID 的映射。 如果开发人员想要提供自定义算法 (甚至 AES！ ) 的其他实现，则他们必须告诉我们其 OID。 此额外注册步骤使系统配置特别令人头痛。
 
-再回顾一步，我们决定我们从错误的方向接近问题。 OID 告诉您算法是什么，但我们并不真正关心这一点。 如果需要以两个不同的算法安全地使用单个 entropic 值，我们不需要知道算法的实际含义。 我们真正关心的是它们的行为方式。 任何适当的对称块加密算法也是一种强大的伪随机排列（PRP）：修复输入（键、链接模式、IV、纯文本），并且密码文本输出的概率与任何其他对称块加密算法相比，提供的输入相同。 同样，任何适当的键控哈希函数也是强伪随机函数（PRF），并且给定固定输入集，其输出将充分与任何其他键控哈希函数不同。
+再回顾一步，我们决定我们从错误的方向接近问题。 OID 告诉您算法是什么，但我们并不真正关心这一点。 如果需要以两个不同的算法安全地使用单个 entropic 值，我们不需要知道算法的实际含义。 我们真正关心的是它们的行为方式。 任何适当的对称块加密算法也是一种功能强大的伪随机排列 (PRP) ：修复输入 (密钥、链接模式、IV、纯文本) 和密码文本输出与任何其他对称块加密算法相比，给定的输入相同。 同样，任何适当的键控哈希函数也是 (PRF) 的强伪随机函数，并且给定固定输入集，其输出将充分与任何其他键控哈希函数不同。
 
 我们使用强 PRPs 和 PRFs 这一概念来构建上下文标头。 此上下文标头本质上可充当用于任何给定操作的算法的稳定指纹，并提供数据保护系统所需的加密灵活性。 此标头可重复使用，稍后将用作[子项派生过程](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation)的一部分。 可以通过两种不同的方式生成上下文标题，具体取决于基础算法的操作模式。
 
@@ -42,21 +44,21 @@ ms.locfileid: "86060093"
 
 * [16 位]值 00 00，它是一个标记，表示 "CBC 加密 + HMAC 身份验证"。
 
-* [32 位]对称块加密算法的密钥长度（以字节为单位）。
+* [32 位]对称块加密算法的密钥长度 (以字节为单位，大字节序) 。
 
-* [32 位]对称块加密算法的块大小（以字节为单位）。
+* [32 位]对称块密码算法的块大小 (以字节为单位，大字节序) 。
 
-* [32 位]HMAC 算法的密钥长度（以字节为单位）。 （目前密钥大小始终与摘要大小匹配。）
+* [32 位]HMAC 算法的密钥长度 (以字节为单位，大字节序) 。  (当前密钥大小始终与摘要大小匹配。 ) 
 
-* [32 位]HMAC 算法的摘要大小（以字节为单位）。
+* [32 位]HMAC 算法的摘要大小 (（以字节为单位），大字节序) 。
 
 * `EncCBC(K_E, IV, "")`，为对称块加密算法的输出，提供空字符串输入，其中 IV 为全零向量。 `K_E`下面介绍了的构造。
 
 * `MAC(K_H, "")`，它是给定空字符串输入的 HMAC 算法的输出。 `K_H`下面介绍了的构造。
 
-理想情况下，我们可以将所有-zero 向量传递给 `K_E` 和 `K_H` 。 但是，我们希望避免在执行任何操作（特别是 DES 和3DES）之前，基础算法检查是否存在弱密钥，这会排除使用简单或可重复的模式（如全零矢量）。
+理想情况下，我们可以将所有-zero 向量传递给 `K_E` 和 `K_H` 。 但是，我们想要避免在执行任何 (操作之前，基础算法检查是否存在弱密钥，而这种情况会导致 DES 和 3DES) ，而不是使用简单或可重复的模式，例如全零向量。
 
-相反，我们以计数器模式使用 NIST SP800-108 KDF （请参阅[NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，Sec. 5.1），其长度为零、标签和上下文，HMACSHA512 为基础 PRF。 我们派生 `| K_E | + | K_H |` 输出字节，然后将结果分解为 `K_E` `K_H` 自身。 从数学上来说，这种情况如下所示。
+相反，我们在计数器模式下使用 NIST SP800-108 KDF (参阅[NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，5.1) ，其中长度为零、标签和上下文，HMACSHA512 作为基础 PRF。 我们派生 `| K_E | + | K_H |` 输出字节，然后将结果分解为 `K_E` `K_H` 自身。 从数学上来说，这种情况如下所示。
 
 `( K_E || K_H ) = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")`
 
@@ -91,7 +93,7 @@ DB 6F D4 79 11 84 B9 96 09 2E E1 20 2F 36 E8 60
 22 0C
 ```
 
-此上下文标头是经过身份验证的加密算法对（AES-192-CBC encryption + HMACSHA256 验证）的指纹。 如上所述，组件如下所[述：](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers-cbc-components)
+此上下文标头是经过身份验证的加密算法对的指纹 (AES-192-CBC encryption + HMACSHA256 验证) 。 如上所述，组件如下所[述：](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers-cbc-components)
 
 * 标记`(00 00)`
 
@@ -108,7 +110,7 @@ DB 6F D4 79 11 84 B9 96 09 2E E1 20 2F 36 E8 60
 * HMAC PRF 输出 `(D4 79 - end)` 。
 
 > [!NOTE]
-> 无论算法实现由 Windows CNG 还是由托管的 System.security.cryptography.symmetricalgorithm 和 KeyedHashAlgorithm 类型提供，CBC 模式加密 + HMAC 身份验证上下文标题都采用相同的方式生成。 这使得在不同操作系统上运行的应用程序可以可靠地生成相同的上下文标头，即使这些算法的实现在操作系统之间有所不同。 （实际上，KeyedHashAlgorithm 不必是正确的 HMAC。 它可以是任何密钥哈希算法类型。）
+> 无论算法实现由 Windows CNG 还是由托管的 System.security.cryptography.symmetricalgorithm 和 KeyedHashAlgorithm 类型提供，CBC 模式加密 + HMAC 身份验证上下文标题都采用相同的方式生成。 这使得在不同操作系统上运行的应用程序可以可靠地生成相同的上下文标头，即使这些算法的实现在操作系统之间有所不同。  (实际上，KeyedHashAlgorithm 不必是正确的 HMAC。 它可以是任何密钥哈希算法类型。 ) 
 
 ### <a name="example-3des-192-cbc--hmacsha1"></a>示例： 3DES-192-CBC + HMACSHA1
 
@@ -128,7 +130,7 @@ D1 F7 5A 34 EB 28 3E D7 D4 67 B4 64
 
 `result := 76EB189B35CF03461DDF877CD9F4B1B4D63A7555`
 
-这将生成完整的上下文标题，该标头是经过身份验证的加密算法对（3DES-192-CBC encryption + HMACSHA1 验证）的指纹，如下所示：
+这将生成完整的上下文标头，该标头是经过身份验证的加密算法对的指纹 (3DES-192-CBC encryption + HMACSHA1 验证) ，如下所示：
 
 ```
 00 00 00 00 00 18 00 00 00 08 00 00 00 14 00 00
@@ -158,13 +160,13 @@ D1 F7 5A 34 EB 28 3E D7 D4 67 B4 64
 
 * [16 位]值 00 01，它是一个标记，表示 "GCM 加密 + 身份验证"。
 
-* [32 位]对称块加密算法的密钥长度（以字节为单位）。
+* [32 位]对称块加密算法的密钥长度 (以字节为单位，大字节序) 。
 
-* [32 位]经过身份验证的加密操作期间使用的 nonce 大小（以字节为单位）。 （对于我们的系统，这是在 nonce 大小 = 96 位固定的。）
+* [32 位]在经过身份验证的加密操作期间) ，nonce 大小 (以字节为单位）。 对于我们的系统 (，这是在 nonce size = 96 位上固定的。 ) 
 
-* [32 位]对称块加密算法的块大小（以字节为单位）。 （对于 GCM，这是在块大小 = 128 位固定的。）
+* [32 位]对称块密码算法的块大小 (以字节为单位，大字节序) 。  (GCM，这是在块大小 = 128 位固定的。 ) 
 
-* [32 位]经过身份验证的加密功能生成的身份验证标记大小（以字节为单位）。 （对于我们的系统，这是在标记大小 = 128 位固定的。）
+* [32 位]身份验证标记大小 () （以字节为单位），由经过身份验证的加密功能生成。 对于我们的系统 (，这是在 tag size = 128 位上固定的。 ) 
 
 * [128 位]的标记 `Enc_GCM (K_E, nonce, "")` ，它是对称块加密算法的输出，提供的是空字符串输入，其中 nonce 为96位全零向量。
 

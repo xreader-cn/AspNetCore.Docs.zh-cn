@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/24/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
-ms.openlocfilehash: 4b8e393542c56502a825000773bbf714d91e4128
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a7cc45e1bcc0d0d2bdd09c4ba1f0ec891e4accef
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399226"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018671"
 ---
 # <a name="distributed-cache-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存标记帮助程序
 
@@ -54,7 +56,7 @@ ms.locfileid: "85399226"
 
 | 属性类型 | 示例                               |
 | -------------- | ------------------------------------- |
-| String         | `my-distributed-cache-unique-key-101` |
+| 字符串         | `my-distributed-cache-unique-key-101` |
 
 需要 `name`。 `name` 属性用作每个存储的缓存实例的键。 与缓存标记帮助程序不同的是，基于页面名称和页面中的位置将缓存键分配给每个实例 Razor Razor ，分布式缓存标记帮助程序只将其密钥基于属性 `name` 。
 

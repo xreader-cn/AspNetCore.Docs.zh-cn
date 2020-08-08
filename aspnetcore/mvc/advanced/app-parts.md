@@ -5,6 +5,8 @@ description: Razor与 ASP.NET Core 中的应用程序部件共享控制器、视
 ms.author: riande
 ms.date: 11/11/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: cb1f8b045b8f2b143afc7895234733fbfb02cb07
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 690ef0843f567dc2335f4d51436e428207fd6eb1
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399746"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019568"
 ---
-# <a name="share-controllers-views-razor-pages-and-more-with-application-parts"></a>与应用程序部件共享控制器、视图、 Razor 页和更多内容
+# <a name="share-controllers-views-no-locrazor-pages-and-more-with-application-parts"></a>与应用程序部件共享控制器、视图、 Razor 页和更多内容
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -30,7 +32,7 @@ ms.locfileid: "85399746"
 
 应用程序部件是对应用资源的抽象化。** 应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 Razor 页面、razor 编译源等。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 是应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
 
-[功能提供程序](#fp)使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序的程序集（DLL）。 相对于在多个项目中复制代码，首选共享程序集。
+[功能提供程序](#fp)使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序 (DLL) 的程序集。 相对于在多个项目中复制代码，首选共享程序集。
 
 ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类表示受程序集支持的应用程序部件。
 
@@ -72,7 +74,7 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 * <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperFeatureProvider>
 * <xref:Microsoft.AspNetCore.Mvc.Razor.Compilation.MetadataReferenceFeatureProvider>
 * <xref:Microsoft.AspNetCore.Mvc.Razor.Compilation.ViewsFeatureProvider>
-* `internal class` [RazorCompiledItemFeatureProvider](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Razor/src/ApplicationParts/RazorCompiledItemFeatureProvider.cs#L14)
+* `internal class`[ Razor CompiledItemFeatureProvider](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Razor/src/ApplicationParts/RazorCompiledItemFeatureProvider.cs#L14)
 
 功能提供程序从 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.IApplicationFeatureProvider`1> 继承，其中 `T` 是功能的类型。 可以为上面列出的任意功能类型实现功能提供程序。 `ApplicationPartManager.FeatureProviders` 中的功能提供程序的顺序可能影响运行时行为。 较晚添加的提供程序可能会影响较早添加的提供程序执行的操作。
 
@@ -120,7 +122,7 @@ View Components:
 
 应用程序部件是对应用资源的抽象化。** 应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 Razor 页面、razor 编译源等。 [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 是一种应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
 
-*功能提供程序*使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序的程序集（DLL）。 相对于在多个项目中复制代码，首选共享程序集。
+*功能提供程序*使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序 (DLL) 的程序集。 相对于在多个项目中复制代码，首选共享程序集。
 
 ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类表示受程序集支持的应用程序部件。
 

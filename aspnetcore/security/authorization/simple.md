@@ -5,6 +5,8 @@ description: 了解如何使用授权属性限制对 ASP.NET Core 控制器和�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/simple
-ms.openlocfilehash: 09514032349d489b73d5bb785f11e44ca18b169c
-ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
+ms.openlocfilehash: b503f5e79cbfbbd3e74e18356884c3223ede66a6
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87160243"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019022"
 ---
 # <a name="simple-authorization-in-aspnet-core"></a>ASP.NET Core 中的简单授权
 
@@ -80,7 +82,7 @@ public class AccountController : Controller
 这将仅允许经过身份验证的用户 `AccountController` 访问，但 `Login` 操作除外，无论用户是否经过身份验证或未经身份验证/匿名状态，都可以访问该操作。
 
 > [!WARNING]
-> `[AllowAnonymous]`跳过所有授权语句。 如果组合 `[AllowAnonymous]` 和任何 `[Authorize]` 属性，则 `[Authorize]` 忽略属性。 例如，如果在 `[AllowAnonymous]` 控制器级别应用，则 `[Authorize]` 会忽略同一控制器（或其中的任何操作）上的任何属性。
+> `[AllowAnonymous]`跳过所有授权语句。 如果组合 `[AllowAnonymous]` 和任何 `[Authorize]` 属性，则 `[Authorize]` 忽略属性。 例如，如果在 `[AllowAnonymous]` 控制器级别应用，则 `[Authorize]` 会忽略同一控制器 (上的任何属性或) 中的任何操作。
 
 [!INCLUDE[](~/includes/requireAuth.md)]
 

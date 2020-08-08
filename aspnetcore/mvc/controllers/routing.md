@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core MVC 如何使用路由中间件来匹配传入�
 ms.author: riande
 ms.date: 3/25/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 962b42239b2101fc95e55fb38ce214481bf0ef01
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: 4d367a6b15fdcf9ef6be1bac749368fd48fa259e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87444136"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020361"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -403,7 +405,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 路由名称必须在应用程序范围内唯一。
 
-对比前面的代码和传统的默认路由，后者将 `id` 参数定义为可选（ `{id?}` ）。 精确指定 Api 的功能具有多种优点，例如允许 `/products` 和 `/products/5` 调度到不同的操作。
+对比前面的代码和常规默认路由，该路由将 `id` 参数定义为可选的 (`{id?}`) 。 精确指定 Api 的功能具有多种优点，例如允许 `/products` 和 `/products/5` 调度到不同的操作。
 
 <a name="routing-combining-ref-label"></a>
 
@@ -428,10 +430,10 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 | 属性               | 结合`[Route("Home")]` | 定义路由模板 |
 | ----------------- | ------------ | --------- |
-| `[Route("")]` | “是” | `"Home"` |
-| `[Route("Index")]` | “是” | `"Home/Index"` |
+| `[Route("")]` | 是 | `"Home"` |
+| `[Route("Index")]` | 是 | `"Home/Index"` |
 | `[Route("/")]` | **否** | `""` |
-| `[Route("About")]` | “是” | `"Home/About"` |
+| `[Route("About")]` | 是 | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
 <a name="oar"></a>
@@ -721,10 +723,10 @@ result: /UrlGeneration/Destination
 
 你可能希望在默认路由中遇到此问题 `{controller}/{action}/{id?}` 。 此问题在实践中很罕见，因为 `Url.Action` 始终显式指定 `controller` 和 `action` 值。
 
-多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如 `Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
+多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如，`Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
 
 * 按约定通常是匿名类型的对象。
-* 可以是， `IDictionary<>` 也可以是[POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)。
+* 可以是 `IDictionary<>` 或[POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)) 。
 
 任何与路由参数不匹配的附加路由值都放在查询字符串中。
 
@@ -1226,7 +1228,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 页面上的路�
 
 ## <a name="token-replacement-in-route-templates-controller-action-area"></a>路由模板中的标记替换（[controller]、[action]、[area]）
 
-为方便起见，特性路由支持通过在方括号（，）中包含标记来*替换标记* `[` `]` 。 标记 `[action]`、`[area]` 和 `[controller]` 替换为定义了路由的操作中的操作名称值、区域名称值和控制器名称值。 在接下来的示例中，操作与注释中所述的 URL 路径匹配：
+为方便起见，特性路由支持*标记替换*，方法是在方括号中包含一个标记 (`[` ， `]`) 。 标记 `[action]`、`[area]` 和 `[controller]` 替换为定义了路由的操作中的操作名称值、区域名称值和控制器名称值。 在接下来的示例中，操作与注释中所述的 URL 路径匹配：
 
 [!code-csharp[](routing/samples/2.x/main/Controllers/ProductsController.cs?range=7-11,13-17,20-22)]
 

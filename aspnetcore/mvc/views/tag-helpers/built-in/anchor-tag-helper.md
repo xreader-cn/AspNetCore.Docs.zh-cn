@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/13/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: af0f07a0f50a79f25b6a14459402f9dd8b59dae2
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 25f1716b5c80492edb72bc9555954c9c93c02a49
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408248"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018761"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的定位点标记帮助程序
 
@@ -181,7 +183,7 @@ MVC 视图使用操作提供的模型，如下所示：
 
 [asp-area](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area*) 属性可设置用来设置相应路由的区域名称。 以下示例展示了 `asp-area` 属性如何导致重新映射路由。
 
-#### <a name="usage-in-razor-pages"></a>页面使用量 Razor
+#### <a name="usage-in-no-locrazor-pages"></a>页面使用量 Razor
 
 RazorASP.NET Core 2.1 或更高版本中支持页区域。
 
@@ -211,7 +213,7 @@ RazorASP.NET Core 2.1 或更高版本中支持页区域。
 > 若要在页面应用中支持区域 Razor ，请在中执行以下 `Startup.ConfigureServices` 操作之一：
 >
 > * 将[兼容性版本](xref:mvc/compatibility-version)设置为 2.1 或更高版本。
-> * 将 [RazorPagesOptions.AllowAreas](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) 属性设置为 `true`：
+> * 将 AllowAreas 属性设置为[ Razor PagesOptions](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) `true` ：
 >
 >   [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_AllowAreas)]
 
@@ -225,7 +227,7 @@ RazorASP.NET Core 2.1 或更高版本中支持页区域。
     * **博客**
       * **Controllers**
         * HomeController.cs**
-      * **视图**
+      * **Views**
         * **主页**
           * *AboutBlog.cshtml*
           * *Index.cshtml*
@@ -243,7 +245,7 @@ RazorASP.NET Core 2.1 或更高版本中支持页区域。
 ```
 
 > [!TIP]
-> 若要在 MVC 应用中支持区域，路由模板必须包含对该区域（如果存在）的引用。 该模板由 `routes.MapRoute` *Startup.Configu)* 中的方法调用的第二个参数表示：
+> 若要在 MVC 应用中支持区域，路由模板必须包含对该区域（如果存在）的引用。 该模板由 `routes.MapRoute` *Startup.Configu) *中的方法调用的第二个参数表示：
 >
 > [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_UseMvc&highlight=5)]
 

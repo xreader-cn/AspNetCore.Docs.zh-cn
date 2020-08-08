@@ -5,6 +5,8 @@ description: 了解如何支持不能或不想使用依赖关系注入提供的�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/non-di-scenarios
-ms.openlocfilehash: 9ae3d1ec039768b1008702a7a29f4d9a716cb99c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 633548eabe38508ff0cc76ae880220e1dac9b414
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404842"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020114"
 ---
 # <a name="non-di-aware-scenarios-for-data-protection-in-aspnet-core"></a>ASP.NET Core 中数据保护的非 DI 感知情境
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core 数据保护系统通常会[添加到服务容器中](xref:security/data-protection/consumer-apis/overview)，并通过依赖关系注入（DI）由从属组件使用。 但是，在某些情况下，这种情况并不可行，尤其是将系统导入现有应用时。
+ASP.NET Core 数据保护系统通常会[添加到服务容器中](xref:security/data-protection/consumer-apis/overview)，并由从属组件通过依赖关系注入 (DI) 使用。 但是，在某些情况下，这种情况并不可行，尤其是将系统导入现有应用时。
 
 为了支持这些方案， [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)包提供了一个具体类型[DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider)，这提供了一种简单的方法来使用数据保护，而无需依赖于 DI。 `DataProtectionProvider`类型实现[IDataProtectionProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionprovider)。 构造 `DataProtectionProvider` 仅要求提供[DirectoryInfo](/dotnet/api/system.io.directoryinfo)实例以指示应在何处存储提供程序的加密密钥，如以下代码示例所示：
 

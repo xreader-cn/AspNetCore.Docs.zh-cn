@@ -6,6 +6,8 @@ description: 了解如何使用 ASP.NET Core 组件标记帮助程序 Razor 在�
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: c088cb7dd4f446b6a42c63357ccf2a080d852382
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 09291b537e35d00df6f8006aaccdf4db12acfaea
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399239"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018684"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的组件标记帮助程序
 
@@ -74,7 +76,7 @@ ms.locfileid: "85399239"
 }
 ```
 
-`Size`（ `int` ）和 `Color` （ `string` ）[组件参数](xref:blazor/components/index#component-parameters)可由组件标记帮助器设置：
+`Size` `int` `Color` `string` 组件标记帮助器可以设置 () 和 () [组件参数](xref:blazor/components/index#component-parameters)：
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -99,7 +101,7 @@ ms.locfileid: "85399239"
 
 传递带引号的字符串需要[显式 Razor 表达式](xref:mvc/views/razor#explicit-razor-expressions)，如 `param-Color` 前面的示例中所示。 Razor `string` 由于属性是类型，因此类型值的分析行为不适用于 `param-*` 特性 `object` 。
 
-参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。 例如，在前面的示例中，可以为和指定一个值， `Size` `Color` 因为和的 `Size` 类型 `Color` 为基元类型（ `int` 和 `string` ），这些类型是 JSON 序列化程序支持的。
+参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。 例如，你可以 `Size` `Color` 在前面的示例中指定和的值，因为和的类型 `Size` `Color` 是 (`int` 和 `string`) （JSON 序列化程序支持的）的基元类型。
 
 在下面的示例中，将类对象传递到组件：
 
@@ -153,7 +155,7 @@ public class MyClass
     param-MyObject="@myObject" />
 ```
 
-前面的示例假定 `MyComponent` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称（例如， `@using BlazorSample` 和 `@using BlazorSample.Shared` ）。 `MyClass`在应用的命名空间中。
+前面的示例假定 `MyComponent` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称 (例如， `@using BlazorSample` `@using BlazorSample.Shared`) 。 `MyClass`在应用的命名空间中。
 
 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> 配置组件是否：
 
@@ -162,8 +164,8 @@ public class MyClass
 
 | 呈现模式 | 描述 |
 | ----------- | ----------- |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 将组件呈现为静态 HTML，并包括 Blazor Server 应用程序的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现应用的标记 Blazor Server 。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor Server 应用的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 将组件呈现为静态 HTML。 |
 
 尽管页面和视图可以使用组件，但不是这样。 组件不能使用视图和页特定的功能，如分部视图和节。 若要在组件中通过分部视图使用逻辑，请将分部视图逻辑分解为一个组件。

@@ -6,6 +6,8 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 12/18/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/model-binding
-ms.openlocfilehash: b3dcb3a80e8d5150d8513ef558531749d0884568
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6ec531a04a220f75f5793cb2c7b5232908dbd883
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400149"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019152"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core 中的模型绑定
 
@@ -155,13 +157,13 @@ public class Pet
 
 ### <a name="additional-sources"></a>其他源
 
-源数据由“值提供程序”提供给模型绑定系统**。 你可以编写并注册自定义值提供程序，这些提供程序从其他源中获取用于模型绑定的数据。 例如，你可能需要来自 Cookie 或会话状态的数据。 要从新的源中获取数据，请执行以下操作：
+源数据由“值提供程序”提供给模型绑定系统**。 你可以编写并注册自定义值提供程序，这些提供程序从其他源中获取用于模型绑定的数据。 例如，你可能需要来自 cookie 或会话状态的数据。 要从新的源中获取数据，请执行以下操作：
 
 * 创建用于实现 `IValueProvider` 的类。
 * 创建用于实现 `IValueProviderFactory` 的类。
 * 在 `Startup.ConfigureServices` 中注册工厂类。
 
-示例应用包括从 Cookie 中获取值的 [值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs)和[工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs)示例。 以下是 `Startup.ConfigureServices` 中的注册代码：
+该示例应用包含一个[值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs)和一个[工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs)示例，可从 s 中获取值 cookie 。 以下是 `Startup.ConfigureServices` 中的注册代码：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4)]
 
@@ -208,13 +210,13 @@ public class Pet
 * [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
 * [枚举](xref:System.ComponentModel.EnumConverter)
-* [Guid.empty](xref:System.ComponentModel.GuidConverter)
+* [GUID](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)
-* [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
+* [时间](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Uri](xref:System.UriTypeConverter)
-* [版本](xref:System.ComponentModel.VersionConverter)
+* [Version](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>复杂类型
 
@@ -282,13 +284,13 @@ public IActionResult OnPost(
 
 ### <a name="bindrequired-attribute"></a>[BindRequired] 属性
 
-只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 以下是一个示例：
+只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 下面是一个示例：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
 
 ### <a name="bindnever-attribute"></a>[BindNever] 属性
 
-只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 以下是一个示例：
+只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 下面是一个示例：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
 
@@ -488,7 +490,7 @@ ASP.NET Core 基于 [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) 
 
 ## <a name="manual-model-binding"></a>手动模型绑定 
 
-可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 以下是一个示例：
+可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 下面是一个示例：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
 
@@ -641,13 +643,13 @@ public class Pet
 
 ### <a name="additional-sources"></a>其他源
 
-源数据由“值提供程序”提供给模型绑定系统**。 你可以编写并注册自定义值提供程序，这些提供程序从其他源中获取用于模型绑定的数据。 例如，你可能需要来自 Cookie 或会话状态的数据。 要从新的源中获取数据，请执行以下操作：
+源数据由“值提供程序”提供给模型绑定系统**。 你可以编写并注册自定义值提供程序，这些提供程序从其他源中获取用于模型绑定的数据。 例如，你可能需要来自 cookie 或会话状态的数据。 要从新的源中获取数据，请执行以下操作：
 
 * 创建用于实现 `IValueProvider` 的类。
 * 创建用于实现 `IValueProviderFactory` 的类。
 * 在 `Startup.ConfigureServices` 中注册工厂类。
 
-示例应用包括从 Cookie 中获取值的 [值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs)和[工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs)示例。 以下是 `Startup.ConfigureServices` 中的注册代码：
+该示例应用包含一个[值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs)和一个[工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs)示例，可从 s 中获取值 cookie 。 以下是 `Startup.ConfigureServices` 中的注册代码：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=3)]
 
@@ -694,13 +696,13 @@ public class Pet
 * [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
 * [枚举](xref:System.ComponentModel.EnumConverter)
-* [Guid.empty](xref:System.ComponentModel.GuidConverter)
+* [GUID](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)
-* [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
+* [时间](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Uri](xref:System.UriTypeConverter)
-* [版本](xref:System.ComponentModel.VersionConverter)
+* [Version](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>复杂类型
 
@@ -768,13 +770,13 @@ public IActionResult OnPost(
 
 ### <a name="bindrequired-attribute"></a>[BindRequired] 属性
 
-只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 以下是一个示例：
+只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 下面是一个示例：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
 
 ### <a name="bindnever-attribute"></a>[BindNever] 属性
 
-只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 以下是一个示例：
+只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 下面是一个示例：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
 
@@ -956,7 +958,7 @@ ASP.NET Core 基于 [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) 
 
 ## <a name="manual-model-binding"></a>手动模型绑定
 
-可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 以下是一个示例：
+可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 下面是一个示例：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
 

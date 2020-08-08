@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/11/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,16 +16,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-configuration
-ms.openlocfilehash: 5c999b426742cf75b1997f5b40223e2dda112901
-ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
+ms.openlocfilehash: b7f6eaba1a0e819a077e3d63b4f997e75b8cd317
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87160289"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020595"
 ---
 # <a name="configure-aspnet-core-no-locidentity"></a>配置 ASP.NET CoreIdentity
 
-ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的默认值。 可以在类中重写这些设置 `Startup` 。
+ASP.NET Core Identity 使用密码策略、锁定和配置等设置的默认值 cookie 。 可以在类中重写这些设置 `Startup` 。
 
 ## <a name="no-locidentity-options"></a>Identity选项
 
@@ -33,7 +35,7 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 [ Identity Options。声明 Identity ](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.claimsidentity)指定[声明 Identity 选项](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions)，其中包含下表中所示的属性。
 
-| 属性 | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [RoleClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.roleclaimtype) | 获取或设置用于角色声明的声明类型。 | [ClaimTypes](/dotnet/api/system.security.claims.claimtypes.role) |
 | [SecurityStampClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.securitystampclaimtype) | 获取或设置用于安全戳声明的声明类型。 | `AspNet.Identity.SecurityStamp` |
@@ -58,7 +60,7 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 [ Identity 选项。锁定](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.lockout)将指定[LockoutOptions](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions) ，其中包含表中所示的属性。
 
-| 属性 | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [AllowedForNewUsers](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.allowedfornewusers) | 确定新用户是否可以锁定。 | `true` |
 | [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan) | 锁定发生时用户被锁定的时间长度。 | 5 分钟 |
@@ -79,7 +81,7 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 [ Identity Options. Password](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.password)指定[PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions) ，其中包含表中所示的属性。
 
-| 属性 | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [RequireDigit](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredigit) | 要求密码中的数字介于0-9 之间。 | `true` |
 | [RequiredLength](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredlength) | 密码的最小长度。 | 6 |
@@ -90,13 +92,13 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 ### <a name="sign-in"></a>登录
 
-下面的代码将设置 `SignIn` （到默认值）：
+下面的代码将 `SignIn` 设置 (设置为默认值) ：
 
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_si)]
 
 " [ Identity 登录](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.signin)" 指定[SignInOptions](/dotnet/api/microsoft.aspnetcore.identity.signinoptions) ，其中包含表中所示的属性。
 
-| 属性 | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [RequireConfirmedEmail](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedemail) | 需要确认电子邮件登录。 | `false` |
 | [RequireConfirmedPhoneNumber](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedphonenumber) | 需要确认电话号码才能登录。 | `false` |
@@ -105,7 +107,7 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 [ Identity 选项。标记](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.tokens)指定[TokenOptions](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions) ，其中包含表中所示的属性。
 
-| 属性 | 说明 |
+| 属性 | 描述 |
 | -------- | ----------- |
 | [AuthenticatorTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.authenticatortokenprovider) | 获取或设置 `AuthenticatorTokenProvider` 用于使用验证器验证双重登录的。 |
 | [ChangeEmailTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changeemailtokenprovider) | 获取或设置 `ChangeEmailTokenProvider` 用于生成电子邮件更改确认电子邮件中使用的令牌的。 |
@@ -120,24 +122,24 @@ ASP.NET Core Identity 使用密码策略、锁定和 cookie 配置等设置的�
 
 [ Identity Options。 User](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.user)指定[UserOptions](/dotnet/api/microsoft.aspnetcore.identity.useroptions) ，其中包含表中所示的属性。
 
-| 属性 | 说明 | 默认 |
+| 属性 | 描述 | 默认 |
 | -------- | ----------- | :-----: |
 | [AllowedUserNameCharacters](/dotnet/api/microsoft.aspnetcore.identity.useroptions.allowedusernamecharacters) | 用户名中允许使用的字符。 | abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>0123456789<br>-.\_@+ |
 | [RequireUniqueEmail](/dotnet/api/microsoft.aspnetcore.identity.useroptions.requireuniqueemail) | 要求每个用户都有唯一的电子邮件。 | `false` |
 
-### <a name="cookie-settings"></a>Cookie 设置
+### <a name="no-loccookie-settings"></a>Cookie 设置
 
-在中配置应用的 cookie `Startup.ConfigureServices` 。 调用或**后**，必须调用[ConfigureApplicationCookie](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.configureapplicationcookie#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionExtensions_ConfigureApplicationCookie_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Authentication_Cookies_CookieAuthenticationOptions__) `AddIdentity` `AddDefaultIdentity` 。
+在中配置应用 cookie 程序 `Startup.ConfigureServices` 。 [ConfigureApplication Cookie ](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.configureapplicationcookie#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionExtensions_ConfigureApplicationCookie_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Authentication_Cookies_CookieAuthenticationOptions__)调用或**后**必须调用 `AddIdentity` `AddDefaultIdentity` 。
 
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_cookie)]
 
-有关详细信息，请参阅[cookieauthenticationoptions.authenticationtype](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions)。
+有关详细信息，请参阅[ Cookie AuthenticationOptions](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions)。
 
 ## <a name="password-hasher-options"></a>Password Hasher 选项
 
 <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions>获取和设置用于密码哈希的选项。
 
-| 选项 | 说明 |
+| 选项 | 描述 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> | 对新密码进行哈希处理时使用的兼容性模式。 默认为 <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>。 哈希密码的第一个字节称为*格式标记*，它指定用于对密码进行哈希处理的哈希算法的版本。 针对哈希验证密码时，该方法会根据 <xref:Microsoft.AspNetCore.Identity.PasswordHasher`1.VerifyHashedPassword*> 第一个字节选择正确的算法。 无论使用哪个版本的算法对密码进行哈希处理，客户端都可以进行身份验证。 设置兼容性模式会影响*新密码*的哈希。 |
 | <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount> | 使用 PBKDF2 对密码进行哈希处理时使用的迭代次数。 仅当设置为时，才使用此值 <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3> 。 该值必须是正整数并且默认值为 `10000` 。 |

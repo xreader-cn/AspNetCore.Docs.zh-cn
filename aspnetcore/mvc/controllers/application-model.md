@@ -5,6 +5,8 @@ description: 了解如何读取和控制应用程序模型，从而修改 MVC �
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 61503a1a87b5d5eea36586108b65304236cf799a
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: de831a8b5012a2fe61642887ad816466df7a1bcb
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405635"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019893"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>使用 ASP.NET Core 中的应用程序模型
 
@@ -88,7 +90,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 * [`IActionModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iactionmodelconvention)
 * [`IParameterModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iparametermodelconvention)
 
-约定的应用方法是将它们添加到 MVC 选项，或通过实现 `Attribute` 并将其应用于控制器、操作或操作参数（类似于 [`Filters`](xref:mvc/controllers/filters) ）。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
+约定的应用方法是将它们添加到 MVC 选项，或通过实现 `Attribute` 并将其应用于控制器、操作或操作参数 (类似于 [`Filters`](xref:mvc/controllers/filters)) 。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
 
 ### <a name="sample-modifying-the-applicationmodel"></a>示例：修改 ApplicationModel
 

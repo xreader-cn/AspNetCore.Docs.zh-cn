@@ -7,6 +7,8 @@ ms.author: anurse
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/api-design
-ms.openlocfilehash: 9ad8d30da552d3d3084534b8c7ca57386ad111ac
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ef0285c611bd41d7fe686a4b370b6daae9be9174
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407793"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018983"
 ---
-# <a name="signalr-api-design-considerations"></a>SignalRAPI 设计注意事项
+# <a name="no-locsignalr-api-design-considerations"></a>SignalRAPI 设计注意事项
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
@@ -30,7 +32,7 @@ ms.locfileid: "85407793"
 
 ## <a name="use-custom-object-parameters-to-ensure-backwards-compatibility"></a>使用自定义对象参数以确保向后兼容性
 
-向 SignalR 集线器方法添加参数（在客户端或服务器上）是一项*重大更改*。 这意味着，较旧的客户端/服务器在尝试调用方法时，如果没有适当数量的参数，将会出现错误。 但是，将属性添加到自定义对象参数**不**是一项重大更改。 这可用于设计可对客户端或服务器上的更改复原的兼容 Api。
+将参数添加到 SignalR 客户端或服务器上的 (集线器方法) 是一项*重大更改*。 这意味着，较旧的客户端/服务器在尝试调用方法时，如果没有适当数量的参数，将会出现错误。 但是，将属性添加到自定义对象参数**不**是一项重大更改。 这可用于设计可对客户端或服务器上的更改复原的兼容 Api。
 
 例如，请考虑如下所示的服务器端 API：
 

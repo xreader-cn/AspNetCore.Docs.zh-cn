@@ -5,6 +5,8 @@ description: 了解如何在 ASP.NET Core 应用中呈现视图之前，使用�
 ms.author: riande
 ms.date: 07/30/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/layout
-ms.openlocfilehash: 08e6284a6c5fc8e8926651f6fe873a71df449acb
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4d5032f02db28341d7781dd57d58d776636fd16d
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406649"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020439"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core 中的布局
 
@@ -41,7 +43,7 @@ ms.locfileid: "85406649"
 
 ![页面布局示例](layout/_static/page-layout.png)
 
-应用中的许多页面也经常使用脚本和样式表等常用的 HTML 结构。 所有这些共享元素均可在布局文件中进行定义，应用内使用的任何视图随后均可引用此文件**。 布局可减少视图中的重复代码。
+应用中的许多页面也经常使用常见的 HTML 结构，如脚本和样式表。 所有这些共享元素都可以在*布局*文件中定义，该文件随后可由应用中使用的任何视图引用。 布局可减少视图中的重复代码。
 
 按照约定，ASP.NET Core 应用的默认布局名为 _Layout.cshtml。** 使用模板创建的新 ASP.NET Core 项目的布局文件为：
 
@@ -53,7 +55,7 @@ ms.locfileid: "85406649"
 
   ![解决方案资源管理器中的视图文件夹](layout/_static/mvc-web-project-views.png)
 
-布局定义应用中的视图的最高级别模板。 应用不需要布局。 应用可以定义多个布局，并且不同的视图指定不同的布局。
+布局定义应用中的视图的最高级别模板。 应用不需要布局。 应用可以定义多个布局，其中不同的视图指定不同的布局。
 
 下面的代码演示了使用控制器和视图创建的项目模板的布局文件：
 

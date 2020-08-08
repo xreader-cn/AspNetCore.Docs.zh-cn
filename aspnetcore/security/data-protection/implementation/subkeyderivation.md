@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 数据保护子项派生和经过身份验证�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/subkeyderivation
-ms.openlocfilehash: 619a848eb96faab6997f9ddbf4d62a1e04ee66b1
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: ef9c100df69f9f7a1b51819ebb5721cb4f875ffd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060366"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019685"
 ---
 # <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>ASP.NET Core 中的子项派生和已验证的加密
 
 <a name="data-protection-implementation-subkey-derivation"></a>
 
-密钥环中的大多数密钥将包含某种形式的熵，并将具有说明 "CBC-模式加密 + HMAC 验证" 或 "GCM 加密 + 验证" 的算法信息。 在这些情况下，我们将嵌入的平均信息量称为此密钥的主密钥材料（或千米），并执行密钥派生函数来派生用于实际加密操作的密钥。
+密钥环中的大多数密钥将包含某种形式的熵，并将具有说明 "CBC-模式加密 + HMAC 验证" 或 "GCM 加密 + 验证" 的算法信息。 在这些情况下，我们将嵌入的平均信息量称为此密钥的主密钥材料 (或千米) ，并执行密钥派生函数来派生用于实际加密操作的密钥。
 
 > [!NOTE]
 > 键是抽象的，自定义实现的行为可能不如下。 如果密钥提供自己的实现 `IAuthenticatedEncryptor` 而不是使用我们的某个内置工厂，则本部分中所述的机制将不再适用。
@@ -33,7 +35,7 @@ ms.locfileid: "86060366"
 
 ## <a name="additional-authenticated-data-and-subkey-derivation"></a>附加经过身份验证的数据和子项派生
 
-`IAuthenticatedEncryptor`接口用作所有经过身份验证的加密操作的核心接口。 它的 `Encrypt` 方法采用两个缓冲区：纯文本和 additionalAuthenticatedData （AAD）。 纯文本内容在对的调用中保持不变 `IDataProtector.Protect` ，但 AAD 由系统生成并由三个部分组成：
+`IAuthenticatedEncryptor`接口用作所有经过身份验证的加密操作的核心接口。 其 `Encrypt` 方法使用两个缓冲区：纯文本和 additionalAuthenticatedData (AAD) 。 纯文本内容在对的调用中保持不变 `IDataProtector.Protect` ，但 AAD 由系统生成并由三个部分组成：
 
 1. 32位幻标头 09 F0 C9 F0，用于标识此版本的数据保护系统。
 
@@ -45,9 +47,9 @@ ms.locfileid: "86060366"
 
 `( K_E, K_H ) = SP800_108_CTR_HMACSHA512(K_M, AAD, contextHeader || keyModifier)`
 
-在这里，我们将在计数器模式下（请参阅[NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，Sec. 5.1）调用以下参数：
+此处，我们将在计数器模式下调用 NIST SP800-108 KDF (参阅[NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，5.1) ，其参数如下：
 
-* 密钥派生密钥（KDK） =`K_M`
+* 密钥派生密钥 (KDK) =`K_M`
 
 * PRF = HMACSHA512
 
@@ -79,4 +81,4 @@ ms.locfileid: "86060366"
 `output := keyModifier || nonce || E_gcm (K_E,nonce,data) || authTag`
 
 > [!NOTE]
-> 尽管 GCM 本身支持 AAD 的概念，但我们仍只向原始 KDF 提供 AAD，选择将空字符串传递给 GCM 以用于其 AAD 参数。 这样做的原因是两折。 首先，[为了支持灵活性](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers)，我们永远不希望将其 `K_M` 作为加密密钥直接使用。 此外，GCM 对其输入施加非常严格的唯一性要求。 对于两个或多个具有相同（键、nonce）对的不同输入数据集，GCM 加密例程被调用的概率不得超过 2 ^ 32。 如果修复此问题，我们在 `K_E` 运行落入的 2 ^-32 限制之前，不能执行 2 ^ 32 个以上的加密操作。 这似乎是一种非常大的操作，但高流量 web 服务器可以在一天内只经过4000000000请求，在这些密钥的正常生存期内。 为了保持符合 2 ^-32 概率限制，我们继续使用128位的密钥修饰符和96位 nonce，这会大大扩展任何给定的可用操作计数 `K_M` 。 为简单起见，我们在 CBC 和 GCM 操作之间共享 KDF 代码路径，由于 AAD 已在 KDF 中考虑，因此无需将其转发到 GCM 例程。
+> 尽管 GCM 本身支持 AAD 的概念，但我们仍只向原始 KDF 提供 AAD，选择将空字符串传递给 GCM 以用于其 AAD 参数。 这样做的原因是两折。 首先，[为了支持灵活性](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers)，我们永远不希望将其 `K_M` 作为加密密钥直接使用。 此外，GCM 对其输入施加非常严格的唯一性要求。 对于两个或多个具有相同 (键的不同输入数据集，GCM) 对的概率不能超过 2 ^ 32。 如果修复此问题，我们在 `K_E` 运行落入的 2 ^-32 限制之前，不能执行 2 ^ 32 个以上的加密操作。 这似乎是一种非常大的操作，但高流量 web 服务器可以在一天内只经过4000000000请求，在这些密钥的正常生存期内。 为了保持符合 2 ^-32 概率限制，我们继续使用128位的密钥修饰符和96位 nonce，这会大大扩展任何给定的可用操作计数 `K_M` 。 为简单起见，我们在 CBC 和 GCM 操作之间共享 KDF 代码路径，由于 AAD 已在 KDF 中考虑，因此无需将其转发到 GCM 例程。

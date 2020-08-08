@@ -7,6 +7,8 @@ ms.custom: mvc
 ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: df3e738880902e3005221c6047b6be9e924f2929
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ce0e56595611a8a34d0ad11680e67e2252da66c6
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406129"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020608"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Microsoft 帐户外部登录设置与 ASP.NET Core
 
@@ -38,12 +40,12 @@ ms.locfileid: "85406129"
 * 选择**新注册**
 * 输入“名称”。
 * 为**支持的帐户类型**选择一个选项。  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts. It took 24 hours after setting this up for the keys to work -->
-* 在 "**重定向 URI**" 下，输入追加的开发 URL `/signin-microsoft` 。 例如 `https://localhost:5001/signin-microsoft`。 稍后在本示例中配置的 Microsoft 身份验证方案将自动处理路由中的请求 `/signin-microsoft` 以实现 OAuth 流。
+* 在 "**重定向 URI**" 下，输入追加的开发 URL `/signin-microsoft` 。 例如，`https://localhost:5001/signin-microsoft`。 稍后在本示例中配置的 Microsoft 身份验证方案将自动处理路由中的请求 `/signin-microsoft` 以实现 OAuth 流。
 * 选择“注册”
 
 ### <a name="create-client-secret"></a>创建客户端机密
 
-* 在左窗格中，选择“证书和机密”****。
+* 在左窗格中，选择“证书和密码”。
 * 在 "**客户端密码**" 下，选择**新的客户端密码**
 
   * 添加客户端密码的说明。
@@ -91,7 +93,7 @@ URI 段 `/signin-microsoft` 设置为 Microsoft 身份验证提供程序的默�
 
 ## <a name="troubleshooting"></a>疑难解答
 
-* 如果 Microsoft 帐户提供程序将您重定向到登录错误页面，请 `#` 在 Uri 中的（井号）后直接记下错误标题和说明查询字符串参数。
+* 如果 Microsoft 帐户提供程序将您重定向到登录错误页面，请记下 `#` Uri 中 (井号号) 的错误标题和说明查询字符串参数。
 
   尽管错误消息似乎指出了 Microsoft 身份验证存在问题，但最常见的原因是应用程序 Uri 与为**Web**平台指定的任何**重定向 uri**都不匹配。
 * 如果 Identity 未通过调用进行 `services.AddIdentity` 配置 `ConfigureServices` ，尝试进行身份验证会导致*ArgumentException：必须提供 "SignInScheme" 选项*。 本示例中使用的项目模板可确保完成此操作。

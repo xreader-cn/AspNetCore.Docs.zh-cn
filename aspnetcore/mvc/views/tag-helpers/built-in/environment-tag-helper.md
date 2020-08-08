@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-ms.openlocfilehash: 23ddad23214d3e1a66415fc8706c30de838357fa
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 01fa5409136557dcbf53dbdd051bf35803e8b71f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407429"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018645"
 ---
 # <a name="environment-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的环境标记帮助程序
 
@@ -61,7 +63,7 @@ ms.locfileid: "85407429"
 </environment>
 ```
 
-### <a name="exclude"></a>exclude
+### <a name="exclude"></a>排除
 
 与 `include` 属性相反，当托管环境与 `exclude` 属性值中列出的环境不匹配时，将呈现 `<environment>` 标记的内容。
 
