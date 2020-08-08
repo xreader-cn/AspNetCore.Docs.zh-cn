@@ -5,6 +5,8 @@ description: 了解如何为 ASP.NET Core 中的 Web API 创建和使用自定�
 ms.author: riande
 ms.date: 06/25/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: c6ec73c028c7003a40b2f09b631bdc2c976686fa
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: ecf233273a28df9b2d35edf3264b8c73b16759e5
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793359"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021869"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的自定义格式化程序
 
@@ -59,7 +61,7 @@ ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据
   
 ### <a name="derive-from-the-appropriate-base-class"></a>从相应的基类中派生
 
-对于文本媒体类型（例如 vCard），派生自 <xref:Microsoft.AspNetCore.Mvc.Formatters.TextInputFormatter> 或 <xref:Microsoft.AspNetCore.Mvc.Formatters.TextOutputFormatter> 基类。
+对于文本媒体类型 (例如，vCard) ，派生自 <xref:Microsoft.AspNetCore.Mvc.Formatters.TextInputFormatter> 或 <xref:Microsoft.AspNetCore.Mvc.Formatters.TextOutputFormatter> 基类。
 
 [!code-csharp[](custom-formatters/samples/3.x/CustomFormattersSample/Formatters/VcardOutputFormatter.cs?name=snippet_ClassDeclaration)]
 
@@ -129,7 +131,7 @@ ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据
 
 [!code-csharp[](custom-formatters/samples/3.x/CustomFormattersSample/Formatters/VcardInputFormatter.cs?name=snippet_Class)]
 
-## <a name="test-the-app"></a>测试应用
+## <a name="test-the-app"></a>测试应用程序
 
 [运行本文的示例应用程序](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/samples)，它实现基本 vCard 输入和输出格式化程序。 此应用程序读取和写入电子名片，如下所示：
 

@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/memory
-ms.openlocfilehash: 8eec361efbc3c7dca6c0bef65b6f6b40b3b46798
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 131fd5f2d09b20814cbd557d6b6d873ce15501db
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404608"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021219"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 中的缓存内存
 
@@ -33,7 +35,7 @@ ms.locfileid: "85404608"
 
 缓存可以减少生成内容所需的工作，从而显著提高应用程序的性能和可伸缩性。 缓存最适用于不经常更改的**数据，生成**成本很高。 通过缓存，可以比从数据源返回的数据的副本速度快得多。 应该对应用进行编写和测试，使其**永不**依赖于缓存的数据。
 
-ASP.NET Core 支持多个不同的缓存。 最简单的缓存基于[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)。 `IMemoryCache`表示存储在 web 服务器的内存中的缓存。 使用内存中缓存时，在服务器场（多台服务器）上运行的应用应确保会话是粘滞的。 粘滞会话确保来自客户端的后续请求都将发送到相同的服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)（ARR）将所有后续请求路由到同一服务器。
+ASP.NET Core 支持多个不同的缓存。 最简单的缓存基于[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)。 `IMemoryCache`表示存储在 web 服务器的内存中的缓存。 在服务器场上运行的应用 (多台服务器) 应确保会话在使用内存中缓存时处于粘滞状态。 粘滞会话确保来自客户端的后续请求都将发送到相同的服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr) (ARR) 将所有后续请求路由到同一服务器。
 
 Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免缓存一致性问题。 对于某些应用，分布式缓存可支持比内存中缓存更高的向外扩展。 使用分布式缓存会将缓存内存卸载到外部进程。
 
@@ -41,13 +43,13 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 ## <a name="systemruntimecachingmemorycache"></a>MemoryCache/缓存
 
-<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache>（[NuGet 包](https://www.nuget.org/packages/System.Runtime.Caching/)）可用于：
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([NuGet 包](https://www.nuget.org/packages/System.Runtime.Caching/)) 可用于：
 
 * .NET Standard 2.0 或更高版本。
 * 面向 .NET Standard 2.0 或更高版本的任何[.net 实现](/dotnet/standard/net-standard#net-implementation-support)。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-建议使用[Microsoft Extensions](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` （本文中所述）， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
+[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` 建议使用 (本文中所述) ， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
 
 将 `System.Runtime.Caching` / `MemoryCache` ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，请使用作为兼容性桥。
 
@@ -174,7 +176,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 ## <a name="additional-notes"></a>附加说明
 
-* 不会在后台进行过期。 没有计时器可主动扫描过期项目的缓存。 缓存中的任何活动（ `Get` 、 `Set` 、 `Remove` ）都可以触发过期项的后台扫描。 （）上的 `CancellationTokenSource` 计时器 <xref:System.Threading.CancellationTokenSource.CancelAfter*> 还会删除该条目，并触发扫描过期的项目。 下面的示例使用[CancellationTokenSource （TimeSpan）](/dotnet/api/system.threading.cancellationtokensource.-ctor)作为已注册令牌。 此令牌激发后，会立即删除该条目，并激发逐出回调：
+* 不会在后台进行过期。 没有计时器可主动扫描过期项目的缓存。 缓存上的任何活动 (`Get` ， `Set` `Remove`) 可以触发过期项的后台扫描。  (上的计时器 `CancellationTokenSource` <xref:System.Threading.CancellationTokenSource.CancelAfter*>) 还会删除项并触发扫描过期项。 下面的示例将[CancellationTokenSource (TimeSpan) ](/dotnet/api/system.threading.cancellationtokensource.-ctor)用于注册的令牌。 此令牌激发后，会立即删除该条目，并激发逐出回调：
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ae)]
 
@@ -214,7 +216,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 缓存可以减少生成内容所需的工作，从而显著提高应用程序的性能和可伸缩性。 缓存最适用于不经常更改的数据。 通过缓存，可以比从原始数据源返回的数据的副本速度快得多。 应编写并测试代码，使其**绝不会**依赖于缓存的数据。
 
-ASP.NET Core 支持多个不同的缓存。 最简单的缓存基于[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)，这表示存储在 web 服务器内存中的缓存。 在服务器场中运行的应用（多台服务器）应确保会话在使用内存中缓存时处于粘滞。 粘滞会话确保以后来自客户端的请求都发送到相同的服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)（ARR）将来自用户代理的所有请求路由到同一服务器。
+ASP.NET Core 支持多个不同的缓存。 最简单的缓存基于[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)，这表示存储在 web 服务器内存中的缓存。 在服务器场上运行的应用 (多台服务器) 应确保会话在使用内存中缓存时处于粘滞。 粘滞会话确保以后来自客户端的请求都发送到相同的服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr) (ARR) 将来自用户代理的所有请求路由到同一服务器。
 
 Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免缓存一致性问题。 对于某些应用，分布式缓存可支持比内存中缓存更高的向外扩展。 使用分布式缓存会将缓存内存卸载到外部进程。
 
@@ -222,13 +224,13 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 ## <a name="systemruntimecachingmemorycache"></a>MemoryCache/缓存
 
-<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache>（[NuGet 包](https://www.nuget.org/packages/System.Runtime.Caching/)）可用于：
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([NuGet 包](https://www.nuget.org/packages/System.Runtime.Caching/)) 可用于：
 
 * .NET Standard 2.0 或更高版本。
 * 面向 .NET Standard 2.0 或更高版本的任何[.net 实现](/dotnet/standard/net-standard#net-implementation-support)。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-建议使用[Microsoft Extensions](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` （本文中所述）， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
+[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` 建议使用 (本文中所述) ， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
 
 将 `System.Runtime.Caching` / `MemoryCache` ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，请使用作为兼容性桥。
 

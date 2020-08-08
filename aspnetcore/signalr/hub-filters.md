@@ -7,6 +7,8 @@ ms.author: brecon
 ms.custom: mvc
 ms.date: 05/22/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hub-filters
-ms.openlocfilehash: c7ba0fff8bca53e2d6d12add693ee391ffa789ca
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: db6439ab4e61d0412148c5ea72b52d429367491b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408560"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022142"
 ---
-# <a name="use-hub-filters-in-aspnet-core-signalr"></a>在 ASP.NET Core 中使用集线器筛选器SignalR
+# <a name="use-hub-filters-in-aspnet-core-no-locsignalr"></a>在 ASP.NET Core 中使用集线器筛选器SignalR
 
 中心筛选器：
 
@@ -58,7 +60,7 @@ public void ConfigureServices(IServiceCollection services)
     hubOptions.AddFilter<TFilter>();
     ```
 
-    这将从依赖关系注入（DI）或已激活的类型中解决。
+    这将从依赖关系注入中解析 (DI) 或类型已激活。
 
 * 按运行时类型添加筛选器：
 
@@ -193,7 +195,7 @@ public class CustomFilter : IHubFilter
 
 `HubInvocationContext`包含当前集线器方法调用的信息。
 
-| properties | 说明 | 类型 |
+| 属性 | 描述 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |
@@ -206,7 +208,7 @@ public class CustomFilter : IHubFilter
 
 `HubLifetimeContext`包含 `OnConnectedAsync` 和集线器方法的信息 `OnDisconnectedAsync` 。
 
-| properties | 说明 | 类型 |
+| 属性 | 描述 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |

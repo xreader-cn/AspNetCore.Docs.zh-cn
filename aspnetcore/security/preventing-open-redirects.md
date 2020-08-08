@@ -5,6 +5,8 @@ description: 演示如何防止针对 ASP.NET Core 应用的开放重定向攻�
 ms.author: riande
 ms.date: 07/07/2017
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,33 +15,33 @@ no-loc:
 - Razor
 - SignalR
 uid: security/preventing-open-redirects
-ms.openlocfilehash: eb18c599d84fd08ffe97867b67a837303af188db
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3a58c25bbd54803ce0b8c42a2667222d6e14c050
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408144"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021011"
 ---
 # <a name="prevent-open-redirect-attacks-in-aspnet-core"></a>阻止 ASP.NET Core 中的开放重定向攻击
 
 重定向到通过请求（如 querystring 或窗体数据）指定的 URL 的 web 应用可能会被篡改，以将用户重定向到外部恶意 URL。 这种篡改称为 "开放重定向攻击"。
 
-每当应用程序逻辑重定向到指定的 URL 时，必须验证重定向 URL 是否未被篡改。 ASP.NET Core 提供内置功能，可帮助保护应用免受开放重定向（也称为开放重定向）的攻击。
+每当应用程序逻辑重定向到指定的 URL 时，必须验证重定向 URL 是否未被篡改。 ASP.NET Core 提供内置功能，可帮助保护应用程序的打开重定向 (也称为 "开放重定向) 攻击"。
 
 ## <a name="what-is-an-open-redirect-attack"></a>什么是开放重定向攻击？
 
 Web 应用程序在访问需要身份验证的资源时经常将用户重定向到登录页。 重定向通常包括 `returnUrl` 查询字符串参数，以便用户在成功登录后可以返回到最初请求的 URL。 用户进行身份验证后，会重定向到最初请求的 URL。
 
-由于目标 URL 是在请求的查询字符串中指定的，因此恶意用户可能会篡改 querystring。 篡改的 querystring 可能允许站点将用户重定向到外部的恶意站点。 此方法称为 "重定向" （或 "重定向"）攻击。
+由于目标 URL 是在请求的查询字符串中指定的，因此恶意用户可能会篡改 querystring。 篡改的 querystring 可能允许站点将用户重定向到外部的恶意站点。 此方法称为 " (重定向" 或 "重定向) 攻击"。
 
 ### <a name="an-example-attack"></a>示例攻击
 
 恶意用户可能会受到攻击，目的是允许恶意用户访问用户的凭据或敏感信息。 若要开始攻击，恶意用户结论用户单击指向站点登录页的链接，并将 `returnUrl` 查询字符串值添加到 URL。 例如，请考虑一个在上 `contoso.com` 包含登录页的应用 `http://contoso.com/Account/LogOn?returnUrl=/Home/About` 。 攻击执行以下步骤：
 
-1. 用户单击指向的恶意链接 `http://contoso.com/Account/LogOn?returnUrl=http://contoso1.com/Account/LogOn` （第二个 URL 为 "contoso**1**.com"，而不是 "contoso.com"）。
+1. 用户单击恶意链接 `http://contoso.com/Account/LogOn?returnUrl=http://contoso1.com/Account/LogOn` (第二个 URL 为 "contoso**1**.com"，而不是 "contoso.com" ) 。
 2. 用户已成功登录。
-3. 用户被重定向（由站点）到 `http://contoso1.com/Account/LogOn` （看起来与真实站点完全相同的恶意网站）。
-4. 用户重新登录（向恶意网站提供凭据），并被重定向回真实站点。
+3. 站点)  (重定向用户， `http://contoso1.com/Account/LogOn` (与真实站点) 完全相同的恶意网站。
+4. 用户再次登录 (向恶意网站提供凭据) 并被重定向回真实站点。
 
 用户可能认为他们第一次尝试登录失败，第二次尝试成功。 用户很可能仍不知道他们的凭据已泄露。
 
@@ -49,7 +51,7 @@ Web 应用程序在访问需要身份验证的资源时经常将用户重定向�
 
 ## <a name="protecting-against-open-redirect-attacks"></a>防范开放重定向攻击
 
-开发 web 应用程序时，将所有用户提供的数据视为不可信。 如果你的应用程序具有基于 URL 内容重定向用户的功能，请确保此类重定向仅在你的应用程序中本地执行（或对已知 URL 执行，而不是在查询字符串中提供的任何 URL）。
+开发 web 应用程序时，将所有用户提供的数据视为不可信。 如果你的应用程序具有基于 URL 内容重定向用户的功能，请确保此类重定向仅在你的应用程序中本地执行 (或到已知 URL，而不是在 querystring) 中提供的任何 URL。
 
 ### <a name="localredirect"></a>LocalRedirect
 

@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: bf5fff213b2cd7db0b3227922a8c5babba2fc904
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 409ace5e3eaa4ab1de0b9d5f0cbd0e10d9243ea9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409080"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022376"
 ---
-# <a name="host-aspnet-core-signalr-in-background-services"></a>SignalR在后台服务中托管 ASP.NET Core
+# <a name="host-aspnet-core-no-locsignalr-in-background-services"></a>SignalR在后台服务中托管 ASP.NET Core
 
 作者： [Brady Gaster](https://twitter.com/bradygaster)
 
@@ -42,18 +44,18 @@ ms.locfileid: "85409080"
 
 ::: moniker-end
 
-## <a name="enable-signalr-in-startup"></a>SignalR在启动时启用
+## <a name="enable-no-locsignalr-in-startup"></a>SignalR在启动时启用
 
 ::: moniker range=">= aspnetcore-3.0"
 
-SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.NET Core 的 web 应用中托管集线器完全相同。 在 `Startup.ConfigureServices` 方法中，调用会 `services.AddSignalR` 将所需的服务添加到 ASP.NET Core 依赖关系注入（DI）层以支持 SignalR 。 在中 `Startup.Configure` ， `MapHub` 调用方法 `UseEndpoints` 以连接 ASP.NET Core 请求管道中的中心终结点。
+SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.NET Core 的 web 应用中托管集线器完全相同。 在 `Startup.ConfigureServices` 方法中，调用会 `services.AddSignalR` 将所需的服务添加到 ASP.NET Core 依赖关系注入 (DI) 层以支持 SignalR 。 在中 `Startup.Configure` ， `MapHub` 调用方法 `UseEndpoints` 以连接 ASP.NET Core 请求管道中的中心终结点。
 
 [!code-csharp[Startup](background-service/samples/3.x/Server/Startup.cs?name=Startup)]
 
 ::: moniker-end
 ::: moniker range="<= aspnetcore-2.2"
 
-SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.NET Core 的 web 应用中托管集线器完全相同。 在 `Startup.ConfigureServices` 方法中，调用会 `services.AddSignalR` 将所需的服务添加到 ASP.NET Core 依赖关系注入（DI）层以支持 SignalR 。 在中 `Startup.Configure` ， `UseSignalR` 调用方法以连接 ASP.NET Core 请求管道中的中心终结点。
+SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.NET Core 的 web 应用中托管集线器完全相同。 在 `Startup.ConfigureServices` 方法中，调用会 `services.AddSignalR` 将所需的服务添加到 ASP.NET Core 依赖关系注入 (DI) 层以支持 SignalR 。 在中 `Startup.Configure` ， `UseSignalR` 调用方法以将中心终结点连接到 ASP.NET Core 请求管道中的)  (。
 
 [!code-csharp[Startup](background-service/samples/2.2/Server/Startup.cs?name=Startup)]
 
@@ -90,7 +92,7 @@ SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.
 
 ::: moniker-end
 
-## <a name="call-a-signalr-hub-from-a-background-service"></a>SignalR从后台服务调用中心
+## <a name="call-a-no-locsignalr-hub-from-a-background-service"></a>SignalR从后台服务调用中心
 
 在启动过程中， `Worker` `BackgroundService` 使用启用类 `AddHostedService` 。
 
@@ -113,7 +115,7 @@ services.AddHostedService<Worker>();
 
 由于 `ExecuteAsync` 在后台服务中以迭代方式调用方法，服务器的当前日期和时间将使用发送到已连接的客户端 `ClockHub` 。
 
-## <a name="react-to-signalr-events-with-background-services"></a>SignalR通过后台服务对事件做出响应
+## <a name="react-to-no-locsignalr-events-with-background-services"></a>SignalR通过后台服务对事件做出响应
 
 与使用适用于或 .NET 桌面应用程序的 JavaScript 客户端的单页面应用一样 SignalR <xref:signalr/dotnet-client> ，也可以使用、 `BackgroundService` 或 `IHostedService` 实现来连接到 SignalR 集线器并响应事件。
 
@@ -157,6 +159,6 @@ public partial class ClockHubClient : IClock, IHostedService
 ## <a name="additional-resources"></a>其他资源
 
 * [入门](xref:tutorials/signalr)
-* [中心](xref:signalr/hubs)
+* [集线器](xref:signalr/hubs)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)
 * [强类型中心](xref:signalr/hubs#strongly-typed-hubs)

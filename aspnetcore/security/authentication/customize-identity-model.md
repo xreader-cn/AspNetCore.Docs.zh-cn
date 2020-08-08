@@ -5,6 +5,8 @@ description: 本文介绍如何为 ASP.NET Core 自定义基础 Entity Framework
 ms.author: avickers
 ms.date: 07/01/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,20 +15,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 3a5bac0e3e34602b1f8a85a7bcde1ba92b372607
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4e6d91de013755f1ae998e36481f4c3b659270ae
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399161"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021999"
 ---
-# <a name="identity-model-customization-in-aspnet-core"></a>IdentityASP.NET Core 中的模型自定义
+# <a name="no-locidentity-model-customization-in-aspnet-core"></a>IdentityASP.NET Core 中的模型自定义
 
 作者： [Arthur Vickers](https://github.com/ajcvickers)
 
-ASP.NET Core Identity 提供了一个框架，用于管理 ASP.NET Core 应用中的用户帐户并将其存储在其中。 Identity选择**单个用户帐户**作为身份验证机制时，将添加到你的项目中。 默认情况下， Identity 使用实体框架（EF）核心数据模型。 本文介绍如何自定义 Identity 模型。
+ASP.NET Core Identity 提供了一个框架，用于管理 ASP.NET Core 应用中的用户帐户并将其存储在其中。 Identity选择**单个用户帐户**作为身份验证机制时，将添加到你的项目中。 默认情况下， Identity 使用实体框架 (EF) Core 数据模型。 本文介绍如何自定义 Identity 模型。
 
-## <a name="identity-and-ef-core-migrations"></a>Identity和 EF Core 迁移
+## <a name="no-locidentity-and-ef-core-migrations"></a>Identity和 EF Core 迁移
 
 在检查模型之前，了解如何 Identity 使用[EF Core 迁移](/ef/core/managing-schemas/migrations/)来创建和更新数据库是非常有用的。 在顶级，此过程如下：
 
@@ -38,7 +40,7 @@ ASP.NET Core Identity 提供了一个框架，用于管理 ASP.NET Core 应用�
 
 使用以下方法之一来添加和应用迁移：
 
-* 如果使用 Visual Studio，则为**包管理器控制台**（PMC）窗口。 有关详细信息，请参阅[EF CORE PMC 工具](/ef/core/miscellaneous/cli/powershell)。
+* 如果使用 Visual Studio，**包管理器控制台** (PMC) 窗口。 有关详细信息，请参阅[EF CORE PMC 工具](/ef/core/miscellaneous/cli/powershell)。
 * 使用命令行时的 .NET Core CLI。 有关详细信息，请参阅[EF Core .net 命令行工具](/ef/core/miscellaneous/cli/dotnet)。
 * 当应用运行时，单击 "错误" 页上的 "**应用迁移**" 按钮。
 
@@ -52,13 +54,13 @@ ASP.NET Core 具有一个开发时错误页面处理程序。 在运行应用程
 
 对模型进行更改时重复前面的步骤。
 
-## <a name="the-identity-model"></a>Identity模型
+## <a name="the-no-locidentity-model"></a>Identity模型
 
 ### <a name="entity-types"></a>实体类型
 
 Identity模型包含以下实体类型。
 
-|实体类型|说明                                                  |
+|实体类型|描述                                                  |
 |-----------|-------------------------------------------------------------|
 |`User`     |表示用户。                                         |
 |`Role`     |表示角色。                                           |
@@ -205,7 +207,7 @@ builder.Entity<TUserRole>(b =>
 
 ### <a name="model-generic-types"></a>模型泛型类型
 
-Identity为上面列出的每个实体类型定义默认的[公共语言运行时](/dotnet/standard/glossary#clr)（CLR）类型。 这些类型都带有前缀 *Identity* ：
+Identity为上面列出的每种实体类型 (CLR) 类型定义默认[公共语言运行时](/dotnet/standard/glossary#clr)。 这些类型都带有前缀 *Identity* ：
 
 * `IdentityUser`
 * `IdentityRole`
@@ -215,7 +217,7 @@ Identity为上面列出的每个实体类型定义默认的[公共语言运行�
 * `IdentityRoleClaim`
 * `IdentityUserRole`
 
-可以将类型用作应用自己的类型的基类，而不是直接使用这些类型。 `DbContext`定义的类 Identity 是泛型类，因此，不同的 CLR 类型可用于模型中的一个或多个实体类型。 这些泛型类型还允许 `User` 更改主键（PK）数据类型。
+可以将类型用作应用自己的类型的基类，而不是直接使用这些类型。 `DbContext`定义的类 Identity 是泛型类，因此，不同的 CLR 类型可用于模型中的一个或多个实体类型。 这些泛型类型还允许 `User` 更改主键 (PK) 数据类型。
 
 使用 Identity 支持角色时， <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> 应使用类。 例如：
 
@@ -261,7 +263,7 @@ public abstract class IdentityDbContext<
          where TUserToken : IdentityUserToken<TKey>
 ```
 
-还可以 Identity 在不使用角色（仅限声明）的情况下使用，在这种情况下， <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601> 应使用类：
+还可以使用 Identity 不带角色 (唯一) 的声明，在这种情况下， <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601> 应使用类：
 
 ```csharp
 // Uses the built-in non-role Identity types except with a custom User type
@@ -355,7 +357,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 @inject UserManager<ApplicationUser> UserManager
 ```
 
-更新*区域/ Identity /IdentityHostingStartup.cs*或 `Startup.ConfigureServices` ，并将替换 `IdentityUser` 为 `ApplicationUser` 。
+更新*区域/ Identity / Identity HostingStartup.cs*或 `Startup.ConfigureServices` ，并将替换 `IdentityUser` 为 `ApplicationUser` 。
 
 ```csharp
 services.AddIdentity<ApplicationUser>()
@@ -363,7 +365,7 @@ services.AddIdentity<ApplicationUser>()
         .AddDefaultUI();
 ```
 
-在 ASP.NET Core 2.1 或更高版本中， Identity 作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> 。 如果 Identity scaffolder 用于将 Identity 文件添加到项目中，请删除对的调用 `AddDefaultUI` 。 有关详情，请参阅：
+在 ASP.NET Core 2.1 或更高版本中， Identity 作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> 。 如果 Identity scaffolder 用于将 Identity 文件添加到项目中，请删除对的调用 `AddDefaultUI` 。 有关详细信息，请参阅：
 
 * [基架Identity](xref:security/authentication/scaffold-identity)
 * [向添加、下载和删除自定义用户数据Identity](xref:security/authentication/add-user-data)
@@ -374,8 +376,8 @@ services.AddIdentity<ApplicationUser>()
 
 按照以下步骤更改 PK 类型：
 
-1. 如果数据库是在 PK 更改之前创建的，则运行 `Drop-Database` （PMC）或 `dotnet ef database drop` （.NET Core CLI）删除该数据库。
-2. 确认删除数据库后，删除初始迁移 `Remove-Migration` （PMC）或 `dotnet ef migrations remove` （.NET Core CLI）。
+1. 如果数据库是在 PK 更改之前创建的，请运行 `Drop-Database` (PMC) 或 `dotnet ef database drop` ( .NET Core CLI) 将其删除。
+2. 确认删除数据库后，删除 `Remove-Migration` (PMC) 或 `dotnet ef migrations remove` ( .NET Core CLI) 的初始迁移。
 3. 更新 `ApplicationDbContext` 类以派生自 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603> 。 为指定新的密钥类型 `TKey` 。 例如，若要使用 `Guid` 密钥类型：
 
     ```csharp
@@ -546,7 +548,7 @@ services.AddIdentity<ApplicationUser>()
 
 ### <a name="add-navigation-properties"></a>添加导航属性
 
-更改关系的模型配置可能比进行其他更改更难。 必须小心替换现有关系，而不是创建新的其他关系。 特别是，更改的关系必须指定与现有关系相同的外键（FK）属性。 例如，默认情况下，与之间的关系按 `Users` `UserClaims` 如下方式指定：
+更改关系的模型配置可能比进行其他更改更难。 必须小心替换现有关系，而不是创建新的其他关系。 特别是，更改的关系必须指定与现有关系 (FK) 属性相同的外键。 例如，默认情况下，与之间的关系按 `Users` `UserClaims` 如下方式指定：
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -739,7 +741,7 @@ public class ApplicationDbContext
 }
 ```
 
-注意：
+说明：
 
 * 此示例还包括 `UserRole` 联接实体，需要将多对多关系从用户导航到角色。
 * 请记住更改导航属性的类型，以反映 `ApplicationXxx` 现在正在使用的类型而不是 `IdentityXxx` 类型。
@@ -924,7 +926,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-某些类型的数据库列可以配置某些*方面*（例如，允许的最大 `string` 长度）。 下面的示例为模型中的几个属性设置列最大长度 `string` ：
+某些类型的数据库列可以配置某些*方面* (例如， `string` 允许) 最大长度。 下面的示例为模型中的几个属性设置列最大长度 `string` ：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)

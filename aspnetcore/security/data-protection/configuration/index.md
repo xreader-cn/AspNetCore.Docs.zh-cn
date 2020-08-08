@@ -5,6 +5,8 @@ description: 浏览介绍如何在 ASP.NET Core 中配置数据保护的主题�
 ms.author: riande
 ms.date: 10/12/2017
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/index
-ms.openlocfilehash: 9dfe20731fcec14fd359833b9a893f9305fecc10
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 241bdd9baf5aeb3a7c34f13a893ba5fc7ac7d033
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400695"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021388"
 ---
 # <a name="data-protection-configuration-in-aspnet-core"></a>ASP.NET Core 中的数据保护配置
 

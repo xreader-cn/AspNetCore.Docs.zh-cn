@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/17/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: cfa1a4c67649e1816f510a33cc53e559c4a59153
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2d128d54dc9b1189124563e45d72d74b19704ab1
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408677"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022519"
 ---
-# <a name="aspnet-core-signalr-hosting-and-scaling"></a>ASP.NET Core SignalR 托管和缩放
+# <a name="aspnet-core-no-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR 托管和缩放
 
 作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和[Tom Dykstra](https://github.com/tdykstra)
 
@@ -30,13 +32,13 @@ ms.locfileid: "85408677"
 
 ## <a name="sticky-sessions"></a>粘滞会话
 
-SignalR要求针对特定连接的所有 HTTP 请求都由同一服务器进程处理。 当在 SignalR 服务器场（多台服务器）上运行时，必须使用 "粘滞会话"。 某些负载均衡器也称为 "粘滞会话"。 Azure App Service 使用[应用程序请求路由](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview)（ARR）来路由请求。 启用 Azure App Service 中的 "ARR 相似性" 设置将启用 "粘滞会话"。 不需要手写会话的唯一情况是：
+SignalR要求针对特定连接的所有 HTTP 请求都由同一服务器进程处理。 当 SignalR 在服务器场中运行 (多个服务器) 时，必须使用 "粘滞会话"。 某些负载均衡器也称为 "粘滞会话"。 Azure App Service 使用[应用程序请求路由](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview) (ARR) 来路由请求。 启用 Azure App Service 中的 "ARR 相似性" 设置将启用 "粘滞会话"。 不需要手写会话的唯一情况是：
 
 1. 在单个服务器上承载时，在单个进程中。
 1. 使用 Azure 服务时 SignalR 。
 1. 当所有客户端都配置为**仅**使用 websocket 时，**并且**在客户端配置中启用了[SkipNegotiation 设置](xref:signalr/configuration#configure-additional-options)。
 
-在所有其他情况下（包括使用 Redis 底板时），必须为粘滞会话配置服务器环境。
+在所有其他情况下 (包括) 使用 Redis 底板时，必须为粘滞会话配置服务器环境。
 
 有关为配置 Azure App Service 的指南 SignalR ，请参阅 <xref:signalr/publish-to-azure-web-app> 。
 
@@ -62,15 +64,15 @@ An attempt was made to access a socket in a way forbidden by its access permissi
 
 使用的应用程序 SignalR 需要跟踪其所有连接，这会为服务器场带来问题。 添加服务器，并获取其他服务器不知道的新连接。 例如， SignalR 在下图中的每个服务器上都不知道其他服务器上的连接。 当 SignalR 某个服务器要向所有客户端发送消息时，该消息只会发送到连接到该服务器的客户端。
 
-![SignalR无底板缩放](scale/_static/scale-no-backplane.png)
+![缩放：：：非 loc (SignalR) ：：：无底板](scale/_static/scale-no-backplane.png)
 
 解决此问题的方法是[Azure SignalR 服务](#azure-signalr-service)和[Redis 底板](#redis-backplane)。
 
-## <a name="azure-signalr-service"></a>Azure SignalR 服务
+## <a name="azure-no-locsignalr-service"></a>Azure SignalR 服务
 
 Azure SignalR 服务是一种代理，而不是底板。 每次客户端启动与服务器的连接时，客户端都将被重定向以连接到服务。 下图说明了该过程：
 
-![建立与 Azure 服务的连接 SignalR](scale/_static/azure-signalr-service-one-connection.png)
+![建立与 Azure：：： no (SignalR) ：：： Service 的连接](scale/_static/azure-signalr-service-one-connection.png)
 
 因此，服务管理所有客户端连接，而每个服务器只需要与服务建立少量的固定连接，如下图所示：
 
@@ -126,14 +128,14 @@ proxy_set_header Connection $connection_upgrade;
 
 有关详细信息，请参阅 [NGINX 作为 WebSocket 代理](https://www.nginx.com/blog/websocket-nginx/)。
 
-## <a name="third-party-signalr-backplane-providers"></a>第三方 SignalR 底板提供程序
+## <a name="third-party-no-locsignalr-backplane-providers"></a>第三方 SignalR 底板提供程序
 
 * [NCache](https://www.alachisoft.com/ncache/asp-net-core-signalr.html)
 * [Orleans](https://github.com/OrleansContrib/SignalR.Orleans)
 
 ## <a name="next-steps"></a>后续步骤
 
-有关更多信息，请参见以下资源：
+有关详细信息，请参阅以下资源：
 
 * [Azure SignalR 服务文档](/azure/azure-signalr/signalr-overview)
 * [设置 Redis 底板](xref:signalr/redis-backplane)

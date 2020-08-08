@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/view-components
-ms.openlocfilehash: 272b5a89601a9e6ef24f3e60a3da7e2a40297c97
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 0c952502d58744bbbe06c92f51bd51bd547fb8ae
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86213110"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020946"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -189,7 +191,7 @@ ms.locfileid: "86213110"
 * `InvokeAsync` 公开可以从视图调用的方法，且可以采用任意数量的参数。
 * `InvokeAsync` 方法返回满足 `isDone` 和 `maxPriority` 参数的 `ToDo` 项集。
 
-### <a name="create-the-view-component-razor-view"></a>创建视图组件 Razor 视图
+### <a name="create-the-view-component-no-locrazor-view"></a>创建视图组件 Razor 视图
 
 * 创建 Views/Shared/Components 文件夹**。 此文件夹 **必须** 命名为 *Components*。
 

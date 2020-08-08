@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 数据保护密钥永久性 Api 的实现细节
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-immutability
-ms.openlocfilehash: 01fb3a155aefa34dcd9ede8e7d6ada8fe6bb751c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 51d7538a98ac2847f018ff1907bb5333bd132f32
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403815"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022389"
 ---
 # <a name="key-immutability-and-key-settings-in-aspnet-core"></a>ASP.NET Core 中的密钥永久性和密钥设置
 
@@ -34,7 +36,7 @@ ms.locfileid: "85403815"
 
 * [密钥内包含的算法信息](xref:security/data-protection/configuration/overview#changing-algorithms-with-usecryptographicalgorithms)
 
-如果需要在下一次自动密钥滚动时间之前开始使用这些设置，请考虑进行显式调用 `IKeyManager.CreateNewKey` 来强制创建新密钥。 请记住，提供明确的激活日期（{now + 2 days} 是合理的经验法则，以允许更改传播的时间）以及调用中的到期日期。
+如果需要在下一次自动密钥滚动时间之前开始使用这些设置，请考虑进行显式调用 `IKeyManager.CreateNewKey` 来强制创建新密钥。 请记住提供一个明确的激活日期， ( {now + 2 days} 是一种很好的经验规则，以允许更改传播) 和到期日期。
 
 >[!TIP]
 > 接触存储库的所有应用程序都应指定相同的设置和 `IDataProtectionBuilder` 扩展方法。 否则，持久化密钥的属性将依赖于调用密钥生成例程的特定应用程序。

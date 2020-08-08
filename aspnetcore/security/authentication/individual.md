@@ -5,6 +5,8 @@ description: 基于通过单独用户帐户创建的 ASP.NET Core 项目发现�
 ms.author: riande
 ms.date: 12/11/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/individual
-ms.openlocfilehash: 6d3743fc31c29bed5075ac29381aea51a64a908c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6b72612c12d52cfc1736c141bdad95ace6c84546
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406246"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022285"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>基于通过单独用户帐户创建的 ASP.NET Core 项目的项目
 
@@ -71,7 +73,7 @@ Windows 身份验证是通过选项在 .NET Core CLI 中为新 web 应用指定�
 
 | 选项 | 身份验证类型 | 有关详细信息的链接 |
  | ----------------- | ------------ | ---------- |
-| 无            |  无身份验证 | | 
+| None            |  无身份验证 | | 
 | 个人      |  单个身份验证 | <xref:security/authentication/identity>
 | IndividualB2C   |  Azure AD B2C 的云托管的单个身份验证 | [Azure AD B2C](/azure/active-directory-b2c/) |
 | SingleOrg       |  对一个租户进行组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
@@ -84,7 +86,7 @@ Windows 身份验证是通过选项在 .NET Core CLI 中为新 web 应用指定�
 
 | 选项 | 身份验证类型 | 有关详细信息的链接 |
  | ----------------- | ------------ | ---------- |
-| 无            |  无身份验证 | | 
+| None            |  无身份验证 | | 
 | 应用中的单个用户帐户/存储用户帐户 |  单个身份验证 | <xref:security/authentication/identity> |
 | 单个用户帐户/连接到云中的现有用户存储 |  Azure AD B2C 的云托管的单个身份验证 | [Azure AD B2C](/azure/active-directory-b2c/) |
 | 工作或学校云/单个组织  |  对一个租户进行组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |

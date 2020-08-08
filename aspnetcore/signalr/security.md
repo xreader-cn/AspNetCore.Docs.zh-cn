@@ -7,6 +7,8 @@ ms.author: anurse
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 4e125fd6c4ad2cd4989d692dd28a63638218ee57
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e004899e334738f723cb98638cb31de8d314a830
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400409"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022467"
 ---
-# <a name="security-considerations-in-aspnet-core-signalr"></a>ASP.NET Core 中的安全注意事项SignalR
+# <a name="security-considerations-in-aspnet-core-no-locsignalr"></a>ASP.NET Core 中的安全注意事项SignalR
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
@@ -30,23 +32,23 @@ ms.locfileid: "85400409"
 
 ## <a name="cross-origin-resource-sharing"></a>跨域资源共享
 
-[跨域资源共享（CORS）](https://www.w3.org/TR/cors/)可用于允许 SignalR 在浏览器中进行跨源连接。 如果 JavaScript 代码托管在应用的另一个域中 SignalR ，则必须启用[CORS 中间件](xref:security/cors)，以允许 JavaScript 连接到 SignalR 应用。 仅允许来自你信任或控制的域的跨域请求。 例如：
+[跨域资源共享 (CORS) ](https://www.w3.org/TR/cors/)可用于 SignalR 在浏览器中允许跨域连接。 如果 JavaScript 代码托管在应用的另一个域中 SignalR ，则必须启用[CORS 中间件](xref:security/cors)，以允许 JavaScript 连接到 SignalR 应用。 仅允许来自你信任或控制的域的跨域请求。 例如：
 
 * 你的网站承载于`http://www.example.com`
 * 你的 SignalR 应用程序承载于`http://signalr.example.com`
 
 应在应用程序中配置 CORS，使其 SignalR 仅允许源 `www.example.com` 。
 
-有关配置 CORS 的详细信息，请参阅[启用跨域请求（CORS）](xref:security/cors)。 SignalR**需要**以下 CORS 策略：
+有关配置 CORS 的详细信息，请参阅[ (CORS) 启用跨域请求](xref:security/cors)。 SignalR**需要**以下 CORS 策略：
 
 * 允许特定的预期来源。 允许任何来源是可行的，但不安全或**不**推荐使用。
 * `GET` `POST` 必须允许使用 HTTP 方法。
-* 若要使基于 cookie 的粘滞会话正常工作，必须允许使用凭据。 即使未使用身份验证，也必须启用它们。
+* 为了使 cookie 基于的粘滞会话正常工作，必须允许使用凭据。 即使未使用身份验证，也必须启用它们。
 
 ::: moniker range=">= aspnetcore-5.0"
 
 但是，在5.0 中，我们在 TypeScript 客户端中提供了一个不使用凭据的选项。
-如果你知道100%，则仅应使用不使用凭据的选项（在应用中使用多个服务器时，azure 应用服务将使用 cookie）。
+如果你100知道在 Cookie 你的应用 (程序中 cookie 使用多个服务器) 时，azure 应用服务使用多个服务器时，azure 应用服务使用多个凭据，则不使用凭据选项仅应使用。
 
 ::: moniker-end
 
@@ -98,7 +100,7 @@ CORS 提供的保护不适用于 WebSocket。 对于 Websocket 上的源限制�
 
 ::: moniker range="< aspnetcore-2.2"
 
-CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
+CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 
 * 执行 CORS 预检请求。
 * 在发出 WebSocket 请求时，遵守 `Access-Control` 标头中指定的限制。
@@ -127,11 +129,11 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
       Request starting HTTP/1.1 GET http://localhost:5000/chathub?access_token=1234
 ```
 
-如果你对将此数据与服务器日志进行日志记录有关，你可以通过将 `Microsoft.AspNetCore.Hosting` 记录器配置到 `Warning` 级别或更高级别（这些消息以级别写入）来完全禁用此日志记录 `Info` 。 有关详细信息，请参阅[日志筛选](xref:fundamentals/logging/index#log-filtering)。 如果仍想记录某些请求信息，可以[编写中间件](xref:fundamentals/middleware/write)来记录所需的数据，并筛选出 `access_token` 查询字符串值（如果存在）。
+如果你对将此数据与服务器日志进行日志记录有关，你可以通过将 `Microsoft.AspNetCore.Hosting` 记录器配置到级别或更高级别来完全禁用此日志记录 `Warning` (这些消息在 `Info` 级别) 写入。 有关详细信息，请参阅[日志筛选](xref:fundamentals/logging/index#log-filtering)。 如果仍想记录某些请求信息，可以[编写中间件](xref:fundamentals/middleware/write)来记录所需的数据，并筛选出 `access_token` 查询字符串值 (如果) 存在。
 
 ## <a name="exceptions"></a>异常
 
-异常消息通常被认为是不应透露给客户端的敏感数据。 默认情况下， SignalR 不会将集线器方法引发的异常的详细信息发送到客户端。 客户端将收到指示出现错误的一般消息。 向客户端发送的异常消息可以通过[EnableDetailedErrors](xref:signalr/configuration#configure-server-options)重写（例如，在开发或测试中）。 不应在生产应用程序中向客户端公开异常消息。
+异常消息通常被认为是不应透露给客户端的敏感数据。 默认情况下， SignalR 不会将集线器方法引发的异常的详细信息发送到客户端。 客户端将收到指示出现错误的一般消息。 可以将异常消息传递给客户端 (例如，用[EnableDetailedErrors](xref:signalr/configuration#configure-server-options)进行开发或测试) 。 不应在生产应用程序中向客户端公开异常消息。
 
 ## <a name="buffer-management"></a>缓冲区管理
 
@@ -148,6 +150,6 @@ SignalR使用每个连接缓冲区管理传入消息和传出消息。 默认情
 传入消息和传出消息有限制，可以在中配置的[HttpConnectionDispatcherOptions](xref:signalr/configuration#configure-server-options)对象上进行配置 `MapHub` ：
 
 * `ApplicationMaxBufferSize`表示客户端从服务器缓冲的最大字节数。 如果客户端尝试发送比此限制更大的消息，则可能会关闭该连接。
-* `TransportMaxBufferSize`表示服务器可以发送的最大字节数。 如果服务器尝试发送的消息（包括从集线器方法返回的值）大于此限制，则会引发异常。
+* `TransportMaxBufferSize`表示服务器可以发送的最大字节数。 如果服务器尝试发送消息 (包括从集线器方法返回值) 大于此限制，则会引发异常。
 
 将限制设置为以 `0` 禁用限制。 通过删除该限制，客户端可以发送任意大小的消息。 发送大消息的恶意客户端可能会导致分配额外的内存。 过度使用内存会显著减少并发连接数。

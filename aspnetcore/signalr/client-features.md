@@ -6,6 +6,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/client-features
-ms.openlocfilehash: 10752e8cace82dc08721af7d38c0250182e9bfb0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4f5fa2f4ff1ac3d00b04845aedc26fb0118b9991
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408482"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021466"
 ---
-# <a name="aspnet-core-signalr-clients"></a>ASP.NET Core SignalR 客户端
+# <a name="aspnet-core-no-locsignalr-clients"></a>ASP.NET Core SignalR 客户端
 
 ## <a name="versioning-support-and-compatibility"></a>版本控制、支持和兼容性
 
@@ -48,7 +50,7 @@ SignalR2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。 对于�
 | Azure SignalR 服务支持 |2.1.0|1.0.0|1.0.0|1.0.0|
 | [服务器到客户端流式处理](xref:signalr/streaming)          |2.1.0|1.0.0|1.0.0|1.0.0|
 | [客户端到服务器的流式处理](xref:signalr/streaming)          |3.0.0|3.0.0|3.0.0|3.0.0|
-| 自动重新连接（[.net](/aspnet/core/signalr/dotnet-client?view=aspnetcore-3.0&tabs=visual-studio#handle-lost-connection)， [JavaScript](/aspnet/core/signalr/javascript-client?view=aspnetcore-3.0#reconnect-clients)）          |3.0.0|3.0.0|3.0.0|❌|
+| [.Net](/aspnet/core/signalr/dotnet-client?view=aspnetcore-3.0&tabs=visual-studio#handle-lost-connection)、 [JavaScript](/aspnet/core/signalr/javascript-client?view=aspnetcore-3.0#reconnect-clients))  (自动重新连接          |3.0.0|3.0.0|3.0.0|❌|
 | Websocket 传输 |2.1.0|1.0.0|1.0.0|1.0.0|
 | 服务器发送的事件传输 |2.1.0|1.0.0|1.0.0|❌|
 | 长轮询传输 |2.1.0|1.0.0|1.0.0|3.0.0|
@@ -61,5 +63,5 @@ SignalR2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。 对于�
 
 * [SignalRASP.NET Core 入门](xref:tutorials/signalr)
 * [支持的平台](xref:signalr/supported-platforms)
-* [中心](xref:signalr/hubs)
+* [集线器](xref:signalr/hubs)
 * [JavaScript 客户端](xref:signalr/javascript-client)

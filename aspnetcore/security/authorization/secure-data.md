@@ -6,6 +6,8 @@ ms.author: riande
 ms.date: 7/18/2020
 ms.custom: mvc, seodec18
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/secure-data
-ms.openlocfilehash: 7d4c10fa0b1c569179fc3e0a518917ec0185c51f
-ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
+ms.openlocfilehash: 44777369693f9eb29d78c3ba638db2e692f430ae
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87160278"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021180"
 ---
 # <a name="create-an-aspnet-core-web-app-with-user-data-protected-by-authorization"></a>使用受授权保护的用户数据创建 ASP.NET Core web 应用
 
@@ -33,7 +35,7 @@ ms.locfileid: "87160278"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-本教程演示如何创建 ASP.NET Core 的 web 应用，其中包含由授权保护的用户数据。 它显示已验证（注册）用户已创建的联系人的列表。 有三个安全组：
+本教程演示如何创建 ASP.NET Core 的 web 应用，其中包含由授权保护的用户数据。 它将显示已进行身份验证 (已创建的已注册) 用户的联系人列表。 有三个安全组：
 
 * **已注册的用户**可以查看所有已批准的数据，并可以编辑/删除他们自己的数据。
 * **经理**可以批准或拒绝联系人数据。 只有已批准的联系人对用户可见。
@@ -41,7 +43,7 @@ ms.locfileid: "87160278"
 
 此文档中的图像与最新模板并不完全匹配。
 
-在下图中，用户 Rick （ `rick@example.com` ）已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+在下图中，用户 Rick (`rick@example.com`) 已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
 
 ![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
 
@@ -148,7 +150,7 @@ MVC 控制器和 Razor 页面要求对所有用户进行身份验证的另一种
 
 ### <a name="configure-the-test-account"></a>配置测试帐户
 
-`SeedData`类创建两个帐户：管理员和管理器。 使用[机密管理器工具](xref:security/app-secrets)来设置这些帐户的密码。 从项目目录（包含*Program.cs*的目录）设置密码：
+`SeedData`类创建两个帐户：管理员和管理器。 使用[机密管理器工具](xref:security/app-secrets)来设置这些帐户的密码。 将项目目录中的密码设置 (包含*Program.cs*) 的目录：
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
@@ -187,7 +189,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ### <a name="create-a-manager-authorization-handler"></a>创建管理器授权处理程序
 
-`ContactManagerAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
+`ContactManagerAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有管理人员才能 (新的或更改的) 批准或拒绝内容更改。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactManagerAuthorizationHandler.cs)]
 
@@ -321,7 +323,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 * 删除表中的所有记录 `Contact` 。
 * 重新启动应用以对数据库进行种子设定。
 
-测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中，注册新用户（例如 `test@example.com` ）。 使用其他用户登录到每个浏览器。 验证下列操作：
+测试已完成应用程序的一种简单方法是启动三个不同的浏览器 (或 incognito/InPrivate 会话) 。 在一个浏览器中，注册新用户 (例如 `test@example.com`) 。 使用其他用户登录到每个浏览器。 验证下列操作：
 
 * 已注册的用户可以查看所有已批准的联系人数据。
 * 已注册的用户可以编辑/删除他们自己的数据。
@@ -389,13 +391,13 @@ dotnet ef database update
 
 ::: moniker range=">= aspnetcore-2.1 < aspnetcore-3.0"
 
-本教程演示如何创建 ASP.NET Core 的 web 应用，其中包含由授权保护的用户数据。 它显示已验证（注册）用户已创建的联系人的列表。 有三个安全组：
+本教程演示如何创建 ASP.NET Core 的 web 应用，其中包含由授权保护的用户数据。 它将显示已进行身份验证 (已创建的已注册) 用户的联系人列表。 有三个安全组：
 
 * **已注册的用户**可以查看所有已批准的数据，并可以编辑/删除他们自己的数据。
 * **经理**可以批准或拒绝联系人数据。 只有已批准的联系人对用户可见。
 * **管理员**可以批准/拒绝和编辑/删除任何数据。
 
-在下图中，用户 Rick （ `rick@example.com` ）已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+在下图中，用户 Rick (`rick@example.com`) 已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
 
 ![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
 
@@ -484,7 +486,7 @@ dotnet ef database update
 
 ### <a name="configure-the-test-account"></a>配置测试帐户
 
-`SeedData`类创建两个帐户：管理员和管理器。 使用[机密管理器工具](xref:security/app-secrets)来设置这些帐户的密码。 从项目目录（包含*Program.cs*的目录）设置密码：
+`SeedData`类创建两个帐户：管理员和管理器。 使用[机密管理器工具](xref:security/app-secrets)来设置这些帐户的密码。 将项目目录中的密码设置 (包含*Program.cs*) 的目录：
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
@@ -523,7 +525,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ### <a name="create-a-manager-authorization-handler"></a>创建管理器授权处理程序
 
-`ContactManagerAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
+`ContactManagerAuthorizationHandler`在*Authorization*文件夹中创建一个类。 `ContactManagerAuthorizationHandler`验证对资源的用户是否为管理员。 只有管理人员才能 (新的或更改的) 批准或拒绝内容更改。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactManagerAuthorizationHandler.cs)]
 
@@ -648,7 +650,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 * 重新启动应用以对数据库进行种子设定。
 
-测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中，注册新用户（例如 `test@example.com` ）。 使用其他用户登录到每个浏览器。 验证下列操作：
+测试已完成应用程序的一种简单方法是启动三个不同的浏览器 (或 incognito/InPrivate 会话) 。 在一个浏览器中，注册新用户 (例如 `test@example.com`) 。 使用其他用户登录到每个浏览器。 验证下列操作：
 
 * 已注册的用户可以查看所有已批准的联系人数据。
 * 已注册的用户可以编辑/删除他们自己的数据。

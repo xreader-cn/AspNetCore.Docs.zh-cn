@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/razor-pages-authorization
-ms.openlocfilehash: 0f4022e46993c6a957d3d0c133b3db56fa650edc
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: 5e0c76ea6c6b4af8e24693b1bfe8ac28bf2ce3a9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568816"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022272"
 ---
-# <a name="razor-pages-authorization-conventions-in-aspnet-core"></a>Razor页面中的授权约定 ASP.NET Core
+# <a name="no-locrazor-pages-authorization-conventions-in-aspnet-core"></a>Razor页面中的授权约定 ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -30,7 +32,7 @@ ms.locfileid: "86568816"
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-示例应用使用[cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
+示例应用使用[ cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
 
 ## <a name="require-authorization-to-access-a-page"></a>需要授权才能访问页面
 
@@ -142,7 +144,7 @@ options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-示例应用使用[cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
+示例应用使用[ cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
 
 ## <a name="require-authorization-to-access-a-page"></a>需要授权才能访问页面
 

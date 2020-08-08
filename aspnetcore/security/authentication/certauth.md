@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 07/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 06803ee57824bbfac5725763938abbb9db0e360a
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: 7a23f2b17cc8fb3a4989b9fddd5c128add13db5b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568842"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021947"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -32,9 +34,9 @@ ms.locfileid: "86568842"
 证书身份验证是一种有状态方案，主要用于代理或负载均衡器不处理客户端和服务器之间的流量。 如果使用代理或负载平衡器，则仅当代理或负载均衡器：
 
 * 处理身份验证。
-* 将用户身份验证信息传递给应用程序（例如，在请求标头中），该信息对身份验证信息起作用。
+* 将用户身份验证信息传递给应用 (例如，在请求标头) 中，它对身份验证信息起作用。
 
-使用代理和负载平衡器的环境中证书身份验证的替代方法是使用 OpenID Connect （OIDC） Active Directory 联合服务（ADFS）。
+在使用代理和负载平衡器的环境中证书身份验证的替代方法是 Active Directory 联合服务 (ADFS) 与 OpenID Connect (OIDC) 。
 
 ## <a name="get-started"></a>入门
 
@@ -99,7 +101,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 `CertificateAuthenticationOptions`处理程序具有一些内置的验证，这些验证是你应在证书上执行的最小验证。 默认情况下，将启用这些设置中的每一个。
 
-### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = 链式、SelfSigned 或 All （链式 |SelfSigned)
+### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = 链式、SelfSigned 或 All (链式 |SelfSigned) 
 
 默认值：30`CertificateTypes.Chained`
 
@@ -109,7 +111,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 默认值：30`true`
 
-此检查将验证客户端提供的证书是否具有客户端身份验证扩展密钥使用（EKU），或者根本没有 Eku。 如规范所示，如果未指定 EKU，则所有 Eku 均视为有效。
+此检查将验证客户端提供的证书是否 (EKU) 使用了客户端身份验证扩展密钥，或者根本没有 Eku。 如规范所示，如果未指定 EKU，则所有 Eku 均视为有效。
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
@@ -284,7 +286,7 @@ Azure 不需要转发配置。 此设置已在证书转发中间件中进行设�
 `AddCertificateForwarding`方法用于指定：
 
 * 客户端标头名称。
-* 如何加载证书（使用 `HeaderConverter` 属性）。
+* 如何使用属性)  (加载证书 `HeaderConverter` 。
 
 例如，在自定义 web 代理中，证书作为自定义请求标头传递 `X-SSL-CERT` 。 若要使用它，请在中配置证书转发 `Startup.ConfigureServices` ：
 
@@ -623,7 +625,7 @@ public void ConfigureServices(IServiceCollection services)
 本部分为必须使用证书保护应用程序子集的应用提供信息。 例如， Razor 应用中的页面或控制器可能需要客户端证书。 这是客户端证书带来的挑战：
   
 * 是 TLS 功能，而不是 HTTP 功能。
-* 按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。 在连接开始时，仅知道服务器名称指示（SNI） &dagger; 。 客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。
+* 按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。 在连接开始时，仅知道服务器名称指示 (SNI) &dagger; 是已知的。 客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。
 
 TLS 重新协商是实现可选客户端证书的一种方法。 不建议这样做，因为：
 - 在 HTTP/1.1 中，在 POST 请求期间 renegotiating 可能会导致死锁，其中，请求正文填充 TCP 窗口，而重新协商数据包无法接收。
@@ -652,4 +654,4 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
 
 在[此 GitHub 讨论](https://github.com/dotnet/AspNetCore.Docs/issues/18720)问题中，对可选客户端证书留下疑问、评论和其他反馈。
 
-&dagger;服务器名称指示（SNI）是一种 TLS 扩展，可将虚拟域作为 SSL 协商的一部分包括在内。 这实际上意味着，可以使用虚拟域名或主机名来识别网络终结点。
+&dagger;服务器名称指示 (SNI) 是一个 TLS 扩展，可将虚拟域作为 SSL 协商的一部分包括在内。 这实际上意味着，可以使用虚拟域名或主机名来识别网络终结点。

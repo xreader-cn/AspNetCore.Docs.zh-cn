@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/08/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,16 +16,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 042b22a220d961773437e9d85d5f0c5782e29bea
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 66b307a3629e18e49b5bb6e65a156054c0002ba8
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406012"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022103"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>使用 ASP.NET Core 中的特定方案授权
 
-在某些情况下（例如单页应用程序（Spa）），通常使用多种身份验证方法。 例如，应用可能会使用基于 cookie 的身份验证来登录和 JWT 请求的 JWT 持有者身份验证。 在某些情况下，应用程序可能有多个身份验证处理程序实例。 例如，两个 cookie 处理程序，其中一个包含基本标识，一个在已触发多重身份验证（MFA）时创建。 可能会触发 MFA，因为用户请求了需要额外安全的操作。 有关在用户请求需要 MFA 的资源时强制执行 MFA 的详细信息，请参阅 GitHub 颁发[保护部分与 mfa](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195)。
+在某些情况下，例如 (Spa) 的单页面应用程序，通常使用多种身份验证方法。 例如，应用可能会使用 cookie 基于的身份验证登录，并使用 JWT 持有者身份验证来处理 JavaScript 请求。 在某些情况下，应用程序可能有多个身份验证处理程序实例。 例如，两个 cookie 处理程序，其中一个包含基本标识，一个在已触发多重身份验证 (MFA) 时创建。 可能会触发 MFA，因为用户请求了需要额外安全的操作。 有关在用户请求需要 MFA 的资源时强制执行 MFA 的详细信息，请参阅 GitHub 颁发[保护部分与 mfa](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195)。
 
 身份验证方案是在身份验证过程中配置身份验证服务时命名的。 例如：
 
@@ -43,7 +45,7 @@ public void ConfigureServices(IServiceCollection services)
         });
 ```
 
-在前面的代码中，添加了两个身份验证处理程序：一个用于 cookie，另一个用于持有者。
+在前面的代码中，添加了两个身份验证处理程序：一个是 cookie ，一个用于持有者。
 
 >[!NOTE]
 >指定默认方案 `HttpContext.User` 会导致将属性设置为该标识。 如果不需要该行为，请通过调用的无参数形式来禁用它 `AddAuthentication` 。
@@ -63,7 +65,7 @@ public class MixedController : Controller
         JwtBearerDefaults.AuthenticationScheme;
 ```
 
-在前面的示例中，cookie 和持有者处理程序都运行，并且有机会为当前用户创建并追加标识。 通过仅指定一个方案，将运行相应的处理程序。
+在前面的示例中， cookie 和持有者处理程序都运行，并且有机会为当前用户创建并追加标识。 通过仅指定一个方案，将运行相应的处理程序。
 
 ```csharp
 [Authorize(AuthenticationSchemes = 
@@ -71,7 +73,7 @@ public class MixedController : Controller
 public class MixedController : Controller
 ```
 
-在前面的代码中，只有具有 "持有者" 方案的处理程序才会运行。 将忽略任何基于 cookie 的标识。
+在前面的代码中，只有具有 "持有者" 方案的处理程序才会运行。 cookie将忽略任何基于的标识。
 
 ## <a name="selecting-the-scheme-with-policies"></a>选择具有策略的方案
 

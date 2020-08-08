@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 数据保护身份验证加密的实现细节�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/authenticated-encryption-details
-ms.openlocfilehash: ab3be90d212c0cb7159a04694e7101c275157f00
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ebd784b493b7f283df2cc84a39113e3d714472a0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408625"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022064"
 ---
 # <a name="authenticated-encryption-details-in-aspnet-core"></a>ASP.NET Core 中经过身份验证的加密详细信息
 
@@ -26,7 +28,7 @@ ms.locfileid: "85408625"
 
 对 IDataProtector 的调用是经过身份验证的加密操作。 保护方法同时提供机密性和真实性，并与用于从其根 IDataProtectionProvider 派生此特定 IDataProtector 实例的用途链相关联。
 
-IDataProtector 使用 byte [] 纯文本参数，并生成一个 byte [] 受保护的负载，其格式如下所述。 （还有一个扩展方法重载，它采用字符串纯文本参数并返回一个字符串受保护的负载。 如果使用此 API，受保护的负载格式仍将具有下面的结构，但将被[base64url 编码](https://tools.ietf.org/html/rfc4648#section-5)。）
+IDataProtector 使用 byte [] 纯文本参数，并生成一个 byte [] 受保护的负载，其格式如下所述。  (还有一个扩展方法重载，它采用字符串纯文本参数并返回一个字符串受保护的负载。 如果使用此 API，受保护的负载格式仍将具有以下结构，但它将被[base64url 编码](https://tools.ietf.org/html/rfc4648#section-5)。 ) 
 
 ## <a name="protected-payload-format"></a>受保护的负载格式
 
@@ -56,11 +58,11 @@ AA FF EE 57 57 2F 40 4C 3F 7F CC 9D CC D9 32 3E
 52 C9 74 A0
 ```
 
-从前32位以上的负载格式，或者4个字节是标识版本的幻标头（09 F0 C9 F0）
+从第一个32位以上的负载格式，或4个字节为标识版本 (09 F0 C9 F0 的幻标头) 
 
-接下来的128位或16字节是密钥标识符（80 9C 81 0C 19 66 19 40 95 36 53 F8 AA FF EE 57）
+接下来的128位或16字节是密钥标识符 (80 9C 81 0C 19 66 19 40 95 36 53 F8 AA FF EE 57) 
 
 余数包含负载并且特定于所使用的格式。
 
 > [!WARNING]
-> 所有受指定密钥保护的有效负载将以相同的20字节（幻值，key id）标头开头。 管理员可以将此事实用于诊断目的，以大致了解生成负载的时间。 例如，上面的负载对应于键 {0c819c80-6619-4019-9536-53f8aaffee57}。 如果在检查密钥存储库之后发现此特定密钥的激活日期为2015-01-01，并且其到期日期为2015-03-01，则必须假定在该时段内生成了有效负载（如果不被篡改），请在任一端提供或采用小奶油因素。
+> 所有受指定密钥保护的有效负载都将以相同的20字节 (幻数值，键 id) 标头开头。 管理员可以将此事实用于诊断目的，以大致了解生成负载的时间。 例如，上面的负载对应于键 {0c819c80-6619-4019-9536-53f8aaffee57}。 如果在检查密钥存储库之后发现此特定密钥的激活日期为2015-01-01，并且其到期日期为2015-03-01，则必须假定有效负载 (如果未篡改在该窗口中生成的) ，请在任一端提供或奶油一小部分。

@@ -7,6 +7,8 @@ ms.author: anurse
 ms.custom: signalr
 ms.date: 06/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: f2b864d47c98a031872be676a68143bd79f49829
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 61733fe4fbcd7b94662404a39a288ff2ce75ec53
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409093"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021830"
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core 中的日志记录和诊断SignalR
+# <a name="logging-and-diagnostics-in-aspnet-core-no-locsignalr"></a>ASP.NET Core 中的日志记录和诊断SignalR
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
@@ -53,7 +55,7 @@ SignalR使用两个记录器类别：
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
 
-查看配置系统的文档以确定如何指定嵌套配置值。 例如，使用环境变量时， `_` 将使用两个字符，而不是 `:` （例如 `Logging__LogLevel__Microsoft.AspNetCore.SignalR` ）。
+查看配置系统的文档以确定如何指定嵌套配置值。 例如，使用环境变量时， `_` 将使用两个字符，而不是 `:` (，例如 `Logging__LogLevel__Microsoft.AspNetCore.SignalR`) 。
 
 建议 `Debug` 为应用收集更详细的诊断时使用级别。 此 `Trace` 级别生成非常低级别的诊断，很少需要诊断应用中的问题。
 
@@ -71,11 +73,11 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 ### <a name="azure-app-service"></a>Azure 应用服务
 
-在 Azure App Service 门户的 "**诊断日志**" 部分中，启用 "**应用程序日志记录（文件系统）** " 选项，并将**级别**配置为 `Verbose` 。 日志**流**服务和应用服务文件系统的日志中应提供日志。 有关详细信息，请参阅[Azure 日志流式处理](xref:fundamentals/logging/index#azure-log-streaming)。
+在 Azure App Service 门户的 "**诊断日志**" 部分中，启用**应用程序日志记录 (Filesystem) **选项，并将**级别**配置为 `Verbose` 。 日志**流**服务和应用服务文件系统的日志中应提供日志。 有关详细信息，请参阅[Azure 日志流式处理](xref:fundamentals/logging/index#azure-log-streaming)。
 
 ### <a name="other-environments"></a>其他环境
 
-如果将应用部署到另一个环境（例如 Docker、Kubernetes 或 Windows 服务），请参阅，以了解有关 <xref:fundamentals/logging/index> 如何配置适用于环境的日志记录提供程序的详细信息。
+如果将应用部署到另一个环境 (例如，Docker、Kubernetes 或 Windows 服务) ，请参阅， <xref:fundamentals/logging/index> 以了解有关如何配置适用于环境的日志记录提供程序的详细信息。
 
 ## <a name="javascript-client-logging"></a>JavaScript 客户端日志记录
 
@@ -90,7 +92,7 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 下表显示了可用于 JavaScript 客户端的日志级别。 将日志级别设置为这些值之一，可以在表中对该级别和其之上的所有级别进行日志记录。
 
-| Level | 说明 |
+| 级别 | 说明 |
 | ----- | ----------- |
 | `None` | 不记录任何消息。 |
 | `Critical` | 指示整个应用程序中的失败的消息。 |
@@ -100,13 +102,13 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 | `Debug` | 诊断消息对于调试很有用。 |
 | `Trace` | 旨在诊断特定问题的详细诊断消息。 |
 
-配置详细级别后，日志将写入浏览器控制台（或 NodeJS 应用中的标准输出）。
+配置详细级别后，日志将写入浏览器控制台 (或) 中的 NodeJS 应用程序中的标准输出。
 
 如果要将日志发送到自定义日志记录系统，可以提供实现接口的 JavaScript 对象 `ILogger` 。 唯一需要实现的方法是 `log` ，它将使用事件的级别和与事件关联的消息。 例如：
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
-## <a name="net-client-logging"></a>.NET 客户端日志记录
+## <a name="net-client-logging"></a> .NET 客户端日志记录
 
 > [!WARNING]
 > 客户端日志可能包含应用中的敏感信息。 **请勿**将原始日志从生产应用发布到 GitHub 等公共论坛。
@@ -146,7 +148,7 @@ SignalR支持其他日志记录提供程序，如 Serilog、Seq、NLog 或与集
 
 如果遇到问题，网络跟踪有时可以提供很多有用的信息。 如果要在我们的问题跟踪程序上发布问题，此方法特别有用。
 
-## <a name="collect-a-network-trace-with-fiddler-preferred-option"></a>使用 Fiddler 收集网络跟踪（首选选项）
+## <a name="collect-a-network-trace-with-fiddler-preferred-option"></a>使用 Fiddler (首选选项收集网络跟踪) 
 
 此方法适用于所有应用。
 
@@ -158,7 +160,7 @@ Fiddler 是一个非常强大的工具，用于收集 HTTP 跟踪。 从[telerik
 
 ![正在从 Fiddler 导出所有会话](diagnostics/fiddler-export.png)
 
-## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>使用 tcpdump 收集网络跟踪（仅限 macOS 和 Linux）
+## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>仅使用 tcpdump (macOS 和 Linux 收集网络跟踪) 
 
 此方法适用于所有应用。
 
@@ -168,21 +170,21 @@ Fiddler 是一个非常强大的工具，用于收集 HTTP 跟踪。 从[telerik
 tcpdump -i [interface] -w trace.pcap
 ```
 
-将替换 `[interface]` 为要捕获的网络接口。 通常，这类似于 `/dev/eth0` （适用于标准以太网接口）或 `/dev/lo0` （对于 localhost 流量）。 有关详细信息，请参阅 `tcpdump` 主机系统上的手册页。
+将替换 `[interface]` 为要捕获的网络接口。 通常，这种情况类似于 `/dev/eth0` 标准以太网接口的 () 或 `/dev/lo0` (localhost 流量) 。 有关详细信息，请参阅 `tcpdump` 主机系统上的手册页。
 
 ## <a name="collect-a-network-trace-in-the-browser"></a>在浏览器中收集网络跟踪
 
 此方法仅适用于基于浏览器的应用。
 
-大多数浏览器开发人员工具都有一个 "网络" 选项卡，该选项卡允许您捕获浏览器和服务器之间的网络活动。 但是，这些跟踪不包括 WebSocket 和服务器发送的事件消息。 如果正在使用这些传输，则使用 Fiddler 或 TcpDump 等工具（如下所述）是更好的方法。
+大多数浏览器开发人员工具都有一个 "网络" 选项卡，该选项卡允许您捕获浏览器和服务器之间的网络活动。 但是，这些跟踪不包括 WebSocket 和服务器发送的事件消息。 如果使用的是这些传输，请使用) 下面所述的工具（如 Fiddler 或 TcpDump） (更好的方法。
 
 ### <a name="microsoft-edge-and-internet-explorer"></a>Microsoft Edge 和 Internet Explorer
 
-（对于边缘和 Internet Explorer，说明是相同的）
+ (边缘和 Internet Explorer 的说明相同) 
 
 1. 按 F12 打开开发工具
 2. 单击 "网络" 选项卡
-3. 刷新页面（如果需要）并重现问题
+3. 如果需要，请刷新页面 () 并重现此问题
 4. 单击工具栏中的 "保存" 图标，将跟踪作为 "HAR" 文件导出：
 
 ![Microsoft Edge 开发工具网络选项卡上的 "保存" 图标](diagnostics/ie-edge-har-export.png)
@@ -191,7 +193,7 @@ tcpdump -i [interface] -w trace.pcap
 
 1. 按 F12 打开开发工具
 2. 单击 "网络" 选项卡
-3. 刷新页面（如果需要）并重现问题
+3. 如果需要，请刷新页面 () 并重现此问题
 4. 右键单击请求列表中的任意位置，然后选择 "另存为包含内容的 HAR"：
 
 ![Google Chrome 开发工具网络选项卡中的 "另存为 HAR 与内容" 选项](diagnostics/chrome-har-export.png)
@@ -200,7 +202,7 @@ tcpdump -i [interface] -w trace.pcap
 
 1. 按 F12 打开开发工具
 2. 单击 "网络" 选项卡
-3. 刷新页面（如果需要）并重现问题
+3. 如果需要，请刷新页面 () 并重现此问题
 4. 右键单击请求列表中的任意位置，然后选择 "全部保存为 HAR"
 
 ![Mozilla Firefox 开发工具网络选项卡中的 "全部保存为 HAR" 选项](diagnostics/firefox-har-export.png)
@@ -218,11 +220,11 @@ tcpdump -i [interface] -w trace.pcap
 
 度量值是基于时间间隔的数据度量值的表示形式。 例如，每秒请求数。 指标数据允许以较高的级别观察应用的状态。 .NET gRPC 指标使用发出 <xref:System.Diagnostics.Tracing.EventCounter> 。
 
-### <a name="signalr-server-metrics"></a>SignalR服务器指标
+### <a name="no-locsignalr-server-metrics"></a>SignalR服务器指标
 
 SignalR在事件源上报告服务器指标 <xref:Microsoft.AspNetCore.Http.Connections> 。
 
-| 名称                    | 说明                 |
+| “属性”                    | 描述                 |
 |-------------------------|-----------------------------|
 | `connections-started`   | 已启动的连接总数   |
 | `connections-stopped`   | 已停止的连接总数   |

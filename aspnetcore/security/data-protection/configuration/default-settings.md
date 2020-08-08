@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 中的数据保护密钥管理和生存期。
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/default-settings
-ms.openlocfilehash: f758c814280ee09a240d99cc59cdab2dc4590df6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b39187d93247dc83c34bbbe6ec6accfd77108794
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407091"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021375"
 ---
 # <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>ASP.NET Core 中的数据保护密钥管理和生存期信息
 
@@ -31,7 +33,7 @@ ms.locfileid: "85407091"
 1. 如果应用托管在[Azure 应用](https://azure.microsoft.com/services/app-service/)中，则密钥将保留在 *%HOME%\ASP.NET\DataProtection-Keys*文件夹中。 此文件夹由网络存储提供支持，并跨托管应用的所有计算机同步。
    * 密钥不是静态保护的。
    * *DataProtection*文件夹在单个部署槽位中向应用的所有实例提供密钥环。
-   * 各部署槽位（例如过渡槽和生成槽）不共享密钥环。 当你在部署槽之间进行交换时（例如，将暂存交换到生产环境或使用 A/B 测试），任何使用数据保护的应用都将无法使用上一个槽内的密钥环来解密存储的数据。 这会导致用户注销使用标准 ASP.NET Core cookie 身份验证的应用，因为它使用数据保护来保护其 cookie。 如果需要与槽无关的密钥环，请使用外部密钥环形提供程序，例如 Azure Blob 存储、Azure Key Vault、SQL 存储或 Redis 缓存。
+   * 各部署槽位（例如过渡槽和生成槽）不共享密钥环。 当你在部署槽之间进行交换时（例如，将暂存交换到生产环境或使用 A/B 测试），任何使用数据保护的应用都将无法使用上一个槽内的密钥环来解密存储的数据。 这会导致用户注销使用标准 ASP.NET Core cookie 身份验证的应用，因为它使用数据保护来保护它 cookie 。 如果需要与槽无关的密钥环，请使用外部密钥环形提供程序，例如 Azure Blob 存储、Azure Key Vault、SQL 存储或 Redis 缓存。
 
 1. 如果用户配置文件可用，则密钥将保留在 *%LOCALAPPDATA%\ASP.NET\DataProtection-Keys*文件夹中。 如果操作系统为 Windows，则使用 DPAPI 对密钥进行静态加密。
 
@@ -48,7 +50,7 @@ ms.locfileid: "85407091"
 
 开发人员始终处于完全控制下，并且可以重写存储键的方式和位置。 上述前三个选项应为大多数应用提供良好的默认设置，这与 ASP.NET **\<machineKey>** 自动生成例程过去的工作方式类似。 最终的回退选项是要求开发人员在需要进行密钥持久性的情况下预先指定[配置](xref:security/data-protection/configuration/overview)的唯一方案，但只有在极少数情况下才会发生此回退。
 
-在 Docker 容器中托管时，密钥应保留在一个文件夹中，该文件夹是 Docker 卷（共享卷或主机装载的卷，该卷会超出容器的生存期）或外部提供程序（如[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)或[Redis](https://redis.io/)）。 如果应用无法访问共享的网络卷，则外部提供程序在 web 场方案中也很有用（有关详细信息，请参阅[PersistKeysToFileSystem](xref:security/data-protection/configuration/overview#persistkeystofilesystem) ）。
+在 Docker 容器中托管时，密钥应保留在一个文件夹中，该文件夹 (共享卷或主机装载的卷，该卷会超出容器生存期) 或外部提供程序（如[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)或[Redis](https://redis.io/)）。 如果应用无法访问共享的网络卷，则外部提供程序也可用于 web 场方案 (请参阅[PersistKeysToFileSystem](xref:security/data-protection/configuration/overview#persistkeystofilesystem)了解详细信息) 。
 
 > [!WARNING]
 > 如果开发人员覆盖上述规则，并在特定的密钥存储库中指向数据保护系统，将禁用静态密钥的自动加密。 可以通过[配置](xref:security/data-protection/configuration/overview)重新启用静态保护。

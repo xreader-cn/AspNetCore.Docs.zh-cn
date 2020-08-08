@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 137b73529a6c3d2a1dece201ebd8a7a5a96da349
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 27f6130742e25e07d4b908973e1ebf26288fdbfd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404738"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021531"
 ---
-# <a name="custom-storage-providers-for-aspnet-core-identity"></a>ASP.NET Core 的自定义存储提供程序Identity
+# <a name="custom-storage-providers-for-aspnet-core-no-locidentity"></a>ASP.NET Core 的自定义存储提供程序Identity
 
 作者：[Steve Smith](https://ardalis.com/)
 
@@ -47,39 +49,39 @@ ASP.NET Core Identity 包含在 Visual Studio 中具有 "单独用户帐户" 选
 dotnet new mvc -au Individual
 ```
 
-## <a name="the-aspnet-core-identity-architecture"></a>ASP.NET Core Identity 体系结构
+## <a name="the-aspnet-core-no-locidentity-architecture"></a>ASP.NET Core Identity 体系结构
 
-ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是应用程序开发人员用来执行操作（如创建用户）的高级类 Identity 。 *存储*是用于指定如何保存实体（如用户和角色）的较低级别类。 存储遵循存储库模式，并与持久性机制紧密耦合。 管理器与存储分离，这意味着，你可以在不更改应用程序代码的情况下替换持久性机制（配置除外）。
+ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是应用程序开发人员用来执行操作（如创建用户）的高级类 Identity 。 *存储*是用于指定如何保存实体（如用户和角色）的较低级别类。 存储遵循存储库模式，并与持久性机制紧密耦合。 管理器与存储分离，这意味着，你可以在不更改应用程序代码的情况下替换持久性机制， (配置) 除外。
 
 下图显示了 web 应用如何与管理器进行交互，同时存储与数据访问层交互。
 
-![ASP.NET Core 应用使用管理器（例如，"UserManager"、"RoleManager"）。 管理器使用存储区（例如 "UserStore"），该存储使用库（如 Entity Framework Core）与数据源进行通信。](identity-custom-storage-providers/_static/identity-architecture-diagram.png)
+![ASP.NET Core 应用使用管理器 (例如 "UserManager"、"RoleManager") 。 管理器使用商店 (例如，"UserStore") 使用库（如 Entity Framework Core）与数据源进行通信。](identity-custom-storage-providers/_static/identity-architecture-diagram.png)
 
-若要创建自定义存储提供程序，请创建数据源、数据访问层以及与此数据访问层交互的存储类（上图中的绿色和灰色框）。 不需要自定义管理器或与之交互的应用程序代码（上面的蓝色框）。
+若要创建自定义存储提供程序，请创建数据源、数据访问层以及与此数据访问层交互的存储类， (上图中的绿色和灰色框) 。 不需要自定义与它们交互的管理器或应用代码 () 上方的蓝色框。
 
 在创建的新实例时， `UserManager` 或 `RoleManager` 提供 user 类的类型并将 store 类的实例作为参数传递。 此方法使你能够将自定义类插入 ASP.NET Core。 
 
 [重新配置应用程序以使用新的存储提供程序](#reconfigure-app-to-use-a-new-storage-provider)演示如何实例化 `UserManager` 和 `RoleManager` 使用自定义存储。
 
-## <a name="aspnet-core-identity-stores-data-types"></a>ASP.NET Core Identity 存储数据类型
+## <a name="aspnet-core-no-locidentity-stores-data-types"></a>ASP.NET Core Identity 存储数据类型
 
 [ASP.NET Core Identity ](https://github.com/aspnet/identity)以下部分详细介绍了数据类型：
 
 ### <a name="users"></a>用户
 
-网站的已注册用户。 可以扩展[IdentityUser](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)类型，也可以将其用作你自己的自定义类型的示例。 无需从特定类型继承即可实现您自己的自定义标识存储解决方案。
+网站的已注册用户。 可以扩展[ Identity 用户](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)类型，也可以将其用作你自己的自定义类型的示例。 无需从特定类型继承即可实现您自己的自定义标识存储解决方案。
 
 ### <a name="user-claims"></a>用户声明
 
-有关表示用户标识的用户的一组语句（或[声明](/dotnet/api/system.security.claims.claim)）。 可以启用用户标识的更大表达式，而不能通过角色来实现。
+一组语句 (或[声明](/dotnet/api/system.security.claims.claim)表示用户身份的用户) 。 可以启用用户标识的更大表达式，而不能通过角色来实现。
 
 ### <a name="user-logins"></a>用户登录
 
-有关在用户登录时要使用的外部身份验证提供程序（如 Facebook 或 Microsoft 帐户）的信息。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)
+有关外部身份验证提供程序的信息 (如 Facebook 或 Microsoft 帐户) 在用户登录时使用。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)
 
 ### <a name="roles"></a>角色
 
-站点的授权组。 包括角色 Id 和角色名称（如 "管理员" 或 "Employee"）。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityrole)
+站点的授权组。 包括角色 Id 和角色名称 (如 "管理员" 或 "Employee" ) 。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityrole)
 
 ## <a name="the-data-access-layer"></a>数据访问层
 
@@ -95,19 +97,19 @@ ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是�
 
 ### <a name="user-storage"></a>用户存储
 
-存储和检索用户信息（例如用户名和密码哈希）。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
+存储和检索用户信息 (例如用户名和密码哈希) 。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
 ### <a name="role-storage"></a>角色存储
 
-存储和检索角色信息（如角色名称）。 [示例](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.rolestore-1)
+存储和检索角色信息 (如角色名称) 。 [示例](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.rolestore-1)
 
 ### <a name="userclaims-storage"></a>UserClaims 存储
 
-存储和检索用户声明信息（如声明类型和值）。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
+存储和检索用户声明信息 (如声明类型和值) 。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
 ### <a name="userlogins-storage"></a>UserLogins 存储
 
-存储和检索用户登录信息（如外部身份验证提供程序）。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
+存储和检索用户登录信息， (例如外部身份验证提供程序) 。 [示例](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
 ### <a name="userrole-storage"></a>UserRole 存储
 
@@ -123,7 +125,7 @@ ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是�
 
 ## <a name="customize-the-user-class"></a>自定义用户类
 
-实现存储提供程序时，创建一个与[IdentityUser 类](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)等效的用户类。
+实现存储提供程序时，创建一个与[ Identity 用户类](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)等效的用户类。
 
 用户类至少必须包括 `Id` 和 `UserName` 属性。
 
@@ -191,9 +193,9 @@ public class UserStore : IUserStore<IdentityUser>,
 }
 ```
 
-### <a name="identityuserclaim-identityuserlogin-and-identityuserrole"></a>IdentityUserClaim、IdentityUserLogin 和 IdentityUserRole
+### <a name="no-locidentityuserclaim-no-locidentityuserlogin-and-no-locidentityuserrole"></a>IdentityUserClaim、 Identity UserLogin 和 Identity UserRole
 
-`Microsoft.AspNet.Identity.EntityFramework`命名空间包含[IdentityUserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1)、 [IdentityUserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)和[IdentityUserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)类的实现。 如果使用这些功能，可能需要创建自己版本的这些类并定义应用的属性。 但是，在执行基本操作（如添加或删除用户的声明）时，如果不将这些实体加载到内存中，则可能会更有效。 而后端存储类可以直接对数据源执行这些操作。 例如， `UserStore.GetClaimsAsync` 方法可以调用 `userClaimTable.FindByUserId(user.Id)` 方法来对该表直接执行查询，并返回声明列表。
+`Microsoft.AspNet.Identity.EntityFramework`命名空间包含[ Identity UserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1)、 [ Identity UserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)和[ Identity UserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)类的实现。 如果使用这些功能，可能需要创建自己版本的这些类并定义应用的属性。 但是，在执行基本操作时，如果不将这些实体加载到内存中， (例如添加或删除用户的声明) ，则效率更高。 而后端存储类可以直接对数据源执行这些操作。 例如， `UserStore.GetClaimsAsync` 方法可以调用 `userClaimTable.FindByUserId(user.Id)` 方法来对该表直接执行查询，并返回声明列表。
 
 ## <a name="customize-the-role-class"></a>自定义 role 类
 
@@ -219,7 +221,7 @@ public class UserStore : IUserStore<IdentityUser>,
 1. 删除 `Microsoft.AspNetCore.EntityFramework.Identity` NuGet 包。
 1. 如果存储提供程序驻留在单独的项目或包中，请添加对它的引用。
 1. 将所有对的引用替换为 `Microsoft.AspNetCore.EntityFramework.Identity` 存储提供程序的命名空间的 using 语句。
-1. 在 `ConfigureServices` 方法中，将 `AddIdentity` 方法更改为使用您的自定义类型。 出于此目的，你可以创建自己的扩展方法。 有关示例，请参阅[IdentityServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) 。
+1. 在 `ConfigureServices` 方法中，将 `AddIdentity` 方法更改为使用您的自定义类型。 出于此目的，你可以创建自己的扩展方法。 有关示例，请参阅[ Identity ServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) 。
 1. 如果使用的是角色，请更新 `RoleManager` 以使用 `RoleStore` 类。
 1. 更新应用程序配置的连接字符串和凭据。
 

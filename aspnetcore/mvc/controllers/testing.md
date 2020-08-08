@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/22/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/testing
-ms.openlocfilehash: e75c3a382904011e30ed50dfd465a15210c64368
-ms.sourcegitcommit: c86b4e2955dc1724f2eaa7c97894ad8b3bf763fb
+ms.openlocfilehash: 311f1ce9eb2b0e358ddc01a1982dc39379f53b8f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/22/2020
-ms.locfileid: "86949077"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020907"
 ---
 # <a name="unit-test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的单元测试控制器逻辑
 
@@ -135,7 +137,7 @@ ms.locfileid: "86949077"
 
 ## <a name="test-actionresultt"></a>测试 ActionResult\<T>
 
-在 ASP.NET Core 2.1 或更高版本中， [ActionResult \<T> ](xref:web-api/action-return-types#actionresultt-type) （ <xref:Microsoft.AspNetCore.Mvc.ActionResult%601> ）使你可以返回派生自 `ActionResult` 或返回特定类型的类型。
+在 ASP.NET Core 2.1 或更高版本中， [ActionResult \<T> ](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult%601>) 使你可以返回派生自 `ActionResult` 或返回特定类型的类型。
 
 示例应用包含将返回给定会话 `id` 的 `List<IdeaDTO>` 的方法。 如果会话 `id` 不存在，控制器将返回 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>：
 
@@ -298,7 +300,7 @@ ms.locfileid: "86949077"
 
 ## <a name="test-actionresultt"></a>测试 ActionResult\<T>
 
-在 ASP.NET Core 2.1 或更高版本中， [ActionResult \<T> ](xref:web-api/action-return-types#actionresultt-type) （ <xref:Microsoft.AspNetCore.Mvc.ActionResult%601> ）使你可以返回派生自 `ActionResult` 或返回特定类型的类型。
+在 ASP.NET Core 2.1 或更高版本中， [ActionResult \<T> ](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult%601>) 使你可以返回派生自 `ActionResult` 或返回特定类型的类型。
 
 示例应用包含将返回给定会话 `id` 的 `List<IdeaDTO>` 的方法。 如果会话 `id` 不存在，控制器将返回 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>：
 
@@ -357,5 +359,5 @@ ms.locfileid: "86949077"
 * <xref:test/integration-tests>
 * [用 Visual Studio 创建和运行单元测试](/visualstudio/test/unit-test-your-code)
 * [MyTested AspNetCore-ASP.NET CORE mvc 的流畅测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc)：强类型单元测试库，提供用于测试 Mvc 和 web API 应用的流畅界面。 （*不由 Microsoft 进行支持或维护*。）
-* [JustMockLite](https://github.com/telerik/JustMockLite)： .net 开发人员的模拟框架。 （*不由 Microsoft 进行支持或维护*。）
+* [JustMockLite](https://github.com/telerik/JustMockLite)：面向 .NET 开发人员的模拟框架。 （*不由 Microsoft 进行支持或维护*。）
 

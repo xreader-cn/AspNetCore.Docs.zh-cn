@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 数据保护密钥存储格式的实现细节�
 ms.author: riande
 ms.date: 04/08/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-storage-format
-ms.openlocfilehash: 032b3f9ccea2ae361a8f2fd12538ffb901310247
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 289557e2b282c108e023f6d53fa43dab80a906ae
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408898"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021427"
 ---
 # <a name="key-storage-format-in-aspnet-core"></a>ASP.NET Core 中的密钥存储格式
 
@@ -64,13 +66,13 @@ ms.locfileid: "85408898"
 
 * 一个 \<descriptor> 元素，其中包含有关此密钥中包含的经过身份验证的加密实现的信息。
 
-在上面的示例中，密钥 id 是 {80732141-ec8f-4b80-af9c-c4d2d1ff8901}，它是在年3月 2015 19 日创建和激活的，它的生存期为90天。 （有时激活日期可能会略微早于创建日期，如本示例中所示。 这是因为 Api 的工作方式吹毛求疵，在实践中是无害的。）
+在上面的示例中，密钥 id 是 {80732141-ec8f-4b80-af9c-c4d2d1ff8901}，它是在年3月 2015 19 日创建和激活的，它的生存期为90天。 偶尔 (，激活日期可能会略微早于创建日期，如本示例中所示。 这是因为 Api 的工作方式吹毛求疵，而在实践中是无害的。 ) 
 
 ## <a name="the-descriptor-element"></a>\<descriptor> 元素
 
 外部 \<descriptor> 元素包含属性 deserializerType，它是实现 IAuthenticatedEncryptorDescriptorDeserializer 的类型的程序集限定名称。 此类型负责读取内部 \<descriptor> 元素以及分析中包含的信息。
 
-元素的特定格式 \<descriptor> 取决于由密钥封装的经过身份验证的加密器实现，并且每个反序列化程序类型都需要为此设置略有不同的格式。 但一般情况下，此元素将包含算法信息（名称、类型、Oid 或类似）和密钥材料。 在上面的示例中，描述符指定此密钥包装 AES-256-CBC encryption + HMACSHA256 验证。
+元素的特定格式 \<descriptor> 取决于由密钥封装的经过身份验证的加密器实现，并且每个反序列化程序类型都需要为此设置略有不同的格式。 但一般情况下，此元素包含 (名称、类型、Oid 或类似) 和密钥材料的算法信息。 在上面的示例中，描述符指定此密钥包装 AES-256-CBC encryption + HMACSHA256 验证。
 
 ## <a name="the-encryptedsecret-element"></a>\<encryptedSecret> 元素
 
@@ -80,7 +82,7 @@ ms.locfileid: "85408898"
 
 ## <a name="the-revocation-element"></a>\<revocation> 元素
 
-吊销作为顶级对象存在于密钥存储库中。 按照约定吊销具有文件名**吊销-{timestamp} .xml** （用于在特定日期前撤销所有密钥）或**吊销-{guid} .xml** （用于吊销特定密钥）。 每个文件都包含单个 \<revocation> 元素。
+吊销作为顶级对象存在于密钥存储库中。 按照约定吊销，使用 filename**吊销-{timestamp} .xml** (来撤消在特定日期) 或**吊销-{guid} .xml** (吊销特定密钥) 之前的所有密钥。 每个文件都包含单个 \<revocation> 元素。
 
 对于单个密钥的吊销，文件内容将如下所示。
 

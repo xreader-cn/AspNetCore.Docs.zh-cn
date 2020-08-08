@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/17/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cors
-ms.openlocfilehash: dc8e68ef482025443147eeb27bd3f245c1a1a5ed
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: ee640ded37f40175e3e150f713fa970e9705b62c
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212893"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021102"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a> (CORS) 启用跨域请求 ASP.NET Core
 
@@ -79,7 +81,7 @@ CORS 中间件处理跨域请求。 以下代码将 CORS 策略应用到具有�
 
 [!code-csharp[](cors/3.1sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=3,9,32)]
 
-上述代码：
+前面的代码：
 
 * 将策略名称设置为 `_myAllowSpecificOrigins` 。 策略名称为任意名称。
 * 调用 <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> 扩展方法并指定 `_myAllowSpecificOrigins` CORS 策略。 `UseCors`添加 CORS 中间件。 必须将对的调用 `UseCors` 置于之后 `UseRouting` 但在之前 `UseAuthorization` 。 有关详细信息，请参阅[中间件顺序](xref:fundamentals/middleware/index#middleware-order)。
@@ -184,7 +186,7 @@ CORS 中间件处理跨域请求。 以下代码将 CORS 策略应用到具有�
 
 [!code-csharp[](cors/3.1sample/Cors/WebAPI/Controllers/ValuesController.cs?name=snippet&highlight=1,23)]
 
-上述代码：
+前面的代码：
 
 * 不会使用[终结点路由](#ecors)启用 CORS。
 * 不定义[默认的 CORS 策略](#dp)。
@@ -272,7 +274,7 @@ CORS 规范将这些标头称为*简单的响应标头*。 若要使其他标头
 [!code-csharp[](cors/3.1sample/Cors/WebAPI/StartupAllowSubdomain.cs?name=snippet5)]
 ### <a name="credentials-in-cross-origin-requests"></a>跨域请求中的凭据
 
-凭据需要在 CORS 请求中进行特殊处理。 默认情况下，浏览器不会使用跨域请求发送凭据。 凭据包括 cookie 和 HTTP 身份验证方案。 若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。
+凭据需要在 CORS 请求中进行特殊处理。 默认情况下，浏览器不会使用跨域请求发送凭据。 凭据包括 cookie s 和 HTTP 身份验证方案。 若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。
 
 `XMLHttpRequest`直接使用：
 
@@ -665,7 +667,7 @@ CORS 中间件处理跨域请求。 以下代码通过指定源为整个应用�
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=8,14-23,38)]
 
-上述代码：
+前面的代码：
 
 * 将策略名称设置为 " \_ myAllowSpecificOrigins"。 策略名称为任意名称。
 * 调用 <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> 扩展方法，该方法启用 CORS。
@@ -819,7 +821,7 @@ CORS 规范将这些标头称为*简单的响应标头*。 若要使其他标头
 
 ### <a name="credentials-in-cross-origin-requests"></a>跨域请求中的凭据
 
-凭据需要在 CORS 请求中进行特殊处理。 默认情况下，浏览器不会使用跨域请求发送凭据。 凭据包括 cookie 和 HTTP 身份验证方案。 若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。
+凭据需要在 CORS 请求中进行特殊处理。 默认情况下，浏览器不会使用跨域请求发送凭据。 凭据包括 cookie s 和 HTTP 身份验证方案。 若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。
 
 `XMLHttpRequest`直接使用：
 

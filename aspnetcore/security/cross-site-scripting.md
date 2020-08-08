@@ -1,10 +1,12 @@
 ---
-title: 在 ASP.NET Core 中阻止跨站点脚本（XSS）
+title: 阻止跨站点脚本 (XSS) 在 ASP.NET Core
 author: rick-anderson
-description: 了解跨站点脚本（XSS）和在 ASP.NET Core 应用程序中解决此漏洞的方法。
+description: 了解跨站点脚本 (XSS) 以及在 ASP.NET Core 应用程序中解决此漏洞的方法。
 ms.author: riande
 ms.date: 10/02/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cross-site-scripting
-ms.openlocfilehash: a94fe1612c023468238f09a91ddb0346b65d52ba
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 24fab313c3af30cfd4143ba29a33ba25bfcdf9a9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408014"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021804"
 ---
-# <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>在 ASP.NET Core 中阻止跨站点脚本（XSS）
+# <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>阻止跨站点脚本 (XSS) 在 ASP.NET Core
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-跨站点脚本（XSS）是一个安全漏洞，攻击者可利用此漏洞将客户端脚本（通常为 JavaScript）放入网页中。 当其他用户加载受影响的页面时，攻击者的脚本将运行，使攻击者能够盗取 cookie 和会话令牌，通过 DOM 操作更改网页的内容，或者将浏览器重定向到另一页。 当应用程序采用用户输入并将其输出到页面而不进行验证、编码或转义时，通常会出现 XSS 漏洞。
+跨站点脚本 (XSS) 是一个安全漏洞，攻击者可利用此漏洞将客户端脚本 (通常是 JavaScript) 到网页中。 当其他用户加载受影响的页面时，攻击者的脚本将运行，使攻击者能够盗取 cookie 和会话令牌，通过 DOM 操作更改网页的内容，或者将浏览器重定向到另一页。 当应用程序采用用户输入并将其输出到页面而不进行验证、编码或转义时，通常会出现 XSS 漏洞。
 
 ## <a name="protecting-your-application-against-xss"></a>针对 XSS 保护应用程序
 
@@ -40,7 +42,7 @@ ms.locfileid: "85408014"
 
 5. 将不受信任的数据置于 URL 查询字符串之前，请确保其 URL 已编码。
 
-## <a name="html-encoding-using-razor"></a>HTML 编码使用Razor
+## <a name="html-encoding-using-no-locrazor"></a>HTML 编码使用Razor
 
 RazorMVC 中使用的引擎会自动对源自变量的所有输出进行编码，除非您确实很难避免这样做。 使用指令时，它将使用 HTML 属性编码规则 *@* 。 HTML 特性编码是 HTML 编码的超集，这意味着您无需担心您应该使用 HTML 编码还是 HTML 特性编码。 您必须确保在 HTML 上下文中只使用 @，而不能在尝试将不受信任的输入直接插入 JavaScript 时使用。 标记帮助程序还将对在标记参数中使用的输入进行编码。
 
@@ -63,7 +65,7 @@ RazorMVC 中使用的引擎会自动对源自变量的所有输出进行编码�
 >[!WARNING]
 > ASP.NET Core MVC 提供的 `HtmlString` 类在输出时不自动编码。 请勿将此项与不受信任的输入结合使用，因为这将公开 XSS 漏洞。
 
-## <a name="javascript-encoding-using-razor"></a>JavaScript 编码使用Razor
+## <a name="javascript-encoding-using-no-locrazor"></a>JavaScript 编码使用Razor
 
 有时可能需要将值插入 JavaScript 中，以便在视图中进行处理。 可通过两种方式来执行此操作。 插入值的最安全方式是将值放入标记的数据属性中，并在 JavaScript 中检索它。 例如：
 
@@ -174,7 +176,7 @@ public class HomeController : Controller
 
 ## <a name="encoding-url-parameters"></a>编码 URL 参数
 
-如果要使用不受信任的输入生成 URL 查询字符串作为值，请使用 `UrlEncoder` 对值进行编码。 例如，
+如果要使用不受信任的输入生成 URL 查询字符串作为值，请使用 `UrlEncoder` 对值进行编码。 例如，应用于对象的
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";
@@ -192,7 +194,7 @@ var example = "\"Quoted Value with spaces and &\"";
 
 默认情况下，编码器使用限制为基本拉丁语 Unicode 范围的安全列表，并将该范围之外的所有字符编码为等效的字符代码。 此行为还会影响 Razor TagHelper 和 HtmlHelper 渲染，因为它将使用编码器输出字符串。
 
-这种情况的原因是为了防止未知或将来的浏览器 bug （以前的浏览器 bug 基于非英语字符的处理来触发分析）。 如果你的网站大量使用非拉丁字符（如中文、西里尔语或其他），这可能不是你所希望的行为。
+这种情况的原因是为了防止未知或将来的浏览器 bug， (以前的浏览器 bug 在处理) 的非英语字符时，将会触发分析。 如果你的网站大量使用非拉丁字符（如中文、西里尔语或其他），这可能不是你所希望的行为。
 
 在中，你可以自定义编码器安全列表，以包含在启动过程中适用于你的应用程序的 Unicode 范围 `ConfigureServices()` 。
 

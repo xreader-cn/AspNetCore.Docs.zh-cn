@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/response
-ms.openlocfilehash: 5c3314991d05ea868fe9190bb3a0206b27fd920f
-ms.sourcegitcommit: b06511252f165dd4590ba9b5beca4153fa220779
+ms.openlocfilehash: 7d2d563eef60cb8eead95c6792bcac2cda16a859
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/27/2020
-ms.locfileid: "85459761"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021336"
 ---
 # <a name="response-caching-in-aspnet-core"></a>ASP.NET Core 中的响应缓存
 
@@ -41,15 +43,15 @@ ms.locfileid: "85459761"
 
 | 指令                                                       | 操作 |
 | --------------------------------------------------------------- | ------ |
-| [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | 缓存可以存储响应。 |
+| public   | 缓存可以存储响应。 |
 | [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | 共享缓存不能存储响应。 专用缓存可以存储和重用响应。 |
-| [最大期限](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | 客户端不接受其期限大于指定秒数的响应。 示例： `max-age=60` （60秒）， `max-age=2592000` （1个月） |
+| [最大期限](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | 客户端不接受其期限大于指定秒数的响应。 示例： `max-age=60` (60 秒) ， `max-age=2592000` (1 个月)  |
 | [no-cache](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **请求时**：缓存不能使用存储的响应来满足请求。 源服务器重新生成客户端的响应，中间件更新其缓存中存储的响应。<br><br>**响应：在**源服务器上没有验证的后续请求不得使用响应。 |
 | [无-商店](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **请求时**：缓存不能存储请求。<br><br>**响应**：缓存不能存储响应的任何部分。 |
 
 下表显示了在缓存中扮演角色的其他缓存标头。
 
-| Header                                                     | 函数 |
+| 标头                                                     | 函数 |
 | ---------------------------------------------------------- | -------- |
 | [Age](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
 | [完](https://tools.ietf.org/html/rfc7234#section-5.3) | 响应被视为过时的时间。 |
@@ -109,7 +111,7 @@ Razor使用分布式缓存标记帮助程序在分布式云和 web 场方案中�
 
 第一个请求由服务器返回，并缓存在中间件中。 第二个请求是由中间件返回的，因为查询字符串与上一个请求匹配。 第三个请求不在中间件缓存中，因为查询字符串值与以前的请求不匹配。
 
-<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>用于配置和创建（通过 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> ） `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter` 。 `ResponseCacheFilter`执行更新相应 HTTP 标头和响应功能的工作。 筛选器：
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>用于通过)  (配置和创建 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter` 。 `ResponseCacheFilter`执行更新相应 HTTP 标头和响应功能的工作。 筛选器：
 
 * 删除、和的任何现有标头 `Vary` `Cache-Control` `Pragma` 。
 * 根据中设置的属性写出适当的标头 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 。
@@ -132,8 +134,8 @@ Vary: User-Agent
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore>覆盖其他大多数属性。 当此属性设置为时 `true` ， `Cache-Control` 标头将设置为 `no-store` 。 如果 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 设置为 `None` ：
 
-* `Cache-Control` 设置为 `no-store,no-cache`。
-* `Pragma` 设置为 `no-cache`。
+* 将 `Cache-Control` 设置为 `no-store,no-cache`。
+* 将 `Pragma` 设置为 `no-cache`。
 
 如果 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> 为 `false` 且 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 为 `None` ，则 `Cache-Control` 和 `Pragma` 均设置为 `no-cache` 。
 
@@ -150,13 +152,13 @@ Pragma: no-cache
 
 ### <a name="location-and-duration"></a>位置和持续时间
 
-若要启用缓存， <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> 必须将设置为正值，并且 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 必须为 `Any` （默认值）或 `Client` 。 框架将 `Cache-Control` 标头设置为位置值，后跟 `max-age` 响应的。
+若要启用缓存， <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> 必须将设置为正值，并且 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 必须 `Any` (默认值) 或 `Client` 。 框架将 `Cache-Control` 标头设置为位置值，后跟 `max-age` 响应的。
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location>的选项， `Any` 并 `Client` 分别转换为 `Cache-Control` 和的标头值 `public` `private` 。 如 "NoStore"[和 "Location](#nostore-and-locationnone) " 部分所述，将设置 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 为，并将 `None` `Cache-Control` `Pragma` 标头设置为 `no-cache` 。
 
-`Location.Any`（ `Cache-Control` 设置为 `public` ）表示*客户端或任何中间代理*可以缓存值，包括[响应缓存中间件](xref:performance/caching/middleware)。
+`Location.Any` (`Cache-Control` 设置为 `public`) 指示*客户端或任何中间代理*可以缓存值，包括[响应缓存中间件](xref:performance/caching/middleware)。
 
-`Location.Client`（ `Cache-Control` 设置为 `private` ）表示*只有客户端*可以缓存该值。 中间缓存不应缓存值，包括[响应缓存中间件](xref:performance/caching/middleware)。
+`Location.Client` (`Cache-Control` 设置为 `private`) 指示*只有客户端*可以缓存该值。 中间缓存不应缓存值，包括[响应缓存中间件](xref:performance/caching/middleware)。
 
 缓存控制标头仅向客户端和中间代理提供指导，以及如何缓存响应。 不保证客户端和代理将遵循[HTTP 1.1 缓存规范](https://tools.ietf.org/html/rfc7234)。 [响应缓存中间件](xref:performance/caching/middleware)始终遵循由规范布局的缓存规则。
 

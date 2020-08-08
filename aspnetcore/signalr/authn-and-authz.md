@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,20 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 794465ceb69f47ee3d5cc8c100b321cb958d9cfe
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1e022c510dda3e39dd02d607f1d9c493aecdeb5a
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407130"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021557"
 ---
-# <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>ASP.NET Core 中的身份验证和授权SignalR
+# <a name="authentication-and-authorization-in-aspnet-core-no-locsignalr"></a>ASP.NET Core 中的身份验证和授权SignalR
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/)[（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>对连接到集线器的用户进行身份验证 SignalR
+## <a name="authenticate-users-connecting-to-a-no-locsignalr-hub"></a>对连接到集线器的用户进行身份验证 SignalR
 
 SignalR可以与[ASP.NET Core authentication](xref:security/authentication/identity)一起使用，以将用户与每个连接相关联。 在中心中，可以从[HubConnectionContext](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)属性访问身份验证数据。 身份验证允许中心对与用户关联的所有连接调用方法。 有关详细信息，请参阅中的 "[管理 SignalR 用户和组" ](xref:signalr/groups)。 单个用户可以关联多个连接。
 
@@ -86,15 +88,15 @@ public void Configure(IApplicationBuilder app)
 
 ::: moniker-end
 
-### <a name="cookie-authentication"></a>Cookie 身份验证
+### <a name="no-loccookie-authentication"></a>Cookie 身份验证
 
-在基于浏览器的应用程序中，cookie 身份验证允许现有用户凭据自动流动到 SignalR 连接。 使用浏览器客户端时，无需进行其他配置。 如果用户已登录到你的应用，则 SignalR 连接将自动继承此身份验证。
+在基于浏览器的应用程序中， cookie 身份验证允许现有用户凭据自动流动到 SignalR 连接。 使用浏览器客户端时，无需进行其他配置。 如果用户已登录到你的应用，则 SignalR 连接将自动继承此身份验证。
 
-Cookie 是一种用于发送访问令牌的特定于浏览器的方法，但非浏览器客户端可以发送它们。 使用[.Net 客户端](xref:signalr/dotnet-client)时， `Cookies` 可以在调用中配置属性 `.WithUrl` 以提供 cookie。 但是，从 .NET 客户端使用 cookie 身份验证要求应用提供 API 来交换 cookie 的身份验证数据。
+Cookies 是一种特定于浏览器的发送访问令牌的方法，但非浏览器客户端可以发送这些令牌。 使用[.Net 客户端](xref:signalr/dotnet-client)时， `Cookies` 可以在调用中配置属性 `.WithUrl` 以提供 cookie 。 但是，在 cookie .net 客户端中使用身份验证要求应用提供一个 API 来交换的身份验证数据 cookie 。
 
 ### <a name="bearer-token-authentication"></a>持有者令牌身份验证
 
-客户端可以提供访问令牌，而不是使用 cookie。 服务器验证令牌并使用它来标识用户。 仅在建立连接时才执行此验证。 在连接的生命周期内，服务器不会自动重新验证以检查令牌是否已吊销。
+客户端可以提供访问令牌，而不是使用 cookie 。 服务器验证令牌并使用它来标识用户。 仅在建立连接时才执行此验证。 在连接的生命周期内，服务器不会自动重新验证以检查令牌是否已吊销。
 
 在服务器上，使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)配置持有者令牌身份验证。
 
@@ -114,7 +116,7 @@ var connection = new HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> 提供的访问令牌函数在发出的**每个**HTTP 请求之前调用 SignalR 。 如果你需要续订标记以便使连接保持活动状态（因为它可能会在连接期间过期），请在此函数中执行此操作，并返回已更新的令牌。
+> 提供的访问令牌函数在发出的**每个**HTTP 请求之前调用 SignalR 。 如果你需要续订标记以便保持连接处于活动状态， (因为它可能会在连接) 期间过期，请在此函数中执行此操作，并返回已更新的令牌。
 
 在标准 web Api 中，持有者令牌是在 HTTP 标头中发送的。 但是，在 SignalR 使用某些传输时，无法在浏览器中设置这些标头。 使用 Websocket 和服务器发送事件时，会将令牌作为查询字符串参数进行传输。 若要在服务器上支持此操作，需要进行其他配置：
 
@@ -123,21 +125,21 @@ var connection = new HubConnectionBuilder()
 [!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]
 
 > [!NOTE]
-> 由于浏览器 API 限制，连接到 Websocket 和服务器发送事件时，将在浏览器上使用查询字符串。 使用 HTTPS 时，查询字符串值受 TLS 连接保护。 但是，许多服务器都记录查询字符串值。 有关详细信息，请参阅[ASP.NET Core SignalR 中的安全注意事项](xref:signalr/security)。 SignalR使用标头在支持令牌的环境（如 .NET 和 Java 客户端）中传输令牌。
+> 由于浏览器 API 限制，连接到 Websocket 和服务器发送事件时，将在浏览器上使用查询字符串。 使用 HTTPS 时，查询字符串值受 TLS 连接保护。 但是，许多服务器都记录查询字符串值。 有关详细信息，请参阅[ASP.NET Core SignalR 中的安全注意事项](xref:signalr/security)。 SignalR使用标头在支持 (如 .NET 和 Java 客户端) 的环境中传输标记。
 
-### <a name="cookies-vs-bearer-tokens"></a>Cookie 和持有者令牌 
+### <a name="no-loccookies-vs-bearer-tokens"></a>Cookie和持有者令牌 
 
-Cookie 特定于浏览器。 与发送持有者令牌相比，从其他类型的客户端发送这些客户端增加了复杂性。 因此，不建议使用 cookie 身份验证，除非应用只需从浏览器客户端对用户进行身份验证。 当使用浏览器客户端之外的客户端时，建议使用持有者令牌身份验证。
+Cookie是特定于浏览器的。 与发送持有者令牌相比，从其他类型的客户端发送这些客户端增加了复杂性。 因此， cookie 除非应用只需从浏览器客户端对用户进行身份验证，否则不建议进行身份验证。 当使用浏览器客户端之外的客户端时，建议使用持有者令牌身份验证。
 
 ### <a name="windows-authentication"></a>Windows 身份验证
 
 如果在你的应用中配置了[Windows 身份验证](xref:security/authentication/windowsauth)，则 SignalR 可以使用该标识来保护中心。 但是，若要将消息发送给单个用户，则需要添加自定义用户 ID 提供程序。 Windows 身份验证系统不提供 "名称标识符" 声明。 SignalR使用声明来确定用户名。
 
-添加一个新类，该类实现 `IUserIdProvider` 并检索用户要用作标识符的声明之一。 例如，若要使用 "名称" 声明（这是窗体中的 Windows 用户名 `[Domain]\[Username]` ），请创建以下类：
+添加一个新类，该类实现 `IUserIdProvider` 并检索用户要用作标识符的声明之一。 例如，若要使用 "名称" 声明 (是) 格式的 Windows 用户名 `[Domain]\[Username]` ，请创建以下类：
 
 [!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
-`ClaimTypes.Name`您可以使用 `User` （例如 Windows SID 标识符等）中的任何值，而不是。
+`ClaimTypes.Name`您可以使用 (中的任何值 `User` ，例如 Windows SID 标识符，等等) 。
 
 > [!NOTE]
 > 您选择的值在系统中的所有用户中必须是唯一的。 否则，用于一个用户的消息可能最终会转到其他用户。

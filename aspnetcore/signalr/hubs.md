@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,24 +17,24 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: 1757d205b583c8b3f3bbf845594d7228f8d45175
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: bd7432fc29d0cda003abed1f0e522bdddf2e4efc
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408547"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022207"
 ---
-# <a name="use-hubs-in-signalr-for-aspnet-core"></a>使用中 SignalR 的中心进行 ASP.NET Core
+# <a name="use-hubs-in-no-locsignalr-for-aspnet-core"></a>使用中 SignalR 的中心进行 ASP.NET Core
 
 作者： [Rachel Appel](https://twitter.com/rachelappel)和[古柯 Griffin](https://twitter.com/1kevgriff)
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ )[（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="what-is-a-signalr-hub"></a>什么是 SignalR 中心
+## <a name="what-is-a-no-locsignalr-hub"></a>什么是 SignalR 中心
 
 SignalR利用中心 API，你可以从服务器对连接的客户端调用方法。 在服务器代码中，您将定义由客户端调用的方法。 在客户端代码中，您将定义从服务器调用的方法。 SignalR处理幕后的所有事情，使客户端到服务器和服务器到客户端的实时通信成为可能。
 
-## <a name="configure-signalr-hubs"></a>配置 SignalR 中心
+## <a name="configure-no-locsignalr-hubs"></a>配置 SignalR 中心
 
 SignalR中间件需要一些服务，这些服务通过调用配置 `services.AddSignalR` 。
 
@@ -86,7 +88,7 @@ public class ChatHub : Hub
 
 `Hub`类具有一个 `Context` 属性，该属性包含有关连接的信息的以下属性：
 
-| properties | 说明 |
+| 属性 | 描述 |
 | ------ | ----------- |
 | `ConnectionId` | 获取由分配的连接的唯一 ID SignalR 。 每个连接都有一个连接 ID。|
 | `UserIdentifier` | 获取[用户标识符](xref:signalr/groups)。 默认情况下， SignalR 将 `ClaimTypes.NameIdentifier` 从 `ClaimsPrincipal` 与连接关联的中用作用户标识符。 |
@@ -97,7 +99,7 @@ public class ChatHub : Hub
 
 `Hub.Context`还包含以下方法：
 
-| 方法 | 说明 |
+| 方法 | 描述 |
 | ------ | ----------- |
 | `GetHttpContext` | 返回 `HttpContext` 连接的， `null` 如果连接不与 HTTP 请求关联，则为。 对于 HTTP 连接，可以使用此方法来获取 HTTP 标头和查询字符串等信息。 |
 | `Abort` | 中止连接。 |
@@ -106,7 +108,7 @@ public class ChatHub : Hub
 
 `Hub`类具有一个 `Clients` 属性，该属性包含服务器和客户端之间的通信的以下属性：
 
-| properties | 说明 |
+| 属性 | 描述 |
 | ------ | ----------- |
 | `All` | 在所有连接的客户端上调用方法 |
 | `Caller` | 在调用集线器方法的客户端上调用方法 |
@@ -114,7 +116,7 @@ public class ChatHub : Hub
 
 `Hub.Clients`还包含以下方法：
 
-| 方法 | 说明 |
+| 方法 | 描述 |
 | ------ | ----------- |
 | `AllExcept` | 在所有连接的客户端（指定的连接除外）上调用方法 |
 | `Client` | 在特定连接的客户端上调用方法 |
@@ -176,7 +178,7 @@ SignalR中心 API 提供 `OnConnectedAsync` 和 `OnDisconnectedAsync` 虚拟方�
 
 [!code-csharp[Handle connection](hubs/sample/hubs/chathub.cs?name=OnConnectedAsync)]
 
-重写 `OnDisconnectedAsync` 虚拟方法，以便在客户端断开连接时执行操作。 如果客户端故意断开连接（ `connection.stop()` 例如，通过调用），则 `exception` 参数将为 `null` 。 但是，如果客户端由于错误（例如网络故障）而断开连接，则 `exception` 参数将包含描述失败的异常。
+重写 `OnDisconnectedAsync` 虚拟方法，以便在客户端断开连接时执行操作。 如果客户端通过调用 (特意断开连接 `connection.stop()` ，例如) ，则 `exception` 参数将为 `null` 。 但是，如果客户端由于错误而断开连接 (例如，) 网络故障，则 `exception` 参数将包含描述失败的异常。
 
 [!code-csharp[Handle disconnection](hubs/sample/hubs/chathub.cs?name=OnDisconnectedAsync)]
 

@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/publish-to-azure-web-app
-ms.openlocfilehash: d3f48b3171012b03fcaf7665c2089b27d37bbeca
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3163a2743c544d0a07d92eb7547e77c3b200ac83
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408833"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022532"
 ---
-# <a name="publish-an-aspnet-core-signalr-app-to-azure-app-service"></a>SignalR将 ASP.NET Core 应用程序发布到 Azure App Service
+# <a name="publish-an-aspnet-core-no-locsignalr-app-to-azure-app-service"></a>SignalR将 ASP.NET Core 应用程序发布到 Azure App Service
 
 作者： [Brady Gaster](https://twitter.com/bradygaster)
 
@@ -43,16 +45,16 @@ ms.locfileid: "85408833"
 
    在 "**创建应用服务**" 对话框中，输入下表中所述的信息，然后选择 "**创建**"。
 
-   | 项目               | 说明 |
+   | Item               | 描述 |
    | ------------------ | ----------- |
    | **名称**           | 应用的唯一名称。 |
    | **订阅**   | 应用使用的 Azure 订阅。 |
-   | **资源组** | 应用所属的一组相关资源。 |
+   | 资源组 | 应用所属的一组相关资源。 |
    | **托管计划**   | Web 应用的定价计划。 |
 
 1. 在 "**依赖关系**" 下拉列表中选择**Azure SignalR 服务**  >  **Add** ：
 
-   !["依赖关系" 区域显示在 SignalR "添加" 下拉列表中选择的 Azure 服务](publish-to-azure-web-app/_static/signalr-service-dependency.png)
+   !["依赖关系" 区域显示在 "添加" 下拉列表中选择的 Azure：：： no (SignalR) ：：： Service](publish-to-azure-web-app/_static/signalr-service-dependency.png)
 
 1. 在 " **Azure SignalR 服务**" 对话框中，选择 "**创建新的 Azure SignalR 服务实例**"。
 
@@ -74,11 +76,11 @@ Visual Studio 完成以下任务：
 > [!NOTE]
 > *本部分仅适用于不使用 Azure 服务的应用 SignalR 。*
 >
-> 如果应用使用 Azure SignalR 服务，应用服务不需要配置应用程序请求路由（ARR）关联和此部分中所述的 Web 套接字。 客户端将其 Web 套接字连接到 Azure SignalR 服务，而不是直接连接到应用程序。
+> 如果应用使用 Azure SignalR 服务，应用服务不需要配置应用程序请求路由 (ARR) 相关性和 Web 套接字。 客户端将其 Web 套接字连接到 Azure SignalR 服务，而不是直接连接到应用程序。
 
 对于不使用 Azure 服务托管的应用 SignalR ，请启用：
 
-* [ARR 关联](https://azure.github.io/AppService/2016/05/16/Disable-Session-affinity-cookie-(ARR-cookie)-for-Azure-web-apps.html)：用于将来自用户的请求路由回同一应用服务实例。 默认设置为 **"打开**"。
+* [ARR 相关性] (https://azure.github.io/AppService/2016/05/16/Disable-Session-affinity- cookie (ARR cookie) # B0 l) 将来自用户的请求路由回同一应用服务实例。 默认设置为 **"打开**"。
 * 允许 Web 套接字传输正常工作的[Web 套接字](xref:fundamentals/websockets)。 默认设置为 "**关闭**"。
 
 1. 在 Azure 门户中，导航到**应用服务**中的 web 应用。

@@ -1,11 +1,13 @@
 ---
 title: ASP.NET Core 中的内存管理和模式
 author: rick-anderson
-description: 了解 ASP.NET Core 如何管理内存，以及垃圾回收器（GC）的工作方式。
+description: 了解 ASP.NET Core 如何管理内存，以及垃圾回收器 (GC) 的工作方式。
 ms.author: riande
 ms.custom: mvc
 ms.date: 4/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/memory
-ms.openlocfilehash: d261a26de7b9ba77e5f9787ae2eb37293257a0fc
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 09df67657c9b6e4e59d6a1379bf801c289028819
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406389"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020933"
 ---
-# <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
+# <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>内存管理和垃圾回收 (GC) ASP.NET Core
 
 作者： [Sébastien Ros](https://github.com/sebastienros)和[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -30,7 +32,7 @@ ms.locfileid: "85406389"
 * 有很多*内存泄漏*和*GC 不起作用*的问题。 其中的大多数问题都是由不了解 .NET Core 中的内存使用情况或不了解其测量方式导致的。
 * 演示内存使用情况，并提出替代方法。
 
-## <a name="how-garbage-collection-gc-works-in-net-core"></a>如何在 .NET Core 中使用垃圾回收（GC）
+## <a name="how-garbage-collection-gc-works-in-net-core"></a>垃圾回收 (GC) 在 .NET Core 中的工作方式
 
 GC 分配堆段，其中每个段都是一系列连续的内存。 位于堆中的对象归类为三个代之一：0、1或2。 该代确定 GC 尝试释放应用程序不再引用的托管对象上内存的频率。 较低编号的生成更为频繁。
 
@@ -83,7 +85,7 @@ GitHub 上提供了[MemoryLeak 示例应用](https://github.com/sebastienros/mem
 * 包含提供各种内存负载模式的 API 控制器。
 * 不是受支持的工具，但它可用于显示 ASP.NET Core 应用的内存使用模式。
 
-运行 MemoryLeak。 分配的内存缓慢增加，直到 GC 发生。 内存增加是因为该工具分配自定义对象来捕获数据。 下图显示了 Gen 0 GC 发生时的 MemoryLeak 索引页。 此图表显示 0 RPS （每秒请求数），因为未调用 API 控制器中的任何 API 终结点。
+运行 MemoryLeak。 分配的内存缓慢增加，直到 GC 发生。 内存增加是因为该工具分配自定义对象来捕获数据。 下图显示了 Gen 0 GC 发生时的 MemoryLeak 索引页。 此图表显示 0 RPS (每秒的请求数) ，因为尚未调用 API 控制器中的 API 终结点。
 
 ![上图](memory/_static/0RPS.png)
 
@@ -110,11 +112,11 @@ public ActionResult<string> GetBigString()
 
 上面的图表显示：
 
-* 4K RPS （每秒请求数）。
+* 4K RPS (每秒请求) 。
 * 第0代垃圾回收大约每两秒发生一次。
 * 工作集的大小约为 500 MB。
 * CPU 为12%。
-* 内存消耗和发布（通过 GC）是稳定的。
+* 内存消耗和 release (通过 GC) 稳定。
 
 以下图表采用可由计算机处理的最大吞吐量。
 
@@ -127,8 +129,8 @@ public ActionResult<string> GetBigString()
 * 由于每秒分配的内存量明显增加，因此将触发第1代回收。
 * 工作集的大小约为 500 MB。
 * CPU 为33%。
-* 内存消耗和发布（通过 GC）是稳定的。
-* CPU （33%）不会过度使用，因此垃圾回收可以跟上大量分配。
+* 内存消耗和 release (通过 GC) 稳定。
+* CPU (33% ) 未过度使用，因此垃圾回收可以跟上大量分配。
 
 ### <a name="workstation-gc-vs-server-gc"></a>工作站 GC 与服务器 GC
 
@@ -232,7 +234,7 @@ public void GetFileProvider()
 
 ### <a name="large-objects-heap"></a>大型对象堆
 
-频繁的内存分配/空闲周期可以分段内存，尤其是在分配大块内存时。 对象在连续内存块中分配。 为了缓解碎片，当 GC 释放内存时，它会 trys 对内存进行碎片整理。 此过程称为**压缩**。 压缩涉及移动对象。 移动大型对象会对性能产生负面影响。 出于此原因，GC 将为_大型_对象（称为[大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)（LOH））创建特殊的内存区域。 大于85000字节（大约 83 KB）的对象为：
+频繁的内存分配/空闲周期可以分段内存，尤其是在分配大块内存时。 对象在连续内存块中分配。 为了缓解碎片，当 GC 释放内存时，它会 trys 对内存进行碎片整理。 此过程称为**压缩**。 压缩涉及移动对象。 移动大型对象会对性能产生负面影响。 出于此原因，GC 将为_大型_对象（称为[大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)）创建特殊的内存区域， (LOH) 。 大于85000字节的对象 (大约 83 KB) ：
 
 * 放置在 LOH 上。
 * 未压缩。
@@ -277,7 +279,7 @@ public int GetLOH1(int size)
 比较上述两个图表：
 
 * 对于这两种方案（约 450 MB），工作集都是类似的。
-* LOH 请求（84975字节）下面显示第0代回收。
+* LOH 请求下的 (84975 字节) 显示第0代回收。
 * Over LOH 请求生成常量第2代回收。 第2代回收成本高昂。 需要更多 CPU，吞吐量几乎会下降到50%。
 
 临时大型对象尤其有问题，因为它们会导致 gen2 Gc。
@@ -289,7 +291,7 @@ public int GetLOH1(int size)
 * [ResponseCaching/StreamUtilities](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 * [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-有关详情，请参阅：
+有关详细信息，请参阅：
 
 * [发现的大型对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)

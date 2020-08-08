@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core 的数据保护密钥管理 Api 的实现细节
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-management
-ms.openlocfilehash: 68913d13c97ba6be73dabf79e03c146a37388ad3
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: c81e328d8774bfbd1309f854715fcda2152f9eeb
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408937"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021206"
 ---
 # <a name="key-management-in-aspnet-core"></a>ASP.NET Core 中的密钥管理
 
@@ -37,13 +39,13 @@ ms.locfileid: "85408937"
 已创建、活动和过期的密钥均可用于取消保护传入有效负载。 默认情况下，吊销的密钥不能用于取消保护有效负载，但应用程序开发人员可以在必要时[重写此行为](xref:security/data-protection/consumer-apis/dangerous-unprotect#data-protection-consumer-apis-dangerous-unprotect)。
 
 >[!WARNING]
-> 开发人员可能会尝试从密钥环中删除密钥（例如，通过从文件系统中删除相应的文件）。 此时，由该密钥保护的所有数据都将永久 undecipherable，而且不会有任何紧急替代，就像吊销密钥一样。 删除密钥是真正的破坏性行为，因此数据保护系统不会公开用于执行此操作的第一类 API。
+> 开发人员可能会尝试从密钥环中删除密钥 (例如，通过从文件系统) 中删除相应的文件。 此时，由该密钥保护的所有数据都将永久 undecipherable，而且不会有任何紧急替代，就像吊销密钥一样。 删除密钥是真正的破坏性行为，因此数据保护系统不会公开用于执行此操作的第一类 API。
 
 ## <a name="default-key-selection"></a>默认键选择
 
 当数据保护系统从后备存储库读取密钥环时，它将尝试从密钥环中查找 "默认" 密钥。 默认密钥用于新的保护操作。
 
-一般试探法是数据保护系统选择最新激活日期为默认密钥的密钥。 （对于服务器到服务器时钟的偏差，有一个奶油的小因素。）如果密钥已过期或已被吊销，并且如果应用程序未禁用自动密钥生成，则会生成一个新的密钥，并按下面的[密钥过期和滚动](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management-expiration)策略立即激活。
+一般试探法是数据保护系统选择最新激活日期为默认密钥的密钥。  (有一个较小的奶油因素，以允许服务器到服务器的时钟歪斜。 ) 如果密钥已过期或已被吊销，并且如果应用程序未禁用自动密钥生成，则会生成一个新密钥，并按以下[密钥过期和滚动](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management-expiration)策略立即激活。
 
 数据保护系统立即生成新密钥，而不是回退到不同的密钥，这是因为新密钥生成应被视为在新密钥之前激活的所有密钥的隐式过期。 一般情况下，可能已使用不同于旧密钥的算法或静态加密机制配置了新密钥，并且系统应更倾向于回退当前配置。
 
@@ -74,11 +76,11 @@ services.AddDataProtection()
 当数据保护系统初始化时，它将从底层存储库读取密钥环，并将其缓存在内存中。 此缓存允许在不命中后备存储的情况下继续保护和取消保护操作。 系统将每隔24小时自动检查一次后备存储的更改或当前的默认密钥过期时，以先达到的时间为准。
 
 >[!WARNING]
-> 开发人员极少需要直接使用密钥管理 Api。 数据保护系统将执行上述自动密钥管理。
+> 如果) 需要直接使用密钥管理 Api，开发人员非常少 (。 数据保护系统将执行上述自动密钥管理。
 
 数据保护系统公开了一个接口 `IKeyManager` ，该接口可用于检查和更改密钥环。 提供实例的 DI 系统 `IDataProtectionProvider` 还可以 `IKeyManager` 为你的消耗提供的实例。 或者，你可以 `IKeyManager` 直接从中拉取， `IServiceProvider` 如以下示例中所示。
 
-修改密钥环（显式创建新密钥或执行吊销）的任何操作都会使内存中缓存失效。 对或的下一个调用 `Protect` `Unprotect` 将导致数据保护系统重新读取键环并重新创建缓存。
+修改密钥环 (显式创建新密钥或执行吊销) 的任何操作都会使内存中缓存失效。 对或的下一个调用 `Protect` `Unprotect` 将导致数据保护系统重新读取键环并重新创建缓存。
 
 下面的示例演示如何使用 `IKeyManager` 接口来检查和操作密钥环，包括吊销现有密钥并手动生成新密钥。
 

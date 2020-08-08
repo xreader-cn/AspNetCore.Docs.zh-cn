@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/14/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 71487ff2d5d7d7cf96835778f386e5f30fa32254
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: fc7924f8f8b321ae017b7acd729fe11c4e0e3c7e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405440"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021076"
 ---
-# <a name="razor-file-compilation-in-aspnet-core"></a>RazorASP.NET Core 中的文件编译
+# <a name="no-locrazor-file-compilation-in-aspnet-core"></a>RazorASP.NET Core 中的文件编译
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -29,7 +31,7 @@ ms.locfileid: "85405440"
 
 Razor使用[ Razor SDK](xref:razor-pages/sdk)的生成和发布时间都将编译带有 *..* 扩展名的文件。 可以选择通过配置项目来启用运行时编译。
 
-## <a name="razor-compilation"></a>Razor汇编
+## <a name="no-locrazor-compilation"></a>Razor汇编
 
 Razor默认情况下，SDK 会启用文件的生成时间和发布时编译 Razor 。 启用后，运行时编译会补充生成时编译，允许在 Razor 编辑文件时对其进行更新。
 
@@ -41,7 +43,7 @@ Razor页面和 MVC 项目模板包括一个选项，用于在创建项目时启�
 
 在 "**新建 ASP.NET Core web 应用程序**" 对话框中：
 
-1. 选择 " **Web 应用程序**" 或 " **web 应用程序（模型-视图-控制器）** " 项目模板。
+1. 选择 " **Web 应用程序**" 或 " **web 应用程序 (模型-视图-控制器) ** " 项目模板。
 1. 选中 "**启用 Razor 运行时编译**" 复选框。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -91,9 +93,9 @@ dotnet new webapp --razor-runtime-compilation
 
 项目的类中不需要更改代码 `Startup` 。 在运行时，ASP.NET Core 在中搜索[程序集级别的 HostingStartup 特性](xref:fundamentals/configuration/platform-specific-configuration#hostingstartup-attribute) `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 。 `HostingStartup`特性指定要执行的应用程序启动代码。 该启动代码启用运行时编译。
 
-## <a name="enable-runtime-compilation-for-a-razor-class-library"></a>为类库启用运行时编译 Razor
+## <a name="enable-runtime-compilation-for-a-no-locrazor-class-library"></a>为类库启用运行时编译 Razor
 
-假设 Razor 页面项目引用名为*MyClassLib*的类库[ Razor （RCL）](xref:razor-pages/ui-class)的方案。 RCL 包含一个 *_Layout 的 cshtml*文件，其中的所有团队 MVC 和 Razor 页面项目都使用。 需要为 RCL 中的 *_Layout cshtml*文件启用运行时编译。 在页面项目中进行以下更改 Razor ：
+请考虑以下方案 Razor ：页面项目引用类库 (名为*MYCLASSLIB*的[ Razor RCL) ](xref:razor-pages/ui-class) 。 RCL 包含一个 *_Layout 的 cshtml*文件，其中的所有团队 MVC 和 Razor 页面项目都使用。 需要为 RCL 中的 *_Layout cshtml*文件启用运行时编译。 在页面项目中进行以下更改 Razor ：
 
 1. 使用在[现有项目中有条件地启用运行时编译中](#conditionally-enable-runtime-compilation-in-an-existing-project)的说明启用运行时编译。
 1. 配置中的运行时编译选项 `Startup.ConfigureServices` ：
@@ -104,7 +106,7 @@ dotnet new webapp --razor-runtime-compilation
 
 ## <a name="additional-resources"></a>其他资源
 
-* [RazorCompileOnBuild 和 RazorCompileOnPublish](xref:razor-pages/sdk#properties)属性。
+* [ Razor CompileOnBuild 和 Razor CompileOnPublish](xref:razor-pages/sdk#properties)属性。
 * <xref:razor-pages/index>
 * <xref:mvc/views/overview>
 * <xref:razor-pages/sdk>
@@ -115,7 +117,7 @@ dotnet new webapp --razor-runtime-compilation
 
 Razor使用[ Razor SDK](xref:razor-pages/sdk)的生成和发布时间都将编译带有 *..* 扩展名的文件。 通过配置应用程序，可以选择启用运行时编译。
 
-## <a name="razor-compilation"></a>Razor汇编
+## <a name="no-locrazor-compilation"></a>Razor汇编
 
 Razor默认情况下，SDK 会启用文件的生成时间和发布时编译 Razor 。 启用后，运行时编译会补充生成时编译，允许在 Razor 编辑文件时对其进行更新。
 
@@ -159,7 +161,7 @@ Razor默认情况下，SDK 会启用文件的生成时间和发布时编译 Razo
 
 ## <a name="additional-resources"></a>其他资源
 
-* [RazorCompileOnBuild 和 RazorCompileOnPublish](xref:razor-pages/sdk#properties)属性。
+* [ Razor CompileOnBuild 和 Razor CompileOnPublish](xref:razor-pages/sdk#properties)属性。
 * <xref:razor-pages/index>
 * <xref:mvc/views/overview>
 * <xref:razor-pages/sdk>
@@ -171,7 +173,7 @@ Razor默认情况下，SDK 会启用文件的生成时间和发布时编译 Razo
 
 Razor调用关联的 Razor 页或 MVC 视图时，将在运行时编译文件。 Razor使用[ Razor SDK](xref:razor-pages/sdk)在生成和发布时编译文件。
 
-## <a name="razor-compilation"></a>Razor汇编
+## <a name="no-locrazor-compilation"></a>Razor汇编
 
 Razor默认情况下，SDK 会启用文件的生成和发布时编译 Razor 。 在 Razor 生成时，支持更新已更新的文件。 默认情况下，仅编译*Views.dll*编译的Views.dll*和不需要*的文件或引用程序集。 Razor
 

@@ -1,10 +1,12 @@
 ---
 title: ASP.NET Core 简介 Identity
 author: rick-anderson
-description: Identity与 ASP.NET Core 应用一起使用。 了解如何设置密码要求（RequireDigit、RequiredLength、RequiredUniqueChars 等）。
+description: Identity与 ASP.NET Core 应用一起使用。 了解如何 (RequireDigit、RequiredLength、RequiredUniqueChars 等) 设置密码要求。
 ms.author: riande
 ms.date: 7/15/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 25070e90050db9dca8b003ae782662811096526a
-ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
+ms.openlocfilehash: 67bf24d8f871c4e80ed91f5f437895fe29e09087
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/28/2020
-ms.locfileid: "87160299"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021232"
 ---
 # <a name="introduction-to-no-locidentity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
 
@@ -28,7 +30,7 @@ ms.locfileid: "87160299"
 
 ASP.NET Core Identity：
 
-* 是支持用户界面（UI）登录功能的 API。
+* 是一个 API，它支持用户界面) 登录功能 (UI。
 * 管理用户、密码、配置文件数据、角色、声明、令牌、电子邮件确认等。
 
 用户可以使用存储在中的登录信息创建一个帐户， Identity 也可以使用外部登录提供程序。 支持的外部登录提供程序包括[Facebook、Google、Microsoft 帐户和 Twitter](xref:security/authentication/social/index)。
@@ -43,12 +45,12 @@ Identity通常使用 SQL Server 数据库配置以存储用户名、密码和配
 
 [Microsoft 标识平台](/azure/active-directory/develop/)是：
 
-* Azure Active Directory （Azure AD）开发人员平台的演变。
+* ) 开发人员平台 Azure AD Azure Active Directory (的演变。
 * 与 ASP.NET Core 无关 Identity 。
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)（[如何下载）](xref:index#how-to-download-a-sample)。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample) ([如何下载](xref:index#how-to-download-a-sample)) 。
 
 <a name="adi"></a>
 
@@ -59,7 +61,7 @@ Identity通常使用 SQL Server 数据库配置以存储用户名、密码和配
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -89,7 +91,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在包管理器控制台中运行以下命令（PMC）：
+在包管理器控制台中运行以下命令 (PMC) ：
 
 `PM> Update-Database`
 
@@ -184,7 +186,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 
 在前面的代码中，代码 `return RedirectToPage();` 需要是重定向，以便浏览器执行新请求并更新用户的标识。
 
-[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除 cookie 中存储的用户声明。
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除存储在中的用户声明 cookie 。
 
 Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
@@ -231,7 +233,7 @@ Identity了解更多详细信息：
 
 ## <a name="prevent-publish-of-static-no-locidentity-assets"></a>禁止发布静态 Identity 资产
 
-若要防止将静态 Identity 资产（用于 UI 的样式表和 JavaScript 文件 Identity ）发布到 web 根目录，请将以下 `ResolveStaticWebAssetsInputsDependsOn` 属性和 `RemoveIdentityAssets` 目标添加到应用的项目文件中：
+若要防止将静态 Identity 资产发布 (用于 UI) 的用户的样式和 JavaScript 文件 Identity ，请将以下 `ResolveStaticWebAssetsInputsDependsOn` 属性和目标添加 `RemoveIdentityAssets` 到应用的项目文件中：
 
 ```xml
 <PropertyGroup>
@@ -270,7 +272,7 @@ ASP.NET Core Identity 是将登录功能添加到 ASP.NET Core 应用的成员�
 
 Identity可以使用 SQL Server 数据库配置以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)（[如何下载）](xref:index#how-to-download-a-sample)。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/) ([如何下载](xref:index#how-to-download-a-sample)) 。
 
 在本主题中，你将了解如何使用 Identity 注册、登录和注销用户。 有关创建使用的应用程序的更多详细说明 Identity ，请参阅本文末尾的后续步骤部分。
 
@@ -293,7 +295,7 @@ Identity可以使用 SQL Server 数据库配置以存储用户名、密码和配
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -317,7 +319,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在包管理器控制台中运行以下命令（PMC）：
+在包管理器控制台中运行以下命令 (PMC) ：
 
 ```powershell
 Update-Database
@@ -403,7 +405,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Logout.cshtml.cs)]
 
-[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除 cookie 中存储的用户声明。
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除存储在中的用户声明 cookie 。
 
 Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 

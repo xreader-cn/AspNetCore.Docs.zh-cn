@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/16/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,16 +16,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/ws-federation
-ms.openlocfilehash: 91dab7764e6915ccacacf73f74861faaee532777
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e303679190a7d7f42d8525541cec031ba090fd7a
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406220"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022298"
 ---
 # <a name="authenticate-users-with-ws-federation-in-aspnet-core"></a>在 ASP.NET Core 中用 WS 联合身份验证用户
 
-本教程演示如何使用户能够使用 WS 联合身份验证提供程序（例如 Active Directory 联合身份验证服务（ADFS）或[Azure Active Directory](/azure/active-directory/) （AAD））登录。 它使用[Facebook、Google 和 external 提供程序身份验证](xref:security/authentication/social/index)中介绍的 ASP.NET Core 示例应用。
+本教程演示如何使用户能够使用 WS 联合身份验证提供程序（如 Active Directory 联合身份验证服务 (ADFS) 或[Azure Active Directory](/azure/active-directory/) (AAD) ）登录。 它使用[Facebook、Google 和 external 提供程序身份验证](xref:security/authentication/social/index)中介绍的 ASP.NET Core 示例应用。
 
 对于 ASP.NET Core 的应用程序，WS 联合身份验证支持由[WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation)提供。 此组件从[Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.WsFederation)移植，并共享该组件的许多机制。 不过，这些组件在一些重要的方面有所不同。
 
@@ -88,7 +90,7 @@ ms.locfileid: "85406220"
 
 ![Azure Active Directory：应用注册属性](ws-federation/_static/AadAppIdUri.png)
 
-## <a name="use-ws-federation-without-aspnet-core-identity"></a>使用不带 ASP.NET Core 的 WS 联合身份验证Identity
+## <a name="use-ws-federation-without-aspnet-core-no-locidentity"></a>使用不带 ASP.NET Core 的 WS 联合身份验证Identity
 
 无需使用 WS 联合身份验证中间件 Identity 。 例如：
 ::: moniker range=">= aspnetcore-3.0"
@@ -99,7 +101,7 @@ ms.locfileid: "85406220"
 [!code-csharp[](ws-federation/samples/StartupNon21.cs?name=snippet)]
 ::: moniker-end
 
-## <a name="add-ws-federation-as-an-external-login-provider-for-aspnet-core-identity"></a>添加 WS-FEDERATION 作为 ASP.NET Core 的外部登录提供程序Identity
+## <a name="add-ws-federation-as-an-external-login-provider-for-aspnet-core-no-locidentity"></a>添加 WS-FEDERATION 作为 ASP.NET Core 的外部登录提供程序Identity
 
 * 将[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation)上的依赖项添加到项目。
 * 将 WS 联合身份验证添加到 `Startup.ConfigureServices` ：

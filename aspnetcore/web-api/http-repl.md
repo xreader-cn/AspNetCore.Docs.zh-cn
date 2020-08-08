@@ -7,6 +7,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: ead745ae8843173bb25b94672005cc6ce295db2e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0fb19aa19703e68812b83f0631f029dd66a3d64e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403373"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021323"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -36,7 +38,7 @@ HTTP 读取–求值–打印循环 (REPL)：
 
 * [DELETE](#test-http-delete-requests)
 * [GET](#test-http-get-requests)
-* [头](#test-http-head-requests)
+* [HEAD](#test-http-head-requests)
 * [选项](#test-http-options-requests)
 * [跳](#test-http-patch-requests)
 * [POST](#test-http-post-requests)

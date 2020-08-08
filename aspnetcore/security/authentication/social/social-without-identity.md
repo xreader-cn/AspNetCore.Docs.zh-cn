@@ -5,6 +5,8 @@ description: 使用 Facebook、Google、Twitter 等帐户用户身份验证的�
 ms.author: riande
 ms.date: 12/10/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: ed908526604b04f9aebb93935aa3ad4719621526
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 73055a262ac69c0fd6a7f59e77d23121e71ea3dd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406038"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021661"
 ---
-# <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>在不 ASP.NET Core 的情况下使用社交登录提供程序身份验证Identity
+# <a name="use-social-sign-in-provider-authentication-without-aspnet-core-no-locidentity"></a>在不 ASP.NET Core 的情况下使用社交登录提供程序身份验证Identity
 
 作者： [Kirk Larkin](https://twitter.com/serpent5)和[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -51,13 +53,13 @@ ms.locfileid: "85406038"
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>
 
-如果将应用程序的设置 `DefaultScheme` 为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用的设置 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用配置为使用 Google 作为调用的默认方案 `ChallengeAsync` 。 `DefaultChallengeScheme`重写 `DefaultScheme` 。 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>有关设置时重写的其他属性，请参阅 `DefaultScheme` 。
+将应用的设置 `DefaultScheme` 为[ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) ( " Cookie s" ) 将应用配置为使用 Cookie 作为这些扩展方法的默认方案。 将应用的设置 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) ( "google" ) 将应用配置为使用 Google 作为调用的默认方案 `ChallengeAsync` 。 `DefaultChallengeScheme`重写 `DefaultScheme` 。 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>有关设置时重写的其他属性，请参阅 `DefaultScheme` 。
 
 在中 `Startup.Configure` ， `UseAuthentication` 在 `UseAuthorization` 调用和之间调用和 `UseRouting` `UseEndpoints` 。 这会设置 `HttpContext.User` 属性并为请求运行授权中间件：
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Startup.cs?name=snippet2&highlight=3-4)]
 
-若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证，请参阅 <xref:security/authentication/cookie> 。
+若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要了解有关 cookie 身份验证的详细信息，请参阅 <xref:security/authentication/cookie> 。
 
 ## <a name="apply-authorization"></a>应用授权
 
@@ -67,7 +69,7 @@ ms.locfileid: "85406038"
 
 ## <a name="sign-out"></a>注销
 
-若要注销当前用户并删除其 cookie，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将 `Logout` 页面处理程序添加到*索引*页：
+若要注销当前用户并将其删除 cookie ，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将 `Logout` 页面处理程序添加到*索引*页：
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Pages/Index.cshtml.cs?name=snippet&highlight=3-7)]
 
@@ -106,13 +108,13 @@ ms.locfileid: "85406038"
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>
 
-如果将应用程序的设置 `DefaultScheme` 为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用的设置 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用配置为使用 Google 作为调用的默认方案 `ChallengeAsync` 。 `DefaultChallengeScheme`重写 `DefaultScheme` 。 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>有关设置时重写的其他属性，请参阅 `DefaultScheme` 。
+将应用的设置 `DefaultScheme` 为[ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) ( " Cookie s" ) 将应用配置为使用 Cookie 作为这些扩展方法的默认方案。 将应用的设置 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) ( "google" ) 将应用配置为使用 Google 作为调用的默认方案 `ChallengeAsync` 。 `DefaultChallengeScheme`重写 `DefaultScheme` 。 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>有关设置时重写的其他属性，请参阅 `DefaultScheme` 。
 
 在 `Configure` 方法中，调用 `UseAuthentication` 方法以调用设置属性的身份验证中间件 `HttpContext.User` 。 `UseAuthentication`在调用或之前调用 `UseMvcWithDefaultRoute` 方法 `UseMvc` ：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Startup.cs?name=snippet2)]
 
-若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证，请参阅 <xref:security/authentication/cookie> 。
+若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要了解有关 cookie 身份验证的详细信息，请参阅 <xref:security/authentication/cookie> 。
 
 ## <a name="apply-authorization"></a>应用授权
 
@@ -122,7 +124,7 @@ ms.locfileid: "85406038"
 
 ## <a name="sign-out"></a>注销
 
-若要注销当前用户并删除其 cookie，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将 `Logout` 页面处理程序添加到*索引*页：
+若要注销当前用户并将其删除 cookie ，请调用[SignOutAsync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)。 下面的代码将 `Logout` 页面处理程序添加到*索引*页：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Pages/Index.cshtml.cs?name=snippet&highlight=3-7)]
 

@@ -5,6 +5,8 @@ description: 了解如何使用电子邮件确认和密码重置构建 ASP.NET C
 ms.author: riande
 ms.date: 03/11/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 1156ddd2921afbfeccaf077ca29d267f8b1e844a
-ms.sourcegitcommit: 3544941682869734ea0113e24e02ed0ec9e1a9ec
+ms.openlocfilehash: 7016c2c1997d961f4b3d3cf513fc1769bd65247b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/18/2020
-ms.locfileid: "86464548"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021609"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>ASP.NET Core 中的帐户确认和密码恢复
 
@@ -28,7 +30,7 @@ ms.locfileid: "86464548"
 
 * [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
 * [身份验证](xref:security/authentication/identity)
-* [Entity Framework Core](xref:data/ef-mvc/intro)
+* [实体框架核心](xref:data/ef-mvc/intro)
 
 <!-- see C:/Dropbox/wrk/Code/SendGridConsole/Program.cs -->
 
@@ -169,7 +171,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupAllTokens.cs?name=snippet1&highlight=11-12)]
 
-内置 Identity 用户令牌（请参阅[AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ）具有[一天的超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
+内置 Identity 用户令牌 (参阅[AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) 具有一天的[超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
 
 ### <a name="change-the-email-token-lifespan"></a>更改电子邮件令牌的生命周期
 
@@ -197,7 +199,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 * 创建一个[控制台应用，用于](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)使用类似的代码向发送电子邮件 `EmailSender.Execute` 。
 * 查看[电子邮件活动](https://sendgrid.com/docs/User_Guide/email_activity.html)页。
 * 检查垃圾邮件文件夹。
-* 尝试使用其他电子邮件提供商（Microsoft、Yahoo、Gmail 等）中的另一个电子邮件别名
+* 尝试在 Microsoft、Yahoo、Gmail 等不同的电子邮件 (提供程序上使用另一个电子邮件别名 ) 
 * 尝试发送到不同的电子邮件帐户。
 
 **最佳安全做法**是**不**在测试和开发中使用生产机密。 如果将应用发布到 Azure，请在 Azure Web 应用门户中将 "SendGrid 机密" 设置为 "应用程序设置"。 配置系统设置为从环境变量读取密钥。
@@ -210,7 +212,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 
 ![Web 应用程序： RickAndMSFT@gmail.com 用户已进行身份验证](accconfirm/_static/rick.png)
 
-单击 "**管理**" 链接。 请注意与此帐户关联的0个外部（社交登录）。
+单击 "**管理**" 链接。 请注意，0外部 (社交登录) 与此帐户关联。
 
 ![管理视图](accconfirm/_static/manage.png)
 
@@ -235,7 +237,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 
 [.NET Core 2.2 SDK 或更高版本](https://dotnet.microsoft.com/download/dotnet-core)
 
-## <a name="create-a-web--app-and-scaffold-identity"></a>创建 web 应用和基架Identity
+## <a name="create-a-web--app-and-scaffold-no-locidentity"></a>创建 web 应用和基架Identity
 
 运行以下命令，创建具有身份验证的 web 应用。
 
@@ -267,7 +269,7 @@ dotnet run
 
 ## <a name="require-email-confirmation"></a>需要确认电子邮件
 
-最佳做法是确认新用户注册的电子邮件。 电子邮件确认有助于验证他们是否未模拟其他人（即，他们未注册其他人的电子邮件）。 假设你有讨论论坛，并且想要阻止 " yli@example.com " 注册为 " nolivetto@contoso.com "。 如果未确认电子邮件，" nolivetto@contoso.com " 可能会从你的应用收到不需要的电子邮件。 假设用户意外注册为 " ylo@example.com "，但未注意到 "yli" 的拼写错误。 它们不能使用密码恢复，因为该应用没有正确的电子邮件。 电子邮件确认为 bot 提供有限的保护。 电子邮件确认不会为具有多个电子邮件帐户的恶意用户提供保护。
+最佳做法是确认新用户注册的电子邮件。 电子邮件确认有助于验证他们是否未模拟其他人 (也就是说，他们尚未注册其他人的电子邮件) 。 假设你有讨论论坛，并且想要阻止 " yli@example.com " 注册为 " nolivetto@contoso.com "。 如果未确认电子邮件，" nolivetto@contoso.com " 可能会从你的应用收到不需要的电子邮件。 假设用户意外注册为 " ylo@example.com "，但未注意到 "yli" 的拼写错误。 它们不能使用密码恢复，因为该应用没有正确的电子邮件。 电子邮件确认为 bot 提供有限的保护。 电子邮件确认不会为具有多个电子邮件帐户的恶意用户提供保护。
 
 通常，在用户确认电子邮件之前，会阻止新用户将任何数据发布到您的网站。
 
@@ -397,7 +399,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAllTokens.cs?name=snippet1&highlight=15-16)]
 
-内置 Identity 用户令牌（请参阅[AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ）具有[一天的超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
+内置 Identity 用户令牌 (参阅[AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) 具有一天的[超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
 
 ### <a name="change-the-email-token-lifespan"></a>更改电子邮件令牌的生命周期
 
@@ -425,7 +427,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 * 创建一个[控制台应用，用于](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)使用类似的代码向发送电子邮件 `EmailSender.Execute` 。
 * 查看[电子邮件活动](https://sendgrid.com/docs/User_Guide/email_activity.html)页。
 * 检查垃圾邮件文件夹。
-* 尝试使用其他电子邮件提供商（Microsoft、Yahoo、Gmail 等）中的另一个电子邮件别名
+* 尝试在 Microsoft、Yahoo、Gmail 等不同的电子邮件 (提供程序上使用另一个电子邮件别名 ) 
 * 尝试发送到不同的电子邮件帐户。
 
 **最佳安全做法**是**不**在测试和开发中使用生产机密。 如果将应用发布到 Azure，则可以在 Azure Web 应用门户中将 SendGrid 机密设置为应用程序设置。 配置系统设置为从环境变量读取密钥。
@@ -438,7 +440,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 ![Web 应用程序： RickAndMSFT@gmail.com 用户已进行身份验证](accconfirm/_static/rick.png)
 
-单击 "**管理**" 链接。 请注意与此帐户关联的0个外部（社交登录）。
+单击 "**管理**" 链接。 请注意，0外部 (社交登录) 与此帐户关联。
 
 ![管理视图](accconfirm/_static/manage.png)
 

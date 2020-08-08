@@ -5,6 +5,8 @@ description: 了解如何在 ASP.NET Core 的应用程序中添加对授权的�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/claims
-ms.openlocfilehash: 404e26f0fb5e71dbc22b1c08a2f8caf8461ad7e1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 639cacbab2688adfe769ef2c6954ea877cf0c66a
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406376"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022350"
 ---
 # <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core 中的基于声明的授权
 
@@ -26,7 +28,7 @@ ms.locfileid: "85406376"
 
 创建标识后，可以为其分配一个或多个由受信任方颁发的声明。 声明是表示使用者的名称值对，而不是主题可执行的操作。 例如，你可能有一个由本地驾驶许可证机构颁发的驾照。 你的驱动程序许可证有你的出生日期。 在这种情况下，声明名称为 `DateOfBirth` ，声明值将是你的出生日期，例如， `8th June 1970` 颁发者为驾驶许可证颁发机构。 基于声明的授权最简单的检查声明的值并允许基于该值的资源访问。 例如，如果你想要访问晚间俱乐部，授权过程可能是：
 
-门安全官员会评估你的出生日期的价值，以及他们是否信任颁发者（驾驶许可证授权），然后才授予你访问权限。
+门安全官员会评估你的出生日期的价值，以及他们是否信任颁发者 (驾照颁发机构) ，然后再授予你访问权限。
 
 标识可包含多个值的多个声明，并且可以包含同一类型的多个声明。
 

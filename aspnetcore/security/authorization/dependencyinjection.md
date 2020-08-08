@@ -5,6 +5,8 @@ description: 了解如何使用依赖关系注入将授权要求处理程序注�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/dependencyinjection
-ms.openlocfilehash: d12253ad1c1442c0db5cd497393daabe280fae8d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e58498cc7a28b598b919c5cab128249448bde32a
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406350"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020998"
 ---
 # <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>ASP.NET Core 中的要求处理程序中的依赖项注入
 
 <a name="security-authorization-di"></a>
 
-在配置期间，必须在服务集合中[注册授权处理程序](xref:security/authorization/policies#handler-registration)（使用[依赖关系注入](xref:fundamentals/dependency-injection)）。
+在配置 (使用[依赖关系注入](xref:fundamentals/dependency-injection)) ，必须在服务集合中[注册授权处理程序](xref:security/authorization/policies#handler-registration)。
 
 假设你有一个规则存储库，你希望在授权处理程序中评估该存储库，并在服务集合中注册该存储库。 授权将解析并注入构造函数。
 

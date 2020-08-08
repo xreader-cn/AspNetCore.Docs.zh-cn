@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/02/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/jsonpatch
-ms.openlocfilehash: 08ae366859c4466e6957592f78dda813d6670bb4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 09da557d678889ba16abe6f9af40ae1b33583d8b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405024"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022363"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的 JSON 修补程序
 
@@ -110,9 +112,9 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="path-syntax"></a>路径语法
 
-操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如 `"/address/zipCode"`。
+操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如，`"/address/zipCode"`。
 
-使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要到 `add` 数组的末尾，请使用连字符（ `-` ）而不是索引号： `/addresses/-` 。
+使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要到 `add` 数组的末尾，请使用连字符 (`-`) 而不是索引号： `/addresses/-` 。
 
 ### <a name="operations"></a>操作
 
@@ -139,7 +141,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * 接受 `JsonPatchDocument<T>`，通常带有 `[FromBody]`。
 * 在修补程序文档上调用 `ApplyTo` 以应用更改。
 
-以下是一个示例：
+下面是一个示例：
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 
@@ -322,7 +324,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="path-syntax"></a>路径语法
 
-操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如 `"/address/zipCode"`。
+操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如，`"/address/zipCode"`。
 
 使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要将 `add` 置于数组末尾，请使用连字符 (-)，而不是索引号：`/addresses/-`。
 
@@ -351,7 +353,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * 接受 `JsonPatchDocument<T>`，通常带有 `[FromBody]`。
 * 在修补程序文档上调用 `ApplyTo` 以应用更改。
 
-以下是一个示例：
+下面是一个示例：
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 

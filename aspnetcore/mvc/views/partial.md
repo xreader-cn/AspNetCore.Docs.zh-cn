@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,18 +16,18 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/partial
-ms.openlocfilehash: 47bd91f4d2bf166a4d0c9a0829e24cbe26a81a10
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 826d7cf96d95ee7eb98b0f05a233401a1e3bff33
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399707"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020829"
 ---
 # <a name="partial-views-in-aspnet-core"></a>ASP.NET Core 中的分部视图
 
 作者：[Steve Smith](https://ardalis.com/)、[Maher JENDOUBI](https://twitter.com/maherjend)、[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Scott Sauber](https://twitter.com/scottsauber)
 
-分部视图是一个 [Razor](xref:mvc/views/razor) 标记文件（*cshtml*），用于在另一个标记文件呈现的输出*中*呈现 HTML 输出。
+分部视图是 [Razor](xref:mvc/views/razor) () 的标记文件 *.cshtml* ，用于在另一个标记文件呈现的输出*中*呈现 HTML 输出。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -54,7 +56,7 @@ ms.locfileid: "85399707"
 
 ::: moniker range=">= aspnetcore-2.0"
 
-分部视图是在*Views*文件夹（MVC）或*页面*文件夹（页面）内维护的一个 *.* 标记文件 Razor 。
+分部视图是在*Views*文件夹 (MVC) 或*pages*文件夹 (页) 中维护的一个 *.* Razor
 
 在 ASP.NET Core MVC 中，控制器的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 能够返回视图或分部视图。 在 Razor 页中， <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 可以返回以对象形式表示的分部视图 <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> 。 [引用分部视图](#reference-a-partial-view)部分介绍了引用和呈现分部视图。
 
@@ -80,7 +82,7 @@ ms.locfileid: "85399707"
 
 ::: moniker range=">= aspnetcore-2.0"
 
-### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a>在页面中使用分部视图 Razor PageModel
+### <a name="use-a-partial-view-in-a-no-locrazor-pages-pagemodel"></a>在页面中使用分部视图 Razor PageModel
 
 在 ASP.NET Core 2.0 或2.1 中，以下处理程序方法将* \_ AuthorPartialRP*分部视图呈现给响应：
 

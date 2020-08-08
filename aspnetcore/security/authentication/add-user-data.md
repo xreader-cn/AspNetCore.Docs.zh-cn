@@ -6,6 +6,8 @@ ms.author: riande
 ms.date: 03/26/2020
 ms.custom: mvc, seodec18
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/add-user-data
-ms.openlocfilehash: e5c23cc49a52b8772a43853e9e953dd416d69f69
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d65974e9ff8e2f5be52ab79b063ed9d2dca557ea
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408729"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020855"
 ---
-# <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>在 ASP.NET Core 项目中添加、下载和删除自定义用户数据 Identity
+# <a name="add-download-and-delete-custom-user-data-to-no-locidentity-in-an-aspnet-core-project"></a>在 ASP.NET Core 项目中添加、下载和删除自定义用户数据 Identity
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -48,7 +50,7 @@ ms.locfileid: "85408729"
 
 ::: moniker-end
 
-## <a name="create-a-razor-web-app"></a>创建 Razor web 应用
+## <a name="create-a-no-locrazor-web-app"></a>创建 Razor web 应用
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -81,7 +83,7 @@ dotnet new webapp -o WebApp1
 
 ---
 
-## <a name="run-the-identity-scaffolder"></a>运行 Identity scaffolder
+## <a name="run-the-no-locidentity-scaffolder"></a>运行 Identity scaffolder
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -92,9 +94,9 @@ dotnet new webapp -o WebApp1
   * 选择以下要重写的文件：
     * **帐户/注册**
     * **帐户/管理/索引**
-  * 选择 **+** 按钮以创建新的**数据上下文类**。 如果项目命名为**WebApp1**，则接受类型（**WebApp1. WebApp1Context。**
-  * 选择 **+** 按钮以创建新的**用户类**。 接受类型（如果项目命名为 " **WebApp1**"，则为**WebApp1User** ） > "**添加**"。
-* 选择“添加”****。
+  * 选择 **+** 按钮以创建新的**数据上下文类**。 如果项目命名为**WebApp1**) ，则接受类型 (**WebApp1. WebApp1Context** 。
+  * 选择 **+** 按钮以创建新的**用户类**。 如果项目命名为**WebApp1**) > "**添加**"，则接受 " **WebApp1User** " (类型。
+* 选择“添加”  。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -104,7 +106,7 @@ dotnet new webapp -o WebApp1
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-将对[VisualStudio](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)的包引用添加到项目（.csproj）文件中。 在项目目录中运行以下命令：
+将对[VisualStudio](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)的包引用添加到项目 ( .csproj) 文件中。 在项目目录中运行以下命令：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -132,12 +134,12 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 * 添加 `<partial name="_LoginPartial" />` 到布局文件中。
 * 测试应用：
   * 注册用户
-  * 选择新用户名（"**注销**" 链接旁边）。 可能需要展开窗口或选择导航栏图标来显示用户名和其他链接。
+  * 选择 "**注销**" 链接旁 ("新用户名") 。 可能需要展开窗口或选择导航栏图标来显示用户名和其他链接。
   * 选择 "**个人数据**" 选项卡。
   * 选择 "**下载**" 按钮，并检查文件*上的PersonalData.js* 。
   * 测试**删除**按钮，该按钮将删除已登录的用户。
 
-## <a name="add-custom-user-data-to-the-identity-db"></a>向数据库添加自定义用户数据 Identity
+## <a name="add-custom-user-data-to-the-no-locidentity-db"></a>向数据库添加自定义用户数据 Identity
 
 `IdentityUser`用自定义属性更新派生类。 如果已将项目命名为 WebApp1，则该文件将命名为*Areas/ Identity /Data/WebApp1User.cs*。 用以下代码更新文件：
 
@@ -237,7 +239,7 @@ dotnet ef database update
 * 在页面上查看自定义用户数据 `/Identity/Account/Manage` 。
 * 从页面下载并查看用户的个人数据 `/Identity/Account/Manage/PersonalData` 。
 
-## <a name="add-claims-to-identity-using-iuserclaimsprincipalfactoryapplicationuser"></a>Identity使用 IUserClaimsPrincipalFactory 添加声明<ApplicationUser>
+## <a name="add-claims-to-no-locidentity-using-iuserclaimsprincipalfactoryapplicationuser"></a>Identity使用 IUserClaimsPrincipalFactory 添加声明<ApplicationUser>
 
 > [!NOTE]
 > 本部分不是上一教程的扩展。 若要将以下步骤应用到使用本教程构建的应用，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/18797)。

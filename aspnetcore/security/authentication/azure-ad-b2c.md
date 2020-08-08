@@ -6,6 +6,8 @@ ms.author: casoper
 ms.custom: mvc
 ms.date: 01/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,21 +16,21 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 4933203b8bdd8f653268c1df7ff83b8e9423341f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 78fe4d5dd9e3f64789956e58a4490bef6bdbca1e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405063"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021700"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>ASP.NET Core 中的 Azure Active Directory B2C 的云身份验证
 
 作者：[Cam Soper](https://twitter.com/camsoper)
 
-[Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) （Azure AD B2C）是用于 web 和移动应用的云标识管理解决方案。 此服务为云中和本地托管的应用提供身份验证。 身份验证类型包括个人帐户、社交网络帐户和联合企业帐户。 此外，Azure AD B2C 可以通过最少的配置来提供多重身份验证。
+[Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) 是用于 web 和移动应用的云标识管理解决方案。 此服务为云中和本地托管的应用提供身份验证。 身份验证类型包括个人帐户、社交网络帐户和联合企业帐户。 此外，Azure AD B2C 可以通过最少的配置来提供多重身份验证。
 
 > [!TIP]
-> Azure Active Directory （Azure AD）和 Azure AD B2C 是单独的产品产品。 Azure AD 租户表示组织，而 Azure AD B2C 租户表示与信赖方应用程序一起使用的标识集合。 若要了解详细信息，请参阅[Azure AD B2C：常见问题（FAQ）](/azure/active-directory-b2c/active-directory-b2c-faqs)。
+> Azure Active Directory (Azure AD) 和 Azure AD B2C 是单独的产品产品。 Azure AD 租户表示组织，而 Azure AD B2C 租户表示与信赖方应用程序一起使用的标识集合。 若要了解详细信息，请参阅[Azure AD B2C：常见问题解答)  (](/azure/active-directory-b2c/active-directory-b2c-faqs)常见问题。
 
 本教程介绍如何执行下列操作：
 
@@ -61,7 +63,7 @@ ms.locfileid: "85405063"
 | **** 包括 Web 应用/Web API | 是                       |                                                                                                                                                                                                    |
 | **** 允许隐式流       | 是                       |                                                                                                                                                                                                    |
 | 回复 URL                 | `https://localhost:44300/signin-oidc` | 回复 URL 属于终结点，允许 Azure AD B2C 在其中返回应用请求的任何令牌。 Visual Studio 提供要使用的回复 URL。 现在，请按 enter `https://localhost:44300/signin-oidc` 完成表单。 |
-| 应用 ID URI****                | 留空               | 本教程不需要。                                                                                                                                                                    |
+| **应用 ID URI**                | 留空               | 本教程不需要。                                                                                                                                                                    |
 | **包含本机客户端**     | 否                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
@@ -114,7 +116,7 @@ ms.locfileid: "85405063"
 > [!WARNING]
 > 确保策略名称与文档中所述的完全相同，因为在 Visual Studio 的 "**更改身份验证**" 对话框中使用了这些策略。 可以在*appsettings.js*中验证策略名称。
 
-## <a name="configure-the-underlying-openidconnectoptionsjwtbearercookie-options"></a>配置基础 OpenIdConnectOptions/JwtBearer/Cookie 选项
+## <a name="configure-the-underlying-openidconnectoptionsjwtbearerno-loccookie-options"></a>配置基础 OpenIdConnectOptions/JwtBearer/ Cookie options
 
 若要直接配置基础选项，请在中使用适当的方案常数 `Startup.ConfigureServices` ：
 
@@ -138,23 +140,23 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-## <a name="run-the-app"></a>运行应用程序
+## <a name="run-the-app"></a>运行应用
 
-在 Visual Studio 中，按**F5**生成并运行应用。 Web 应用启动后，选择 "**接受**" 以接受 cookie 的使用（如果出现提示），然后选择 "**登录**"。
+在 Visual Studio 中，按**F5**生成并运行应用。 Web 应用启动后，选择 "**接受**" 以接受 cookie (如果系统提示) ，然后选择 "**登录**"。
 
 ![登录应用](./azure-ad-b2c/_static/signin.png)
 
-浏览器重定向到 Azure AD B2C 租户。 使用现有帐户登录（如果已创建测试策略），或选择 "**立即注册**" 创建新帐户。 "**忘记了密码？** " 链接用于重置忘记的密码。
+浏览器重定向到 Azure AD B2C 租户。 使用现有帐户登录 (如果已创建测试策略) 或选择 "**立即注册**" 创建新帐户。 "**忘记了密码？** " 链接用于重置忘记的密码。
 
 ![Azure AD B2C 登录](./azure-ad-b2c/_static/b2csts.png)
 
 成功登录后，浏览器将重定向到 web 应用。
 
-![成功](./azure-ad-b2c/_static/success.png)
+![Success](./azure-ad-b2c/_static/success.png)
 
 ## <a name="next-steps"></a>后续步骤
 
-在本教程中，你将了解：
+在本教程中，你了解了如何执行以下操作：
 
 > [!div class="checklist"]
 > * 创建 Azure Active Directory B2C 租户

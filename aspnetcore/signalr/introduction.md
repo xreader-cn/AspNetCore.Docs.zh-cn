@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/27/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,16 +17,16 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: 816ecfc5d23e8e1d2901a8c35c657cc968fa95df
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6f3cec83c9af5ec6e820db4a15061eddac613f36
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404946"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022168"
 ---
-# <a name="introduction-to-aspnet-core-signalr"></a>ASP.NET Core SignalR 简介
+# <a name="introduction-to-aspnet-core-no-locsignalr"></a>ASP.NET Core SignalR 简介
 
-## <a name="what-is-signalr"></a>什么是 SignalR？
+## <a name="what-is-no-locsignalr"></a>什么是 SignalR？
 
 ASP.NET Core SignalR 是一种开放源代码库，可简化将实时 web 功能添加到应用程序的功能。 实时 web 功能使服务器端代码可以立即将内容推送到客户端。
 
@@ -35,7 +37,7 @@ ASP.NET Core SignalR 是一种开放源代码库，可简化将实时 web 功能
 * 协作应用。 协作应用的示例包括白板应用和团队会议软件。
 * 需要通知的应用。 社交网络、电子邮件、聊天、游戏、旅行警报和很多其他应用都需使用通知。
 
-SignalR提供用于创建服务器到客户端[远程过程调用（RPC）](https://wikipedia.org/wiki/Remote_procedure_call)的 API。 Rpc 通过服务器端 .NET Core 代码从客户端调用 JavaScript 函数。
+SignalR提供一个 API，用于创建 (RPC) 的服务器到客户端[远程过程调用](https://wikipedia.org/wiki/Remote_procedure_call)。 Rpc 通过服务器端 .NET Core 代码从客户端调用 JavaScript 函数。
 
 下面是的某些功能 SignalR ASP.NET Core：
 
@@ -48,7 +50,7 @@ SignalR提供用于创建服务器到客户端[远程过程调用（RPC）](http
 
 ## <a name="transports"></a>传输
 
-SignalR支持以下用于处理实时通信的技术（按正常回退的顺序）：
+SignalR支持以下用于按正常回退)  (处理实时通信的技术：
 
 * [WebSockets](https://tools.ietf.org/html/rfc7118)
 * 服务器发送的事件
@@ -56,7 +58,7 @@ SignalR支持以下用于处理实时通信的技术（按正常回退的顺序�
 
 SignalR自动选择服务器和客户端功能内的最佳传输方法。
 
-## <a name="hubs"></a>中心
+## <a name="hubs"></a>集线器
 
 SignalR使用*集线器*在客户端和服务器之间进行通信。
 
@@ -68,5 +70,5 @@ SignalR使用*集线器*在客户端和服务器之间进行通信。
 
 * [SignalRASP.NET Core 入门](xref:tutorials/signalr)
 * [支持的平台](xref:signalr/supported-platforms)
-* [中心](xref:signalr/hubs)
+* [集线器](xref:signalr/hubs)
 * [JavaScript 客户端](xref:signalr/javascript-client)

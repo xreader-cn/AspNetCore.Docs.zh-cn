@@ -7,6 +7,8 @@ ms.author: prkrishn
 ms.custom: mvc
 ms.date: 09/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 1f44fd65836cc42ffb2303890eefb053b61c4c30
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 571046052dbe131e9cdcf981aaee0921ed8c2ea1
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399460"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021843"
 ---
 # <a name="use-web-api-analyzers"></a>使用 Web API 分析器
 
@@ -58,7 +60,7 @@ ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器�
 从“程序包管理器控制台”窗口：
   * 请参阅**查看** > **其他 Windows** > **程序包管理器控制台**。
   * 导航到 ApiConventions.csproj 文件所在的目录**。
-  * 运行以下命令：
+  * 请执行以下命令：
 
     ```powershell
     Install-Package Microsoft.AspNetCore.Mvc.Api.Analyzers
@@ -73,7 +75,7 @@ ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器�
 
 ### <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-从“集成终端”**** 中运行以下命令：
+从“集成终端”中运行以下命令：
 
 ```dotnetcli
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
@@ -95,7 +97,7 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 OpenAPI 文档包含操作可能返回的状态代码和响应类型。 在 ASP.NET Core MVC 中，<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> 和 <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> 等属性用于记录操作。 <xref:tutorials/web-api-help-pages-using-swagger> 进一步介绍有关记录 Web API 的详细信息。
 
-包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。 请看下面的示例：
+包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。 请考虑以下示例：
 
 [!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=10)]
 

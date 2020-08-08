@@ -5,6 +5,8 @@ description: 了解 ASP.NET Core MVC 中的视图如何处理应用的数据表�
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/overview
-ms.openlocfilehash: b646908c070a51aac2e376c2acaa8e0e091790b0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8630df0ad8ea556c6edf0ab251b3c86493f751e2
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400461"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020868"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的视图
 
@@ -55,7 +57,7 @@ ms.locfileid: "85400461"
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/Home/About.cshtml)]
 
-*Razor* 标记以符号开头 `@` 。 运行 c # 语句，方法是将 c # 代码置于由大括号（）设置的[ Razor 代码块](xref:mvc/views/razor#razor-code-blocks)中 `{ ... }` 。 有关示例，请参阅上面显示的“About”到 `ViewData["Title"]` 的分配。 只需用 `@` 符号来引用值，即可在 HTML 中显示这些值。 请参阅上面的 `<h2>` 和 `<h3>` 元素的内容。
+*Razor* 标记以符号开头 `@` 。 运行 c # 语句，方法是将 c # 代码放在由大括号 () 设置的[ Razor 代码块](xref:mvc/views/razor#razor-code-blocks)中 `{ ... }` 。 有关示例，请参阅上面显示的“About”到 `ViewData["Title"]` 的分配。 只需用 `@` 符号来引用值，即可在 HTML 中显示这些值。 请参阅上面的 `<h2>` 和 `<h3>` 元素的内容。
 
 以上所示的视图内容只是呈现给用户的整个网页中的一部分。 其他视图文件中指定了页面布局的其余部分和视图的其他常见方面。 要了解详细信息，请参阅[布局主题](xref:mvc/views/layout)。
 
