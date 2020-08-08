@@ -5,6 +5,8 @@ description: 提供指向 ASP.NET Core 存储库中的身份验证示例的链�
 ms.author: riande
 ms.date: 01/31/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,55 +15,55 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/samples
-ms.openlocfilehash: 3e5e487adafc09d38400ea58936c5c2e8385e84f
-ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
+ms.openlocfilehash: 71e614eb3d91e8425ec430d775b8a0163dc7258f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/28/2020
-ms.locfileid: "87303594"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017787"
 ---
-# <a name="authentication-samples-for-aspnet-core"></a><span data-ttu-id="d7091-103">ASP.NET Core 的身份验证示例</span><span class="sxs-lookup"><span data-stu-id="d7091-103">Authentication samples for ASP.NET Core</span></span>
+# <a name="authentication-samples-for-aspnet-core"></a><span data-ttu-id="9e7cd-103">ASP.NET Core 的身份验证示例</span><span class="sxs-lookup"><span data-stu-id="9e7cd-103">Authentication samples for ASP.NET Core</span></span>
 
-<span data-ttu-id="d7091-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="d7091-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="9e7cd-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="9e7cd-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="d7091-105">[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：</span><span class="sxs-lookup"><span data-stu-id="d7091-105">The [ASP.NET Core repository](https://github.com/dotnet/AspNetCore) contains the following authentication samples in the *AspNetCore/src/Security/samples* folder:</span></span>
+<span data-ttu-id="9e7cd-105">[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：</span><span class="sxs-lookup"><span data-stu-id="9e7cd-105">The [ASP.NET Core repository](https://github.com/dotnet/AspNetCore) contains the following authentication samples in the *AspNetCore/src/Security/samples* folder:</span></span>
 
-* [<span data-ttu-id="d7091-106">声明转换</span><span class="sxs-lookup"><span data-stu-id="d7091-106">Claims transformation</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/ClaimsTransformation)
-* [<span data-ttu-id="d7091-107">Cookie 身份验证</span><span class="sxs-lookup"><span data-stu-id="d7091-107">Cookie authentication</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Cookies)
-* [<span data-ttu-id="d7091-108">自定义策略提供程序-IAuthorizationPolicyProvider</span><span class="sxs-lookup"><span data-stu-id="d7091-108">Custom policy provider - IAuthorizationPolicyProvider</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/CustomPolicyProvider)
-* [<span data-ttu-id="d7091-109">动态身份验证方案和选项</span><span class="sxs-lookup"><span data-stu-id="d7091-109">Dynamic authentication schemes and options</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/DynamicSchemes)
-* <span data-ttu-id="d7091-110">[外部声明](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Identity.ExternalClaims)</span><span class="sxs-lookup"><span data-stu-id="d7091-110">[External claims](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Identity.ExternalClaims)</span></span>
-* [<span data-ttu-id="d7091-111">选择 cookie 和其他基于请求的身份验证方案</span><span class="sxs-lookup"><span data-stu-id="d7091-111">Selecting between cookie and another authentication scheme based on the request</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/PathSchemeSelection)
-* [<span data-ttu-id="d7091-112">限制对静态文件的访问</span><span class="sxs-lookup"><span data-stu-id="d7091-112">Restricts access to static files</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/StaticFilesAuth)
+* [<span data-ttu-id="9e7cd-106">声明转换</span><span class="sxs-lookup"><span data-stu-id="9e7cd-106">Claims transformation</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/ClaimsTransformation)
+* <span data-ttu-id="9e7cd-107">[Cookie验证](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Cookies)</span><span class="sxs-lookup"><span data-stu-id="9e7cd-107">[Cookie authentication](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Cookies)</span></span>
+* [<span data-ttu-id="9e7cd-108">自定义策略提供程序-IAuthorizationPolicyProvider</span><span class="sxs-lookup"><span data-stu-id="9e7cd-108">Custom policy provider - IAuthorizationPolicyProvider</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/CustomPolicyProvider)
+* [<span data-ttu-id="9e7cd-109">动态身份验证方案和选项</span><span class="sxs-lookup"><span data-stu-id="9e7cd-109">Dynamic authentication schemes and options</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/DynamicSchemes)
+* <span data-ttu-id="9e7cd-110">[外部声明](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Identity.ExternalClaims)</span><span class="sxs-lookup"><span data-stu-id="9e7cd-110">[External claims](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Identity.ExternalClaims)</span></span>
+* [<span data-ttu-id="9e7cd-111">cookie基于请求选择和其他身份验证方案</span><span class="sxs-lookup"><span data-stu-id="9e7cd-111">Selecting between cookie and another authentication scheme based on the request</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/PathSchemeSelection)
+* [<span data-ttu-id="9e7cd-112">限制对静态文件的访问</span><span class="sxs-lookup"><span data-stu-id="9e7cd-112">Restricts access to static files</span></span>](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/StaticFilesAuth)
 
-## <a name="run-the-samples"></a><span data-ttu-id="d7091-113">运行示例</span><span class="sxs-lookup"><span data-stu-id="d7091-113">Run the samples</span></span>
+## <a name="run-the-samples"></a><span data-ttu-id="9e7cd-113">运行示例</span><span class="sxs-lookup"><span data-stu-id="9e7cd-113">Run the samples</span></span>
 
-* <span data-ttu-id="d7091-114">选择[分支](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="d7091-114">Select a [branch](https://github.com/dotnet/AspNetCore).</span></span> <span data-ttu-id="d7091-115">例如： `release/3.1`</span><span class="sxs-lookup"><span data-stu-id="d7091-115">For example, `release/3.1`</span></span>
-* <span data-ttu-id="d7091-116">克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="d7091-116">Clone or download the [ASP.NET Core repository](https://github.com/dotnet/AspNetCore).</span></span>
-* <span data-ttu-id="d7091-117">验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)版本。</span><span class="sxs-lookup"><span data-stu-id="d7091-117">Verify you have installed the [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) version matching the clone of the ASP.NET Core repository.</span></span>
-* <span data-ttu-id="d7091-118">导航到*AspNetCore/src/Security/samples*中的示例，并使用运行该示例 `dotnet run` 。</span><span class="sxs-lookup"><span data-stu-id="d7091-118">Navigate to a sample in *AspNetCore/src/Security/samples* and run the sample with `dotnet run`.</span></span>
+* <span data-ttu-id="9e7cd-114">选择[分支](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-114">Select a [branch](https://github.com/dotnet/AspNetCore).</span></span> <span data-ttu-id="9e7cd-115">例如： `release/3.1`</span><span class="sxs-lookup"><span data-stu-id="9e7cd-115">For example, `release/3.1`</span></span>
+* <span data-ttu-id="9e7cd-116">克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-116">Clone or download the [ASP.NET Core repository](https://github.com/dotnet/AspNetCore).</span></span>
+* <span data-ttu-id="9e7cd-117">验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)版本。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-117">Verify you have installed the [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) version matching the clone of the ASP.NET Core repository.</span></span>
+* <span data-ttu-id="9e7cd-118">导航到*AspNetCore/src/Security/samples*中的示例，并使用运行该示例 `dotnet run` 。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-118">Navigate to a sample in *AspNetCore/src/Security/samples* and run the sample with `dotnet run`.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="d7091-119">[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：</span><span class="sxs-lookup"><span data-stu-id="d7091-119">The [ASP.NET Core repository](https://github.com/dotnet/AspNetCore) contains the following authentication samples in the *AspNetCore/src/Security/samples* folder:</span></span>
+<span data-ttu-id="9e7cd-119">[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：</span><span class="sxs-lookup"><span data-stu-id="9e7cd-119">The [ASP.NET Core repository](https://github.com/dotnet/AspNetCore) contains the following authentication samples in the *AspNetCore/src/Security/samples* folder:</span></span>
 
-* [<span data-ttu-id="d7091-120">声明转换</span><span class="sxs-lookup"><span data-stu-id="d7091-120">Claims transformation</span></span>](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/ClaimsTransformation)
-* [<span data-ttu-id="d7091-121">Cookie 身份验证</span><span class="sxs-lookup"><span data-stu-id="d7091-121">Cookie authentication</span></span>](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)
-* [<span data-ttu-id="d7091-122">自定义策略提供程序-IAuthorizationPolicyProvider</span><span class="sxs-lookup"><span data-stu-id="d7091-122">Custom policy provider - IAuthorizationPolicyProvider</span></span>](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/CustomPolicyProvider)
-* [<span data-ttu-id="d7091-123">动态身份验证方案和选项</span><span class="sxs-lookup"><span data-stu-id="d7091-123">Dynamic authentication schemes and options</span></span>](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/DynamicSchemes)
-* <span data-ttu-id="d7091-124">[外部声明](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Identity.ExternalClaims)</span><span class="sxs-lookup"><span data-stu-id="d7091-124">[External claims](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Identity.ExternalClaims)</span></span>
-* [<span data-ttu-id="d7091-125">选择 cookie 和其他基于请求的身份验证方案</span><span class="sxs-lookup"><span data-stu-id="d7091-125">Selecting between cookie and another authentication scheme based on the request</span></span>](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/PathSchemeSelection)
-* [<span data-ttu-id="d7091-126">限制对静态文件的访问</span><span class="sxs-lookup"><span data-stu-id="d7091-126">Restricts access to static files</span></span>](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/StaticFilesAuth)
+* [<span data-ttu-id="9e7cd-120">声明转换</span><span class="sxs-lookup"><span data-stu-id="9e7cd-120">Claims transformation</span></span>](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/ClaimsTransformation)
+* <span data-ttu-id="9e7cd-121">[Cookie验证](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)</span><span class="sxs-lookup"><span data-stu-id="9e7cd-121">[Cookie authentication](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)</span></span>
+* [<span data-ttu-id="9e7cd-122">自定义策略提供程序-IAuthorizationPolicyProvider</span><span class="sxs-lookup"><span data-stu-id="9e7cd-122">Custom policy provider - IAuthorizationPolicyProvider</span></span>](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/CustomPolicyProvider)
+* [<span data-ttu-id="9e7cd-123">动态身份验证方案和选项</span><span class="sxs-lookup"><span data-stu-id="9e7cd-123">Dynamic authentication schemes and options</span></span>](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/DynamicSchemes)
+* <span data-ttu-id="9e7cd-124">[外部声明](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Identity.ExternalClaims)</span><span class="sxs-lookup"><span data-stu-id="9e7cd-124">[External claims](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Identity.ExternalClaims)</span></span>
+* [<span data-ttu-id="9e7cd-125">cookie基于请求选择和其他身份验证方案</span><span class="sxs-lookup"><span data-stu-id="9e7cd-125">Selecting between cookie and another authentication scheme based on the request</span></span>](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/PathSchemeSelection)
+* [<span data-ttu-id="9e7cd-126">限制对静态文件的访问</span><span class="sxs-lookup"><span data-stu-id="9e7cd-126">Restricts access to static files</span></span>](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/StaticFilesAuth)
 
-## <a name="run-the-samples"></a><span data-ttu-id="d7091-127">运行示例</span><span class="sxs-lookup"><span data-stu-id="d7091-127">Run the samples</span></span>
+## <a name="run-the-samples"></a><span data-ttu-id="9e7cd-127">运行示例</span><span class="sxs-lookup"><span data-stu-id="9e7cd-127">Run the samples</span></span>
 
-* <span data-ttu-id="d7091-128">选择[分支](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="d7091-128">Select a [branch](https://github.com/dotnet/AspNetCore).</span></span> <span data-ttu-id="d7091-129">例如： `release/2.1`</span><span class="sxs-lookup"><span data-stu-id="d7091-129">For example, `release/2.1`</span></span>
-* <span data-ttu-id="d7091-130">克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="d7091-130">Clone or download the [ASP.NET Core repository](https://github.com/dotnet/AspNetCore).</span></span>
-* <span data-ttu-id="d7091-131">验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)版本。</span><span class="sxs-lookup"><span data-stu-id="d7091-131">Verify you have installed the [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) version matching the clone of the ASP.NET Core repository.</span></span>
-* <span data-ttu-id="d7091-132">导航到*AspNetCore/src/Security/samples*中的示例，并使用运行该示例 `dotnet run` 。</span><span class="sxs-lookup"><span data-stu-id="d7091-132">Navigate to a sample in *AspNetCore/src/Security/samples* and run the sample with `dotnet run`.</span></span>
+* <span data-ttu-id="9e7cd-128">选择[分支](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-128">Select a [branch](https://github.com/dotnet/AspNetCore).</span></span> <span data-ttu-id="9e7cd-129">例如： `release/2.1`</span><span class="sxs-lookup"><span data-stu-id="9e7cd-129">For example, `release/2.1`</span></span>
+* <span data-ttu-id="9e7cd-130">克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-130">Clone or download the [ASP.NET Core repository](https://github.com/dotnet/AspNetCore).</span></span>
+* <span data-ttu-id="9e7cd-131">验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)版本。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-131">Verify you have installed the [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) version matching the clone of the ASP.NET Core repository.</span></span>
+* <span data-ttu-id="9e7cd-132">导航到*AspNetCore/src/Security/samples*中的示例，并使用运行该示例 `dotnet run` 。</span><span class="sxs-lookup"><span data-stu-id="9e7cd-132">Navigate to a sample in *AspNetCore/src/Security/samples* and run the sample with `dotnet run`.</span></span>
 
 ::: moniker-end
