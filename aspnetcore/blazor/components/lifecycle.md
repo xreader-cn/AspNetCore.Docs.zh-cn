@@ -15,24 +15,24 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 6b9653356659700ae8396a01b38c04d59a86625f
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 92fd893963f049e014325d4f55affa789979647a
+ms.sourcegitcommit: 37f6f2e13ceb4eae268d20973d76e4b83acf6a24
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059885"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526272"
 ---
-# <a name="aspnet-core-blazor-lifecycle"></a><span data-ttu-id="8457a-103">ASP.NET Core Blazor 生命周期</span><span class="sxs-lookup"><span data-stu-id="8457a-103">ASP.NET Core Blazor lifecycle</span></span>
+# <a name="aspnet-core-no-locblazor-lifecycle"></a><span data-ttu-id="43e02-103">ASP.NET Core Blazor 生命周期</span><span class="sxs-lookup"><span data-stu-id="43e02-103">ASP.NET Core Blazor lifecycle</span></span>
 
-<span data-ttu-id="8457a-104">作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="8457a-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
+<span data-ttu-id="43e02-104">作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="43e02-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
 
-<span data-ttu-id="8457a-105">Blazor 框架包括同步和异步生命周期方法。</span><span class="sxs-lookup"><span data-stu-id="8457a-105">The Blazor framework includes synchronous and asynchronous lifecycle methods.</span></span> <span data-ttu-id="8457a-106">替代生命周期方法，以在组件初始化和呈现期间对组件执行其他操作。</span><span class="sxs-lookup"><span data-stu-id="8457a-106">Override lifecycle methods to perform additional operations on components during component initialization and rendering.</span></span>
+<span data-ttu-id="43e02-105">Blazor 框架包括同步和异步生命周期方法。</span><span class="sxs-lookup"><span data-stu-id="43e02-105">The Blazor framework includes synchronous and asynchronous lifecycle methods.</span></span> <span data-ttu-id="43e02-106">替代生命周期方法，以在组件初始化和呈现期间对组件执行其他操作。</span><span class="sxs-lookup"><span data-stu-id="43e02-106">Override lifecycle methods to perform additional operations on components during component initialization and rendering.</span></span>
 
-## <a name="lifecycle-methods"></a><span data-ttu-id="8457a-107">生命周期方法</span><span class="sxs-lookup"><span data-stu-id="8457a-107">Lifecycle methods</span></span>
+## <a name="lifecycle-methods"></a><span data-ttu-id="43e02-107">生命周期方法</span><span class="sxs-lookup"><span data-stu-id="43e02-107">Lifecycle methods</span></span>
 
-### <a name="before-parameters-are-set"></a><span data-ttu-id="8457a-108">设置参数之前</span><span class="sxs-lookup"><span data-stu-id="8457a-108">Before parameters are set</span></span>
+### <a name="before-parameters-are-set"></a><span data-ttu-id="43e02-108">设置参数之前</span><span class="sxs-lookup"><span data-stu-id="43e02-108">Before parameters are set</span></span>
 
-<span data-ttu-id="8457a-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 在呈现树中设置组件的父组件提供的参数：</span><span class="sxs-lookup"><span data-stu-id="8457a-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> sets parameters supplied by the component's parent in the render tree:</span></span>
+<span data-ttu-id="43e02-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 在呈现树中设置组件的父组件提供的参数：</span><span class="sxs-lookup"><span data-stu-id="43e02-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> sets parameters supplied by the component's parent in the render tree:</span></span>
 
 ```csharp
 public override async Task SetParametersAsync(ParameterView parameters)
@@ -43,21 +43,21 @@ public override async Task SetParametersAsync(ParameterView parameters)
 }
 ```
 
-<span data-ttu-id="8457a-110">每次调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 时，<xref:Microsoft.AspNetCore.Components.ParameterView> 都包含整个参数值集。</span><span class="sxs-lookup"><span data-stu-id="8457a-110"><xref:Microsoft.AspNetCore.Components.ParameterView> contains the entire set of parameter values each time <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> is called.</span></span>
+<span data-ttu-id="43e02-110">每次调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 时，<xref:Microsoft.AspNetCore.Components.ParameterView> 都包含整个参数值集。</span><span class="sxs-lookup"><span data-stu-id="43e02-110"><xref:Microsoft.AspNetCore.Components.ParameterView> contains the entire set of parameter values each time <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> is called.</span></span>
 
-<span data-ttu-id="8457a-111"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 的默认实现使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 或 [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) 特性（在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中具有对应的值）设置每个属性的值。</span><span class="sxs-lookup"><span data-stu-id="8457a-111">The default implementation of <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> sets the value of each property with the [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) or [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) attribute that has a corresponding value in the <xref:Microsoft.AspNetCore.Components.ParameterView>.</span></span> <span data-ttu-id="8457a-112">在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中没有对应值的参数保持不变。</span><span class="sxs-lookup"><span data-stu-id="8457a-112">Parameters that don't have a corresponding value in <xref:Microsoft.AspNetCore.Components.ParameterView> are left unchanged.</span></span>
+<span data-ttu-id="43e02-111"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 的默认实现使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 或 [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) 特性（在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中具有对应的值）设置每个属性的值。</span><span class="sxs-lookup"><span data-stu-id="43e02-111">The default implementation of <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> sets the value of each property with the [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) or [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) attribute that has a corresponding value in the <xref:Microsoft.AspNetCore.Components.ParameterView>.</span></span> <span data-ttu-id="43e02-112">在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中没有对应值的参数保持不变。</span><span class="sxs-lookup"><span data-stu-id="43e02-112">Parameters that don't have a corresponding value in <xref:Microsoft.AspNetCore.Components.ParameterView> are left unchanged.</span></span>
 
-<span data-ttu-id="8457a-113">如果未调用 [`base.SetParametersAync`](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A)，则自定义代码可使用任何需要的方式解释传入的参数值。</span><span class="sxs-lookup"><span data-stu-id="8457a-113">If [`base.SetParametersAync`](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A) isn't invoked, the custom code can interpret the incoming parameters value in any way required.</span></span> <span data-ttu-id="8457a-114">例如，不要求将传入参数分配给类的属性。</span><span class="sxs-lookup"><span data-stu-id="8457a-114">For example, there's no requirement to assign the incoming parameters to the properties on the class.</span></span>
+<span data-ttu-id="43e02-113">如果未调用 [`base.SetParametersAync`](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A)，则自定义代码可使用任何需要的方式解释传入的参数值。</span><span class="sxs-lookup"><span data-stu-id="43e02-113">If [`base.SetParametersAync`](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A) isn't invoked, the custom code can interpret the incoming parameters value in any way required.</span></span> <span data-ttu-id="43e02-114">例如，不要求将传入参数分配给类的属性。</span><span class="sxs-lookup"><span data-stu-id="43e02-114">For example, there's no requirement to assign the incoming parameters to the properties on the class.</span></span>
 
-<span data-ttu-id="8457a-115">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="8457a-115">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="8457a-116">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="8457a-116">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
+<span data-ttu-id="43e02-115">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="43e02-115">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="43e02-116">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="43e02-116">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
 
-### <a name="component-initialization-methods"></a><span data-ttu-id="8457a-117">组件初始化方法</span><span class="sxs-lookup"><span data-stu-id="8457a-117">Component initialization methods</span></span>
+### <a name="component-initialization-methods"></a><span data-ttu-id="43e02-117">组件初始化方法</span><span class="sxs-lookup"><span data-stu-id="43e02-117">Component initialization methods</span></span>
 
-<span data-ttu-id="8457a-118"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 中的组件在从其父组件接收初始参数后初始化，此时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>。</span><span class="sxs-lookup"><span data-stu-id="8457a-118"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> are invoked when the component is initialized after having received its initial parameters from its parent component in <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A>.</span></span> 
+<span data-ttu-id="43e02-118"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 中的组件在从其父组件接收初始参数后初始化，此时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>。</span><span class="sxs-lookup"><span data-stu-id="43e02-118"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> are invoked when the component is initialized after having received its initial parameters from its parent component in <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A>.</span></span> 
 
-<span data-ttu-id="8457a-119">在组件执行异步操作时使用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>，并应在操作完成后刷新。</span><span class="sxs-lookup"><span data-stu-id="8457a-119">Use <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> when the component performs an asynchronous operation and should refresh when the operation is completed.</span></span>
+<span data-ttu-id="43e02-119">在组件执行异步操作时使用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>，并应在操作完成后刷新。</span><span class="sxs-lookup"><span data-stu-id="43e02-119">Use <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> when the component performs an asynchronous operation and should refresh when the operation is completed.</span></span>
 
-<span data-ttu-id="8457a-120">对于同步操作，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>：</span><span class="sxs-lookup"><span data-stu-id="8457a-120">For a synchronous operation, override <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>:</span></span>
+<span data-ttu-id="43e02-120">对于同步操作，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>：</span><span class="sxs-lookup"><span data-stu-id="43e02-120">For a synchronous operation, override <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>:</span></span>
 
 ```csharp
 protected override void OnInitialized()
@@ -66,7 +66,7 @@ protected override void OnInitialized()
 }
 ```
 
-<span data-ttu-id="8457a-121">若要执行异步操作，请替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 并对该操作使用 [`await`](/dotnet/csharp/language-reference/operators/await) 运算符：</span><span class="sxs-lookup"><span data-stu-id="8457a-121">To perform an asynchronous operation, override <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> and use the [`await`](/dotnet/csharp/language-reference/operators/await) operator on the operation:</span></span>
+<span data-ttu-id="43e02-121">若要执行异步操作，请替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 并对该操作使用 [`await`](/dotnet/csharp/language-reference/operators/await) 运算符：</span><span class="sxs-lookup"><span data-stu-id="43e02-121">To perform an asynchronous operation, override <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> and use the [`await`](/dotnet/csharp/language-reference/operators/await) operator on the operation:</span></span>
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -75,25 +75,25 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-<span data-ttu-id="8457a-122">[预呈现其内容](xref:blazor/fundamentals/additional-scenarios#render-mode)的 Blazor Server 应用调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 两次：</span><span class="sxs-lookup"><span data-stu-id="8457a-122">Blazor Server apps that [prerender their content](xref:blazor/fundamentals/additional-scenarios#render-mode) call <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_twice_**:</span></span>
+<span data-ttu-id="43e02-122">[预呈现其内容](xref:blazor/fundamentals/additional-scenarios#render-mode)的 Blazor Server 应用调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 两次：</span><span class="sxs-lookup"><span data-stu-id="43e02-122">Blazor Server apps that [prerender their content](xref:blazor/fundamentals/additional-scenarios#render-mode) call <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_twice_**:</span></span>
 
-* <span data-ttu-id="8457a-123">在组件最初作为页面的一部分静态呈现时调用一次。</span><span class="sxs-lookup"><span data-stu-id="8457a-123">Once when the component is initially rendered statically as part of the page.</span></span>
-* <span data-ttu-id="8457a-124">在浏览器重新建立与服务器的连接时调用第二次。</span><span class="sxs-lookup"><span data-stu-id="8457a-124">A second time when the browser establishes a connection back to the server.</span></span>
+* <span data-ttu-id="43e02-123">在组件最初作为页面的一部分静态呈现时调用一次。</span><span class="sxs-lookup"><span data-stu-id="43e02-123">Once when the component is initially rendered statically as part of the page.</span></span>
+* <span data-ttu-id="43e02-124">在浏览器重新建立与服务器的连接时调用第二次。</span><span class="sxs-lookup"><span data-stu-id="43e02-124">A second time when the browser establishes a connection back to the server.</span></span>
 
-<span data-ttu-id="8457a-125">为了防止 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 中的开发人员代码运行两次，请参阅[预呈现后的有状态重新连接](#stateful-reconnection-after-prerendering)部分。</span><span class="sxs-lookup"><span data-stu-id="8457a-125">To prevent developer code in <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> from running twice, see the [Stateful reconnection after prerendering](#stateful-reconnection-after-prerendering) section.</span></span>
+<span data-ttu-id="43e02-125">为了防止 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 中的开发人员代码运行两次，请参阅[预呈现后的有状态重新连接](#stateful-reconnection-after-prerendering)部分。</span><span class="sxs-lookup"><span data-stu-id="43e02-125">To prevent developer code in <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> from running twice, see the [Stateful reconnection after prerendering](#stateful-reconnection-after-prerendering) section.</span></span>
 
-<span data-ttu-id="8457a-126">在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行调用 JavaScript 等特定操作。</span><span class="sxs-lookup"><span data-stu-id="8457a-126">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="8457a-127">预呈现时，组件可能需要进行不同的呈现。</span><span class="sxs-lookup"><span data-stu-id="8457a-127">Components may need to render differently when prerendered.</span></span> <span data-ttu-id="8457a-128">有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。</span><span class="sxs-lookup"><span data-stu-id="8457a-128">For more information, see the [Detect when the app is prerendering](#detect-when-the-app-is-prerendering) section.</span></span>
+<span data-ttu-id="43e02-126">在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行调用 JavaScript 等特定操作。</span><span class="sxs-lookup"><span data-stu-id="43e02-126">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="43e02-127">预呈现时，组件可能需要进行不同的呈现。</span><span class="sxs-lookup"><span data-stu-id="43e02-127">Components may need to render differently when prerendered.</span></span> <span data-ttu-id="43e02-128">有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。</span><span class="sxs-lookup"><span data-stu-id="43e02-128">For more information, see the [Detect when the app is prerendering](#detect-when-the-app-is-prerendering) section.</span></span>
 
-<span data-ttu-id="8457a-129">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="8457a-129">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="8457a-130">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="8457a-130">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
+<span data-ttu-id="43e02-129">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="43e02-129">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="43e02-130">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="43e02-130">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
 
-### <a name="after-parameters-are-set"></a><span data-ttu-id="8457a-131">设置参数之后</span><span class="sxs-lookup"><span data-stu-id="8457a-131">After parameters are set</span></span>
+### <a name="after-parameters-are-set"></a><span data-ttu-id="43e02-131">设置参数之后</span><span class="sxs-lookup"><span data-stu-id="43e02-131">After parameters are set</span></span>
 
-<span data-ttu-id="8457a-132"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 或 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> 在以下情况下调用：</span><span class="sxs-lookup"><span data-stu-id="8457a-132"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> or <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> are called:</span></span>
+<span data-ttu-id="43e02-132"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 或 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> 在以下情况下调用：</span><span class="sxs-lookup"><span data-stu-id="43e02-132"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> or <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> are called:</span></span>
 
-* <span data-ttu-id="8457a-133">在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 或 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> 中初始化组件后。</span><span class="sxs-lookup"><span data-stu-id="8457a-133">After the component is initialized in <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> or <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>.</span></span>
-* <span data-ttu-id="8457a-134">当父组件重新呈现并提供以下内容时：</span><span class="sxs-lookup"><span data-stu-id="8457a-134">When the parent component re-renders and supplies:</span></span>
-  * <span data-ttu-id="8457a-135">至少一个参数已更改的唯一已知基元不可变类型。</span><span class="sxs-lookup"><span data-stu-id="8457a-135">Only known primitive immutable types of which at least one parameter has changed.</span></span>
-  * <span data-ttu-id="8457a-136">任何复杂类型的参数。</span><span class="sxs-lookup"><span data-stu-id="8457a-136">Any complex-typed parameters.</span></span> <span data-ttu-id="8457a-137">框架无法知道复杂类型参数的值是否在内部发生了改变，因此，它将参数集视为已更改。</span><span class="sxs-lookup"><span data-stu-id="8457a-137">The framework can't know whether the values of a complex-typed parameter have mutated internally, so it treats the parameter set as changed.</span></span>
+* <span data-ttu-id="43e02-133">在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> 或 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 中初始化组件后。</span><span class="sxs-lookup"><span data-stu-id="43e02-133">After the component is initialized in <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> or <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>.</span></span>
+* <span data-ttu-id="43e02-134">当父组件重新呈现并提供以下内容时：</span><span class="sxs-lookup"><span data-stu-id="43e02-134">When the parent component re-renders and supplies:</span></span>
+  * <span data-ttu-id="43e02-135">至少一个参数已更改的唯一已知基元不可变类型。</span><span class="sxs-lookup"><span data-stu-id="43e02-135">Only known primitive immutable types of which at least one parameter has changed.</span></span>
+  * <span data-ttu-id="43e02-136">任何复杂类型的参数。</span><span class="sxs-lookup"><span data-stu-id="43e02-136">Any complex-typed parameters.</span></span> <span data-ttu-id="43e02-137">框架无法知道复杂类型参数的值是否在内部发生了改变，因此，它将参数集视为已更改。</span><span class="sxs-lookup"><span data-stu-id="43e02-137">The framework can't know whether the values of a complex-typed parameter have mutated internally, so it treats the parameter set as changed.</span></span>
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -103,7 +103,7 @@ protected override async Task OnParametersSetAsync()
 ```
 
 > [!NOTE]
-> <span data-ttu-id="8457a-138">应用参数和属性值时，异步操作必须在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 生命周期事件期间发生。</span><span class="sxs-lookup"><span data-stu-id="8457a-138">Asynchronous work when applying parameters and property values must occur during the <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> lifecycle event.</span></span>
+> <span data-ttu-id="43e02-138">应用参数和属性值时，异步操作必须在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 生命周期事件期间发生。</span><span class="sxs-lookup"><span data-stu-id="43e02-138">Asynchronous work when applying parameters and property values must occur during the <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> lifecycle event.</span></span>
 
 ```csharp
 protected override void OnParametersSet()
@@ -112,16 +112,16 @@ protected override void OnParametersSet()
 }
 ```
 
-<span data-ttu-id="8457a-139">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="8457a-139">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="8457a-140">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="8457a-140">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
+<span data-ttu-id="43e02-139">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="43e02-139">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="43e02-140">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="43e02-140">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
 
-### <a name="after-component-render"></a><span data-ttu-id="8457a-141">组件呈现之后</span><span class="sxs-lookup"><span data-stu-id="8457a-141">After component render</span></span>
+### <a name="after-component-render"></a><span data-ttu-id="43e02-141">组件呈现之后</span><span class="sxs-lookup"><span data-stu-id="43e02-141">After component render</span></span>
 
-<span data-ttu-id="8457a-142"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 在组件完成呈现后调用。</span><span class="sxs-lookup"><span data-stu-id="8457a-142"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> are called after a component has finished rendering.</span></span> <span data-ttu-id="8457a-143">此时会填充元素和组件引用。</span><span class="sxs-lookup"><span data-stu-id="8457a-143">Element and component references are populated at this point.</span></span> <span data-ttu-id="8457a-144">在此阶段中，可使用呈现的内容执行其他初始化步骤，例如激活对呈现的 DOM 元素进行操作的第三方 JavaScript 库。</span><span class="sxs-lookup"><span data-stu-id="8457a-144">Use this stage to perform additional initialization steps using the rendered content, such as activating third-party JavaScript libraries that operate on the rendered DOM elements.</span></span>
+<span data-ttu-id="43e02-142"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 在组件完成呈现后调用。</span><span class="sxs-lookup"><span data-stu-id="43e02-142"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> are called after a component has finished rendering.</span></span> <span data-ttu-id="43e02-143">此时会填充元素和组件引用。</span><span class="sxs-lookup"><span data-stu-id="43e02-143">Element and component references are populated at this point.</span></span> <span data-ttu-id="43e02-144">在此阶段中，可使用呈现的内容执行其他初始化步骤，例如激活对呈现的 DOM 元素进行操作的第三方 JavaScript 库。</span><span class="sxs-lookup"><span data-stu-id="43e02-144">Use this stage to perform additional initialization steps using the rendered content, such as activating third-party JavaScript libraries that operate on the rendered DOM elements.</span></span>
 
-<span data-ttu-id="8457a-145"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 的 `firstRender` 参数：</span><span class="sxs-lookup"><span data-stu-id="8457a-145">The `firstRender` parameter for <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A>:</span></span>
+<span data-ttu-id="43e02-145"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 的 `firstRender` 参数：</span><span class="sxs-lookup"><span data-stu-id="43e02-145">The `firstRender` parameter for <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A>:</span></span>
 
-* <span data-ttu-id="8457a-146">在第一次呈现组件实例时设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="8457a-146">Is set to `true` the first time that the component instance is rendered.</span></span>
-* <span data-ttu-id="8457a-147">可用于确保初始化操作仅执行一次。</span><span class="sxs-lookup"><span data-stu-id="8457a-147">Can be used to ensure that initialization work is only performed once.</span></span>
+* <span data-ttu-id="43e02-146">在第一次呈现组件实例时设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="43e02-146">Is set to `true` the first time that the component instance is rendered.</span></span>
+* <span data-ttu-id="43e02-147">可用于确保初始化操作仅执行一次。</span><span class="sxs-lookup"><span data-stu-id="43e02-147">Can be used to ensure that initialization work is only performed once.</span></span>
 
 ```csharp
 protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -134,9 +134,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="8457a-148">呈现后立即进行的异步操作必须在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 生命周期事件期间发生。</span><span class="sxs-lookup"><span data-stu-id="8457a-148">Asynchronous work immediately after rendering must occur during the <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> lifecycle event.</span></span>
+> <span data-ttu-id="43e02-148">呈现后立即进行的异步操作必须在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 生命周期事件期间发生。</span><span class="sxs-lookup"><span data-stu-id="43e02-148">Asynchronous work immediately after rendering must occur during the <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> lifecycle event.</span></span>
 >
-> <span data-ttu-id="8457a-149">即使从 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 返回 <xref:System.Threading.Tasks.Task>，框架也不会在任务完成后为组件再安排一个呈现循环。</span><span class="sxs-lookup"><span data-stu-id="8457a-149">Even if you return a <xref:System.Threading.Tasks.Task> from <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>, the framework doesn't schedule a further render cycle for your component once that task completes.</span></span> <span data-ttu-id="8457a-150">这是为了避免无限呈现循环。</span><span class="sxs-lookup"><span data-stu-id="8457a-150">This is to avoid an infinite render loop.</span></span> <span data-ttu-id="8457a-151">它与其他生命周期方法不同，后者在返回的任务完成后会再安排呈现循环。</span><span class="sxs-lookup"><span data-stu-id="8457a-151">It's different from the other lifecycle methods, which schedule a further render cycle once the returned task completes.</span></span>
+> <span data-ttu-id="43e02-149">即使从 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 返回 <xref:System.Threading.Tasks.Task>，框架也不会在任务完成后为组件再安排一个呈现循环。</span><span class="sxs-lookup"><span data-stu-id="43e02-149">Even if you return a <xref:System.Threading.Tasks.Task> from <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>, the framework doesn't schedule a further render cycle for your component once that task completes.</span></span> <span data-ttu-id="43e02-150">这是为了避免无限呈现循环。</span><span class="sxs-lookup"><span data-stu-id="43e02-150">This is to avoid an infinite render loop.</span></span> <span data-ttu-id="43e02-151">它与其他生命周期方法不同，后者在返回的任务完成后会再安排呈现循环。</span><span class="sxs-lookup"><span data-stu-id="43e02-151">It's different from the other lifecycle methods, which schedule a further render cycle once the returned task completes.</span></span>
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -148,13 +148,13 @@ protected override void OnAfterRender(bool firstRender)
 }
 ```
 
-<span data-ttu-id="8457a-152">*在服务器上进行预呈现时*未调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>。</span><span class="sxs-lookup"><span data-stu-id="8457a-152"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> *aren't called when prerendering on the server.*</span></span>
+<span data-ttu-id="43e02-152">*在服务器上进行预呈现时*未调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>。</span><span class="sxs-lookup"><span data-stu-id="43e02-152"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> *aren't called when prerendering on the server.*</span></span>
 
-<span data-ttu-id="8457a-153">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="8457a-153">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="8457a-154">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="8457a-154">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
+<span data-ttu-id="43e02-153">如果设置有事件处理程序，处置时会将其解除挂接。</span><span class="sxs-lookup"><span data-stu-id="43e02-153">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="43e02-154">有关详细信息，请参阅[使用 `IDisposable` 处置组件](#component-disposal-with-idisposable)部分。</span><span class="sxs-lookup"><span data-stu-id="43e02-154">For more information, see the [Component disposal with `IDisposable`](#component-disposal-with-idisposable) section.</span></span>
 
-### <a name="suppress-ui-refreshing"></a><span data-ttu-id="8457a-155">禁止 UI 刷新</span><span class="sxs-lookup"><span data-stu-id="8457a-155">Suppress UI refreshing</span></span>
+### <a name="suppress-ui-refreshing"></a><span data-ttu-id="43e02-155">禁止 UI 刷新</span><span class="sxs-lookup"><span data-stu-id="43e02-155">Suppress UI refreshing</span></span>
 
-<span data-ttu-id="8457a-156">替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 以禁止 UI 刷新。</span><span class="sxs-lookup"><span data-stu-id="8457a-156">Override <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> to suppress UI refreshing.</span></span> <span data-ttu-id="8457a-157">如果实现返回 `true`，则刷新 UI：</span><span class="sxs-lookup"><span data-stu-id="8457a-157">If the implementation returns `true`, the UI is refreshed:</span></span>
+<span data-ttu-id="43e02-156">替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 以禁止 UI 刷新。</span><span class="sxs-lookup"><span data-stu-id="43e02-156">Override <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> to suppress UI refreshing.</span></span> <span data-ttu-id="43e02-157">如果实现返回 `true`，则刷新 UI：</span><span class="sxs-lookup"><span data-stu-id="43e02-157">If the implementation returns `true`, the UI is refreshed:</span></span>
 
 ```csharp
 protected override bool ShouldRender()
@@ -165,79 +165,48 @@ protected override bool ShouldRender()
 }
 ```
 
-<span data-ttu-id="8457a-158">每次呈现组件时都会调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>。</span><span class="sxs-lookup"><span data-stu-id="8457a-158"><xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> is called each time the component is rendered.</span></span>
+<span data-ttu-id="43e02-158">每次呈现组件时都会调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>。</span><span class="sxs-lookup"><span data-stu-id="43e02-158"><xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> is called each time the component is rendered.</span></span>
 
-<span data-ttu-id="8457a-159">即使 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 被替代，组件也始终在最初呈现。</span><span class="sxs-lookup"><span data-stu-id="8457a-159">Even if <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> is overridden, the component is always initially rendered.</span></span>
+<span data-ttu-id="43e02-159">即使 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 被替代，组件也始终在最初呈现。</span><span class="sxs-lookup"><span data-stu-id="43e02-159">Even if <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> is overridden, the component is always initially rendered.</span></span>
 
-<span data-ttu-id="8457a-160">有关详细信息，请参阅 <xref:blazor/webassembly-performance-best-practices#avoid-unnecessary-component-renders>。</span><span class="sxs-lookup"><span data-stu-id="8457a-160">For more information, see <xref:blazor/webassembly-performance-best-practices#avoid-unnecessary-component-renders>.</span></span>
+<span data-ttu-id="43e02-160">有关详细信息，请参阅 <xref:blazor/webassembly-performance-best-practices#avoid-unnecessary-component-renders>。</span><span class="sxs-lookup"><span data-stu-id="43e02-160">For more information, see <xref:blazor/webassembly-performance-best-practices#avoid-unnecessary-component-renders>.</span></span>
 
-## <a name="state-changes"></a><span data-ttu-id="8457a-161">状态更改</span><span class="sxs-lookup"><span data-stu-id="8457a-161">State changes</span></span>
+## <a name="state-changes"></a><span data-ttu-id="43e02-161">状态更改</span><span class="sxs-lookup"><span data-stu-id="43e02-161">State changes</span></span>
 
-<span data-ttu-id="8457a-162"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 通知组件其状态已更改。</span><span class="sxs-lookup"><span data-stu-id="8457a-162"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> notifies the component that its state has changed.</span></span> <span data-ttu-id="8457a-163">如果适用，调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 会导致组件重新呈现。</span><span class="sxs-lookup"><span data-stu-id="8457a-163">When applicable, calling <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> causes the component to be rerendered.</span></span>
+<span data-ttu-id="43e02-162"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 通知组件其状态已更改。</span><span class="sxs-lookup"><span data-stu-id="43e02-162"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> notifies the component that its state has changed.</span></span> <span data-ttu-id="43e02-163">如果适用，调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 会导致组件重新呈现。</span><span class="sxs-lookup"><span data-stu-id="43e02-163">When applicable, calling <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> causes the component to be rerendered.</span></span>
 
-<span data-ttu-id="8457a-164">将自动为 <xref:Microsoft.AspNetCore.Components.EventCallback> 方法调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。</span><span class="sxs-lookup"><span data-stu-id="8457a-164"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> is called automatically for <xref:Microsoft.AspNetCore.Components.EventCallback> methods.</span></span> <span data-ttu-id="8457a-165">有关详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。</span><span class="sxs-lookup"><span data-stu-id="8457a-165">For more information, see <xref:blazor/components/event-handling#eventcallback>.</span></span>
+<span data-ttu-id="43e02-164">将自动为 <xref:Microsoft.AspNetCore.Components.EventCallback> 方法调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。</span><span class="sxs-lookup"><span data-stu-id="43e02-164"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> is called automatically for <xref:Microsoft.AspNetCore.Components.EventCallback> methods.</span></span> <span data-ttu-id="43e02-165">有关详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。</span><span class="sxs-lookup"><span data-stu-id="43e02-165">For more information, see <xref:blazor/components/event-handling#eventcallback>.</span></span>
 
-## <a name="handle-incomplete-async-actions-at-render"></a><span data-ttu-id="8457a-166">处理呈现时的不完整异步操作</span><span class="sxs-lookup"><span data-stu-id="8457a-166">Handle incomplete async actions at render</span></span>
+## <a name="handle-incomplete-async-actions-at-render"></a><span data-ttu-id="43e02-166">处理呈现时的不完整异步操作</span><span class="sxs-lookup"><span data-stu-id="43e02-166">Handle incomplete async actions at render</span></span>
 
-<span data-ttu-id="8457a-167">在呈现组件之前，在生命周期事件中执行的异步操作可能尚未完成。</span><span class="sxs-lookup"><span data-stu-id="8457a-167">Asynchronous actions performed in lifecycle events might not have completed before the component is rendered.</span></span> <span data-ttu-id="8457a-168">执行生命周期方法时，对象可能为 `null` 或未完全填充数据。</span><span class="sxs-lookup"><span data-stu-id="8457a-168">Objects might be `null` or incompletely populated with data while the lifecycle method is executing.</span></span> <span data-ttu-id="8457a-169">提供呈现逻辑以确认对象已初始化。</span><span class="sxs-lookup"><span data-stu-id="8457a-169">Provide rendering logic to confirm that objects are initialized.</span></span> <span data-ttu-id="8457a-170">对象为 `null` 时，呈现占位符 UI 元素（例如，加载消息）。</span><span class="sxs-lookup"><span data-stu-id="8457a-170">Render placeholder UI elements (for example, a loading message) while objects are `null`.</span></span>
+<span data-ttu-id="43e02-167">在呈现组件之前，在生命周期事件中执行的异步操作可能尚未完成。</span><span class="sxs-lookup"><span data-stu-id="43e02-167">Asynchronous actions performed in lifecycle events might not have completed before the component is rendered.</span></span> <span data-ttu-id="43e02-168">执行生命周期方法时，对象可能为 `null` 或未完全填充数据。</span><span class="sxs-lookup"><span data-stu-id="43e02-168">Objects might be `null` or incompletely populated with data while the lifecycle method is executing.</span></span> <span data-ttu-id="43e02-169">提供呈现逻辑以确认对象已初始化。</span><span class="sxs-lookup"><span data-stu-id="43e02-169">Provide rendering logic to confirm that objects are initialized.</span></span> <span data-ttu-id="43e02-170">对象为 `null` 时，呈现占位符 UI 元素（例如，加载消息）。</span><span class="sxs-lookup"><span data-stu-id="43e02-170">Render placeholder UI elements (for example, a loading message) while objects are `null`.</span></span>
 
-<span data-ttu-id="8457a-171">在 Blazor 模板的 `FetchData` 组件中，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 以异步接收预测数据 (`forecasts`)。</span><span class="sxs-lookup"><span data-stu-id="8457a-171">In the `FetchData` component of the Blazor templates, <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> is overridden to asychronously receive forecast data (`forecasts`).</span></span> <span data-ttu-id="8457a-172">当 `forecasts` 为 `null` 时，将向用户显示加载消息。</span><span class="sxs-lookup"><span data-stu-id="8457a-172">When `forecasts` is `null`, a loading message is displayed to the user.</span></span> <span data-ttu-id="8457a-173"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 返回的 `Task` 完成后，该组件以更新后的状态重新呈现。</span><span class="sxs-lookup"><span data-stu-id="8457a-173">After the `Task` returned by <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> completes, the component is rerendered with the updated state.</span></span>
+<span data-ttu-id="43e02-171">在 Blazor 模板的 `FetchData` 组件中，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 以异步接收预测数据 (`forecasts`)。</span><span class="sxs-lookup"><span data-stu-id="43e02-171">In the `FetchData` component of the Blazor templates, <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> is overridden to asychronously receive forecast data (`forecasts`).</span></span> <span data-ttu-id="43e02-172">当 `forecasts` 为 `null` 时，将向用户显示加载消息。</span><span class="sxs-lookup"><span data-stu-id="43e02-172">When `forecasts` is `null`, a loading message is displayed to the user.</span></span> <span data-ttu-id="43e02-173"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 返回的 `Task` 完成后，该组件以更新后的状态重新呈现。</span><span class="sxs-lookup"><span data-stu-id="43e02-173">After the `Task` returned by <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> completes, the component is rerendered with the updated state.</span></span>
 
-<span data-ttu-id="8457a-174">Blazor Server 模板中的 `Pages/FetchData.razor`：</span><span class="sxs-lookup"><span data-stu-id="8457a-174">`Pages/FetchData.razor` in the Blazor Server template:</span></span>
+<span data-ttu-id="43e02-174">Blazor Server 模板中的 `Pages/FetchData.razor`：</span><span class="sxs-lookup"><span data-stu-id="43e02-174">`Pages/FetchData.razor` in the Blazor Server template:</span></span>
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
-## <a name="component-disposal-with-idisposable"></a><span data-ttu-id="8457a-175">使用 IDisposable 处置组件</span><span class="sxs-lookup"><span data-stu-id="8457a-175">Component disposal with IDisposable</span></span>
+## <a name="handle-errors"></a><span data-ttu-id="43e02-175">处理错误</span><span class="sxs-lookup"><span data-stu-id="43e02-175">Handle errors</span></span>
 
-<span data-ttu-id="8457a-176">如果组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时调用 [`Dispose` 方法](/dotnet/standard/garbage-collection/implementing-dispose)。</span><span class="sxs-lookup"><span data-stu-id="8457a-176">If a component implements <xref:System.IDisposable>, the [`Dispose` method](/dotnet/standard/garbage-collection/implementing-dispose) is called when the component is removed from the UI.</span></span> <span data-ttu-id="8457a-177">以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：</span><span class="sxs-lookup"><span data-stu-id="8457a-177">The following component uses `@implements IDisposable` and the `Dispose` method:</span></span>
+<span data-ttu-id="43e02-176">有关在生命周期方法执行期间处理错误的信息，请参阅 <xref:blazor/fundamentals/handle-errors#lifecycle-methods>。</span><span class="sxs-lookup"><span data-stu-id="43e02-176">For information on handling errors during lifecycle method execution, see <xref:blazor/fundamentals/handle-errors#lifecycle-methods>.</span></span>
 
-```razor
-@using System
-@implements IDisposable
+## <a name="stateful-reconnection-after-prerendering"></a><span data-ttu-id="43e02-177">预呈现后的有状态重新连接</span><span class="sxs-lookup"><span data-stu-id="43e02-177">Stateful reconnection after prerendering</span></span>
 
-...
+<span data-ttu-id="43e02-178">在 Blazor Server 应用中，当 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> 时，组件最初作为页面的一部分静态呈现。</span><span class="sxs-lookup"><span data-stu-id="43e02-178">In a Blazor Server app when <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> is <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered>, the component is initially rendered statically as part of the page.</span></span> <span data-ttu-id="43e02-179">浏览器重新建立与服务器的连接后，将*再次*呈现组件，并且该组件现在为交互式。</span><span class="sxs-lookup"><span data-stu-id="43e02-179">Once the browser establishes a connection back to the server, the component is rendered *again*, and the component is now interactive.</span></span> <span data-ttu-id="43e02-180">如果存在用于初始化组件的 [`OnInitialized{Async}`](#component-initialization-methods) 生命周期方法，则该方法执行两次：</span><span class="sxs-lookup"><span data-stu-id="43e02-180">If the [`OnInitialized{Async}`](#component-initialization-methods) lifecycle method for initializing the component is present, the method is executed *twice*:</span></span>
 
-@code {
-    public void Dispose()
-    {
-        ...
-    }
-}
-```
+* <span data-ttu-id="43e02-181">在静态预呈现组件时执行一次。</span><span class="sxs-lookup"><span data-stu-id="43e02-181">When the component is prerendered statically.</span></span>
+* <span data-ttu-id="43e02-182">在建立服务器连接后执行一次。</span><span class="sxs-lookup"><span data-stu-id="43e02-182">After the server connection has been established.</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="8457a-178">不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。</span><span class="sxs-lookup"><span data-stu-id="8457a-178">Calling <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> in `Dispose` isn't supported.</span></span> <span data-ttu-id="8457a-179"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。</span><span class="sxs-lookup"><span data-stu-id="8457a-179"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> might be invoked as part of tearing down the renderer, so requesting UI updates at that point isn't supported.</span></span>
+<span data-ttu-id="43e02-183">在最终呈现组件时，这可能导致 UI 中显示的数据发生明显变化。</span><span class="sxs-lookup"><span data-stu-id="43e02-183">This can result in a noticeable change in the data displayed in the UI when the component is finally rendered.</span></span>
 
-<span data-ttu-id="8457a-180">取消订阅 .NET 事件中的事件处理程序。</span><span class="sxs-lookup"><span data-stu-id="8457a-180">Unsubscribe event handlers from .NET events.</span></span> <span data-ttu-id="8457a-181">下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：</span><span class="sxs-lookup"><span data-stu-id="8457a-181">The following [Blazor form](xref:blazor/forms-validation) examples show how to unhook an event handler in the `Dispose` method:</span></span>
+<span data-ttu-id="43e02-184">若要避免 Blazor Server 应用中出现双重呈现，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="43e02-184">To avoid the double-rendering scenario in a Blazor Server app:</span></span>
 
-* <span data-ttu-id="8457a-182">专用字段和 Lambda 方法</span><span class="sxs-lookup"><span data-stu-id="8457a-182">Private field and lambda approach</span></span>
+* <span data-ttu-id="43e02-185">传递一个标识符，该标识符可用于在预呈现期间缓存状态并在应用重启后检索状态。</span><span class="sxs-lookup"><span data-stu-id="43e02-185">Pass in an identifier that can be used to cache the state during prerendering and to retrieve the state after the app restarts.</span></span>
+* <span data-ttu-id="43e02-186">在预呈现期间使用该标识符保存组件状态。</span><span class="sxs-lookup"><span data-stu-id="43e02-186">Use the identifier during prerendering to save component state.</span></span>
+* <span data-ttu-id="43e02-187">预呈现后使用该标识符检索缓存的状态。</span><span class="sxs-lookup"><span data-stu-id="43e02-187">Use the identifier after prerendering to retrieve the cached state.</span></span>
 
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
-
-* <span data-ttu-id="8457a-183">专用方法</span><span class="sxs-lookup"><span data-stu-id="8457a-183">Private method approach</span></span>
-
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
-
-## <a name="handle-errors"></a><span data-ttu-id="8457a-184">处理错误</span><span class="sxs-lookup"><span data-stu-id="8457a-184">Handle errors</span></span>
-
-<span data-ttu-id="8457a-185">有关在生命周期方法执行期间处理错误的信息，请参阅 <xref:blazor/fundamentals/handle-errors#lifecycle-methods>。</span><span class="sxs-lookup"><span data-stu-id="8457a-185">For information on handling errors during lifecycle method execution, see <xref:blazor/fundamentals/handle-errors#lifecycle-methods>.</span></span>
-
-## <a name="stateful-reconnection-after-prerendering"></a><span data-ttu-id="8457a-186">预呈现后的有状态重新连接</span><span class="sxs-lookup"><span data-stu-id="8457a-186">Stateful reconnection after prerendering</span></span>
-
-<span data-ttu-id="8457a-187">在 Blazor Server 应用中，当 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> 时，组件最初作为页面的一部分静态呈现。</span><span class="sxs-lookup"><span data-stu-id="8457a-187">In a Blazor Server app when <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> is <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered>, the component is initially rendered statically as part of the page.</span></span> <span data-ttu-id="8457a-188">浏览器重新建立与服务器的连接后，将*再次*呈现组件，并且该组件现在为交互式。</span><span class="sxs-lookup"><span data-stu-id="8457a-188">Once the browser establishes a connection back to the server, the component is rendered *again*, and the component is now interactive.</span></span> <span data-ttu-id="8457a-189">如果存在用于初始化组件的 [`OnInitialized{Async}`](#component-initialization-methods) 生命周期方法，则该方法执行两次：</span><span class="sxs-lookup"><span data-stu-id="8457a-189">If the [`OnInitialized{Async}`](#component-initialization-methods) lifecycle method for initializing the component is present, the method is executed *twice*:</span></span>
-
-* <span data-ttu-id="8457a-190">在静态预呈现组件时执行一次。</span><span class="sxs-lookup"><span data-stu-id="8457a-190">When the component is prerendered statically.</span></span>
-* <span data-ttu-id="8457a-191">在建立服务器连接后执行一次。</span><span class="sxs-lookup"><span data-stu-id="8457a-191">After the server connection has been established.</span></span>
-
-<span data-ttu-id="8457a-192">在最终呈现组件时，这可能导致 UI 中显示的数据发生明显变化。</span><span class="sxs-lookup"><span data-stu-id="8457a-192">This can result in a noticeable change in the data displayed in the UI when the component is finally rendered.</span></span>
-
-<span data-ttu-id="8457a-193">若要避免 Blazor Server 应用中出现双重呈现，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="8457a-193">To avoid the double-rendering scenario in a Blazor Server app:</span></span>
-
-* <span data-ttu-id="8457a-194">传递一个标识符，该标识符可用于在预呈现期间缓存状态并在应用重启后检索状态。</span><span class="sxs-lookup"><span data-stu-id="8457a-194">Pass in an identifier that can be used to cache the state during prerendering and to retrieve the state after the app restarts.</span></span>
-* <span data-ttu-id="8457a-195">在预呈现期间使用该标识符保存组件状态。</span><span class="sxs-lookup"><span data-stu-id="8457a-195">Use the identifier during prerendering to save component state.</span></span>
-* <span data-ttu-id="8457a-196">预呈现后使用该标识符检索缓存的状态。</span><span class="sxs-lookup"><span data-stu-id="8457a-196">Use the identifier after prerendering to retrieve the cached state.</span></span>
-
-<span data-ttu-id="8457a-197">以下代码演示基于模板的 Blazor Server 应用中更新后的 `WeatherForecastService`，其避免了双重呈现：</span><span class="sxs-lookup"><span data-stu-id="8457a-197">The following code demonstrates an updated `WeatherForecastService` in a template-based Blazor Server app that avoids the double rendering:</span></span>
+<span data-ttu-id="43e02-188">以下代码演示基于模板的 Blazor Server 应用中更新后的 `WeatherForecastService`，其避免了双重呈现：</span><span class="sxs-lookup"><span data-stu-id="43e02-188">The following code demonstrates an updated `WeatherForecastService` in a template-based Blazor Server app that avoids the double rendering:</span></span>
 
 ```csharp
 public class WeatherForecastService
@@ -280,34 +249,65 @@ public class WeatherForecastService
 }
 ```
 
-<span data-ttu-id="8457a-198">有关 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 的详细信息，请参阅 <xref:blazor/fundamentals/additional-scenarios#render-mode>。</span><span class="sxs-lookup"><span data-stu-id="8457a-198">For more information on the <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode>, see <xref:blazor/fundamentals/additional-scenarios#render-mode>.</span></span>
+<span data-ttu-id="43e02-189">有关 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 的详细信息，请参阅 <xref:blazor/fundamentals/additional-scenarios#render-mode>。</span><span class="sxs-lookup"><span data-stu-id="43e02-189">For more information on the <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode>, see <xref:blazor/fundamentals/additional-scenarios#render-mode>.</span></span>
 
-## <a name="detect-when-the-app-is-prerendering"></a><span data-ttu-id="8457a-199">检测应用何时预呈现</span><span class="sxs-lookup"><span data-stu-id="8457a-199">Detect when the app is prerendering</span></span>
+## <a name="detect-when-the-app-is-prerendering"></a><span data-ttu-id="43e02-190">检测应用何时预呈现</span><span class="sxs-lookup"><span data-stu-id="43e02-190">Detect when the app is prerendering</span></span>
 
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
-## <a name="cancelable-background-work"></a><span data-ttu-id="8457a-200">可取消的后台工作</span><span class="sxs-lookup"><span data-stu-id="8457a-200">Cancelable background work</span></span>
+## <a name="component-disposal-with-idisposable"></a><span data-ttu-id="43e02-191">使用 IDisposable 处置组件</span><span class="sxs-lookup"><span data-stu-id="43e02-191">Component disposal with IDisposable</span></span>
 
-<span data-ttu-id="8457a-201">组件通常会执行长时间运行的后台工作，如进行网络调用 (<xref:System.Net.Http.HttpClient>) 以及与数据库交互。</span><span class="sxs-lookup"><span data-stu-id="8457a-201">Components often perform long-running background work, such as making network calls (<xref:System.Net.Http.HttpClient>) and interacting with databases.</span></span> <span data-ttu-id="8457a-202">在几种情况下，最好停止后台工作以节省系统资源。</span><span class="sxs-lookup"><span data-stu-id="8457a-202">It's desirable to stop the background work to conserve system resources in several situations.</span></span> <span data-ttu-id="8457a-203">例如，当用户离开组件时，后台异步操作不会自动停止。</span><span class="sxs-lookup"><span data-stu-id="8457a-203">For example, background asynchronous operations don't automatically stop when a user navigates away from a component.</span></span>
+<span data-ttu-id="43e02-192">如果组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时调用 [`Dispose` 方法](/dotnet/standard/garbage-collection/implementing-dispose)。</span><span class="sxs-lookup"><span data-stu-id="43e02-192">If a component implements <xref:System.IDisposable>, the [`Dispose` method](/dotnet/standard/garbage-collection/implementing-dispose) is called when the component is removed from the UI.</span></span> <span data-ttu-id="43e02-193">可随时进行处置，包括在[组件初始化](#component-initialization-methods)期间。</span><span class="sxs-lookup"><span data-stu-id="43e02-193">Disposal can occur at any time, including during [component initialization](#component-initialization-methods).</span></span> <span data-ttu-id="43e02-194">以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：</span><span class="sxs-lookup"><span data-stu-id="43e02-194">The following component uses `@implements IDisposable` and the `Dispose` method:</span></span>
 
-<span data-ttu-id="8457a-204">后台工作项可能需要取消的其他原因包括：</span><span class="sxs-lookup"><span data-stu-id="8457a-204">Other reasons why background work items might require cancellation include:</span></span>
+```razor
+@using System
+@implements IDisposable
 
-* <span data-ttu-id="8457a-205">正在执行的后台任务由错误的输入数据或处理参数启动。</span><span class="sxs-lookup"><span data-stu-id="8457a-205">An executing background task was started with faulty input data or processing parameters.</span></span>
-* <span data-ttu-id="8457a-206">正在执行的一组后台工作项必须替换为一组新的工作项。</span><span class="sxs-lookup"><span data-stu-id="8457a-206">The current set of executing background work items must be replaced with a new set of work items.</span></span>
-* <span data-ttu-id="8457a-207">必须更改当前正在执行的任务的优先级。</span><span class="sxs-lookup"><span data-stu-id="8457a-207">The priority of currently executing tasks must be changed.</span></span>
-* <span data-ttu-id="8457a-208">必须关闭应用才能将其重新部署到服务器。</span><span class="sxs-lookup"><span data-stu-id="8457a-208">The app has to be shut down in order to redeploy it to the server.</span></span>
-* <span data-ttu-id="8457a-209">服务器资源受到限制，需要重新计划后台工作项。</span><span class="sxs-lookup"><span data-stu-id="8457a-209">Server resources become limited, necessitating the rescheduling of background work items.</span></span>
+...
 
-<span data-ttu-id="8457a-210">要在组件中实现可取消的后台工作模式：</span><span class="sxs-lookup"><span data-stu-id="8457a-210">To implement a cancelable background work pattern in a component:</span></span>
+@code {
+    public void Dispose()
+    {
+        ...
+    }
+}
+```
 
-* <span data-ttu-id="8457a-211">使用 <xref:System.Threading.CancellationTokenSource> 和 <xref:System.Threading.CancellationToken>。</span><span class="sxs-lookup"><span data-stu-id="8457a-211">Use a <xref:System.Threading.CancellationTokenSource> and <xref:System.Threading.CancellationToken>.</span></span>
-* <span data-ttu-id="8457a-212">在[释放组件](#component-disposal-with-idisposable)时，以及需要随时通过手动取消标记进行取消时，请调用 [`CancellationTokenSource.Cancel`](xref:System.Threading.CancellationTokenSource.Cancel%2A) 以指示应取消后台工作。</span><span class="sxs-lookup"><span data-stu-id="8457a-212">On [disposal of the component](#component-disposal-with-idisposable) and at any point cancellation is desired by manually cancelling the token, call [`CancellationTokenSource.Cancel`](xref:System.Threading.CancellationTokenSource.Cancel%2A) to signal that the background work should be cancelled.</span></span>
-* <span data-ttu-id="8457a-213">异步调用返回后，对该标记调用 <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A>。</span><span class="sxs-lookup"><span data-stu-id="8457a-213">After the asynchronous call returns, call <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A> on the token.</span></span>
+> [!NOTE]
+> <span data-ttu-id="43e02-195">不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。</span><span class="sxs-lookup"><span data-stu-id="43e02-195">Calling <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> in `Dispose` isn't supported.</span></span> <span data-ttu-id="43e02-196"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。</span><span class="sxs-lookup"><span data-stu-id="43e02-196"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> might be invoked as part of tearing down the renderer, so requesting UI updates at that point isn't supported.</span></span>
 
-<span data-ttu-id="8457a-214">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="8457a-214">In the following example:</span></span>
+<span data-ttu-id="43e02-197">取消订阅 .NET 事件中的事件处理程序。</span><span class="sxs-lookup"><span data-stu-id="43e02-197">Unsubscribe event handlers from .NET events.</span></span> <span data-ttu-id="43e02-198">下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：</span><span class="sxs-lookup"><span data-stu-id="43e02-198">The following [Blazor form](xref:blazor/forms-validation) examples show how to unhook an event handler in the `Dispose` method:</span></span>
 
-* <span data-ttu-id="8457a-215">`await Task.Delay(5000, cts.Token);` 表示长时间运行的异步后台工作。</span><span class="sxs-lookup"><span data-stu-id="8457a-215">`await Task.Delay(5000, cts.Token);` represents long-running asynchronous background work.</span></span>
-* <span data-ttu-id="8457a-216">`BackgroundResourceMethod` 表示如果在调用方法之前释放 `Resource`，则不应启动的长时间运行的后台方法。</span><span class="sxs-lookup"><span data-stu-id="8457a-216">`BackgroundResourceMethod` represents a long-running background method that shouldn't start if the `Resource` is disposed before the method is called.</span></span>
+* <span data-ttu-id="43e02-199">专用字段和 Lambda 方法</span><span class="sxs-lookup"><span data-stu-id="43e02-199">Private field and lambda approach</span></span>
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+
+* <span data-ttu-id="43e02-200">专用方法</span><span class="sxs-lookup"><span data-stu-id="43e02-200">Private method approach</span></span>
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
+
+## <a name="cancelable-background-work"></a><span data-ttu-id="43e02-201">可取消的后台工作</span><span class="sxs-lookup"><span data-stu-id="43e02-201">Cancelable background work</span></span>
+
+<span data-ttu-id="43e02-202">组件通常会执行长时间运行的后台工作，如进行网络调用 (<xref:System.Net.Http.HttpClient>) 以及与数据库交互。</span><span class="sxs-lookup"><span data-stu-id="43e02-202">Components often perform long-running background work, such as making network calls (<xref:System.Net.Http.HttpClient>) and interacting with databases.</span></span> <span data-ttu-id="43e02-203">在几种情况下，最好停止后台工作以节省系统资源。</span><span class="sxs-lookup"><span data-stu-id="43e02-203">It's desirable to stop the background work to conserve system resources in several situations.</span></span> <span data-ttu-id="43e02-204">例如，当用户离开组件时，后台异步操作不会自动停止。</span><span class="sxs-lookup"><span data-stu-id="43e02-204">For example, background asynchronous operations don't automatically stop when a user navigates away from a component.</span></span>
+
+<span data-ttu-id="43e02-205">后台工作项可能需要取消的其他原因包括：</span><span class="sxs-lookup"><span data-stu-id="43e02-205">Other reasons why background work items might require cancellation include:</span></span>
+
+* <span data-ttu-id="43e02-206">正在执行的后台任务由错误的输入数据或处理参数启动。</span><span class="sxs-lookup"><span data-stu-id="43e02-206">An executing background task was started with faulty input data or processing parameters.</span></span>
+* <span data-ttu-id="43e02-207">正在执行的一组后台工作项必须替换为一组新的工作项。</span><span class="sxs-lookup"><span data-stu-id="43e02-207">The current set of executing background work items must be replaced with a new set of work items.</span></span>
+* <span data-ttu-id="43e02-208">必须更改当前正在执行的任务的优先级。</span><span class="sxs-lookup"><span data-stu-id="43e02-208">The priority of currently executing tasks must be changed.</span></span>
+* <span data-ttu-id="43e02-209">必须关闭应用才能将其重新部署到服务器。</span><span class="sxs-lookup"><span data-stu-id="43e02-209">The app has to be shut down in order to redeploy it to the server.</span></span>
+* <span data-ttu-id="43e02-210">服务器资源受到限制，需要重新计划后台工作项。</span><span class="sxs-lookup"><span data-stu-id="43e02-210">Server resources become limited, necessitating the rescheduling of background work items.</span></span>
+
+<span data-ttu-id="43e02-211">要在组件中实现可取消的后台工作模式：</span><span class="sxs-lookup"><span data-stu-id="43e02-211">To implement a cancelable background work pattern in a component:</span></span>
+
+* <span data-ttu-id="43e02-212">使用 <xref:System.Threading.CancellationTokenSource> 和 <xref:System.Threading.CancellationToken>。</span><span class="sxs-lookup"><span data-stu-id="43e02-212">Use a <xref:System.Threading.CancellationTokenSource> and <xref:System.Threading.CancellationToken>.</span></span>
+* <span data-ttu-id="43e02-213">在[释放组件](#component-disposal-with-idisposable)时，以及需要随时通过手动取消标记进行取消时，请调用 [`CancellationTokenSource.Cancel`](xref:System.Threading.CancellationTokenSource.Cancel%2A) 以指示应取消后台工作。</span><span class="sxs-lookup"><span data-stu-id="43e02-213">On [disposal of the component](#component-disposal-with-idisposable) and at any point cancellation is desired by manually cancelling the token, call [`CancellationTokenSource.Cancel`](xref:System.Threading.CancellationTokenSource.Cancel%2A) to signal that the background work should be cancelled.</span></span>
+* <span data-ttu-id="43e02-214">异步调用返回后，对该标记调用 <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A>。</span><span class="sxs-lookup"><span data-stu-id="43e02-214">After the asynchronous call returns, call <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A> on the token.</span></span>
+
+<span data-ttu-id="43e02-215">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="43e02-215">In the following example:</span></span>
+
+* <span data-ttu-id="43e02-216">`await Task.Delay(5000, cts.Token);` 表示长时间运行的异步后台工作。</span><span class="sxs-lookup"><span data-stu-id="43e02-216">`await Task.Delay(5000, cts.Token);` represents long-running asynchronous background work.</span></span>
+* <span data-ttu-id="43e02-217">`BackgroundResourceMethod` 表示如果在调用方法之前释放 `Resource`，则不应启动的长时间运行的后台方法。</span><span class="sxs-lookup"><span data-stu-id="43e02-217">`BackgroundResourceMethod` represents a long-running background method that shouldn't start if the `Resource` is disposed before the method is called.</span></span>
 
 ```razor
 @implements IDisposable
