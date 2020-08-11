@@ -1,5 +1,5 @@
 ---
-title: 在 ASP.NET Core 依赖注入
+title: ASP.NET Core 依赖注入
 author: rick-anderson
 description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 2074aa75029cf27922b43545ec18c0cd8a50eb02
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: fcfa9e93228cdf71b33e67aeab38fdd9a3295b75
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793345"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819212"
 ---
-# <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
+# <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core 依赖注入
 
 作者：[Steve Smith](https://ardalis.com/)、[Scott Addie](https://scottaddie.com) 和 [Brandon Dahler](https://github.com/brandondahler)
 
@@ -36,7 +36,7 @@ ASP.NET Core 支持依赖关系注入 (DI) 软件设计模式，这是一种在�
 
 ## <a name="overview-of-dependency-injection"></a>依赖关系注入概述
 
-依赖项是另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
+依赖项是指另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
 
 ```csharp
 public class MyDependency
@@ -70,7 +70,7 @@ public class IndexModel : PageModel
 }
 ```
 
-该类创建并直接依赖于 `MyDependency` 实例。 代码依赖关系（如前面的示例）存在问题，应该避免使用，原因如下：
+该类创建并直接依赖于 `MyDependency` 实例。 代码依赖关系（如前面的示例）会产生问题，应避免使用，原因如下：
 
 * 要用不同的实现替换 `MyDependency`，必须修改类。
 * 如果 `MyDependency` 具有依赖关系，则必须由类对其进行配置。 在具有多个依赖于 `MyDependency` 的类的大型项目中，配置代码在整个应用中会变得分散。
@@ -78,9 +78,9 @@ public class IndexModel : PageModel
 
 依赖关系注入通过以下方式解决了这些问题：
 
-* 使用接口或基类抽象化依赖关系实现。
-* 注册服务容器中的依赖关系。 ASP.NET Core 提供了一个内置的服务容器 <xref:System.IServiceProvider>。 服务已在应用的 `Startup.ConfigureServices` 方法中注册。
-* 将服务注入到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时对其进行处理。
+* 使用接口或基类将依赖关系实现抽象化。
+* 在服务容器中注册依赖关系。 ASP.NET Core 提供了一个内置的服务容器 <xref:System.IServiceProvider>。 服务已在应用的 `Startup.ConfigureServices` 方法中注册。
+* 将服务注入到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时将其释放。
 
 在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
 
@@ -129,7 +129,7 @@ public class MyDependency : IMyDependency
 
 [!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3,6,13,29-30)]
 
-## <a name="services-injected-into-startup"></a>注入启动的服务
+## <a name="services-injected-into-startup"></a>注入 Startup 的服务
 
 使用泛型主机 (<xref:Microsoft.Extensions.Hosting.IHostBuilder>) 时，只能将以下服务类型注入 `Startup` 构造函数：
 
@@ -150,7 +150,7 @@ public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
 
 ## <a name="framework-provided-services"></a>框架提供的服务
 
-`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 具有框架定义的服务（具体取决于[主机配置方式](xref:fundamentals/index#host)）。 基于 ASP.NET Core 模板的应用程序具有框架注册的数百个服务的情况并不少见。 下表列出了框架注册的服务的一个小示例。
+`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 具有框架定义的服务（具体取决于[主机配置方式](xref:fundamentals/index#host)）。 基于 ASP.NET Core 模板的应用程序具有框架注册的数百个服务的情况并不少见。 下表列出了框架注册的服务的一小部分。
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
@@ -201,7 +201,7 @@ public void ConfigureServices(IServiceCollection services)
 
 在处理请求的应用中，在请求结束时会释放临时服务。
 
-### <a name="scoped"></a>范围内
+### <a name="scoped"></a>作用域
 
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 以每个客户端请求（连接）一次的方式创建。
 
@@ -212,7 +212,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="singleton"></a>单例
 
-单一实例生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要实现单一实例设计模式并提供用户代码来管理对象在类中的生存期。
+单一实例生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要在类中实现单一实例设计模式并提供用户代码来管理对象的生存期。
 
 在处理请求的应用中，在应用关闭，释放 <xref:Microsoft.Extensions.DependencyInjection.ServiceProvider> 时，会释放单一实例服务。
 
@@ -273,7 +273,7 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 * <xref:System.IServiceProvider>
 * <xref:Microsoft.Extensions.DependencyInjection.ActivatorUtilities>：允许在依赖关系注入容器中创建没有服务注册的对象。 `ActivatorUtilities` 用于面向用户的抽象，例如标记帮助器、MVC 控制器和模型绑定器。
 
-构造函数可以接受依赖关系注入不提供的参数，但参数必须分配默认值。
+构造函数可以接受非依赖关系注入提供的参数，但参数必须分配默认值。
 
 当服务由 `IServiceProvider` 或 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)需要 public 构造函数。
 
@@ -307,7 +307,7 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 `IOperationSingletonInstance` 服务正在使用已知 ID 为 `Guid.Empty` 的特定实例。 此类型在使用时很明显（其 GUID 全部为零）。
 
-示例应用演示了各个请求中和之间的对象生存期。 示例应用的 `IndexModel` 请求每种 `IOperation` 类型和 `OperationService`。 然后，页面通过属性分配显示所有页面模型类和服务的 `OperationId` 值：
+示例应用演示了各个请求中和请求之间的对象生存期。 示例应用的 `IndexModel` 请求每种 `IOperation` 类型和 `OperationService`。 然后，页面通过属性分配显示所有页面模型类和服务的 `OperationId` 值：
 
 [!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=7-11,14-18,21-25)]
 
@@ -405,7 +405,7 @@ public class Program
 
 调用 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider*> 时创建根服务提供程序。 在启动提供程序和应用时，根服务提供程序的生存期对应于应用/服务的生存期，并在关闭应用时释放。
 
-有作用域的服务由创建它们的容器释放。 如果作用域创建于根容器，则该服务的生存会有效地提升至单一实例，因为根容器只会在应用/服务关闭时将其释放。 验证服务作用域，将在调用 `BuildServiceProvider` 时收集这类情况。
+有作用域的服务由创建它们的容器释放。 如果作用域服务创建于根容器，则该服务的生存期会实际上提升至单一实例，因为根容器只会在应用/服务关闭时将其释放。 验证服务作用域，将在调用 `BuildServiceProvider` 时收集这类情况。
 
 有关详细信息，请参阅 <xref:fundamentals/host/web-host#scope-validation>。
 
@@ -433,9 +433,9 @@ ASP.NET Core 为每个请求创建一个范围，`RequestServices` 公开范围�
 
 如果一个类似乎有过多的注入依赖关系，这通常表明该类拥有过多的责任并且违反了[单一责任原则 (SRP)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#single-responsibility)。 尝试通过将某些职责移动到一个新类来重构类。 请记住，Razor Pages 页面模型类和 MVC 控制器类应关注用户界面问题。 业务规则和数据访问实现细节应保留在适用于这些[分离的关注点](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)的类中。
 
-### <a name="disposal-of-services"></a>服务处理
+### <a name="disposal-of-services"></a>服务释放
 
-容器为其创建的 <xref:System.IDisposable> 类型调用 <xref:System.IDisposable.Dispose*>。 如果通过用户代码将实例添加到容器中，则不会自动处理该实例。
+容器为其创建的 <xref:System.IDisposable> 类型调用 <xref:System.IDisposable.Dispose*>。 如果实例是通过用户代码添加到容器中，则不会自动释放该实例。
 
 在下面的示例中，服务由服务容器创建，并自动处理：
 
@@ -454,12 +454,12 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如下示例中：
+在下面的示例中：
 
 * 服务实例不是由服务容器创建的。
 * 框架不知道预期的服务生存期。
-* 框架不会自动处理服务。
-* 服务如果未通过开发者代码显式处理，则会一直保留，直到应用关闭。
+* 框架不会自动释放服务。
+* 服务如果未通过开发者代码显式释放，则会一直保留，直到应用关闭。
 
 ```csharp
 public class Service1 : IDisposable {}
@@ -530,7 +530,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="thread-safety"></a>线程安全
 
-创建线程安全的单一实例服务。 如果单例服务依赖于一个瞬时服务，那么瞬时服务可能也需要线程安全，具体取决于单例使用它的方式。
+创建线程安全的单一实例服务。 如果单例服务依赖于一个暂时服务，那么暂时服务可能也需要线程安全，具体取决于单例使用它的方式。
 
 单个服务的工厂方法（例如 [AddSingleton\<TService>(IServiceCollection, Func\<IServiceProvider,TService>)](xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*) 的第二个参数）不必是线程安全的。 像类型 (`static`) 构造函数一样，它保证由单个线程调用一次。
 
@@ -581,15 +581,15 @@ public void ConfigureServices(IServiceCollection services)
   }
   ```
 
-* 要避免的另一个服务定位器变体是注入可在运行时解析依赖项的工厂。 这两种做法混合了[控制反转](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#dependency-inversion)策略。
+* 要避免的另一个服务定位器变体是注入需在运行时解析依赖项的工厂。 这两种做法混合了[控制反转](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#dependency-inversion)策略。
 
 * 避免静态访问 `HttpContext`（例如，[IHttpContextAccessor.HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext)）。
 
 像任何一组建议一样，你可能会遇到需要忽略某建议的情况。 例外情况很少见，主要是框架本身内部的特殊情况。
 
-DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对象访问混合使用，则可能无法实现 DI 的优点。
+DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对象访问混合使用，则可能无法意识到 DI 的优点。
 
-## <a name="recommended-patterns-for-multi-tenancy-in-di"></a>DI 中多租户的推荐模式
+## <a name="recommended-patterns-for-multi-tenancy-in-di"></a>DI 中适用于多租户的推荐模式
 
 [Orchard Core](https://github.com/OrchardCMS/OrchardCore) 提供多租户。 有关详细信息，请参阅 [Orchard Core 文档](https://docs.orchardcore.net/en/dev/)。
 
@@ -621,7 +621,7 @@ ASP.NET Core 支持依赖关系注入 (DI) 软件设计模式，这是一种在�
 
 ## <a name="overview-of-dependency-injection"></a>依赖关系注入概述
 
-依赖项是另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
+依赖项是指另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
 
 ```csharp
 public class MyDependency
@@ -655,7 +655,7 @@ public class IndexModel : PageModel
 }
 ```
 
-该类创建并直接依赖于 `MyDependency` 实例。 代码依赖关系（如前面的示例）存在问题，应该避免使用，原因如下：
+该类创建并直接依赖于 `MyDependency` 实例。 代码依赖关系（如前面的示例）会产生问题，应避免使用，原因如下：
 
 * 要用不同的实现替换 `MyDependency`，必须修改类。
 * 如果 `MyDependency` 具有依赖关系，则必须由类对其进行配置。 在具有多个依赖于 `MyDependency` 的类的大型项目中，配置代码在整个应用中会变得分散。
@@ -663,9 +663,9 @@ public class IndexModel : PageModel
 
 依赖关系注入通过以下方式解决了这些问题：
 
-* 使用接口或基类抽象化依赖关系实现。
-* 注册服务容器中的依赖关系。 ASP.NET Core 提供了一个内置的服务容器 <xref:System.IServiceProvider>。 服务已在应用的 `Startup.ConfigureServices` 方法中注册。
-* 将服务注入到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时对其进行处理。
+* 使用接口或基类将依赖关系实现抽象化。
+* 在服务容器中注册依赖关系。 ASP.NET Core 提供了一个内置的服务容器 <xref:System.IServiceProvider>。 服务已在应用的 `Startup.ConfigureServices` 方法中注册。
+* 将服务注入到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时将其释放。
 
 在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
 
@@ -714,7 +714,7 @@ public class MyDependency : IMyDependency
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3,6,13,29-30)]
 
-## <a name="services-injected-into-startup"></a>注入启动的服务
+## <a name="services-injected-into-startup"></a>注入 Startup 的服务
 
 使用泛型主机 (<xref:Microsoft.Extensions.Hosting.IHostBuilder>) 时，只能将以下服务类型注入 `Startup` 构造函数：
 
@@ -735,7 +735,7 @@ public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
 
 ## <a name="framework-provided-services"></a>框架提供的服务
 
-`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 具有框架定义的服务（具体取决于[主机配置方式](xref:fundamentals/index#host)）。 基于 ASP.NET Core 模板的应用程序具有框架注册的数百个服务的情况并不少见。 下表列出了框架注册的服务的一个小示例。
+`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 具有框架定义的服务（具体取决于[主机配置方式](xref:fundamentals/index#host)）。 基于 ASP.NET Core 模板的应用程序具有框架注册的数百个服务的情况并不少见。 下表列出了框架注册的服务的一小部分。
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
@@ -786,7 +786,7 @@ public void ConfigureServices(IServiceCollection services)
 
 在处理请求的应用中，在请求结束时会释放临时服务。
 
-### <a name="scoped"></a>范围内
+### <a name="scoped"></a>作用域
 
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 以每个客户端请求（连接）一次的方式创建。
 
@@ -797,7 +797,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="singleton"></a>单例
 
-单一实例生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要实现单一实例设计模式并提供用户代码来管理对象在类中的生存期。
+单一实例生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要在类中实现单一实例设计模式并提供用户代码来管理对象的生存期。
 
 在处理请求的应用中，在应用关闭，释放 <xref:Microsoft.Extensions.DependencyInjection.ServiceProvider> 时，会释放单一实例服务。
 
@@ -858,7 +858,7 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 * <xref:System.IServiceProvider>
 * <xref:Microsoft.Extensions.DependencyInjection.ActivatorUtilities>：允许在依赖关系注入容器中创建没有服务注册的对象。 `ActivatorUtilities` 用于面向用户的抽象，例如标记帮助器、MVC 控制器和模型绑定器。
 
-构造函数可以接受依赖关系注入不提供的参数，但参数必须分配默认值。
+构造函数可以接受非依赖关系注入提供的参数，但参数必须分配默认值。
 
 当服务由 `IServiceProvider` 或 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)需要 public 构造函数。
 
@@ -892,7 +892,7 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 `IOperationSingletonInstance` 服务正在使用已知 ID 为 `Guid.Empty` 的特定实例。 此类型在使用时很明显（其 GUID 全部为零）。
 
-示例应用演示了各个请求中和之间的对象生存期。 示例应用的 `IndexModel` 请求每种 `IOperation` 类型和 `OperationService`。 然后，页面通过属性分配显示所有页面模型类和服务的 `OperationId` 值：
+示例应用演示了各个请求中和请求之间的对象生存期。 示例应用的 `IndexModel` 请求每种 `IOperation` 类型和 `OperationService`。 然后，页面通过属性分配显示所有页面模型类和服务的 `OperationId` 值：
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=7-11,14-18,21-25)]
 
@@ -988,7 +988,7 @@ public class Program
 
 调用 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider*> 时创建根服务提供程序。 在启动提供程序和应用时，根服务提供程序的生存期对应于应用/服务的生存期，并在关闭应用时释放。
 
-有作用域的服务由创建它们的容器释放。 如果作用域创建于根容器，则该服务的生存会有效地提升至单一实例，因为根容器只会在应用/服务关闭时将其释放。 验证服务作用域，将在调用 `BuildServiceProvider` 时收集这类情况。
+有作用域的服务由创建它们的容器释放。 如果作用域服务创建于根容器，则该服务的生存期会实际上提升至单一实例，因为根容器只会在应用/服务关闭时将其释放。 验证服务作用域，将在调用 `BuildServiceProvider` 时收集这类情况。
 
 有关详细信息，请参阅 <xref:fundamentals/host/web-host#scope-validation>。
 
@@ -1014,9 +1014,9 @@ public class Program
 
 如果一个类似乎有过多的注入依赖关系，这通常表明该类拥有过多的责任并且违反了[单一责任原则 (SRP)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#single-responsibility)。 尝试通过将某些职责移动到一个新类来重构类。 请记住，Razor Pages 页面模型类和 MVC 控制器类应关注用户界面问题。 业务规则和数据访问实现细节应保留在适用于这些[分离的关注点](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)的类中。
 
-### <a name="disposal-of-services"></a>服务处理
+### <a name="disposal-of-services"></a>服务释放
 
-容器为其创建的 <xref:System.IDisposable> 类型调用 <xref:System.IDisposable.Dispose*>。 如果通过用户代码将实例添加到容器中，则不会自动处理该实例。
+容器为其创建的 <xref:System.IDisposable> 类型调用 <xref:System.IDisposable.Dispose*>。 如果实例是通过用户代码添加到容器中，则不会自动释放该实例。
 
 在下面的示例中，服务由服务容器创建，并自动处理：
 
@@ -1035,12 +1035,12 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如下示例中：
+在下面的示例中：
 
 * 服务实例不是由服务容器创建的。
 * 框架不知道预期的服务生存期。
-* 框架不会自动处理服务。
-* 服务如果未通过开发者代码显式处理，则会一直保留，直到应用关闭。
+* 框架不会自动释放服务。
+* 服务如果未通过开发者代码显式释放，则会一直保留，直到应用关闭。
 
 ```csharp
 public class Service1 : IDisposable {}
@@ -1111,7 +1111,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="thread-safety"></a>线程安全
 
-创建线程安全的单一实例服务。 如果单例服务依赖于一个瞬时服务，那么瞬时服务可能也需要线程安全，具体取决于单例使用它的方式。
+创建线程安全的单一实例服务。 如果单例服务依赖于一个暂时服务，那么暂时服务可能也需要线程安全，具体取决于单例使用它的方式。
 
 单个服务的工厂方法（例如 [AddSingleton\<TService>(IServiceCollection, Func\<IServiceProvider,TService>)](xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*) 的第二个参数）不必是线程安全的。 像类型 (`static`) 构造函数一样，它保证由单个线程调用一次。
 
@@ -1170,7 +1170,7 @@ public void ConfigureServices(IServiceCollection services)
 
 像任何一组建议一样，你可能会遇到需要忽略某建议的情况。 例外情况很少见，主要是框架本身内部的特殊情况。
 
-DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对象访问混合使用，则可能无法实现 DI 的优点。
+DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对象访问混合使用，则可能无法意识到 DI 的优点。
 
 ## <a name="additional-resources"></a>其他资源
 

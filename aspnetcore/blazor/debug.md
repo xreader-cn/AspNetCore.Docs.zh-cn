@@ -5,7 +5,7 @@ description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/27/2020
+ms.date: 07/30/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: b4199c3a99af5875c5d9a87f29f7c7e2758ffd71
-ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
+ms.openlocfilehash: cb0a8737fb975db285986d18b995e488f09580e8
+ms.sourcegitcommit: 37f6f2e13ceb4eae268d20973d76e4b83acf6a24
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/28/2020
-ms.locfileid: "87303555"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526285"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -245,3 +245,33 @@ Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://c
 * 在“调试程序”选项卡中，在浏览器中打开开发人员工具。 在控制台中，执行 `localStorage.clear()` 以删除所有断点。
 * 确认你已安装并信任 ASP.NET Core HTTPS 开发证书。 有关详细信息，请参阅 <xref:security/enforcing-ssl#troubleshoot-certificate-problems>。
 * Visual Studio 要求在“工具” > “选项” > “调试” > “常规”中选择“对 ASP.NET 启用 JavaScript 调试(Chrome、Edge 和 IE)”选项。 这是 Visual Studio 的默认设置。 如果调试不起作用，请确认已选中该选项。
+
+### <a name="breakpoints-in-oninitializedasync-not-hit"></a>`OnInitialized{Async}` 中的未命中断点
+
+Blazor 框架的调试代理需要一小段时间才能启动，因此 [`OnInitialized{Async}` 生命周期方法](xref:blazor/components/lifecycle#component-initialization-methods)中的断点可能不会命中。 建议在方法主体开头添加延迟，以便在命中断点之前，为调试代理指定一段时间来启动。 你可以根据 [`if` 编译器指令](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if)包括延迟，以确保应用的发布版本不存在延迟。
+
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>:
+
+```csharp
+protected override void OnInitialized()
+{
+#if DEBUG
+    Thread.Sleep(10000)
+#endif
+
+    ...
+}
+```
+
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>:
+
+```csharp
+protected override async Task OnInitializedAsync()
+{
+#if DEBUG
+    await Task.Delay(10000)
+#endif
+
+    ...
+}
+```

@@ -1,7 +1,7 @@
 ---
-title: 使用 Identity 服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
+title: 使用 Identity 服务器保护托管 ASP.NET Core Blazor WebAssembly 应用
 author: guardrex
-description: 创建新的 Blazor 托管应用，使其使用 [IdentityServer](https://identityserver.io/) 后端在 Visual Studio 中进行身份验证
+description: 创建新的托管 Blazor 解决方案，使其使用 [IdentityServer](https://identityserver.io/) 后端在 Visual Studio 中进行身份验证
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -15,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: a27d31345cfe6a4212e3c61d0d99ae6745eab052
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 87424f413ab21ae51fc1b1b2033069f5a41da566
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445172"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818880"
 ---
-# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>使用 Identity 服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-no-locidentity-server"></a>使用 Identity 服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)
 
-本文介绍如何创建一个新的 Blazor 托管应用，该应用使用 [IdentityServer](https://identityserver.io/) 以对用户和 API 调用进行身份验证。
+本文介绍如何创建一个新的托管 Blazor 解决方案，该应用使用 [IdentityServer](https://identityserver.io/) 以对用户和 API 调用进行身份验证。
 
 > [!NOTE]
 > 若要将独立或托管 Blazor WebAssembly 应用配置为使用现有的外部 Identity 服务器实例，请按照 <xref:blazor/security/webassembly/standalone-with-authentication-library> 中的指南操作。
@@ -107,7 +107,7 @@ dotnet new blazorwasm -au Individual -ho -o {APP NAME}
 
 * 在 `Startup.Configure`中：
 
-  * IdentityServer 中间件公开 Open ID Connect (OIDC) 终结点：
+  * IdentityServer 中间件公开 OpenID Connect (OIDC) 终结点：
 
     ```csharp
     app.UseIdentityServer();
@@ -130,7 +130,7 @@ dotnet new blazorwasm -au Individual -ho -o {APP NAME}
 
 <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> 帮助器方法配置 [IdentityServer](https://identityserver.io/) 用于 ASP.NET Core 方案。 IdentityServer 是一个功能强大且可扩展的框架，用于处理应用安全问题。 IdentityServer 公开大多数情况下不必要的复杂性。 因此，提供了一组约定和配置选项作为良好的起点。 一旦身份验证需要更改，就可使用 IdentityServer 的完整功能自定义身份验证以满足应用的要求。
 
-### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
+### <a name="addno-locidentityserverjwt"></a>AddIdentityServerJwt
 
 <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> 帮助器方法将应用的策略方案配置为默认身份验证处理程序。 该策略配置为允许 Identity 处理路由到 Identity URL 空间 `/Identity` 中任何子路径的所有请求。 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> 处理所有其他请求。 此外，此方法还可以：
 
@@ -195,7 +195,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
 ```
 
 > [!NOTE]
-> 若要将 Blazor WebAssembly 应用配置为使用不属于 Blazor 托管解决方案的现有 Identity 服务器实例，请将 <xref:System.Net.Http.HttpClient> 基址注册从 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`builder.HostEnvironment.BaseAddress`) 更改为服务器应用的 API 授权终结点 URL。
+> 若要将 Blazor WebAssembly 应用配置为使用不属于托管 Blazor 解决方案的现有 Identity 服务器实例，请将 <xref:System.Net.Http.HttpClient> 基址注册从 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`builder.HostEnvironment.BaseAddress`) 更改为服务器应用的 API 授权终结点 URL。
 
 ### <a name="api-authorization-support"></a>API 身份验证支持
 
@@ -364,7 +364,7 @@ services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>();
 ```
 
-### <a name="configure-identity-server"></a>配置 Identity 服务器
+### <a name="configure-no-locidentity-server"></a>配置 Identity 服务器
 
 使用以下方法之一：
 

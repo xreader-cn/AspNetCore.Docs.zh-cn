@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core Blazor 应用模板和 Blazor 项目结构。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 08/04/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: f1b131947a242323295a763ba2f2473af0ccfb4f
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 65d6a3156419b57eae6c7e41a9778fa25fd88f4f
+ms.sourcegitcommit: 6eacadf1be61679ab8e6f781ece76b7395512879
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944533"
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87758523"
 ---
-# <a name="aspnet-core-blazor-templates"></a>ASP.NET Core Blazor 模板
+# <a name="aspnet-core-no-locblazor-templates"></a>ASP.NET Core Blazor 模板
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -40,17 +40,16 @@ dotnet new blazorwasm --help
 dotnet new blazorserver --help
 ```
 
-## <a name="blazor-project-structure"></a>Blazor 项目结构
+## <a name="no-locblazor-project-structure"></a>Blazor 项目结构
 
-以下文件和文件夹构成了基于 Blazor 模板生成的 Blazor 应用：
+以下文件和文件夹构成了基于 Blazor 项目模板生成的 Blazor 应用：
 
 * `Program.cs`：应用入口点，用于设置以下各项：
 
   * ASP.NET Core [主机](xref:fundamentals/host/generic-host) (Blazor Server)
   * WebAssembly 主机 (Blazor WebAssembly)：此文件中的代码对于通过 Blazor WebAssembly 模板 (`blazorwasm`) 创建的应用是唯一的。
-    * 作为应用根组件的 `App` 组件被指定为 `Add` 方法的 `app` DOM 元素。
-    * 可以在主机生成器上使用 `ConfigureServices` 方法配置服务（例如，`builder.Services.AddSingleton<IMyDependency, MyDependency>();`）。
-    * 可以通过主机生成器提供配置 (`builder.Configuration`)。
+    * `App` 组件是应用的根组件。 `App` 组件被指定为根组件集合 (`builder.RootComponents.Add<App>("app")`) 的 `app` DOM 元素 (`<app>...</app>`)。
+    * 添加并配置了[服务](xref:blazor/fundamentals/dependency-injection)（例如，`builder.Services.AddSingleton<IMyDependency, MyDependency>()`）。
 
 * `Startup.cs` (Blazor Server)：包含应用的启动逻辑。 `Startup` 类定义两个方法：
 
@@ -61,7 +60,7 @@ dotnet new blazorserver --help
 
 * `wwwroot/index.html` (Blazor WebAssembly)：实现为 HTML 页面的应用的根页面：
   * 最初请求应用的任何页面时，都会呈现此页面并在响应中返回。
-  * 此页面指定根 `App` 组件的呈现位置。 `App` 组件 (`App.razor`) 在 `Startup.Configure` 中被指定为 `AddComponent` 方法的 `app` DOM 元素。
+  * 此页面指定根 `App` 组件的呈现位置。 组件呈现在 `app` DOM 元素 (`<app>...</app>`) 的位置。
   * 加载 `_framework/blazor.webassembly.js` JavaScript 文件，该文件用于：
     * 下载 .NET 运行时、应用和应用依赖项。
     * 初始化运行时以运行应用。
@@ -77,9 +76,11 @@ dotnet new blazorserver --help
   * `Error`（`Error.razor`，仅 Blazor Server 应用）：当应用中发生未经处理的异常时呈现。
   * `FetchData` (`Pages/FetchData.razor`)：实现“提取数据”页面。
   * `Index` (`Pages/Index.razor`)：实现主页。
+  
+* `Properties/launchSettings.json`：保留[开发环境配置](xref:fundamentals/environments#development-and-launchsettingsjson)。
 
 * `Shared` 文件夹：包含应用使用的其他 UI 组件 (`.razor`)：
-  * `MainLayout` (`MainLayout.razor`)：应用的布局组件。
+  * `MainLayout` (`MainLayout.razor`)：应用的[布局组件](xref:blazor/layouts)。
   * `NavMenu` (`NavMenu.razor`)：实现边栏导航。 包括 [`NavLink`](xref:blazor/fundamentals/routing#navlink-component) 组件 (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>)，该组件可向其他 Razor 组件呈现导航链接。 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件会在系统加载其组件时自动指示选定状态，这有助于用户了解当前显示的组件。
 
 * `_Imports.razor`：包括要包含在应用组件 (`.razor`) 中的常见 Razor 指令，如用于命名空间的 [`@using`](xref:mvc/views/razor#using) 指令。
@@ -88,4 +89,4 @@ dotnet new blazorserver --help
 
 * `wwwroot`：应用的 [Web 根目录](xref:fundamentals/index#web-root)文件夹，其中包含应用的公共静态资产。
 
-* `appsettings.json` (Blazor Server)：应用的配置设置。
+* `appsettings.json`：保留应用的[配置设置](xref:blazor/fundamentals/configuration)。 在 Blazor WebAssembly 应用中，应用设置文件位于 `wwwroot` 文件夹中。 在 Blazor Server 应用中，应用设置文件位于项目根目录中。

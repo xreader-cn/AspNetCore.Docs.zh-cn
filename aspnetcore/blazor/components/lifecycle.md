@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 6b9653356659700ae8396a01b38c04d59a86625f
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 92fd893963f049e014325d4f55affa789979647a
+ms.sourcegitcommit: 37f6f2e13ceb4eae268d20973d76e4b83acf6a24
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059885"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526272"
 ---
-# <a name="aspnet-core-blazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
+# <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
@@ -90,7 +90,7 @@ protected override async Task OnInitializedAsync()
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 或 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> 在以下情况下调用：
 
-* 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 或 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> 中初始化组件后。
+* 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> 或 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 中初始化组件后。
 * 当父组件重新呈现并提供以下内容时：
   * 至少一个参数已更改的唯一已知基元不可变类型。
   * 任何复杂类型的参数。 框架无法知道复杂类型参数的值是否在内部发生了改变，因此，它将参数集视为已更改。
@@ -187,37 +187,6 @@ Blazor Server 模板中的 `Pages/FetchData.razor`：
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
-## <a name="component-disposal-with-idisposable"></a>使用 IDisposable 处置组件
-
-如果组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时调用 [`Dispose` 方法](/dotnet/standard/garbage-collection/implementing-dispose)。 以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：
-
-```razor
-@using System
-@implements IDisposable
-
-...
-
-@code {
-    public void Dispose()
-    {
-        ...
-    }
-}
-```
-
-> [!NOTE]
-> 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
-
-取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：
-
-* 专用字段和 Lambda 方法
-
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
-
-* 专用方法
-
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
-
 ## <a name="handle-errors"></a>处理错误
 
 有关在生命周期方法执行期间处理错误的信息，请参阅 <xref:blazor/fundamentals/handle-errors#lifecycle-methods>。
@@ -285,6 +254,37 @@ public class WeatherForecastService
 ## <a name="detect-when-the-app-is-prerendering"></a>检测应用何时预呈现
 
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
+
+## <a name="component-disposal-with-idisposable"></a>使用 IDisposable 处置组件
+
+如果组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时调用 [`Dispose` 方法](/dotnet/standard/garbage-collection/implementing-dispose)。 可随时进行处置，包括在[组件初始化](#component-initialization-methods)期间。 以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：
+
+```razor
+@using System
+@implements IDisposable
+
+...
+
+@code {
+    public void Dispose()
+    {
+        ...
+    }
+}
+```
+
+> [!NOTE]
+> 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
+
+取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：
+
+* 专用字段和 Lambda 方法
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+
+* 专用方法
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
 
 ## <a name="cancelable-background-work"></a>可取消的后台工作
 

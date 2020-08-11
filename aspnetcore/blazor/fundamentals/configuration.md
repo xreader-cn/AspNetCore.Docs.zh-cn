@@ -5,7 +5,7 @@ description: 了解 Blazor 应用的配置，包括应用设置、身份验证�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/10/2020
+ms.date: 07/29/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,24 +15,29 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/configuration
-ms.openlocfilehash: f78803a3954feb98a39f26874b9de0aa08dc6327
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 9ae0dcc16b9debd47a61010953243b0abe499c4f
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445211"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87443965"
 ---
-# <a name="aspnet-core-blazor-configuration"></a>ASP.NET Core Blazor 配置
+# <a name="aspnet-core-no-locblazor-configuration"></a>ASP.NET Core Blazor 配置
 
 > [!NOTE]
 > 本主题适用于 Blazor WebAssembly。 若要获取 ASP.NET Core 应用配置的通用指南，请参阅 <xref:fundamentals/configuration/index>。
 
-Blazor WebAssembly 加载以下来源的配置：
+默认情况下，Blazor WebAssembly 从应用设置文件加载配置：
 
-* 应用设置文件（默认）：
-  * `wwwroot/appsettings.json`
-  * `wwwroot/appsettings.{ENVIRONMENT}.json`
-* 应用注册的其他 [配置提供程序](xref:fundamentals/configuration/index)。 并非所有提供程序都适用于 Blazor WebAssembly 应用。 Blazor WASM 的 [Clarify 配置提供程序 (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134) 会跟踪有关 Blazor WebAssembly 所支持提供程序的说明。
+* `wwwroot/appsettings.json`
+* `wwwroot/appsettings.{ENVIRONMENT}.json`
+
+应用注册的其他配置提供程序还可以提供配置。
+
+并非所有提供程序或提供程序功能都适用于 Blazor WebAssembly 应用：
+
+* [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)：具有客户端密码方案的托管标识和应用程序 ID（客户端 ID）不支持该提供程序。 不建议将具有客户端密码的应用程序 ID 用于任何 ASP.NET Core 应用（尤其是 Blazor WebAssembly 应用），因为无法在客户端保护客户端密码来访问服务。
+* [Azure 应用配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app)：该提供程序不适用于 Blazor WebAssembly 应用，因为 Blazor WebAssembly 应用不会在 Azure 中的服务器上运行。
 
 > [!WARNING]
 > Blazor WebAssembly 应用中的配置对用户可见。 请勿在配置中存储应用机密或凭据。
@@ -41,7 +46,7 @@ Blazor WebAssembly 加载以下来源的配置：
 
 ## <a name="app-settings-configuration"></a>应用设置配置
 
-`wwwroot/appsettings.json`：
+`wwwroot/appsettings.json`:
 
 ```json
 {
@@ -61,7 +66,31 @@ Blazor WebAssembly 加载以下来源的配置：
 <p>Message: @Configuration["message"]</p>
 ```
 
-## <a name="provider-configuration"></a>提供程序配置
+## <a name="custom-configuration-provider-with-ef-core"></a>使用 EF Core 的自定义配置提供程序
+
+使用 <xref:fundamentals/configuration/index#custom-configuration-provider> 中演示的 EF Core 的自定义配置提供程序适用于 Blazor WebAssembly 应用。
+
+在 `Program.Main` (`Program.cs`) 中使用以下代码添加示例的配置提供程序：
+
+```csharp
+builder.Configuration.AddEFConfiguration(
+    options => options.UseInMemoryDatabase("InMemoryDb"));
+```
+
+将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入组件，以访问配置数据：
+
+```razor
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<ul>
+    <li>@Configuration["quote1"]</li>
+    <li>@Configuration["quote2"]</li>
+    <li>@Configuration["quote3"]</li>
+</ul>
+```
+
+## <a name="memory-configuration-source"></a>内存配置源
 
 以下示例使用 <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> 提供其他配置：
 
@@ -119,7 +148,7 @@ builder.Configuration.Add(memoryConfig);
 
 若要将 `wwwroot` 文件夹中的其他配置文件读入配置，请使用 <xref:System.Net.Http.HttpClient> 获取文件内容。 使用此方法时，现有 <xref:System.Net.Http.HttpClient> 服务注册可以使用创建的本地客户端来读取文件，如以下示例所示：
 
-`wwwroot/cars.json`：
+`wwwroot/cars.json`:
 
 ```json
 {
@@ -127,7 +156,7 @@ builder.Configuration.Add(memoryConfig);
 }
 ```
 
-`Program.Main`：
+`Program.Main`:
 
 ```csharp
 using Microsoft.Extensions.Configuration;
@@ -160,7 +189,7 @@ builder.Configuration.AddJsonStream(stream);
 }
 ```
 
-`Program.Main`：
+`Program.Main`:
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
@@ -175,7 +204,7 @@ builder.Services.AddOidcAuthentication(options =>
 <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="{VERSION}" />
 ```
 
-`wwwroot/appsettings.json`：
+`wwwroot/appsettings.json`:
 
 ```json
 {
@@ -189,7 +218,7 @@ builder.Services.AddOidcAuthentication(options =>
 }
 ```
 
-`Program.Main`：
+`Program.Main`:
 
 ```csharp
 using Microsoft.Extensions.Logging;
@@ -202,7 +231,7 @@ builder.Logging.AddConfiguration(
 
 ## <a name="host-builder-configuration"></a>主机生成器配置
 
-`Program.Main`：
+`Program.Main`:
 
 ```csharp
 var hostname = builder.Configuration["HostName"];

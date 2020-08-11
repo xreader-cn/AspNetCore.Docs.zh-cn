@@ -5,7 +5,7 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2020
+ms.date: 07/30/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 174a8e561701bb3ebd68ed05e42dfc3d70a9b450
-ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
+ms.openlocfilehash: b58c0c3db685d0a5b082aaf2eb434635bd10e2eb
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/09/2020
-ms.locfileid: "86176223"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444034"
 ---
-# <a name="build-a-blazor-todo-list-app"></a>生成 Blazor 待办事项列表应用
+# <a name="build-a-no-locblazor-todo-list-app"></a>生成 Blazor 待办事项列表应用
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -32,9 +32,15 @@ ms.locfileid: "86176223"
 > * 创建待办事项列表 Blazor 应用项目
 > * 修改 Razor 组件
 > * 在组件中使用事件处理和数据绑定
-> * 在 Blazor 应用中使用依赖关系注入 (DI) 和路由
+> * 在 Blazor 应用中使用路由
 
 在本教程结束时，你将拥有一个正常运行的待办事项列表应用。
+
+## <a name="prerequisites"></a>必备条件
+
+[!INCLUDE[](~/includes/3.1-SDK.md)]
+
+## <a name="create-a-todo-list-no-locblazor-app"></a>创建待办事项列表 Blazor 应用
 
 1. 在命令行界面中创建名为 `TodoList` 的新 Blazor 应用：
 
@@ -140,7 +146,7 @@ ms.locfileid: "86176223"
 > * 创建待办事项列表 Blazor 应用项目
 > * 修改 Razor 组件
 > * 在组件中使用事件处理和数据绑定
-> * 在 Blazor 应用中使用依赖关系注入 (DI) 和路由
+> * 在 Blazor 应用中使用路由
 
 了解用于 ASP.NET Core Blazor 的工具：
 

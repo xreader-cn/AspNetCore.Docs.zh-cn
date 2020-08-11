@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: 02960e6c7d70be3ea1be3ed9e2280e5b5847c926
-ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.openlocfilehash: d3611e26414f5dd1103ca9af15b17f9813023e21
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/08/2020
-ms.locfileid: "86147693"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818854"
 ---
-# <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -100,7 +100,7 @@ builder.Services.AddOidcAuthentication(options =>
 }
 ```
 
-使用 Open ID Connect (OIDC) 提供对独立应用的身份验证支持。 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> 方法接受回叫，以配置使用 OIDC 验证应用所需的参数。 可以从 OIDC 兼容的 IP 中获取配置应用所需的值。 注册应用时获取值，通常在其在线门户中执行此操作。
+使用 OpenID Connect (OIDC) 提供对独立应用的身份验证支持。 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> 方法接受回叫，以配置使用 OIDC 验证应用所需的参数。 可以从 OIDC 兼容的 IP 中获取配置应用所需的值。 注册应用时获取值，通常在其在线门户中执行此操作。
 
 ## <a name="access-token-scopes"></a>访问令牌作用域
 

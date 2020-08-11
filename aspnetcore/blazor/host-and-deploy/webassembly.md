@@ -5,7 +5,7 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/09/2020
+ms.date: 08/03/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 2a2b0dabc26c14624144ce7eceb5861fe56f1054
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 9d596e38a1d8350cd4a27f2fec4b262a0edf1015
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445133"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818841"
 ---
-# <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
+# <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
 作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com)、[Daniel Roth](https://github.com/danroth27)、[Ben Adams](https://twitter.com/ben_a_adams) 和 [Safia Abdalla](https://safia.rocks)
 
@@ -48,32 +48,32 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 * 有关 IIS `web.config` 压缩配置，请参阅 [IIS：Brotli 和 Gzip 压缩](#brotli-and-gzip-compression) 部分。 
 * 如果在不支持静态压缩文件内容协商的静态托管解决方案（例如 GitHub 页面）上进行托管，请考虑配置应用以提取和解码 Brotli 压缩文件：
 
-  * 从应用中的 [google/brotli GitHub 存储库](https://github.com/google/brotli/)中引用 Brotli 解码器。
+  * 从 [google/brotli GitHub repository](https://github.com/google/brotli) 中获取 JavaScript Brotli 解码器。 自 2020 年 7 月起，解码器文件被命名为 `decode.min.js`，并且位于存储库的 [`js` 文件夹](https://github.com/google/brotli/tree/master/js)中。
   * 更新应用以使用解码器。 将 `wwwroot/index.html` 中结束 `<body>` 标记内的标记更改为以下内容：
   
     ```html
-    <script src="brotli.decode.min.js"></script>
+    <script src="decode.min.js"></script>
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script>
-    Blazor.start({
-      loadBootResource: function (type, name, defaultUri, integrity) {
-        if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
-          return (async function () {
-            const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
-            if (!response.ok) {
-              throw new Error(response.statusText);
-            }
-            const originalResponseBuffer = await response.arrayBuffer();
-            const originalResponseArray = new Int8Array(originalResponseBuffer);
-            const decompressedResponseArray = BrotliDecode(originalResponseArray);
-            const contentType = type === 
-              'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-            return new Response(decompressedResponseArray, 
-              { headers: { 'content-type': contentType } });
-          })();
+      Blazor.start({
+        loadBootResource: function (type, name, defaultUri, integrity) {
+          if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+            return (async function () {
+              const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+              if (!response.ok) {
+                throw new Error(response.statusText);
+              }
+              const originalResponseBuffer = await response.arrayBuffer();
+              const originalResponseArray = new Int8Array(originalResponseBuffer);
+              const decompressedResponseArray = BrotliDecode(originalResponseArray);
+              const contentType = type === 
+                'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+              return new Response(decompressedResponseArray, 
+                { headers: { 'content-type': contentType } });
+            })();
+          }
         }
-      }
-    });
+      });
     </script>
     ```
  
@@ -116,6 +116,289 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 有关托管和部署 ASP.NET Core 应用的详细信息，请参阅 <xref:host-and-deploy/index>。
 
 若要了解如何部署到 Azure 应用服务，请参阅 <xref:tutorials/publish-to-azure-webapp-using-vs>。
+
+## <a name="hosted-deployment-with-multiple-no-locblazor-webassembly-apps"></a>具有多个 Blazor WebAssembly 应用的托管部署
+
+### <a name="app-configuration"></a>应用配置
+
+若要配置托管的 Blazor 解决方案以处理多个 Blazor WebAssembly 应用，请执行以下操作：
+
+* 使用现有的托管 Blazor 解决方案，或者从 Blazor 托管的项目模板创建一个新解决方案。
+
+* 在客户端应用的项目文件中，在 `<PropertyGroup>` 中添加一个值为 `FirstApp` 的 `<StaticWebAssetBasePath>` 属性，以设置项目静态资产的基路径：
+
+  ```xml
+  <PropertyGroup>
+    ...
+    <StaticWebAssetBasePath>FirstApp</StaticWebAssetBasePath>
+  </PropertyGroup>
+  ```
+
+* 向解决方案添加第二个客户端应用：
+
+  * 向解决方案的文件夹添加一个名为 `SecondClient` 的文件夹。
+  * 在 Blazor WebAssembly 项目模板的 `SecondClient` 文件夹中创建一个名为 `SecondBlazorApp.Client` 的 Blazor WebAssembly 应用。
+  * 在应用的项目文件中，执行以下操作：
+
+    * 向 `<PropertyGroup>` 添加一个值为 `SecondApp` 的 `<StaticWebAssetBasePath>` 属性：
+
+      ```xml
+      <PropertyGroup>
+        ...
+        <StaticWebAssetBasePath>SecondApp</StaticWebAssetBasePath>
+      </PropertyGroup>
+      ```
+
+    * 向 `Shared` 项目添加一个项目引用：
+
+      ```xml
+      <ItemGroup>
+        <ProjectReference Include="..\Shared\{SOLUTION NAME}.Shared.csproj" />
+      </ItemGroup>
+      ```
+
+      占位符 `{SOLUTION NAME}` 是解决方案的名称。
+
+* 在服务器应用的项目文件中，为新增的客户端应用创建一个项目引用：
+
+  ```xml
+  <ItemGroup>
+    ...
+    <ProjectReference Include="..\SecondClient\SecondBlazorApp.Client.csproj" />
+  </ItemGroup>
+  ```
+
+* 在服务器应用的 `Properties/launchSettings.json` 文件中，配置 Kestrel 配置文件 (`{SOLUTION NAME}.Server`) 的 `applicationUrl`，以访问位于端口 5001 和 5002 的客户端应用：
+
+  ```json
+  "applicationUrl": "https://localhost:5001;https://localhost:5002",
+  ```
+
+* 在服务器应用的 `Startup.Configure` 方法 (`Startup.cs`) 中，删除在调用 <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection%2A> 后显示的以下行：
+
+  ```csharp
+  app.UseBlazorFrameworkFiles();
+  app.UseStaticFiles();
+
+  app.UseRouting();
+
+  app.UseEndpoints(endpoints =>
+  {
+      endpoints.MapRazorPages();
+      endpoints.MapControllers();
+      endpoints.MapFallbackToFile("index.html");
+  });
+  ```
+
+  添加将请求映射到客户端应用的中间件。 下面的示例将中间件配置为在以下情况下运行：
+
+  * 原始客户端应用的请求端口为 5001，或新增的客户端应用的请求端口为 5002。
+  * 原始客户端应用的请求主机为 `firstapp.com`，或新增的客户端应用的请求主机为 `secondapp.com`。
+
+    > [!NOTE]
+    > 本部分中显示的示例需要其他配置以实现以下目的：
+    >
+    > * 访问示例主机域 `firstapp.com` 和 `secondapp.com` 上的应用。
+    > * 获取客户端应用的证书以启用 TLS 安全性 (HTTPS)。
+    >
+    > 所需的配置不在本文内容范围内，并且取决于解决方案的托管方式。 有关详细信息，请参阅[托管和部署文章](xref:host-and-deploy/index)。
+
+  将以下代码放在先前已删除行的位置：
+
+  ```csharp
+  app.MapWhen(ctx => ctx.Request.Host.Port == 5001 || 
+      ctx.Request.Host.Equals("firstapp.com"), first =>
+  {
+      first.Use((ctx, nxt) =>
+      {
+          ctx.Request.Path = "/FirstApp" + ctx.Request.Path;
+          return nxt();
+      });
+
+      first.UseBlazorFrameworkFiles("/FirstApp");
+      first.UseStaticFiles();
+      first.UseStaticFiles("/FirstApp");
+      first.UseRouting();
+
+      first.UseEndpoints(endpoints =>
+      {
+          endpoints.MapControllers();
+          endpoints.MapFallbackToFile("/FirstApp/{*path:nonfile}", 
+              "FirstApp/index.html");
+      });
+  });
+  
+  app.MapWhen(ctx => ctx.Request.Host.Port == 5002 || 
+      ctx.Request.Host.Equals("secondapp.com"), second =>
+  {
+      second.Use((ctx, nxt) =>
+      {
+          ctx.Request.Path = "/SecondApp" + ctx.Request.Path;
+          return nxt();
+      });
+
+      second.UseBlazorFrameworkFiles("/SecondApp");
+      second.UseStaticFiles();
+      second.UseStaticFiles("/SecondApp");
+      second.UseRouting();
+
+      second.UseEndpoints(endpoints =>
+      {
+          endpoints.MapControllers();
+          endpoints.MapFallbackToFile("/SecondApp/{*path:nonfile}", 
+              "SecondApp/index.html");
+      });
+  });
+  ```
+
+* 在服务器应用的天气预报控制器 (`Controllers/WeatherForecastController.cs`) 中，将到 `WeatherForecastController` 的现有路由 (`[Route("[controller]")]`) 替换为以下路由：
+
+  ```csharp
+  [Route("FirstApp/[controller]")]
+  [Route("SecondApp/[controller]")]
+  ```
+
+  先前添加到服务器应用的 `Startup.Configure` 方法的中间件会将向 `/WeatherForecast` 发出的传入请求修改为 `/FirstApp/WeatherForecast` 或 `/SecondApp/WeatherForecast`，具体取决于端口 (5001/5002) 或域 (`firstapp.com`/`secondapp.com`)。 为了将天气数据从服务器应用返回到客户端应用，需要前面的控制器路由。
+
+### <a name="static-assets-and-class-libraries"></a>静态资产和类库
+
+对于静态资产，请使用以下方法：
+
+* 如果资产位于客户端应用的 `wwwroot` 文件夹中，请正常提供其路径：
+
+  ```razor
+  <img alt="..." src="/{ASSET FILE NAME}" />
+  ```
+
+* 如果资产位于 [Razor 类库 (RCL)](xref:blazor/components/class-libraries) 的 `wwwroot` 文件夹中，请按照 [RCL 文章](xref:razor-pages/ui-class#consume-content-from-a-referenced-rcl)中的指导，在客户端应用程序中引用静态资产：
+
+  ```razor
+  <img alt="..." src="_content/{LIBRARY NAME}/{ASSET FILE NAME}" />
+  ```
+
+::: moniker range=">= aspnetcore-5.0"
+
+通常引用按类库提供给客户端应用的组件。 如果任何组件需要样式表或 JavaScript 文件，请使用以下方法之一来获取静态资产：
+
+* 客户端应用的 `wwwroot/index.html` 文件可以链接 (`<link>`) 到静态资产。
+* 组件可以使用框架的 [`Link` 组件](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)获取静态资产。
+
+下面的示例中演示了上述方法。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+通常引用按类库提供给客户端应用的组件。 如果任何组件需要样式表或 JavaScript 文件，客户端应用的 `wwwroot/index.html` 文件必须包含正确的静态资产链接。 下面的示例中演示了这些方法。
+
+::: moniker-end
+
+将以下 `Jeep` 组件添加到其中一个客户端应用中。 `Jeep` 组件使用：
+
+* 来自客户端应用的 `wwwroot` 文件夹中的图像 (`jeep-cj.png`)。
+* 来自[已添加的 Razor 组件库](xref:blazor/components/class-libraries) (`JeepImage`) `wwwroot` 文件夹中的图像 (`jeep-yj.png`)。
+* 将 `JeepImage` 库添加到解决方案中后，RCL 项目模板会自动创建示例组件 (`Component1`)。
+
+```razor
+@page "/Jeep"
+
+<h1>1979 Jeep CJ-5&trade;</h1>
+
+<p>
+    <img alt="1979 Jeep CJ-5&trade;" src="/jeep-cj.png" />
+</p>
+
+<h1>1991 Jeep YJ&trade;</h1>
+
+<p>
+    <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+</p>
+
+<p>
+    <em>Jeep CJ-5</em> and <em>Jeep YJ</em> are a trademarks of 
+    <a href="https://www.fcagroup.com">Fiat Chrysler Automobiles</a>.
+</p>
+
+<JeepImage.Component1 />
+```
+
+> [!WARNING]
+> 除非图像归你所有，否则不要公开发布车辆的图像。 否则，可能会侵犯版权。
+
+::: moniker range=">= aspnetcore-5.0"
+
+另外，还可以向库的 `Component1` 组件(`Component1.razor`) 添加库的 `jeep-yj.png` 图像。 若要向客户端应用的页面提供 `my-component` CSS 类，请使用框架的 [`Link` 组件](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)链接到库的样式表：
+
+```razor
+<div class="my-component">
+    <Link href="_content/JeepImage/styles.css" rel="stylesheet" />
+
+    <h1>JeepImage.Component1</h1>
+
+    <p>
+        This Blazor component is defined in the <strong>JeepImage</strong> package.
+    </p>
+
+    <p>
+        <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+    </p>
+</div>
+```
+
+或者，使用 [`Link` 组件](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)的另一种方法是从客户端应用的 `wwwroot/index.html` 文件加载样式表。 这种方法使样式表可用于客户端应用中的所有组件：
+
+```html
+<head>
+    ...
+    <link href="_content/JeepImage/styles.css" rel="stylesheet" />
+</head>
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+还可以向库的 `Component1` 组件 (`Component1.razor`) 添加库的 `jeep-yj.png` 图像：
+
+```razor
+<div class="my-component">
+    <h1>JeepImage.Component1</h1>
+
+    <p>
+        This Blazor component is defined in the <strong>JeepImage</strong> package.
+    </p>
+
+    <p>
+        <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+    </p>
+</div>
+```
+
+客户端应用的 `wwwroot/index.html` 文件要求库的样式表添加以下 `<link>` 标记：
+
+```html
+<head>
+    ...
+    <link href="_content/JeepImage/styles.css" rel="stylesheet" />
+</head>
+```
+
+::: moniker-end
+
+向客户端应用的 `NavMenu` 组件中的 `Jeep` 组件 (`Shared/NavMenu.razor`) 添加导航：
+
+```razor
+<li class="nav-item px-3">
+    <NavLink class="nav-link" href="Jeep">
+        <span class="oi oi-list-rich" aria-hidden="true"></span> Jeep
+    </NavLink>
+</li>
+```
+
+有关 RCL 的详细信息，请参阅：
+
+* <xref:blazor/components/class-libraries>
+* <xref:razor-pages/ui-class>
 
 ## <a name="standalone-deployment"></a>独立部署
 
@@ -333,9 +616,15 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ### <a name="github-pages"></a>GitHub 页
 
-要处理 URL 重写，请使用脚本添加 `404.html` 文件，该脚本可处理到 `index.html` 页的重定向请求。 关于社区提供的示例实现，请参阅[用于 GitHub 页的单页应用](https://spa-github-pages.rafrex.com/)（[GitHub 上的 rafrex/spa-github-pages](https://github.com/rafrex/spa-github-pages#readme)）。 可在 [GitHub 上的 blazor-demo/blazor-demo.github.io](https://github.com/blazor-demo/blazor-demo.github.io)（[实时站点](https://blazor-demo.github.io/)）查看使用社区方法的示例。
+要处理 URL 重写，请使用脚本添加 `wwwroot/404.html` 文件，该脚本可处理到 `index.html` 页的重定向请求。 有关示例，请参阅 [SteveSandersonMS/BlazorOnGitHubPages GitHub 存储库](https://github.com/SteveSandersonMS/BlazorOnGitHubPages)：
 
-如果使用项目站点而非组织站点，请在 `index.html` 中添加或更新 `<base>` 标记。 将 `href` 属性值设置为，包含尾部斜杠的 GitHub 存储库名称（例如，`my-repository/`）。
+* [`wwwroot/404.html`](https://github.com/SteveSandersonMS/BlazorOnGitHubPages/blob/master/wwwroot/404.html)
+* [实时站点](https://stevesandersonms.github.io/BlazorOnGitHubPages/)
+
+如果使用项目站点而非组织站点，请在 `wwwroot/index.html` 中更新 `<base>` 标记。 将 `href` 属性值设置为，包含尾部斜杠的 GitHub 存储库名称（例如，`/my-repository/`）。 在 [SteveSandersonMS/BlazorOnGitHubPages GitHub 存储库](https://github.com/SteveSandersonMS/BlazorOnGitHubPages)中，将在发布时通过 [`.github/workflows/main.yml` 配置文件](https://github.com/SteveSandersonMS/BlazorOnGitHubPages/blob/master/.github/workflows/main.yml)更新基本 `href`。
+
+> [!NOTE]
+> [SteveSandersonMS/BlazorOnGitHubPages GitHub 存储库](https://github.com/SteveSandersonMS/BlazorOnGitHubPages) 不归 .NET Foundation 或 Microsoft 所有，也不由它们提供维护和支持。
 
 ## <a name="host-configuration-values"></a>主机配置值
 
@@ -552,4 +841,3 @@ Remove-Item $filepath\bin\Release\$tfm\wwwroot\_framework\blazor.boot.json.gz
 ```
 
 若要提供反馈，请访问 [aspnetcore/issues #5477](https://github.com/dotnet/aspnetcore/issues/5477)。
- 

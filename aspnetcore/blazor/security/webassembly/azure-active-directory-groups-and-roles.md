@@ -1,32 +1,32 @@
 ---
-title: ASP.NET Core [Blazor WebAssembly 与 Azure Active Directory 组和角色
+title: ASP.NET Core Blazor WebAssembly 与 Azure Active Directory 组和角色
 author: guardrex
-description: 了解如何配置 [Blazor WebAssembly 以使用 Azure Active Directory 组和角色。
+description: 了解如何配置 Blazor WebAssembly 以使用 Azure Active Directory 组和角色。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/28/2020
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 6e27b062d7b5a1b72804fe5d4ea31ec65358ce45
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 68071be9fb9f7a097c0c3693293bf8295e0173f1
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402151"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818802"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Azure AD 组、管理角色和用户定义的角色
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Javier Calvarro Nelson](https://github.com/javiercn)
 
-Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 ASP.NET Core [Identity 结合使用：
+Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 ASP.NET Core Identity 结合使用：
 
 * 用户定义的组
   * 安全性
@@ -36,13 +36,25 @@ Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 AS
   * 内置管理角色
   * 用户定义的角色
 
-本文中的指南适用于以下主题中所述的 [Blazor WebAssembly AAD 部署方案：
+本文中的指南适用于以下主题中所述的 Blazor WebAssembly AAD 部署方案：
 
 * [包含 Microsoft 帐户的独立产品](xref:blazor/security/webassembly/standalone-with-microsoft-accounts)
 * [包含 AAD 的独立产品](xref:blazor/security/webassembly/standalone-with-azure-active-directory)
 * [由 AAD 托管](xref:blazor/security/webassembly/hosted-with-azure-active-directory)
 
-### <a name="user-defined-groups-and-built-in-administrative-roles"></a>用户定义的组和内置管理角色
+## <a name="microsoft-graph-api-permission"></a>Microsoft 图形 API 权限
+
+具有五个以上内置 AAD 管理员角色和安全组成员身份的任何应用用户都需要调用 [Microsoft 图形 API](/graph/use-the-api)。
+
+若要允许调用图形 API，请在 Azure 门户中向托管的 Blazor 解决方案的独立应用或客户端应用授予以下任意[图形 API 权限](/graph/permissions-reference)：
+
+* `Directory.Read.All`
+* `Directory.ReadWrite.All`
+* `Directory.AccessAsUser.All`
+
+`Directory.Read.All` 是具有最低特权的权限，本文中的示例使用此权限。
+
+## <a name="user-defined-groups-and-built-in-administrative-roles"></a>用户定义的组和内置管理角色
 
 要在 Azure 门户中配置应用以提供 `groups` 成员资格声明，请参阅以下 Azure 文章。 将用户分配到用户定义的 AAD 组和内置管理角色。
 
@@ -53,9 +65,11 @@ Azure Active Directory (AAD) 提供了多种授权方法，这些方法可与 AS
 
 AAD 发送的单个 `groups` 声明在 JSON 数组中将用户的组和角色作为对象 ID (GUID) 显示。 应用必须将组和角色的 JSON 数组转换为单个 `group` 声明，应用可以针对这些声明生成[策略](xref:security/authorization/policies)。
 
-扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 以包括组和角色的数组属性。
+当分配的内置 Azure 管理角色和用户定义组的数量超过五个时，AAD 使用 `true` 值发送 `hasgroups` 声明，而不是发送 `groups` 声明。 任何可能为其用户分配了五个以上角色和组的应用都必须单独调用图形 API 才能获取用户的角色和组。 本文中提供的示例实现就是针对这种情况的。 有关详细信息，请参阅 [Microsoft 标识平台访问令牌：负载声明](/azure/active-directory/develop/access-tokens#payload-claims)一文中的 `groups` 和 `hasgroups` 声明信息。
 
-`CustomUserAccount.cs`：
+扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 以包括组和角色的数组属性。 为每个属性分配一个空数组，这样以后在 `foreach` 循环中使用这些属性时，就不需要检查 `null` 了。
+
+`CustomUserAccount.cs`:
 
 ```csharp
 using System.Text.Json.Serialization;
@@ -64,29 +78,98 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 public class CustomUserAccount : RemoteUserAccount
 {
     [JsonPropertyName("groups")]
-    public string[] Groups { get; set; }
+    public string[] Groups { get; set; } = new string[] { };
 
     [JsonPropertyName("roles")]
-    public string[] Roles { get; set; }
+    public string[] Roles { get; set; } = new string[] { };
 }
 ```
 
-在托管解决方案的独立应用或客户端应用中创建自定义用户工厂。 以下工厂还可配置为处理 `roles` 声明数组，此内容在[用户定义的角色](#user-defined-roles)部分中进行了介绍：
+在托管的 Blazor 解决方案的独立应用或客户端应用中，创建一个自定义 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> 类。 对获取角色和组信息的图形 API 调用使用正确的作用域（权限）。
+
+`GraphAPIAuthorizationMessageHandler.cs`:
 
 ```csharp
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+public class GraphAPIAuthorizationMessageHandler : AuthorizationMessageHandler
+{
+    public GraphAPIAuthorizationMessageHandler(IAccessTokenProvider provider,
+        NavigationManager navigationManager)
+        : base(provider, navigationManager)
+    {
+        ConfigureHandler(
+            authorizedUrls: new[] { "https://graph.microsoft.com" },
+            scopes: new[] { "https://graph.microsoft.com/Directory.Read.All" });
+    }
+}
+```
+
+在 `Program.Main` (`Program.cs`)中，添加 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> 实现服务，并添加一个已命名的 <xref:System.Net.Http.HttpClient> 以发出图形 API 请求。 下面的示例将命名客户端 `GraphAPI`：
+
+```csharp
+builder.Services.AddScoped<GraphAPIAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("GraphAPI",
+        client => client.BaseAddress = new Uri("https://graph.microsoft.com"))
+    .AddHttpMessageHandler<GraphAPIAuthorizationMessageHandler>();
+```
+
+创建 AAD 目录对象类以接收来自图形 API 调用的 Open Data Protocol (OData) 角色和组。 OData 以 JSON 格式送达，并且对 <xref:System.Net.Http.Json.HttpContentJsonExtensions.ReadFromJsonAsync%2A> 的调用将填充 `DirectoryObjects` 类的实例。
+
+`DirectoryObjects.cs`:
+
+```csharp
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+public class DirectoryObjects
+{
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    [JsonPropertyName("value")]
+    public List<Value> Values { get; set; }
+}
+
+public class Value
+{
+    [JsonPropertyName("@odata.type")]
+    public string Type { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+}
+```
+
+创建一个自定义用户工厂来处理角色和组声明。 下面的示例实现还处理 `roles` 声明数组，[用户定义角色](#user-defined-roles)一节中对此进行了说明。 如果存在 `hasgroups` 声明，则使用已命名的 <xref:System.Net.Http.HttpClient> 向提供图形 API 发出授权请求，以获取用户的角色和组。 此实现使用 Microsoft Identity Platform v1.0 终结点 `https://graph.microsoft.com/v1.0/me/memberOf`（[API 文档](/graph/api/user-list-memberof)）。 当 MSAL 包升级到 v2.0 时，本主题的指南将更新到 Identity v2.0。
+
+`CustomAccountFactory.cs`:
+
+```csharp
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
+using Microsoft.Extensions.Logging;
 
 public class CustomUserFactory
     : AccountClaimsPrincipalFactory<CustomUserAccount>
 {
-    public CustomUserFactory(NavigationManager navigationManager,
-        IAccessTokenProviderAccessor accessor)
+    private readonly ILogger<CustomUserFactory> _logger;
+    private readonly IHttpClientFactory _clientFactory;
+
+    public CustomUserFactory(IAccessTokenProviderAccessor accessor, 
+        IHttpClientFactory clientFactory, 
+        ILogger<CustomUserFactory> logger)
         : base(accessor)
     {
+        _clientFactory = clientFactory;
+        _logger = logger;
     }
 
     public async override ValueTask<ClaimsPrincipal> CreateUserAsync(
@@ -95,18 +178,56 @@ public class CustomUserFactory
     {
         var initialUser = await base.CreateUserAsync(account, options);
 
-        if (initialUser.[Identity.IsAuthenticated)
+        if (initialUser.Identity.IsAuthenticated)
         {
-            var userIdentity = (ClaimsIdentity)initialUser.[Identity;
+            var userIdentity = (ClaimsIdentity)initialUser.Identity;
 
             foreach (var role in account.Roles)
             {
                 userIdentity.AddClaim(new Claim("role", role));
             }
 
-            foreach (var group in account.Groups)
+            if (userIdentity.HasClaim(c => c.Type == "hasgroups"))
             {
-                userIdentity.AddClaim(new Claim("group", group));
+                try
+                {
+                    var client = _clientFactory.CreateClient("GraphAPI");
+
+                    var response = await client.GetAsync("v1.0/me/memberOf");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var userObjects = await response.Content
+                            .ReadFromJsonAsync<DirectoryObjects>();
+
+                        foreach (var obj in userObjects?.Values)
+                        {
+                            userIdentity.AddClaim(new Claim("group", obj.Id));
+                        }
+
+                        var claim = userIdentity.Claims.FirstOrDefault(
+                            c => c.Type == "hasgroups");
+
+                        userIdentity.RemoveClaim(claim);
+                    }
+                    else
+                    {
+                        _logger.LogError("Graph API request failure: {REASON}", 
+                            response.ReasonPhrase);
+                    }
+                }
+                catch (AccessTokenNotAvailableException exception)
+                {
+                    _logger.LogError("Graph API access token failure: {MESSAGE}", 
+                        exception.Message);
+                }
+            }
+            else
+            {
+                foreach (var group in account.Groups)
+                {
+                    userIdentity.AddClaim(new Claim("group", group));
+                }
             }
         }
 
@@ -115,9 +236,18 @@ public class CustomUserFactory
 }
 ```
 
-无需提供代码来删除原始 `groups` 声明，因为框架会自动删除它。
+无需提供代码来删除原始 `groups` 声明（如果存在），因为框架会自动删除它。
 
-在托管解决方案的独立应用或客户端应用的 `Program.Main` (`Program.cs`) 中注册工厂：
+> [!NOTE]
+> 本示例中的方法执行以下操作：
+>
+> * 添加一个自定义 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> 类，将访问令牌附加到传出请求。
+> * 添加一个已命名的 <xref:System.Net.Http.HttpClient>，将 Web API 请求发送到安全的外部 Web API 终结点。
+> * 使用已命名的 <xref:System.Net.Http.HttpClient> 发出授权请求。
+>
+> 有关此方法的常规覆盖范围，请参阅 <xref:blazor/security/webassembly/additional-scenarios#custom-authorizationmessagehandler-class>一文。
+
+在托管的 Blazor 解决方案的独立应用或客户端应用的 `Program.Main` (`Program.cs`) 中注册工厂。 同意将 `Directory.Read.All` 权限范围作为应用的附加范围：
 
 ```csharp
 builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
@@ -126,8 +256,9 @@ builder.Services.AddMsalAuthentication<RemoteAuthenticationState,
     builder.Configuration.Bind("AzureAd", 
         options.ProviderOptions.Authentication);
     options.ProviderOptions.DefaultAccessTokenScopes.Add("...");
-    
-    ...
+
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/Directory.Read.All");
 })
 .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, CustomUserAccount, 
     CustomUserFactory>();
@@ -214,7 +345,7 @@ builder.Services.AddAuthorizationCore(options =>
 }
 ```
 
-### <a name="user-defined-roles"></a>用户定义的角色
+## <a name="user-defined-roles"></a>用户定义的角色
 
 还可以将 AAD 注册应用配置为使用用户定义的角色。
 
@@ -232,9 +363,9 @@ builder.Services.AddAuthorizationCore(options =>
 
 AAD 发送的单个 `roles` 声明在 JSON 数组中将用户定义的角色作为 `appRoles` 的 `value` 显示。 应用必须将 JSON 角色数组转换为单个 `role` 声明。
 
-[用户定义组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分中显示的 `CustomUserFactory` 设置为对具有 JSON 数组值的 `roles` 声明执行操作。 在托管解决方案的独立应用或客户端应用中添加和注册 `CustomUserFactory`，如[用户定义的组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分所示。 无需提供代码来删除原始 `roles` 声明，因为框架会自动删除它。
+[用户定义组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分中显示的 `CustomUserFactory` 设置为对具有 JSON 数组值的 `roles` 声明执行操作。 在托管的 Blazor 解决方案的独立应用或客户端应用中添加和注册 `CustomUserFactory`，如[用户定义的组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分所示。 无需提供代码来删除原始 `roles` 声明，因为框架会自动删除它。
 
-在托管解决方案的独立应用或客户端应用的 `Program.Main` 中，将名为“`role`”的声明指定为角色声明：
+在托管的 Blazor 解决方案的独立应用或客户端应用的 `Program.Main` 中，将名为“`role`”的声明指定为角色声明：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -286,7 +417,7 @@ B2C 用户流属性管理员 | dd0baca0-a535-48c1-b871-8431abe16452
 目录读者 | e1fc84a6-7762-4b9b-8e29-518b4adbc23b
 Dynamics 365 管理员 | f20a9cfa-9fdf-49a8-a977-1afe446a1d6e
 Exchange 管理员 | b2ec2cc0-d5c9-4864-ad9b-38dd9dba2652
-外部 [Identity 提供者管理员 | febfaeb4-e478-407a-b4b3-f4d9716618a2
+外部 Identity 提供者管理员 | febfaeb4-e478-407a-b4b3-f4d9716618a2
 全局管理员 | a45ba61b-44db-462c-924b-3b2719152588
 全局读取者 | f6903b21-6aba-4124-b44c-76671796b9d5
 组管理员 | 158b3e5a-d89d-460b-92b5-3b34985f0197

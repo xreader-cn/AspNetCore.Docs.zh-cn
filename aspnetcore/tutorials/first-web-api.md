@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 2383934070a65b8131e890a170186b736d3fcec0
-ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
+ms.openlocfilehash: b6a189907f521d7d9d18c1373747a13ab38a621f
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86869986"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444162"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -238,7 +238,7 @@ ms.locfileid: "86869986"
 * 选择“浏览”选项卡，然后在搜索框中输入 Microsoft.EntityFrameworkCore.SqlServer 。
 * 在左窗格中选择“Microsoft.EntityFrameworkCore.SqlServer”。
 * 选中右窗格中的“项目”复选框，然后选择“安装” 。
-* 使用上述说明添加 `Microsoft.EntityFrameworkCore.InMemory` NuGet 包。
+* 使用前面的说明添加 Microsoft.EntityFrameworkCore.InMemory NuGet 包。
 
 ![NuGet 程序包管理器](first-web-api/_static/vs3NuGet.png)
 
@@ -304,7 +304,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 生成的代码：
 
-* 使用 [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性标记类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅 <xref:web-api/index>。
+* 使用 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性标记类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅 <xref:web-api/index>。
 * 使用 DI 将数据库上下文 (`TodoContext`) 注入到控制器中。 数据库上下文将在控制器中的每个 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) 方法中使用。
 
 ASP.NET Core 模板：
@@ -320,7 +320,7 @@ ASP.NET Core 模板：
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Create)]
 
-前面的代码是 HTTP POST 方法，如 [`[HttpPost]`](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) 属性所指示。 该方法从 HTTP 请求正文获取待办事项的值。
+前面的代码是 HTTP POST 方法，如 [`[HttpPost]`](xref:Microsoft.AspNetCore.Mvc.HttpPostAttribute) 属性所指示。 该方法从 HTTP 请求正文获取待办事项的值。
 
 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> 方法：
 
@@ -409,7 +409,7 @@ ASP.NET Core 模板：
 
 ## <a name="routing-and-url-paths"></a>路由和 URL 路径
 
-[`[HttpGet]`](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute) 属性表示响应 HTTP GET 请求的方法。 每个方法的 URL 路径构造如下所示：
+[`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) 属性表示响应 HTTP GET 请求的方法。 每个方法的 URL 路径构造如下所示：
 
 * 在控制器的 `Route` 属性中以模板字符串开头：
 
@@ -428,7 +428,7 @@ ASP.NET Core 模板：
 
 `ActionResult` 返回类型可以表示大范围的 HTTP 状态代码。 例如，`GetTodoItem` 可以返回两个不同的状态值：
 
-* 如果没有任何项与请求的 ID 匹配，则该方法将返回 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) 错误代码。
+* 如果没有任何项与请求的 ID 匹配，则该方法将返回 404 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A> 错误代码。
 * 否则，此方法将返回具有 JSON 响应正文的 200。 返回 `item` 则产生 HTTP 200 响应。
 
 ## <a name="the-puttodoitem-method"></a>PutTodoItem 方法
@@ -720,7 +720,7 @@ DTO 可用于：
 前面的代码：
 
 * 定义了没有方法的 API 控制器类。
-* 使用 [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性标记类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅 <xref:web-api/index>。
+* 使用 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性标记类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅 <xref:web-api/index>。
 * 使用 DI 将数据库上下文 (`TodoContext`) 注入到控制器中。 数据库上下文将在控制器中的每个 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) 方法中使用。
 * 如果数据库为空，则将名为 `Item1` 的项添加到数据库。 此代码位于构造函数中，因此在每次出现新 HTTP 请求时运行。 如果删除所有项，则构造函数会在下次调用 API 方法时再次创建 `Item1`。 因此删除可能看上去不起作用，不过实际上确实有效。
 
@@ -756,7 +756,7 @@ DTO 可用于：
 
 ## <a name="routing-and-url-paths"></a>路由和 URL 路径
 
-[`[HttpGet]`](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute) 属性表示响应 HTTP GET 请求的方法。 每个方法的 URL 路径构造如下所示：
+[`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) 属性表示响应 HTTP GET 请求的方法。 每个方法的 URL 路径构造如下所示：
 
 * 在控制器的 `Route` 属性中以模板字符串开头：
 
@@ -775,7 +775,7 @@ DTO 可用于：
 
 `ActionResult` 返回类型可以表示大范围的 HTTP 状态代码。 例如，`GetTodoItem` 可以返回两个不同的状态值：
 
-* 如果没有任何项与请求的 ID 匹配，则该方法将返回 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) 错误代码。
+* 如果没有任何项与请求的 ID 匹配，则该方法将返回 404 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A> 错误代码。
 * 否则，此方法将返回具有 JSON 响应正文的 200。 返回 `item` 则产生 HTTP 200 响应。
 
 ## <a name="test-the-gettodoitems-method"></a>测试 GetTodoItems 方法
@@ -814,7 +814,7 @@ DTO 可用于：
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Create)]
 
-前面的代码是 HTTP POST 方法，如 [`[HttpPost]`](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) 属性所指示。 该方法从 HTTP 请求正文获取待办事项的值。
+前面的代码是 HTTP POST 方法，如 [`[HttpPost]`](xref:Microsoft.AspNetCore.Mvc.HttpPostAttribute) 属性所指示。 该方法从 HTTP 请求正文获取待办事项的值。
 
 `CreatedAtAction` 方法：
 
@@ -907,7 +907,7 @@ DTO 可用于：
 
 在本部分中，将添加一个 HTML 页面，该页面使用 JavaScript 调用 Web API。 jQuery 可启动该请求。 JavaScript 会使用 Web API 响应的详细信息来更新页面。
 
-通过下面突出显示的代码更新 Startup.cs，配置应用来[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[实现默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)：
+通过下面突出显示的代码更新 Startup.cs，配置应用来[提供静态文件](xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A)并[实现默认文件映射](xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles%2A)：
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 
@@ -960,11 +960,11 @@ jQuery 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accep
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-## <a name="additional-resources"></a>[!INCLUDE[](~/includes/IdentityServer4.md)]
+## <a name="additional-resources"></a>其他资源
 
-其他资源 [查看或下载本教程的示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。
+[查看或下载本教程的示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。 请参阅[如何下载](xref:index#how-to-download-a-sample)。
 
-请参阅[如何下载](xref:index#how-to-download-a-sample)。
+有关更多信息，请参见以下资源：
 
 * <xref:web-api/index>
 * <xref:tutorials/web-api-help-pages-using-swagger>
@@ -973,4 +973,4 @@ jQuery 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accep
 * <xref:web-api/action-return-types>
 * <xref:host-and-deploy/azure-apps/index>
 * <xref:host-and-deploy/index>
-* 有关更多信息，请参见以下资源：
+* [本教程的 YouTube 版本](https://www.youtube.com/watch?v=TTkhEyGBfAk)

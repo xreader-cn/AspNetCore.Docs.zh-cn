@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 56681e713e008188d57166da9c8fd4eb6923928c
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 6e3753131388c294130f11aa913a0bb7e8127fa3
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944212"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818945"
 ---
-# <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
+# <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
 作者：[Daniel Roth](https://github.com/danroth27)
 
@@ -32,7 +32,7 @@ Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassemb
 
 Blazor 的主要托管模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理在同一进程中进行。 应用资产作为静态文件部署到可为客户端提供静态内容的 Web 服务器或服务中。
 
-![Blazor WebAssembly：Blazor 应用在浏览器内部的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
+![Blazor WebAssembly:Blazor 应用在浏览器内部的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
 
 若要使用客户端托管模型创建 Blazor 应用，请使用 Blazor WebAssembly 应用模板 ([`dotnet new blazorwasm`](/dotnet/core/tools/dotnet-new))。
 
@@ -63,7 +63,7 @@ Blazor 托管应用模型支持 [Docker 容器](/dotnet/standard/microservices-a
 
 使用 Blazor Server 托管模型可从 ASP.NET Core 应用中在服务器上执行应用。 UI 更新、事件处理和 JavaScript 调用是通过 [SignalR](xref:signalr/introduction) 连接进行处理。
 
-![浏览器通过 SignalR 连接与服务器上的应用进行交互（该应用托管在 ASP.NET Core 应用内部）。](hosting-models/_static/blazor-server.png)
+![浏览器通过 SignalR 连接与服务器上的应用（该应用托管在 ASP.NET Core 应用内部）进行交互。](hosting-models/_static/blazor-server.png)
 
 若要使用 Blazor Server 托管模型创建 Blazor 应用，请使用 ASP.NET Core Blazor Server 应用模板 ([`dotnet new blazorserver`](/dotnet/core/tools/dotnet-new))。 ASP.NET Core 应用会托管 Blazor Server 应用，并在连接客户端的位置创建 SignalR 终结点。
 

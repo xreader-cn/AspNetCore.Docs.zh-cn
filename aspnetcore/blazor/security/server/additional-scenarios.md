@@ -1,36 +1,36 @@
 ---
-title: ASP.NET Core [Blazor Server 其他安全方案
+title: ASP.NET Core Blazor Server 其他安全方案
 author: guardrex
-description: 了解如何为其他安全方案配置 [Blazor Server。
+description: 了解如何为其他安全方案配置 Blazor Server。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: blazor/security/server/additional-scenarios
-ms.openlocfilehash: 46de9a22dec540b8dfda7583b7a3c5c2dcbbc549
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8f112a4d71e44cae112e9854fc77dfda4af5a47a
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402320"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818906"
 ---
-# <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>ASP.NET Core [Blazor Server 其他安全方案
+# <a name="aspnet-core-no-locblazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server 其他安全方案
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)
 
-## <a name="pass-tokens-to-a-blazor-server-app"></a>将令牌传递到 [Blazor Server 应用
+## <a name="pass-tokens-to-a-no-locblazor-server-app"></a>将令牌传递到 Blazor Server 应用
 
-可以使用本节中介绍的方法将 [Blazor Server 应用中 [Razor 组件外部可用的令牌传递给组件。 有关示例代码（包括完整的 `Startup.ConfigureServices` 示例），请参阅[将令牌传递到服务器端 [Blazor 应用程序](https://github.com/javiercn/blazor-server-aad-sample)。
+可以使用本节中介绍的方法将 Blazor Server 应用中 Razor 组件外部可用的令牌传递给组件。 有关示例代码（包括完整的 `Startup.ConfigureServices` 示例），请参阅[将令牌传递到服务器端 Blazor 应用程序](https://github.com/javiercn/blazor-server-aad-sample)。
 
-与对常规 [Razor Pages 或 MVC 应用进行身份验证一样，对 [Blazor Server 应用进行身份验证。 预配令牌并将其保存到身份验证 cookie。 例如：
+与对常规 Razor Pages 或 MVC 应用进行身份验证一样，对 Blazor Server 应用进行身份验证。 预配令牌并将其保存到身份验证 cookie。 例如：
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -58,7 +58,7 @@ public class InitialApplicationState
 }
 ```
 
-定义可在 [Blazor 应用中使用的作用域令牌提供程序服务，以解析[依赖项注入 (DI)](xref:blazor/fundamentals/dependency-injection) 中的令牌：
+定义可在 Blazor 应用中使用的作用域令牌提供程序服务，以解析[依赖项注入 (DI)](xref:blazor/fundamentals/dependency-injection) 中的令牌：
 
 ```csharp
 public class TokenProvider
@@ -152,7 +152,7 @@ public class WeatherForecastService
 
 ## <a name="set-the-authentication-scheme"></a>设置身份验证方案
 
-对于使用多个身份验证中间件并因此具有多个身份验证方案的应用，可以在 `Startup.Configure` 的终结点配置中显式设置 [Blazor 使用的方案。 下面的示例设置 Azure Active Directory 方案：
+对于使用多个身份验证中间件并因此具有多个身份验证方案的应用，可以在 `Startup.Configure` 的终结点配置中显式设置 Blazor 使用的方案。 下面的示例设置 Azure Active Directory 方案：
 
 ```csharp
 endpoints.MapBlazorHub().RequireAuthorization(
@@ -162,9 +162,9 @@ endpoints.MapBlazorHub().RequireAuthorization(
     });
 ```
 
-## <a name="use-open-id-connect-oidc-v20-endpoints"></a>使用 pen ID Connect (OIDC) v2.0 终结点
+## <a name="use-openid-connect-oidc-v20-endpoints"></a>使用 OpenID Connect (OIDC) v2.0 终结点
 
-身份验证库和 [Blazor 模板使用 Open ID Connect (OIDC) v1.0 终结点。 要使用 v2.0 终结点，请在 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> 中配置 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> 选项：
+身份验证库和 Blazor 模板使用 OpenID Connect (OIDC) v1.0 终结点。 要使用 v2.0 终结点，请在 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> 中配置 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> 选项：
 
 ```csharp
 services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, 

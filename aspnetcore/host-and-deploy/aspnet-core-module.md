@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 5e04d54bedf7cce8b7a6ab546920e7dec1213a20
-ms.sourcegitcommit: d1fa3d69dda675d7a52c7100742dfa6297413376
+ms.openlocfilehash: e16735ec06e6d84118e5949fe56c514015105242
+ms.sourcegitcommit: 6eacadf1be61679ab8e6f781ece76b7395512879
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/08/2020
-ms.locfileid: "86093352"
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87758575"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -192,7 +192,7 @@ ASP.NET Core 模块还可以：
 | `rapidFailsPerMinute` | <p>可选的整数属性。</p><p>指定允许 processPath 中指定的进程每分钟崩溃的次数。 如果超出了此限制，模块将在剩余分钟数内停止启动该进程。</p><p>不支持进程内托管。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`100` |
 | `requestTimeout` | <p>可选的 timespan 属性。</p><p>指定 ASP.NET Core 模块等待来自 %ASPNETCORE_PORT% 上侦听的进程的响应的持续时间。</p><p>在 ASP.NET Core 2.1 或更高版本附带的 ASP.NET Core 模块版本中，使用小时数、分钟数和秒数指定 `requestTimeout`。</p><p>不适用于进程内托管。 对于进程内托管，该模块等待应用处理该请求。</p><p>此字符串的分钟段和秒钟段的有效值在 0-59 之间。 在分钟或秒钟值中使用“60”会导致“500 - 内部服务器错误”。</p> | 默认值：`00:02:00`<br>最小值：`00:00:00`<br>最大值：`360:00:00` |
 | `shutdownTimeLimit` | <p>可选的整数属性。</p><p>检测到 app_offline.htm 文件时，模块等待可执行文件正常关闭的持续时间（以秒为单位）。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`600` |
-| `startupTimeLimit` | <p>可选的整数属性。</p><p>模块等待可执行文件启动端口上侦听的进程的持续时间（以秒为单位）。 如果超出了此时间限制，模块将终止该进程。 模块在收到新请求时尝试重新启动该进程，并在收到后续传入请求时继续尝试重新启动该进程，除非应用在上一回滚分钟内无法启动 rapidFailsPerMinute 次。</p><p>值 0（零）不被视为无限超时。</p> | 默认值：`120`<br>最小值：`0`<br>最大值：`3600` |
+| `startupTimeLimit` | <p>可选的整数属性。</p><p>模块等待可执行文件启动端口上侦听的进程的持续时间（以秒为单位）。 如果超出了此时间限制，模块将终止该进程。</p><p>进程内托管时：不会重新启动该进程，也不会使用 rapidFailsPerMinute 设置  。</p><p>进程外托管时：模块在收到新请求时尝试重新启动该进程，并在收到后续传入请求时继续尝试重新启动该进程，除非应用在上一回滚分钟内无法启动 rapidFailsPerMinute 次。</p><p>值 0（零）不被视为无限超时。</p> | 默认值：`120`<br>最小值：`0`<br>最大值：`3600` |
 | `stdoutLogEnabled` | <p>可选布尔属性。</p><p>如果为 true，processPath 中指定的 进程的 stdout 和 stderr 将重定向到 stdoutLogFile 中指定的文件。</p> | `false` |
 | `stdoutLogFile` | <p>可选的字符串属性。</p><p>指定在其中记录 processPath 中指定进程的 stdout 和 stderr 的相对路径或绝对路径。 相对路径与站点根目录相对。 以 `.` 开头的任何路径均与站点根目录相对，所有其他路径被视为绝对路径。 创建日志文件时，模块会创建路径中提供的所有文件夹。 使用下划线分隔符，将时间戳、进程 ID 和文件扩展名 (.log) 添加到 stdoutLogFile 路径的最后一段。 如果 `.\logs\stdout` 作为值提供，则在示例 stdout 日志使用进程 ID 1934 于 2018 年 2 月 5 日 19:41:32 保存时，将在 logs 文件夹中保存为 stdout_20180205194132_1934.log。</p> | `aspnetcore-stdout` |
 
@@ -303,7 +303,7 @@ ASP.NET Core 模块还可以：
 
 * 错误
 * 警告
-* 信息
+* INFO
 * TRACE
 
 位置（允许多个位置）：
@@ -596,7 +596,7 @@ ASP.NET Core 模块还可以：
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 元素的属性
 
-| 特性 | 描述 | 默认 |
+| 特性 | 说明 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p> | |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
@@ -607,7 +607,7 @@ ASP.NET Core 模块还可以：
 | `rapidFailsPerMinute` | <p>可选的整数属性。</p><p>指定允许 processPath 中指定的进程每分钟崩溃的次数。 如果超出了此限制，模块将在剩余分钟数内停止启动该进程。</p><p>不支持进程内托管。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`100` |
 | `requestTimeout` | <p>可选的 timespan 属性。</p><p>指定 ASP.NET Core 模块等待来自 %ASPNETCORE_PORT% 上侦听的进程的响应的持续时间。</p><p>在 ASP.NET Core 2.1 或更高版本附带的 ASP.NET Core 模块版本中，使用小时数、分钟数和秒数指定 `requestTimeout`。</p><p>不适用于进程内托管。 对于进程内托管，该模块等待应用处理该请求。</p><p>此字符串的分钟段和秒钟段的有效值在 0-59 之间。 在分钟或秒钟值中使用“60”会导致“500 - 内部服务器错误”。</p> | 默认值：`00:02:00`<br>最小值：`00:00:00`<br>最大值：`360:00:00` |
 | `shutdownTimeLimit` | <p>可选的整数属性。</p><p>检测到 app_offline.htm 文件时，模块等待可执行文件正常关闭的持续时间（以秒为单位）。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`600` |
-| `startupTimeLimit` | <p>可选的整数属性。</p><p>模块等待可执行文件启动端口上侦听的进程的持续时间（以秒为单位）。 如果超出了此时间限制，模块将终止该进程。 模块在收到新请求时尝试重新启动该进程，并在收到后续传入请求时继续尝试重新启动该进程，除非应用在上一回滚分钟内无法启动 rapidFailsPerMinute 次。</p><p>值 0（零）不被视为无限超时。</p> | 默认值：`120`<br>最小值：`0`<br>最大值：`3600` |
+| `startupTimeLimit` | <p>可选的整数属性。</p><p>模块等待可执行文件启动端口上侦听的进程的持续时间（以秒为单位）。 如果超出了此时间限制，模块将终止该进程。</p><p>进程内托管时：不会重新启动该进程，也不会使用 rapidFailsPerMinute 设置  。</p><p>进程外托管时：模块在收到新请求时尝试重新启动该进程，并在收到后续传入请求时继续尝试重新启动该进程，除非应用在上一回滚分钟内无法启动 rapidFailsPerMinute 次。</p><p>值 0（零）不被视为无限超时。</p> | 默认值：`120`<br>最小值：`0`<br>最大值：`3600` |
 | `stdoutLogEnabled` | <p>可选布尔属性。</p><p>如果为 true，processPath 中指定的 进程的 stdout 和 stderr 将重定向到 stdoutLogFile 中指定的文件。</p> | `false` |
 | `stdoutLogFile` | <p>可选的字符串属性。</p><p>指定在其中记录 processPath 中指定进程的 stdout 和 stderr 的相对路径或绝对路径。 相对路径与站点根目录相对。 以 `.` 开头的任何路径均与站点根目录相对，所有其他路径被视为绝对路径。 创建日志文件时，模块会创建路径中提供的所有文件夹。 使用下划线分隔符，将时间戳、进程 ID 和文件扩展名 (.log) 添加到 stdoutLogFile 路径的最后一段。 如果 `.\logs\stdout` 作为值提供，则在示例 stdout 日志使用进程 ID 1934 于 2018 年 2 月 5 日 19:41:32 保存时，将在 logs 文件夹中保存为 stdout_20180205194132_1934.log。</p> | `aspnetcore-stdout` |
 
@@ -716,7 +716,7 @@ ASP.NET Core 模块还可以：
 
 * 错误
 * 警告
-* 信息
+* INFO
 * TRACE
 
 位置（允许多个位置）：
@@ -903,7 +903,7 @@ ASP.NET Core 模块还可以：
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 元素的属性
 
-| 特性 | 描述 | 默认 |
+| 特性 | 说明 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p>| |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |

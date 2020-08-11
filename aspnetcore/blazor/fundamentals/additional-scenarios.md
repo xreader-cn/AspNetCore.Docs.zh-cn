@@ -15,20 +15,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: b28e4e43b88fcf8eab9e8959142cca21223c57ff
-ms.sourcegitcommit: e216e8f4afa21215dc38124c28d5ee19f5ed7b1e
+ms.openlocfilehash: b32710e515d111b7dd6556f1db55082cd56a82b5
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86239629"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818997"
 ---
-# <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
+# <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
-作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
+作者：[Daniel Roth](https://github.com/danroth27)、[Mackinnon Buck](https://github.com/MackinnonBuck) 和 [Luke Latham](https://github.com/guardrex)
 
 本文介绍了托管模型配置。
 
-### <a name="signalr-cross-origin-negotiation-for-authentication"></a>用于身份验证的 SignalR 跨源协商
+### <a name="no-locsignalr-cross-origin-negotiation-for-authentication"></a>用于身份验证的 SignalR 跨源协商
 
 本部分适用于 Blazor WebAssembly。
 
@@ -125,7 +125,7 @@ ms.locfileid: "86239629"
 
 不支持从静态 HTML 页面呈现服务器组件。
 
-## <a name="configure-the-signalr-client-for-blazor-server-apps"></a>为 Blazor Server 应用配置 SignalR 客户端
+## <a name="configure-the-no-locsignalr-client-for-no-locblazor-server-apps"></a>为 Blazor Server 应用配置 SignalR 客户端
 
 本部分适用于 Blazor Server。
 
@@ -141,7 +141,7 @@ ms.locfileid: "86239629"
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       Blazor.start({
         configureSignalR: function (builder) {
@@ -169,7 +169,7 @@ ms.locfileid: "86239629"
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       Blazor.start({
         reconnectionHandler: {
@@ -191,7 +191,7 @@ ms.locfileid: "86239629"
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       Blazor.start({
         reconnectionOptions: {
@@ -213,7 +213,7 @@ ms.locfileid: "86239629"
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       window.addEventListener('beforeunload', function () {
         Blazor.defaultReconnectionHandler._reconnectionDisplay = {};
@@ -230,6 +230,41 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 ```
 
 占位符 `{ELEMENT ID}` 是要显示的 HTML 元素的 ID。
+
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="influence-html-head-tag-elements"></a>影响 HTML `<head>` 标记元素
+
+本部分适用于 Blazor WebAssembly 和 Blazor Server。
+
+`Title`、`Link` 和 `Meta` 组件呈现时，会在 HTML `<head>` 标记元素中添加或更新数据：
+
+```razor
+@using Microsoft.AspNetCore.Components.Web.Extensions.Head
+
+<Title Value="{TITLE}" />
+<Link href="{URL}" rel="stylesheet" />
+<Meta content="{DESCRIPTION}" name="description" />
+```
+
+在前面的示例中，`{TITLE}`、`{URL}` 和 `{DESCRIPTION}` 的占位符是字符串值、Razor 变量或 Razor 表达式。
+
+具有以下特性：
+
+* 支持服务器端预呈现。
+* `Value` 参数是 `Title` 组件唯一有效的参数。
+* 为 `Meta` 和 `Link` 组件提供的 HTML 属性是在[其他属性](xref:blazor/components/index#attribute-splatting-and-arbitrary-parameters)中捕获的，并传递到呈现的 HTML 标记。
+* 对于多个 `Title` 组件，页的标题反映了呈现的最后一个 `Title` 组件的 `Value`。
+* 如果多个 `Meta` 或 `Link` 组件包含在相同的属性中，则每个 `Meta` 或 `Link` 组件呈现且仅呈现一个 HTML 标记。 两个 `Meta` 或 `Link` 组件不能引用同一个呈现的 HTML 标记。
+* 对现有 `Meta` 或 `Link` 组件的参数所做的更改将在其呈现的 HTML 标记中体现。
+* 如果不再呈现 `Link` 或 `Meta` 组件，并因此由框架释放，则会删除其呈现的 HTML 标记。
+
+在子组件中使用其中一个框架组件时，只要呈现包含框架组件的子组件，呈现的 HTML 标记就会影响父组件的任何其他子组件。 在子组件中使用其中一个框架组件，与在 `wwwroot/index.html` 或 `Pages/_Host.cshtml` 中放置一个 HTML 标记之间的区别是，框架组件已呈现的 HTML 标记：
+
+* 可以根据应用程序状态进行修改。 不能根据应用程序状态修改硬编码 HTML 标记。
+* 将在不再呈现父组件的情况下从 HTML `<head>` 中被删除。
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 
