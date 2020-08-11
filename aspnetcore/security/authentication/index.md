@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/03/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/index
-ms.openlocfilehash: a230e1ae85a54ddf16900b2ee7ed4a18d45e4ea2
-ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
+ms.openlocfilehash: b0258118e116b1686abbebf1c8d89135ae3cb1f6
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87160206"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019311"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 
@@ -37,7 +39,7 @@ ms.locfileid: "87160206"
 * 方式是在调用 `services.AddAuthentication` 后调用方案特定的扩展方法（例如 `AddJwtBearer` 或 `AddCookie`）。 这些扩展方法使用 [AuthenticationBuilder.AddScheme](xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder.AddScheme*) 向适当的设置注册方案。
 * 比较不常用的方式是直接调用 [AuthenticationBuilder.AddScheme](xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder.AddScheme*)。
 
-例如，下列代码会为 Cookie 和 JWT 持有者身份验证方案注册身份验证服务和处理程序：
+例如，下列代码会为 cookie 和 JWT 持有者身份验证方案注册身份验证服务和处理程序：
 
 ```csharp
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -47,7 +49,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 `AddAuthentication` 参数 `JwtBearerDefaults.AuthenticationScheme` 是方案的名称，未请求特定方案时会默认使用此名称。
 
-如果使用了多个方案，授权策略（或授权属性）可[指定](xref:security/authorization/limitingidentitybyscheme)对用户进行身份验证时要依据的一个或多个身份验证方案。 在上例中，可通过指定 Cookie 身份验证方案的名称来使用该方案（默认为 `CookieAuthenticationDefaults.AuthenticationScheme`，但也可在调用 `AddCookie` 时提供其他名称）。
+如果使用了多个方案，授权策略（或授权属性）可[指定](xref:security/authorization/limitingidentitybyscheme)对用户进行身份验证时要依据的一个或多个身份验证方案。 在上例中，可通过指定 cookie 身份验证方案的名称来使用该方案（默认为 `CookieAuthenticationDefaults.AuthenticationScheme`，但也可在调用 `AddCookie` 时提供其他名称）。
 
 在某些情况下，其他扩展方法会自动调用 `AddAuthentication`。 例如，使用 [ASP.NET Core Identity](xref:security/authentication/identity) 时，会在内部调用 `AddAuthentication`。
 
@@ -90,14 +92,14 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 身份验证方案的身份验证操作负责根据请求上下文构造用户的身份。 它会返回一个 <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult>指示身份验证是否成功；若成功，则还在身份验证票证中指示用户的身份。 请参阅 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.AuthenticateAsync%2A>。 身份验证示例包括：
 
-* 根据 Cookie 构造用户身份的 Cookie 身份验证方案。
+* 根据 cookie 构造用户身份的 cookie 身份验证方案。
 * 对 JWT 持有者令牌进行反序列化和验证以构造用户身份的 JWT 持有者方案。
 
 ### <a name="challenge"></a>挑战
 
 当未经身份验证的用户请求要求身份验证的终结点时，授权会发起身份验证挑战。 例如，当匿名用户请求受限资源或单击登录链接时，会引发身份验证挑战。 授权会使用指定的身份验证方案发起挑战；如果未指定任何方案，则使用默认方案。 请参阅 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync%2A>。 身份验证挑战示例包括：
 
-* 将用户重定向到登录页面的 Cookie 身份验证方案。
+* 将用户重定向到登录页面的 cookie 身份验证方案。
 * 返回具有 `www-authenticate: bearer` 标头的 401 结果的 JWT 持有者方案。
 
 挑战操作应告知用户要使用哪种身份验证机制来访问所请求的资源。
@@ -105,7 +107,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 ### <a name="forbid"></a>禁止
 
 当已经过身份验证的用户尝试访问其无权访问的资源时，授权会调用身份验证方案的禁止操作。 请参阅 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ForbidAsync%2A>。 身份验证禁止示例包括：
-* 将用户重定向到表示访问遭禁的页面的 Cookie 身份验证方案。
+* 将用户重定向到表示访问遭禁的页面的 cookie 身份验证方案。
 * 返回 403 结果的 JWT 持有者方案。
 * 重定向到用户可请求资源访问权限的页面的自定义身份验证方案。
 

@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: fbb3f6d254e6d294edc7af59d7980a1d67e4a801
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: fef638d592cacfe2f4f67e522900979993905859
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568803"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013588"
 ---
-# <a name="secure-aspnet-core-blazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
+# <a name="secure-aspnet-core-no-locblazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)
 
-Blazor WebAssembly 应用的保护方式与单页应用 (SPA) 相同。 可通过多种方式向 SPA 进行用户身份验证，但最常用、最全面的方式是使用基于 [OAuth 2.0 协议](https://oauth.net/)的实现，例如 [Open ID Connect (OIDC)](https://openid.net/connect/)。
+Blazor WebAssembly 应用的保护方式与单页应用 (SPA) 相同。 可通过多种方式向 SPA 进行用户身份验证，但最常用、最全面的方式是使用基于 [OAuth 2.0 协议](https://oauth.net/)的实现，例如 [OpenID Connect (OIDC)](https://openid.net/connect/)。
 
 ## <a name="authentication-library"></a>身份验证库
 

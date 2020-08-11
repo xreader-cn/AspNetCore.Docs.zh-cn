@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 85446ac18608b39c469da766e1a9f2e92a1f5e11
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: d2ebb5d3c3a1c3629a5bf563aecfd6fc147715d6
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445107"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014017"
 ---
-# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
+# <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS) 及 [Luke Latham](https://github.com/guardrex)
 
@@ -44,7 +46,7 @@ Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示
 
 Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份。 具体机制取决于 Blazor 应用是使用 Blazor WebAssembly 还是 Blazor Server托管的。
 
-### <a name="blazor-webassembly-authentication"></a>Blazor WebAssembly身份验证
+### <a name="no-locblazor-webassembly-authentication"></a>Blazor WebAssembly身份验证
 
 在 Blazor WebAssembly 应用中，可绕过身份验证检查，因为用户可修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
@@ -53,19 +55,19 @@ Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份�
 * 应用项目文件 [`Microsoft.AspNetCore.Components.Authorization`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) 的包引用。
 * 应用的 `_Imports.razor` 文件的 `Microsoft.AspNetCore.Components.Authorization` 命名空间。
 
-为处理身份验证，需实现内置或自定义 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务，以下几节对此进行了介绍。
+为处理身份验证，需使用内置或自定义 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务，以下几节对此进行了介绍。
 
 有关创建应用和配置的详细信息，请参阅 <xref:blazor/security/webassembly/index>。
 
-### <a name="blazor-server-authentication"></a>Blazor Server身份验证
+### <a name="no-locblazor-server-authentication"></a>Blazor Server身份验证
 
-Blazor Server应用通过使用 SignalR 创建的实时连接运行。 建立连接后，将处理[基于 SignalR 的应用的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
+Blazor Server应用通过使用 SignalR 创建的实时连接运行。 建立连接后，将处理[基于 SignalR 的应用的身份验证](xref:signalr/authn-and-authz)。 可基于 cookie 或一些其他持有者令牌进行身份验证。
+
+Blazor Server 应用内置的 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务可从 ASP.NET Core 的 `HttpContext.User` 获取身份验证状态数据。 身份验证状态就是这样与现有 ASP.NET Core 身份验证机制集成。
 
 有关创建应用和配置的详细信息，请参阅 <xref:blazor/security/server/index>。
 
 ## <a name="authenticationstateprovider-service"></a>AuthenticationStateProvider 服务
-
-内置的 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务可从 ASP.NET Core 的 `HttpContext.User` 获取身份验证状态数据。 身份验证状态就是这样与现有 ASP.NET Core 身份验证机制集成。
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 是 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件和 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 组件用于获取身份验证状态的基础服务。
 

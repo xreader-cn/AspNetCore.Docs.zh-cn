@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/7/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 951ae53876edf345af1a3eb32cb9be1b9668fa53
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0594303f3ae8c57a0a7776900e6b2a6781c919db
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404166"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015824"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -510,7 +512,7 @@ ASP.NET Core 应用不会使用 web.config 中的 ASP.NET 4.x 应用的配置部
 
 IIS“添加网站”对话框默认为每应用一个应用池。 提供了站点名称时，该文本会自动传输到“应用程序池”文本框 。 添加站点时，会使用该站点名称创建新的应用池。
 
-## <a name="application-pool-identity"></a>应用程序池 Identity
+## <a name="application-pool-no-locidentity"></a>应用程序池 Identity
 
 通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。 在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。 在 IIS 管理控制台中，确保应用池“高级设置”下的“Identity”设置为使用 ApplicationPoolIdentity  ：
 
@@ -1110,7 +1112,7 @@ ASP.NET Core 应用不会使用 web.config 中的 ASP.NET 4.x 应用的配置部
 
 IIS“添加网站”对话框默认为每应用一个应用池。 提供了站点名称时，该文本会自动传输到“应用程序池”文本框 。 添加站点时，会使用该站点名称创建新的应用池。
 
-## <a name="application-pool-identity"></a>应用程序池 Identity
+## <a name="application-pool-no-locidentity"></a>应用程序池 Identity
 
 通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。 在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。 在 IIS 管理控制台中，确保应用池“高级设置”下的“Identity”设置为使用 ApplicationPoolIdentity  ：
 
@@ -1706,7 +1708,7 @@ ASP.NET Core 应用不会使用 web.config 中的 ASP.NET 4.x 应用的配置部
 
 在服务器上托管多个网站时，建议在每个应用自己的应用池中运行各应用，以彼此隔离。 IIS“添加网站”对话框默认执行此配置。 提供了站点名称时，该文本会自动传输到“应用程序池”文本框 。 添加站点时，会使用该站点名称创建新的应用池。
 
-## <a name="application-pool-identity"></a>应用程序池 Identity
+## <a name="application-pool-no-locidentity"></a>应用程序池 Identity
 
 通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。 在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。 在 IIS 管理控制台中，确保应用池“高级设置”下的“Identity”设置为使用 ApplicationPoolIdentity  ：
 

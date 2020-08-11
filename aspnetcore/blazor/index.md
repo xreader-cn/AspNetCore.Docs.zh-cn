@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc, seoapril2019
 ms.date: 06/19/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 30f11a137e711b1cf7a8b036af92fbb5fa2a1f05
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ad543087243658f09a23e4f6d957d0c6aa77b361
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402567"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014173"
 ---
-# <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor 简介
+# <a name="introduction-to-aspnet-core-no-locblazor"></a>ASP.NET Core Blazor 简介
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -88,7 +90,7 @@ Blazor 使用 UI 构成的自然 HTML 标记。 HTML 元素指定组件，并且
 
 在以下示例中，`Index` 组件使用 `Dialog` 组件。 `ChildContent` 和 `Title` 由 `<Dialog>` 元素的属性和内容设置。
 
-`Pages/Index.razor`：
+`Pages/Index.razor`:
 
 ```razor
 @page "/"
@@ -118,7 +120,7 @@ Blazor WebAssembly 是单页应用框架，用于使用 .NET 生成交互式客�
 
 WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性或 JavaScript 互操作）访问浏览器的完整功能。 通过浏览器中的 WebAssembly 执行的 .NET 代码在浏览器的 JavaScript 沙盒中运行，沙盒提供的保护可防御客户端计算机上的恶意操作。
 
-![Blazor WebAssembly 使用 WebAssembly ](index/_static/blazor-webassembly.png) 在浏览器中运行 .NET 代码。
+![Blazor WebAssembly 使用 WebAssembly 在浏览器中运行 .NET 代码。](index/_static/blazor-webassembly.png)
 
 当 Blazor WebAssembly 应用生成并在浏览器中运行时：
 
@@ -140,7 +142,7 @@ Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazo
 
 Blazor Server用于与浏览器通信的连接还用于处理 JavaScript 互操作调用。
 
-![Blazor Server在服务器上运行 .NET 代码，并通过 SignalR 连接 ](index/_static/blazor-server.png) 与客户端上的文档对象模型进行交互
+![Blazor 服务器在服务器上运行 .NET 代码，并通过 SignalR 连接与客户端上的文档对象模型进行交互](index/_static/blazor-server.png)
 
 ## <a name="javascript-interop"></a>JavaScript 互操作
 

@@ -5,6 +5,8 @@ description: 接收将现有 ASP.NET MVC 或 Web API 应用迁移到 ASP.NET Cor
 ms.author: scaddie
 ms.date: 10/18/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 1530a5e6cc4b241b916ed7c64587b515186cc6ca
-ms.sourcegitcommit: d306407dc5bfe6fdfbac482214b3f59371b582bc
+ms.openlocfilehash: defdb190acf915eaa7c4aa8469ee47888f771526
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/04/2020
-ms.locfileid: "85951926"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014914"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -163,7 +165,7 @@ Web 开发的一个重要环节是提供客户端静态资产的功能。 HTML�
 > [!NOTE]
 > 若要获取在 ASP.NET Core 中提供静态文件的更深入的参考信息，请参阅[静态文件](xref:fundamentals/static-files)。
 
-## <a name="multi-value-cookies"></a>多值 cookie
+## <a name="multi-value-no-loccookies"></a>多值 cookie
 
 ASP.NET Core 不支持[多值 cookie](xref:System.Web.HttpCookie.Values)。 为每个值创建一个 cookie。
 
