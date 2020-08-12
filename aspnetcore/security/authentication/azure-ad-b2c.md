@@ -3,7 +3,7 @@ title: ASP.NET Core 中的 Azure Active Directory B2C 的云身份验证
 author: camsoper
 description: 了解如何设置 ASP.NET Core Azure Active Directory B2C 身份验证。
 ms.author: casoper
-ms.custom: mvc
+ms.custom: devx-track-csharp, mvc
 ms.date: 01/21/2019
 no-loc:
 - cookie
@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 78fe4d5dd9e3f64789956e58a4490bef6bdbca1e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ccd3868c4b3294098e692f7a20e06d59ba482e7c
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021700"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130517"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>ASP.NET Core 中的 Azure Active Directory B2C 的云身份验证
 
@@ -57,7 +57,7 @@ ms.locfileid: "88021700"
 
 使用以下值：
 
-| 设置                       | “值”                     | 说明                                                                                                                                                                                              |
+| 设置                       | 值                     | 注释                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **名称**                      | *&lt;应用名称&gt;*        | 输入向使用者描述你的应用程序的应用程序的**名称**。                                                                                                                                 |
 | **** 包括 Web 应用/Web API | 是                       |                                                                                                                                                                                                    |
@@ -91,7 +91,7 @@ ms.locfileid: "88021700"
 
 5. 完成具有以下值的窗体：
     
-    | 设置                       | “值”                                                 |
+    | 设置                       | 值                                                 |
     |-------------------------------|-------------------------------------------------------|
     | **域名**               | *&lt;B2C 租户的域名&gt;*          |
     | **应用程序 ID**            | *&lt;从剪贴板粘贴应用程序 ID&gt;* |
@@ -156,7 +156,7 @@ services.Configure<JwtBearerOptions>(
 
 ## <a name="next-steps"></a>后续步骤
 
-在本教程中，你了解了如何执行以下操作：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 创建 Azure Active Directory B2C 租户
