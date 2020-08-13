@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 2352bbaa3c4123cd588609e22b65cd9e268f5637
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8f39d6f460faaab3d54178daf3730f5a6662df40
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017657"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130686"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -97,6 +97,8 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥  。 �
 使用[默认](#default)配置，会通过 [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75) 启用 appsettings.json 和 appsettings.`Environment`.json 文件  。 应用启动后，对 appsettings.json 和 appsettings.`Environment`.json 文件做出的更改将由 [JSON 配置提供程序](#jcp)读取  。
 
 有关添加其他 JSON 配置文件的信息，请参阅本文档中的 [JSON 配置提供程序](#jcp)。
+
+[!INCLUDE[](~/includes/combine-di.md)]
 
 <a name="security"></a>
 
@@ -1110,7 +1112,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 密钥       | “值”             |
+| 键       | 值             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1687,7 +1689,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 密钥             | “值”  |
+| 键             | 值  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1710,7 +1712,7 @@ config.AddJsonFile(
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 键                     | “值”  |
+| 键                     | 值  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |
