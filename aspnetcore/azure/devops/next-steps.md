@@ -3,9 +3,11 @@ title: 后续步骤 - 通过 ASP.NET Core 和 Azure 实现 DevOps
 author: CamSoper
 description: 通过 ASP.NET Core 和 Azure 实现 DevOps 的其他学习路径。
 ms.author: casoper
-ms.custom: mvc, seodec18
+ms.custom: devx-track-csharp, mvc, seodec18
 ms.date: 10/24/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,41 +16,41 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/next-steps
-ms.openlocfilehash: 6e7f46a0c78575e52a8182829f7b3d2bddec70f6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a9a6b0a588b7813f9d6e2b215630a1b9100be890
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400331"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130426"
 ---
-# <a name="next-steps"></a><span data-ttu-id="5ec3b-103">后续步骤</span><span class="sxs-lookup"><span data-stu-id="5ec3b-103">Next steps</span></span>
+# <a name="next-steps"></a><span data-ttu-id="f4242-103">后续步骤</span><span class="sxs-lookup"><span data-stu-id="f4242-103">Next steps</span></span>
 
-<span data-ttu-id="5ec3b-104">本指南中，你为 ASP.NET Core 示例应用创建了 DevOps 管道。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-104">In this guide, you created a DevOps pipeline for an ASP.NET Core sample app.</span></span> <span data-ttu-id="5ec3b-105">祝贺你！</span><span class="sxs-lookup"><span data-stu-id="5ec3b-105">Congratulations!</span></span> <span data-ttu-id="5ec3b-106">希望你喜欢学习如何将 ASP.NET Core web 应用发布到 Azure 应用服务并自动执行更改的持续集成的过程。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-106">We hope you enjoyed learning to publish ASP.NET Core web apps to Azure App Service and automate the continuous integration of changes.</span></span>
+<span data-ttu-id="f4242-104">本指南中，你为 ASP.NET Core 示例应用创建了 DevOps 管道。</span><span class="sxs-lookup"><span data-stu-id="f4242-104">In this guide, you created a DevOps pipeline for an ASP.NET Core sample app.</span></span> <span data-ttu-id="f4242-105">祝贺你！</span><span class="sxs-lookup"><span data-stu-id="f4242-105">Congratulations!</span></span> <span data-ttu-id="f4242-106">希望你喜欢学习如何将 ASP.NET Core web 应用发布到 Azure 应用服务并自动执行更改的持续集成的过程。</span><span class="sxs-lookup"><span data-stu-id="f4242-106">We hope you enjoyed learning to publish ASP.NET Core web apps to Azure App Service and automate the continuous integration of changes.</span></span>
 
-<span data-ttu-id="5ec3b-107">除了 web 主机和 DevOps，Azure 还提供了一系列可以帮助 ASP.NET Core 开发人员的平台即服务 (PaaS) 服务。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-107">Beyond web hosting and DevOps, Azure has a wide array of Platform-as-a-Service (PaaS) services useful to ASP.NET Core developers.</span></span> <span data-ttu-id="5ec3b-108">本部分简要概述了一些最常用的服务。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-108">This section gives a brief overview of some of the most commonly used services.</span></span>
+<span data-ttu-id="f4242-107">除了 web 主机和 DevOps，Azure 还提供了一系列可以帮助 ASP.NET Core 开发人员的平台即服务 (PaaS) 服务。</span><span class="sxs-lookup"><span data-stu-id="f4242-107">Beyond web hosting and DevOps, Azure has a wide array of Platform-as-a-Service (PaaS) services useful to ASP.NET Core developers.</span></span> <span data-ttu-id="f4242-108">本部分简要概述了一些最常用的服务。</span><span class="sxs-lookup"><span data-stu-id="f4242-108">This section gives a brief overview of some of the most commonly used services.</span></span>
 
-## <a name="storage-and-databases"></a><span data-ttu-id="5ec3b-109">存储和数据库</span><span class="sxs-lookup"><span data-stu-id="5ec3b-109">Storage and databases</span></span>
+## <a name="storage-and-databases"></a><span data-ttu-id="f4242-109">存储和数据库</span><span class="sxs-lookup"><span data-stu-id="f4242-109">Storage and databases</span></span>
 
-<span data-ttu-id="5ec3b-110">[Redis Cache](/azure/redis-cache/) 是​​可作为服务使用的高吞吐量且低延迟的数据缓存。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-110">[Redis Cache](/azure/redis-cache/) is high-throughput, low-latency data caching available as a service.</span></span> <span data-ttu-id="5ec3b-111">它可用于缓存页面输出、减少数据库请求以及跨应用多个实例提供 ASP.NET Core 会话状态。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-111">It can be used for caching page output, reducing database requests, and providing ASP.NET Core session state across multiple instances of an app.</span></span>
+<span data-ttu-id="f4242-110">[Redis Cache](/azure/redis-cache/) 是​​可作为服务使用的高吞吐量且低延迟的数据缓存。</span><span class="sxs-lookup"><span data-stu-id="f4242-110">[Redis Cache](/azure/redis-cache/) is high-throughput, low-latency data caching available as a service.</span></span> <span data-ttu-id="f4242-111">它可用于缓存页面输出、减少数据库请求以及跨应用多个实例提供 ASP.NET Core 会话状态。</span><span class="sxs-lookup"><span data-stu-id="f4242-111">It can be used for caching page output, reducing database requests, and providing ASP.NET Core session state across multiple instances of an app.</span></span>
 
-<span data-ttu-id="5ec3b-112">[Azure 存储](/azure/storage/) 是 Azure 的高度可缩放的云存储。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-112">[Azure Storage](/azure/storage/) is Azure's massively scalable cloud storage.</span></span> <span data-ttu-id="5ec3b-113">开发人员可以利用[队列存储](/azure/storage/queues/storage-queues-introduction)来实现可靠的消息队列，[表存储](/azure/storage/tables/table-storage-overview)是一个 NoSQL 键值存储，旨在使用大规模半结构化数据集进行快速开发。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-113">Developers can take advantage of [Queue Storage](/azure/storage/queues/storage-queues-introduction) for reliable message queuing, and [Table Storage](/azure/storage/tables/table-storage-overview) is a NoSQL key-value store designed for rapid development using massive, semi-structured data sets.</span></span>
+<span data-ttu-id="f4242-112">[Azure 存储](/azure/storage/) 是 Azure 的高度可缩放的云存储。</span><span class="sxs-lookup"><span data-stu-id="f4242-112">[Azure Storage](/azure/storage/) is Azure's massively scalable cloud storage.</span></span> <span data-ttu-id="f4242-113">开发人员可以利用[队列存储](/azure/storage/queues/storage-queues-introduction)来实现可靠的消息队列，[表存储](/azure/storage/tables/table-storage-overview)是一个 NoSQL 键值存储，旨在使用大规模半结构化数据集进行快速开发。</span><span class="sxs-lookup"><span data-stu-id="f4242-113">Developers can take advantage of [Queue Storage](/azure/storage/queues/storage-queues-introduction) for reliable message queuing, and [Table Storage](/azure/storage/tables/table-storage-overview) is a NoSQL key-value store designed for rapid development using massive, semi-structured data sets.</span></span>
 
-<span data-ttu-id="5ec3b-114">[Azure SQL 数据库](/azure/sql-database/)使用 Microsoft SQL Server 引擎以服务形式提供熟悉的关系数据库功能。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-114">[Azure SQL Database](/azure/sql-database/) provides familiar relational database functionality as a service using the Microsoft SQL Server Engine.</span></span>
+<span data-ttu-id="f4242-114">[Azure SQL 数据库](/azure/sql-database/)使用 Microsoft SQL Server 引擎以服务形式提供熟悉的关系数据库功能。</span><span class="sxs-lookup"><span data-stu-id="f4242-114">[Azure SQL Database](/azure/sql-database/) provides familiar relational database functionality as a service using the Microsoft SQL Server Engine.</span></span>
 
-<span data-ttu-id="5ec3b-115">[Cosmos DB](/azure/cosmos-db/) 是一种全球分布式多模型 NoSQL 数据库服务。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-115">[Cosmos DB](/azure/cosmos-db/) globally distributed, multi-model NoSQL database service.</span></span> <span data-ttu-id="5ec3b-116">有多个 API 可用，包括 SQL API（以前称为 DocumentDB）、Cassandra 和 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-116">Multiple APIs are available, including SQL API (formerly called DocumentDB), Cassandra, and MongoDB.</span></span>
+<span data-ttu-id="f4242-115">[Cosmos DB](/azure/cosmos-db/) 是一种全球分布式多模型 NoSQL 数据库服务。</span><span class="sxs-lookup"><span data-stu-id="f4242-115">[Cosmos DB](/azure/cosmos-db/) globally distributed, multi-model NoSQL database service.</span></span> <span data-ttu-id="f4242-116">有多个 API 可用，包括 SQL API（以前称为 DocumentDB）、Cassandra 和 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="f4242-116">Multiple APIs are available, including SQL API (formerly called DocumentDB), Cassandra, and MongoDB.</span></span>
 
 ## Identity
 
-<span data-ttu-id="5ec3b-117">[Azure Active Directory](/azure/active-directory/) 和 [Azure Active Directory B2C](/azure/active-directory-b2c/) 均为标识服务。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-117">[Azure Active Directory](/azure/active-directory/) and [Azure Active Directory B2C](/azure/active-directory-b2c/) are both identity services.</span></span> <span data-ttu-id="5ec3b-118">Azure Active Directory 为企业场景而设计，可实现 Azure AD B2B（企业到企业）协作，而 Azure Active Directory B2C 用于企业到客户场景，包括社交网络登录。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-118">Azure Active Directory is designed for enterprise scenarios and enables Azure AD B2B (business-to-business) collaboration, while Azure Active Directory B2C is intended business-to-customer scenarios, including social network sign-in.</span></span>
+<span data-ttu-id="f4242-117">[Azure Active Directory](/azure/active-directory/) 和 [Azure Active Directory B2C](/azure/active-directory-b2c/) 均为标识服务。</span><span class="sxs-lookup"><span data-stu-id="f4242-117">[Azure Active Directory](/azure/active-directory/) and [Azure Active Directory B2C](/azure/active-directory-b2c/) are both identity services.</span></span> <span data-ttu-id="f4242-118">Azure Active Directory 为企业场景而设计，可实现 Azure AD B2B（企业到企业）协作，而 Azure Active Directory B2C 用于企业到客户场景，包括社交网络登录。</span><span class="sxs-lookup"><span data-stu-id="f4242-118">Azure Active Directory is designed for enterprise scenarios and enables Azure AD B2B (business-to-business) collaboration, while Azure Active Directory B2C is intended business-to-customer scenarios, including social network sign-in.</span></span>
 
-## <a name="mobile"></a><span data-ttu-id="5ec3b-119">移动电话</span><span class="sxs-lookup"><span data-stu-id="5ec3b-119">Mobile</span></span>
+## <a name="mobile"></a><span data-ttu-id="f4242-119">移动电话</span><span class="sxs-lookup"><span data-stu-id="f4242-119">Mobile</span></span>
 
-<span data-ttu-id="5ec3b-120">[通知中心](/azure/notification-hubs/)是一种多平台、可缩放的推送通知引擎，用于向在各类设备上运行的应用快速发送数百万条消息。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-120">[Notification Hubs](/azure/notification-hubs/) is a multi-platform, scalable push-notification engine to quickly send millions of messages to apps running on various types of devices.</span></span>
+<span data-ttu-id="f4242-120">[通知中心](/azure/notification-hubs/)是一种多平台、可缩放的推送通知引擎，用于向在各类设备上运行的应用快速发送数百万条消息。</span><span class="sxs-lookup"><span data-stu-id="f4242-120">[Notification Hubs](/azure/notification-hubs/) is a multi-platform, scalable push-notification engine to quickly send millions of messages to apps running on various types of devices.</span></span>
 
-## <a name="web-infrastructure"></a><span data-ttu-id="5ec3b-121">Web 基础结构</span><span class="sxs-lookup"><span data-stu-id="5ec3b-121">Web infrastructure</span></span>
+## <a name="web-infrastructure"></a><span data-ttu-id="f4242-121">Web 基础结构</span><span class="sxs-lookup"><span data-stu-id="f4242-121">Web infrastructure</span></span>
 
-<span data-ttu-id="5ec3b-122">[Azure 容器服务](/azure/aks/)管理托管的 Kubernetes 环境，使用户无需具备容器业务流程专业知识即可快速、轻松地部署和管理容器化的应用。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-122">[Azure Container Service](/azure/aks/) manages your hosted Kubernetes environment, making it quick and easy to deploy and manage containerized apps without container orchestration expertise.</span></span>
+<span data-ttu-id="f4242-122">[Azure 容器服务](/azure/aks/)管理托管的 Kubernetes 环境，使用户无需具备容器业务流程专业知识即可快速、轻松地部署和管理容器化的应用。</span><span class="sxs-lookup"><span data-stu-id="f4242-122">[Azure Container Service](/azure/aks/) manages your hosted Kubernetes environment, making it quick and easy to deploy and manage containerized apps without container orchestration expertise.</span></span>
 
-<span data-ttu-id="5ec3b-123">[Azure 搜索](/azure/search/)用于创建基于专用异类内容的企业搜索解决方案。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-123">[Azure Search](/azure/search/) is used to create an enterprise search solution over private, heterogenous content.</span></span>
+<span data-ttu-id="f4242-123">[Azure 搜索](/azure/search/)用于创建基于专用异类内容的企业搜索解决方案。</span><span class="sxs-lookup"><span data-stu-id="f4242-123">[Azure Search](/azure/search/) is used to create an enterprise search solution over private, heterogenous content.</span></span>
 
-<span data-ttu-id="5ec3b-124">[Service Fabric](/azure/service-fabric/) 是一款分布式系统平台，可方便用户轻松打包、部署和管理可缩放的可靠微服务和容器。</span><span class="sxs-lookup"><span data-stu-id="5ec3b-124">[Service Fabric](/azure/service-fabric/) is a distributed systems platform that makes it easy to package, deploy, and manage scalable and reliable microservices and containers.</span></span>
+<span data-ttu-id="f4242-124">[Service Fabric](/azure/service-fabric/) 是一款分布式系统平台，可方便用户轻松打包、部署和管理可缩放的可靠微服务和容器。</span><span class="sxs-lookup"><span data-stu-id="f4242-124">[Service Fabric](/azure/service-fabric/) is a distributed systems platform that makes it easy to package, deploy, and manage scalable and reliable microservices and containers.</span></span>
