@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 27ee69130bc455ab2570556091692053d59e89a5
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 384b6559b4ee6140da5cf785ffda3978aafbb132
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408222"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016760"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -169,7 +171,7 @@ public IActionResult MyActionMethod()
 
    `UrlPrefixes` 中的设置替代 `UseUrls`/`urls`/`ASPNETCORE_URLS` 设置。 因此，`UseUrls`、`urls` 和 `ASPNETCORE_URLS` 环境变量的一个优点是在 Kestrel 和 HTTP.sys 之间切换变得更加容易。
 
-   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)。
+   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](/windows/win32/http/urlprefix-strings)。
 
    > [!WARNING]
    > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）。 顶级通配符绑定会带来应用安全漏洞。 此行为同时适用于强通配符和弱通配符。 请使用显式主机名或 IP 地址，而不是通配符。 如果可控制整个父域（相对于易受攻击的 `*.com`），子域通配符绑定（例如，`*.mysub.com`）不会构成安全风险。 有关详细信息，请参阅 [RFC 7230：第 5.4 节：主机](https://tools.ietf.org/html/rfc7230#section-5.4)。
@@ -253,7 +255,7 @@ public IActionResult MyActionMethod()
    *netsh.exe* 的参考文档：
 
    * [Netsh Commands for Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)（超文本传输协议 (HTTP) 的 Netsh 命令）
-   * [UrlPrefix Strings](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)（UrlPrefix 字符串）
+   * [UrlPrefix Strings](/windows/win32/http/urlprefix-strings)（UrlPrefix 字符串）
 
 1. 运行应用。
 
@@ -272,7 +274,7 @@ public IActionResult MyActionMethod()
 ## <a name="additional-resources"></a>其他资源
 
 * [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#httpsys)
-* [HTTP 服务器 API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
+* [HTTP 服务器 API](/windows/win32/http/http-api-start-page)
 * [aspnet/HttpSysServer GitHub 存储库（源代码）](https://github.com/aspnet/HttpSysServer/)
 * [主机](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>
@@ -420,7 +422,7 @@ public IActionResult MyActionMethod()
 
    `UrlPrefixes` 中的设置替代 `UseUrls`/`urls`/`ASPNETCORE_URLS` 设置。 因此，`UseUrls`、`urls` 和 `ASPNETCORE_URLS` 环境变量的一个优点是在 Kestrel 和 HTTP.sys 之间切换变得更加容易。
 
-   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)。
+   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](/windows/win32/http/urlprefix-strings)。
 
    > [!WARNING]
    > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）。 顶级通配符绑定会带来应用安全漏洞。 此行为同时适用于强通配符和弱通配符。 请使用显式主机名或 IP 地址，而不是通配符。 如果可控制整个父域（相对于易受攻击的 `*.com`），子域通配符绑定（例如，`*.mysub.com`）不会构成安全风险。 有关详细信息，请参阅 [RFC 7230：第 5.4 节：主机](https://tools.ietf.org/html/rfc7230#section-5.4)。
@@ -504,7 +506,7 @@ public IActionResult MyActionMethod()
    *netsh.exe* 的参考文档：
 
    * [Netsh Commands for Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)（超文本传输协议 (HTTP) 的 Netsh 命令）
-   * [UrlPrefix Strings](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)（UrlPrefix 字符串）
+   * [UrlPrefix Strings](/windows/win32/http/urlprefix-strings)（UrlPrefix 字符串）
 
 1. 运行应用。
 
@@ -523,7 +525,7 @@ public IActionResult MyActionMethod()
 ## <a name="additional-resources"></a>其他资源
 
 * [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#httpsys)
-* [HTTP 服务器 API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
+* [HTTP 服务器 API](/windows/win32/http/http-api-start-page)
 * [aspnet/HttpSysServer GitHub 存储库（源代码）](https://github.com/aspnet/HttpSysServer/)
 * [主机](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>
@@ -673,7 +675,7 @@ public IActionResult MyActionMethod()
 
    `UrlPrefixes` 中的设置替代 `UseUrls`/`urls`/`ASPNETCORE_URLS` 设置。 因此，`UseUrls`、`urls` 和 `ASPNETCORE_URLS` 环境变量的一个优点是在 Kestrel 和 HTTP.sys 之间切换变得更加容易。
 
-   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)。
+   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](/windows/win32/http/urlprefix-strings)。
 
    > [!WARNING]
    > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）。 顶级通配符绑定会带来应用安全漏洞。 此行为同时适用于强通配符和弱通配符。 请使用显式主机名或 IP 地址，而不是通配符。 如果可控制整个父域（相对于易受攻击的 `*.com`），子域通配符绑定（例如，`*.mysub.com`）不会构成安全风险。 有关详细信息，请参阅 [RFC 7230：第 5.4 节：主机](https://tools.ietf.org/html/rfc7230#section-5.4)。
@@ -757,7 +759,7 @@ public IActionResult MyActionMethod()
    *netsh.exe* 的参考文档：
 
    * [Netsh Commands for Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)（超文本传输协议 (HTTP) 的 Netsh 命令）
-   * [UrlPrefix Strings](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)（UrlPrefix 字符串）
+   * [UrlPrefix Strings](/windows/win32/http/urlprefix-strings)（UrlPrefix 字符串）
 
 1. 运行应用。
 
@@ -776,7 +778,7 @@ public IActionResult MyActionMethod()
 ## <a name="additional-resources"></a>其他资源
 
 * [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#httpsys)
-* [HTTP 服务器 API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
+* [HTTP 服务器 API](/windows/win32/http/http-api-start-page)
 * [aspnet/HttpSysServer GitHub 存储库（源代码）](https://github.com/aspnet/HttpSysServer/)
 * [主机](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>
@@ -926,7 +928,7 @@ public IActionResult MyActionMethod()
 
    `UrlPrefixes` 中的设置替代 `UseUrls`/`urls`/`ASPNETCORE_URLS` 设置。 因此，`UseUrls`、`urls` 和 `ASPNETCORE_URLS` 环境变量的一个优点是在 Kestrel 和 HTTP.sys 之间切换变得更加容易。
 
-   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)。
+   HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](/windows/win32/http/urlprefix-strings)。
 
    > [!WARNING]
    > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）。 顶级通配符绑定会带来应用安全漏洞。 此行为同时适用于强通配符和弱通配符。 请使用显式主机名或 IP 地址，而不是通配符。 如果可控制整个父域（相对于易受攻击的 `*.com`），子域通配符绑定（例如，`*.mysub.com`）不会构成安全风险。 有关详细信息，请参阅 [RFC 7230：第 5.4 节：主机](https://tools.ietf.org/html/rfc7230#section-5.4)。
@@ -1010,7 +1012,7 @@ public IActionResult MyActionMethod()
    *netsh.exe* 的参考文档：
 
    * [Netsh Commands for Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)（超文本传输协议 (HTTP) 的 Netsh 命令）
-   * [UrlPrefix Strings](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)（UrlPrefix 字符串）
+   * [UrlPrefix Strings](/windows/win32/http/urlprefix-strings)（UrlPrefix 字符串）
 
 1. 运行应用。
 
@@ -1029,7 +1031,7 @@ public IActionResult MyActionMethod()
 ## <a name="additional-resources"></a>其他资源
 
 * [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#httpsys)
-* [HTTP 服务器 API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
+* [HTTP 服务器 API](/windows/win32/http/http-api-start-page)
 * [aspnet/HttpSysServer GitHub 存储库（源代码）](https://github.com/aspnet/HttpSysServer/)
 * [主机](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>

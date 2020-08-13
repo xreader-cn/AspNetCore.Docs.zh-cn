@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 05/26/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/clientfactory
-ms.openlocfilehash: 00ec2b6268d27143972f9cb663be19a3ed14ebea
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3ba7130f532777da72e3c84c9b0f6a375c2f1814
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408521"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016253"
 ---
 # <a name="grpc-client-factory-integration-in-net-core"></a>.NET Core 中的 gRPC 客户端工厂集成
 

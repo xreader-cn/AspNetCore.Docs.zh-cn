@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: 2b0b1a869f41bcaed59d9bed89f7fcdb58d0f6c1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2bdbbcfe4a94e5333ae11c4ab486ee0676d24b31
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407728"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015720"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>带有 ASP.NET Core 的 Visual Studio 容器工具
 
@@ -47,7 +49,7 @@ Docker for Windows 中的[共享驱动器](https://docs.docker.com/docker-for-wi
 
 若要容器化 ASP.NET Core 项目，项目必须面向 .NET Core。 同时支持 Linux 和 Windows 容器。
 
-向项目添加 Docker 支持后，可选择 Windows 或 Linux 容器。 Docker 主机必须运行类型相同的容器。 要更改正在运行的 Docker 实例中的容器类型，请右键单击系统托盘中的 Docker 图标，再选择“切换到 Windows 容器...”或“切换到 Linux 容器...” 。
+向项目添加 Docker 支持后，可选择 Windows 或 Linux 容器。 Docker 主机必须运行类型相同的容器。 要更改正在运行的 Docker 实例中的容器类型，请右键单击系统托盘中的 Docker 图标，再选择“切换到 Windows 容器...”或“切换到 Linux 容器...”   。
 
 ### <a name="new-app"></a>新应用
 

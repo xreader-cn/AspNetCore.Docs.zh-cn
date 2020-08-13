@@ -5,6 +5,8 @@ description: Razor 页面和实体框架教程系列的第 7 部分。
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: b442a4ce1f63c047c123315626f559155fd06424
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 3807c52bb843c4d6403e8236fde50c034a8d1e2b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060132"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017735"
 ---
-# <a name="part-7-razor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>第 7 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据
+# <a name="part-7-no-locrazor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>第 7 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -65,7 +67,7 @@ ms.locfileid: "86060132"
 * 使用 `TryUpdateModelAsync` 防止[过多发布](xref:data/ef-rp/crud#overposting)。
 * 删除 `ViewData["DepartmentID"]`。 基类中的 `DepartmentNameSL` 是强类型模型，将用于 Razor 页面。 建议使用强类型而非弱类型。 有关详细信息，请参阅[弱类型数据（ViewData 和 ViewBag）](xref:mvc/views/overview#VD_VB)。
 
-### <a name="update-the-course-create-razor-page"></a>更新“课程创建”Razor 页面
+### <a name="update-the-course-create-no-locrazor-page"></a>更新“课程创建”Razor 页面
 
 使用以下代码更新 Pages/Courses/Create.cshtml：
 
@@ -92,7 +94,7 @@ Razor 页面使用[选择标记帮助程序](xref:mvc/views/working-with-forms#t
 
 这些更改与在“创建”页模型中所做的更改相似。 在上面的代码中，`PopulateDepartmentsDropDownList` 在院系 ID 中传递并将在下拉列表中选择该院系。
 
-### <a name="update-the-course-edit-razor-page"></a>更新“课程编辑”Razor 页面
+### <a name="update-the-course-edit-no-locrazor-page"></a>更新“课程编辑”Razor 页面
 
 使用以下代码更新 Pages/Courses/Edit.cshtml：
 
@@ -120,7 +122,7 @@ Razor 页面使用[选择标记帮助程序](xref:mvc/views/working-with-forms#t
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Details.cshtml.cs?highlight=28)]
 
-### <a name="update-the-course-razor-pages"></a>更新“课程”Razor 页面
+### <a name="update-the-course-no-locrazor-pages"></a>更新“课程”Razor 页面
 
 使用以下代码更新 Pages/Courses/Delete.cshtml：
 
@@ -197,7 +199,7 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 * 调用 `OnPostAsync` 中的 `UpdateInstructorCourses`，将复选框中的信息应用于将要编辑的 Instructor 实体。
 * 如果 `TryUpdateModel` 失败，则调用 `OnPostAsync` 中的 `PopulateAssignedCourseData` 和 `UpdateInstructorCourses`。 这些方法调用将在页面重新显示错误消息时还原页面上所输入的已分配课程数据。
 
-### <a name="update-the-instructor-edit-razor-page"></a>更新“讲师编辑”Razor 页面
+### <a name="update-the-instructor-edit-no-locrazor-page"></a>更新“讲师编辑”Razor 页面
 
 使用以下代码更新 Pages/Instructors/Edit.cshtml：
 

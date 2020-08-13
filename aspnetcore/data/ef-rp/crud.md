@@ -5,6 +5,8 @@ description: Razor 页面和实体框架教程系列第 2 部分。
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/crud
-ms.openlocfilehash: 46846d99230620e45d8a2baab46df320425cfb6c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f205e7741c8e901e9219bec2028c7bee98129161
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401202"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018359"
 ---
-# <a name="part-2-razor-pages-with-ef-core-in-aspnet-core---crud"></a>第 2 部分，ASP.NET Core 中的 Razor 页面和 EF Core - CRUD
+# <a name="part-2-no-locrazor-pages-with-ef-core-in-aspnet-core---crud"></a>第 2 部分，ASP.NET Core 中的 Razor 页面和 EF Core - CRUD
 
 作者：[Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -221,7 +223,7 @@ ms.locfileid: "85401202"
 
 在大部分基架代码中，[FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.findasync#Microsoft_EntityFrameworkCore_DbContext_FindAsync_System_Type_System_Object___) 可用于替代 `FirstOrDefaultAsync`。
 
-`FindAsync`：
+`FindAsync`:
 
 * 查找具有主键 (PK) 的实体。 如果具有 PK 的实体正在由上下文跟踪，会返回该实体且不向 DB 发出请求。
 * 既简单又简洁。
@@ -393,7 +395,7 @@ DB 上下文会随时跟踪内存中的实体是否已与其在 DB 中的对应�
 * 会捕获 DB 异常。
 * 通过 `saveChangesError=true` 调用“删除”页 `OnGetAsync` 方法。
 
-### <a name="update-the-delete-razor-page"></a>更新“删除”Razor 页面
+### <a name="update-the-delete-no-locrazor-page"></a>更新“删除”Razor 页面
 
 将以下突出显示的错误消息添加到“删除”Razor 页面。
 <!--

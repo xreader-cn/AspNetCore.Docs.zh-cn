@@ -3,9 +3,11 @@ title: 使用 Visual Studio Code 将 ASP.NET Core 应用发布到 Azure
 author: rick-anderson
 description: 了解如何使用 Visual Studio Code 将 ASP.NET Core 应用发布到 Azure 应用服务
 ms.author: riserrad
-ms.custom: mvc
+ms.custom: devx-track-csharp, mvc
 ms.date: 07/10/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: 43a2c4fed3a8873f64259167d3949d720f2c5dab
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 28074d64e9d4d0ec35af06e8b6daae939e316b2b
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406740"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130205"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>使用 Visual Studio Code 将 ASP.NET Core 应用发布到 Azure
 

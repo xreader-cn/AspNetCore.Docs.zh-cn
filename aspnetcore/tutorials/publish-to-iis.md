@@ -7,20 +7,22 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/03/2019
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: 837a66ef36f1394df87d56132e146ef23a5d5659
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: fc8573625328fe18970cd6bcd5627b71680d5ca7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407884"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020231"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>将 ASP.NET Core 应用发布到 IIS
 
@@ -67,9 +69,9 @@ ms.locfileid: "85407884"
 
 1. 提供网站名称，并将“物理路径”设置为所创建应用的部署文件夹 。 提供“绑定”配置，并通过选择“确定”创建网站 。
 
-## <a name="create-an-aspnet-core-razor-pages-app"></a>创建 ASP.NET Core [Razor Pages 应用
+## <a name="create-an-aspnet-core-no-locrazor-pages-app"></a>创建 ASP.NET Core Razor Pages 应用
 
-按照 <xref:getting-started> 教程创建 [Razor Pages 应用。
+按照 <xref:getting-started> 教程创建 Razor Pages 应用。
 
 ## <a name="publish-and-deploy-the-app"></a>发布和部署应用
 

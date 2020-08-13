@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 1bc9b2b081c58392bd2c226ebedc804b43810bc2
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: dad2e667cb6fa3ace7cb5e5dcb982511357ed49b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408846"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021518"
 ---
-# <a name="part-8-add-validation-to-an-aspnet-core-razor-page"></a>第 8 部分，将验证添加到 ASP.NET Core Razor 页面
+# <a name="part-8-add-validation-to-an-aspnet-core-no-locrazor-page"></a>第 8 部分，将验证添加到 ASP.NET Core Razor 页面
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -63,7 +65,7 @@ DataAnnotations 命名空间提供一组内置验证特性，可通过声明方�
 
 让 ASP.NET Core 强制自动执行验证规则有助于提升你的应用的可靠性。 同时它能确保你无法忘记验证某些内容，并防止你无意中将错误数据导入数据库。
 
-### <a name="validation-error-ui-in-razor-pages"></a>Razor 页面中的验证错误 UI
+### <a name="validation-error-ui-in-no-locrazor-pages"></a>Razor 页面中的验证错误 UI
 
 运行应用并导航到“页面/电影”。
 

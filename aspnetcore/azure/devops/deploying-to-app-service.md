@@ -3,9 +3,11 @@ title: 将应用部署到应用服务 - 使用 ASP.NET Core 和 Azure 实施 Dev
 author: CamSoper
 description: 要使用 ASP.NET Core 和 Azure 实施 DevOps，首先是将 ASP.NET Core 应用部署到 Azure 应用服务。
 ms.author: casoper
-ms.custom: mvc, seodec18
+ms.custom: devx-track-csharp, mvc, seodec18
 ms.date: 10/24/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: 7cf6395b6f57413d85532ed15e5a875af10f905b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f27c33d692512130ba0a36e9d00d46dffe90da16
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400383"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130231"
 ---
 # <a name="deploy-an-app-to-app-service"></a>将应用部署到应用服务
 

@@ -5,6 +5,8 @@ description: 本教程演示如何在 ASP.NET Core 应用中安装和使用 .NET
 ms.author: riande
 ms.date: 05/31/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 0c81dc2fd83cb9327dad46dab840d4352de89baf
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f4987e7eef496f3ba4b8f9bb084816be3b17ada7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409028"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022441"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>使用文件观察程序开发 ASP.NET Core 应用
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Victor Hurdugaci](https://twitter.com/victorhurdugaci)
 
-[dotnet watch](https://www.nuget.org/packages/dotnet-watch) 是一种在源文件更改时运行 [.NET Core CLI](/dotnet/core/tools) 命令的工具。 例如，文件更改可能触发编译、测试执行或部署。
+`dotnet watch` 是一种在源文件更改时运行 [.NET Core CLI](/dotnet/core/tools) 命令的工具。 例如，文件更改可能触发编译、测试执行或部署。
 
 本教程使用一个现有 Web API 和两个终结点：分别返回两个数的总和以及乘积。 乘积的方法有一个 bug，本教程将会对其进行修复。
 

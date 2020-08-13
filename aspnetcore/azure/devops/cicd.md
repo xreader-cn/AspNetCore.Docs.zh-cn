@@ -4,22 +4,24 @@ author: CamSoper
 description: 在 DevOps 中使用 ASP.NET Core 和 Azure 进行持续集成和持续部署
 ms.author: scaddie
 ms.date: 10/24/2018
-ms.custom: mvc, seodec18
+ms.custom: devx-track-csharp, mvc, seodec18
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: azure/devops/cicd
-ms.openlocfilehash: 0edded18d766d6f2af08f6be5dbecbfd52a14a35
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 26ca6c416691c75c4bad73dca4c8383325af025d
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400552"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130466"
 ---
 # <a name="continuous-integration-and-deployment"></a>持续集成和持续部署
 

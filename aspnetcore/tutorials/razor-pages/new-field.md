@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 07350e127e2e529b5ad168c3e26c1ed33cd9b99f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 07a28333f86bb9b3c9f07b3ddf964edf5bf8dc96
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407988"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022038"
 ---
-# <a name="part-7-add-a-new-field-to-a-razor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
+# <a name="part-7-add-a-new-field-to-a-no-locrazor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 

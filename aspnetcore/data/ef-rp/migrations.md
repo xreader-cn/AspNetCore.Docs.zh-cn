@@ -5,6 +5,8 @@ description: Razor 页面和实体框架教程系列第 4 部分。
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 7d326bd5d8204d98e2f13b433f49fd740557905f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ebdcf5605e8b4067c52841b138184e51668f9c25
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405674"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019646"
 ---
-# <a name="part-4-razor-pages-with-ef-core-migrations-in-aspnet-core"></a>第 4 部分，ASP.NET Core 中的 Razor 页面和 EF Core 迁移
+# <a name="part-4-no-locrazor-pages-with-ef-core-migrations-in-aspnet-core"></a>第 4 部分，ASP.NET Core 中的 Razor 页面和 EF Core 迁移
 
 作者：[Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 

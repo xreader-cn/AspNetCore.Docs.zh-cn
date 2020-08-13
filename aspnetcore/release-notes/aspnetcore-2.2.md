@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: c2e23871866565a3f4ea0b0c72af5ec4fb770e6f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 354839abe295b4adcbf6becfd3bd926330f0823f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408703"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021141"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 
@@ -87,7 +89,7 @@ HTTP/2 是 HTTP 协议的主要修订版本。 HTTP/2 的重要功能包括：
 
 有关详细信息，请参阅 [IIS 进程内承载](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model)。
 
-## <a name="signalr-java-client"></a>SignalR Java 客户端
+## <a name="no-locsignalr-java-client"></a>SignalR Java 客户端
 
 ASP.NET Core 2.2 引入了适用于 SignalR 的 Java 客户端。 此客户端支持通过 Java 代码连接到 ASP.NET Core SignalR Server（包括 Android 应用）。
 

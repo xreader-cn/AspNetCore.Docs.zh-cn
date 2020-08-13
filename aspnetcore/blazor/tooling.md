@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -16,18 +18,18 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: 33245e669b317ed577a8a1652b2eed8f9ea5b915
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: 077d8943e424df4d5a14950dfadc2dd73d2ce4d6
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407640"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013393"
 ---
-# <a name="tooling-for-aspnet-core-blazor"></a>用于 ASP.NET Core Blazor 的工具
+# <a name="tooling-for-aspnet-core-no-locblazor"></a>用于 ASP.NET Core Blazor 的工具
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
-::: zone pivot="os-windows"
+::: zone pivot="windows"
 
 1. 安装带有“ASP.NET 和 Web 开发”工作负载的最新版本 [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)。
 
@@ -47,7 +49,7 @@ ms.locfileid: "86407640"
 
 ::: zone-end
 
-::: zone pivot="os-linux"
+::: zone pivot="linux"
 
 1. 安装最新版本的 [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)。 如果以前安装了该 SDK，可以通过在命令行界面中执行以下命令来确定已安装的版本：
 
@@ -91,7 +93,7 @@ Linux 上没有用于信任证书的集中途径。 通常采用以下方法之�
 
 ::: zone-end
 
-::: zone pivot="os-macos"
+::: zone pivot="macos"
 
 1. 安装 [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)。
 

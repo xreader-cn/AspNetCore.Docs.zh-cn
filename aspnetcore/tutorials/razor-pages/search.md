@@ -5,6 +5,8 @@ description: Razor 页面教程系列第 6 部分。
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: b0ee3294a4646b199f85d6a023e152e5eabaa225
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b28d228449549e1071df4100ee2d52626c50845b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408781"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021635"
 ---
-# <a name="part-6-add-search-to-aspnet-core-razor-pages"></a>第 6 部分，将搜索添加到 ASP.NET Core Razor 页面
+# <a name="part-6-add-search-to-aspnet-core-no-locrazor-pages"></a>第 6 部分，将搜索添加到 ASP.NET Core Razor 页面
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -109,7 +111,7 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs?name=snippet_SelectList)]
 
-### <a name="add-search-by-genre-to-the-razor-page"></a>将按流派搜索添加到 Razor 页面
+### <a name="add-search-by-genre-to-the-no-locrazor-page"></a>将按流派搜索添加到 Razor 页面
 
 更新 Index.cshtml，如下所示：
 
@@ -211,7 +213,7 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_SelectList)]
 
-### <a name="add-search-by-genre-to-the-razor-page"></a>将按流派搜索添加到 Razor 页面
+### <a name="add-search-by-genre-to-the-no-locrazor-page"></a>将按流派搜索添加到 Razor 页面
 
 更新 Index.cshtml，如下所示：
 

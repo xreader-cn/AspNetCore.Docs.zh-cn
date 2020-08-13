@@ -3,23 +3,25 @@ title: 监视和调试 - 通过 ASP.NET Core 和 Azure 实现 DevOps
 author: CamSoper
 description: 在通过 ASP.NET Core 和 Azure 实现的 DevOps 解决方案中监视和调试代码
 ms.author: casoper
-ms.custom: mvc, seodec18
+ms.custom: devx-track-csharp, mvc, seodec18
 ms.date: 07/10/2019
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: azure/devops/monitor
-ms.openlocfilehash: a94b1e0b5ce2a24cf22eb665c9bcd03c25ffa67f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 98d7c820b20f4f4c6b57f283ef718ce056dcdcae
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400370"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130491"
 ---
 # <a name="monitor-and-debug"></a>监视和调试
 
@@ -100,7 +102,7 @@ Application Insights 可提供有用的服务器端信息，无需额外配置�
 1. 打开“应用程序日志记录(文件系统)”。 如果出现提示，请单击框来安装扩展，以在 Web 应用中启用应用日志记录。
 1. 将“Web 服务器日志记录”设置为“文件系统”。
 1. 输入“保留期”（以天为单位）。 例如 30。
-1. 单击“保存” 。
+1. 单击“保存”  。
 
 会为 Web 应用生成 ASP.NET Core 和 Web 服务器（应用服务）日志。 可以使用显示的 FTP/FTPS 信息下载它们。 密码与本指南前面部分中创建的部署凭据相同。 日志可以[通过 PowerShell 或 Azure CLI 直接流式传输到本地计算机](/azure/app-service/web-sites-enable-diagnostic-log#download)。 也可以[在 Application Insights 中查看](/azure/app-service/web-sites-enable-diagnostic-log#how-to-view-logs-in-application-insights)日志。
 

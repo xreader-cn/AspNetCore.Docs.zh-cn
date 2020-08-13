@@ -1,35 +1,37 @@
 ---
-title: ASP.NET Core [Blazor 环境
+title: ASP.NET Core Blazor 环境
 author: guardrex
-description: 了解 [Blazor 中的环境，包括如何设置 [Blazor WebAssembly 应用的环境。
+description: 了解 Blazor 中的环境，包括如何设置 Blazor WebAssembly 应用的环境。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: blazor/fundamentals/environments
-ms.openlocfilehash: f8d0fc3cba22973628f405b4399cef39d562d6ed
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8a672b3d2aff4dd2b80465b0f6dac038d299eaa9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402892"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014420"
 ---
-# <a name="aspnet-core-blazor-environments"></a>ASP.NET Core [Blazor 环境
+# <a name="aspnet-core-no-locblazor-environments"></a>ASP.NET Core Blazor 环境
 
 > [!NOTE]
-> 本主题适用于 [Blazor WebAssembly。 若要获取 ASP.NET Core 应用配置的通用指南，请参阅 <xref:fundamentals/environments>。
+> 本主题适用于 Blazor WebAssembly。 若要获取 ASP.NET Core 应用配置的通用指南，请参阅 <xref:fundamentals/environments>。
 
 在本地运行应用时，环境默认为开发环境。 发布应用时，环境默认为生产环境。
 
-托管的 [Blazor WebAssembly 应用会通过中间件从服务器中提取环境，该中间件通过添加 `blazor-environment` 标头将该环境传达给浏览器。 标头的值就是环境。 托管的 [Blazor 应用和服务器应用共享同一个环境。 有关详细信息（包括如何配置环境），请参阅 <xref:fundamentals/environments>。
+托管的 Blazor WebAssembly 应用会通过中间件从服务器中提取环境，该中间件通过添加 `blazor-environment` 标头将该环境传达给浏览器。 标头的值就是环境。 托管的 Blazor 应用和服务器应用共享同一个环境。 有关详细信息（包括如何配置环境），请参阅 <xref:fundamentals/environments>。
 
 对于在本地运行的独立应用，开发服务器会添加 `blazor-environment` 标头来指定开发环境。 要为其他宿主环境指定环境，请添加 `blazor-environment` 标头。
 

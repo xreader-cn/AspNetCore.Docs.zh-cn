@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/23/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/handle-errors
-ms.openlocfilehash: e3ce3a62f351255fd059adaa6e9b0a8e9bdc2ce7
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 5f7112d9a072f28d387e07bdf69ec0b7595ff6b4
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059872"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014433"
 ---
-# <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
+# <a name="handle-errors-in-aspnet-core-no-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -85,7 +87,7 @@ ms.locfileid: "86059872"
 }
 ```
 
-## <a name="how-a-blazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor Server 应用如何应对未经处理的异常
+## <a name="how-a-no-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor Server 应用如何应对未经处理的异常
 
 Blazor Server 是一种有状态框架。 用户与应用进行交互时，会与服务器保持名为“线路”的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
 
@@ -221,7 +223,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * <xref:blazor/call-javascript-from-dotnet>
 * <xref:blazor/call-dotnet-from-javascript>
 
-### <a name="blazor-server-prerendering"></a>Blazor Server 预呈现
+### <a name="no-locblazor-server-prerendering"></a>Blazor Server 预呈现
 
 Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)进行预呈现，以便在用户的初始 HTTP 请求过程中返回其呈现的 HTML 标记。 实现方式如下：
 

@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/23/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/diagnostics
-ms.openlocfilehash: ca87ba5b03e7657132e5ebaba72370bde85c85d4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: bf8068375da81288f2fbfa2c1bfafe97c03c70fc
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406766"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016175"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>.NET 上 gRPC 中的日志记录和诊断
 
@@ -31,14 +33,14 @@ ms.locfileid: "85406766"
 * **跟踪** - 与使用 `DiaganosticSource` 和 `Activity` 进行编写的操作相关的事件。 来自诊断源的跟踪通常用于通过库（如 [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-core) 和 [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet)）收集应用遥测数据。
 * **指标** - 一段时间间隔内数据度量值的表示形式，例如每秒请求数。 指标是使用 `EventCounter` 发出的，可以使用 [dotnet-counters](https://docs.microsoft.com/dotnet/core/diagnostics/dotnet-counters) 命令行工具或 [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/eventcounters) 进行观察。
 
-## <a name="logging"></a>Logging
+## <a name="logging"></a>日志记录
 
 gRPC 服务和 gRPC 客户端使用 [.NET Core 日志记录](xref:fundamentals/logging/index)编写日志。 当你需要调试应用中的意外行为时，日志是一个不错的起点。
 
 ### <a name="grpc-services-logging"></a>gRPC 服务日志记录
 
 > [!WARNING]
-> 服务器端日志可能包含来自应用的敏感信息。 切勿将来自生产应用的原始日志发布到 GitHub 等公共论坛  。
+> 服务器端日志可能包含来自应用的敏感信息。 切勿将来自生产应用的原始日志发布到 GitHub 等公共论坛。
 
 由于 gRPC 服务托管在 ASP.NET Core 上，因此它使用 ASP.NET Core 日志记录系统。 在默认配置中，gRPC 只记录很少的信息，但这可以进行配置。 有关配置 ASP.NET Core 日志记录的详细信息，请参阅 [ASP.NET Core 日志记录](xref:fundamentals/logging/index#configuration)上的文档。
 
@@ -94,7 +96,7 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 ### <a name="grpc-client-logging"></a>gRPC 客户端日志记录
 
 > [!WARNING]
-> 客户端日志可能包含来自应用的敏感信息。 切勿将来自生产应用的原始日志发布到 GitHub 等公共论坛  。
+> 客户端日志可能包含来自应用的敏感信息。 切勿将来自生产应用的原始日志发布到 GitHub 等公共论坛。
 
 若要从 .NET 客户端获取日志，可以在创建客户端通道时设置 `GrpcChannelOptions.LoggerFactory` 属性。 如果要从 ASP.NET Core 的应用调用 gRPC 服务，则可以通过依赖关系注入 (DI) 来解析记录器工厂：
 
@@ -173,14 +175,14 @@ gRPC 服务托管在会报告有关传入 HTTP 请求事件的 ASP.NET Core 上�
 
 gRPC 服务器指标在 `Grpc.AspNetCore.Server` 事件源上报告。
 
-| 名称                      | 描述                   |
+| “属性”                      | 描述                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | 总调用数                   |
 | `current-calls`           | 当前调用                 |
 | `calls-failed`            | 失败调用总数            |
 | `calls-deadline-exceeded` | 超出截止时间的调用总数 |
-| `messages-sent`           | 已发送消息总数           |
-| `messages-received`       | 已接收消息总数       |
+| `messages-sent`           | 发送的邮件总数           |
+| `messages-received`       | 收到的消息总数       |
 | `calls-unimplemented`     | 总未实现调用数     |
 
 ASP.NET Core 还在 `Microsoft.AspNetCore.Hosting` 事件源上提供其自己的指标。
@@ -189,14 +191,14 @@ ASP.NET Core 还在 `Microsoft.AspNetCore.Hosting` 事件源上提供其自己�
 
 gRPC 客户端指标在 `Grpc.Net.Client` 事件源上报告。
 
-| 名称                      | 描述                   |
+| “属性”                      | 描述                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | 总调用数                   |
 | `current-calls`           | 当前调用                 |
 | `calls-failed`            | 失败调用总数            |
 | `calls-deadline-exceeded` | 超出截止时间的调用总数 |
-| `messages-sent`           | 已发送消息总数           |
-| `messages-received`       | 已接收消息总数       |
+| `messages-sent`           | 发送的邮件总数           |
+| `messages-received`       | 收到的消息总数       |
 
 ### <a name="observe-metrics"></a>观察指标
 
@@ -219,7 +221,7 @@ Press p to pause, r to resume, q to quit.
 
 观察 gRPC 指标的另一种方法是使用 Application Insights 的 [ 包](https://docs.microsoft.com/azure/azure-monitor/app/eventcounters)捕获计数器数据。 设置完成后，Application Insights 可在运行时收集常见的 .NET 计数器。 默认情况下，不收集 gRPC 的计数器，但可以[自定义 App Insights 以包括其他计数器](https://docs.microsoft.com/azure/azure-monitor/app/eventcounters#customizing-counters-to-be-collected)。
 
-为 Application Insight 指定 gRPC 计数器以在 Startup.cs 中收集  ：
+为 Application Insight 指定 gRPC 计数器以在 Startup.cs 中收集：
 
 ```csharp
     using Microsoft.ApplicationInsights.Extensibility.EventCounterCollector;

@@ -6,20 +6,22 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: 504c34ccd8813273161b86504700704f8a932538
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2dc944ffd4307aa108a54b70d58f298c26959ce0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403165"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013341"
 ---
 # <a name="use-libman-with-aspnet-core-in-visual-studio"></a>在 Visual Studio 中将 LibMan 与 ASP.NET Core 配合使用
 
@@ -68,7 +70,7 @@ Visual Studio 对 ASP.NET Core 项目中的 [LibMan](xref:client-side/libman/ind
     * 如果 wwwroot 不存在，则使用 lib 。
   * 如果从项目文件夹启动，则使用相应的文件夹名称。
 
-  文件夹建议带有库名称后缀。 下表说明了在 [Razor Pages 项目中安装 jQuery 时的文件夹建议。
+  文件夹建议带有库名称后缀。 下表说明了在 Razor Pages 项目中安装 jQuery 时的文件夹建议。
   
   |启动位置                           |建议的文件夹      |
   |------------------------------------------|----------------------|

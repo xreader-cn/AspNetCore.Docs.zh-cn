@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 2/18/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/filter
-ms.openlocfilehash: 626003ad75333cfaf17a3ea97549ca82650469a8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b8942020e98d0f985e5445bb1816c540bcb7829b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407364"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021401"
 ---
-# <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 的筛选方法
+# <a name="filter-methods-for-no-locrazor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 的筛选方法
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -57,7 +59,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 筛选器接口的同步和异步版本任意实现一个，而不是同时实现 。 该框架会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果两个接口都已实现，则只会调用异步方法。 对页面中的替代应用相同的规则，同步替代或异步替代只能任选其一实现，不可二者皆选。
 
-## <a name="implement-razor-page-filters-globally"></a>全局实现 Razor 页面筛选器
+## <a name="implement-no-locrazor-page-filters-globally"></a>全局实现 Razor 页面筛选器
 
 以下代码实现了 `IAsyncPageFilter`：
 
@@ -81,7 +83,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/StartupSync.cs?name=snippet2)]
 
-## <a name="implement-razor-page-filters-by-overriding-filter-methods"></a>通过重写筛选器方法实现 Razor 页面筛选器
+## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a>通过重写筛选器方法实现 Razor 页面筛选器
 
 以下代码替代异步 Razor 页面筛选器：
 
@@ -149,7 +151,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 > [!NOTE]
 > 筛选器接口的同步和异步版本**任意**实现一个，而不是同时实现。 该框架会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果两个接口都已实现，则只会调用异步方法。 对页面中的替代应用相同的规则，同步替代或异步替代只能任选其一实现，不可二者皆选。
 
-## <a name="implement-razor-page-filters-globally"></a>全局实现 Razor 页面筛选器
+## <a name="implement-no-locrazor-page-filters-globally"></a>全局实现 Razor 页面筛选器
 
 以下代码实现了 `IAsyncPageFilter`：
 
@@ -177,7 +179,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 [!code-csharp[Main](filter/sample/PageFilter/StartupSync.cs?name=snippet2&highlight=11)]
 
-## <a name="implement-razor-page-filters-by-overriding-filter-methods"></a>通过重写筛选器方法实现 Razor 页面筛选器
+## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a>通过重写筛选器方法实现 Razor 页面筛选器
 
 以下代码替代同步 Razor 页面筛选器：
 
