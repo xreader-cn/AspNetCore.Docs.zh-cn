@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 560f25c9acabe2860bcaaddcdb42e2b15842a29d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a9f158bf875da75afbccc1a6d226bc842fa1c62c
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017072"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130504"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -276,6 +276,7 @@ ASP.NET Core 附带以下中间件组件。 “顺序”列提供备注，以说
 
 ## <a name="additional-resources"></a>其他资源
 
+* [生存期和注册选项](xref:fundamentals/dependency-injection#lifetime-and-registration-options)包含已设置范围、临时性和单一实例生存期服务的中间件的完整示例  。
 * <xref:fundamentals/middleware/write>
 * <xref:test/middleware>
 * <xref:migration/http-modules>
