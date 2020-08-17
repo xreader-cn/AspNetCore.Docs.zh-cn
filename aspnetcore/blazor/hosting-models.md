@@ -5,8 +5,10 @@ description: 了解 Blazor WebAssembly 和 Blazor Server 托管模型。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 08/11/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 6e3753131388c294130f11aa913a0bb7e8127fa3
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: 14fa13bafa984c0ca7b9fd8cde538042cc0ec2cc
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87818945"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130439"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
@@ -30,13 +32,13 @@ Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassemb
 
 ## Blazor WebAssembly
 
-Blazor 的主要托管模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理在同一进程中进行。 应用资产作为静态文件部署到可为客户端提供静态内容的 Web 服务器或服务中。
+Blazor 的主要托管模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理在同一进程中进行。 应用资产作为静态文件部署到可为客户端提供静态内容的 Web 服务器或服务中。 由于在没有后端 ASP.NET Core 应用的情况下创建了应用进行部署，因此它称为独立 Blazor WebAssembly 应用。
 
 ![Blazor WebAssembly:Blazor 应用在浏览器内部的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
 
 若要使用客户端托管模型创建 Blazor 应用，请使用 Blazor WebAssembly 应用模板 ([`dotnet new blazorwasm`](/dotnet/core/tools/dotnet-new))。
 
-选择“Blazor WebAssembly 应用”模板后，可选中“ASP.NET Core 托管”复选框 ([`dotnet new blazorwasm --hosted`](/dotnet/core/tools/dotnet-new))，将应用配置为使用 ASP.NET Core 后端 。 ASP.NET Core 应用可将 Blazor 应用提供给客户端。 Blazor WebAssembly 应用可使用 Web API 调用或 [SignalR](xref:signalr/introduction) (<xref:tutorials/signalr-blazor-webassembly>) 通过网络与服务器交互。
+选择“Blazor WebAssembly 应用”模板后，可选中“ASP.NET Core 托管”复选框 ([`dotnet new blazorwasm --hosted`](/dotnet/core/tools/dotnet-new))，将应用配置为使用 ASP.NET Core 后端 。 ASP.NET Core 应用可将 Blazor 应用提供给客户端。 具有 ASP.NET Core 后端的应用称为托管 Blazor WebAssembly 应用。 Blazor WebAssembly 应用可使用 Web API 调用或 [SignalR](xref:signalr/introduction) (<xref:tutorials/signalr-blazor-webassembly>) 通过网络与服务器交互。
 
 模板包括 `blazor.webassembly.js` 脚本，可处理以下任务：
 

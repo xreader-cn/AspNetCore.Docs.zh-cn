@@ -7,6 +7,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/09/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/http-requests
-ms.openlocfilehash: fb9001c06228b4290ca1e0c7cfb6b1338f431cd6
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: ef6ed0911c2615ea543b1c2cea31a9a453f0c604
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87444107"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017228"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
@@ -359,14 +361,14 @@ public class ValuesController : ControllerBase
 - `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
 - `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
 
-### <a name="cookies"></a>Cookie
+### <a name="no-loccookies"></a>Cookies
 
-共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 Cookie 的应用，请考虑执行以下任一操作：
+共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 cookie 的应用，请考虑执行以下任一操作：
 
- - 禁用自动 Cookie 处理
+ - 禁用自动 cookie 处理
  - 避免 `IHttpClientFactory`
 
-调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 Cookie 处理：
+调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
@@ -677,14 +679,14 @@ public class ValuesController : ControllerBase
 - `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
 - `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
 
-### <a name="cookies"></a>Cookie
+### <a name="no-loccookies"></a>Cookies
 
-共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 Cookie 的应用，请考虑执行以下任一操作：
+共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 cookie 的应用，请考虑执行以下任一操作：
 
- - 禁用自动 Cookie 处理
+ - 禁用自动 cookie 处理
  - 避免 `IHttpClientFactory`
 
-调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 Cookie 处理：
+调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
@@ -985,14 +987,14 @@ public class ValuesController : ControllerBase
 - `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
 - `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
 
-### <a name="cookies"></a>Cookie
+### <a name="no-loccookies"></a>Cookies
 
-共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 Cookie 的应用，请考虑执行以下任一操作：
+共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 cookie 的应用，请考虑执行以下任一操作：
 
- - 禁用自动 Cookie 处理
+ - 禁用自动 cookie 处理
  - 避免 `IHttpClientFactory`
 
-调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 Cookie 处理：
+调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 

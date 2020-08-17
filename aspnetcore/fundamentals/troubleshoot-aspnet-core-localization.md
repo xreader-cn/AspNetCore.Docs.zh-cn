@@ -5,6 +5,8 @@ description: 了解如何诊断 ASP.NET Core 应用中本地化的问题。
 ms.author: riande
 ms.date: 01/24/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/troubleshoot-aspnet-core-localization
-ms.openlocfilehash: 48f75b4fbfdb2078f07efeffd8d4105366998876
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 801ae3a708d23308cbf909ceeace160e3c0db1bd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407078"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016461"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>对 ASP.NET Core 本地化进行故障排除
 
@@ -58,7 +60,7 @@ ASP.NET Core 具有针对本地化资源文件命名的预定义规则和指导�
 - `resx` 中缺少某些语言的资源，但存在其他语言的资源。
 - 如果仍有问题，请检查本地化日志消息（在 `Debug` 日志级别），了解有关缺少资源的详细信息。
 
-_**提示：** 使用 `CookieRequestCultureProvider` 时，验证未对本地化 cookie 值内的区域性使用单引号。例如，`c='en-UK'|uic='en-US'` 是无效的 cookie 值，而 `c=en-UK|uic=en-US` 有效。_
+_**提示：** 使用 `CookieRequestCultureProvider` 时，验证未对本地化 cookie 值内的区域性使用单引号。例如，`c='en-UK'|uic='en-US'` 是无效的cookie 值，而 `c=en-UK|uic=en-US` 有效。_
 
 ## <a name="resources--class-libraries-issues"></a>资源和类库问题
 

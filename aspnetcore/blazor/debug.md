@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/30/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: cb0a8737fb975db285986d18b995e488f09580e8
-ms.sourcegitcommit: 37f6f2e13ceb4eae268d20973d76e4b83acf6a24
+ms.openlocfilehash: 225916411550cc8e89c604e1426316843bb0ff52
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526285"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014537"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -76,6 +78,10 @@ ms.locfileid: "87526285"
 
 1. 创建新的 ASP.NET Core 托管 Blazor WebAssembly 应用。
 1. 按 <kbd>F5</kbd> 在调试器中运行应用。
+
+   > [!NOTE]
+   > 不支持“启动时不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。
+
 1. 在 `IncrementCount` 方法的 `Pages/Counter.razor` 中设置断点。
 1. 浏览到“`Counter`”选项卡，选择该按钮以命中断点：
 
@@ -116,10 +122,13 @@ ms.locfileid: "87526285"
    如果收到通知，请执行以下操作：
 
    * 确认是否已安装最新的[适用于 Visual Studio Code 的 C# 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)。 若要检查是否已安装此扩展，请在菜单栏中依次打开“视图” > “扩展”，或选择“活动”边栏中的“扩展”图标。
-   * 确认已启用 JavaScript 预览调试。 在菜单栏中打开设置（依次选择“文件” > “首选项” > “设置”）。 使用关键字 `debug preview` 进行搜索。 在搜索结果中，确认是否已选中“调试”>“JavaScript:使用预览”复选框。
+   * 确认已启用 JavaScript 预览调试。 在菜单栏中打开设置（依次选择“文件” > “首选项” > “设置”）。 使用关键字 `debug preview` 进行搜索。 在搜索结果中，确认是否已选中“调试”>“JavaScript:使用预览”复选框。 如果启用预览调试的选项不存在，请升级到最新版本的 VS Code 或安装 [JavaScript 调试器扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly)（VS Code 1.46 或更早版本）。
    * 重载窗口。
 
 1. 使用 <kbd>F5</kbd> 键盘快捷方式或菜单项启动调试。
+
+   > [!NOTE]
+   > 不支持“运行但不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。
 
 1. 出现提示时，选择“Blazor WebAssembly 调试”选项以启动调试。
 

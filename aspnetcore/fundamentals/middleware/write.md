@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/18/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/write
-ms.openlocfilehash: aeebc7d5a7cbfaaab6d48b8da76d35c47c2c552b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 480120718959a364ce8008949c3b76c558c0e995
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407845"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130582"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>写入自定义 ASP.NET Core 中间件
 
@@ -83,6 +85,8 @@ public class CustomMiddleware
 }
 ```
 
+[生存期和注册选项](xref:fundamentals/dependency-injection#lifetime-and-registration-options)包含范围内生存期服务的中间件的完整示例。
+
 ## <a name="middleware-extension-method"></a>中间件扩展方法
 
 以下扩展方法通过 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> 公开中间件：
@@ -95,6 +99,7 @@ public class CustomMiddleware
 
 ## <a name="additional-resources"></a>其他资源
 
+* [生存期和注册选项](xref:fundamentals/dependency-injection#lifetime-and-registration-options)包含范围内、临时性和单一实例生存期服务的中间件的完整示例  。
 * <xref:fundamentals/middleware/index>
 * <xref:test/middleware>
 * <xref:migration/http-modules>

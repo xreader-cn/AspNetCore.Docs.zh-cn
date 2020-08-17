@@ -5,6 +5,8 @@ description: Razor 页面教程系列的第 3 部分。
 ms.author: riande
 ms.date: 08/17/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 898f3be045755a0ee14c738b6ffc104408ded7b6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f8942e52b3b438817e3d1041a2c6b568eb662469
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407767"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020387"
 ---
-# <a name="part-3-scaffolded-razor-pages-in-aspnet-core"></a>第 3 部分，ASP.NET Core 中已搭建基架的 Razor 页面
+# <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>第 3 部分，ASP.NET Core 中已搭建基架的 Razor 页面
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -72,7 +74,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 ### <a name="the-layout-page"></a>布局页
 
-选择菜单链接（“RazorPagesMovie”、“主页”和“隐私”）。 每页显示相同的菜单布局。 菜单布局是在 Pages/Shared/_Layout.cshtml 文件中实现。 打开 Pages/Shared/_Layout.cshtml 文件。
+选择菜单链接（“RazorPagesMovie”、“主页”和“隐私”）  。 每页显示相同的菜单布局。 菜单布局是在 Pages/Shared/_Layout.cshtml 文件中实现。 打开 Pages/Shared/_Layout.cshtml 文件。
 
 [布局](xref:mvc/views/layout)模板允许 HTML 容器具有如下布局：
 
@@ -153,7 +155,7 @@ changing in in the next step.
 
 如果不存在模型错误，将保存数据，并且浏览器会重定向到索引页。
 
-### <a name="the-create-razor-page"></a>“创建 Razor”页面
+### <a name="the-create-no-locrazor-page"></a>“创建 Razor”页面
 
 检查 Pages/Movies/Create.cshtml Razor 页面文件：
 
@@ -263,7 +265,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 ### <a name="the-layout-page"></a>布局页
 
-选择菜单链接（“RazorPagesMovie”、“主页”和“隐私”）。 每页显示相同的菜单布局。 菜单布局是在 Pages/Shared/_Layout.cshtml 文件中实现。 打开 Pages/Shared/_Layout.cshtml 文件。
+选择菜单链接（“RazorPagesMovie”、“主页”和“隐私”）  。 每页显示相同的菜单布局。 菜单布局是在 Pages/Shared/_Layout.cshtml 文件中实现。 打开 Pages/Shared/_Layout.cshtml 文件。
 
 [布局](xref:mvc/views/layout)模板使你能够在一个位置指定网站的 HTML 容器布局，然后将它应用到网站中的多个页面。 查找 `@RenderBody()` 行。 `RenderBody` 是显示所创建的全部页面专用视图的占位符，已包装在布局页中。 例如，如果选择“隐私”链接，Pages/Privacy.cshtml 视图在 `RenderBody` 方法中呈现。
 
@@ -339,7 +341,7 @@ changing in in the next step.
 
 如果不存在模型错误，将保存数据，并且浏览器会重定向到索引页。
 
-### <a name="the-create-razor-page"></a>“创建 Razor”页面
+### <a name="the-create-no-locrazor-page"></a>“创建 Razor”页面
 
 检查 Pages/Movies/Create.cshtml Razor 页面文件：
 

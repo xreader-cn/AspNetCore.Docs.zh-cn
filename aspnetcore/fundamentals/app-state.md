@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/06/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: 30123e043a7c152b5719af8092b2ab42a70d2787
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: c05129c0f239fb28c83ab1c561dd910305eeb54b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407614"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017631"
 ---
 # <a name="session-and-state-management-in-aspnet-core"></a>ASP.NET Core 中的会话和状态管理
 
@@ -37,23 +39,23 @@ HTTP 是无状态的协议。 默认情况下，HTTP 请求是不保留用户值
 
 | 存储方法 | 存储机制 |
 | ---------------- | ----------------- |
-| [Cookie](#cookies) | HTTP Cookie。 可能包括使用服务器端应用代码存储的数据。 |
-| [Session State](#session-state) | HTTP Cookie 和服务器端应用代码 |
-| [TempData](#tempdata) | HTTP Cookie 或会话状态 |
+| [Cookie](#cookies) | HTTP cookie。 可能包括使用服务器端应用代码存储的数据。 |
+| [Session State](#session-state) | HTTP cookie 和服务器端应用代码 |
+| [TempData](#tempdata) | HTTP cookie 或会话状态 |
 | [Query Strings](#query-strings) | HTTP 查询字符串 |
 | [Hidden Fields](#hidden-fields) | HTTP 窗体字段 |
 | [HttpContext.Items](#httpcontextitems) | 服务器端应用代码 |
 | [Cache](#cache) | 服务器端应用代码 |
 
-## <a name="cookies"></a>Cookie
+## <a name="no-loccookies"></a>Cookies
 
-Cookie 存储所有请求的数据。 因为 Cookie 是随每个请求发送的，所以它们的大小应该保持在最低限度。 理想情况下，仅标识符应存储在 Cookie 中，而数据则由应用存储。 大多数浏览器 Cookie 大小限制为 4096 个字节。 每个域仅有有限数量的 Cookie 可用。
+Cookie 存储请求之间的数据。 因为 cookie 是随每个请求发送的，所以它们的大小应该保持在最低限度。 理想情况下，仅标识符应存储在 cookie 中，而数据则由应用存储。 大多数浏览器 cookie 大小限制为 4096 个字节。 每个域仅有有限数量的 cookie 可用。
 
-由于 Cookie 易被篡改，因此它们必须由服务器进行验证。 客户端上的 Cookie 可能被用户删除或者过期。 但是，Cookie 通常是客户端上最持久的数据暂留形式。
+由于 cookie 易被篡改，因此它们必须由服务器进行验证。 客户端上的 Cookie 可能被用户删除或者过期。 但是，cookie 通常是客户端上最持久的数据暂留形式。
 
-Cookie 通常用于个性化设置，其中的内容是为已知用户定制的。 大多数情况下，仅标识用户，但不对其进行身份验证。 Cookie 可以存储用户名、帐户名或唯一的用户 ID（例如 GUID）。 Cookie 可用于访问用户的个性化设置，例如首选的网站背景色。
+Cookie 通常用于个性化设置，其中的内容是为已知用户定制的。 大多数情况下，仅标识用户，但不对其进行身份验证。 cookie 可以存储用户名、帐户名或唯一的用户 ID（例如 GUID）。 cookie 可用于访问用户的个性化设置，例如首选的网站背景色。
 
-发布 Cookie 和处理隐私问题时，请参阅[欧盟一般数据保护条例 (GDPR)](https://ec.europa.eu/info/law/law-topic/data-protection)。 有关详细信息，请参阅 [ASP.NET Core 中的一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。
+发布 cookie 和处理隐私问题时，请参阅[欧盟一般数据保护条例 (GDPR)](https://ec.europa.eu/info/law/law-topic/data-protection)。 有关详细信息，请参阅 [ASP.NET Core 中的一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。
 
 ## <a name="session-state"></a>会话状态
 
@@ -61,31 +63,31 @@ Cookie 通常用于个性化设置，其中的内容是为已知用户定制的�
 
 [SignalR](xref:signalr/index) 应用不支持会话，因为 [SignalR 中心](xref:signalr/hubs)可能独立于 HTTP 上下文执行。 例如，当中心打开的长轮询请求超出请求的 HTTP 上下文的生存期时，可能发生这种情况。
 
-ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话状态。 Cookie 会话 ID：
+ASP.NET Core 通过向客户端提供包含会话 ID 的 cookie 来维护会话状态。 cookie 会话 ID：
 
 * 会随每个请求发送到应用。
 * 由应用用于提取会话数据。
 
 会话状态具有以下行为：
 
-* 会话 Cookie 特定于浏览器。 会话不会跨浏览器进行共享。
-* 浏览器会话结束时删除会话 Cookie。
-* 如果收到过期的会话 Cookie，则创建使用相同会话 Cookie 的新会话。
+* 会话 cookie 特定于浏览器。 会话不会跨浏览器进行共享。
+* 浏览器会话结束时删除会话 cookie。
+* 如果收到过期的会话 cookie，则创建使用相同会话 cookie 的新会话。
 * 不会保留空会话。 会话中必须设置了至少一个值以保存所有请求的会话。 会话未保留时，为每个新的请求生成新会话 ID。
 * 应用在上次请求后保留会话的时间有限。 应用设置会话超时，或者使用 20 分钟的默认值。 在以下情况下，会话状态适合存储用户数据：
   * 特定于某个特定会话。
   * 数据不需要跨会话永久存储。
 * 会话数据在调用 <xref:Microsoft.AspNetCore.Http.ISession.Clear%2A?displayProperty=nameWithType> 实现或会话到期时删除。
-* 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 Cookie 被删除或过期的应用代码。
-* 默认情况下，会话状态 Cookie 不标记为“基本”。 除非站点访问者允许跟踪，否则会话状态不起作用。 有关详细信息，请参阅 <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>。
+* 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 cookie 被删除或过期的应用代码。
+* 默认情况下，会话状态 cookie 不标记为“基本”。 除非站点访问者允许跟踪，否则会话状态不起作用。 有关详细信息，请参阅 <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>。
 
 > [!WARNING]
-> 请勿将敏感数据存储在会话状态中。 用户可能不会关闭浏览器并清除会话 Cookie。 某些浏览器会保留所有浏览器窗口中的有效会话 Cookie。 会话可能不限于单个用户。 下一个用户可能继续使用同一会话 Cookie 浏览应用。
+> 请勿将敏感数据存储在会话状态中。 用户可能不会关闭浏览器或清除会话 cookie。 某些浏览器会保留浏览器窗口之间的有效会话 cookie。 会话可能不限于单个用户。 下一个用户可能继续使用同一会话 cookie 浏览应用。
 
 内存中缓存提供程序在应用驻留的服务器内存中存储会话数据。 在服务器场方案中：
 
 * 使用粘性会话将每个会话加入到单独服务器上的特定应用实例。 默认情况下，[Azure 应用服务](https://azure.microsoft.com/services/app-service/)使用[应用程序请求路由 (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) 强制实施粘性会话。 然而，粘性会话可能会影响可伸缩性，并使 Web 应用更新变得复杂。 更好的方法是使用 Redis 或 SQL Server 分布式缓存，它们不需要粘性会话。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
-* 会话 Cookie 通过 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 进行加密。 必须正确配置数据保护，以在每台计算机上读取会话 Cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
+* 会话 cookie 通过 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 进行加密。 必须正确配置数据保护，以在每台计算机上读取会话 cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
 
 ### <a name="configure-session-state"></a>配置会话状态
 
@@ -112,7 +114,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 调用 `UseSession` 以前无法访问 `HttpContext.Session`。
 
-在应用已经开始写入到响应流之后，不能创建有新会话 Cookie 的新会话。 此异常记录在 Web 服务器日志中但不显示在浏览器中。
+在应用已经开始写入到响应流之后，不能创建有新会话 cookie 的新会话。 此异常记录在 Web 服务器日志中但不显示在浏览器中。
 
 ### <a name="load-session-state-asynchronously"></a>以异步方式加载会话状态
 
@@ -126,17 +128,17 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 | 选项 | 描述 |
 | ------ | ----------- |
-| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | 确定用于创建 Cookie 的设置。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> (`.AspNetCore.Session`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> (`/`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> 默认为 <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> (`1`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 默认为 `false`。 |
-| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 Cookie。 默认为 20 分钟。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | 确定用于创建 cookie 的设置。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> (`.AspNetCore.Session`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> (`/`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> 默认为 <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> (`1`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 默认为 `false`。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 cookie。 默认为 20 分钟。 |
 | <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | 允许从存储加载会话或者将其提交回存储的最大时长。 此设置可能仅适用于异步操作。 可以使用 <xref:System.Threading.Timeout.InfiniteTimeSpan> 来禁用此超时。 默认值为 1 分钟。 |
 
-会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNetCore.Session` ，并使用路径 `/`。 由于 Cookie 默认值没有指定域，因此页面上的客户端脚本无法使用它（因为 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`）。
+会话使用 cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 cookie 名为 `.AspNetCore.Session`，并使用路径 `/`。 由于 cookie 默认值没有指定域，因此页面上的客户端脚本无法使用它（因为 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`）。
 
-若要替换 Cookie 会话默认值，请使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions>：
+若要重写 cookie 会话默认值，请使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions>：
 
 [!code-csharp[](app-state/samples/3.x/SessionSample/Startup2.cs?name=snippet1&highlight=5-10)]
 
-应用使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> 属性来确定在会话空闲多长时间后它在服务器缓存中的内容就会被放弃。 此属性独立于 Cookie 到期时间。 通过[会话中间件](xref:Microsoft.AspNetCore.Session.SessionMiddleware)传递的每个请求都会重置超时。
+应用使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> 属性来确定在会话空闲多长时间后它在服务器缓存中的内容就会被放弃。 此属性独立于 cookie 到期时间。 通过[会话中间件](xref:Microsoft.AspNetCore.Session.SessionMiddleware)传递的每个请求都会重置超时。
 
 会话状态为“非锁定”。 如果两个请求同时尝试修改同一会话的内容，则后一个请求替代前一个请求。 `Session` 是作为一个连贯会话实现的，这意味着所有内容都存储在一起。 两个请求试图修改不同的会话值时，后一个请求可能替代前一个做出的会话更改。
 
@@ -185,7 +187,7 @@ Name: @HttpContext.Session.GetString(IndexModel.SessionKeyName)
 ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) 或控制器 <xref:Microsoft.AspNetCore.Mvc.Controller.TempData>。 在另一个请求读取数据之前，此属性将读取此数据。 [Keep(String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 和 [Peek(string)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) 方法可用于检查数据，而无需在请求结束时删除。 [Keep](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 将标记字典中的所有项以进行保留。 `TempData` 为：
 
 * 在多个请求需要数据的情况下对重定向很有用。
-* 使用 Cookie 或会话状态通过 `TempData` 提供程序实现。
+* 使用 cookie 或会话状态通过 `TempData` 提供程序进行实现。
 
 ## <a name="tempdata-samples"></a>TempData 示例
 
@@ -211,23 +213,23 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 ### <a name="tempdata-providers"></a>TempData 提供程序
 
-基于 cookie 的 TempData 提供程序默认用于存储 cookie 中的 TempData。
+默认情况下使用基于 cookie 的 TempData 提供程序将 TempData 存储于 cookie。
 
-Cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector>（用 <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> 编码）进行加密，再进行区块处理。 由于加密和分块，最大 Cookie 大小小于 [4096 个字节](http://www.faqs.org/rfcs/rfc2965.html)。 未压缩 Cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 若要详细了解基于 Cookie 的 TempData 提供程序，请参阅 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>。
+cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector>（用 <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> 编码）进行加密，再进行区块处理。 由于加密和分块，最大 cookie 大小小于 [4096 个字节](http://www.faqs.org/rfcs/rfc2965.html)。 未压缩 cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 若要详细了解基于 cookie 的 TempData 提供程序，请参阅 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>。
 
 ### <a name="choose-a-tempdata-provider"></a>选择 TempData 提供程序
 
 选择 TempData 提供程序涉及几个注意事项，例如：
 
 * 应用是否已使用会话状态？ 如果是，使用会话状态 TempData 提供程序对应用没有额外的成本（除了数据的大小）。
-* 应用是否只对相对较小的数据量（最多 500 个字节）使用 TempData？ 如果是，Cookie TempData 提供程序将为每个携带 TempData 的请求增加较小的成本。 如果不是，会话状态 TempData 提供程序有助于在使用 TempData 前，避免在每个请求中来回切换大量数据。
-* 应用是否在多个服务器上的服务器场中运行？ 如果是，无需其他任何配置，即可在数据保护外使用 Cookie TempData 提供程序（请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)）。
+* 应用是否只对相对较小的数据量（最多 500 个字节）使用 TempData？ 如果是，cookie TempData 提供程序将为每个携带 TempData 的请求增加较小的成本。 如果不是，会话状态 TempData 提供程序有助于在使用 TempData 前，避免在每个请求中来回切换大量数据。
+* 应用是否在多个服务器上的服务器场中运行？ 如果是，无需其他任何配置，即可在数据保护外使用 cookie TempData 提供程序（请参阅 <xref:security/data-protection/introduction>和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)）。
 
-大多数 Web 客户端（如 Web 浏览器）针对每个 Cookie 的最大大小和 Cookie 总数强制实施限制。 使用 Cookie TempData 提供程序时，请验证应用未超过[这些限制](http://www.faqs.org/rfcs/rfc2965.html)。 考虑数据的总大小。 解释加密和分块导致的 Cookie 大小增加。
+大多数 Web 客户端（如 Web 浏览器）针对每个 cookie 的最大大小和 cookie 总数强制实施限制。 使用 cookie TempData 提供程序时，请验证应用未超过[这些限制](http://www.faqs.org/rfcs/rfc2965.html)。 考虑数据的总大小。 解释加密和分块导致的 cookie 大小增加。
 
 ### <a name="configure-the-tempdata-provider"></a>配置 TempData 提供程序
 
-默认情况下启用基于 Cookie 的 TempData 提供程序。
+默认情况下启用基于 cookie 的 TempData 提供程序。
 
 若要启用基于会话的 TempData 提供程序，请使用 <xref:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddSessionStateTempDataProvider%2A> 扩展方法。 只需要调用 `AddSessionStateTempDataProvider`：
 
@@ -284,7 +286,7 @@ Cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtect
 
 检查此类错误的建议方法是完成将应用写入到该会话后，调用 `await feature.Session.CommitAsync`。 如果后备存储不可用，则 <xref:Microsoft.AspNetCore.Http.ISession.CommitAsync*> 引发异常。 如果 `CommitAsync` 失败，应用可以处理异常。 在与数据存储不可用的相同的条件下，<xref:Microsoft.AspNetCore.Http.ISession.LoadAsync*> 引发异常。
   
-## <a name="signalr-and-session-state"></a>SignalR 和会话状态
+## <a name="no-locsignalr-and-session-state"></a>SignalR 和会话状态
 
 SignalR 应用不应使用会话状态来存储信息。 SignalR 应用可以将每个连接状态存储在中心的 `Context.Items` 中。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
@@ -307,24 +309,24 @@ HTTP 是无状态的协议。 不采取其他步骤的情况下，HTTP 请求是
 
 | 存储方法 | 存储机制 |
 | ---------------- | ----------------- |
-| [Cookie](#cookies) | HTTP Cookie（可能包括使用服务器端应用代码存储的数据） |
-| [Session State](#session-state) | HTTP Cookie 和服务器端应用代码 |
-| [TempData](#tempdata) | HTTP Cookie 或会话状态 |
+| [Cookie](#cookies) | HTTP cookie（可能包括使用服务器端应用代码存储的数据） |
+| [Session State](#session-state) | HTTP cookie 和服务器端应用代码 |
+| [TempData](#tempdata) | HTTP cookie 或会话状态 |
 | [Query Strings](#query-strings) | HTTP 查询字符串 |
 | [Hidden Fields](#hidden-fields) | HTTP 窗体字段 |
 | [HttpContext.Items](#httpcontextitems) | 服务器端应用代码 |
 | [Cache](#cache) | 服务器端应用代码 |
 | [Dependency Injection](#dependency-injection) | 服务器端应用代码 |
 
-## <a name="cookies"></a>Cookie
+## <a name="no-loccookies"></a>Cookies
 
-Cookie 存储所有请求的数据。 因为 Cookie 是随每个请求发送的，所以它们的大小应该保持在最低限度。 理想情况下，仅标识符应存储在 Cookie 中，而数据则由应用存储。 大多数浏览器 Cookie 大小限制为 4096 个字节。 每个域仅有有限数量的 Cookie 可用。
+Cookie 存储请求之间的数据。 因为 cookie 是随每个请求发送的，所以它们的大小应该保持在最低限度。 理想情况下，仅标识符应存储在 cookie 中，而数据则由应用存储。 大多数浏览器 cookie 大小限制为 4096 个字节。 每个域仅有有限数量的 cookie 可用。
 
-由于 Cookie 易被篡改，因此它们必须由服务器进行验证。 客户端上的 Cookie 可能被用户删除或者过期。 但是，Cookie 通常是客户端上最持久的数据暂留形式。
+由于 cookie 易被篡改，因此它们必须由服务器进行验证。 客户端上的 Cookie 可能被用户删除或者过期。 但是，cookie 通常是客户端上最持久的数据暂留形式。
 
-Cookie 通常用于个性化设置，其中的内容是为已知用户定制的。 大多数情况下，仅标识用户，但不对其进行身份验证。 Cookie 可以存储用户名、帐户名或唯一的用户 ID（例如 GUID）。 然后，可以使用 Cookie 访问用户的个性化设置，例如首选的网站背景色。
+Cookie 通常用于个性化设置，其中的内容是为已知用户定制的。 大多数情况下，仅标识用户，但不对其进行身份验证。 cookie 可以存储用户名、帐户名或唯一的用户 ID（例如 GUID）。 然后，可以使用 cookie 访问用户的个性化设置，例如首选的网站背景色。
 
-发布 Cookie 和处理隐私问题时，请留意[欧盟一般数据保护条例 (GDPR)](https://ec.europa.eu/info/law/law-topic/data-protection)。 有关详细信息，请参阅 [ASP.NET Core 中的一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。
+发布 cookie 和处理隐私问题时，请留意[欧盟一般数据保护条例 (GDPR)](https://ec.europa.eu/info/law/law-topic/data-protection)。 有关详细信息，请参阅 [ASP.NET Core 中的一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。
 
 ## <a name="session-state"></a>会话状态
 
@@ -333,26 +335,26 @@ Cookie 通常用于个性化设置，其中的内容是为已知用户定制的�
 > [!NOTE]
 > [SignalR](xref:signalr/index) 应用不支持会话，因为 [SignalR 中心](xref:signalr/hubs)可能独立于 HTTP 上下文执行。 例如，当中心打开的长轮询请求超出请求的 HTTP 上下文的生存期时，可能发生这种情况。
 
-ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话状态，该会话 ID 与每个请求一起发送到应用。 应用使用会话 ID 来获取会话数据。
+ASP.NET Core 通过向客户端提供包含会话 ID 的 cookie 来维护会话状态，该会话 ID 与每个请求一起发送到应用。 应用使用会话 ID 来获取会话数据。
 
 会话状态具有以下行为：
 
-* 由于会话 Cookie 是特定于浏览器的，因此不能跨浏览器共享会话。
-* 浏览器会话结束时删除会话 Cookie。
-* 如果收到过期的会话 Cookie，则创建使用相同会话 Cookie 的新会话。
+* 由于会话 cookie 是特定于浏览器的，因此不能跨浏览器共享会话。
+* 浏览器会话结束时删除会话 cookie。
+* 如果收到过期的会话 cookie，则创建使用相同会话 cookie 的新会话。
 * 不会保留空会话 - 会话中必须设置了至少一个值以保存所有请求的会话。 会话未保留时，为每个新的请求生成新会话 ID。
 * 应用在上次请求后保留会话的时间有限。 应用设置会话超时，或者使用 20 分钟的默认值。 会话状态适用于存储特定于特定会话的用户数据，但该数据无需永久的会话存储。
 * 会话数据在调用 <xref:Microsoft.AspNetCore.Http.ISession.Clear%2A?displayProperty=nameWithType> 实现或会话到期时删除。
-* 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 Cookie 被删除或过期的应用代码。
+* 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 cookie 被删除或过期的应用代码。
 * ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 的支持。 默认情况下，会话状态 cookie 不标记为“基本”，因此，除非站点访问者允许跟踪，否则会话状态不起作用。 有关详细信息，请参阅 <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>。
 
 > [!WARNING]
-> 请勿将敏感数据存储在会话状态中。 用户可能不会关闭浏览器并清除会话 Cookie。 某些浏览器会保留所有浏览器窗口中的有效会话 Cookie。 会话可能不限于单个用户 - 下一个用户可能继续使用同一会话 Cookie 浏览应用。
+> 请勿将敏感数据存储在会话状态中。 用户可能不会关闭浏览器或清除会话 cookie。 某些浏览器会保留浏览器窗口之间的有效会话 cookie。 会话可能不限于单个用户 &mdash; 下一个用户可能继续使用同一会话 cookie 浏览应用。
 
 内存中缓存提供程序在应用驻留的服务器内存中存储会话数据。 在服务器场方案中：
 
 * 使用粘性会话将每个会话加入到单独服务器上的特定应用实例。 默认情况下，[Azure 应用服务](https://azure.microsoft.com/services/app-service/)使用[应用程序请求路由 (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) 强制实施粘性会话。 然而，粘性会话可能会影响可伸缩性，并使 Web 应用更新变得复杂。 更好的方法是使用 Redis 或 SQL Server 分布式缓存，它们不需要粘性会话。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
-* 会话 Cookie 通过 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 进行加密。 必须正确配置数据保护，以在每台计算机上读取会话 Cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
+* 会话 cookie 通过 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 进行加密。 必须正确配置数据保护，以在每台计算机上读取会话 cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
 
 ### <a name="configure-session-state"></a>配置会话状态
 
@@ -372,7 +374,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 调用 `UseSession` 以前无法访问 `HttpContext.Session`。
 
-在应用已经开始写入到响应流之后，不能创建有新会话 Cookie 的新会话。 此异常记录在 Web 服务器日志中但不显示在浏览器中。
+在应用已经开始写入到响应流之后，不能创建有新会话 cookie 的新会话。 此异常记录在 Web 服务器日志中但不显示在浏览器中。
 
 ### <a name="load-session-state-asynchronously"></a>以异步方式加载会话状态
 
@@ -386,17 +388,17 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 | 选项 | 描述 |
 | ------ | ----------- |
-| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | 确定用于创建 Cookie 的设置。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> (`.AspNetCore.Session`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> (`/`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> 默认为 <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> (`1`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 默认为 `false`。 |
-| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 Cookie。 默认为 20 分钟。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | 确定用于创建 cookie 的设置。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> (`.AspNetCore.Session`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> 默认为 <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> (`/`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> 默认为 <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> (`1`)。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`。 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 默认为 `false`。 |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 此设置仅适用于会话内容，不适用于 cookie。 默认为 20 分钟。 |
 | <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | 允许从存储加载会话或者将其提交回存储的最大时长。 此设置可能仅适用于异步操作。 可以使用 <xref:System.Threading.Timeout.InfiniteTimeSpan> 来禁用此超时。 默认值为 1 分钟。 |
 
-会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNetCore.Session` ，并使用路径 `/`。 由于 Cookie 默认值没有指定域，因此页面上的客户端脚本无法使用它（因为 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`）。
+会话使用 cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 cookie 名为 `.AspNetCore.Session`，并使用路径 `/`。 由于 cookie 默认值没有指定域，因此页面上的客户端脚本无法使用它（因为 <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> 默认为 `true`）。
 
-若要替换 Cookie 会话默认值，请使用 `SessionOptions`：
+若要重写 cookie 会话默认值，请使用 `SessionOptions`：
 
 [!code-csharp[](app-state/samples_snapshot/2.x/SessionSample/Startup.cs?name=snippet1&highlight=14-19)]
 
-应用使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> 属性来确定在会话空闲多长时间后它在服务器缓存中的内容就会被放弃。 此属性独立于 Cookie 到期时间。 通过[会话中间件](xref:Microsoft.AspNetCore.Session.SessionMiddleware)传递的每个请求都会重置超时。
+应用使用 <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> 属性来确定在会话空闲多长时间后它在服务器缓存中的内容就会被放弃。 此属性独立于 cookie 到期时间。 通过[会话中间件](xref:Microsoft.AspNetCore.Session.SessionMiddleware)传递的每个请求都会重置超时。
 
 会话状态为“非锁定”。 如果两个请求同时尝试修改同一会话的内容，则后一个请求替代前一个请求。 `Session` 是作为一个连贯会话实现的，这意味着所有内容都存储在一起。 两个请求试图修改不同的会话值时，后一个请求可能替代前一个做出的会话更改。
 
@@ -442,7 +444,7 @@ Name: @HttpContext.Session.GetString(IndexModel.SessionKeyName)
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) 或控制器 <xref:Microsoft.AspNetCore.Mvc.Controller.TempData>。 在另一个请求读取数据之前，此属性将读取此数据。 [Keep(String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 和 [Peek(string)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) 方法可用于检查数据，而无需在请求结束时删除。 [Keep()](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 将标记字典中的所有项以进行保留。 当多个请求需要数据时，`TempData` 非常有助于进行重定向。 `TempData` 提供程序使用 Cookie 或会话状态实现 `TempData`。
+ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) 或控制器 <xref:Microsoft.AspNetCore.Mvc.Controller.TempData>。 在另一个请求读取数据之前，此属性将读取此数据。 [Keep(String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 和 [Peek(string)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) 方法可用于检查数据，而无需在请求结束时删除。 [Keep()](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 将标记字典中的所有项以进行保留。 当多个请求需要数据时，`TempData` 非常有助于进行重定向。 使用 cookie 或会话状态通过 `TempData` 提供程序实现 `TempData`。
 
 ## <a name="tempdata-samples"></a>TempData 示例
 
@@ -468,24 +470,24 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 ### <a name="tempdata-providers"></a>TempData 提供程序
 
-基于 cookie 的 TempData 提供程序默认用于存储 cookie 中的 TempData。
+默认情况下使用基于 cookie 的 TempData 提供程序将 TempData 存储于 cookie。
 
-Cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector>（用 <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> 编码）进行加密，再进行区块处理。 因为 Cookie 进行了分块，所以 ASP.NET Core 1.x 中的单个 Cookie 大小限制不适用。 未压缩 Cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 若要详细了解基于 Cookie 的 TempData 提供程序，请参阅 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>。
+cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector>（用 <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> 编码）进行加密，再进行区块处理。 因为 cookie 进行了分块，所以 ASP.NET Core 1.x 中的单个 cookie 大小限制不适用。 未压缩 cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 若要详细了解基于 cookie 的 TempData 提供程序，请参阅 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>。
 
 ### <a name="choose-a-tempdata-provider"></a>选择 TempData 提供程序
 
 选择 TempData 提供程序涉及几个注意事项，例如：
 
 1. 应用是否已使用会话状态？ 如果是，使用会话状态 TempData 提供程序对应用没有额外的成本（除了数据的大小）。
-2. 应用是否只对相对较小的数据量（最多 500 个字节）使用 TempData？ 如果是，Cookie TempData 提供程序将为每个携带 TempData 的请求增加较小的成本。 如果不是，会话状态 TempData 提供程序有助于在使用 TempData 前，避免在每个请求中来回切换大量数据。
-3. 应用是否在多个服务器上的服务器场中运行？ 如果是，无需其他任何配置，即可在数据保护外使用 Cookie TempData 提供程序（请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)）。
+2. 应用是否只对相对较小的数据量（最多 500 个字节）使用 TempData？ 如果是，cookie TempData 提供程序将为每个携带 TempData 的请求增加较小的成本。 如果不是，会话状态 TempData 提供程序有助于在使用 TempData 前，避免在每个请求中来回切换大量数据。
+3. 应用是否在多个服务器上的服务器场中运行？ 如果是，无需其他任何配置，即可在数据保护外使用 cookie TempData 提供程序（请参阅 <xref:security/data-protection/introduction>和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)）。
 
 > [!NOTE]
-> 大多数 Web 客户端（如 Web 浏览器）针对每个 Cookie 的最大大小和/或 Cookie 总数强制实施限制。 使用 Cookie TempData 提供程序时，请验证应用未超过这些限制。 考虑数据的总大小。 解释加密和分块导致的 Cookie 大小增加。
+> 大多数 Web 客户端（如 Web 浏览器）针对每个 cookie 的最大大小、cookie 总数（或两者）强制实施限制。 使用 cookie TempData 提供程序时，请验证应用未超过这些限制。 考虑数据的总大小。 解释加密和分块导致的 cookie 大小增加。
 
 ### <a name="configure-the-tempdata-provider"></a>配置 TempData 提供程序
 
-默认情况下启用基于 Cookie 的 TempData 提供程序。
+默认情况下启用基于 cookie 的 TempData 提供程序。
 
 若要启用基于会话的 TempData 提供程序，请使用 <xref:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddSessionStateTempDataProvider%2A> 扩展方法：
 
@@ -595,7 +597,7 @@ app.Run(async (context) =>
 
   检查此类错误的建议方法是完成将应用写入到该会话后，从应用代码调用 `await feature.Session.CommitAsync();`。 如果后备存储不可用，则 `CommitAsync` 引发异常。 如果 `CommitAsync` 失败，应用可以处理异常。 在与数据存储不可用的相同的条件下，`LoadAsync` 引发异常。
   
-## <a name="signalr-and-session-state"></a>SignalR 和会话状态
+## <a name="no-locsignalr-and-session-state"></a>SignalR 和会话状态
 
 SignalR 应用不应使用会话状态来存储信息。 SignalR 应用可以将每个连接状态存储在中心的 `Context.Items` 中。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 

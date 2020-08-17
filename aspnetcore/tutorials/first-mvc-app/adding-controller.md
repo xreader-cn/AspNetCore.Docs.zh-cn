@@ -5,6 +5,8 @@ description: ASP.NET Core MVC 教程系列第 2 部分。
 ms.author: riande
 ms.date: 08/05/2017
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 30272900b2ff19879921f1954a1c9b3eba203ca4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 46f8cbc5ef3d9fe00a5151160a9119f68a9fe572
+ms.sourcegitcommit: 68d03d1aee8906b53bda66f8f1e0747efc3007e6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400448"
+ms.lasthandoff: 08/10/2020
+ms.locfileid: "88051805"
 ---
 # <a name="part-2-add-a-controller-to-an-aspnet-core-mvc-app"></a>第 2 部分，将控制器添加到 ASP.NET Core MVC 应用
 
@@ -45,7 +47,7 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 * 在“解决方案资源管理器”中，右键单击“控制器”，然后单击“添加”>“控制器”
   ![上下文菜单](adding-controller/_static/add_controller.png) 
 
-* 在“添加基架”对话框中，选择“MVC 控制器 - 空” 
+* 在“添加基架”对话框中，选择“控制器类 - 空” 
 
   ![添加 MVC 控制器并为其命名](adding-controller/_static/ac.png)
 
@@ -62,7 +64,7 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 在“解决方案资源管理器”中，右键单击“控制器”，选择“添加”>“新文件”。 
 ![上下文菜单](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
 
-选择“ASP.NET Core”和“MVC 控制器类”。 
+选择“ASP.NET Core”和“控制器类”。 
 
 将控制器命名为“HelloWorldController”。
 

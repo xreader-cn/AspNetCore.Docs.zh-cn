@@ -1,46 +1,48 @@
 ---
-title: ASP.NET Core [Blazor 全球化和本地化
+title: ASP.NET Core Blazor 全球化和本地化
 author: guardrex
-description: 了解如何使 [Razor 组件能够供位于不同区域、使用不同语言的用户使用。
+description: 了解如何使 Razor 组件能够供位于不同区域、使用不同语言的用户使用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 1d24ebe900dfcdeb8b7bcc97f1d212deea9cecae
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 59b6e4cb2f466594d8a105a239e175e9c7b37ad8
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402723"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014238"
 ---
-# <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core [Blazor 全球化和本地化
+# <a name="aspnet-core-no-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
-[Razor 组件可供位于不同区域、使用不同语言的用户使用。 以下 .NET 全球化和本地化方案可用：
+Razor 组件可供位于不同区域、使用不同语言的用户使用。 以下 .NET 全球化和本地化方案可用：
 
 * .NET 资源系统
 * 特定于区域性的数字和日期格式
 
 当前支持有限的 ASP.NET Core 本地化方案：
 
-* [Blazor 应用中支持 <xref:Microsoft.Extensions.Localization.IStringLocalizer> 和 <xref:Microsoft.Extensions.Localization.IStringLocalizer%601>。
-* <xref:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer>、<xref:Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer> 和数据注释本地化是 ASP.NET Core MVC 方案，在 [Blazor 应用中不受支持。
+* Blazor 应用中支持 <xref:Microsoft.Extensions.Localization.IStringLocalizer> 和 <xref:Microsoft.Extensions.Localization.IStringLocalizer%601>。
+* <xref:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer>、<xref:Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer> 和数据注释本地化是 ASP.NET Core MVC 方案，在 Blazor 应用中不受支持。
 
 有关详细信息，请参阅 <xref:fundamentals/localization>。
 
 ## <a name="globalization"></a>全球化
 
-[Blazor 的 [`@bind`](xref:mvc/views/razor#bind) 功能基于用户的当前区域性执行格式并分析值以进行显示。
+Blazor 的 [`@bind`](xref:mvc/views/razor#bind) 功能基于用户的当前区域性执行格式并分析值以进行显示。
 
 可从 <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> 属性访问当前区域性。
 
@@ -55,29 +57,29 @@ ms.locfileid: "85402723"
 * 不能包含自由格式的文本。
 * 基于浏览器的实现提供用户交互特性。
 
-以下字段类型具有特定的格式要求且当前不受 [Blazor 支持，因为所有主流浏览器均不支持它们：
+以下字段类型具有特定的格式要求且当前不受 Blazor 支持，因为所有主流浏览器均不支持它们：
 
 * `datetime-local`
 * `month`
 * `week`
 
-[`@bind`](xref:mvc/views/razor#bind) 支持 `@bind:culture` 参数，以提供用于分析值并设置值格式的 <xref:System.Globalization.CultureInfo?displayProperty=fullName>。 使用 `date` 和 `number` 字段类型时，不建议指定区域性。 `date` 和 `number` 具有可提供所需区域性的内置 [Blazor 支持。
+[`@bind`](xref:mvc/views/razor#bind) 支持 `@bind:culture` 参数，以提供用于分析值并设置值格式的 <xref:System.Globalization.CultureInfo?displayProperty=fullName>。 使用 `date` 和 `number` 字段类型时，不建议指定区域性。 `date` 和 `number` 具有可提供所需区域性的内置 Blazor 支持。
 
 ## <a name="localization"></a>本地化
 
-### [Blazor WebAssembly
+### Blazor WebAssembly
 
-[Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)设置区域性。
+Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)设置区域性。
 
 若要显式配置区域性，请在 `Program.Main` 中设置 <xref:System.Globalization.CultureInfo.DefaultThreadCurrentCulture?displayProperty=nameWithType> 和 <xref:System.Globalization.CultureInfo.DefaultThreadCurrentUICulture?displayProperty=nameWithType>。
 
-默认情况下，[Blazor 对于 [Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 有关控制链接器行为的详细信息和指南，请参阅 <xref:blazor/host-and-deploy/configure-linker#configure-the-linker-for-internationalization>。
+默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 有关控制链接器行为的详细信息和指南，请参阅 <xref:blazor/host-and-deploy/configure-linker#configure-the-linker-for-internationalization>。
 
-虽然 [Blazor 默认选择的区域性可能足以满足大多数用户的需求，但请考虑为用户提供一种指定其首选区域设置的方法。 如需获取具有区域性选取器的 [Blazor WebAssembly 示例应用，请参阅 [`LocSample`](https://github.com/pranavkm/LocSample) 本地化示例应用。
+虽然 Blazor 默认选择的区域性可能足以满足大多数用户的需求，但请考虑为用户提供一种指定其首选区域设置的方法。 如需获取具有区域性选取器的 Blazor WebAssembly 示例应用，请参阅 [`LocSample`](https://github.com/pranavkm/LocSample) 本地化示例应用。
 
-### [Blazor Server
+### Blazor Server
 
-[Blazor Server 应用使用[本地化中间件](xref:fundamentals/localization#localization-middleware)进行本地化。 中间件为从应用请求资源的用户选择相应的区域性。
+Blazor Server 应用使用[本地化中间件](xref:fundamentals/localization#localization-middleware)进行本地化。 中间件为从应用请求资源的用户选择相应的区域性。
 
 可使用以下方法之一设置区域性：
 
@@ -86,7 +88,7 @@ ms.locfileid: "85402723"
 
 有关更多信息和示例，请参见<xref:fundamentals/localization>。
 
-#### <a name="cookies"></a>Cookie
+#### <a name="no-loccookies"></a>Cookies
 
 本地化区域性 cookie 可以保留用户的区域性。 本地化中间件会在后续请求上读取 cookie，以设置用户的区域性。 
 
@@ -94,7 +96,7 @@ ms.locfileid: "85402723"
 
 如果在本地化 cookie 中保留了区域性，则可以使用任意方法来分配区域性。 如果该应用已经为服务器端 ASP.NET Core 建立了本地化方案，请继续使用应用的现有本地化基础结构，并在应用方案中设置本地化区域性 cookie。
 
-下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 `Pages/_Host.cshtml` 文件中的开始 `<body>` 标记内立即创建一个 [Razor 表达式：
+下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 `Pages/_Host.cshtml` 文件中的开始 `<body>` 标记内立即创建一个 Razor 表达式：
 
 ```cshtml
 @using System.Globalization
@@ -120,10 +122,10 @@ ms.locfileid: "85402723"
 
 1. 浏览器向应用发送初始 HTTP 请求。
 1. 本地化中间件分配区域性。
-1. `_Host` 页面 (`_Host.cshtml`) 中的 [Razor 表达式将区域性作为响应的一部分保留在 Cookie 中。
-1. 浏览器打开 WebSocket 连接以创建交互式 [Blazor Server 会话。
+1. `_Host` 页面 (`_Host.cshtml`) 中的 Razor 表达式将区域性作为响应的一部分保留在 cookie 中。
+1. 浏览器打开 WebSocket 连接以创建交互式 Blazor Server 会话。
 1. 本地化中间件读取 cookie 并分配区域性。
-1. [Blazor Server 会话以正确的区域性开始。
+1. Blazor Server 会话以正确的区域性开始。
 
 #### <a name="provide-ui-to-choose-the-culture"></a>提供用于选择区域性的 UI
 

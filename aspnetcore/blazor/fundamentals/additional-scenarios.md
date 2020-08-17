@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: b32710e515d111b7dd6556f1db55082cd56a82b5
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: dbad91e46a95d9ab5ec62d66e0d9a18938ff4520
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87818997"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014459"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
@@ -32,7 +34,7 @@ ms.locfileid: "87818997"
 
 本部分适用于 Blazor WebAssembly。
 
-若要将 SignalR 的基础客户端配置为发送凭据（如 Cookie 或 HTTP 身份验证标头），请执行以下操作：
+若要将 SignalR 的基础客户端配置为发送凭据（如 cookie 或 HTTP 身份验证标头），请执行以下操作：
 
 * 使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestCredentials%2A> 在跨源 [`fetch`](https://developer.mozilla.org/docs/Web/API/Fetch_API/Using_Fetch) 提取请求中设置 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.BrowserRequestCredentials.Include>：
 
@@ -231,11 +233,9 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 
 占位符 `{ELEMENT ID}` 是要显示的 HTML 元素的 ID。
 
-::: moniker range=">= aspnetcore-5.0"
-
 ## <a name="influence-html-head-tag-elements"></a>影响 HTML `<head>` 标记元素
 
-本部分适用于 Blazor WebAssembly 和 Blazor Server。
+本部分适用于 Blazor WebAssembly 和 Blazor Server 即将发布的 ASP.NET Core 5.0 版本。
 
 `Title`、`Link` 和 `Meta` 组件呈现时，会在 HTML `<head>` 标记元素中添加或更新数据：
 
@@ -263,8 +263,6 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 
 * 可以根据应用程序状态进行修改。 不能根据应用程序状态修改硬编码 HTML 标记。
 * 将在不再呈现父组件的情况下从 HTML `<head>` 中被删除。
-
-::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 

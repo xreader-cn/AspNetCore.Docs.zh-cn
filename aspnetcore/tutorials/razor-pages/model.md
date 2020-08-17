@@ -5,6 +5,8 @@ description: Razor 页面教程系列的第 2 部分。
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 053e35e78b2bf58fded49c9a2860060d6a81c544
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6b50f46863a6dabb01bcf0976a42abb504e6f7b7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408105"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020452"
 ---
-# <a name="part-2-add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型
+# <a name="part-2-add-a-model-to-a-no-locrazor-pages-app-in-aspnet-core"></a>第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -38,7 +40,7 @@ ms.locfileid: "85408105"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-右键单击“RazorPagesMovie”项目 >“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+右键单击“RazorPagesMovie”项目 >“添加” > “新建文件夹”  。 将文件夹命名为“Models”。
 
 右键单击“Models”文件夹。 选择“添加” > “类” 。 将类命名“Movie”。
 
@@ -55,7 +57,7 @@ ms.locfileid: "85408105"
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 在 Solution Pad 中，右键单击“RazorPagesMovie”项目，然后选择“添加”>“新建文件夹...”。将文件夹命名为“Models”。
+* 在 Solution Pad 中，右键单击“RazorPagesMovie”项目，然后选择“添加”>“新建文件夹...”  。将文件夹命名为“Models”。
 * 右键单击“Models”文件夹，然后选择“添加”>“新建文件...”。
 * 在“新建文件”对话框中：
 
@@ -90,8 +92,8 @@ ms.locfileid: "85408105"
 
 完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：
 
-* 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models) 。
-* 在“数据上下文类”行中，选择 +（加号）并将生成的名称从 RazorPagesMovie.Models.RazorPagesMovieContext 更改为 RazorPagesMovie.Data.RazorPagesMovieContext 。 不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。 它创建具有正确命名空间的数据库上下文类。
+* 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)” 。
+* 在“数据上下文类”行中，选择 +（加号）并将生成的名称从 RazorPagesMovie.Models.RazorPagesMovieContext 更改为 RazorPagesMovie.Data.RazorPagesMovieContext   。 不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。 它创建具有正确命名空间的数据库上下文类。
 * 选择“添加”。
 
 ![上述说明的图像。](model/_static/3/arp.png)
@@ -319,7 +321,7 @@ Login failed for user 'User-name'.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-右键单击“RazorPagesMovie”项目 >“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+右键单击“RazorPagesMovie”项目 >“添加” > “新建文件夹”  。 将文件夹命名为“Models”。
 
 右键单击“Models”文件夹。 选择“添加” > “类” 。 将类命名“Movie”。
 
@@ -336,7 +338,7 @@ Login failed for user 'User-name'.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 在解决方案资源管理器中，右键单击“RazorPagesMovie”项目，然后选择“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+* 在解决方案资源管理器中，右键单击“RazorPagesMovie”项目，然后选择“添加” > “新建文件夹”  。 将文件夹命名为“Models”。
 * 右键单击“Models”文件夹，然后选择“添加”>“新建文件”。
 * 在“新建文件”对话框中：
 
@@ -375,7 +377,7 @@ Login failed for user 'User-name'.
 to use Data, it should not use models. That will make the namespace the same for the VS version and the CLI version
 -->
 
-* 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models) 。
+* 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)” 。
 * 在“数据上下文类”行中，选择 +（加号）并接受生成的名称“RazorPagesMovie.Models.RazorPagesMovieContext”  。
 * 选择“添加”。
 
@@ -422,7 +424,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：
 
 * 在“模型类”下拉列表中，选择或键入“Movie” 。
-* 在“数据上下文类”行中，键入或选择“RazorPagesMovieContext”，这将创建一个具有正确命名空间的新数据库上下文类。  在此示例中为“RazorPagesMovie.Models.RazorPagesMovieContext”。
+* 在“数据上下文类”行中，键入或选择“RazorPagesMovieContext”，这将创建一个具有正确命名空间的新数据库上下文类 。 在此示例中为“RazorPagesMovie.Models.RazorPagesMovieContext”。
 * 选择“添加”。
 
 ![上述说明的图像。](model/_static/arpMac.png)

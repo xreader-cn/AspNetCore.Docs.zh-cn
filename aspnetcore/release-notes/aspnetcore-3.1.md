@@ -6,32 +6,34 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/12/2020
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 92804d168381526100ddb8a368f71d201bd4cad9
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 68373c39461be896a52627e21577fdda89cbb661
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407663"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019583"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 的新增功能
 
 本文重点介绍 ASP.NET Core 3.1 中最重要的更改，并提供相关文档的链接。
 
-## <a name="partial-class-support-for-razor-components"></a>[Razor 组件的分部类支持
+## <a name="partial-class-support-for-no-locrazor-components"></a>Razor 组件的分部类支持
 
-[Razor 组件现作为分部类生成。 可使用定义为分部类的代码隐藏文件来编写 [Razor 组件的代码，而不是在单个文件中定义该组件的所有代码。 有关详细信息，请参阅[分部类支持](xref:blazor/components/index#partial-class-support)。
+Razor 组件现作为分部类生成。 可使用定义为分部类的代码隐藏文件来编写 Razor 组件的代码，而不是在单个文件中定义该组件的所有代码。 有关详细信息，请参阅[分部类支持](xref:blazor/components/index#partial-class-support)。
 
-## <a name="blazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>[Blazor 组件标记帮助程序和将参数传递到顶级组件
+## <a name="no-locblazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>Blazor 组件标记帮助程序和将参数传递到顶级组件
 
-在 ASP.NET Core 3.0 的 [Blazor 中，使用 HTML 帮助程序 (`Html.RenderComponentAsync`) 将组件呈现到页面和视图中。 在 ASP.NET Core 3.1 中，使用新的组件标记帮助程序从页面或视图呈现组件：
+在 ASP.NET Core 3.0 的 Blazor 中，使用 HTML 帮助程序 (`Html.RenderComponentAsync`) 将组件呈现到页面和视图中。 在 ASP.NET Core 3.1 中，使用新的组件标记帮助程序从页面或视图呈现组件：
 
 ```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
@@ -39,7 +41,7 @@ ms.locfileid: "85407663"
 
 HTML 帮助程序在 ASP.NET Core 3.1 仍受支持，但建议使用组件标记帮助程序。
 
-[Blazor Server 应用现可在初始呈现期间将参数传递给顶级组件。 之前，你只能将参数传递给具有 [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) 的顶级组件。 在此版本中，[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) 和 [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) 均受支持。 任何指定的参数值均序列化为 JSON，并包含在初始响应中。
+Blazor Server 应用现可在初始呈现期间将参数传递给顶级组件。 之前，你只能将参数传递给具有 [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) 的顶级组件。 在此版本中，[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) 和 [RenderMode.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) 均受支持。 任何指定的参数值均序列化为 JSON，并包含在初始响应中。
 
 例如，通过增量 (`IncrementAmount`) 预呈现一个 `Counter` 组件：
 
@@ -48,7 +50,7 @@ HTML 帮助程序在 ASP.NET Core 3.1 仍受支持，但建议使用组件标记
     param-IncrementAmount="10" />
 ```
 
-有关详细信息，请参阅[将组件集成到 [Razor Pages 和 MVC 应用](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps)。
+有关详细信息，请参阅[将组件集成到 Razor Pages 和 MVC 应用](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps)。
 
 ## <a name="support-for-shared-queues-in-httpsys"></a>HTTP.sys 中对共享队列的支持
 
@@ -56,11 +58,11 @@ HTML 帮助程序在 ASP.NET Core 3.1 仍受支持，但建议使用组件标记
 
 [!code-csharp[](sample/Program.cs?name=snippet)]
 
-## <a name="breaking-changes-for-samesite-cookies"></a>SameSite Cookie 的中断性变更
+## <a name="breaking-changes-for-samesite-no-loccookies"></a>SameSite cookie 的中断性变更
 
-SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改。 这可能会影响 AzureAd、OpenIdConnect 或 WsFederation 等身份验证场景。 有关详细信息，请参阅 <xref:security/samesite>。
+SameSite cookie 的行为已更改，可反映出即将发生的浏览器更改。 这可能会影响 AzureAd、OpenIdConnect 或 WsFederation 等身份验证场景。 有关详细信息，请参阅 <xref:security/samesite>。
 
-## <a name="prevent-default-actions-for-events-in-blazor-apps"></a>在 [Blazor 应用中阻止事件的默认操作
+## <a name="prevent-default-actions-for-events-in-no-locblazor-apps"></a>在 Blazor 应用中阻止事件的默认操作
 
 使用 `@on{EVENT}:preventDefault` 指令属性可阻止事件的默认操作。 在下例中，阻止在文本框中显示键字符的默认操作：
 
@@ -70,7 +72,7 @@ SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改�
 
 有关详细信息，请参阅[阻止默认操作](xref:blazor/components/event-handling#prevent-default-actions)。
 
-## <a name="stop-event-propagation-in-blazor-apps"></a>在 [Blazor 应用中停止事件传播
+## <a name="stop-event-propagation-in-no-locblazor-apps"></a>在 Blazor 应用中停止事件传播
 
 使用 `@on{EVENT}:stopPropagation` 指令属性来停止事件传播。 在下例中，选中复选框可阻止子 `<div>` 中的单击事件传播到父 `<div>`：
 
@@ -90,9 +92,9 @@ SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改�
 
 有关详细信息，请参阅[停止事件传播](xref:blazor/components/event-handling#stop-event-propagation)。
 
-## <a name="detailed-errors-during-blazor-app-development"></a>[Blazor 应用开发过程中的错误详细信息
+## <a name="detailed-errors-during-no-locblazor-app-development"></a>Blazor 应用开发过程中的错误详细信息
 
-当 [Blazor 应用在开发过程中运行不正常时，从该应用接收详细的错误信息有助于故障排除和修复问题。 出现错误时，[Blazor 应用会在屏幕底部显示一个黄色条框：
+当 Blazor 应用在开发过程中运行不正常时，从该应用接收详细的错误信息有助于故障排除和修复问题。 出现错误时，Blazor 应用会在屏幕底部显示一个黄色条框：
 
 * 在开发过程中，黄色条框会将你定向到浏览器控制台，你可在其中查看异常。
 * 在生产过程中，黄色条框会通知用户发生了错误，并建议刷新浏览器。

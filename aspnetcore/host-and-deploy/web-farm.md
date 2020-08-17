@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 13c4a8e287e4b62a1429f67fbe83ff5b0dc65f52
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 58409b5c47d71c96ece6f4ecfab6f18df47f798b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408274"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015434"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
 
@@ -70,8 +72,8 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 | -------- | ------------------- |
 | 身份验证 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/authentication/cookie> 和 <xref:security/cookie-sharing>。 |
 | Identity | 身份验证和数据库配置。<br><br>有关详细信息，请参阅 <xref:security/authentication/identity>。 |
-| 会话 | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）和缓存（请参阅<xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)。 |
-| TempData | 数据保护（加密 Cookie）（请参阅 <xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和状态管理：TempData](xref:fundamentals/app-state#tempdata)。 |
+| 会话 | 数据保护（加密 cookie）（请参阅<xref:security/data-protection/configuration/overview>）和缓存（请参阅 <xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)。 |
+| TempData | 数据保护（加密 cookie）（请参阅<xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和状态管理：TempData](xref:fundamentals/app-state#tempdata)。 |
 | 防伪造 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/anti-request-forgery>。 |
 
 ## <a name="troubleshoot"></a>疑难解答
@@ -80,11 +82,11 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 
 如果未为 Web 场环境配置数据保护或缓存，就会在处理请求时发生间歇性错误。 之所以会发生这种情况是因为，节点不共享相同的资源，并且用户请求并不总是路由回同一节点。
 
-假设用户通过 Cookie 身份验证来登录应用。 用户在 Web 场中的一个节点上登录应用。 如果用户的下一个请求到达登录应用时所用的同一节点，应用便能解密身份验证 Cookie，并允许用户访问应用资源。 如果用户的下一个请求到达其他节点，应用便无法从用户登录时所用的节点解密身份验证 Cookie，并且无法授权用户请求获取的资源。
+假设用户通过 cookie 身份验证来登录应用。 用户在 Web 场中的一个节点上登录应用。 如果用户的下一个请求到达登录应用时所用的同一节点，应用便能解密身份验证 cookie，并允许用户访问应用资源。 如果用户的下一个请求到达其他节点，应用便无法从用户登录时所用的节点解密身份验证 cookie，并且无法授权用户请求获取的资源。
 
 如果以下任一症状间歇性出现，问题原因通常是为 Web 场环境配置的数据保护或缓存不正确：
 
-* 身份验证中断：身份验证 Cookie 配置不正确或无法解密。 OAuth（Facebook、Microsoft、Twitter）或 OpenIdConnect 登录失败，出现错误“关联失败”。
+* 身份验证中断：身份验证 cookie 配置不正确或无法解密。 OAuth（Facebook、Microsoft、Twitter）或 OpenIdConnect 登录失败，出现错误“关联失败”。
 * 授权中断：Identity 丢失。
 * 会话状态丢失数据。
 * 缓存项消失。

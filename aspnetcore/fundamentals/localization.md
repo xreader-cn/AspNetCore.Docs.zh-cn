@@ -5,20 +5,22 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 11/30/2019
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 412cd7a39a0eed6800e15d235102ed367da5f746
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 9fd68d3b412c2cef6125c657653f605689ca6e70
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793473"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017215"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -75,7 +77,7 @@ ms.locfileid: "85793473"
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 [Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 [Razor 标记：
+`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 Razor 标记：
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -163,7 +165,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 | Resources/Controllers.HomeController.fr.resx | 圆点  |
 | Resources/Controllers/HomeController.fr.resx  | 路径 |
 
-[Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 [Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
+Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
 
 * Resources/Views/Home/About.fr.resx
 
@@ -247,7 +249,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 Cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
+某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
 
    `http://localhost:5000/?culture=es-MX&ui-culture=es-MX`
 
@@ -257,13 +259,13 @@ using Microsoft.Extensions.Localization;
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
 
-通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 Cookie 设置区域性。 若要创建 Cookie，请使用 `MakeCookieValue` 方法。
+通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 cookie 设置区域性。 若要创建 cookie，请使用 `MakeCookieValue` 方法。
 
-`CookieRequestCultureProvider``DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 Cookie 名称。 默认 Cookie 名称是 `.AspNetCore.Culture`。
+`CookieRequestCultureProvider` `DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 cookie 名称。 默认的 cookie 名称为 `.AspNetCore.Culture`。
 
-Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic` 是 `UICulture`，例如：
+cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中 `c` 是 `Culture`，`uic` 是 `UICulture`，例如：
 
 ```
 c=en-UK|uic=en-US
@@ -330,11 +332,11 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Shared/_Layout.cshtml?range=43-56&highlight=10)]
 
-`SetLanguage` 方法可设置区域性 Cookie。
+`SetLanguage` 方法可设置区域性 cookie。
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
-不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 [Razor 部分。
+不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor 部分。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
 
@@ -429,7 +431,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 [Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 [Razor 标记：
+`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 Razor 标记：
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -517,7 +519,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 | Resources/Controllers.HomeController.fr.resx | 圆点  |
 | Resources/Controllers/HomeController.fr.resx  | 路径 |
 
-[Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 [Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
+Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
 
 * Resources/Views/Home/About.fr.resx
 
@@ -601,7 +603,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 Cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
+某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -613,13 +615,13 @@ http://localhost:5000/?culture=es-MX&ui-culture=es-MX
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
 
-通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 Cookie 设置区域性。 若要创建 Cookie，请使用 `MakeCookieValue` 方法。
+通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 cookie 设置区域性。 若要创建 cookie，请使用 `MakeCookieValue` 方法。
 
-`CookieRequestCultureProvider``DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 Cookie 名称。 默认 Cookie 名称是 `.AspNetCore.Culture`。
+`CookieRequestCultureProvider` `DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 cookie 名称。 默认的 cookie 名称为 `.AspNetCore.Culture`。
 
-Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic` 是 `UICulture`，例如：
+cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中 `c` 是 `Culture`，`uic` 是 `UICulture`，例如：
 
 ```
 c=en-UK|uic=en-US
@@ -686,11 +688,11 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Shared/_Layout.cshtml?range=43-56&highlight=10)]
 
-`SetLanguage` 方法可设置区域性 Cookie。
+`SetLanguage` 方法可设置区域性 cookie。
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
-不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 [Razor 部分。
+不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor 部分。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
 
@@ -784,7 +786,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 [Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 [Razor 标记：
+`IViewLocalizer` 的默认实现可根据视图的文件名查找资源文件。 没有使用全局共享资源文件的选项。 `ViewLocalizer` 使用 `IHtmlLocalizer` 实现本地化工具，因此 Razor 不会对本地化字符串进行 HTML 编码。 你可以参数化资源字符串，`IViewLocalizer` 将对参数进行 HTML 编码，但不会对资源字符串进行。 请考虑以下 Razor 标记：
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -872,7 +874,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 | Resources/Controllers.HomeController.fr.resx | 圆点  |
 | Resources/Controllers/HomeController.fr.resx  | 路径 |
 
-[Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 [Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
+Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模式。 可以使用圆点命名或路径命名约定对视图的资源文件进行命名。 Razor 视图资源文件可模拟其关联视图文件的路径。 假设我们将 `ResourcesPath` 设置为“Resources”，与 *Views/Home/About.cshtml* 视图关联的法语资源文件可能是下面其中之一 ：
 
 * Resources/Views/Home/About.fr.resx
 
@@ -956,7 +958,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 Cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
+某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -968,13 +970,13 @@ http://localhost:5000/?culture=es-MX&ui-culture=es-MX
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
 
-通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 Cookie 设置区域性。 若要创建 Cookie，请使用 `MakeCookieValue` 方法。
+通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 cookie 设置区域性。 若要创建 cookie，请使用 `MakeCookieValue` 方法。
 
-`CookieRequestCultureProvider``DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 Cookie 名称。 默认 Cookie 名称是 `.AspNetCore.Culture`。
+`CookieRequestCultureProvider` `DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 cookie 名称。 默认的 cookie 名称为 `.AspNetCore.Culture`。
 
-Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic` 是 `UICulture`，例如：
+cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中 `c` 是 `Culture`，`uic` 是 `UICulture`，例如：
 
 ```
 c=en-UK|uic=en-US
@@ -1064,11 +1066,11 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Shared/_Layout.cshtml?range=43-56&highlight=10)]
 
-`SetLanguage` 方法可设置区域性 Cookie。
+`SetLanguage` 方法可设置区域性 cookie。
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
-不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 [Razor 部分。
+不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor 部分。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
 

@@ -7,6 +7,8 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/06/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: spa/angular
-ms.openlocfilehash: 1c91f1adadca8b339e4daf33207ca60008679810
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ce29d891b0fba2581d352637c2ae50ac792b785e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401774"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013159"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 Angular 项目模板
 
@@ -129,7 +131,7 @@ npm install --save <package_name>
 
 ### <a name="pass-data-from-net-code-into-typescript-code"></a>将 .NET 代码中的数据传递到 TypeScript 代码中
 
-在 SSR 期间，你可能希望将从 ASP.NET Core 应用预请求的数据传递到 Angular 应用。 例如，你可以传递 cookie 信息或从数据库读取的某些内容。 若要执行此操作，请编辑 Startup  类。 在 `UseSpaPrerendering` 的回叫中，为 `options.SupplyData` 设置一个值，如下所示：
+在 SSR 期间，你可能希望将从 ASP.NET Core 应用预请求的数据传递到 Angular 应用。 例如，可以传递 cookie 信息或从数据库读取的某些内容。 若要执行此操作，请编辑 Startup  类。 在 `UseSpaPrerendering` 的回叫中，为 `options.SupplyData` 设置一个值，如下所示：
 
 ```csharp
 options.SupplyData = (context, data) =>

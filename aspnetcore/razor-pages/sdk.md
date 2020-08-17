@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 03/26/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/sdk
-ms.openlocfilehash: 56b4d4c13023918a4ac25c8c5d8ad1ee2c346ac6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b960460a50558a11bc47f9a1844931aa32e3d696
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403035"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021414"
 ---
-# <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
+# <a name="aspnet-core-no-locrazor-sdk"></a>ASP.NET Core Razor SDK
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -52,7 +54,7 @@ Razor SDK 包含 `Content` 项，其 `Include` 属性设置为 `**\*.cshtml` 通
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
-## <a name="use-the-razor-sdk"></a>使用 Razor SDK
+## <a name="use-the-no-locrazor-sdk"></a>使用 Razor SDK
 
 大多数 Web 应用不需要显式引用 Razor SDK。
 
@@ -133,7 +135,7 @@ Razor SDK 包含 `Content` 项，其 `Include` 属性设置为 `**\*.cshtml` 通
 | `CopyRazorGenerateFilesToPublishDirectory` | 若为 `true`，则将 `RazorGenerate` 项 (.cshtml) 文件复制到发布目录。 如果在生成时或发布时参与编译，则通常发布的应用无需 Razor 文件。 默认为 `false`。 |
 | `PreserveCompilationReferences` | 为 `true` 时，将引用程序集项复制到发布目录。 如果在生成时或发布时出现 Razor 编译，则通常发布的应用无需引用程序集。 如果发布的应用需要运行时编译，则设置为 `true`。 例如，如果应用在运行时修改 .cshtml 文件或使用嵌入视图，则将值设置为 `true`。 默认为 `false`。 |
 | `IncludeRazorContentInPack` | 若为 `true`，则所有 Razor 内容项（.cshtml 文件）标记为包含在生成的 NuGet 包中。 默认为 `false`。 |
-| `EmbedRazorGenerateSources` | 为 `true` 时，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中。 默认为 `false`。 |
+| `EmbedRazorGenerateSources` | 若为 `true`，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中。 默认为 `false`。 |
 | `UseRazorBuildServer` | 为 `true` 时，使用永久生成服务器进程来卸载代码生成工作。 默认值为 `UseSharedCompilation`。 |
 | `GenerateMvcApplicationPartsAssemblyAttributes` | 若为 `true`，则 SDK 会生成 MVC 在运行时使用的其他属性，以执行应用程序部件的发现。 |
 | `DefaultWebContentItemExcludes` | 要从面向 Web 或 Razor SDK 的项目的 `Content` 项组中排除的项元素的 glob 模式 |
@@ -157,7 +159,7 @@ Razor SDK 包含 `Content` 项，其 `Include` 属性设置为 `**\*.cshtml` 通
 | `CopyRazorGenerateFilesToPublishDirectory` | 若为 `true`，则将 `RazorGenerate` 项 (.cshtml) 文件复制到发布目录。 如果在生成时或发布时参与编译，则通常发布的应用无需 Razor 文件。 默认为 `false`。 |
 | `CopyRefAssembliesToPublishDirectory` | 为 `true` 时，将引用程序集项复制到发布目录。 如果在生成时或发布时出现 Razor 编译，则通常发布的应用无需引用程序集。 如果发布的应用需要运行时编译，则设置为 `true`。 例如，如果应用在运行时修改 .cshtml 文件或使用嵌入视图，则将值设置为 `true`。 默认为 `false`。 |
 | `IncludeRazorContentInPack` | 若为 `true`，则所有 Razor 内容项（.cshtml 文件）标记为包含在生成的 NuGet 包中。 默认为 `false`。 |
-| `EmbedRazorGenerateSources` | 为 `true` 时，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中。 默认为 `false`。 |
+| `EmbedRazorGenerateSources` | 若为 `true`，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中。 默认为 `false`。 |
 | `UseRazorBuildServer` | 为 `true` 时，使用永久生成服务器进程来卸载代码生成工作。 默认值为 `UseSharedCompilation`。 |
 | `GenerateMvcApplicationPartsAssemblyAttributes` | 若为 `true`，则 SDK 会生成 MVC 在运行时使用的其他属性，以执行应用程序部件的发现。 |
 | `DefaultWebContentItemExcludes` | 要从面向 Web 或 Razor SDK 的项目的 `Content` 项组中排除的项元素的 glob 模式 |
@@ -177,13 +179,13 @@ Razor SDK 定义两个主要目标：
 * `RazorCompile`：将生成的 .cs 文件编译到 Razor 程序集中。 使用 `RazorCompileDependsOn` 指定可在此目标之前或之后运行的其他目标。
 * `RazorComponentGenerate`：代码为 `RazorComponent` 项元素生成 .cs 文件。 使用 `RazorComponentGenerateDependsOn` 属性指定可在此目标之前或之后运行的其他目标。
 
-### <a name="runtime-compilation-of-razor-views"></a>Razor 视图的运行时编译
+### <a name="runtime-compilation-of-no-locrazor-views"></a>Razor 视图的运行时编译
 
 * 默认情况下，Razor SDK 不发布执行运行时编译所需的引用程序集。 当应用程序模型依赖于运行时编译时，这会导致编译失败&mdash;例如，应用在发布后使用嵌入视图或更改视图。 将 `CopyRefAssembliesToPublishDirectory` 设置为 `true`，以继续发布引用程序集。
 
 * 对于 Web 应用，请确保应用面向 `Microsoft.NET.Sdk.Web` SDK。
 
-## <a name="razor-language-version"></a>Razor 语言版本
+## <a name="no-locrazor-language-version"></a>Razor 语言版本
 
 面向 `Microsoft.NET.Sdk.Web` SDK 时，Razor 语言版本是从应用的目标框架版本推断出来的。 对于面向 `Microsoft.NET.Sdk.Razor` SDK 的项目，或应用需要不同于推断值的 Razor 语言版本的极少数情况下，可在应用的项目文件中设置 `<RazorLangVersion>` 属性来配置版本：
 

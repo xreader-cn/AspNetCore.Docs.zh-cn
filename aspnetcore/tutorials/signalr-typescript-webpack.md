@@ -1,39 +1,41 @@
 ---
-title: 配合使用 ASP.NET Core [SignalR 和 TypeScript 以及 Webpack
+title: 配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 author: ssougnez
-description: 在本教程中，我们将配置 Webpack，以捆绑和生成 ASP.NET Core [SignalR Web 应用，该应用的客户端是使用 TypeScript 编写的。
+description: 在本教程中，我们将配置 Webpack，以捆绑和生成 ASP.NET Core SignalR Web 应用，该应用的客户端是使用 TypeScript 编写的。
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 02/10/2020
 no-loc:
-- '[Blazor'
-- '[Blazor Server'
-- '[Blazor WebAssembly'
-- '[Identity'
-- "[Let's Encrypt"
-- '[Razor'
-- '[SignalR'
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 49d185ce941d5f8e841224e7de3b72b8350a1c47
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 48b59fea5da3872fb29cacd9edbedd14de9e602f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407897"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019412"
 ---
-# <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core [SignalR 和 TypeScript 以及 Webpack
+# <a name="use-aspnet-core-no-locsignalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 
 作者：[Sébastien Sougnez](https://twitter.com/ssougnez) 和 [Scott Addie](https://twitter.com/Scott_Addie)
 
-开发人员可以通过 [Webpack](https://webpack.js.org/) 捆绑和生成 Web 应用的客户端资源。 本教程介绍在 ASP.NET Core [SignalR Web 应用中使用 Webpack，该应用的客户端是使用 [TypeScript](https://www.typescriptlang.org/) 编写的。
+开发人员可以通过 [Webpack](https://webpack.js.org/) 捆绑和生成 Web 应用的客户端资源。 本教程介绍在 ASP.NET Core SignalR Web 应用中使用 Webpack，该应用的客户端是使用 [TypeScript](https://www.typescriptlang.org/) 编写的。
 
 在本教程中，你将了解：
 
 > [!div class="checklist"]
-> * 为入门 ASP.NET Core [SignalR 应用搭建基架
-> * 配置 [SignalR TypeScript 客户端
+> * 为入门 ASP.NET Core SignalR 应用搭建基架
+> * 配置 SignalR TypeScript 客户端
 > * 使用 Webpack 配置生成管道
-> * 配置 [SignalR 服务器
+> * 配置 SignalR 服务器
 > * 启用客户端和服务器之间的通信
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample)（[如何下载](xref:index#how-to-download-a-sample)）
@@ -155,7 +157,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
     前面的文件配置 Webpack 编译。 需要注意的一些配置细节：
 
     * `output` 属性替代 dist 的默认值。 捆绑反而在 wwwroot 目录中发出。
-    * `resolve.extensions` 数组包含 .js，以便导入 [SignalR 客户端 JavaScript。
+    * `resolve.extensions` 数组包含 .js，以便导入 SignalR 客户端 JavaScript。
 
 1. 在项目根目录中创建新的 src 目录，以存储项目的客户端资产。
 
@@ -200,11 +202,11 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
    [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_UseSignalR&highlight=3)]
 
-1. 在 `Startup.ConfigureServices`中，调用 [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_)。
+1. 在 `Startup.ConfigureServices` 中调用 [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_)。
 
    [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_AddSignalR)]
 
-1. 在项目根目录 SignalRWebPack/ 中创建名为 Hubs 的新目录，以存储 [SignalR 中心 。
+1. 在项目根目录 SignalRWebPack/ 中创建名为 Hubs 的新目录，以存储 SignalR 中心 。
 
 1. 创建包含以下代码的中心 Hubs/ChatHub.cs：
 
@@ -226,7 +228,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
     上述的代码会安装：
 
-     * [[SignalR TypeScript 客户端](https://www.npmjs.com/package/@microsoft/signalr)，它允许客户端向服务器发送消息。
+     * [SignalR TypeScript 客户端](https://www.npmjs.com/package/@microsoft/signalr)，它允许客户端向服务器发送消息。
      * 用于 node.js 的 TypeScript 类型定义，支持 Node.js 类型的编译时检查。
 
 1. 将突出显示的代码添加到 src/index.ts 文件：
@@ -235,7 +237,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
     前面的代码支持从服务器接收消息。 `HubConnectionBuilder` 类创建新的生成器，用于配置服务器连接。 `withUrl` 函数配置中心 URL。
 
-    [SignalR 启用客户端和服务器之间的消息交换。 每个消息都有特定的名称。 例如，名为 `messageReceived` 的消息可以运行负责在消息区域显示新消息的逻辑。 可以通过 `on` 函数完成对特定消息的侦听。 可以侦听任意数量的消息名称。 还可以将参数传递到消息，例如所接收消息的作者姓名和内容。 客户端收到一条消息后，会创建一个新的 `div` 元素并在其 `innerHTML` 属性中显示作者姓名和消息内容。 它添加到显示消息的主要 `div` 元素。
+    SignalR 启用客户端和服务器之间的消息交换。 每个消息都有特定的名称。 例如，名为 `messageReceived` 的消息可以运行负责在消息区域显示新消息的逻辑。 可以通过 `on` 函数完成对特定消息的侦听。 可以侦听任意数量的消息名称。 还可以将参数传递到消息，例如所接收消息的作者姓名和内容。 客户端收到一条消息后，会创建一个新的 `div` 元素并在其 `innerHTML` 属性中显示作者姓名和消息内容。 它添加到显示消息的主要 `div` 元素。
 
 1. 客户端可以接收消息后，将它配置为发送消息。 将突出显示的代码添加到 src/index.ts 文件：
 
@@ -395,7 +397,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
     前面的文件配置 Webpack 编译。 需要注意的一些配置细节：
 
     * `output` 属性替代 dist 的默认值。 捆绑反而在 wwwroot 目录中发出。
-    * `resolve.extensions` 数组包含 .js，以便导入 [SignalR 客户端 JavaScript。
+    * `resolve.extensions` 数组包含 .js，以便导入 SignalR 客户端 JavaScript。
 
 1. 在项目根目录中创建新的 src 目录，以存储项目的客户端资产。
 
@@ -436,7 +438,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
     前面的代码允许服务器定位并提供 index.html 文件，无论用户输入完整 URL 还是 Web 应用的根 URL。
 
-1. 在 `Startup.ConfigureServices` 中，调用 [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_)。 此操作会将 [SignalR 服务添加到项目。
+1. 在 `Startup.ConfigureServices` 中调用 [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_)。 此操作会将 SignalR 服务添加到项目。
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_AddSignalR)]
 
@@ -444,7 +446,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_UseSignalR)]
 
-1. 在项目根中创建名为 Hubs 的新目录。 目的是存储 [SignalR 中心（在下一步中创建）。
+1. 在项目根中创建名为 Hubs 的新目录。 目的是存储 SignalR 中心（在下一步中创建）。
 
 1. 创建包含以下代码的中心 Hubs/ChatHub.cs：
 
@@ -464,7 +466,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
     npm install @aspnet/signalr
     ```
 
-    前面的命令将安装 [[SignalR TypeScript 客户端](https://www.npmjs.com/package/@microsoft/signalr)，它允许客户端向服务器发送消息。
+    前面的命令将安装 [SignalR TypeScript 客户端](https://www.npmjs.com/package/@microsoft/signalr)，它允许客户端向服务器发送消息。
 
 1. 将突出显示的代码添加到 src/index.ts 文件：
 
@@ -472,7 +474,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
     前面的代码支持从服务器接收消息。 `HubConnectionBuilder` 类创建新的生成器，用于配置服务器连接。 `withUrl` 函数配置中心 URL。
 
-    [SignalR 启用客户端和服务器之间的消息交换。 每个消息都有特定的名称。 例如，名为 `messageReceived` 的消息可以运行负责在消息区域显示新消息的逻辑。 可以通过 `on` 函数完成对特定消息的侦听。 可以侦听任意数量的消息名称。 还可以将参数传递到消息，例如所接收消息的作者姓名和内容。 客户端收到一条消息后，会创建一个新的 `div` 元素并在其 `innerHTML` 属性中显示作者姓名和消息内容。 新消息将添加到显示消息的主 `div` 元素中。
+    SignalR 启用客户端和服务器之间的消息交换。 每个消息都有特定的名称。 例如，名为 `messageReceived` 的消息可以运行负责在消息区域显示新消息的逻辑。 可以通过 `on` 函数完成对特定消息的侦听。 可以侦听任意数量的消息名称。 还可以将参数传递到消息，例如所接收消息的作者姓名和内容。 客户端收到一条消息后，会创建一个新的 `div` 元素并在其 `innerHTML` 属性中显示作者姓名和消息内容。 新消息将添加到显示消息的主 `div` 元素中。
 
 1. 客户端可以接收消息后，将它配置为发送消息。 将突出显示的代码添加到 src/index.ts 文件：
 

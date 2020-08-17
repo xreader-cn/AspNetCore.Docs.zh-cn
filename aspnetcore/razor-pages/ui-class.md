@@ -6,6 +6,8 @@ ms.author: riande
 ms.date: 01/25/2020
 ms.custom: mvc, seodec18
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/ui-class
-ms.openlocfilehash: 1d37ebaa913a2815b79b16875049bbf91f9fb941
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 042ef8dcc7135e0c60baec972d405380d85a6a10
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404387"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019217"
 ---
-# <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>使用 ASP.NET Core 中的 Razor 类库项目创建可重用 UI
+# <a name="create-reusable-ui-using-the-no-locrazor-class-library-project-in-aspnet-core"></a>使用 ASP.NET Core 中的 Razor 类库项目创建可重用 UI
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -31,7 +33,7 @@ Razor 视图、页面、控制器、页面模型、[Razor组件](xref:blazor/com
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="create-a-class-library-containing-razor-ui"></a>创建一个包含 Razor UI 的类库
+## <a name="create-a-class-library-containing-no-locrazor-ui"></a>创建一个包含 Razor UI 的类库
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -79,10 +81,10 @@ ASP.NET Core 模板假定 RCL 内容位于 *Areas* 文件夹中。 请参阅 [RC
 
 若要将 RCL 内容作为 Web 应用 *Pages* 文件夹的一部分引用，请使用以下文件结构创建 RCL 项目：
 
-* *RazorUIClassLib/Pages*
-* *RazorUIClassLib/Pages/Shared*
+* RazorUIClassLib/Pages
+* RazorUIClassLib/Pages/Shared
 
-假设 *RazorUIClassLib/Pages/Shared* 包含两个分部文件： *_Header.cshtml* 和 *_Footer.cshtml*。 可将 `<partial>` 标记添加到 *_Layout.cshtml* 文件：
+假设 RazorUIClassLib/Pages/Shared 包含两个分部文件：_Header.cshtml 和 _Footer.cshtml  。 可将 `<partial>` 标记添加到 *_Layout.cshtml* 文件：
 
 ```cshtml
 <body>
@@ -198,7 +200,7 @@ Razor 视图、页面、控制器、页面模型、[Razor组件](xref:blazor/com
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="create-a-class-library-containing-razor-ui"></a>创建一个包含 Razor UI 的类库
+## <a name="create-a-class-library-containing-no-locrazor-ui"></a>创建一个包含 Razor UI 的类库
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -235,7 +237,7 @@ ASP.NET Core 模板假定 RCL 内容位于 *Areas* 文件夹中。 请参阅 [RC
 * NuGet 包。 请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。
 * {ProjectName}.csproj。 请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。
 
-## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a>演练：创建 RCL 项目并通过 Razor 页面项目使用
+## <a name="walkthrough-create-an-rcl-project-and-use-from-a-no-locrazor-pages-project"></a>演练：创建 RCL 项目并通过 Razor 页面项目使用
 
 可以下载并测试[完整项目](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)，无需创建项目。 示例下载包含附加代码和链接，以方便测试项目。 可以在[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/6098)中留下反馈，评论下载示例和分步说明的对比。
 
@@ -300,7 +302,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 ---
 
-### <a name="add-razor-files-and-folders-to-the-project"></a>将 Razor 文件和文件夹添加到项目
+### <a name="add-no-locrazor-files-and-folders-to-the-project"></a>将 Razor 文件和文件夹添加到项目
 
 * 使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 中的标记：
 
@@ -326,7 +328,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 生成输出内容包含 RazorUIClassLib.dll 和 RazorUIClassLib.Views.dll 。 RazorUIClassLib.Views.dll 包含已编译的 Razor 内容。
 
-### <a name="use-the-razor-ui-library-from-a-razor-pages-project"></a>从 Razor 页面项目使用 Razor UI 库
+### <a name="use-the-no-locrazor-ui-library-from-a-no-locrazor-pages-project"></a>从 Razor 页面项目使用 Razor UI 库
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -340,7 +342,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 * 在解决方案资源管理器中，右键单击“WebApp1”，然后选择“设为启动项目”  。
 * 在“解决方案资源管理器”中，右键单击“WebApp1”，然后选择“生成依赖项”>“项目依赖项”   。
-* 将 RazorUIClassLib 勾选为 WebApp1 的依赖项 。
+* 将 RazorUIClassLib 勾选为“WebApp1”的依赖项 。
 * 在“解决方案资源管理器”中，右键单击“WebApp1”，然后选择“添加”>“引用”   。
 * 在“引用管理器”对话框中勾选“RazorUIClassLib”>“确定”  。
 
@@ -383,10 +385,10 @@ dotnet run
 
 若要将 RCL 内容作为 Web 应用 *Pages* 文件夹的一部分引用，请使用以下文件结构创建 RCL 项目：
 
-* *RazorUIClassLib/Pages*
-* *RazorUIClassLib/Pages/Shared*
+* RazorUIClassLib/Pages
+* RazorUIClassLib/Pages/Shared
 
-假设 *RazorUIClassLib/Pages/Shared* 包含两个分部文件： *_Header.cshtml* 和 *_Footer.cshtml*。 可将 `<partial>` 标记添加到 *_Layout.cshtml* 文件：
+假设 RazorUIClassLib/Pages/Shared 包含两个分部文件：_Header.cshtml 和 _Footer.cshtml  。 可将 `<partial>` 标记添加到 *_Layout.cshtml* 文件：
 
 ```cshtml
 <body>
