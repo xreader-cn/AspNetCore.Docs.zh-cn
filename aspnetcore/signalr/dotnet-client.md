@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: a03598f887d628c8a2b6720d99826d4aef4e52fa
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e27748e8267a931390f831119a3fd1d45e87745a
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019997"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504731"
 ---
 # <a name="aspnet-core-no-locsignalr-net-client"></a>ASP.NET Core SignalR .Net 客户端
 
@@ -38,7 +38,7 @@ ms.locfileid: "88019997"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-若要安装客户端库，请在 "**包管理器控制台**" 窗口中运行以下命令：
+若要安装客户端库，请在 " **包管理器控制台** " 窗口中运行以下命令：
 
 ```powershell
 Install-Package Microsoft.AspNetCore.SignalR.Client
@@ -110,7 +110,7 @@ connection.Reconnected += connectionId =>
 };
 ```
 
-`WithAutomaticReconnect()`不会将配置 `HubConnection` 为重试初始启动失败，因此，需要手动处理启动失败：
+`WithAutomaticReconnect()` 不会将配置 `HubConnection` 为重试初始启动失败，因此，需要手动处理启动失败：
 
 ```csharp
 public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, CancellationToken token)
@@ -172,9 +172,9 @@ HubConnection connection= new HubConnectionBuilder()
 
 如果需要更好地控制计时和自动重新连接尝试的次数，则 `WithAutomaticReconnect` 接受一个实现接口的 `IRetryPolicy` 对象，该对象具有一个名为的方法 `NextRetryDelay` 。
 
-`NextRetryDelay`采用类型为的单个自变量 `RetryContext` 。 `RetryContext`有三个属性： `PreviousRetryCount` 、 `ElapsedTime` 和 `RetryReason` ， `long` 分别为、和 `TimeSpan` `Exception` 。 第一次重新连接尝试之前， `PreviousRetryCount` 和均 `ElapsedTime` 为零， `RetryReason` 将是导致连接丢失的异常。 每次失败的重试次数递增一次后，将 `PreviousRetryCount` `ElapsedTime` 更新以反映到目前为止所用的时间， `RetryReason` 这是导致上次重新连接尝试失败的异常。
+`NextRetryDelay` 采用类型为的单个自变量 `RetryContext` 。 `RetryContext`有三个属性： `PreviousRetryCount` 、 `ElapsedTime` 和 `RetryReason` ， `long` 分别为、和 `TimeSpan` `Exception` 。 第一次重新连接尝试之前， `PreviousRetryCount` 和均 `ElapsedTime` 为零， `RetryReason` 将是导致连接丢失的异常。 每次失败的重试次数递增一次后，将 `PreviousRetryCount` `ElapsedTime` 更新以反映到目前为止所用的时间， `RetryReason` 这是导致上次重新连接尝试失败的异常。
 
-`NextRetryDelay`必须返回一个 TimeSpan，表示在下一次重新连接尝试之前要等待的时间，或者 `null` ，如果应停止重新连接，则为 `HubConnection` 。
+`NextRetryDelay` 必须返回一个 TimeSpan，表示在下一次重新连接尝试之前要等待的时间，或者 `null` ，如果应停止重新连接，则为 `HubConnection` 。
 
 ```csharp
 public class RandomRetryPolicy : IRetryPolicy
@@ -205,7 +205,7 @@ HubConnection connection = new HubConnectionBuilder()
     .Build();
 ```
 
-或者，你可以编写将手动重新连接客户端的代码，如[手动重新连接](#manually-reconnect)中所示。
+或者，你可以编写将手动重新连接客户端的代码，如 [手动重新连接](#manually-reconnect)中所示。
 
 ::: moniker-end
 
@@ -237,7 +237,7 @@ connection.Closed += (error) => {
 
 ## <a name="call-hub-methods-from-client"></a>从客户端调用集线器方法
 
-`InvokeAsync`在集线器上调用方法。 将 hub 方法名称和在 hub 方法中定义的任何自变量传递给 `InvokeAsync` 。 SignalR是异步的，因此 `async` 在 `await` 进行调用时使用和。
+`InvokeAsync` 在集线器上调用方法。 将 hub 方法名称和在 hub 方法中定义的任何自变量传递给 `InvokeAsync` 。 SignalR 是异步的，因此 `async` 在 `await` 进行调用时使用和。
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
 
@@ -246,7 +246,7 @@ connection.Closed += (error) => {
 `SendAsync`方法返回一个，该方法在 `Task` 消息已发送到服务器时完成。 不会提供返回值，因为它 `Task` 不会等到服务器方法完成。 发送消息时，在客户端上引发的任何异常都会产生出错 `Task` 。 使用 `await` 和 `try...catch` 语法处理发送错误。
 
 > [!NOTE]
-> 如果 SignalR 在*无服务器模式下*使用 Azure 服务，则无法从客户端调用集线器方法。 有关详细信息，请参阅[ SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。
+> 仅 SignalR 在 *默认* 模式下使用 Azure 服务时，才支持从客户端调用中心方法。 有关详细信息，请参阅 [Signalr GitHub 存储库)  (常见问题解答 ](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose)。
 
 ## <a name="call-client-methods-from-hub"></a>从中心调用客户端方法
 
@@ -266,7 +266,7 @@ connection.Closed += (error) => {
 
 ## <a name="additional-resources"></a>其他资源
 
-* [集线器](xref:signalr/hubs)
+* [中心](xref:signalr/hubs)
 * [JavaScript 客户端](xref:signalr/javascript-client)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)
 * [Azure SignalR Service 无服务器文档](/azure/azure-signalr/signalr-concept-serverless-development-config)

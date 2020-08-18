@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: 04200ced41113eb9a68cefc2f485f2d3798476c6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e6feeb0009034d9ea92f09c44ed0ca882d80fe1b
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022337"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504757"
 ---
 # <a name="aspnet-core-no-locsignalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
@@ -38,7 +38,7 @@ SignalRJavaScript 客户端库以[npm](https://www.npmjs.com/)包的形式提供
 
 ### <a name="install-with-npm"></a>通过 npm 安装
 
-如果使用的是 Visual Studio，请在根文件夹中的 "**包管理器控制台**" 中运行以下命令。 对于 Visual Studio Code，请从**集成终端**运行以下命令。
+如果使用的是 Visual Studio，请在根文件夹中的 " **包管理器控制台** " 中运行以下命令。 对于 Visual Studio Code，请从 **集成终端**运行以下命令。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -47,7 +47,7 @@ npm init -y
 npm install @microsoft/signalr
 ```
 
-npm 将包内容安装到*node_modules \\ @microsoft\signalr\dist\browser *文件夹中。 在*wwwroot \\ lib*文件夹下创建名为*signalr*的新文件夹。 将*signalr.js*文件复制到*wwwroot\lib\signalr*文件夹。
+npm 将包内容安装到*node_modules \\ @microsoft\signalr\dist\browser *文件夹中。 在*wwwroot \\ lib*文件夹下创建名为*signalr*的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
 
 ::: moniker-end
 
@@ -58,7 +58,7 @@ npm init -y
 npm install @aspnet/signalr
 ```
 
-npm 将包内容安装到*node_modules \\ @aspnet\signalr\dist\browser *文件夹中。 在*wwwroot \\ lib*文件夹下创建名为*signalr*的新文件夹。 将*signalr.js*文件复制到*wwwroot\lib\signalr*文件夹。
+npm 将包内容安装到*node_modules \\ @aspnet\signalr\dist\browser *文件夹中。 在*wwwroot \\ lib*文件夹下创建名为*signalr*的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
 
 ::: moniker-end
 
@@ -96,7 +96,7 @@ SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
 
 ### <a name="install-with-libman"></a>通过 LibMan 安装
 
-[LibMan](xref:client-side/libman/index)可用于从 CDN 托管的客户端库安装特定的客户端库文件。 例如，仅将缩小 JavaScript 文件添加到项目。 有关该方法的详细信息，请参阅[添加 SignalR 客户端库](xref:tutorials/signalr#add-the-signalr-client-library)。
+[LibMan](xref:client-side/libman/index) 可用于从 CDN 托管的客户端库安装特定的客户端库文件。 例如，仅将缩小 JavaScript 文件添加到项目。 有关该方法的详细信息，请参阅 [添加 SignalR 客户端库](xref:tutorials/signalr#add-the-signalr-client-library)。
 
 ## <a name="connect-to-a-hub"></a>连接到集线器
 
@@ -108,7 +108,7 @@ SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
 
 通常，浏览器从与请求的页相同的域中加载连接。 但是，在某些情况下，需要与另一个域建立连接。
 
-为了防止恶意站点读取其他站点中的敏感数据，默认情况下会禁用[跨域连接](xref:security/cors)。 若要允许跨源请求，请在类中启用它 `Startup` 。
+为了防止恶意站点读取其他站点中的敏感数据，默认情况下会禁用 [跨域连接](xref:security/cors) 。 若要允许跨源请求，请在类中启用它 `Startup` 。
 
 [!code-csharp[Cross-origin connections](javascript-client/sample/Startup.cs?highlight=29-35,56)]
 
@@ -122,7 +122,7 @@ JavaScript 客户端通过[HubConnection](/javascript/api/%40aspnet/signalr/hubc
   [!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=24)]
 
 > [!NOTE]
-> 如果 SignalR 在*无服务器模式下*使用 Azure 服务，则无法从客户端调用集线器方法。 有关详细信息，请参阅[ SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。
+> 仅 SignalR 在 *默认* 模式下使用 Azure 服务时，才支持从客户端调用中心方法。 有关详细信息，请参阅 [Signalr GitHub 存储库)  (常见问题解答 ](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose)。
 
 `invoke`方法返回 JavaScript[承诺](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)。 `Promise`当服务器上的方法返回时，将用返回值解析)  (。 如果服务器上的方法引发错误，将拒绝， `Promise` 并出现错误消息。 使用 `then` 和 `catch` 方法 `Promise` 来处理这些事例 (或 `await` 语法) 。
 
@@ -133,7 +133,7 @@ JavaScript 客户端通过[HubConnection](/javascript/api/%40aspnet/signalr/hubc
 
 ## <a name="call-client-methods-from-hub"></a>从中心调用客户端方法
 
-若要从中心接收消息，请使用的[on](/javascript/api/%40aspnet/signalr/hubconnection#on)方法定义方法 `HubConnection` 。
+若要从中心接收消息，请使用的 [on](/javascript/api/%40aspnet/signalr/hubconnection#on) 方法定义方法 `HubConnection` 。
 
 * JavaScript 客户端方法的名称。 在下面的示例中，方法名称是 `ReceiveMessage` 。
 * 集线器传递给方法的参数。 在下面的示例中，参数值为 `message` 。
@@ -144,10 +144,10 @@ JavaScript 客户端通过[HubConnection](/javascript/api/%40aspnet/signalr/hubc
 
 [!code-csharp[Call client-side](javascript-client/sample/hubs/chathub.cs?range=8-11)]
 
-SignalR通过匹配和中定义的方法名称和参数，确定要调用的客户端方法 `SendAsync` `connection.on` 。
+SignalR 通过匹配和中定义的方法名称和参数，确定要调用的客户端方法 `SendAsync` `connection.on` 。
 
 > [!NOTE]
-> 作为最佳做法，请在后面调用[start](/javascript/api/%40aspnet/signalr/hubconnection#start)方法 `HubConnection` `on` 。 这样做可确保在收到消息之前注册处理程序。
+> 作为最佳做法，请在后面调用 [start](/javascript/api/%40aspnet/signalr/hubconnection#start) 方法 `HubConnection` `on` 。 这样做可确保在收到消息之前注册处理程序。
 
 ## <a name="error-handling-and-logging"></a>错误处理和日志记录
 
@@ -216,7 +216,7 @@ connection.onreconnected(connectionId => {
 });
 ```
 
-`withAutomaticReconnect()`不会将配置 `HubConnection` 为重试初始启动失败，因此，需要手动处理启动失败：
+`withAutomaticReconnect()` 不会将配置 `HubConnection` 为重试初始启动失败，因此，需要手动处理启动失败：
 
 ```javascript
 async function start() {
@@ -232,7 +232,7 @@ async function start() {
 };
 ```
 
-如果客户端在其前四次尝试中未成功重新连接，则 `HubConnection` 将转换为 `Disconnected` 状态并激发其[onclose](/javascript/api/%40aspnet/signalr/hubconnection#onclose)回调。 这为用户提供了通知用户连接永久丢失的机会，并建议刷新页面：
+如果客户端在其前四次尝试中未成功重新连接，则 `HubConnection` 将转换为 `Disconnected` 状态并激发其 [onclose](/javascript/api/%40aspnet/signalr/hubconnection#onclose) 回调。 这为用户提供了通知用户连接永久丢失的机会，并建议刷新页面：
 
 ```javascript
 connection.onclose(error => {
@@ -267,9 +267,9 @@ const connection = new signalR.HubConnectionBuilder()
 
 如果需要更好地控制计时和自动重新连接尝试的次数，则 `withAutomaticReconnect` 接受一个实现接口的 `IRetryPolicy` 对象，该对象具有一个名为的方法 `nextRetryDelayInMilliseconds` 。
 
-`nextRetryDelayInMilliseconds`采用类型为的单个自变量 `RetryContext` 。 `RetryContext`具有三个属性： `previousRetryCount` `elapsedMilliseconds` 和分别为 `retryReason` `number` 、 `number` 和 `Error` 。 第一次重新连接尝试之前， `previousRetryCount` 和都 `elapsedMilliseconds` 是零， `retryReason` 将是导致连接丢失的错误。 每次失败的重试次数递增一次后，将进行 `previousRetryCount` `elapsedMilliseconds` 更新，以反映到目前为止的重新连接所用的时间（以毫秒为单位），并且 `retryReason` 将是导致上次重新连接尝试失败的错误。
+`nextRetryDelayInMilliseconds` 采用类型为的单个自变量 `RetryContext` 。 `RetryContext`具有三个属性： `previousRetryCount` `elapsedMilliseconds` 和分别为 `retryReason` `number` 、 `number` 和 `Error` 。 第一次重新连接尝试之前， `previousRetryCount` 和都 `elapsedMilliseconds` 是零， `retryReason` 将是导致连接丢失的错误。 每次失败的重试次数递增一次后，将进行 `previousRetryCount` `elapsedMilliseconds` 更新，以反映到目前为止的重新连接所用的时间（以毫秒为单位），并且 `retryReason` 将是导致上次重新连接尝试失败的错误。
 
-`nextRetryDelayInMilliseconds`必须返回一个数字，该数字表示在下一次重新连接尝试之前要等待的毫秒数，或者 `null` ，如果应停止重新连接，则为 `HubConnection` 。
+`nextRetryDelayInMilliseconds` 必须返回一个数字，该数字表示在下一次重新连接尝试之前要等待的毫秒数，或者 `null` ，如果应停止重新连接，则为 `HubConnection` 。
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -289,7 +289,7 @@ const connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-或者，你可以编写将手动重新连接客户端的代码，如[手动重新连接](#manually-reconnect)中所示。
+或者，你可以编写将手动重新连接客户端的代码，如 [手动重新连接](#manually-reconnect)中所示。
 
 ::: moniker-end
 
@@ -316,7 +316,7 @@ const connection = new signalR.HubConnectionBuilder()
 * [JavaScript API 参考](/javascript/api/?view=signalr-js-latest)
 * [JavaScript 教程](xref:tutorials/signalr)
 * [WebPack 和 TypeScript 教程](xref:tutorials/signalr-typescript-webpack)
-* [集线器](xref:signalr/hubs)
+* [中心](xref:signalr/hubs)
 * [.NET 客户端](xref:signalr/dotnet-client)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)
 * [ (CORS 的跨源请求) ](xref:security/cors)
