@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 数据保护密钥永久性 Api 的实现细节
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-immutability
-ms.openlocfilehash: 51d7538a98ac2847f018ff1907bb5333bd132f32
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 32925a3ef6d52a7be3a852cefe670c15d545b490
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022389"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627619"
 ---
 # <a name="key-immutability-and-key-settings-in-aspnet-core"></a>ASP.NET Core 中的密钥永久性和密钥设置
 
@@ -28,7 +29,7 @@ ms.locfileid: "88022389"
 
 此行为的一个结果是，将密钥写入后备存储后，它是不可变的。 它的创建、激活和到期日期永远不会更改，但可以通过使用进行吊销 `IKeyManager` 。 此外，其基础算法信息、主密钥材料和静态加密属性也是不可变的。
 
-如果开发人员更改了任何影响密钥持久性的设置，则在下一次生成密钥之前，这些更改不会生效，无论是通过显式调用 `IKeyManager.CreateNewKey` 或通过数据保护系统自己的[自动密钥生成](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)行为来实现的。 影响密钥持久性的设置如下所示：
+如果开发人员更改了任何影响密钥持久性的设置，则在下一次生成密钥之前，这些更改不会生效，无论是通过显式调用 `IKeyManager.CreateNewKey` 或通过数据保护系统自己的 [自动密钥生成](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management) 行为来实现的。 影响密钥持久性的设置如下所示：
 
 * [默认密钥生存期](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)
 

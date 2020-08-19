@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 的数据保护密钥管理 Api 的实现细节
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-management
-ms.openlocfilehash: c81e328d8774bfbd1309f854715fcda2152f9eeb
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7cc0c7203dbc7b607bb7359990b75b000bb09b7e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021206"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634392"
 ---
 # <a name="key-management-in-aspnet-core"></a>ASP.NET Core 中的密钥管理
 
@@ -36,7 +37,7 @@ ms.locfileid: "88021206"
 
 * 已吊销-密钥已泄露，不能用于新的保护操作。
 
-已创建、活动和过期的密钥均可用于取消保护传入有效负载。 默认情况下，吊销的密钥不能用于取消保护有效负载，但应用程序开发人员可以在必要时[重写此行为](xref:security/data-protection/consumer-apis/dangerous-unprotect#data-protection-consumer-apis-dangerous-unprotect)。
+已创建、活动和过期的密钥均可用于取消保护传入有效负载。 默认情况下，吊销的密钥不能用于取消保护有效负载，但应用程序开发人员可以在必要时 [重写此行为](xref:security/data-protection/consumer-apis/dangerous-unprotect#data-protection-consumer-apis-dangerous-unprotect) 。
 
 >[!WARNING]
 > 开发人员可能会尝试从密钥环中删除密钥 (例如，通过从文件系统) 中删除相应的文件。 此时，由该密钥保护的所有数据都将永久 undecipherable，而且不会有任何紧急替代，就像吊销密钥一样。 删除密钥是真正的破坏性行为，因此数据保护系统不会公开用于执行此操作的第一类 API。
@@ -45,11 +46,11 @@ ms.locfileid: "88021206"
 
 当数据保护系统从后备存储库读取密钥环时，它将尝试从密钥环中查找 "默认" 密钥。 默认密钥用于新的保护操作。
 
-一般试探法是数据保护系统选择最新激活日期为默认密钥的密钥。  (有一个较小的奶油因素，以允许服务器到服务器的时钟歪斜。 ) 如果密钥已过期或已被吊销，并且如果应用程序未禁用自动密钥生成，则会生成一个新密钥，并按以下[密钥过期和滚动](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management-expiration)策略立即激活。
+一般试探法是数据保护系统选择最新激活日期为默认密钥的密钥。  (有一个较小的奶油因素，以允许服务器到服务器的时钟歪斜。 ) 如果密钥已过期或已被吊销，并且如果应用程序未禁用自动密钥生成，则会生成一个新密钥，并按以下 [密钥过期和滚动](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management-expiration) 策略立即激活。
 
 数据保护系统立即生成新密钥，而不是回退到不同的密钥，这是因为新密钥生成应被视为在新密钥之前激活的所有密钥的隐式过期。 一般情况下，可能已使用不同于旧密钥的算法或静态加密机制配置了新密钥，并且系统应更倾向于回退当前配置。
 
-出现异常。 如果应用程序开发人员[禁用了自动密钥生成](xref:security/data-protection/configuration/overview#disableautomatickeygeneration)，则数据保护系统必须选择某些项作为默认密钥。 在此回退方案中，系统会选择具有最新激活日期的非吊销密钥，并为有时间传播到群集中的其他计算机的密钥提供首选项。 回退系统可能最终会选择过期的默认密钥。 回退系统永远不会选择吊销的密钥作为默认密钥，如果密钥环为空或每个密钥已被吊销，则系统会在初始化时产生错误。
+出现异常。 如果应用程序开发人员 [禁用了自动密钥生成](xref:security/data-protection/configuration/overview#disableautomatickeygeneration)，则数据保护系统必须选择某些项作为默认密钥。 在此回退方案中，系统会选择具有最新激活日期的非吊销密钥，并为有时间传播到群集中的其他计算机的密钥提供首选项。 回退系统可能最终会选择过期的默认密钥。 回退系统永远不会选择吊销的密钥作为默认密钥，如果密钥环为空或每个密钥已被吊销，则系统会在初始化时产生错误。
 
 <a name="data-protection-implementation-key-management-expiration"></a>
 

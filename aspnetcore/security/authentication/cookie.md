@@ -1,11 +1,12 @@
 ---
-title: 使用 cookie 不带 ASP.NET Core 的身份验证Identity
+title: cookie不使用身份验证ASP.NET Core Identity
 author: rick-anderson
-description: 了解如何在 cookie 不 ASP.NET Core 的情况下使用身份验证 Identity 。
+description: 了解如何在 cookie 不使用身份验证的情况下使用 ASP.NET Core Identity 。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 02/11/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,34 +17,34 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/cookie
-ms.openlocfilehash: 325bc3dcd48517d93d5f6f2d56e92651c780d759
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2e9eb58837d74343d8de6903372146570b43f330
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021882"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627138"
 ---
-# <a name="use-no-loccookie-authentication-without-aspnet-core-no-locidentity"></a>使用 cookie 不带 ASP.NET Core 的身份验证Identity
+# <a name="use-no-loccookie-authentication-without-no-locaspnet-core-identity"></a>cookie不使用身份验证ASP.NET Core Identity
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core Identity 是完整的全功能身份验证提供程序，用于创建和维护登录名。 但是， cookie 可以使用不带 ASP.NET Core 的基于的身份验证提供程序 Identity 。 有关详细信息，请参阅 <xref:security/authentication/identity>。
+ASP.NET Core Identity 是一个完整的全功能身份验证提供程序，用于创建和维护登录名。 但是， cookie 不能使用基于的身份验证提供程序 ASP.NET Core Identity 。 有关详细信息，请参阅 <xref:security/authentication/identity>。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用**电子邮件**地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户通过 `AuthenticateUser` *页面/帐户/登录名. .cs*文件中的方法进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
+出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用 **电子邮件** 地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户通过 `AuthenticateUser` *页面/帐户/登录名. .cs* 文件中的方法进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
 
 ## <a name="configuration"></a>配置
 
-如果应用程序不使用[AspNetCore 元包](xref:fundamentals/metapackage-app)，请在项目文件中为 AspNetCore 创建包引用[。 Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/)包。
+如果应用程序不使用 [AspNetCore 元包](xref:fundamentals/metapackage-app)，请在项目文件中为 AspNetCore 创建包引用 [。 Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) 包。
 
 在 `Startup.ConfigureServices` 方法中，创建具有和方法的身份验证中间件服务 <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> ：
 
 [!code-csharp[](cookie/samples/3.x/CookieSample/Startup.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme>传递以 `AddAuthentication` 设置应用程序的默认身份验证方案。 `AuthenticationScheme`如果有多个 cookie 身份验证实例，并且你想要[使用特定方案进行授权](xref:security/authorization/limitingidentitybyscheme)，则会很有用。 将设置 `AuthenticationScheme` 为[ Cookie AuthenticationDefaults。 AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)为方案提供值 " Cookie s"。 可以提供任何用于区分方案的字符串值。
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme> 传递以 `AddAuthentication` 设置应用程序的默认身份验证方案。 `AuthenticationScheme` 如果有多个 cookie 身份验证实例，并且你想要 [使用特定方案进行授权](xref:security/authorization/limitingidentitybyscheme)，则会很有用。 将设置 `AuthenticationScheme` 为[ Cookie AuthenticationDefaults。 AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)为方案提供值 " Cookie s"。 可以提供任何用于区分方案的字符串值。
 
 应用的身份验证方案不同于应用的 cookie 身份验证方案。 当 cookie 未提供身份验证方案时 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> ，它将使用 `CookieAuthenticationDefaults.AuthenticationScheme` ( " Cookie s" ) 。
 
@@ -65,7 +66,7 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     });
 ```
 
-## <a name="no-loccookie-policy-middleware"></a>Cookie策略中间件
+## <a name="no-loccookie-policy-middleware"></a>Cookie 策略中间件
 
 [ Cookie 策略中间件](xref:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware)启用 cookie 策略功能。 将中间件添加到应用处理管道是区分顺序的， &mdash; 它仅影响在管道中注册的下游组件。
 
@@ -92,7 +93,7 @@ var cookiePolicyOptions = new CookiePolicyOptions
 | SameSiteMode      | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
 | SameSiteMode   | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
 
-## <a name="create-an-authentication-no-loccookie"></a>创建身份验证cookie
+## <a name="create-an-authentication-no-loccookie"></a>创建身份验证 cookie
 
 若要创建 cookie 保存用户信息，请构造 <xref:System.Security.Claims.ClaimsPrincipal> 。 将序列化用户信息并将其存储在中 cookie 。 
 
@@ -102,11 +103,11 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 [!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]
 
-`SignInAsync`创建一个加密的 cookie ，并将其添加到当前响应中。 如果 `AuthenticationScheme` 未指定，则使用默认方案。
+`SignInAsync` 创建一个加密的 cookie ，并将其添加到当前响应中。 如果 `AuthenticationScheme` 未指定，则使用默认方案。
 
-<xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.RedirectUri>默认情况下，仅在几个特定路径上使用，例如登录路径和注销路径。 有关详细信息，请参阅[ Cookie AuthenticationHandler 源](https://github.com/dotnet/aspnetcore/blob/f2e6e6ff334176540ef0b3291122e359c2106d1a/src/Security/Authentication/Cookies/src/CookieAuthenticationHandler.cs#L334)。
+<xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.RedirectUri> 默认情况下，仅在几个特定路径上使用，例如登录路径和注销路径。 有关详细信息，请参阅[ Cookie AuthenticationHandler 源](https://github.com/dotnet/aspnetcore/blob/f2e6e6ff334176540ef0b3291122e359c2106d1a/src/Security/Authentication/Cookies/src/CookieAuthenticationHandler.cs#L334)。
 
-ASP.NET Core 的[数据保护](xref:security/data-protection/using-data-protection)系统用于加密。 对于托管在多台计算机上的应用程序、跨应用程序或使用 web 场进行负载平衡，请[将数据保护配置](xref:security/data-protection/configuration/overview)为使用相同的密钥环和应用程序标识符。
+ASP.NET Core 的 [数据保护](xref:security/data-protection/using-data-protection) 系统用于加密。 对于托管在多台计算机上的应用程序、跨应用程序或使用 web 场进行负载平衡，请 [将数据保护配置](xref:security/data-protection/configuration/overview) 为使用相同的密钥环和应用程序标识符。
 
 ## <a name="sign-out"></a>注销
 
@@ -190,7 +191,7 @@ public class CustomCookieAuthenticationEvents : CookieAuthenticationEvents
 }
 ```
 
-cookie在方法中注册服务期间注册事件实例 `Startup.ConfigureServices` 。 提供类的[作用域服务注册](xref:fundamentals/dependency-injection#service-lifetimes) `CustomCookieAuthenticationEvents` ：
+cookie在方法中注册服务期间注册事件实例 `Startup.ConfigureServices` 。 提供类的 [作用域服务注册](xref:fundamentals/dependency-injection#service-lifetimes) `CustomCookieAuthenticationEvents` ：
 
 ```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -250,21 +251,21 @@ await HttpContext.SignInAsync(
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core Identity 是完整的全功能身份验证提供程序，用于创建和维护登录名。 但是， cookie 可以使用不带 ASP.NET Core 的基于的身份验证身份验证提供程序 Identity 。 有关详细信息，请参阅 <xref:security/authentication/identity>。
+ASP.NET Core Identity 是一个完整的全功能身份验证提供程序，用于创建和维护登录名。 但是， cookie 不能使用基于的身份验证身份验证提供程序 ASP.NET Core Identity 。 有关详细信息，请参阅 <xref:security/authentication/identity>。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用**电子邮件**地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户通过 `AuthenticateUser` *页面/帐户/登录名. .cs*文件中的方法进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
+出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用 **电子邮件** 地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户通过 `AuthenticateUser` *页面/帐户/登录名. .cs* 文件中的方法进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
 
 ## <a name="configuration"></a>配置
 
-如果应用程序不使用[AspNetCore 元包](xref:fundamentals/metapackage-app)，请在项目文件中为 AspNetCore 创建包引用[。 Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/)包。
+如果应用程序不使用 [AspNetCore 元包](xref:fundamentals/metapackage-app)，请在项目文件中为 AspNetCore 创建包引用 [。 Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) 包。
 
 在 `Startup.ConfigureServices` 方法中，创建具有和方法的身份验证中间件服务 <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> ：
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme>传递以 `AddAuthentication` 设置应用程序的默认身份验证方案。 `AuthenticationScheme`如果有多个 cookie 身份验证实例，并且你想要[使用特定方案进行授权](xref:security/authorization/limitingidentitybyscheme)，则会很有用。 将设置 `AuthenticationScheme` 为[ Cookie AuthenticationDefaults。 AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)为方案提供值 " Cookie s"。 可以提供任何用于区分方案的字符串值。
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme> 传递以 `AddAuthentication` 设置应用程序的默认身份验证方案。 `AuthenticationScheme` 如果有多个 cookie 身份验证实例，并且你想要 [使用特定方案进行授权](xref:security/authorization/limitingidentitybyscheme)，则会很有用。 将设置 `AuthenticationScheme` 为[ Cookie AuthenticationDefaults。 AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)为方案提供值 " Cookie s"。 可以提供任何用于区分方案的字符串值。
 
 应用的身份验证方案不同于应用的 cookie 身份验证方案。 当 cookie 未提供身份验证方案时 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> ，它将使用 `CookieAuthenticationDefaults.AuthenticationScheme` ( " Cookie s" ) 。
 
@@ -286,7 +287,7 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     });
 ```
 
-## <a name="no-loccookie-policy-middleware"></a>Cookie策略中间件
+## <a name="no-loccookie-policy-middleware"></a>Cookie 策略中间件
 
 [ Cookie 策略中间件](xref:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware)启用 cookie 策略功能。 将中间件添加到应用处理管道是区分顺序的， &mdash; 它仅影响在管道中注册的下游组件。
 
@@ -313,7 +314,7 @@ var cookiePolicyOptions = new CookiePolicyOptions
 | SameSiteMode      | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
 | SameSiteMode   | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
 
-## <a name="create-an-authentication-no-loccookie"></a>创建身份验证cookie
+## <a name="create-an-authentication-no-loccookie"></a>创建身份验证 cookie
 
 若要创建 cookie 保存用户信息，请构造 <xref:System.Security.Claims.ClaimsPrincipal> 。 将序列化用户信息并将其存储在中 cookie 。 
 
@@ -321,9 +322,9 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet1)]
 
-`SignInAsync`创建一个加密的 cookie ，并将其添加到当前响应中。 如果 `AuthenticationScheme` 未指定，则使用默认方案。
+`SignInAsync` 创建一个加密的 cookie ，并将其添加到当前响应中。 如果 `AuthenticationScheme` 未指定，则使用默认方案。
 
-ASP.NET Core 的[数据保护](xref:security/data-protection/using-data-protection)系统用于加密。 对于托管在多台计算机上的应用程序、跨应用程序或使用 web 场进行负载平衡，请[将数据保护配置](xref:security/data-protection/configuration/overview)为使用相同的密钥环和应用程序标识符。
+ASP.NET Core 的 [数据保护](xref:security/data-protection/using-data-protection) 系统用于加密。 对于托管在多台计算机上的应用程序、跨应用程序或使用 web 场进行负载平衡，请 [将数据保护配置](xref:security/data-protection/configuration/overview) 为使用相同的密钥环和应用程序标识符。
 
 ## <a name="sign-out"></a>注销
 
@@ -407,7 +408,7 @@ public class CustomCookieAuthenticationEvents : CookieAuthenticationEvents
 }
 ```
 
-cookie在方法中注册服务期间注册事件实例 `Startup.ConfigureServices` 。 提供类的[作用域服务注册](xref:fundamentals/dependency-injection#service-lifetimes) `CustomCookieAuthenticationEvents` ：
+cookie在方法中注册服务期间注册事件实例 `Startup.ConfigureServices` 。 提供类的 [作用域服务注册](xref:fundamentals/dependency-injection#service-lifetimes) `CustomCookieAuthenticationEvents` ：
 
 ```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

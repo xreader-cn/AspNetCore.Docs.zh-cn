@@ -5,6 +5,7 @@ description: 了解授权基础知识和授权在 ASP.NET Core 应用中的工�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/introduction
-ms.openlocfilehash: 215c61b034abf530010b7beeb58100a1ff0e8eb3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7d7570ead1365588fd582d9bea364685da29a576
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022116"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634431"
 ---
 # <a name="introduction-to-authorization-in-aspnet-core"></a>ASP.NET Core 中的授权简介
 
@@ -34,10 +35,10 @@ ms.locfileid: "88022116"
 
 ## <a name="authorization-types"></a>授权类型
 
-ASP.NET Core 授权提供简单的声明性[角色](xref:security/authorization/roles)和[基于策略](xref:security/authorization/policies)的丰富模型。 授权在要求中表示，而处理程序根据要求评估用户的声明。 命令式检查可以基于简单的策略或策略，这些策略可评估用户尝试访问的资源的用户标识和属性。
+ASP.NET Core 授权提供简单的声明性 [角色](xref:security/authorization/roles) 和 [基于策略](xref:security/authorization/policies) 的丰富模型。 授权在要求中表示，而处理程序根据要求评估用户的声明。 命令式检查可以基于简单的策略或策略，这些策略可评估用户尝试访问的资源的用户标识和属性。
 
 ## <a name="namespaces"></a>命名空间
 
 `AuthorizeAttribute` `AllowAnonymousAttribute` 可在命名空间中找到授权组件，包括和属性 `Microsoft.AspNetCore.Authorization` 。
 
-请查阅有关[简单授权](xref:security/authorization/simple)的文档。
+请查阅有关 [简单授权](xref:security/authorization/simple)的文档。

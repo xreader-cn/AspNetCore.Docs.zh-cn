@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/13/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: 25f1716b5c80492edb72bc9555954c9c93c02a49
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: fcb58e2e0bfc6598edeb8c7f79986c3faf84e316
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018761"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633924"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的定位点标记帮助程序
 
@@ -185,7 +186,7 @@ MVC 视图使用操作提供的模型，如下所示：
 
 #### <a name="usage-in-no-locrazor-pages"></a>页面使用量 Razor
 
-RazorASP.NET Core 2.1 或更高版本中支持页区域。
+Razor ASP.NET Core 2.1 或更高版本中支持页区域。
 
 考虑以下目录层次结构：
 
@@ -199,7 +200,7 @@ RazorASP.NET Core 2.1 或更高版本中支持页区域。
         * *Index.cshtml.cs*
   * **页**
 
-用于引用*会话*区域*索引* Razor 页的标记为：
+用于引用 *会话* 区域 *索引* Razor 页的标记为：
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspAreaRazorPages)]
 

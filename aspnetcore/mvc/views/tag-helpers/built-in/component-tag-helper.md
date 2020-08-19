@@ -6,6 +6,7 @@ description: 了解如何使用 ASP.NET Core 组件标记帮助程序 Razor 在�
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: 09291b537e35d00df6f8006aaccdf4db12acfaea
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1a0422da6bd48049cac73debe7d335da91e311be
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018684"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633911"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的组件标记帮助程序
 
@@ -31,7 +32,7 @@ ms.locfileid: "88018684"
 
 ## <a name="prerequisites"></a>先决条件
 
-按照本文中 "*准备应用程序以使用组件" 页和 "视图*" 部分中的指导进行操作 <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps#prepare-the-app> 。
+按照本文中 " *准备应用程序以使用组件" 页和 "视图* " 部分中的指导进行操作 <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps#prepare-the-app> 。
 
 ## <a name="component-tag-helper"></a>组件标记帮助程序
 
@@ -46,7 +47,7 @@ ms.locfileid: "88018684"
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 
-前面的示例假定 `Counter` 组件位于应用的*Pages*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `@using BlazorSample.Pages`）。
+前面的示例假定 `Counter` 组件位于应用的 *Pages* 文件夹中。 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `@using BlazorSample.Pages`）。
 
 组件标记帮助器还可以将参数传递给组件。 请考虑以下 `ColorfulCheckbox` 用于设置复选框标签颜色和大小的组件：
 
@@ -88,7 +89,7 @@ ms.locfileid: "88018684"
     param-Size="14" param-Color="@("blue")" />
 ```
 
-前面的示例假定 `ColorfulCheckbox` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `@using BlazorSample.Shared`）。
+前面的示例假定 `ColorfulCheckbox` 组件位于应用的 *共享* 文件夹中。 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `@using BlazorSample.Shared`）。
 
 在页面或视图中呈现以下 HTML：
 
@@ -99,7 +100,7 @@ ms.locfileid: "88018684"
 </label>
 ```
 
-传递带引号的字符串需要[显式 Razor 表达式](xref:mvc/views/razor#explicit-razor-expressions)，如 `param-Color` 前面的示例中所示。 Razor `string` 由于属性是类型，因此类型值的分析行为不适用于 `param-*` 特性 `object` 。
+传递带引号的字符串需要 [显式 Razor 表达式](xref:mvc/views/razor#explicit-razor-expressions)，如 `param-Color` 前面的示例中所示。 Razor `string` 由于属性是类型，因此类型值的分析行为不适用于 `param-*` 特性 `object` 。
 
 参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。 例如，你可以 `Size` `Color` 在前面的示例中指定和的值，因为和的类型 `Size` `Color` 是 (`int` 和 `string`) （JSON 序列化程序支持的）的基元类型。
 
@@ -155,7 +156,7 @@ public class MyClass
     param-MyObject="@myObject" />
 ```
 
-前面的示例假定 `MyComponent` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称 (例如， `@using BlazorSample` `@using BlazorSample.Shared`) 。 `MyClass`在应用的命名空间中。
+前面的示例假定 `MyComponent` 组件位于应用的 *共享* 文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称 (例如， `@using BlazorSample` `@using BlazorSample.Shared`) 。 `MyClass` 在应用的命名空间中。
 
 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> 配置组件是否：
 

@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/redis-backplane
-ms.openlocfilehash: d80bce204b467d436a3580933718147bc3fbe75c
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: bc28eb3096e88455347f68ca381c9a280d5a153e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022480"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633651"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-no-locsignalr-scale-out"></a>设置用于 ASP.NET Core 横向扩展的 Redis 底板 SignalR
 
 作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和[Tom Dykstra](https://github.com/tdykstra)
 
-本文介绍了 SignalR 设置[Redis](https://redis.io/)服务器以用于横向扩展 ASP.NET Core 应用程序的特定方面 SignalR 。
+本文介绍了 SignalR 设置 [Redis](https://redis.io/) 服务器以用于横向扩展 ASP.NET Core 应用程序的特定方面 SignalR 。
 
 ## <a name="set-up-a-redis-backplane"></a>设置 Redis 底板
 
@@ -37,7 +38,7 @@ ms.locfileid: "88022480"
   > [!IMPORTANT] 
   > 对于生产用途，建议仅当 Redis 底板与应用在同一数据中心内运行时才使用它 SignalR 。 否则，网络延迟会降低性能。 如果你 SignalR 的应用在 azure 云中运行，我们建议使用 azure SignalR 服务，而不是 Redis 底板。 可以使用 Azure Redis 缓存服务进行开发和测试环境。
 
-  有关详细信息，请参阅以下资源：
+  有关更多信息，请参见以下资源：
 
   * <xref:signalr/scale>
   * [Redis 文档](https://redis.io/)
@@ -54,7 +55,7 @@ ms.locfileid: "88022480"
 
 * 根据需要配置选项：
  
-  可以在连接字符串中或在[ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options)对象中设置大多数选项。 中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。
+  可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。 中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。
 
   下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。 此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。
 
@@ -73,8 +74,8 @@ ms.locfileid: "88022480"
 
 * 在 SignalR 应用中，安装以下 NuGet 包之一：
 
-  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis`-依赖于 Stackexchange.redis. Redis 2. 采用2.X.X。 建议将此包用于 ASP.NET Core 2.2 及更高版本。
-  * `Microsoft.AspNetCore.SignalR.Redis`-依赖于 Stackexchange.redis. Redis 采用2.X.X。 此包不包含在 ASP.NET Core 3.0 及更高版本中。
+  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis` -依赖于 Stackexchange.redis. Redis 2. 采用2.X.X。 建议将此包用于 ASP.NET Core 2.2 及更高版本。
+  * `Microsoft.AspNetCore.SignalR.Redis` -依赖于 Stackexchange.redis. Redis 采用2.X.X。 此包不包含在 ASP.NET Core 3.0 及更高版本中。
 
 * 在 `Startup.ConfigureServices` 方法中，调用 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*> ：
 
@@ -86,7 +87,7 @@ ms.locfileid: "88022480"
 
 * 根据需要配置选项：
  
-  可以在连接字符串中或在[ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options)对象中设置大多数选项。 中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。
+  可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。 中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。
 
   下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。 此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。
 
@@ -101,7 +102,7 @@ ms.locfileid: "88022480"
 
   在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。
 
-  有关 Redis 选项的信息，请参阅[Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。
+  有关 Redis 选项的信息，请参阅 [Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。
 
 ::: moniker-end
 
@@ -119,7 +120,7 @@ ms.locfileid: "88022480"
   
 * 根据需要配置选项：
  
-  可以在连接字符串中或在[ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options)对象中设置大多数选项。 中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。
+  可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。 中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。
 
   下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。 此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。
 
@@ -132,7 +133,7 @@ ms.locfileid: "88022480"
 
   在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。
 
-  有关 Redis 选项的信息，请参阅[Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。
+  有关 Redis 选项的信息，请参阅 [Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。
 
 ::: moniker-end
 
@@ -155,9 +156,9 @@ ms.locfileid: "88022480"
 * *未能调用中心方法 "方法名称"*
 * *未能连接到 Redis*
 
-SignalR不会在服务器重新启动时缓冲消息以发送这些消息。 Redis 服务器关闭时发送的任何消息都将丢失。
+SignalR 不会在服务器重新启动时缓冲消息以发送这些消息。 Redis 服务器关闭时发送的任何消息都将丢失。
 
-SignalR当 Redis 服务器再次可用时，自动重新连接。
+SignalR 当 Redis 服务器再次可用时，自动重新连接。
 
 ### <a name="custom-behavior-for-connection-failures"></a>连接失败的自定义行为
 
@@ -230,11 +231,11 @@ services.AddSignalR()
 
 ## <a name="redis-clustering"></a>Redis 群集
 
-[Redis 聚类分析](https://redis.io/topics/cluster-spec)是一种通过使用多个 Redis 服务器实现高可用性的方法。 群集不是正式支持的，但它可能会起作用。
+[Redis 聚类分析](https://redis.io/topics/cluster-spec) 是一种通过使用多个 Redis 服务器实现高可用性的方法。 群集不是正式支持的，但它可能会起作用。
 
 ## <a name="next-steps"></a>后续步骤
 
-有关详细信息，请参阅以下资源：
+有关更多信息，请参见以下资源：
 
 * <xref:signalr/scale>
 * [Redis 文档](https://redis.io/documentation)

@@ -1,5 +1,5 @@
 ---
-title: SignalRAPI 设计注意事项
+title: SignalR API 设计注意事项
 author: anurse
 description: 了解如何 SignalR 在应用版本间设计 api 以实现兼容性。
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: anurse
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/api-design
-ms.openlocfilehash: ef0285c611bd41d7fe686a4b370b6daae9be9174
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4a838c3a051476bd3d281e133d08b643656ae3b7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018983"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632897"
 ---
-# <a name="no-locsignalr-api-design-considerations"></a>SignalRAPI 设计注意事项
+# <a name="no-locsignalr-api-design-considerations"></a>SignalR API 设计注意事项
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
@@ -32,7 +33,7 @@ ms.locfileid: "88018983"
 
 ## <a name="use-custom-object-parameters-to-ensure-backwards-compatibility"></a>使用自定义对象参数以确保向后兼容性
 
-将参数添加到 SignalR 客户端或服务器上的 (集线器方法) 是一项*重大更改*。 这意味着，较旧的客户端/服务器在尝试调用方法时，如果没有适当数量的参数，将会出现错误。 但是，将属性添加到自定义对象参数**不**是一项重大更改。 这可用于设计可对客户端或服务器上的更改复原的兼容 Api。
+将参数添加到 SignalR 客户端或服务器上的 (集线器方法) 是一项 *重大更改*。 这意味着，较旧的客户端/服务器在尝试调用方法时，如果没有适当数量的参数，将会出现错误。 但是，将属性添加到自定义对象参数 **不** 是一项重大更改。 这可用于设计可对客户端或服务器上的更改复原的兼容 Api。
 
 例如，请考虑如下所示的服务器端 API：
 
