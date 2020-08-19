@@ -5,6 +5,7 @@ description: 本文概述迁移 ASP.NET Core 1.x 身份验证和 ASP.NET Core 2.
 ms.author: scaddie
 ms.date: 06/21/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,32 +16,32 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: 46f10df25235b532f188eda2a079aef71070cd6d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 63f2fadc328650063078339467e65c6b0e97a08e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015285"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634314"
 ---
-# <a name="migrate-authentication-and-no-locidentity-to-aspnet-core-20"></a><span data-ttu-id="6f382-103">将身份验证和升级 Identity 到 ASP.NET Core 2。0</span><span class="sxs-lookup"><span data-stu-id="6f382-103">Migrate authentication and Identity to ASP.NET Core 2.0</span></span>
+# <a name="migrate-authentication-and-no-locidentity-to-aspnet-core-20"></a><span data-ttu-id="1ca19-103">将身份验证和升级 Identity 到 ASP.NET Core 2。0</span><span class="sxs-lookup"><span data-stu-id="1ca19-103">Migrate authentication and Identity to ASP.NET Core 2.0</span></span>
 
-<span data-ttu-id="6f382-104">作者： [Scott Addie](https://github.com/scottaddie)和[Hao Kung](https://github.com/HaoK)</span><span class="sxs-lookup"><span data-stu-id="6f382-104">By [Scott Addie](https://github.com/scottaddie) and [Hao Kung](https://github.com/HaoK)</span></span>
+<span data-ttu-id="1ca19-104">作者： [Scott Addie](https://github.com/scottaddie) 和 [Hao Kung](https://github.com/HaoK)</span><span class="sxs-lookup"><span data-stu-id="1ca19-104">By [Scott Addie](https://github.com/scottaddie) and [Hao Kung](https://github.com/HaoK)</span></span>
 
-<span data-ttu-id="6f382-105">ASP.NET Core 2.0 具有新的身份验证模型，并 [Identity](xref:security/authentication/identity) 使用服务简化了配置。</span><span class="sxs-lookup"><span data-stu-id="6f382-105">ASP.NET Core 2.0 has a new model for authentication and [Identity](xref:security/authentication/identity) that simplifies configuration by using services.</span></span> <span data-ttu-id="6f382-106">ASP.NET Core 1.x 使用身份验证的应用程序或 Identity 可以更新为使用如下所述的新模型。</span><span class="sxs-lookup"><span data-stu-id="6f382-106">ASP.NET Core 1.x applications that use authentication or Identity can be updated to use the new model as outlined below.</span></span>
+<span data-ttu-id="1ca19-105">ASP.NET Core 2.0 具有新的身份验证模型，并 [Identity](xref:security/authentication/identity) 使用服务简化了配置。</span><span class="sxs-lookup"><span data-stu-id="1ca19-105">ASP.NET Core 2.0 has a new model for authentication and [Identity](xref:security/authentication/identity) that simplifies configuration by using services.</span></span> <span data-ttu-id="1ca19-106">ASP.NET Core 1.x 使用身份验证的应用程序或 Identity 可以更新为使用如下所述的新模型。</span><span class="sxs-lookup"><span data-stu-id="1ca19-106">ASP.NET Core 1.x applications that use authentication or Identity can be updated to use the new model as outlined below.</span></span>
 
-## <a name="update-namespaces"></a><span data-ttu-id="6f382-107">更新命名空间</span><span class="sxs-lookup"><span data-stu-id="6f382-107">Update namespaces</span></span>
+## <a name="update-namespaces"></a><span data-ttu-id="1ca19-107">更新命名空间</span><span class="sxs-lookup"><span data-stu-id="1ca19-107">Update namespaces</span></span>
 
-<span data-ttu-id="6f382-108">在1.x 中，在 `IdentityRole` `IdentityUser` 命名空间中找到了类，如和 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-108">In 1.x, classes such `IdentityRole` and `IdentityUser` were found in the `Microsoft.AspNetCore.Identity.EntityFrameworkCore` namespace.</span></span>
+<span data-ttu-id="1ca19-108">在1.x 中，在 `IdentityRole` `IdentityUser` 命名空间中找到了类，如和 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-108">In 1.x, classes such `IdentityRole` and `IdentityUser` were found in the `Microsoft.AspNetCore.Identity.EntityFrameworkCore` namespace.</span></span>
 
-<span data-ttu-id="6f382-109">在2.0 中， <xref:Microsoft.AspNetCore.Identity> 命名空间成为几个这样的类的新宿主。</span><span class="sxs-lookup"><span data-stu-id="6f382-109">In 2.0, the <xref:Microsoft.AspNetCore.Identity> namespace became the new home for several of such classes.</span></span> <span data-ttu-id="6f382-110">对于默认 Identity 代码，受影响的类包括 `ApplicationUser` 和 `Startup` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-110">With the default Identity code, affected classes include `ApplicationUser` and `Startup`.</span></span> <span data-ttu-id="6f382-111">调整 `using` 语句以解析受影响的引用。</span><span class="sxs-lookup"><span data-stu-id="6f382-111">Adjust your `using` statements to resolve the affected references.</span></span>
+<span data-ttu-id="1ca19-109">在2.0 中， <xref:Microsoft.AspNetCore.Identity> 命名空间成为几个这样的类的新宿主。</span><span class="sxs-lookup"><span data-stu-id="1ca19-109">In 2.0, the <xref:Microsoft.AspNetCore.Identity> namespace became the new home for several of such classes.</span></span> <span data-ttu-id="1ca19-110">对于默认 Identity 代码，受影响的类包括 `ApplicationUser` 和 `Startup` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-110">With the default Identity code, affected classes include `ApplicationUser` and `Startup`.</span></span> <span data-ttu-id="1ca19-111">调整 `using` 语句以解析受影响的引用。</span><span class="sxs-lookup"><span data-stu-id="1ca19-111">Adjust your `using` statements to resolve the affected references.</span></span>
 
 <a name="auth-middleware"></a>
 
-## <a name="authentication-middleware-and-services"></a><span data-ttu-id="6f382-112">身份验证中间件和服务</span><span class="sxs-lookup"><span data-stu-id="6f382-112">Authentication Middleware and services</span></span>
+## <a name="authentication-middleware-and-services"></a><span data-ttu-id="1ca19-112">身份验证中间件和服务</span><span class="sxs-lookup"><span data-stu-id="1ca19-112">Authentication Middleware and services</span></span>
 
-<span data-ttu-id="6f382-113">在1.x 项目中，通过中间件配置身份验证。</span><span class="sxs-lookup"><span data-stu-id="6f382-113">In 1.x projects, authentication is configured via middleware.</span></span> <span data-ttu-id="6f382-114">为要支持的每个身份验证方案调用中间件方法。</span><span class="sxs-lookup"><span data-stu-id="6f382-114">A middleware method is invoked for each authentication scheme you want to support.</span></span>
+<span data-ttu-id="1ca19-113">在1.x 项目中，通过中间件配置身份验证。</span><span class="sxs-lookup"><span data-stu-id="1ca19-113">In 1.x projects, authentication is configured via middleware.</span></span> <span data-ttu-id="1ca19-114">为要支持的每个身份验证方案调用中间件方法。</span><span class="sxs-lookup"><span data-stu-id="1ca19-114">A middleware method is invoked for each authentication scheme you want to support.</span></span>
 
-<span data-ttu-id="6f382-115">下面的1.x 示例 Identity 在*Startup.cs*中配置 Facebook 身份验证：</span><span class="sxs-lookup"><span data-stu-id="6f382-115">The following 1.x example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
+<span data-ttu-id="1ca19-115">下面的1.x 示例 Identity 在 *Startup.cs*中配置 Facebook 身份验证：</span><span class="sxs-lookup"><span data-stu-id="1ca19-115">The following 1.x example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -59,9 +60,9 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory)
 }
 ```
 
-<span data-ttu-id="6f382-116">在2.0 项目中，通过服务配置身份验证。</span><span class="sxs-lookup"><span data-stu-id="6f382-116">In 2.0 projects, authentication is configured via services.</span></span> <span data-ttu-id="6f382-117">每个身份验证方案都是在 Startup.cs 的方法中注册的 `ConfigureServices` 。 *Startup.cs*</span><span class="sxs-lookup"><span data-stu-id="6f382-117">Each authentication scheme is registered in the `ConfigureServices` method of *Startup.cs*.</span></span> <span data-ttu-id="6f382-118">此 `UseIdentity` 方法将替换为 `UseAuthentication` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-118">The `UseIdentity` method is replaced with `UseAuthentication`.</span></span>
+<span data-ttu-id="1ca19-116">在2.0 项目中，通过服务配置身份验证。</span><span class="sxs-lookup"><span data-stu-id="1ca19-116">In 2.0 projects, authentication is configured via services.</span></span> <span data-ttu-id="1ca19-117">每个身份验证方案都是在 Startup.cs 的方法中注册的 `ConfigureServices` 。 *Startup.cs*</span><span class="sxs-lookup"><span data-stu-id="1ca19-117">Each authentication scheme is registered in the `ConfigureServices` method of *Startup.cs*.</span></span> <span data-ttu-id="1ca19-118">此 `UseIdentity` 方法将替换为 `UseAuthentication` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-118">The `UseIdentity` method is replaced with `UseAuthentication`.</span></span>
 
-<span data-ttu-id="6f382-119">以下2.0 示例 Identity 在*Startup.cs*中配置 Facebook 身份验证：</span><span class="sxs-lookup"><span data-stu-id="6f382-119">The following 2.0 example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
+<span data-ttu-id="1ca19-119">以下2.0 示例 Identity 在 *Startup.cs*中配置 Facebook 身份验证：</span><span class="sxs-lookup"><span data-stu-id="1ca19-119">The following 2.0 example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -84,23 +85,23 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 }
 ```
 
-<span data-ttu-id="6f382-120">`UseAuthentication`方法添加单个身份验证中间件组件，该组件负责自动身份验证和远程身份验证请求的处理。</span><span class="sxs-lookup"><span data-stu-id="6f382-120">The `UseAuthentication` method adds a single authentication middleware component, which is responsible for automatic authentication and the handling of remote authentication requests.</span></span> <span data-ttu-id="6f382-121">它将所有单个中间件组件替换为一个公共中间件组件。</span><span class="sxs-lookup"><span data-stu-id="6f382-121">It replaces all of the individual middleware components with a single, common middleware component.</span></span>
+<span data-ttu-id="1ca19-120">`UseAuthentication`方法添加单个身份验证中间件组件，该组件负责自动身份验证和远程身份验证请求的处理。</span><span class="sxs-lookup"><span data-stu-id="1ca19-120">The `UseAuthentication` method adds a single authentication middleware component, which is responsible for automatic authentication and the handling of remote authentication requests.</span></span> <span data-ttu-id="1ca19-121">它将所有单个中间件组件替换为一个公共中间件组件。</span><span class="sxs-lookup"><span data-stu-id="1ca19-121">It replaces all of the individual middleware components with a single, common middleware component.</span></span>
 
-<span data-ttu-id="6f382-122">下面是每个主要身份验证方案的2.0 迁移说明。</span><span class="sxs-lookup"><span data-stu-id="6f382-122">Below are 2.0 migration instructions for each major authentication scheme.</span></span>
+<span data-ttu-id="1ca19-122">下面是每个主要身份验证方案的2.0 迁移说明。</span><span class="sxs-lookup"><span data-stu-id="1ca19-122">Below are 2.0 migration instructions for each major authentication scheme.</span></span>
 
-### <a name="no-loccookie-based-authentication"></a><span data-ttu-id="6f382-123">Cookie基于的身份验证</span><span class="sxs-lookup"><span data-stu-id="6f382-123">Cookie-based authentication</span></span>
+### <a name="no-loccookie-based-authentication"></a><span data-ttu-id="1ca19-123">Cookie基于的身份验证</span><span class="sxs-lookup"><span data-stu-id="1ca19-123">Cookie-based authentication</span></span>
 
-<span data-ttu-id="6f382-124">选择以下两个选项之一，并在*Startup.cs*中进行必要的更改：</span><span class="sxs-lookup"><span data-stu-id="6f382-124">Select one of the two options below, and make the necessary changes in *Startup.cs*:</span></span>
+<span data-ttu-id="1ca19-124">选择以下两个选项之一，并在 *Startup.cs*中进行必要的更改：</span><span class="sxs-lookup"><span data-stu-id="1ca19-124">Select one of the two options below, and make the necessary changes in *Startup.cs*:</span></span>
 
-1. <span data-ttu-id="6f382-125">使用 cookieIdentity</span><span class="sxs-lookup"><span data-stu-id="6f382-125">Use cookies with Identity</span></span>
-    - <span data-ttu-id="6f382-126">`UseIdentity` `UseAuthentication` 在方法中将替换为 `Configure` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-126">Replace `UseIdentity` with `UseAuthentication` in the `Configure` method:</span></span>
+1. <span data-ttu-id="1ca19-125">使用 cookieIdentity</span><span class="sxs-lookup"><span data-stu-id="1ca19-125">Use cookies with Identity</span></span>
+    - <span data-ttu-id="1ca19-126">`UseIdentity` `UseAuthentication` 在方法中将替换为 `Configure` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-126">Replace `UseIdentity` with `UseAuthentication` in the `Configure` method:</span></span>
 
         ```csharp
         app.UseAuthentication();
         ```
 
-    - <span data-ttu-id="6f382-127">`AddIdentity`在方法中调用方法 `ConfigureServices` 以添加 cookie 身份验证服务。</span><span class="sxs-lookup"><span data-stu-id="6f382-127">Invoke the `AddIdentity` method in the `ConfigureServices` method to add the cookie authentication services.</span></span>
-    - <span data-ttu-id="6f382-128">还可以 `ConfigureApplicationCookie` `ConfigureExternalCookie` 在方法中调用或方法 `ConfigureServices` 来调整 Identity cookie 设置。</span><span class="sxs-lookup"><span data-stu-id="6f382-128">Optionally, invoke the `ConfigureApplicationCookie` or `ConfigureExternalCookie` method in the `ConfigureServices` method to tweak the Identity cookie settings.</span></span>
+    - <span data-ttu-id="1ca19-127">`AddIdentity`在方法中调用方法 `ConfigureServices` 以添加 cookie 身份验证服务。</span><span class="sxs-lookup"><span data-stu-id="1ca19-127">Invoke the `AddIdentity` method in the `ConfigureServices` method to add the cookie authentication services.</span></span>
+    - <span data-ttu-id="1ca19-128">还可以 `ConfigureApplicationCookie` `ConfigureExternalCookie` 在方法中调用或方法 `ConfigureServices` 来调整 Identity cookie 设置。</span><span class="sxs-lookup"><span data-stu-id="1ca19-128">Optionally, invoke the `ConfigureApplicationCookie` or `ConfigureExternalCookie` method in the `ConfigureServices` method to tweak the Identity cookie settings.</span></span>
 
         ```csharp
         services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -110,14 +111,14 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
         services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
         ```
 
-2. <span data-ttu-id="6f382-129">使用 cookie 不带Identity</span><span class="sxs-lookup"><span data-stu-id="6f382-129">Use cookies without Identity</span></span>
-    - <span data-ttu-id="6f382-130">`UseCookieAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-130">Replace the `UseCookieAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+2. <span data-ttu-id="1ca19-129">使用 cookie 不带 Identity</span><span class="sxs-lookup"><span data-stu-id="1ca19-129">Use cookies without Identity</span></span>
+    - <span data-ttu-id="1ca19-130">`UseCookieAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-130">Replace the `UseCookieAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
         ```csharp
         app.UseAuthentication();
         ```
 
-    - <span data-ttu-id="6f382-131">`AddAuthentication` `AddCookie` 在方法中调用和方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-131">Invoke the `AddAuthentication` and `AddCookie` methods in the `ConfigureServices` method:</span></span>
+    - <span data-ttu-id="1ca19-131">`AddAuthentication` `AddCookie` 在方法中调用和方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-131">Invoke the `AddAuthentication` and `AddCookie` methods in the `ConfigureServices` method:</span></span>
 
         ```csharp
         // If you don't want the cookie to be automatically authenticated and assigned to HttpContext.User,
@@ -130,16 +131,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
                 });
         ```
 
-### <a name="jwt-bearer-authentication"></a><span data-ttu-id="6f382-132">JWT 持有者身份验证</span><span class="sxs-lookup"><span data-stu-id="6f382-132">JWT Bearer Authentication</span></span>
+### <a name="jwt-bearer-authentication"></a><span data-ttu-id="1ca19-132">JWT 持有者身份验证</span><span class="sxs-lookup"><span data-stu-id="1ca19-132">JWT Bearer Authentication</span></span>
 
-<span data-ttu-id="6f382-133">在*Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="6f382-133">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="6f382-134">`UseJwtBearerAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-134">Replace the `UseJwtBearerAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="1ca19-133">在 *Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="1ca19-133">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="1ca19-134">`UseJwtBearerAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-134">Replace the `UseJwtBearerAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="6f382-135">`AddJwtBearer`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-135">Invoke the `AddJwtBearer` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="1ca19-135">`AddJwtBearer`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-135">Invoke the `AddJwtBearer` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -150,19 +151,19 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-    <span data-ttu-id="6f382-136">此代码段不使用 Identity ，因此应通过传递给方法来设置默认方案 `JwtBearerDefaults.AuthenticationScheme` `AddAuthentication` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-136">This code snippet doesn't use Identity, so the default scheme should be set by passing `JwtBearerDefaults.AuthenticationScheme` to the `AddAuthentication` method.</span></span>
+    <span data-ttu-id="1ca19-136">此代码段不使用 Identity ，因此应通过传递给方法来设置默认方案 `JwtBearerDefaults.AuthenticationScheme` `AddAuthentication` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-136">This code snippet doesn't use Identity, so the default scheme should be set by passing `JwtBearerDefaults.AuthenticationScheme` to the `AddAuthentication` method.</span></span>
 
-### <a name="openid-connect-oidc-authentication"></a><span data-ttu-id="6f382-137">OpenID Connect (OIDC) 身份验证</span><span class="sxs-lookup"><span data-stu-id="6f382-137">OpenID Connect (OIDC) authentication</span></span>
+### <a name="openid-connect-oidc-authentication"></a><span data-ttu-id="1ca19-137">OpenID Connect (OIDC) 身份验证</span><span class="sxs-lookup"><span data-stu-id="1ca19-137">OpenID Connect (OIDC) authentication</span></span>
 
-<span data-ttu-id="6f382-138">在*Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="6f382-138">Make the following changes in *Startup.cs*:</span></span>
+<span data-ttu-id="1ca19-138">在 *Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="1ca19-138">Make the following changes in *Startup.cs*:</span></span>
 
-- <span data-ttu-id="6f382-139">`UseOpenIdConnectAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-139">Replace the `UseOpenIdConnectAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+- <span data-ttu-id="1ca19-139">`UseOpenIdConnectAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-139">Replace the `UseOpenIdConnectAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="6f382-140">`AddOpenIdConnect`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-140">Invoke the `AddOpenIdConnect` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="1ca19-140">`AddOpenIdConnect`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-140">Invoke the `AddOpenIdConnect` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication(options =>
@@ -178,7 +179,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
     });
     ```
 
-- <span data-ttu-id="6f382-141">`PostLogoutRedirectUri`将操作中的属性替换为 `OpenIdConnectOptions` `SignedOutRedirectUri` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-141">Replace the `PostLogoutRedirectUri` property in the `OpenIdConnectOptions` action with `SignedOutRedirectUri`:</span></span>
+- <span data-ttu-id="1ca19-141">`PostLogoutRedirectUri`将操作中的属性替换为 `OpenIdConnectOptions` `SignedOutRedirectUri` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-141">Replace the `PostLogoutRedirectUri` property in the `OpenIdConnectOptions` action with `SignedOutRedirectUri`:</span></span>
 
     ```csharp
     .AddOpenIdConnect(options =>
@@ -187,16 +188,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
     });
     ```
     
-### <a name="facebook-authentication"></a><span data-ttu-id="6f382-142">Facebook 身份验证</span><span class="sxs-lookup"><span data-stu-id="6f382-142">Facebook authentication</span></span>
+### <a name="facebook-authentication"></a><span data-ttu-id="1ca19-142">Facebook 身份验证</span><span class="sxs-lookup"><span data-stu-id="1ca19-142">Facebook authentication</span></span>
 
-<span data-ttu-id="6f382-143">在*Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="6f382-143">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="6f382-144">`UseFacebookAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-144">Replace the `UseFacebookAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="1ca19-143">在 *Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="1ca19-143">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="1ca19-144">`UseFacebookAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-144">Replace the `UseFacebookAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="6f382-145">`AddFacebook`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-145">Invoke the `AddFacebook` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="1ca19-145">`AddFacebook`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-145">Invoke the `AddFacebook` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -207,16 +208,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="google-authentication"></a><span data-ttu-id="6f382-146">Google 身份验证</span><span class="sxs-lookup"><span data-stu-id="6f382-146">Google authentication</span></span>
+### <a name="google-authentication"></a><span data-ttu-id="1ca19-146">Google 身份验证</span><span class="sxs-lookup"><span data-stu-id="1ca19-146">Google authentication</span></span>
 
-<span data-ttu-id="6f382-147">在*Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="6f382-147">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="6f382-148">`UseGoogleAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-148">Replace the `UseGoogleAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="1ca19-147">在 *Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="1ca19-147">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="1ca19-148">`UseGoogleAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-148">Replace the `UseGoogleAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="6f382-149">`AddGoogle`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-149">Invoke the `AddGoogle` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="1ca19-149">`AddGoogle`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-149">Invoke the `AddGoogle` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -227,18 +228,18 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="microsoft-account-authentication"></a><span data-ttu-id="6f382-150">Microsoft 帐户身份验证</span><span class="sxs-lookup"><span data-stu-id="6f382-150">Microsoft Account authentication</span></span>
+### <a name="microsoft-account-authentication"></a><span data-ttu-id="1ca19-150">Microsoft 帐户身份验证</span><span class="sxs-lookup"><span data-stu-id="1ca19-150">Microsoft Account authentication</span></span>
 
-<span data-ttu-id="6f382-151">有关 Microsoft 帐户身份验证的详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/14455)。</span><span class="sxs-lookup"><span data-stu-id="6f382-151">For more information on Microsoft account authentication, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/14455).</span></span>
+<span data-ttu-id="1ca19-151">有关 Microsoft 帐户身份验证的详细信息，请参阅 [此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/14455)。</span><span class="sxs-lookup"><span data-stu-id="1ca19-151">For more information on Microsoft account authentication, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/14455).</span></span>
 
-<span data-ttu-id="6f382-152">在*Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="6f382-152">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="6f382-153">`UseMicrosoftAccountAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-153">Replace the `UseMicrosoftAccountAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="1ca19-152">在 *Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="1ca19-152">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="1ca19-153">`UseMicrosoftAccountAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-153">Replace the `UseMicrosoftAccountAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="6f382-154">`AddMicrosoftAccount`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-154">Invoke the `AddMicrosoftAccount` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="1ca19-154">`AddMicrosoftAccount`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-154">Invoke the `AddMicrosoftAccount` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -249,16 +250,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="twitter-authentication"></a><span data-ttu-id="6f382-155">Twitter 身份验证</span><span class="sxs-lookup"><span data-stu-id="6f382-155">Twitter authentication</span></span>
+### <a name="twitter-authentication"></a><span data-ttu-id="1ca19-155">Twitter 身份验证</span><span class="sxs-lookup"><span data-stu-id="1ca19-155">Twitter authentication</span></span>
 
-<span data-ttu-id="6f382-156">在*Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="6f382-156">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="6f382-157">`UseTwitterAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-157">Replace the `UseTwitterAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="1ca19-156">在 *Startup.cs*中进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="1ca19-156">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="1ca19-157">`UseTwitterAuthentication`将方法中的方法调用替换 `Configure` 为 `UseAuthentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-157">Replace the `UseTwitterAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="6f382-158">`AddTwitter`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-158">Invoke the `AddTwitter` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="1ca19-158">`AddTwitter`在方法中调用方法 `ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-158">Invoke the `AddTwitter` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -269,19 +270,19 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="setting-default-authentication-schemes"></a><span data-ttu-id="6f382-159">设置默认身份验证方案</span><span class="sxs-lookup"><span data-stu-id="6f382-159">Setting default authentication schemes</span></span>
+### <a name="setting-default-authentication-schemes"></a><span data-ttu-id="1ca19-159">设置默认身份验证方案</span><span class="sxs-lookup"><span data-stu-id="1ca19-159">Setting default authentication schemes</span></span>
 
-<span data-ttu-id="6f382-160">在1.x 中，将 `AutomaticAuthenticate` `AutomaticChallenge` 在单个身份验证方案中设置[AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1)基类的和属性。</span><span class="sxs-lookup"><span data-stu-id="6f382-160">In 1.x, the `AutomaticAuthenticate` and `AutomaticChallenge` properties of the [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) base class were intended to be set on a single authentication scheme.</span></span> <span data-ttu-id="6f382-161">没有正确的方法来强制执行此操作。</span><span class="sxs-lookup"><span data-stu-id="6f382-161">There was no good way to enforce this.</span></span>
+<span data-ttu-id="1ca19-160">在1.x 中，将 `AutomaticAuthenticate` `AutomaticChallenge` 在单个身份验证方案中设置 [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) 基类的和属性。</span><span class="sxs-lookup"><span data-stu-id="1ca19-160">In 1.x, the `AutomaticAuthenticate` and `AutomaticChallenge` properties of the [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) base class were intended to be set on a single authentication scheme.</span></span> <span data-ttu-id="1ca19-161">没有正确的方法来强制执行此操作。</span><span class="sxs-lookup"><span data-stu-id="1ca19-161">There was no good way to enforce this.</span></span>
 
-<span data-ttu-id="6f382-162">在2.0 中，这两个属性已作为各个实例的属性删除 `AuthenticationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-162">In 2.0, these two properties have been removed as properties on the individual `AuthenticationOptions` instance.</span></span> <span data-ttu-id="6f382-163">可以在 Startup.cs 的方法中的方法调用中配置它们 `AddAuthentication` `ConfigureServices` ： *Startup.cs*</span><span class="sxs-lookup"><span data-stu-id="6f382-163">They can be configured in the `AddAuthentication` method call within the `ConfigureServices` method of *Startup.cs*:</span></span>
+<span data-ttu-id="1ca19-162">在2.0 中，这两个属性已作为各个实例的属性删除 `AuthenticationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-162">In 2.0, these two properties have been removed as properties on the individual `AuthenticationOptions` instance.</span></span> <span data-ttu-id="1ca19-163">可以在 Startup.cs 的方法中的方法调用中配置它们 `AddAuthentication` `ConfigureServices` ： *Startup.cs*</span><span class="sxs-lookup"><span data-stu-id="1ca19-163">They can be configured in the `AddAuthentication` method call within the `ConfigureServices` method of *Startup.cs*:</span></span>
 
 ```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 
-<span data-ttu-id="6f382-164">在上面的代码段中，默认方案设置为 `CookieAuthenticationDefaults.AuthenticationScheme` ( " Cookie s" ) 。</span><span class="sxs-lookup"><span data-stu-id="6f382-164">In the preceding code snippet, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme` ("Cookies").</span></span>
+<span data-ttu-id="1ca19-164">在上面的代码段中，默认方案设置为 `CookieAuthenticationDefaults.AuthenticationScheme` ( " Cookie s" ) 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-164">In the preceding code snippet, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme` ("Cookies").</span></span>
 
-<span data-ttu-id="6f382-165">或者，使用方法的重载版本 `AddAuthentication` 设置多个属性。</span><span class="sxs-lookup"><span data-stu-id="6f382-165">Alternatively, use an overloaded version of the `AddAuthentication` method to set more than one property.</span></span> <span data-ttu-id="6f382-166">在下面的重载方法示例中，将默认方案设置为 `CookieAuthenticationDefaults.AuthenticationScheme` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-166">In the following overloaded method example, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="6f382-167">也可以在单个 `[Authorize]` 属性或授权策略中指定身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="6f382-167">The authentication scheme may alternatively be specified within your individual `[Authorize]` attributes or authorization policies.</span></span>
+<span data-ttu-id="1ca19-165">或者，使用方法的重载版本 `AddAuthentication` 设置多个属性。</span><span class="sxs-lookup"><span data-stu-id="1ca19-165">Alternatively, use an overloaded version of the `AddAuthentication` method to set more than one property.</span></span> <span data-ttu-id="1ca19-166">在下面的重载方法示例中，将默认方案设置为 `CookieAuthenticationDefaults.AuthenticationScheme` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-166">In the following overloaded method example, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="1ca19-167">也可以在单个 `[Authorize]` 属性或授权策略中指定身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="1ca19-167">The authentication scheme may alternatively be specified within your individual `[Authorize]` attributes or authorization policies.</span></span>
 
 ```csharp
 services.AddAuthentication(options =>
@@ -291,36 +292,36 @@ services.AddAuthentication(options =>
 });
 ```
 
-<span data-ttu-id="6f382-168">如果满足以下条件之一，则定义2.0 中的默认方案：</span><span class="sxs-lookup"><span data-stu-id="6f382-168">Define a default scheme in 2.0 if one of the following conditions is true:</span></span>
-- <span data-ttu-id="6f382-169">希望用户自动登录</span><span class="sxs-lookup"><span data-stu-id="6f382-169">You want the user to be automatically signed in</span></span>
-- <span data-ttu-id="6f382-170">在 `[Authorize]` 不指定方案的情况下使用属性或授权策略</span><span class="sxs-lookup"><span data-stu-id="6f382-170">You use the `[Authorize]` attribute or authorization policies without specifying schemes</span></span>
+<span data-ttu-id="1ca19-168">如果满足以下条件之一，则定义2.0 中的默认方案：</span><span class="sxs-lookup"><span data-stu-id="1ca19-168">Define a default scheme in 2.0 if one of the following conditions is true:</span></span>
+- <span data-ttu-id="1ca19-169">希望用户自动登录</span><span class="sxs-lookup"><span data-stu-id="1ca19-169">You want the user to be automatically signed in</span></span>
+- <span data-ttu-id="1ca19-170">在 `[Authorize]` 不指定方案的情况下使用属性或授权策略</span><span class="sxs-lookup"><span data-stu-id="1ca19-170">You use the `[Authorize]` attribute or authorization policies without specifying schemes</span></span>
 
-<span data-ttu-id="6f382-171">此规则的例外情况是 `AddIdentity` 方法。</span><span class="sxs-lookup"><span data-stu-id="6f382-171">An exception to this rule is the `AddIdentity` method.</span></span> <span data-ttu-id="6f382-172">此方法 cookie 为你添加了，并将默认身份验证和质询方案设置为应用程序 cookie `IdentityConstants.ApplicationScheme` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-172">This method adds cookies for you and sets the default authenticate and challenge schemes to the application cookie `IdentityConstants.ApplicationScheme`.</span></span> <span data-ttu-id="6f382-173">此外，它还将默认登录方案设置为外部 cookie `IdentityConstants.ExternalScheme` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-173">Additionally, it sets the default sign-in scheme to the external cookie `IdentityConstants.ExternalScheme`.</span></span>
+<span data-ttu-id="1ca19-171">此规则的例外情况是 `AddIdentity` 方法。</span><span class="sxs-lookup"><span data-stu-id="1ca19-171">An exception to this rule is the `AddIdentity` method.</span></span> <span data-ttu-id="1ca19-172">此方法 cookie 为你添加了，并将默认身份验证和质询方案设置为应用程序 cookie `IdentityConstants.ApplicationScheme` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-172">This method adds cookies for you and sets the default authenticate and challenge schemes to the application cookie `IdentityConstants.ApplicationScheme`.</span></span> <span data-ttu-id="1ca19-173">此外，它还将默认登录方案设置为外部 cookie `IdentityConstants.ExternalScheme` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-173">Additionally, it sets the default sign-in scheme to the external cookie `IdentityConstants.ExternalScheme`.</span></span>
 
 <a name="obsolete-interface"></a>
 
-## <a name="use-httpcontext-authentication-extensions"></a><span data-ttu-id="6f382-174">使用 HttpContext 身份验证扩展</span><span class="sxs-lookup"><span data-stu-id="6f382-174">Use HttpContext authentication extensions</span></span>
+## <a name="use-httpcontext-authentication-extensions"></a><span data-ttu-id="1ca19-174">使用 HttpContext 身份验证扩展</span><span class="sxs-lookup"><span data-stu-id="1ca19-174">Use HttpContext authentication extensions</span></span>
 
-<span data-ttu-id="6f382-175">`IAuthenticationManager`接口是到1.x 身份验证系统的主要入口点。</span><span class="sxs-lookup"><span data-stu-id="6f382-175">The `IAuthenticationManager` interface is the main entry point into the 1.x authentication system.</span></span> <span data-ttu-id="6f382-176">它已替换为命名空间中的一组新 `HttpContext` 扩展方法 `Microsoft.AspNetCore.Authentication` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-176">It has been replaced with a new set of `HttpContext` extension methods in the `Microsoft.AspNetCore.Authentication` namespace.</span></span>
+<span data-ttu-id="1ca19-175">`IAuthenticationManager`接口是到1.x 身份验证系统的主要入口点。</span><span class="sxs-lookup"><span data-stu-id="1ca19-175">The `IAuthenticationManager` interface is the main entry point into the 1.x authentication system.</span></span> <span data-ttu-id="1ca19-176">它已替换为命名空间中的一组新 `HttpContext` 扩展方法 `Microsoft.AspNetCore.Authentication` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-176">It has been replaced with a new set of `HttpContext` extension methods in the `Microsoft.AspNetCore.Authentication` namespace.</span></span>
 
-<span data-ttu-id="6f382-177">例如，1.x 项目引用 `Authentication` 属性：</span><span class="sxs-lookup"><span data-stu-id="6f382-177">For example, 1.x projects reference an `Authentication` property:</span></span>
+<span data-ttu-id="1ca19-177">例如，1.x 项目引用 `Authentication` 属性：</span><span class="sxs-lookup"><span data-stu-id="1ca19-177">For example, 1.x projects reference an `Authentication` property:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-<span data-ttu-id="6f382-178">在2.0 项目中，导入 `Microsoft.AspNetCore.Authentication` 命名空间，并删除 `Authentication` 属性引用：</span><span class="sxs-lookup"><span data-stu-id="6f382-178">In 2.0 projects, import the `Microsoft.AspNetCore.Authentication` namespace, and delete the `Authentication` property references:</span></span>
+<span data-ttu-id="1ca19-178">在2.0 项目中，导入 `Microsoft.AspNetCore.Authentication` 命名空间，并删除 `Authentication` 属性引用：</span><span class="sxs-lookup"><span data-stu-id="1ca19-178">In 2.0 projects, import the `Microsoft.AspNetCore.Authentication` namespace, and delete the `Authentication` property references:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
 <a name="windows-auth-changes"></a>
 
-## <a name="windows-authentication-httpsys--iisintegration"></a><span data-ttu-id="6f382-179">Windows 身份验证 ( # A0/IISIntegration) </span><span class="sxs-lookup"><span data-stu-id="6f382-179">Windows Authentication (HTTP.sys / IISIntegration)</span></span>
+## <a name="windows-authentication-httpsys--iisintegration"></a><span data-ttu-id="1ca19-179">Windows 身份验证 ( # A0/IISIntegration) </span><span class="sxs-lookup"><span data-stu-id="1ca19-179">Windows Authentication (HTTP.sys / IISIntegration)</span></span>
 
-<span data-ttu-id="6f382-180">Windows 身份验证有两种变体：</span><span class="sxs-lookup"><span data-stu-id="6f382-180">There are two variations of Windows authentication:</span></span>
+<span data-ttu-id="1ca19-180">Windows 身份验证有两种变体：</span><span class="sxs-lookup"><span data-stu-id="1ca19-180">There are two variations of Windows authentication:</span></span>
 
-* <span data-ttu-id="6f382-181">该主机仅允许经过身份验证的用户。</span><span class="sxs-lookup"><span data-stu-id="6f382-181">The host only allows authenticated users.</span></span> <span data-ttu-id="6f382-182">此变体不受2.0 更改的影响。</span><span class="sxs-lookup"><span data-stu-id="6f382-182">This variation isn't affected by the 2.0 changes.</span></span>
-* <span data-ttu-id="6f382-183">宿主允许匿名用户和经过身份验证的用户。</span><span class="sxs-lookup"><span data-stu-id="6f382-183">The host allows both anonymous and authenticated users.</span></span> <span data-ttu-id="6f382-184">此变体受2.0 更改的影响。</span><span class="sxs-lookup"><span data-stu-id="6f382-184">This variation is affected by the 2.0 changes.</span></span> <span data-ttu-id="6f382-185">例如，应用程序应该允许[IIS](xref:host-and-deploy/iis/index)或[HTTP.sys](xref:fundamentals/servers/httpsys)层上的匿名用户，但在控制器级别对用户进行授权。</span><span class="sxs-lookup"><span data-stu-id="6f382-185">For example, the app should allow anonymous users at the [IIS](xref:host-and-deploy/iis/index) or [HTTP.sys](xref:fundamentals/servers/httpsys) layer but authorize users at the controller level.</span></span> <span data-ttu-id="6f382-186">在此方案中，在方法中设置默认方案 `Startup.ConfigureServices` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-186">In this scenario, set the default scheme in the `Startup.ConfigureServices` method.</span></span>
+* <span data-ttu-id="1ca19-181">该主机仅允许经过身份验证的用户。</span><span class="sxs-lookup"><span data-stu-id="1ca19-181">The host only allows authenticated users.</span></span> <span data-ttu-id="1ca19-182">此变体不受2.0 更改的影响。</span><span class="sxs-lookup"><span data-stu-id="1ca19-182">This variation isn't affected by the 2.0 changes.</span></span>
+* <span data-ttu-id="1ca19-183">宿主允许匿名用户和经过身份验证的用户。</span><span class="sxs-lookup"><span data-stu-id="1ca19-183">The host allows both anonymous and authenticated users.</span></span> <span data-ttu-id="1ca19-184">此变体受2.0 更改的影响。</span><span class="sxs-lookup"><span data-stu-id="1ca19-184">This variation is affected by the 2.0 changes.</span></span> <span data-ttu-id="1ca19-185">例如，应用程序应该允许 [IIS](xref:host-and-deploy/iis/index) 或 [HTTP.sys](xref:fundamentals/servers/httpsys) 层上的匿名用户，但在控制器级别对用户进行授权。</span><span class="sxs-lookup"><span data-stu-id="1ca19-185">For example, the app should allow anonymous users at the [IIS](xref:host-and-deploy/iis/index) or [HTTP.sys](xref:fundamentals/servers/httpsys) layer but authorize users at the controller level.</span></span> <span data-ttu-id="1ca19-186">在此方案中，在方法中设置默认方案 `Startup.ConfigureServices` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-186">In this scenario, set the default scheme in the `Startup.ConfigureServices` method.</span></span>
 
-  <span data-ttu-id="6f382-187">对于[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)，将默认方案设置为 `IISDefaults.AuthenticationScheme` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-187">For [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/), set the default scheme to `IISDefaults.AuthenticationScheme`:</span></span>
+  <span data-ttu-id="1ca19-187">对于 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)，将默认方案设置为 `IISDefaults.AuthenticationScheme` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-187">For [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/), set the default scheme to `IISDefaults.AuthenticationScheme`:</span></span>
 
   ```csharp
   using Microsoft.AspNetCore.Server.IISIntegration;
@@ -328,7 +329,7 @@ services.AddAuthentication(options =>
   services.AddAuthentication(IISDefaults.AuthenticationScheme);
   ```
 
-  <span data-ttu-id="6f382-188">对于[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/)，将默认方案设置为 `HttpSysDefaults.AuthenticationScheme` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-188">For [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/), set the default scheme to `HttpSysDefaults.AuthenticationScheme`:</span></span>
+  <span data-ttu-id="1ca19-188">对于 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/)，将默认方案设置为 `HttpSysDefaults.AuthenticationScheme` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-188">For [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/), set the default scheme to `HttpSysDefaults.AuthenticationScheme`:</span></span>
 
   ```csharp
   using Microsoft.AspNetCore.Server.HttpSys;
@@ -336,43 +337,43 @@ services.AddAuthentication(options =>
   services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
   ```
 
-  <span data-ttu-id="6f382-189">未能设置默认方案会阻止授权 (质询) 请求使用以下例外：</span><span class="sxs-lookup"><span data-stu-id="6f382-189">Failure to set the default scheme prevents the authorize (challenge) request from working with the following exception:</span></span>
+  <span data-ttu-id="1ca19-189">未能设置默认方案会阻止授权 (质询) 请求使用以下例外：</span><span class="sxs-lookup"><span data-stu-id="1ca19-189">Failure to set the default scheme prevents the authorize (challenge) request from working with the following exception:</span></span>
 
-  > <span data-ttu-id="6f382-190">`System.InvalidOperationException`：未指定 authenticationScheme，且未找到 DefaultChallengeScheme。</span><span class="sxs-lookup"><span data-stu-id="6f382-190">`System.InvalidOperationException`: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.</span></span>
+  > <span data-ttu-id="1ca19-190">`System.InvalidOperationException`：未指定 authenticationScheme，且未找到 DefaultChallengeScheme。</span><span class="sxs-lookup"><span data-stu-id="1ca19-190">`System.InvalidOperationException`: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.</span></span>
 
-<span data-ttu-id="6f382-191">有关详细信息，请参阅 <xref:security/authentication/windowsauth>。</span><span class="sxs-lookup"><span data-stu-id="6f382-191">For more information, see <xref:security/authentication/windowsauth>.</span></span>
+<span data-ttu-id="1ca19-191">有关详细信息，请参阅 <xref:security/authentication/windowsauth>。</span><span class="sxs-lookup"><span data-stu-id="1ca19-191">For more information, see <xref:security/authentication/windowsauth>.</span></span>
 
 <a name="identity-cookie-options"></a>
 
-## <a name="no-locidentityno-loccookieoptions-instances"></a><span data-ttu-id="6f382-192">IdentityCookie选项实例</span><span class="sxs-lookup"><span data-stu-id="6f382-192">IdentityCookieOptions instances</span></span>
+## <a name="no-locidentityno-loccookieoptions-instances"></a><span data-ttu-id="1ca19-192">IdentityCookie选项实例</span><span class="sxs-lookup"><span data-stu-id="1ca19-192">IdentityCookieOptions instances</span></span>
 
-<span data-ttu-id="6f382-193">2.0 更改的副作用是切换到使用命名选项而不是 cookie 选项实例。</span><span class="sxs-lookup"><span data-stu-id="6f382-193">A side effect of the 2.0 changes is the switch to using named options instead of cookie options instances.</span></span> <span data-ttu-id="6f382-194">将删除自定义 Identity cookie 方案名称的功能。</span><span class="sxs-lookup"><span data-stu-id="6f382-194">The ability to customize the Identity cookie scheme names is removed.</span></span>
+<span data-ttu-id="1ca19-193">2.0 更改的副作用是切换到使用命名选项而不是 cookie 选项实例。</span><span class="sxs-lookup"><span data-stu-id="1ca19-193">A side effect of the 2.0 changes is the switch to using named options instead of cookie options instances.</span></span> <span data-ttu-id="1ca19-194">将删除自定义 Identity cookie 方案名称的功能。</span><span class="sxs-lookup"><span data-stu-id="1ca19-194">The ability to customize the Identity cookie scheme names is removed.</span></span>
 
-<span data-ttu-id="6f382-195">例如，1.x 项目使用[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)将 `IdentityCookieOptions` 参数传递到*AccountController.cs*和*ManageController.cs*中。</span><span class="sxs-lookup"><span data-stu-id="6f382-195">For example, 1.x projects use [constructor injection](xref:mvc/controllers/dependency-injection#constructor-injection) to pass an `IdentityCookieOptions` parameter into *AccountController.cs* and *ManageController.cs*.</span></span> <span data-ttu-id="6f382-196">cookie可从提供的实例中访问外部身份验证方案：</span><span class="sxs-lookup"><span data-stu-id="6f382-196">The external cookie authentication scheme is accessed from the provided instance:</span></span>
+<span data-ttu-id="1ca19-195">例如，1.x 项目使用 [构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection) 将 `IdentityCookieOptions` 参数传递到 *AccountController.cs* 和 *ManageController.cs*中。</span><span class="sxs-lookup"><span data-stu-id="1ca19-195">For example, 1.x projects use [constructor injection](xref:mvc/controllers/dependency-injection#constructor-injection) to pass an `IdentityCookieOptions` parameter into *AccountController.cs* and *ManageController.cs*.</span></span> <span data-ttu-id="1ca19-196">cookie可从提供的实例中访问外部身份验证方案：</span><span class="sxs-lookup"><span data-stu-id="1ca19-196">The external cookie authentication scheme is accessed from the provided instance:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor&highlight=4,11)]
 
-<span data-ttu-id="6f382-197">上述构造函数注入在2.0 项目中变得不必要， `_externalCookieScheme` 可以删除该字段：</span><span class="sxs-lookup"><span data-stu-id="6f382-197">The aforementioned constructor injection becomes unnecessary in 2.0 projects, and the `_externalCookieScheme` field can be deleted:</span></span>
+<span data-ttu-id="1ca19-197">上述构造函数注入在2.0 项目中变得不必要， `_externalCookieScheme` 可以删除该字段：</span><span class="sxs-lookup"><span data-stu-id="1ca19-197">The aforementioned constructor injection becomes unnecessary in 2.0 projects, and the `_externalCookieScheme` field can be deleted:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor)]
 
-<span data-ttu-id="6f382-198">1.x 项目使用此字段， `_externalCookieScheme` 如下所示：</span><span class="sxs-lookup"><span data-stu-id="6f382-198">1.x projects used the `_externalCookieScheme` field as follows:</span></span>
+<span data-ttu-id="1ca19-198">1.x 项目使用此字段， `_externalCookieScheme` 如下所示：</span><span class="sxs-lookup"><span data-stu-id="1ca19-198">1.x projects used the `_externalCookieScheme` field as follows:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-<span data-ttu-id="6f382-199">在2.0 项目中，将前面的代码替换为以下代码。</span><span class="sxs-lookup"><span data-stu-id="6f382-199">In 2.0 projects, replace the preceding code with the following.</span></span> <span data-ttu-id="6f382-200">`IdentityConstants.ExternalScheme`可以直接使用该常量。</span><span class="sxs-lookup"><span data-stu-id="6f382-200">The `IdentityConstants.ExternalScheme` constant can be used directly.</span></span>
+<span data-ttu-id="1ca19-199">在2.0 项目中，将前面的代码替换为以下代码。</span><span class="sxs-lookup"><span data-stu-id="1ca19-199">In 2.0 projects, replace the preceding code with the following.</span></span> <span data-ttu-id="1ca19-200">`IdentityConstants.ExternalScheme`可以直接使用该常量。</span><span class="sxs-lookup"><span data-stu-id="1ca19-200">The `IdentityConstants.ExternalScheme` constant can be used directly.</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-<span data-ttu-id="6f382-201">`SignOutAsync`通过导入以下命名空间来解析新添加的调用：</span><span class="sxs-lookup"><span data-stu-id="6f382-201">Resolve the newly added `SignOutAsync` call by importing the following namespace:</span></span>
+<span data-ttu-id="1ca19-201">`SignOutAsync`通过导入以下命名空间来解析新添加的调用：</span><span class="sxs-lookup"><span data-stu-id="1ca19-201">Resolve the newly added `SignOutAsync` call by importing the following namespace:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationImport)]
 
 <a name="navigation-properties"></a>
 
-## <a name="add-no-locidentityuser-poco-navigation-properties"></a><span data-ttu-id="6f382-202">添加 Identity 用户 POCO 导航属性</span><span class="sxs-lookup"><span data-stu-id="6f382-202">Add IdentityUser POCO navigation properties</span></span>
+## <a name="add-no-locidentityuser-poco-navigation-properties"></a><span data-ttu-id="1ca19-202">添加 Identity 用户 POCO 导航属性</span><span class="sxs-lookup"><span data-stu-id="1ca19-202">Add IdentityUser POCO navigation properties</span></span>
 
-<span data-ttu-id="6f382-203">已 `IdentityUser` 删除基本 POCO (普通旧 CLR 对象) 的实体框架 (EF) Core 导航属性。</span><span class="sxs-lookup"><span data-stu-id="6f382-203">The Entity Framework (EF) Core navigation properties of the base `IdentityUser` POCO (Plain Old CLR Object) have been removed.</span></span> <span data-ttu-id="6f382-204">如果你的1.x 项目使用这些属性，请将其手动添加回2.0 项目：</span><span class="sxs-lookup"><span data-stu-id="6f382-204">If your 1.x project used these properties, manually add them back to the 2.0 project:</span></span>
+<span data-ttu-id="1ca19-203">已 `IdentityUser` 删除基本 POCO (普通旧 CLR 对象) 的实体框架 (EF) Core 导航属性。</span><span class="sxs-lookup"><span data-stu-id="1ca19-203">The Entity Framework (EF) Core navigation properties of the base `IdentityUser` POCO (Plain Old CLR Object) have been removed.</span></span> <span data-ttu-id="1ca19-204">如果你的1.x 项目使用这些属性，请将其手动添加回2.0 项目：</span><span class="sxs-lookup"><span data-stu-id="1ca19-204">If your 1.x project used these properties, manually add them back to the 2.0 project:</span></span>
 
 ```csharp
 /// <summary>
@@ -391,7 +392,7 @@ public virtual ICollection<IdentityUserClaim<int>> Claims { get; } = new List<Id
 public virtual ICollection<IdentityUserLogin<int>> Logins { get; } = new List<IdentityUserLogin<int>>();
 ```
 
-<span data-ttu-id="6f382-205">若要防止在运行 EF Core 迁移时出现重复的外键，请在 `IdentityDbContext` 调用) 后将以下内容添加到类的 `OnModelCreating` 方法 (`base.OnModelCreating();` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-205">To prevent duplicate foreign keys when running EF Core Migrations, add the following to your `IdentityDbContext` class' `OnModelCreating` method (after the `base.OnModelCreating();` call):</span></span>
+<span data-ttu-id="1ca19-205">若要防止在运行 EF Core 迁移时出现重复的外键，请在 `IdentityDbContext` 调用) 后将以下内容添加到类的 `OnModelCreating` 方法 (`base.OnModelCreating();` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-205">To prevent duplicate foreign keys when running EF Core Migrations, add the following to your `IdentityDbContext` class' `OnModelCreating` method (after the `base.OnModelCreating();` call):</span></span>
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder builder)
@@ -426,38 +427,38 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 <a name="synchronous-method-removal"></a>
 
-## <a name="replace-getexternalauthenticationschemes"></a><span data-ttu-id="6f382-206">替换 GetExternalAuthenticationSchemes</span><span class="sxs-lookup"><span data-stu-id="6f382-206">Replace GetExternalAuthenticationSchemes</span></span>
+## <a name="replace-getexternalauthenticationschemes"></a><span data-ttu-id="1ca19-206">替换 GetExternalAuthenticationSchemes</span><span class="sxs-lookup"><span data-stu-id="1ca19-206">Replace GetExternalAuthenticationSchemes</span></span>
 
-<span data-ttu-id="6f382-207">删除同步方法 `GetExternalAuthenticationSchemes` 是为了支持异步版本。</span><span class="sxs-lookup"><span data-stu-id="6f382-207">The synchronous method `GetExternalAuthenticationSchemes` was removed in favor of an asynchronous version.</span></span> <span data-ttu-id="6f382-208">1.x 项目的*控制器/ManageController*中包含以下代码：</span><span class="sxs-lookup"><span data-stu-id="6f382-208">1.x projects have the following code in *Controllers/ManageController.cs*:</span></span>
+<span data-ttu-id="1ca19-207">删除同步方法 `GetExternalAuthenticationSchemes` 是为了支持异步版本。</span><span class="sxs-lookup"><span data-stu-id="1ca19-207">The synchronous method `GetExternalAuthenticationSchemes` was removed in favor of an asynchronous version.</span></span> <span data-ttu-id="1ca19-208">1.x 项目的 *控制器/ManageController*中包含以下代码：</span><span class="sxs-lookup"><span data-stu-id="1ca19-208">1.x projects have the following code in *Controllers/ManageController.cs*:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemes)]
 
-<span data-ttu-id="6f382-209">此方法也出现在*Views/Account/Login 中。 cshtml* ：</span><span class="sxs-lookup"><span data-stu-id="6f382-209">This method appears in *Views/Account/Login.cshtml* too:</span></span>
+<span data-ttu-id="1ca19-209">此方法也出现在 *Views/Account/Login 中。 cshtml* ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-209">This method appears in *Views/Account/Login.cshtml* too:</span></span>
 
 [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemes&highlight=2)]
 
-<span data-ttu-id="6f382-210">在2.0 项目中，请使用 <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> 方法。</span><span class="sxs-lookup"><span data-stu-id="6f382-210">In 2.0 projects, use the <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> method.</span></span> <span data-ttu-id="6f382-211">*ManageController.cs*中的更改类似于以下代码：</span><span class="sxs-lookup"><span data-stu-id="6f382-211">The change in *ManageController.cs* resembles the following code:</span></span>
+<span data-ttu-id="1ca19-210">在2.0 项目中，请使用 <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> 方法。</span><span class="sxs-lookup"><span data-stu-id="1ca19-210">In 2.0 projects, use the <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> method.</span></span> <span data-ttu-id="1ca19-211">*ManageController.cs*中的更改类似于以下代码：</span><span class="sxs-lookup"><span data-stu-id="1ca19-211">The change in *ManageController.cs* resembles the following code:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemesAsync)]
 
-<span data-ttu-id="6f382-212">在*Login*中， `AuthenticationScheme` 在循环中访问的属性 `foreach` 将更改为 `Name` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-212">In *Login.cshtml*, the `AuthenticationScheme` property accessed in the `foreach` loop changes to `Name`:</span></span>
+<span data-ttu-id="1ca19-212">在 *Login*中， `AuthenticationScheme` 在循环中访问的属性 `foreach` 将更改为 `Name` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-212">In *Login.cshtml*, the `AuthenticationScheme` property accessed in the `foreach` loop changes to `Name`:</span></span>
 
 [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemesAsync&highlight=2,19)]
 
 <a name="property-change"></a>
 
-## <a name="manageloginsviewmodel-property-change"></a><span data-ttu-id="6f382-213">ManageLoginsViewModel 属性更改</span><span class="sxs-lookup"><span data-stu-id="6f382-213">ManageLoginsViewModel property change</span></span>
+## <a name="manageloginsviewmodel-property-change"></a><span data-ttu-id="1ca19-213">ManageLoginsViewModel 属性更改</span><span class="sxs-lookup"><span data-stu-id="1ca19-213">ManageLoginsViewModel property change</span></span>
 
-<span data-ttu-id="6f382-214">`ManageLoginsViewModel`对象用于 `ManageLogins` *ManageController.cs*的操作。</span><span class="sxs-lookup"><span data-stu-id="6f382-214">A `ManageLoginsViewModel` object is used in the `ManageLogins` action of *ManageController.cs*.</span></span> <span data-ttu-id="6f382-215">在1.x 项目中，对象的 `OtherLogins` 属性返回类型为 `IList<AuthenticationDescription>` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-215">In 1.x projects, the object's `OtherLogins` property return type is `IList<AuthenticationDescription>`.</span></span> <span data-ttu-id="6f382-216">此返回类型需要导入 `Microsoft.AspNetCore.Http.Authentication` ：</span><span class="sxs-lookup"><span data-stu-id="6f382-216">This return type requires an import of `Microsoft.AspNetCore.Http.Authentication`:</span></span>
+<span data-ttu-id="1ca19-214">`ManageLoginsViewModel`对象用于 `ManageLogins` *ManageController.cs*的操作。</span><span class="sxs-lookup"><span data-stu-id="1ca19-214">A `ManageLoginsViewModel` object is used in the `ManageLogins` action of *ManageController.cs*.</span></span> <span data-ttu-id="1ca19-215">在1.x 项目中，对象的 `OtherLogins` 属性返回类型为 `IList<AuthenticationDescription>` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-215">In 1.x projects, the object's `OtherLogins` property return type is `IList<AuthenticationDescription>`.</span></span> <span data-ttu-id="1ca19-216">此返回类型需要导入 `Microsoft.AspNetCore.Http.Authentication` ：</span><span class="sxs-lookup"><span data-stu-id="1ca19-216">This return type requires an import of `Microsoft.AspNetCore.Http.Authentication`:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Models/ManageViewModels/ManageLoginsViewModel.cs?name=snippet_ManageLoginsViewModel&highlight=2,11)]
 
-<span data-ttu-id="6f382-217">在2.0 项目中，返回类型更改为 `IList<AuthenticationScheme>` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-217">In 2.0 projects, the return type changes to `IList<AuthenticationScheme>`.</span></span> <span data-ttu-id="6f382-218">这一新的返回类型需要 `Microsoft.AspNetCore.Http.Authentication` 使用导入替换导入 `Microsoft.AspNetCore.Authentication` 。</span><span class="sxs-lookup"><span data-stu-id="6f382-218">This new return type requires replacing the `Microsoft.AspNetCore.Http.Authentication` import with a `Microsoft.AspNetCore.Authentication` import.</span></span>
+<span data-ttu-id="1ca19-217">在2.0 项目中，返回类型更改为 `IList<AuthenticationScheme>` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-217">In 2.0 projects, the return type changes to `IList<AuthenticationScheme>`.</span></span> <span data-ttu-id="1ca19-218">这一新的返回类型需要 `Microsoft.AspNetCore.Http.Authentication` 使用导入替换导入 `Microsoft.AspNetCore.Authentication` 。</span><span class="sxs-lookup"><span data-stu-id="1ca19-218">This new return type requires replacing the `Microsoft.AspNetCore.Http.Authentication` import with a `Microsoft.AspNetCore.Authentication` import.</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Models/ManageViewModels/ManageLoginsViewModel.cs?name=snippet_ManageLoginsViewModel&highlight=2,11)]
 
 <a name="additional-resources"></a>
 
-## <a name="additional-resources"></a><span data-ttu-id="6f382-219">其他资源</span><span class="sxs-lookup"><span data-stu-id="6f382-219">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="1ca19-219">其他资源</span><span class="sxs-lookup"><span data-stu-id="1ca19-219">Additional resources</span></span>
 
-<span data-ttu-id="6f382-220">有关详细信息，请参阅 GitHub 上[的有关 Auth 2.0](https://github.com/aspnet/Security/issues/1338)问题的讨论。</span><span class="sxs-lookup"><span data-stu-id="6f382-220">For more information, see the [Discussion for Auth 2.0](https://github.com/aspnet/Security/issues/1338) issue on GitHub.</span></span>
+<span data-ttu-id="1ca19-220">有关详细信息，请参阅 GitHub 上 [的有关 Auth 2.0](https://github.com/aspnet/Security/issues/1338) 问题的讨论。</span><span class="sxs-lookup"><span data-stu-id="1ca19-220">For more information, see the [Discussion for Auth 2.0](https://github.com/aspnet/Security/issues/1338) issue on GitHub.</span></span>
