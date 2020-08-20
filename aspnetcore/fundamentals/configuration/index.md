@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 8f39d6f460faaab3d54178daf3730f5a6662df40
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: fe0a0d3dbb87455be602234825d702fab02df936
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130686"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634587"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -254,14 +255,6 @@ dotnet run --MyKey "Using --" --Position:Title=Cmd-- --Position:Name=Cmd--Rick
 
 ```dotnetcli
 dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
-```
-
-<!-- Run the following command to test the key replacement: -->
-
-注意：目前，`=` 不能用于设置带有单划线 `-` 的键替换值。 请参阅[此 GitHub 问题](https://github.com/dotnet/extensions/issues/3059)。
-
-```dotnetcli
-dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
 ```
 
 对于使用交换映射的应用，调用 `CreateDefaultBuilder` 不应传递参数。 `CreateDefaultBuilder` 方法的 `AddCommandLine` 调用不包括映射的交换，并且无法将交换映射字典传递给 `CreateDefaultBuilder`。 解决方案不是将参数传递给 `CreateDefaultBuilder`，而是允许 `ConfigurationBuilder` 方法的 `AddCommandLine` 方法处理参数和交换映射字典。
@@ -1112,7 +1105,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 键       | 值             |
+| 密钥       | 值             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1689,7 +1682,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 键             | 值  |
+| 密钥             | 值  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
