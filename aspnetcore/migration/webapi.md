@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/26/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,137 +17,137 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/webapi
-ms.openlocfilehash: 4888de6ad55037be540cb62b6e4f02878e2b57ab
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e3e46f8050ba87c3108885341675c9d2a2cb7847
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014810"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635159"
 ---
-# <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a><span data-ttu-id="c5e61-103">从 ASP.NET Web API 迁移到 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="c5e61-103">Migrate from ASP.NET Web API to ASP.NET Core</span></span>
+# <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a><span data-ttu-id="99606-103">从 ASP.NET Web API 迁移到 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="99606-103">Migrate from ASP.NET Web API to ASP.NET Core</span></span>
 
-<span data-ttu-id="c5e61-104">作者： [Scott Addie](https://twitter.com/scott_addie)和[Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="c5e61-104">By [Scott Addie](https://twitter.com/scott_addie) and [Steve Smith](https://ardalis.com/)</span></span>
+<span data-ttu-id="99606-104">作者： [Scott Addie](https://twitter.com/scott_addie) 和 [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="99606-104">By [Scott Addie](https://twitter.com/scott_addie) and [Steve Smith](https://ardalis.com/)</span></span>
 
-<span data-ttu-id="c5e61-105">ASP.NET 4.x Web API 是一种 HTTP 服务，它可达到各种客户端，包括浏览器和移动设备。</span><span class="sxs-lookup"><span data-stu-id="c5e61-105">An ASP.NET 4.x Web API is an HTTP service that reaches a broad range of clients, including browsers and mobile devices.</span></span> <span data-ttu-id="c5e61-106">ASP.NET Core 将 ASP.NET 4.x 的 MVC 和 Web API 应用模型组合到称为 ASP.NET Core MVC 的单一编程模型中。</span><span class="sxs-lookup"><span data-stu-id="c5e61-106">ASP.NET Core combines ASP.NET 4.x's MVC and Web API app models into a single programming model known as ASP.NET Core MVC.</span></span> <span data-ttu-id="c5e61-107">本文演示从 ASP.NET 4.x Web API 迁移到 ASP.NET Core MVC 所需的步骤。</span><span class="sxs-lookup"><span data-stu-id="c5e61-107">This article demonstrates the steps required to migrate from ASP.NET 4.x Web API to ASP.NET Core MVC.</span></span>
+<span data-ttu-id="99606-105">ASP.NET 4.x Web API 是一种 HTTP 服务，它可达到各种客户端，包括浏览器和移动设备。</span><span class="sxs-lookup"><span data-stu-id="99606-105">An ASP.NET 4.x Web API is an HTTP service that reaches a broad range of clients, including browsers and mobile devices.</span></span> <span data-ttu-id="99606-106">ASP.NET Core 将 ASP.NET 4.x 的 MVC 和 Web API 应用模型组合到称为 ASP.NET Core MVC 的单一编程模型中。</span><span class="sxs-lookup"><span data-stu-id="99606-106">ASP.NET Core combines ASP.NET 4.x's MVC and Web API app models into a single programming model known as ASP.NET Core MVC.</span></span> <span data-ttu-id="99606-107">本文演示从 ASP.NET 4.x Web API 迁移到 ASP.NET Core MVC 所需的步骤。</span><span class="sxs-lookup"><span data-stu-id="99606-107">This article demonstrates the steps required to migrate from ASP.NET 4.x Web API to ASP.NET Core MVC.</span></span>
 
-<span data-ttu-id="c5e61-108">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="c5e61-108">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="99606-108">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="99606-108">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="prerequisites"></a><span data-ttu-id="c5e61-109">先决条件</span><span class="sxs-lookup"><span data-stu-id="c5e61-109">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="99606-109">先决条件</span><span class="sxs-lookup"><span data-stu-id="99606-109">Prerequisites</span></span>
 
 [!INCLUDE [prerequisites](../includes/net-core-prereqs-vs-3.1.md)]
 
-## <a name="review-aspnet-4x-web-api-project"></a><span data-ttu-id="c5e61-110">查看 ASP.NET 4.x Web API 项目</span><span class="sxs-lookup"><span data-stu-id="c5e61-110">Review ASP.NET 4.x Web API project</span></span>
+## <a name="review-aspnet-4x-web-api-project"></a><span data-ttu-id="99606-110">查看 ASP.NET 4.x Web API 项目</span><span class="sxs-lookup"><span data-stu-id="99606-110">Review ASP.NET 4.x Web API project</span></span>
 
-<span data-ttu-id="c5e61-111">本文使用[ASP.NET Web API 2 入门](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)中创建的*ProductsApp*项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-111">This article uses the *ProductsApp* project created in [Getting Started with ASP.NET Web API 2](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api).</span></span> <span data-ttu-id="c5e61-112">在该项目中，基本的 ASP.NET 4.x Web API 项目配置如下。</span><span class="sxs-lookup"><span data-stu-id="c5e61-112">In that project, a basic ASP.NET 4.x Web API project is configured as follows.</span></span>
+<span data-ttu-id="99606-111">本文使用[ASP.NET Web API 2 入门](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)中创建的*ProductsApp*项目。</span><span class="sxs-lookup"><span data-stu-id="99606-111">This article uses the *ProductsApp* project created in [Getting Started with ASP.NET Web API 2](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api).</span></span> <span data-ttu-id="99606-112">在该项目中，基本的 ASP.NET 4.x Web API 项目配置如下。</span><span class="sxs-lookup"><span data-stu-id="99606-112">In that project, a basic ASP.NET 4.x Web API project is configured as follows.</span></span>
 
-<span data-ttu-id="c5e61-113">在*Global.asax.cs*中，对进行调用 `WebApiConfig.Register` ：</span><span class="sxs-lookup"><span data-stu-id="c5e61-113">In *Global.asax.cs*, a call is made to `WebApiConfig.Register`:</span></span>
+<span data-ttu-id="99606-113">在 *Global.asax.cs*中，对进行调用 `WebApiConfig.Register` ：</span><span class="sxs-lookup"><span data-stu-id="99606-113">In *Global.asax.cs*, a call is made to `WebApiConfig.Register`:</span></span>
 
 [!code-csharp[](webapi/sample/3.x/ProductsApp/Global.asax.cs?highlight=14)]
 
-<span data-ttu-id="c5e61-114">`WebApiConfig`类位于*App_Start*文件夹中，并具有一个静态 `Register` 方法：</span><span class="sxs-lookup"><span data-stu-id="c5e61-114">The `WebApiConfig` class is found in the *App_Start* folder and has a static `Register` method:</span></span>
+<span data-ttu-id="99606-114">`WebApiConfig`类位于*App_Start*文件夹中，并具有一个静态 `Register` 方法：</span><span class="sxs-lookup"><span data-stu-id="99606-114">The `WebApiConfig` class is found in the *App_Start* folder and has a static `Register` method:</span></span>
 
 [!code-csharp[](webapi/sample/3.x/ProductsApp/App_Start/WebApiConfig.cs)]
 
-<span data-ttu-id="c5e61-115">前面的类：</span><span class="sxs-lookup"><span data-stu-id="c5e61-115">The preceding class:</span></span>
+<span data-ttu-id="99606-115">前面的类：</span><span class="sxs-lookup"><span data-stu-id="99606-115">The preceding class:</span></span>
 
-* <span data-ttu-id="c5e61-116">配置[属性路由](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2)，但实际上并没有使用它。</span><span class="sxs-lookup"><span data-stu-id="c5e61-116">Configures [attribute routing](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2), although it's not actually being used.</span></span>
-* <span data-ttu-id="c5e61-117">配置路由表。</span><span class="sxs-lookup"><span data-stu-id="c5e61-117">Configures the routing table.</span></span>
-<span data-ttu-id="c5e61-118">示例代码需要 Url 来匹配格式，这 `/api/{controller}/{id}` `{id}` 是可选的。</span><span class="sxs-lookup"><span data-stu-id="c5e61-118">The sample code expects URLs to match the format `/api/{controller}/{id}`, with `{id}` being optional.</span></span>
+* <span data-ttu-id="99606-116">配置 [属性路由](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2)，但实际上并没有使用它。</span><span class="sxs-lookup"><span data-stu-id="99606-116">Configures [attribute routing](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2), although it's not actually being used.</span></span>
+* <span data-ttu-id="99606-117">配置路由表。</span><span class="sxs-lookup"><span data-stu-id="99606-117">Configures the routing table.</span></span>
+<span data-ttu-id="99606-118">示例代码需要 Url 来匹配格式，这 `/api/{controller}/{id}` `{id}` 是可选的。</span><span class="sxs-lookup"><span data-stu-id="99606-118">The sample code expects URLs to match the format `/api/{controller}/{id}`, with `{id}` being optional.</span></span>
 
-<span data-ttu-id="c5e61-119">以下部分演示了如何将 Web API 项目迁移到 ASP.NET Core MVC。</span><span class="sxs-lookup"><span data-stu-id="c5e61-119">The following sections demonstrate migration of the Web API project to ASP.NET Core MVC.</span></span>
+<span data-ttu-id="99606-119">以下部分演示了如何将 Web API 项目迁移到 ASP.NET Core MVC。</span><span class="sxs-lookup"><span data-stu-id="99606-119">The following sections demonstrate migration of the Web API project to ASP.NET Core MVC.</span></span>
 
-## <a name="create-the-destination-project"></a><span data-ttu-id="c5e61-120">创建目标项目</span><span class="sxs-lookup"><span data-stu-id="c5e61-120">Create the destination project</span></span>
+## <a name="create-the-destination-project"></a><span data-ttu-id="99606-120">创建目标项目</span><span class="sxs-lookup"><span data-stu-id="99606-120">Create the destination project</span></span>
 
-<span data-ttu-id="c5e61-121">在 Visual Studio 中创建新的空白解决方案并添加 ASP.NET 4.x Web API 项目以进行迁移：</span><span class="sxs-lookup"><span data-stu-id="c5e61-121">Create a new blank solution in Visual Studio and add the ASP.NET 4.x Web API project to migrate:</span></span>
+<span data-ttu-id="99606-121">在 Visual Studio 中创建新的空白解决方案并添加 ASP.NET 4.x Web API 项目以进行迁移：</span><span class="sxs-lookup"><span data-stu-id="99606-121">Create a new blank solution in Visual Studio and add the ASP.NET 4.x Web API project to migrate:</span></span>
 
-1. <span data-ttu-id="c5e61-122">从“文件”菜单中选择“新建”>“项目”  。</span><span class="sxs-lookup"><span data-stu-id="c5e61-122">From the **File** menu, select **New** > **Project**.</span></span>
-1. <span data-ttu-id="c5e61-123">选择 "**空白解决方案**" 模板，然后选择 "**下一步**"。</span><span class="sxs-lookup"><span data-stu-id="c5e61-123">Select the **Blank Solution** template and select **Next**.</span></span>
-1. <span data-ttu-id="c5e61-124">将解决方案命名为*WebAPIMigration*。</span><span class="sxs-lookup"><span data-stu-id="c5e61-124">Name the solution *WebAPIMigration*.</span></span> <span data-ttu-id="c5e61-125">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="c5e61-125">Select **Create**.</span></span>
-1. <span data-ttu-id="c5e61-126">将现有的*ProductsApp*项目添加到解决方案。</span><span class="sxs-lookup"><span data-stu-id="c5e61-126">Add the existing *ProductsApp* project to the solution.</span></span>
+1. <span data-ttu-id="99606-122">从“文件”菜单中选择“新建”>“项目”  。</span><span class="sxs-lookup"><span data-stu-id="99606-122">From the **File** menu, select **New** > **Project**.</span></span>
+1. <span data-ttu-id="99606-123">选择 " **空白解决方案** " 模板，然后选择 " **下一步**"。</span><span class="sxs-lookup"><span data-stu-id="99606-123">Select the **Blank Solution** template and select **Next**.</span></span>
+1. <span data-ttu-id="99606-124">将解决方案命名为 *WebAPIMigration*。</span><span class="sxs-lookup"><span data-stu-id="99606-124">Name the solution *WebAPIMigration*.</span></span> <span data-ttu-id="99606-125">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="99606-125">Select **Create**.</span></span>
+1. <span data-ttu-id="99606-126">将现有的 *ProductsApp* 项目添加到解决方案。</span><span class="sxs-lookup"><span data-stu-id="99606-126">Add the existing *ProductsApp* project to the solution.</span></span>
 
-<span data-ttu-id="c5e61-127">添加要迁移到的新 API 项目：</span><span class="sxs-lookup"><span data-stu-id="c5e61-127">Add a new API project to migrate to:</span></span>
+<span data-ttu-id="99606-127">添加要迁移到的新 API 项目：</span><span class="sxs-lookup"><span data-stu-id="99606-127">Add a new API project to migrate to:</span></span>
 
-1. <span data-ttu-id="c5e61-128">向解决方案添加新的**ASP.NET Core Web 应用程序**项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-128">Add a new **ASP.NET Core Web Application** project to the solution.</span></span>
-1. <span data-ttu-id="c5e61-129">在 "**配置新项目**" 对话框中，将项目命名为*ProductsCore*，然后选择 "**创建**"。</span><span class="sxs-lookup"><span data-stu-id="c5e61-129">In the **Configure your new project** dialog, Name the project *ProductsCore*, and select **Create**.</span></span>
-1. <span data-ttu-id="c5e61-130">在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”  。</span><span class="sxs-lookup"><span data-stu-id="c5e61-130">In the **Create a new ASP.NET Core Web Application** dialog, confirm that **.NET Core** and **ASP.NET Core 3.1** are selected.</span></span> <span data-ttu-id="c5e61-131">选择“API”项目模板，然后选择“创建” 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-131">Select the **API** project template, and select **Create**.</span></span>
-1. <span data-ttu-id="c5e61-132">从新的*ProductsCore*项目中删除*WeatherForecast.cs*和 controller */WeatherForecastController*示例文件。</span><span class="sxs-lookup"><span data-stu-id="c5e61-132">Remove the *WeatherForecast.cs* and *Controllers/WeatherForecastController.cs* example files from the new *ProductsCore* project.</span></span>
+1. <span data-ttu-id="99606-128">向解决方案添加新的 **ASP.NET Core Web 应用程序** 项目。</span><span class="sxs-lookup"><span data-stu-id="99606-128">Add a new **ASP.NET Core Web Application** project to the solution.</span></span>
+1. <span data-ttu-id="99606-129">在 " **配置新项目** " 对话框中，将项目命名为 *ProductsCore*，然后选择 " **创建**"。</span><span class="sxs-lookup"><span data-stu-id="99606-129">In the **Configure your new project** dialog, Name the project *ProductsCore*, and select **Create**.</span></span>
+1. <span data-ttu-id="99606-130">在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”  。</span><span class="sxs-lookup"><span data-stu-id="99606-130">In the **Create a new ASP.NET Core Web Application** dialog, confirm that **.NET Core** and **ASP.NET Core 3.1** are selected.</span></span> <span data-ttu-id="99606-131">选择“API”项目模板，然后选择“创建” 。</span><span class="sxs-lookup"><span data-stu-id="99606-131">Select the **API** project template, and select **Create**.</span></span>
+1. <span data-ttu-id="99606-132">从新的*ProductsCore*项目中删除*WeatherForecast.cs*和 controller */WeatherForecastController*示例文件。</span><span class="sxs-lookup"><span data-stu-id="99606-132">Remove the *WeatherForecast.cs* and *Controllers/WeatherForecastController.cs* example files from the new *ProductsCore* project.</span></span>
 
-<span data-ttu-id="c5e61-133">解决方案现在包含两个项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-133">The solution now contains two projects.</span></span> <span data-ttu-id="c5e61-134">以下各节介绍了如何将*ProductsApp*项目的内容迁移到*ProductsCore*项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-134">The following sections explain migrating the *ProductsApp* project's contents to the *ProductsCore* project.</span></span>
+<span data-ttu-id="99606-133">解决方案现在包含两个项目。</span><span class="sxs-lookup"><span data-stu-id="99606-133">The solution now contains two projects.</span></span> <span data-ttu-id="99606-134">以下各节介绍了如何将 *ProductsApp* 项目的内容迁移到 *ProductsCore* 项目。</span><span class="sxs-lookup"><span data-stu-id="99606-134">The following sections explain migrating the *ProductsApp* project's contents to the *ProductsCore* project.</span></span>
 
-## <a name="migrate-configuration"></a><span data-ttu-id="c5e61-135">迁移配置</span><span class="sxs-lookup"><span data-stu-id="c5e61-135">Migrate configuration</span></span>
+## <a name="migrate-configuration"></a><span data-ttu-id="99606-135">迁移配置</span><span class="sxs-lookup"><span data-stu-id="99606-135">Migrate configuration</span></span>
 
-<span data-ttu-id="c5e61-136">ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件。</span><span class="sxs-lookup"><span data-stu-id="c5e61-136">ASP.NET Core doesn't use the *App_Start* folder or the *Global.asax* file.</span></span> <span data-ttu-id="c5e61-137">此外，还会在发布时添加*web.config*文件。</span><span class="sxs-lookup"><span data-stu-id="c5e61-137">Additionally, the *web.config* file is added at publish time.</span></span>
+<span data-ttu-id="99606-136">ASP.NET Core 不使用 *App_Start* 文件夹或 *global.asax* 文件。</span><span class="sxs-lookup"><span data-stu-id="99606-136">ASP.NET Core doesn't use the *App_Start* folder or the *Global.asax* file.</span></span> <span data-ttu-id="99606-137">此外，还会在发布时添加 *web.config* 文件。</span><span class="sxs-lookup"><span data-stu-id="99606-137">Additionally, the *web.config* file is added at publish time.</span></span>
 
-<span data-ttu-id="c5e61-138">`Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="c5e61-138">The `Startup` class:</span></span>
+<span data-ttu-id="99606-138">`Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="99606-138">The `Startup` class:</span></span>
 
-* <span data-ttu-id="c5e61-139">替换*global.asax*。</span><span class="sxs-lookup"><span data-stu-id="c5e61-139">Replaces *Global.asax*.</span></span>
-* <span data-ttu-id="c5e61-140">处理所有应用启动任务。</span><span class="sxs-lookup"><span data-stu-id="c5e61-140">Handles all app startup tasks.</span></span>
+* <span data-ttu-id="99606-139">替换 *global.asax*。</span><span class="sxs-lookup"><span data-stu-id="99606-139">Replaces *Global.asax*.</span></span>
+* <span data-ttu-id="99606-140">处理所有应用启动任务。</span><span class="sxs-lookup"><span data-stu-id="99606-140">Handles all app startup tasks.</span></span>
 
-<span data-ttu-id="c5e61-141">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="c5e61-141">For more information, see <xref:fundamentals/startup>.</span></span>
+<span data-ttu-id="99606-141">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="99606-141">For more information, see <xref:fundamentals/startup>.</span></span>
 
-## <a name="migrate-models-and-controllers"></a><span data-ttu-id="c5e61-142">迁移模型和控制器</span><span class="sxs-lookup"><span data-stu-id="c5e61-142">Migrate models and controllers</span></span>
+## <a name="migrate-models-and-controllers"></a><span data-ttu-id="99606-142">迁移模型和控制器</span><span class="sxs-lookup"><span data-stu-id="99606-142">Migrate models and controllers</span></span>
 
-<span data-ttu-id="c5e61-143">下面的代码演示 `ProductsController` 要为 ASP.NET Core 更新的：</span><span class="sxs-lookup"><span data-stu-id="c5e61-143">The following code shows the `ProductsController` to be updated for ASP.NET Core:</span></span>
+<span data-ttu-id="99606-143">下面的代码演示 `ProductsController` 要为 ASP.NET Core 更新的：</span><span class="sxs-lookup"><span data-stu-id="99606-143">The following code shows the `ProductsController` to be updated for ASP.NET Core:</span></span>
 
 [!code-csharp[](webapi/sample/3.x/ProductsApp/Controllers/ProductsController.cs)]
 
-<span data-ttu-id="c5e61-144">更新 `ProductsController` ASP.NET Core 的：</span><span class="sxs-lookup"><span data-stu-id="c5e61-144">Update the `ProductsController` for ASP.NET Core:</span></span>
+<span data-ttu-id="99606-144">更新 `ProductsController` ASP.NET Core 的：</span><span class="sxs-lookup"><span data-stu-id="99606-144">Update the `ProductsController` for ASP.NET Core:</span></span>
 
-1. <span data-ttu-id="c5e61-145">将*控制器/ProductsController*和*模型*文件夹从原始项目复制到新项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-145">Copy *Controllers/ProductsController.cs* and the *Models* folder from the original project to the new one.</span></span>
-1. <span data-ttu-id="c5e61-146">将复制的文件的根命名空间更改为 `ProductsCore` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-146">Change the copied files' root namespace to `ProductsCore`.</span></span>
-1. <span data-ttu-id="c5e61-147">将 `using ProductsApp.Models;` 语句更新到 `using ProductsCore.Models;` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-147">Update the `using ProductsApp.Models;` statement to `using ProductsCore.Models;`.</span></span>
+1. <span data-ttu-id="99606-145">将 *控制器/ProductsController* 和 *模型* 文件夹从原始项目复制到新项目。</span><span class="sxs-lookup"><span data-stu-id="99606-145">Copy *Controllers/ProductsController.cs* and the *Models* folder from the original project to the new one.</span></span>
+1. <span data-ttu-id="99606-146">将复制的文件的根命名空间更改为 `ProductsCore` 。</span><span class="sxs-lookup"><span data-stu-id="99606-146">Change the copied files' root namespace to `ProductsCore`.</span></span>
+1. <span data-ttu-id="99606-147">将 `using ProductsApp.Models;` 语句更新到 `using ProductsCore.Models;` 。</span><span class="sxs-lookup"><span data-stu-id="99606-147">Update the `using ProductsApp.Models;` statement to `using ProductsCore.Models;`.</span></span>
 
-<span data-ttu-id="c5e61-148">ASP.NET Core 中不存在下列组件：</span><span class="sxs-lookup"><span data-stu-id="c5e61-148">The following components don't exist in ASP.NET Core:</span></span>
+<span data-ttu-id="99606-148">ASP.NET Core 中不存在下列组件：</span><span class="sxs-lookup"><span data-stu-id="99606-148">The following components don't exist in ASP.NET Core:</span></span>
 
-* <span data-ttu-id="c5e61-149">`ApiController` 类</span><span class="sxs-lookup"><span data-stu-id="c5e61-149">`ApiController` class</span></span>
-* <span data-ttu-id="c5e61-150">`System.Web.Http` 命名空间</span><span class="sxs-lookup"><span data-stu-id="c5e61-150">`System.Web.Http` namespace</span></span>
-* <span data-ttu-id="c5e61-151">`IHttpActionResult` 接口</span><span class="sxs-lookup"><span data-stu-id="c5e61-151">`IHttpActionResult` interface</span></span>
+* <span data-ttu-id="99606-149">`ApiController` 类</span><span class="sxs-lookup"><span data-stu-id="99606-149">`ApiController` class</span></span>
+* <span data-ttu-id="99606-150">`System.Web.Http` 命名空间</span><span class="sxs-lookup"><span data-stu-id="99606-150">`System.Web.Http` namespace</span></span>
+* <span data-ttu-id="99606-151">`IHttpActionResult` 接口</span><span class="sxs-lookup"><span data-stu-id="99606-151">`IHttpActionResult` interface</span></span>
 
-<span data-ttu-id="c5e61-152">进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="c5e61-152">Make the following changes:</span></span>
+<span data-ttu-id="99606-152">进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="99606-152">Make the following changes:</span></span>
 
-1. <span data-ttu-id="c5e61-153">将 `ApiController` 更改为 <xref:Microsoft.AspNetCore.Mvc.ControllerBase>。</span><span class="sxs-lookup"><span data-stu-id="c5e61-153">Change `ApiController` to <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="c5e61-154">添加 `using Microsoft.AspNetCore.Mvc;` 以解析 `ControllerBase` 引用。</span><span class="sxs-lookup"><span data-stu-id="c5e61-154">Add `using Microsoft.AspNetCore.Mvc;` to resolve the `ControllerBase` reference.</span></span>
-1. <span data-ttu-id="c5e61-155">删除 `using System.Web.Http;`。</span><span class="sxs-lookup"><span data-stu-id="c5e61-155">Delete `using System.Web.Http;`.</span></span>
-1. <span data-ttu-id="c5e61-156">将 `GetProduct` 操作的返回类型从更改 `IHttpActionResult` 为 `ActionResult<Product>` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-156">Change the `GetProduct` action's return type from `IHttpActionResult` to `ActionResult<Product>`.</span></span>
-1. <span data-ttu-id="c5e61-157">简化 `GetProduct` 操作的 `return` 语句：</span><span class="sxs-lookup"><span data-stu-id="c5e61-157">Simplify the `GetProduct` action's `return` statement to the following:</span></span>
+1. <span data-ttu-id="99606-153">将 `ApiController` 更改为 <xref:Microsoft.AspNetCore.Mvc.ControllerBase>。</span><span class="sxs-lookup"><span data-stu-id="99606-153">Change `ApiController` to <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="99606-154">添加 `using Microsoft.AspNetCore.Mvc;` 以解析 `ControllerBase` 引用。</span><span class="sxs-lookup"><span data-stu-id="99606-154">Add `using Microsoft.AspNetCore.Mvc;` to resolve the `ControllerBase` reference.</span></span>
+1. <span data-ttu-id="99606-155">删除 `using System.Web.Http;`。</span><span class="sxs-lookup"><span data-stu-id="99606-155">Delete `using System.Web.Http;`.</span></span>
+1. <span data-ttu-id="99606-156">将 `GetProduct` 操作的返回类型从更改 `IHttpActionResult` 为 `ActionResult<Product>` 。</span><span class="sxs-lookup"><span data-stu-id="99606-156">Change the `GetProduct` action's return type from `IHttpActionResult` to `ActionResult<Product>`.</span></span>
+1. <span data-ttu-id="99606-157">简化 `GetProduct` 操作的 `return` 语句：</span><span class="sxs-lookup"><span data-stu-id="99606-157">Simplify the `GetProduct` action's `return` statement to the following:</span></span>
 
     ```csharp
     return product;
     ```
 
-## <a name="configure-routing"></a><span data-ttu-id="c5e61-158">配置路由</span><span class="sxs-lookup"><span data-stu-id="c5e61-158">Configure routing</span></span>
+## <a name="configure-routing"></a><span data-ttu-id="99606-158">配置路由</span><span class="sxs-lookup"><span data-stu-id="99606-158">Configure routing</span></span>
 
-<span data-ttu-id="c5e61-159">ASP.NET Core *API*项目模板在生成的代码中包含终结点路由配置。</span><span class="sxs-lookup"><span data-stu-id="c5e61-159">The ASP.NET Core *API* project template includes endpoint routing configuration in the generated code.</span></span>
+<span data-ttu-id="99606-159">ASP.NET Core *API* 项目模板在生成的代码中包含终结点路由配置。</span><span class="sxs-lookup"><span data-stu-id="99606-159">The ASP.NET Core *API* project template includes endpoint routing configuration in the generated code.</span></span>
 
-<span data-ttu-id="c5e61-160">以下 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A> 和 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> 调用：</span><span class="sxs-lookup"><span data-stu-id="c5e61-160">The following <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A> and <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> calls:</span></span>
+<span data-ttu-id="99606-160">以下 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A> 和 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> 调用：</span><span class="sxs-lookup"><span data-stu-id="99606-160">The following <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A> and <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> calls:</span></span>
 
-* <span data-ttu-id="c5e61-161">在[中间件](xref:fundamentals/middleware/index)管道中注册路由匹配和终结点执行。</span><span class="sxs-lookup"><span data-stu-id="c5e61-161">Register route matching and endpoint execution in the [middleware](xref:fundamentals/middleware/index) pipeline.</span></span>
-* <span data-ttu-id="c5e61-162">替换*ProductsApp*项目的*App_Start/webapiconfig.cs*文件。</span><span class="sxs-lookup"><span data-stu-id="c5e61-162">Replace the *ProductsApp* project's *App_Start/WebApiConfig.cs* file.</span></span>
+* <span data-ttu-id="99606-161">在 [中间件](xref:fundamentals/middleware/index) 管道中注册路由匹配和终结点执行。</span><span class="sxs-lookup"><span data-stu-id="99606-161">Register route matching and endpoint execution in the [middleware](xref:fundamentals/middleware/index) pipeline.</span></span>
+* <span data-ttu-id="99606-162">替换 *ProductsApp* 项目的 *App_Start/webapiconfig.cs* 文件。</span><span class="sxs-lookup"><span data-stu-id="99606-162">Replace the *ProductsApp* project's *App_Start/WebApiConfig.cs* file.</span></span>
 
 [!code-csharp[](webapi/sample/3.x/ProductsCore/Startup.cs?name=snippet_Configure&highlight=10,14)]
 
-<span data-ttu-id="c5e61-163">按如下所示配置路由：</span><span class="sxs-lookup"><span data-stu-id="c5e61-163">Configure routing as follows:</span></span>
+<span data-ttu-id="99606-163">按如下所示配置路由：</span><span class="sxs-lookup"><span data-stu-id="99606-163">Configure routing as follows:</span></span>
 
-1. <span data-ttu-id="c5e61-164">`ProductsController`用以下特性标记类：</span><span class="sxs-lookup"><span data-stu-id="c5e61-164">Mark the `ProductsController` class with the following attributes:</span></span>
+1. <span data-ttu-id="99606-164">`ProductsController`用以下特性标记类：</span><span class="sxs-lookup"><span data-stu-id="99606-164">Mark the `ProductsController` class with the following attributes:</span></span>
 
     ```csharp
     [Route("api/[controller]")]
     [ApiController]
     ```
 
-    <span data-ttu-id="c5e61-165">上述 [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) 属性配置控制器的属性路由模式。</span><span class="sxs-lookup"><span data-stu-id="c5e61-165">The preceding [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) attribute configures the controller's attribute routing pattern.</span></span> <span data-ttu-id="c5e61-166">[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)特性使特性路由成为此控制器中所有操作的要求。</span><span class="sxs-lookup"><span data-stu-id="c5e61-166">The [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute makes attribute routing a requirement for all actions in this controller.</span></span>
+    <span data-ttu-id="99606-165">上述 [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) 属性配置控制器的属性路由模式。</span><span class="sxs-lookup"><span data-stu-id="99606-165">The preceding [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) attribute configures the controller's attribute routing pattern.</span></span> <span data-ttu-id="99606-166">[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)特性使特性路由成为此控制器中所有操作的要求。</span><span class="sxs-lookup"><span data-stu-id="99606-166">The [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute makes attribute routing a requirement for all actions in this controller.</span></span>
 
-    <span data-ttu-id="c5e61-167">特性路由支持标记，例如 `[controller]` 和 `[action]` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-167">Attribute routing supports tokens, such as `[controller]` and `[action]`.</span></span> <span data-ttu-id="c5e61-168">在运行时，每个标记分别替换为应用了属性的控制器或操作的名称。</span><span class="sxs-lookup"><span data-stu-id="c5e61-168">At runtime, each token is replaced with the name of the controller or action, respectively, to which the attribute has been applied.</span></span> <span data-ttu-id="c5e61-169">令牌：</span><span class="sxs-lookup"><span data-stu-id="c5e61-169">The tokens:</span></span>
-    * <span data-ttu-id="c5e61-170">减少项目中的幻数字符串的数目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-170">Reduce the number of magic strings in the project.</span></span>
-    * <span data-ttu-id="c5e61-171">应用自动重命名重构时，请确保路由与相应的控制器和操作保持同步。</span><span class="sxs-lookup"><span data-stu-id="c5e61-171">Ensure routes remain synchronized with the corresponding controllers and actions when automatic rename refactorings are applied.</span></span>
-1. <span data-ttu-id="c5e61-172">为操作启用 HTTP Get 请求 `ProductController` ：</span><span class="sxs-lookup"><span data-stu-id="c5e61-172">Enable HTTP Get requests to the `ProductController` actions:</span></span>
-    * <span data-ttu-id="c5e61-173">将特性应用于 [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) `GetAllProducts` 操作。</span><span class="sxs-lookup"><span data-stu-id="c5e61-173">Apply the [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) attribute to the `GetAllProducts` action.</span></span>
-    * <span data-ttu-id="c5e61-174">将特性应用于 `[HttpGet("{id}")]` `GetProduct` 操作。</span><span class="sxs-lookup"><span data-stu-id="c5e61-174">Apply the `[HttpGet("{id}")]` attribute to the `GetProduct` action.</span></span>
+    <span data-ttu-id="99606-167">特性路由支持标记，例如 `[controller]` 和 `[action]` 。</span><span class="sxs-lookup"><span data-stu-id="99606-167">Attribute routing supports tokens, such as `[controller]` and `[action]`.</span></span> <span data-ttu-id="99606-168">在运行时，每个标记分别替换为应用了属性的控制器或操作的名称。</span><span class="sxs-lookup"><span data-stu-id="99606-168">At runtime, each token is replaced with the name of the controller or action, respectively, to which the attribute has been applied.</span></span> <span data-ttu-id="99606-169">令牌：</span><span class="sxs-lookup"><span data-stu-id="99606-169">The tokens:</span></span>
+    * <span data-ttu-id="99606-170">减少项目中的幻数字符串的数目。</span><span class="sxs-lookup"><span data-stu-id="99606-170">Reduce the number of magic strings in the project.</span></span>
+    * <span data-ttu-id="99606-171">应用自动重命名重构时，请确保路由与相应的控制器和操作保持同步。</span><span class="sxs-lookup"><span data-stu-id="99606-171">Ensure routes remain synchronized with the corresponding controllers and actions when automatic rename refactorings are applied.</span></span>
+1. <span data-ttu-id="99606-172">为操作启用 HTTP Get 请求 `ProductController` ：</span><span class="sxs-lookup"><span data-stu-id="99606-172">Enable HTTP Get requests to the `ProductController` actions:</span></span>
+    * <span data-ttu-id="99606-173">将特性应用于 [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) `GetAllProducts` 操作。</span><span class="sxs-lookup"><span data-stu-id="99606-173">Apply the [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) attribute to the `GetAllProducts` action.</span></span>
+    * <span data-ttu-id="99606-174">将特性应用于 `[HttpGet("{id}")]` `GetProduct` 操作。</span><span class="sxs-lookup"><span data-stu-id="99606-174">Apply the `[HttpGet("{id}")]` attribute to the `GetProduct` action.</span></span>
 
-<span data-ttu-id="c5e61-175">运行迁移的项目，并浏览到 `/api/products` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-175">Run the migrated project, and browse to `/api/products`.</span></span> <span data-ttu-id="c5e61-176">此时会显示三个产品的完整列表。</span><span class="sxs-lookup"><span data-stu-id="c5e61-176">A full list of three products appears.</span></span> <span data-ttu-id="c5e61-177">浏览到 `/api/products/1`。</span><span class="sxs-lookup"><span data-stu-id="c5e61-177">Browse to `/api/products/1`.</span></span> <span data-ttu-id="c5e61-178">第一个产品随即出现。</span><span class="sxs-lookup"><span data-stu-id="c5e61-178">The first product appears.</span></span>
+<span data-ttu-id="99606-175">运行迁移的项目，并浏览到 `/api/products` 。</span><span class="sxs-lookup"><span data-stu-id="99606-175">Run the migrated project, and browse to `/api/products`.</span></span> <span data-ttu-id="99606-176">此时会显示三个产品的完整列表。</span><span class="sxs-lookup"><span data-stu-id="99606-176">A full list of three products appears.</span></span> <span data-ttu-id="99606-177">浏览到 `/api/products/1` 。</span><span class="sxs-lookup"><span data-stu-id="99606-177">Browse to `/api/products/1`.</span></span> <span data-ttu-id="99606-178">第一个产品随即出现。</span><span class="sxs-lookup"><span data-stu-id="99606-178">The first product appears.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="c5e61-179">其他资源</span><span class="sxs-lookup"><span data-stu-id="c5e61-179">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="99606-179">其他资源</span><span class="sxs-lookup"><span data-stu-id="99606-179">Additional resources</span></span>
 
 * <xref:web-api/index>
 * <xref:web-api/action-return-types>
@@ -155,142 +156,142 @@ ms.locfileid: "88014810"
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
-## <a name="prerequisites"></a><span data-ttu-id="c5e61-180">先决条件</span><span class="sxs-lookup"><span data-stu-id="c5e61-180">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="99606-180">先决条件</span><span class="sxs-lookup"><span data-stu-id="99606-180">Prerequisites</span></span>
 
 [!INCLUDE [prerequisites](../includes/net-core-prereqs-vs2019-2.2.md)]
 
-## <a name="review-aspnet-4x-web-api-project"></a><span data-ttu-id="c5e61-181">查看 ASP.NET 4.x Web API 项目</span><span class="sxs-lookup"><span data-stu-id="c5e61-181">Review ASP.NET 4.x Web API project</span></span>
+## <a name="review-aspnet-4x-web-api-project"></a><span data-ttu-id="99606-181">查看 ASP.NET 4.x Web API 项目</span><span class="sxs-lookup"><span data-stu-id="99606-181">Review ASP.NET 4.x Web API project</span></span>
 
-<span data-ttu-id="c5e61-182">本文使用[ASP.NET Web API 2 入门](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)中创建的*ProductsApp*项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-182">This article uses the *ProductsApp* project created in [Getting Started with ASP.NET Web API 2](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api).</span></span> <span data-ttu-id="c5e61-183">在该项目中，基本的 ASP.NET 4.x Web API 项目配置如下。</span><span class="sxs-lookup"><span data-stu-id="c5e61-183">In that project, a basic ASP.NET 4.x Web API project is configured as follows.</span></span>
+<span data-ttu-id="99606-182">本文使用[ASP.NET Web API 2 入门](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)中创建的*ProductsApp*项目。</span><span class="sxs-lookup"><span data-stu-id="99606-182">This article uses the *ProductsApp* project created in [Getting Started with ASP.NET Web API 2](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api).</span></span> <span data-ttu-id="99606-183">在该项目中，基本的 ASP.NET 4.x Web API 项目配置如下。</span><span class="sxs-lookup"><span data-stu-id="99606-183">In that project, a basic ASP.NET 4.x Web API project is configured as follows.</span></span>
 
-<span data-ttu-id="c5e61-184">在*Global.asax.cs*中，对进行调用 `WebApiConfig.Register` ：</span><span class="sxs-lookup"><span data-stu-id="c5e61-184">In *Global.asax.cs*, a call is made to `WebApiConfig.Register`:</span></span>
+<span data-ttu-id="99606-184">在 *Global.asax.cs*中，对进行调用 `WebApiConfig.Register` ：</span><span class="sxs-lookup"><span data-stu-id="99606-184">In *Global.asax.cs*, a call is made to `WebApiConfig.Register`:</span></span>
 
 [!code-csharp[](webapi/sample/2.x/ProductsApp/Global.asax.cs?highlight=14)]
 
-<span data-ttu-id="c5e61-185">`WebApiConfig`类位于*App_Start*文件夹中，并具有一个静态 `Register` 方法：</span><span class="sxs-lookup"><span data-stu-id="c5e61-185">The `WebApiConfig` class is found in the *App_Start* folder and has a static `Register` method:</span></span>
+<span data-ttu-id="99606-185">`WebApiConfig`类位于*App_Start*文件夹中，并具有一个静态 `Register` 方法：</span><span class="sxs-lookup"><span data-stu-id="99606-185">The `WebApiConfig` class is found in the *App_Start* folder and has a static `Register` method:</span></span>
 
 [!code-csharp[](webapi/sample/2.x/ProductsApp/App_Start/WebApiConfig.cs)]
 
-<span data-ttu-id="c5e61-186">此类配置[属性路由](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2)，不过实际上它并不是在项目中使用。</span><span class="sxs-lookup"><span data-stu-id="c5e61-186">This class configures [attribute routing](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2), although it's not actually being used in the project.</span></span> <span data-ttu-id="c5e61-187">它还配置 ASP.NET Web API 使用的路由表。</span><span class="sxs-lookup"><span data-stu-id="c5e61-187">It also configures the routing table, which is used by ASP.NET Web API.</span></span> <span data-ttu-id="c5e61-188">在这种情况下，ASP.NET 4.x Web API 需要 Url 来匹配格式 `/api/{controller}/{id}` ，这 `{id}` 是可选的。</span><span class="sxs-lookup"><span data-stu-id="c5e61-188">In this case, ASP.NET 4.x Web API expects URLs to match the format `/api/{controller}/{id}`, with `{id}` being optional.</span></span>
+<span data-ttu-id="99606-186">此类配置 [属性路由](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2)，不过实际上它并不是在项目中使用。</span><span class="sxs-lookup"><span data-stu-id="99606-186">This class configures [attribute routing](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2), although it's not actually being used in the project.</span></span> <span data-ttu-id="99606-187">它还配置 ASP.NET Web API 使用的路由表。</span><span class="sxs-lookup"><span data-stu-id="99606-187">It also configures the routing table, which is used by ASP.NET Web API.</span></span> <span data-ttu-id="99606-188">在这种情况下，ASP.NET 4.x Web API 需要 Url 来匹配格式 `/api/{controller}/{id}` ，这 `{id}` 是可选的。</span><span class="sxs-lookup"><span data-stu-id="99606-188">In this case, ASP.NET 4.x Web API expects URLs to match the format `/api/{controller}/{id}`, with `{id}` being optional.</span></span>
 
-<span data-ttu-id="c5e61-189">以下部分演示了如何将 Web API 项目迁移到 ASP.NET Core MVC。</span><span class="sxs-lookup"><span data-stu-id="c5e61-189">The following sections demonstrate migration of the Web API project to ASP.NET Core MVC.</span></span>
+<span data-ttu-id="99606-189">以下部分演示了如何将 Web API 项目迁移到 ASP.NET Core MVC。</span><span class="sxs-lookup"><span data-stu-id="99606-189">The following sections demonstrate migration of the Web API project to ASP.NET Core MVC.</span></span>
 
-## <a name="create-the-destination-project"></a><span data-ttu-id="c5e61-190">创建目标项目</span><span class="sxs-lookup"><span data-stu-id="c5e61-190">Create the destination project</span></span>
+## <a name="create-the-destination-project"></a><span data-ttu-id="99606-190">创建目标项目</span><span class="sxs-lookup"><span data-stu-id="99606-190">Create the destination project</span></span>
 
-<span data-ttu-id="c5e61-191">在 Visual Studio 中完成以下步骤：</span><span class="sxs-lookup"><span data-stu-id="c5e61-191">Complete the following steps in Visual Studio:</span></span>
+<span data-ttu-id="99606-191">在 Visual Studio 中完成以下步骤：</span><span class="sxs-lookup"><span data-stu-id="99606-191">Complete the following steps in Visual Studio:</span></span>
 
-* <span data-ttu-id="c5e61-192">中转到 "**文件**" "  >  **新建**  >  **项目**" "  >  **其他项目类型**" "  >  **Visual Studio 解决方案**"。</span><span class="sxs-lookup"><span data-stu-id="c5e61-192">Go to **File** > **New** > **Project** > **Other Project Types** > **Visual Studio Solutions**.</span></span> <span data-ttu-id="c5e61-193">选择 "**空白解决方案**"，并将解决方案命名为 " *WebAPIMigration*"。</span><span class="sxs-lookup"><span data-stu-id="c5e61-193">Select **Blank Solution**, and name the solution *WebAPIMigration*.</span></span> <span data-ttu-id="c5e61-194">单击“确定”按钮。</span><span class="sxs-lookup"><span data-stu-id="c5e61-194">Click the **OK** button.</span></span>
-* <span data-ttu-id="c5e61-195">将现有的*ProductsApp*项目添加到解决方案。</span><span class="sxs-lookup"><span data-stu-id="c5e61-195">Add the existing *ProductsApp* project to the solution.</span></span>
-* <span data-ttu-id="c5e61-196">向解决方案添加新的**ASP.NET Core Web 应用程序**项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-196">Add a new **ASP.NET Core Web Application** project to the solution.</span></span> <span data-ttu-id="c5e61-197">从下拉选择 " **.Net Core**目标框架"，然后选择 " **API**项目" 模板。</span><span class="sxs-lookup"><span data-stu-id="c5e61-197">Select the **.NET Core** target framework from the drop-down, and select the **API** project template.</span></span> <span data-ttu-id="c5e61-198">将项目命名为 " *ProductsCore*"，然后单击 **"确定"** 按钮。</span><span class="sxs-lookup"><span data-stu-id="c5e61-198">Name the project *ProductsCore*, and click the **OK** button.</span></span>
+* <span data-ttu-id="99606-192">中转到 "**文件**" "  >  **新建**  >  **项目**" "  >  **其他项目类型**" "  >  **Visual Studio 解决方案**"。</span><span class="sxs-lookup"><span data-stu-id="99606-192">Go to **File** > **New** > **Project** > **Other Project Types** > **Visual Studio Solutions**.</span></span> <span data-ttu-id="99606-193">选择 " **空白解决方案**"，并将解决方案命名为 " *WebAPIMigration*"。</span><span class="sxs-lookup"><span data-stu-id="99606-193">Select **Blank Solution**, and name the solution *WebAPIMigration*.</span></span> <span data-ttu-id="99606-194">单击“确定”按钮。</span><span class="sxs-lookup"><span data-stu-id="99606-194">Click the **OK** button.</span></span>
+* <span data-ttu-id="99606-195">将现有的 *ProductsApp* 项目添加到解决方案。</span><span class="sxs-lookup"><span data-stu-id="99606-195">Add the existing *ProductsApp* project to the solution.</span></span>
+* <span data-ttu-id="99606-196">向解决方案添加新的 **ASP.NET Core Web 应用程序** 项目。</span><span class="sxs-lookup"><span data-stu-id="99606-196">Add a new **ASP.NET Core Web Application** project to the solution.</span></span> <span data-ttu-id="99606-197">从下拉选择 " **.Net Core** 目标框架"，然后选择 " **API** 项目" 模板。</span><span class="sxs-lookup"><span data-stu-id="99606-197">Select the **.NET Core** target framework from the drop-down, and select the **API** project template.</span></span> <span data-ttu-id="99606-198">将项目命名为 " *ProductsCore*"，然后单击 **"确定"** 按钮。</span><span class="sxs-lookup"><span data-stu-id="99606-198">Name the project *ProductsCore*, and click the **OK** button.</span></span>
 
-<span data-ttu-id="c5e61-199">解决方案现在包含两个项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-199">The solution now contains two projects.</span></span> <span data-ttu-id="c5e61-200">以下各节介绍了如何将*ProductsApp*项目的内容迁移到*ProductsCore*项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-200">The following sections explain migrating the *ProductsApp* project's contents to the *ProductsCore* project.</span></span>
+<span data-ttu-id="99606-199">解决方案现在包含两个项目。</span><span class="sxs-lookup"><span data-stu-id="99606-199">The solution now contains two projects.</span></span> <span data-ttu-id="99606-200">以下各节介绍了如何将 *ProductsApp* 项目的内容迁移到 *ProductsCore* 项目。</span><span class="sxs-lookup"><span data-stu-id="99606-200">The following sections explain migrating the *ProductsApp* project's contents to the *ProductsCore* project.</span></span>
 
-## <a name="migrate-configuration"></a><span data-ttu-id="c5e61-201">迁移配置</span><span class="sxs-lookup"><span data-stu-id="c5e61-201">Migrate configuration</span></span>
+## <a name="migrate-configuration"></a><span data-ttu-id="99606-201">迁移配置</span><span class="sxs-lookup"><span data-stu-id="99606-201">Migrate configuration</span></span>
 
-<span data-ttu-id="c5e61-202">ASP.NET Core 不使用：</span><span class="sxs-lookup"><span data-stu-id="c5e61-202">ASP.NET Core doesn't use:</span></span>
+<span data-ttu-id="99606-202">ASP.NET Core 不使用：</span><span class="sxs-lookup"><span data-stu-id="99606-202">ASP.NET Core doesn't use:</span></span>
 
-* <span data-ttu-id="c5e61-203">*App_Start*文件夹或*global.asax*文件</span><span class="sxs-lookup"><span data-stu-id="c5e61-203">*App_Start* folder or the *Global.asax* file</span></span>
-* <span data-ttu-id="c5e61-204">在发布时添加*web.config*文件。</span><span class="sxs-lookup"><span data-stu-id="c5e61-204">*web.config* file is added at publish time.</span></span>
+* <span data-ttu-id="99606-203">*App_Start* 文件夹或 *global.asax* 文件</span><span class="sxs-lookup"><span data-stu-id="99606-203">*App_Start* folder or the *Global.asax* file</span></span>
+* <span data-ttu-id="99606-204">在发布时添加*web.config*文件。</span><span class="sxs-lookup"><span data-stu-id="99606-204">*web.config* file is added at publish time.</span></span>
 
-<span data-ttu-id="c5e61-205">`Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="c5e61-205">The `Startup` class:</span></span>
+<span data-ttu-id="99606-205">`Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="99606-205">The `Startup` class:</span></span>
 
-* <span data-ttu-id="c5e61-206">替换*global.asax*。</span><span class="sxs-lookup"><span data-stu-id="c5e61-206">Replaces *Global.asax*.</span></span>
-* <span data-ttu-id="c5e61-207">处理所有应用启动任务。</span><span class="sxs-lookup"><span data-stu-id="c5e61-207">Handles all app startup tasks.</span></span>
+* <span data-ttu-id="99606-206">替换 *global.asax*。</span><span class="sxs-lookup"><span data-stu-id="99606-206">Replaces *Global.asax*.</span></span>
+* <span data-ttu-id="99606-207">处理所有应用启动任务。</span><span class="sxs-lookup"><span data-stu-id="99606-207">Handles all app startup tasks.</span></span>
 
-<span data-ttu-id="c5e61-208">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="c5e61-208">For more information, see <xref:fundamentals/startup>.</span></span>
+<span data-ttu-id="99606-208">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="99606-208">For more information, see <xref:fundamentals/startup>.</span></span>
 
-<span data-ttu-id="c5e61-209">在 ASP.NET Core MVC 中，当在中调用时，默认情况下包含特性路由 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> `Startup.Configure` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-209">In ASP.NET Core MVC, attribute routing is included by default when <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> is called in `Startup.Configure`.</span></span> <span data-ttu-id="c5e61-210">以下 `UseMvc` 调用将替换*ProductsApp*项目的*App_Start/webapiconfig.cs*文件：</span><span class="sxs-lookup"><span data-stu-id="c5e61-210">The following `UseMvc` call replaces the *ProductsApp* project's *App_Start/WebApiConfig.cs* file:</span></span>
+<span data-ttu-id="99606-209">在 ASP.NET Core MVC 中，当在中调用时，默认情况下包含特性路由 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> `Startup.Configure` 。</span><span class="sxs-lookup"><span data-stu-id="99606-209">In ASP.NET Core MVC, attribute routing is included by default when <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> is called in `Startup.Configure`.</span></span> <span data-ttu-id="99606-210">以下 `UseMvc` 调用将替换 *ProductsApp* 项目的 *App_Start/webapiconfig.cs* 文件：</span><span class="sxs-lookup"><span data-stu-id="99606-210">The following `UseMvc` call replaces the *ProductsApp* project's *App_Start/WebApiConfig.cs* file:</span></span>
 
 [!code-csharp[](webapi/sample/2.x/ProductsCore/Startup.cs?name=snippet_Configure&highlight=13)]
 
-## <a name="migrate-models-and-controllers"></a><span data-ttu-id="c5e61-211">迁移模型和控制器</span><span class="sxs-lookup"><span data-stu-id="c5e61-211">Migrate models and controllers</span></span>
+## <a name="migrate-models-and-controllers"></a><span data-ttu-id="99606-211">迁移模型和控制器</span><span class="sxs-lookup"><span data-stu-id="99606-211">Migrate models and controllers</span></span>
 
-<span data-ttu-id="c5e61-212">下面的代码演示 `ProductsController` ASP.NET Core 的更新：[!code-csharp[](webapi/sample/2.x/ProductsApp/Controllers/ProductsController.cs)]</span><span class="sxs-lookup"><span data-stu-id="c5e61-212">The following code shows the `ProductsController` update for ASP.NET Core: [!code-csharp[](webapi/sample/2.x/ProductsApp/Controllers/ProductsController.cs)]</span></span>
+<span data-ttu-id="99606-212">下面的代码演示 `ProductsController` ASP.NET Core 的更新： [!code-csharp[](webapi/sample/2.x/ProductsApp/Controllers/ProductsController.cs)]</span><span class="sxs-lookup"><span data-stu-id="99606-212">The following code shows the `ProductsController` update for ASP.NET Core: [!code-csharp[](webapi/sample/2.x/ProductsApp/Controllers/ProductsController.cs)]</span></span>
 
-<span data-ttu-id="c5e61-213">更新 `ProductsController` ASP.NET Core 的：</span><span class="sxs-lookup"><span data-stu-id="c5e61-213">Update the `ProductsController` for ASP.NET Core:</span></span>
+<span data-ttu-id="99606-213">更新 `ProductsController` ASP.NET Core 的：</span><span class="sxs-lookup"><span data-stu-id="99606-213">Update the `ProductsController` for ASP.NET Core:</span></span>
 
-1. <span data-ttu-id="c5e61-214">将*控制器/ProductsController*从原始项目复制到新项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-214">Copy *Controllers/ProductsController.cs* from the original project to the new one.</span></span>
-1. <span data-ttu-id="c5e61-215">将*模型*文件夹从原始项目复制到新项目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-215">Copy the *Models* folder from the original project to the new one.</span></span>
-1. <span data-ttu-id="c5e61-216">将复制的文件的根命名空间更改为 `ProductsCore` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-216">Change the copied files' root namespace to `ProductsCore`.</span></span>
-1. <span data-ttu-id="c5e61-217">将 `using ProductsApp.Models;` 语句更新到 `using ProductsCore.Models;` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-217">Update the `using ProductsApp.Models;` statement to `using ProductsCore.Models;`.</span></span>
+1. <span data-ttu-id="99606-214">将 *控制器/ProductsController* 从原始项目复制到新项目。</span><span class="sxs-lookup"><span data-stu-id="99606-214">Copy *Controllers/ProductsController.cs* from the original project to the new one.</span></span>
+1. <span data-ttu-id="99606-215">将 *模型* 文件夹从原始项目复制到新项目。</span><span class="sxs-lookup"><span data-stu-id="99606-215">Copy the *Models* folder from the original project to the new one.</span></span>
+1. <span data-ttu-id="99606-216">将复制的文件的根命名空间更改为 `ProductsCore` 。</span><span class="sxs-lookup"><span data-stu-id="99606-216">Change the copied files' root namespace to `ProductsCore`.</span></span>
+1. <span data-ttu-id="99606-217">将 `using ProductsApp.Models;` 语句更新到 `using ProductsCore.Models;` 。</span><span class="sxs-lookup"><span data-stu-id="99606-217">Update the `using ProductsApp.Models;` statement to `using ProductsCore.Models;`.</span></span>
 
-<span data-ttu-id="c5e61-218">ASP.NET Core 中不存在下列组件：</span><span class="sxs-lookup"><span data-stu-id="c5e61-218">The following components don't exist in ASP.NET Core:</span></span>
+<span data-ttu-id="99606-218">ASP.NET Core 中不存在下列组件：</span><span class="sxs-lookup"><span data-stu-id="99606-218">The following components don't exist in ASP.NET Core:</span></span>
 
-* <span data-ttu-id="c5e61-219">`ApiController` 类</span><span class="sxs-lookup"><span data-stu-id="c5e61-219">`ApiController` class</span></span>
-* <span data-ttu-id="c5e61-220">`System.Web.Http` 命名空间</span><span class="sxs-lookup"><span data-stu-id="c5e61-220">`System.Web.Http` namespace</span></span>
-* <span data-ttu-id="c5e61-221">`IHttpActionResult` 接口</span><span class="sxs-lookup"><span data-stu-id="c5e61-221">`IHttpActionResult` interface</span></span>
+* <span data-ttu-id="99606-219">`ApiController` 类</span><span class="sxs-lookup"><span data-stu-id="99606-219">`ApiController` class</span></span>
+* <span data-ttu-id="99606-220">`System.Web.Http` 命名空间</span><span class="sxs-lookup"><span data-stu-id="99606-220">`System.Web.Http` namespace</span></span>
+* <span data-ttu-id="99606-221">`IHttpActionResult` 接口</span><span class="sxs-lookup"><span data-stu-id="99606-221">`IHttpActionResult` interface</span></span>
 
-<span data-ttu-id="c5e61-222">进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="c5e61-222">Make the following changes:</span></span>
+<span data-ttu-id="99606-222">进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="99606-222">Make the following changes:</span></span>
 
-1. <span data-ttu-id="c5e61-223">将 `ApiController` 更改为 <xref:Microsoft.AspNetCore.Mvc.ControllerBase>。</span><span class="sxs-lookup"><span data-stu-id="c5e61-223">Change `ApiController` to <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="c5e61-224">添加 `using Microsoft.AspNetCore.Mvc;` 以解析 `ControllerBase` 引用。</span><span class="sxs-lookup"><span data-stu-id="c5e61-224">Add `using Microsoft.AspNetCore.Mvc;` to resolve the `ControllerBase` reference.</span></span>
-1. <span data-ttu-id="c5e61-225">删除 `using System.Web.Http;`。</span><span class="sxs-lookup"><span data-stu-id="c5e61-225">Delete `using System.Web.Http;`.</span></span>
-1. <span data-ttu-id="c5e61-226">将 `GetProduct` 操作的返回类型从更改 `IHttpActionResult` 为 `ActionResult<Product>` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-226">Change the `GetProduct` action's return type from `IHttpActionResult` to `ActionResult<Product>`.</span></span>
-1. <span data-ttu-id="c5e61-227">简化 `GetProduct` 操作的 `return` 语句：</span><span class="sxs-lookup"><span data-stu-id="c5e61-227">Simplify the `GetProduct` action's `return` statement to the following:</span></span>
+1. <span data-ttu-id="99606-223">将 `ApiController` 更改为 <xref:Microsoft.AspNetCore.Mvc.ControllerBase>。</span><span class="sxs-lookup"><span data-stu-id="99606-223">Change `ApiController` to <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="99606-224">添加 `using Microsoft.AspNetCore.Mvc;` 以解析 `ControllerBase` 引用。</span><span class="sxs-lookup"><span data-stu-id="99606-224">Add `using Microsoft.AspNetCore.Mvc;` to resolve the `ControllerBase` reference.</span></span>
+1. <span data-ttu-id="99606-225">删除 `using System.Web.Http;`。</span><span class="sxs-lookup"><span data-stu-id="99606-225">Delete `using System.Web.Http;`.</span></span>
+1. <span data-ttu-id="99606-226">将 `GetProduct` 操作的返回类型从更改 `IHttpActionResult` 为 `ActionResult<Product>` 。</span><span class="sxs-lookup"><span data-stu-id="99606-226">Change the `GetProduct` action's return type from `IHttpActionResult` to `ActionResult<Product>`.</span></span>
+1. <span data-ttu-id="99606-227">简化 `GetProduct` 操作的 `return` 语句：</span><span class="sxs-lookup"><span data-stu-id="99606-227">Simplify the `GetProduct` action's `return` statement to the following:</span></span>
 
     ```csharp
     return product;
     ```
 
-## <a name="configure-routing"></a><span data-ttu-id="c5e61-228">配置路由</span><span class="sxs-lookup"><span data-stu-id="c5e61-228">Configure routing</span></span>
+## <a name="configure-routing"></a><span data-ttu-id="99606-228">配置路由</span><span class="sxs-lookup"><span data-stu-id="99606-228">Configure routing</span></span>
 
-<span data-ttu-id="c5e61-229">按如下所示配置路由：</span><span class="sxs-lookup"><span data-stu-id="c5e61-229">Configure routing as follows:</span></span>
+<span data-ttu-id="99606-229">按如下所示配置路由：</span><span class="sxs-lookup"><span data-stu-id="99606-229">Configure routing as follows:</span></span>
 
-1. <span data-ttu-id="c5e61-230">`ProductsController`用以下特性标记类：</span><span class="sxs-lookup"><span data-stu-id="c5e61-230">Mark the `ProductsController` class with the following attributes:</span></span>
+1. <span data-ttu-id="99606-230">`ProductsController`用以下特性标记类：</span><span class="sxs-lookup"><span data-stu-id="99606-230">Mark the `ProductsController` class with the following attributes:</span></span>
 
     ```csharp
     [Route("api/[controller]")]
     [ApiController]
     ```
 
-    <span data-ttu-id="c5e61-231">上述 [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) 属性配置控制器的属性路由模式。</span><span class="sxs-lookup"><span data-stu-id="c5e61-231">The preceding [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) attribute configures the controller's attribute routing pattern.</span></span> <span data-ttu-id="c5e61-232">[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)特性使特性路由成为此控制器中所有操作的要求。</span><span class="sxs-lookup"><span data-stu-id="c5e61-232">The [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute makes attribute routing a requirement for all actions in this controller.</span></span>
+    <span data-ttu-id="99606-231">上述 [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) 属性配置控制器的属性路由模式。</span><span class="sxs-lookup"><span data-stu-id="99606-231">The preceding [`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) attribute configures the controller's attribute routing pattern.</span></span> <span data-ttu-id="99606-232">[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)特性使特性路由成为此控制器中所有操作的要求。</span><span class="sxs-lookup"><span data-stu-id="99606-232">The [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute makes attribute routing a requirement for all actions in this controller.</span></span>
 
-    <span data-ttu-id="c5e61-233">特性路由支持标记，例如 `[controller]` 和 `[action]` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-233">Attribute routing supports tokens, such as `[controller]` and `[action]`.</span></span> <span data-ttu-id="c5e61-234">在运行时，每个标记分别替换为应用了属性的控制器或操作的名称。</span><span class="sxs-lookup"><span data-stu-id="c5e61-234">At runtime, each token is replaced with the name of the controller or action, respectively, to which the attribute has been applied.</span></span> <span data-ttu-id="c5e61-235">这些标记减少了项目中的幻字符串的数目。</span><span class="sxs-lookup"><span data-stu-id="c5e61-235">The tokens reduce the number of magic strings in the project.</span></span> <span data-ttu-id="c5e61-236">标记还可确保在应用自动重命名重构时，路由与相应的控制器和操作保持同步。</span><span class="sxs-lookup"><span data-stu-id="c5e61-236">The tokens also ensure routes remain synchronized with the corresponding controllers and actions when automatic rename refactorings are applied.</span></span>
-1. <span data-ttu-id="c5e61-237">将项目的兼容模式设置为 ASP.NET Core 2.2：</span><span class="sxs-lookup"><span data-stu-id="c5e61-237">Set the project's compatibility mode to ASP.NET Core 2.2:</span></span>
+    <span data-ttu-id="99606-233">特性路由支持标记，例如 `[controller]` 和 `[action]` 。</span><span class="sxs-lookup"><span data-stu-id="99606-233">Attribute routing supports tokens, such as `[controller]` and `[action]`.</span></span> <span data-ttu-id="99606-234">在运行时，每个标记分别替换为应用了属性的控制器或操作的名称。</span><span class="sxs-lookup"><span data-stu-id="99606-234">At runtime, each token is replaced with the name of the controller or action, respectively, to which the attribute has been applied.</span></span> <span data-ttu-id="99606-235">这些标记减少了项目中的幻字符串的数目。</span><span class="sxs-lookup"><span data-stu-id="99606-235">The tokens reduce the number of magic strings in the project.</span></span> <span data-ttu-id="99606-236">标记还可确保在应用自动重命名重构时，路由与相应的控制器和操作保持同步。</span><span class="sxs-lookup"><span data-stu-id="99606-236">The tokens also ensure routes remain synchronized with the corresponding controllers and actions when automatic rename refactorings are applied.</span></span>
+1. <span data-ttu-id="99606-237">将项目的兼容模式设置为 ASP.NET Core 2.2：</span><span class="sxs-lookup"><span data-stu-id="99606-237">Set the project's compatibility mode to ASP.NET Core 2.2:</span></span>
 
     [!code-csharp[](webapi/sample/2.x/ProductsCore/Startup.cs?name=snippet_ConfigureServices&highlight=4)]
 
-    <span data-ttu-id="c5e61-238">上述更改：</span><span class="sxs-lookup"><span data-stu-id="c5e61-238">The preceding change:</span></span>
+    <span data-ttu-id="99606-238">上述更改：</span><span class="sxs-lookup"><span data-stu-id="99606-238">The preceding change:</span></span>
 
-    * <span data-ttu-id="c5e61-239">需要 `[ApiController]` 在控制器级别使用特性。</span><span class="sxs-lookup"><span data-stu-id="c5e61-239">Is required to use the `[ApiController]` attribute at the controller level.</span></span>
-    * <span data-ttu-id="c5e61-240">在 ASP.NET Core 2.2 中引入了可能中断的行为。</span><span class="sxs-lookup"><span data-stu-id="c5e61-240">Opts in to potentially breaking behaviors introduced in ASP.NET Core 2.2.</span></span>
-1. <span data-ttu-id="c5e61-241">为操作启用 HTTP Get 请求 `ProductController` ：</span><span class="sxs-lookup"><span data-stu-id="c5e61-241">Enable HTTP Get requests to the `ProductController` actions:</span></span>
-    * <span data-ttu-id="c5e61-242">将特性应用于 [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) `GetAllProducts` 操作。</span><span class="sxs-lookup"><span data-stu-id="c5e61-242">Apply the [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) attribute to the `GetAllProducts` action.</span></span>
-    * <span data-ttu-id="c5e61-243">将特性应用于 `[HttpGet("{id}")]` `GetProduct` 操作。</span><span class="sxs-lookup"><span data-stu-id="c5e61-243">Apply the `[HttpGet("{id}")]` attribute to the `GetProduct` action.</span></span>
+    * <span data-ttu-id="99606-239">需要 `[ApiController]` 在控制器级别使用特性。</span><span class="sxs-lookup"><span data-stu-id="99606-239">Is required to use the `[ApiController]` attribute at the controller level.</span></span>
+    * <span data-ttu-id="99606-240">在 ASP.NET Core 2.2 中引入了可能中断的行为。</span><span class="sxs-lookup"><span data-stu-id="99606-240">Opts in to potentially breaking behaviors introduced in ASP.NET Core 2.2.</span></span>
+1. <span data-ttu-id="99606-241">为操作启用 HTTP Get 请求 `ProductController` ：</span><span class="sxs-lookup"><span data-stu-id="99606-241">Enable HTTP Get requests to the `ProductController` actions:</span></span>
+    * <span data-ttu-id="99606-242">将特性应用于 [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) `GetAllProducts` 操作。</span><span class="sxs-lookup"><span data-stu-id="99606-242">Apply the [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) attribute to the `GetAllProducts` action.</span></span>
+    * <span data-ttu-id="99606-243">将特性应用于 `[HttpGet("{id}")]` `GetProduct` 操作。</span><span class="sxs-lookup"><span data-stu-id="99606-243">Apply the `[HttpGet("{id}")]` attribute to the `GetProduct` action.</span></span>
 
-<span data-ttu-id="c5e61-244">运行迁移的项目，并浏览到 `/api/products` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-244">Run the migrated project, and browse to `/api/products`.</span></span> <span data-ttu-id="c5e61-245">此时会显示三个产品的完整列表。</span><span class="sxs-lookup"><span data-stu-id="c5e61-245">A full list of three products appears.</span></span> <span data-ttu-id="c5e61-246">浏览到 `/api/products/1`。</span><span class="sxs-lookup"><span data-stu-id="c5e61-246">Browse to `/api/products/1`.</span></span> <span data-ttu-id="c5e61-247">第一个产品随即出现。</span><span class="sxs-lookup"><span data-stu-id="c5e61-247">The first product appears.</span></span>
+<span data-ttu-id="99606-244">运行迁移的项目，并浏览到 `/api/products` 。</span><span class="sxs-lookup"><span data-stu-id="99606-244">Run the migrated project, and browse to `/api/products`.</span></span> <span data-ttu-id="99606-245">此时会显示三个产品的完整列表。</span><span class="sxs-lookup"><span data-stu-id="99606-245">A full list of three products appears.</span></span> <span data-ttu-id="99606-246">浏览到 `/api/products/1` 。</span><span class="sxs-lookup"><span data-stu-id="99606-246">Browse to `/api/products/1`.</span></span> <span data-ttu-id="99606-247">第一个产品随即出现。</span><span class="sxs-lookup"><span data-stu-id="99606-247">The first product appears.</span></span>
 
-## <a name="compatibility-shim"></a><span data-ttu-id="c5e61-248">兼容性填充码</span><span class="sxs-lookup"><span data-stu-id="c5e61-248">Compatibility shim</span></span>
+## <a name="compatibility-shim"></a><span data-ttu-id="99606-248">兼容性填充码</span><span class="sxs-lookup"><span data-stu-id="99606-248">Compatibility shim</span></span>
 
-<span data-ttu-id="c5e61-249">[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim)库提供兼容性填充码，以将 ASP.NET 4.X Web API 项目移动到 ASP.NET Core。</span><span class="sxs-lookup"><span data-stu-id="c5e61-249">The [Microsoft.AspNetCore.Mvc.WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) library provides a compatibility shim to move ASP.NET 4.x Web API projects to ASP.NET Core.</span></span> <span data-ttu-id="c5e61-250">兼容性填充码扩展 ASP.NET Core，以支持 ASP.NET 4.x Web API 2 中的一些约定。</span><span class="sxs-lookup"><span data-stu-id="c5e61-250">The compatibility shim extends ASP.NET Core to support a number of conventions from ASP.NET 4.x Web API 2.</span></span> <span data-ttu-id="c5e61-251">本文档前面的示例移植的基本操作足以确保兼容性填充程序是不必要的。</span><span class="sxs-lookup"><span data-stu-id="c5e61-251">The sample ported previously in this document is basic enough that the compatibility shim was unnecessary.</span></span> <span data-ttu-id="c5e61-252">对于较大的项目，使用兼容性填充码对于临时桥接 ASP.NET Core 与 ASP.NET 4.x Web API 2 之间的 API 间隙非常有用。</span><span class="sxs-lookup"><span data-stu-id="c5e61-252">For larger projects, using the compatibility shim can be useful for temporarily bridging the API gap between ASP.NET Core and ASP.NET 4.x Web API 2.</span></span>
+<span data-ttu-id="99606-249">[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim)库提供兼容性填充码，以将 ASP.NET 4.X Web API 项目移动到 ASP.NET Core。</span><span class="sxs-lookup"><span data-stu-id="99606-249">The [Microsoft.AspNetCore.Mvc.WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) library provides a compatibility shim to move ASP.NET 4.x Web API projects to ASP.NET Core.</span></span> <span data-ttu-id="99606-250">兼容性填充码扩展 ASP.NET Core，以支持 ASP.NET 4.x Web API 2 中的一些约定。</span><span class="sxs-lookup"><span data-stu-id="99606-250">The compatibility shim extends ASP.NET Core to support a number of conventions from ASP.NET 4.x Web API 2.</span></span> <span data-ttu-id="99606-251">本文档前面的示例移植的基本操作足以确保兼容性填充程序是不必要的。</span><span class="sxs-lookup"><span data-stu-id="99606-251">The sample ported previously in this document is basic enough that the compatibility shim was unnecessary.</span></span> <span data-ttu-id="99606-252">对于较大的项目，使用兼容性填充码对于临时桥接 ASP.NET Core 与 ASP.NET 4.x Web API 2 之间的 API 间隙非常有用。</span><span class="sxs-lookup"><span data-stu-id="99606-252">For larger projects, using the compatibility shim can be useful for temporarily bridging the API gap between ASP.NET Core and ASP.NET 4.x Web API 2.</span></span>
 
-<span data-ttu-id="c5e61-253">Web API 兼容性填充码旨在用作一种临时度量，以支持将大型 ASP.NET 4.x Web API 项目迁移到 ASP.NET Core。</span><span class="sxs-lookup"><span data-stu-id="c5e61-253">The Web API compatibility shim is meant to be used as a temporary measure to support migrating large ASP.NET 4.x Web API projects to ASP.NET Core.</span></span> <span data-ttu-id="c5e61-254">随着时间的推移，应将项目更新为使用 ASP.NET Core 模式，而不是依赖于兼容性填充码。</span><span class="sxs-lookup"><span data-stu-id="c5e61-254">Over time, projects should be updated to use ASP.NET Core patterns instead of relying on the compatibility shim.</span></span>
+<span data-ttu-id="99606-253">Web API 兼容性填充码旨在用作一种临时度量，以支持将大型 ASP.NET 4.x Web API 项目迁移到 ASP.NET Core。</span><span class="sxs-lookup"><span data-stu-id="99606-253">The Web API compatibility shim is meant to be used as a temporary measure to support migrating large ASP.NET 4.x Web API projects to ASP.NET Core.</span></span> <span data-ttu-id="99606-254">随着时间的推移，应将项目更新为使用 ASP.NET Core 模式，而不是依赖于兼容性填充码。</span><span class="sxs-lookup"><span data-stu-id="99606-254">Over time, projects should be updated to use ASP.NET Core patterns instead of relying on the compatibility shim.</span></span>
 
-<span data-ttu-id="c5e61-255">中包含的兼容性功能 `Microsoft.AspNetCore.Mvc.WebApiCompatShim` 包括：</span><span class="sxs-lookup"><span data-stu-id="c5e61-255">Compatibility features included in `Microsoft.AspNetCore.Mvc.WebApiCompatShim` include:</span></span>
+<span data-ttu-id="99606-255">中包含的兼容性功能 `Microsoft.AspNetCore.Mvc.WebApiCompatShim` 包括：</span><span class="sxs-lookup"><span data-stu-id="99606-255">Compatibility features included in `Microsoft.AspNetCore.Mvc.WebApiCompatShim` include:</span></span>
 
-* <span data-ttu-id="c5e61-256">添加一个 `ApiController` 类型，以便不需要更新控制器的基类型。</span><span class="sxs-lookup"><span data-stu-id="c5e61-256">Adds an `ApiController` type so that controllers' base types don't need to be updated.</span></span>
-* <span data-ttu-id="c5e61-257">启用 Web API 样式的模型绑定。</span><span class="sxs-lookup"><span data-stu-id="c5e61-257">Enables Web API-style model binding.</span></span> <span data-ttu-id="c5e61-258">默认情况下，ASP.NET Core MVC 模型绑定函数与 ASP.NET 4.x MVC 5 的绑定函数类似。</span><span class="sxs-lookup"><span data-stu-id="c5e61-258">ASP.NET Core MVC model binding functions similarly to that of ASP.NET 4.x MVC 5, by default.</span></span> <span data-ttu-id="c5e61-259">兼容性填充码更改模型绑定，更类似于 ASP.NET 4.x Web API 2 模型绑定约定。</span><span class="sxs-lookup"><span data-stu-id="c5e61-259">The compatibility shim changes model binding to be more similar to ASP.NET 4.x Web API 2 model binding conventions.</span></span> <span data-ttu-id="c5e61-260">例如，复杂类型会自动从请求正文进行绑定。</span><span class="sxs-lookup"><span data-stu-id="c5e61-260">For example, complex types are automatically bound from the request body.</span></span>
-* <span data-ttu-id="c5e61-261">扩展模型绑定，以便控制器操作可以接受类型的参数 `HttpRequestMessage` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-261">Extends model binding so that controller actions can take parameters of type `HttpRequestMessage`.</span></span>
-* <span data-ttu-id="c5e61-262">添加消息格式化程序，以允许操作返回类型为的结果 `HttpResponseMessage` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-262">Adds message formatters allowing actions to return results of type `HttpResponseMessage`.</span></span>
-* <span data-ttu-id="c5e61-263">添加 Web API 2 操作可能用于提供响应的其他响应方法：</span><span class="sxs-lookup"><span data-stu-id="c5e61-263">Adds additional response methods that Web API 2 actions may have used to serve responses:</span></span>
-  * <span data-ttu-id="c5e61-264">`HttpResponseMessage`生成器</span><span class="sxs-lookup"><span data-stu-id="c5e61-264">`HttpResponseMessage` generators:</span></span>
+* <span data-ttu-id="99606-256">添加一个 `ApiController` 类型，以便不需要更新控制器的基类型。</span><span class="sxs-lookup"><span data-stu-id="99606-256">Adds an `ApiController` type so that controllers' base types don't need to be updated.</span></span>
+* <span data-ttu-id="99606-257">启用 Web API 样式的模型绑定。</span><span class="sxs-lookup"><span data-stu-id="99606-257">Enables Web API-style model binding.</span></span> <span data-ttu-id="99606-258">默认情况下，ASP.NET Core MVC 模型绑定函数与 ASP.NET 4.x MVC 5 的绑定函数类似。</span><span class="sxs-lookup"><span data-stu-id="99606-258">ASP.NET Core MVC model binding functions similarly to that of ASP.NET 4.x MVC 5, by default.</span></span> <span data-ttu-id="99606-259">兼容性填充码更改模型绑定，更类似于 ASP.NET 4.x Web API 2 模型绑定约定。</span><span class="sxs-lookup"><span data-stu-id="99606-259">The compatibility shim changes model binding to be more similar to ASP.NET 4.x Web API 2 model binding conventions.</span></span> <span data-ttu-id="99606-260">例如，复杂类型会自动从请求正文进行绑定。</span><span class="sxs-lookup"><span data-stu-id="99606-260">For example, complex types are automatically bound from the request body.</span></span>
+* <span data-ttu-id="99606-261">扩展模型绑定，以便控制器操作可以接受类型的参数 `HttpRequestMessage` 。</span><span class="sxs-lookup"><span data-stu-id="99606-261">Extends model binding so that controller actions can take parameters of type `HttpRequestMessage`.</span></span>
+* <span data-ttu-id="99606-262">添加消息格式化程序，以允许操作返回类型为的结果 `HttpResponseMessage` 。</span><span class="sxs-lookup"><span data-stu-id="99606-262">Adds message formatters allowing actions to return results of type `HttpResponseMessage`.</span></span>
+* <span data-ttu-id="99606-263">添加 Web API 2 操作可能用于提供响应的其他响应方法：</span><span class="sxs-lookup"><span data-stu-id="99606-263">Adds additional response methods that Web API 2 actions may have used to serve responses:</span></span>
+  * <span data-ttu-id="99606-264">`HttpResponseMessage` 生成器</span><span class="sxs-lookup"><span data-stu-id="99606-264">`HttpResponseMessage` generators:</span></span>
     * `CreateResponse<T>`
     * `CreateErrorResponse`
-  * <span data-ttu-id="c5e61-265">操作结果方法：</span><span class="sxs-lookup"><span data-stu-id="c5e61-265">Action result methods:</span></span>
+  * <span data-ttu-id="99606-265">操作结果方法：</span><span class="sxs-lookup"><span data-stu-id="99606-265">Action result methods:</span></span>
     * `BadRequestErrorMessageResult`
     * `ExceptionResult`
     * `InternalServerErrorResult`
     * `InvalidModelStateResult`
     * `NegotiatedContentResult`
     * `ResponseMessageResult`
-* <span data-ttu-id="c5e61-266">将的实例添加 `IContentNegotiator` 到应用的依赖项注入 (DI) 容器，并使[WebApi](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)中的内容协商相关类型可用。</span><span class="sxs-lookup"><span data-stu-id="c5e61-266">Adds an instance of `IContentNegotiator` to the app's dependency injection (DI) container and makes available the content negotiation-related types from [Microsoft.AspNet.WebApi.Client](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/).</span></span> <span data-ttu-id="c5e61-267">此类类型的示例包括 `DefaultContentNegotiator` 和 `MediaTypeFormatter` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-267">Examples of such types include `DefaultContentNegotiator` and `MediaTypeFormatter`.</span></span>
+* <span data-ttu-id="99606-266">将的实例添加 `IContentNegotiator` 到应用的依赖项注入 (DI) 容器，并使 [WebApi](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)中的内容协商相关类型可用。</span><span class="sxs-lookup"><span data-stu-id="99606-266">Adds an instance of `IContentNegotiator` to the app's dependency injection (DI) container and makes available the content negotiation-related types from [Microsoft.AspNet.WebApi.Client](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/).</span></span> <span data-ttu-id="99606-267">此类类型的示例包括 `DefaultContentNegotiator` 和 `MediaTypeFormatter` 。</span><span class="sxs-lookup"><span data-stu-id="99606-267">Examples of such types include `DefaultContentNegotiator` and `MediaTypeFormatter`.</span></span>
 
-<span data-ttu-id="c5e61-268">使用兼容性填充码：</span><span class="sxs-lookup"><span data-stu-id="c5e61-268">To use the compatibility shim:</span></span>
+<span data-ttu-id="99606-268">使用兼容性填充码：</span><span class="sxs-lookup"><span data-stu-id="99606-268">To use the compatibility shim:</span></span>
 
-1. <span data-ttu-id="c5e61-269">安装[AspNetCore WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="c5e61-269">Install the [Microsoft.AspNetCore.Mvc.WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) NuGet package.</span></span>
-1. <span data-ttu-id="c5e61-270">通过调用在中，将兼容性填充程序的服务注册到应用的 DI 容器 `services.AddMvc().AddWebApiConventions()` `Startup.ConfigureServices` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-270">Register the compatibility shim's services with the app's DI container by calling `services.AddMvc().AddWebApiConventions()` in `Startup.ConfigureServices`.</span></span>
-1. <span data-ttu-id="c5e61-271">`MapWebApiRoute` `IRouteBuilder` 在应用的调用中，使用在上定义特定于 web API 的路由 `IApplicationBuilder.UseMvc` 。</span><span class="sxs-lookup"><span data-stu-id="c5e61-271">Define web API-specific routes using `MapWebApiRoute` on the `IRouteBuilder` in the app's `IApplicationBuilder.UseMvc` call.</span></span>
+1. <span data-ttu-id="99606-269">安装 [AspNetCore WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="99606-269">Install the [Microsoft.AspNetCore.Mvc.WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) NuGet package.</span></span>
+1. <span data-ttu-id="99606-270">通过调用在中，将兼容性填充程序的服务注册到应用的 DI 容器 `services.AddMvc().AddWebApiConventions()` `Startup.ConfigureServices` 。</span><span class="sxs-lookup"><span data-stu-id="99606-270">Register the compatibility shim's services with the app's DI container by calling `services.AddMvc().AddWebApiConventions()` in `Startup.ConfigureServices`.</span></span>
+1. <span data-ttu-id="99606-271">`MapWebApiRoute` `IRouteBuilder` 在应用的调用中，使用在上定义特定于 web API 的路由 `IApplicationBuilder.UseMvc` 。</span><span class="sxs-lookup"><span data-stu-id="99606-271">Define web API-specific routes using `MapWebApiRoute` on the `IRouteBuilder` in the app's `IApplicationBuilder.UseMvc` call.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="c5e61-272">其他资源</span><span class="sxs-lookup"><span data-stu-id="c5e61-272">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="99606-272">其他资源</span><span class="sxs-lookup"><span data-stu-id="99606-272">Additional resources</span></span>
 
 * <xref:web-api/index>
 * <xref:web-api/action-return-types>
