@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: fb9ba7cd4fe7ce805374dd802cc7ba4258d52527
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8dde2d663f4eac94173038eaf7df6b95d67ba62e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016747"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635029"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -97,7 +98,7 @@ ASP.NET Core 随附以下组件：
 * [Kestrel 服务器](xref:fundamentals/servers/kestrel)是默认跨平台 HTTP 服务器。
 * [HTTP.sys 服务器](xref:fundamentals/servers/httpsys)是仅用于 Windows 的 HTTP 服务器，它基于 [HTTP.sys 核心驱动程序和 HTTP 服务器 API](/windows/desktop/Http/http-api-start-page)。
 
-使用 [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) 或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 时，应用在独立于 IIS 工作进程（进程外）** 和 [Kestrel 服务器](#kestrel)的进程中运行。
+使用 [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) 或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 时，应用在独立于 IIS 工作进程（进程外）和 [Kestrel 服务器](#kestrel)的进程中运行。
 
 由于 ASP.NET Core 应用在独立于 IIS 工作进程的进程中运行，因此该模块会处理进程管理。 该模块在第一个请求到达时启动 ASP.NET Core 应用的进程，并在应用关闭或崩溃时重新启动该应用。 这基本上与在 [Windows 进程激活服务 (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was) 托管的进程内运行的应用中出现的行为相同。
 
