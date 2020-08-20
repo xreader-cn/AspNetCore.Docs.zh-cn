@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 静态数据保护密钥加密的实现细节�
 ms.author: riande
 ms.date: 07/16/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,25 +16,25 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-encryption-at-rest
-ms.openlocfilehash: 6e767c5a34f8bf4c512147e7966f7e2c363c57c5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4ca2d998141639406a8283c4c756c05a93251928
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018411"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633674"
 ---
-# <a name="key-encryption-at-rest-in-windows-and-azure-using-aspnet-core"></a><span data-ttu-id="be983-103">Windows 和 Azure 中的静态密钥加密使用 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="be983-103">Key encryption at rest in Windows and Azure using ASP.NET Core</span></span>
+# <a name="key-encryption-at-rest-in-windows-and-azure-using-aspnet-core"></a><span data-ttu-id="b5877-103">Windows 和 Azure 中的静态密钥加密使用 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="b5877-103">Key encryption at rest in Windows and Azure using ASP.NET Core</span></span>
 
-<span data-ttu-id="be983-104">默认情况下，数据保护系统[使用发现机制](xref:security/data-protection/configuration/default-settings)来确定应如何对加密密钥进行静态加密。</span><span class="sxs-lookup"><span data-stu-id="be983-104">The data protection system [employs a discovery mechanism by default](xref:security/data-protection/configuration/default-settings) to determine how cryptographic keys should be encrypted at rest.</span></span> <span data-ttu-id="be983-105">开发人员可以重写发现机制，并手动指定密钥的加密方式。</span><span class="sxs-lookup"><span data-stu-id="be983-105">The developer can override the discovery mechanism and manually specify how keys should be encrypted at rest.</span></span>
+<span data-ttu-id="b5877-104">默认情况下，数据保护系统 [使用发现机制](xref:security/data-protection/configuration/default-settings) 来确定应如何对加密密钥进行静态加密。</span><span class="sxs-lookup"><span data-stu-id="b5877-104">The data protection system [employs a discovery mechanism by default](xref:security/data-protection/configuration/default-settings) to determine how cryptographic keys should be encrypted at rest.</span></span> <span data-ttu-id="b5877-105">开发人员可以重写发现机制，并手动指定密钥的加密方式。</span><span class="sxs-lookup"><span data-stu-id="b5877-105">The developer can override the discovery mechanism and manually specify how keys should be encrypted at rest.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="be983-106">如果指定显式[密钥持久性位置](xref:security/data-protection/implementation/key-storage-providers)，数据保护系统将注销静态密钥加密机制。</span><span class="sxs-lookup"><span data-stu-id="be983-106">If you specify an explicit [key persistence location](xref:security/data-protection/implementation/key-storage-providers), the data protection system deregisters the default key encryption at rest mechanism.</span></span> <span data-ttu-id="be983-107">因此，不再静态加密密钥。</span><span class="sxs-lookup"><span data-stu-id="be983-107">Consequently, keys are no longer encrypted at rest.</span></span> <span data-ttu-id="be983-108">建议为生产部署[指定显式密钥加密机制](xref:security/data-protection/implementation/key-encryption-at-rest)。</span><span class="sxs-lookup"><span data-stu-id="be983-108">We recommend that you [specify an explicit key encryption mechanism](xref:security/data-protection/implementation/key-encryption-at-rest) for production deployments.</span></span> <span data-ttu-id="be983-109">本主题介绍了静态加密机制选项。</span><span class="sxs-lookup"><span data-stu-id="be983-109">The encryption-at-rest mechanism options are described in this topic.</span></span>
+> <span data-ttu-id="b5877-106">如果指定显式 [密钥持久性位置](xref:security/data-protection/implementation/key-storage-providers)，数据保护系统将注销静态密钥加密机制。</span><span class="sxs-lookup"><span data-stu-id="b5877-106">If you specify an explicit [key persistence location](xref:security/data-protection/implementation/key-storage-providers), the data protection system deregisters the default key encryption at rest mechanism.</span></span> <span data-ttu-id="b5877-107">因此，不再静态加密密钥。</span><span class="sxs-lookup"><span data-stu-id="b5877-107">Consequently, keys are no longer encrypted at rest.</span></span> <span data-ttu-id="b5877-108">建议为生产部署 [指定显式密钥加密机制](xref:security/data-protection/implementation/key-encryption-at-rest) 。</span><span class="sxs-lookup"><span data-stu-id="b5877-108">We recommend that you [specify an explicit key encryption mechanism](xref:security/data-protection/implementation/key-encryption-at-rest) for production deployments.</span></span> <span data-ttu-id="b5877-109">本主题介绍了静态加密机制选项。</span><span class="sxs-lookup"><span data-stu-id="b5877-109">The encryption-at-rest mechanism options are described in this topic.</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-## <a name="azure-key-vault"></a><span data-ttu-id="be983-110">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="be983-110">Azure Key Vault</span></span>
+## <a name="azure-key-vault"></a><span data-ttu-id="b5877-110">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="b5877-110">Azure Key Vault</span></span>
 
-<span data-ttu-id="be983-111">若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在类中配置[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault)的系统 `Startup` ：</span><span class="sxs-lookup"><span data-stu-id="be983-111">To store keys in [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), configure the system with [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) in the `Startup` class:</span></span>
+<span data-ttu-id="b5877-111">若要在 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在类中配置 [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) 的系统 `Startup` ：</span><span class="sxs-lookup"><span data-stu-id="b5877-111">To store keys in [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), configure the system with [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) in the `Startup` class:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -44,15 +45,15 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="be983-112">有关详细信息，请参阅[Configure ASP.NET Core Data Protection： ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault)。</span><span class="sxs-lookup"><span data-stu-id="be983-112">For more information, see [Configure ASP.NET Core Data Protection: ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault).</span></span>
+<span data-ttu-id="b5877-112">有关详细信息，请参阅 [Configure ASP.NET Core Data Protection： ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault)。</span><span class="sxs-lookup"><span data-stu-id="b5877-112">For more information, see [Configure ASP.NET Core Data Protection: ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault).</span></span>
 
 ::: moniker-end
 
-## <a name="windows-dpapi"></a><span data-ttu-id="be983-113">Windows DPAPI</span><span class="sxs-lookup"><span data-stu-id="be983-113">Windows DPAPI</span></span>
+## <a name="windows-dpapi"></a><span data-ttu-id="b5877-113">Windows DPAPI</span><span class="sxs-lookup"><span data-stu-id="b5877-113">Windows DPAPI</span></span>
 
-<span data-ttu-id="be983-114">**仅适用于 Windows 部署。**</span><span class="sxs-lookup"><span data-stu-id="be983-114">**Only applies to Windows deployments.**</span></span>
+<span data-ttu-id="b5877-114">**仅适用于 Windows 部署。**</span><span class="sxs-lookup"><span data-stu-id="b5877-114">**Only applies to Windows deployments.**</span></span>
 
-<span data-ttu-id="be983-115">使用 Windows DPAPI 时，将使用[CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata)对密钥材料进行加密，然后将其保存到存储中。</span><span class="sxs-lookup"><span data-stu-id="be983-115">When Windows DPAPI is used, key material is encrypted with [CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata) before being persisted to storage.</span></span> <span data-ttu-id="be983-116">DPAPI 是一种适用于当前计算机之外从不读取的数据的适当加密机制 (不过，可以将这些密钥上移到 Active Directory;请参阅[DPAPI 和漫游配置文件](https://support.microsoft.com/kb/309408/#6)) 。</span><span class="sxs-lookup"><span data-stu-id="be983-116">DPAPI is an appropriate encryption mechanism for data that's never read outside of the current machine (though it's possible to back these keys up to Active Directory; see [DPAPI and Roaming Profiles](https://support.microsoft.com/kb/309408/#6)).</span></span> <span data-ttu-id="be983-117">若要配置 DPAPI 静态密钥加密，请调用[ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi)扩展方法之一：</span><span class="sxs-lookup"><span data-stu-id="be983-117">To configure DPAPI key-at-rest encryption, call one of the [ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi) extension methods:</span></span>
+<span data-ttu-id="b5877-115">使用 Windows DPAPI 时，将使用 [CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata) 对密钥材料进行加密，然后将其保存到存储中。</span><span class="sxs-lookup"><span data-stu-id="b5877-115">When Windows DPAPI is used, key material is encrypted with [CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata) before being persisted to storage.</span></span> <span data-ttu-id="b5877-116">DPAPI 是一种适用于当前计算机之外从不读取的数据的适当加密机制 (不过，可以将这些密钥上移到 Active Directory;请参阅 [DPAPI 和漫游配置文件](https://support.microsoft.com/kb/309408/#6)) 。</span><span class="sxs-lookup"><span data-stu-id="b5877-116">DPAPI is an appropriate encryption mechanism for data that's never read outside of the current machine (though it's possible to back these keys up to Active Directory; see [DPAPI and Roaming Profiles](https://support.microsoft.com/kb/309408/#6)).</span></span> <span data-ttu-id="b5877-117">若要配置 DPAPI 静态密钥加密，请调用 [ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi) 扩展方法之一：</span><span class="sxs-lookup"><span data-stu-id="b5877-117">To configure DPAPI key-at-rest encryption, call one of the [ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi) extension methods:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -63,7 +64,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="be983-118">如果 `ProtectKeysWithDpapi` 在没有参数的情况下调用，则只有当前的 Windows 用户帐户才能解密持久化密钥环。</span><span class="sxs-lookup"><span data-stu-id="be983-118">If `ProtectKeysWithDpapi` is called with no parameters, only the current Windows user account can decipher the persisted key ring.</span></span> <span data-ttu-id="be983-119">您可以选择指定计算机上的任何用户帐户 (不只是当前用户帐户，) 能够破译密钥环：</span><span class="sxs-lookup"><span data-stu-id="be983-119">You can optionally specify that any user account on the machine (not just the current user account) be able to decipher the key ring:</span></span>
+<span data-ttu-id="b5877-118">如果 `ProtectKeysWithDpapi` 在没有参数的情况下调用，则只有当前的 Windows 用户帐户才能解密持久化密钥环。</span><span class="sxs-lookup"><span data-stu-id="b5877-118">If `ProtectKeysWithDpapi` is called with no parameters, only the current Windows user account can decipher the persisted key ring.</span></span> <span data-ttu-id="b5877-119">您可以选择指定计算机上的任何用户帐户 (不只是当前用户帐户，) 能够破译密钥环：</span><span class="sxs-lookup"><span data-stu-id="b5877-119">You can optionally specify that any user account on the machine (not just the current user account) be able to decipher the key ring:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -76,9 +77,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="x509-certificate"></a><span data-ttu-id="be983-120">X.509 证书</span><span class="sxs-lookup"><span data-stu-id="be983-120">X.509 certificate</span></span>
+## <a name="x509-certificate"></a><span data-ttu-id="b5877-120">X.509 证书</span><span class="sxs-lookup"><span data-stu-id="b5877-120">X.509 certificate</span></span>
 
-<span data-ttu-id="be983-121">如果应用分布在多台计算机上，则在计算机上分发共享的 x.509 证书，并将托管应用配置为使用证书进行静态密钥加密可能会很方便。</span><span class="sxs-lookup"><span data-stu-id="be983-121">If the app is spread across multiple machines, it may be convenient to distribute a shared X.509 certificate across the machines and configure the hosted apps to use the certificate for encryption of keys at rest:</span></span>
+<span data-ttu-id="b5877-121">如果应用分布在多台计算机上，则在计算机上分发共享的 x.509 证书，并将托管应用配置为使用证书进行静态密钥加密可能会很方便。</span><span class="sxs-lookup"><span data-stu-id="b5877-121">If the app is spread across multiple machines, it may be convenient to distribute a shared X.509 certificate across the machines and configure the hosted apps to use the certificate for encryption of keys at rest:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -88,17 +89,17 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="be983-122">由于 .NET Framework 限制，仅支持具有 CAPI 私钥的证书。</span><span class="sxs-lookup"><span data-stu-id="be983-122">Due to .NET Framework limitations, only certificates with CAPI private keys are supported.</span></span> <span data-ttu-id="be983-123">请参阅下面的内容，了解这些限制的可能解决方法。</span><span class="sxs-lookup"><span data-stu-id="be983-123">See the content below for possible workarounds to these limitations.</span></span>
+<span data-ttu-id="b5877-122">由于 .NET Framework 限制，仅支持具有 CAPI 私钥的证书。</span><span class="sxs-lookup"><span data-stu-id="b5877-122">Due to .NET Framework limitations, only certificates with CAPI private keys are supported.</span></span> <span data-ttu-id="b5877-123">请参阅下面的内容，了解这些限制的可能解决方法。</span><span class="sxs-lookup"><span data-stu-id="b5877-123">See the content below for possible workarounds to these limitations.</span></span>
 
 ::: moniker-end
 
-## <a name="windows-dpapi-ng"></a><span data-ttu-id="be983-124">Windows DPAPI-NG</span><span class="sxs-lookup"><span data-stu-id="be983-124">Windows DPAPI-NG</span></span>
+## <a name="windows-dpapi-ng"></a><span data-ttu-id="b5877-124">Windows DPAPI-NG</span><span class="sxs-lookup"><span data-stu-id="b5877-124">Windows DPAPI-NG</span></span>
 
-<span data-ttu-id="be983-125">**此机制仅在 Windows 8/Windows Server 2012 或更高版本上可用。**</span><span class="sxs-lookup"><span data-stu-id="be983-125">**This mechanism is available only on Windows 8/Windows Server 2012 or later.**</span></span>
+<span data-ttu-id="b5877-125">**此机制仅在 Windows 8/Windows Server 2012 或更高版本上可用。**</span><span class="sxs-lookup"><span data-stu-id="b5877-125">**This mechanism is available only on Windows 8/Windows Server 2012 or later.**</span></span>
 
-<span data-ttu-id="be983-126">从 Windows 8 开始，Windows OS 支持 DPAPI-NG (也称为 CNG DPAPI) 。</span><span class="sxs-lookup"><span data-stu-id="be983-126">Beginning with Windows 8, Windows OS supports DPAPI-NG (also called CNG DPAPI).</span></span> <span data-ttu-id="be983-127">有关详细信息，请参阅[关于 CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi)。</span><span class="sxs-lookup"><span data-stu-id="be983-127">For more information, see [About CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi).</span></span>
+<span data-ttu-id="b5877-126">从 Windows 8 开始，Windows OS 支持 DPAPI-NG (也称为 CNG DPAPI) 。</span><span class="sxs-lookup"><span data-stu-id="b5877-126">Beginning with Windows 8, Windows OS supports DPAPI-NG (also called CNG DPAPI).</span></span> <span data-ttu-id="b5877-127">有关详细信息，请参阅 [关于 CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi)。</span><span class="sxs-lookup"><span data-stu-id="b5877-127">For more information, see [About CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi).</span></span>
 
-<span data-ttu-id="be983-128">主体编码为保护描述符规则。</span><span class="sxs-lookup"><span data-stu-id="be983-128">The principal is encoded as a protection descriptor rule.</span></span> <span data-ttu-id="be983-129">在以下调用[ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping)的示例中，只有具有指定 SID 的已加入域的用户才能解密密钥环：</span><span class="sxs-lookup"><span data-stu-id="be983-129">In the following example that calls [ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping), only the domain-joined user with the specified SID can decrypt the key ring:</span></span>
+<span data-ttu-id="b5877-128">主体编码为保护描述符规则。</span><span class="sxs-lookup"><span data-stu-id="b5877-128">The principal is encoded as a protection descriptor rule.</span></span> <span data-ttu-id="b5877-129">在以下调用 [ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping)的示例中，只有具有指定 SID 的已加入域的用户才能解密密钥环：</span><span class="sxs-lookup"><span data-stu-id="b5877-129">In the following example that calls [ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping), only the domain-joined user with the specified SID can decrypt the key ring:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -110,7 +111,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="be983-130">还有一个无参数的重载 `ProtectKeysWithDpapiNG` 。</span><span class="sxs-lookup"><span data-stu-id="be983-130">There's also a parameterless overload of `ProtectKeysWithDpapiNG`.</span></span> <span data-ttu-id="be983-131">使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中*CURRENT_ACCOUNT_SID*是当前 Windows 用户帐户的 SID：</span><span class="sxs-lookup"><span data-stu-id="be983-131">Use this convenience method to specify the rule "SID={CURRENT_ACCOUNT_SID}", where *CURRENT_ACCOUNT_SID* is the SID of the current Windows user account:</span></span>
+<span data-ttu-id="b5877-130">还有一个无参数的重载 `ProtectKeysWithDpapiNG` 。</span><span class="sxs-lookup"><span data-stu-id="b5877-130">There's also a parameterless overload of `ProtectKeysWithDpapiNG`.</span></span> <span data-ttu-id="b5877-131">使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中 *CURRENT_ACCOUNT_SID* 是当前 Windows 用户帐户的 SID：</span><span class="sxs-lookup"><span data-stu-id="b5877-131">Use this convenience method to specify the rule "SID={CURRENT_ACCOUNT_SID}", where *CURRENT_ACCOUNT_SID* is the SID of the current Windows user account:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -121,11 +122,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="be983-132">在此方案中，AD 域控制器负责分发由 DPAPI-NG 操作使用的加密密钥。</span><span class="sxs-lookup"><span data-stu-id="be983-132">In this scenario, the AD domain controller is responsible for distributing the encryption keys used by the DPAPI-NG operations.</span></span> <span data-ttu-id="be983-133">如果进程在其标识) 下运行，则目标用户可以通过任何已加入域的计算机来解密已加密的有效负载 (。</span><span class="sxs-lookup"><span data-stu-id="be983-133">The target user can decipher the encrypted payload from any domain-joined machine (provided that the process is running under their identity).</span></span>
+<span data-ttu-id="b5877-132">在此方案中，AD 域控制器负责分发由 DPAPI-NG 操作使用的加密密钥。</span><span class="sxs-lookup"><span data-stu-id="b5877-132">In this scenario, the AD domain controller is responsible for distributing the encryption keys used by the DPAPI-NG operations.</span></span> <span data-ttu-id="b5877-133">如果进程在其标识) 下运行，则目标用户可以通过任何已加入域的计算机来解密已加密的有效负载 (。</span><span class="sxs-lookup"><span data-stu-id="b5877-133">The target user can decipher the encrypted payload from any domain-joined machine (provided that the process is running under their identity).</span></span>
 
-## <a name="certificate-based-encryption-with-windows-dpapi-ng"></a><span data-ttu-id="be983-134">基于证书的加密和 Windows DPAPI-NG</span><span class="sxs-lookup"><span data-stu-id="be983-134">Certificate-based encryption with Windows DPAPI-NG</span></span>
+## <a name="certificate-based-encryption-with-windows-dpapi-ng"></a><span data-ttu-id="b5877-134">基于证书的加密和 Windows DPAPI-NG</span><span class="sxs-lookup"><span data-stu-id="b5877-134">Certificate-based encryption with Windows DPAPI-NG</span></span>
 
-<span data-ttu-id="be983-135">如果应用在 Windows 8.1/Windows Server 2012 R2 或更高版本上运行，则可以使用 Windows DPAPI-NG 执行基于证书的加密。</span><span class="sxs-lookup"><span data-stu-id="be983-135">If the app is running on Windows 8.1/Windows Server 2012 R2 or later, you can use Windows DPAPI-NG to perform certificate-based encryption.</span></span> <span data-ttu-id="be983-136">使用规则描述符字符串 "CERTIFICATE = HashId： THUMBPRINT"，其中*THUMBPRINT*是证书的十六进制编码的 SHA1 指纹：</span><span class="sxs-lookup"><span data-stu-id="be983-136">Use the rule descriptor string "CERTIFICATE=HashId:THUMBPRINT", where *THUMBPRINT* is the hex-encoded SHA1 thumbprint of the certificate:</span></span>
+<span data-ttu-id="b5877-135">如果应用在 Windows 8.1/Windows Server 2012 R2 或更高版本上运行，则可以使用 Windows DPAPI-NG 执行基于证书的加密。</span><span class="sxs-lookup"><span data-stu-id="b5877-135">If the app is running on Windows 8.1/Windows Server 2012 R2 or later, you can use Windows DPAPI-NG to perform certificate-based encryption.</span></span> <span data-ttu-id="b5877-136">使用规则描述符字符串 "CERTIFICATE = HashId： THUMBPRINT"，其中 *THUMBPRINT* 是证书的十六进制编码的 SHA1 指纹：</span><span class="sxs-lookup"><span data-stu-id="b5877-136">Use the rule descriptor string "CERTIFICATE=HashId:THUMBPRINT", where *THUMBPRINT* is the hex-encoded SHA1 thumbprint of the certificate:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -136,8 +137,8 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="be983-137">指向此存储库的任何应用都必须在 Windows 8.1/Windows Server 2012 R2 或更高版本上运行，才能解密密钥。</span><span class="sxs-lookup"><span data-stu-id="be983-137">Any app pointed at this repository must be running on Windows 8.1/Windows Server 2012 R2 or later to decipher the keys.</span></span>
+<span data-ttu-id="b5877-137">指向此存储库的任何应用都必须在 Windows 8.1/Windows Server 2012 R2 或更高版本上运行，才能解密密钥。</span><span class="sxs-lookup"><span data-stu-id="b5877-137">Any app pointed at this repository must be running on Windows 8.1/Windows Server 2012 R2 or later to decipher the keys.</span></span>
 
-## <a name="custom-key-encryption"></a><span data-ttu-id="be983-138">自定义密钥加密</span><span class="sxs-lookup"><span data-stu-id="be983-138">Custom key encryption</span></span>
+## <a name="custom-key-encryption"></a><span data-ttu-id="b5877-138">自定义密钥加密</span><span class="sxs-lookup"><span data-stu-id="b5877-138">Custom key encryption</span></span>
 
-<span data-ttu-id="be983-139">如果不适合使用机箱内机制，开发人员可以通过提供自定义[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)来指定其自己的密钥加密机制。</span><span class="sxs-lookup"><span data-stu-id="be983-139">If the in-box mechanisms aren't appropriate, the developer can specify their own key encryption mechanism by providing a custom [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor).</span></span>
+<span data-ttu-id="b5877-139">如果不适合使用机箱内机制，开发人员可以通过提供自定义 [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)来指定其自己的密钥加密机制。</span><span class="sxs-lookup"><span data-stu-id="b5877-139">If the in-box mechanisms aren't appropriate, the developer can specify their own key encryption mechanism by providing a custom [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor).</span></span>
