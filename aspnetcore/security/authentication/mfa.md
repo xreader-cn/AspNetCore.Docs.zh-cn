@@ -7,6 +7,7 @@ ms.author: rick-anderson
 ms.custom: mvc
 ms.date: 03/17/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/mfa
-ms.openlocfilehash: 4538030b4ce6aba6c78edb69cf44fc5812ddff76
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 048d88a121d0a4a7ab3d3adee9b426b95fd68a80
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017852"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629582"
 ---
 # <a name="multi-factor-authentication-in-aspnet-core"></a>ASP.NET Core 中的多重身份验证
 
@@ -33,7 +34,7 @@ ms.locfileid: "88017852"
 本文涵盖以下几个方面：
 
 * 什么是 MFA 以及建议使用哪些 MFA 流
-* 使用 ASP.NET Core 为管理页配置 MFAIdentity
+* 使用为管理页配置 MFA ASP.NET Core Identity
 * 将 MFA 登录要求发送到 OpenID Connect 服务器
 * 强制 ASP.NET Core OpenID Connect 客户端要求 MFA
 
@@ -45,7 +46,7 @@ MFA 至少需要两种或更多类型的身份验证，如你知道的东西、�
 
 ### <a name="mfa-totp-time-based-one-time-password-algorithm"></a>MFA TOTP (基于时间的一次性密码算法) 
 
-使用 TOTP 的 MFA 是受支持的实现，它使用 ASP.NET Core Identity 。 这可以与任何兼容的验证器应用一起使用，包括：
+使用 TOTP 的 MFA 是受支持的实现 ASP.NET Core Identity 。 这可以与任何兼容的验证器应用一起使用，包括：
 
 * Microsoft Authenticator 应用
 * Google 验证器应用
@@ -63,7 +64,7 @@ FIDO2 目前：
 
 目前，ASP.NET Core 不能直接支持 FIDO2。 FIDO2 可用于 MFA 或无密码流。
 
-Azure Active Directory 提供对 FIDO2 和无密码流的支持。 有关详细信息，请参阅[无密码 authentication options for Azure Active Directory](/azure/active-directory/authentication/concept-authentication-passwordless)。
+Azure Active Directory 提供对 FIDO2 和无密码流的支持。 有关详细信息，请参阅 [无密码 authentication options for Azure Active Directory](/azure/active-directory/authentication/concept-authentication-passwordless)。
 
 ### <a name="mfa-sms"></a>MFA 短信
 
@@ -71,9 +72,9 @@ Azure Active Directory 提供对 FIDO2 和无密码流的支持。 有关详细�
 
 [NIST 指导原则](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
-## <a name="configure-mfa-for-administration-pages-using-aspnet-core-no-locidentity"></a>使用 ASP.NET Core 为管理页配置 MFAIdentity
+## <a name="configure-mfa-for-administration-pages-using-no-locaspnet-core-identity"></a>使用为管理页配置 MFA ASP.NET Core Identity
 
-可以强制用户在 ASP.NET Core 应用中访问敏感页面 Identity 。 对于不同标识存在不同级别访问权限的应用，这可能很有用。 例如，用户可以使用密码登录名查看配置文件数据，但管理员需要使用 MFA 来访问管理页面。
+可以强制用户在应用中访问敏感页面 ASP.NET Core Identity 。 对于不同标识存在不同级别访问权限的应用，这可能很有用。 例如，用户可以使用密码登录名查看配置文件数据，但管理员需要使用 MFA 来访问管理页面。
 
 ### <a name="extend-the-login-with-an-mfa-claim"></a>使用 MFA 声明扩展登录名
 
@@ -212,7 +213,7 @@ services.AddAuthorization(options =>
         x => x.RequireClaim("amr", "mfa")));
 ```
 
-然后，可在视图中使用此策略 `_Layout` 来显示或隐藏带有警告的**管理**菜单：
+然后，可在视图中使用此策略 `_Layout` 来显示或隐藏带有警告的 **管理** 菜单：
 
 ```cshtml
 @using Microsoft.AspNetCore.Authorization
@@ -222,7 +223,7 @@ services.AddAuthorization(options =>
 @inject IAuthorizationService AuthorizationService
 ```
 
-如果标识已使用 MFA 登录，则会显示 "**管理**" 菜单而不显示工具提示警告。 如果用户登录时未启用 MFA，将显示 "**管理员 (未启用") **菜单与工具提示一起显示，通知用户 (解释警告) 。
+如果标识已使用 MFA 登录，则会显示 " **管理** " 菜单而不显示工具提示警告。 如果用户登录时未启用 MFA，将显示 " **管理员 (未启用") ** 菜单与工具提示一起显示，通知用户 (解释警告) 。
 
 ```cshtml
 @if (SignInManager.IsSignedIn(User))
@@ -252,7 +253,7 @@ services.AddAuthorization(options =>
 
 ![管理员 MFA 身份验证](mfa/_static/identitystandalonemfa_01.png)
 
-单击 "**管理**" 链接时，用户将重定向到 "MFA 启用" 视图：
+单击 " **管理** " 链接时，用户将重定向到 "MFA 启用" 视图：
 
 ![管理员激活 MFA 身份验证](mfa/_static/identitystandalonemfa_02.png)
 
@@ -267,7 +268,7 @@ services.AddAuthorization(options =>
 
 ASP.NET Core Razor 页面 OpenID connect 客户端应用使用 `AddOpenIdConnect` 方法登录到 OpenID connect 服务器。 `acr_values`参数设置为 `mfa` 值，并随身份验证请求一起发送。 `OpenIdConnectEvents`用于添加此。
 
-有关推荐的 `acr_values` 参数值，请参阅[身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08)。
+有关推荐的 `acr_values` 参数值，请参阅 [身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08)。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -304,9 +305,9 @@ public void ConfigureServices(IServiceCollection services)
     });
 ```
 
-### <a name="example-openid-connect-no-locidentityserver-4-server-with-aspnet-core-no-locidentity"></a>示例 OpenID Connect Identity server 4 server 与 ASP.NET CoreIdentity
+### <a name="example-openid-connect-no-locidentityserver-4-server-with-no-locaspnet-core-identity"></a>示例 OpenID Connect Identity server 4 服务器与 ASP.NET Core Identity
 
-在使用 ASP.NET Core 和 MVC 视图实现的 OpenID Connect 服务器上 Identity ，将创建一个名为*ErrorEnable2FA*的新视图。 视图：
+在使用 MVC 视图实现的 OpenID Connect 服务器上 ASP.NET Core Identity ，将创建一个名为 *ErrorEnable2FA* 的新视图。 视图：
 
 * 显示来自 Identity 需要 MFA 但用户未在中激活此应用程序的应用程序 Identity 。
 * 通知用户并添加一个用于激活此的链接。
@@ -329,7 +330,7 @@ You can enable MFA to login here:
 
 在 `Login` 方法中， `IIdentityServerInteractionService` 接口实现 `_interaction` 用于访问 OpenID connect 请求参数。 `acr_values`使用属性访问参数 `AcrValues` 。 当客户端通过集发送此时 `mfa` ，可以检查此情况。
 
-如果需要 MFA，并且 ASP.NET Core 中的用户 Identity 启用了 mfa，则登录将继续。 如果用户未启用 MFA，则会将用户重定向到自定义视图*ErrorEnable2FA*。 然后 ASP.NET Core Identity 在中对用户进行签名。
+如果需要 MFA，并且中的用户 ASP.NET Core Identity 启用了 mfa，则登录将继续。 如果用户未启用 MFA，则会将用户重定向到自定义视图 *ErrorEnable2FA*。 然后 ASP.NET Core Identity 在中对用户进行签名。
 
 ```csharp
 //
@@ -410,7 +411,7 @@ public async Task<IActionResult> ExternalLoginCallback(
 如果用户已登录，则客户端应用：
 
 * 仍验证 `amr` 声明。
-* 可以使用指向 ASP.NET Core 视图的链接来设置 MFA Identity 。
+* 可以使用指向视图的链接来设置 MFA ASP.NET Core Identity 。
 
 ![acr_values-1](mfa/_static/acr_values-1.png)
 
@@ -433,7 +434,7 @@ namespace AspNetCoreRequireMfaOidc
 
 返回的值取决于标识身份验证的方式，以及 OpenID Connect 服务器实现上的身份验证方式。
 
-`AuthorizationHandler`使用 `RequireMfa` 要求并验证 `amr` 声明。 OpenID Connect 服务器可以通过使用 Identity 服务器4和 ASP.NET Core 来实现 Identity 。 当用户使用 TOTP 登录时，将 `amr` 使用 MFA 值返回声明。 如果使用不同的 OpenID Connect 服务器实现或不同的 MFA 类型，则 `amr` 声明或可以具有不同的值。 要接受此代码，还必须对代码进行扩展。
+`AuthorizationHandler`使用 `RequireMfa` 要求并验证 `amr` 声明。 OpenID Connect 服务器可以通过使用服务器4来实现 Identity ASP.NET Core Identity 。 当用户使用 TOTP 登录时，将 `amr` 使用 MFA 值返回声明。 如果使用不同的 OpenID Connect 服务器实现或不同的 MFA 类型，则 `amr` 声明或可以具有不同的值。 要接受此代码，还必须对代码进行扩展。
 
 ```csharp
 using Microsoft.AspNetCore.Authorization;
@@ -544,7 +545,7 @@ namespace AspNetCoreRequireMfaOidc.Pages
 }
 ```
 
-如果用户不使用 MFA 进行身份验证，则 `amr` 声明可能具有 `pwd` 值。 请求不会被授权访问此页。 如果使用默认值，则用户将被重定向到*Account/AccessDenied*页。 此行为可以更改，也可以在此处实现自己的自定义逻辑。 在此示例中，添加了一个链接，以便有效的用户可以为其帐户设置 MFA。
+如果用户不使用 MFA 进行身份验证，则 `amr` 声明可能具有 `pwd` 值。 请求不会被授权访问此页。 如果使用默认值，则用户将被重定向到 *Account/AccessDenied* 页。 此行为可以更改，也可以在此处实现自己的自定义逻辑。 在此示例中，添加了一个链接，以便有效的用户可以为其帐户设置 MFA。
 
 ```cshtml
 @page
@@ -561,7 +562,7 @@ You require MFA to login here
 <a href="https://localhost:44352/Manage/TwoFactorAuthentication">Enable MFA</a>
 ```
 
-现在只有通过 MFA 进行身份验证的用户才能访问该页面或网站。 如果使用不同的 MFA 类型，或2FA 为正常，则 `amr` 声明将具有不同的值，并且需要正确处理。 不同的 OpenID Connect 服务器还为此声明返回不同的值，并且可能不遵循[身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08)规范。
+现在只有通过 MFA 进行身份验证的用户才能访问该页面或网站。 如果使用不同的 MFA 类型，或2FA 为正常，则 `amr` 声明将具有不同的值，并且需要正确处理。 不同的 OpenID Connect 服务器还为此声明返回不同的值，并且可能不遵循 [身份验证方法引用值](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) 规范。
 
 如果不使用 MFA 登录 (例如，只使用密码) ：
 

@@ -5,6 +5,7 @@ description: 了解如何使用 ASP.NET Core 数据保护 Api 为密码进行哈
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,18 +16,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/password-hashing
-ms.openlocfilehash: 643d468763c6a935fc618a22920cb79119258087
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 19263400397a9dfe2d9e6044109d6d063023f6f4
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018385"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629855"
 ---
 # <a name="hash-passwords-in-aspnet-core"></a>ASP.NET Core 中的哈希密码
 
-数据保护基本代码包括一个包含加密密钥派生函数的*AspNetCore 密钥派生*。 此包是一个独立的组件，与数据保护系统的其余部分没有任何依赖关系。 它可以完全独立地使用。 为了方便起见，源与数据保护代码库并存。
+数据保护基本代码包括一个包含加密密钥派生函数的 *AspNetCore 密钥派生* 。 此包是一个独立的组件，与数据保护系统的其余部分没有任何依赖关系。 它可以完全独立地使用。 为了方便起见，源与数据保护代码库并存。
 
-包当前提供了一个方法 `KeyDerivation.Pbkdf2` ，该方法允许使用[PBKDF2 算法](https://tools.ietf.org/html/rfc2898#section-5.2)对密码进行哈希处理。 此 API 与 .NET Framework 现有的[Rfc2898DeriveBytes 类型](/dotnet/api/system.security.cryptography.rfc2898derivebytes)非常相似，但有三个重要的区别：
+包当前提供了一个方法 `KeyDerivation.Pbkdf2` ，该方法允许使用 [PBKDF2 算法](https://tools.ietf.org/html/rfc2898#section-5.2)对密码进行哈希处理。 此 API 与 .NET Framework 现有的 [Rfc2898DeriveBytes 类型](/dotnet/api/system.security.cryptography.rfc2898derivebytes)非常相似，但有三个重要的区别：
 
 1. `KeyDerivation.Pbkdf2`方法支持在当前、和)  (使用多个 PRFs， `HMACSHA1` `HMACSHA256` `HMACSHA512` 而 `Rfc2898DeriveBytes` 类型仅支持 `HMACSHA1` 。
 
@@ -36,4 +37,4 @@ ms.locfileid: "88018385"
 
 [!code-csharp[](password-hashing/samples/passwordhasher.cs)]
 
-有关实际用例，请参阅 ASP.NET Core 的类型的[源代码](https://github.com/dotnet/AspNetCore/blob/master/src/Identity/Extensions.Core/src/PasswordHasher.cs) Identity `PasswordHasher` 。
+查看[source code](https://github.com/dotnet/AspNetCore/blob/master/src/Identity/Extensions.Core/src/PasswordHasher.cs) ASP.NET Core Identity `PasswordHasher` 真实用例的类型的源代码。

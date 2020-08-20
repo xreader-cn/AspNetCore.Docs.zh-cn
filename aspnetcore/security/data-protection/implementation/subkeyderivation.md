@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 数据保护子项派生和经过身份验证�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/subkeyderivation
-ms.openlocfilehash: ef9c100df69f9f7a1b51819ebb5721cb4f875ffd
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d8038142ccb2597eb1c98738307b8b9a842dae5a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019685"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630115"
 ---
 # <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>ASP.NET Core 中的子项派生和已验证的加密
 
@@ -47,9 +48,9 @@ ms.locfileid: "88019685"
 
 `( K_E, K_H ) = SP800_108_CTR_HMACSHA512(K_M, AAD, contextHeader || keyModifier)`
 
-此处，我们将在计数器模式下调用 NIST SP800-108 KDF (参阅[NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，5.1) ，其参数如下：
+此处，我们将在计数器模式下调用 NIST SP800-108 KDF (参阅 [NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，5.1) ，其参数如下：
 
-* 密钥派生密钥 (KDK) =`K_M`
+* 密钥派生密钥 (KDK) = `K_M`
 
 * PRF = HMACSHA512
 
@@ -70,7 +71,7 @@ ms.locfileid: "88019685"
 `output:= keyModifier || iv || E_cbc (K_E,iv,data) || HMAC(K_H, iv || E_cbc (K_E,iv,data))`
 
 > [!NOTE]
-> 在 `IDataProtector.Protect` 将[幻标题和密钥 id](xref:security/data-protection/implementation/authenticated-encryption-details)返回到调用方之前，实现会将其追加到输出之前。 由于幻标头和密钥 id 是[AAD](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation-aad)的一部分，并且由于密钥修饰符作为输入送回 KDF，这意味着最终返回的有效负载的每个字节都由 MAC 进行身份验证。
+> 在 `IDataProtector.Protect` 将 [幻标题和密钥 id](xref:security/data-protection/implementation/authenticated-encryption-details) 返回到调用方之前，实现会将其追加到输出之前。 由于幻标头和密钥 id 是 [AAD](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation-aad)的一部分，并且由于密钥修饰符作为输入送回 KDF，这意味着最终返回的有效负载的每个字节都由 MAC 进行身份验证。
 
 ## <a name="galoiscounter-mode-encryption--validation"></a>Galois/Counter 模式加密 + 验证
 
@@ -81,4 +82,4 @@ ms.locfileid: "88019685"
 `output := keyModifier || nonce || E_gcm (K_E,nonce,data) || authTag`
 
 > [!NOTE]
-> 尽管 GCM 本身支持 AAD 的概念，但我们仍只向原始 KDF 提供 AAD，选择将空字符串传递给 GCM 以用于其 AAD 参数。 这样做的原因是两折。 首先，[为了支持灵活性](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers)，我们永远不希望将其 `K_M` 作为加密密钥直接使用。 此外，GCM 对其输入施加非常严格的唯一性要求。 对于两个或多个具有相同 (键的不同输入数据集，GCM) 对的概率不能超过 2 ^ 32。 如果修复此问题，我们在 `K_E` 运行落入的 2 ^-32 限制之前，不能执行 2 ^ 32 个以上的加密操作。 这似乎是一种非常大的操作，但高流量 web 服务器可以在一天内只经过4000000000请求，在这些密钥的正常生存期内。 为了保持符合 2 ^-32 概率限制，我们继续使用128位的密钥修饰符和96位 nonce，这会大大扩展任何给定的可用操作计数 `K_M` 。 为简单起见，我们在 CBC 和 GCM 操作之间共享 KDF 代码路径，由于 AAD 已在 KDF 中考虑，因此无需将其转发到 GCM 例程。
+> 尽管 GCM 本身支持 AAD 的概念，但我们仍只向原始 KDF 提供 AAD，选择将空字符串传递给 GCM 以用于其 AAD 参数。 这样做的原因是两折。 首先， [为了支持灵活性](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers) ，我们永远不希望将其 `K_M` 作为加密密钥直接使用。 此外，GCM 对其输入施加非常严格的唯一性要求。 对于两个或多个具有相同 (键的不同输入数据集，GCM) 对的概率不能超过 2 ^ 32。 如果修复此问题，我们在 `K_E` 运行落入的 2 ^-32 限制之前，不能执行 2 ^ 32 个以上的加密操作。 这似乎是一种非常大的操作，但高流量 web 服务器可以在一天内只经过4000000000请求，在这些密钥的正常生存期内。 为了保持符合 2 ^-32 概率限制，我们继续使用128位的密钥修饰符和96位 nonce，这会大大扩展任何给定的可用操作计数 `K_M` 。 为简单起见，我们在 CBC 和 GCM 操作之间共享 KDF 代码路径，由于 AAD 已在 KDF 中考虑，因此无需将其转发到 GCM 例程。

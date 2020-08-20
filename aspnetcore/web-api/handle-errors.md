@@ -7,6 +7,7 @@ ms.author: prkrishn
 ms.custom: mvc
 ms.date: 07/23/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/handle-errors
-ms.openlocfilehash: a17db9de5f19d11853fb3f9f8c45ade8391ff600
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d9d5703e6c02ed2b95cbe95d3624cd0647ee239f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021492"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631259"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>处理 ASP.NET Core Web API 中的错误
 
@@ -44,7 +45,7 @@ curl -i https://localhost:5001/weatherforecast/chicago
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 ASP.NET Core 3.0 及更高版本中，如果客户端不请求 HTML 格式的输出，则开发人员异常页将显示纯文本响应。 将显示以下输出：
+在 ASP.NET Core 3.0 及更高版本中，如果客户端不请求 HTML 格式的输出，则开发人员异常页将显示纯文本响应。 随即显示以下输出：
 
 ```console
 HTTP/1.1 500 Internal Server Error

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: c0edf56c966cb90c1c308f300a8944d392fdc0e7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e911512c1dce892c670659f04959be89cea067bb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020972"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630102"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-no-locrazor-pages"></a>ASP.NET Core MVC 和页面中的模型验证 Razor
 
@@ -59,7 +60,7 @@ ms.locfileid: "88020972"
 
 以下是一些内置验证特性：
 
-* `[CreditCard]`：验证属性是否具有信用卡格式。 需要[JQuery 验证其他方法](https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js)。
+* `[CreditCard]`：验证属性是否具有信用卡格式。 需要 [JQuery 验证其他方法](https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js)。
 * `[Compare]`：验证模型中的两个属性是否匹配。
 * `[EmailAddress]`：验证属性是否具有电子邮件格式。
 * `[Phone]`：验证属性是否具有电话号码格式。
@@ -72,7 +73,7 @@ ms.locfileid: "88020972"
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
-### <a name="error-messages"></a>错误消息
+### <a name="error-messages"></a>Error messages
 
 通过验证特性可以指定要为无效输入显示的错误消息。 例如：
 
@@ -126,7 +127,7 @@ services.AddControllers(options => options.SuppressImplicitRequiredAttributeForN
 
 若要实现远程验证：
 
-1. 创建可供 JavaScript 调用的操作方法。  JQuery 验证[远程](https://jqueryvalidation.org/remote-method/)方法需要 JSON 响应：
+1. 创建可供 JavaScript 调用的操作方法。  JQuery 验证 [远程](https://jqueryvalidation.org/remote-method/) 方法需要 JSON 响应：
 
    * `true` 表示输入数据有效。
    * `false`、`undefined` 或 `null` 表示输入无效。 显示默认错误消息。
@@ -252,7 +253,7 @@ public string MiddleName { get; set; }
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Views/Shared/_ValidationScriptsPartial.cshtml?name=snippet_Scripts)]
 
-JQuery 非介入式[验证](https://github.com/aspnet/jquery-validation-unobtrusive)脚本是一种基于常用[jQuery 验证](https://jqueryvalidation.org/)插件构建的自定义 Microsoft 前端库。 如果没有 jQuery 非介入式验证，则必须在两个位置编码相同的验证逻辑：一次是在模型属性上的服务器端验证特性中，一次是在客户端脚本中。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)则使用模型属性中的验证特性和类型元数据，呈现需要验证的表单元素的 HTML 5 `data-` 特性。 jQuery 非介入式验证分析 `data-` 属性，并将逻辑传递到 JQuery 验证，从而有效地将服务器端验证逻辑 "复制" 到客户端。 可以使用标记帮助程序在客户端上显示验证错误，如下所示：
+JQuery 非介入式 [验证](https://github.com/aspnet/jquery-validation-unobtrusive) 脚本是一种基于常用 [jQuery 验证](https://jqueryvalidation.org/) 插件构建的自定义 Microsoft 前端库。 如果没有 jQuery 非介入式验证，则必须在两个位置编码相同的验证逻辑：一次是在模型属性上的服务器端验证特性中，一次是在客户端脚本中。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)则使用模型属性中的验证特性和类型元数据，呈现需要验证的表单元素的 HTML 5 `data-` 特性。 jQuery 非介入式验证分析 `data-` 属性，并将逻辑传递到 JQuery 验证，从而有效地将服务器端验证逻辑 "复制" 到客户端。 可以使用标记帮助程序在客户端上显示验证错误，如下所示：
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml?name=snippet_ReleaseDate&highlight=3-4)]
 
@@ -269,7 +270,7 @@ JQuery 非介入式[验证](https://github.com/aspnet/jquery-validation-unobtrus
 </div>
 ```
 
-请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给[所需的 JQuery 验证 ( # B1](https://jqueryvalidation.org/required-method/)方法，然后在随附的元素中显示该消息 **\<span>** 。
+请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 [所需的 JQuery 验证 ( # B1 ](https://jqueryvalidation.org/required-method/) 方法，然后在随附的元素中显示该消息 **\<span>** 。
 
 如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
 
@@ -327,7 +328,7 @@ $.get({
 
 [!code-javascript[](validation/samples/3.x/ValidationSample/wwwroot/js/classicMovieValidator.js)]
 
-有关如何编写适配器的信息，请参阅[JQuery 验证文档](https://jqueryvalidation.org/documentation/)。
+有关如何编写适配器的信息，请参阅 [JQuery 验证文档](https://jqueryvalidation.org/documentation/)。
 
 给定字段的适配器的使用由 `data-` 特性触发，这些特性：
 
@@ -386,7 +387,7 @@ $.get({
 * 在所有 *.cshtml* 文件中注释掉对 `_ValidationScriptsPartial` 的引用。
 * 删除 *Pages\Shared\_ValidationScriptsPartial.cshtml* 文件的内容。
 
-上述方法不会阻止 ASP.NET Core 类库的客户端验证 Identity Razor 。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。
+上述方法不会阻止对类库的客户端验证 ASP.NET Core Identity Razor 。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -442,7 +443,7 @@ $.get({
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
-### <a name="error-messages"></a>错误消息
+### <a name="error-messages"></a>Error messages
 
 通过验证特性可以指定要为无效输入显示的错误消息。 例如：
 
@@ -644,7 +645,7 @@ public string MiddleName { get; set; }
 </form>
 ```
 
-请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给[所需的 JQuery 验证 ( # B1](https://jqueryvalidation.org/required-method/)方法，然后在随附的元素中显示该消息 **\<span>** 。
+请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 [所需的 JQuery 验证 ( # B1 ](https://jqueryvalidation.org/required-method/) 方法，然后在随附的元素中显示该消息 **\<span>** 。
 
 如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
 

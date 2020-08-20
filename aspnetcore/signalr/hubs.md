@@ -1,5 +1,5 @@
 ---
-title: 在 ASP.NET Core 中使用中心SignalR
+title: 在 ASP.NET Core 中使用中心 SignalR
 author: bradygaster
 description: 了解如何在 ASP.NET Core 中使用集线器 SignalR 。
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,22 +18,22 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: bd7432fc29d0cda003abed1f0e522bdddf2e4efc
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 71ca0896bc645b7625f60c3a9e8fe321079d524a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022207"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631272"
 ---
 # <a name="use-hubs-in-no-locsignalr-for-aspnet-core"></a>使用中 SignalR 的中心进行 ASP.NET Core
 
-作者： [Rachel Appel](https://twitter.com/rachelappel)和[古柯 Griffin](https://twitter.com/1kevgriff)
+作者： [Rachel Appel](https://twitter.com/rachelappel) 和 [古柯 Griffin](https://twitter.com/1kevgriff)
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ )[（如何下载）](xref:index#how-to-download-a-sample)
 
 ## <a name="what-is-a-no-locsignalr-hub"></a>什么是 SignalR 中心
 
-SignalR利用中心 API，你可以从服务器对连接的客户端调用方法。 在服务器代码中，您将定义由客户端调用的方法。 在客户端代码中，您将定义从服务器调用的方法。 SignalR处理幕后的所有事情，使客户端到服务器和服务器到客户端的实时通信成为可能。
+SignalR利用中心 API，你可以从服务器对连接的客户端调用方法。 在服务器代码中，您将定义由客户端调用的方法。 在客户端代码中，您将定义从服务器调用的方法。 SignalR 处理幕后的所有事情，使客户端到服务器和服务器到客户端的实时通信成为可能。
 
 ## <a name="configure-no-locsignalr-hubs"></a>配置 SignalR 中心
 
@@ -76,7 +77,7 @@ public class ChatHub : Hub
 }
 ```
 
-可以指定返回类型和参数（包括复杂类型和数组），就像在任何 c # 方法中一样。 SignalR处理参数和返回值中的复杂对象和数组的序列化和反序列化。
+可以指定返回类型和参数（包括复杂类型和数组），就像在任何 c # 方法中一样。 SignalR 处理参数和返回值中的复杂对象和数组的序列化和反序列化。
 
 > [!NOTE]
 > 中心是暂时性的：
@@ -88,18 +89,18 @@ public class ChatHub : Hub
 
 `Hub`类具有一个 `Context` 属性，该属性包含有关连接的信息的以下属性：
 
-| 属性 | 描述 |
+| 属性 | 说明 |
 | ------ | ----------- |
 | `ConnectionId` | 获取由分配的连接的唯一 ID SignalR 。 每个连接都有一个连接 ID。|
-| `UserIdentifier` | 获取[用户标识符](xref:signalr/groups)。 默认情况下， SignalR 将 `ClaimTypes.NameIdentifier` 从 `ClaimsPrincipal` 与连接关联的中用作用户标识符。 |
+| `UserIdentifier` | 获取 [用户标识符](xref:signalr/groups)。 默认情况下， SignalR 将 `ClaimTypes.NameIdentifier` 从 `ClaimsPrincipal` 与连接关联的中用作用户标识符。 |
 | `User` | 获取 `ClaimsPrincipal` 与当前用户关联的。 |
 | `Items` | 获取可用于在此连接的范围内共享数据的键/值集合。 数据可以存储在此集合中，它将在不同的集线器方法调用中持久保存。 |
 | `Features` | 获取连接上的可用功能的集合。 目前，在大多数情况下不需要此集合，因此不会对其进行详细介绍。 |
 | `ConnectionAborted` | 获取一个 `CancellationToken` ，它将在连接中止时通知。 |
 
-`Hub.Context`还包含以下方法：
+`Hub.Context` 还包含以下方法：
 
-| 方法 | 描述 |
+| 方法 | 说明 |
 | ------ | ----------- |
 | `GetHttpContext` | 返回 `HttpContext` 连接的， `null` 如果连接不与 HTTP 请求关联，则为。 对于 HTTP 连接，可以使用此方法来获取 HTTP 标头和查询字符串等信息。 |
 | `Abort` | 中止连接。 |
@@ -108,15 +109,15 @@ public class ChatHub : Hub
 
 `Hub`类具有一个 `Clients` 属性，该属性包含服务器和客户端之间的通信的以下属性：
 
-| 属性 | 描述 |
+| 属性 | 说明 |
 | ------ | ----------- |
 | `All` | 在所有连接的客户端上调用方法 |
 | `Caller` | 在调用集线器方法的客户端上调用方法 |
 | `Others` | 在所有连接的客户端上调用方法，但调用方法的客户端除外 |
 
-`Hub.Clients`还包含以下方法：
+`Hub.Clients` 还包含以下方法：
 
-| 方法 | 描述 |
+| 方法 | 说明 |
 | ------ | ----------- |
 | `AllExcept` | 在所有连接的客户端（指定的连接除外）上调用方法 |
 | `Client` | 在特定连接的客户端上调用方法 |
@@ -134,9 +135,9 @@ public class ChatHub : Hub
 
 若要调用特定的客户端，请使用对象的属性 `Clients` 。 在下面的示例中，有三种集线器方法：
 
-* `SendMessage`使用将消息发送到所有连接的客户端 `Clients.All` 。
-* `SendMessageToCaller`使用将消息发回给调用方 `Clients.Caller` 。
-* `SendMessageToGroups`向组中的所有客户端发送一条消息 `SignalR Users` 。
+* `SendMessage` 使用将消息发送到所有连接的客户端 `Clients.All` 。
+* `SendMessageToCaller` 使用将消息发回给调用方 `Clients.Caller` 。
+* `SendMessageToGroups` 向组中的所有客户端发送一条消息 `SignalR Users` 。
 
 [!code-csharp[Send messages](hubs/sample/hubs/chathub.cs?name=HubMethods)]
 
@@ -168,7 +169,7 @@ public interface IClient
 
 ## <a name="change-the-name-of-a-hub-method"></a>更改集线器方法的名称
 
-默认情况下，服务器集线器方法名称是 .NET 方法的名称。 但是，可以使用[HubMethodName](xref:Microsoft.AspNetCore.SignalR.HubMethodNameAttribute)属性来更改此默认设置，并手动指定方法的名称。 调用方法时，客户端应使用此名称，而不是 .NET 方法名称。
+默认情况下，服务器集线器方法名称是 .NET 方法的名称。 但是，可以使用 [HubMethodName](xref:Microsoft.AspNetCore.SignalR.HubMethodNameAttribute) 属性来更改此默认设置，并手动指定方法的名称。 调用方法时，客户端应使用此名称，而不是 .NET 方法名称。
 
 [!code-csharp[HubMethodName attribute](hubs/sample/hubs/chathub.cs?name=HubMethodName&highlight=1)]
 
@@ -186,7 +187,7 @@ SignalR中心 API 提供 `OnConnectedAsync` 和 `OnDisconnectedAsync` 虚拟方�
 
 ## <a name="handle-errors"></a>处理错误
 
-在中心方法中引发的异常将发送到调用方法的客户端。 在 JavaScript 客户端上，该 `invoke` 方法返回[javascript 承诺](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises)。 当客户端接收到使用附加到承诺的处理程序的错误时 `catch` ，它将作为 JavaScript 对象进行调用和传递 `Error` 。
+在中心方法中引发的异常将发送到调用方法的客户端。 在 JavaScript 客户端上，该 `invoke` 方法返回 [javascript 承诺](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises)。 当客户端接收到使用附加到承诺的处理程序的错误时 `catch` ，它将作为 JavaScript 对象进行调用和传递 `Error` 。
 
 [!code-javascript[Error](hubs/sample/wwwroot/js/chat.js?range=23)]
 
@@ -196,17 +197,17 @@ SignalR中心 API 提供 `OnConnectedAsync` 和 `OnDisconnectedAsync` 虚拟方�
 Microsoft.AspNetCore.SignalR.HubException: An unexpected error occurred invoking 'MethodName' on the server.
 ```
 
-意外的异常通常包含敏感信息，例如数据库连接失败时触发的异常中的数据库服务器的名称。 SignalR默认情况下，不会公开这些详细的错误消息作为安全措施。 有关抑制异常详细信息的原因的详细信息，请参阅[安全注意事项一文](xref:signalr/security#exceptions)。
+意外的异常通常包含敏感信息，例如数据库连接失败时触发的异常中的数据库服务器的名称。 SignalR 默认情况下，不会公开这些详细的错误消息作为安全措施。 有关抑制异常详细信息的原因的详细信息，请参阅 [安全注意事项一文](xref:signalr/security#exceptions) 。
 
-如果*要将*异常情况传播到客户端，则可以使用 `HubException` 类。 如果 `HubException` 从中心方法引发，则 SignalR **会将**整个消息发送到客户端（未修改）。
+如果 *要将* 异常情况传播到客户端，则可以使用 `HubException` 类。 如果 `HubException` 从中心方法引发，则 SignalR **会将** 整个消息发送到客户端（未修改）。
 
 [!code-csharp[ThrowHubException](hubs/sample/hubs/chathub.cs?name=ThrowHubException&highlight=3)]
 
 > [!NOTE]
-> SignalR仅将 `Message` 异常的属性发送到客户端。 异常的堆栈跟踪和其他属性不适用于客户端。
+> SignalR 仅将 `Message` 异常的属性发送到客户端。 异常的堆栈跟踪和其他属性不适用于客户端。
 
 ## <a name="related-resources"></a>相关资源
 
-* [ASP.NET Core 简介SignalR](xref:signalr/introduction)
+* [ASP.NET Core 简介 SignalR](xref:signalr/introduction)
 * [JavaScript 客户端](xref:signalr/javascript-client)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)

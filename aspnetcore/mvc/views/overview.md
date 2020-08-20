@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core MVC 中的视图如何处理应用的数据表�
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,20 +16,20 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/overview
-ms.openlocfilehash: 8630df0ad8ea556c6edf0ab251b3c86493f751e2
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6afd69414f2dc0158f724c6e6f7b3a3e51c1e92c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020868"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630674"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的视图
 
 作者：[Steve Smith](https://ardalis.com/)
 
-本文档介绍在 ASP.NET Core MVC 应用程序中使用的视图。 有关页面的信息 Razor ，请参阅[ Razor 页面简介](xref:razor-pages/index)。
+本文档介绍在 ASP.NET Core MVC 应用程序中使用的视图。 有关页面的信息 Razor ，请参阅 [ Razor 页面简介](xref:razor-pages/index)。
 
-在“模型-视图-控制器(MVC)”模式中，视图处理应用的数据表示和用户交互**。 视图是具有嵌入[ Razor 标记](xref:mvc/views/razor)的 HTML 模板。 Razor标记是与 HTML 标记交互以生成发送到客户端的网页的代码。
+在“模型-视图-控制器(MVC)”模式中，视图处理应用的数据表示和用户交互**。 视图是具有嵌入[ Razor 标记](xref:mvc/views/razor)的 HTML 模板。 Razor 标记是与 HTML 标记交互以生成发送到客户端的网页的代码。
 
 在 ASP.NET Core MVC 中，视图是在标记中使用[c # 编程语言](/dotnet/csharp/)的*cshtml*文件。 Razor 通常，视图文件会分组到以每个应用的[控制器](xref:mvc/controllers/actions)命名的文件夹中。 此文件夹存储在应用根目录的“Views”文件夹中**：
 
@@ -97,7 +98,7 @@ HomeController.cs**
 
 操作返回一个视图时，会发生称为“视图发现”的过程**。 此过程基于视图名称确定使用哪个视图文件。 
 
-`View` 方法 的默认行为 (`return View();`) 旨在返回与其从中调用的操作方法同名的视图。 例如，控制器的 "*关于*" `ActionResult` 方法名称用于搜索名为 "*关于*" 的视图文件。 运行时首先在 Views/[ControllerName] 文件夹中搜索该视图**。 如果在此处找不到匹配的视图，则会在“Shared”文件夹中搜索该视图**。
+`View` 方法 的默认行为 (`return View();`) 旨在返回与其从中调用的操作方法同名的视图。 例如，控制器的 " *关于*" `ActionResult` 方法名称用于搜索名为 " *关于*" 的视图文件。 运行时首先在 Views/[ControllerName] 文件夹中搜索该视图**。 如果在此处找不到匹配的视图，则会在“Shared”文件夹中搜索该视图**。
 
 用 `return View();` 隐式返回 `ViewResult` 还是用 `return View("<ViewName>");` 将视图名称显式传递给 `View` 方法并不重要。 在这两种情况下，视图发现都会按以下顺序搜索匹配的视图文件：
 
@@ -298,7 +299,7 @@ public class HomeController : Controller
 
 `ViewBag`*在中 Razor 不可用页面。*
 
-`ViewBag`是一个[DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata)对象，它提供对存储在中的对象的动态访问 `ViewData` 。 `ViewBag` 不需要强制转换，因此使用起来更加方便。 下例演示如何使用与上述 `ViewData` 有相同结果的 `ViewBag`：
+`ViewBag` 是一个 [DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata) 对象，它提供对存储在中的对象的动态访问 `ViewData` 。 `ViewBag` 不需要强制转换，因此使用起来更加方便。 下例演示如何使用与上述 `ViewData` 有相同结果的 `ViewBag`：
 
 ```csharp
 public IActionResult SomeAction()
@@ -369,10 +370,10 @@ public IActionResult SomeAction()
 
 **ViewData 和 ViewBag 之间差异的摘要**
 
- `ViewBag`页中不可用 Razor 。
+ `ViewBag` 页中不可用 Razor 。
 
 * `ViewData`
-  * 派生自[ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary)，因此它具有可有用的字典属性，例如、、 `ContainsKey` `Add` `Remove` 和 `Clear` 。
+  * 派生自 [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary)，因此它具有可有用的字典属性，例如、、 `ContainsKey` `Add` `Remove` 和 `Clear` 。
   * 字典中的键是字符串，因此允许有空格。 示例： `ViewData["Some Key With Whitespace"]`
   * 任何非 `string` 类型均须在视图中进行强制转换才能使用 `ViewData`。
 * `ViewBag`

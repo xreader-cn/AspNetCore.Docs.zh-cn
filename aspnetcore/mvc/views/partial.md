@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/partial
-ms.openlocfilehash: 826d7cf96d95ee7eb98b0f05a233401a1e3bff33
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7a370042520adfe5b06784b76acf41a81eb2c72d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020829"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630622"
 ---
 # <a name="partial-views-in-aspnet-core"></a>ASP.NET Core 中的分部视图
 
@@ -31,7 +32,7 @@ ms.locfileid: "88020829"
 
 ::: moniker range=">= aspnetcore-2.1"
 
-当开发 MVC 应用程序时，将使用术语*分部视图*，其中标记文件称为*视图*，或 Razor 页面应用，其中的标记文件被称为*页*。 本主题一般将 MVC 视图和 Razor 页面页称为*标记文件*。
+当开发 MVC 应用程序时，将使用术语 *分部视图* ，其中标记文件称为 *视图*，或 Razor 页面应用，其中的标记文件被称为 *页*。 本主题一般将 MVC 视图和 Razor 页面页称为 *标记文件*。
 
 ::: moniker-end
 
@@ -147,7 +148,7 @@ public IActionResult OnGetPartial() =>
 
 以下示例从应用程序根目录引用分部视图。 以波形符斜杠 (`~/`) 或斜杠 (`/`) 开头的路径指代应用程序根目录：
 
-**Razor页**
+**Razor 页**
 
 ```cshtml
 <partial name="~/Pages/Folder/_PartialName.cshtml" />
@@ -189,7 +190,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Razor页**
+**Razor 页**
 
 ```cshtml
 @await Html.PartialAsync("~/Pages/Folder/_PartialName.cshtml")
@@ -230,7 +231,7 @@ public IActionResult OnGetPartial() =>
 
 > 使用 IHtmlHelper.Partial 可能会导致应用程序死锁。 考虑使用 &lt;分部&gt; 标记帮助程序或 IHtmlHelper.PartialAsync。
 
-将对的调用替换为 `@Html.Partial` `@await Html.PartialAsync` 或[部分标记帮助器](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 有关分部标记帮助程序迁移的详细信息，请参阅[从 HTML 帮助程序迁移](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper)。
+将对的调用替换为 `@Html.Partial` `@await Html.PartialAsync` 或 [部分标记帮助器](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 有关分部标记帮助程序迁移的详细信息，请参阅[从 HTML 帮助程序迁移](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper)。
 
 ::: moniker-end
 
@@ -240,7 +241,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Razor页**
+**Razor 页**
 
 1. 当前正在执行页面的文件夹
 1. 该页面文件夹上方的目录图
@@ -296,7 +297,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Razor页**
+**Razor 页**
 
 示例应用程序中的以下标记来自 *Pages/ArticlesRP/ReadRP.cshtml* 页面。 此页包含两个分部视图。 第二个分部视图将模型和 `ViewData` 传入分部视图。 `ViewDataDictionary` 构造函数重载可用于传递新 `ViewData` 字典，同时保留现有的 `ViewData` 字典。
 

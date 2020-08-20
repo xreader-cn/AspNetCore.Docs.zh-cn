@@ -5,6 +5,7 @@ description: 了解如何在 ASP.NET Core 应用中呈现视图之前，使用�
 ms.author: riande
 ms.date: 07/30/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/layout
-ms.openlocfilehash: 4d5032f02db28341d7781dd57d58d776636fd16d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 308e567e0480f83972ab7a55c7b957af83a164fd
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020439"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630687"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core 中的布局
 
@@ -34,7 +35,7 @@ ms.locfileid: "88020439"
 
 本文档讨论了两种不同方法 ASP.NET Core MVC： Razor 页面和控制器与视图的布局。 在本主题中，差异很小：
 
-* Razor页面位于 "*页面*" 文件夹中。
+* Razor 页面位于 " *页面* " 文件夹中。
 * 具有视图的控制器使用视图的“视图”文件夹。**
 
 ## <a name="what-is-a-layout"></a>什么是布局
@@ -43,11 +44,11 @@ ms.locfileid: "88020439"
 
 ![页面布局示例](layout/_static/page-layout.png)
 
-应用中的许多页面也经常使用常见的 HTML 结构，如脚本和样式表。 所有这些共享元素都可以在*布局*文件中定义，该文件随后可由应用中使用的任何视图引用。 布局可减少视图中的重复代码。
+应用中的许多页面也经常使用常见的 HTML 结构，如脚本和样式表。 所有这些共享元素都可以在 *布局* 文件中定义，该文件随后可由应用中使用的任何视图引用。 布局可减少视图中的重复代码。
 
 按照约定，ASP.NET Core 应用的默认布局名为 _Layout.cshtml。** 使用模板创建的新 ASP.NET Core 项目的布局文件为：
 
-* Razor页面： *pages/Shared/_Layout cshtml*
+* Razor 页面： *pages/Shared/_Layout cshtml*
 
   ![解决方案资源管理器中的页面文件夹](layout/_static/rp-web-project-views.png)
 
@@ -63,7 +64,7 @@ ms.locfileid: "88020439"
 
 ## <a name="specifying-a-layout"></a>指定布局
 
-Razor视图具有 `Layout` 属性。 单个视图通过设置此属性来指定布局：
+Razor 视图具有 `Layout` 属性。 单个视图通过设置此属性来指定布局：
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
@@ -119,7 +120,7 @@ Razor视图具有 `Layout` 属性。 单个视图通过设置此属性来指定�
 
 ## <a name="importing-shared-directives"></a>导入共享指令
 
-视图和页面可以使用 Razor 指令导入命名空间和使用[依赖关系注入](dependency-injection.md)。 由多个视图共享的指令可以在通用 _ViewImports.cshtml 文件中进行指定。** `_ViewImports` 文件支持以下指令：
+视图和页面可以使用 Razor 指令导入命名空间和使用 [依赖关系注入](dependency-injection.md)。 由多个视图共享的指令可以在通用 _ViewImports.cshtml 文件中进行指定。** `_ViewImports` 文件支持以下指令：
 
 * `@addTagHelper`
 * `@removeTagHelper`

@@ -5,6 +5,7 @@ description: 获取 ASP.NET Core 数据保护库中可用的各种使用者 Api 
 ms.author: riande
 ms.date: 06/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,20 +16,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/overview
-ms.openlocfilehash: 985c8cdc3518a51b9ec764407f4e2e3e5ff07e12
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0cdc5d8700357f33fcd3d361f10a5d66cccb067d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021128"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629894"
 ---
 # <a name="consumer-apis-overview-for-aspnet-core"></a>ASP.NET Core 的使用者 Api 概述
 
-`IDataProtectionProvider`和 `IDataProtector` 接口是使用者使用数据保护系统的基本接口。 它们位于[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/)文件包中。
+`IDataProtectionProvider`和 `IDataProtector` 接口是使用者使用数据保护系统的基本接口。 它们位于 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/) 文件包中。
 
 ## <a name="idataprotectionprovider"></a>IDataProtectionProvider
 
-提供程序接口表示数据保护系统的根。 它不能直接用于保护或取消保护数据。 相反，使用者必须通过调用来获取对的引用 `IDataProtector` `IDataProtectionProvider.CreateProtector(purpose)` ，其中目的是描述预期使用者用例的字符串。 有关此参数意向的详细信息以及如何选择适当的值，请参阅[目的字符串](xref:security/data-protection/consumer-apis/purpose-strings)。
+提供程序接口表示数据保护系统的根。 它不能直接用于保护或取消保护数据。 相反，使用者必须通过调用来获取对的引用 `IDataProtector` `IDataProtectionProvider.CreateProtector(purpose)` ，其中目的是描述预期使用者用例的字符串。 有关此参数意向的详细信息以及如何选择适当的值，请参阅 [目的字符串](xref:security/data-protection/consumer-apis/purpose-strings) 。
 
 ## <a name="idataprotector"></a>IDataProtector
 
@@ -38,18 +39,18 @@ ms.locfileid: "88021128"
 
 若要取消对以前受保护的数据片段的保护，请将受保护的数据传递给 `Unprotect` 方法。  (有基于字节 [] 的和基于字符串的重载，以便为开发人员提供便利。 ) 如果受保护的负载是通过对此相同的之前调用生成的 `Protect` `IDataProtector` ，则该 `Unprotect` 方法将返回未受保护的原始有效负载。 如果受保护的负载已被篡改或由不同的生成 `IDataProtector` ，则该 `Unprotect` 方法将引发 system.security.cryptography.cryptographicexception。
 
-相同和不同的概念将 `IDataProtector` 返回到目的概念。 如果两个 `IDataProtector` 实例是从同一根生成的 `IDataProtectionProvider` ，而是通过对的调用中的不同目的字符串生成的 `IDataProtectionProvider.CreateProtector` ，则它们被视为[不同的保护](xref:security/data-protection/consumer-apis/purpose-strings)程序，而一个将无法取消保护由另一个生成的负载。
+相同和不同的概念将 `IDataProtector` 返回到目的概念。 如果两个 `IDataProtector` 实例是从同一根生成的 `IDataProtectionProvider` ，而是通过对的调用中的不同目的字符串生成的 `IDataProtectionProvider.CreateProtector` ，则它们被视为 [不同的保护](xref:security/data-protection/consumer-apis/purpose-strings)程序，而一个将无法取消保护由另一个生成的负载。
 
 ## <a name="consuming-these-interfaces"></a>使用这些接口
 
 对于支持 DI 的组件，预期的用法是组件 `IDataProtectionProvider` 在其构造函数中采用参数，而 DI 系统在实例化组件时自动提供此服务。
 
 > [!NOTE]
-> 某些应用程序 (如控制台应用程序或 ASP.NET 4.x 应用程序) 可能不是 DI 可识别的，因此无法使用此处所述的机制。 对于这些方案，请参阅[非 DI 感知方案](xref:security/data-protection/configuration/non-di-scenarios)文档，详细了解如何获取提供程序的实例， `IDataProtection` 而无需通过 DI。
+> 某些应用程序 (如控制台应用程序或 ASP.NET 4.x 应用程序) 可能不是 DI 可识别的，因此无法使用此处所述的机制。 对于这些方案，请参阅 [非 DI 感知方案](xref:security/data-protection/configuration/non-di-scenarios) 文档，详细了解如何获取提供程序的实例， `IDataProtection` 而无需通过 DI。
 
 下面的示例演示三个概念：
 
-1. [将数据保护系统添加](xref:security/data-protection/configuration/overview)到服务容器中，
+1. [将数据保护系统添加](xref:security/data-protection/configuration/overview) 到服务容器中，
 
 2. 使用 DI 接收的实例 `IDataProtectionProvider` ，然后
 

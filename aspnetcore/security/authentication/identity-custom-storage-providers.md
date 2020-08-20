@@ -1,11 +1,12 @@
 ---
-title: ASP.NET Core 的自定义存储提供程序Identity
+title: 自定义存储提供程序 ASP.NET Core Identity
 author: ardalis
-description: 了解如何为 ASP.NET Core 配置自定义存储提供程序 Identity 。
+description: 了解如何为配置自定义存储提供程序 ASP.NET Core Identity 。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,28 +17,28 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 27f6130742e25e07d4b908973e1ebf26288fdbfd
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a8414efeece1afd55d0f30d232ef360d0a21714c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021531"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630128"
 ---
-# <a name="custom-storage-providers-for-aspnet-core-no-locidentity"></a>ASP.NET Core 的自定义存储提供程序Identity
+# <a name="custom-storage-providers-for-no-locaspnet-core-identity"></a>自定义存储提供程序 ASP.NET Core Identity
 
 作者：[Steve Smith](https://ardalis.com/)
 
-ASP.NET Core Identity 是一种可扩展系统，可让你创建自定义存储提供程序，并将其连接到你的应用程序。 本主题介绍如何为 ASP.NET Core 创建自定义的存储提供程序 Identity 。 它介绍了用于创建自己的存储提供程序的重要概念，但并不是分步演练。
+ASP.NET Core Identity 是一个可扩展系统，可让你创建自定义存储提供程序并将其连接到你的应用程序。 本主题介绍如何为创建自定义的存储提供程序 ASP.NET Core Identity 。 它介绍了用于创建自己的存储提供程序的重要概念，但并不是分步演练。
 
 [查看或下载 GitHub 中的示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample)。
 
 ## <a name="introduction"></a>简介
 
-默认情况下，ASP.NET Core Identity 系统使用 Entity Framework Core 将用户信息存储在 SQL Server 数据库中。 对于许多应用程序而言，这种方法的效果很好。 但是，你可能希望使用不同的持久性机制或数据架构。 例如：
+默认情况下， ASP.NET Core Identity 系统使用 Entity Framework Core 将用户信息存储在 SQL Server 数据库中。 对于许多应用程序而言，这种方法的效果很好。 但是，你可能希望使用不同的持久性机制或数据架构。 例如：
 
-* 使用[Azure 表存储](/azure/storage/)或其他数据存储。
+* 使用 [Azure 表存储](/azure/storage/) 或其他数据存储。
 * 数据库表具有不同的结构。 
-* 你可能想要使用不同的数据访问方法，例如[Dapper](https://github.com/StackExchange/Dapper)。 
+* 你可能想要使用不同的数据访问方法，例如 [Dapper](https://github.com/StackExchange/Dapper)。 
 
 在上述每种情况下，都可以为存储机制编写自定义的提供程序，并将该提供程序插入到应用程序中。
 
@@ -49,9 +50,9 @@ ASP.NET Core Identity 包含在 Visual Studio 中具有 "单独用户帐户" 选
 dotnet new mvc -au Individual
 ```
 
-## <a name="the-aspnet-core-no-locidentity-architecture"></a>ASP.NET Core Identity 体系结构
+## <a name="the-no-locaspnet-core-identity-architecture"></a>ASP.NET Core Identity体系结构
 
-ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是应用程序开发人员用来执行操作（如创建用户）的高级类 Identity 。 *存储*是用于指定如何保存实体（如用户和角色）的较低级别类。 存储遵循存储库模式，并与持久性机制紧密耦合。 管理器与存储分离，这意味着，你可以在不更改应用程序代码的情况下替换持久性机制， (配置) 除外。
+ASP.NET Core Identity 由称为管理器和存储的类组成。 *管理* 层是应用程序开发人员用来执行操作（如创建用户）的高级类 Identity 。 *存储* 是用于指定如何保存实体（如用户和角色）的较低级别类。 存储遵循存储库模式，并与持久性机制紧密耦合。 管理器与存储分离，这意味着，你可以在不更改应用程序代码的情况下替换持久性机制， (配置) 除外。
 
 下图显示了 web 应用如何与管理器进行交互，同时存储与数据访问层交互。
 
@@ -61,11 +62,11 @@ ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是�
 
 在创建的新实例时， `UserManager` 或 `RoleManager` 提供 user 类的类型并将 store 类的实例作为参数传递。 此方法使你能够将自定义类插入 ASP.NET Core。 
 
-[重新配置应用程序以使用新的存储提供程序](#reconfigure-app-to-use-a-new-storage-provider)演示如何实例化 `UserManager` 和 `RoleManager` 使用自定义存储。
+[重新配置应用程序以使用新的存储提供程序](#reconfigure-app-to-use-a-new-storage-provider) 演示如何实例化 `UserManager` 和 `RoleManager` 使用自定义存储。
 
-## <a name="aspnet-core-no-locidentity-stores-data-types"></a>ASP.NET Core Identity 存储数据类型
+## <a name="no-locaspnet-core-identity-stores-data-types"></a>ASP.NET Core Identity 存储数据类型
 
-[ASP.NET Core Identity ](https://github.com/aspnet/identity)以下部分详细介绍了数据类型：
+[ASP.NET Core Identity](https://github.com/aspnet/identity) 以下部分详细介绍了数据类型：
 
 ### <a name="users"></a>用户
 
@@ -73,7 +74,7 @@ ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是�
 
 ### <a name="user-claims"></a>用户声明
 
-一组语句 (或[声明](/dotnet/api/system.security.claims.claim)表示用户身份的用户) 。 可以启用用户标识的更大表达式，而不能通过角色来实现。
+一组语句 (或 [声明](/dotnet/api/system.security.claims.claim) 表示用户身份的用户) 。 可以启用用户标识的更大表达式，而不能通过角色来实现。
 
 ### <a name="user-logins"></a>用户登录
 
@@ -85,11 +86,11 @@ ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是�
 
 ## <a name="the-data-access-layer"></a>数据访问层
 
-本主题假定您熟悉要使用的持久性机制以及如何创建该机制的实体。 本主题不提供有关如何创建存储库或数据访问类的详细信息;在使用 ASP.NET Core 时，它提供了有关设计决策的一些建议 Identity 。
+本主题假定您熟悉要使用的持久性机制以及如何创建该机制的实体。 本主题不提供有关如何创建存储库或数据访问类的详细信息;在使用时，它提供了有关设计决策的一些建议 ASP.NET Core Identity 。
 
-设计自定义存储提供程序的数据访问层时，有很多自由。 你只需为你打算在应用程序中使用的功能创建持久性机制。 例如，如果你未在应用中使用角色，则无需为角色或用户角色关联创建存储。 你的技术和现有基础结构可能需要结构，这与 ASP.NET Core 的默认实现非常不同 Identity 。 在数据访问层中，提供用于处理存储实现结构的逻辑。
+设计自定义存储提供程序的数据访问层时，有很多自由。 你只需为你打算在应用程序中使用的功能创建持久性机制。 例如，如果你未在应用中使用角色，则无需为角色或用户角色关联创建存储。 你的技术和现有基础结构可能需要与的默认实现非常不同的结构 ASP.NET Core Identity 。 在数据访问层中，提供用于处理存储实现结构的逻辑。
 
-数据访问层提供了用于将数据从 ASP.NET Core 保存 Identity 到数据源的逻辑。 自定义存储提供程序的数据访问层可能包含以下类来存储用户和角色信息。
+数据访问层提供了将数据保存 ASP.NET Core Identity 到数据源的逻辑。 自定义存储提供程序的数据访问层可能包含以下类来存储用户和角色信息。
 
 ### <a name="context-class"></a>Context 类
 
@@ -117,7 +118,7 @@ ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是�
 
 **提示：** 仅实现你打算在应用程序中使用的类。
 
-在数据访问类中，提供代码来执行持久性机制的数据操作。 例如，在自定义提供程序中，你可能具有以下代码，以便在*store*类中创建新用户：
+在数据访问类中，提供代码来执行持久性机制的数据操作。 例如，在自定义提供程序中，你可能具有以下代码，以便在 *store* 类中创建新用户：
 
 [!code-csharp[](identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs?name=createuser&highlight=7)]
 
@@ -148,7 +149,7 @@ ASP.NET Core Identity 由名为管理器和存储的类组成。 *管理*层是�
 * [IUserTwoFactorStore](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1)
 * [IUserLockoutStore](/dotnet/api/microsoft.aspnetcore.identity.iuserlockoutstore-1)
 
-可选接口继承自 `IUserStore<TUser>` 。 可以在[示例应用](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)中查看部分实现的示例用户存储。
+可选接口继承自 `IUserStore<TUser>` 。 可以在 [示例应用](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)中查看部分实现的示例用户存储。
 
 在 `UserStore` 类中，可以使用您创建的数据访问类来执行操作。 使用依赖关系注入传入它们。 例如，在使用 Dapper 实现的 SQL Server 中， `UserStore` 类具有方法，该 `CreateAsync` 方法使用的实例 `DapperUsersTable` 插入新记录：
 
@@ -247,5 +248,5 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="references"></a>参考
 
-* [ASP.NET 4.x 的自定义存储提供程序Identity](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
-* [ASP.NET Core Identity ](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)：此存储库包含指向社区维护的存储提供程序的链接。
+* [ASP.NET 4.x 的自定义存储提供程序 Identity](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
+* [ASP.NET Core Identity](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)：此存储库包含社区维护的存储提供程序的链接。

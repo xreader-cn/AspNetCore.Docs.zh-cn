@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/1/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 4404a5513d9dc989e50c904f3e7863de59991939
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 09535f41d15b90fa5e50eb1f22f6aecef0530f0c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022324"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629556"
 ---
 # <a name="scaffold-no-locidentity-in-aspnet-core-projects"></a>IdentityASP.NET Core 项目中的基架
 
@@ -30,7 +31,7 @@ ms.locfileid: "88022324"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core 提供[ Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core Identity ](xref:security/authentication/identity) 。 包含的应用程序 Identity 可以应用 scaffolder 将类库中包含的源代码选择性地添加 Identity Razor (RCL) 。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完整 Identity UI 源](#full)部分。
+ASP.NET Core 提供 [ASP.NET Core Identity](xref:security/authentication/identity) 为类库[ Razor ](xref:razor-pages/ui-class)。 包含的应用程序 Identity 可以应用 scaffolder 将类库中包含的源代码选择性地添加 Identity Razor (RCL) 。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅 [创建完整 Identity UI 源](#full)部分。
 
 **不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL Identity 包。 可以选择要生成的 Identity 代码。
 
@@ -38,7 +39,7 @@ ASP.NET Core 提供[ Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core Iden
 
 建议使用显示文件差异的源代码管理系统，并使您能够回退更改。 运行 scaffolder 后检查更改 Identity 。
 
-使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)和其他安全功能时，需要提供服务 Identity 。 基架时不生成服务或服务存根 Identity 。 要启用这些功能，必须手动添加服务。 例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
+使用 [双重身份验证](xref:security/authentication/identity-enable-qrcodes)、 [帐户确认和密码恢复](xref:security/authentication/accconfirm)和其他安全功能时，需要提供服务 Identity 。 基架时不生成服务或服务存根 Identity 。 要启用这些功能，必须手动添加服务。 例如，请参阅 [需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
 
 当 Identity 使用现有个人帐户将具有新数据上下文的基架插入到项目中时：
 
@@ -52,7 +53,7 @@ ASP.NET Core 提供[ Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core Iden
 
 前面的代码注释了*区域/ Identity / Identity HostingStartup.cs*中的重复代码。
 
-通常，使用各个帐户创建的应用***不***应创建新的数据上下文。
+通常，使用各个帐户创建的应用 ***不*** 应创建新的数据上下文。
 
 ## <a name="scaffold-no-locidentity-into-an-empty-project"></a>基架 Identity 到空项目
 
@@ -95,7 +96,7 @@ before dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="efm"></a>
 
@@ -134,7 +135,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ## <a name="scaffold-no-locidentity-into-an-mvc-project-without-existing-authorization"></a>基架 Identity 到没有现有授权的 MVC 项目
 
@@ -154,11 +155,11 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-可选：将登录名部分 (`_LoginPartial`) 添加到*Views/Shared/_Layout*文件中：
+可选：将登录名部分 (`_LoginPartial`) 添加到 *Views/Shared/_Layout* 文件中：
 
 [!code-cshtml[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
-* 将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*
+* 将 *Pages/shared/_LoginPartial cshtml* 文件移动到 *Views/shared/_LoginPartial。 cshtml*
 
 Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
 
@@ -186,7 +187,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ### <a name="migrations"></a>迁移
 
@@ -197,11 +198,11 @@ Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详
 可以将令牌传递给组件：
 
 * 设置身份验证令牌并将其保存到身份验证后 cookie ，可以将其传递给组件。
-* Razor组件不能 `HttpContext` 直接使用，因此无法获取[ (XSRF 的) 令牌的反请求伪造](xref:security/anti-request-forgery) Identity `/Identity/Account/Logout` 。 可以将 XSRF 令牌传递给组件。
+* Razor 组件不能 `HttpContext` 直接使用，因此无法获取 [ (XSRF 的) 令牌的反请求伪造](xref:security/anti-request-forgery) Identity `/Identity/Account/Logout` 。 可以将 XSRF 令牌传递给组件。
 
 有关详细信息，请参阅 <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>。
 
-在*Pages/_Host cshtml*文件中，在将其添加到和类后建立该令牌 `InitialApplicationState` `TokenProvider` ：
+在 *Pages/_Host cshtml* 文件中，在将其添加到和类后建立该令牌 `InitialApplicationState` `TokenProvider` ：
 
 ```csharp
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
@@ -226,14 +227,14 @@ var tokens = new InitialApplicationState
 TokenProvider.XsrfToken = InitialState.XsrfToken;
 ```
 
-本 `TokenProvider` 主题中演示的服务在 `LoginDisplay` 以下[布局和身份验证流更改](#layout-and-authentication-flow-changes)部分的组件中使用。
+本 `TokenProvider` 主题中演示的服务在 `LoginDisplay` 以下 [布局和身份验证流更改](#layout-and-authentication-flow-changes) 部分的组件中使用。
 
 ### <a name="enable-authentication"></a>启用身份验证
 
 在 `Startup` 类中：
 
 * 确认 Razor 在中添加了页面服务 `Startup.ConfigureServices` 。
-* 如果使用[TokenProvider](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)，请注册服务。
+* 如果使用 [TokenProvider](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)，请注册服务。
 * `UseDatabaseErrorPage`对于开发环境，请在中的应用程序生成器上调用 `Startup.Configure` 。
 * 调用 `UseAuthentication` and `UseAuthorization` after `UseRouting` 。
 * 添加页的终结点 Razor 。
@@ -244,7 +245,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 
 ### <a name="layout-and-authentication-flow-changes"></a>布局和身份验证流更改
 
-将 `RedirectToLogin` *RedirectToLogin*) 的 (组件添加到项目根目录中应用的*共享*文件夹中：
+将 `RedirectToLogin` *RedirectToLogin*) 的 (组件添加到项目根目录中应用的 *共享* 文件夹中：
 
 ```razor
 @inject NavigationManager Navigation
@@ -308,9 +309,9 @@ Identity可以修改页面布局和样式，以生成使用默认主题的页面
 
 `NavMenu_IdentityLayout` (*Shared/NavMenu_ Identity Layout*) 创建新的组件。 对于组件的标记和代码，请 `NavMenu` (*Shared/NavMenu*) 使用应用组件的相同内容。 去除 `NavLink` 无法匿名访问的组件，因为组件中的自动重定向 `RedirectToLogin` 对于需要身份验证或授权的组件失败。
 
-在*Pages/Shared/Layout*文件中，进行以下更改：
+在 *Pages/Shared/Layout* 文件中，进行以下更改：
 
-* 将 Razor 指令添加到文件顶部，以使用*共享*文件夹中的标记帮助程序和应用组件：
+* 将 Razor 指令添加到文件顶部，以使用 *共享* 文件夹中的标记帮助程序和应用组件：
 
   ```cshtml
   @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -368,13 +369,13 @@ Identity可以修改页面布局和样式，以生成使用默认主题的页面
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="full"></a>
 
 ## <a name="create-full-no-locidentity-ui-source"></a>创建完整的 Identity UI 源
 
-若要维护 UI 的完全控制 Identity ，请运行 Identity scaffolder 并选择 "**替代所有文件**"。
+若要维护 UI 的完全控制 Identity ，请运行 Identity scaffolder 并选择 " **替代所有文件**"。
 
 以下突出显示的代码显示了将默认 UI 替换为 Identity Identity ASP.NET Core 2.1 web 应用中的更改。 你可能希望执行此操作以对 UI 具有完全控制 Identity 。
 
@@ -384,7 +385,7 @@ Identity在以下代码中，将替换默认值：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet2)]
 
-下面的代码将设置[LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和[AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：
+下面的代码将设置 [LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和 [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
@@ -422,11 +423,11 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
   ```
 
-* 更新*区域/ Identity /Pages/Account/Register.cshtml.cs* ，使用户无法从此终结点注册：
+* 更新 *区域/ Identity /Pages/Account/Register.cshtml.cs* ，使用户无法从此终结点注册：
 
   [!code-csharp[](scaffold-identity/sample/Register.cshtml.cs?name=snippet)]
 
-* 更新*区域/ Identity /Pages/Account/Register.cshtml* ，使其与前面的更改一致：
+* 更新 *区域/ Identity /Pages/Account/Register.cshtml* ，使其与前面的更改一致：
 
   [!code-cshtml[](scaffold-identity/sample/Register.cshtml)]
 
@@ -440,7 +441,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
   *@
   ```
 
-* 更新 "*区域/ Identity /Pages/Account/RegisterConfirmation* " 页。
+* 更新 " *区域/ Identity /Pages/Account/RegisterConfirmation* " 页。
 
   * 删除来自 cshtml 文件的代码和链接。
   * 从中删除确认代码 `PageModel` ：
@@ -490,18 +491,18 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 2.1 和更高版本提供了[ Identity ASP.NET Core](xref:security/authentication/identity)为[ Razor 类库](xref:razor-pages/ui-class)。 包含的应用程序 Identity 可以应用 scaffolder 将类库中包含的源代码选择性地添加 Identity Razor (RCL) 。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
+ASP.NET Core 2.1 和更高版本提供 [ASP.NET Core Identity](xref:security/authentication/identity) 为[ Razor 类库](xref:razor-pages/ui-class)。 包含的应用程序 Identity 可以应用 scaffolder 将类库中包含的源代码选择性地添加 Identity Razor (RCL) 。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅 [创建完全标识 UI 源](#full)部分。
 
 **不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL Identity 包。 可以选择要生成的 Identity 代码。
 
 尽管 scaffolder 生成了大部分必要的代码，但你必须更新项目才能完成此过程。 本文档介绍完成基架更新所需的步骤 Identity 。
 
-当 Identity scaffolder 运行时，将在项目目录中创建一个*ScaffoldingReadme.txt*文件。 *ScaffoldingReadme.txt*文件包含有关完成基架更新所需内容的一般说明 Identity 。 本文档包含与*ScaffoldingReadme.txt*文件更完整的说明。
+当 Identity scaffolder 运行时，将在项目目录中创建一个 *ScaffoldingReadme.txt* 文件。 *ScaffoldingReadme.txt*文件包含有关完成基架更新所需内容的一般说明 Identity 。 本文档包含与 *ScaffoldingReadme.txt* 文件更完整的说明。
 
 建议使用显示文件差异的源代码管理系统，并使您能够回退更改。 运行 scaffolder 后检查更改 Identity 。
 
 > [!NOTE]
-> 使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)和其他安全功能时，需要提供服务 Identity 。 基架时不生成服务或服务存根 Identity 。 要启用这些功能，必须手动添加服务。 例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
+> 使用 [双重身份验证](xref:security/authentication/identity-enable-qrcodes)、 [帐户确认和密码恢复](xref:security/authentication/accconfirm)和其他安全功能时，需要提供服务 Identity 。 基架时不生成服务或服务存根 Identity 。 要启用这些功能，必须手动添加服务。 例如，请参阅 [需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
 
 ## <a name="scaffold-no-locidentity-into-an-empty-project"></a>基架 Identity 到空项目
 
@@ -536,7 +537,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="efm"></a>
 
@@ -548,7 +549,7 @@ Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详
 
 ### <a name="enable-authentication"></a>启用身份验证
 
-在 `Configure` 类的方法中 `Startup` ，在以下情况下调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) `UseStaticFiles` ：
+在 `Configure` 类的方法中 `Startup` ，在以下情况下调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) `UseStaticFiles` ：
 
 [!code-csharp[](scaffold-identity/sample/StartupRPnoAuth.cs?name=snippet1&highlight=29)]
 
@@ -575,7 +576,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些 Identity 选项在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ## <a name="scaffold-no-locidentity-into-an-mvc-project-without-existing-authorization"></a>基架 Identity 到没有现有授权的 MVC 项目
 
@@ -595,17 +596,17 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-可选：将登录名部分 (`_LoginPartial`) 添加到*Views/Shared/_Layout*文件中：
+可选：将登录名部分 (`_LoginPartial`) 添加到 *Views/Shared/_Layout* 文件中：
 
 [!code-cshtml[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
 
-* 将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*
+* 将 *Pages/shared/_LoginPartial cshtml* 文件移动到 *Views/shared/_LoginPartial。 cshtml*
 
 Identity在*区域/ Identity / Identity HostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)之后 `UseStaticFiles` ：
+调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) 之后 `UseStaticFiles` ：
 
 [!code-csharp[](scaffold-identity/sample/StartupMvcNoAuth.cs?name=snippet1&highlight=23)]
 
@@ -623,13 +624,13 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-删除*页面/共享*文件夹和该文件夹中的文件。
+删除 *页面/共享* 文件夹和该文件夹中的文件。
 
 <a name="full"></a>
 
 ## <a name="create-full-no-locidentity-ui-source"></a>创建完整的 Identity UI 源
 
-若要维护 UI 的完全控制 Identity ，请运行 Identity scaffolder 并选择 "**替代所有文件**"。
+若要维护 UI 的完全控制 Identity ，请运行 Identity scaffolder 并选择 " **替代所有文件**"。
 
 以下突出显示的代码显示了将默认 UI 替换为 Identity Identity ASP.NET Core 2.1 web 应用中的更改。 你可能希望执行此操作以对 UI 具有完全控制 Identity 。
 
@@ -639,7 +640,7 @@ Identity在以下代码中，将替换默认值：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet2)]
 
-下面的代码将设置[LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和[AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：
+下面的代码将设置 [LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和 [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
@@ -675,11 +676,11 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
   ```
 
-* 更新*区域/ Identity /Pages/Account/Register.cshtml.cs* ，使用户无法从此终结点注册：
+* 更新 *区域/ Identity /Pages/Account/Register.cshtml.cs* ，使用户无法从此终结点注册：
 
   [!code-csharp[](scaffold-identity/sample/Register.cshtml.cs?name=snippet)]
 
-* 更新*区域/ Identity /Pages/Account/Register.cshtml* ，使其与前面的更改一致：
+* 更新 *区域/ Identity /Pages/Account/Register.cshtml* ，使其与前面的更改一致：
 
   [!code-cshtml[](scaffold-identity/sample/Register.cshtml)]
 
@@ -693,7 +694,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 *@
 ```
 
-* 更新 "*区域/ Identity /Pages/Account/RegisterConfirmation* " 页。
+* 更新 " *区域/ Identity /Pages/Account/RegisterConfirmation* " 页。
 
   * 删除来自 cshtml 文件的代码和链接。
   * 从中删除确认代码 `PageModel` ：

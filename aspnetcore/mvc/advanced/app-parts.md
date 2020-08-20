@@ -5,6 +5,7 @@ description: Razor与 ASP.NET Core 中的应用程序部件共享控制器、视
 ms.author: riande
 ms.date: 11/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 690ef0843f567dc2335f4d51436e428207fd6eb1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2e86025eaf98c4e2cbbd86a5a353664204c35594
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019568"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630414"
 ---
 # <a name="share-controllers-views-no-locrazor-pages-and-more-with-application-parts"></a>与应用程序部件共享控制器、视图、 Razor 页和更多内容
 

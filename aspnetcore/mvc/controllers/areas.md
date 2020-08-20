@@ -5,6 +5,7 @@ description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的
 ms.author: riande
 ms.date: 03/21/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/areas
-ms.openlocfilehash: af765eebfa8bfd147bd3b721508b5794d15d64a7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 033b57f5406d0344347b2f787fa2b2fbb2da8604
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018437"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630245"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -44,7 +45,7 @@ ms.locfileid: "88018437"
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples)（[如何下载](xref:index#how-to-download-a-sample)）。 下载示例提供了用于测试区域的基本应用。
 
-如果使用的是 Razor 页面，请参阅本文档中[包含 Razor 页面的区域](#areas-with-razor-pages)。
+如果使用的是 Razor 页面，请参阅本文档中 [包含 Razor 页面的区域](#areas-with-razor-pages) 。
 
 ## <a name="areas-for-controllers-with-views"></a>带视图的控制器区域
 
@@ -66,7 +67,7 @@ ms.locfileid: "88018437"
 * 项目名称
   * Areas
     * 产品
-      * 控制器
+      * Controllers
         * HomeController.cs
         * ManageController.cs
       * 视图
@@ -76,7 +77,7 @@ ms.locfileid: "88018437"
           * Index.cshtml
           * About.cshtml
     * 服务
-      * 控制器
+      * Controllers
         * HomeController.cs
       * 视图
         * 主页
@@ -101,7 +102,7 @@ ms.locfileid: "88018437"
 
 ### <a name="add-area-route"></a>添加区域路由
 
-区域路由通常使用[传统路由](xref:mvc/controllers/routing#cr)，而不是[属性路由](xref:mvc/controllers/routing#ar)。 传统路由依赖于顺序。 一般情况下，具有区域的路由应放在路由表中靠前的位置，因为它们比没有区域的路由更特定。
+区域路由通常使用  [传统路由](xref:mvc/controllers/routing#cr) ，而不是 [属性路由](xref:mvc/controllers/routing#ar)。 传统路由依赖于顺序。 一般情况下，具有区域的路由应放在路由表中靠前的位置，因为它们比没有区域的路由更特定。
 
 如果所有区域的 url 空间一致，则 `{area:...}` 可用作路由模板中的令牌：
 
@@ -124,7 +125,7 @@ ms.locfileid: "88018437"
 
 [!code-cshtml[](areas/31samples/MVCareas/Views/Shared/_testLinksPartial.cshtml?name=snippet)]
 
-示例下载包含[部分视图](xref:mvc/views/partial)，其中包含：
+示例下载包含 [部分视图](xref:mvc/views/partial) ，其中包含：
 
 * 前面的链接。
 * 与前面的链接相似，但 `area` 未指定。
@@ -143,16 +144,16 @@ ms.locfileid: "88018437"
 
 ### <a name="application-root-folder"></a>应用程序根文件夹
 
-应用程序根文件夹是包含 ASP.NET Core 模板创建的 web 应用中的*Startup.cs*的文件夹。
+应用程序根文件夹是包含 ASP.NET Core 模板创建的 web 应用中的 *Startup.cs* 的文件夹。
 
 ### <a name="_viewimportscshtml"></a>_ViewImports.cshtml
 
  对于 MVC， *_ViewImports 的/Views/* 和 */Pages/_ViewImports* Razor ，不会导入到区域中的视图。 使用以下方法之一来提供所有视图的视图导入：
 
-* 将 *_ViewImports*添加到[应用程序根文件夹](#arf)。 应用程序根文件夹中的 *_ViewImports*将应用到应用中的所有视图。
-* 将 *_ViewImports*的文件复制到 "区域" 下的相应视图文件夹中。
+* 将 *_ViewImports* 添加到 [应用程序根文件夹](#arf)。 应用程序根文件夹中的 *_ViewImports* 将应用到应用中的所有视图。
+* 将 *_ViewImports* 的文件复制到 "区域" 下的相应视图文件夹中。
 
-*_ViewImports 的 cshtml*文件通常包含[标记帮助](xref:mvc/views/tag-helpers/intro)程序导入、 `@using` 和 `@inject` 语句。 有关详细信息，请参阅[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。
+*_ViewImports 的 cshtml*文件通常包含[标记帮助](xref:mvc/views/tag-helpers/intro)程序导入、 `@using` 和 `@inject` 语句。 有关详细信息，请参阅 [导入共享指令](xref:mvc/views/layout#importing-shared-directives)。
 
 <a name="rename"></a>
 
@@ -171,12 +172,12 @@ ms.locfileid: "88018437"
 * 项目名称
   * Areas
     * 产品
-      * 页数
+      * 页
         * _ViewImports
         * 关于
         * 索引
     * 服务
-      * 页数
+      * 页
         * 管理
           * 关于
           * 索引
@@ -201,7 +202,7 @@ ms.locfileid: "88018437"
 
 ### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a>使用 _ViewImports 文件导入命名空间和标记帮助程序
 
-可以将 *_ViewImports 的 cshtml*文件添加到每个区域*页面*文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 Razor 页。
+可以将 *_ViewImports 的 cshtml* 文件添加到每个区域 *页面* 文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 Razor 页。
 
 请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件****。 以下标记显示了 " */Services/Manage/About* " Razor 页：
 
@@ -210,7 +211,7 @@ ms.locfileid: "88018437"
 在前面的标记中：
 
 * 必须使用完全限定的域名来指定模型 (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`)。
-* [标记帮助](xref:mvc/views/tag-helpers/intro)程序由启用`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
+* [标记帮助](xref:mvc/views/tag-helpers/intro) 程序由启用 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 在示例下载中，“产品”区域包含下列 _ViewImports.cshtml 文件**：
 
@@ -220,7 +221,7 @@ ms.locfileid: "88018437"
 
 [!code-cshtml[](areas/31samples/RPareas/Areas/Products/Pages/About.cshtml)]
 
-在前面的文件中，将 `@addTagHelper` 按*区域/产品/页面/_ViewImports cshtml*文件将命名空间和指令导入文件。
+在前面的文件中，将 `@addTagHelper` 按 *区域/产品/页面/_ViewImports cshtml* 文件将命名空间和指令导入文件。
 
 有关详细信息，请参阅[管理标记帮助程序范围](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope)和[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。
 
@@ -246,7 +247,7 @@ ms.locfileid: "88018437"
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)（[如何下载](xref:index#how-to-download-a-sample)）。 下载示例提供了用于测试区域的基本应用。
 
-如果使用的是 Razor 页面，请参阅本文档中[包含 Razor 页面的区域](#areas-with-razor-pages)。
+如果使用的是 Razor 页面，请参阅本文档中 [包含 Razor 页面的区域](#areas-with-razor-pages) 。
 
 ## <a name="areas-for-controllers-with-views"></a>带视图的控制器区域
 
@@ -268,7 +269,7 @@ ms.locfileid: "88018437"
 * 项目名称
   * Areas
     * 产品
-      * 控制器
+      * Controllers
         * HomeController.cs
         * ManageController.cs
       * 视图
@@ -278,7 +279,7 @@ ms.locfileid: "88018437"
           * Index.cshtml
           * About.cshtml
     * 服务
-      * 控制器
+      * Controllers
         * HomeController.cs
       * 视图
         * 主页
@@ -339,7 +340,7 @@ ms.locfileid: "88018437"
 
 ### <a name="_viewimportscshtml"></a>_ViewImports.cshtml
 
-在其标准位置，/Views/_ViewImports.cshtml 不适用于区域**。 若要在你的区域中使用常见[标记帮助](xref:mvc/views/tag-helpers/intro)程序、或，请 `@using` `@inject` 确保适当的 *_ViewImports cshtml*文件[适用于你的区域视图](xref:mvc/views/layout#importing-shared-directives)。 如果希望所有视图都具有相同的行为，请将 /Views/_ViewImports.cshtml 迁移到应用程序根**。
+在其标准位置，/Views/_ViewImports.cshtml 不适用于区域**。 若要在你的区域中使用常见 [标记帮助](xref:mvc/views/tag-helpers/intro)程序、或，请 `@using` `@inject` 确保适当的 *_ViewImports cshtml* 文件 [适用于你的区域视图](xref:mvc/views/layout#importing-shared-directives)。 如果希望所有视图都具有相同的行为，请将 /Views/_ViewImports.cshtml 迁移到应用程序根**。
 
 <a name="rename"></a>
 
@@ -358,12 +359,12 @@ ms.locfileid: "88018437"
 * 项目名称
   * Areas
     * 产品
-      * 页数
+      * 页
         * _ViewImports
         * 关于
         * 索引
     * 服务
-      * 页数
+      * 页
         * 管理
           * 关于
           * 索引
@@ -390,7 +391,7 @@ ms.locfileid: "88018437"
 
 ### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a>使用 _ViewImports 文件导入命名空间和标记帮助程序
 
-可以将 *_ViewImports 的 cshtml*文件添加到每个区域*页面*文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 Razor 页。
+可以将 *_ViewImports 的 cshtml* 文件添加到每个区域 *页面* 文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 Razor 页。
 
 请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件****。 以下标记显示了 " */Services/Manage/About* " Razor 页：
 
@@ -399,7 +400,7 @@ ms.locfileid: "88018437"
 在前面的标记中：
 
 * 必须使用完全限定的域名来指定模型 (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`)。
-* [标记帮助](xref:mvc/views/tag-helpers/intro)程序由启用`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
+* [标记帮助](xref:mvc/views/tag-helpers/intro) 程序由启用 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 在示例下载中，“产品”区域包含下列 _ViewImports.cshtml 文件**：
 
@@ -409,7 +410,7 @@ ms.locfileid: "88018437"
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/About.cshtml)]
 
-在前面的文件中，将 `@addTagHelper` 按*区域/产品/页面/_ViewImports cshtml*文件将命名空间和指令导入文件。
+在前面的文件中，将 `@addTagHelper` 按 *区域/产品/页面/_ViewImports cshtml* 文件将命名空间和指令导入文件。
 
 有关详细信息，请参阅[管理标记帮助程序范围](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope)和[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。
 

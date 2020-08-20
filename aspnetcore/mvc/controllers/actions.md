@@ -5,6 +5,7 @@ description: ''
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/actions
-ms.openlocfilehash: 05985acb559f63eb5f1d9854041be737291a3809
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 9542a7c0fd16c00f46ee69c5873878a7c70ef626
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019906"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630323"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>在 ASP.NET Core MVC 中使用控制器处理请求
 
@@ -34,7 +35,7 @@ ms.locfileid: "88019906"
 
 根据惯例，控制器类：
 
-* 驻留在项目的根级*控制器*文件夹中。
+* 驻留在项目的根级 *控制器* 文件夹中。
 * 继承自 `Microsoft.AspNetCore.Mvc.Controller`。
 
 控制器是一个可实例化的类，其中下列条件至少某一个为 true：

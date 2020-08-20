@@ -5,6 +5,7 @@ description: 了解如何从 ASP.NET MVC 项目将身份验证和标识迁移到
 ms.author: riande
 ms.date: 3/22/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,22 +16,22 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/identity
-ms.openlocfilehash: 8a6cc1e612dbf59dc2db2eca165dd1a03ab92f81
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 85674d7ed02f189f78da92bffdf927a3ca21357d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014927"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629504"
 ---
 # <a name="migrate-authentication-and-no-locidentity-to-aspnet-core"></a>迁移身份验证和 Identity ASP.NET Core
 
 作者：[Steve Smith](https://ardalis.com/)
 
-在前面的文章中，我们[已将配置从 ASP.NET mvc 项目迁移到 ASP.NET CORE mvc](xref:migration/configuration)。 本文将迁移注册、登录和用户管理功能。
+在前面的文章中，我们 [已将配置从 ASP.NET mvc 项目迁移到 ASP.NET CORE mvc](xref:migration/configuration)。 本文将迁移注册、登录和用户管理功能。
 
 ## <a name="configure-no-locidentity-and-membership"></a>配置 Identity 和成员资格
 
-在 ASP.NET MVC 中，身份验证和标识功能是使用 Identity *Startup.Auth.cs*和* Identity Config.cs*中的 ASP.NET 配置的，位于*App_Start*文件夹中。 在 ASP.NET Core MVC 中，这些功能在*Startup.cs*中进行配置。
+在 ASP.NET MVC 中，身份验证和标识功能是使用 Identity *Startup.Auth.cs*和* Identity Config.cs*中的 ASP.NET 配置的，位于*App_Start*文件夹中。 在 ASP.NET Core MVC 中，这些功能在 *Startup.cs*中进行配置。
 
 安装以下 NuGet 包：
 
@@ -38,7 +39,7 @@ ms.locfileid: "88014927"
 * `Microsoft.AspNetCore.Authentication.Cookies`
 * `Microsoft.EntityFrameworkCore.SqlServer`
 
-在*Startup.cs*中，更新 `Startup.ConfigureServices` 方法以使用实体框架和 Identity 服务：
+在 *Startup.cs*中，更新 `Startup.ConfigureServices` 方法以使用实体框架和 Identity 服务：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -55,7 +56,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-此时，在上面的代码中引用了两个类型，这些类型尚未从 ASP.NET MVC 项目迁移： `ApplicationDbContext` 和 `ApplicationUser` 。 在 ASP.NET Core 项目中创建新的 "*模型*" 文件夹，并将两个与这些类型对应的类添加到其中。 你将在 */Models/ Identity Models.cs*中找到这些类的 ASP.NET MVC 版本，但我们会在迁移的项目中对每个类使用一个文件，因为这样做更为清晰。
+此时，在上面的代码中引用了两个类型，这些类型尚未从 ASP.NET MVC 项目迁移： `ApplicationDbContext` 和 `ApplicationUser` 。 在 ASP.NET Core 项目中创建新的 " *模型* " 文件夹，并将两个与这些类型对应的类添加到其中。 你将在 */Models/ Identity Models.cs*中找到这些类的 ASP.NET MVC 版本，但我们会在迁移的项目中对每个类使用一个文件，因为这样做更为清晰。
 
 *ApplicationUser.cs*：
 
@@ -98,7 +99,7 @@ namespace NewMvcProject.Models
 
 ASP.NET Core MVC 初学者 Web 项目不包括很多自定义的用户或 `ApplicationDbContext` 。 迁移实际应用时，还需要迁移应用的用户和类的所有自定义属性和方法，以及应用所使用的 `DbContext` 任何其他模型类。 例如，如果 `DbContext` 具有 `DbSet<Album>` ，则需要迁移 `Album` 该类。
 
-将这些文件放入后，可通过更新其语句对*Startup.cs*文件进行编译 `using` ：
+将这些文件放入后，可通过更新其语句对 *Startup.cs* 文件进行编译 `using` ：
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -125,7 +126,7 @@ using Microsoft.Extensions.DependencyInjection;
 </div>
 ```
 
-现在，将 Razor 名为 *_LoginPartial*的新视图添加到*Views/Shared*文件夹中：
+现在，将 Razor 名为 *_LoginPartial* 的新视图添加到 *Views/Shared* 文件夹中：
 
 用下面的代码更新 *_LoginPartial* ， () 替换其所有内容：
 

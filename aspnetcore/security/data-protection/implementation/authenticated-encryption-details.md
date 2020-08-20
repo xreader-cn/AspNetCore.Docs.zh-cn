@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 数据保护身份验证加密的实现细节�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/authenticated-encryption-details
-ms.openlocfilehash: ebd784b493b7f283df2cc84a39113e3d714472a0
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ed75ab235a95a88bbe60615526137b4c2bb719ef
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022064"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630843"
 ---
 # <a name="authenticated-encryption-details-in-aspnet-core"></a>ASP.NET Core 中经过身份验证的加密详细信息
 
@@ -28,7 +29,7 @@ ms.locfileid: "88022064"
 
 对 IDataProtector 的调用是经过身份验证的加密操作。 保护方法同时提供机密性和真实性，并与用于从其根 IDataProtectionProvider 派生此特定 IDataProtector 实例的用途链相关联。
 
-IDataProtector 使用 byte [] 纯文本参数，并生成一个 byte [] 受保护的负载，其格式如下所述。  (还有一个扩展方法重载，它采用字符串纯文本参数并返回一个字符串受保护的负载。 如果使用此 API，受保护的负载格式仍将具有以下结构，但它将被[base64url 编码](https://tools.ietf.org/html/rfc4648#section-5)。 ) 
+IDataProtector 使用 byte [] 纯文本参数，并生成一个 byte [] 受保护的负载，其格式如下所述。  (还有一个扩展方法重载，它采用字符串纯文本参数并返回一个字符串受保护的负载。 如果使用此 API，受保护的负载格式仍将具有以下结构，但它将被 [base64url 编码](https://tools.ietf.org/html/rfc4648#section-5)。 ) 
 
 ## <a name="protected-payload-format"></a>受保护的负载格式
 
@@ -38,7 +39,7 @@ IDataProtector 使用 byte [] 纯文本参数，并生成一个 byte [] 受保�
 
 * 一个128位密钥 id，用于标识用于保护此特定有效负载的密钥。
 
-* 受保护负载的其余部分[特定于此密钥封装的加密程序](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation)。 在下面的示例中，键表示 AES-256-CBC + HMACSHA256 加密器，负载进一步细分，如下所示：
+* 受保护负载的其余部分 [特定于此密钥封装的加密程序](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation)。 在下面的示例中，键表示 AES-256-CBC + HMACSHA256 加密器，负载进一步细分，如下所示：
   * 128位密钥修饰符。
   * 128位初始化向量。
   * 48字节的 AES-256-CBC 输出。

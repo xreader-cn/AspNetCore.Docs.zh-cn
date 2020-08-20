@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 3f5b0287a4f9c6c6c05a47297e3e602b80bf6015
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c337e727a4683b0b3c67307af93ef8efa246e2ad
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021479"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631012"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -83,7 +84,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 
 用于控制 `formaction` 值的受支持的 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 属性：
 
-|属性|描述|
+|Attribute|说明|
 |---|---|
 |[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|控制器的名称。|
 |[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|操作方法的名称。|
@@ -217,7 +218,7 @@ public class HomeController : Controller
 
 下表显示输入标记帮助程序会映射到特定输入类型的一些常见[数据注释](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)属性（并未列出每个验证属性）：
 
-|属性|输入类型|
+|Attribute|输入类型|
 |---|---|
 |[EmailAddress]|type="email"|
 |[Url]|type="url"|
@@ -464,7 +465,7 @@ public IActionResult Edit(int id, int colorIndex)
 |--- |--- |
 |ValidationSummary.All|属性和模型级别|
 |ValidationSummary.ModelOnly|模型|
-|ValidationSummary.None|None|
+|ValidationSummary.None|无|
 
 ### <a name="sample"></a>示例
 
@@ -649,7 +650,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 [!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/CountryViewModel.cshtml)]
 
-添加 HTML [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 元素的情况并不限于 "*无选择*"。 例如，以下视图和操作方法会生成与上述代码类似的 HTML：
+添加 HTML [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 元素的情况并不限于 " *无选择* "。 例如，以下视图和操作方法会生成与上述代码类似的 HTML：
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?name=snippetNone)]
 

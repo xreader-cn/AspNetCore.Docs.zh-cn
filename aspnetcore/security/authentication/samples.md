@@ -5,6 +5,7 @@ description: 提供指向 ASP.NET Core 存储库中的身份验证示例的链�
 ms.author: riande
 ms.date: 01/31/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/samples
-ms.openlocfilehash: 71e614eb3d91e8425ec430d775b8a0163dc7258f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 290c956b2035e47e5b34dba15fbec665461dd94a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017787"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630739"
 ---
 # <a name="authentication-samples-for-aspnet-core"></a>ASP.NET Core 的身份验证示例
 
@@ -31,7 +32,7 @@ ms.locfileid: "88017787"
 [ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：
 
 * [声明转换](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/ClaimsTransformation)
-* [Cookie验证](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Cookies)
+* [Cookie 验证](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Cookies)
 * [自定义策略提供程序-IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/CustomPolicyProvider)
 * [动态身份验证方案和选项](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/DynamicSchemes)
 * [外部声明](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/Identity.ExternalClaims)
@@ -40,10 +41,10 @@ ms.locfileid: "88017787"
 
 ## <a name="run-the-samples"></a>运行示例
 
-* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如： `release/3.1`
-* 克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。
-* 验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)版本。
-* 导航到*AspNetCore/src/Security/samples*中的示例，并使用运行该示例 `dotnet run` 。
+* 选择 [分支](https://github.com/dotnet/AspNetCore)。 例如： `release/3.1`
+* 克隆或下载 [ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。
+* 验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的 [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) 版本。
+* 导航到 *AspNetCore/src/Security/samples* 中的示例，并使用运行该示例 `dotnet run` 。
 
 ::: moniker-end
 
@@ -52,7 +53,7 @@ ms.locfileid: "88017787"
 [ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)包含*AspNetCore/src/Security/samples*文件夹中的以下身份验证示例：
 
 * [声明转换](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/ClaimsTransformation)
-* [Cookie验证](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)
+* [Cookie 验证](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Cookies)
 * [自定义策略提供程序-IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/2.1.3/src/Security/samples/CustomPolicyProvider)
 * [动态身份验证方案和选项](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/DynamicSchemes)
 * [外部声明](https://github.com/dotnet/AspNetCore/tree/release/2.1/src/Security/samples/Identity.ExternalClaims)
@@ -61,9 +62,9 @@ ms.locfileid: "88017787"
 
 ## <a name="run-the-samples"></a>运行示例
 
-* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如： `release/2.1`
-* 克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。
-* 验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)版本。
-* 导航到*AspNetCore/src/Security/samples*中的示例，并使用运行该示例 `dotnet run` 。
+* 选择 [分支](https://github.com/dotnet/AspNetCore)。 例如： `release/2.1`
+* 克隆或下载 [ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。
+* 验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的 [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) 版本。
+* 导航到 *AspNetCore/src/Security/samples* 中的示例，并使用运行该示例 `dotnet run` 。
 
 ::: moniker-end
