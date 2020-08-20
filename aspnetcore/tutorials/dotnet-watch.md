@@ -5,6 +5,7 @@ description: 本教程演示如何在 ASP.NET Core 应用中安装和使用 .NET
 ms.author: riande
 ms.date: 05/31/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,33 +16,33 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: f4987e7eef496f3ba4b8f9bb084816be3b17ada7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: cc152c2ca553b00619ddbf829f6044867c53bb98
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022441"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635133"
 ---
-# <a name="develop-aspnet-core-apps-using-a-file-watcher"></a><span data-ttu-id="663d1-103">使用文件观察程序开发 ASP.NET Core 应用</span><span class="sxs-lookup"><span data-stu-id="663d1-103">Develop ASP.NET Core apps using a file watcher</span></span>
+# <a name="develop-aspnet-core-apps-using-a-file-watcher"></a><span data-ttu-id="aa559-103">使用文件观察程序开发 ASP.NET Core 应用</span><span class="sxs-lookup"><span data-stu-id="aa559-103">Develop ASP.NET Core apps using a file watcher</span></span>
 
-<span data-ttu-id="663d1-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Victor Hurdugaci](https://twitter.com/victorhurdugaci)</span><span class="sxs-lookup"><span data-stu-id="663d1-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Victor Hurdugaci](https://twitter.com/victorhurdugaci)</span></span>
+<span data-ttu-id="aa559-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Victor Hurdugaci](https://twitter.com/victorhurdugaci)</span><span class="sxs-lookup"><span data-stu-id="aa559-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Victor Hurdugaci](https://twitter.com/victorhurdugaci)</span></span>
 
-<span data-ttu-id="663d1-105">`dotnet watch` 是一种在源文件更改时运行 [.NET Core CLI](/dotnet/core/tools) 命令的工具。</span><span class="sxs-lookup"><span data-stu-id="663d1-105">`dotnet watch` is a tool that runs a [.NET Core CLI](/dotnet/core/tools) command when source files change.</span></span> <span data-ttu-id="663d1-106">例如，文件更改可能触发编译、测试执行或部署。</span><span class="sxs-lookup"><span data-stu-id="663d1-106">For example, a file change can trigger compilation, test execution, or deployment.</span></span>
+<span data-ttu-id="aa559-105">`dotnet watch` 是一种在源文件更改时运行 [.NET Core CLI](/dotnet/core/tools) 命令的工具。</span><span class="sxs-lookup"><span data-stu-id="aa559-105">`dotnet watch` is a tool that runs a [.NET Core CLI](/dotnet/core/tools) command when source files change.</span></span> <span data-ttu-id="aa559-106">例如，文件更改可能触发编译、测试执行或部署。</span><span class="sxs-lookup"><span data-stu-id="aa559-106">For example, a file change can trigger compilation, test execution, or deployment.</span></span>
 
-<span data-ttu-id="663d1-107">本教程使用一个现有 Web API 和两个终结点：分别返回两个数的总和以及乘积。</span><span class="sxs-lookup"><span data-stu-id="663d1-107">This tutorial uses an existing web API with two endpoints: one that returns a sum and one that returns a product.</span></span> <span data-ttu-id="663d1-108">乘积的方法有一个 bug，本教程将会对其进行修复。</span><span class="sxs-lookup"><span data-stu-id="663d1-108">The product method has a bug, which is fixed in this tutorial.</span></span>
+<span data-ttu-id="aa559-107">本教程使用一个现有 Web API 和两个终结点：分别返回两个数的总和以及乘积。</span><span class="sxs-lookup"><span data-stu-id="aa559-107">This tutorial uses an existing web API with two endpoints: one that returns a sum and one that returns a product.</span></span> <span data-ttu-id="aa559-108">乘积的方法有一个 bug，本教程将会对其进行修复。</span><span class="sxs-lookup"><span data-stu-id="aa559-108">The product method has a bug, which is fixed in this tutorial.</span></span>
 
-<span data-ttu-id="663d1-109">下载[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。</span><span class="sxs-lookup"><span data-stu-id="663d1-109">Download the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample).</span></span> <span data-ttu-id="663d1-110">它包含两个项目：WebApp (ASP.NET Core Web API) 和 WebAppTests（用于 Web API 的单元测试）。</span><span class="sxs-lookup"><span data-stu-id="663d1-110">It consists of two projects: *WebApp* (an ASP.NET Core web API) and *WebAppTests* (unit tests for the web API).</span></span>
+<span data-ttu-id="aa559-109">下载[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。</span><span class="sxs-lookup"><span data-stu-id="aa559-109">Download the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample).</span></span> <span data-ttu-id="aa559-110">它包含两个项目：WebApp (ASP.NET Core Web API) 和 WebAppTests（用于 Web API 的单元测试）。</span><span class="sxs-lookup"><span data-stu-id="aa559-110">It consists of two projects: *WebApp* (an ASP.NET Core web API) and *WebAppTests* (unit tests for the web API).</span></span>
 
-<span data-ttu-id="663d1-111">在命令行界面中，导航到 WebApp 文件夹。</span><span class="sxs-lookup"><span data-stu-id="663d1-111">In a command shell, navigate to the *WebApp* folder.</span></span> <span data-ttu-id="663d1-112">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="663d1-112">Run the following command:</span></span>
+<span data-ttu-id="aa559-111">在命令行界面中，导航到 WebApp 文件夹。</span><span class="sxs-lookup"><span data-stu-id="aa559-111">In a command shell, navigate to the *WebApp* folder.</span></span> <span data-ttu-id="aa559-112">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="aa559-112">Run the following command:</span></span>
 
 ```dotnetcli
 dotnet run
 ```
 
 > [!NOTE]
-> <span data-ttu-id="663d1-113">可使用 `dotnet run --project <PROJECT>` 来指定要运行的项目。</span><span class="sxs-lookup"><span data-stu-id="663d1-113">You can use `dotnet run --project <PROJECT>` to specify a project to run.</span></span> <span data-ttu-id="663d1-114">例如，从示例应用的根路径运行 `dotnet run --project WebApp` 还会运行 WebApp 项目。</span><span class="sxs-lookup"><span data-stu-id="663d1-114">For example, running `dotnet run --project WebApp` from the root of the sample app will also run the *WebApp* project.</span></span>
+> <span data-ttu-id="aa559-113">可使用 `dotnet run --project <PROJECT>` 来指定要运行的项目。</span><span class="sxs-lookup"><span data-stu-id="aa559-113">You can use `dotnet run --project <PROJECT>` to specify a project to run.</span></span> <span data-ttu-id="aa559-114">例如，从示例应用的根路径运行 `dotnet run --project WebApp` 还会运行 WebApp 项目。</span><span class="sxs-lookup"><span data-stu-id="aa559-114">For example, running `dotnet run --project WebApp` from the root of the sample app will also run the *WebApp* project.</span></span>
 
-<span data-ttu-id="663d1-115">控制台输出会显示如下类似的消息（表示应用正在运行且正在等待请求）：</span><span class="sxs-lookup"><span data-stu-id="663d1-115">The console output shows messages similar to the following (indicating that the app is running and awaiting requests):</span></span>
+<span data-ttu-id="aa559-115">控制台输出会显示如下类似的消息（表示应用正在运行且正在等待请求）：</span><span class="sxs-lookup"><span data-stu-id="aa559-115">The console output shows messages similar to the following (indicating that the app is running and awaiting requests):</span></span>
 
 ```console
 $ dotnet run
@@ -51,17 +52,17 @@ Now listening on: http://localhost:5000
 Application started. Press Ctrl+C to shut down.
 ```
 
-<span data-ttu-id="663d1-116">在 Web 浏览器中，导航到 `http://localhost:<port number>/api/math/sum?a=4&b=5`。</span><span class="sxs-lookup"><span data-stu-id="663d1-116">In a web browser, navigate to `http://localhost:<port number>/api/math/sum?a=4&b=5`.</span></span> <span data-ttu-id="663d1-117">应该会显示结果 `9`。</span><span class="sxs-lookup"><span data-stu-id="663d1-117">You should see the result of `9`.</span></span>
+<span data-ttu-id="aa559-116">在 Web 浏览器中，导航到 `http://localhost:<port number>/api/math/sum?a=4&b=5`。</span><span class="sxs-lookup"><span data-stu-id="aa559-116">In a web browser, navigate to `http://localhost:<port number>/api/math/sum?a=4&b=5`.</span></span> <span data-ttu-id="aa559-117">应该会显示结果 `9`。</span><span class="sxs-lookup"><span data-stu-id="aa559-117">You should see the result of `9`.</span></span>
 
-<span data-ttu-id="663d1-118">导航到产品 API (`http://localhost:<port number>/api/math/product?a=4&b=5`)。</span><span class="sxs-lookup"><span data-stu-id="663d1-118">Navigate to the product API (`http://localhost:<port number>/api/math/product?a=4&b=5`).</span></span> <span data-ttu-id="663d1-119">它会返回 `9`，而不是所预期的 `20`。</span><span class="sxs-lookup"><span data-stu-id="663d1-119">It returns `9`, not `20` as you'd expect.</span></span> <span data-ttu-id="663d1-120">本教程的后面部分将解决该问题。</span><span class="sxs-lookup"><span data-stu-id="663d1-120">That problem is fixed later in the tutorial.</span></span>
+<span data-ttu-id="aa559-118">导航到产品 API (`http://localhost:<port number>/api/math/product?a=4&b=5`)。</span><span class="sxs-lookup"><span data-stu-id="aa559-118">Navigate to the product API (`http://localhost:<port number>/api/math/product?a=4&b=5`).</span></span> <span data-ttu-id="aa559-119">它会返回 `9`，而不是所预期的 `20`。</span><span class="sxs-lookup"><span data-stu-id="aa559-119">It returns `9`, not `20` as you'd expect.</span></span> <span data-ttu-id="aa559-120">本教程的后面部分将解决该问题。</span><span class="sxs-lookup"><span data-stu-id="aa559-120">That problem is fixed later in the tutorial.</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-## <a name="add-dotnet-watch-to-a-project"></a><span data-ttu-id="663d1-121">将 `dotnet watch` 添加到项目</span><span class="sxs-lookup"><span data-stu-id="663d1-121">Add `dotnet watch` to a project</span></span>
+## <a name="add-dotnet-watch-to-a-project"></a><span data-ttu-id="aa559-121">将 `dotnet watch` 添加到项目</span><span class="sxs-lookup"><span data-stu-id="aa559-121">Add `dotnet watch` to a project</span></span>
 
-<span data-ttu-id="663d1-122">`dotnet watch` 文件观察程序工具随 2.1.300 版本的 .NET Core SDK 一同提供。</span><span class="sxs-lookup"><span data-stu-id="663d1-122">The `dotnet watch` file watcher tool is included with version 2.1.300 of the .NET Core SDK.</span></span> <span data-ttu-id="663d1-123">使用早期版本的 .NET Core SDK 时，需要执行以下步骤。</span><span class="sxs-lookup"><span data-stu-id="663d1-123">The following steps are required when using an earlier version of the .NET Core SDK.</span></span>
+<span data-ttu-id="aa559-122">`dotnet watch` 文件观察程序工具随 2.1.300 版本的 .NET Core SDK 一同提供。</span><span class="sxs-lookup"><span data-stu-id="aa559-122">The `dotnet watch` file watcher tool is included with version 2.1.300 of the .NET Core SDK.</span></span> <span data-ttu-id="aa559-123">使用早期版本的 .NET Core SDK 时，需要执行以下步骤。</span><span class="sxs-lookup"><span data-stu-id="aa559-123">The following steps are required when using an earlier version of the .NET Core SDK.</span></span>
 
-1. <span data-ttu-id="663d1-124">将 `Microsoft.DotNet.Watcher.Tools` 包引用添加到 .csproj 文件：</span><span class="sxs-lookup"><span data-stu-id="663d1-124">Add a `Microsoft.DotNet.Watcher.Tools` package reference to the *.csproj* file:</span></span>
+1. <span data-ttu-id="aa559-124">将 `Microsoft.DotNet.Watcher.Tools` 包引用添加到 .csproj 文件：</span><span class="sxs-lookup"><span data-stu-id="aa559-124">Add a `Microsoft.DotNet.Watcher.Tools` package reference to the *.csproj* file:</span></span>
 
     ```xml
     <ItemGroup>
@@ -69,7 +70,7 @@ Application started. Press Ctrl+C to shut down.
     </ItemGroup>
     ```
 
-1. <span data-ttu-id="663d1-125">运行以下命令，安装 `Microsoft.DotNet.Watcher.Tools` 包：</span><span class="sxs-lookup"><span data-stu-id="663d1-125">Install the `Microsoft.DotNet.Watcher.Tools` package by running the following command:</span></span>
+1. <span data-ttu-id="aa559-125">运行以下命令，安装 `Microsoft.DotNet.Watcher.Tools` 包：</span><span class="sxs-lookup"><span data-stu-id="aa559-125">Install the `Microsoft.DotNet.Watcher.Tools` package by running the following command:</span></span>
 
     ```dotnetcli
     dotnet restore
@@ -77,27 +78,27 @@ Application started. Press Ctrl+C to shut down.
 
 ::: moniker-end
 
-## <a name="run-net-core-cli-commands-using-dotnet-watch"></a><span data-ttu-id="663d1-126">使用 `dotnet watch` 运行 .NET Core CLI 命令</span><span class="sxs-lookup"><span data-stu-id="663d1-126">Run .NET Core CLI commands using `dotnet watch`</span></span>
+## <a name="run-net-core-cli-commands-using-dotnet-watch"></a><span data-ttu-id="aa559-126">使用 `dotnet watch` 运行 .NET Core CLI 命令</span><span class="sxs-lookup"><span data-stu-id="aa559-126">Run .NET Core CLI commands using `dotnet watch`</span></span>
 
-<span data-ttu-id="663d1-127">`dotnet watch` 可用于运行任何 [.NET Core CLI 命令](/dotnet/core/tools#cli-commands)</span><span class="sxs-lookup"><span data-stu-id="663d1-127">Any [.NET Core CLI command](/dotnet/core/tools#cli-commands) can be run with `dotnet watch`.</span></span> <span data-ttu-id="663d1-128">例如：</span><span class="sxs-lookup"><span data-stu-id="663d1-128">For example:</span></span>
+<span data-ttu-id="aa559-127">`dotnet watch` 可用于运行任何 [.NET Core CLI 命令](/dotnet/core/tools#cli-commands)</span><span class="sxs-lookup"><span data-stu-id="aa559-127">Any [.NET Core CLI command](/dotnet/core/tools#cli-commands) can be run with `dotnet watch`.</span></span> <span data-ttu-id="aa559-128">例如：</span><span class="sxs-lookup"><span data-stu-id="aa559-128">For example:</span></span>
 
-| <span data-ttu-id="663d1-129">命令</span><span class="sxs-lookup"><span data-stu-id="663d1-129">Command</span></span> | <span data-ttu-id="663d1-130">带 watch 的命令</span><span class="sxs-lookup"><span data-stu-id="663d1-130">Command with watch</span></span> |
+| <span data-ttu-id="aa559-129">命令</span><span class="sxs-lookup"><span data-stu-id="aa559-129">Command</span></span> | <span data-ttu-id="aa559-130">带 watch 的命令</span><span class="sxs-lookup"><span data-stu-id="aa559-130">Command with watch</span></span> |
 | ---- | ----- |
-| <span data-ttu-id="663d1-131">dotnet run</span><span class="sxs-lookup"><span data-stu-id="663d1-131">dotnet run</span></span> | <span data-ttu-id="663d1-132">dotnet watch run</span><span class="sxs-lookup"><span data-stu-id="663d1-132">dotnet watch run</span></span> |
-| <span data-ttu-id="663d1-133">dotnet run -f netcoreapp2.0</span><span class="sxs-lookup"><span data-stu-id="663d1-133">dotnet run -f netcoreapp2.0</span></span> | <span data-ttu-id="663d1-134">dotnet watch run -f netcoreapp2.0</span><span class="sxs-lookup"><span data-stu-id="663d1-134">dotnet watch run -f netcoreapp2.0</span></span> |
-| <span data-ttu-id="663d1-135">dotnet run -f netcoreapp2.0 -- --arg1</span><span class="sxs-lookup"><span data-stu-id="663d1-135">dotnet run -f netcoreapp2.0 -- --arg1</span></span> | <span data-ttu-id="663d1-136">dotnet watch run -f netcoreapp2.0 -- --arg1</span><span class="sxs-lookup"><span data-stu-id="663d1-136">dotnet watch run -f netcoreapp2.0 -- --arg1</span></span> |
-| <span data-ttu-id="663d1-137">dotnet test</span><span class="sxs-lookup"><span data-stu-id="663d1-137">dotnet test</span></span> | <span data-ttu-id="663d1-138">dotnet watch test</span><span class="sxs-lookup"><span data-stu-id="663d1-138">dotnet watch test</span></span> |
+| <span data-ttu-id="aa559-131">dotnet run</span><span class="sxs-lookup"><span data-stu-id="aa559-131">dotnet run</span></span> | <span data-ttu-id="aa559-132">dotnet watch run</span><span class="sxs-lookup"><span data-stu-id="aa559-132">dotnet watch run</span></span> |
+| <span data-ttu-id="aa559-133">dotnet run -f netcoreapp2.0</span><span class="sxs-lookup"><span data-stu-id="aa559-133">dotnet run -f netcoreapp2.0</span></span> | <span data-ttu-id="aa559-134">dotnet watch run -f netcoreapp2.0</span><span class="sxs-lookup"><span data-stu-id="aa559-134">dotnet watch run -f netcoreapp2.0</span></span> |
+| <span data-ttu-id="aa559-135">dotnet run -f netcoreapp2.0 -- --arg1</span><span class="sxs-lookup"><span data-stu-id="aa559-135">dotnet run -f netcoreapp2.0 -- --arg1</span></span> | <span data-ttu-id="aa559-136">dotnet watch run -f netcoreapp2.0 -- --arg1</span><span class="sxs-lookup"><span data-stu-id="aa559-136">dotnet watch run -f netcoreapp2.0 -- --arg1</span></span> |
+| <span data-ttu-id="aa559-137">dotnet test</span><span class="sxs-lookup"><span data-stu-id="aa559-137">dotnet test</span></span> | <span data-ttu-id="aa559-138">dotnet watch test</span><span class="sxs-lookup"><span data-stu-id="aa559-138">dotnet watch test</span></span> |
 
-<span data-ttu-id="663d1-139">运行“WebApp”文件夹中的 `dotnet watch run`。</span><span class="sxs-lookup"><span data-stu-id="663d1-139">Run `dotnet watch run` in the *WebApp* folder.</span></span> <span data-ttu-id="663d1-140">控制台输出指示 `watch` 已启动。</span><span class="sxs-lookup"><span data-stu-id="663d1-140">The console output indicates `watch` has started.</span></span>
+<span data-ttu-id="aa559-139">运行“WebApp”文件夹中的 `dotnet watch run`。</span><span class="sxs-lookup"><span data-stu-id="aa559-139">Run `dotnet watch run` in the *WebApp* folder.</span></span> <span data-ttu-id="aa559-140">控制台输出指示 `watch` 已启动。</span><span class="sxs-lookup"><span data-stu-id="aa559-140">The console output indicates `watch` has started.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="663d1-141">可使用 `dotnet watch --project <PROJECT>` 来指定要监视的项目。</span><span class="sxs-lookup"><span data-stu-id="663d1-141">You can use `dotnet watch --project <PROJECT>` to specify a project to watch.</span></span> <span data-ttu-id="663d1-142">例如，从示例应用的根路径运行 `dotnet watch --project WebApp run` 还会运行并监视 WebApp 项目。</span><span class="sxs-lookup"><span data-stu-id="663d1-142">For example, running `dotnet watch --project WebApp run` from the root of the sample app will also run and watch the *WebApp* project.</span></span>
+> <span data-ttu-id="aa559-141">可使用 `dotnet watch --project <PROJECT>` 来指定要监视的项目。</span><span class="sxs-lookup"><span data-stu-id="aa559-141">You can use `dotnet watch --project <PROJECT>` to specify a project to watch.</span></span> <span data-ttu-id="aa559-142">例如，从示例应用的根路径运行 `dotnet watch --project WebApp run` 还会运行并监视 WebApp 项目。</span><span class="sxs-lookup"><span data-stu-id="aa559-142">For example, running `dotnet watch --project WebApp run` from the root of the sample app will also run and watch the *WebApp* project.</span></span>
 
-## <a name="make-changes-with-dotnet-watch"></a><span data-ttu-id="663d1-143">使用 `dotnet watch` 执行更改</span><span class="sxs-lookup"><span data-stu-id="663d1-143">Make changes with `dotnet watch`</span></span>
+## <a name="make-changes-with-dotnet-watch"></a><span data-ttu-id="aa559-143">使用 `dotnet watch` 执行更改</span><span class="sxs-lookup"><span data-stu-id="aa559-143">Make changes with `dotnet watch`</span></span>
 
-<span data-ttu-id="663d1-144">确保 `dotnet watch` 正在运行。</span><span class="sxs-lookup"><span data-stu-id="663d1-144">Make sure `dotnet watch` is running.</span></span>
+<span data-ttu-id="aa559-144">确保 `dotnet watch` 正在运行。</span><span class="sxs-lookup"><span data-stu-id="aa559-144">Make sure `dotnet watch` is running.</span></span>
 
-<span data-ttu-id="663d1-145">修复 MathController 的 `Product` 方法中的 bug，使其返回乘积而非总和。</span><span class="sxs-lookup"><span data-stu-id="663d1-145">Fix the bug in the `Product` method of *MathController.cs* so it returns the product and not the sum:</span></span>
+<span data-ttu-id="aa559-145">修复 MathController 的 `Product` 方法中的 bug，使其返回乘积而非总和。</span><span class="sxs-lookup"><span data-stu-id="aa559-145">Fix the bug in the `Product` method of *MathController.cs* so it returns the product and not the sum:</span></span>
 
 ```csharp
 public static int Product(int a, int b)
@@ -106,35 +107,35 @@ public static int Product(int a, int b)
 }
 ```
 
-<span data-ttu-id="663d1-146">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="663d1-146">Save the file.</span></span> <span data-ttu-id="663d1-147">控制台输出指示 `dotnet watch` 已检测到文件更改并已重启应用。</span><span class="sxs-lookup"><span data-stu-id="663d1-147">The console output indicates that `dotnet watch` detected a file change and restarted the app.</span></span>
+<span data-ttu-id="aa559-146">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="aa559-146">Save the file.</span></span> <span data-ttu-id="aa559-147">控制台输出指示 `dotnet watch` 已检测到文件更改并已重启应用。</span><span class="sxs-lookup"><span data-stu-id="aa559-147">The console output indicates that `dotnet watch` detected a file change and restarted the app.</span></span>
 
-<span data-ttu-id="663d1-148">验证 `http://localhost:<port number>/api/math/product?a=4&b=5` 是否返回正确结果。</span><span class="sxs-lookup"><span data-stu-id="663d1-148">Verify `http://localhost:<port number>/api/math/product?a=4&b=5` returns the correct result.</span></span>
+<span data-ttu-id="aa559-148">验证 `http://localhost:<port number>/api/math/product?a=4&b=5` 是否返回正确结果。</span><span class="sxs-lookup"><span data-stu-id="aa559-148">Verify `http://localhost:<port number>/api/math/product?a=4&b=5` returns the correct result.</span></span>
 
-## <a name="run-tests-using-dotnet-watch"></a><span data-ttu-id="663d1-149">使用 `dotnet watch` 运行测试</span><span class="sxs-lookup"><span data-stu-id="663d1-149">Run tests using `dotnet watch`</span></span>
+## <a name="run-tests-using-dotnet-watch"></a><span data-ttu-id="aa559-149">使用 `dotnet watch` 运行测试</span><span class="sxs-lookup"><span data-stu-id="aa559-149">Run tests using `dotnet watch`</span></span>
 
-1. <span data-ttu-id="663d1-150">将 MathController.cs 的 `Product` 方法改回返回总和。</span><span class="sxs-lookup"><span data-stu-id="663d1-150">Change the `Product` method of *MathController.cs* back to returning the sum.</span></span> <span data-ttu-id="663d1-151">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="663d1-151">Save the file.</span></span>
-1. <span data-ttu-id="663d1-152">在命令外壳中，导航到“WebAppTests”文件夹。</span><span class="sxs-lookup"><span data-stu-id="663d1-152">In a command shell, navigate to the *WebAppTests* folder.</span></span>
-1. <span data-ttu-id="663d1-153">运行 [dotnet restore](/dotnet/core/tools/dotnet-restore)。</span><span class="sxs-lookup"><span data-stu-id="663d1-153">Run [dotnet restore](/dotnet/core/tools/dotnet-restore).</span></span>
-1. <span data-ttu-id="663d1-154">运行 `dotnet watch test`。</span><span class="sxs-lookup"><span data-stu-id="663d1-154">Run `dotnet watch test`.</span></span> <span data-ttu-id="663d1-155">其输出指示测试失败且观察程序正在等待文件更改：</span><span class="sxs-lookup"><span data-stu-id="663d1-155">Its output indicates that a test failed and that the watcher is awaiting file changes:</span></span>
+1. <span data-ttu-id="aa559-150">将 MathController.cs 的 `Product` 方法改回返回总和。</span><span class="sxs-lookup"><span data-stu-id="aa559-150">Change the `Product` method of *MathController.cs* back to returning the sum.</span></span> <span data-ttu-id="aa559-151">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="aa559-151">Save the file.</span></span>
+1. <span data-ttu-id="aa559-152">在命令外壳中，导航到“WebAppTests”文件夹。</span><span class="sxs-lookup"><span data-stu-id="aa559-152">In a command shell, navigate to the *WebAppTests* folder.</span></span>
+1. <span data-ttu-id="aa559-153">运行 [dotnet restore](/dotnet/core/tools/dotnet-restore)。</span><span class="sxs-lookup"><span data-stu-id="aa559-153">Run [dotnet restore](/dotnet/core/tools/dotnet-restore).</span></span>
+1. <span data-ttu-id="aa559-154">运行 `dotnet watch test`。</span><span class="sxs-lookup"><span data-stu-id="aa559-154">Run `dotnet watch test`.</span></span> <span data-ttu-id="aa559-155">其输出指示测试失败且观察程序正在等待文件更改：</span><span class="sxs-lookup"><span data-stu-id="aa559-155">Its output indicates that a test failed and that the watcher is awaiting file changes:</span></span>
 
      ```console
      Total tests: 2. Passed: 1. Failed: 1. Skipped: 0.
      Test Run Failed.
      ```
 
-1. <span data-ttu-id="663d1-156">修复 `Product` 方法代码，使其返回乘积。</span><span class="sxs-lookup"><span data-stu-id="663d1-156">Fix the `Product` method code so it returns the product.</span></span> <span data-ttu-id="663d1-157">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="663d1-157">Save the file.</span></span>
+1. <span data-ttu-id="aa559-156">修复 `Product` 方法代码，使其返回乘积。</span><span class="sxs-lookup"><span data-stu-id="aa559-156">Fix the `Product` method code so it returns the product.</span></span> <span data-ttu-id="aa559-157">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="aa559-157">Save the file.</span></span>
 
-<span data-ttu-id="663d1-158">`dotnet watch` 检测到文件更改并重新运行测试。</span><span class="sxs-lookup"><span data-stu-id="663d1-158">`dotnet watch` detects the file change and reruns the tests.</span></span> <span data-ttu-id="663d1-159">控制台输出指示测试通过。</span><span class="sxs-lookup"><span data-stu-id="663d1-159">The console output indicates the tests passed.</span></span>
+<span data-ttu-id="aa559-158">`dotnet watch` 检测到文件更改并重新运行测试。</span><span class="sxs-lookup"><span data-stu-id="aa559-158">`dotnet watch` detects the file change and reruns the tests.</span></span> <span data-ttu-id="aa559-159">控制台输出指示测试通过。</span><span class="sxs-lookup"><span data-stu-id="aa559-159">The console output indicates the tests passed.</span></span>
 
-## <a name="customize-files-list-to-watch"></a><span data-ttu-id="663d1-160">自定义要监视的文件列表</span><span class="sxs-lookup"><span data-stu-id="663d1-160">Customize files list to watch</span></span>
+## <a name="customize-files-list-to-watch"></a><span data-ttu-id="aa559-160">自定义要监视的文件列表</span><span class="sxs-lookup"><span data-stu-id="aa559-160">Customize files list to watch</span></span>
 
-<span data-ttu-id="663d1-161">默认情况下，`dotnet-watch` 跟踪与以下 glob 模式匹配的所有文件：</span><span class="sxs-lookup"><span data-stu-id="663d1-161">By default, `dotnet-watch` tracks all files matching the following glob patterns:</span></span>
+<span data-ttu-id="aa559-161">默认情况下，`dotnet-watch` 跟踪与以下 glob 模式匹配的所有文件：</span><span class="sxs-lookup"><span data-stu-id="aa559-161">By default, `dotnet-watch` tracks all files matching the following glob patterns:</span></span>
 
 * `**/*.cs`
 * `*.csproj`
 * `**/*.resx`
 
-<span data-ttu-id="663d1-162">通过编辑 .csproj 文件，可向监视列表添加更多项。</span><span class="sxs-lookup"><span data-stu-id="663d1-162">More items can be added to the watch list by editing the *.csproj* file.</span></span> <span data-ttu-id="663d1-163">可以单独指定项或使用 glob 模式指定。</span><span class="sxs-lookup"><span data-stu-id="663d1-163">Items can be specified individually or by using glob patterns.</span></span>
+<span data-ttu-id="aa559-162">通过编辑 .csproj 文件，可向监视列表添加更多项。</span><span class="sxs-lookup"><span data-stu-id="aa559-162">More items can be added to the watch list by editing the *.csproj* file.</span></span> <span data-ttu-id="aa559-163">可以单独指定项或使用 glob 模式指定。</span><span class="sxs-lookup"><span data-stu-id="aa559-163">Items can be specified individually or by using glob patterns.</span></span>
 
 ```xml
 <ItemGroup>
@@ -143,9 +144,9 @@ public static int Product(int a, int b)
 </ItemGroup>
 ```
 
-## <a name="opt-out-of-files-to-be-watched"></a><span data-ttu-id="663d1-164">从要监视的文件中排除</span><span class="sxs-lookup"><span data-stu-id="663d1-164">Opt-out of files to be watched</span></span>
+## <a name="opt-out-of-files-to-be-watched"></a><span data-ttu-id="aa559-164">从要监视的文件中排除</span><span class="sxs-lookup"><span data-stu-id="aa559-164">Opt-out of files to be watched</span></span>
 
-<span data-ttu-id="663d1-165">`dotnet-watch` 可配置为忽略其默认设置。</span><span class="sxs-lookup"><span data-stu-id="663d1-165">`dotnet-watch` can be configured to ignore its default settings.</span></span> <span data-ttu-id="663d1-166">要忽略特定文件，请在 .csproj 文件中向某项的定义中添加 `Watch="false"` 特性：</span><span class="sxs-lookup"><span data-stu-id="663d1-166">To ignore specific files, add the `Watch="false"` attribute to an item's definition in the *.csproj* file:</span></span>
+<span data-ttu-id="aa559-165">`dotnet-watch` 可配置为忽略其默认设置。</span><span class="sxs-lookup"><span data-stu-id="aa559-165">`dotnet-watch` can be configured to ignore its default settings.</span></span> <span data-ttu-id="aa559-166">要忽略特定文件，请在 .csproj 文件中向某项的定义中添加 `Watch="false"` 特性：</span><span class="sxs-lookup"><span data-stu-id="aa559-166">To ignore specific files, add the `Watch="false"` attribute to an item's definition in the *.csproj* file:</span></span>
 
 ```xml
 <ItemGroup>
@@ -160,15 +161,15 @@ public static int Product(int a, int b)
 </ItemGroup>
 ```
 
-## <a name="custom-watch-projects"></a><span data-ttu-id="663d1-167">自定义监视项目</span><span class="sxs-lookup"><span data-stu-id="663d1-167">Custom watch projects</span></span>
+## <a name="custom-watch-projects"></a><span data-ttu-id="aa559-167">自定义监视项目</span><span class="sxs-lookup"><span data-stu-id="aa559-167">Custom watch projects</span></span>
 
-<span data-ttu-id="663d1-168">`dotnet-watch` 不仅限于 C# 项目。</span><span class="sxs-lookup"><span data-stu-id="663d1-168">`dotnet-watch` isn't restricted to C# projects.</span></span> <span data-ttu-id="663d1-169">可以创建自定义监视项目来处理不同的方案。</span><span class="sxs-lookup"><span data-stu-id="663d1-169">Custom watch projects can be created to handle different scenarios.</span></span> <span data-ttu-id="663d1-170">假设项目布局如下：</span><span class="sxs-lookup"><span data-stu-id="663d1-170">Consider the following project layout:</span></span>
+<span data-ttu-id="aa559-168">`dotnet-watch` 不仅限于 C# 项目。</span><span class="sxs-lookup"><span data-stu-id="aa559-168">`dotnet-watch` isn't restricted to C# projects.</span></span> <span data-ttu-id="aa559-169">可以创建自定义监视项目来处理不同的方案。</span><span class="sxs-lookup"><span data-stu-id="aa559-169">Custom watch projects can be created to handle different scenarios.</span></span> <span data-ttu-id="aa559-170">假设项目布局如下：</span><span class="sxs-lookup"><span data-stu-id="aa559-170">Consider the following project layout:</span></span>
 
-* <span data-ttu-id="663d1-171">**test/**</span><span class="sxs-lookup"><span data-stu-id="663d1-171">**test/**</span></span>
-  * <span data-ttu-id="663d1-172">*UnitTests/UnitTests.csproj*</span><span class="sxs-lookup"><span data-stu-id="663d1-172">*UnitTests/UnitTests.csproj*</span></span>
-  * <span data-ttu-id="663d1-173">*IntegrationTests/IntegrationTests.csproj*</span><span class="sxs-lookup"><span data-stu-id="663d1-173">*IntegrationTests/IntegrationTests.csproj*</span></span>
+* <span data-ttu-id="aa559-171">**test/**</span><span class="sxs-lookup"><span data-stu-id="aa559-171">**test/**</span></span>
+  * <span data-ttu-id="aa559-172">*UnitTests/UnitTests.csproj*</span><span class="sxs-lookup"><span data-stu-id="aa559-172">*UnitTests/UnitTests.csproj*</span></span>
+  * <span data-ttu-id="aa559-173">*IntegrationTests/IntegrationTests.csproj*</span><span class="sxs-lookup"><span data-stu-id="aa559-173">*IntegrationTests/IntegrationTests.csproj*</span></span>
 
-<span data-ttu-id="663d1-174">如果目标是监视这两个项目，请创建配置为监视这两个项目的自定义项目文件：</span><span class="sxs-lookup"><span data-stu-id="663d1-174">If the goal is to watch both projects, create a custom project file configured to watch both projects:</span></span>
+<span data-ttu-id="aa559-174">如果目标是监视这两个项目，请创建配置为监视这两个项目的自定义项目文件：</span><span class="sxs-lookup"><span data-stu-id="aa559-174">If the goal is to watch both projects, create a custom project file configured to watch both projects:</span></span>
 
 ```xml
 <Project>
@@ -185,14 +186,14 @@ public static int Product(int a, int b)
 </Project>
 ```
 
-<span data-ttu-id="663d1-175">要对这两个项目启动文件监视，请更改为 test 文件夹。</span><span class="sxs-lookup"><span data-stu-id="663d1-175">To start file watching on both projects, change to the *test* folder.</span></span> <span data-ttu-id="663d1-176">请执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="663d1-176">Execute the following command:</span></span>
+<span data-ttu-id="aa559-175">要对这两个项目启动文件监视，请更改为 test 文件夹。</span><span class="sxs-lookup"><span data-stu-id="aa559-175">To start file watching on both projects, change to the *test* folder.</span></span> <span data-ttu-id="aa559-176">请执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="aa559-176">Execute the following command:</span></span>
 
 ```dotnetcli
 dotnet watch msbuild /t:Test
 ```
 
-<span data-ttu-id="663d1-177">当任一测试项目中的任何文件发生更改时，将会执行 VSTest。</span><span class="sxs-lookup"><span data-stu-id="663d1-177">VSTest executes when any file changes in either test project.</span></span>
+<span data-ttu-id="aa559-177">当任一测试项目中的任何文件发生更改时，将会执行 VSTest。</span><span class="sxs-lookup"><span data-stu-id="aa559-177">VSTest executes when any file changes in either test project.</span></span>
 
-## <a name="dotnet-watch-in-github"></a><span data-ttu-id="663d1-178">GitHub 中的 `dotnet-watch`</span><span class="sxs-lookup"><span data-stu-id="663d1-178">`dotnet-watch` in GitHub</span></span>
+## <a name="dotnet-watch-in-github"></a><span data-ttu-id="aa559-178">GitHub 中的 `dotnet-watch`</span><span class="sxs-lookup"><span data-stu-id="aa559-178">`dotnet-watch` in GitHub</span></span>
 
-<span data-ttu-id="663d1-179">`dotnet-watch` 是 GitHub [dotnet/AspNetCore 存储库](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch)的一部分。</span><span class="sxs-lookup"><span data-stu-id="663d1-179">`dotnet-watch` is part of the GitHub [dotnet/AspNetCore repository](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch).</span></span>
+<span data-ttu-id="aa559-179">`dotnet-watch` 是 GitHub [dotnet/AspNetCore 存储库](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch)的一部分。</span><span class="sxs-lookup"><span data-stu-id="aa559-179">`dotnet-watch` is part of the GitHub [dotnet/AspNetCore repository](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch).</span></span>
