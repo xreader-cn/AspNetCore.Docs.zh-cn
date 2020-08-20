@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,24 +17,24 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/Index
-ms.openlocfilehash: 5b8d136251a68bd5dc7ee2d75700f53cfd33817f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 74166ed852532cb2f379f18f8dc9b4a75907cabb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018606"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633872"
 ---
-# <a name="aspnet-core-built-in-tag-helpers"></a><span data-ttu-id="88bde-103">ASP.NET Core 内置标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="88bde-103">ASP.NET Core built-in Tag Helpers</span></span>
+# <a name="aspnet-core-built-in-tag-helpers"></a><span data-ttu-id="ac726-103">ASP.NET Core 内置标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="ac726-103">ASP.NET Core built-in Tag Helpers</span></span>
 
-<span data-ttu-id="88bde-104">作者：[Peter Kellner](https://peterkellner.net)</span><span class="sxs-lookup"><span data-stu-id="88bde-104">By [Peter Kellner](https://peterkellner.net)</span></span>
+<span data-ttu-id="ac726-104">作者：[Peter Kellner](https://peterkellner.net)</span><span class="sxs-lookup"><span data-stu-id="ac726-104">By [Peter Kellner](https://peterkellner.net)</span></span>
 
-<span data-ttu-id="88bde-105">有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。</span><span class="sxs-lookup"><span data-stu-id="88bde-105">For an overview of Tag Helpers, see <xref:mvc/views/tag-helpers/intro>.</span></span>
+<span data-ttu-id="ac726-105">有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。</span><span class="sxs-lookup"><span data-stu-id="ac726-105">For an overview of Tag Helpers, see <xref:mvc/views/tag-helpers/intro>.</span></span>
 
-<span data-ttu-id="88bde-106">存在文档中未描述的内置的标记帮助程序。</span><span class="sxs-lookup"><span data-stu-id="88bde-106">There are built-in Tag Helpers which aren't listed in this document.</span></span> <span data-ttu-id="88bde-107">[Razor](xref:mvc/views/razor) 视图引擎在内部使用这些未列出的标记帮助程序。</span><span class="sxs-lookup"><span data-stu-id="88bde-107">The unlisted Tag Helpers are used internally by the [Razor](xref:mvc/views/razor) view engine.</span></span> <span data-ttu-id="88bde-108">`~`（波形符）的标记帮助器未列出。</span><span class="sxs-lookup"><span data-stu-id="88bde-108">The Tag Helper for the `~` (tilde) character is unlisted.</span></span> <span data-ttu-id="88bde-109">波形符标记帮助程序将扩展到网站的根路径。</span><span class="sxs-lookup"><span data-stu-id="88bde-109">The tilde Tag Helper expands to the root path of the website.</span></span>
+<span data-ttu-id="ac726-106">存在文档中未描述的内置的标记帮助程序。</span><span class="sxs-lookup"><span data-stu-id="ac726-106">There are built-in Tag Helpers which aren't listed in this document.</span></span> <span data-ttu-id="ac726-107">[Razor](xref:mvc/views/razor) 视图引擎在内部使用这些未列出的标记帮助程序。</span><span class="sxs-lookup"><span data-stu-id="ac726-107">The unlisted Tag Helpers are used internally by the [Razor](xref:mvc/views/razor) view engine.</span></span> <span data-ttu-id="ac726-108">`~`（波形符）的标记帮助器未列出。</span><span class="sxs-lookup"><span data-stu-id="ac726-108">The Tag Helper for the `~` (tilde) character is unlisted.</span></span> <span data-ttu-id="ac726-109">波形符标记帮助程序将扩展到网站的根路径。</span><span class="sxs-lookup"><span data-stu-id="ac726-109">The tilde Tag Helper expands to the root path of the website.</span></span>
 
 [!INCLUDE[](~/includes/built-in-TH.md)]
 
-## <a name="additional-resources"></a><span data-ttu-id="88bde-110">其他资源</span><span class="sxs-lookup"><span data-stu-id="88bde-110">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="ac726-110">其他资源</span><span class="sxs-lookup"><span data-stu-id="ac726-110">Additional resources</span></span>
 
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/views/tag-helpers/th-components>

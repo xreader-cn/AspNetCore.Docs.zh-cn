@@ -5,6 +5,7 @@ description: 了解与 ASP.NET Core 移动开发相关的主题。
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,13 +16,13 @@ no-loc:
 - Razor
 - SignalR
 uid: mobile/index
-ms.openlocfilehash: ebcffc6f636e99f5e7cb5ba5e6e88fb6c85121bf
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 97fa4b901028e3d52158e61b57a2d5d940746e0d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019399"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630492"
 ---
-# <a name="mobile-development-with-aspnet-core"></a><span data-ttu-id="fd36d-103">使用 ASP.NET Core 的移动开发</span><span class="sxs-lookup"><span data-stu-id="fd36d-103">Mobile development with ASP.NET Core</span></span>
+# <a name="mobile-development-with-aspnet-core"></a><span data-ttu-id="b2b4f-103">使用 ASP.NET Core 的移动开发</span><span class="sxs-lookup"><span data-stu-id="b2b4f-103">Mobile development with ASP.NET Core</span></span>
 
-* [<span data-ttu-id="fd36d-104">为本机移动应用创建后端服务</span><span class="sxs-lookup"><span data-stu-id="fd36d-104">Create backend services for native mobile apps</span></span>](native-mobile-backend.md)
+* [<span data-ttu-id="b2b4f-104">为本机移动应用创建后端服务</span><span class="sxs-lookup"><span data-stu-id="b2b4f-104">Create backend services for native mobile apps</span></span>](native-mobile-backend.md)
