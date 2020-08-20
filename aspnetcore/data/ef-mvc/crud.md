@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 2c71ea0eaccf4daeb8937dd5839481a506864fbe
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c17461f8d1d43335230a967a4b62943c055c06b9
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012847"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629205"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
@@ -130,7 +131,7 @@ http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 
 除了 `Bind` 特性，try-catch 块是对基架代码所做的唯一更改。 如果保存更改时捕获到来自 `DbUpdateException` 的异常，则会显示一般错误消息。 有时 `DbUpdateException` 异常是由应用程序外部的某些内容而非编程错误引起的，因此建议用户再次尝试。 尽管在本示例中未实现，但生产质量应用程序会记录异常。 有关详细信息，请参阅[监视和遥测（使用 Azure 构建真实世界云应用）](/aspnet/aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/monitoring-and-telemetry)中的“见解记录”部分。
 
-`ValidateAntiForgeryToken` 特性帮助抵御跨网站请求伪造 (CSRF) 攻击。 令牌通过 [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) 自动注入到视图中，并在用户提交表单时包含该令牌。 令牌由 `ValidateAntiForgeryToken` 特性验证。 有关 CSRF 的详细信息，请参阅[反请求伪造](../../security/anti-request-forgery.md)。
+`ValidateAntiForgeryToken` 特性帮助抵御跨网站请求伪造 (CSRF) 攻击。 令牌通过 [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) 自动注入到视图中，并在用户提交表单时包含该令牌。 令牌由 `ValidateAntiForgeryToken` 特性验证。 有关详细信息，请参阅 <xref:security/anti-request-forgery>。
 
 <a id="overpost"></a>
 

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/5/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 2b8ac1d6c6cdeee14b74c5b14206bff51982c711
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0eade76f8cf0bdd81cc290218f36fe9276233104
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017241"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635276"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>在 ASP.NET Core 中访问 HttpContext
 

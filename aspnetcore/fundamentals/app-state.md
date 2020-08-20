@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/06/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: c05129c0f239fb28c83ab1c561dd910305eeb54b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 95035ec372ab6adb5bafb40f2b939c549ac6f839
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017631"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633807"
 ---
 # <a name="session-and-state-management-in-aspnet-core"></a>ASP.NET Core 中的会话和状态管理
 
@@ -239,7 +240,7 @@ cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtect
 
 可以将有限的数据从一个请求传递到另一个请求，方法是将其添加到新请求的查询字符串中。 这有利于以一种持久的方式捕获状态，这种方式允许通过电子邮件或社交网络共享嵌入式状态的链接。 由于 URL 查询字符串是公共的，因此请勿对敏感数据使用查询字符串。
 
-除了意外共享之外，在查询字符串中包含数据还会使应用遭受[跨站点请求伪造 (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) 攻击。 任何保留的会话状态必须防止 CSRF 攻击。 有关详细信息，请参阅[预防跨网站请求伪造 (XSRF/CSRF) 攻击](xref:security/anti-request-forgery)。
+除了意外共享之外，在查询字符串中包含数据还会使应用遭受[跨站点请求伪造 (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) 攻击。 任何保留的会话状态必须防止 CSRF 攻击。 有关详细信息，请参阅 <xref:security/anti-request-forgery>。
 
 ## <a name="hidden-fields"></a>隐藏字段
 
@@ -502,7 +503,7 @@ cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtect
 
 可以将有限的数据从一个请求传递到另一个请求，方法是将其添加到新请求的查询字符串中。 这有利于以一种持久的方式捕获状态，这种方式允许通过电子邮件或社交网络共享嵌入式状态的链接。 由于 URL 查询字符串是公共的，因此请勿对敏感数据使用查询字符串。
 
-除了意外的共享，在查询字符串中包含数据还会为[跨站点请求伪造 (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) 攻击创造机会，从而欺骗用户在通过身份验证时访问恶意网站。 然后，攻击者可以从应用中窃取用户数据，或者代表用户采取恶意操作。 任何保留的应用或会话状态必须防止 CSRF 攻击。 有关详细信息，请参阅[预防跨网站请求伪造 (XSRF/CSRF) 攻击](xref:security/anti-request-forgery)。
+除了意外的共享，在查询字符串中包含数据还会为[跨站点请求伪造 (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) 攻击创造机会，从而欺骗用户在通过身份验证时访问恶意网站。 然后，攻击者可以从应用中窃取用户数据，或者代表用户采取恶意操作。 任何保留的应用或会话状态必须防止 CSRF 攻击。 有关详细信息，请参阅 <xref:security/anti-request-forgery>。
 
 ## <a name="hidden-fields"></a>隐藏字段
 

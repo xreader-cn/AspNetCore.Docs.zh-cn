@@ -5,6 +5,7 @@ description: 第 6 部分，将模型添加到 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: b5b54adb1d86e4ab982647dc8207839cc9afdac9
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 07b67cd7c267c39b99277114b73642b5caa3e312
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021063"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632832"
 ---
 # <a name="part-6-controller-methods-and-views-in-aspnet-core"></a>第 6 部分，ASP.NET Core 中的控制器方法和视图
 
@@ -110,7 +111,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/Edit.cshtml?range=9)]
 
-[表单标记帮助程序](xref:mvc/views/working-with-forms)会生成隐藏的防伪标记，此标记必须与电影控制器的 `Edit` 方法中 `[ValidateAntiForgeryToken]` 生成的防伪标记相匹配。 有关详细信息，请参阅[反请求伪造](xref:security/anti-request-forgery)。
+[表单标记帮助程序](xref:mvc/views/working-with-forms)会生成隐藏的防伪标记，此标记必须与电影控制器的 `Edit` 方法中 `[ValidateAntiForgeryToken]` 生成的防伪标记相匹配。 有关详细信息，请参阅 <xref:security/anti-request-forgery>。
 
 `HttpGet Edit` 方法采用电影 `ID` 参数，使用Entity Framework `FindAsync` 方法查找电影，并将所选电影返回到“编辑”视图。 如果无法找到电影，则返回 `NotFound` (HTTP 404)。
 
@@ -161,7 +162,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 * [全球化和本地化](xref:fundamentals/localization)
 * [标记帮助程序简介](xref:mvc/views/tag-helpers/intro)
 * [创作标记帮助程序](xref:mvc/views/tag-helpers/authoring)
-* [防请求伪造](xref:security/anti-request-forgery)
+* <xref:security/anti-request-forgery>
 * 防止控制器[过度发布](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application)
 * [ViewModels](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/)
 * [表单标记帮助程序](xref:mvc/views/working-with-forms)
