@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 04/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/ObjectPool
-ms.openlocfilehash: 1f57bc4662296333b3d2c659c057230548541b91
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6997dbfdd5c654e4a8b15a026fd3ec61d024f02d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020400"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632364"
 ---
 # <a name="object-reuse-with-objectpool-in-aspnet-core"></a>在 ASP.NET Core 中使用 ObjectPool 进行对象重用
 
-作者： [Steve Gordon](https://twitter.com/stevejgordon)、 [Ryan Nowak](https://github.com/rynowak)和[Günther Foidl](https://github.com/gfoidl)
+作者： [Steve Gordon](https://twitter.com/stevejgordon)、 [Ryan Nowak](https://github.com/rynowak)和 [Günther Foidl](https://github.com/gfoidl)
 
-<xref:Microsoft.Extensions.ObjectPool>是 ASP.NET Core 基础结构的一部分，它支持在内存中保留一组对象以供重复使用，而不是允许对象被垃圾回收。
+<xref:Microsoft.Extensions.ObjectPool> 是 ASP.NET Core 基础结构的一部分，它支持在内存中保留一组对象以供重复使用，而不是允许对象被垃圾回收。
 
 如果要管理的对象是，则你可能需要使用对象池：
 
@@ -35,7 +36,7 @@ ms.locfileid: "88020400"
 - 表示某些有限资源。
 - 使用可预测和频繁。
 
-例如，在某些位置，ASP.NET Core 框架使用对象池来重复使用 <xref:System.Text.StringBuilder> 实例。 `StringBuilder`分配并管理自己的用于保存字符数据的缓冲区。 ASP.NET Core 会定期使用 `StringBuilder` 来实现功能，并重复使用这些功能，从而提高了性能。
+例如，在某些位置，ASP.NET Core 框架使用对象池来重复使用 <xref:System.Text.StringBuilder> 实例。 `StringBuilder` 分配并管理自己的用于保存字符数据的缓冲区。 ASP.NET Core 会定期使用 `StringBuilder` 来实现功能，并重复使用这些功能，从而提高了性能。
 
 对象池并不总是能提高性能：
 
@@ -45,24 +46,24 @@ ms.locfileid: "88020400"
 仅在使用应用或库的现实方案收集性能数据后，才使用对象池。
 
 ::: moniker range="< aspnetcore-3.0"
-**警告： `ObjectPool` 没有实现 `IDisposable` 。建议不要将其与需要处置的类型一起使用。** `ObjectPool`ASP.NET Core 3.0 和更高版本支持 `IDisposable` 。
+**警告： `ObjectPool` 没有实现 `IDisposable` 。建议不要将其与需要处置的类型一起使用。** `ObjectPool` ASP.NET Core 3.0 和更高版本支持 `IDisposable` 。
 ::: moniker-end
 
 **注意： ObjectPool 不会对它将分配的对象数量施加限制，它会限制将保留的对象数。**
 
 ## <a name="concepts"></a>概念
 
-<xref:Microsoft.Extensions.ObjectPool.ObjectPool`1>-基本对象池抽象。 用于获取和返回对象。
+<xref:Microsoft.Extensions.ObjectPool.ObjectPool`1> -基本对象池抽象。 用于获取和返回对象。
 
-<xref:Microsoft.Extensions.ObjectPool.PooledObjectPolicy%601>-实现此方法可自定义对象的创建方式，以及在返回到池时*重置*对象的方式。 这可以传递到你直接构造的对象池中 .。。或
+<xref:Microsoft.Extensions.ObjectPool.PooledObjectPolicy%601> -实现此方法可自定义对象的创建方式，以及在返回到池时 *重置* 对象的方式。 这可以传递到你直接构造的对象池中 .。。或
 
-<xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider.Create*>用作创建对象池的工厂。
+<xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider.Create*> 用作创建对象池的工厂。
 <!-- REview, there is no ObjectPoolProvider<T> -->
 
 可以通过多种方式在应用中使用 ObjectPool：
 
 * 实例化池。
-* 在[依赖关系注入](xref:fundamentals/dependency-injection)中将池注册 (DI) 实例。
+* 在 [依赖关系注入](xref:fundamentals/dependency-injection) 中将池注册 (DI) 实例。
 * `ObjectPoolProvider<>`在 DI 中注册并使用它作为工厂。
 
 ## <a name="how-to-use-objectpool"></a>如何使用 ObjectPool
@@ -78,21 +79,21 @@ ms.locfileid: "88020400"
 注意：释放池后：
 
 * 调用会 `Get` 引发 `ObjectDisposedException` 。
-* `return`释放给定的项。
+* `return` 释放给定的项。
 
 ::: moniker-end
 
 ## <a name="objectpool-sample"></a>ObjectPool 示例
 
-下面的代码：
+以下代码：
 
-* 将 `ObjectPoolProvider` (DI) 容器添加到[依赖关系注入](xref:fundamentals/dependency-injection)。
+* 将 `ObjectPoolProvider` (DI) 容器添加到 [依赖关系注入](xref:fundamentals/dependency-injection) 。
 * 向 DI 容器添加并配置 `ObjectPool<StringBuilder>` 。
 * 添加 `BirthdayMiddleware` 。
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/Startup.cs?name=snippet)]
 
-下面的代码实现`BirthdayMiddleware`
+下面的代码实现 `BirthdayMiddleware`
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/BirthdayMiddleware.cs?name=snippet)]
 

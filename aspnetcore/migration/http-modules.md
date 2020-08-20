@@ -5,6 +5,7 @@ description: ''
 ms.author: riande
 ms.date: 12/07/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,16 +16,16 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/http-modules
-ms.openlocfilehash: 92672b2d05ee6bbdfcf0255ae14529a5c28c41b7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8be09171991964540cd41a1324fb87503591151f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014979"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632169"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 
-本文介绍如何将现有[的 ASP.NET HTTP 模块和处理程序从 system.webserver](/iis/configuration/system.webserver/)迁移到 ASP.NET Core[中间件](xref:fundamentals/middleware/index)。
+本文介绍如何将现有 [的 ASP.NET HTTP 模块和处理程序从 system.webserver](/iis/configuration/system.webserver/) 迁移到 ASP.NET Core [中间件](xref:fundamentals/middleware/index)。
 
 ## <a name="modules-and-handlers-revisited"></a>模块和处理程序被
 
@@ -56,9 +57,9 @@ ms.locfileid: "88014979"
 
 1. [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)，是 ASP.NET： [BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)、 [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)等触发的序列事件。每个模块都可以为一个或多个事件创建处理程序。
 
-2. 对于同一事件，在*Web.config*中配置它们的顺序。
+2. 对于同一事件，在 *Web.config*中配置它们的顺序。
 
-除了模块外，还可以将生命周期事件的处理程序添加到*Global.asax.cs*文件。 这些处理程序在配置的模块中的处理程序之后运行。
+除了模块外，还可以将生命周期事件的处理程序添加到 *Global.asax.cs* 文件。 这些处理程序在配置的模块中的处理程序之后运行。
 
 ## <a name="from-handlers-and-modules-to-middleware"></a>从处理程序和模块到中间件
 
@@ -91,11 +92,11 @@ ms.locfileid: "88014979"
 
 **中间件和模块按不同的顺序进行处理：**
 
-* 中间件的顺序取决于它们插入请求管道的顺序，而模块的顺序主要基于[应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)事件
+* 中间件的顺序取决于它们插入请求管道的顺序，而模块的顺序主要基于 [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx) 事件
 
 * 响应的中间件顺序与请求的顺序相反，而对于请求和响应，模块的顺序是相同的。
 
-* 请参阅[使用 IApplicationBuilder 创建中间件管道](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)
+* 请参阅 [使用 IApplicationBuilder 创建中间件管道](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)
 
 ![中间件](http-modules/_static/middleware.png)
 
@@ -107,13 +108,13 @@ ms.locfileid: "88014979"
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Modules/MyModule.cs?highlight=6,8,24,31)]
 
-如[中间件](xref:fundamentals/middleware/index)页中所示，ASP.NET Core 中间件是一个类，该类公开 `Invoke` 采用 `HttpContext` 并返回的方法 `Task` 。 新的中间件将如下所示：
+如 [中间件](xref:fundamentals/middleware/index) 页中所示，ASP.NET Core 中间件是一个类，该类公开 `Invoke` 采用 `HttpContext` 并返回的方法 `Task` 。 新的中间件将如下所示：
 
 <a name="http-modules-usemiddleware"></a>
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddleware.cs?highlight=9,13,20,24,28,30,32)]
 
-前面的中间件模板取自[编写中间件](xref:fundamentals/middleware/write)的部分。
+前面的中间件模板取自 [编写中间件](xref:fundamentals/middleware/write)的部分。
 
 *MyMiddlewareExtensions* helper 类使你可以更轻松地在类中配置中间件 `Startup` 。 `UseMyMiddleware`方法将中间件类添加到请求管道。 中间件的构造函数中插入了中间件所需的服务。
 
@@ -131,15 +132,15 @@ ms.locfileid: "88014979"
 
 ## <a name="migrating-module-insertion-into-the-request-pipeline"></a>将模块插入迁移到请求管道中
 
-通常使用*Web.config*将 HTTP 模块添加到请求管道：
+通常使用 *Web.config*将 HTTP 模块添加到请求管道：
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32-33,36,43,50,101)]
 
-通过在类中将[新的中间件添加](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)到请求管道来转换此项 `Startup` ：
+通过在类中将 [新的中间件添加](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder) 到请求管道来转换此项 `Startup` ：
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=16)]
 
-插入新中间件的管道中的确切位置取决于它作为模块处理的事件 `BeginRequest` ， (、等 `EndRequest` ) 及其在*Web.config*的模块列表中的顺序。
+插入新中间件的管道中的确切位置取决于它作为模块处理的事件 `BeginRequest` ， (、等 `EndRequest` ) 及其在 *Web.config*的模块列表中的顺序。
 
 如前所述，ASP.NET Core 中没有应用程序生命周期，中间件的处理响应顺序与模块使用的顺序不同。 这可能会使你的排序决策更具挑战性。
 
@@ -159,7 +160,7 @@ HTTP 处理程序如下所示：
 
 ## <a name="migrating-handler-insertion-into-the-request-pipeline"></a>将处理程序插入迁移到请求管道中
 
-配置 HTTP 处理程序是在*Web.config*中完成的，如下所示：
+配置 HTTP 处理程序是在 *Web.config* 中完成的，如下所示：
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32,46-48,50,101)]
 
@@ -169,7 +170,7 @@ HTTP 处理程序如下所示：
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=27-34)]
 
-`MapWhen`采用以下参数：
+`MapWhen` 采用以下参数：
 
 1. 一个采用的 lambda， `HttpContext` `true` 如果请求应向下分支，则返回。 这意味着，不仅可以根据请求的扩展来分支请求，还可以处理请求标头、查询字符串参数等。
 
@@ -179,13 +180,13 @@ HTTP 处理程序如下所示：
 
 ## <a name="loading-middleware-options-using-the-options-pattern"></a>使用 options 模式加载中间件选项
 
-某些模块和处理程序具有存储在*Web.config*中的配置选项。但是，在 ASP.NET Core 新的配置模型用于代替*Web.config*。
+某些模块和处理程序具有存储在 *Web.config*中的配置选项。但是，在 ASP.NET Core 新的配置模型用于代替 *Web.config*。
 
-新[配置系统](xref:fundamentals/configuration/index)提供以下选项来解决此类情况：
+新 [配置系统](xref:fundamentals/configuration/index) 提供以下选项来解决此类情况：
 
-* 将选项直接注入中间件，如下[一节](#loading-middleware-options-through-direct-injection)所示。
+* 将选项直接注入中间件，如下 [一节](#loading-middleware-options-through-direct-injection)所示。
 
-* 使用[options 模式](xref:fundamentals/configuration/options)：
+* 使用 [options 模式](xref:fundamentals/configuration/options)：
 
 1. 创建用于保存中间件选项的类，例如：
 
@@ -193,11 +194,11 @@ HTTP 处理程序如下所示：
 
 2. 存储选项值
 
-   配置系统允许您将选项值存储在任何所需的位置。 但是，大多数站点使用*appsettings.js*，因此我们将采取这种方法：
+   配置系统允许您将选项值存储在任何所需的位置。 但是，大多数站点使用 *appsettings.js*，因此我们将采取这种方法：
 
    [!code-json[](http-modules/sample/Asp.Net.Core/appsettings.json?range=1,14-18)]
 
-   *MyMiddlewareOptionsSection*是部分名称。 它不必与 options 类的名称相同。
+   *MyMiddlewareOptionsSection* 是部分名称。 它不必与 options 类的名称相同。
 
 3. 将选项值与 options 类相关联
 
@@ -205,7 +206,7 @@ HTTP 处理程序如下所示：
 
     更新你的 `Startup` 类：
 
-   1. 如果使用*appsettings.js*，请将其添加到构造函数中的配置生成器 `Startup` ：
+   1. 如果使用 *appsettings.js*，请将其添加到构造函数中的配置生成器 `Startup` ：
 
       [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Ctor&highlight=5-6)]
 
@@ -221,7 +222,7 @@ HTTP 处理程序如下所示：
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_MiddlewareWithParams&highlight=4,7,10,15-16)]
 
-   将中间件添加到中的[UseMiddleware](#http-modules-usemiddleware)扩展方法 `IApplicationBuilder` 会处理依赖关系注入。
+   将中间件添加到中的 [UseMiddleware](#http-modules-usemiddleware) 扩展方法 `IApplicationBuilder` 会处理依赖关系注入。
 
    这并不限于 `IOptions` 对象。 中间件所需的任何其他对象都可以通过这种方式注入。
 
@@ -233,9 +234,9 @@ Options 模式的优点在于，它在选项值与其使用者之间产生松散
 
 解决方法是在类中获取选项对象，并将其 `Startup` 直接传递给中间件的每个实例。
 
-1. 将第二个键添加到*appsettings.js*
+1. 将第二个键添加到 *appsettings.js*
 
-   若要将第二组选项添加到*appsettings.js*文件，请使用新密钥对其进行唯一标识：
+   若要将第二组选项添加到 *appsettings.js* 文件，请使用新密钥对其进行唯一标识：
 
    [!code-json[](http-modules/sample/Asp.Net.Core/appsettings.json?range=1,10-18&highlight=2-5)]
 
@@ -257,11 +258,11 @@ Options 模式的优点在于，它在选项值与其使用者之间产生松散
 public async Task Invoke(HttpContext context)
 ```
 
-`HttpContext`在 ASP.NET Core 中进行了重大更改。 本部分演示如何将 system.servicemodel 最[常用的属性转换为新](/dotnet/api/system.web.httpcontext)的 `Microsoft.AspNetCore.Http.HttpContext` 。
+`HttpContext` 在 ASP.NET Core 中进行了重大更改。 本部分演示如何将 system.servicemodel 最 [常用的属性转换为新](/dotnet/api/system.web.httpcontext) 的 `Microsoft.AspNetCore.Http.HttpContext` 。
 
 ### <a name="httpcontext"></a>HttpContext
 
-**HttpContext**会转换为：
+**HttpContext** 会转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Items)]
 
@@ -273,58 +274,58 @@ public async Task Invoke(HttpContext context)
 
 ### <a name="httpcontextrequest"></a>Httpcontext.current 请求
 
-**HttpMethod**转换为：
+**HttpMethod** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Method)]
 
-**HttpContext**转换为：
+**HttpContext** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Query)]
 
-**Httpcontext.current**转换为（ **RawUrl** ）：
+**Httpcontext.current** 转换为（ **RawUrl** ）：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Url)]
 
-**IsSecureConnection**转换为：
+**IsSecureConnection** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Secure)]
 
-**UserHostAddress**转换为：
+**UserHostAddress** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Host)]
 
-**Httpcontext.current Cookie 。s**转换为：
+**Httpcontext.current Cookie 。s** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Cookies)]
 
-**RequestContext RouteData**转换为：
+**RequestContext RouteData** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Route)]
 
-**Httpcontext.current**转换为：
+**Httpcontext.current** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Headers)]
 
-**UserAgent**转换为：
+**UserAgent** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Agent)]
 
-**UrlReferrer**转换为：
+**UrlReferrer** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Referrer)]
 
-**HttpContext**转换为：
+**HttpContext** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Type)]
 
-**Httpcontext.current**转换为：
+**Httpcontext.current** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Form)]
 
 > [!WARNING]
-> 仅当 content 子类型为*x-www-url 编码*或*窗体数据*时才读取窗体值。
+> 仅当 content 子类型为 *x-www-url 编码* 或 *窗体数据*时才读取窗体值。
 
-**InputStream**转换为：
+**InputStream** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Input)]
 
@@ -337,19 +338,19 @@ public async Task Invoke(HttpContext context)
 
 ### <a name="httpcontextresponse"></a>HttpContext 响应
 
-**Httpcontext.current**转换为（ **StatusDescription** ）：
+**Httpcontext.current** 转换为（ **StatusDescription** ）：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Status)]
 
-**ContentEncoding**和**httpcontext**转换为以下内容：
+**ContentEncoding** 和 **httpcontext** 转换为以下内容：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_RespType)]
 
-**Httpcontext.current**还会转换为：
+**Httpcontext.current** 还会转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_RespTypeOnly)]
 
-**Httpcontext.current**转换为：
+**Httpcontext.current** 转换为：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Output)]
 

@@ -5,6 +5,7 @@ description: 演示如何防止针对 ASP.NET Core 应用的开放重定向攻�
 ms.author: riande
 ms.date: 07/07/2017
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/preventing-open-redirects
-ms.openlocfilehash: 3a58c25bbd54803ce0b8c42a2667222d6e14c050
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5226e301960a56145b94b6128d0034c40b86bffd
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021011"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633456"
 ---
 # <a name="prevent-open-redirect-attacks-in-aspnet-core"></a>阻止 ASP.NET Core 中的开放重定向攻击
 
@@ -64,11 +65,11 @@ public IActionResult SomeAction(string redirectUrl)
 }
 ```
 
-`LocalRedirect`如果指定了一个非本地 URL，则将引发异常。 否则，它的行为与 `Redirect` 方法相同。
+`LocalRedirect` 如果指定了一个非本地 URL，则将引发异常。 否则，它的行为与 `Redirect` 方法相同。
 
 ### <a name="islocalurl"></a>IsLocalUrl
 
-重定向之前，请使用[IsLocalUrl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper.islocalurl#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_)方法测试 url：
+重定向之前，请使用 [IsLocalUrl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper.islocalurl#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_) 方法测试 url：
 
 下面的示例演示如何在重定向前检查 URL 是否是本地的。
 

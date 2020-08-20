@@ -5,6 +5,7 @@ description: 了解将 Razor 基于服务器的代码嵌入网页的标记语法
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,18 +16,18 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: 4b418c53535965eae6b41f3297b0c6336fb993d5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b62fcb685b1c6d0c504c685c600d0316b32d7f57
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020582"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632494"
 ---
-# <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>RazorASP.NET Core 的语法参考
+# <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor ASP.NET Core 的语法参考
 
-作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Taylor Mullen](https://twitter.com/ntaylormullen)和[Dan Vicarel](https://github.com/Rabadash8820)
+作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Taylor Mullen](https://twitter.com/ntaylormullen)和 [Dan Vicarel](https://github.com/Rabadash8820)
 
-Razor是一个用于将基于服务器的代码嵌入到网页中的标记语法。 Razor语法由 Razor 标记、c # 和 HTML 组成。 通常包含 Razor 的文件的扩展名为 *...* Razor还可在[ Razor 组件](xref:blazor/components/index)*文件 () 中找到。*
+Razor 是一个用于将基于服务器的代码嵌入到网页中的标记语法。 Razor语法由 Razor 标记、c # 和 HTML 组成。 通常包含 Razor 的文件的扩展名为 *...* Razor还可在[ Razor 组件](xref:blazor/components/index)*文件 () 中找到。*
 
 ## <a name="rendering-html"></a>呈现 HTML
 
@@ -34,7 +35,7 @@ Razor是一个用于将基于服务器的代码嵌入到网页中的标记语法
 
 ## <a name="no-locrazor-syntax"></a>Razor 语法
 
-Razor支持 c #，并使用 `@` 符号从 HTML 转换为 c #。 Razor计算 c # 表达式并在 HTML 输出中呈现。
+Razor 支持 c #，并使用 `@` 符号从 HTML 转换为 c #。 Razor 计算 c # 表达式并在 HTML 输出中呈现。
 
 当 `@` 符号后跟[ Razor 保留关键字](#razor-reserved-keywords)时，它会转换为 Razor 特定标记。 否则会转换为纯 C#。
 
@@ -157,9 +158,9 @@ Razor支持 c #，并使用 `@` 符号从 HTML 转换为 c #。 Razor计算 c # 
 <span>Hello World</span>
 ```
 
-## <a name="no-locrazor-code-blocks"></a>Razor代码块
+## <a name="no-locrazor-code-blocks"></a>Razor 代码块
 
-Razor代码块以开头 `@` ，并由括起来 `{}` 。 代码块内的 C# 代码不会呈现，这点与表达式不同。 一个视图中的代码块和表达式共享相同的作用域并按顺序进行定义：
+Razor 代码块以开头 `@` ，并由括起来 `{}` 。 代码块内的 C# 代码不会呈现，这点与表达式不同。 一个视图中的代码块和表达式共享相同的作用域并按顺序进行定义：
 
 ```cshtml
 @{
@@ -257,7 +258,7 @@ Razor代码块以开头 `@` ，并由括起来 `{}` 。 代码块内的 C# 代�
 
 控制结构是对代码块的扩展。 代码块的各个方面（转换为标记、内联 C#）同样适用于以下结构：
 
-### <a name="conditionals-if-else-if-else-and-switch"></a>条件语句`@if, else if, else, and @switch`
+### <a name="conditionals-if-else-if-else-and-switch"></a>条件语句 `@if, else if, else, and @switch`
 
 `@if` 控制何时运行代码：
 
@@ -302,7 +303,7 @@ else
 }
 ```
 
-### <a name="looping-for-foreach-while-and-do-while"></a>Hal`@for, @foreach, @while, and @do while`
+### <a name="looping-for-foreach-while-and-do-while"></a>Hal `@for, @foreach, @while, and @do while`
 
 可以使用循环控制语句呈现模板化 HTML。 若要呈现一组人员：
 
@@ -390,7 +391,7 @@ else
 
 ### `@lock`
 
-Razor能够用 lock 语句保护关键部分：
+Razor 能够用 lock 语句保护关键部分：
 
 ```cshtml
 @lock (SomeLock)
@@ -401,7 +402,7 @@ Razor能够用 lock 语句保护关键部分：
 
 ### <a name="comments"></a>注释
 
-Razor支持 c # 和 HTML 注释：
+Razor 支持 c # 和 HTML 注释：
 
 ```cshtml
 @{
@@ -417,7 +418,7 @@ Razor支持 c # 和 HTML 注释：
 <!-- HTML comment -->
 ```
 
-Razor在呈现网页之前，服务器将删除注释。 Razor用于 `@*  *@` 分隔注释。 以下代码已被注释禁止，因此服务器不呈现任何标记：
+Razor 在呈现网页之前，服务器将删除注释。 Razor 用于 `@*  *@` 分隔注释。 以下代码已被注释禁止，因此服务器不呈现任何标记：
 
 ```cshtml
 @*
@@ -431,7 +432,7 @@ Razor在呈现网页之前，服务器将删除注释。 Razor用于 `@*  *@` �
 
 ## <a name="directives"></a>指令
 
-Razor指令由带有符号后的保留关键字的隐式表达式表示 `@` 。 指令通常用于更改视图分析方式或启用不同的功能。
+Razor 指令由带有符号后的保留关键字的隐式表达式表示 `@` 。 指令通常用于更改视图分析方式或启用不同的功能。
 
 了解如何 Razor 为视图生成代码可以更轻松地了解指令的工作方式。
 
@@ -453,7 +454,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-在本文的后面部分中，将[检查 Razor 为视图生成的 c # 类](#inspect-the-razor-c-class-generated-for-a-view)，并说明如何查看此生成的类。
+在本文的后面部分中，将 [检查 Razor 为视图生成的 c # 类](#inspect-the-razor-c-class-generated-for-a-view) ，并说明如何查看此生成的类。
 
 ### `@attribute`
 
@@ -625,7 +626,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 @model TypeNameOfModel
 ```
 
-在 Razor 使用单独的用户帐户创建的 ASP.NET CORE MVC 或页面应用中， *Views/Account/Login。 cshtml*包含以下模型声明：
+在 Razor 使用单独的用户帐户创建的 ASP.NET CORE MVC 或页面应用中， *Views/Account/Login。 cshtml* 包含以下模型声明：
 
 ```cshtml
 @model LoginViewModel
@@ -637,7 +638,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
 ```
 
-Razor公开 `Model` 用于访问传递到视图的模型的属性：
+Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 
 ```cshtml
 <div>The Login Email: @Model.Email</div>
@@ -662,7 +663,7 @@ Razor公开 `Model` 用于访问传递到视图的模型的属性：
 * Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`**。
 * 每个页面都有 `Hello.World`，作为其命名空间的根。
 
-| 页面                                        | 命名空间                             |
+| 页                                        | 命名空间                             |
 | ------------------------------------------- | ------------------------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`                         |
 | Pages/MorePages/Page.cshtml**               | `Hello.World.MorePages`               |
@@ -674,7 +675,7 @@ Razor公开 `Model` 用于访问传递到视图的模型的属性：
 
 如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示****。
 
-| 页面                                        | 命名空间               |
+| 页                                        | 命名空间               |
 | ------------------------------------------- | ----------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`           |
 | Pages/MorePages/Page.cshtml**               | `Hello.World.MorePages` |
@@ -686,7 +687,7 @@ Razor公开 `Model` 用于访问传递到视图的模型的属性：
 
 `@page` 指令具有不同的效果，具体取决于其所在文件的类型。 指令：
 
-* 在中， *# 文件中*的指示该文件是一个 Razor 页面。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
+* 在中， *# 文件中* 的指示该文件是一个 Razor 页面。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
 * 指定 Razor 组件应直接处理请求。 有关详细信息，请参阅 <xref:blazor/fundamentals/routing>。
 
 ::: moniker-end
@@ -719,7 +720,7 @@ Razor公开 `Model` 用于访问传递到视图的模型的属性：
 
 ## <a name="directive-attributes"></a>指令属性
 
-Razor指令特性由带有符号后的保留关键字的隐式表达式表示 `@` 。 指令特性通常会改变元素的分析方式，或实现不同的功能。
+Razor 指令特性由带有符号后的保留关键字的隐式表达式表示 `@` 。 指令特性通常会改变元素的分析方式，或实现不同的功能。
 
 ### `@attributes`
 
@@ -737,7 +738,7 @@ Razor指令特性由带有符号后的保留关键字的隐式表达式表示 `@
 
 *此方案仅适用于 Razor ( razor) 的组件。*
 
-Razor为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/components/event-handling>。
+Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/components/event-handling>。
 
 ::: moniker-end
 
@@ -781,7 +782,7 @@ Razor为组件提供事件处理功能。 有关详细信息，请参阅 <xref:b
 
 ## <a name="templated-no-locrazor-delegates"></a>模板化 Razor 委托
 
-Razor模板允许使用以下格式定义 UI 代码段：
+Razor 模板允许使用以下格式定义 UI 代码段：
 
 ```cshtml
 @<tag>...</tag>
@@ -890,9 +891,9 @@ public class Pet
 | [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | 从视图中删除以前添加的标记帮助程序。 |
 | [`@tagHelperPrefix`](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | 指定标记前缀，以启用标记帮助程序支持并阐明标记帮助程序的用法。 |
 
-## <a name="no-locrazor-reserved-keywords"></a>Razor保留关键字
+## <a name="no-locrazor-reserved-keywords"></a>Razor 保留关键字
 
-### <a name="no-locrazor-keywords"></a>Razor字
+### <a name="no-locrazor-keywords"></a>Razor 字
 
 * `page` (要求 ASP.NET Core 2.1 或更高版本) 
 * `namespace`
@@ -900,9 +901,9 @@ public class Pet
 * `inherits`
 * `model`
 * `section`
-* `helper`ASP.NET Core 当前不支持 () 
+* `helper` ASP.NET Core 当前不支持 () 
 
-Razor关键字通过 `@(Razor Keyword)` (进行转义，例如 `@(functions)`) 。
+Razor 关键字通过 `@(Razor Keyword)` (进行转义，例如 `@(functions)`) 。
 
 ### <a name="c-no-locrazor-keywords"></a>C # Razor 关键字
 
@@ -923,7 +924,7 @@ Razor关键字通过 `@(Razor Keyword)` (进行转义，例如 `@(functions)`) �
 
 C # Razor 关键字必须用 `@(@C# Razor Keyword)` (进行双转义，例如 `@(@case)`) 。 第一个 `@` 转义 Razor 分析器。 第二个 `@` 对 C# 分析器转义。
 
-### <a name="reserved-keywords-not-used-by-no-locrazor"></a>不使用的保留关键字Razor
+### <a name="reserved-keywords-not-used-by-no-locrazor"></a>不使用的保留关键字 Razor
 
 * `class`
 
@@ -969,7 +970,7 @@ C # Razor 关键字必须用 `@(@C# Razor Keyword)` (进行双转义，例如 `@
            Index.g.cshtml.cs
 ```
 
-若要查看*页面/索引*生成的类，请打开*obj/Debug/netcoreapp 2.1/ Razor /Pages/Index.g.cshtml.cs*。
+若要查看 *页面/索引*生成的类，请打开 *obj/Debug/netcoreapp 2.1/ Razor /Pages/Index.g.cshtml.cs*。
 
 ::: moniker-end
 
@@ -1001,10 +1002,10 @@ Razor视图引擎为视图执行区分大小写的查找。 但是，实际查�
 建议开发人员将文件和目录名称的大小写与以下项的大小写匹配：
 
 * 区域、控制器和操作名称。
-* Razor页.
+* Razor 页.
 
 匹配大小写可确保无论使用哪种基础文件系统，部署都能找到其视图。
 
 ## <a name="additional-resources"></a>其他资源
 
-[使用 Razor ASP.NET Web 编程简介语法](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c)提供了许多用语法编程的示例 Razor 。
+[使用 Razor ASP.NET Web 编程简介语法](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c) 提供了许多用语法编程的示例 Razor 。

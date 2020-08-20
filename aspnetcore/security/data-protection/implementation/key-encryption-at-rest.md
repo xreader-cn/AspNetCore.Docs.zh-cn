@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 静态数据保护密钥加密的实现细节�
 ms.author: riande
 ms.date: 07/16/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,25 +16,25 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-encryption-at-rest
-ms.openlocfilehash: 6e767c5a34f8bf4c512147e7966f7e2c363c57c5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4ca2d998141639406a8283c4c756c05a93251928
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018411"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633674"
 ---
 # <a name="key-encryption-at-rest-in-windows-and-azure-using-aspnet-core"></a>Windows 和 Azure 中的静态密钥加密使用 ASP.NET Core
 
-默认情况下，数据保护系统[使用发现机制](xref:security/data-protection/configuration/default-settings)来确定应如何对加密密钥进行静态加密。 开发人员可以重写发现机制，并手动指定密钥的加密方式。
+默认情况下，数据保护系统 [使用发现机制](xref:security/data-protection/configuration/default-settings) 来确定应如何对加密密钥进行静态加密。 开发人员可以重写发现机制，并手动指定密钥的加密方式。
 
 > [!WARNING]
-> 如果指定显式[密钥持久性位置](xref:security/data-protection/implementation/key-storage-providers)，数据保护系统将注销静态密钥加密机制。 因此，不再静态加密密钥。 建议为生产部署[指定显式密钥加密机制](xref:security/data-protection/implementation/key-encryption-at-rest)。 本主题介绍了静态加密机制选项。
+> 如果指定显式 [密钥持久性位置](xref:security/data-protection/implementation/key-storage-providers)，数据保护系统将注销静态密钥加密机制。 因此，不再静态加密密钥。 建议为生产部署 [指定显式密钥加密机制](xref:security/data-protection/implementation/key-encryption-at-rest) 。 本主题介绍了静态加密机制选项。
 
 ::: moniker range=">= aspnetcore-2.1"
 
 ## <a name="azure-key-vault"></a>Azure Key Vault
 
-若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在类中配置[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault)的系统 `Startup` ：
+若要在 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在类中配置 [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) 的系统 `Startup` ：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -44,7 +45,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-有关详细信息，请参阅[Configure ASP.NET Core Data Protection： ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault)。
+有关详细信息，请参阅 [Configure ASP.NET Core Data Protection： ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault)。
 
 ::: moniker-end
 
@@ -52,7 +53,7 @@ public void ConfigureServices(IServiceCollection services)
 
 **仅适用于 Windows 部署。**
 
-使用 Windows DPAPI 时，将使用[CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata)对密钥材料进行加密，然后将其保存到存储中。 DPAPI 是一种适用于当前计算机之外从不读取的数据的适当加密机制 (不过，可以将这些密钥上移到 Active Directory;请参阅[DPAPI 和漫游配置文件](https://support.microsoft.com/kb/309408/#6)) 。 若要配置 DPAPI 静态密钥加密，请调用[ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi)扩展方法之一：
+使用 Windows DPAPI 时，将使用 [CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata) 对密钥材料进行加密，然后将其保存到存储中。 DPAPI 是一种适用于当前计算机之外从不读取的数据的适当加密机制 (不过，可以将这些密钥上移到 Active Directory;请参阅 [DPAPI 和漫游配置文件](https://support.microsoft.com/kb/309408/#6)) 。 若要配置 DPAPI 静态密钥加密，请调用 [ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi) 扩展方法之一：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -96,9 +97,9 @@ public void ConfigureServices(IServiceCollection services)
 
 **此机制仅在 Windows 8/Windows Server 2012 或更高版本上可用。**
 
-从 Windows 8 开始，Windows OS 支持 DPAPI-NG (也称为 CNG DPAPI) 。 有关详细信息，请参阅[关于 CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi)。
+从 Windows 8 开始，Windows OS 支持 DPAPI-NG (也称为 CNG DPAPI) 。 有关详细信息，请参阅 [关于 CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi)。
 
-主体编码为保护描述符规则。 在以下调用[ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping)的示例中，只有具有指定 SID 的已加入域的用户才能解密密钥环：
+主体编码为保护描述符规则。 在以下调用 [ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping)的示例中，只有具有指定 SID 的已加入域的用户才能解密密钥环：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -110,7 +111,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-还有一个无参数的重载 `ProtectKeysWithDpapiNG` 。 使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中*CURRENT_ACCOUNT_SID*是当前 Windows 用户帐户的 SID：
+还有一个无参数的重载 `ProtectKeysWithDpapiNG` 。 使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中 *CURRENT_ACCOUNT_SID* 是当前 Windows 用户帐户的 SID：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -125,7 +126,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="certificate-based-encryption-with-windows-dpapi-ng"></a>基于证书的加密和 Windows DPAPI-NG
 
-如果应用在 Windows 8.1/Windows Server 2012 R2 或更高版本上运行，则可以使用 Windows DPAPI-NG 执行基于证书的加密。 使用规则描述符字符串 "CERTIFICATE = HashId： THUMBPRINT"，其中*THUMBPRINT*是证书的十六进制编码的 SHA1 指纹：
+如果应用在 Windows 8.1/Windows Server 2012 R2 或更高版本上运行，则可以使用 Windows DPAPI-NG 执行基于证书的加密。 使用规则描述符字符串 "CERTIFICATE = HashId： THUMBPRINT"，其中 *THUMBPRINT* 是证书的十六进制编码的 SHA1 指纹：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -140,4 +141,4 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="custom-key-encryption"></a>自定义密钥加密
 
-如果不适合使用机箱内机制，开发人员可以通过提供自定义[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)来指定其自己的密钥加密机制。
+如果不适合使用机箱内机制，开发人员可以通过提供自定义 [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)来指定其自己的密钥加密机制。

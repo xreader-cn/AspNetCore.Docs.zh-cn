@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: 0fb19aa19703e68812b83f0631f029dd66a3d64e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e6263f19cdb7f9957fa8360f9e782e622589ea18
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021323"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633313"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -38,7 +39,7 @@ HTTP 读取–求值–打印循环 (REPL)：
 
 * [DELETE](#test-http-delete-requests)
 * [GET](#test-http-get-requests)
-* [HEAD](#test-http-head-requests)
+* [头](#test-http-head-requests)
 * [选项](#test-http-options-requests)
 * [跳](#test-http-patch-requests)
 * [POST](#test-http-post-requests)
@@ -998,7 +999,7 @@ Request echoing is off
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt
     ```
 
-    将显示以下输出：
+    随即显示以下输出：
 
     ```console
     https://localhost:5001/~ set base https://localhost:5001

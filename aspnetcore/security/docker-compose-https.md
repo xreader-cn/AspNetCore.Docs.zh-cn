@@ -7,6 +7,7 @@ ms.author: ravipal
 ms.custom: mvc
 ms.date: 03/28/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,33 +18,33 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-compose-https
-ms.openlocfilehash: c3b627cdc74f1b40611d84bc3419e678e2dfbba4
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 75a205c1eb21394ed36c00359f0dc4ca7e6d09e0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022454"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631636"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a>通过 HTTPS Docker Compose 宿主 ASP.NET Core 映像
 
 
-[默认情况下](/aspnet/core/security/enforcing-ssl)，ASP.NET Core 使用 HTTPS。 [HTTPS](https://en.wikipedia.org/wiki/HTTPS)依赖于信任、标识和加密的[证书](https://en.wikipedia.org/wiki/Public_key_certificate)。
+[默认情况下](/aspnet/core/security/enforcing-ssl)，ASP.NET Core 使用 HTTPS。 [HTTPS](https://en.wikipedia.org/wiki/HTTPS) 依赖于信任、标识和加密的 [证书](https://en.wikipedia.org/wiki/Public_key_certificate) 。
 
 本文档介绍如何通过 HTTPS 运行预生成的容器映像。
 
-若要开发方案，请参阅[通过 HTTPS 上的 Docker 开发 ASP.NET Core 应用程序](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md)。
+若要开发方案，请参阅 [通过 HTTPS 上的 Docker 开发 ASP.NET Core 应用程序](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md) 。
 
-此示例需要 docker [17.06](https://docs.docker.com/release-notes/docker-ce)或更高版本的[docker 客户端](https://www.docker.com/products/docker)。
+此示例需要 docker [17.06](https://docs.docker.com/release-notes/docker-ce) 或更高版本的 [docker 客户端](https://www.docker.com/products/docker)。
 
 ## <a name="prerequisites"></a>先决条件
 
-本文档中的某些说明需要[.Net Core 2.2 SDK](https://dotnet.microsoft.com/download)或更高版本。
+本文档中的某些说明需要 [.Net Core 2.2 SDK](https://dotnet.microsoft.com/download) 或更高版本。
 
 ## <a name="certificates"></a>证书
 
-针对域的[生产主机](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)需要[证书颁发机构颁发](https://wikipedia.org/wiki/Certificate_authority)的证书。 [Let's Encrypt](https://letsencrypt.org/)是提供免费证书的证书颁发机构。
+针对域的[生产主机](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)需要[证书颁发机构颁发](https://wikipedia.org/wiki/Certificate_authority)的证书。 [Let's Encrypt](https://letsencrypt.org/) 是提供免费证书的证书颁发机构。
 
-本文档使用[自签名开发证书](https://wikipedia.org/wiki/Self-signed_certificate)来托管预生成的映像 `localhost` 。 说明类似于使用生产证书。
+本文档使用 [自签名开发证书](https://wikipedia.org/wiki/Self-signed_certificate) 来托管预生成的映像 `localhost` 。 说明类似于使用生产证书。
 
 对于生产证书：
 
@@ -71,7 +72,7 @@ dotnet dev-certs https --trust
 
 在上述命令中，将替换 `{ password here }` 为密码。
 
-创建包含以下内容的_docker-compose.yml docker-compose.override.yml_文件：
+创建包含以下内容的 _docker-compose.yml docker-compose.override.yml_ 文件：
 
 ```json
 version: '3.4'
@@ -107,11 +108,11 @@ dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { password her
 dotnet dev-certs https --trust
 ```
 
-`dotnet dev-certs https --trust`仅在 macOS 和 Windows 上受支持。 你需要以分发所支持的方式在 Linux 上信任证书。 可能需要在浏览器中信任该证书。
+`dotnet dev-certs https --trust` 仅在 macOS 和 Windows 上受支持。 你需要以分发所支持的方式在 Linux 上信任证书。 可能需要在浏览器中信任该证书。
 
 在上述命令中，将替换 `{ password here }` 为密码。
 
-创建包含以下内容的_docker-compose.yml docker-compose.override.yml_文件：
+创建包含以下内容的 _docker-compose.yml docker-compose.override.yml_ 文件：
 
 ```json
 version: '3.4'
@@ -149,7 +150,7 @@ dotnet dev-certs https --trust
 
 在上述命令中，将替换 `{ password here }` 为密码。
 
-创建包含以下内容的_docker-compose.yml docker-compose.override.yml_文件：
+创建包含以下内容的 _docker-compose.yml docker-compose.override.yml_ 文件：
 
 ```json
 version: '3.4'

@@ -6,6 +6,7 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 12/18/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/model-binding
-ms.openlocfilehash: 6ec531a04a220f75f5793cb2c7b5232908dbd883
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ec36ff6d646e0554550a4372389aed89aa267b1f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019152"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633976"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core 中的模型绑定
 
@@ -108,11 +109,11 @@ http://contoso.com/api/pets/2?DogsOnly=true
 
 如果默认源不正确，请使用下列属性之一来指定源：
 
-* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)-从查询字符串获取值。 
-* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)-从路由数据中获取值。
-* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)-从已发布的表单字段中获取值。
-* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)-从请求正文中获取值。
-* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)-从 HTTP 标头中获取值。
+* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) -从查询字符串获取值。 
+* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) -从路由数据中获取值。
+* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) -从已发布的表单字段中获取值。
+* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) -从请求正文中获取值。
+* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) -从 HTTP 标头中获取值。
 
 这些属性：
 
@@ -163,7 +164,7 @@ public class Pet
 * 创建用于实现 `IValueProviderFactory` 的类。
 * 在 `Startup.ConfigureServices` 中注册工厂类。
 
-该示例应用包含一个[值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs)和一个[工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs)示例，可从 s 中获取值 cookie 。 以下是 `Startup.ConfigureServices` 中的注册代码：
+该示例应用包含一个 [值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs) 和一个 [工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs) 示例，可从 s 中获取值 cookie 。 以下是 `Startup.ConfigureServices` 中的注册代码：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4)]
 
@@ -210,13 +211,13 @@ public class Pet
 * [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
 * [枚举](xref:System.ComponentModel.EnumConverter)
-* [GUID](xref:System.ComponentModel.GuidConverter)
+* [Guid.empty](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)
-* [时间](xref:System.ComponentModel.TimeSpanConverter)
+* [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Uri](xref:System.UriTypeConverter)
-* [Version](xref:System.ComponentModel.VersionConverter)
+* [版本](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>复杂类型
 
@@ -273,30 +274,16 @@ public IActionResult OnPost(
 
 多个内置属性可用于控制复杂类型的模型绑定：
 
+* `[Bind]`
 * `[BindRequired]`
 * `[BindNever]`
-* `[Bind]`
 
-> [!NOTE]
-> 如果发布的表单数据是值的源，则这些属性会影响模型绑定。 它们不会影响处理发布的 JSON 和 XML 请求正文的输入格式化程序。 输入格式化程序的解释位于[本文后面部分](#input-formatters)。
->
-> 另请参阅[模型验证](xref:mvc/models/validation#required-attribute)中针对 `[Required]` 属性的讨论。
-
-### <a name="bindrequired-attribute"></a>[BindRequired] 属性
-
-只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 下面是一个示例：
-
-[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
-
-### <a name="bindnever-attribute"></a>[BindNever] 属性
-
-只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 下面是一个示例：
-
-[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
+> [!WARNING]
+> 如果发布的表单数据是值的源，则这些属性会影响模型绑定。 它们 ***不*** 影响输入格式化程序，后者处理已发布的 JSON 和 XML 请求正文。 输入格式化程序的解释位于[本文后面部分](#input-formatters)。
 
 ### <a name="bind-attribute"></a>[Bind] 属性
 
-可应用于类或方法参数。 指定模型绑定中应包含的模型属性。
+可应用于类或方法参数。 指定模型绑定中应包含的模型属性。 `[Bind]` 不 ***影响输入*** 格式化程序。
 
 在下面的示例中，当调用任意处理程序或操作方法时，只绑定 `Instructor` 模型的指定属性：
 
@@ -313,6 +300,20 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 ```
 
 `[Bind]` 属性可用于防止“创建”方案中的过多发布情况**。 由于排除的属性设置为 NULL 或默认值，而不是保持不变，因此它在编辑方案中无法很好地工作。 为防止过多发布，建议使用视图模型，而不是使用 `[Bind]` 属性。 有关详细信息，请参阅[有关过多发布的安全性说明](xref:data/ef-mvc/crud#security-note-about-overposting)。
+
+### <a name="bindrequired-attribute"></a>[BindRequired] 属性
+
+只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 下面是一个示例：
+
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
+
+另请参阅[模型验证](xref:mvc/models/validation#required-attribute)中针对 `[Required]` 属性的讨论。
+
+### <a name="bindnever-attribute"></a>[BindNever] 属性
+
+只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 下面是一个示例：
+
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
 
 ## <a name="collections"></a>集合
 
@@ -594,11 +595,11 @@ http://contoso.com/api/pets/2?DogsOnly=true
 
 如果默认源不正确，请使用下列属性之一来指定源：
 
-* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)-从查询字符串获取值。 
-* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)-从路由数据中获取值。
-* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)-从已发布的表单字段中获取值。
-* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)-从请求正文中获取值。
-* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)-从 HTTP 标头中获取值。
+* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) -从查询字符串获取值。 
+* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) -从路由数据中获取值。
+* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) -从已发布的表单字段中获取值。
+* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) -从请求正文中获取值。
+* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) -从 HTTP 标头中获取值。
 
 这些属性：
 
@@ -649,7 +650,7 @@ public class Pet
 * 创建用于实现 `IValueProviderFactory` 的类。
 * 在 `Startup.ConfigureServices` 中注册工厂类。
 
-该示例应用包含一个[值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs)和一个[工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs)示例，可从 s 中获取值 cookie 。 以下是 `Startup.ConfigureServices` 中的注册代码：
+该示例应用包含一个 [值提供程序](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs) 和一个 [工厂](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs) 示例，可从 s 中获取值 cookie 。 以下是 `Startup.ConfigureServices` 中的注册代码：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=3)]
 
@@ -696,13 +697,13 @@ public class Pet
 * [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
 * [枚举](xref:System.ComponentModel.EnumConverter)
-* [GUID](xref:System.ComponentModel.GuidConverter)
+* [Guid.empty](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)
-* [时间](xref:System.ComponentModel.TimeSpanConverter)
+* [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Uri](xref:System.UriTypeConverter)
-* [Version](xref:System.ComponentModel.VersionConverter)
+* [版本](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>复杂类型
 

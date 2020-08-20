@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/overview
-ms.openlocfilehash: 64bee1966eff40e9057166adfafbf78d0cc5b6aa
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 29701506d9f6c1ff90081a548d524bc0deb65cda
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021440"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633612"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -77,7 +78,7 @@ ASP.NET Core MVC 包括以下功能：
 * [Areas](#areas)
 * [Web API](#web-apis)
 * [Testability](#testability)
-* [Razor查看引擎](#razor-view-engine)
+* [Razor 查看引擎](#razor-view-engine)
 * [强类型视图](#strongly-typed-views)
 * [标记帮助程序](#tag-helpers)
 * [查看组件](#view-components)
@@ -151,7 +152,7 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 框架处理客户端和服务器上的验证请求数据。 在模型类型上指定的验证逻辑作为非介入式注释添加到呈现的视图，并使用 [jQuery 验证](https://jqueryvalidation.org/)在浏览器中强制执行。
 
-### <a name="dependency-injection"></a>依赖项注入
+### <a name="dependency-injection"></a>依赖关系注入
 
 ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-injection.md) 的支持。 在 ASP.NET Core MVC 中，[控制器](controllers/dependency-injection.md)可通过其构造函数请求所需服务，使其能够遵循 [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）。
 
@@ -196,9 +197,9 @@ public class AccountController : Controller
 
 框架对界面和依赖项注入的使用非常适用于单元测试，并且该框架还包括使得[集成测试](xref:test/integration-tests)快速轻松的功能（例如 TestHost 和实体框架的 InMemory 提供程序）。 详细了解[如何测试控制器逻辑](controllers/testing.md)。
 
-### <a name="no-locrazor-view-engine"></a>Razor查看引擎
+### <a name="no-locrazor-view-engine"></a>Razor 查看引擎
 
-[ASP.NET CORE MVC 视图](views/overview.md)使用[ Razor 视图引擎](views/razor.md)呈现视图。 Razor是一种紧凑、富于表现力且流畅的模板标记语言，用于使用 embedded c # 代码定义视图。 Razor用于在服务器上动态生成 web 内容。 可以完全混合服务器代码与客户端内容和代码。
+[ASP.NET CORE MVC 视图](views/overview.md)使用[ Razor 视图引擎](views/razor.md)呈现视图。 Razor 是一种紧凑、富于表现力且流畅的模板标记语言，用于使用 embedded c # 代码定义视图。 Razor 用于在服务器上动态生成 web 内容。 可以完全混合服务器代码与客户端内容和代码。
 
 ```cshtml
 <ul>
@@ -208,11 +209,11 @@ public class AccountController : Controller
 </ul>
 ```
 
-使用 Razor 视图引擎可以定义[布局](views/layout.md)、[分部视图](views/partial.md)和可替换部分。
+使用 Razor 视图引擎可以定义 [布局](views/layout.md)、 [分部视图](views/partial.md) 和可替换部分。
 
 ### <a name="strongly-typed-views"></a>强类型视图
 
-RazorMVC 中的视图可以基于模型进行强类型化。 控制器可以将强类型化的模型传递给视图，使视图具备类型检查和 IntelliSense 支持。
+Razor MVC 中的视图可以基于模型进行强类型化。 控制器可以将强类型化的模型传递给视图，使视图具备类型检查和 IntelliSense 支持。
 
 例如，以下视图呈现类型为 `IEnumerable<Product>` 的模型：
 
@@ -228,7 +229,7 @@ RazorMVC 中的视图可以基于模型进行强类型化。 控制器可以将�
 
 ### <a name="tag-helpers"></a>标记帮助程序
 
-[标记帮助](views/tag-helpers/intro.md)程序使服务器端代码可以在文件中参与创建和呈现 HTML 元素 Razor 。 可以使用标记帮助程序定义自定义标记（例如 `<environment>`），或者修改现有标记的行为（例如 `<label>`）。 标记帮助程序基于元素名称及其属性绑定到特定的元素。 它们提供了服务器端呈现的优势，同时仍然保留了 HTML 编辑体验。
+[标记帮助](views/tag-helpers/intro.md) 程序使服务器端代码可以在文件中参与创建和呈现 HTML 元素 Razor 。 可以使用标记帮助程序定义自定义标记（例如 `<environment>`），或者修改现有标记的行为（例如 `<label>`）。 标记帮助程序基于元素名称及其属性绑定到特定的元素。 它们提供了服务器端呈现的优势，同时仍然保留了 HTML 编辑体验。
 
 有多种常见任务（例如创建表单、链接，加载资产等）的内置标记帮助程序，公共 GitHub 存储库和 NuGet 包中甚至还有更多可用标记帮助程序。 标记帮助程序使用 C# 创建，基于元素名称、属性名称或父标记以 HTML 元素为目标。 例如，内置 LinkTagHelper 可以用来创建指向 `AccountsController` 的 `Login` 操作的链接：
 

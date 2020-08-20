@@ -5,6 +5,7 @@ description: 了解如何使用 ASP.NET Core 数据保护 Api 在应用中保护
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/using-data-protection
-ms.openlocfilehash: 0d088e0e974742e51d9ca39a5cec5b84b46f5d21
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: bfe1dc800f65eaca00bb1dd145d6ecc4159b783f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022428"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631675"
 ---
 # <a name="get-started-with-the-data-protection-apis-in-aspnet-core"></a>ASP.NET Core 中的数据保护 Api 入门
 
@@ -38,7 +39,7 @@ ms.locfileid: "88022428"
 
 [!code-csharp[](../../security/data-protection/using-data-protection/samples/protectunprotect.cs?highlight=26,34,35,36,37,38,39,40)]
 
-创建保护程序时，必须提供一个或多个[目的字符串](xref:security/data-protection/consumer-apis/purpose-strings)。 用途字符串提供使用者之间的隔离。 例如，使用 "绿色" 目的字符串创建的保护程序将无法取消保护由 "紫色" 目的的保护程序提供的数据。
+创建保护程序时，必须提供一个或多个 [目的字符串](xref:security/data-protection/consumer-apis/purpose-strings)。 用途字符串提供使用者之间的隔离。 例如，使用 "绿色" 目的字符串创建的保护程序将无法取消保护由 "紫色" 目的的保护程序提供的数据。
 
 >[!TIP]
 > 和的 `IDataProtectionProvider` 实例 `IDataProtector` 对于多个调用方是线程安全的。 它的目的是，在组件通过调用获取对的引用后 `IDataProtector` `CreateProtector` ，它会将该引用用于多次调用 `Protect` 和 `Unprotect` 。

@@ -6,6 +6,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,20 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/client-features
-ms.openlocfilehash: 4f5fa2f4ff1ac3d00b04845aedc26fb0118b9991
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: df0084411134167df31506a01362a0520821e577
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021466"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631753"
 ---
 # <a name="aspnet-core-no-locsignalr-clients"></a>ASP.NET Core SignalR 客户端
 
 ## <a name="versioning-support-and-compatibility"></a>版本控制、支持和兼容性
 
-SignalR客户端与服务器组件一起发运，并进行版本控制以使其匹配。 任何受支持的客户端都可以安全地连接到任何受支持的服务器，任何兼容性问题都将被视为修复 bug。 SignalR支持与 .NET Core 的其余部分相同的支持生命周期中的客户端。 有关详细信息，请参阅[.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)。
+SignalR客户端与服务器组件一起发运，并进行版本控制以使其匹配。 任何受支持的客户端都可以安全地连接到任何受支持的服务器，任何兼容性问题都将被视为修复 bug。 SignalR 支持与 .NET Core 的其余部分相同的支持生命周期中的客户端。 有关详细信息，请参阅 [.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) 。
 
-许多功能都需要兼容的客户端**和**服务器。 请参阅下面的表，其中显示了各种功能的最低版本。
+许多功能都需要兼容的客户端 **和** 服务器。 请参阅下面的表，其中显示了各种功能的最低版本。
 
 SignalR2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。 对于版本1.x 和更高版本， SignalR 版本与 .net 的其余部分完全匹配并具有相同的支持生命周期。
 
@@ -37,13 +38,13 @@ SignalR2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。 对于�
 | - | - | - | - |
 | 1.0. x | 2.1.x | 长期支持 | 2021年8月21日 |
 | 1.1. x | 2.2. x | 生命周期结束 | 2019年12月23日 |
-| 3. x 或更高版本 | *与 SignalR 版本相同* | 请参阅[.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) |
+| 3. x 或更高版本 | *与 SignalR 版本相同* | 请参阅 [.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) |
 
-**注意：** 在 ASP.NET Core 3.0 中，JavaScript 客户端*移*到 `@microsoft/signalr` npm 包。
+**注意：** 在 ASP.NET Core 3.0 中，JavaScript 客户端 *移* 到 `@microsoft/signalr` npm 包。
 
 ## <a name="feature-distribution"></a>功能分发
 
-下表显示提供实时支持的客户端的功能和支持。 对于每项功能，将列出支持此功能的*最低*版本。 如果未列出任何版本，则不支持此功能。
+下表显示提供实时支持的客户端的功能和支持。 对于每项功能，将列出支持此功能的 *最低* 版本。 如果未列出任何版本，则不支持此功能。
 
 | 功能 | 服务器 | .NET 客户端 | JavaScript 客户端 | Java 客户端 |
 | ---- | :-: | :-: | :-: | :-: |

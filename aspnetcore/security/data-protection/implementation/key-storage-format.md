@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 数据保护密钥存储格式的实现细节�
 ms.author: riande
 ms.date: 04/08/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-storage-format
-ms.openlocfilehash: 289557e2b282c108e023f6d53fa43dab80a906ae
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: daf86d3e3357d42ddad74d5e2f06e00e0e24db07
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021427"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631987"
 ---
 # <a name="key-storage-format-in-aspnet-core"></a>ASP.NET Core 中的密钥存储格式
 
@@ -33,7 +34,7 @@ ms.locfileid: "88021427"
 
 ## <a name="the-key-element"></a>\<key> 元素
 
-键作为顶级对象存在于密钥存储库中。 按约定键具有文件名**key {guid} .xml**，其中 {guid} 是密钥的 id。 每个这样的文件都包含一个键。 文件的格式如下所示。
+键作为顶级对象存在于密钥存储库中。 按约定键具有文件名 **key {guid} .xml**，其中 {guid} 是密钥的 id。 每个这样的文件都包含一个键。 文件的格式如下所示。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -76,13 +77,13 @@ ms.locfileid: "88021427"
 
 ## <a name="the-encryptedsecret-element"></a>\<encryptedSecret> 元素
 
-如果[启用静态加密机密，](xref:security/data-protection/implementation/key-encryption-at-rest)则包含加密形式的密钥材料的** &lt; encryptedSecret &gt; **元素可能存在。 特性 `decryptorType` 是实现[IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor)的类型的程序集限定名称。 此类型负责读取内部** &lt; encryptedKey &gt; **元素，并对其进行解密以恢复原始纯文本。
+如果[启用静态加密机密，](xref:security/data-protection/implementation/key-encryption-at-rest)则包含加密形式的密钥材料的** &lt; encryptedSecret &gt; **元素可能存在。 特性 `decryptorType` 是实现 [IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor)的类型的程序集限定名称。 此类型负责读取内部** &lt; encryptedKey &gt; **元素，并对其进行解密以恢复原始纯文本。
 
 与一样 `<descriptor>` ，元素的特定格式 `<encryptedSecret>` 依赖于正在使用的静态加密机制。 在上面的示例中，使用 Windows DPAPI 按注释对主密钥进行加密。
 
 ## <a name="the-revocation-element"></a>\<revocation> 元素
 
-吊销作为顶级对象存在于密钥存储库中。 按照约定吊销，使用 filename**吊销-{timestamp} .xml** (来撤消在特定日期) 或**吊销-{guid} .xml** (吊销特定密钥) 之前的所有密钥。 每个文件都包含单个 \<revocation> 元素。
+吊销作为顶级对象存在于密钥存储库中。 按照约定吊销，使用 filename **吊销-{timestamp} .xml** (来撤消在特定日期) 或 **吊销-{guid} .xml** (吊销特定密钥) 之前的所有密钥。 每个文件都包含单个 \<revocation> 元素。
 
 对于单个密钥的吊销，文件内容将如下所示。
 

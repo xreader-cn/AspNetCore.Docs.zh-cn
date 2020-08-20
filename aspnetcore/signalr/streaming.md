@@ -1,5 +1,5 @@
 ---
-title: 使用 ASP.NET Core 中的流式处理SignalR
+title: 使用 ASP.NET Core 中的流式处理 SignalR
 author: bradygaster
 description: 了解如何在客户端和服务器之间流式传输数据。
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: e0eabe711fd69e42bd9bfa5e03a92e1df780e4db
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 29748ebe24fea03415b5a01b21300433e3fbc0f0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022506"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634210"
 ---
-# <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>使用 ASP.NET Core 中的流式处理SignalR
+# <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>使用 ASP.NET Core 中的流式处理 SignalR
 
 作者： [Brennan Conroy](https://github.com/BrennanConroy)
 
@@ -269,7 +270,7 @@ JavaScript 客户端通过调用与的集线器上的服务器到客户端流式
 * 集线器方法的名称。 在下面的示例中，中心方法名称是 `Counter` 。
 * 在 hub 方法中定义的参数。 在下面的示例中，参数是要接收的流项数的计数以及流项之间的延迟。
 
-`connection.stream`返回一个 `IStreamResult` ，它包含 `subscribe` 方法。 向传递 `IStreamSubscriber` ， `subscribe` 并设置 `next` 、 `error` 和回调， `complete` 以接收来自调用的通知 `stream` 。
+`connection.stream` 返回一个 `IStreamResult` ，它包含 `subscribe` 方法。 向传递 `IStreamSubscriber` ， `subscribe` 并设置 `next` 、 `error` 和回调， `complete` 以接收来自调用的通知 `stream` 。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -291,7 +292,7 @@ JavaScript 客户端通过调用与的集线器上的服务器到客户端流式
 
 ### <a name="client-to-server-streaming"></a>客户端到服务器的流式处理
 
-JavaScript 客户端通过将作为自变量传入、或，来调用集线器上的客户端到服务器流式处理方法， `Subject` `send` `invoke` `stream` 具体取决于所调用的集线器方法。 `Subject`是一个类似于的类 `Subject` 。 例如，在 RxJS 中，可以使用该库中的[Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject)类。
+JavaScript 客户端通过将作为自变量传入、或，来调用集线器上的客户端到服务器流式处理方法， `Subject` `send` `invoke` `stream` 具体取决于所调用的集线器方法。 `Subject`是一个类似于的类 `Subject` 。 例如，在 RxJS 中，可以使用该库中的 [Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject) 类。
 
 [!code-javascript[Upload javascript](streaming/samples/3.0/wwwroot/js/stream.js?range=41-51)]
 
@@ -303,7 +304,7 @@ JavaScript 客户端通过将作为自变量传入、或，来调用集线器上
 
 ### <a name="server-to-client-streaming"></a>服务器到客户端流式处理
 
-SignalRJava 客户端使用 `stream` 方法来调用流式处理方法。 `stream`接受三个或更多参数：
+SignalRJava 客户端使用 `stream` 方法来调用流式处理方法。 `stream` 接受三个或更多参数：
 
 * 流项的预期类型。
 * 集线器方法的名称。

@@ -5,6 +5,7 @@ description: 了解如何在 ASP.NET Core 的应用程序中添加对授权的�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/claims
-ms.openlocfilehash: 639cacbab2688adfe769ef2c6954ea877cf0c66a
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0615e9f13b0eca7d7ac924d90ae2004e41a51586
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022350"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632598"
 ---
 # <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core 中的基于声明的授权
 
@@ -38,7 +39,7 @@ ms.locfileid: "88022350"
 
 最简单类型的声明策略将查找声明是否存在，而不检查值。
 
-首先需要构建并注册策略。 这会作为授权服务配置的一部分进行，此配置通常会在 `ConfigureServices()` *Startup.cs*文件中加入。
+首先需要构建并注册策略。 这会作为授权服务配置的一部分进行，此配置通常会在 `ConfigureServices()` *Startup.cs* 文件中加入。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -152,7 +153,7 @@ public void ConfigureServices(IServiceCollection services)
 ::: moniker-end
 ### <a name="add-a-generic-claim-check"></a>添加泛型声明检查
 
-如果声明值不是单个值或需要转换，请使用[RequireAssertion](/dotnet/api/microsoft.aspnetcore.authorization.authorizationpolicybuilder.requireassertion)。 有关详细信息，请参阅[使用 func 来实现策略](xref:security/authorization/policies#use-a-func-to-fulfill-a-policy)。
+如果声明值不是单个值或需要转换，请使用 [RequireAssertion](/dotnet/api/microsoft.aspnetcore.authorization.authorizationpolicybuilder.requireassertion)。 有关详细信息，请参阅 [使用 func 来实现策略](xref:security/authorization/policies#use-a-func-to-fulfill-a-policy)。
 
 ## <a name="multiple-policy-evaluation"></a>多个策略评估
 
@@ -173,6 +174,6 @@ public class SalaryController : Controller
 }
 ```
 
-在上面的示例中，满足策略的任何标识 `EmployeeOnly` 都可以访问该 `Payslip` 操作，因为该策略是在控制器上强制实施的。 但是，若要调用 `UpdateSalary` 操作，标识必须*同时*满足 `EmployeeOnly` 策略和 `HumanResources` 策略。
+在上面的示例中，满足策略的任何标识 `EmployeeOnly` 都可以访问该 `Payslip` 操作，因为该策略是在控制器上强制实施的。 但是，若要调用 `UpdateSalary` 操作，标识必须 *同时* 满足 `EmployeeOnly` 策略和 `HumanResources` 策略。
 
-如果需要更复杂的策略，例如拍摄一个出生日期、计算该日期的年龄，然后检查年龄是否为21或更低，则需要编写[自定义策略处理程序](xref:security/authorization/policies)。
+如果需要更复杂的策略，例如拍摄一个出生日期、计算该日期的年龄，然后检查年龄是否为21或更低，则需要编写 [自定义策略处理程序](xref:security/authorization/policies)。

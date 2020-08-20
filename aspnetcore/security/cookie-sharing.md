@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cookie-sharing
-ms.openlocfilehash: f4762871cbae77f690d8478e1342e0d53918eb51
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6ac808d11790ae27e82606b442ff215d95b93e41
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022194"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631363"
 ---
 # <a name="share-authentication-no-loccookies-among-aspnet-apps"></a>cookie在 ASP.NET 应用之间共享身份验证
 
@@ -35,18 +36,18 @@ ms.locfileid: "88022194"
 * 身份验证 cookie 名称设置为的公共值 `.AspNet.SharedCookie` 。
 * `AuthenticationType`设置为 `Identity.Application` 显式或默认设置为。
 * 常见的应用名称用于使数据保护系统 () 共享数据保护密钥 `SharedCookieApp` 。
-* `Identity.Application`用作身份验证方案。 无论使用哪种方案，都必须在共享应用*内和*共享应用中以一致的方式使用它， cookie 或者通过显式设置。 加密和解密时将使用该方案 cookie ，因此必须在应用间使用一致的方案。
-* 使用通用的[数据保护密钥](xref:security/data-protection/implementation/key-management)存储位置。
+* `Identity.Application` 用作身份验证方案。 无论使用哪种方案，都必须在共享应用 *内和* 共享应用中以一致的方式使用它， cookie 或者通过显式设置。 加密和解密时将使用该方案 cookie ，因此必须在应用间使用一致的方案。
+* 使用通用的 [数据保护密钥](xref:security/data-protection/implementation/key-management) 存储位置。
   * 在 ASP.NET Core 应用中， <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.PersistKeysToFileSystem*> 用于设置密钥存储位置。
-  * 在 .NET Framework 应用中， Cookie 身份验证中间件使用的实现 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider> 。 `DataProtectionProvider`为身份验证负载数据的加密和解密提供数据保护服务 cookie 。 该 `DataProtectionProvider` 实例与应用程序的其他部分所使用的数据保护系统隔离。 [DataProtectionProvider (DirectoryInfo，Action \<IDataProtectionBuilder>) ](xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider.Create*)接受 <xref:System.IO.DirectoryInfo> 来指定数据保护密钥存储的位置。
-* `DataProtectionProvider`需要 DataProtection NuGet 包[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) ：
-  * 在 ASP.NET Core 1.x 应用程序中，请参阅[AspNetCore 元包](xref:fundamentals/metapackage-app)。
-  * 在 .NET Framework 应用中，将包引用添加到[AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)。
-* <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*>设置常见的应用名称。
+  * 在 .NET Framework 应用中， Cookie 身份验证中间件使用的实现 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider> 。 `DataProtectionProvider` 为身份验证负载数据的加密和解密提供数据保护服务 cookie 。 该 `DataProtectionProvider` 实例与应用程序的其他部分所使用的数据保护系统隔离。 [DataProtectionProvider (DirectoryInfo，Action \<IDataProtectionBuilder>) ](xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider.Create*) 接受 <xref:System.IO.DirectoryInfo> 来指定数据保护密钥存储的位置。
+* `DataProtectionProvider` 需要 DataProtection NuGet 包 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) ：
+  * 在 ASP.NET Core 1.x 应用程序中，请参阅 [AspNetCore 元包](xref:fundamentals/metapackage-app)。
+  * 在 .NET Framework 应用中，将包引用添加到 [AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)。
+* <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*> 设置常见的应用名称。
 
-## <a name="share-authentication-no-loccookies-with-aspnet-core-no-locidentity"></a>与 ASP.NET Core 共享身份验证 cookieIdentity
+## <a name="share-authentication-no-loccookies-with-no-locaspnet-core-identity"></a>与共享身份验证 cookieASP.NET Core Identity
 
-使用 ASP.NET Core 时 Identity ：
+使用 ASP.NET Core Identity 时：
 
 * 数据保护密钥和应用程序名称必须在应用之间共享。 在以下示例中，将向方法提供一个公共密钥存储位置 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.PersistKeysToFileSystem*> 。 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*>在以下示例中，使用配置公共共享应用名称 (`SharedCookieApp`) 。 有关详细信息，请参阅 <xref:security/data-protection/configuration/overview>。
 * 使用 <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.ConfigureApplicationCookie*> 扩展方法为设置数据保护服务 cookie 。
@@ -64,9 +65,9 @@ services.ConfigureApplicationCookie(options => {
 });
 ```
 
-## <a name="share-authentication-no-loccookies-without-aspnet-core-no-locidentity"></a>不 ASP.NET Core 共享身份验证 cookieIdentity
+## <a name="share-authentication-no-loccookies-without-no-locaspnet-core-identity"></a>共享身份 cookie 验证 ASP.NET Core Identity
 
-如果直接使用时 cookie 没有 ASP.NET Core Identity ，请在中配置数据保护和身份验证 `Startup.ConfigureServices` 。 在下面的示例中，"身份验证类型" 设置为 `Identity.Application` ：
+如果 cookie 直接使用，则 ASP.NET Core Identity 在中配置数据保护和身份验证 `Startup.ConfigureServices` 。 在下面的示例中，"身份验证类型" 设置为 `Identity.Application` ：
 
 ```csharp
 services.AddDataProtection()
@@ -116,13 +117,13 @@ services.AddDataProtection()
 
 使用 Katana Authentication 中间件的 ASP.NET 4.x 应用程序 Cookie 可以配置为生成 cookie 与 ASP.NET Core Cookie authentication 中间件兼容的身份验证。 这允许在多个步骤中升级大型站点的单个应用，同时跨站点提供平稳的 SSO 体验。
 
-当应用使用 Katana Cookie Authentication 中间件时，它会调用 `UseCookieAuthentication` 项目的*Startup.Auth.cs*文件。 使用 Visual Studio 2013 和更高版本创建的 ASP.NET 4.x web 应用项目在 Cookie 默认情况下使用 Katana Authentication 中间件。 尽管 `UseCookieAuthentication` ASP.NET Core 应用已过时且不受支持，但 `UseCookieAuthentication` 在使用 Katana Authentication 中间件的 ASP.NET 4.x 应用中调用 Cookie 是有效的。
+当应用使用 Katana Cookie Authentication 中间件时，它会调用 `UseCookieAuthentication` 项目的 *Startup.Auth.cs* 文件。 使用 Visual Studio 2013 和更高版本创建的 ASP.NET 4.x web 应用项目在 Cookie 默认情况下使用 Katana Authentication 中间件。 尽管 `UseCookieAuthentication` ASP.NET Core 应用已过时且不受支持，但 `UseCookieAuthentication` 在使用 Katana Authentication 中间件的 ASP.NET 4.x 应用中调用 Cookie 是有效的。
 
 ASP.NET 4.x 应用必须面向 .NET Framework 4.5.1 或更高版本。 否则，无法安装所需的 NuGet 包。
 
-若要 cookie 在 ASP.NET 4.x 应用和 ASP.NET Core 应用之间共享身份验证，请按在[ cookie ASP.NET Core 应用间共享身份验证](#share-authentication-cookies-with-aspnet-core-identity)中的说明配置 ASP.NET Core 应用，并按如下所示配置 ASP.NET 4.x 应用。
+若要 cookie 在 ASP.NET 4.x 应用和 ASP.NET Core 应用之间共享身份验证，请按在 [ cookie ASP.NET Core 应用间共享身份验证](#share-authentication-cookies-with-aspnet-core-identity) 中的说明配置 ASP.NET Core 应用，并按如下所示配置 ASP.NET 4.x 应用。
 
-确认应用的包已更新到最新版本。 将[Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.Interop/)包安装到每个 ASP.NET 1.x 应用程序中。
+确认应用的包已更新到最新版本。 将 [Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.Interop/) 包安装到每个 ASP.NET 1.x 应用程序中。
 
 查找并修改对的调用 `UseCookieAuthentication` ：
 

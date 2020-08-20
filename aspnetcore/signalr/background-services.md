@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 409ace5e3eaa4ab1de0b9d5f0cbd0e10d9243ea9
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d2ac5ebf6c469c9ec842e7f3ea4f37069b4efdcb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022376"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631590"
 ---
 # <a name="host-aspnet-core-no-locsignalr-in-background-services"></a>SignalR在后台服务中托管 ASP.NET Core
 
@@ -63,10 +64,10 @@ SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.
 
 在前面的示例中， `ClockHub` 类实现 `Hub<T>` 类以创建强类型中心。 已 `ClockHub` 在类中配置， `Startup` 以响应终结点上的请求 `/hubs/clock` 。
 
-有关强类型化集线器的详细信息，请参阅[使用中 SignalR 的中心进行 ASP.NET Core](xref:signalr/hubs#strongly-typed-hubs)。
+有关强类型化集线器的详细信息，请参阅 [使用中 SignalR 的中心进行 ASP.NET Core](xref:signalr/hubs#strongly-typed-hubs)。
 
 > [!NOTE]
-> 此功能并不限于[集线器 \<T> ](xref:Microsoft.AspNetCore.SignalR.Hub`1)类。 从[中心](xref:Microsoft.AspNetCore.SignalR.Hub)继承的任何类（如[DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub)）都适用。
+> 此功能并不限于[集线器 \<T> ](xref:Microsoft.AspNetCore.SignalR.Hub`1)类。 从 [中心](xref:Microsoft.AspNetCore.SignalR.Hub)继承的任何类（如 [DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub)）都适用。
 
 ::: moniker range=">= aspnetcore-3.0"
 
