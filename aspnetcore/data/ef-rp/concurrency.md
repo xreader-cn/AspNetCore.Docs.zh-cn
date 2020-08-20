@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: bb29001e30578e0992e578c2f98cda82c5dcf185
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e03711d970c83c2b7d6cc76039cb0d556a751018
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018658"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628906"
 ---
 # <a name="part-8-no-locrazor-pages-with-ef-core-in-aspnet-core---concurrency"></a>第 8 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 并发
 
@@ -317,7 +318,7 @@ modelBuilder.Entity<Department>()
 
 ![更改后的“院系编辑”页 2](concurrency/_static/edit-after-change-230.png)
 
-单击“保存” 。 可看见所有不匹配数据库值的字段的错误消息：
+单击“保存”  。 可看见所有不匹配数据库值的字段的错误消息：
 
 ![“院系编辑”页错误消息](concurrency/_static/edit-error30.png)
 
@@ -455,7 +456,7 @@ John 单击“编辑”页面上的“保存”，但页面的预算仍显示为
 
 ### <a name="detecting-concurrency-conflicts-on-a-row"></a>检测行的并发冲突
 
-要检测并发冲突，请将 [rowversion](/sql/t-sql/data-types/rowversion-transact-sql) 跟踪列添加到模型。  `rowversion`：
+要检测并发冲突，请将 [rowversion](/sql/t-sql/data-types/rowversion-transact-sql) 跟踪列添加到模型。  `rowversion` :
 
 * 是 SQL Server 特定的。 其他数据库可能无法提供类似功能。
 * 用于确定从数据库提取实体后未更改实体。 
@@ -613,7 +614,7 @@ dotnet ef database update
 
 ![更改后的“院系编辑”页 2](concurrency/_static/edit-after-change-2.png)
 
-单击“保存” 。 可看见所有不匹配数据库值的字段的错误消息：
+单击“保存”  。 可看见所有不匹配数据库值的字段的错误消息：
 
 ![“院系编辑”页错误消息](concurrency/_static/edit-error.png)
 

@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 36b0c913db3c2b6c2c834d33b0ea8665f3e25814
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e081c13f9ffb33c1ff137cb0989e747d51571ea7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012962"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629192"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
@@ -156,7 +157,7 @@ EF SQL Server 包和其依赖项（`Microsoft.EntityFrameworkCore` 和 `Microsof
 
 ### <a name="the-enrollment-entity"></a>Enrollment 实体
 
-![修读实体关系图](intro/_static/enrollment-entity.png)
+![Enrollment 实体关系图](intro/_static/enrollment-entity.png)
 
 在 *Models* 文件夹中，创建 *Enrollment.cs* 并且用以下代码替换现有代码：
 
@@ -164,11 +165,11 @@ EF SQL Server 包和其依赖项（`Microsoft.EntityFrameworkCore` 和 `Microsof
 
 `EnrollmentID` 属性将被设为主键; 此实体使用 `classnameID` 模式而不是如 `Student` 实体那样直接使用 `ID`。 通常情况下，你选择一个主键模式，并在你的数据模型自始至终使用这种模式。 在这里，使用了两种不同的模式只是为了说明你可以使用任一模式来指定主键。 在 [后面的教程](inheritance.md)，你将了解到使用`ID`这种模式可以更轻松地在数据模型之间实现继承。
 
-`Grade` 属性是 `enum`。 `Grade` 声明类型后的`?`表示 `Grade` 属性可以为 null。 评级为 null 和评级为零是有区别的 --null 意味着评级未知或者尚未分配。
+`Grade` 属性为 `enum`。 `Grade` 声明类型后的`?`表示 `Grade` 属性可以为 null。 评级为 null 和评级为零是有区别的 --null 意味着评级未知或者尚未分配。
 
-`StudentID` 属性是一个外键，`Student` 是与其且对应的导航属性。 `Enrollment` 实体与一个 `Student` 实体相关联，因此该属性只包含单个 `Student` 实体 (与前面所看到的 `Student.Enrollments` 导航属性不同后，`Student`中可以容纳多个 `Enrollment` 实体)。
+`StudentID` 属性是外键，其对应的导航属性为 `Student`。 `Enrollment` 实体与一个 `Student` 实体相关联，因此该属性只包含单个 `Student` 实体 (与前面所看到的 `Student.Enrollments` 导航属性不同后，`Student`中可以容纳多个 `Enrollment` 实体)。
 
-`CourseID` 属性是一个外键， `Course` 是与其对应的导航属性。 `Enrollment` 实体与一个 `Course` 实体相关联。
+`CourseID` 属性是外键，其对应的导航属性为 `Course`。 `Enrollment` 实体与一个 `Course` 实体相关联。
 
 如果一个属性名为 `<navigation property name><primary key property name>`，Entity Framework 就会将这个属性解析为外键属性(例如， `Student` 实体的主键是`ID`， `Student` 是`Enrollment`的导航属性所以`Enrollment`实体中 `StudentID` 会被解析为外键)。 此外还可以将需要解析为外键的属性命名为 `<primary key property name>` (例如，`CourseID` 由于 `Course` 实体的主键所以 `CourseID` 也被解析为外键)。
 

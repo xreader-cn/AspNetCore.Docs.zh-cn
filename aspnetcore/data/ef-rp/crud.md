@@ -5,6 +5,7 @@ description: Razor 页面和实体框架教程系列第 2 部分。
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/crud
-ms.openlocfilehash: f205e7741c8e901e9219bec2028c7bee98129161
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a6a99d736a60a55b81eb7e852413dc52b733d2fb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018359"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627528"
 ---
 # <a name="part-2-no-locrazor-pages-with-ef-core-in-aspnet-core---crud"></a>第 2 部分，ASP.NET Core 中的 Razor 页面和 EF Core - CRUD
 

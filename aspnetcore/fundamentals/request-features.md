@@ -5,6 +5,7 @@ description: 了解与 ASP.NET Core 的接口中定义的 HTTP 请求和响应�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/request-features
-ms.openlocfilehash: 4b6b34724bc848578293e586da12ead63c96cfbd
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 3b5c929519407de5dc582c10a86745efddc8a38a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016786"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634509"
 ---
 # <a name="request-features-in-aspnet-core"></a>ASP.NET Core 中的请求功能
 
