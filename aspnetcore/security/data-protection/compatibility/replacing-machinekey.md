@@ -5,6 +5,7 @@ description: 了解如何在 ASP.NET 中替换 machineKey，以允许使用新�
 ms.author: riande
 ms.date: 04/06/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: 6b98244f9f288101a971257c9dab50d8895b8881
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8cae0b8f1c4582e272061ff87868b32568dfe595
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018203"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625565"
 ---
 # <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>替换 ASP.NET Core 中的 ASP.NET machineKey
 
@@ -33,9 +34,9 @@ ms.locfileid: "88018203"
 > [!NOTE]
 > 新的数据保护系统只能安装到面向 .NET 4.5.1 或更高版本的现有 ASP.NET 应用程序中。 如果应用程序面向 .NET 4.5 或更低版本，则安装将失败。
 
-若要在现有的 ASP.NET 4.5.1 + 项目中安装新的数据保护系统，请 Microsoft.AspNetCore.DataProtection.SystemWeb 安装包。 这将使用[默认配置](xref:security/data-protection/configuration/default-settings)设置来实例化数据保护系统。
+若要在现有的 ASP.NET 4.5.1 + 项目中安装新的数据保护系统，请 Microsoft.AspNetCore.DataProtection.SystemWeb 安装包。 这将使用 [默认配置](xref:security/data-protection/configuration/default-settings) 设置来实例化数据保护系统。
 
-安装包时，它会在*Web.config*中插入一行，告诉 ASP.NET 将其用于[大多数加密操作](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)，包括 forms 身份验证、视图状态和对 MachineKey 的调用。 插入的行如下所示。
+安装包时，它会在 *Web.config* 中插入一行，告诉 ASP.NET 将其用于 [大多数加密操作](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)，包括 forms 身份验证、视图状态和对 MachineKey 的调用。 插入的行如下所示。
 
 ```xml
 <machineKey compatibilityMode="Framework45" dataProtectorType="..." />

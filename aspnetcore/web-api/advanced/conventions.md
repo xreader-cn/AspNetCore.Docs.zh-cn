@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/conventions
-ms.openlocfilehash: e18a2096c3b9fa788ba2a9713d0f25c1e76af2db
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 425f1aaf1fa86f10d857c34e621c302f2db258e5
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019958"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626787"
 ---
 # <a name="use-web-api-conventions"></a>使用 Web API 约定
 
@@ -37,7 +38,7 @@ ASP.NET Core 2.2 及更高版本附带一种方法，可提取常见的 [API 文
 
 ASP.NET Core MVC 2.2 及更高版本在 <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName> 中包含一组默认的约定。 约定基于 ASP.NET Core API 项目模板中提供的控件 (ValuesController.cs)******。 若操作遵循模板中的模式，则应成功使用默认约定。 如果默认约定不能满足需要，请参阅[创建 Web API 约定](#create-web-api-conventions)。
 
-在运行时，<xref:Microsoft.AspNetCore.Mvc.ApiExplorer> 会了解约定。 `ApiExplorer` 是 MVC 与 [OpenAPI](https://www.openapis.org/)（也称为 Swagger）文档生成器进行通信的抽象内容。 已应用的约定中的属性与某个操作相关联，并包含在操作的 OpenAPI 文档中。 [API 分析器](xref:web-api/advanced/analyzers)还了解约定。 若操作为非常规操作（例如，它返回已应用的约定未记录的状态代码），则会生成警告，建议记录该状态代码。
+在运行时，<xref:Microsoft.AspNetCore.Mvc.ApiExplorer> 会了解约定。 `ApiExplorer` 是 MVC 与 [OpenAPI](https://www.openapis.org/)（也称为 Swagger）文档生成器进行通信的抽象内容。 已应用的约定中的属性与某个操作相关联，并包含在操作的 OpenAPI 文档中。 [API 分析器](xref:web-api/advanced/analyzers) 还了解约定。 若操作为非常规操作（例如，它返回已应用的约定未记录的状态代码），则会生成警告，建议记录该状态代码。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/conventions/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 

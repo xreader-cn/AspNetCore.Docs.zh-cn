@@ -1,5 +1,5 @@
 ---
-title: 在 ASP.NET Core 中使用集线器筛选器SignalR
+title: 在 ASP.NET Core 中使用集线器筛选器 SignalR
 author: brecon
 description: 了解如何在 ASP.NET Core 中使用集线器筛选器 SignalR 。
 monikerRange: '>= aspnetcore-5.0'
@@ -7,6 +7,7 @@ ms.author: brecon
 ms.custom: mvc
 ms.date: 05/22/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hub-filters
-ms.openlocfilehash: db6439ab4e61d0412148c5ea72b52d429367491b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c3c44efcb3702f3edb51c821d042c2e7eb1748cd
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022142"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626661"
 ---
-# <a name="use-hub-filters-in-aspnet-core-no-locsignalr"></a>在 ASP.NET Core 中使用集线器筛选器SignalR
+# <a name="use-hub-filters-in-aspnet-core-no-locsignalr"></a>在 ASP.NET Core 中使用集线器筛选器 SignalR
 
 中心筛选器：
 
@@ -195,7 +196,7 @@ public class CustomFilter : IHubFilter
 
 `HubInvocationContext`包含当前集线器方法调用的信息。
 
-| 属性 | 描述 | 类型 |
+| 属性 | 说明 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |
@@ -208,7 +209,7 @@ public class CustomFilter : IHubFilter
 
 `HubLifetimeContext`包含 `OnConnectedAsync` 和集线器方法的信息 `OnDisconnectedAsync` 。
 
-| 属性 | 描述 | 类型 |
+| 属性 | 说明 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |

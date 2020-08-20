@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,16 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/distributed
-ms.openlocfilehash: 64a4b6f606a4f5f8e73ef08f53cbb6e4003245aa
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a25cbaf9a4e7dc5f1bd3706d01f409208a39aaa3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020673"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626722"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存
 
-作者： [Mohsin Nasir](https://github.com/mohsinnasir)和[Steve Smith](https://ardalis.com/)
+作者： [Mohsin Nasir](https://github.com/mohsinnasir) 和 [Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -36,7 +37,7 @@ ms.locfileid: "88020673"
 
 当分布式缓存数据时，数据将：
 
-*  (一致性) 跨多个*服务器的请求*。
+*  (一致性) 跨多个 *服务器的请求* 。
 * 置服务器重启和应用部署。
 * 不使用本地内存。
 
@@ -48,9 +49,9 @@ ms.locfileid: "88020673"
 
 若要使用 SQL Server 分布式缓存，请[将包引用添加到 "](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)
 
-若要使用 Redis 分布式缓存，请将包引用添加到[StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)包。
+若要使用 Redis 分布式缓存，请将包引用添加到 [StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis) 包。
 
-若要使用 NCache 分布式缓存，请将包引用添加到[NCache](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource)包。
+若要使用 NCache 分布式缓存，请将包引用添加到 [NCache](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource) 包。
 
 ## <a name="idistributedcache-interface"></a>IDistributedCache 接口
 
@@ -115,7 +116,7 @@ Table and index were created successfully.
 
 ### <a name="distributed-redis-cache"></a>分布式 Redis 缓存
 
-[Redis](https://redis.io/)是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置[Azure Redis 缓存](https://azure.microsoft.com/services/cache/)。
+[Redis](https://redis.io/) 是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置 [Azure Redis 缓存](https://azure.microsoft.com/services/cache/) 。
 
 应用使用 <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> 中的非开发环境中的实例 () 配置缓存实现 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*> `Startup.ConfigureServices` ：
 
@@ -123,19 +124,19 @@ Table and index were created successfully.
 
 若要在本地计算机上安装 Redis：
 
-1. 安装[Chocolatey Redis 包](https://chocolatey.org/packages/redis-64/)。
+1. 安装 [Chocolatey Redis 包](https://chocolatey.org/packages/redis-64/)。
 1. `redis-server`在命令提示符下运行。
 
 ### <a name="distributed-ncache-cache"></a>分布式 NCache 缓存
 
-[NCache](https://github.com/Alachisoft/NCache)是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
+[NCache](https://github.com/Alachisoft/NCache) 是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
 
-若要在本地计算机上安装和配置 NCache，请参阅[适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
+若要在本地计算机上安装和配置 NCache，请参阅 [适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
 
 配置 NCache：
 
-1. 安装[NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
-1. 在[ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
+1. 安装 [NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
+1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
 1. 将以下代码添加到 `Startup.ConfigureServices`：
 
    ```csharp
@@ -149,24 +150,24 @@ Table and index were created successfully.
 
 ## <a name="use-the-distributed-cache"></a>使用分布式缓存
 
-若要使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口，请 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 从应用程序中的任何构造函数请求的实例。 实例由[ (DI) 的依赖关系注入](xref:fundamentals/dependency-injection)提供。
+若要使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口，请 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 从应用程序中的任何构造函数请求的实例。 实例由 [ (DI) 的依赖关系注入 ](xref:fundamentals/dependency-injection)提供。
 
-示例应用启动时， <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 将插入到中 `Startup.Configure` 。 使用 (缓存当前时间 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> 有关详细信息，请参阅[泛型主机： IHostApplicationLifetime](xref:fundamentals/host/generic-host#ihostapplicationlifetime)) ：
+示例应用启动时， <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 将插入到中 `Startup.Configure` 。 使用 (缓存当前时间 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> 有关详细信息，请参阅 [泛型主机： IHostApplicationLifetime](xref:fundamentals/host/generic-host#ihostapplicationlifetime)) ：
 
 [!code-csharp[](distributed/samples/3.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
 示例应用将注入 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 到中 `IndexModel` 供索引页使用。
 
-每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示*缓存时间已过*。
+每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过*。
 
-通过选择 "**重置缓存时间**" 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
+通过选择 " **重置缓存时间** " 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
 
 [!code-csharp[](distributed/samples/3.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
 > 对于实例，无需使用实例的单一实例或作用域生存期 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> (至少为内置实现) 。
 >
-> 您还可以创建一个 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，而不是使用 DI，而是在代码中创建一个实例，从而使代码更难以测试，并违反[显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
+> 您还可以创建一个 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，而不是使用 DI，而是在代码中创建一个实例，从而使代码更难以测试，并违反 [显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
 
 ## <a name="recommendations"></a>建议
 
@@ -174,7 +175,7 @@ Table and index were created successfully.
 
 * 现有基础结构
 * 性能要求
-* 节约成本
+* 成本
 * 团队体验
 
 缓存解决方案通常依赖于内存中的存储以快速检索缓存的数据，但是，内存是有限的资源，并且很昂贵。 仅将常用数据存储在缓存中。
@@ -206,7 +207,7 @@ Table and index were created successfully.
 
 当分布式缓存数据时，数据将：
 
-*  (一致性) 跨多个*服务器的请求*。
+*  (一致性) 跨多个 *服务器的请求* 。
 * 置服务器重启和应用部署。
 * 不使用本地内存。
 
@@ -218,9 +219,9 @@ Table and index were created successfully.
 
 若要使用 SQL Server 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，或添加对[包的包引用。](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)
 
-若要使用 Redis 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，并[将包引用](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)添加到包。 Redis 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 Redis 包。
+若要使用 Redis 分布式缓存，请参考 [AspNetCore 元包](xref:fundamentals/metapackage-app) ，并 [将包引用](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis) 添加到包。 Redis 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 Redis 包。
 
-若要使用 NCache 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，并将包引用添加到[NCache](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource)包中。 NCache 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 NCache 包。
+若要使用 NCache 分布式缓存，请参考 [AspNetCore 元包](xref:fundamentals/metapackage-app) ，并将包引用添加到 [NCache](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource) 包中。 NCache 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 NCache 包。
 
 ## <a name="idistributedcache-interface"></a>IDistributedCache 接口
 
@@ -285,7 +286,7 @@ Table and index were created successfully.
 
 ### <a name="distributed-redis-cache"></a>分布式 Redis 缓存
 
-[Redis](https://redis.io/)是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置[Azure Redis 缓存](https://azure.microsoft.com/services/cache/)。
+[Redis](https://redis.io/) 是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置 [Azure Redis 缓存](https://azure.microsoft.com/services/cache/) 。
 
 应用使用 <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> 中的非开发环境中的实例 () 配置缓存实现 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*> `Startup.ConfigureServices` ：
 
@@ -293,19 +294,19 @@ Table and index were created successfully.
 
 若要在本地计算机上安装 Redis：
 
-1. 安装[Chocolatey Redis 包](https://chocolatey.org/packages/redis-64/)。
+1. 安装 [Chocolatey Redis 包](https://chocolatey.org/packages/redis-64/)。
 1. `redis-server`在命令提示符下运行。
 
 ### <a name="distributed-ncache-cache"></a>分布式 NCache 缓存
 
-[NCache](https://github.com/Alachisoft/NCache)是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
+[NCache](https://github.com/Alachisoft/NCache) 是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
 
-若要在本地计算机上安装和配置 NCache，请参阅[适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
+若要在本地计算机上安装和配置 NCache，请参阅 [适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
 
 配置 NCache：
 
-1. 安装[NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
-1. 在[ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
+1. 安装 [NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
+1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
 1. 将以下代码添加到 `Startup.ConfigureServices`：
 
    ```csharp
@@ -319,24 +320,24 @@ Table and index were created successfully.
 
 ## <a name="use-the-distributed-cache"></a>使用分布式缓存
 
-若要使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口，请 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 从应用程序中的任何构造函数请求的实例。 实例由[ (DI) 的依赖关系注入](xref:fundamentals/dependency-injection)提供。
+若要使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口，请 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 从应用程序中的任何构造函数请求的实例。 实例由 [ (DI) 的依赖关系注入 ](xref:fundamentals/dependency-injection)提供。
 
-示例应用启动时， <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 将插入到中 `Startup.Configure` 。 使用 (缓存当前时间 <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> 有关详细信息，请参阅[Web 主机： IApplicationLifetime interface](xref:fundamentals/host/web-host#iapplicationlifetime-interface)) ：
+示例应用启动时， <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 将插入到中 `Startup.Configure` 。 使用 (缓存当前时间 <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> 有关详细信息，请参阅 [Web 主机： IApplicationLifetime interface](xref:fundamentals/host/web-host#iapplicationlifetime-interface)) ：
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
 示例应用将注入 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 到中 `IndexModel` 供索引页使用。
 
-每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示*缓存时间已过*。
+每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过*。
 
-通过选择 "**重置缓存时间**" 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
+通过选择 " **重置缓存时间** " 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
 > 对于实例，无需使用实例的单一实例或作用域生存期 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> (至少为内置实现) 。
 >
-> 您还可以创建一个 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，而不是使用 DI，而是在代码中创建一个实例，从而使代码更难以测试，并违反[显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
+> 您还可以创建一个 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，而不是使用 DI，而是在代码中创建一个实例，从而使代码更难以测试，并违反 [显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
 
 ## <a name="recommendations"></a>建议
 
@@ -344,7 +345,7 @@ Table and index were created successfully.
 
 * 现有基础结构
 * 性能要求
-* 节约成本
+* 成本
 * 团队体验
 
 缓存解决方案通常依赖于内存中的存储以快速检索缓存的数据，但是，内存是有限的资源，并且很昂贵。 仅将常用数据存储在缓存中。
@@ -376,7 +377,7 @@ Table and index were created successfully.
 
 当分布式缓存数据时，数据将：
 
-*  (一致性) 跨多个*服务器的请求*。
+*  (一致性) 跨多个 *服务器的请求* 。
 * 置服务器重启和应用部署。
 * 不使用本地内存。
 
@@ -388,9 +389,9 @@ Table and index were created successfully.
 
 若要使用 SQL Server 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，或添加对[包的包引用。](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)
 
-若要使用 Redis 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，并[将包引用](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Redis)添加到包。 Redis 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 Redis 包。
+若要使用 Redis 分布式缓存，请参考 [AspNetCore 元包](xref:fundamentals/metapackage-app) ，并 [将包引用](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Redis) 添加到包。 Redis 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 Redis 包。
 
-若要使用 NCache 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，并将包引用添加到[NCache](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource)包中。 NCache 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 NCache 包。
+若要使用 NCache 分布式缓存，请参考 [AspNetCore 元包](xref:fundamentals/metapackage-app) ，并将包引用添加到 [NCache](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource) 包中。 NCache 包不包含在包中 `Microsoft.AspNetCore.App` ，因此必须在项目文件中单独引用 NCache 包。
 
 ## <a name="idistributedcache-interface"></a>IDistributedCache 接口
 
@@ -455,7 +456,7 @@ Table and index were created successfully.
 
 ### <a name="distributed-redis-cache"></a>分布式 Redis 缓存
 
-[Redis](https://redis.io/)是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置[Azure Redis 缓存](https://azure.microsoft.com/services/cache/)。
+[Redis](https://redis.io/) 是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置 [Azure Redis 缓存](https://azure.microsoft.com/services/cache/) 。
 
 应用使用实例) 配置缓存实现 <xref:Microsoft.Extensions.Caching.Redis.RedisCache> (<xref:Microsoft.Extensions.DependencyInjection.RedisCacheServiceCollectionExtensions.AddDistributedRedisCache*> ：
 
@@ -469,19 +470,19 @@ services.AddDistributedRedisCache(options =>
 
 若要在本地计算机上安装 Redis：
 
-1. 安装[Chocolatey Redis 包](https://chocolatey.org/packages/redis-64/)。
+1. 安装 [Chocolatey Redis 包](https://chocolatey.org/packages/redis-64/)。
 1. `redis-server`在命令提示符下运行。
 
 ### <a name="distributed-ncache-cache"></a>分布式 NCache 缓存
 
-[NCache](https://github.com/Alachisoft/NCache)是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
+[NCache](https://github.com/Alachisoft/NCache) 是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
 
-若要在本地计算机上安装和配置 NCache，请参阅[适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
+若要在本地计算机上安装和配置 NCache，请参阅 [适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
 
 配置 NCache：
 
-1. 安装[NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
-1. 在[ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
+1. 安装 [NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
+1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
 1. 将以下代码添加到 `Startup.ConfigureServices`：
 
    ```csharp
@@ -495,24 +496,24 @@ services.AddDistributedRedisCache(options =>
 
 ## <a name="use-the-distributed-cache"></a>使用分布式缓存
 
-若要使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口，请 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 从应用程序中的任何构造函数请求的实例。 实例由[ (DI) 的依赖关系注入](xref:fundamentals/dependency-injection)提供。
+若要使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口，请 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 从应用程序中的任何构造函数请求的实例。 实例由 [ (DI) 的依赖关系注入 ](xref:fundamentals/dependency-injection)提供。
 
-示例应用启动时， <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 将插入到中 `Startup.Configure` 。 使用 (缓存当前时间 <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> 有关详细信息，请参阅[Web 主机： IApplicationLifetime interface](xref:fundamentals/host/web-host#iapplicationlifetime-interface)) ：
+示例应用启动时， <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 将插入到中 `Startup.Configure` 。 使用 (缓存当前时间 <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> 有关详细信息，请参阅 [Web 主机： IApplicationLifetime interface](xref:fundamentals/host/web-host#iapplicationlifetime-interface)) ：
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
 示例应用将注入 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 到中 `IndexModel` 供索引页使用。
 
-每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示*缓存时间已过*。
+每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过*。
 
-通过选择 "**重置缓存时间**" 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
+通过选择 " **重置缓存时间** " 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
 > 对于实例，无需使用实例的单一实例或作用域生存期 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> (至少为内置实现) 。
 >
-> 您还可以创建一个 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，而不是使用 DI，而是在代码中创建一个实例，从而使代码更难以测试，并违反[显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
+> 您还可以创建一个 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，而不是使用 DI，而是在代码中创建一个实例，从而使代码更难以测试，并违反 [显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
 
 ## <a name="recommendations"></a>建议
 
@@ -520,7 +521,7 @@ services.AddDistributedRedisCache(options =>
 
 * 现有基础结构
 * 性能要求
-* 节约成本
+* 成本
 * 团队体验
 
 缓存解决方案通常依赖于内存中的存储以快速检索缓存的数据，但是，内存是有限的资源，并且很昂贵。 仅将常用数据存储在缓存中。

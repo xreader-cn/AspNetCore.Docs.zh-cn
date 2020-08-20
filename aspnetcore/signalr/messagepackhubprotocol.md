@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,22 +18,22 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: 8e590c87f75d35cbafde1adbc87dea9c45eac92d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ab9bd11e37182f5b24db5595d5d050f4cc0e32da
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022545"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626644"
 ---
 # <a name="use-messagepack-hub-protocol-in-no-locsignalr-for-aspnet-core"></a>使用中的 MessagePack Hub 协议 SignalR 进行 ASP.NET Core
 
 ::: moniker range=">= aspnetcore-5.0"
 
-本文假定读者[熟悉入门中](xref:tutorials/signalr)介绍的主题。
+本文假定读者 [熟悉入门中](xref:tutorials/signalr)介绍的主题。
 
 ## <a name="what-is-messagepack"></a>什么是 MessagePack？
 
-[MessagePack](https://msgpack.org/index.html)是一种快速、精简的二进制序列化格式。 当性能和带宽需要考虑时，它很有用，因为它会创建比[JSON](https://www.json.org/)更小的消息。 在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。 SignalR提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。
+[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。 当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。 在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。 SignalR 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。
 
 ## <a name="configure-messagepack-on-the-server"></a>在服务器上配置 MessagePack
 
@@ -46,7 +47,7 @@ services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
-若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。 在该委托中， `SerializerOptions` 属性可用于配置 MessagePack 序列化选项。 有关解析程序工作方式的详细信息，请访问[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。 属性可用于要序列化的对象，以定义应如何处理它们。
+若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。 在该委托中， `SerializerOptions` 属性可用于配置 MessagePack 序列化选项。 有关解析程序工作方式的详细信息，请访问 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。 属性可用于要序列化的对象，以定义应如何处理它们。
 
 ```csharp
 services.AddSignalR()
@@ -59,7 +60,7 @@ services.AddSignalR()
 ```
 
 > [!WARNING]
-> 强烈建议查看[CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf)和应用建议的修补程序。 例如， `.WithSecurity(MessagePackSecurity.UntrustedData)` 在替换时调用 `SerializerOptions` 。
+> 强烈建议查看 [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) 和应用建议的修补程序。 例如， `.WithSecurity(MessagePackSecurity.UntrustedData)` 在替换时调用 `SerializerOptions` 。
 
 ## <a name="configure-messagepack-on-the-client"></a>在客户端上配置 MessagePack
 
@@ -92,7 +93,7 @@ npm install @microsoft/signalr-protocol-msgpack
 
 *node_modules\\@microsoft\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
 
-在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在*node_modules\msgpack5\dist\msgpack5.js*中找到库。
+在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js*中找到库。
 
 > [!NOTE]
 > 使用元素时 `<script>` ，顺序很重要。 如果在*msgpack5.js*之前引用*signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js*之前也需要*signalr.js* 。
@@ -137,7 +138,7 @@ public class ChatMessage
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 ```
 
-使用 `camelCased` 名称无法正确绑定到 c # 类。 可以通过使用 `Key` 属性为 MessagePack 属性指定不同的名称来解决此情况。 有关详细信息，请参阅[MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp#object-serialization)。
+使用 `camelCased` 名称无法正确绑定到 c # 类。 可以通过使用 `Key` 属性为 MessagePack 属性指定不同的名称来解决此情况。 有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp#object-serialization)。
 
 ### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>序列化/反序列化时不保留 DateTime. Kind
 
@@ -145,7 +146,7 @@ MessagePack 协议不提供对的值进行编码的方法 `Kind` `DateTime` 。 
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>JavaScript 中的 MessagePack 不支持 MinValue
 
-JavaScript 客户端使用的[msgpack5](https://github.com/mcollina/msgpack5)库 SignalR 不支持 `timestamp96` MessagePack 中的类型。 此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。 的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。 因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。 当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：
+JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 SignalR 不支持 `timestamp96` MessagePack 中的类型。 此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。 的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。 因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。 当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
@@ -153,11 +154,11 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 
 通常， `DateTime.MinValue` 用于对 "缺失" 或值进行编码 `null` 。 如果需要在 MessagePack 中对该值进行编码，请使用 () 的可以为 null 的 `DateTime` 值， `DateTime?` 或对 `bool` 指示日期是否存在的单独值进行编码。
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。
 
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"提前" 编译环境中的 MessagePack 支持
 
-.NET 客户端和服务器使用的[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90)库使用代码生成来优化序列化。 因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。 可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。 有关详细信息，请参阅[MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90#aot-code-generation-to-support-unityxamarin)。 预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：
+.NET 客户端和服务器使用的 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90) 库使用代码生成来优化序列化。 因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。 可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。 有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90#aot-code-generation-to-support-unityxamarin)。 预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：
 
 ```csharp
 services.AddSignalR()
@@ -181,7 +182,7 @@ JSON 集线器协议将在反序列化过程中执行类型转换。 例如，�
 InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
 ```
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。
 
 ## <a name="related-resources"></a>相关资源
 
@@ -193,11 +194,11 @@ InvalidDataException: Error binding arguments. Make sure that the types of the p
 
 ::: moniker range=">= aspnetcore-3.0 < aspnetcore-5.0"
 
-本文假定读者[熟悉入门中](xref:tutorials/signalr)介绍的主题。
+本文假定读者 [熟悉入门中](xref:tutorials/signalr)介绍的主题。
 
 ## <a name="what-is-messagepack"></a>什么是 MessagePack？
 
-[MessagePack](https://msgpack.org/index.html)是一种快速、精简的二进制序列化格式。 当性能和带宽需要考虑时，它很有用，因为它会创建比[JSON](https://www.json.org/)更小的消息。 在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。 SignalR提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。
+[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。 当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。 在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。 SignalR 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。
 
 ## <a name="configure-messagepack-on-the-server"></a>在服务器上配置 MessagePack
 
@@ -211,7 +212,7 @@ services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
-若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。 在该委托中， `FormatterResolvers` 属性可用于配置 MessagePack 序列化选项。 有关解析程序工作方式的详细信息，请访问[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。 属性可用于要序列化的对象，以定义应如何处理它们。
+若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。 在该委托中， `FormatterResolvers` 属性可用于配置 MessagePack 序列化选项。 有关解析程序工作方式的详细信息，请访问 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。 属性可用于要序列化的对象，以定义应如何处理它们。
 
 ```csharp
 services.AddSignalR()
@@ -225,7 +226,7 @@ services.AddSignalR()
 ```
 
 > [!WARNING]
-> 强烈建议查看[CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf)和应用建议的修补程序。 例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。 设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3) 正在安装 `MessagePack` 版本为的 1.9. x 的升级 SignalR 。 当未 `MessagePackSecurity.Active` 设置为时 `MessagePackSecurity.UntrustedData` ，恶意客户端可能会导致拒绝服务。 `MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：
+> 强烈建议查看 [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) 和应用建议的修补程序。 例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。 设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3) 正在安装 `MessagePack` 版本为的 1.9. x 的升级 SignalR 。 当未 `MessagePackSecurity.Active` 设置为时 `MessagePackSecurity.UntrustedData` ，恶意客户端可能会导致拒绝服务。 `MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：
 
 ```csharp
 public static void Main(string[] args)
@@ -267,7 +268,7 @@ npm install @microsoft/signalr-protocol-msgpack
 
 *node_modules\\@microsoft\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
 
-在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在*node_modules\msgpack5\dist\msgpack5.js*中找到库。
+在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js*中找到库。
 
 > [!NOTE]
 > 使用元素时 `<script>` ，顺序很重要。 如果在*msgpack5.js*之前引用*signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js*之前也需要*signalr.js* 。
@@ -312,17 +313,17 @@ public class ChatMessage
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 ```
 
-使用 `camelCased` 名称无法正确绑定到 c # 类。 可以通过使用 `Key` 属性为 MessagePack 属性指定不同的名称来解决此情况。 有关详细信息，请参阅[MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp#object-serialization)。
+使用 `camelCased` 名称无法正确绑定到 c # 类。 可以通过使用 `Key` 属性为 MessagePack 属性指定不同的名称来解决此情况。 有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp#object-serialization)。
 
 ### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>序列化/反序列化时不保留 DateTime. Kind
 
 MessagePack 协议不提供对的值进行编码的方法 `Kind` `DateTime` 。 因此，在对日期进行反序列化时，MessagePack Hub 协议假设传入日期为 UTC 格式。 如果使用的是 `DateTime` 本地时间的值，建议在发送之前将值转换为 UTC。 接收到本地时间时将它们从 UTC 转换为本地时间。
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2632](https://github.com/aspnet/SignalR/issues/2632)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2632](https://github.com/aspnet/SignalR/issues/2632)。
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>JavaScript 中的 MessagePack 不支持 MinValue
 
-JavaScript 客户端使用的[msgpack5](https://github.com/mcollina/msgpack5)库 SignalR 不支持 `timestamp96` MessagePack 中的类型。 此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。 的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。 因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。 当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：
+JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 SignalR 不支持 `timestamp96` MessagePack 中的类型。 此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。 的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。 因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。 当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
@@ -330,11 +331,11 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 
 通常， `DateTime.MinValue` 用于对 "缺失" 或值进行编码 `null` 。 如果需要在 MessagePack 中对该值进行编码，请使用 () 的可以为 null 的 `DateTime` 值， `DateTime?` 或对 `bool` 指示日期是否存在的单独值进行编码。
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。
 
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"提前" 编译环境中的 MessagePack 支持
 
-.NET 客户端和服务器使用的[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80)库使用代码生成来优化序列化。 因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。 可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。 有关详细信息，请参阅[MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports)。 预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：
+.NET 客户端和服务器使用的 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80) 库使用代码生成来优化序列化。 因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。 可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。 有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports)。 预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：
 
 ```csharp
 services.AddSignalR()
@@ -356,7 +357,7 @@ JSON 集线器协议将在反序列化过程中执行类型转换。 例如，�
 InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
 ```
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。
 
 ## <a name="related-resources"></a>相关资源
 
@@ -368,11 +369,11 @@ InvalidDataException: Error binding arguments. Make sure that the types of the p
 
 ::: moniker range="< aspnetcore-3.0"
 
-本文假定读者[熟悉入门中](xref:tutorials/signalr)介绍的主题。
+本文假定读者 [熟悉入门中](xref:tutorials/signalr)介绍的主题。
 
 ## <a name="what-is-messagepack"></a>什么是 MessagePack？
 
-[MessagePack](https://msgpack.org/index.html)是一种快速、精简的二进制序列化格式。 当性能和带宽需要考虑时，它很有用，因为它会创建比[JSON](https://www.json.org/)更小的消息。 在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。 SignalR提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。
+[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。 当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。 在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。 SignalR 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。
 
 ## <a name="configure-messagepack-on-the-server"></a>在服务器上配置 MessagePack
 
@@ -386,7 +387,7 @@ services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
-若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。 在该委托中， `FormatterResolvers` 属性可用于配置 MessagePack 序列化选项。 有关解析程序工作方式的详细信息，请访问[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。 属性可用于要序列化的对象，以定义应如何处理它们。
+若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。 在该委托中， `FormatterResolvers` 属性可用于配置 MessagePack 序列化选项。 有关解析程序工作方式的详细信息，请访问 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。 属性可用于要序列化的对象，以定义应如何处理它们。
 
 ```csharp
 services.AddSignalR()
@@ -400,7 +401,7 @@ services.AddSignalR()
 ```
 
 > [!WARNING]
-> 强烈建议查看[CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf)和应用建议的修补程序。 例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。 设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3) 正在安装 `MessagePack` 版本为的 1.9. x 的升级 SignalR 。 当未 `MessagePackSecurity.Active` 设置为时 `MessagePackSecurity.UntrustedData` ，恶意客户端可能会导致拒绝服务。 `MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：
+> 强烈建议查看 [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) 和应用建议的修补程序。 例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。 设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3) 正在安装 `MessagePack` 版本为的 1.9. x 的升级 SignalR 。 当未 `MessagePackSecurity.Active` 设置为时 `MessagePackSecurity.UntrustedData` ，恶意客户端可能会导致拒绝服务。 `MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：
 
 ```csharp
 public static void Main(string[] args)
@@ -442,7 +443,7 @@ npm install @aspnet/signalr-protocol-msgpack
 
 *node_modules\\@aspnet\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js*
 
-在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在*node_modules\msgpack5\dist\msgpack5.js*中找到库。
+在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js*中找到库。
 
 > [!NOTE]
 > 使用元素时 `<script>` ，顺序很重要。 如果在*msgpack5.js*之前引用*signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js*之前也需要*signalr.js* 。
@@ -487,17 +488,17 @@ public class ChatMessage
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 ```
 
-使用 `camelCased` 名称无法正确绑定到 c # 类。 可以通过使用 `Key` 属性为 MessagePack 属性指定不同的名称来解决此情况。 有关详细信息，请参阅[MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp#object-serialization)。
+使用 `camelCased` 名称无法正确绑定到 c # 类。 可以通过使用 `Key` 属性为 MessagePack 属性指定不同的名称来解决此情况。 有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp#object-serialization)。
 
 ### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>序列化/反序列化时不保留 DateTime. Kind
 
 MessagePack 协议不提供对的值进行编码的方法 `Kind` `DateTime` 。 因此，在对日期进行反序列化时，MessagePack Hub 协议假设传入日期为 UTC 格式。 如果使用的是 `DateTime` 本地时间的值，建议在发送之前将值转换为 UTC。 接收到本地时间时将它们从 UTC 转换为本地时间。
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2632](https://github.com/aspnet/SignalR/issues/2632)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2632](https://github.com/aspnet/SignalR/issues/2632)。
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>JavaScript 中的 MessagePack 不支持 MinValue
 
-JavaScript 客户端使用的[msgpack5](https://github.com/mcollina/msgpack5)库 SignalR 不支持 `timestamp96` MessagePack 中的类型。 此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。 的值 `DateTime.MinValue` `January 1, 0001` 必须在值中进行编码 `timestamp96` 。 因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。 当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：
+JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 SignalR 不支持 `timestamp96` MessagePack 中的类型。 此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。 的值 `DateTime.MinValue` `January 1, 0001` 必须在值中进行编码 `timestamp96` 。 因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。 当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
@@ -505,11 +506,11 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 
 通常， `DateTime.MinValue` 用于对 "缺失" 或值进行编码 `null` 。 如果需要在 MessagePack 中对该值进行编码，请使用 () 的可以为 null 的 `DateTime` 值， `DateTime?` 或对 `bool` 指示日期是否存在的单独值进行编码。
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。
 
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"提前" 编译环境中的 MessagePack 支持
 
-.NET 客户端和服务器使用的[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80)库使用代码生成来优化序列化。 因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。 可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。 有关详细信息，请参阅[MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports)。 预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：
+.NET 客户端和服务器使用的 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80) 库使用代码生成来优化序列化。 因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。 可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。 有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports)。 预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：
 
 ```csharp
 services.AddSignalR()
@@ -531,7 +532,7 @@ JSON 集线器协议将在反序列化过程中执行类型转换。 例如，�
 InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
 ```
 
-有关此限制的详细信息，请参阅 GitHub 颁发[aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。
+有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。
 
 ## <a name="related-resources"></a>相关资源
 

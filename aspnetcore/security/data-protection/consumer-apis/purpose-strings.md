@@ -5,6 +5,7 @@ description: 了解如何在 ASP.NET Core 数据保护 Api 中使用目的字符
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,24 +16,24 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/purpose-strings
-ms.openlocfilehash: 33139f6e5e36aed2cb54738fbd2487969844edc7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1119c45570338f629a3ab7adbd43361529aa23e7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018398"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626917"
 ---
 # <a name="purpose-strings-in-aspnet-core"></a>ASP.NET Core 中的用途字符串
 
 <a name="data-protection-consumer-apis-purposes"></a>
 
-使用的组件 `IDataProtectionProvider` 必须将唯一的*用途*参数传递给 `CreateProtector` 方法。 目的*参数*对于数据保护系统的安全性是固有的，因为它在加密使用者之间提供隔离，即使根加密密钥相同也是如此。
+使用的组件 `IDataProtectionProvider` 必须将唯一的 *用途* 参数传递给 `CreateProtector` 方法。 目的 *参数* 对于数据保护系统的安全性是固有的，因为它在加密使用者之间提供隔离，即使根加密密钥相同也是如此。
 
 当使用者指定目的时，会将目的字符串与根加密密钥一起使用，以派生该使用者独有的加密子项。 这会将使用者与应用程序中的所有其他加密使用者隔离：其他组件不能读取其有效负载，也不能读取任何其他组件的负载。 此隔离还会针对组件呈现不可行的整个攻击类别。
 
 ![用途关系图示例](purpose-strings/_static/purposes.png)
 
-在上图中， `IDataProtector` 实例 A 和 B**无法**读取彼此各自的负载。
+在上图中， `IDataProtector` 实例 A 和 B **无法** 读取彼此各自的负载。
 
 用途字符串不必是机密。 它应该是唯一的，因为任何其他正常行为的组件都不能提供相同的目的字符串。
 

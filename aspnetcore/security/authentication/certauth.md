@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 07/16/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,16 +17,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 7a23f2b17cc8fb3a4989b9fddd5c128add13db5b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 54780e2d67c70d945fd875c41c8d6483aa358bbf
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021947"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627190"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
-`Microsoft.AspNetCore.Authentication.Certificate`包含类似于 ASP.NET Core 的[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)的实现。 证书身份验证在 TLS 级别发生，远在到达 ASP.NET Core 之前。 更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到的事件 `ClaimsPrincipal` 。 
+`Microsoft.AspNetCore.Authentication.Certificate` 包含类似于 ASP.NET Core 的 [证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4) 的实现。 证书身份验证在 TLS 级别发生，远在到达 ASP.NET Core 之前。 更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到的事件 `ClaimsPrincipal` 。 
 
 将[服务器配置](#configure-your-server-to-require-certificates)为使用证书进行身份验证，如 IIS、Kestrel、Azure Web 应用，或者使用任何其他方法。
 
@@ -40,9 +41,9 @@ ms.locfileid: "88021947"
 
 ## <a name="get-started"></a>入门
 
-获取并应用 HTTPS 证书，并将[服务器配置](#configure-your-server-to-require-certificates)为需要证书。
+获取并应用 HTTPS 证书，并将 [服务器配置](#configure-your-server-to-require-certificates) 为需要证书。
 
-在 web 应用中，添加对[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Certificate)包的引用。 然后在 `Startup.ConfigureServices` 方法中， `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` 使用你的选项调用，同时提供一个委托，用于对 `OnCertificateValidated` 随请求发送的客户端证书进行任何补充验证。 将该信息转换为 `ClaimsPrincipal` 并在属性上设置 `context.Principal` 。
+在 web 应用中，添加对 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Certificate) 包的引用。 然后在 `Startup.ConfigureServices` 方法中， `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` 使用你的选项调用，同时提供一个委托，用于对 `OnCertificateValidated` 随请求发送的客户端证书进行任何补充验证。 将该信息转换为 `ClaimsPrincipal` 并在属性上设置 `context.Principal` 。
 
 如果身份验证失败，此处理程序将 `403 (Forbidden)` `401 (Unauthorized)` 像你所料，返回响应，而不是。 原因是，在初次 TLS 连接期间应进行身份验证。 当它到达处理程序时，它的时间太晚。 无法将连接从匿名连接升级到证书。
 
@@ -233,7 +234,7 @@ services.AddAuthentication(
 
 ### <a name="kestrel"></a>Kestrel
 
-在*Program.cs*中，按如下所示配置 Kestrel：
+在 *Program.cs*中，按如下所示配置 Kestrel：
 
 ```csharp
 public static void Main(string[] args)
@@ -264,7 +265,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 
 在 IIS 管理器中完成以下步骤：
 
-1. 从 "**连接**" 选项卡中选择你的站点。
+1. 从 " **连接** " 选项卡中选择你的站点。
 1. 双击 "**功能视图**" 窗口中的 " **SSL 设置**" 选项。
 1. 选中 "**需要 SSL** " 复选框，并选择 "**客户端证书**" 部分中的 "**要求**" 单选按钮。
 
@@ -272,7 +273,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 
 ### <a name="azure-and-custom-web-proxies"></a>Azure 和自定义 web 代理
 
-有关如何配置证书转发中间件的详细[说明，请参阅托管和部署文档](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding)。
+有关如何配置证书转发中间件的详细 [说明，请参阅托管和部署文档](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding) 。
 
 ### <a name="use-certificate-authentication-in-azure-web-apps"></a>在 Azure Web 应用中使用证书身份验证
 
@@ -325,7 +326,7 @@ private static byte[] StringToByteArray(string hex)
 }
 ```
 
-然后，该 `Startup.Configure` 方法将添加中间件。 `UseCertificateForwarding`调用和之前调用 `UseAuthentication` `UseAuthorization` ：
+然后，该 `Startup.Configure` 方法将添加中间件。 `UseCertificateForwarding` 调用和之前调用 `UseAuthentication` `UseAuthorization` ：
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -629,10 +630,10 @@ public void ConfigureServices(IServiceCollection services)
 
 TLS 重新协商是实现可选客户端证书的一种方法。 不建议这样做，因为：
 - 在 HTTP/1.1 中，在 POST 请求期间 renegotiating 可能会导致死锁，其中，请求正文填充 TCP 窗口，而重新协商数据包无法接收。
-- HTTP/2[显式禁止](https://tools.ietf.org/html/rfc7540#section-9.2.1)重新协商。
-- TLS 1.3 已[删除](https://tools.ietf.org/html/rfc8740#section-1)对重新协商的支持。
+- HTTP/2 [显式禁止](https://tools.ietf.org/html/rfc7540#section-9.2.1) 重新协商。
+- TLS 1.3 已 [删除](https://tools.ietf.org/html/rfc8740#section-1) 对重新协商的支持。
 
-ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更方便的支持。 有关详细信息，请参阅[可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。
+ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更方便的支持。 有关详细信息，请参阅 [可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。
 
 以下方法支持可选的客户端证书：
 
@@ -646,12 +647,12 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
     * IIS
       * [承载 IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
       * [配置 IIS 上的安全性](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
-    * Http.Sys：[配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
+    * Http.Sys： [配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
 * 对于需要客户端证书且没有客户端证书的 web 应用的请求：
   * 使用客户端证书保护的子域重定向到同一页面。
   * 例如，重定向到 `myClient.contoso.com/requestedPage` 。 由于与的请求 `myClient.contoso.com/requestedPage` 不同于的主机名 `contoso.com/requestedPage` ，因此客户端会建立一个不同的连接，并提供客户端证书。
   * 有关详细信息，请参阅 <xref:security/authorization/introduction>。
 
-在[此 GitHub 讨论](https://github.com/dotnet/AspNetCore.Docs/issues/18720)问题中，对可选客户端证书留下疑问、评论和其他反馈。
+在 [此 GitHub 讨论](https://github.com/dotnet/AspNetCore.Docs/issues/18720) 问题中，对可选客户端证书留下疑问、评论和其他反馈。
 
-&dagger;服务器名称指示 (SNI) 是一个 TLS 扩展，可将虚拟域作为 SSL 协商的一部分包括在内。 这实际上意味着，可以使用虚拟域名或主机名来识别网络终结点。
+&dagger; 服务器名称指示 (SNI) 是一个 TLS 扩展，可将虚拟域作为 SSL 协商的一部分包括在内。 这实际上意味着，可以使用虚拟域名或主机名来识别网络终结点。

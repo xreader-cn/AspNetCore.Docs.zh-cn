@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 5925594b5429f011a0694dbe14218211a52d6377
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4a9f1958cd26bb57fcf3944aabacd57c470fb17e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018450"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626943"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的部分标记帮助程序
 
@@ -34,7 +35,7 @@ ms.locfileid: "88018450"
 
 ## <a name="overview"></a>概述
 
-部分标记帮助器用于在页面和 MVC 应用中呈现[分部视图](xref:mvc/views/partial) Razor 。 请考虑：
+部分标记帮助器用于在页面和 MVC 应用中呈现 [分部视图](xref:mvc/views/partial) Razor 。 请考虑：
 
 * 需要 ASP.NET Core 2.1 或更高版本。
 * 是 [HTML 帮助程序语法](xref:mvc/views/partial#reference-a-partial-view)的替代方法。
@@ -73,7 +74,7 @@ ms.locfileid: "88018450"
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Pages/Product.cshtml.cs?highlight=8)]
 
-## <a name="model"></a>model
+## <a name="model"></a>模型
 
 `model` 属性分配模型实例，以传递到分部视图。 `model` 属性不能与 [for](#for) 属性一起使用。
 

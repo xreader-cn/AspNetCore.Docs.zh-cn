@@ -5,6 +5,7 @@ description: 了解如何为 ASP.NET Core 中的 Web API 创建和使用自定�
 ms.author: riande
 ms.date: 06/25/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,22 +16,22 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: ecf233273a28df9b2d35edf3264b8c73b16759e5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 9f87d02dd3abe6dca8db495e482ccf9c440a2469
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021869"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627541"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的自定义格式化程序
 
-作者： [Kirk Larkin](https://twitter.com/serpent5)和[Tom Dykstra](https://github.com/tdykstra)。
+作者： [Kirk Larkin](https://twitter.com/serpent5) 和 [Tom Dykstra](https://github.com/tdykstra)。
 
-ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据交换。 [模型绑定](xref:mvc/models/model-binding)使用输入格式化程序。 输出格式化程序用于[设置响应的格式](xref:web-api/advanced/formatting)。
+ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据交换。 [模型绑定](xref:mvc/models/model-binding)使用输入格式化程序。 输出格式化程序用于 [设置响应的格式](xref:web-api/advanced/formatting)。
 
 该框架为 JSON 和 XML 提供内置的输入和输出格式化程序。 它为纯文本提供内置的输出格式化程序，但不为纯文本提供输入格式化程序。
 
-本文展示如何通过创建自定义格式化程序，添加对其他格式的支持。 有关自定义纯文本输入格式化程序的示例，请参阅 GitHub 上的[TextPlainInputFormatter](https://github.com/aspnet/Entropy/blob/master/samples/Mvc.Formatters/TextPlainInputFormatter.cs) 。
+本文展示如何通过创建自定义格式化程序，添加对其他格式的支持。 有关自定义纯文本输入格式化程序的示例，请参阅 GitHub 上的 [TextPlainInputFormatter](https://github.com/aspnet/Entropy/blob/master/samples/Mvc.Formatters/TextPlainInputFormatter.cs) 。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -73,7 +74,7 @@ ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据
 
 [!code-csharp[](custom-formatters/samples/3.x/CustomFormattersSample/Formatters/VcardOutputFormatter.cs?name=snippet_ctor)]
 
-格式化程序类**不**能将构造函数注入用于其依赖项。 例如， `ILogger<VcardOutputFormatter>` 不能作为参数添加到构造函数。 若要访问服务，请使用传递给方法的上下文对象。 本文中的代码示例和[示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/samples)演示了如何执行此操作。
+格式化程序类 **不** 能将构造函数注入用于其依赖项。 例如， `ILogger<VcardOutputFormatter>` 不能作为参数添加到构造函数。 若要访问服务，请使用传递给方法的上下文对象。 本文中的代码示例和 [示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/samples) 演示了如何执行此操作。
 
 ### <a name="override-canreadtype-and-canwritetype"></a>重写 CanReadType 和 CanWriteType
 

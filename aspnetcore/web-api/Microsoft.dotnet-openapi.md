@@ -6,6 +6,7 @@ ms.author: rybrande
 ms.date: 09/26/2019
 monikerRange: '>= aspnetcore-3.0'
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/Microsoft.dotnet-openapi
-ms.openlocfilehash: 6a9b80e868a54bd76503a6421c34ae159421699b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 45921deb35452876b0a92a8731da68539a880c1d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022233"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626553"
 ---
 # <a name="develop-aspnet-core-apps-using-openapi-tools"></a>使用 OpenAPI 工具开发 ASP.NET Core 应用
 
@@ -39,7 +40,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ## <a name="add"></a>添加
 
-使用此页上的任意命令添加 OpenAPI 引用会将类似于 `<OpenApiReference />` 下面的元素添加到 *.csproj*文件：
+使用此页上的任意命令添加 OpenAPI 引用会将类似于 `<OpenApiReference />` 下面的元素添加到 *.csproj* 文件：
 
 ```xml
 <OpenApiReference Include="openapi.json" />
@@ -74,7 +75,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 #### <a name="arguments"></a>参数
 
-|  参数  | 描述 | 示例 |
+|  参数  | 说明 | 示例 |
 |-------------|-------------|---------|
 | source-file | 要创建的引用的源。 必须为 OpenAPI 文件。 |dotnet openapi add file .\OpenAPI.json** |
 
@@ -91,7 +92,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 #### <a name="arguments"></a>参数
 
-|  参数  | 描述 | 示例 |
+|  参数  | 说明 | 示例 |
 |-------------|-------------|---------|
 | source-URL | 要创建的引用的源。 必须是 URL。 |dotnet openapi add url `https://contoso.com/openapi.json` |
 
@@ -108,7 +109,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ### <a name="arguments"></a>参数
 
-|  参数  | 描述| 示例 |
+|  参数  | 说明| 示例 |
 | ------------|------------|---------|
 | source-file | 要删除的引用的源。 |dotnet openapi remove .\OpenAPI.json** |
 
@@ -125,6 +126,6 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ### <a name="arguments"></a>参数
 
-|  参数  | 描述 | 示例 |
+|  参数  | 说明 | 示例 |
 | ------------|-------------|---------|
 | source-URL | 用于刷新引用的 URL。 | dotnet openapi refresh `https://contoso.com/openapi.json` |
