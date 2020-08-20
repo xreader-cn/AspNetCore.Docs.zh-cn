@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 21bd1db322a984b5644b817e82a293b6c0b2d91e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 913f8f1e43586ce71353c080e72be3b80f4c0573
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019324"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634262"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
-ASP.NET Core 3.0 或更高版本在单页面应用中提供身份验证， (Spa) 使用对 API 授权的支持。 Identity用于对用户进行身份验证和存储的 ASP.NET Core 与用于实现 OpenID connect 的[ Identity 服务器](https://identityserver.io/)结合。
+ASP.NET Core 3.0 或更高版本在单页面应用中提供身份验证， (Spa) 使用对 API 授权的支持。 ASP.NET Core Identity对于身份验证和存储用户，将与用于实现 OpenID Connect 的[ Identity 服务器](https://identityserver.io/)结合。
 
-已将身份验证参数添加到 "**角度**" 和 "**响应**" 项目模板，该模板类似于 Web 应用程序中的身份验证参数** (模型-视图-控制器) ** (MVC) 和**web 应用** (Razor 页) 项目模板。 允许的参数值为**None**和**个体**。 **React.js 和 Redux**项目模板此时不支持身份验证参数。
+已将身份验证参数添加到 " **角度** " 和 " **响应** " 项目模板，该模板类似于 Web 应用程序中的身份验证参数 ** (模型-视图-控制器) ** (MVC) 和 **web 应用** (Razor 页) 项目模板。 允许的参数值为 **None** 和 **个体**。 **React.js 和 Redux**项目模板此时不支持身份验证参数。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>使用 API 授权支持创建应用
 
@@ -46,7 +47,7 @@ dotnet new angular -o <output_directory_name> -au Individual
 dotnet new react -o <output_directory_name> -au Individual
 ```
 
-上述命令创建一个 ASP.NET Core 应用，其中包含包含 SPA 的*ClientApp*目录。
+上述命令创建一个 ASP.NET Core 应用，其中包含包含 SPA 的 *ClientApp* 目录。
 
 ## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a>应用的 ASP.NET Core 组件的一般描述
 
@@ -54,12 +55,12 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="startup-class"></a>Startup 类
 
-下面的代码示例依赖于[AspNetCore. ApiAuthorization。 IdentityServer](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) NuGet 包。 示例使用 <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> 和扩展方法配置 API 身份验证和授权 <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> 。 使用带有身份验证的响应或角 SPA 项目模板的项目包括对此包的引用。
+下面的代码示例依赖于 [AspNetCore. ApiAuthorization。 IdentityServer](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) NuGet 包。 示例使用 <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> 和扩展方法配置 API 身份验证和授权 <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> 。 使用带有身份验证的响应或角 SPA 项目模板的项目包括对此包的引用。
 
 `Startup`类添加了以下内容：
 
 * 在 `Startup.ConfigureServices` 方法中：
-  * Identity对于默认的 UI：
+  * Identity 对于默认的 UI：
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -106,21 +107,21 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
-在*Controllers\WeatherForecastController.cs*文件中，请注意 `[Authorize]` 应用于类的属性，该属性指示用户需要根据默认策略进行授权才能访问资源。 默认授权策略将配置为使用默认的身份验证方案，该方案由设置 `AddIdentityServerJwt` 为上面提到的策略方案，并使此 `JwtBearerHandler` 类 helper 方法配置的应用程序请求的默认处理程序。
+在 *Controllers\WeatherForecastController.cs* 文件中，请注意 `[Authorize]` 应用于类的属性，该属性指示用户需要根据默认策略进行授权才能访问资源。 默认授权策略将配置为使用默认的身份验证方案，该方案由设置 `AddIdentityServerJwt` 为上面提到的策略方案，并使此 `JwtBearerHandler` 类 helper 方法配置的应用程序请求的默认处理程序。
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-在*Data\ApplicationDbContext.cs*文件中，请注意， `DbContext` 在中使用了相同的， Identity 因为它将扩展 `ApiAuthorizationDbContext` (一个派生程度更高的类 `IdentityDbContext`) 以包括服务器的架构 Identity 。
+在 *Data\ApplicationDbContext.cs* 文件中，请注意， `DbContext` 在中使用了相同的， Identity 因为它将扩展 `ApiAuthorizationDbContext` (一个派生程度更高的类 `IdentityDbContext`) 以包括服务器的架构 Identity 。
 
 若要完全控制数据库架构，请从某个可用的类继承， Identity `DbContext` 并将上下文配置为 Identity 通过调用方法来包含架构 `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating` 。
 
 ### <a name="oidcconfigurationcontroller"></a>OidcConfigurationController
 
-在*Controllers\OidcConfigurationController.cs*文件中，请注意为提供客户端需要使用的 OIDC 参数而设置的终结点。
+在 *Controllers\OidcConfigurationController.cs* 文件中，请注意为提供客户端需要使用的 OIDC 参数而设置的终结点。
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-在项目根的*appsettings.js*文件中，有一个新 `IdentityServer` 部分描述了已配置的客户端的列表。 下例中存在一个客户端。 客户端名称对应于应用名称，并通过约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 它在内部用于驱动约定，以简化服务器的配置过程。 有几个配置文件可用，如 "[应用程序配置文件](#application-profiles)" 部分中所述。
+在项目根的 *appsettings.js* 文件中，有一个新 `IdentityServer` 部分描述了已配置的客户端的列表。 下例中存在一个客户端。 客户端名称对应于应用名称，并通过约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 它在内部用于驱动约定，以简化服务器的配置过程。 有几个配置文件可用，如 " [应用程序配置文件](#application-profiles) " 部分中所述。
 
 ```json
 "IdentityServer": {
@@ -134,7 +135,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.js
 
-在项目根的*appsettings.Development.js*文件中，有一个 `IdentityServer` 描述用于对令牌进行签名的密钥的部分。 部署到生产环境时，需要在应用中预配和部署密钥，如 "[部署到生产](#deploy-to-production)" 一节中所述。
+在项目根的 *appsettings.Development.js* 文件中，有一个 `IdentityServer` 描述用于对令牌进行签名的密钥的部分。 部署到生产环境时，需要在应用中预配和部署密钥，如 " [部署到生产](#deploy-to-production) " 一节中所述。
 
 ```json
 "IdentityServer": {
@@ -146,7 +147,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ## <a name="general-description-of-the-angular-app"></a>角应用的一般说明
 
-角度模板中的身份验证和 API 授权支持位于其自身的*ClientApp\src\api-authorization*目录中。 模块由以下元素组成：
+角度模板中的身份验证和 API 授权支持位于其自身的 *ClientApp\src\api-authorization* 目录中。 模块由以下元素组成：
 
 * 3个组件：
   * *login. ts*：处理应用的登录流。
@@ -161,7 +162,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ## <a name="general-description-of-the-react-app"></a>响应应用的一般说明
 
-响应模板中的身份验证和 API 授权支持位于*ClientApp\src\components\api-authorization*目录中。 它由以下元素组成：
+响应模板中的身份验证和 API 授权支持位于 *ClientApp\src\components\api-authorization* 目录中。 它由以下元素组成：
 
 * 4个组件：
   * *Login.js*：处理应用的登录流。
@@ -279,13 +280,13 @@ async populateWeatherData() {
 * 用于对令牌进行签名的生产证书。
   * 此证书没有特定要求;此证书可以是自签名证书，也可以是通过 CA 颁发机构预配的证书。
   * 它可通过 PowerShell 或 OpenSSL 等标准工具生成。
-  * 可以将其安装到目标计算机上的证书存储中，或部署为带有强密码的 *.pfx*文件。
+  * 可以将其安装到目标计算机上的证书存储中，或部署为带有强密码的 *.pfx* 文件。
 
 ### <a name="example-deploy-to-azure-app-service"></a>示例：部署到 Azure App Service
 
 本部分介绍如何使用存储在证书存储区中的证书，将应用部署到 Azure App Service。 若要将应用修改为从证书存储区中加载证书，请在稍后的步骤中配置 Azure 门户应用时，需要使用标准层服务计划或更高版本。
 
-在应用的文件*appsettings.js上*，修改 `IdentityServer` 部分以包含关键详细信息：
+在应用的文件 *appsettings.js上* ，修改 `IdentityServer` 部分以包含关键详细信息：
 
 ```json
 "IdentityServer": {
@@ -302,11 +303,11 @@ async populateWeatherData() {
 * 应用商店位置表示从 (或) 中加载证书的位置 `CurrentUser` `LocalMachine` 。
 * 证书上的名称属性对应于证书的可分辨主题。
 
-若要部署到 Azure App Service，请按照将[应用程序部署到 Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)中的步骤操作，该步骤介绍了如何创建必要的 Azure 资源，以及如何将应用程序部署到生产环境。
+若要部署到 Azure App Service，请按照将 [应用程序部署到 Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)中的步骤操作，该步骤介绍了如何创建必要的 Azure 资源，以及如何将应用程序部署到生产环境。
 
-按照前面的说明操作后，应用程序将部署到 Azure，但尚不起作用。 应用使用的证书必须在 Azure 门户中进行配置。 找到证书的指纹，并按照[加载证书](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)中所述的步骤进行操作。
+按照前面的说明操作后，应用程序将部署到 Azure，但尚不起作用。 应用使用的证书必须在 Azure 门户中进行配置。 找到证书的指纹，并按照 [加载证书](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)中所述的步骤进行操作。
 
-虽然这些步骤提及 SSL，但在 Azure 门户中有一个 "**私有证书**" 部分，你可以在其中上传预配的证书以与应用一起使用。
+虽然这些步骤提及 SSL，但在 Azure 门户中有一个 " **私有证书** " 部分，你可以在其中上传预配的证书以与应用一起使用。
 
 在 Azure 门户中配置应用和应用设置后，请在门户中重新启动应用。
 

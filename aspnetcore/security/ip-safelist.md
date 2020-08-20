@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,22 +18,22 @@ no-loc:
 - Razor
 - SignalR
 uid: security/ip-safelist
-ms.openlocfilehash: 75c1ea3a6087f89a200d1f73b1ff65080c819ccd
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 621be5351acb251335a42f57e8ea670af1b35a87
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021765"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634444"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>ASP.NET Core 的客户端 IP 安全安全
 
-作者： [Damien Bowden](https://twitter.com/damien_bod)和[Tom Dykstra](https://github.com/tdykstra)
+作者： [Damien Bowden](https://twitter.com/damien_bod) 和 [Tom Dykstra](https://github.com/tdykstra)
  
 本文介绍三种实现 IP 地址安全列表的方式 (在 ASP.NET Core 应用程序中也称为允许列表) 。 附带的示例应用程序演示了所有这三种方法。 可用工具如下：
 
 * 用于检查每个请求的远程 IP 地址的中间件。
 * MVC 操作筛选器，用于检查针对特定控制器或操作方法的请求的远程 IP 地址。
-* Razor页面筛选器，用于检查页面请求的远程 IP 地址 Razor 。
+* Razor 页面筛选器，用于检查页面请求的远程 IP 地址 Razor 。
 
 在每种情况下，包含批准的客户端 IP 地址的字符串存储在应用设置中。 中间件或筛选器：
 
@@ -47,8 +48,8 @@ ms.locfileid: "88021765"
 
 在示例应用中，IP 地址安全项是：
 
-* 由 `AdminSafeList` 文件*appsettings.js上*的属性定义。
-* 分号分隔的字符串，可包含[Internet 协议版本 4 (IPv4) ](https://wikipedia.org/wiki/IPv4)和[internet 协议版本 6 (IPv6) ](https://wikipedia.org/wiki/IPv6)地址。
+* 由 `AdminSafeList` 文件 *appsettings.js上* 的属性定义。
+* 分号分隔的字符串，可包含 [Internet 协议版本 4 (IPv4) ](https://wikipedia.org/wiki/IPv4) 和 [internet 协议版本 6 (IPv6) ](https://wikipedia.org/wiki/IPv6) 地址。
 
 [!code-json[](ip-safelist/samples/3.x/ClientIpAspNetCore/appsettings.json?range=1-3&highlight=2)]
 
@@ -84,7 +85,7 @@ ms.locfileid: "88021765"
 
 ::: moniker-end
 
-然后，可以将操作筛选器应用到具有[[ServiceFilter]](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute)属性的控制器或操作方法：
+然后，可以将操作筛选器应用到具有 [[ServiceFilter]](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute) 属性的控制器或操作方法：
 
 [!code-csharp[](ip-safelist/samples/3.x/ClientIpAspNetCore/Controllers/ValuesController.cs?name=snippet_ActionFilter&highlight=1)]
 
@@ -101,7 +102,7 @@ ms.locfileid: "88021765"
 
 * 除 GET 之外的 HTTP 请求谓词将 `AdminSafeListMiddleware` 验证客户端 IP 地址。
 
-## <a name="no-locrazor-pages-filter"></a>Razor页面筛选器
+## <a name="no-locrazor-pages-filter"></a>Razor 页面筛选器
 
 如果需要针对页面应用的安全筛选器驱动访问控制 Razor ，请使用 Razor 页面筛选器。 例如：
 
@@ -121,7 +122,7 @@ ms.locfileid: "88021765"
 
 ::: moniker-end
 
-请求示例应用的*索引* Razor 页时， Razor 页面筛选器将验证客户端 IP 地址。 筛选器生成以下控制台输出的变体：
+请求示例应用的 *索引* Razor 页时， Razor 页面筛选器将验证客户端 IP 地址。 筛选器生成以下控制台输出的变体：
 
 ```
 dbug: ClientIpSafelistComponents.Filters.ClientIpCheckPageFilter[0]

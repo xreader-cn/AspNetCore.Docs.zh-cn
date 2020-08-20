@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: e6989f431d0d72241a6e1b94759585c02ef7398f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 91fd2553803d855b338b1d1b46d55e1d1e4cc21e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021544"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635146"
 ---
 # <a name="aspnet-core-no-locsignalr-supported-platforms"></a>ASP.NET Core SignalR 支持的平台
 
 ## <a name="server-system-requirements"></a>服务器系统要求
 
-SignalR对于 ASP.NET Core 支持 ASP.NET Core 支持的任何服务器平台。
+SignalR 对于 ASP.NET Core 支持 ASP.NET Core 支持的任何服务器平台。
 
 ## <a name="javascript-client"></a>JavaScript 客户端
 
@@ -42,7 +43,7 @@ SignalR对于 ASP.NET Core 支持 ASP.NET Core 支持的任何服务器平台。
 | 免费包括 iOS            | 当前&dagger; |
 | Microsoft Internet Explorer     | 11              |
 
-&dagger;*当前*是指浏览器的最新版本。
+&dagger;*当前* 是指浏览器的最新版本。
 
 ## <a name="net-client"></a>.NET 客户端
 

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/03/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,16 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/file-uploads
-ms.openlocfilehash: a11e6325143b9db57d6fbd1cd67478dc1dd6122d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 93ffa3a5313e63a1e9b98fb5bf9788944254213f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021245"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635211"
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 
-作者： [Steve Smith](https://ardalis.com/)和[Rutger 风暴](https://github.com/rutix)
+作者： [Steve Smith](https://ardalis.com/) 和 [Rutger 风暴](https://github.com/rutix)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -46,9 +47,9 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 * 将文件上传到专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
 * 请勿将上传的文件保存在与应用相同的目录树中****。&dagger;
-* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。 &dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示 (Razor 会自动对输出) 进行 HTML 编码。
+* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。 &dagger; 显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示 (Razor 会自动对输出) 进行 HTML 编码。
 * 仅允许应用设计规范的已批准文件扩展名。&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
-* 验证是否在服务器上执行了客户端检查。 &dagger;客户端检查很容易规避。
+* 验证是否在服务器上执行了客户端检查。 &dagger; 客户端检查很容易规避。
 * 检查已上传文件的大小。 设置大小上限以防止上传大型文件。&dagger;
 * 文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。
 * **先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**
@@ -93,7 +94,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
   * 服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。
   * 在大型存储基础结构方案中，服务的成本可能更低。
 
-  有关详细信息，请参阅[快速入门：使用 .net 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。
+  有关详细信息，请参阅 [快速入门：使用 .net 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。
 
 ## <a name="file-upload-scenarios"></a>文件上传方案
 
@@ -111,7 +112,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 本主题的以下部分介绍了如何缓冲小型文件：
 
 * [物理存储](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [数据库](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **流式处理**
 
@@ -193,7 +194,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 使用 `XMLHttpRequest`。 例如：
+* 改用 `XMLHttpRequest` 例如：
 
   ```javascript
   <script>
@@ -252,7 +253,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-如下示例中：
+下面的示例：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -416,7 +417,7 @@ public async Task<IActionResult> OnPostUploadAsync()
 
 以下示例演示如何使用 JavaScript 将文件流式传输到控制器操作。 使用自定义筛选器属性生成文件的防伪令牌，并将其传递到客户端 HTTP 头中（而不是在请求正文中传递）。 由于操作方法直接处理上传的数据，所以其他自定义筛选器会禁用窗体模型绑定。 在该操作中，使用 `MultipartReader` 读取窗体的内容，它会读取每个单独的 `MultipartSection`，从而根据需要处理文件或存储内容。 读取多部分节后，该操作会执行自己的模型绑定。
 
-初始页面响应会加载窗体，并 cookie 通过属性) 将防伪标记保存在 (中 `GenerateAntiforgeryTokenCookieAttribute` 。 属性使用 ASP.NET Core 的内置[防伪支持](xref:security/anti-request-forgery)来设置 cookie 具有请求令牌的：
+初始页面响应会加载窗体，并 cookie 通过属性) 将防伪标记保存在 (中 `GenerateAntiforgeryTokenCookieAttribute` 。 属性使用 ASP.NET Core 的内置 [防伪支持](xref:security/anti-request-forgery) 来设置 cookie 具有请求令牌的：
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Filters/Antiforgery.cs?name=snippet_GenerateAntiforgeryTokenCookieAttribute)]
 
@@ -512,7 +513,7 @@ using (var reader = new BinaryReader(uploadedFileData))
 
 切勿使用客户端提供的文件名来将文件保存到物理存储。 使用 [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) 或 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 为文件创建安全的文件名，以创建完整路径（包括文件名）来执行临时存储。
 
-Razor自动对属性值进行 HTML 编码以便显示。 以下代码安全可用：
+Razor 自动对属性值进行 HTML 编码以便显示。 以下代码安全可用：
 
 ```cshtml
 @foreach (var file in Model.DatabaseFiles) {
@@ -569,7 +570,7 @@ if (formFile.Length > _fileSizeLimit)
 
 在 Razor 发布窗体数据或直接使用 JavaScript 的非窗体中 `FormData` ，在窗体的元素中指定的名称或 `FormData` 必须与控制器的操作中参数的名称匹配。
 
-在以下示例中：
+如下示例中：
 
 * 使用 `<input>` 元素时，将 `name` 属性设置为值 `battlePlans`：
 
@@ -620,7 +621,7 @@ public void ConfigureServices(IServiceCollection services)
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。
 
-在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
+在 Razor 页面应用中，将筛选器应用于中的 [约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddRazorPages(options =>
@@ -667,7 +668,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。
 
-在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
+在 Razor 页面应用中，将筛选器应用于中的 [约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddRazorPages(options =>
@@ -773,9 +774,9 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 * 将文件上传到专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
 * 请勿将上传的文件保存在与应用相同的目录树中****。&dagger;
-* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。 &dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示 (Razor 会自动对输出) 进行 HTML 编码。
+* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。 &dagger; 显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示 (Razor 会自动对输出) 进行 HTML 编码。
 * 仅允许应用设计规范的已批准文件扩展名。&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
-* 验证是否在服务器上执行了客户端检查。 &dagger;客户端检查很容易规避。
+* 验证是否在服务器上执行了客户端检查。 &dagger; 客户端检查很容易规避。
 * 检查已上传文件的大小。 设置大小上限以防止上传大型文件。&dagger;
 * 文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。
 * **先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**
@@ -820,7 +821,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
   * 服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。
   * 在大型存储基础结构方案中，服务的成本可能更低。
 
-  有关详细信息，请参阅[快速入门：使用 .net 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。 此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:System.IO.Stream> 时，可以使用 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 将 <xref:System.IO.FileStream> 保存到 blob 存储。
+  有关详细信息，请参阅 [快速入门：使用 .net 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。 此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:System.IO.Stream> 时，可以使用 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 将 <xref:System.IO.FileStream> 保存到 blob 存储。
 
 ## <a name="file-upload-scenarios"></a>文件上传方案
 
@@ -838,7 +839,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 本主题的以下部分介绍了如何缓冲小型文件：
 
 * [物理存储](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [数据库](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **流式处理**
 
@@ -920,7 +921,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 使用 `XMLHttpRequest`。 例如：
+* 改用 `XMLHttpRequest` 例如：
 
   ```javascript
   <script>
@@ -979,7 +980,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-如下示例中：
+下面的示例：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -1143,7 +1144,7 @@ public async Task<IActionResult> OnPostUploadAsync()
 
 以下示例演示如何使用 JavaScript 将文件流式传输到控制器操作。 使用自定义筛选器属性生成文件的防伪令牌，并将其传递到客户端 HTTP 头中（而不是在请求正文中传递）。 由于操作方法直接处理上传的数据，所以其他自定义筛选器会禁用窗体模型绑定。 在该操作中，使用 `MultipartReader` 读取窗体的内容，它会读取每个单独的 `MultipartSection`，从而根据需要处理文件或存储内容。 读取多部分节后，该操作会执行自己的模型绑定。
 
-初始页面响应会加载窗体，并 cookie 通过属性) 将防伪标记保存在 (中 `GenerateAntiforgeryTokenCookieAttribute` 。 属性使用 ASP.NET Core 的内置[防伪支持](xref:security/anti-request-forgery)来设置 cookie 具有请求令牌的：
+初始页面响应会加载窗体，并 cookie 通过属性) 将防伪标记保存在 (中 `GenerateAntiforgeryTokenCookieAttribute` 。 属性使用 ASP.NET Core 的内置 [防伪支持](xref:security/anti-request-forgery) 来设置 cookie 具有请求令牌的：
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Filters/Antiforgery.cs?name=snippet_GenerateAntiforgeryTokenCookieAttribute)]
 
@@ -1239,7 +1240,7 @@ using (var reader = new BinaryReader(uploadedFileData))
 
 切勿使用客户端提供的文件名来将文件保存到物理存储。 使用 [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) 或 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 为文件创建安全的文件名，以创建完整路径（包括文件名）来执行临时存储。
 
-Razor自动对属性值进行 HTML 编码以便显示。 以下代码安全可用：
+Razor 自动对属性值进行 HTML 编码以便显示。 以下代码安全可用：
 
 ```cshtml
 @foreach (var file in Model.DatabaseFiles) {
@@ -1296,7 +1297,7 @@ if (formFile.Length > _fileSizeLimit)
 
 在 Razor 发布窗体数据或直接使用 JavaScript 的非窗体中 `FormData` ，在窗体的元素中指定的名称或 `FormData` 必须与控制器的操作中参数的名称匹配。
 
-在以下示例中：
+如下示例中：
 
 * 使用 `<input>` 元素时，将 `name` 属性设置为值 `battlePlans`：
 
@@ -1347,7 +1348,7 @@ public void ConfigureServices(IServiceCollection services)
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。
 
-在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
+在 Razor 页面应用中，将筛选器应用于中的 [约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddMvc()
@@ -1393,7 +1394,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。
 
-在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
+在 Razor 页面应用中，将筛选器应用于中的 [约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddMvc()

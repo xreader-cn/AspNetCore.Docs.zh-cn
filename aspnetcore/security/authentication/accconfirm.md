@@ -5,6 +5,7 @@ description: 了解如何使用电子邮件确认和密码重置构建 ASP.NET C
 ms.author: riande
 ms.date: 03/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,22 +16,22 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 7016c2c1997d961f4b3d3cf513fc1769bd65247b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 57607390e7d5e58df9f27437faecd57504ad64df
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021609"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635367"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>ASP.NET Core 中的帐户确认和密码恢复
 
-作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Ponant](https://github.com/Ponant)和[Joe Audette](https://twitter.com/joeaudette)
+作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Ponant](https://github.com/Ponant)和 [Joe Audette](https://twitter.com/joeaudette)
 
-本教程介绍如何使用电子邮件确认和密码重置构建 ASP.NET Core 应用。 本教程**不**是开始主题。 你应该熟悉：
+本教程介绍如何使用电子邮件确认和密码重置构建 ASP.NET Core 应用。 本教程 **不** 是开始主题。 你应该熟悉：
 
 * [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
 * [身份验证](xref:security/authentication/identity)
-* [实体框架核心](xref:data/ef-mvc/intro)
+* [Entity Framework Core](xref:data/ef-mvc/intro)
 
 <!-- see C:/Dropbox/wrk/Code/SendGridConsole/Program.cs -->
 
@@ -50,20 +51,20 @@ cd WebPWrecover
 dotnet run
 ```
 
-运行应用，选择 "**注册**" 链接，然后注册用户。 注册后，你会被重定向到 "目标" `/Identity/Account/RegisterConfirmation` 页，其中包含用于模拟电子邮件确认的链接：
+运行应用，选择 " **注册** " 链接，然后注册用户。 注册后，你会被重定向到 "目标" `/Identity/Account/RegisterConfirmation` 页，其中包含用于模拟电子邮件确认的链接：
 
 * 选择 `Click here to confirm your account` 链接。
-* 选择 "**登录**" 链接，并以相同的凭据登录。
+* 选择 " **登录** " 链接，并以相同的凭据登录。
 * 选择将 `Hello YourEmail@provider.com!` 您重定向到页面的链接 `/Identity/Account/Manage/PersonalData` 。
-* 选择左侧的 "**个人数据**" 选项卡，然后选择 "**删除**"。
+* 选择左侧的 " **个人数据** " 选项卡，然后选择 " **删除**"。
 
 ### <a name="configure-an-email-provider"></a>配置电子邮件提供程序
 
-在本教程中，使用[SendGrid](https://sendgrid.com)发送电子邮件。 需要使用 SendGrid 帐户和密钥来发送电子邮件。 您可以使用其他电子邮件提供程序。 建议使用 SendGrid 或其他电子邮件服务发送电子邮件。 SMTP 难于保护和正确设置。
+在本教程中，使用 [SendGrid](https://sendgrid.com) 发送电子邮件。 需要使用 SendGrid 帐户和密钥来发送电子邮件。 您可以使用其他电子邮件提供程序。 建议使用 SendGrid 或其他电子邮件服务发送电子邮件。 SMTP 难于保护和正确设置。
 
-SendGrid 帐户可能需要[添加发送方](https://sendgrid.com/docs/ui/sending-email/senders/)。
+SendGrid 帐户可能需要 [添加发送方](https://sendgrid.com/docs/ui/sending-email/senders/)。
 
-创建一个类以获取安全电子邮件密钥。 对于本示例，请创建*服务/AuthMessageSenderOptions*：
+创建一个类以获取安全电子邮件密钥。 对于本示例，请创建 *服务/AuthMessageSenderOptions*：
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
@@ -78,9 +79,9 @@ dotnet user-secrets set SendGridKey <key>
 Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-在 Windows 上，机密管理器将密钥/值对存储在目录中的文件*secrets.js上* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` 。
+在 Windows 上，机密管理器将密钥/值对存储在目录中的文件 *secrets.js上* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` 。
 
-不会对文件*中secrets.js*的内容进行加密。 以下标记显示了文件*上的secrets.js* 。 已 `SendGridKey` 删除该值。
+不会对文件 * 中secrets.js* 的内容进行加密。 以下标记显示了文件 * 上的secrets.js* 。 已 `SendGridKey` 删除该值。
 
 ```json
 {
@@ -89,11 +90,11 @@ Successfully saved SendGridUser = RickAndMSFT to the secret store.
 }
 ```
 
-有关详细信息，请参阅[Options 模式](xref:fundamentals/configuration/options)和[配置](xref:fundamentals/configuration/index)。
+有关详细信息，请参阅 [Options 模式](xref:fundamentals/configuration/options) 和 [配置](xref:fundamentals/configuration/index)。
 
 ### <a name="install-sendgrid"></a>安装 SendGrid
 
-本教程介绍如何通过[SendGrid](https://sendgrid.com/)添加电子邮件通知，但你可以使用 SMTP 和其他机制发送电子邮件。
+本教程介绍如何通过 [SendGrid](https://sendgrid.com/)添加电子邮件通知，但你可以使用 SMTP 和其他机制发送电子邮件。
 
 安装 `SendGrid` NuGet 包：
 
@@ -115,17 +116,17 @@ dotnet add package SendGrid
 
 ---
 
-请参阅[SendGrid 的入门免费](https://sendgrid.com/free/)版，注册免费 SendGrid 帐户。
+请参阅 [SendGrid 的入门免费](https://sendgrid.com/free/) 版，注册免费 SendGrid 帐户。
 
 ### <a name="implement-iemailsender"></a>实现 IEmailSender
 
-若要实现 `IEmailSender` ，请创建具有类似于下面的代码的*服务/EmailSender* ：
+若要实现 `IEmailSender` ，请创建具有类似于下面的代码的 *服务/EmailSender* ：
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Services/EmailSender.cs)]
 
 ### <a name="configure-startup-to-support-email"></a>配置启动以支持电子邮件
 
-将以下代码添加到 `ConfigureServices` *Startup.cs*文件中的方法：
+将以下代码添加到 `ConfigureServices` *Startup.cs* 文件中的方法：
 
 * 添加 `EmailSender` 为暂时性服务。
 * 注册 `AuthMessageSenderOptions` 配置实例。
@@ -147,15 +148,15 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 运行 web 应用，并测试帐户确认和密码恢复流。
 
 * 运行应用并注册新用户
-* 检查电子邮件中的 "帐户确认" 链接。 如果没有收到电子邮件，请参阅[调试电子邮件](#debug)。
+* 检查电子邮件中的 "帐户确认" 链接。 如果没有收到电子邮件，请参阅 [调试电子邮件](#debug) 。
 * 单击链接以确认你的电子邮件。
 * 用电子邮件和密码登录。
 * 注销。
 
 ### <a name="test-password-reset"></a>测试密码重置
 
-* 如果已登录，请选择 "**注销**"。
-* 选择 "**登录**" 链接，然后选择 "**忘记了密码？"** 链接。
+* 如果已登录，请选择 " **注销**"。
+* 选择 " **登录** " 链接，然后选择 " **忘记了密码？"** 链接。
 * 输入用于注册该帐户的电子邮件。
 * 发送了一封电子邮件，其中包含用于重置密码的链接。 检查你的电子邮件，然后单击链接以重置你的密码。 密码重置成功后，可以用电子邮件和新密码登录。
 
@@ -171,7 +172,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupAllTokens.cs?name=snippet1&highlight=11-12)]
 
-内置 Identity 用户令牌 (参阅[AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) 具有一天的[超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
+内置 Identity 用户令牌 (参阅 [AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) 具有一天的 [超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
 
 ### <a name="change-the-email-token-lifespan"></a>更改电子邮件令牌的生命周期
 
@@ -196,23 +197,23 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 如果无法使用电子邮件：
 
 * 在中设置一个断点 `EmailSender.Execute` ，以验证 `SendGridClient.SendEmailAsync` 调用。
-* 创建一个[控制台应用，用于](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)使用类似的代码向发送电子邮件 `EmailSender.Execute` 。
-* 查看[电子邮件活动](https://sendgrid.com/docs/User_Guide/email_activity.html)页。
+* 创建一个 [控制台应用，用于](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html) 使用类似的代码向发送电子邮件 `EmailSender.Execute` 。
+* 查看 [电子邮件活动](https://sendgrid.com/docs/User_Guide/email_activity.html) 页。
 * 检查垃圾邮件文件夹。
 * 尝试在 Microsoft、Yahoo、Gmail 等不同的电子邮件 (提供程序上使用另一个电子邮件别名 ) 
 * 尝试发送到不同的电子邮件帐户。
 
-**最佳安全做法**是**不**在测试和开发中使用生产机密。 如果将应用发布到 Azure，请在 Azure Web 应用门户中将 "SendGrid 机密" 设置为 "应用程序设置"。 配置系统设置为从环境变量读取密钥。
+**最佳安全做法** 是 **不** 在测试和开发中使用生产机密。 如果将应用发布到 Azure，请在 Azure Web 应用门户中将 "SendGrid 机密" 设置为 "应用程序设置"。 配置系统设置为从环境变量读取密钥。
 
 ## <a name="combine-social-and-local-login-accounts"></a>合并社会和本地登录帐户
 
-若要完成本部分，必须首先启用外部身份验证提供程序。 请参阅[Facebook、Google 和外部提供程序身份验证](xref:security/authentication/social/index)。
+若要完成本部分，必须首先启用外部身份验证提供程序。 请参阅 [Facebook、Google 和外部提供程序身份验证](xref:security/authentication/social/index)。
 
 可以通过单击电子邮件链接来合并本地帐户和社交帐户。 按照以下顺序，" RickAndMSFT@gmail.com " 首先创建为本地登录名; 但是，你可以先将该帐户创建为社交登录名，然后添加本地登录名。
 
 ![Web 应用程序： RickAndMSFT@gmail.com 用户已进行身份验证](accconfirm/_static/rick.png)
 
-单击 "**管理**" 链接。 请注意，0外部 (社交登录) 与此帐户关联。
+单击 " **管理** " 链接。 请注意，0外部 (社交登录) 与此帐户关联。
 
 ![管理视图](accconfirm/_static/manage.png)
 
@@ -237,7 +238,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 
 [.NET Core 2.2 SDK 或更高版本](https://dotnet.microsoft.com/download/dotnet-core)
 
-## <a name="create-a-web--app-and-scaffold-no-locidentity"></a>创建 web 应用和基架Identity
+## <a name="create-a-web--app-and-scaffold-no-locidentity"></a>创建 web 应用和基架 Identity
 
 运行以下命令，创建具有身份验证的 web 应用。
 
@@ -257,13 +258,13 @@ dotnet run
 
 ## <a name="test-new-user-registration"></a>测试新用户注册
 
-运行应用，选择 "**注册**" 链接，然后注册用户。 此时，电子邮件的唯一验证是具有 [`[EmailAddress]`](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute) 属性。 提交注册后，将登录到应用。 在本教程的后面部分，将更新代码，以便新用户在验证其电子邮件之前无法登录。
+运行应用，选择 " **注册** " 链接，然后注册用户。 此时，电子邮件的唯一验证是具有 [`[EmailAddress]`](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute) 属性。 提交注册后，将登录到应用。 在本教程的后面部分，将更新代码，以便新用户在验证其电子邮件之前无法登录。
 
 [!INCLUDE[](~/includes/view-identity-db.md)]
 
 请注意，表的 `EmailConfirmed` 字段为 `False` 。
 
-当应用发送确认电子邮件时，可能需要在下一步中再次使用此电子邮件。 右键单击该行，然后选择 "**删除**"。 删除电子邮件别名可以简化以下步骤。
+当应用发送确认电子邮件时，可能需要在下一步中再次使用此电子邮件。 右键单击该行，然后选择 " **删除**"。 删除电子邮件别名可以简化以下步骤。
 
 <a name="prevent-login-at-registration"></a>
 
@@ -273,17 +274,17 @@ dotnet run
 
 通常，在用户确认电子邮件之前，会阻止新用户将任何数据发布到您的网站。
 
-更新 `Startup.ConfigureServices` 以要求确认电子邮件：
+更新 `Startup.ConfigureServices`  以要求确认电子邮件：
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=8-11)]
 
-`config.SignIn.RequireConfirmedEmail = true;`阻止注册的用户登录，直到其电子邮件得到确认。
+`config.SignIn.RequireConfirmedEmail = true;` 阻止注册的用户登录，直到其电子邮件得到确认。
 
 ### <a name="configure-email-provider"></a>配置电子邮件提供程序
 
-在本教程中，使用[SendGrid](https://sendgrid.com)发送电子邮件。 需要使用 SendGrid 帐户和密钥来发送电子邮件。 您可以使用其他电子邮件提供程序。 ASP.NET Core 1.x 包括 `System.Net.Mail` ，这允许你从应用发送电子邮件。 建议使用 SendGrid 或其他电子邮件服务发送电子邮件。 SMTP 难于保护和正确设置。
+在本教程中，使用 [SendGrid](https://sendgrid.com) 发送电子邮件。 需要使用 SendGrid 帐户和密钥来发送电子邮件。 您可以使用其他电子邮件提供程序。 ASP.NET Core 1.x 包括 `System.Net.Mail` ，这允许你从应用发送电子邮件。 建议使用 SendGrid 或其他电子邮件服务发送电子邮件。 SMTP 难于保护和正确设置。
 
-创建一个类以获取安全电子邮件密钥。 对于本示例，请创建*服务/AuthMessageSenderOptions*：
+创建一个类以获取安全电子邮件密钥。 对于本示例，请创建 *服务/AuthMessageSenderOptions*：
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
@@ -296,9 +297,9 @@ C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT
 info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-在 Windows 上，机密管理器将密钥/值对存储在目录中的文件*secrets.js上* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` 。
+在 Windows 上，机密管理器将密钥/值对存储在目录中的文件 *secrets.js上* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` 。
 
-不会对文件*中secrets.js*的内容进行加密。 以下标记显示了文件*上的secrets.js* 。 已 `SendGridKey` 删除该值。
+不会对文件 * 中secrets.js* 的内容进行加密。 以下标记显示了文件 * 上的secrets.js* 。 已 `SendGridKey` 删除该值。
 
 ```json
 {
@@ -307,11 +308,11 @@ info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 }
 ```
 
-有关详细信息，请参阅[Options 模式](xref:fundamentals/configuration/options)和[配置](xref:fundamentals/configuration/index)。
+有关详细信息，请参阅 [Options 模式](xref:fundamentals/configuration/options) 和 [配置](xref:fundamentals/configuration/index)。
 
 ### <a name="install-sendgrid"></a>安装 SendGrid
 
-本教程介绍如何通过[SendGrid](https://sendgrid.com/)添加电子邮件通知，但你可以使用 SMTP 和其他机制发送电子邮件。
+本教程介绍如何通过 [SendGrid](https://sendgrid.com/)添加电子邮件通知，但你可以使用 SMTP 和其他机制发送电子邮件。
 
 安装 `SendGrid` NuGet 包：
 
@@ -333,17 +334,17 @@ dotnet add package SendGrid
 
 ---
 
-请参阅[SendGrid 的入门免费](https://sendgrid.com/free/)版，注册免费 SendGrid 帐户。
+请参阅 [SendGrid 的入门免费](https://sendgrid.com/free/) 版，注册免费 SendGrid 帐户。
 
 ### <a name="implement-iemailsender"></a>实现 IEmailSender
 
-若要实现 `IEmailSender` ，请创建具有类似于下面的代码的*服务/EmailSender* ：
+若要实现 `IEmailSender` ，请创建具有类似于下面的代码的 *服务/EmailSender* ：
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Services/EmailSender.cs)]
 
 ### <a name="configure-startup-to-support-email"></a>配置启动以支持电子邮件
 
-将以下代码添加到 `ConfigureServices` *Startup.cs*文件中的方法：
+将以下代码添加到 `ConfigureServices` *Startup.cs* 文件中的方法：
 
 * 添加 `EmailSender` 为暂时性服务。
 * 注册 `AuthMessageSenderOptions` 配置实例。
@@ -369,7 +370,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 运行 web 应用，并测试帐户确认和密码恢复流。
 
 * 运行应用并注册新用户
-* 检查电子邮件中的 "帐户确认" 链接。 如果没有收到电子邮件，请参阅[调试电子邮件](#debug)。
+* 检查电子邮件中的 "帐户确认" 链接。 如果没有收到电子邮件，请参阅 [调试电子邮件](#debug) 。
 * 单击链接以确认你的电子邮件。
 * 用电子邮件和密码登录。
 * 注销。
@@ -378,12 +379,12 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 在浏览器中选择你的用户名，并在浏览器窗口中选择用户名 ![](accconfirm/_static/un.png)
 
-将显示 "管理" 页，并选中 "**配置文件**" 选项卡。 该**电子邮件**将显示一个复选框，指示已确认电子邮件。
+将显示 "管理" 页，并选中 " **配置文件** " 选项卡。 该 **电子邮件** 将显示一个复选框，指示已确认电子邮件。
 
 ### <a name="test-password-reset"></a>测试密码重置
 
-* 如果已登录，请选择 "**注销**"。
-* 选择 "**登录**" 链接，然后选择 "**忘记了密码？"** 链接。
+* 如果已登录，请选择 " **注销**"。
+* 选择 " **登录** " 链接，然后选择 " **忘记了密码？"** 链接。
 * 输入用于注册该帐户的电子邮件。
 * 发送了一封电子邮件，其中包含用于重置密码的链接。 检查你的电子邮件，然后单击链接以重置你的密码。 密码重置成功后，可以用电子邮件和新密码登录。
 
@@ -399,7 +400,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAllTokens.cs?name=snippet1&highlight=15-16)]
 
-内置 Identity 用户令牌 (参阅[AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) 具有一天的[超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
+内置 Identity 用户令牌 (参阅 [AspNetCore/src/ Identity /Extensions.Core/src/TokenOptions.cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) 具有一天的 [超时时间](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
 
 ### <a name="change-the-email-token-lifespan"></a>更改电子邮件令牌的生命周期
 
@@ -424,23 +425,23 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 如果无法使用电子邮件：
 
 * 在中设置一个断点 `EmailSender.Execute` ，以验证 `SendGridClient.SendEmailAsync` 调用。
-* 创建一个[控制台应用，用于](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)使用类似的代码向发送电子邮件 `EmailSender.Execute` 。
-* 查看[电子邮件活动](https://sendgrid.com/docs/User_Guide/email_activity.html)页。
+* 创建一个 [控制台应用，用于](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html) 使用类似的代码向发送电子邮件 `EmailSender.Execute` 。
+* 查看 [电子邮件活动](https://sendgrid.com/docs/User_Guide/email_activity.html) 页。
 * 检查垃圾邮件文件夹。
 * 尝试在 Microsoft、Yahoo、Gmail 等不同的电子邮件 (提供程序上使用另一个电子邮件别名 ) 
 * 尝试发送到不同的电子邮件帐户。
 
-**最佳安全做法**是**不**在测试和开发中使用生产机密。 如果将应用发布到 Azure，则可以在 Azure Web 应用门户中将 SendGrid 机密设置为应用程序设置。 配置系统设置为从环境变量读取密钥。
+**最佳安全做法** 是 **不** 在测试和开发中使用生产机密。 如果将应用发布到 Azure，则可以在 Azure Web 应用门户中将 SendGrid 机密设置为应用程序设置。 配置系统设置为从环境变量读取密钥。
 
 ## <a name="combine-social-and-local-login-accounts"></a>合并社会和本地登录帐户
 
-若要完成本部分，必须首先启用外部身份验证提供程序。 请参阅[Facebook、Google 和外部提供程序身份验证](xref:security/authentication/social/index)。
+若要完成本部分，必须首先启用外部身份验证提供程序。 请参阅 [Facebook、Google 和外部提供程序身份验证](xref:security/authentication/social/index)。
 
 可以通过单击电子邮件链接来合并本地帐户和社交帐户。 按照以下顺序，" RickAndMSFT@gmail.com " 首先创建为本地登录名; 但是，你可以先将该帐户创建为社交登录名，然后添加本地登录名。
 
 ![Web 应用程序： RickAndMSFT@gmail.com 用户已进行身份验证](accconfirm/_static/rick.png)
 
-单击 "**管理**" 链接。 请注意，0外部 (社交登录) 与此帐户关联。
+单击 " **管理** " 链接。 请注意，0外部 (社交登录) 与此帐户关联。
 
 ![管理视图](accconfirm/_static/manage.png)
 

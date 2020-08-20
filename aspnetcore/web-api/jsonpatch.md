@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/02/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/jsonpatch
-ms.openlocfilehash: 09da557d678889ba16abe6f9af40ae1b33583d8b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e57c5185323305ccbef7960653c9174931e45d75
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022363"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635393"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的 JSON 修补程序
 
@@ -52,7 +53,7 @@ ms.locfileid: "88022363"
 
 ## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON Patch、AddNewtonsoftJson 和 System.Text.Js
 
-`AddNewtonsoftJson`替换 `System.Text.Json` 用于格式化**所有**JSON 内容的基于的输入和输出格式化程序。 若要使用添加对 JSON 修补程序的支持 `Newtonsoft.Json` ，而使其他格式化程序保持不变，请按如下所示更新项目的 `Startup.ConfigureServices` 方法：
+`AddNewtonsoftJson` 替换 `System.Text.Json` 用于格式化 **所有** JSON 内容的基于的输入和输出格式化程序。 若要使用添加对 JSON 修补程序的支持 `Newtonsoft.Json` ，而使其他格式化程序保持不变，请按如下所示更新项目的 `Startup.ConfigureServices` 方法：
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet)]
 
@@ -116,11 +117,11 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要到 `add` 数组的末尾，请使用连字符 (`-`) 而不是索引号： `/addresses/-` 。
 
-### <a name="operations"></a>操作
+### <a name="operations"></a>Operations
 
 下表显示了 [JSON 修补程序规范](https://tools.ietf.org/html/rfc6902)中定义的支持操作：
 
-|操作  | 说明 |
+|Operation  | 说明 |
 |-----------|--------------------------------|
 | `add`     | 添加属性或数组元素。 对于现有属性：设置值。|
 | `remove`  | 删除属性或数组元素。 |
@@ -256,7 +257,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * URL：`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * HTTP 方法：`PATCH`
 * 标头：`Content-Type: application/json-patch+json`
-* Body：从*json*项目文件夹复制并粘贴一个 json 修补文档示例。
+* Body：从 *json* 项目文件夹复制并粘贴一个 json 修补文档示例。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -328,11 +329,11 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要将 `add` 置于数组末尾，请使用连字符 (-)，而不是索引号：`/addresses/-`。
 
-### <a name="operations"></a>操作
+### <a name="operations"></a>Operations
 
 下表显示了 [JSON 修补程序规范](https://tools.ietf.org/html/rfc6902)中定义的支持操作：
 
-|操作  | 说明 |
+|Operation  | 说明 |
 |-----------|--------------------------------|
 | `add`     | 添加属性或数组元素。 对于现有属性：设置值。|
 | `remove`  | 删除属性或数组元素。 |
@@ -343,7 +344,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="jsonpatch-in-aspnet-core"></a>ASP.NET Core 中的 JSON 修补程序
 
-[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet 包中提供了 JSON 修补程序的 ASP.NET Core 实现。 此包包含在[AspnetCore](xref:fundamentals/metapackage-app)元包中。
+[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet 包中提供了 JSON 修补程序的 ASP.NET Core 实现。 此包包含在 [AspnetCore](xref:fundamentals/metapackage-app) 元包中。
 
 ## <a name="action-method-code"></a>操作方法代码
 
@@ -468,7 +469,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * URL：`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * HTTP 方法：`PATCH`
 * 标头：`Content-Type: application/json-patch+json`
-* Body：从*json*项目文件夹复制并粘贴一个 json 修补文档示例。
+* Body：从 *json* 项目文件夹复制并粘贴一个 json 修补文档示例。
 
 ## <a name="additional-resources"></a>其他资源
 

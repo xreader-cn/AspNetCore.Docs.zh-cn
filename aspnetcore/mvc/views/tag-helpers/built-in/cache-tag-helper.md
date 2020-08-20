@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: 7d2ff774b7654993e2cd9b126db252f81a3032d3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b1cab7ab8b491529ee4208d92fb30082be795eda
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018749"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635055"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的缓存标记帮助程序
 
@@ -45,7 +46,7 @@ ms.locfileid: "88018749"
 
 | 属性类型  | 示例        | 默认 |
 | --------------- | --------------- | ------- |
-| 布尔         | `true`, `false` | `true`  |
+| Boolean         | `true`, `false` | `true`  |
 
 `enabled` 确定是否缓存了缓存标记帮助程序所包含的内容。 默认值为 `true`。 如果设置为 `false`，则不会缓存呈现的输出****。
 
@@ -75,7 +76,7 @@ ms.locfileid: "88018749"
 
 ### <a name="expires-after"></a>expires-after
 
-| 属性类型 | 示例                      | 默认值    |
+| 属性类型 | 示例                      | 默认    |
 | -------------- | ---------------------------- | ---------- |
 | `TimeSpan`     | `@TimeSpan.FromSeconds(120)` | 20 分钟 |
 
@@ -171,9 +172,9 @@ routes.MapRoute(
 | -------------- | -------------------------------------------------------------------------------- |
 | 字符串         | `.AspNetCore.Identity.Application`, `.AspNetCore.Identity.Application,HairColor` |
 
-`vary-by-cookie`接受以逗号分隔的名称列表 cookie ，这些名称会在值更改时触发缓存刷新 cookie 。
+`vary-by-cookie` 接受以逗号分隔的名称列表 cookie ，这些名称会在值更改时触发缓存刷新 cookie 。
 
-以下示例监视 cookie 与 ASP.NET Core 关联的 Identity 。 对用户进行身份验证时，中的更改会 Identity cookie 触发缓存刷新：
+下面的示例将监视 cookie 与关联的 ASP.NET Core Identity 。 对用户进行身份验证时，中的更改会 Identity cookie 触发缓存刷新：
 
 ```cshtml
 <cache vary-by-cookie=".AspNetCore.Identity.Application">
@@ -185,7 +186,7 @@ routes.MapRoute(
 
 | 属性类型  | 示例        | 默认 |
 | --------------- | --------------- | ------- |
-| 布尔         | `true`, `false` | `true`  |
+| Boolean         | `true`, `false` | `true`  |
 
 `vary-by-user` 指定当已登录用户（或上下文主体）发生更改时是否应重置缓存。 当前用户也称为请求上下文主体，可以 Razor 通过引用在视图中查看 `@User.Identity.Name` 。
 

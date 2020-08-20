@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/27/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: 6f3cec83c9af5ec6e820db4a15061eddac613f36
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ab850fa8afbee9d2664868937362388a03374908
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022168"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634691"
 ---
 # <a name="introduction-to-aspnet-core-no-locsignalr"></a>ASP.NET Core SignalR 简介
 
@@ -37,7 +38,7 @@ ASP.NET Core SignalR 是一种开放源代码库，可简化将实时 web 功能
 * 协作应用。 协作应用的示例包括白板应用和团队会议软件。
 * 需要通知的应用。 社交网络、电子邮件、聊天、游戏、旅行警报和很多其他应用都需使用通知。
 
-SignalR提供一个 API，用于创建 (RPC) 的服务器到客户端[远程过程调用](https://wikipedia.org/wiki/Remote_procedure_call)。 Rpc 通过服务器端 .NET Core 代码从客户端调用 JavaScript 函数。
+SignalR 提供一个 API，用于创建 (RPC) 的服务器到客户端 [远程过程调用 ](https://wikipedia.org/wiki/Remote_procedure_call)。 Rpc 通过服务器端 .NET Core 代码从客户端调用 JavaScript 函数。
 
 下面是的某些功能 SignalR ASP.NET Core：
 
@@ -50,19 +51,19 @@ SignalR提供一个 API，用于创建 (RPC) 的服务器到客户端[远程过�
 
 ## <a name="transports"></a>传输
 
-SignalR支持以下用于按正常回退)  (处理实时通信的技术：
+SignalR 支持以下用于按正常回退)  (处理实时通信的技术：
 
 * [WebSockets](https://tools.ietf.org/html/rfc7118)
 * 服务器发送的事件
 * 长轮询
 
-SignalR自动选择服务器和客户端功能内的最佳传输方法。
+SignalR 自动选择服务器和客户端功能内的最佳传输方法。
 
 ## <a name="hubs"></a>集线器
 
-SignalR使用*集线器*在客户端和服务器之间进行通信。
+SignalR 使用 *集线器* 在客户端和服务器之间进行通信。
 
-中心是一种高级管道，它允许客户端和服务器分别调用方法。 SignalR自动处理跨计算机边界的调度，使客户端能够在服务器上调用方法，反之亦然。 可以将强类型参数传递给方法，从而启用模型绑定。 SignalR提供了两个内置的集线器协议：基于 JSON 的文本协议和基于[MessagePack](https://msgpack.org/)的二进制协议。  与 JSON 相比，MessagePack 通常会创建较小的消息。 较早的浏览器必须支持[XHR 级别 2](https://caniuse.com/#feat=xhr2) ，才能提供 MessagePack 协议支持。
+中心是一种高级管道，它允许客户端和服务器分别调用方法。 SignalR 自动处理跨计算机边界的调度，使客户端能够在服务器上调用方法，反之亦然。 可以将强类型参数传递给方法，从而启用模型绑定。 SignalR 提供了两个内置的集线器协议：基于 JSON 的文本协议和基于 [MessagePack](https://msgpack.org/)的二进制协议。  与 JSON 相比，MessagePack 通常会创建较小的消息。 较早的浏览器必须支持 [XHR 级别 2](https://caniuse.com/#feat=xhr2) ，才能提供 MessagePack 协议支持。
 
 中心通过发送包含客户端方法的名称和参数的消息来调用客户端代码。 作为方法参数发送的对象将使用配置的协议进行反序列化。 客户端尝试将名称与客户端代码中的方法匹配。 当客户端找到匹配项时，它将调用方法并向其传递反序列化的参数数据。
 

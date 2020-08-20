@@ -5,6 +5,7 @@ description: 了解如何通过将角色传递到授权属性来限制 ASP.NET C
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/roles
-ms.openlocfilehash: 44e5f9a2a429c9f4a510d2f3e564ddd6bbe77205
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7673bb006c344e6f9baaa3cd99c4bdb4a6fc2862
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021115"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635172"
 ---
 # <a name="role-based-authorization-in-aspnet-core"></a>ASP.NET Core 中的基于角色的授权
 
@@ -102,7 +103,7 @@ public class ControlPanelController : Controller
 
 对于 Razor 页面， `AuthorizeAttribute` 可以通过以下任一方法来应用：
 
-* 使用[约定](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)，或
+* 使用 [约定](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)，或
 * 将应用 `AuthorizeAttribute` 到 `PageModel` 实例：
 
 ```csharp
@@ -123,7 +124,7 @@ public class UpdateModel : PageModel
 
 ## <a name="policy-based-role-checks"></a>基于策略的角色检查
 
-还可以使用新策略语法来表示角色要求，开发人员可在其中将在启动时作为授权服务配置的一部分注册策略。 这通常出现在 `ConfigureServices()` *Startup.cs*文件中。
+还可以使用新策略语法来表示角色要求，开发人员可在其中将在启动时作为授权服务配置的一部分注册策略。 这通常出现在 `ConfigureServices()` *Startup.cs* 文件中。
 
 ::: moniker range=">= aspnetcore-3.0"
 ```csharp
@@ -175,9 +176,9 @@ options.AddPolicy("ElevatedRights", policy =>
 
 此示例授权属于或角色的用户 `Administrator` `PowerUser` `BackupAdministrator` 。
 
-### <a name="add-role-services-to-no-locidentity"></a>将角色服务添加到Identity
+### <a name="add-role-services-to-no-locidentity"></a>将角色服务添加到 Identity
 
-追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
+追加 [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) 以添加角色服务：
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](roles/samples/3_0/Startup.cs?name=snippet&highlight=7)]

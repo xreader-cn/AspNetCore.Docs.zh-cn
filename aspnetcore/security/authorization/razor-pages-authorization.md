@@ -1,5 +1,5 @@
 ---
-title: Razor页面中的授权约定 ASP.NET Core
+title: Razor 页面中的授权约定 ASP.NET Core
 author: rick-anderson
 description: 了解如何使用用于授权用户和允许匿名用户访问页面或文件夹的约定来控制对页面的访问。
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,22 +18,22 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/razor-pages-authorization
-ms.openlocfilehash: 5e0c76ea6c6b4af8e24693b1bfe8ac28bf2ce3a9
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b17717e7b3cbaa64d4ff00661f15439728f161d3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022272"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634886"
 ---
-# <a name="no-locrazor-pages-authorization-conventions-in-aspnet-core"></a>Razor页面中的授权约定 ASP.NET Core
+# <a name="no-locrazor-pages-authorization-conventions-in-aspnet-core"></a>Razor 页面中的授权约定 ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。 这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。 本主题中所述的约定会自动应用[授权筛选器](xref:mvc/controllers/filters#authorization-filters)来控制访问权限。
+在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。 这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。 本主题中所述的约定会自动应用 [授权筛选器](xref:mvc/controllers/filters#authorization-filters) 来控制访问权限。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-示例应用使用[ cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
+示例应用[ cookie ASP.NET Core Identity 不使用身份验证](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用的应用 ASP.NET Core Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
 
 ## <a name="require-authorization-to-access-a-page"></a>需要授权才能访问页面
 
@@ -42,14 +43,14 @@ ms.locfileid: "88022272"
 
 指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：
 
 ```csharp
 options.Conventions.AuthorizePage("/Contact", "AtLeast21");
 ```
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。 有关详细信息，请参阅[授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。
+> <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。 有关详细信息，请参阅 [授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。
 
 ## <a name="require-authorization-to-access-a-folder-of-pages"></a>需要授权才能访问页的文件夹
 
@@ -59,7 +60,7 @@ options.Conventions.AuthorizePage("/Contact", "AtLeast21");
 
 指定的路径是视图引擎路径，它是 Razor 页面根相对路径。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：
 
 ```csharp
 options.Conventions.AuthorizeFolder("/Private", "AtLeast21");
@@ -73,9 +74,9 @@ options.Conventions.AuthorizeFolder("/Private", "AtLeast21");
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts");
 ```
 
-页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。 例如，文件*区域/ Identity /Pages/Manage/Accounts.cshtml*的页面名称为 */Manage/Accounts*。
+页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。 例如，文件 *区域/ Identity /Pages/Manage/Accounts.cshtml* 的页面名称为 */Manage/Accounts*。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：
 
 ```csharp
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts", "AtLeast21");
@@ -89,9 +90,9 @@ options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts", "AtLeast21
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
 ```
 
-文件夹路径是文件夹相对于指定区域的页面根目录的路径。 例如，*区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。
+文件夹路径是文件夹相对于指定区域的页面根目录的路径。 例如， *区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：
 
 ```csharp
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
@@ -140,11 +141,11 @@ options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
 
 ::: moniker range="< aspnetcore-3.0"
 
-在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。 这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。 本主题中所述的约定会自动应用[授权筛选器](xref:mvc/controllers/filters#authorization-filters)来控制访问权限。
+在页面应用中控制访问权限的一种方法 Razor 是在启动时使用授权约定。 这些约定允许用户授权用户，并允许匿名用户访问页面的各个页面或文件夹。 本主题中所述的约定会自动应用 [授权筛选器](xref:mvc/controllers/filters#authorization-filters) 来控制访问权限。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-示例应用使用[ cookie 身份验证，但 Identity 没有 ASP.NET Core ](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用 ASP.NET Core 的应用 Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
+示例应用[ cookie ASP.NET Core Identity 不使用身份验证](xref:security/authentication/cookie)。 本主题中所示的概念和示例同样适用于使用的应用 ASP.NET Core Identity 。 若要使用 ASP.NET Core Identity ，请按照中的指导进行操作 <xref:security/authentication/identity> 。
 
 ## <a name="require-authorization-to-access-a-page"></a>需要授权才能访问页面
 
@@ -154,14 +155,14 @@ options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
 
 指定的路径是视图引擎路径，它是 Razor 页面根相对路径，无扩展名，只包含正斜杠。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizePage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*)：
 
 ```csharp
 options.Conventions.AuthorizePage("/Contact", "AtLeast21");
 ```
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。 有关详细信息，请参阅[授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。
+> <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter>可应用于具有 filter 特性的页模型类 `[Authorize]` 。 有关详细信息，请参阅 [授权筛选器属性](xref:razor-pages/filter#authorize-filter-attribute)。
 
 ## <a name="require-authorization-to-access-a-folder-of-pages"></a>需要授权才能访问页的文件夹
 
@@ -171,7 +172,7 @@ options.Conventions.AuthorizePage("/Contact", "AtLeast21");
 
 指定的路径是视图引擎路径，它是 Razor 页面根相对路径。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizeFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*)：
 
 ```csharp
 options.Conventions.AuthorizeFolder("/Private", "AtLeast21");
@@ -185,9 +186,9 @@ options.Conventions.AuthorizeFolder("/Private", "AtLeast21");
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts");
 ```
 
-页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。 例如，文件*区域/ Identity /Pages/Manage/Accounts.cshtml*的页面名称为 */Manage/Accounts*。
+页面名称是文件的路径，该文件的扩展名相对于指定区域的页根目录。 例如，文件 *区域/ Identity /Pages/Manage/Accounts.cshtml* 的页面名称为 */Manage/Accounts*。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizeAreaPage 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*)：
 
 ```csharp
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts", "AtLeast21");
@@ -201,9 +202,9 @@ options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts", "AtLeast21
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
 ```
 
-文件夹路径是文件夹相对于指定区域的页面根目录的路径。 例如，*区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。
+文件夹路径是文件夹相对于指定区域的页面根目录的路径。 例如， *区域/ Identity /Pages/Manage/* 下的文件的文件夹路径为 */Manage*。
 
-若要指定[授权策略](xref:security/authorization/policies)，请使用[AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：
+若要指定 [授权策略](xref:security/authorization/policies)，请使用 [AuthorizeAreaFolder 重载](xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*)：
 
 ```csharp
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");

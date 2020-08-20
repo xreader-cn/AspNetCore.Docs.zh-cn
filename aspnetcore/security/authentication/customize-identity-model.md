@@ -1,10 +1,11 @@
 ---
 title: Identity ASP.NET Core 中的模型自定义
 author: ajcvickers
-description: 本文介绍如何为 ASP.NET Core 自定义基础 Entity Framework Core 数据模型 Identity 。
+description: 本文介绍如何为自定义基础 Entity Framework Core 数据模型 ASP.NET Core Identity 。
 ms.author: avickers
 ms.date: 07/01/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,18 +16,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 7c325bbc96ad4a8c5e4686073266d730eb924c10
-ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
+ms.openlocfilehash: 71f532aa00c2afeeb0d6b93c01cb6a1fbd0a686c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/18/2020
-ms.locfileid: "88504666"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634301"
 ---
 # <a name="no-locidentity-model-customization-in-aspnet-core"></a>Identity ASP.NET Core 中的模型自定义
 
 作者： [Arthur Vickers](https://github.com/ajcvickers)
 
-ASP.NET Core Identity 提供了一个框架，用于管理 ASP.NET Core 应用中的用户帐户并将其存储在其中。 Identity 选择 **单个用户帐户** 作为身份验证机制时，将添加到你的项目中。 默认情况下， Identity 使用实体框架 (EF) Core 数据模型。 本文介绍如何自定义 Identity 模型。
+ASP.NET Core Identity 提供一个框架，用于管理和存储 ASP.NET Core 应用中的用户帐户。 Identity 选择 **单个用户帐户** 作为身份验证机制时，将添加到你的项目中。 默认情况下， Identity 使用实体框架 (EF) Core 数据模型。 本文介绍如何自定义 Identity 模型。
 
 ## <a name="no-locidentity-and-ef-core-migrations"></a>Identity 和 EF Core 迁移
 

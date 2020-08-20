@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/view-components
-ms.openlocfilehash: 0c952502d58744bbbe06c92f51bd51bd547fb8ae
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 32ae699c4ef501096a9c4ab7bca6673139910f02
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020946"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635081"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -52,7 +53,7 @@ ms.locfileid: "88020946"
 
 视图组件由两部分组成：类（通常派生自 [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)）及其返回的结果（通常为视图）。 与控制器一样，视图组件也可以是 POCO，但大多数开发人员都希望利用派生自 `ViewComponent` 的可用方法和属性。
 
-考虑视图组件是否满足应用的规范时，请考虑 Razor 改用组件。 Razor组件还将标记与 c # 代码结合起来，以生成可重用的 UI 单元。 Razor在提供客户端 UI 逻辑和组合时，组件旨在提高开发人员的工作效率。 有关详细信息，请参阅 <xref:blazor/components/index>。
+考虑视图组件是否满足应用的规范时，请考虑 Razor 改用组件。 Razor 组件还将标记与 c # 代码结合起来，以生成可重用的 UI 单元。 Razor 在提供客户端 UI 逻辑和组合时，组件旨在提高开发人员的工作效率。 有关详细信息，请参阅 <xref:blazor/components/index>。
 
 ## <a name="creating-a-view-component"></a>创建视图组件
 
@@ -197,7 +198,7 @@ ms.locfileid: "88020946"
 
 * 创建 Views/Shared/Components/PriorityList 文件夹**。 此文件夹名称必须与视图组件类的名称或类名去掉后缀（如果遵照约定并在类名中使用了“ViewComponent”后缀）的名称相匹配**。 如果使用了 `ViewComponent` 属性，则类名称需要匹配指定的属性。
 
-* 创建*Views/Shared/Components/PriorityList/Default ...* Razor view：
+* 创建 *Views/Shared/Components/PriorityList/Default ...* Razor view：
 
 
   [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]

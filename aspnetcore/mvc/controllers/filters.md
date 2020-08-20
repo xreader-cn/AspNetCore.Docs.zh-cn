@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/04/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 11d0c514dd15e787224510991ffb81680c9fc479
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7134344abb5bc724aceb9a2adb117b3749435f55
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019337"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634847"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -68,7 +69,7 @@ ms.locfileid: "88019337"
   * 在调用操作方法之前和之后立即运行代码。
   * 可以更改传递到操作中的参数。
   * 可以更改从操作返回的结果。
-  * 页面**不**支持 Razor 。
+  * 页面 **不** 支持 Razor 。
 
 * [异常筛选器](#exception-filters)在向响应正文写入任何内容之前，对未经处理的异常应用全局策略。
 
@@ -86,7 +87,7 @@ ms.locfileid: "88019337"
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Filters/MySampleActionFilter.cs?name=snippet_ActionFilter)]
 
-在上面的代码中， [MyDebug](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs)是[示例下载](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs)中的实用工具函数。
+在上面的代码中， [MyDebug](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs) 是 [示例下载](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs)中的实用工具函数。
 
 异步筛选器定义 `On-Stage-ExecutionAsync` 方法。 例如，<xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*>：
 
@@ -116,7 +117,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-使用[浏览器开发人员工具](https://developer.mozilla.org/docs/Learn/Common_questions/What_are_browser_developer_tools)等工具来检查标头。 在响应标头下，将显示 `author: Rick Anderson`。
+使用 [浏览器开发人员工具](https://developer.mozilla.org/docs/Learn/Common_questions/What_are_browser_developer_tools) 等工具来检查标头。 在响应标头下，将显示 `author: Rick Anderson`。
 
 以下代码实现了 `ActionFilterAttribute`：
 
@@ -165,7 +166,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 ## <a name="filter-scopes-and-order-of-execution"></a>筛选器作用域和执行顺序
 
-可以将筛选器添加到管道中的以下三个*范围*之一：
+可以将筛选器添加到管道中的以下三个 *范围*之一：
 
 * 在控制器操作上使用属性。 筛选器属性不能应用于 Razor 页面处理程序方法。
 * 在控制器或页上使用特性 Razor 。
@@ -232,7 +233,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 控制器级别筛选器将 [Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) 属性设置为 `int.MinValue`。 控制器级别筛选器无法设置为在将筛选器应用于方法之后运行****。 在下一节对 Order 进行了介绍。
 
-有关 Razor 页面，请[参阅 Razor 通过重写筛选器方法实现页面筛选器](xref:razor-pages/filter#implement-razor-page-filters-by-overriding-filter-methods)。
+有关 Razor 页面，请 [参阅 Razor 通过重写筛选器方法实现页面筛选器](xref:razor-pages/filter#implement-razor-page-filters-by-overriding-filter-methods)。
 
 ### <a name="overriding-the-default-order"></a>重写默认顺序
 
@@ -290,7 +291,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>依赖项注入
+## <a name="dependency-injection"></a>依赖关系注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 
@@ -394,7 +395,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 * 实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter> 或 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResourceFilter> 接口。
 * 执行会覆盖筛选器管道的绝大部分。
-* 只有[授权筛选器](#authorization-filters)才会在资源筛选器之前运行。
+* 只有 [授权筛选器](#authorization-filters) 才会在资源筛选器之前运行。
 
 如果要使大部分管道短路，资源筛选器会很有用。 例如，如果缓存命中，则缓存筛选器可以绕开管道的其余阶段。
 
@@ -408,7 +409,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 ## <a name="action-filters"></a>操作筛选器
 
-操作筛选器**不适用于** Razor 页面。 Razor页面支持 <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter> 。 有关详细信息，请参阅 [Razor Pages 的筛选方法](xref:razor-pages/filter)。
+操作筛选器 **不适用于** Razor 页面。 Razor 页面支持 <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter> 。 有关详细信息，请参阅 [Razor Pages 的筛选方法](xref:razor-pages/filter)。
 
 操作筛选器：
 
@@ -487,8 +488,8 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 * 没有之前和之后的事件。
 * 实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter.OnException*> 或 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncExceptionFilter.OnExceptionAsync*>。
-* 处理在 Razor 页或控制器创建、[模型绑定](xref:mvc/models/model-binding)、操作筛选器或操作方法中发生的未经处理的异常。
-* 不要**捕获资源**筛选器、结果筛选器或 MVC 结果执行中发生的异常。
+* 处理在 Razor 页或控制器创建、 [模型绑定](xref:mvc/models/model-binding)、操作筛选器或操作方法中发生的未经处理的异常。
+* 不要 **捕获资源** 筛选器、结果筛选器或 MVC 结果执行中发生的异常。
 
 若要处理异常，请将 <xref:System.Web.Mvc.ExceptionContext.ExceptionHandled> 属性设置为 `true`，或编写响应。 这将停止传播异常。 异常筛选器无法将异常转变为“成功”。 只有操作筛选器才能执行该转变。
 
@@ -514,7 +515,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Filters/LoggingAddHeaderFilter.cs?name=snippet_ResultFilter)]
 
-要执行的结果类型取决于所执行的操作。 返回视图的操作会将所有 Razor 处理作为要执行的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 的一部分。 API 方法可能会将某些序列化操作作为结果执行的一部分。 详细了解[操作结果](xref:mvc/controllers/actions)。
+要执行的结果类型取决于所执行的操作。 返回视图的操作会将所有 Razor 处理作为要执行的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 的一部分。 API 方法可能会将某些序列化操作作为结果执行的一部分。 详细了解 [操作结果](xref:mvc/controllers/actions)。
 
 仅当操作或操作筛选器生成操作结果时，才会执行结果筛选器。 不会在以下情况下执行结果筛选器：
 
@@ -612,7 +613,7 @@ What's a non-named attribute?
 
 ## <a name="next-actions"></a>后续操作
 
-* 请参阅[筛选 Razor 页面的方法](xref:razor-pages/filter)。
+* 请参阅 [筛选 Razor 页面的方法](xref:razor-pages/filter)。
 * 若要尝试使用筛选器，请[下载、测试并修改 GitHub 示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)。
 
 ::: moniker-end
@@ -652,7 +653,7 @@ What's a non-named attribute?
   * <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter.OnResourceExecuting*> 可以在筛选器管道的其余阶段之前运行代码。 例如，`OnResourceExecuting` 可以在模型绑定之前运行代码。
   * <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter.OnResourceExecuted*> 可以在管道的其余阶段完成之后运行代码。
 
-* [操作筛选器](#action-filters)可以在调用单个操作方法之前和之后立即运行代码。 它们可用于处理传入某个操作的参数以及从该操作返回的结果。 页面**不**支持操作筛选器 Razor 。
+* [操作筛选器](#action-filters)可以在调用单个操作方法之前和之后立即运行代码。 它们可用于处理传入某个操作的参数以及从该操作返回的结果。 页面 **不** 支持操作筛选器 Razor 。
 
 * [异常筛选器](#exception-filters)用于在向响应正文写入任何内容之前，对未经处理的异常应用全局策略。
 
@@ -709,7 +710,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 ## <a name="filter-scopes-and-order-of-execution"></a>筛选器作用域和执行顺序
 
-可以将筛选器添加到管道中的以下三个*范围*之一：
+可以将筛选器添加到管道中的以下三个 *范围*之一：
 
 * 在操作上使用属性。
 * 在控制器上使用属性。
@@ -777,7 +778,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
   * `MySampleActionFilter.OnActionExecuted`
 * `TestController.OnActionExecuted`
 
-有关 Razor 页面，请[参阅 Razor 通过重写筛选器方法实现页面筛选器](xref:razor-pages/filter#implement-razor-page-filters-by-overriding-filter-methods)。
+有关 Razor 页面，请 [参阅 Razor 通过重写筛选器方法实现页面筛选器](xref:razor-pages/filter#implement-razor-page-filters-by-overriding-filter-methods)。
 
 ### <a name="overriding-the-default-order"></a>重写默认顺序
 
@@ -822,7 +823,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>依赖项注入
+## <a name="dependency-injection"></a>依赖关系注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 
@@ -927,7 +928,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 * 实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter> 或 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResourceFilter> 接口。
 * 执行会覆盖筛选器管道的绝大部分。
-* 只有[授权筛选器](#authorization-filters)才会在资源筛选器之前运行。
+* 只有 [授权筛选器](#authorization-filters) 才会在资源筛选器之前运行。
 
 如果要使大部分管道短路，资源筛选器会很有用。 例如，如果缓存命中，则缓存筛选器可以绕开管道的其余阶段。
 
@@ -942,7 +943,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 ## <a name="action-filters"></a>操作筛选器
 
 > [!IMPORTANT]
-> 操作筛选器**不适用于** Razor 页面。 Razor页面支持 <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter> 。 有关详细信息，请参阅 [Razor Pages 的筛选方法](xref:razor-pages/filter)。
+> 操作筛选器 **不适用于** Razor 页面。 Razor 页面支持 <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter> 。 有关详细信息，请参阅 [Razor Pages 的筛选方法](xref:razor-pages/filter)。
 
 操作筛选器：
 
@@ -1014,8 +1015,8 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 * 没有之前和之后的事件。
 * 实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter.OnException*> 或 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncExceptionFilter.OnExceptionAsync*>。
-* 处理在 Razor 页或控制器创建、[模型绑定](xref:mvc/models/model-binding)、操作筛选器或操作方法中发生的未经处理的异常。
-* 不要**捕获资源**筛选器、结果筛选器或 MVC 结果执行中发生的异常。
+* 处理在 Razor 页或控制器创建、 [模型绑定](xref:mvc/models/model-binding)、操作筛选器或操作方法中发生的未经处理的异常。
+* 不要 **捕获资源** 筛选器、结果筛选器或 MVC 结果执行中发生的异常。
 
 若要处理异常，请将 <xref:System.Web.Mvc.ExceptionContext.ExceptionHandled> 属性设置为 `true`，或编写响应。 这将停止传播异常。 异常筛选器无法将异常转变为“成功”。 只有操作筛选器才能执行该转变。
 
@@ -1041,7 +1042,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/LoggingAddHeaderFilter.cs?name=snippet_ResultFilter)]
 
-要执行的结果类型取决于所执行的操作。 返回视图的操作会将所有 Razor 处理作为要执行的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 的一部分。 API 方法可能会将某些序列化操作作为结果执行的一部分。 详细了解[操作结果](xref:mvc/controllers/actions)。
+要执行的结果类型取决于所执行的操作。 返回视图的操作会将所有 Razor 处理作为要执行的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 的一部分。 API 方法可能会将某些序列化操作作为结果执行的一部分。 详细了解 [操作结果](xref:mvc/controllers/actions)。
 
 仅当操作或操作筛选器生成操作结果时，才会执行结果筛选器。 不会在以下情况下执行结果筛选器：
 
@@ -1135,7 +1136,7 @@ What's a non-named attribute?
 
 ## <a name="next-actions"></a>后续操作
 
-* 请参阅[筛选 Razor 页面的方法](xref:razor-pages/filter)。
+* 请参阅 [筛选 Razor 页面的方法](xref:razor-pages/filter)。
 * 若要尝试使用筛选器，请[下载、测试并修改 GitHub 示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
 
 ::: moniker-end

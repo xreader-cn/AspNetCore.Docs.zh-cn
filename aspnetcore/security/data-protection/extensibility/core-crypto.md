@@ -5,6 +5,7 @@ description: 了解 IAuthenticatedEncryptor、IAuthenticatedEncryptorDescriptor�
 ms.author: riande
 ms.date: 08/11/2017
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/extensibility/core-crypto
-ms.openlocfilehash: 321e039a4b4692266c6d7ceaff96578db8a74bb5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4c802bc4beb1f1fde812e6c3f55fc43b5d569b66
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021596"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635315"
 ---
 # <a name="core-cryptography-extensibility-in-aspnet-core"></a>ASP.NET Core 中的核心加密扩展性
 
@@ -128,7 +129,7 @@ IAuthenticatedEncryptor 和 IAuthenticatedEncryptorDescriptor 之间的主要区
 
 <a name="data-protection-extensibility-core-crypto-exporttoxml"></a>
 
-描述符可以通过其 ExportToXml 例程进行序列化。 此例程返回一个 XmlSerializedDescriptorInfo，其中包含两个属性：描述符的 System.xml.linq.xelement> 表示形式和表示[IAuthenticatedEncryptorDescriptorDeserializer](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptordeserializer)的类型，该类型可用于在给定相应 system.xml.linq.xelement> 的情况下恢复此描述符。
+描述符可以通过其 ExportToXml 例程进行序列化。 此例程返回一个 XmlSerializedDescriptorInfo，其中包含两个属性：描述符的 System.xml.linq.xelement> 表示形式和表示 [IAuthenticatedEncryptorDescriptorDeserializer](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptordeserializer) 的类型，该类型可用于在给定相应 system.xml.linq.xelement> 的情况下恢复此描述符。
 
 序列化描述符可能包含敏感信息，如加密密钥材料。 数据保护系统在将信息保存到存储之前，对其进行内置支持。 若要利用这一点，描述符应标记包含特性名称为 "requiresEncryption" (xmlns " <http://schemas.asp.net/2015/03/dataProtection> " ) ，值为 "true" 的敏感信息的元素。
 
@@ -145,7 +146,7 @@ IAuthenticatedEncryptor 和 IAuthenticatedEncryptorDescriptor 之间的主要区
 
 * ImportFromXml (System.xml.linq.xelement> 元素) ： IAuthenticatedEncryptorDescriptor
 
-ImportFromXml 方法采用[IAuthenticatedEncryptorDescriptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-exporttoxml)返回的 system.xml.linq.xelement>，并创建原始 IAuthenticatedEncryptorDescriptor 的等效项。
+ImportFromXml 方法采用 [IAuthenticatedEncryptorDescriptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-exporttoxml) 返回的 system.xml.linq.xelement>，并创建原始 IAuthenticatedEncryptorDescriptor 的等效项。
 
 实现 IAuthenticatedEncryptorDescriptorDeserializer 的类型应具有以下两个公共构造函数之一：
 
@@ -168,7 +169,7 @@ ImportFromXml 方法采用[IAuthenticatedEncryptorDescriptor](xref:security/data
 
 调用 CreateNewDescriptor 时，将仅为此调用创建新的密钥材料，并生成新的 IAuthenticatedEncryptorDescriptor 来包装此密钥材料以及使用该材料所需的算法信息。 密钥材料可以在软件 (中创建，并保存在内存) 中，可以在 HSM 中创建和保存。 关键是，对 CreateNewDescriptor 的任何两次调用都不应创建等效的 IAuthenticatedEncryptorDescriptor 实例。
 
-AlgorithmConfiguration 类型用作密钥创建例程（如[自动密钥滚动](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling)）的入口点。 若要更改所有将来键的实现，请在 KeyManagementOptions 中设置 AuthenticatedEncryptorConfiguration 属性。
+AlgorithmConfiguration 类型用作密钥创建例程（如 [自动密钥滚动](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling)）的入口点。 若要更改所有将来键的实现，请在 KeyManagementOptions 中设置 AuthenticatedEncryptorConfiguration 属性。
 
 # <a name="aspnet-core-1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
 
@@ -180,6 +181,6 @@ AlgorithmConfiguration 类型用作密钥创建例程（如[自动密钥滚动](
 
 调用 CreateNewDescriptor 时，将仅为此调用创建新的密钥材料，并生成新的 IAuthenticatedEncryptorDescriptor 来包装此密钥材料以及使用该材料所需的算法信息。 密钥材料可以在软件 (中创建，并保存在内存) 中，可以在 HSM 中创建和保存。 关键是，对 CreateNewDescriptor 的任何两次调用都不应创建等效的 IAuthenticatedEncryptorDescriptor 实例。
 
-IAuthenticatedEncryptorConfiguration 类型用作密钥创建例程（如[自动密钥滚动](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling)）的入口点。 若要更改所有将来键的实现，请在服务容器中注册单一实例 IAuthenticatedEncryptorConfiguration。
+IAuthenticatedEncryptorConfiguration 类型用作密钥创建例程（如 [自动密钥滚动](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling)）的入口点。 若要更改所有将来键的实现，请在服务容器中注册单一实例 IAuthenticatedEncryptorConfiguration。
 
 ---

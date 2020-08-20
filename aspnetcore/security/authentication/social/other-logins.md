@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/11/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/otherlogins
-ms.openlocfilehash: 3de76b303c469341ba022fa3d33d3cd2a17581db
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f410f9ade34c3ffb19dc9f6e5409f44d0a6e5d32
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014901"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634236"
 ---
 # <a name="external-oauth-authentication-providers"></a>外部 OAuth 身份验证提供程序
 
-作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Pranav Rastogi 撰写](https://github.com/rustd)和[Valeriy Novytskyy](https://github.com/01binary)
+作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Pranav Rastogi 撰写](https://github.com/rustd)和 [Valeriy Novytskyy](https://github.com/01binary)
 
-下面的列表包含与 ASP.NET Core 应用一起使用的常见外部 OAuth 身份验证提供程序。 第三方 NuGet 包（如由[contrib](https://www.nuget.org/packages?q=owners%3Aaspnet-contrib+title%3AOAuth)维护的包）可用于对由 ASP.NET Core 团队实现的身份验证提供程序进行补充。
+下面的列表包含与 ASP.NET Core 应用一起使用的常见外部 OAuth 身份验证提供程序。 第三方 NuGet 包（如由 [contrib](https://www.nuget.org/packages?q=owners%3Aaspnet-contrib+title%3AOAuth)维护的包）可用于对由 ASP.NET Core 团队实现的身份验证提供程序进行补充。
 
 * [LinkedIn](https://www.linkedin.com/developer/apps) ([说明](https://developer.linkedin.com/docs/oauth2)) 
 

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/gdpr
-ms.openlocfilehash: 6392a22e316f903da18cd1a91d1eb779d8dde1b3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 35a12cb8d2a9617e51d886e798cff5ee60b0a8ad
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020010"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634704"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>欧盟一般数据保护条例 (GDPR) 支持 ASP.NET Core
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core 提供 Api 和模板来帮助满足某些[欧盟一般数据保护条例 (GDPR) ](https://ec.europa.eu/info/law/law-topic/data-protection/reform/what-does-general-data-protection-regulation-gdpr-govern_en)要求：
+ASP.NET Core 提供 Api 和模板来帮助满足某些 [欧盟一般数据保护条例 (GDPR) ](https://ec.europa.eu/info/law/law-topic/data-protection/reform/what-does-general-data-protection-regulation-gdpr-govern_en) 要求：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -41,7 +42,7 @@ ASP.NET Core 提供 Api 和模板来帮助满足某些[欧盟一般数据保护�
 
   [!code-csharp[Main](gdpr/sample/RP3.0/Startup.cs?name=snippet1&highlight=12-19,38)]
 
-* 将 cookie 同意部分添加到 *_Layout 的 cshtml*文件中：
+* 将 cookie 同意部分添加到 *_Layout 的 cshtml* 文件中：
 
   [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_Layout.cshtml?name=snippet&highlight=4)]
 
@@ -56,23 +57,23 @@ ASP.NET Core 提供 Api 和模板来帮助满足某些[欧盟一般数据保护�
 ::: moniker range="= aspnetcore-2.2"
 
 * 项目模板包括扩展点和用作存根标记，你可以将其替换为你的隐私和 cookie 使用策略。
-* cookie许可功能允许您 (和跟踪用户的) 同意，以存储个人信息。 如果用户未同意数据收集，并且应用已将[CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded)设置为，则不会将不 `true` 必要 cookie 的发送到浏览器。
+* cookie许可功能允许您 (和跟踪用户的) 同意，以存储个人信息。 如果用户未同意数据收集，并且应用已将 [CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded) 设置为，则不会将不 `true` 必要 cookie 的发送到浏览器。
 * Cookie可以将 s 标记为必要。 cookie即使用户尚未同意并禁用跟踪，也会将重要的发送到浏览器。
 * 禁用跟踪后[，TempData 和会话 cookie s](#tempdata)不起作用。
 * " [ Identity 管理](#pd)" 页提供了一个链接，用于下载和删除用户数据。
 
-该[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)允许你测试添加到 ASP.NET Core 2.1 模板的大多数 GDPR 扩展点和 api。 有关测试说明，请参阅[自述](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)文件。
+该 [示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample) 允许你测试添加到 ASP.NET Core 2.1 模板的大多数 GDPR 扩展点和 api。 有关测试说明，请参阅 [自述](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample) 文件。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>模板生成的代码中的 ASP.NET Core GDPR 支持
 
-Razor用项目模板创建的页和 MVC 项目包含以下 GDPR 支持：
+Razor 用项目模板创建的页和 MVC 项目包含以下 GDPR 支持：
 
 * [ Cookie PolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)和[Use Cookie 策略](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)在类中设置 `Startup` 。
-* * \_ Cookie ConsentPartial* [分部视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 此文件中包括 "**接受**" 按钮。 用户单击 "**接受**" 按钮时， cookie 会提供许可。
+* * \_ Cookie ConsentPartial* [分部视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 此文件中包括 " **接受** " 按钮。 用户单击 " **接受** " 按钮时， cookie 会提供许可。
 * *Pages/私密. cshtml*页面或*Views/Home/私密*视图提供了一个页面，用于详细描述您的站点的隐私策略。 * \_ Cookie ConsentPartial*文件生成指向隐私页面的链接。
-* 对于通过单独用户帐户创建的应用，"管理" 页提供了下载和删除[个人用户数据](#pd)的链接。
+* 对于通过单独用户帐户创建的应用，"管理" 页提供了下载和删除 [个人用户数据](#pd)的链接。
 
 ### <a name="no-loccookiepolicyoptions-and-useno-loccookiepolicy"></a>CookiePolicyOptions 和使用 Cookie 策略
 
@@ -80,7 +81,7 @@ Razor用项目模板创建的页和 MVC 项目包含以下 GDPR 支持：
 
 [!code-csharp[Main](gdpr/sample/Startup.cs?name=snippet1&highlight=14-20)]
 
-[使用 Cookie策略](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)在中调用 `Startup.Configure` ：
+[使用 Cookie策略](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy) 在中调用 `Startup.Configure` ：
 
 [!code-csharp[](gdpr/sample/Startup.cs?name=snippet1&highlight=51)]
 
@@ -120,14 +121,14 @@ Razor用项目模板创建的页和 MVC 项目包含以下 GDPR 支持：
 
 ASP.NET Core 通过单独用户帐户创建的应用包括下载和删除个人数据的代码。
 
-选择用户名，然后选择 "**个人数据**"：
+选择用户名，然后选择 " **个人数据**"：
 
 ![管理个人数据页](gdpr/_static/pd.png)
 
-说明：
+注意：
 
 * 若要生成 `Account/Manage` 代码，请[参阅 Identity 基架](xref:security/authentication/scaffold-identity)。
-* "**删除**" 和 "**下载**" 链接仅作用于默认标识数据。 必须扩展用于创建自定义用户数据的应用，以删除/下载自定义用户数据。 有关详细信息，请参阅向[添加、下载和删除自定义用户 Identity 数据](xref:security/authentication/add-user-data)。
+* " **删除** " 和 " **下载** " 链接仅作用于默认标识数据。 必须扩展用于创建自定义用户数据的应用，以删除/下载自定义用户数据。 有关详细信息，请参阅向[添加、下载和删除自定义用户 Identity 数据](xref:security/authentication/add-user-data)。
 * Identity `AspNetUserTokens` 由于[外键](https://github.com/aspnet/Identity/blob/release/2.1/src/EF/IdentityUserContext.cs#L152)，通过级联删除行为删除用户时，将删除存储在数据库表中的用户的已保存令牌。
 * [外部提供程序身份验证](xref:security/authentication/social/index)（如 Facebook 和 Google）在接受策略之前不可用 cookie 。
 
@@ -144,7 +145,7 @@ ASP.NET Core 通过单独用户帐户创建的应用包括下载和删除个人�
 
 例如：
 
-* Microsoft SQL 和 Azure SQL 提供[透明数据加密](/sql/relational-databases/security/encryption/transparent-data-encryption) (TDE) 。
+* Microsoft SQL 和 Azure SQL 提供 [透明数据加密](/sql/relational-databases/security/encryption/transparent-data-encryption) (TDE) 。
 * [默认情况下，SQL Azure 加密数据库](https://azure.microsoft.com/updates/newly-created-azure-sql-databases-encrypted-by-default/)
 * [默认情况下，加密 Azure blob、文件、表和队列存储](https://azure.microsoft.com/blog/announcing-default-encryption-for-azure-blobs-files-table-and-queue-storage/)。
 

@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/mvc2
-ms.openlocfilehash: afbc5196eaaaa402ddbf50f6330a683ee88984eb
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: bd2c33d35a3433532b48f6615a81adac8d03b9ee
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014862"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634535"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core-20"></a>从 ASP.NET 迁移到 ASP.NET Core 2.0
 
@@ -31,7 +32,7 @@ ms.locfileid: "88014862"
 
 ## <a name="prerequisites"></a>先决条件
 
-从 .Net 下载安装以下内容**之一** [： Windows](https://dotnet.microsoft.com/download)：
+从 .Net 下载安装以下内容 **之一** [： Windows](https://dotnet.microsoft.com/download)：
 
 * .NET Core SDK
 * 适用于 Windows 的 Visual Studio
@@ -127,7 +128,7 @@ services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"
 
 ## <a name="native-dependency-injection"></a>本机依存关系注入
 
-生成大型可缩放应用程序时，一个重要的目标是将组件和服务松散耦合。 [依赖关系注入](xref:fundamentals/dependency-injection)是实现此项的一种常用技术，它是 ASP.NET Core 的本机组件。
+生成大型可缩放应用程序时，一个重要的目标是将组件和服务松散耦合。 [依赖关系注入](xref:fundamentals/dependency-injection) 是实现此项的一种常用技术，它是 ASP.NET Core 的本机组件。
 
 在 ASP.NET 应用程序中，开发人员依赖第三方库来实现依赖关系注入。 其中的一个库是 Microsoft 模式和做法提供的 [Unity](https://github.com/unitycontainer/unity)。
 

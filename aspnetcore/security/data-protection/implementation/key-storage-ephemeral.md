@@ -5,6 +5,7 @@ description: 了解 ASP.NET Core 临时数据保护提供程序的实现细节�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,20 +16,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-storage-ephemeral
-ms.openlocfilehash: f51553385d9481a1e96fe3e1a14e51e470b0e735
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 797cba7753fd9e2d3201a4dbb75466382531eb88
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018255"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634769"
 ---
 # <a name="ephemeral-data-protection-providers-in-aspnet-core"></a>ASP.NET Core 中的临时数据保护提供程序
 
 <a name="data-protection-implementation-key-storage-ephemeral"></a>
 
-在某些情况下，应用程序需要一次性 `IDataProtectionProvider` 。 例如，开发人员可能只是在一次性的控制台应用程序中试验，或者应用程序本身 (脚本编写或) 单元测试项目时是暂时性的。 为支持这些方案， [AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/)包包含类型 `EphemeralDataProtectionProvider` 。 此类型提供 `IDataProtectionProvider` 其密钥存储库仅保存在内存中且不会写出到任何后备存储的基本实现。
+在某些情况下，应用程序需要一次性 `IDataProtectionProvider` 。 例如，开发人员可能只是在一次性的控制台应用程序中试验，或者应用程序本身 (脚本编写或) 单元测试项目时是暂时性的。 为支持这些方案， [AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/) 包包含类型 `EphemeralDataProtectionProvider` 。 此类型提供 `IDataProtectionProvider` 其密钥存储库仅保存在内存中且不会写出到任何后备存储的基本实现。
 
-每个实例都 `EphemeralDataProtectionProvider` 使用其自己的唯一主密钥。 因此，如果中的根为的 `IDataProtector` `EphemeralDataProtectionProvider` 生成受保护的负载，则该负载仅在 `IDataProtector` 给定相同[目的](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-consumer-apis-purposes)链) 在同一实例上的情况下，不能通过等效 (来保护 `EphemeralDataProtectionProvider` 。
+每个实例都 `EphemeralDataProtectionProvider` 使用其自己的唯一主密钥。 因此，如果中的根为的 `IDataProtector` `EphemeralDataProtectionProvider` 生成受保护的负载，则该负载仅在 `IDataProtector` 给定相同 [目的](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-consumer-apis-purposes) 链) 在同一实例上的情况下，不能通过等效 (来保护 `EphemeralDataProtectionProvider` 。
 
 下面的示例演示如何实例化 `EphemeralDataProtectionProvider` 并使用它来保护数据并对其取消保护。
 
