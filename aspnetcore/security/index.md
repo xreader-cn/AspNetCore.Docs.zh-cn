@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,16 +17,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/index
-ms.openlocfilehash: ead5863f0656e182d395fc1e0deaf63ff66034cb
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0378fd06b5cae5b8911e8a2f41937b28d5444538
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021362"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632858"
 ---
 # <a name="overview-of-aspnet-core-security"></a>ASP.NET Core 安全性概述
 
-通过 ASP.NET Core，开发者可轻松配置和管理其应用的安全性。 ASP.NET Core 的功能包括管理身份验证、授权、数据保护、HTTPS 强制、应用机密、请求防伪保护及 CORS 管理。 通过这些安全功能，可以生成安全可靠的 ASP.NET Core 应用。
+通过 ASP.NET Core，开发者可轻松配置和管理其应用的安全性。 ASP.NET Core 的功能包括管理身份验证、授权、数据保护、HTTPS 强制、应用机密、XSRF/CSRF 防护及 CORS 管理。 通过这些安全功能，可以生成安全可靠的 ASP.NET Core 应用。
 
 ## <a name="aspnet-core-security-features"></a>ASP.NET Core 安全性功能
 
@@ -41,9 +42,9 @@ ASP.NET Core 提供许多用于保护应用安全的工具和库（包括内置�
 
 ASP.NET Core 和 EF 提供维护应用安全、预防安全漏洞的功能。 下表中链接的文档详细介绍了在 Web 应用中避免最常见安全漏洞的技术：
 
-* [跨站点脚本攻击](xref:security/cross-site-scripting)
+* [跨站点脚本 (XSS) 攻击](xref:security/cross-site-scripting)
 * [SQL 注入式攻击](/ef/core/querying/raw-sql)
-* [跨站点请求伪造 (CSRF)](xref:security/anti-request-forgery)
+* [跨站点请求伪造 (XSRF/CSRF) 攻击](xref:security/anti-request-forgery)
 * [打开重定向攻击](xref:security/preventing-open-redirects)
 
 还应注意其他漏洞。 有关详细信息，请参阅目录的“安全性和 Identity”部分中的其他文章****。

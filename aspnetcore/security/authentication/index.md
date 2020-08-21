@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/03/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/index
-ms.openlocfilehash: b0258118e116b1686abbebf1c8d89135ae3cb1f6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2511d68dd049ca47dea002d8960e7d2fd0207383
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019311"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632637"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 
@@ -51,7 +52,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 如果使用了多个方案，授权策略（或授权属性）可[指定](xref:security/authorization/limitingidentitybyscheme)对用户进行身份验证时要依据的一个或多个身份验证方案。 在上例中，可通过指定 cookie 身份验证方案的名称来使用该方案（默认为 `CookieAuthenticationDefaults.AuthenticationScheme`，但也可在调用 `AddCookie` 时提供其他名称）。
 
-在某些情况下，其他扩展方法会自动调用 `AddAuthentication`。 例如，使用 [ASP.NET Core Identity](xref:security/authentication/identity) 时，会在内部调用 `AddAuthentication`。
+在某些情况下，其他扩展方法会自动调用 `AddAuthentication`。 例如，在使用 [ASP.NET Core Identity](xref:security/authentication/identity) 时，会在内部调用 `AddAuthentication`。
 
 通过在应用的 `IApplicationBuilder` 上调用 <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> 扩展方法，在 `Startup.Configure` 中添加身份验证中间件。 如果调用 `UseAuthentication`，会注册使用之前注册的身份验证方案的中间节。 请在依赖于要进行身份验证的用户的所有中间件之前调用 `UseAuthentication`。 如果使用终结点路由，则必须按以下顺序调用 `UseAuthentication`：
 

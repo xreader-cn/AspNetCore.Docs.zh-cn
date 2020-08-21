@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/02/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 4dc9040b9410304eb33e5df7c47db2f9a42152d3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ba9fe3c0149679fa5760c0c9214cd426f1804c31
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013991"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626449"
 ---
 # <a name="secure-aspnet-core-no-locblazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
 
@@ -62,7 +63,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 | 身份验证机制 | 描述 |
 | ------------------------ | ----------- |
 | `None`（默认值）         | 无身份验证 |
-| `Individual`             | 使用 ASP.NET Core Identity将用户存储在应用中 |
+| `Individual`             | 使用 ASP.NET Core Identity 将用户存储在应用中 |
 | `IndividualB2C`          | 用户存储在 [Azure AD B2C](xref:security/authentication/azure-ad-b2c) 中 |
 | `SingleOrg`              | 对一个租户进行组织身份验证 |
 | `MultiOrg`               | 对多个租户进行组织身份验证 |
@@ -81,7 +82,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 1. 在“配置新的 Blazor Server应用”步骤中，从“身份验证”下拉列表中选择“个人身份验证(应用内)”。
 
-1. 此应用是使用 ASP.NET Core Identity为应用中存储的个人用户创建的。
+1. 此应用是使用 ASP.NET Core Identity 为应用中存储的个人用户创建的。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
@@ -96,7 +97,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 | 身份验证机制 | 描述 |
 | ------------------------ | ----------- |
 | `None`（默认值）         | 无身份验证 |
-| `Individual`             | 使用 ASP.NET Core Identity将用户存储在应用中 |
+| `Individual`             | 使用 ASP.NET Core Identity 将用户存储在应用中 |
 | `IndividualB2C`          | 用户存储在 [Azure AD B2C](xref:security/authentication/azure-ad-b2c) 中 |
 | `SingleOrg`              | 对一个租户进行组织身份验证 |
 | `MultiOrg`               | 对多个租户进行组织身份验证 |

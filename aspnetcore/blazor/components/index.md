@@ -5,8 +5,9 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/14/2020
+ms.date: 08/19/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: a145cfd551650445f9ff35259cbedf71ebb686f0
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6ee767ee76b622e15a1dc5a7fe2f3e05f03dabd0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014589"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628490"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -265,7 +266,7 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
 > [!WARNING]
-> 请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[请勿创建会写入其自己的组参数属性的组件](#dont-create-components-that-write-to-their-own-parameter-properties)部分。
+> 当使用 <xref:Microsoft.AspNetCore.Components.RenderFragment> 呈现组件的内容时，请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[使用 `RenderFragment` 重写参数](#overwritten-parameters-with-renderfragment)一节。
 
 ## <a name="child-content"></a>子内容
 
@@ -317,28 +318,20 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 
 ```razor
 <input id="useIndividualParams"
-       maxlength="@Maxlength"
-       placeholder="@Placeholder"
-       required="@Required"
-       size="@Size" />
+       maxlength="@maxlength"
+       placeholder="@placeholder"
+       required="@required"
+       size="@size" />
 
 <input id="useAttributesDict"
        @attributes="InputAttributes" />
 
 @code {
-    [Parameter]
-    public string Maxlength { get; set; } = "10";
+    public string maxlength = "10";
+    public string placeholder = "Input placeholder text";
+    public string required = "required";
+    public string size = "50";
 
-    [Parameter]
-    public string Placeholder { get; set; } = "Input placeholder text";
-
-    [Parameter]
-    public string Required { get; set; } = "required";
-
-    [Parameter]
-    public string Size { get; set; } = "50";
-
-    [Parameter]
     public Dictionary<string, object> InputAttributes { get; set; } =
         new Dictionary<string, object>()
         {
@@ -350,7 +343,7 @@ Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法�
 }
 ```
 
-参数的类型必须使用字符串键实现 `IEnumerable<KeyValuePair<string, object>>`。 在此方案中，也可以选择使用 `IReadOnlyDictionary<string, object>`。
+参数的类型必须使用字符串键实现 `IEnumerable<KeyValuePair<string, object>>` 或 `IReadOnlyDictionary<string, object>`。
 
 使用这两种方法呈现的 `<input>` 元素相同：
 
@@ -433,10 +426,10 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 * 定义与子组件类型相同的字段。
 
 ```razor
-<MyLoginDialog @ref="loginDialog" ... />
+<CustomLoginDialog @ref="loginDialog" ... />
 
 @code {
-    private MyLoginDialog loginDialog;
+    private CustomLoginDialog loginDialog;
 
     private void OnSomething()
     {
@@ -632,7 +625,7 @@ public class NotifierService
 
 确保用于 [`@key`][5] 的值不冲突。 如果在同一父元素内检测到冲突值，则 Blazor 引发异常，因为它无法明确地将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
 
-## <a name="dont-create-components-that-write-to-their-own-parameter-properties"></a>请勿创建会写入其自己的组参数属性的组件
+## <a name="overwritten-parameters-with-renderfragment"></a>使用 `RenderFragment` 重写参数
 
 在以下情况中，会重写参数：
 
@@ -647,17 +640,13 @@ public class NotifierService
 * 切换以使用组件参数显示子内容。
 
 ```razor
-<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+<div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
     <div class="card-body">
-        <div class="panel-heading">
-            <h2>Toggle (<code>Expanded</code> = @Expanded)</h2>
-        </div>
+        <h2 class="card-title">Toggle (<code>Expanded</code> = @Expanded)</h2>
 
         @if (Expanded)
         {
-            <div class="card-text">
-                @ChildContent
-            </div>
+            <p class="card-text">@ChildContent</p>
         }
     </div>
 </div>
@@ -703,17 +692,13 @@ public class NotifierService
 * 使用私有字段来维持它的内部切换状态。
 
 ```razor
-<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+<div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
     <div class="card-body">
-        <div class="panel-heading">
-            <h2>Toggle (<code>expanded</code> = @expanded)</h2>
-        </div>
+        <h2 class="card-title">Toggle (<code>expanded</code> = @expanded)</h2>
 
         @if (expanded)
         {
-            <div class="card-text">
-                @ChildContent
-            </div>
+            <p class="card-text">@ChildContent</p>
         }
     </div>
 </div>
