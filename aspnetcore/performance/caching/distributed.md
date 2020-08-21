@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/distributed
-ms.openlocfilehash: a25cbaf9a4e7dc5f1bd3706d01f409208a39aaa3
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 0d27206412a098f4ea749ec10189bf24d2322de1
+ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626722"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88712475"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存
 
@@ -116,16 +116,13 @@ Table and index were created successfully.
 
 ### <a name="distributed-redis-cache"></a>分布式 Redis 缓存
 
-[Redis](https://redis.io/) 是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置 [Azure Redis 缓存](https://azure.microsoft.com/services/cache/) 。
+[Redis](https://redis.io/) 是内存中数据存储的开源数据存储，通常用作分布式缓存。  可以为 Azure 托管的 ASP.NET Core 应用配置 [Azure Redis 缓存](https://azure.microsoft.com/services/cache/) ，并使用 Azure Redis 缓存进行本地开发。
 
-应用使用 <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> 中的非开发环境中的实例 () 配置缓存实现 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*> `Startup.ConfigureServices` ：
+应用使用实例 () 配置缓存实现 <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*> 。
 
-[!code-csharp[](distributed/samples/3.x/DistCacheSample/Startup.cs?name=snippet_AddStackExchangeRedisCache)]
+有关详细信息，请参阅 [Azure Cache for Redis](/azure/azure-cache-for-redis/cache-overview)。
 
-若要在本地计算机上安装 Redis：
-
-1. 安装 [Chocolatey Redis 包](https://chocolatey.org/packages/redis-64/)。
-1. `redis-server`在命令提示符下运行。
+若要讨论本地 Redis 缓存的替代方法，请参阅 [此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/19542) 。
 
 ### <a name="distributed-ncache-cache"></a>分布式 NCache 缓存
 
@@ -544,4 +541,3 @@ services.AddDistributedRedisCache(options =>
 * <xref:host-and-deploy/web-farm>
 
 ::: moniker-end
- 
