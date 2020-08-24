@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 94ae9e52ed99c3fe8e7044f474cdf5b702dc5adf
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 587872b269d897d7c86eb77c110a4b6432218ed3
+ms.sourcegitcommit: dd0e87abf2bb50ee992d9185bb256ed79d48f545
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634457"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88746554"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core 性能最佳做法
 
@@ -57,6 +57,12 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 * 使控制器/ Razor 页面操作异步。 为了受益于 [async/await](/dotnet/csharp/programming-guide/concepts/async/) 模式，整个调用堆栈是异步的。
 
 探查器（如 [PerfView](https://github.com/Microsoft/perfview)）可用于查找频繁添加到 [线程池中](/windows/desktop/procthread/thread-pools)的线程。 `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start`事件指示添加到线程池的线程。 <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
+
+## <a name="return-ienumerablet-or-iasyncenumerablet"></a>返回 IEnumerable \<T> 或 IAsyncEnumerable\<T>
+
+`IEnumerable<T>`从操作返回会导致序列化程序同步集合迭代。 因此会阻止调用，并且可能会导致线程池资源不足。 若要避免同步枚举，请 `ToListAsync` 在返回可枚举的前使用。
+
+从 ASP.NET Core 3.0 开始， `IAsyncEnumerable<T>` 可将其用作 `IEnumerable<T>` 异步枚举的替代方法。 有关详细信息，请参阅 [控制器操作返回类型](xref:web-api/action-return-types#return-ienumerablet-or-iasyncenumerablet)。
 
 ## <a name="minimize-large-object-allocations"></a>最小化大型对象分配
 
@@ -111,7 +117,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 ## <a name="keep-common-code-paths-fast"></a>快速保持通用代码路径
 
-您希望所有代码的速度都很快。 经常称为 "代码路径" 是最重要的。 其中包括：
+您希望所有代码的速度都很快。 经常称为 "代码路径" 是最重要的。 这些方法包括：
 
 * 应用程序的请求处理管道中的中间件组件，尤其是在管道早期运行的中间件。 这些组件会对性能产生很大的影响。
 * 针对每个请求或每个请求多次执行的代码。 例如，自定义日志记录、授权处理程序或暂时性服务的初始化。
@@ -357,3 +363,11 @@ ASP.NET Core 不会缓冲 HTTP 响应正文。 第一次写入响应时：
 ## <a name="do-not-call-next-if-you-have-already-started-writing-to-the-response-body"></a>如果已开始写入响应正文，请不要调用下一个 ( # A1
 
 仅当组件可以处理和操作响应时，才应调用组件。
+
+## <a name="use-in-process-hosting-with-iis"></a>使用 IIS 中的进程内托管
+
+使用进程内托管，ASP.NET Core 在与其 IIS 工作进程相同的进程中运行。 进程内托管提供了对进程外托管的性能改进，因为请求未通过环回适配器进行代理。 环回适配器是一种将传出的网络流量返回到相同计算机的网络接口。 IIS 使用 [Windows 进程激活服务 (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was) 处理进程管理。
+
+项目默认为 ASP.NET Core 3.0 及更高版本中的进程内承载模型。
+
+有关详细信息，请参阅 [在 Windows 上利用 IIS 进行主机 ASP.NET Core](xref:host-and-deploy/iis/index)

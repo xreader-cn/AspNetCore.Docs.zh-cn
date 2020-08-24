@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 7f5d2835d93631ac73b3da0c3dc26d87ef64c57d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: f1a5af60f8dce83d9622ed9d2c6bcb4b8fc22b73
+ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634756"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88712488"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -203,6 +203,12 @@ ASP.NET Core 不支持[多值 cookie](xref:System.Web.HttpCookie.Values)。 为�
     ├── ...
     └── web.config
 ```
+
+## <a name="bind-and-input-formatters"></a>[BIND] 和输入格式化程序
+
+[ASP.NET 早期版本](/aspnet/mvc/overview/getting-started/introduction/examining-the-edit-methods-and-edit-view)使用 `[Bind]` 属性防止“过多发布”攻击。 在 ASP.NET Core 中，[输入格式化程序](xref:mvc/models/model-binding#input-formatters)的工作方式有所不同。 与输入格式化程序一起用于分析 JSON 或 XML 时，`[Bind]` 属性不再专用于防止过多发布。 数据源是使用 `x-www-form-urlencoded` 内容类型发布的表单数据时，这些属性会影响模型绑定。
+
+对于将 JSON 信息发布到控制器并使用 JSON 输入格式化程序分析数据的应用程序，我们建议将 `[Bind]` 属性替换为与 `[Bind]` 属性定义的属性相匹配的视图模型。
 
 ## <a name="additional-resources"></a>其他资源
 
