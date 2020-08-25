@@ -4,8 +4,9 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 2/25/2020
+ms.date: 08/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: ad6eac246e5bc7039158981bbe96036389512e4f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ce0dfdf1ce88b55790d33918a2d20bc19a09b288
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019230"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626891"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -116,7 +117,7 @@ ms.locfileid: "88019230"
 
   ![macOS API 模板选择](first-web-api-mac/_static/api_template.png)
 
-* 在“配置新的 ASP.NET Core Web API”对话框中，选择最新的 .NET Core 3.x 目标框架。 选择“下一步”。
+* 在“配置新的 ASP.NET Core Web API”对话框中，选择最新的 .NET Core 3.x 目标框架 。 选择“下一步”。
 
 * 输入“TodoApi”作为“项目名称”，然后选择“创建”。
 
@@ -293,7 +294,8 @@ ms.locfileid: "88019230"
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-aspnet-codegenerator
-dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
+dotnet tool update -g Dotnet-aspnet-codegenerator
+dotnet-aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
 ```
 
 前面的命令：
@@ -324,6 +326,8 @@ ASP.NET Core 模板：
 
 前面的代码是 HTTP POST 方法，如 [`[HttpPost]`](xref:Microsoft.AspNetCore.Mvc.HttpPostAttribute) 属性所指示。 该方法从 HTTP 请求正文获取待办事项的值。
 
+有关详细信息，请参阅[使用 Http [Verb] 特性的特性路由](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes)。
+
 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> 方法：
 
 * 如果成功，则返回 HTTP 201 状态代码。 HTTP 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。
@@ -348,6 +352,7 @@ ASP.NET Core 模板：
 
 * 创建新请求。
 * 将 HTTP 方法设置为 `POST`。
+* 将 URI 设置为 `https://localhost:<port>/api/TodoItems`。 例如 `https://localhost:5001/api/TodoItems`。
 * 选择“正文”选项卡。
 * 选择“原始”单选按钮。
 * 将类型设置为 **JSON (application/json)**
@@ -364,15 +369,15 @@ ASP.NET Core 模板：
 
   ![使用创建请求的 Postman](first-web-api/_static/3/create.png)
 
-### <a name="test-the-location-header-uri"></a>测试位置标头 URI
+### <a name="test-the-location-header-uri-with-postman"></a>使用 Postman 测试位置标头 URI
 
 * 在**Headers** 窗格中选择**Response** 选项卡。
 * 复制**Location** 标头值：
 
   ![Postman 控制台的“标头”选项卡](first-web-api/_static/3/create.png)
 
-* 将方法设置为“GET”。
-* 粘贴 URI（例如，`https://localhost:5001/api/TodoItems/1`）。
+* 将 HTTP 方法设置为 `GET`。
+* 将 URI 设置为 `https://localhost:<port>/api/TodoItems/1`。 例如 `https://localhost:5001/api/TodoItems/1`。
 * 选择**Send**。
 
 ## <a name="examine-the-get-methods"></a>检查 GET 方法
@@ -403,7 +408,7 @@ ASP.NET Core 模板：
 
 * 创建新请求。
 * 将 HTTP 方法设置为“GET”。
-* 将请求 URL 设置为 `https://localhost:<port>/api/TodoItems`。 例如 `https://localhost:5001/api/TodoItems`。
+* 将请求 URI 设置为 `https://localhost:<port>/api/TodoItems`。 例如 `https://localhost:5001/api/TodoItems`。
 * 在 Postman 中设置**Two pane view** 。
 * 选择**Send**。
 
@@ -594,7 +599,7 @@ DTO 可用于：
 
 * 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “API” > “下一步”   。 在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “API” > “下一步”。
   
-* 在“配置新的 ASP.NET Core Web API”对话框中，选择最新的 .NET Core 2.x 目标框架。 选择“下一步”。
+* 在“配置新的 ASP.NET Core Web API”对话框中，选择最新的 .NET Core 2.x 目标框架 。 选择“下一步”。
 
 * 输入“TodoApi”作为“项目名称”，然后选择“创建”。
 
@@ -804,7 +809,7 @@ DTO 可用于：
 
 * 创建新请求。
   * 将 HTTP 方法设置为“GET”。
-  * 将请求 URL 设置为 `https://localhost:<port>/api/todo`。 例如 `https://localhost:5001/api/todo`。
+  * 将请求 URI 设置为 `https://localhost:<port>/api/todo`。 例如 `https://localhost:5001/api/todo`。
 * 在 Postman 中设置**Two pane view** 。
 * 选择**Send**。
 
@@ -830,6 +835,7 @@ DTO 可用于：
 
 * 生成项目。
 * 在 Postman 中，将 HTTP 方法设置为 `POST`。
+* 将 URI 设置为 `https://localhost:<port>/api/TodoItem`。 例如 `https://localhost:5001/api/TodoItem`。
 * 选择“正文”选项卡。
 * 选择“原始”单选按钮。
 * 将类型设置为 **JSON (application/json)**
@@ -856,7 +862,7 @@ DTO 可用于：
   ![Postman 控制台的“标头”选项卡](first-web-api/_static/pmc2.png)
 
 * 将方法设置为“GET”。
-* 粘贴 URI（例如，`https://localhost:5001/api/Todo/2`）。
+*将 URI 设置为 `https://localhost:<port>/api/TodoItems/2`， 例如 `https://localhost:5001/api/TodoItems/2`。
 * 选择**Send**。
 
 ## <a name="add-a-puttodoitem-method"></a>添加 PutTodoItem 方法

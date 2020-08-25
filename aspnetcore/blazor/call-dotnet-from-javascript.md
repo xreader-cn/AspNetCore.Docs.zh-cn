@@ -5,8 +5,9 @@ description: 了解如何在 Blazor 应用中通过 JavaScript 函数调用 .NET
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/07/2020
+ms.date: 08/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: 5a0731b45424ffd8560bb3b0d9123c686ae9e247
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 3df0fafe85d6decac3be41d4e25a4db51d8d72d8
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012561"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627047"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-no-locblazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
 
@@ -233,17 +234,22 @@ Hello, Blazor!
 * 使用 `invokeMethod` 或 `invokeMethodAsync` 函数对组件执行静态方法调用。
 * 组件的静态方法将其实例方法调用包装为已调用的 <xref:System.Action>。
 
+> [!NOTE]
+> 对于多名用户可能同时使用同一组件的 Blazor Server 应用，请使用帮助程序类来调用实例方法。
+>
+> 有关详细信息，请参阅[组件实例方法帮助程序类](#component-instance-method-helper-class)部分。
+
 在客户端 JavaScript 中：
 
 ```javascript
 function updateMessageCallerJS() {
-  DotNet.invokeMethod('{APP ASSEMBLY}', 'UpdateMessageCaller');
+  DotNet.invokeMethodAsync('{APP ASSEMBLY}', 'UpdateMessageCaller');
 }
 ```
 
 占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。
 
-`Pages/JSInteropComponent.razor`：
+`Pages/JSInteropComponent.razor`:
 
 ```razor
 @page "/JSInteropComponent"
@@ -279,7 +285,70 @@ function updateMessageCallerJS() {
 }
 ```
 
-如果有多个组件，每个组件都有要调用的实例方法，请使用 helper 类来调用每个组件的实例方法（如 <xref:System.Action>）。
+若要向实例方法传递参数：
+
+* 向 JS 方法调用添加参数。 在下面的示例中，一个名称被传递给方法。 可根据需要将其他参数添加到列表。
+
+  ```javascript
+  function updateMessageCallerJS(name) {
+    DotNet.invokeMethodAsync('{APP ASSEMBLY}', 'UpdateMessageCaller', name);
+  }
+  ```
+  
+  占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。
+
+* 向参数的 <xref:System.Action> 提供正确的类型。 向 C# 方法提供参数列表。 使用参数 (`action.Invoke(name)`) 调用 <xref:System.Action> (`UpdateMessage`)。
+
+  `Pages/JSInteropComponent.razor`:
+
+  ```razor
+  @page "/JSInteropComponent"
+
+  <p>
+      Message: @message
+  </p>
+
+  <p>
+      <button onclick="updateMessageCallerJS('Sarah Jane')">
+          Call JS Method
+      </button>
+  </p>
+
+  @code {
+      private static Action<string> action;
+      private string message = "Select the button.";
+
+      protected override void OnInitialized()
+      {
+          action = UpdateMessage;
+      }
+
+      private void UpdateMessage(string name)
+      {
+          message = $"{name}, UpdateMessage Called!";
+          StateHasChanged();
+      }
+
+      [JSInvokable]
+      public static void UpdateMessageCaller(string name)
+      {
+          action.Invoke(name);
+      }
+  }
+  ```
+
+  选择“调用 JS 方法”按钮时输出 `message`：
+
+  ```
+  Sarah Jane, UpdateMessage Called!
+  ```
+
+## <a name="component-instance-method-helper-class"></a>组件实例方法帮助程序类
+
+帮助程序类用于将实例方法作为 <xref:System.Action> 进行调用。 帮助程序类在以下情况中非常有用：
+
+* 同一类型的多个组件呈现在同一页上。
+* 使用 Blazor Server 应用，其中多名用户可能同时使用某个组件。
 
 如下示例中：
 
@@ -287,7 +356,7 @@ function updateMessageCallerJS() {
 * 每个 `ListItem` 组件都由一个消息和一个按钮组成。
 * 选择 `ListItem` 组件按钮后，`ListItem` 的 `UpdateMessage` 方法会更改列表项文本并隐藏该按钮。
 
-`MessageUpdateInvokeHelper.cs`：
+`MessageUpdateInvokeHelper.cs`:
 
 ```csharp
 using System;
@@ -321,7 +390,7 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-`Shared/ListItem.razor`：
+`Shared/ListItem.razor`:
 
 ```razor
 @inject IJSRuntime JsRuntime
@@ -356,7 +425,7 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-`Pages/JSInteropExample.razor`：
+`Pages/JSInteropExample.razor`:
 
 ```razor
 @page "/JSInteropExample"

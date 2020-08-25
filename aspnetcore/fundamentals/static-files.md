@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 6/23/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -14,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/static-files
-ms.openlocfilehash: 32f794d498533e846343831d2360e98939105fb1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 24fda96dbe48945d172eb36e8a91af31f168ff7f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016669"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627658"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -103,6 +104,19 @@ ms.locfileid: "88016669"
 ## <a name="static-file-authorization"></a>静态文件授权
 
 静态文件中间件不提供授权检查。 可公开访问由静态文件中间件提供的任何文件，包括 `wwwroot` 下的文件。 根据授权提供文件：
+
+* 将文件存储在 `wwwroot` 和默认静态文件中间件可访问的任何目录之外。
+* 在 `UseAuthorization` 后面调用 `UseStaticFiles` 并指定路径：
+
+  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet2)]
+  
+  上述方法要求用户已进行身份验证：
+
+  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet1&highlight=20-99)]
+
+   [!INCLUDE[](~/includes/requireAuth.md)]
+
+还有一种根据授权提供文件的方法是：
 
 * 将文件存储在 `wwwroot` 和静态文件中间件可访问的任何目录之外。
 * 通过应用授权的操作方法为其提供服务，并返回 <xref:Microsoft.AspNetCore.Mvc.FileResult> 对象：
@@ -445,6 +459,8 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 [!code-csharp[](static-files/samples/1.x/StaticFilesSample/StartupFileExtensionContentTypeProvider.cs?name=snippet_ConfigureMethod&highlight=3-12,19)]
 
 请参阅 [MIME 内容类型](https://www.iana.org/assignments/media-types/media-types.xhtml)。
+
+若要了解如何使用自定义 <xref:Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider>，或者要配置 Blazor Server 应用中的其他 <xref:Microsoft.AspNetCore.Builder.StaticFileOptions>，请参阅 <xref:blazor/fundamentals/additional-scenarios#static-files>。
 
 ## <a name="non-standard-content-types"></a>非标准内容类型
 

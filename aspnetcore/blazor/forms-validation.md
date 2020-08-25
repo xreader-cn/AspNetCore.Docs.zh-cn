@@ -5,8 +5,9 @@ description: 了解如何在 Blazor 中使用窗体和字段验证方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 08/18/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,16 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 3e719261315ed3a17833da7751d801d79a11ee6c
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4690c279c24ef23806a6e72aece5f7cd821752bc
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014473"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628321"
 ---
 # <a name="aspnet-core-no-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
-作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
+作者：[Daniel Roth](https://github.com/danroth27)、[Rémi Bourgarel](https://remibou.github.io/) 和 [Luke Latham](https://github.com/guardrex)
 
 在 Blazor 中，使用[数据注释](xref:mvc/models/validation)支持窗体和验证。
 
@@ -60,7 +61,7 @@ public class ExampleModel
 
     private void HandleValidSubmit()
     {
-        Console.WriteLine("OnValidSubmit");
+        ...
     }
 }
 ```
@@ -71,7 +72,7 @@ public class ExampleModel
 * <xref:Microsoft.AspNetCore.Components.Forms.InputText> 组件的 `@bind-Value` 进行以下绑定：
   * 将模型属性 (`exampleModel.Name`) 绑定到 <xref:Microsoft.AspNetCore.Components.Forms.InputText> 组件的 `Value` 属性。 有关属性绑定的详细信息，请参阅 <xref:blazor/components/data-binding#parent-to-child-binding-with-component-parameters>。
   * 将更改事件委托绑定到 <xref:Microsoft.AspNetCore.Components.Forms.InputText> 组件的 `ValueChanged` 属性。
-* <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件使用数据注释附加验证支持。
+* <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> [验证器组件](#validator-components)使用数据注释附加验证支持。
 * <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> 组件汇总验证消息。
 * 窗体成功提交（通过验证）时触发 `HandleValidSubmit`。
 
@@ -189,23 +190,31 @@ public class Starship
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
+    private Starship starship = new Starship() { ProductionDate = DateTime.UtcNow };
 
     private void HandleValidSubmit()
     {
-        Console.WriteLine("OnValidSubmit");
+        ...
     }
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.Forms.EditForm> 创建一个 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 作为[级联值](xref:blazor/components/cascading-values-and-parameters)来跟踪有关编辑过程的元数据，其中包括已修改的字段和当前的验证消息。 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 还为有效和无效的提交提供便捷的事件（<xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit>、<xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit>）。 或者，使用 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> 触发验证并使用自定义验证代码检查字段值。
+<xref:Microsoft.AspNetCore.Components.Forms.EditForm> 创建一个 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 作为[级联值](xref:blazor/components/cascading-values-and-parameters)来跟踪有关编辑过程的元数据，其中包括已修改的字段和当前的验证消息。
+
+将 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 或 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model?displayProperty=nameWithType> 分配给 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 。 不支持同时分配两者，会生成运行时错误。
+
+<xref:Microsoft.AspNetCore.Components.Forms.EditForm> 为有效和无效的窗体提交提供便捷的事件：
+
+* <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit>
+* <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit>
+
+通过 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit>，使用自定义代码触发验证并检查字段值。
 
 如下示例中：
 
-* 选择 `Submit` 按钮时，将运行 `HandleSubmit` 方法。
-* 使用窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 验证窗体。
-* 通过将 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 传递给 `ServerValidate` 方法来进一步验证窗体，该方法会调用服务器上的 Web API 终结点（*未显示*）。
-* 通过检查 `isValid` 获得客户端和服务器端验证的结果，并根据该结果运行其他代码。
+* 选择 `Submit` 按钮时，执行 `HandleSubmit` 方法。
+* 通过调用 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.Validate%2A?displayProperty=nameWithType> 验证窗体。
+* 根据验证结果执行其他代码。 将业务逻辑放在分配给 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> 的方法中。
 
 ```razor
 <EditForm EditContext="@editContext" OnSubmit="HandleSubmit">
@@ -216,7 +225,7 @@ public class Starship
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
+    private Starship starship = new Starship() { ProductionDate = DateTime.UtcNow };
     private EditContext editContext;
 
     protected override void OnInitialized()
@@ -226,8 +235,7 @@ public class Starship
 
     private async Task HandleSubmit()
     {
-        var isValid = editContext.Validate() && 
-            await ServerValidate(editContext);
+        var isValid = editContext.Validate();
 
         if (isValid)
         {
@@ -238,15 +246,428 @@ public class Starship
             ...
         }
     }
+}
+```
 
-    private async Task<bool> ServerValidate(EditContext editContext)
+> [!NOTE]
+> Framework API 不存在，无法直接从 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 清除验证消息。 因此，通常建议不要在窗体中将验证消息添加到新的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore>。 若要管理验证消息，请将[验证器组件](#validator-components)与[业务逻辑验证代码](#business-logic-validation)一起使用，如本文所述。
+
+## <a name="validator-components"></a>验证器组件
+
+验证器组件通过管理窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore> 来支持窗体验证。
+
+Blazor 框架提供了 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，以将验证支持附加到基于[验证属性（数据批注）](xref:mvc/models/validation#validation-attributes)的窗体。 创建自定义验证器组件，以处理同一页上不同窗体或不同窗体处理步骤上相同窗体的验证消息，例如客户端验证，然后是服务器端验证。 本文的以下部分将使用本部分 `CustomValidator` 中所示的验证器组件示例：
+
+* [业务逻辑验证](#business-logic-validation)
+* [服务器验证](#server-validation)
+
+> [!NOTE]
+> 在许多情况下，可使用自定义数据注释验证属性来代替自定义验证器组件。 应用于窗体模型的自定义属性使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件激活。 当与服务器端验证一起使用时，应用于模型的所有自定义属性都必须可在服务器上执行。 有关详细信息，请参阅 <xref:mvc/models/validation#alternatives-to-built-in-attributes>。
+
+从 <xref:Microsoft.AspNetCore.Components.ComponentBase> 创建验证器组件：
+
+* 窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 是组件的[级联参数](xref:blazor/components/cascading-values-and-parameters)。
+* 初始化验证器组件时，将创建一个新的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore> 来维护当前的窗体错误列表。
+* 当窗体组件中的开发人员代码调用 `DisplayErrors` 方法时，消息存储接收错误。 这些错误会传递到 [`Dictionary<string, List<string>>`](xref:System.Collections.Generic.Dictionary`2) 中的 `DisplayErrors` 方法。 在字典中，键是具有一个或多个错误的窗体字段的名称。 值为错误列表。
+* 发生以下任一情况时，将清除消息：
+  * 引发 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 事件时，会在 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested> 上请求验证。 所有错误都将被清除。
+  * 引发 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> 事件时，窗体中的字段会更改。 仅清除字段的错误。
+  * `ClearErrors` 方法由开发人员代码调用。 所有错误都将被清除。
+
+```csharp
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+
+namespace BlazorSample.Client
+{
+    public class CustomValidator : ComponentBase
     {
-        var serverChecksValid = ...
+        private ValidationMessageStore messageStore;
 
-        return serverChecksValid;
+        [CascadingParameter]
+        private EditContext CurrentEditContext { get; set; }
+
+        protected override void OnInitialized()
+        {
+            if (CurrentEditContext == null)
+            {
+                throw new InvalidOperationException(
+                    $"{nameof(CustomValidator)} requires a cascading " +
+                    $"parameter of type {nameof(EditContext)}. " +
+                    $"For example, you can use {nameof(CustomValidator)} " +
+                    $"inside an {nameof(EditForm)}.");
+            }
+
+            messageStore = new ValidationMessageStore(CurrentEditContext);
+
+            CurrentEditContext.OnValidationRequested += (s, e) => 
+                messageStore.Clear();
+            CurrentEditContext.OnFieldChanged += (s, e) => 
+                messageStore.Clear(e.FieldIdentifier);
+        }
+
+        public void DisplayErrors(Dictionary<string, List<string>> errors)
+        {
+            foreach (var err in errors)
+            {
+                messageStore.Add(CurrentEditContext.Field(err.Key), err.Value);
+            }
+
+            CurrentEditContext.NotifyValidationStateChanged();
+        }
+
+        public void ClearErrors()
+        {
+            messageStore.Clear();
+            CurrentEditContext.NotifyValidationStateChanged();
+        }
     }
 }
 ```
+
+## <a name="business-logic-validation"></a>业务逻辑验证
+
+可通过接收字典中的窗体错误的[验证器组件](#validator-components)完成业务逻辑验证。
+
+如下示例中：
+
+* 使用本文的[验证器组件](#validator-components)部分的 `CustomValidator` 组件。
+* 如果用户选择 `Defense` 交付分类 (`Classification`)，则验证需要交付说明 (`Description`) 的值。
+
+在组件中设置验证消息时，它们将被添加到验证器的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore>，并在 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 中显示：
+
+```csharp
+@page "/FormsValidation"
+
+<h1>Starfleet Starship Database</h1>
+
+<h2>New Ship Entry Form</h2>
+
+<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <CustomValidator @ref="customValidator" />
+    <ValidationSummary />
+
+    ...
+
+</EditForm>
+
+@code {
+    private CustomValidator customValidator;
+    private Starship starship = new Starship() { ProductionDate = DateTime.UtcNow };
+
+    private void HandleValidSubmit()
+    {
+        customValidator.ClearErrors();
+
+        var errors = new Dictionary<string, List<string>>();
+
+        if (starship.Classification == "Defense" &&
+                string.IsNullOrEmpty(starship.Description))
+        {
+            errors.Add(nameof(starship.Description),
+                new List<string>() { "For a 'Defense' ship classification, " +
+                "'Description' is required." });
+        }
+
+        if (errors.Count() > 0)
+        {
+            customValidator.DisplayErrors(errors);
+        }
+        else
+        {
+            // Process the form
+        }
+    }
+}
+```
+
+> [!NOTE]
+> 除了使用[验证组件](#validator-components)，还可使用数据注释验证属性。 应用于窗体模型的自定义属性使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件激活。 当与服务器端验证一起使用时，该属性都必须可在服务器上执行。 有关详细信息，请参阅 <xref:mvc/models/validation#alternatives-to-built-in-attributes>。
+
+## <a name="server-validation"></a>服务器验证
+
+服务器验证可通过服务器[验证器组件](#validator-components)完成：
+
+* 使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件处理窗体中的客户端验证。
+* 当窗体传递客户端验证（调用 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit>）时，将 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.Model?displayProperty=nameWithType> 发送到后端服务器 API 进行窗体处理。
+* 处理服务器上的模型验证。
+* 服务器 API 包括开发人员提供的内置框架数据注释验证和自定义验证逻辑。 如果验证在服务器上传递，则处理窗格并发送回成功状态代码（200 - 正常）。 如果验证失败，则返回失败状态代码（400 - 错误请求）和字段验证错误。
+* 成功时禁用窗体，否则显示错误。
+
+下面的示例基于：
+
+* 托管的 Blazor 解决方案，由 [Blazor 托管项目模板](xref:blazor/hosting-models#blazor-webassembly)创建。 此示例可与[安全性和 Identity 文档](xref:blazor/security/webassembly/index#implementation-guidance)中介绍的任何安全托管 Blazor 方案一起使用。
+* 前面的[内置窗体组件](#built-in-forms-components)部分中的 Starfleet Starship 数据库窗体示例。
+* Blazor 框架的 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件。
+* [验证器组件](#validator-components)部分中显示的 `CustomValidator` 组件。
+
+在下面的示例中，如果用户选择 `Defense` 交付分类 (`Classification`)，则服务器 API 将验证是否为交付说明 (`Description`) 提供了值。
+
+将 `Starship` 模型放入解决方案的 `Shared` 项目中，以便客户端和服务器应用都可使用该模型。 模型需要数据注释，因此请将 [`System.ComponentModel.Annotations`](https://www.nuget.org/packages/System.ComponentModel.Annotations) 的包引用添加到 `Shared` 项目的项目文件中：
+
+```xml
+<ItemGroup>
+  <PackageReference Include="System.ComponentModel.Annotations" Version="{VERSION}" />
+</ItemGroup>
+```
+
+若要确定包的最新非预览版本，请前往 [NuGet.org](https://www.nuget.org/packages/System.ComponentModel.Annotations) 查看包版本历史记录。
+
+在服务器 API 项目中，添加控制器来处理 Starship 验证请求 (`Controllers/StarshipValidation.cs`) 并返回失败的验证消息：
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using BlazorSample.Shared;
+
+namespace BlazorSample.Server.Controllers
+{
+    [Authorize]
+    [ApiController]
+    [Route("[controller]")]
+    public class StarshipValidationController : ControllerBase
+    {
+        private readonly ILogger<StarshipValidationController> logger;
+
+        public StarshipValidationController(
+            ILogger<StarshipValidationController> logger)
+        {
+            this.logger = logger;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Starship starship)
+        {
+            try
+            {
+                if (starship.Classification == "Defense" && 
+                    string.IsNullOrEmpty(starship.Description))
+                {
+                    ModelState.AddModelError(nameof(starship.Description),
+                        "For a 'Defense' ship " +
+                        "classification, 'Description' is required.");
+                }
+                else
+                {
+                    // Process the form asynchronously
+                    // async ...
+
+                    return Ok(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Validation Error: {MESSAGE}", ex.Message);
+            }
+
+            return BadRequest(ModelState);
+        }
+    }
+}
+```
+
+当服务器上发生模型绑定验证错误时，[`ApiController`](xref:web-api/index) (<xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute>) 通常通过 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 返回[默认错误请求响应](xref:web-api/index#default-badrequest-response)。 如下例所示，当“Starfleet Starship 数据库”窗格的部分字段未提交且窗格未通过验证时，响应包含的数据不仅仅是验证错误：
+
+```json
+{
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": {
+    "Identifier": ["The Identifier field is required."],
+    "Classification": ["The Classification field is required."],
+    "IsValidatedDesign": ["This form disallows unapproved ships."],
+    "MaximumAccommodation": ["Accommodation invalid (1-100000)."]
+  }
+}
+```
+
+如果服务器 API 返回前面的默认 JSON 响应，则客户端可分析响应以获取 `errors` 节点的子节点。 但是，分析文件不方便。 分析 JSON 需要调用 <xref:System.Net.Http.Json.HttpContentJsonExtensions.ReadFromJsonAsync%2A> 后的其他代码，以生成窗体验证错误处理的 [`Dictionary<string, List<string>>`](xref:System.Collections.Generic.Dictionary`2) 错误。 理想情况下，服务器 API 应只返回验证错误：
+
+```json
+{
+  "Identifier": ["The Identifier field is required."],
+  "Classification": ["The Classification field is required."],
+  "IsValidatedDesign": ["This form disallows unapproved ships."],
+  "MaximumAccommodation": ["Accommodation invalid (1-100000)."]
+}
+```
+
+若要修改服务器 API 的响应，使其仅返回验证错误，请更改在 `Startup.ConfigureServices` 中注释了 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 的操作上调用的委托。 对于 API 终结点 (`/StarshipValidation`)，返回具有 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary> 的 <xref:Microsoft.AspNetCore.Mvc.BadRequestObjectResult>。 对于任何其他 API 终结点，通过使用新的 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 返回对象结果来保留默认行为：
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+...
+
+services.AddControllersWithViews()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            if (context.HttpContext.Request.Path == "/StarshipValidation")
+            {
+                return new BadRequestObjectResult(context.ModelState);
+            }
+            else
+            {
+                return new BadRequestObjectResult(
+                    new ValidationProblemDetails(context.ModelState));
+            }
+        };
+    });
+```
+
+有关详细信息，请参阅 <xref:web-api/handle-errors#validation-failure-error-response>。
+
+在客户端项目中，添加[验证器组件](#validator-components)部分中显示的验证器组件。
+
+在客户端项目中，更新“Starfleet Starship 数据库”窗体，以显示服务器验证错误和 `CustomValidator` 组件的帮助。 当服务器 API 返回验证消息时，这些消息将添加到 `CustomValidator` 组件的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore>。 此错误在窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 中提供，以供窗体的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> 显示：
+
+```csharp
+@page "/FormValidation"
+@using System.Net
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+@using BlazorSample.Shared
+@attribute [Authorize]
+@inject HttpClient Http
+@inject ILogger<FormValidation> Logger
+
+<h1>Starfleet Starship Database</h1>
+
+<h2>New Ship Entry Form</h2>
+
+<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <CustomValidator @ref="customValidator" />
+    <ValidationSummary />
+
+    <p>
+        <label>
+            Identifier:
+            <InputText @bind-Value="starship.Identifier" disabled="@disabled" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Description (optional):
+            <InputTextArea @bind-Value="starship.Description" 
+                disabled="@disabled" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Primary Classification:
+            <InputSelect @bind-Value="starship.Classification" disabled="@disabled">
+                <option value="">Select classification ...</option>
+                <option value="Exploration">Exploration</option>
+                <option value="Diplomacy">Diplomacy</option>
+                <option value="Defense">Defense</option>
+            </InputSelect>
+        </label>
+    </p>
+    <p>
+        <label>
+            Maximum Accommodation:
+            <InputNumber @bind-Value="starship.MaximumAccommodation" 
+                disabled="@disabled" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Engineering Approval:
+            <InputCheckbox @bind-Value="starship.IsValidatedDesign" 
+                disabled="@disabled" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Production Date:
+            <InputDate @bind-Value="starship.ProductionDate" disabled="@disabled" />
+        </label>
+    </p>
+
+    <button type="submit" disabled="@disabled">Submit</button>
+
+    <p style="@messageStyles">
+        @message
+    </p>
+
+    <p>
+        <a href="http://www.startrek.com/">Star Trek</a>,
+        &copy;1966-2019 CBS Studios, Inc. and
+        <a href="https://www.paramount.com">Paramount Pictures</a>
+    </p>
+</EditForm>
+
+@code {
+    private bool disabled;
+    private string message;
+    private string messageStyles = "visibility:hidden";
+    private CustomValidator customValidator;
+    private Starship starship = new Starship() { ProductionDate = DateTime.UtcNow };
+
+    private async Task HandleValidSubmit(EditContext editContext)
+    {
+        customValidator.ClearErrors();
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync<Starship>(
+                "StarshipValidation", (Starship)editContext.Model);
+
+            var errors = await response.Content
+                .ReadFromJsonAsync<Dictionary<string, List<string>>>();
+
+            if (response.StatusCode == HttpStatusCode.BadRequest && 
+                errors.Count() > 0)
+            {
+                customValidator.DisplayErrors(errors);
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                    $"Validation failed. Status Code: {response.StatusCode}");
+            }
+            else
+            {
+                disabled = true;
+                messageStyles = "color:green";
+                message = "The form has been processed.";
+            }
+        }
+        catch (AccessTokenNotAvailableException ex)
+        {
+            ex.Redirect();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError("Form processing error: {MESSAGE}", ex.Message);
+            disabled = true;
+            messageStyles = "color:red";
+            message = "There was an error processing the form.";
+        }
+    }
+}
+```
+
+> [!NOTE]
+> 除了[验证组件](#validator-components)，还可使用数据注释验证属性。 应用于窗体模型的自定义属性使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件激活。 当与服务器端验证一起使用时，该属性都必须可在服务器上执行。 有关详细信息，请参阅 <xref:mvc/models/validation#alternatives-to-built-in-attributes>。
+
+> [!NOTE]
+> 本部分中的服务器端验证方法适用于本文档集中的所有 Blazor WebAssembly 托管解决方案示例：
+>
+> * [Azure Active Directory (AAD)](xref:blazor/security/webassembly/hosted-with-azure-active-directory)
+> * [Azure Active Directory (AAD) B2C](xref:blazor/security/webassembly/hosted-with-azure-active-directory-b2c)
+> * [Identity 服务器](xref:blazor/security/webassembly/hosted-with-identity-server)
 
 ## <a name="inputtext-based-on-the-input-event"></a>基于输入事件的 InputText
 
@@ -254,7 +675,7 @@ public class Starship
 
 在下面的示例中，`CustomInputText` 组件继承框架的 `InputText` 组件，并将事件绑定 (<xref:Microsoft.AspNetCore.Components.EventCallbackFactoryBinderExtensions.CreateBinder%2A>) 设置为 `oninput` 事件。
 
-`Shared/CustomInputText.razor`：
+`Shared/CustomInputText.razor`:
 
 ```razor
 @inherits InputText
@@ -270,7 +691,7 @@ public class Starship
 
 `CustomInputText` 组件可在任何使用 <xref:Microsoft.AspNetCore.Components.Forms.InputText> 的位置使用：
 
-`Pages/TestForm.razor`：
+`Pages/TestForm.razor`:
 
 ```razor
 @page  "/testform"
@@ -294,7 +715,7 @@ public class Starship
 
     private void HandleValidSubmit()
     {
-        Console.WriteLine("OnValidSubmit");
+        ...
     }
 
     public class ExampleModel
@@ -383,7 +804,7 @@ public class Starship
 
     private void HandleValidSubmit()
     {
-        Console.WriteLine("valid");
+        ...
     }
 
     public class Model
@@ -485,6 +906,9 @@ private class CustomValidator : ValidationAttribute
 
 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 是使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件填补验证经验空白的包。 该包目前处于*试验阶段*。
 
+> [!NOTE]
+> [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 包具有最新版本的候选发布 ([Nuget.org](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation))。此时继续使用实验性候选发布包。 在将来的版本中，包的程序集可能会移动到框架或运行时。 请观看[公告 GitHub 存储库](https://github.com/aspnet/Announcements)、[dotnet/aspnetcore GitHub 存储库](https://github.com/dotnet/aspnetcore)或本主题部分，获取进一步更新。
+
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
 <xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) 特性。
@@ -504,7 +928,7 @@ Blazor 支持结合使用数据注释和内置的 <xref:Microsoft.AspNetCore.Com
 
 用 `[ValidateComplexType]` 注释模型属性。 在以下模型类中，`ShipDescription` 类包含附加数据注释，用于在将模型绑定到窗体时进行验证：
 
-`Starship.cs`：
+`Starship.cs`:
 
 ```csharp
 using System;
@@ -521,7 +945,7 @@ public class Starship
 }
 ```
 
-`ShipDescription.cs`：
+`ShipDescription.cs`:
 
 ```csharp
 using System;
@@ -547,6 +971,9 @@ public class ShipDescription
 * 在上下文的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> 回调中验证窗体，以启用和禁用提交按钮。
 * 解除挂接 `Dispose` 方法中的事件处理程序。 有关详细信息，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
 
+> [!NOTE]
+> 使用 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 时，也不要将 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> 分配给 <xref:Microsoft.AspNetCore.Components.Forms.EditForm>。
+
 ```razor
 @implements IDisposable
 
@@ -560,7 +987,7 @@ public class ShipDescription
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
+    private Starship starship = new Starship() { ProductionDate = DateTime.UtcNow };
     private bool formInvalid = true;
     private EditContext editContext;
 
@@ -619,7 +1046,7 @@ public class ShipDescription
 
 > InvalidOperationException：EditForm 需要 Model 参数或 EditContext 参数，但不能同时需要这两个参数。
 
-确认 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 是否有 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> 或 <xref:Microsoft.AspNetCore.Components.Forms.EditContext>。
+确认 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 是否有 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> 或 <xref:Microsoft.AspNetCore.Components.Forms.EditContext>。 不要对同一窗体使用这两者。
 
 在将 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> 分配到窗体时，请确认模型类型是否已实例化，如下面的示例所示：
 

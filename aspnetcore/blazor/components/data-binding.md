@@ -5,8 +5,9 @@ description: 了解 Blazor 应用中组件和 DOM 元素的数据绑定功能。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 08/19/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 6f5ad6b8f225834c92d6e33d8bcf608b56678e67
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 3b41aedcbd0d2c22b20d8fa3a21b8af97d1fbb2c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014667"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628555"
 ---
 # <a name="aspnet-core-no-locblazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
@@ -30,19 +31,27 @@ ms.locfileid: "88014667"
 
 Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特性提供了数据绑定功能，该特性具有字段、属性或 Razor 表达式值。
 
-下面的示例将 `CurrentValue` 属性绑定到文本框的值：
+下面的示例将 `<input>` 元素绑定到 `currentValue` 字段，将`<input>` 元素绑定到 `CurrentValue` 属性：
 
 ```razor
-<input @bind="CurrentValue" />
+<p>
+    <input @bind="currentValue" /> Current value: @currentValue
+</p>
+
+<p>
+    <input @bind="CurrentValue" /> Current value: @CurrentValue
+</p>
 
 @code {
+    private string currentValue;
+
     private string CurrentValue { get; set; }
 }
 ```
 
-当文本框失去焦点时，该属性的值会更新。
+当其中一个元素失去焦点时，将更新其绑定字段或属性。
 
-仅当呈现组件时（而不是响应属性值更改），才会在 UI 中更新文本框。 由于组件会在事件处理程序代码执行之后呈现自己，因此在触发事件处理程序之后，通常会在 UI 中反映属性更新。
+仅当呈现组件时（而不是响应字段或属性值更改），才会在 UI 中更新文本框。 由于组件会在事件处理程序代码执行之后呈现自己，因此在触发事件处理程序之后，通常会在 UI 中反映字段和属性更新。
 
 将 [`@bind`](xref:mvc/views/razor#bind) 与 `CurrentValue` 属性结合使用 (`<input @bind="CurrentValue" />`) 在本质上等效于以下内容：
 
@@ -50,13 +59,13 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 <input value="@CurrentValue"
     @onchange="@((ChangeEventArgs __e) => CurrentValue = 
         __e.Value.ToString())" />
-        
+
 @code {
     private string CurrentValue { get; set; }
 }
 ```
 
-呈现组件时，输入元素的 `value` 来自 `CurrentValue` 属性。 用户在文本框中键入并更改元素焦点时，会激发 `onchange` 事件并将 `CurrentValue` 属性设置为更改的值。 实际上，代码生成更加复杂，因为 [`@bind`](xref:mvc/views/razor#bind) 会处理执行类型转换的情况。 原则上，[`@bind`](xref:mvc/views/razor#bind) 将表达式的当前值与 `value` 属性关联，并使用注册的处理程序处理更改。
+呈现组件时，输入元素的 `value` 来自 `CurrentValue` 属性。 用户在文本框中键入并更改元素焦点时，会激发 `onchange` 事件并将 `CurrentValue` 属性设置为更改的值。 实际上，代码生成会比这更加复杂，因为 [`@bind`](xref:mvc/views/razor#bind) 会处理执行类型转换的情况。 原则上，[`@bind`](xref:mvc/views/razor#bind) 将表达式的当前值与 `value` 属性关联，并使用注册的处理程序处理更改。
 
 通过同时包含带有 `event` 参数的 `@bind:event` 属性，在其他事件上绑定属性或字段。 以下示例在 `oninput` 事件上绑定 `CurrentValue` 属性：
 
@@ -70,11 +79,15 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 与在元素失去焦点时激发的 `onchange` 不同，`oninput` 在文本框的值更改时激发。
 
-通过 `@bind-{ATTRIBUTE}:event` 语法使用 `@bind-{ATTRIBUTE}` 可绑定除 `value` 之外的元素属性。 在下面的示例中，当 `paragraphStyle` 值更改时，段落的样式会更新：
+通过 `@bind-{ATTRIBUTE}:event` 语法使用 `@bind-{ATTRIBUTE}` 可绑定除 `value` 之外的元素属性。 如下示例中：
+
+* 组件加载 (`style="color:red"`) 时，段落的样式为红色。
+* 用户更改文本框的值以反映不同的 CSS 颜色样式，并更改页面的元素焦点。 例如，用户将文本框值更改为 `color:blue`，然后按键盘上的 Tab 键<kbd></kbd>。
+* 当元素焦点更改时：
+  * 将从 `<input>` 元素的值分配 `paragraphStyle` 值。
+  * 段落样式将更新以反映 `paragraphStyle` 中的新样式。 如果样式更新为 `color:blue`，则文本颜色将更改为蓝色。
 
 ```razor
-@page "/binding-example"
-
 <p>
     <input type="text" @bind="paragraphStyle" />
 </p>
@@ -102,13 +115,13 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 * `<input>` 元素绑定到 `int` 类型，其初始值为 `123`：
 
   ```razor
-  <input @bind="MyProperty" />
+  <input @bind="inputValue" />
 
   @code {
-      [Parameter]
-      public int MyProperty { get; set; } = 123;
+      private int inputValue = 123;
   }
   ```
+
 * 用户在页面中将该元素的值更新为 `123.45`，并更改元素焦点。
 
 在上面的方案中，元素的值会还原为 `123`。 如果拒绝值 `123.45` 以采用原始值 `123`，则用户会了解其值不被接受。
@@ -117,7 +130,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 * 不使用 `oninput` 事件。 使用默认 `onchange` 事件（仅指定 `@bind="{PROPERTY OR FIELD}"`），其中无效值在元素失去焦点之前不会还原。
 * 绑定到可以为 null 的类型（如 `int?` 或 `string`），并提供自定义逻辑来处理无效条目。
-* 使用[窗体验证组件](xref:blazor/forms-validation)，如 <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> 或 <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601>。 窗体验证组件具有用于管理无效输入的内置支持。 窗体验证组件：
+* 使用[窗体验证组件](xref:blazor/forms-validation)，如 <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> 或 <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601>。 窗体验证组件具有用于管理无效输入的内置支持。 有关详细信息，请参阅 <xref:blazor/forms-validation>。 窗体验证组件：
   * 允许用户提供无效输入并在关联的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 上接收验证错误。
   * 在 UI 中显示验证错误，而不干扰用户输入其他 webform 数据。
 
@@ -126,11 +139,10 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 数据绑定使用 `@bind:format` 处理 <xref:System.DateTime> 格式字符串。 目前无法使用其他格式表达式，如货币或数字格式。
 
 ```razor
-<input @bind="StartDate" @bind:format="yyyy-MM-dd" />
+<input @bind="startDate" @bind:format="yyyy-MM-dd" />
 
 @code {
-    [Parameter]
-    public DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
+    private DateTime startDate = new DateTime(2020, 1, 1);
 }
 ```
 
@@ -146,103 +158,86 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 不建议为 `date` 字段类型指定格式，因为 Blazor 具有用于设置日期格式的内置支持。 尽管提出了建议，但如果使用 `date` 字段类型提供格式，则只有使用 `yyyy-MM-dd` 日期格式才能使绑定正常工作：
 
 ```razor
-<input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
+<input type="date" @bind="startDate" @bind:format="yyyy-MM-dd">
 ```
 
 ## <a name="parent-to-child-binding-with-component-parameters"></a>使用组件参数的父级到子级绑定
 
-绑定可识别组件参数，其中 `@bind-{PROPERTY}` 可以将属性值从父组件向下绑定到子组件。 在[使用链接绑定的子级到父级绑定](#child-to-parent-binding-with-chained-bind)部分中，介绍了从子级绑定到父级。
+通过组件参数，可使用 `@bind-{PROPERTY OR FIELD}` 语法绑定父组件的属性和字段。
 
-以下子组件 (`ChildComponent`) 具有 `Year` 组件参数和 `YearChanged` 回调：
+以下 `Child` 组件 (`Child.razor`) 具有 `Year` 组件参数和 `YearChanged` 回调：
 
 ```razor
-<h2>Child Component</h2>
-
-<p>Year: @Year</p>
+<div class="card bg-light mt-3" style="width:18rem ">
+    <div class="card-body">
+        <h3 class="card-title">Child Component</h3>
+        <p class="card-text">Child <code>Year</code>: @Year</p>
+        <p>
+            <button @onclick="UpdateYear">
+                Update Child <code>Year</code> and call 
+                <code>YearChanged.InvokeAsync(Year)</code>
+            </button>
+        </p>
+    </div>
+</div>
 
 @code {
+    private Random r = new Random();
+
     [Parameter]
     public int Year { get; set; }
 
     [Parameter]
     public EventCallback<int> YearChanged { get; set; }
-}
-```
 
-<xref:Microsoft.AspNetCore.Components.EventCallback%601> 必须命名为组件参数名后跟 `Changed` 后缀 (`{PARAMETER NAME}Changed`)，即前面的示例中的 `YearChanged`。 有关 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 的详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。
-
-以下父组件使用：
-
-* `ChildComponent` 并将 `ParentYear` 参数从父级绑定到子组件上的 `Year` 参数。
-* `onclick` 事件用于触发 `ChangeTheYear` 方法。 有关详细信息，请参阅 <xref:blazor/components/event-handling>。
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
-
-<p>ParentYear: @ParentYear</p>
-
-<ChildComponent @bind-Year="ParentYear" />
-
-<button class="btn btn-primary" @onclick="ChangeTheYear">
-    Change Year to 1986
-</button>
-
-@code {
-    [Parameter]
-    public int ParentYear { get; set; } = 1978;
-
-    private void ChangeTheYear()
+    private Task UpdateYear()
     {
-        ParentYear = 1986;
+        Year = r.Next(10050, 12021);
+
+        return YearChanged.InvokeAsync(Year);
     }
 }
 ```
 
-加载 `ParentComponent` 会生成以下标记：
+回调 (<xref:Microsoft.AspNetCore.Components.EventCallback%601>) 必须命名为组件参数名后跟“`Changed`”后缀 (`{PARAMETER NAME}Changed`)。 在上一示例中，回调名为 `YearChanged`。 有关 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 的详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。
 
-```html
+在下面的 `Parent` 组件 (`Parent.razor`) 中，`year` 字段绑定到子组件的 `Year` 参数：
+
+```razor
+@page "/Parent"
+
 <h1>Parent Component</h1>
 
-<p>ParentYear: 1978</p>
+<p>Parent <code>year</code>: @year</p>
 
-<h2>Child Component</h2>
+<button @onclick="UpdateYear">Update Parent <code>year</code></button>
 
-<p>Year: 1978</p>
-```
+<Child @bind-Year="year" />
 
-如果通过在 `ParentComponent` 中选择按钮来更改 `ParentYear` 属性的值，则会更新 `ChildComponent` 的 `Year` 属性。 当重新呈现 `ParentComponent` 时，`Year` 的新值会呈现在 UI 中：
+@code {
+    private Random r = new Random();
+    private int year = 1978;
 
-```html
-<h1>Parent Component</h1>
-
-<p>ParentYear: 1986</p>
-
-<h2>Child Component</h2>
-
-<p>Year: 1986</p>
+    private void UpdateYear()
+    {
+        year = r.Next(1950, 2021);
+    }
+}
 ```
 
 `Year` 参数是可绑定的，因为它具有与 `Year` 参数类型相匹配的伴随 `YearChanged` 事件。
 
-按照约定，`<ChildComponent @bind-Year="ParentYear" />` 在本质上等效于编写：
+按照约定，可通过包含分配到处理程序的 `@bind-{PROPERTY}:event` 特性，将属性绑定到对应的事件处理程序。 `<Child @bind-Year="year" />` 等效于此写入：
 
 ```razor
-<ChildComponent @bind-Year="ParentYear" @bind-Year:event="YearChanged" />
-```
-
-通常，可以通过包含 `@bind-{PROPRETY}:event` 特性将属性绑定到对应的事件处理程序。 例如，可以使用以下两个特性将属性 `MyProp` 绑定到 `MyEventHandler`：
-
-```razor
-<MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
+<Child @bind-Year="year" @bind-Year:event="YearChanged" />
 ```
 
 ## <a name="child-to-parent-binding-with-chained-bind"></a>使用链接绑定的子级到父级绑定
 
 一种常见方案是将数据绑定参数链接到组件输出中的页面元素。 此方案称为链接绑定，因为多个级别的绑定会同时进行。
 
-无法在页面元素中使用 [`@bind`](xref:mvc/views/razor#bind) 语法实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可以将 [`@bind`](xref:mvc/views/razor#bind) 语法用于组件的参数。
+无法在子组件中使用 [`@bind`](xref:mvc/views/razor#bind) 语法实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可将 [`@bind`](xref:mvc/views/razor#bind) 语法用于子组件的参数。
 
 以下 `PasswordField` 组件 (`PasswordField.razor`)：
 
@@ -253,7 +248,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 ```razor
 <h1>Child Component</h1>
 
-Password: 
+Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
@@ -290,7 +285,7 @@ Password:
 `PasswordField` 组件在另一个组件中使用：
 
 ```razor
-@page "/ParentComponent"
+@page "/Parent"
 
 <h1>Parent Component</h1>
 

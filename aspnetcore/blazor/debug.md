@@ -5,8 +5,9 @@ description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/30/2020
+ms.date: 08/17/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 225916411550cc8e89c604e1426316843bb0ff52
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5aeb333dc36ebc4c3a324b397793343e0335b1e1
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014537"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628360"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -42,7 +43,7 @@ ms.locfileid: "88014537"
 目前，无法执行以下操作：
 
 * 出现未经处理的异常时中断。
-* 在应用启动期间命中断点。
+* 于应用启动期间在调试代理运行之前命中断点。 这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。
 
 在即将发布的版本中，我们将继续改进调试体验。
 
@@ -80,7 +81,7 @@ ms.locfileid: "88014537"
 1. 按 <kbd>F5</kbd> 在调试器中运行应用。
 
    > [!NOTE]
-   > 不支持“启动时不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。
+   > 不支持“启动时不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。 当应用以调试配置运行时，调试开销始终会导致性能的小幅下降。
 
 1. 在 `IncrementCount` 方法的 `Pages/Counter.razor` 中设置断点。
 1. 浏览到“`Counter`”选项卡，选择该按钮以命中断点：
@@ -128,7 +129,7 @@ ms.locfileid: "88014537"
 1. 使用 <kbd>F5</kbd> 键盘快捷方式或菜单项启动调试。
 
    > [!NOTE]
-   > 不支持“运行但不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。
+   > 不支持“启动时不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。 当应用以调试配置运行时，调试开销始终会导致性能的小幅下降。
 
 1. 出现提示时，选择“Blazor WebAssembly 调试”选项以启动调试。
 
@@ -284,3 +285,13 @@ protected override async Task OnInitializedAsync()
     ...
 }
 ```
+
+### <a name="visual-studio-timeout"></a>Visual Studio 超时
+
+如果 Visual Studio 引发了调试适配器启动因已达到超时而失败的异常，可使用注册表设置调整超时：
+
+```console
+VsRegEdit.exe set "<VSInstallFolder>" HKCU JSDebugger\Options\Debugging "BlazorTimeoutInMilliseconds" dword {TIMEOUT}
+```
+
+前述命令中的 `{TIMEOUT}` 占位符以毫秒为单位。 例如， 1 分钟指定为 `60000`。

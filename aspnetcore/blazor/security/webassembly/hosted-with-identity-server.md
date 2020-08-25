@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/09/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 36047844c8c2624c6fd0ee085dfad4a7af0367c5
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: ef5e9e1becb511ef383b22fc96441b0f61537354
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130283"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626215"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-no-locidentity-server"></a>使用 Identity 服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -81,7 +82,7 @@ dotnet new blazorwasm -au Individual -ho -o {APP NAME}
 
 * 在 `Startup.ConfigureServices`中：
 
-  * ASP.NET Core Identity：
+  * ASP.NET Core Identity:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -173,15 +174,17 @@ dotnet new blazorwasm -au Individual -ho -o {APP NAME}
 
 ### <a name="authentication-package"></a>身份验证包
 
-创建应用以使用个人用户帐户 (`Individual`) 时，该应用会在其项目文件中自动接收 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包的包引用。 此包提供了一组基元，可帮助应用验证用户身份并获取令牌以调用受保护的 API。
+创建应用以使用个人用户帐户 (`Individual`) 时，该应用会在其项目文件中自动接收 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 包的包引用。 此包提供了一组基元，可帮助应用验证用户身份并获取令牌以调用受保护的 API。
 
 如果向应用添加身份验证，请手动将包添加到应用的项目文件中：
 
 ```xml
 <PackageReference 
   Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" 
-  Version="3.2.0" />
+  Version="{VERSION}" />
 ```
+
+对于占位符 `{VERSION}`，可在包的版本历史记录（位于 [NuGet.org](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication)）中找到与应用的共享框架版本匹配的最新稳定版本的包。
 
 ### <a name="httpclient-configuration"></a>`HttpClient` 配置
 
@@ -201,7 +204,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
 
 ### <a name="api-authorization-support"></a>API 身份验证支持
 
-使用 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) 包中提供的扩展方法在服务容器中加入用户身份验证支持。 此方法设置应用所需的服务以与现有授权系统交互。
+使用 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 包中提供的扩展方法在服务容器中加入用户身份验证支持。 此方法设置应用所需的服务以与现有授权系统交互。
 
 ```csharp
 builder.Services.AddApiAuthorization();
@@ -286,7 +289,7 @@ builder.Services.AddApiAuthorization();
 
 在“客户端”应用中，创建自定义用户工厂。 Identity 服务器在一个 `role` 声明中发送多个角色作为 JSON 数组。 单个角色在该声明中作为单个字符串值进行发送。 工厂为每个用户的角色创建单个 `role` 声明。
 
-`CustomUserFactory.cs`：
+`CustomUserFactory.cs`:
 
 ```csharp
 using System.Linq;
@@ -401,7 +404,7 @@ JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 在服务器应用中，创建 `ProfileService` 实现。
 
-`ProfileService.cs`：
+`ProfileService.cs`:
 
 ```csharp
 using IdentityModel;

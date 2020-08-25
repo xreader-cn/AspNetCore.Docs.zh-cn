@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 07/27/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 5aca81da34e5ed51b2dc4f404c1ba4d7377a422f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 28e4f372e301a673644bfa97763ebc930f2d0ad5
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016240"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634327"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
@@ -136,7 +137,7 @@ await foreach (var response in call.ResponseStream.ReadAllAsync())
 
 ### <a name="client-streaming-call"></a>客户端流式处理调用
 
-客户端无需发送消息即可开始客户端流式处理调用  。 客户端可选择使用 `RequestStream.WriteAsync` 发送消息。 客户端发送完消息后，应调用 `RequestStream.CompleteAsync` 来通知服务。 服务返回响应消息时，调用完成。
+客户端无需发送消息即可开始客户端流式处理调用  。 客户端可选择使用 `RequestStream.WriteAsync` 发送消息。 客户端发送完消息后，应调用 `RequestStream.CompleteAsync()` 来通知服务。 服务返回响应消息时，调用完成。
 
 ```csharp
 var client = new Counter.CounterClient(channel);
@@ -188,6 +189,14 @@ Console.WriteLine("Disconnecting");
 await call.RequestStream.CompleteAsync();
 await readTask;
 ```
+
+为获得最佳性能并避免客户端和服务中出现不必要的错误，请尝试正常完成双向流式调用。 当服务器已读取请求流且客户端已读取响应流时，双向调用正常完成。 前面的示例调用就是一个正常结束的双向调用。 在调用中，客户端：
+
+1. 通过调用 `EchoClient.Echo` 启动新的双向流式调用。
+2. 使用 `ResponseStream.ReadAllAsync()` 创建用于从服务中读取消息的后台任务。
+3. 使用 `RequestStream.WriteAsync` 将消息发送到服务器。
+4. 使用 `RequestStream.CompleteAsync()` 通知服务器它已发送消息。
+5. 等待直到后台任务已读取所有传入消息。
 
 双向流式处理调用期间，客户端和服务可在任何时间互相发送消息。 与双向调用交互的最佳客户端逻辑因服务逻辑而异。
 
