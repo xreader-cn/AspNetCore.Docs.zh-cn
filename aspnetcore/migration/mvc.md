@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/mvc
-ms.openlocfilehash: cd1a7ff57d911f96f0adfe4b548fa80ec844886d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d615f67fc5cb23499ee7e14b747390a7a1b5a693
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632234"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865137"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 
@@ -48,7 +48,7 @@ ms.locfileid: "88632234"
 
 1. 从“文件”菜单中选择“新建”>“项目”  。
 1. 选择 " **ASP.NET Web 应用程序 ( .NET Framework") ** ，然后选择 " **下一步**"。
-1. 将项目命名为 *WebApp1* ，使命名空间与下一步中创建的 ASP.NET Core 项目相匹配。 选择“创建”。
+1. 将项目命名为 *WebApp1* ，使命名空间与下一步中创建的 ASP.NET Core 项目相匹配。 选择“创建”  。
 1. 选择 " **MVC**"，然后选择 " **创建**"。
 
 ## <a name="create-the-aspnet-core-project"></a>创建 ASP.NET Core 项目
@@ -59,7 +59,7 @@ ms.locfileid: "88632234"
 1. 从“文件”菜单中选择“新建”>“项目”  。
 1. 选择 " **ASP.NET Web Core Web 应用程序** "，然后选择 " **下一步**"。
 1. 在 " **配置新项目** " 对话框中，将项目命名为 " *WebApp1*"。
-1. 将位置设置为与上一个项目不同的目录，以使用相同的项目名称。 使用同一个命名空间可以更轻松地在两个项目之间复制代码。 选择“创建”。
+1. 将位置设置为与上一个项目不同的目录，以使用相同的项目名称。 使用同一个命名空间可以更轻松地在两个项目之间复制代码。 选择“创建”  。
 1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”  。 选择 " **Web 应用程序 (模型-视图-控制器) ** " 项目模板，然后选择 " **创建**"。
 
 ## <a name="configure-the-aspnet-core-site-to-use-mvc"></a>将 ASP.NET Core 网站配置为使用 MVC
@@ -97,7 +97,7 @@ ASP.NET Core 应用必须选择包含中间件的框架功能。 上一个模板
 
 ASP.NET Core *WebApp1* 项目已包含与 ASP.NET MVC 项目相同的名称的最小示例控制器和视图。 因此，这些占位符将用作 ASP.NET MVC 控制器的占位符，以及要从 ASP.NET MVC *WebApp1* 项目迁移的视图。
 
-1. 复制 ASP.NET MVC 中的方法 `HomeController` 以替换新的 ASP.NET Core `HomeController` 方法。 无需更改操作方法的返回类型。 ASP.NET MVC 内置模板的控制器操作方法返回类型为 [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将 `IActionResult` 改为返回。 `ActionResult` 可实现 `IActionResult`。
+1. 复制 ASP.NET MVC 中的方法 `HomeController` 以替换新的 ASP.NET Core `HomeController` 方法。 无需更改操作方法的返回类型。 ASP.NET MVC 内置模板的控制器操作方法返回类型为 <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ; 在 ASP.NET CORE mvc 中，操作方法将改为返回 `IActionResult` 。 `ActionResult` 可实现 `IActionResult`。
 1. 在 ASP.NET Core 项目中，右键单击 " *视图"/"主* " 目录，选择 " **添加** > **现有项**"。
 1. 在 " **添加现有项** " 对话框中，导航到 ASP.NET MVC *WebApp1* 项目的 " *视图"/"主* 目录"。
 1. 选择 "*关于* *"，然后依次选择 "* *Index.cshtml* Razor **添加**"、"替换现有文件"。
@@ -291,7 +291,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 ## <a name="controllers-and-views"></a>控制器和视图
 
-* 将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。 在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为 [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将 `IActionResult` 改为返回。 `ActionResult` 实现 `IActionResult` ，因此无需更改操作方法的返回类型。
+* 将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。 在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为 <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ; 在 ASP.NET CORE mvc 中，操作方法将改为返回 `IActionResult` 。 `ActionResult` 实现 `IActionResult` ，因此无需更改操作方法的返回类型。
 
 * 将 ASP.NET MVC 项目中的*About*、 *Contact**和* Razor 视图文件复制到 ASP.NET Core 项目。
 
@@ -477,7 +477,7 @@ ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。 通常�
 
 ## <a name="controllers-and-views"></a>控制器和视图
 
-* 将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。 在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为 [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将 `IActionResult` 改为返回。 `ActionResult` 实现 `IActionResult` ，因此无需更改操作方法的返回类型。
+* 将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。 在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为 <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ; 在 ASP.NET CORE mvc 中，操作方法将改为返回 `IActionResult` 。 `ActionResult` 实现 `IActionResult` ，因此无需更改操作方法的返回类型。
 
 * 将 ASP.NET MVC 项目中的*About*、 *Contact**和* Razor 视图文件复制到 ASP.NET Core 项目。
 

@@ -18,12 +18,12 @@ no-loc:
 - SignalR
 - Electron
 uid: security/samesite
-ms.openlocfilehash: c95952face8763dc9f2dd12312cab1a1bc07528a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 3ba033b4165b19131d11311e5ae9d64e6afe48ca
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632338"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865436"
 ---
 # <a name="work-with-samesite-no-loccookies-in-aspnet-core"></a>使用 cookie ASP.NET Core 中的 SameSite
 
@@ -73,11 +73,11 @@ SameSite 是一种 [IETF](https://ietf.org/about/) 草案标准，旨在针对�
 
 ## <a name="net-core-support-for-the-samesite-attribute"></a>.NET Core 对 sameSite 属性的支持
 
-由于2.2 年12月2019更新发布，.NET Core 支持 SameSite 的2019草案标准。 开发人员能够使用属性以编程方式控制 sameSite 属性的值 `HttpCookie.SameSite` 。 如果将 `SameSite` 属性设置为 Strict、宽松或 None，则会在网络上用来写入这些值 cookie 。 将其设置为等于 (SameSiteMode) # A2-1) 指示网络上不应包含任何 sameSite 属性， cookie
+.NET Core 2.2 和更高版本支持 SameSite 的2019草稿标准版，因为年12月2019更新版本。 开发人员能够使用属性以编程方式控制 sameSite 属性的值 `HttpCookie.SameSite` 。 如果将 `SameSite` 属性设置为 Strict、宽松或 None，则会在网络上用来写入这些值 cookie 。 如果将其设置为 `(SameSiteMode)(-1)` "等于"，则表示网络中不应包含 sameSite 属性， cookie
 
 [!code-csharp[](samesite/snippets/Privacy.cshtml.cs?name=snippet)]
 
-.NET Core 3.0 支持更新后的 SameSite 值，并向枚举添加额外的枚举值 `SameSiteMode.Unspecified` `SameSiteMode` 。
+.NET Core 3.0 和更高版本支持更新后的 SameSite 值，并向枚举添加额外的枚举值 `SameSiteMode.Unspecified` `SameSiteMode` 。
 此新值指示不应向发送 sameSite cookie 。
 
 ::: moniker-end

@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/identity
-ms.openlocfilehash: 85674d7ed02f189f78da92bffdf927a3ca21357d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: c8e6a1a8bf9ef06d98db0e7e0a6a0e5ff393e322
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88629504"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865551"
 ---
 # <a name="migrate-authentication-and-no-locidentity-to-aspnet-core"></a>迁移身份验证和 Identity ASP.NET Core
 
@@ -158,6 +158,6 @@ else
 
 此时，您应该能够在浏览器中刷新站点。
 
-## <a name="summary"></a>总结
+## <a name="summary"></a>摘要
 
 ASP.NET Core 引入了对 ASP.NET 功能的更改 Identity 。 本文介绍了如何将 ASP.NET 的身份验证和用户管理功能迁移 Identity 到 ASP.NET Core。

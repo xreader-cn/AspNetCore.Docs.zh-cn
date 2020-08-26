@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/http-modules
-ms.openlocfilehash: 8be09171991964540cd41a1324fb87503591151f
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 213807634a2a6990e9025de7871295cf97a81faf
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632169"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865591"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 
@@ -55,7 +55,7 @@ ms.locfileid: "88632169"
 
 **模块处理传入请求的顺序由确定：**
 
-1. [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)，是 ASP.NET： [BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)、 [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)等触发的序列事件。每个模块都可以为一个或多个事件创建处理程序。
+1. <https://docs.microsoft.com/previous-versions/ms227673(v=vs.140)>，它是 ASP.NET： [BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)、 [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)等引发的序列事件。每个模块都可以为一个或多个事件创建处理程序。
 
 2. 对于同一事件，在 *Web.config*中配置它们的顺序。
 
@@ -92,7 +92,7 @@ ms.locfileid: "88632169"
 
 **中间件和模块按不同的顺序进行处理：**
 
-* 中间件的顺序取决于它们插入请求管道的顺序，而模块的顺序主要基于 [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx) 事件
+* 中间件的顺序取决于它们插入请求管道的顺序，而模块的顺序主要基于 <https://docs.microsoft.com/previous-versions/ms227673(v=vs.140)> 事件
 
 * 响应的中间件顺序与请求的顺序相反，而对于请求和响应，模块的顺序是相同的。
 

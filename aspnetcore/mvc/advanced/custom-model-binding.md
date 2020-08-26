@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 4bef68fffbdfaff023f71964a27ead56863e4192
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 7e1151b04f39f637f889e690bccc97eb6f0c91ea
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630427"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865574"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core 中的自定义模型绑定
 
@@ -127,7 +127,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 [!code-csharp[](custom-model-binding/samples/3.x/CustomModelBindingSample/Startup.cs?name=snippet_ConfigureServices&highlight=5-8)]
 
-评估模型绑定器时，按顺序检查提供程序的集合。 使用返回绑定器的第一个提供程序。 向集合的末尾添加提供程序，可能会导致在调用自定义绑定器之前调用内置模型绑定器。 在此示例中，向集合的开头添加自定义提供程序，确保它用于 `Author` 操作参数。
+评估模型绑定器时，按顺序检查提供程序的集合。 使用第一个返回与输入模型匹配的联编程序的提供程序。 因此，将提供程序添加到集合的末尾可能会导致在自定义联编程序有可能之前调用内置模型联编程序。 在此示例中，将自定义提供程序添加到集合的开头，以确保它始终用于 `Author` 操作参数。
 
 ### <a name="polymorphic-model-binding"></a>多态模型绑定
 

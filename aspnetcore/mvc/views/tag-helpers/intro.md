@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 42a7231b529dd9f8ecbce4f8116111e1c96c830d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 345d20494111b808dac9678637de060169730a53
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633092"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865358"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序
 
@@ -166,11 +166,11 @@ public class Movie
 
 请考虑编写 HTML `<label>` 元素。 只要在 Visual Studio 编辑器中输入 `<l`，IntelliSense 就会显示匹配的元素：
 
-![图像](intro/_static/label.png)
+![image](intro/_static/label.png)
 
 不仅会获得 HTML 帮助，还会有图标（下方带有“<>”的“@" symbol with "）
 
-![图像](intro/_static/tagSym.png)
+![image](intro/_static/tagSym.png)
 
 将该元素标识为标记帮助程序的目标。 纯 HTML 元素（如 `fieldset`）显示“<>”图标。
 
@@ -184,21 +184,21 @@ public class Movie
 
 通过 IntelliSense 语句完成功能，按 Tab 键即可用选择的值完成语句：
 
-![图像](intro/_static/stmtcomplete.png)
+![image](intro/_static/stmtcomplete.png)
 
 只要输入标记帮助程序属性，标记和属性字体就会更改。 如果使用默认的 Visual Studio“蓝色”或“浅色”颜色主题，则字体是粗体紫色。 如果使用“深色”主题，则字体为粗体青色。 本文档中的图像在使用默认主题时截取的。
 
-![图像](intro/_static/labelaspfor2.png)
+![image](intro/_static/labelaspfor2.png)
 
 可在双引号 ("") 内输入 Visual Studio CompleteWord 快捷方式（[默认值](/visualstudio/ide/default-keyboard-shortcuts-in-visual-studio)为 Ctrl+空格键），即可使用 C#，就像在 C# 类中一样。** IntelliSense 会显示页面模型上的所有方法和属性。 由于属性类型是 `ModelExpression`，所以这些方法和属性可用。 在下图中，我正在编辑 `Register` 视图，所以 `RegisterViewModel` 是可用的。
 
-![图像](intro/_static/intellemail.png)
+![image](intro/_static/intellemail.png)
 
 IntelliSense 会列出页面上模型可用的属性和方法。 丰富 IntelliSense 环境可帮助选择 CSS 类：
 
-![图像](intro/_static/iclass.png)
+![image](intro/_static/iclass.png)
 
-![图像](intro/_static/intel3.png)
+![image](intro/_static/intel3.png)
 
 ## <a name="tag-helpers-compared-to-html-helpers"></a>标记帮助程序与 HTML 帮助程序的比较
 
@@ -230,7 +230,7 @@ IntelliSense 可帮助编写整行。
 
 下面的代码图显示了从 Visual Studio 附带的 ASP.NET 4.5. x MVC 模板生成的 *视图/帐户/注册. cshtml*视图的窗体部分 Razor 。
 
-![图像](intro/_static/regCS.png)
+![image](intro/_static/regCS.png)
 
 Visual Studio 编辑器以灰色背景显示 C# 代码。 例如，`AntiForgeryToken` HTML 帮助程序：
 
@@ -240,7 +240,7 @@ Visual Studio 编辑器以灰色背景显示 C# 代码。 例如，`AntiForgeryT
 
 以灰色背景显示。 Register 视图中的标记大部分是 C#。 将其与使用标记帮助程序的等效方法进行比较：
 
-![图像](intro/_static/regTH.png)
+![image](intro/_static/regTH.png)
 
 与 HTML 帮助程序方法相比，此标记更清晰，更容易阅读、编辑和维护。 C# 代码会被减少至服务器需要知道的最小值。 Visual Studio 编辑器以独特的字体显示标记帮助程序的目标标记。
 
@@ -254,9 +254,9 @@ Visual Studio 编辑器可帮助编写注册窗体的标记帮助程序方法中
 
 ## <a name="tag-helpers-compared-to-web-server-controls"></a>标记帮助程序与 Web 服务器控件的比较
 
-* 标记帮助程序不拥有与其相关的元素：它们只是参与元素和内容的呈现。 ASP.NET [Web 服务器控件](https://msdn.microsoft.com/library/7698y1f0.aspx)在页面上进行声明和调用。
+* 标记帮助程序不拥有与其相关的元素：它们只是参与元素和内容的呈现。 <https://docs.microsoft.com/previous-versions/dotnet/netframework-3.0/7698y1f0(v=vs.85)>在页面上声明并调用 ASP.NET。
 
-* [Web 服务器控件](https://msdn.microsoft.com/library/zsyt68f1.aspx)具有可观的生命周期，因而难以进行开发和调试。
+* <https://docs.microsoft.com/previous-versions/zsyt68f1(v=vs.140)> 具有不太重要的生命周期，使开发和调试变得困难。
 
 * 通过 Web 服务器控件，可使用客户端控件向客户端文档对象模型 (DOM) 元素添加功能。 标记帮助程序没有 DOM。
 

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/cookie
-ms.openlocfilehash: 2e9eb58837d74343d8de6903372146570b43f330
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 48b9c41b468f04134164a9c499e7fadca107cab2
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627138"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865109"
 ---
 # <a name="use-no-loccookie-authentication-without-no-locaspnet-core-identity"></a>cookie不使用身份验证ASP.NET Core Identity
 
@@ -251,7 +251,7 @@ await HttpContext.SignInAsync(
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core Identity 是一个完整的全功能身份验证提供程序，用于创建和维护登录名。 但是， cookie 不能使用基于的身份验证身份验证提供程序 ASP.NET Core Identity 。 有关详细信息，请参阅 <xref:security/authentication/identity>。
+ASP.NET Core Identity 是一个完整的全功能身份验证提供程序，用于创建和维护登录名。 但是， cookie 不能使用基于的身份验证提供程序 ASP.NET Core Identity 。 有关详细信息，请参阅 <xref:security/authentication/identity>。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 

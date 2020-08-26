@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: b62fcb685b1c6d0c504c685c600d0316b32d7f57
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: e42ee7a80475e784ea4791395d9b0665aca94a03
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632494"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865175"
 ---
 # <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor ASP.NET Core 的语法参考
 
@@ -663,7 +663,7 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 * Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`**。
 * 每个页面都有 `Hello.World`，作为其命名空间的根。
 
-| 页                                        | 命名空间                             |
+| Page                                        | 命名空间                             |
 | ------------------------------------------- | ------------------------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`                         |
 | Pages/MorePages/Page.cshtml**               | `Hello.World.MorePages`               |
@@ -675,7 +675,7 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 
 如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示****。
 
-| 页                                        | 命名空间               |
+| Page                                        | 命名空间               |
 | ------------------------------------------- | ----------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`           |
 | Pages/MorePages/Page.cshtml**               | `Hello.World.MorePages` |
@@ -687,7 +687,7 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 
 `@page` 指令具有不同的效果，具体取决于其所在文件的类型。 指令：
 
-* 在中， *# 文件中* 的指示该文件是一个 Razor 页面。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
+* 在 *cshtml* 文件中，指示该文件是一个 Razor 页面。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
 * 指定 Razor 组件应直接处理请求。 有关详细信息，请参阅 <xref:blazor/fundamentals/routing>。
 
 ::: moniker-end
