@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/cookie
-ms.openlocfilehash: 48b9c41b468f04134164a9c499e7fadca107cab2
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 04d2f0d289e2c9ec13aeb880df47240bec19d3ec
+ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865109"
+ms.locfileid: "88876758"
 ---
 # <a name="use-no-loccookie-authentication-without-no-locaspnet-core-identity"></a>cookie不使用身份验证ASP.NET Core Identity
 
@@ -116,6 +116,8 @@ ASP.NET Core 的 [数据保护](xref:security/data-protection/using-data-protect
 [!code-csharp[](cookie/samples/3.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet2)]
 
 如果 `CookieAuthenticationDefaults.AuthenticationScheme` (或 " Cookie s" ) 未用作方案 (例如 "Contoso Cookie " ) ，请提供配置身份验证提供程序时所使用的方案。 否则，将使用默认方案。
+
+服务器不能控制客户端浏览器。 如果用户关闭浏览器或选项卡，服务器将无法注销用户。 若要在浏览器关闭时实现用户注销，必须通过 JavaScript 检测该问题。 搜索 "如何检测浏览器窗口选项卡关闭事件？"。
 
 ## <a name="react-to-back-end-changes"></a>对后端更改作出反应
 
