@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/entity-framework-6
-ms.openlocfilehash: d01c0a1bdf29dbb79c04504d747b319fff710d89
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 64d420d7076f1da453ee423cc4a3732eeb47b221
+ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633755"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88876693"
 ---
 # <a name="aspnet-core-and-entity-framework-6"></a>ASP.NET Core 和 Entity Framework 6
 ::: moniker range=">= aspnetcore-3.0"
@@ -51,7 +51,7 @@ ms.locfileid: "88633755"
 
 不能将 EF6 上下文放入 ASP.NET Core 项目，因为 .NET Core 项目不支持 EF6 命令（如 Enable-Migrations）所需的的各项功能。    
 
-无论 EF6 上下文属于哪种项目类型，只有 EF6 命令行工具才能使用 EF6 上下文。 例如，`Scaffold-DbContext` 仅在 Entity Framework Core 中可用。 如果需要对数据库执行反向工程以使其成为 EF6 模型，请参阅[从 Code First 到现有数据库](https://msdn.microsoft.com/jj200620)。  
+无论 EF6 上下文属于哪种项目类型，只有 EF6 命令行工具才能使用 EF6 上下文。 例如，`Scaffold-DbContext` 仅在 Entity Framework Core 中可用。 如果需要对数据库执行反向工程以使其成为 EF6 模型，请参阅<https://docs.microsoft.com/ef/ef6/modeling/code-first/workflows/existing-database>。    
 
 ## <a name="reference-full-framework-and-ef6-in-the-aspnet-core-project"></a>在 ASP.NET Core 项目中引用完整框架和 EF6 
 
@@ -67,7 +67,7 @@ ASP.NET Core 项目需要面向 .NET Framework 和引用 EF6。 例如，ASP.NET
 
 [!code-csharp[](entity-framework-6/sample/EF6/SchoolContext.cs?name=snippet_Constructor)]   
 
-由于 EF6 上下文不具有无参数构造函数，因此 EF6 项目必须提供 [IDbContextFactory](https://msdn.microsoft.com/library/hh506876) 的实现。 EF6 命令行工具将查找和使用该实现，以便它们能够实例化上下文。 示例如下。    
+由于 EF6 上下文不具有无参数构造函数，因此 EF6 项目必须提供 <https://docs.microsoft.com/dotnet/api/system.data.entity.infrastructure.idbcontextfactory-1?view=entity-framework-6.2.0> 的实现。 EF6 命令行工具将查找和使用该实现，以便它们能够实例化上下文。 示例如下。   
 
 [!code-csharp[](entity-framework-6/sample/EF6/SchoolContextFactory.cs?name=snippet_IDbContextFactory)]  
 

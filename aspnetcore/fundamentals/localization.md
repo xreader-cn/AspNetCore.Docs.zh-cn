@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 254cae2b66773d7bb71aa6313fd08b6f739b7682
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d5be01c67f455a2706a654574ef9f5e273551e70
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634639"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865450"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -250,7 +250,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
+某些应用将使用查询字符串来设置<https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo?view=netcore-3.1>。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
 
    `http://localhost:5000/?culture=es-MX&ui-culture=es-MX`
 
@@ -349,7 +349,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [本地化性](/dotnet/standard/globalization-localization/localizability-review)是一个中间过程，用于验证全球化应用是否准备好进行本地化。
 
-区域性名称的 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 格式为 `<languagecode2>-<country/regioncode2>`，其中 `<languagecode2>` 是语言代码，`<country/regioncode2>` 是子区域性代码。 例如，`es-CL` 表示西班牙语（智利），`en-US` 表示英语（美国），而 `en-AU` 表示英语（澳大利亚）。 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 是一个与语言相关的 ISO 639 双小写字母的区域性代码和一个与国家/地区相关的 ISO 3166 双大写字母子区域性代码的组合。 请参阅[语言区域性名称](https://msdn.microsoft.com/library/ee825488(v=cs.20).aspx)。
+区域性名称的 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 格式为 `<languagecode2>-<country/regioncode2>`，其中 `<languagecode2>` 是语言代码，`<country/regioncode2>` 是子区域性代码。 例如，`es-CL` 表示西班牙语（智利），`en-US` 表示英语（美国），而 `en-AU` 表示英语（澳大利亚）。 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 是一个与语言相关的 ISO 639 双小写字母的区域性代码和一个与国家/地区相关的 ISO 3166 双大写字母子区域性代码的组合。 请参阅 <https://docs.microsoft.com/previous-versions/commerce-server/ee825488(v=cs.20)>。
 
 国际化常缩写为“I18N”。 缩写采用第一个和最后一个字母以及它们之间的字母数，因此 18 代表第一个字母“I”和最后一个“N”之间的字母数。 这同样适用于全球化 (G11N) 和本地化 (L10N)。
 
@@ -604,7 +604,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
+某些应用将使用查询字符串来设置<https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo?view=netcore-3.1>。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -705,7 +705,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [本地化性](/dotnet/standard/globalization-localization/localizability-review)是一个中间过程，用于验证全球化应用是否准备好进行本地化。
 
-区域性名称的 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 格式为 `<languagecode2>-<country/regioncode2>`，其中 `<languagecode2>` 是语言代码，`<country/regioncode2>` 是子区域性代码。 例如，`es-CL` 表示西班牙语（智利），`en-US` 表示英语（美国），而 `en-AU` 表示英语（澳大利亚）。 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 是一个与语言相关的 ISO 639 双小写字母的区域性代码和一个与国家/地区相关的 ISO 3166 双大写字母子区域性代码的组合。 请参阅[语言区域性名称](https://msdn.microsoft.com/library/ee825488(v=cs.20).aspx)。
+区域性名称的 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 格式为 `<languagecode2>-<country/regioncode2>`，其中 `<languagecode2>` 是语言代码，`<country/regioncode2>` 是子区域性代码。 例如，`es-CL` 表示西班牙语（智利），`en-US` 表示英语（美国），而 `en-AU` 表示英语（澳大利亚）。 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 是一个与语言相关的 ISO 639 双小写字母的区域性代码和一个与国家/地区相关的 ISO 3166 双大写字母子区域性代码的组合。 请参阅 <https://docs.microsoft.com/previous-versions/commerce-server/ee825488(v=cs.20)>。
 
 国际化常缩写为“I18N”。 缩写采用第一个和最后一个字母以及它们之间的字母数，因此 18 代表第一个字母“I”和最后一个“N”之间的字母数。 这同样适用于全球化 (G11N) 和本地化 (L10N)。
 
@@ -959,7 +959,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-某些应用将使用查询字符串来设置[区域性和 UI 区域性](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx)。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
+某些应用将使用查询字符串来设置<https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo?view=netcore-3.1>。 对于使用 cookie 或接受语言标题方法的应用，向 URL 添加查询字符串有助于调试和测试代码。 默认情况下，`QueryStringRequestCultureProvider` 注册为 `RequestCultureProvider` 列表中的第一个本地化提供程序。 传递查询字符串参数 `culture` 和 `ui-culture`。 下面的示例将特定区域性（语言和区域）设置为“西班牙语/墨西哥”：
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -1007,7 +1007,7 @@ c=en-UK|uic=en-US
 
 ### <a name="the-content-language-http-header"></a>Content-Language HTTP 标头
 
-[Content-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) 实体标头：
+[Content-Language](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Language) 实体标头：
 
 * 用于描述面向受众的语言。
 * 允许用户根据用户的首选语言来区分。
@@ -1083,7 +1083,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [本地化性](/dotnet/standard/globalization-localization/localizability-review)是一个中间过程，用于验证全球化应用是否准备好进行本地化。
 
-区域性名称的 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 格式为 `<languagecode2>-<country/regioncode2>`，其中 `<languagecode2>` 是语言代码，`<country/regioncode2>` 是子区域性代码。 例如，`es-CL` 表示西班牙语（智利），`en-US` 表示英语（美国），而 `en-AU` 表示英语（澳大利亚）。 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 是一个与语言相关的 ISO 639 双小写字母的区域性代码和一个与国家/地区相关的 ISO 3166 双大写字母子区域性代码的组合。 请参阅[语言区域性名称](https://msdn.microsoft.com/library/ee825488(v=cs.20).aspx)。
+区域性名称的 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 格式为 `<languagecode2>-<country/regioncode2>`，其中 `<languagecode2>` 是语言代码，`<country/regioncode2>` 是子区域性代码。 例如，`es-CL` 表示西班牙语（智利），`en-US` 表示英语（美国），而 `en-AU` 表示英语（澳大利亚）。 [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) 是一个与语言相关的 ISO 639 双小写字母的区域性代码和一个与国家/地区相关的 ISO 3166 双大写字母子区域性代码的组合。 请参阅 <https://docs.microsoft.com/previous-versions/commerce-server/ee825488(v=cs.20)>。
 
 国际化常缩写为“I18N”。 缩写采用第一个和最后一个字母以及它们之间的字母数，因此 18 代表第一个字母“I”和最后一个“N”之间的字母数。 这同样适用于全球化 (G11N) 和本地化 (L10N)。
 

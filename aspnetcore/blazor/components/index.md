@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 6ee767ee76b622e15a1dc5a7fe2f3e05f03dabd0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 26e8239634c3edb99c7606ab2e250c69af4e746f
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628490"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865287"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -249,7 +249,7 @@ namespace BlazorSample
 
 不支持可选参数，因此在前面的示例中应用了两个 [`@page`][9] 指令。 第一个指令允许导航到没有参数的组件。 第二个 [`@page`][9] 指令会接收 `{text}` 路由参数，并将值赋予 `Text` 属性。
 
-Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法捕获跨多个文件夹边界的路径。
+要了解 catch-all 路由参数 `{*pageRoute}`（它可跨多个文件夹边界捕获路径），请参阅 <xref:blazor/fundamentals/routing#catch-all-route-parameters>。
 
 ### <a name="component-parameters"></a>组件参数
 

@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 9fc44d228a31b8ae6c78dc12988392806dd95823
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 03febbd71df19cd3524d26e229a8bd8798a874b5
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633430"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865115"
 ---
 # <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>第 3 部分，ASP.NET Core 中已搭建基架的 Razor 页面
 
@@ -98,9 +98,8 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 `"Title"` 属性用于 Pages/Shared/_Layout.cshtml 文件。 以下标记显示 _Layout.cshtml 文件的前几行。
 
-<!-- we need a snapshot copy of layout because we are
-changing in in the next step.
--->
+<!-- We need a snapshot copy of layout because we are changing in the next step. -->
+
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6)]
 
 行 `@*Markup removed for brevity.*@` 是 Razor 注释。 与 HTML 注释 (`<!-- -->`) 不同，Razor 注释不会发送到客户端。
@@ -284,9 +283,8 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 “Title”属性用于 Pages/Shared/_Layout.cshtml 文件。 以下标记显示 _Layout.cshtml 文件的前几行。
 
-<!-- we need a snapshot copy of layout because we are
-changing in in the next step.
--->
+<!-- We need a snapshot copy of layout because we are changing in the next step. -->
+
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6-99)]
 
 行 `@*Markup removed for brevity.*@` 是不会出现在布局文件中的 Razor 注释。 与 HTML 注释 (`<!-- -->`) 不同，Razor 注释不会发送到客户端。
