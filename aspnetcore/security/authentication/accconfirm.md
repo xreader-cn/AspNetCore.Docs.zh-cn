@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 57607390e7d5e58df9f27437faecd57504ad64df
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d6ea37ceb83ffbaa94187e0c541c79428594e4b4
+ms.sourcegitcommit: 2039e60eb7b482da8298f82dcd5eda27cf747f32
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635367"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88906444"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>ASP.NET Core 中的帐户确认和密码恢复
 
@@ -160,7 +160,13 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 * 输入用于注册该帐户的电子邮件。
 * 发送了一封电子邮件，其中包含用于重置密码的链接。 检查你的电子邮件，然后单击链接以重置你的密码。 密码重置成功后，可以用电子邮件和新密码登录。
 
-## <a name="change-email-and-activity-timeout"></a>更改电子邮件和活动超时
+<a name="resend"></a>
+
+## <a name="resend-email-confirmation"></a>重新发送电子邮件确认
+
+在 ASP.NET Core 5.0 及更高版本中，选择 "**登录**" 页上的 "**重新发送电子邮件**" 链接。
+
+### <a name="change-email-and-activity-timeout"></a>更改电子邮件和活动超时
 
 默认的非活动超时为14天。 下面的代码将非活动超时设置为5天：
 
@@ -185,10 +191,6 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 将自定义提供程序添加到服务容器：
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupEmail.cs?name=snippet1&highlight=10-16)]
-
-### <a name="resend-email-confirmation"></a>重新发送电子邮件确认
-
-请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore/issues/5410)。
 
 <a name="debug"></a>
 
