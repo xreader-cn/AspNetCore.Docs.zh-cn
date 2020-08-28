@@ -710,6 +710,8 @@
           uid: grpc/basics
         - name: 创建 gRPC 服务
           uid: grpc/services
+        - name: 创建 Protobuf 消息
+          uid: grpc/protobuf
     - name: 使用 ASP.NET Core 的 gRPC 服务
       uid: grpc/aspnetcore
     - name: 使用 .NET 客户端调用 gRPC 服务
@@ -728,8 +730,6 @@
       uid: grpc/diagnostics
     - name: 安全注意事项
       uid: grpc/security
-    - name: 创建 Protobuf 消息
-      uid: grpc/protobuf
     - name: 性能最佳做法
       uid: grpc/performance
     - name: 版本控制 gRPC 服务
