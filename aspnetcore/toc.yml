@@ -94,6 +94,9 @@
         - name: 适用于移动设备的后端
           displayName: tutorial
           uid: mobile/native-mobile-backend
+        - name: 发布到 Azure API 管理
+          displayName: tutorial
+          uid: tutorials/publish-to-azure-api-management-using-vs
     - name: 实时 web 应用
       items:
         - name: 使用 JavaScript 的 SignalR
@@ -702,7 +705,11 @@
         - name: 开始使用 gRPC 服务
           uid: tutorials/grpc/grpc-start
     - name: 使用 C# 的 gRPC 服务
-      uid: grpc/basics
+      items:
+        - name: 概述
+          uid: grpc/basics
+        - name: 创建 gRPC 服务
+          uid: grpc/services
     - name: 使用 ASP.NET Core 的 gRPC 服务
       uid: grpc/aspnetcore
     - name: 使用 .NET 客户端调用 gRPC 服务
@@ -711,6 +718,8 @@
       uid: grpc/clientfactory
     - name: 在浏览器应用中使用 gRPC
       uid: grpc/browser
+    - name: 使用 gRPC 进行进程间通信
+      uid: grpc/interprocess
     - name: Configuration
       uid: grpc/configuration
     - name: 身份验证和授权
@@ -719,6 +728,8 @@
       uid: grpc/diagnostics
     - name: 安全注意事项
       uid: grpc/security
+    - name: 创建 Protobuf 消息
+      uid: grpc/protobuf
     - name: 性能最佳做法
       uid: grpc/performance
     - name: 版本控制 gRPC 服务
