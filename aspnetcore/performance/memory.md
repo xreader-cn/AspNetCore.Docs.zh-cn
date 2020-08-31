@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/memory
-ms.openlocfilehash: c409eaaf07109d363581ee7d61dc76521d6818d0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 9bb055670b73c9a1ae04083bc326200a42151708
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630661"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102791"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>内存管理和垃圾回收 (GC) ASP.NET Core
 
@@ -235,7 +235,7 @@ public void GetFileProvider()
 
 ### <a name="large-objects-heap"></a>大型对象堆
 
-频繁的内存分配/空闲周期可以分段内存，尤其是在分配大块内存时。 对象在连续内存块中分配。 为了缓解碎片，当 GC 释放内存时，它会 trys 对内存进行碎片整理。 此过程称为 **压缩**。 压缩涉及移动对象。 移动大型对象会对性能产生负面影响。 出于此原因，GC 将为 _大型_ 对象（称为 [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap) ）创建特殊的内存区域， (LOH) 。 大于85000字节的对象 (大约 83 KB) ：
+频繁的内存分配/空闲周期可以分段内存，尤其是在分配大块内存时。 对象在连续内存块中分配。 若要缓解碎片，当 GC 释放内存时，它会尝试对其进行碎片整理。 此过程称为 **压缩**。 压缩涉及移动对象。 移动大型对象会对性能产生负面影响。 出于此原因，GC 将为 _大型_ 对象（称为 [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap) ）创建特殊的内存区域， (LOH) 。 大于85000字节的对象 (大约 83 KB) ：
 
 * 放置在 LOH 上。
 * 未压缩。

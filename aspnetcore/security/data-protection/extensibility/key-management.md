@@ -17,22 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/extensibility/key-management
-ms.openlocfilehash: 797df457a5584233043210e9ba2657b7fd7f3893
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: db718b8d4c305b75ad52054efde6b2d03f6825ed
+ms.sourcegitcommit: 4cce99cbd44372fd4575e8da8c0f4345949f4d9a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630999"
+ms.lasthandoff: 08/31/2020
+ms.locfileid: "89153527"
 ---
 # <a name="key-management-extensibility-in-aspnet-core"></a>ASP.NET Core 中的密钥管理扩展性
 
-> [!TIP]
-> 阅读本部分之前，请阅读 [密钥管理](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management) 部分，因为它说明了这些 api 背后的一些基本概念。
+阅读本部分之前，请阅读 [密钥管理](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management) 部分，因为它说明了这些 api 背后的一些基本概念。
 
-> [!WARNING]
-> 实现以下任何接口的类型对于多个调用方应是线程安全的。
+**警告**：对于多个调用方，实现以下任何接口的类型应该是线程安全的。
 
-## <a name="key"></a>密钥
+## <a name="key"></a>键
 
 `IKey`接口是 cryptosystem 中密钥的基本表示形式。 此处的术语关键字在抽象意义上使用，而不是在 "加密密钥材料" 的文字意义上使用。 密钥具有以下属性：
 

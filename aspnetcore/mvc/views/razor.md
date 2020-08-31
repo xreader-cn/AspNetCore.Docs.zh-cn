@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: e42ee7a80475e784ea4791395d9b0665aca94a03
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 9c2bbd2d463af8a2ea7db716d01bf1436338ea77
+ms.sourcegitcommit: cd861463faf44956855e3c4b3669483bbc4a7463
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865175"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89101356"
 ---
 # <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor ASP.NET Core 的语法参考
 
@@ -131,17 +131,15 @@ Razor 支持 c #，并使用 `@` 符号从 HTML 转换为 c #。 Razor 计算 c 
 @("<span>Hello World</span>")
 ```
 
-该代码呈现以下 HTML：
+前面的代码呈现以下 HTML：
 
 ```html
 &lt;span&gt;Hello World&lt;/span&gt;
 ```
 
-该 HTML 在浏览器中显示为：
+HTML 在浏览器中显示为纯文本：
 
-```html
-<span>Hello World</span>
-```
+&lt;跨越 &gt; Hello World &lt; /span&gt;
 
 `HtmlHelper.Raw` 输出不进行编码，但呈现为 HTML 标记。
 
