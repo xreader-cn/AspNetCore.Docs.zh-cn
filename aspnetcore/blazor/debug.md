@@ -5,7 +5,7 @@ description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/17/2020
+ms.date: 08/26/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,34 +18,36 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 5aeb333dc36ebc4c3a324b397793343e0335b1e1
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 7681deb70610a8fbc27ccda7317b73921646794a
+ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628360"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88876771"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
 [Daniel Roth](https://github.com/danroth27)
 
-可以使用基于 Chromium 的浏览器 (Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。 也可以使用 Visual Studio 或 Visual Studio Code 调试应用。
+可以使用基于 Chromium 的浏览器 (Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。 还可以使用以下集成开发环境 (IDE) 调试应用：
+
+* Visual Studio
+* Visual Studio for Mac
+* Visual Studio Code
 
 可用方案包括：
 
 * 设置和删除断点。
-* 使用 Visual Studio 和 Visual Studio Code 中的调试支持来运行应用（<kbd>F5</kbd> 支持）。
-* 单步执行代码 (<kbd>F10</kbd>)。
-* 在浏览器中使用 <kbd>F8</kbd> 恢复代码执行，在 Visual Studio 或 Visual Studio Code 中使用 <kbd>F5</kbd> 恢复代码执行。
-* 在“局部变量”视图中，观察局部变量的值。
-* 查看调用堆栈，包括从 JavaScript 到 .NET 以及从 .NET 到 JavaScript 的调用链。
+* 在 IDE 中运行具有调试支持的应用。
+* 单步执行代码。
+* 在 IDE 中使用键盘快捷方式恢复代码执行。
+* 在“局部变量”窗口中，观察局部变量的值。
+* 请参阅调用堆栈，包括 JavaScript 和 .NET 之间的调用链。
 
 目前，无法执行以下操作：
 
 * 出现未经处理的异常时中断。
 * 于应用启动期间在调试代理运行之前命中断点。 这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。
-
-在即将发布的版本中，我们将继续改进调试体验。
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -54,7 +56,15 @@ ms.locfileid: "88628360"
 * Google Chrome（版本 70 或更高版本）（默认）
 * Microsoft Edge（版本 80 或更高版本）
 
-## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>在 Visual Studio 和 Visual Studio Code 中启用调试
+Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
+
+1. 选择 [Microsoft：Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) 页面上的“下载 Visual Studio for Mac”按钮，安装最新版本的 Visual Studio for Mac。
+1. 从 Visual Studio 中选择预览通道。 有关详细信息，请参阅[安装 Visual Studio for Mac 的预览版本](/visualstudio/mac/install-preview)。
+
+> [!NOTE]
+> 当前不支持 macOS 上的 Apple Safari。
+
+## <a name="enable-debugging"></a>启用调试
 
 若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 `launchSettings.json` 文件，使每个启动配置文件包含以下 `inspectUri` 属性：
 
@@ -73,7 +83,7 @@ ms.locfileid: "88628360"
 
 已启动的浏览器 (`browserInspectUri`) 上 WebSocket 协议 (`wsProtocol`)、主机 (`url.hostname`)、端口 (`url.port`) 和检查器 URI 的占位符值由框架提供。
 
-## <a name="visual-studio"></a>Visual Studio
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 要在 Visual Studio 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
 
@@ -83,43 +93,34 @@ ms.locfileid: "88628360"
    > [!NOTE]
    > 不支持“启动时不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。 当应用以调试配置运行时，调试开销始终会导致性能的小幅下降。
 
-1. 在 `IncrementCount` 方法的 `Pages/Counter.razor` 中设置断点。
-1. 浏览到“`Counter`”选项卡，选择该按钮以命中断点：
-
-   ![调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-counter.png)
-
-1. 查看局部变量窗口中 `currentCount` 字段的值：
-
-   ![查看局部变量](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-locals.png)
-
+1. 在客户端应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
+1. 在浏览器中，导航到 `Counter` 页，然后选择“单击此处”按钮以命中断点。
+1. 在 Visual Studio 中，检查“局部变量”窗口中 `currentCount` 字段的值。
 1. 按 <kbd>F5</kbd> 继续执行。
 
 调试 Blazor WebAssembly 应用时，还可以调试服务器代码：
 
 1. 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 的“`Pages/FetchData.razor`”页中设置断点。
 1. 在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。
-1. 浏览到“`Fetch Data`”选项卡，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中该断点：
+1. 浏览到 `Fetch Data` 页，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中该断点。
+1. 按 <kbd>F5</kbd> 以继续执行，然后在服务器上命中 `WeatherForecastController` 中的断点。
+1. 再次按 <kbd>F5</kbd> 以继续执行，并查看浏览器中呈现的天气预报表。
 
-   ![调试提取数据](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-fetch-data.png)
+> [!NOTE]
+> 在运行调试代理之前，在应用启动期间不会命中断点。 这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。
 
-1. 按 <kbd>F5</kbd> 继续执行，然后在服务器上命中 `WeatherForecastController` 中的断点：
-
-   ![调试服务器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-server.png)
-
-1. 再次按 <kbd>F5</kbd> 继续执行，查看是否呈现天气预报表。
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <a id="vscode"></a>
 
-## <a name="visual-studio-code"></a>Visual Studio Code
-
-### <a name="debug-standalone-no-locblazor-webassembly"></a>调试独立 Blazor WebAssembly
+## <a name="debug-standalone-no-locblazor-webassembly"></a>调试独立 Blazor WebAssembly
 
 1. 在 VS Code 中打开独立 Blazor WebAssembly 应用。
 
-   可能会收到以下指明还需要其他设置才能启用调试的通知：
-   
-   ![其他设置要求](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
-   
+   可能会收到通知，告诉你需要进行其他设置才能启用调试：
+
+   > 需要进行其他设置才能调试 Blazor WebAssembly 应用程序。
+
    如果收到通知，请执行以下操作：
 
    * 确认是否已安装最新的[适用于 Visual Studio Code 的 C# 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)。 若要检查是否已安装此扩展，请在菜单栏中依次打开“视图” > “扩展”，或选择“活动”边栏中的“扩展”图标。
@@ -133,27 +134,28 @@ ms.locfileid: "88628360"
 
 1. 出现提示时，选择“Blazor WebAssembly 调试”选项以启动调试。
 
-   ![可用调试选项列表](index/_static/blazor-vscode-debugtypes.png)
-
 1. 此时会启动独立应用，并打开调试浏览器。
 
-1. 在 `Counter` 组件的 `IncrementCount` 方法中设置一个断点，然后选择该按钮命中该断点。
+1. 在客户端应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
 
-   ![VS Code 中的调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
+1. 在浏览器中，导航到 `Counter` 页，然后选择“单击此处”按钮以命中断点。
 
-### <a name="debug-hosted-no-locblazor-webassembly"></a>调试托管 Blazor WebAssembly
+> [!NOTE]
+> 在运行调试代理之前，在应用启动期间不会命中断点。 这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。
+
+## <a name="debug-hosted-no-locblazor-webassembly"></a>调试托管 Blazor WebAssembly
 
 1. 在 VS Code 中打开托管 Blazor WebAssembly 应用的“解决方案”文件夹。
 
 1. 如果没有为项目设置启动配置，将显示以下通知。 选择 **“是”** 。
 
-   ![添加所需资产](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-required-assets.png)
+   > “{APPLICATION NAME}”中缺少进行生产和调试所需的资产。 警告的 VS Code
 
 1. 在窗口顶部的命令面板中，选择托管解决方案内的“服务器”项目。
 
 这会生成一个 `launch.json` 文件，其中包含用于启动调试器的启动配置。
 
-### <a name="attach-to-an-existing-debugging-session"></a>附加到现有的调试会话
+## <a name="attach-to-an-existing-debugging-session"></a>附加到现有的调试会话
 
 若要附加到正在运行的 Blazor 应用，请创建一个具有以下配置的 `launch.json` 文件：
 
@@ -168,7 +170,7 @@ ms.locfileid: "88628360"
 > [!NOTE]
 > 只有独立应用才支持附加到调试会话。 若要使用完整堆栈调试，必须从 VS Code 启动应用。
 
-### <a name="launch-configuration-options"></a>启动配置选项
+## <a name="launch-configuration-options"></a>启动配置选项
 
 `blazorwasm` 调试类型 (`.vscode/launch.json`) 支持以下启动配置选项。
 
@@ -185,9 +187,9 @@ ms.locfileid: "88628360"
 | `cwd`     | 要在其中启动应用的工作目录。 如果 `hosted` 是 `true`，则必须设置它。 |
 | `env`     | 要提供给已启动进程的环境变量。 仅当 `hosted` 设置为 `true` 时才适用。 |
 
-### <a name="example-launch-configurations"></a>启动配置示例
+## <a name="example-launch-configurations"></a>启动配置示例
 
-#### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a>启动并调试独立 Blazor WebAssembly 应用
+### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a>启动并调试独立 Blazor WebAssembly 应用
 
 ```json
 {
@@ -197,7 +199,7 @@ ms.locfileid: "88628360"
 }
 ```
 
-#### <a name="attach-to-a-running-app-at-a-specified-url"></a>在指定的 URL 附加到正在运行的应用
+### <a name="attach-to-a-running-app-at-a-specified-url"></a>在指定的 URL 附加到正在运行的应用
 
 ```json
 {
@@ -208,7 +210,7 @@ ms.locfileid: "88628360"
 }
 ```
 
-#### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a>使用 Microsoft Edge 启动并调试托管 Blazor WebAssembly 应用
+### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a>使用 Microsoft Edge 启动并调试托管 Blazor WebAssembly 应用
 
 浏览器默认配置为 Google Chrome。 使用 Microsoft Edge 进行调试时，将 `browser` 设置为 `edge`。 若要使用 Google Chrome，要么不要设置 `browser` 选项，要么将选项值设置为 `chrome`。
 
@@ -226,17 +228,61 @@ ms.locfileid: "88628360"
 
 在前面的示例中，`MyHostedApp.Server.dll` 是“服务器”应用的程序集。 在“解决方案”文件夹中，“`.vscode`”文件夹位于“`Client`”、“`Server`”和“`Shared`”文件夹旁边。
 
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+要在 Visual Studio for Mac 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
+
+1. 创建新的 ASP.NET Core 托管 Blazor WebAssembly 应用。
+1. 按 <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> 在调试器中运行应用。
+
+   > [!NOTE]
+   > 不支持“启动时不调试”(<kbd>&#8997;</kbd>+<kbd>&#8984;</kbd>+<kbd>&#8617;</kbd>)。 当应用以调试配置运行时，调试开销始终会导致性能的小幅下降。
+
+   > [!IMPORTANT]
+   > Google Chrome 或 Microsoft Edge 必须是调试会话的选定浏览器。
+
+1. 在客户端应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
+1. 在浏览器中，导航到 `Counter` 页，然后选择“单击此处”按钮以命中断点：
+1. 在 Visual Studio 中，检查“局部变量”窗口中 `currentCount` 字段的值。
+1. 按 <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> 继续执行。
+
+调试 Blazor WebAssembly 应用时，还可以调试服务器代码：
+
+1. 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 的“`Pages/FetchData.razor`”页中设置断点。
+1. 在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。
+1. 浏览到 `Fetch Data` 页，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中该断点。
+1. 按 <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> 继续执行，然后在服务器上命中 `WeatherForecastController` 中的断点。
+1. 再次按 <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> 以继续执行，并查看浏览器中呈现的天气预报表。
+
+> [!NOTE]
+> 在运行调试代理之前，在应用启动期间不会命中断点。 这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。
+
+有关详细信息，请参阅[使用 Visual Studio for Mac 进行调试](/visualstudio/mac/debugging?view=vsmac-2019)。
+
+---
+
 ## <a name="debug-in-the-browser"></a>在浏览器中调试
+
+本部分中的指南适用于在 Windows 上运行的 Google Chrome 和 Microsoft Edge。
 
 1. 在开发环境中运行该应用的调试版本。
 
 1. 启动浏览器并导航到应用程序的 URL（例如 `https://localhost:5001`）。
 
-1. 在浏览器中，尝试通过按 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd> 启动远程调试。
+1. 在浏览器中，尝试通过按 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>d</kbd> 启动远程调试。
 
    浏览器必须在已启用远程调试的情况下运行，而这并不是默认设置。 如果远程调试处于禁用状态，将呈现“无法找到可调试的浏览器选项卡”错误页，并且其中包含关于在调试端口打开的情况下启动浏览器的说明。 按照适用于你的浏览器的说明操作，接下来将打开一个新的浏览器窗口。 关闭上一个浏览器窗口。
 
-1. 在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式 (<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>) 会打开新的调试程序标签页。
+<!-- HOLD 
+1. In the browser, attempt to commence remote debugging by pressing:
+
+   * <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>d</kbd> on Windows.
+   * <kbd>Shift</kbd>+<kbd>&#8984;</kbd>+<kbd>d</kbd> on macOS.
+
+   The browser must be running with remote debugging enabled, which isn't the default. If remote debugging is disabled, an **Unable to find debuggable browser tab** error page is rendered with instructions for launching the browser with the debugging port open. Follow the instructions for your browser, which opens a new browser window. Close the previous browser window.
+-->
+
+1. 在启用远程调试的情况下运行浏览器后，按上一步中的调试键盘快捷方式会打开新的调试程序选项卡。
 
 1. 片刻后，“源”选项卡显示 `file://` 节点中应用的 .NET 程序集的列表。
 
@@ -286,7 +332,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-### <a name="visual-studio-timeout"></a>Visual Studio 超时
+### <a name="visual-studio-windows-timeout"></a>Visual Studio (Windows) 超时
 
 如果 Visual Studio 引发了调试适配器启动因已达到超时而失败的异常，可使用注册表设置调整超时：
 

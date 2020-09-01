@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: 0c878a05a50e5a6879278ee737ada167669ee0ff
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: eb9e3cbddd2eaca8fef9a6782c28bbce4c029f58
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626475"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865321"
 ---
 # <a name="aspnet-core-no-locblazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -169,13 +169,43 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 
 `"/{**path}"` 模板包括：
 
-* 双星号 *catch-all* 语法 (`**`)，用于捕获跨多个文件夹边界的路径，而无需编码正斜杠 (`/`)。
+* 双星号 *catch-all* 语法 (`**`)，用于捕获跨多个文件夹边界的路径，而无需解码正斜杠 (`/`)。
 * `path` 路由参数名称。
 
-> [!NOTE]
-> Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)。
-
 有关详细信息，请参阅 <xref:fundamentals/routing>。
+
+## <a name="catch-all-route-parameters"></a>catch-all 路由参数
+
+::: moniker range=">= aspnetcore-5.0"
+
+本部分适用于 .NET 5 候选发布 1 (RC1) 或更高版本，该版本将于九月中旬发布。
+
+组件支持可跨多个文件夹边界捕获路径的 catch-all 路由参数。 catch-all 路由参数必须满足以下条件：
+
+* 以与路由段名称匹配的方式命名。 命名不区分大小写。
+* `string` 类型。 框架不提供自动强制转换。
+* 位于 URL 的末尾。
+
+```razor
+@page "/page/{*pageRoute}"
+
+@code {
+    [Parameter]
+    public string PageRoute { get; set; }
+}
+```
+
+对于具有 `/page/{*pageRoute}` 路由模板的 URL `/page/this/is/a/test`，`PageRoute` 的值设置为 `this/is/a/test`。
+
+对捕获路径的斜杠和段进行解码。 对于 `/page/{*pageRoute}` 的路由模板，URL `/page/this/is/a%2Ftest%2A` 会生成 `this/is/a/test*`。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+catch-all 路由参数将受 .NET 5 候选发布 1 (RC1) 或更高版本（将于九月中旬发布）支持。*
+
+::: moniker-end
 
 ## <a name="navlink-component"></a>NavLink 组件
 

@@ -5,7 +5,7 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/30/2020
+ms.date: 08/22/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 769b3bda591252c51bec3ffd72a43eaa5929349e
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 7335b68ad06b9d2b8d7e056cfc1a6d8214119b21
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630830"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865417"
 ---
 # <a name="build-a-no-locblazor-todo-list-app"></a>生成 Blazor 待办事项列表应用
 
@@ -51,7 +51,7 @@ ms.locfileid: "88630830"
    dotnet new blazorserver -o TodoList
    ```
 
-   上述命令将创建一个名为 `TodoList` 的文件夹来保存应用。 使用以下命令将目录切换到 `TodoList` 文件夹：
+   上述命令将创建一个名为 `TodoList` 的文件夹来保存应用。 `TodoList` 文件夹是项目的根文件夹。 使用以下命令将目录切换到 `TodoList` 文件夹：
 
    ```dotnetcli
    cd TodoList
@@ -64,7 +64,7 @@ ms.locfileid: "88630830"
    ```
 
    > [!IMPORTANT]
-   > Razor 组件文件名要求首字母大写，因此请确认 `Todo` 组件的文件名以大写字母 `T` 开头。
+   > Razor 组件文件名要求首字母大写。 打开 `Pages` 文件夹，确认 `Todo` 组件文件名以大写字母 `T` 开头。 文件名应为 `Todo.razor`。
 
 1. 在 `Pages/Todo.razor` 中为组件提供初始标记：
 
@@ -88,9 +88,9 @@ ms.locfileid: "88630830"
    </li>
    ```
 
-1. 重新生成并运行应用。 访问新的“待办事项”页面，确认指向 `Todo` 组件的链接有效。
+1. 从 `TodoList` 文件夹，在命令行界面中执行的 `dotnet run` 命令，以生成并运行应用。 访问新的“待办事项”页面，确认指向 `Todo` 组件的链接有效。
 
-1. 向项目的根目录添加 `TodoItem.cs` 文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
+1. 向项目的根目录添加 `TodoItem.cs` 文件（`TodoList` 文件夹），以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 
    [!code-csharp[](build-a-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
@@ -105,7 +105,7 @@ ms.locfileid: "88630830"
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
-1. 重新生成并运行应用。 选择“`Add todo`”按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
+1. 在命令行界面中停止运行的应用。 许多命令行界面接受键盘命令 <kbd>Ctrl</kbd>+<kbd>c</kbd> 来停止应用。 使用 `dotnet run` 命令重新生成并运行此应用。 选择“`Add todo`”按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
 
 1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法以选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
 
@@ -123,7 +123,7 @@ ms.locfileid: "88630830"
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
-1. 重新生成并运行应用。 在待办项列表中添加一些待办项以测试新代码。
+1. 在命令行界面中停止运行的应用。 使用 `dotnet run` 命令重新生成并运行此应用。 在待办项列表中添加一些待办项以测试新代码。
 
 1. 每个待办项的标题文本都可以编辑，复选框可以帮助用户跟踪已完成的项。 为每个待办项添加一个复选框输入，并将它的值绑定到 `IsDone` 属性。 将 `@todo.Title` 更改为绑定到 `@todo.Title` 的 `<input>` 元素：
 
@@ -139,7 +139,7 @@ ms.locfileid: "88630830"
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
-1. 重新生成并运行应用。 添加待办项以测试新代码。
+1. 在命令行界面中停止运行的应用。 使用 `dotnet run` 命令重新生成并运行此应用。 添加待办项以测试新代码。
 
 ## <a name="next-steps"></a>后续步骤
 

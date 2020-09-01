@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/basics
-ms.openlocfilehash: 61ac7b84ec6a5eeb344cbf6f9a6712366be7d3c9
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: aacaf9cca131d3fba1c3ae96cf42d51d3fdc17b6
+ms.sourcegitcommit: 47c9a59ff8a359baa6bca2637d3af87ddca1245b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627073"
+ms.lasthandoff: 08/27/2020
+ms.locfileid: "88945423"
 ---
 # <a name="grpc-services-with-c"></a>使用 C\# 的 gRPC 服务
 
@@ -32,12 +32,12 @@ ms.locfileid: "88627073"
 
 ## <a name="proto-file"></a>proto 文件
 
-gRPC 使用协定优先方法进行 API 开发。 默认情况下，协议缓冲区 (protobuf) 用作接口设计语言 (IDL)。 \*.proto 文件包含：
+gRPC 使用协定优先方法进行 API 开发。 默认情况下，协议缓冲区 (protobuf) 用作接口定义语言 (IDL)。 \*.proto 文件包含：
 
 * gRPC 服务的定义。
 * 在客户端与服务器之间发送的消息。
 
-有关 protobuf 文件的语法的详细信息，请参阅[官方文档 (protobuf)](https://developers.google.com/protocol-buffers/docs/proto3)。
+有关 protobuf 文件语法的详细信息，请参阅 <xref:grpc/protobuf>。
 
 例如，请考虑[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start)中使用的 greet.proto 文件：
 
