@@ -2,6 +2,7 @@
 title: 测试 ASP.NET Core 中间件
 author: tratcher
 description: 了解如何通过 TestServer 测试 ASP.NET Core 中间件。
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 5/12/2020
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/middleware
-ms.openlocfilehash: ed0925259bf3d4fee6c903ff55cdf1dae2355af7
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 1a5259f65261fb95fcfaa59df3f04da14d3f1ae3
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631896"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102860"
 ---
 # <a name="test-aspnet-core-middleware"></a>测试 ASP.NET Core 中间件
 
@@ -59,6 +60,7 @@ ms.locfileid: "88631896"
 [!code-csharp[](middleware/samples_snapshot/3.x/setup.cs?highlight=4-18)]
 
 ## <a name="send-requests-with-httpclient"></a>使用 HttpClient 发送请求
+
 使用 <xref:System.Net.Http.HttpClient> 发送请求：
 
 [!code-csharp[](middleware/samples_snapshot/3.x/request.cs?highlight=20)]

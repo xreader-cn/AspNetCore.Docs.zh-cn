@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 50d019897310f9edd560069137ab73b39d780be8
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: adc16989e5b4e2e639896e5fe9562e42cb8ceeb4
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626228"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102739"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Azure AD 组、管理角色和用户定义的角色
 
@@ -33,7 +33,7 @@ Azure Active Directory (AAD) 提供了多种授权方法，它们可与 ASP.NET 
 
 * 用户定义的组
   * 安全性
-  * O365
+  * Microsoft 365
   * 分布
 * 角色
   * 内置管理角色

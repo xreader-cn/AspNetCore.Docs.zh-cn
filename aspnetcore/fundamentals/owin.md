@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/owin
-ms.openlocfilehash: d766ba3387edbfb9298b6f3cf8a485738b7d7139
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 817eb652f4feedf19dd60873b480917c320272a3
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628594"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102752"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>ASP.NET Core 中 .NET 的开放 Web 接口 (OWIN)
 
@@ -104,80 +104,6 @@ app.UseOwin(pipeline =>
 
 <a name="hosting-on-owin"></a>
 
-## <a name="using-aspnet-core-hosting-on-an-owin-based-server"></a>在基于 OWIN 的服务器中使用 ASP.NET Core 托管
-
-基于 OWIN 的服务器可托管 ASP.NET Core 应用。 [Nowin](https://github.com/Bobris/Nowin)（.NET OWIN Web 服务器）属于这种服务器。 本文的示例中包含了一个引用 Nowin 的项目，并使用它创建了一个自托管 ASP.NET Core 的 `IServer`。
-
-[!code-csharp[](owin/sample/src/NowinSample/Program.cs?highlight=15)]
-
-`IServer` 是需要 `Features` 属性和 `Start` 方法的接口。
-
-`Start` 负责配置和启动服务器，在此情况下，此操作通过一系列 Fluent API 调用完成，这些调用设置从 IServerAddressesFeature 分析的地址。 请注意，`_builder` 变量的 Fluent 配置指定请求将由方法中之前定义的 `appFunc` 来处理。 对于每个请求，都会调用此 `Func` 以处理传入请求。
-
-我们还将添加一个 `IWebHostBuilder` 扩展，以便添加和配置 Nowin 服务器。
-
-```csharp
-using System;
-using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.Extensions.DependencyInjection;
-using Nowin;
-using NowinSample;
-
-namespace Microsoft.AspNetCore.Hosting
-{
-    public static class NowinWebHostBuilderExtensions
-    {
-        public static IWebHostBuilder UseNowin(this IWebHostBuilder builder)
-        {
-            return builder.ConfigureServices(services =>
-            {
-                services.AddSingleton<IServer, NowinServer>();
-            });
-        }
-
-        public static IWebHostBuilder UseNowin(this IWebHostBuilder builder, Action<ServerBuilder> configure)
-        {
-            builder.ConfigureServices(services =>
-            {
-                services.Configure(configure);
-            });
-            return builder.UseNowin();
-        }
-    }
-}
-```
-
-完成此操作后，调用 Program.cs 中的扩展以使用此自定义服务器运行 ASP.NET Core 应用：
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-
-namespace NowinSample
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var host = new WebHostBuilder()
-                .UseNowin()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
-        }
-    }
-}
-```
-
-了解有关 [ASP.NET Core 服务器](xref:fundamentals/servers/index)的更多信息。
-
 ## <a name="run-aspnet-core-on-an-owin-based-server-and-use-its-websockets-support"></a>在基于 OWIN 的服务器上运行 ASP.NET Core 并使用其 WebSocket 支持
 
 ASP.NET Core 如何利用基于 OWIN 的服务器功能的另一个示例是访问 WebSocket 等功能。 前面示例中使用的 .NET OWIN Web 服务器支持内置的 Web 套接字，可由 ASP.NET Core 应用程序利用。 下面的示例显示了简单的 Web 应用，它支持 Web 套接字并回显通过 WebSocket 发送到服务器的所有内容。
@@ -227,10 +153,6 @@ public class Startup
     }
 }
 ```
-
-使用与前一个相同的 `NowinServer` 来配置此[示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) - 唯一的区别是如何在其 `Configure` 方法中配置应用程序。 使用[简单的 websocket 客户端](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en)的测试演示应用程序：
-
-![Web 套接字测试客户端](owin/_static/websocket-test.png)
 
 ## <a name="owin-environment"></a>OWIN 环境
 
