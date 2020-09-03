@@ -720,8 +720,6 @@
       uid: grpc/clientfactory
     - name: 在浏览器应用中使用 gRPC
       uid: grpc/browser
-    - name: 使用 gRPC 进行进程间通信
-      uid: grpc/interprocess
     - name: 从 gRPC 创建 JSON Web API
       uid: grpc/httpapi
     - name: Configuration
