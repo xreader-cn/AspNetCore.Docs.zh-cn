@@ -17,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/protobuf
-ms.openlocfilehash: b8149b79c1e7b204e52cc8595d1193b623bb0008
-ms.sourcegitcommit: 47c9a59ff8a359baa6bca2637d3af87ddca1245b
+ms.openlocfilehash: 60af1add9ae2f8b2b94bc19b65667d7af91fb122
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2020
-ms.locfileid: "88945456"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102661"
 ---
 # <a name="create-protobuf-messages-for-net-apps"></a>为 .NET 应用创建 Protobuf 消息
 
 作者：[James Newton-King](https://twitter.com/jamesnk) 和 [Mark Rendle](https://twitter.com/markrendle)
 
-gRPC 使用 [Protobuf](https://developers.google.com/protocol-buffers) 作为其接口定义语言 (IDL)。 Protobuf IDL 是一种中性语言格式，用于指定 gRPC 服务发送和接收的消息。 Protobuf 消息在 .proto 文件中定义。 本文档介绍如何将 Protobuf 概念映射到 .NET。
+gRPC 使用 [Protobuf](https://developers.google.com/protocol-buffers) 作为其接口定义语言 (IDL)。 Protobuf IDL 是一种中性语言格式，用于指定 gRPC 服务发送和接收的消息。 Protobuf 消息在 `.proto` 文件中定义。 本文档介绍如何将 Protobuf 概念映射到 .NET。
 
 ## <a name="protobuf-messages"></a>Protobuf 消息
 
@@ -50,7 +50,7 @@ message Person {
 
 包括名称，消息定义中的每个字段都有一个唯一的编号。 消息序列化为 Protobuf 时，字段编号用于标识字段。 序列化一个小编号比序列化整个字段名称要快。 因为字段编号标识字段，所以在更改编号时务必小心。 有关更改 Protobuf 消息的详细信息，请参阅 <xref:grpc/versioning>。
 
-生成应用时，Protobuf 工具将从 .proto 文件生成 .NET 类型。 `Person` 消息生成 .NET 类：
+生成应用时，Protobuf 工具将从 `.proto` 文件生成 .NET 类型。 `Person` 消息生成 .NET 类：
 
 ```csharp
 public class Person
@@ -91,11 +91,11 @@ Protobuf 支持一系列本机标量值类型。 下表列出了全部本机标�
 
 下表显示日期和时间类型：
 
-| .NET 类型 | Protobuf 已知类型 |
-| ------- | ------------------------ |
+| .NET 类型        | Protobuf 已知类型    |
+| ---------------- | --------------------------- |
 | `DateTimeOffset` | `google.protobuf.Timestamp` |
-| `DateTime` | `google.protobuf.Timestamp` |
-| `TimeSpan` | `google.protobuf.Duration` |
+| `DateTime`       | `google.protobuf.Timestamp` |
+| `TimeSpan`       | `google.protobuf.Duration`  |
 
 ```protobuf  
 syntax = "proto3"
@@ -284,11 +284,17 @@ person.Attributes.Add(attributes);
 
 ## <a name="unstructured-and-conditional-messages"></a>无结构的条件消息
 
-Protobuf 是协定优先的消息格式，在生成应用时，需要在 .proto 文件中指定应用消息。 对于高级方案，Protobuf 提供语言功能和已知类型，以支持条件消息和未知消息。
+Protobuf 是一种协定优先的消息传递格式。 构建应用时，必须在 `.proto` 文件中指定应用的消息，包括其字段和类型。 Protobuf 的协定优先设计非常适合强制执行消息内容，但可能会限制不需要严格协定的情况：
+
+* 包含未知有效负载的消息。 例如，具有可以包含任何消息的字段的消息。
+* 条件消息。 例如，从 gRPC 服务返回的消息可能是成功结果或错误结果。
+* 动态值。 例如，具有包含非结构化值集合的字段的消息，类似于 JSON。
+
+Protobuf 提供语言功能和类型来支持这些情况。
 
 ### <a name="any"></a>任意
 
-利用 `Any` 类型，可以将消息作为嵌入类型使用，而无需 .proto 定义。 若要使用 `Any` 类型，请导入 `any.proto`。
+利用 `Any` 类型，可以将消息作为嵌入类型使用，而无需 `.proto` 定义。 若要使用 `Any` 类型，请导入 `any.proto`。
 
 ```protobuf
 import "google/protobuf/any.proto";
@@ -338,7 +344,7 @@ message ResponseMessage {
 使用 `oneof` 时，生成的 C# 代码包括一个枚举，用于指定哪些字段已设置。 可以测试枚举来查找已设置的字段。 未设置的字段将返回 `null` 或默认值，而不是引发异常。
 
 ```csharp
-var response = client.GetPersonAsync(new RequestMessage());
+var response = await client.GetPersonAsync(new RequestMessage());
 
 switch (response.ResultCase)
 {
@@ -355,7 +361,7 @@ switch (response.ResultCase)
 
 ### <a name="value"></a>“值”
 
-`Value` 类型表示动态类型的值。 它可以是 `null`、数字、字符串、布尔值、值字典 (`Struct`) 或值列表 (`ValueList`)。 `Value` 是一个已知类型，它使用前面讨论的 `oneof` 功能。 若要使用 `Value` 类型，请导入 `struct.proto`。
+`Value` 类型表示动态类型的值。 它可以是 `null`、数字、字符串、布尔值、值字典 (`Struct`) 或值列表 (`ValueList`)。 `Value` 是一个 Protobuf 已知类型，它使用前面讨论的 `oneof` 功能。 若要使用 `Value` 类型，请导入 `struct.proto`。
 
 ```protobuf
 import "google/protobuf/struct.proto";

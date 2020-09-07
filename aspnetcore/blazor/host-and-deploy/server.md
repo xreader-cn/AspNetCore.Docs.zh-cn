@@ -5,7 +5,7 @@ description: 了解如何使用 ASP.NET Core 托管和部署 Blazor Server 应�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2020
+ms.date: 08/26/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: 72a22fc2dd50bbcda230bb1824bb4fe176bf2189
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: afbaad2f27359a4a1cac5c5fe1da16d3e80d038f
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628048"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102648"
 ---
 # <a name="host-and-deploy-no-locblazor-server"></a>托管和部署 Blazor Server
 
@@ -65,11 +65,23 @@ Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [Sig
 
 #### <a name="azure-no-locsignalr-service"></a>Azure SignalR 服务
 
-我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 此外，SignalR 服务的全球覆盖和高性能数据中心可帮助显著减少由于地理位置造成的延迟。 若要配置应用（并选择性地预配），Azure SignalR 服务应：
+我们建议将 [Azure SignalR 服务](xref:signalr/scale#azure-signalr-service)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 此外，SignalR 服务的全球覆盖和高性能数据中心可帮助显著减少由于地理位置造成的延迟。
+
+> [!IMPORTANT]
+> 禁用 [WebSockets](https://wikipedia.org/wiki/WebSocket) 时，Azure 应用服务使用 HTTP 长轮询模拟实时连接。 HTTP 长轮询明显比启用 WebSockets 运行慢，WebSockets 不使用轮询来模拟客户机 - 服务器连接。
+>
+> 建议对部署到 Azure 应用服务的 Blazor Server 应用使用 WebSocket。 默认情况下，[Azure SignalR 服务](xref:signalr/scale#azure-signalr-service)使用 WebSockets。 如果应用不使用 Azure SignalR 服务，请参阅 <xref:signalr/publish-to-azure-web-app#configure-the-app-in-azure-app-service>。
+>
+> 有关详细信息，请参阅：
+>
+> * [什么是 Azure SignalR 服务？](/azure/azure-signalr/signalr-overview)
+> * [Azure SignalR 服务的性能指南](/azure-signalr/signalr-concept-performance#performance-factors)
+
+若要配置应用（并选择性地预配），Azure SignalR 服务应：
 
 1. 启用该服务以支持粘滞会话，在此情况下，客户端在[预呈现时被重定向回同一服务器](xref:blazor/hosting-models#connection-to-the-server)。 将 `ServerStickyMode` 选项或配置值设置为 `Required`。 通常，应用使用下述方法之一创建配置：
 
-   * `Startup.ConfigureServices`：
+   * `Startup.ConfigureServices`:
   
      ```csharp
      services.AddSignalR().AddAzureSignalR(options =>
@@ -81,7 +93,7 @@ Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [Sig
 
    * 配置（使用下述方法之一）：
   
-     * `appsettings.json`：
+     * `appsettings.json`:
 
        ```json
        "Azure:SignalR:ServerStickyMode": "Required"

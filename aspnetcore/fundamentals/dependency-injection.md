@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 0a51647463362d6cfac335688d42d4be013f8b9c
-ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
+ms.openlocfilehash: 2d002e075f9d57654589b540e522307c363d9660
+ms.sourcegitcommit: 4cce99cbd44372fd4575e8da8c0f4345949f4d9a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88712503"
+ms.lasthandoff: 08/31/2020
+ms.locfileid: "89153540"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core 依赖注入
 
@@ -345,7 +345,6 @@ An `OperationService` is registered that depends on each of the other `Operation
 
 * 没有从根服务提供程序解析到范围内服务。
 * 未将范围内服务注入单一实例。
-* 未将暂时性服务注入单一实例或范围内服务。
 
 调用 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider%2A> 时创建根服务提供程序。 在启动提供程序和应用时，根服务提供程序的生存期对应于应用的生存期，并在关闭应用时释放。
 
@@ -518,7 +517,7 @@ Service1.Dispose
   [!code-csharp[](dependency-injection/samples/3.x/AntiPattern3/Startup.cs?name=snippet)]
 
 * 可释放的暂时性服务由容器捕获以进行释放。 如果从顶级容器解析，这会变为内存泄漏。
-* 启用范围验证，确保应用没有捕获单一实例的范围内服务。 有关详细信息，请参阅[作用域验证](#scope-validation)。
+* 启用范围验证，确保应用没有捕获范围内服务的单一实例。 有关详细信息，请参阅[作用域验证](#scope-validation)。
 
 像任何一组建议一样，你可能会遇到需要忽略某建议的情况。 例外情况很少见，主要是框架本身内部的特殊情况。
 
@@ -769,7 +768,7 @@ public void ConfigureServices(IServiceCollection services)
 
 服务注册扩展方法提供适用于特定场景的重载。
 
-| 方法 | 自动<br>对象<br>释放 | 多种<br>实现 | 传递参数 |
+| 方法 | 自动<br>对象 (object)<br>释放 | 多种<br>实现 | 传递参数 |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
 | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<IMyDep, MyDep>();` | 是 | 是 | 否 |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |

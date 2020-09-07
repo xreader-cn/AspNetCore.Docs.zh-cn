@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 53293ae9780129530ce5a41639e19284f47aa245
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a8d2ceaffb670723d7662234f3dc964c864e6763
+ms.sourcegitcommit: 8ed9a413bdc2d665ad11add8828898d726ccb106
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628074"
+ms.lasthandoff: 09/01/2020
+ms.locfileid: "89280421"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
@@ -84,6 +84,9 @@ Blazor Server 托管模型具有以下优点：
 * 服务器上的 .NET Core 用于运行应用，因此调试等现有 .NET 工具可按预期正常工作。
 * 支持瘦客户端。 例如，Blazor Server 应用适用于不支持 WebAssembly 的浏览器以及资源受限的设备。
 * 应用的 .NET/C# 代码库（其中包括应用的组件代码）不适用于客户端。
+
+> [!IMPORTANT]
+> Blazor Server 应用预呈现以响应第一个客户端请求，这会在服务器上设置 UI 状态。 客户端尝试创建 SignalR 连接时，“必须重新连接到同一服务器”。 使用多个后端服务器的 Blazor Server 应用应实现粘滞会话，从而建立 SignalR 连接。 有关更多信息，请参见[连接到服务器](#connection-to-the-server)一节。
 
 Blazor Server 托管具有以下缺点：
 
