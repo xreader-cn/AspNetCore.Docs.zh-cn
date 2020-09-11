@@ -18,16 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: fc257015a9ee972da90b0f206a60b07bd6cc1f97
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: bba965e14058663c3ed9c0f15afc6a8d78997aea
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631103"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009747"
 ---
 # <a name="aspnet-core-no-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR 托管和缩放
 
-作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和[Tom Dykstra](https://github.com/tdykstra)
+作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和 [Tom Dykstra](https://github.com/tdykstra)
 
 本文介绍使用 ASP.NET Core 的高流量应用的托管和扩展注意事项 SignalR 。
 
@@ -82,7 +82,7 @@ Azure SignalR 服务是一种代理，而不是底板。 每次客户端启动�
 与 Redis 底板替代方法相比，这种扩展方法具有多个优点：
 
 * 粘滞会话（也称为 [客户端关联](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)）不是必需的，因为客户端在连接时立即重定向到 Azure SignalR 服务。
-* SignalR应用可根据发送的消息数进行扩展，而 Azure SignalR 服务会自动缩放以处理任意数量的连接。 例如，可能有数千个客户端，但如果每秒只发送了几条消息，则该 SignalR 应用无需向外扩展到多个服务器即可直接处理连接。
+* SignalR应用程序可以根据发送的消息数进行扩展，而 Azure 服务可以缩放 SignalR 以处理任意数量的连接。 例如，可能有数千个客户端，但如果每秒只发送了几条消息，则该 SignalR 应用无需向外扩展到多个服务器即可直接处理连接。
 * SignalR与 web 应用相比，应用不会使用更多的连接资源 SignalR 。
 
 出于此原因，我们建议 azure SignalR 服务适用于 SignalR azure 上托管的所有 ASP.NET Core 应用，包括应用服务、vm 和容器。

@@ -4,7 +4,7 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 中配置数据保护。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 09/04/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: aa7f6f3c1ff8042bd11bba485a2d7b8aaa6ef88a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 72aa7c210bdff2729be3dabe7a630e578334aef9
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626709"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009708"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core 数据保护
 
@@ -42,8 +42,8 @@ ms.locfileid: "88626709"
 
 本文中使用的数据保护扩展插件需要以下 NuGet 包：
 
-* [AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/)
-* [AspNetCore. DataProtection. AzureKeyVault](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureKeyVault/)
+* [Azure.Extensions.AspNetCore.DataProtection.Blobs](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Blobs)
+* [Azure.Extensions.AspNetCore.DataProtection.Keys](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Keys)
 
 ::: moniker-end
 
@@ -51,7 +51,7 @@ ms.locfileid: "88626709"
 
 ## <a name="protectkeyswithazurekeyvault"></a>ProtectKeysWithAzureKeyVault
 
-若要在 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在类中配置 [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) 的系统 `Startup` ：
+若要在 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在类中配置 [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) 系统 `Startup` 。 `blobUriWithSasToken` 应存储密钥文件的完整 URI。 此 URI 必须包含 SAS 令牌作为查询字符串参数：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -72,7 +72,14 @@ public void ConfigureServices(IServiceCollection services)
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder，string，string，X509Certificate2) ](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_Security_Cryptography_X509Certificates_X509Certificate2_) 允许使用 `ClientId` 和 [X509Certificate](/dotnet/api/system.security.cryptography.x509certificates.x509certificate2) 使数据保护系统能够使用密钥保管库。
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder、string、string、string) ](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_String_) 允许使用 `ClientId` 和， `ClientSecret` 使数据保护系统能够使用密钥保管库。
 
-使用 keyvault 和 azure 存储的组合来存储和保护密钥时， `System.UriFormatException` 如果存储密钥的 blob 尚不存在，则会引发。 这可以在运行应用程序之前手动创建，也 `.ProtectKeysWithAzureKeyVault()` 可以在第一次运行时将其删除以创建 blob，然后将其添加到后面的运行。 `.ProtectKeysWithAzureKeyVault()`建议删除，因为这将确保用适当的架构和值创建文件。
+如果应用使用以前的 Azure 包 ([`Microsoft.AspNetCore.DataProtection.AzureStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage) 和 [`Microsoft.AspNetCore.DataProtection.AzureKeyVault`](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureKeyVault)) 并结合了 Azure Key Vault 和 Azure 存储来存储和保护密钥，则 <xref:System.UriFormatException?displayProperty=nameWithType> 会在密钥存储的 blob 不存在时引发。 可以在 Azure 门户中运行应用之前手动创建 blob，也可以使用以下过程：
+
+1. 删除对的调用，以便 `ProtectKeysWithAzureKeyVault` 在首次运行时创建 blob。
+1. 将对的调用添加到 `ProtectKeysWithAzureKeyVault` 后面的运行。
+
+`ProtectKeysWithAzureKeyVault`建议删除首次运行，因为它可确保创建的文件具有正确的架构和值。 
+
+建议升级到 [AspNetCore DataProtection](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Blobs) 和 [AspNetCore](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Keys) 包，因为如果 blob 不存在，则该 API 会自动创建该 blob 的包。
 
 ```csharp
 var storageAccount = CloudStorageAccount.Parse("<storage account connection string">);
