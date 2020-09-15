@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 26e8239634c3edb99c7606ab2e250c69af4e746f
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: be1584e72fc1504ac9f8ca10a6b084c95a579b5b
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865287"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009617"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -266,7 +266,7 @@ namespace BlazorSample
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
 > [!WARNING]
-> 当使用 <xref:Microsoft.AspNetCore.Components.RenderFragment> 呈现组件的内容时，请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[使用 `RenderFragment` 重写参数](#overwritten-parameters-with-renderfragment)一节。
+> 请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[重写参数](#overwritten-parameters)部分。
 
 ## <a name="child-content"></a>子内容
 
@@ -625,14 +625,9 @@ public class NotifierService
 
 确保用于 [`@key`][5] 的值不冲突。 如果在同一父元素内检测到冲突值，则 Blazor 引发异常，因为它无法明确地将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
 
-## <a name="overwritten-parameters-with-renderfragment"></a>使用 `RenderFragment` 重写参数
+## <a name="overwritten-parameters"></a>重写参数
 
-在以下情况中，会重写参数：
-
-* 子组件的内容使用 <xref:Microsoft.AspNetCore.Components.RenderFragment> 进行呈现。
-* <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 在父组件中调用。
-
-由于在调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 且向子组件提供新的参数值时，会重新呈现父组件，因此将重置参数。
+在父组件重新呈现时提供了新的参数值，这通常会重写现有参数。
 
 请考虑使用以下 `Expander` 组件，它们会：
 
