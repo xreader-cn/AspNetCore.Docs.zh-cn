@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cross-site-scripting
-ms.openlocfilehash: ec8b321be08447ca634a1e28799f790f723f17d1
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 03bdfe9260ef6433456ba53d0cab8c7bf9f86377
+ms.sourcegitcommit: 422e02bad384775bfe19a90910737340ad106c5b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625617"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90083461"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>阻止跨站点脚本 (XSS) 在 ASP.NET Core
 
@@ -72,84 +72,102 @@ RazorMVC 中使用的引擎会自动对源自变量的所有输出进行编码�
 
 ```cshtml
 @{
-       var untrustedInput = "<\"123\">";
-   }
+    var untrustedInput = "<script>alert(1)</script>";
+}
 
-   <div
-       id="injectedData"
-       data-untrustedinput="@untrustedInput" />
+<div id="injectedData"
+     data-untrustedinput="@untrustedInput" />
 
-   <script>
-     var injectedData = document.getElementById("injectedData");
+<div id="scriptedWrite" />
+<div id="scriptedWrite-html5" />
 
-     // All clients
-     var clientSideUntrustedInputOldStyle =
-         injectedData.getAttribute("data-untrustedinput");
-
-     // HTML 5 clients only
-     var clientSideUntrustedInputHtml5 =
-         injectedData.dataset.untrustedinput;
-
-     document.write(clientSideUntrustedInputOldStyle);
-     document.write("<br />")
-     document.write(clientSideUntrustedInputHtml5);
-   </script>
-   ```
-
-这会生成以下 HTML
-
-```html
-<div
-     id="injectedData"
-     data-untrustedinput="&lt;&quot;123&quot;&gt;" />
-
-   <script>
-     var injectedData = document.getElementById("injectedData");
-
-     var clientSideUntrustedInputOldStyle =
-         injectedData.getAttribute("data-untrustedinput");
-
-     var clientSideUntrustedInputHtml5 =
-         injectedData.dataset.untrustedinput;
-
-     document.write(clientSideUntrustedInputOldStyle);
-     document.write("<br />")
-     document.write(clientSideUntrustedInputHtml5);
-   </script>
-   ```
-
-当它运行时，将呈现以下内容：
-
-```
-<"123">
-   <"123">
-```
-
-还可以直接调用 JavaScript 编码器：
-
-```cshtml
-@using System.Text.Encodings.Web;
-   @inject JavaScriptEncoder encoder;
-
-   @{
-       var untrustedInput = "<\"123\">";
-   }
-
-   <script>
-       document.write("@encoder.Encode(untrustedInput)");
-   </script>
-```
-
-这将在浏览器中呈现，如下所示：
-
-```html
 <script>
-    document.write("\u003C\u0022123\u0022\u003E");
+    var injectedData = document.getElementById("injectedData");
+
+    // All clients
+    var clientSideUntrustedInputOldStyle =
+        injectedData.getAttribute("data-untrustedinput");
+
+    // HTML 5 clients only
+    var clientSideUntrustedInputHtml5 =
+        injectedData.dataset.untrustedinput;
+
+    // Put the injected, untrusted data into the scriptedWrite div tag.
+    // Do NOT use document.write() on dynamically generated data as it
+    // can lead to XSS.
+
+    document.getElementById("scriptedWrite").innerText += clientSideUntrustedInputOldStyle;
+
+    // Or you can use createElement() to dynamically create document elements
+    // This time we're using textContent to ensure the data is properly encoded.
+    var x = document.createElement("div");
+    x.textContent = clientSideUntrustedInputHtml5;
+    document.body.appendChild(x);
+
+    // You can also use createTextNode on an element to ensure data is properly encoded.
+    var y = document.createElement("div");
+    y.appendChild(document.createTextNode(clientSideUntrustedInputHtml5));
+    document.body.appendChild(y);
+
 </script>
+   ```
+
+上述标记生成以下 HTML：
+
+```html
+<div id="injectedData"
+     data-untrustedinput="&lt;script&gt;alert(1)&lt;/script&gt;" />
+
+<div id="scriptedWrite" />
+<div id="scriptedWrite-html5" />
+
+<script>
+    var injectedData = document.getElementById("injectedData");
+
+    // All clients
+    var clientSideUntrustedInputOldStyle =
+        injectedData.getAttribute("data-untrustedinput");
+
+    // HTML 5 clients only
+    var clientSideUntrustedInputHtml5 =
+        injectedData.dataset.untrustedinput;
+
+    // Put the injected, untrusted data into the scriptedWrite div tag.
+// Do NOT use document.write() on dynamically generated data as it can
+// lead to XSS.
+
+    document.getElementById("scriptedWrite").innerText += clientSideUntrustedInputOldStyle;
+
+    // Or you can use createElement() to dynamically create document elements
+    // This time we're using textContent to ensure the data is properly encoded.
+    var x = document.createElement("div");
+    x.textContent = clientSideUntrustedInputHtml5;
+    document.body.appendChild(x);
+
+    // You can also use createTextNode on an element to ensure data is properly encoded.
+    var y = document.createElement("div");
+    y.appendChild(document.createTextNode(clientSideUntrustedInputHtml5));
+    document.body.appendChild(y);
+
+</script>
+   ```
+
+前面的代码生成以下输出：
+
+```
+<script>alert(1)</script>
+<script>alert(1)</script>
+<script>alert(1)</script>
 ```
 
 >[!WARNING]
-> 请勿连接 JavaScript 中不受信任的输入来创建 DOM 元素。 你应使用 `createElement()` 并适当地分配属性值（如 `node.TextContent=` ），或使用， `element.SetAttribute()` / `element[attribute]=` 否则你会自行向基于 DOM 的 XSS 公开。
+> 不要 ***连接 JavaScript 中不受*** 信任的输入来创建 DOM 元素或 `document.write()` 在动态生成的内容上使用。
+>
+> 使用以下方法之一来阻止将代码公开给基于 DOM 的 XSS：
+> * `createElement()` 并通过适当的方法或属性（如或节点）分配属性值 `node.textContent=` 。InnerText = '。
+> * `document.CreateTextNode()` 并将其追加到适当的 DOM 位置。
+> * `element.SetAttribute()`
+> * `element[attribute]=`
 
 ## <a name="accessing-encoders-in-code"></a>在代码中访问编码器
 
