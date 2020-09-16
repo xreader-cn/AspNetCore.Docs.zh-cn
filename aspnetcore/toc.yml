@@ -447,6 +447,8 @@
               uid: blazor/host-and-deploy/server
             - name: 配置链接器
               uid: blazor/host-and-deploy/configure-linker
+            - name: 配置裁边器
+              uid: blazor/host-and-deploy/configure-trimmer
         - name: Blazor 服务器和 EF Core
           uid: blazor/blazor-server-ef-core
         - name: 高级方案
