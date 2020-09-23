@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 889e7b4736157b1bb563bd3e606c0d5d855c2226
-ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
+ms.openlocfilehash: 2881b5d01f3b2e41659e3166a4e77b64a450f017
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88876706"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90592913"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -139,8 +139,6 @@ builder.Services.AddHttpClient("ServerAPI",
 
             examples = 
                 await client.GetFromJsonAsync<ExampleType[]>("ExampleAPIMethod");
-
-            ...
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -176,6 +174,128 @@ builder.Services.AddScoped(sp => new HttpClient(
 
 * <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`)。
 * `authorizedUrls` 数组的 URL。
+
+### <a name="graph-api-example"></a>图形 API 示例
+
+在下面的示例中，使用图形 API 的命名 <xref:System.Net.Http.HttpClient> 获取用户的移动电话号码以处理调用。 在 Azure 门户的 AAD 区域中添加 Microsoft Graph API `User.Read` 权限后，将为独立应用或托管 Blazor 解决方案的客户端应用中的命名客户端配置作用域。
+
+> [!NOTE]
+> 本部分中的示例获取组件代码中用户的图形 API 数据。 若要根据图形 API 创建用户声明，请参阅以下资源：
+>
+> * [自定义用户](#customize-the-user)部分
+> * <xref:blazor/security/webassembly/aad-groups-roles>
+
+`GraphAuthorizationMessageHandler.cs`:
+
+```csharp
+public class GraphAPIAuthorizationMessageHandler : AuthorizationMessageHandler
+{
+    public GraphAPIAuthorizationMessageHandler(IAccessTokenProvider provider,
+        NavigationManager navigationManager)
+        : base(provider, navigationManager)
+    {
+        ConfigureHandler(
+            authorizedUrls: new[] { "https://graph.microsoft.com" },
+            scopes: new[] { "https://graph.microsoft.com/User.Read" });
+    }
+}
+```
+
+在 `Program.Main` (`Program.cs`) 中：
+
+```csharp
+builder.Services.AddScoped<GraphAPIAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("GraphAPI",
+        client => client.BaseAddress = new Uri("https://graph.microsoft.com"))
+    .AddHttpMessageHandler<GraphAPIAuthorizationMessageHandler>();
+```
+
+在 Razor 组件 (`Pages/CallUser.razor`) 中：
+
+```razor
+@page "/CallUser"
+@using System.ComponentModel.DataAnnotations
+@using System.Text.Json.Serialization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+@inject IAccessTokenProvider TokenProvider
+@inject IHttpClientFactory ClientFactory
+@inject ILogger<CallUser> Logger
+@inject ICallProcessor CallProcessor
+
+<h3>Call User</h3>
+
+<EditForm Model="@callInfo" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        <label>
+            Message:
+            <InputTextArea @bind-Value="callInfo.Message" />
+        </label>
+    </p>
+
+    <button type="submit">Place call</button>
+
+    <p>
+        @formStatus
+    </p>
+</EditForm>
+
+@code {
+    private string formStatus;
+    private CallInfo callInfo = new CallInfo();
+
+    private async Task HandleValidSubmit()
+    {
+        var tokenResult = await TokenProvider.RequestAccessToken(
+            new AccessTokenRequestOptions
+            {
+                Scopes = new[] { "https://graph.microsoft.com/User.Read" }
+            });
+
+        if (tokenResult.TryGetToken(out var token))
+        {
+            var client = ClientFactory.CreateClient("GraphAPI");
+
+            var userInfo = await client.GetFromJsonAsync<UserInfo>("v1.0/me");
+
+            if (userInfo != null)
+            {
+                CallProcessor.Send(userInfo.MobilePhone, callInfo.Message);
+
+                formStatus = "Form successfully processed.";
+                Logger.LogInformation(
+                    $"Form successfully processed at {DateTime.UtcNow}. " +
+                    $"Mobile Phone: {userInfo.MobilePhone}");
+            }
+        }
+        else
+        {
+            formStatus = "There was a problem processing the form.";
+            Logger.LogError("Token failure");
+        }
+    }
+
+    private class CallInfo
+    {
+        [Required]
+        [StringLength(1000, ErrorMessage = "Message too long (1,000 char limit)")]
+        public string Message { get; set; }
+    }
+
+    private class UserInfo
+    {
+        [JsonPropertyName("mobilePhone")]
+        public string MobilePhone { get; set; }
+    }
+}
+```
+
+> [!NOTE]
+> 在前面的示例中，开发人员实现了自定义的 `ICallProcessor` (`CallProcessor`)，以便对自动调用进行排队和放置。
 
 ## <a name="typed-httpclient"></a>类型化 `HttpClient`
 
@@ -312,9 +432,7 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
 
 ## <a name="request-additional-access-tokens"></a>请求其他访问令牌
 
-可以通过调用 `IAccessTokenProvider.RequestAccessToken` 手动获取访问令牌。
-
-在以下示例中，应用需要其他 Azure Active Directory (AAD) Microsoft Graph API 作用域才能读取用户数据和发送邮件。 在 Azure AAD 门户中添加 Microsoft Graph API 权限后，将在客户端应用中配置其他作用域。
+可以通过调用 `IAccessTokenProvider.RequestAccessToken` 手动获取访问令牌。 在下面的示例中，应用需要一个额外的作用域作为默认 <xref:System.Net.Http.HttpClient>。 Microsoft 身份验证库 (MSAL) 示例使用 `MsalProviderOptions` 配置作用域：
 
 `Program.Main` (`Program.cs`):
 
@@ -323,12 +441,12 @@ builder.Services.AddMsalAuthentication(options =>
 {
     ...
 
-    options.ProviderOptions.AdditionalScopesToConsent.Add(
-        "https://graph.microsoft.com/Mail.Send");
-    options.ProviderOptions.AdditionalScopesToConsent.Add(
-        "https://graph.microsoft.com/User.Read");
+    options.ProviderOptions.AdditionalScopesToConsent.Add("{CUSTOM SCOPE 1}");
+    options.ProviderOptions.AdditionalScopesToConsent.Add("{CUSTOM SCOPE 2}");
 }
 ```
+
+上例中的 `{CUSTOM SCOPE 1}` 和 `{CUSTOM SCOPE 2}` 占位符是自定义作用域。
 
 `IAccessTokenProvider.RequestToken` 方法提供重载，该重载允许应用使用一组给定的作用域来配置访问令牌。
 
@@ -343,8 +461,7 @@ builder.Services.AddMsalAuthentication(options =>
 var tokenResult = await TokenProvider.RequestAccessToken(
     new AccessTokenRequestOptions
     {
-        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
-            "https://graph.microsoft.com/User.Read" }
+        Scopes = new[] { "{CUSTOM SCOPE 1}", "{CUSTOM SCOPE 2}" }
     });
 
 if (tokenResult.TryGetToken(out var token))
@@ -352,6 +469,8 @@ if (tokenResult.TryGetToken(out var token))
     ...
 }
 ```
+
+上例中的 `{CUSTOM SCOPE 1}` 和 `{CUSTOM SCOPE 2}` 占位符是自定义作用域。
 
 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.TryGetToken%2A?displayProperty=nameWithType> 返回：
 
@@ -707,9 +826,13 @@ builder.Services.AddApiAuthorization(options => {
 
 ## <a name="customize-the-user"></a>自定义用户
 
-可自定义绑定到应用的用户。 在以下示例中，所有经过身份验证的用户都会收到每种用户身份验证方法的 `amr` 声明。
+可自定义绑定到应用的用户。
 
-创建扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 类的类：
+### <a name="customize-the-user-with-a-payload-claim"></a>使用有效负载声明自定义用户
+
+在以下示例中，所有经过应用身份验证的用户都会收到每种用户身份验证方法的 `amr` 声明。 `amr` 声明确定在 Microsoft Identity Platform v1.0 [有效负载声明](/azure/active-directory/develop/access-tokens#the-amr-claim)中如何对令牌主体进行身份验证。 该示例使用基于 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 的自定义用户帐户类。
+
+创建扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 类的类。 下面的示例将 `AuthenticationMethod` 属性设置为用户的 `amr` JSON 属性值数组。 对用户进行身份验证时，由框架自动填充 `AuthenticationMethod`。
 
 ```csharp
 using System.Text.Json.Serialization;
@@ -722,7 +845,7 @@ public class CustomUserAccount : RemoteUserAccount
 }
 ```
 
-创建扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory%601> 的中心：
+创建一个扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory%601> 的工厂，根据存储在 `CustomUserAccount.AuthenticationMethod` 中的用户身份验证方法创建声明：
 
 ```csharp
 using System.Security.Claims;
@@ -743,7 +866,7 @@ public class CustomAccountFactory
         CustomUserAccount account, RemoteAuthenticationUserOptions options)
     {
         var initialUser = await base.CreateUserAsync(account, options);
-        
+
         if (initialUser.Identity.IsAuthenticated)
         {
             foreach (var value in account.AuthenticationMethod)
@@ -752,13 +875,13 @@ public class CustomAccountFactory
                     .AddClaim(new Claim("amr", value));
             }
         }
-           
+
         return initialUser;
     }
 }
 ```
 
-为正在使用的验证提供程序注册 `CustomAccountFactory`。 以下任何注册均有效： 
+为正在使用的验证提供程序注册 `CustomAccountFactory`。 以下任何注册均有效：
 
 * <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A>:
 
@@ -769,11 +892,11 @@ public class CustomAccountFactory
 
   builder.Services.AddOidcAuthentication<RemoteAuthenticationState, 
       CustomUserAccount>(options =>
-  {
-      ...
-  })
-  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
-      CustomUserAccount, CustomAccountFactory>();
+      {
+          ...
+      })
+      .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+          CustomUserAccount, CustomAccountFactory>();
   ```
 
 * <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>:
@@ -785,11 +908,11 @@ public class CustomAccountFactory
 
   builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
       CustomUserAccount>(options =>
-  {
-      ...
-  })
-  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
-      CustomUserAccount, CustomAccountFactory>();
+      {
+          ...
+      })
+      .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+          CustomUserAccount, CustomAccountFactory>();
   ```
   
 * <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization%2A>:
@@ -801,12 +924,144 @@ public class CustomAccountFactory
 
   builder.Services.AddApiAuthorization<RemoteAuthenticationState, 
       CustomUserAccount>(options =>
-  {
-      ...
-  })
-  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
-      CustomUserAccount, CustomAccountFactory>();
+      {
+          ...
+      })
+      .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+          CustomUserAccount, CustomAccountFactory>();
   ```
+
+### <a name="customize-the-user-with-graph-api-claims"></a>使用图形 API 声明自定义用户
+
+在下面的示例中，应用使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 根据图形 API 为用户创建移动电话号码声明。 应用必须在 AAD 中配置 `User.Read` 图形 API 权限（作用域）。
+
+`GraphAuthorizationMessageHandler.cs`:
+
+```csharp
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+public class GraphAPIAuthorizationMessageHandler : AuthorizationMessageHandler
+{
+    public GraphAPIAuthorizationMessageHandler(IAccessTokenProvider provider,
+        NavigationManager navigationManager)
+        : base(provider, navigationManager)
+    {
+        ConfigureHandler(
+            authorizedUrls: new[] { "https://graph.microsoft.com" },
+            scopes: new[] { "https://graph.microsoft.com/User.Read" });
+    }
+}
+```
+
+图形 API 的命名 <xref:System.Net.Http.HttpClient> 是在 `Program.Main` (`Program.cs`) 中使用 `GraphAPIAuthorizationMessageHandler` 创建的：
+
+```csharp
+using System;
+
+...
+
+builder.Services.AddScoped<GraphAPIAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("GraphAPI",
+        client => client.BaseAddress = new Uri("https://graph.microsoft.com"))
+    .AddHttpMessageHandler<GraphAPIAuthorizationMessageHandler>();
+```
+
+`Models/UserInfo.cs`:
+
+```csharp
+using System.Text.Json.Serialization;
+
+public class UserInfo
+{
+    [JsonPropertyName("mobilePhone")]
+    public string MobilePhone { get; set; }
+}
+```
+
+在下面的 `CustomAccountFactory` (`CustomAccountFactory.cs`) 中，框架的 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 表示用户的帐户。 如果应用需要扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 的自定义用户帐户类，请在以下代码中将自定义用户帐户类替换为 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount>：
+
+```csharp
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
+using Microsoft.Extensions.Logging;
+
+public class CustomAccountFactory
+    : AccountClaimsPrincipalFactory<RemoteUserAccount>
+{
+    private readonly ILogger<CustomAccountFactory> logger;
+    private readonly IHttpClientFactory clientFactory;
+
+    public CustomAccountFactory(IAccessTokenProviderAccessor accessor, 
+        IHttpClientFactory clientFactory, 
+        ILogger<CustomAccountFactory> logger)
+        : base(accessor)
+    {
+        this.clientFactory = clientFactory;
+        this.logger = logger;
+    }
+
+    public async override ValueTask<ClaimsPrincipal> CreateUserAsync(
+        RemoteUserAccount account,
+        RemoteAuthenticationUserOptions options)
+    {
+        var initialUser = await base.CreateUserAsync(account, options);
+
+        if (initialUser.Identity.IsAuthenticated)
+        {
+            var userIdentity = (ClaimsIdentity)initialUser.Identity;
+
+            try
+            {
+                var client = clientFactory.CreateClient("GraphAPI");
+
+                var userInfo = await client.GetFromJsonAsync<UserInfo>("v1.0/me");
+
+                if (userInfo != null)
+                {
+                    userIdentity.AddClaim(new Claim("mobilephone", userInfo.MobilePhone));
+                }
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                logger.LogError("Graph API access token failure: {MESSAGE}",
+                    exception.Message);
+            }
+        }
+
+        return initialUser;
+    }
+}
+```
+
+在 `Program.Main` (`Program.cs`) 中，将应用配置为使用自定义工厂。 如果应用使用扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 的自定义用户帐户类，请使用以下代码将自定义用户帐户类替换为 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount>：
+
+```csharp
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
+builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
+    RemoteUserAccount>(options =>
+    {
+        builder.Configuration.Bind("AzureAd", 
+            options.ProviderOptions.Authentication);
+    })
+    .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, RemoteUserAccount, 
+        CustomAccountFactory>();
+```
+
+前面的示例适用于使用 AAD 身份验证和 MSAL 的应用。 对于 OIDC 和 API 身份验证，也存在类似的模式。 有关详细信息，请参阅[使用有效负载声明自定义用户](#customize-the-user-with-a-payload-claim)部分结尾处的示例。
+
+### <a name="aad-security-groups-and-roles-with-a-custom-user-account-class"></a>具有自定义用户帐户类的 AAD 安全组和角色
+
+关于使用 AAD 安全组、AAD 管理员角色和自定义用户帐户类的其他示例，请参阅 <xref:blazor/security/webassembly/aad-groups-roles>。
 
 ## <a name="support-prerendering-with-authentication"></a>支持预呈现身份验证
 

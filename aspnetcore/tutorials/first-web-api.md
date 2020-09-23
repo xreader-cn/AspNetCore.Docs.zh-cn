@@ -16,13 +16,14 @@ no-loc:
 - Let's Encrypt
 - Razor
 - SignalR
+- Models
 uid: tutorials/first-web-api
-ms.openlocfilehash: 3d83141b8b638a369b08b0fadafccd96c0b48214
-ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
+ms.openlocfilehash: ebce9f2f4992d83c6b28edb5c771cdfc8a7a0b6a
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88876784"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080376"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -197,25 +198,25 @@ ms.locfileid: "88876784"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中，右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+* 在“解决方案资源管理器”中，右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为 Models。
 
-* 右键单击“Models”文件夹，然后选择“添加” > “类”。 将类命名为 TodoItem，然后选择“添加”。
+* 右键单击 Models 文件夹，然后选择“添加” > “类” 。 将类命名为 TodoItem，然后选择“添加”。
 
 * 将模板代码替换为以下代码：
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 添加名为“Models”的文件夹。
+* 添加名为 Models 的文件夹。
 
 * 使用以下代码将 `TodoItem` 类添加到 Models 文件夹：
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+* 右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为 Models。
 
   ![新建文件夹](first-web-api-mac/_static/folder.png)
 
-* 右键单击“Models”文件夹，然后选择“添加”>“新建文件”>“常规”>“空类”。
+* 右键单击 Models 文件夹，然后选择“添加”>“新建文件”>“常规”>“空类”   。
 
 * 将类命名为“TodoItem”，然后单击“新建”。
 
@@ -247,11 +248,11 @@ ms.locfileid: "88876784"
 
 ## <a name="add-the-todocontext-database-context"></a>添加 TodoContext 数据库上下文
 
-* 右键单击“Models”文件夹，然后选择“添加” > “类”。 将类命名为 TodoContext，然后单击“添加”。
+* 右键单击 Models 文件夹，然后选择“添加” > “类” 。 将类命名为 TodoContext，然后单击“添加”。
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* 将 `TodoContext` 类添加到“Models”文件夹。
+* 将 `TodoContext` 类添加到 Models 文件夹。
 
 ---
 
@@ -283,7 +284,7 @@ ms.locfileid: "88876784"
 * 在“添加其操作使用实体框架的 API 控制器”对话框中：
 
   * 在“模型类”中选择“TodoItem (TodoApi.Models)” 。
-  * 在“数据上下文类”中选择“TodoContext (TodoAPI.Models)” 。
+  * 在“数据上下文类”中选择“TodoContext (TodoApi.Models)” 。
   * 选择“添加”。
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
@@ -639,25 +640,25 @@ DTO 可用于：
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中，右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+* 在“解决方案资源管理器”中，右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为 Models。
 
-* 右键单击“Models”文件夹，然后选择“添加” > “类”。 将类命名为 TodoItem，然后选择“添加”。
+* 右键单击 Models 文件夹，然后选择“添加” > “类” 。 将类命名为 TodoItem，然后选择“添加”。
 
 * 将模板代码替换为以下代码：
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 添加名为“Models”的文件夹。
+* 添加名为 Models 的文件夹。
 
 * 使用以下代码将 `TodoItem` 类添加到 Models 文件夹：
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+* 右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为 Models。
 
   ![新建文件夹](first-web-api-mac/_static/folder.png)
 
-* 右键单击“Models”文件夹，然后选择“添加”>“新建文件”>“常规”>“空类”。
+* 右键单击 Models 文件夹，然后选择“添加”>“新建文件”>“常规”>“空类”   。
 
 * 将类命名为“TodoItem”，然后单击“新建”。
 
@@ -677,11 +678,11 @@ DTO 可用于：
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 右键单击“Models”文件夹，然后选择“添加” > “类”。 将类命名为 TodoContext，然后单击“添加”。
+* 右键单击 Models 文件夹，然后选择“添加” > “类” 。 将类命名为 TodoContext，然后单击“添加”。
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* 将 `TodoContext` 类添加到“Models”文件夹。
+* 将 `TodoContext` 类添加到 Models 文件夹。
 
 ---
 

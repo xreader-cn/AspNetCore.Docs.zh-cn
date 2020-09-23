@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 28e4f372e301a673644bfa97763ebc930f2d0ad5
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 9406c2a34126f3e5cd1406a55c3585e7a28f3dd9
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634327"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90593042"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
@@ -260,7 +260,18 @@ catch (RpcException ex)
 }
 ```
 
+## <a name="configure-deadline"></a>配置截止时间
+
+建议配置 gRPC 调用截止时间，因为它提供调用时间的上限。 它能阻止异常运行的服务持续运行并耗尽服务器资源。 截止时间对于构建可靠应用非常有效。
+
+配置 `CallOptions.Deadline` 以设置 gRPC 调用的截止时间：
+
+[!code-csharp[](~/grpc/deadlines-cancellation/deadline-client.cs?highlight=7,12)]
+
+有关详细信息，请参阅 <xref:grpc/deadlines-cancellation#deadlines>。
+
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:grpc/clientfactory>
+* <xref:grpc/deadlines-cancellation>
 * <xref:grpc/basics>

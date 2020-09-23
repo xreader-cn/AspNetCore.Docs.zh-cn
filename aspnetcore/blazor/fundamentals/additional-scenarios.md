@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: 6f092f3f9a18883c31b217b59d0b0abe802aff01
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 870509a3cbbcbea9b1c4804185c49a831af22630
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628295"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009630"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
@@ -128,20 +128,62 @@ ms.locfileid: "88628295"
 
 不支持从静态 HTML 页面呈现服务器组件。
 
-## <a name="configure-the-no-locsignalr-client-for-no-locblazor-server-apps"></a>为 Blazor Server 应用配置 SignalR 客户端
+## <a name="initialize-the-no-locblazor-circuit"></a>初始化 Blazor 回路
 
 本部分适用于 Blazor Server。
 
-在 `Pages/_Host.cshtml` 文件中配置 Blazor Server 应用使用的 SignalR 客户端。 将调用 `Blazor.start` 的脚本放置在 `_framework/blazor.server.js` 脚本之后的 `</body>` 标记内。
-
-### <a name="logging"></a>Logging
-
-若要配置 SignalR 客户端日志记录，请执行以下操作：
+在 `Pages/_Host.cshtml` 文件中配置 Blazor Server 应用 [SignalR 回路 ](xref:blazor/hosting-models#circuits) 的手动启动：
 
 * 将 `autostart="false"` 属性添加到 `blazor.server.js` 脚本的 `<script>` 标记中。
-* 传入调用 `configureLogging` 的配置对象 (`configureSignalR`)，此对象在客户端生成器上具有日志级别。
+* 将调用 `Blazor.start` 的脚本放置在 `blazor.server.js` 脚本标记之后并放在结束的 `</body>` 标记内。
+
+禁用 `autostart` 时，应用中不依赖该回路的任何方面都能正常工作。 例如，客户端路由正常运行。 但是，在调用 `Blazor.start` 之前，依赖于该回路的任何方面不会正常运行。 如果没有已建立的回路，应用行为是不可预测的。 例如，在回路断开连接时，组件方法无法执行。
+
+### <a name="initialize-no-locblazor-when-the-document-is-ready"></a>文档准备就绪时初始化 Blazor
+
+文档准备就绪时初始化 Blazor 应用：
 
 ```cshtml
+<body>
+
+    ...
+
+    <script autostart="false" src="_framework/blazor.server.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        Blazor.start();
+      });
+    </script>
+</body>
+```
+
+### <a name="chain-to-the-promise-that-results-from-a-manual-start"></a>链接到由手动启动生成的 `Promise`
+
+若要执行其他任务（如 JS 互操作初始化），请使用 `then` 链接到 `Promise`（由手动 Blazor 应用启动生成）：
+
+```cshtml
+<body>
+
+    ...
+
+    <script autostart="false" src="_framework/blazor.server.js"></script>
+    <script>
+      Blazor.start().then(function () {
+        ...
+      });
+    </script>
+</body>
+```
+
+### <a name="configure-the-no-locsignalr-client"></a>配置 SignalR 客户端
+
+#### <a name="logging"></a>日志记录
+
+若要配置 SignalR 客户端日志，请传入调用 `configureLogging` 的配置对象 (`configureSignalR`)，此对象在客户端生成器上具有日志级别：
+
+```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -164,12 +206,16 @@ ms.locfileid: "88628295"
 * 在连接断开时通知用户。
 * 在线路连接时（通过客户端）执行日志记录。
 
-若要修改连接事件，请执行以下操作：
+若要修改连接事件，请为以下连接更改注册回调：
 
-* 将 `autostart="false"` 属性添加到 `blazor.server.js` 脚本的 `<script>` 标记中。
-* 为断开的连接 (`onConnectionDown`) 和建立/重新建立的连接 (`onConnectionUp`) 注册连接更改回叫。 必须同时指定 `onConnectionDown` 和 `onConnectionUp`。
+* 使用 `onConnectionDown` 删除的连接。
+* 已建立/重新建立的连接使用 `onConnectionUp`。
+
+必须同时指定 `onConnectionDown` 和 `onConnectionUp`：
 
 ```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -186,12 +232,11 @@ ms.locfileid: "88628295"
 
 ### <a name="adjust-the-reconnection-retry-count-and-interval"></a>调整重新连接重试计数和间隔
 
-若要调整重新连接重试计数和间隔，请执行以下操作：
-
-* 将 `autostart="false"` 属性添加到 `blazor.server.js` 脚本的 `<script>` 标记中。
-* 设置允许的每次重试尝试 (`retryIntervalMilliseconds`) 的重试次数 (`maxRetries`) 和时间间隔（以毫秒为单位）。
+若要调整重新连接重试次数和间隔，请设置重试次数 (`maxRetries`) 和允许每次重试运行的毫秒数 (`retryIntervalMilliseconds`)：
 
 ```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -206,14 +251,13 @@ ms.locfileid: "88628295"
 </body>
 ```
 
-### <a name="hide-or-replace-the-reconnection-display"></a>隐藏或替换重新连接显示
+## <a name="hide-or-replace-the-reconnection-display"></a>隐藏或替换重新连接显示
 
-若要隐藏重新连接显示，请执行以下操作：
-
-* 将 `autostart="false"` 属性添加到 `blazor.server.js` 脚本的 `<script>` 标记中。
-* 将重新连接处理程序的 `_reconnectionDisplay` 设置为空对象（`{}` 或 `new Object()`）。
+若要隐藏重新连接显示，请将重新连接处理程序的 `_reconnectionDisplay` 设置为空对象（`{}` 或 `new Object()`）：
 
 ```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -221,6 +265,8 @@ ms.locfileid: "88628295"
       window.addEventListener('beforeunload', function () {
         Blazor.defaultReconnectionHandler._reconnectionDisplay = {};
       });
+
+      Blazor.start();
     </script>
 </body>
 ```
@@ -233,6 +279,18 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 ```
 
 占位符 `{ELEMENT ID}` 是要显示的 HTML 元素的 ID。
+
+::: moniker range=">= aspnetcore-5.0"
+
+通过在应用的 CSS (`wwwroot/css/site.css`) 中为模式元素设置 `transition-delay` 属性，自定义重新连接显示出现之前的延迟。 以下示例将转换延迟从 500 毫秒（默认值）设置为 1000 毫秒（1 秒）：
+
+```css
+#components-reconnect-modal {
+    transition: visibility 0s linear 1000ms;
+}
+```
+
+::: moniker-end
 
 ## <a name="influence-html-head-tag-elements"></a>影响 HTML `<head>` 标记元素
 

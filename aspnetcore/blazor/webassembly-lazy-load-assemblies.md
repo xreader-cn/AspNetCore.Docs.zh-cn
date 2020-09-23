@@ -5,7 +5,7 @@ description: 了解如何在 ASP.NET Core Blazor WebAssembly 应用中延迟加�
 monikerRange: '>= aspnetcore-5.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/25/2020
+ms.date: 09/09/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: 46f98080ad40f614f9cb1af2190f263d205c1016
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: eb4aaa2f3d412cdf650ed2daf7c12166991d92a1
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865163"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90592899"
 ---
 # <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>在 ASP.NET Core Blazor WebAssembly 中延迟加载程序集
 
@@ -42,20 +42,9 @@ ms.locfileid: "88865163"
 
 ```xml
 <ItemGroup>
-  <BlazorWebAssemblyLazyLoad Include="GrantImaharaRobotControls" />
+  <BlazorWebAssemblyLazyLoad Include="GrantImaharaRobotControls.dll" />
 </ItemGroup>
 ```
-
-只能延迟加载应用使用的程序集。 链接器可以从已发布的输出中去除未使用的程序集。
-
-> [!NOTE]
-> 在 .NET 5 候选发布 1 (RC1) 或更高版本（将于九月中旬发布）中，程序集名称将需要 `.dll` 扩展名：
->
-> ```xml
-> <ItemGroup>
->  <BlazorWebAssemblyLazyLoad Include="GrantImaharaRobotControls.dll" />
-> </ItemGroup>
-> ```
 
 ## <a name="router-component"></a>`Router` 组件
 
@@ -114,8 +103,11 @@ Blazor 的 `Router` 组件指定哪个程序集 Blazor 搜索可路由组件。 
 * 使用 JS 互操作通过网络调用来提取程序集。
 * 在浏览器中将程序集加载到正在 WebAssembly 上执行的运行时。
 
-> [!NOTE]
-> 框架的延迟加载实现支持在服务器上预呈现。 在预呈现期间，所有的程序集（包括那些被标记为延迟加载的程序集）都被假定为已加载。
+框架的延迟加载实现支持在托管的 Blazor 解决方案中使用预呈现进行延迟加载。 在预呈现期间，所有的程序集（包括那些被标记为延迟加载的程序集）都被假定为已加载。 在服务器项目的 `Startup.ConfigureServices` 方法 (`Startup.cs`) 中手动注册 `LazyAssemblyLoader`：
+
+```csharp
+services.AddSingleton<LazyAssemblyLoader>();
+```
 
 ### <a name="user-interaction-with-navigating-content"></a>用户与 `<Navigating>` 内容的交互
 

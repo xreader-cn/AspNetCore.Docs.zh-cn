@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: b485a62c61d404a91134f49cf2a49134ec9f5123
-ms.sourcegitcommit: 8ed9a413bdc2d665ad11add8828898d726ccb106
+ms.openlocfilehash: 5efea1728a1460c728a0d90002fb1504fe5b3bbb
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/01/2020
-ms.locfileid: "89280382"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90593016"
 ---
 # <a name="aspnet-core-no-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -105,6 +105,9 @@ public class ExampleModel
 | <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` |
 | <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` |
 | <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` |
+
+> [!NOTE]
+> `InputRadio` 和 `InputRadioGroup` 组件在 ASP.NET Core 5.0 或更高版本中可用。 有关详细信息，请选择本文的 5.0 或更高版本。
 
 ::: moniker-end
 
@@ -275,7 +278,7 @@ public class Starship
 
 ## <a name="display-name-support"></a>显示名称支持
 
-本部分适用于 .NET 5 候选发布 1 (RC1) 或更高版本，该版本将于九月中旬发布。
+*本部分应用于 .NET 5 候选发布 1 (RC1) 或更高版本中的 ASP.NET Core。*
 
 以下内置组件支持带有 `DisplayName` 参数的显示名称：
 
@@ -390,7 +393,7 @@ namespace BlazorSample.Client
 
 在组件中设置验证消息时，它们将被添加到验证器的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore>，并在 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 中显示：
 
-```csharp
+```razor
 @page "/FormsValidation"
 
 <h1>Starfleet Starship Database</h1>
@@ -581,7 +584,7 @@ services.AddControllersWithViews()
 
 在客户端项目中，更新“Starfleet Starship 数据库”窗体，以显示服务器验证错误和 `CustomValidator` 组件的帮助。 当服务器 API 返回验证消息时，这些消息将添加到 `CustomValidator` 组件的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore>。 此错误在窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 中提供，以供窗体的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> 显示：
 
-```csharp
+```razor
 @page "/FormValidation"
 @using System.Net
 @using System.Net.Http.Json

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: 7627d6981fbee66ba19a7065cefb197e50a5fd25
-ms.sourcegitcommit: 4cce99cbd44372fd4575e8da8c0f4345949f4d9a
+ms.openlocfilehash: e548465b3d79279802fbfacd66c69724d864d14d
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/31/2020
-ms.locfileid: "89153514"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080324"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>具有 Entity Framework Core (EFCore) 的 ASP.NET Core Blazor Server
 
@@ -36,7 +36,7 @@ Blazor Server 是有状态的应用框架。 应用保持与服务器的持续�
 > [!NOTE]
 > 本文介绍 Blazor Server 应用中的 EF Core。 Blazor WebAssembly 应用在可阻止大多数直接数据库连接的 WebAssembly 沙盒中运行。 本文不讲解在 Blazor WebAssembly 中运行 EF Core。
 
-## <a name="sample-app"></a>示例应用
+<h2 id="sample-app-5x">示例应用</h2>
 
 该示例应用构建作为使用 EF Core 的 Blazor Server 应用的参考。 示例应用中有一个网格，其中具有排序和筛选、删除、添加和更新操作。 示例演示了如何使用 EF Core 来处理开放式并发。
 
@@ -51,7 +51,7 @@ Blazor Server 是有状态的应用框架。 应用保持与服务器的持续�
 > [!NOTE]
 > 本主题中的一些代码示例需要未显示的命名空间和服务。 若要检查完全运行的代码（包括 Razor 示例所需的 [`@using`](xref:mvc/views/razor#using) 和 [`@inject`](xref:mvc/views/razor#inject) 指令），请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/5.x/BlazorServerEFCoreSample)。
 
-## <a name="database-access"></a>数据库访问
+<h2 id="database-access-5x">数据库访问</h2>
 
 EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数据库访问](/ef/core/miscellaneous/configuring-dbcontext)和充当[工作单元](https://martinfowler.com/eaaCatalog/unitOfWork.html)。 EF Core 为 ASP.NET Core 应用提供 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> 扩展，这些应用在默认情况下将上下文注册为范围服务。 在 Blazor Server 应用中，范围服务注册可能会出现问题，因为该实例在用户线路中的各个组件之间共享。 <xref:Microsoft.EntityFrameworkCore.DbContext> 并非线程安全，且不是为并发使用而设计的。 由于以下原因，现有生存期不适当：
 
@@ -91,9 +91,9 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 
   将操作放置在 `try` 块中 `Loading = true;` 行之后。
 
-* 对于利用 EF Core 的[更改跟踪](/ef/core/querying/tracking)或[并发控制](/ef/core/saving/concurrency)的生存期较长的操作，请[将上下文范围限制为组件的生存期](#scope-to-the-component-lifetime)。
+* 对于利用 EF Core 的[更改跟踪](/ef/core/querying/tracking)或[并发控制](/ef/core/saving/concurrency)的生存期较长的操作，请[将上下文范围限制为组件的生存期](#scope-to-the-component-lifetime-5x)。
 
-### <a name="new-dbcontext-instances"></a>新建 DbContext 实例
+<h3 id="new-dbcontext-instances-5x">新建 DbContext 实例</h3>
 
 要新建 <xref:Microsoft.EntityFrameworkCore.DbContext> 实例，最快的方法是使用 `new` 创建新实例。 但是，存在几种可能需要解析其他依赖项的方案。 例如，你可能想要使用 [`DbContextOptions`](/ef/core/miscellaneous/configuring-dbcontext#configuring-dbcontextoptions) 来配置上下文。
 
@@ -110,7 +110,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 > [!NOTE]
 > `Wrapper` 是对 `GridWrapper` 组件的[组件引用](xref:blazor/components/index#capture-references-to-components)。 请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor)中的 `Index` 组件 (`Pages/Index.razor`)。
 
-### <a name="scope-to-the-component-lifetime"></a>组件生存期的范围
+<h3 id="scope-to-the-component-lifetime-5x">组件生存期的范围</h3>
 
 你可能想要创建一个在组件生存期内存在的 <xref:Microsoft.EntityFrameworkCore.DbContext>。 这样，你就可将它用作[工作单元](https://martinfowler.com/eaaCatalog/unitOfWork.html)，并利用更改跟踪和并发性解决方案等内置功能。
 你可使用工厂来创建上下文，并在组件的生存期内对其进行跟踪。 首先，实现 <xref:System.IDisposable> 并注入工厂，如 `Pages/EditContact.razor` 所示：
@@ -120,7 +120,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 @inject IDbContextFactory<ContactContext> DbFactory
 ```
 
-示例应用可确保在释放组件时释放联系人：
+示例应用可确保在释放组件时释放上下文：
 
 [!code-csharp[](./common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/EditContact.razor?name=snippet1)]
 
@@ -137,7 +137,7 @@ Blazor Server 是有状态的应用框架。 应用保持与服务器的持续�
 > [!NOTE]
 > 本文介绍 Blazor Server 应用中的 EF Core。 Blazor WebAssembly 应用在可阻止大多数直接数据库连接的 WebAssembly 沙盒中运行。 本文不讲解在 Blazor WebAssembly 中运行 EF Core。
 
-## <a name="sample-app"></a>示例应用
+<h2 id="sample-app-3x">示例应用</h2>
 
 该示例应用构建作为使用 EF Core 的 Blazor Server 应用的参考。 示例应用中有一个网格，其中具有排序和筛选、删除、添加和更新操作。 示例演示了如何使用 EF Core 来处理开放式并发。
 
@@ -152,15 +152,13 @@ Blazor Server 是有状态的应用框架。 应用保持与服务器的持续�
 > [!NOTE]
 > 本主题中的一些代码示例需要未显示的命名空间和服务。 若要检查完全运行的代码（包括 Razor 示例所需的 [`@using`](xref:mvc/views/razor#using) 和 [`@inject`](xref:mvc/views/razor#inject) 指令），请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/3.x/BlazorServerEFCoreSample)。
 
-## <a name="database-access"></a>数据库访问
+<h2 id="database-access-3x">数据库访问</h2>
 
 EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数据库访问](/ef/core/miscellaneous/configuring-dbcontext)和充当[工作单元](https://martinfowler.com/eaaCatalog/unitOfWork.html)。 EF Core 为 ASP.NET Core 应用提供 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> 扩展，这些应用在默认情况下将上下文注册为范围服务。 在 Blazor Server 应用中，这可能会出现问题，因为该实例是在用户线路中的各个组件之间共享的。 <xref:Microsoft.EntityFrameworkCore.DbContext> 并非线程安全，且不是为并发使用而设计的。 由于以下原因，现有生存期不适当：
 
 * 单一实例在应用的所有用户之间共享状态，并导致不适当的并发使用。
 * 范围（默认）在同一用户的组件之间会造成类似的问题。
 * 暂时性会导致每个请求均生成一个新实例；但由于组件的生存期很长，这会导致上下文生存期比预期更长。
-
-## <a name="database-access"></a>数据库访问
 
 以下建议旨在提供在 Blazor Server 应用中使用 EF Core 的一致方法。
 
@@ -194,9 +192,9 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 
   将操作放置在 `try` 块中 `Loading = true;` 行之后。
 
-* 对于利用 EF Core 的[更改跟踪](/ef/core/querying/tracking)或[并发控制](/ef/core/saving/concurrency)的生存期较长的操作，[请将上下文范围限制为组件的生存期](#scope-to-the-component-lifetime)。
+* 对于利用 EF Core 的[更改跟踪](/ef/core/querying/tracking)或[并发控制](/ef/core/saving/concurrency)的生存期较长的操作，请[将上下文范围限制为组件的生存期](#scope-to-the-component-lifetime-3x)。
 
-### <a name="create-new-dbcontext-instances"></a>创建新的 DbContext 实例
+<h3 id="new-dbcontext-instances-3x">新建 DbContext 实例</h3>
 
 要新建 <xref:Microsoft.EntityFrameworkCore.DbContext> 实例，最快的方法是使用 `new` 创建新实例。 但是，存在几种可能需要解析其他依赖项的方案。 例如，你可能想要使用 [`DbContextOptions`](/ef/core/miscellaneous/configuring-dbcontext#configuring-dbcontextoptions) 来配置上下文。
 
@@ -217,7 +215,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 > [!NOTE]
 > `Wrapper` 是对 `GridWrapper` 组件的[组件引用](xref:blazor/components/index#capture-references-to-components)。 请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor)中的 `Index` 组件 (`Pages/Index.razor`)。
 
-### <a name="scope-to-the-component-lifetime"></a>组件生存期的范围
+<h3 id="scope-to-the-component-lifetime-3x">组件生存期的范围</h3>
 
 你可能想要创建一个在组件生存期内存在的 <xref:Microsoft.EntityFrameworkCore.DbContext>。 这样，你就可将它用作[工作单元](https://martinfowler.com/eaaCatalog/unitOfWork.html)，并利用更改跟踪和并发性解决方案等内置功能。
 你可使用工厂来创建上下文，并在组件的生存期内对其进行跟踪。 首先，实现 <xref:System.IDisposable> 并注入工厂，如 `Pages/EditContact.razor` 所示：
@@ -227,7 +225,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 @inject IDbContextFactory<ContactContext> DbFactory
 ```
 
-示例应用可确保在释放组件时释放联系人：
+示例应用可确保在释放组件时释放上下文：
 
 [!code-csharp[](./common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/EditContact.razor?name=snippet1)]
 

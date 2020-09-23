@@ -5,7 +5,7 @@ description: 用于提高 ASP.NET Core Blazor WebAssembly 应用性能并避免�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/25/2020
+ms.date: 09/09/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 819947be90e7f09c7ba853df1af1f3c7066c0219
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 5d3cd1480dd37f437b2d6d5a89af0a842286be95
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625812"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080259"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
 
@@ -141,9 +141,21 @@ Blazor WebAssembly 额外提供了两个 <xref:Microsoft.JSInterop.IJSRuntime> �
 
 ## <a name="reduce-app-size"></a>减小应用大小
 
+::: moniker range=">= aspnetcore-5.0"
+
+### <a name="intermediate-language-il-trimming"></a>中间语言 (IL) 剪裁
+
+[从 Blazor WebAssembly 应用修剪未使用的程序集](xref:blazor/host-and-deploy/configure-trimmer)会通过删除应用的二进制文件中的未使用代码来减小应用的大小。 默认情况下，裁边器在发布应用程序时执行。 要从剪裁中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 ### <a name="intermediate-language-il-linking"></a>中间语言 (IL) 链接
 
-通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。 默认情况下，仅在 `Release` 配置中生成时才启用链接器。 要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
+通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。 默认情况下，仅在 `Release` 配置中生成时才启用中间语言 (IL) 链接器。 要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
+
+::: moniker-end
 
 ```dotnetcli
 dotnet publish -c Release
@@ -171,6 +183,20 @@ Blazor WebAssembly 的运行时包含以下 .NET 功能；如果应用不需要�
   </PropertyGroup>
   ```
 
+::: moniker range=">= aspnetcore-5.0"
+
+* 默认情况下，Blazor WebAssembly 携带在用户区域性中显示值（如日期和货币）所需的全球化资源。 如果应用不需要本地化，你可以[将应用配置为支持不变区域性](xref:blazor/globalization-localization)，这基于 `en-US` 区域性：
+
+  ```xml
+  <PropertyGroup>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  ```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 * 包括排序规则信息来确保 <xref:System.StringComparison.InvariantCultureIgnoreCase?displayProperty=nameWithType> 之类的 API 正常工作。 如果确定应用不需要排序规则数据，请考虑通过将应用项目文件中的 `BlazorWebAssemblyPreserveCollationData` MSBuild 属性设置为 `false` 来禁用它：
 
   ```xml
@@ -178,3 +204,5 @@ Blazor WebAssembly 的运行时包含以下 .NET 功能；如果应用不需要�
     <BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData>
   </PropertyGroup>
   ```
+
+::: moniker-end
