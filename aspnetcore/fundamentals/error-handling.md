@@ -18,170 +18,408 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/error-handling
-ms.openlocfilehash: a1f40bdcdd4f2472aa86b311bfd9302e6aa8adc0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: da7f50b27e447b86bd8a06851b767488d51b7050
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635094"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90592886"
 ---
-# <a name="handle-errors-in-aspnet-core"></a><span data-ttu-id="09786-103">处理 ASP.NET Core 中的错误</span><span class="sxs-lookup"><span data-stu-id="09786-103">Handle errors in ASP.NET Core</span></span>
+# <a name="handle-errors-in-aspnet-core"></a><span data-ttu-id="f390d-103">处理 ASP.NET Core 中的错误</span><span class="sxs-lookup"><span data-stu-id="f390d-103">Handle errors in ASP.NET Core</span></span>
 
-<span data-ttu-id="09786-104">作者：[Tom Dykstra](https://github.com/tdykstra/) 和 [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="09786-104">By [Tom Dykstra](https://github.com/tdykstra/) and [Steve Smith](https://ardalis.com/)</span></span>
+::: moniker range=">= aspnetcore-5.0"
 
-<span data-ttu-id="09786-105">本文介绍了处理 ASP.NET Core Web 应用中常见错误的一些方法。</span><span class="sxs-lookup"><span data-stu-id="09786-105">This article covers common approaches to handling errors in ASP.NET Core web apps.</span></span> <span data-ttu-id="09786-106">有关 Web API，请参阅 <xref:web-api/handle-errors>。</span><span class="sxs-lookup"><span data-stu-id="09786-106">See <xref:web-api/handle-errors> for web APIs.</span></span>
+<span data-ttu-id="f390d-104">作者：[Kirk Larkin](https://twitter.com/serpent5)、[Tom Dykstra](https://github.com/tdykstra/) 和 [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="f390d-104">By [Kirk Larkin](https://twitter.com/serpent5), [Tom Dykstra](https://github.com/tdykstra/), and [Steve Smith](https://ardalis.com/)</span></span>
 
-<span data-ttu-id="09786-107">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)。</span><span class="sxs-lookup"><span data-stu-id="09786-107">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span> <span data-ttu-id="09786-108">（[下载方法](xref:index#how-to-download-a-sample)。）本文介绍了如何在示例应用中设置预处理器指令（`#if`、`#endif`、`#define`）来启用不同方案。</span><span class="sxs-lookup"><span data-stu-id="09786-108">([How to download](xref:index#how-to-download-a-sample).) The article includes instructions about how to set preprocessor directives (`#if`, `#endif`, `#define`) in the sample app to enable different scenarios.</span></span>
+<span data-ttu-id="f390d-105">本文介绍了处理 ASP.NET Core Web 应用中常见错误的一些方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-105">This article covers common approaches to handling errors in ASP.NET Core web apps.</span></span> <span data-ttu-id="f390d-106">有关 Web API，请参阅 <xref:web-api/handle-errors>。</span><span class="sxs-lookup"><span data-stu-id="f390d-106">See <xref:web-api/handle-errors> for web APIs.</span></span>
 
-## <a name="developer-exception-page"></a><span data-ttu-id="09786-109">开发人员异常页</span><span class="sxs-lookup"><span data-stu-id="09786-109">Developer Exception Page</span></span>
+<span data-ttu-id="f390d-107">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)。</span><span class="sxs-lookup"><span data-stu-id="f390d-107">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span> <span data-ttu-id="f390d-108">（[下载方法](xref:index#how-to-download-a-sample)。）在测试示例应用时，F12 浏览器开发人员工具上的网络选项卡非常有用。</span><span class="sxs-lookup"><span data-stu-id="f390d-108">([How to download](xref:index#how-to-download-a-sample).) The network tab on the F12 browser developer tools is useful when testing the sample app.</span></span>
 
-<span data-ttu-id="09786-110">开发人员异常页显示请求异常的详细信息。</span><span class="sxs-lookup"><span data-stu-id="09786-110">The *Developer Exception Page* displays detailed information about request exceptions.</span></span> <span data-ttu-id="09786-111">页面由 `Microsoft.AspNetCore.Diagnostics` 程序集提供，该程序集位于 [`Microsoft.AspNetCore.App` 共享框架](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="09786-111">The page is made available by the `Microsoft.AspNetCore.Diagnostics` assembly, which is in the [`Microsoft.AspNetCore.App` shared framework](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="09786-112">向 `Startup.Configure` 方法添加代码，以当应用在开发[环境](xref:fundamentals/environments)中运行时启用此页：</span><span class="sxs-lookup"><span data-stu-id="09786-112">Add code to the `Startup.Configure` method to enable the page when the app is running in the Development [environment](xref:fundamentals/environments):</span></span>
+## <a name="developer-exception-page"></a><span data-ttu-id="f390d-109">开发人员异常页</span><span class="sxs-lookup"><span data-stu-id="f390d-109">Developer Exception Page</span></span>
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=1-4)]
+<span data-ttu-id="f390d-110">开发人员异常页显示请求异常的详细信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-110">The *Developer Exception Page* displays detailed information about request exceptions.</span></span> <span data-ttu-id="f390d-111">ASP.NET Core 模板会生成以下代码：</span><span class="sxs-lookup"><span data-stu-id="f390d-111">The ASP.NET Core templates generate the following code:</span></span>
 
-<span data-ttu-id="09786-113">将 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage%2A> 调用置于要捕获其异常的任何中间件前面。</span><span class="sxs-lookup"><span data-stu-id="09786-113">Place the call to <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage%2A> before any middleware that you want to catch exceptions.</span></span>
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/Startup.cs?name=snippet&highlight=3-6)]
 
-> [!WARNING]
-> <span data-ttu-id="09786-114">仅当应用程序在开发环境中运行时才启用开发人员异常页。</span><span class="sxs-lookup"><span data-stu-id="09786-114">Enable the Developer Exception Page **only when the app is running in the Development environment**.</span></span> <span data-ttu-id="09786-115">否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露</span><span class="sxs-lookup"><span data-stu-id="09786-115">You don't want to share detailed exception information publicly when the app runs in production.</span></span> <span data-ttu-id="09786-116">有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="09786-116">For more information on configuring environments, see <xref:fundamentals/environments>.</span></span>
+<span data-ttu-id="f390d-112">当应用在[开发环境](xref:fundamentals/environments)中运行时，前面突出显示的代码启用开发人员异常页。</span><span class="sxs-lookup"><span data-stu-id="f390d-112">The preceding highlighted code enables the developer exception page when the app is running in the [Development environment](xref:fundamentals/environments).</span></span>
 
-<span data-ttu-id="09786-117">该页包括关于异常和请求的以下信息：</span><span class="sxs-lookup"><span data-stu-id="09786-117">The page includes the following information about the exception and the request:</span></span>
+<span data-ttu-id="f390d-113">模板在中间件管道的前面部分放置 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage%2A>，以便它可以捕获在后面的中间件中引发的异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-113">The templates place <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage%2A> early in the middleware pipeline so that it can catch exceptions thrown in middleware that follows.</span></span>
 
-* <span data-ttu-id="09786-118">堆栈跟踪</span><span class="sxs-lookup"><span data-stu-id="09786-118">Stack trace</span></span>
-* <span data-ttu-id="09786-119">查询字符串参数（如果有）</span><span class="sxs-lookup"><span data-stu-id="09786-119">Query string parameters (if any)</span></span>
-* <span data-ttu-id="09786-120">Cookie（如果有）</span><span class="sxs-lookup"><span data-stu-id="09786-120">Cookies (if any)</span></span>
-* <span data-ttu-id="09786-121">标头</span><span class="sxs-lookup"><span data-stu-id="09786-121">Headers</span></span>
+<span data-ttu-id="f390d-114">仅当应用程序在开发环境中运行时，前面的代码才启用开发人员异常页。</span><span class="sxs-lookup"><span data-stu-id="f390d-114">The preceding code enables the Developer Exception Page ***only*** when the app runs in the Development environment.</span></span> <span data-ttu-id="f390d-115">当应用在生产环境中运行时，不应公开显示详细的异常信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-115">Detailed exception information should not be displayed publicly when the app runs in the Production environment.</span></span> <span data-ttu-id="f390d-116">有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="f390d-116">For more information on configuring environments, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="09786-122">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看开发人员异常页，请使用 `DevEnvironment` 预处理器指令，并选择主页上的“触发异常”。</span><span class="sxs-lookup"><span data-stu-id="09786-122">To see the Developer Exception Page in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use the `DevEnvironment` preprocessor directive and select **Trigger an exception** on the home page.</span></span>
+<span data-ttu-id="f390d-117">开发人员异常页包括关于异常和请求的以下信息：</span><span class="sxs-lookup"><span data-stu-id="f390d-117">The Developer Exception Page includes the following information about the exception and the request:</span></span>
 
-## <a name="exception-handler-page"></a><span data-ttu-id="09786-123">异常处理程序页</span><span class="sxs-lookup"><span data-stu-id="09786-123">Exception handler page</span></span>
+* <span data-ttu-id="f390d-118">堆栈跟踪</span><span class="sxs-lookup"><span data-stu-id="f390d-118">Stack trace</span></span>
+* <span data-ttu-id="f390d-119">查询字符串参数（如果有）</span><span class="sxs-lookup"><span data-stu-id="f390d-119">Query string parameters if any</span></span>
+* <span data-ttu-id="f390d-120">Cookie（如果有）</span><span class="sxs-lookup"><span data-stu-id="f390d-120">Cookies if any</span></span>
+* <span data-ttu-id="f390d-121">标头</span><span class="sxs-lookup"><span data-stu-id="f390d-121">Headers</span></span>
 
-<span data-ttu-id="09786-124">若要为生产环境配置自定义错误处理页，请使用异常处理中间件。</span><span class="sxs-lookup"><span data-stu-id="09786-124">To configure a custom error handling page for the Production environment, use the Exception Handling Middleware.</span></span> <span data-ttu-id="09786-125">中间件：</span><span class="sxs-lookup"><span data-stu-id="09786-125">The middleware:</span></span>
+## <a name="exception-handler-page"></a><span data-ttu-id="f390d-122">异常处理程序页</span><span class="sxs-lookup"><span data-stu-id="f390d-122">Exception handler page</span></span>
 
-* <span data-ttu-id="09786-126">捕获并记录异常。</span><span class="sxs-lookup"><span data-stu-id="09786-126">Catches and logs exceptions.</span></span>
-* <span data-ttu-id="09786-127">在备用管道中为指定的页或控制器重新执行请求。</span><span class="sxs-lookup"><span data-stu-id="09786-127">Re-executes the request in an alternate pipeline for the page or controller indicated.</span></span> <span data-ttu-id="09786-128">如果响应已启动，则不会重新执行请求。</span><span class="sxs-lookup"><span data-stu-id="09786-128">The request isn't re-executed if the response has started.</span></span>
+<span data-ttu-id="f390d-123">若要为[生产环境](xref:fundamentals/environments)配置自定义错误处理页，请调用 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A>。</span><span class="sxs-lookup"><span data-stu-id="f390d-123">To configure a custom error handling page for the [Production environment](xref:fundamentals/environments), call <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A>.</span></span> <span data-ttu-id="f390d-124">此异常处理中间件：</span><span class="sxs-lookup"><span data-stu-id="f390d-124">This exception handling middleware:</span></span>
 
-<span data-ttu-id="09786-129">在下面的示例中，<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> 在非开发环境中添加异常处理中间件：</span><span class="sxs-lookup"><span data-stu-id="09786-129">In the following example, <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> adds the Exception Handling Middleware in non-Development environments:</span></span>
+* <span data-ttu-id="f390d-125">捕获并记录异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-125">Catches and logs exceptions.</span></span>
+* <span data-ttu-id="f390d-126">使用指示的路径在备用管道中重新执行请求。</span><span class="sxs-lookup"><span data-stu-id="f390d-126">Re-executes the request in an alternate pipeline using the path indicated.</span></span> <span data-ttu-id="f390d-127">如果响应已启动，则不会重新执行请求。</span><span class="sxs-lookup"><span data-stu-id="f390d-127">The request isn't re-executed if the response has started.</span></span> <span data-ttu-id="f390d-128">模板生成的代码使用 `/Error` 路径重新执行请求。</span><span class="sxs-lookup"><span data-stu-id="f390d-128">The template generated code re-executes the request using the `/Error` path.</span></span>
+
+<span data-ttu-id="f390d-129">在下面的示例中，<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> 在非开发环境中添加异常处理中间件：</span><span class="sxs-lookup"><span data-stu-id="f390d-129">In the following example, <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> adds the exception handling middleware in non-Development environments:</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=5-9)]
 
-<span data-ttu-id="09786-130">Razor Pages 应用模板在 Pages 文件夹中提供了一个“错误”页面 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`) 。</span><span class="sxs-lookup"><span data-stu-id="09786-130">The Razor Pages app template provides an Error page (*.cshtml*) and <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> class (`ErrorModel`) in the *Pages* folder.</span></span> <span data-ttu-id="09786-131">对于 MVC 应用，项目模板包括 Error 操作方法和 Error 视图。</span><span class="sxs-lookup"><span data-stu-id="09786-131">For an MVC app, the project template includes an Error action method and an Error view.</span></span> <span data-ttu-id="09786-132">操作方法如下：</span><span class="sxs-lookup"><span data-stu-id="09786-132">Here's the action method:</span></span>
+<span data-ttu-id="f390d-130">Razor Pages 应用模板在 Pages 文件夹中提供了一个“错误”页面 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`) 。</span><span class="sxs-lookup"><span data-stu-id="f390d-130">The Razor Pages app template provides an Error page (*.cshtml*) and <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> class (`ErrorModel`) in the *Pages* folder.</span></span> <span data-ttu-id="f390d-131">对于 MVC 应用，项目模板包括 `Error` 操作方法和主控制器的错误视图。</span><span class="sxs-lookup"><span data-stu-id="f390d-131">For an MVC app, the project template includes an `Error` action method and an Error view for the Home controller.</span></span>
 
-```csharp
-[AllowAnonymous]
-public IActionResult Error()
-{
-    return View(new ErrorViewModel 
-        { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-}
-```
+<span data-ttu-id="f390d-132">不要使用 HTTP 方法属性（如 `HttpGet`）标记错误处理程序操作方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-132">Don't mark the error handler action method with HTTP method attributes, such as `HttpGet`.</span></span> <span data-ttu-id="f390d-133">显式谓词可阻止某些请求访问操作方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-133">Explicit verbs prevent some requests from reaching the action method.</span></span> <span data-ttu-id="f390d-134">如果未经身份验证的用户应看到错误视图，则允许匿名访问该方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-134">Allow anonymous access to the method if unauthenticated users should see the error view.</span></span>
 
-<span data-ttu-id="09786-133">不要使用 HTTP 方法属性（如 `HttpGet`）标记错误处理程序操作方法。</span><span class="sxs-lookup"><span data-stu-id="09786-133">Don't mark the error handler action method with HTTP method attributes, such as `HttpGet`.</span></span> <span data-ttu-id="09786-134">显式谓词可阻止某些请求访问方法。</span><span class="sxs-lookup"><span data-stu-id="09786-134">Explicit verbs prevent some requests from reaching the method.</span></span> <span data-ttu-id="09786-135">允许匿名访问方法，以便未经身份验证的用户能够接收错误视图。</span><span class="sxs-lookup"><span data-stu-id="09786-135">Allow anonymous access to the method so that unauthenticated users are able to receive the error view.</span></span>
+### <a name="access-the-exception"></a><span data-ttu-id="f390d-135">访问异常</span><span class="sxs-lookup"><span data-stu-id="f390d-135">Access the exception</span></span>
 
-### <a name="access-the-exception"></a><span data-ttu-id="09786-136">访问异常</span><span class="sxs-lookup"><span data-stu-id="09786-136">Access the exception</span></span>
+<span data-ttu-id="f390d-136">使用 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 访问错误处理程序中的异常和原始请求路径。</span><span class="sxs-lookup"><span data-stu-id="f390d-136">Use <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to access the exception and the original request path in an error handler.</span></span> <span data-ttu-id="f390d-137">以下代码将 `ExceptionMessage` 添加到由 ASP.NET Core 模板生成的默认 Pages/Error.cshtml.cs：</span><span class="sxs-lookup"><span data-stu-id="f390d-137">The following code adds `ExceptionMessage` to the default *Pages/Error.cshtml.cs* generated by the ASP.NET Core templates:</span></span>
 
-<span data-ttu-id="09786-137">使用 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 访问错误处理程序控制器或页中的异常和原始请求路径：</span><span class="sxs-lookup"><span data-stu-id="09786-137">Use <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to access the exception and the original request path in an error handler controller or page:</span></span>
-
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/Error.cshtml.cs?name=snippet_ExceptionHandlerPathFeature&3,7)]
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/Pages/Error.cshtml.cs?name=snippet)]
 
 > [!WARNING]
-> <span data-ttu-id="09786-138">请勿向客户端提供敏感错误信息。</span><span class="sxs-lookup"><span data-stu-id="09786-138">Do **not** serve sensitive error information to clients.</span></span> <span data-ttu-id="09786-139">提供服务的错误是一种安全风险。</span><span class="sxs-lookup"><span data-stu-id="09786-139">Serving errors is a security risk.</span></span>
+> <span data-ttu-id="f390d-138">请勿向客户端提供敏感错误信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-138">Do **not** serve sensitive error information to clients.</span></span> <span data-ttu-id="f390d-139">提供服务的错误是一种安全风险。</span><span class="sxs-lookup"><span data-stu-id="f390d-139">Serving errors is a security risk.</span></span>
 
-<span data-ttu-id="09786-140">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理页，请使用 `ProdEnvironment` 和 `ErrorHandlerPage` 预处理器指令，并选择主页上的“触发异常”。</span><span class="sxs-lookup"><span data-stu-id="09786-140">To see the exception handling page in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use the `ProdEnvironment` and `ErrorHandlerPage` preprocessor directives, and select **Trigger an exception** on the home page.</span></span>
+<span data-ttu-id="f390d-140">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中测试异常，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="f390d-140">To test the exception in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x):</span></span>
 
-## <a name="exception-handler-lambda"></a><span data-ttu-id="09786-141">异常处理程序 lambda</span><span class="sxs-lookup"><span data-stu-id="09786-141">Exception handler lambda</span></span>
+* <span data-ttu-id="f390d-141">将环境设置为生产环境。</span><span class="sxs-lookup"><span data-stu-id="f390d-141">Set the environment to production.</span></span>
+* <span data-ttu-id="f390d-142">从 Program.cs 中的 `webBuilder.UseStartup<Startup>();` 删除注释。</span><span class="sxs-lookup"><span data-stu-id="f390d-142">Remove the comments from `webBuilder.UseStartup<Startup>();` in *Program.cs*.</span></span>
+* <span data-ttu-id="f390d-143">在主页上选择“触发异常”。</span><span class="sxs-lookup"><span data-stu-id="f390d-143">Select **Trigger an exception** on the home page.</span></span>
 
-<span data-ttu-id="09786-142">[自定义异常处理程序页](#exception-handler-page)的替代方法是向 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> 提供 lambda。</span><span class="sxs-lookup"><span data-stu-id="09786-142">An alternative to a [custom exception handler page](#exception-handler-page) is to provide a lambda to <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A>.</span></span> <span data-ttu-id="09786-143">使用 lambda，可以在返回响应前访问错误。</span><span class="sxs-lookup"><span data-stu-id="09786-143">Using a lambda allows access to the error before returning the response.</span></span>
+## <a name="exception-handler-lambda"></a><span data-ttu-id="f390d-144">异常处理程序 lambda</span><span class="sxs-lookup"><span data-stu-id="f390d-144">Exception handler lambda</span></span>
 
-<span data-ttu-id="09786-144">下面的示例展示了如何使用 lambda 进行异常处理：</span><span class="sxs-lookup"><span data-stu-id="09786-144">Here's an example of using a lambda for exception handling:</span></span>
+<span data-ttu-id="f390d-145">[自定义异常处理程序页](#exception-handler-page)的替代方法是向 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> 提供 lambda。</span><span class="sxs-lookup"><span data-stu-id="f390d-145">An alternative to a [custom exception handler page](#exception-handler-page) is to provide a lambda to <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A>.</span></span> <span data-ttu-id="f390d-146">使用 lambda，可以在返回响应前访问错误。</span><span class="sxs-lookup"><span data-stu-id="f390d-146">Using a lambda allows access to the error before returning the response.</span></span>
+
+<span data-ttu-id="f390d-147">以下代码使用 lambda 处理异常：</span><span class="sxs-lookup"><span data-stu-id="f390d-147">The following code uses a lambda for exception handling:</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/StartupLambda.cs?name=snippet)]
+
+<!-- 
+In the preceding code, `await context.Response.WriteAsync(new string(' ', 512));` is added so the Internet Explorer browser displays the error message rather than an IE error message. For more information, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/16144).
+-->
+
+> [!WARNING]
+> <span data-ttu-id="f390d-148">不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-148">Do **not** serve sensitive error information from <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> or <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to clients.</span></span> <span data-ttu-id="f390d-149">提供服务的错误是一种安全风险。</span><span class="sxs-lookup"><span data-stu-id="f390d-149">Serving errors is a security risk.</span></span>
+
+<span data-ttu-id="f390d-150">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中测试异常处理 lambda：</span><span class="sxs-lookup"><span data-stu-id="f390d-150">To test the exception handling lambda in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x):</span></span>
+
+* <span data-ttu-id="f390d-151">将环境设置为生产环境。</span><span class="sxs-lookup"><span data-stu-id="f390d-151">Set the environment to production.</span></span>
+* <span data-ttu-id="f390d-152">从 Program.cs 中的 `webBuilder.UseStartup<StartupLambda>();` 删除注释。</span><span class="sxs-lookup"><span data-stu-id="f390d-152">Remove the comments from `webBuilder.UseStartup<StartupLambda>();` in *Program.cs*.</span></span>
+* <span data-ttu-id="f390d-153">在主页上选择“触发异常”。</span><span class="sxs-lookup"><span data-stu-id="f390d-153">Select **Trigger an exception** on the home page.</span></span>
+
+## <a name="usestatuscodepages"></a><span data-ttu-id="f390d-154">UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="f390d-154">UseStatusCodePages</span></span>
+
+<span data-ttu-id="f390d-155">默认情况下，ASP.NET Core 应用不会为 HTTP 错误状态代码（如“404 - 未找到”）提供状态代码页。</span><span class="sxs-lookup"><span data-stu-id="f390d-155">By default, an ASP.NET Core app doesn't provide a status code page for HTTP error status codes, such as *404 - Not Found*.</span></span> <span data-ttu-id="f390d-156">当应用遇到没有正文的 HTTP 400-499 错误条件时，它将返回状态代码和空响应正文。</span><span class="sxs-lookup"><span data-stu-id="f390d-156">When the app encounters an HTTP 400-499 error condition that doesn't have a body, it returns the status code and an empty response body.</span></span> <span data-ttu-id="f390d-157">若要提供状态代码页，请使用状态代码页中间件。</span><span class="sxs-lookup"><span data-stu-id="f390d-157">To provide status code pages, use the status code pages middleware.</span></span> <span data-ttu-id="f390d-158">若要启用常见错误状态代码的默认纯文本处理程序，请在 `Startup.Configure` 方法中调用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A>：</span><span class="sxs-lookup"><span data-stu-id="f390d-158">To enable default text-only handlers for common error status codes, call <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> in the `Startup.Configure` method:</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/StartupUseStatusCodePages.cs?name=snippet&highlight=13)]
+
+<!-- Review: 
+When you comment out // UseExceptionHandler("/Error");`
+you get a browser dependant error, not the codepage as I expected.
+call /index/2 -> return StatusCode(500); -> you get the codepage 
+-->
+
+<span data-ttu-id="f390d-159">在请求处理中间件之前调用 `UseStatusCodePages`。</span><span class="sxs-lookup"><span data-stu-id="f390d-159">Call `UseStatusCodePages` before request handling middleware.</span></span> <span data-ttu-id="f390d-160">例如，在静态文件中间件和端点中间件之前调用 `UseStatusCodePages`。</span><span class="sxs-lookup"><span data-stu-id="f390d-160">For example, call `UseStatusCodePages` before the Static File Middleware and the Endpoints Middleware.</span></span>
+
+<span data-ttu-id="f390d-161">未使用 `UseStatusCodePages` 时，导航到没有终结点的 URL 会返回一条与浏览器相关的错误消息，指示找不到终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-161">When `UseStatusCodePages` isn't used, navigating to a URL without an endpoint returns a browser dependent error message indicating the endpoint can't be found.</span></span> <span data-ttu-id="f390d-162">例如，导航到 `Home/Privacy2`。</span><span class="sxs-lookup"><span data-stu-id="f390d-162">For example, navigating to `Home/Privacy2`.</span></span> <span data-ttu-id="f390d-163">调用 `UseStatusCodePages` 时，浏览器返回：</span><span class="sxs-lookup"><span data-stu-id="f390d-163">When `UseStatusCodePages` is called, the browser returns:</span></span>
+
+```html
+Status Code: 404; Not Found
+```
+
+<span data-ttu-id="f390d-164">`UseStatusCodePages` 通常不在生产中使用，因为它返回对用户没有用的消息。</span><span class="sxs-lookup"><span data-stu-id="f390d-164">`UseStatusCodePages` isn't typically used in production because it returns a message that isn't useful to users.</span></span>
+
+<span data-ttu-id="f390d-165">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中测试 `UseStatusCodePages`：</span><span class="sxs-lookup"><span data-stu-id="f390d-165">To test `UseStatusCodePages` in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x):</span></span>
+
+* <span data-ttu-id="f390d-166">将环境设置为生产环境。</span><span class="sxs-lookup"><span data-stu-id="f390d-166">Set the environment to production.</span></span>
+* <span data-ttu-id="f390d-167">从 Program.cs 中的 `webBuilder.UseStartup<StartupUseStatusCodePages>();` 删除注释。</span><span class="sxs-lookup"><span data-stu-id="f390d-167">Remove the comments from `webBuilder.UseStartup<StartupUseStatusCodePages>();` in *Program.cs*.</span></span>
+* <span data-ttu-id="f390d-168">选择主页上的链接。</span><span class="sxs-lookup"><span data-stu-id="f390d-168">Select the links on the home page on the home page.</span></span>
+
+### <a name="usestatuscodepages-with-format-string"></a><span data-ttu-id="f390d-169">包含格式字符串的 UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="f390d-169">UseStatusCodePages with format string</span></span>
+
+<span data-ttu-id="f390d-170">若要自定义响应内容类型和文本，请利用需要使用内容类型和格式字符串的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> 重载：</span><span class="sxs-lookup"><span data-stu-id="f390d-170">To customize the response content type and text, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> that takes a content type and format string:</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/StartupFormat.cs?name=snippet&highlight=13-14)]
+
+<span data-ttu-id="f390d-171">在前面的代码中，`{0}` 是错误代码的占位符。</span><span class="sxs-lookup"><span data-stu-id="f390d-171">In the preceding code, `{0}` is a placeholder for the error code.</span></span>
+
+<span data-ttu-id="f390d-172">具有格式字符串的 `UseStatusCodePages` 通常不在生产环境中使用，因为它返回对用户没有用的消息。</span><span class="sxs-lookup"><span data-stu-id="f390d-172">`UseStatusCodePages` with a format string isn't typically used in production because it returns a message that isn't useful to users.</span></span>
+
+<span data-ttu-id="f390d-173">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中测试 `UseStatusCodePages`，请从 Program.cs 中的 `webBuilder.UseStartup<StartupFormat>();` 删除注释。</span><span class="sxs-lookup"><span data-stu-id="f390d-173">To test `UseStatusCodePages` in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x), remove the comments from `webBuilder.UseStartup<StartupFormat>();` in *Program.cs*.</span></span>
+
+### <a name="usestatuscodepages-with-lambda"></a><span data-ttu-id="f390d-174">包含 lambda 的 UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="f390d-174">UseStatusCodePages with lambda</span></span>
+
+<span data-ttu-id="f390d-175">若要指定自定义错误处理和响应写入代码，请利用需要使用 lambda 表达式的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> 重载：</span><span class="sxs-lookup"><span data-stu-id="f390d-175">To specify custom error-handling and response-writing code, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> that takes a lambda expression:</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/StartupStatusLambda.cs?name=snippet&highlight=13-20)]
+
+<span data-ttu-id="f390d-176">使用 lambda 的 `UseStatusCodePages` 通常不在生产中使用，因为它返回对用户没有用的消息。</span><span class="sxs-lookup"><span data-stu-id="f390d-176">`UseStatusCodePages` with a lambda isn't typically used in production because it returns a message that isn't useful to users.</span></span>
+
+<span data-ttu-id="f390d-177">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中测试 `UseStatusCodePages`，请从 Program.cs 中的 `webBuilder.UseStartup<StartupStatusLambda>();` 删除注释。</span><span class="sxs-lookup"><span data-stu-id="f390d-177">To test `UseStatusCodePages` in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x), remove the comments from `webBuilder.UseStartup<StartupStatusLambda>();` in *Program.cs*.</span></span>
+
+### <a name="usestatuscodepageswithredirects"></a><span data-ttu-id="f390d-178">UseStatusCodePagesWithRedirects</span><span class="sxs-lookup"><span data-stu-id="f390d-178">UseStatusCodePagesWithRedirects</span></span>
+
+<span data-ttu-id="f390d-179"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects%2A> 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="f390d-179">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects%2A> extension method:</span></span>
+
+* <span data-ttu-id="f390d-180">向客户端发送“302 - 已找到”状态代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-180">Sends a [302 - Found](https://developer.mozilla.org/docs/Web/HTTP/Status/302) status code to the client.</span></span>
+* <span data-ttu-id="f390d-181">将客户端重定向到 URL 模板中提供的错误处理终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-181">Redirects the client to the error handling endpoint provided in the URL template.</span></span> <span data-ttu-id="f390d-182">错误处理终结点通常会显示错误信息并返回 HTTP 200。</span><span class="sxs-lookup"><span data-stu-id="f390d-182">The error handling endpoint typically displays error information and returns HTTP 200.</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/StartupSCredirect.cs?name=snippet&highlight=13)]
+
+<span data-ttu-id="f390d-183">URL 模板可能会包括状态代码的 `{0}` 占位符，如前面的代码中所示。</span><span class="sxs-lookup"><span data-stu-id="f390d-183">The URL template can include a `{0}` placeholder for the status code, as shown in the preceding code.</span></span> <span data-ttu-id="f390d-184">如果 URL 模板以波形符 `~`（代字号）开头，则 `~` 会替换为应用的 `PathBase`。</span><span class="sxs-lookup"><span data-stu-id="f390d-184">If the URL template starts with `~` (tilde), the `~` is replaced by the app's `PathBase`.</span></span> <span data-ttu-id="f390d-185">在应用中指定终结点时，请为终结点创建 MVC 视图或 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="f390d-185">When specifying an endpoint in the app, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="f390d-186">有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中的 [Pages/MyStatusCode.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x/ErrorHandlingSample/Pages)。</span><span class="sxs-lookup"><span data-stu-id="f390d-186">For a Razor Pages example, see [Pages/MyStatusCode.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x/ErrorHandlingSample/Pages) in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x).</span></span>
+
+<span data-ttu-id="f390d-187">使用此方法通常是当应用：</span><span class="sxs-lookup"><span data-stu-id="f390d-187">This method is commonly used when the app:</span></span>
+
+* <span data-ttu-id="f390d-188">应将客户端重定向到不同的终结点（通常在不同的应用处理错误的情况下）。</span><span class="sxs-lookup"><span data-stu-id="f390d-188">Should redirect the client to a different endpoint, usually in cases where a different app processes the error.</span></span> <span data-ttu-id="f390d-189">对于 Web 应用，客户端的浏览器地址栏反映重定向终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-189">For web apps, the client's browser address bar reflects the redirected endpoint.</span></span>
+* <span data-ttu-id="f390d-190">不应保留原始状态代码并通过初始重定向响应返回该代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-190">Shouldn't preserve and return the original status code with the initial redirect response.</span></span>
+
+<span data-ttu-id="f390d-191">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中测试 `UseStatusCodePages`，请从 Program.cs 中的 `webBuilder.UseStartup<StartupSCredirect>();` 删除注释。</span><span class="sxs-lookup"><span data-stu-id="f390d-191">To test `UseStatusCodePages` in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x), remove the comments from `webBuilder.UseStartup<StartupSCredirect>();` in *Program.cs*.</span></span>
+
+### <a name="usestatuscodepageswithreexecute"></a><span data-ttu-id="f390d-192">UseStatusCodePagesWithReExecute</span><span class="sxs-lookup"><span data-stu-id="f390d-192">UseStatusCodePagesWithReExecute</span></span>
+
+<span data-ttu-id="f390d-193"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute%2A> 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="f390d-193">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute%2A> extension method:</span></span>
+
+* <span data-ttu-id="f390d-194">向客户端返回原始状态代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-194">Returns the original status code to the client.</span></span>
+* <span data-ttu-id="f390d-195">通过使用备用路径重新执行请求管道，从而生成响应正文。</span><span class="sxs-lookup"><span data-stu-id="f390d-195">Generates the response body by re-executing the request pipeline using an alternate path.</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/StartupSCreX.cs?name=snippet&highlight=13)]
+
+<span data-ttu-id="f390d-196">如果在应用中指定终结点，请为终结点创建 MVC 视图或 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="f390d-196">If an endpoint within the app is specified, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="f390d-197">确保将 `UseStatusCodePagesWithReExecute` 放置在 `UseRouting` 之前，以便可以将请求重新路由到状态页。</span><span class="sxs-lookup"><span data-stu-id="f390d-197">Ensure `UseStatusCodePagesWithReExecute` is placed before `UseRouting` so the request can be rerouted to the status page.</span></span> <span data-ttu-id="f390d-198">有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中的 [Pages/MyStatusCode2.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x/ErrorHandlingSample/Pages)。</span><span class="sxs-lookup"><span data-stu-id="f390d-198">For a Razor Pages example, see [Pages/MyStatusCode2.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x/ErrorHandlingSample/Pages) in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x).</span></span>
+
+<span data-ttu-id="f390d-199">使用此方法通常是当应用应：</span><span class="sxs-lookup"><span data-stu-id="f390d-199">This method is commonly used when the app should:</span></span>
+
+* <span data-ttu-id="f390d-200">处理请求，但不重定向到不同终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-200">Process the request without redirecting to a different endpoint.</span></span> <span data-ttu-id="f390d-201">对于 Web 应用，客户端的浏览器地址栏反映最初请求的终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-201">For web apps, the client's browser address bar reflects the originally requested endpoint.</span></span>
+* <span data-ttu-id="f390d-202">保留原始状态代码并通过响应返回该代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-202">Preserve and return the original status code with the response.</span></span>
+
+<span data-ttu-id="f390d-203">URL 模板和查询字符串模板可能包括状态代码的占位符 `{0}`。</span><span class="sxs-lookup"><span data-stu-id="f390d-203">The URL and query string templates may include a placeholder `{0}` for the status code.</span></span> <span data-ttu-id="f390d-204">URL 模板必须以 `/` 开头。</span><span class="sxs-lookup"><span data-stu-id="f390d-204">The URL template must start with `/`.</span></span>
+
+<!-- Review: removing this. The sample code doesn't use @page "{code?}"
+If you want that, it should be @page "{code:int?}"
+but that's not required. Original text follows:
+
+When using a placeholder in the path, confirm that the endpoint can process the path segment. For example, a Razor Page for errors should accept the optional path segment value with the `@page` directive:
+
+```cshtml
+@page "{code?}"
+```
+-->
+
+<span data-ttu-id="f390d-205">错误处理终结点可以获取生成错误的原始 URL，如下面的示例所示：</span><span class="sxs-lookup"><span data-stu-id="f390d-205">The endpoint that processes the error can get the original URL that generated the error, as shown in the following example:</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/Pages/MyStatusCode2.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="f390d-206">有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中的 [Pages/MyStatusCode2.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x/ErrorHandlingSample/Pages)。</span><span class="sxs-lookup"><span data-stu-id="f390d-206">For a Razor Pages example, see [Pages/MyStatusCode2.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x/ErrorHandlingSample/Pages) in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x).</span></span>
+
+<span data-ttu-id="f390d-207">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x)中测试 `UseStatusCodePages`，请从 Program.cs 中的 `webBuilder.UseStartup<StartupSCreX>();` 删除注释。</span><span class="sxs-lookup"><span data-stu-id="f390d-207">To test `UseStatusCodePages` in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/5.x), remove the comments from `webBuilder.UseStartup<StartupSCreX>();` in *Program.cs*.</span></span>
+
+## <a name="disable-status-code-pages"></a><span data-ttu-id="f390d-208">禁用状态代码页</span><span class="sxs-lookup"><span data-stu-id="f390d-208">Disable status code pages</span></span>
+
+<span data-ttu-id="f390d-209">若要禁用 MVC 控制器或操作方法的状态代码页，请使用 [[SkipStatusCodePages]](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) 特性。</span><span class="sxs-lookup"><span data-stu-id="f390d-209">To disable status code pages for an MVC controller or action method, use the [[SkipStatusCodePages]](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) attribute.</span></span>
+
+<span data-ttu-id="f390d-210">若要禁用 Razor Pages 处理程序方法或 MVC 控制器中的特定请求的状态代码页，请使用 <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>：</span><span class="sxs-lookup"><span data-stu-id="f390d-210">To disable status code pages for specific requests in a Razor Pages handler method or in an MVC controller, use <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>:</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/Pages/Privacy.cshtml.cs?name=snippet)]
+
+## <a name="exception-handling-code"></a><span data-ttu-id="f390d-211">异常处理代码</span><span class="sxs-lookup"><span data-stu-id="f390d-211">Exception-handling code</span></span>
+
+<span data-ttu-id="f390d-212">异常处理页中的代码可能也会引发异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-212">Code in exception handling pages can also throw exceptions.</span></span> <span data-ttu-id="f390d-213">应彻底测试生产错误页面，并格外小心，避免引发其自己的异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-213">Production error pages should be tested thoroughly and take extra care to avoid throwing exceptions of their own.</span></span>
+<!-- Review: original, which is not realistic 
+ > It's often a good idea for production error pages to consist of purely static content.
+
+ comments: - after you catch the exception, you need code to log the details and perhaps dynamically create a string with an error message. 
+-->
+
+### <a name="response-headers"></a><span data-ttu-id="f390d-214">响应头</span><span class="sxs-lookup"><span data-stu-id="f390d-214">Response headers</span></span>
+
+<span data-ttu-id="f390d-215">在响应头发送后：</span><span class="sxs-lookup"><span data-stu-id="f390d-215">Once the headers for a response are sent:</span></span>
+
+* <span data-ttu-id="f390d-216">应用无法更改响应的状态代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-216">The app can't change the response's status code.</span></span>
+* <span data-ttu-id="f390d-217">任何异常页或处理程序都无法运行。</span><span class="sxs-lookup"><span data-stu-id="f390d-217">Any exception pages or handlers can't run.</span></span> <span data-ttu-id="f390d-218">必须完成响应或中止连接。</span><span class="sxs-lookup"><span data-stu-id="f390d-218">The response must be completed or the connection aborted.</span></span>
+
+## <a name="server-exception-handling"></a><span data-ttu-id="f390d-219">服务器异常处理</span><span class="sxs-lookup"><span data-stu-id="f390d-219">Server exception handling</span></span>
+
+<span data-ttu-id="f390d-220">除了应用中的异常处理逻辑外，[HTTP 服务器实现](xref:fundamentals/servers/index)还能处理一些异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-220">In addition to the exception handling logic in an app, the [HTTP server implementation](xref:fundamentals/servers/index) can handle some exceptions.</span></span> <span data-ttu-id="f390d-221">如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的 `500 - Internal Server Error` 响应。</span><span class="sxs-lookup"><span data-stu-id="f390d-221">If the server catches an exception before response headers are sent, the server sends a `500 - Internal Server Error` response without a response body.</span></span> <span data-ttu-id="f390d-222">如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。</span><span class="sxs-lookup"><span data-stu-id="f390d-222">If the server catches an exception after response headers are sent, the server closes the connection.</span></span> <span data-ttu-id="f390d-223">应用程序无法处理的请求将由服务器进行处理。</span><span class="sxs-lookup"><span data-stu-id="f390d-223">Requests that aren't handled by the app are handled by the server.</span></span> <span data-ttu-id="f390d-224">当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。</span><span class="sxs-lookup"><span data-stu-id="f390d-224">Any exception that occurs when the server is handling the request is handled by the server's exception handling.</span></span> <span data-ttu-id="f390d-225">应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。</span><span class="sxs-lookup"><span data-stu-id="f390d-225">The app's custom error pages, exception handling middleware, and filters don't affect this behavior.</span></span>
+
+## <a name="startup-exception-handling"></a><span data-ttu-id="f390d-226">启动异常处理</span><span class="sxs-lookup"><span data-stu-id="f390d-226">Startup exception handling</span></span>
+
+<span data-ttu-id="f390d-227">应用程序启动期间发生的异常仅可在承载层进行处理。</span><span class="sxs-lookup"><span data-stu-id="f390d-227">Only the hosting layer can handle exceptions that take place during app startup.</span></span> <span data-ttu-id="f390d-228">可以将主机配置为，[捕获启动错误](xref:fundamentals/host/web-host#capture-startup-errors)和[捕获详细错误](xref:fundamentals/host/web-host#detailed-errors)。</span><span class="sxs-lookup"><span data-stu-id="f390d-228">The host can be configured to [capture startup errors](xref:fundamentals/host/web-host#capture-startup-errors) and [capture detailed errors](xref:fundamentals/host/web-host#detailed-errors).</span></span>
+
+<span data-ttu-id="f390d-229">仅当错误在主机地址/端口绑定后出现时，托管层才能显示捕获的启动错误的错误页。</span><span class="sxs-lookup"><span data-stu-id="f390d-229">The hosting layer can show an error page for a captured startup error only if the error occurs after host address/port binding.</span></span> <span data-ttu-id="f390d-230">如果绑定失败：</span><span class="sxs-lookup"><span data-stu-id="f390d-230">If binding fails:</span></span>
+
+* <span data-ttu-id="f390d-231">托管层将记录关键异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-231">The hosting layer logs a critical exception.</span></span>
+* <span data-ttu-id="f390d-232">dotnet 进程崩溃。</span><span class="sxs-lookup"><span data-stu-id="f390d-232">The dotnet process crashes.</span></span>
+* <span data-ttu-id="f390d-233">不会在 HTTP 服务器为 [Kestrel](xref:fundamentals/servers/kestrel) 时显示任何错误页。</span><span class="sxs-lookup"><span data-stu-id="f390d-233">No error page is displayed when the HTTP server is [Kestrel](xref:fundamentals/servers/kestrel).</span></span>
+
+<span data-ttu-id="f390d-234">在 [IIS](/iis)（或 Azure 应用服务）或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”。</span><span class="sxs-lookup"><span data-stu-id="f390d-234">When running on [IIS](/iis) (or Azure App Service) or [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), a *502.5 - Process Failure* is returned by the [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) if the process can't start.</span></span> <span data-ttu-id="f390d-235">有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。</span><span class="sxs-lookup"><span data-stu-id="f390d-235">For more information, see <xref:test/troubleshoot-azure-iis>.</span></span>
+
+## <a name="database-error-page"></a><span data-ttu-id="f390d-236">数据库错误页</span><span class="sxs-lookup"><span data-stu-id="f390d-236">Database error page</span></span>
+
+<span data-ttu-id="f390d-237">数据库开发人员页面异常筛选器 `AddDatabaseDeveloperPageExceptionFilter` 捕获可以使用 Entity Framework Core 迁移解决的与数据库相关的异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-237">The Database developer page exception filter `AddDatabaseDeveloperPageExceptionFilter` captures database-related exceptions that can be resolved by using Entity Framework Core migrations.</span></span> <span data-ttu-id="f390d-238">当这些异常出现时，便会生成 HTML 响应，其中包含用于解决问题的可能操作的详细信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-238">When these exceptions occur, an HTML response is generated with details of possible actions to resolve the issue.</span></span> <span data-ttu-id="f390d-239">仅在开发环境中启用此页。</span><span class="sxs-lookup"><span data-stu-id="f390d-239">This page is enabled only in the Development environment.</span></span> <span data-ttu-id="f390d-240">在指定个人用户帐户时，ASP.NET Core Razor Pages 模板生成以下代码：</span><span class="sxs-lookup"><span data-stu-id="f390d-240">The following code was generated by the ASP.NET Core Razor Pages templates when individual user accounts were specified:</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/StartupDBexFilter.cs?name=snippet&highlight=6)]
+
+## <a name="exception-filters"></a><span data-ttu-id="f390d-241">异常筛选器</span><span class="sxs-lookup"><span data-stu-id="f390d-241">Exception filters</span></span>
+
+<span data-ttu-id="f390d-242">在 MVC 应用中，可以全局配置异常筛选器，也可以为每个控制器或每个操作单独配置。</span><span class="sxs-lookup"><span data-stu-id="f390d-242">In MVC apps, exception filters can be configured globally or on a per-controller or per-action basis.</span></span> <span data-ttu-id="f390d-243">在 Razor Pages 应用中，可以全局配置异常筛选器，也可以为每个页面模型单独配置。</span><span class="sxs-lookup"><span data-stu-id="f390d-243">In Razor Pages apps, they can be configured globally or per page model.</span></span> <span data-ttu-id="f390d-244">这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-244">These filters handle any unhandled exceptions that occur during the execution of a controller action or another filter.</span></span> <span data-ttu-id="f390d-245">有关详细信息，请参阅 <xref:mvc/controllers/filters#exception-filters>。</span><span class="sxs-lookup"><span data-stu-id="f390d-245">For more information, see <xref:mvc/controllers/filters#exception-filters>.</span></span>
+
+<span data-ttu-id="f390d-246">异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如内置[异常处理中间件](https://github.com/dotnet/aspnetcore/blob/master/src/Middleware/Diagnostics/src/ExceptionHandler/ExceptionHandlerMiddleware.cs) `UseExceptionHandler` 灵活。</span><span class="sxs-lookup"><span data-stu-id="f390d-246">Exception filters are useful for trapping exceptions that occur within MVC actions, but they're not as flexible as the built-in [exception handling middleware](https://github.com/dotnet/aspnetcore/blob/master/src/Middleware/Diagnostics/src/ExceptionHandler/ExceptionHandlerMiddleware.cs), `UseExceptionHandler`.</span></span> <span data-ttu-id="f390d-247">我们建议使用 `UseExceptionHandler`，除非你需要根据选择的 MVC 操作以不同的方式执行错误处理。</span><span class="sxs-lookup"><span data-stu-id="f390d-247">We recommend using `UseExceptionHandler`, unless you need to perform error handling differently based on which MVC action is chosen.</span></span>
+
+[!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/Startup.cs?name=snippet&highlight=9)]
+
+## <a name="model-state-errors"></a><span data-ttu-id="f390d-248">模型状态错误</span><span class="sxs-lookup"><span data-stu-id="f390d-248">Model state errors</span></span>
+
+<span data-ttu-id="f390d-249">若要了解如何处理模型状态错误，请参阅[模型绑定](xref:mvc/models/model-binding)和[模型验证](xref:mvc/models/validation)。</span><span class="sxs-lookup"><span data-stu-id="f390d-249">For information about how to handle model state errors, see [Model binding](xref:mvc/models/model-binding) and [Model validation](xref:mvc/models/validation).</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="f390d-250">其他资源</span><span class="sxs-lookup"><span data-stu-id="f390d-250">Additional resources</span></span>
+
+* <xref:test/troubleshoot-azure-iis>
+* <xref:host-and-deploy/azure-iis-errors-reference>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+<span data-ttu-id="f390d-251">作者：[Tom Dykstra](https://github.com/tdykstra/) 和 [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="f390d-251">By  [Tom Dykstra](https://github.com/tdykstra/), and [Steve Smith](https://ardalis.com/)</span></span>
+
+<span data-ttu-id="f390d-252">本文介绍了处理 ASP.NET Core Web 应用中常见错误的一些方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-252">This article covers common approaches to handling errors in ASP.NET Core web apps.</span></span> <span data-ttu-id="f390d-253">有关 Web API，请参阅 <xref:web-api/handle-errors>。</span><span class="sxs-lookup"><span data-stu-id="f390d-253">See <xref:web-api/handle-errors> for web APIs.</span></span>
+
+<span data-ttu-id="f390d-254">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)。</span><span class="sxs-lookup"><span data-stu-id="f390d-254">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span> <span data-ttu-id="f390d-255">（[下载方法](xref:index#how-to-download-a-sample)。）</span><span class="sxs-lookup"><span data-stu-id="f390d-255">([How to download](xref:index#how-to-download-a-sample).)</span></span>
+
+## <a name="developer-exception-page"></a><span data-ttu-id="f390d-256">开发人员异常页</span><span class="sxs-lookup"><span data-stu-id="f390d-256">Developer Exception Page</span></span>
+
+<span data-ttu-id="f390d-257">开发人员异常页显示请求异常的详细信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-257">The *Developer Exception Page* displays detailed information about request exceptions.</span></span> <span data-ttu-id="f390d-258">ASP.NET Core 模板会生成以下代码：</span><span class="sxs-lookup"><span data-stu-id="f390d-258">The ASP.NET Core templates generate the following code:</span></span>
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=1-4)]
+
+<span data-ttu-id="f390d-259">当应用在[开发环境](xref:fundamentals/environments)中运行时，前面的代码启用开发人员异常页。</span><span class="sxs-lookup"><span data-stu-id="f390d-259">The preceding code enables the developer exception page when the app is running in the [Development environment](xref:fundamentals/environments).</span></span>
+
+<span data-ttu-id="f390d-260">模板将 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage%2A> 放在任何中间件之前，以便捕获后面的中间件中的异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-260">The templates place <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage%2A> before any middleware so exceptions are caught in the middleware that follows.</span></span>
+
+<span data-ttu-id="f390d-261">仅当应用程序在开发环境中运行时，前面的代码才启用开发人员异常页。</span><span class="sxs-lookup"><span data-stu-id="f390d-261">The preceding code enables the Developer Exception Page **only when the app is running in the Development environment**.</span></span> <span data-ttu-id="f390d-262">当应用在生产环境中运行时，不应公开显示详细的异常信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-262">Detailed exception information should not be displayed publicly when the app runs in production.</span></span> <span data-ttu-id="f390d-263">有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="f390d-263">For more information on configuring environments, see <xref:fundamentals/environments>.</span></span>
+
+<span data-ttu-id="f390d-264">开发人员异常页包括关于异常和请求的以下信息：</span><span class="sxs-lookup"><span data-stu-id="f390d-264">The Developer Exception Page includes the following information about the exception and the request:</span></span>
+
+* <span data-ttu-id="f390d-265">堆栈跟踪</span><span class="sxs-lookup"><span data-stu-id="f390d-265">Stack trace</span></span>
+* <span data-ttu-id="f390d-266">查询字符串参数（如果有）</span><span class="sxs-lookup"><span data-stu-id="f390d-266">Query string parameters if any</span></span>
+* <span data-ttu-id="f390d-267">Cookie（如果有）</span><span class="sxs-lookup"><span data-stu-id="f390d-267">Cookies if any</span></span>
+* <span data-ttu-id="f390d-268">标头</span><span class="sxs-lookup"><span data-stu-id="f390d-268">Headers</span></span>
+
+## <a name="exception-handler-page"></a><span data-ttu-id="f390d-269">异常处理程序页</span><span class="sxs-lookup"><span data-stu-id="f390d-269">Exception handler page</span></span>
+
+<span data-ttu-id="f390d-270">若要为生产环境配置自定义错误处理页，请使用异常处理中间件。</span><span class="sxs-lookup"><span data-stu-id="f390d-270">To configure a custom error handling page for the Production environment, use the Exception Handling Middleware.</span></span> <span data-ttu-id="f390d-271">中间件：</span><span class="sxs-lookup"><span data-stu-id="f390d-271">The middleware:</span></span>
+
+* <span data-ttu-id="f390d-272">捕获并记录异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-272">Catches and logs exceptions.</span></span>
+* <span data-ttu-id="f390d-273">在备用管道中为指定的页或控制器重新执行请求。</span><span class="sxs-lookup"><span data-stu-id="f390d-273">Re-executes the request in an alternate pipeline for the page or controller indicated.</span></span> <span data-ttu-id="f390d-274">如果响应已启动，则不会重新执行请求。</span><span class="sxs-lookup"><span data-stu-id="f390d-274">The request isn't re-executed if the response has started.</span></span> <span data-ttu-id="f390d-275">模板生成的代码将请求重新执行到 `/Error`。</span><span class="sxs-lookup"><span data-stu-id="f390d-275">The template generated code re-executes the request to `/Error`.</span></span>
+
+<span data-ttu-id="f390d-276">在下面的示例中，<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> 在非开发环境中添加异常处理中间件：</span><span class="sxs-lookup"><span data-stu-id="f390d-276">In the following example, <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> adds the Exception Handling Middleware in non-Development environments:</span></span>
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=5-9)]
+
+<span data-ttu-id="f390d-277">Razor Pages 应用模板在 Pages 文件夹中提供了一个“错误”页面 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`) 。</span><span class="sxs-lookup"><span data-stu-id="f390d-277">The Razor Pages app template provides an Error page (*.cshtml*) and <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> class (`ErrorModel`) in the *Pages* folder.</span></span> <span data-ttu-id="f390d-278">对于 MVC 应用，项目模板包括错误操作方法和主控制器的错误视图。</span><span class="sxs-lookup"><span data-stu-id="f390d-278">For an MVC app, the project template includes an Error action method and an Error view in the Home controller.</span></span>
+
+<span data-ttu-id="f390d-279">不要使用 HTTP 方法属性（如 `HttpGet`）标记错误处理程序操作方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-279">Don't mark the error handler action method with HTTP method attributes, such as `HttpGet`.</span></span> <span data-ttu-id="f390d-280">显式谓词可阻止某些请求访问方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-280">Explicit verbs prevent some requests from reaching the method.</span></span> <span data-ttu-id="f390d-281">如果未经身份验证的用户应看到错误视图，则允许匿名访问该方法。</span><span class="sxs-lookup"><span data-stu-id="f390d-281">Allow anonymous access to the method if unauthenticated users should see the error view.</span></span>
+
+### <a name="access-the-exception"></a><span data-ttu-id="f390d-282">访问异常</span><span class="sxs-lookup"><span data-stu-id="f390d-282">Access the exception</span></span>
+
+<span data-ttu-id="f390d-283">使用 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 访问错误处理程序控制器或页中的异常和原始请求路径：</span><span class="sxs-lookup"><span data-stu-id="f390d-283">Use <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to access the exception and the original request path in an error handler controller or page:</span></span>
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/MyFolder/Error.cshtml.cs?name=snippet_ExceptionHandlerPathFeature&3,7)]
+
+> [!WARNING]
+> <span data-ttu-id="f390d-284">请勿向客户端提供敏感错误信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-284">Do **not** serve sensitive error information to clients.</span></span> <span data-ttu-id="f390d-285">提供服务的错误是一种安全风险。</span><span class="sxs-lookup"><span data-stu-id="f390d-285">Serving errors is a security risk.</span></span>
+
+<span data-ttu-id="f390d-286">若要触发前面的异常处理页，请将环境设置为生产环境并强制引发异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-286">To trigger the preceding exception handling page, set the environment to productions and force an exception.</span></span>
+
+## <a name="exception-handler-lambda"></a><span data-ttu-id="f390d-287">异常处理程序 lambda</span><span class="sxs-lookup"><span data-stu-id="f390d-287">Exception handler lambda</span></span>
+
+<span data-ttu-id="f390d-288">[自定义异常处理程序页](#exception-handler-page)的替代方法是向 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> 提供 lambda。</span><span class="sxs-lookup"><span data-stu-id="f390d-288">An alternative to a [custom exception handler page](#exception-handler-page) is to provide a lambda to <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A>.</span></span> <span data-ttu-id="f390d-289">使用 lambda，可以在返回响应前访问错误。</span><span class="sxs-lookup"><span data-stu-id="f390d-289">Using a lambda allows access to the error before returning the response.</span></span>
+
+<span data-ttu-id="f390d-290">下面的示例展示了如何使用 lambda 进行异常处理：</span><span class="sxs-lookup"><span data-stu-id="f390d-290">Here's an example of using a lambda for exception handling:</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_HandlerPageLambda)]
 
-<span data-ttu-id="09786-145">在前面的代码中，添加了 `await context.Response.WriteAsync(new string(' ', 512));`，以便 Internet Explorer 浏览器显示相应的错误消息，而非显示 IE 错误消息。</span><span class="sxs-lookup"><span data-stu-id="09786-145">In the preceding code, `await context.Response.WriteAsync(new string(' ', 512));` is added so the Internet Explorer browser displays the error message rather than an IE error message.</span></span> <span data-ttu-id="09786-146">有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/16144)。</span><span class="sxs-lookup"><span data-stu-id="09786-146">For more information, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/16144).</span></span>
+<span data-ttu-id="f390d-291">在前面的代码中，添加了 `await context.Response.WriteAsync(new string(' ', 512));`，以便 Internet Explorer 浏览器显示相应的错误消息，而非显示 IE 错误消息。</span><span class="sxs-lookup"><span data-stu-id="f390d-291">In the preceding code, `await context.Response.WriteAsync(new string(' ', 512));` is added so the Internet Explorer browser displays the error message rather than an IE error message.</span></span> <span data-ttu-id="f390d-292">有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/16144)。</span><span class="sxs-lookup"><span data-stu-id="f390d-292">For more information, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/16144).</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="09786-147">不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。</span><span class="sxs-lookup"><span data-stu-id="09786-147">Do **not** serve sensitive error information from <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> or <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to clients.</span></span> <span data-ttu-id="09786-148">提供服务的错误是一种安全风险。</span><span class="sxs-lookup"><span data-stu-id="09786-148">Serving errors is a security risk.</span></span>
+> <span data-ttu-id="f390d-293">不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-293">Do **not** serve sensitive error information from <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> or <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to clients.</span></span> <span data-ttu-id="f390d-294">提供服务的错误是一种安全风险。</span><span class="sxs-lookup"><span data-stu-id="f390d-294">Serving errors is a security risk.</span></span>
 
-<span data-ttu-id="09786-149">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理 lambda 的结果，请使用 `ProdEnvironment` 和 `ErrorHandlerLambda` 预处理器指令，并选择主页上的“触发异常”。</span><span class="sxs-lookup"><span data-stu-id="09786-149">To see the result of the exception handling lambda in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use the `ProdEnvironment` and `ErrorHandlerLambda` preprocessor directives, and select **Trigger an exception** on the home page.</span></span>
+<span data-ttu-id="f390d-295">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理 lambda 的结果，请使用 `ProdEnvironment` 和 `ErrorHandlerLambda` 预处理器指令，并选择主页上的“触发异常”。</span><span class="sxs-lookup"><span data-stu-id="f390d-295">To see the result of the exception handling lambda in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use the `ProdEnvironment` and `ErrorHandlerLambda` preprocessor directives, and select **Trigger an exception** on the home page.</span></span>
 
-## <a name="usestatuscodepages"></a><span data-ttu-id="09786-150">UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="09786-150">UseStatusCodePages</span></span>
+## <a name="usestatuscodepages"></a><span data-ttu-id="f390d-296">UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="f390d-296">UseStatusCodePages</span></span>
 
-<span data-ttu-id="09786-151">默认情况下，ASP.NET Core 应用不会为 HTTP 状态代码（如“404 - 未找到”）提供状态代码页。</span><span class="sxs-lookup"><span data-stu-id="09786-151">By default, an ASP.NET Core app doesn't provide a status code page for HTTP status codes, such as *404 - Not Found*.</span></span> <span data-ttu-id="09786-152">应用返回状态代码和空响应正文。</span><span class="sxs-lookup"><span data-stu-id="09786-152">The app returns a status code and an empty response body.</span></span> <span data-ttu-id="09786-153">若要提供状态代码页，请使用状态代码页中间件。</span><span class="sxs-lookup"><span data-stu-id="09786-153">To provide status code pages, use Status Code Pages middleware.</span></span>
+<span data-ttu-id="f390d-297">默认情况下，ASP.NET Core 应用不会为 HTTP 状态代码（如“404 - 未找到”）提供状态代码页。</span><span class="sxs-lookup"><span data-stu-id="f390d-297">By default, an ASP.NET Core app doesn't provide a status code page for HTTP status codes, such as *404 - Not Found*.</span></span> <span data-ttu-id="f390d-298">应用返回状态代码和空响应正文。</span><span class="sxs-lookup"><span data-stu-id="f390d-298">The app returns a status code and an empty response body.</span></span> <span data-ttu-id="f390d-299">若要提供状态代码页，请使用状态代码页中间件。</span><span class="sxs-lookup"><span data-stu-id="f390d-299">To provide status code pages, use Status Code Pages middleware.</span></span>
 
-<span data-ttu-id="09786-154">此中间件是通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。</span><span class="sxs-lookup"><span data-stu-id="09786-154">The middleware is made available by the [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="f390d-300">此中间件是通过 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。</span><span class="sxs-lookup"><span data-stu-id="f390d-300">The middleware is made available by the [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) package.</span></span>
 
-<span data-ttu-id="09786-155">若要启用常见错误状态代码的默认纯文本处理程序，请在 `Startup.Configure` 方法中调用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A>：</span><span class="sxs-lookup"><span data-stu-id="09786-155">To enable default text-only handlers for common error status codes, call <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> in the `Startup.Configure` method:</span></span>
+<span data-ttu-id="f390d-301">若要启用常见错误状态代码的默认纯文本处理程序，请在 `Startup.Configure` 方法中调用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A>：</span><span class="sxs-lookup"><span data-stu-id="f390d-301">To enable default text-only handlers for common error status codes, call <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> in the `Startup.Configure` method:</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
 
-<span data-ttu-id="09786-156">在请求处理中间件（例如，静态文件中间件和 MVC 中间件）前面调用 `UseStatusCodePages`。</span><span class="sxs-lookup"><span data-stu-id="09786-156">Call `UseStatusCodePages` before request handling middleware (for example, Static File Middleware and MVC Middleware).</span></span>
+<span data-ttu-id="f390d-302">在请求处理中间件（例如，静态文件中间件和 MVC 中间件）前面调用 `UseStatusCodePages`。</span><span class="sxs-lookup"><span data-stu-id="f390d-302">Call `UseStatusCodePages` before request handling middleware (for example, Static File Middleware and MVC Middleware).</span></span>
 
-<span data-ttu-id="09786-157">下面的示例展示了默认处理程序显示的文本：</span><span class="sxs-lookup"><span data-stu-id="09786-157">Here's an example of text displayed by the default handlers:</span></span>
+<span data-ttu-id="f390d-303">未使用 `UseStatusCodePages` 时，导航到没有终结点的 URL 会返回一条与浏览器相关的错误消息，指示找不到终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-303">When `UseStatusCodePages` isn't used, navigating to a URL without an endpoint returns a browser dependent error message indicating the endpoint can't be found.</span></span> <span data-ttu-id="f390d-304">例如，导航到 `Home/Privacy2`。</span><span class="sxs-lookup"><span data-stu-id="f390d-304">For example, navigating to `Home/Privacy2`.</span></span> <span data-ttu-id="f390d-305">调用 `UseStatusCodePages` 时，浏览器返回：</span><span class="sxs-lookup"><span data-stu-id="f390d-305">When `UseStatusCodePages` is called, the browser returns:</span></span>
 
 ```
 Status Code: 404; Not Found
 ```
 
-<span data-ttu-id="09786-158">若要在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看各种状态代码页格式之一，请使用以 `StatusCodePages` 开头的预处理器指令之一，并选择主页上的“触发 404”。</span><span class="sxs-lookup"><span data-stu-id="09786-158">To see one of the various status code page formats in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use one of the preprocessor directives that begin with `StatusCodePages`, and select **Trigger a 404** on the home page.</span></span>
+## <a name="usestatuscodepages-with-format-string"></a><span data-ttu-id="f390d-306">包含格式字符串的 UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="f390d-306">UseStatusCodePages with format string</span></span>
 
-## <a name="usestatuscodepages-with-format-string"></a><span data-ttu-id="09786-159">包含格式字符串的 UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="09786-159">UseStatusCodePages with format string</span></span>
-
-<span data-ttu-id="09786-160">若要自定义响应内容类型和文本，请利用需要使用内容类型和格式字符串的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> 重载：</span><span class="sxs-lookup"><span data-stu-id="09786-160">To customize the response content type and text, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> that takes a content type and format string:</span></span>
+<span data-ttu-id="f390d-307">若要自定义响应内容类型和文本，请利用需要使用内容类型和格式字符串的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> 重载：</span><span class="sxs-lookup"><span data-stu-id="f390d-307">To customize the response content type and text, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> that takes a content type and format string:</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesFormatString)]
 
-## <a name="usestatuscodepages-with-lambda"></a><span data-ttu-id="09786-161">包含 lambda 的 UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="09786-161">UseStatusCodePages with lambda</span></span>
+## <a name="usestatuscodepages-with-lambda"></a><span data-ttu-id="f390d-308">包含 lambda 的 UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="f390d-308">UseStatusCodePages with lambda</span></span>
 
-<span data-ttu-id="09786-162">若要指定自定义错误处理和响应写入代码，请利用需要使用 lambda 表达式的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> 重载：</span><span class="sxs-lookup"><span data-stu-id="09786-162">To specify custom error-handling and response-writing code, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> that takes a lambda expression:</span></span>
+<span data-ttu-id="f390d-309">若要指定自定义错误处理和响应写入代码，请利用需要使用 lambda 表达式的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> 重载：</span><span class="sxs-lookup"><span data-stu-id="f390d-309">To specify custom error-handling and response-writing code, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A> that takes a lambda expression:</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesLambda)]
 
-## <a name="usestatuscodepageswithredirects"></a><span data-ttu-id="09786-163">UseStatusCodePagesWithRedirects</span><span class="sxs-lookup"><span data-stu-id="09786-163">UseStatusCodePagesWithRedirects</span></span>
+## <a name="usestatuscodepageswithredirects"></a><span data-ttu-id="f390d-310">UseStatusCodePagesWithRedirects</span><span class="sxs-lookup"><span data-stu-id="f390d-310">UseStatusCodePagesWithRedirects</span></span>
 
-<span data-ttu-id="09786-164"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects%2A> 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="09786-164">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects%2A> extension method:</span></span>
+<span data-ttu-id="f390d-311"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects%2A> 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="f390d-311">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects%2A> extension method:</span></span>
 
-* <span data-ttu-id="09786-165">向客户端发送“302 - 已找到”状态代码。</span><span class="sxs-lookup"><span data-stu-id="09786-165">Sends a *302 - Found* status code to the client.</span></span>
-* <span data-ttu-id="09786-166">将客户端重定向到 URL 模板中的位置。</span><span class="sxs-lookup"><span data-stu-id="09786-166">Redirects the client to the location provided in the URL template.</span></span>
+* <span data-ttu-id="f390d-312">向客户端发送“302 - 已找到”状态代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-312">Sends a *302 - Found* status code to the client.</span></span>
+* <span data-ttu-id="f390d-313">将客户端重定向到 URL 模板中的位置。</span><span class="sxs-lookup"><span data-stu-id="f390d-313">Redirects the client to the location provided in the URL template.</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
 
-<span data-ttu-id="09786-167">URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所示。</span><span class="sxs-lookup"><span data-stu-id="09786-167">The URL template can include a `{0}` placeholder for the status code, as shown in the example.</span></span> <span data-ttu-id="09786-168">如果 URL 模板以波形符 (~) 开头，波形符会替换为应用的 `PathBase`。</span><span class="sxs-lookup"><span data-stu-id="09786-168">If the URL template starts with a tilde (~), the tilde is replaced by the app's `PathBase`.</span></span> <span data-ttu-id="09786-169">如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="09786-169">If you point to an endpoint within the app, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="09786-170">有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。</span><span class="sxs-lookup"><span data-stu-id="09786-170">For a Razor Pages example, see *Pages/StatusCode.cshtml* in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span>
+<span data-ttu-id="f390d-314">URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所示。</span><span class="sxs-lookup"><span data-stu-id="f390d-314">The URL template can include a `{0}` placeholder for the status code, as shown in the example.</span></span> <span data-ttu-id="f390d-315">如果 URL 模板以波形符 `~`（代字号）开头，则 `~` 会替换为应用的 `PathBase`。</span><span class="sxs-lookup"><span data-stu-id="f390d-315">If the URL template starts with `~` (tilde), the `~` is replaced by the app's `PathBase`.</span></span> <span data-ttu-id="f390d-316">如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="f390d-316">If you point to an endpoint within the app, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="f390d-317">有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。</span><span class="sxs-lookup"><span data-stu-id="f390d-317">For a Razor Pages example, see *Pages/StatusCode.cshtml* in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span>
 
-<span data-ttu-id="09786-171">使用此方法通常是当应用：</span><span class="sxs-lookup"><span data-stu-id="09786-171">This method is commonly used when the app:</span></span>
+<span data-ttu-id="f390d-318">使用此方法通常是当应用：</span><span class="sxs-lookup"><span data-stu-id="f390d-318">This method is commonly used when the app:</span></span>
 
-* <span data-ttu-id="09786-172">应将客户端重定向到不同的终结点（通常在不同的应用处理错误的情况下）。</span><span class="sxs-lookup"><span data-stu-id="09786-172">Should redirect the client to a different endpoint, usually in cases where a different app processes the error.</span></span> <span data-ttu-id="09786-173">对于 Web 应用，客户端的浏览器地址栏反映重定向终结点。</span><span class="sxs-lookup"><span data-stu-id="09786-173">For web apps, the client's browser address bar reflects the redirected endpoint.</span></span>
-* <span data-ttu-id="09786-174">不应保留原始状态代码并通过初始重定向响应返回该代码。</span><span class="sxs-lookup"><span data-stu-id="09786-174">Shouldn't preserve and return the original status code with the initial redirect response.</span></span>
+* <span data-ttu-id="f390d-319">应将客户端重定向到不同的终结点（通常在不同的应用处理错误的情况下）。</span><span class="sxs-lookup"><span data-stu-id="f390d-319">Should redirect the client to a different endpoint, usually in cases where a different app processes the error.</span></span> <span data-ttu-id="f390d-320">对于 Web 应用，客户端的浏览器地址栏反映重定向终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-320">For web apps, the client's browser address bar reflects the redirected endpoint.</span></span>
+* <span data-ttu-id="f390d-321">不应保留原始状态代码并通过初始重定向响应返回该代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-321">Shouldn't preserve and return the original status code with the initial redirect response.</span></span>
 
-## <a name="usestatuscodepageswithreexecute"></a><span data-ttu-id="09786-175">UseStatusCodePagesWithReExecute</span><span class="sxs-lookup"><span data-stu-id="09786-175">UseStatusCodePagesWithReExecute</span></span>
+## <a name="usestatuscodepageswithreexecute"></a><span data-ttu-id="f390d-322">UseStatusCodePagesWithReExecute</span><span class="sxs-lookup"><span data-stu-id="f390d-322">UseStatusCodePagesWithReExecute</span></span>
 
-<span data-ttu-id="09786-176"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute%2A> 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="09786-176">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute%2A> extension method:</span></span>
+<span data-ttu-id="f390d-323"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute%2A> 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="f390d-323">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute%2A> extension method:</span></span>
 
-* <span data-ttu-id="09786-177">向客户端返回原始状态代码。</span><span class="sxs-lookup"><span data-stu-id="09786-177">Returns the original status code to the client.</span></span>
-* <span data-ttu-id="09786-178">通过使用备用路径重新执行请求管道，从而生成响应正文。</span><span class="sxs-lookup"><span data-stu-id="09786-178">Generates the response body by re-executing the request pipeline using an alternate path.</span></span>
+* <span data-ttu-id="f390d-324">向客户端返回原始状态代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-324">Returns the original status code to the client.</span></span>
+* <span data-ttu-id="f390d-325">通过使用备用路径重新执行请求管道，从而生成响应正文。</span><span class="sxs-lookup"><span data-stu-id="f390d-325">Generates the response body by re-executing the request pipeline using an alternate path.</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithReExecute)]
 
-<span data-ttu-id="09786-179">如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="09786-179">If you point to an endpoint within the app, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="09786-180">确保将 `UseStatusCodePagesWithReExecute` 放置在 `UseRouting` 之前，以便可以将请求重新路由到状态页。</span><span class="sxs-lookup"><span data-stu-id="09786-180">Ensure `UseStatusCodePagesWithReExecute` is placed before `UseRouting` so the request can be rerouted to the status page.</span></span> <span data-ttu-id="09786-181">有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。</span><span class="sxs-lookup"><span data-stu-id="09786-181">For a Razor Pages example, see *Pages/StatusCode.cshtml* in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span>
+<span data-ttu-id="f390d-326">如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="f390d-326">If you point to an endpoint within the app, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="f390d-327">确保将 `UseStatusCodePagesWithReExecute` 放置在 `UseRouting` 之前，以便可以将请求重新路由到状态页。</span><span class="sxs-lookup"><span data-stu-id="f390d-327">Ensure `UseStatusCodePagesWithReExecute` is placed before `UseRouting` so the request can be rerouted to the status page.</span></span> <span data-ttu-id="f390d-328">有关 Razor Pages 示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。</span><span class="sxs-lookup"><span data-stu-id="f390d-328">For a Razor Pages example, see *Pages/StatusCode.cshtml* in the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span>
 
-<span data-ttu-id="09786-182">使用此方法通常是当应用应：</span><span class="sxs-lookup"><span data-stu-id="09786-182">This method is commonly used when the app should:</span></span>
+<span data-ttu-id="f390d-329">使用此方法通常是当应用应：</span><span class="sxs-lookup"><span data-stu-id="f390d-329">This method is commonly used when the app should:</span></span>
 
-* <span data-ttu-id="09786-183">处理请求，但不重定向到不同终结点。</span><span class="sxs-lookup"><span data-stu-id="09786-183">Process the request without redirecting to a different endpoint.</span></span> <span data-ttu-id="09786-184">对于 Web 应用，客户端的浏览器地址栏反映最初请求的终结点。</span><span class="sxs-lookup"><span data-stu-id="09786-184">For web apps, the client's browser address bar reflects the originally requested endpoint.</span></span>
-* <span data-ttu-id="09786-185">保留原始状态代码并通过响应返回该代码。</span><span class="sxs-lookup"><span data-stu-id="09786-185">Preserve and return the original status code with the response.</span></span>
+* <span data-ttu-id="f390d-330">处理请求，但不重定向到不同终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-330">Process the request without redirecting to a different endpoint.</span></span> <span data-ttu-id="f390d-331">对于 Web 应用，客户端的浏览器地址栏反映最初请求的终结点。</span><span class="sxs-lookup"><span data-stu-id="f390d-331">For web apps, the client's browser address bar reflects the originally requested endpoint.</span></span>
+* <span data-ttu-id="f390d-332">保留原始状态代码并通过响应返回该代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-332">Preserve and return the original status code with the response.</span></span>
 
-<span data-ttu-id="09786-186">URL 模板和查询字符串模板可能包括状态代码的占位符 (`{0}`)。</span><span class="sxs-lookup"><span data-stu-id="09786-186">The URL and query string templates may include a placeholder (`{0}`) for the status code.</span></span> <span data-ttu-id="09786-187">URL 模板必须以斜杠 (`/`) 开头。</span><span class="sxs-lookup"><span data-stu-id="09786-187">The URL template must start with a slash (`/`).</span></span> <span data-ttu-id="09786-188">若要在路径中使用占位符，请确认终结点（页或控制器）能否处理路径段。</span><span class="sxs-lookup"><span data-stu-id="09786-188">When using a placeholder in the path, confirm that the endpoint (page or controller) can process the path segment.</span></span> <span data-ttu-id="09786-189">例如，错误的 Razor 页面应通过 `@page` 指令接受可选路径段值：</span><span class="sxs-lookup"><span data-stu-id="09786-189">For example, a Razor Page for errors should accept the optional path segment value with the `@page` directive:</span></span>
+<span data-ttu-id="f390d-333">URL 模板和查询字符串模板可能包括状态代码的占位符 (`{0}`)。</span><span class="sxs-lookup"><span data-stu-id="f390d-333">The URL and query string templates may include a placeholder (`{0}`) for the status code.</span></span> <span data-ttu-id="f390d-334">URL 模板必须以斜杠 (`/`) 开头。</span><span class="sxs-lookup"><span data-stu-id="f390d-334">The URL template must start with a slash (`/`).</span></span> <span data-ttu-id="f390d-335">若要在路径中使用占位符，请确认终结点（页或控制器）能否处理路径段。</span><span class="sxs-lookup"><span data-stu-id="f390d-335">When using a placeholder in the path, confirm that the endpoint (page or controller) can process the path segment.</span></span> <span data-ttu-id="f390d-336">例如，错误的 Razor 页面应通过 `@page` 指令接受可选路径段值：</span><span class="sxs-lookup"><span data-stu-id="f390d-336">For example, a Razor Page for errors should accept the optional path segment value with the `@page` directive:</span></span>
 
 ```cshtml
 @page "{code?}"
 ```
 
-<span data-ttu-id="09786-190">错误处理终结点可以获取生成错误的原始 URL，如下面的示例所示：</span><span class="sxs-lookup"><span data-stu-id="09786-190">The endpoint that processes the error can get the original URL that generated the error, as shown in the following example:</span></span>
+<span data-ttu-id="f390d-337">错误处理终结点可以获取生成错误的原始 URL，如下面的示例所示：</span><span class="sxs-lookup"><span data-stu-id="f390d-337">The endpoint that processes the error can get the original URL that generated the error, as shown in the following example:</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/StatusCode.cshtml.cs?name=snippet_StatusCodeReExecute)]
 
-## <a name="disable-status-code-pages"></a><span data-ttu-id="09786-191">禁用状态代码页</span><span class="sxs-lookup"><span data-stu-id="09786-191">Disable status code pages</span></span>
+## <a name="disable-status-code-pages"></a><span data-ttu-id="f390d-338">禁用状态代码页</span><span class="sxs-lookup"><span data-stu-id="f390d-338">Disable status code pages</span></span>
 
-<span data-ttu-id="09786-192">若要禁用 MVC 控制器或操作方法的状态代码页，请使用 [`[SkipStatusCodePages]`](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) 特性。</span><span class="sxs-lookup"><span data-stu-id="09786-192">To disable status code pages for an MVC controller or action method, use the [`[SkipStatusCodePages]`](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) attribute.</span></span>
+<span data-ttu-id="f390d-339">若要禁用 MVC 控制器或操作方法的状态代码页，请使用 [`[SkipStatusCodePages]`](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) 特性。</span><span class="sxs-lookup"><span data-stu-id="f390d-339">To disable status code pages for an MVC controller or action method, use the [`[SkipStatusCodePages]`](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) attribute.</span></span>
 
-<span data-ttu-id="09786-193">若要禁用 Razor Pages 处理程序方法或 MVC 控制器中的特定请求的状态代码页，请使用 <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>：</span><span class="sxs-lookup"><span data-stu-id="09786-193">To disable status code pages for specific requests in a Razor Pages handler method or in an MVC controller, use <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>:</span></span>
+<span data-ttu-id="f390d-340">若要禁用 Razor Pages 处理程序方法或 MVC 控制器中的特定请求的状态代码页，请使用 <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>：</span><span class="sxs-lookup"><span data-stu-id="f390d-340">To disable status code pages for specific requests in a Razor Pages handler method or in an MVC controller, use <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>:</span></span>
 
 ```csharp
 var statusCodePagesFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();
@@ -192,36 +430,36 @@ if (statusCodePagesFeature != null)
 }
 ```
 
-## <a name="exception-handling-code"></a><span data-ttu-id="09786-194">异常处理代码</span><span class="sxs-lookup"><span data-stu-id="09786-194">Exception-handling code</span></span>
+## <a name="exception-handling-code"></a><span data-ttu-id="f390d-341">异常处理代码</span><span class="sxs-lookup"><span data-stu-id="f390d-341">Exception-handling code</span></span>
 
-<span data-ttu-id="09786-195">异常处理页中的代码可能会引发异常。</span><span class="sxs-lookup"><span data-stu-id="09786-195">Code in exception handling pages can throw exceptions.</span></span> <span data-ttu-id="09786-196">建议在生产错误页面中包含纯静态内容。</span><span class="sxs-lookup"><span data-stu-id="09786-196">It's often a good idea for production error pages to consist of purely static content.</span></span>
+<span data-ttu-id="f390d-342">异常处理页中的代码可能会引发异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-342">Code in exception handling pages can throw exceptions.</span></span> <span data-ttu-id="f390d-343">建议在生产错误页面中包含纯静态内容。</span><span class="sxs-lookup"><span data-stu-id="f390d-343">It's often a good idea for production error pages to consist of purely static content.</span></span>
 
-### <a name="response-headers"></a><span data-ttu-id="09786-197">响应头</span><span class="sxs-lookup"><span data-stu-id="09786-197">Response headers</span></span>
+### <a name="response-headers"></a><span data-ttu-id="f390d-344">响应头</span><span class="sxs-lookup"><span data-stu-id="f390d-344">Response headers</span></span>
 
-<span data-ttu-id="09786-198">在响应头发送后：</span><span class="sxs-lookup"><span data-stu-id="09786-198">Once the headers for a response are sent:</span></span>
+<span data-ttu-id="f390d-345">在响应头发送后：</span><span class="sxs-lookup"><span data-stu-id="f390d-345">Once the headers for a response are sent:</span></span>
 
-* <span data-ttu-id="09786-199">应用无法更改响应的状态代码。</span><span class="sxs-lookup"><span data-stu-id="09786-199">The app can't change the response's status code.</span></span>
-* <span data-ttu-id="09786-200">任何异常页或处理程序都无法运行。</span><span class="sxs-lookup"><span data-stu-id="09786-200">Any exception pages or handlers can't run.</span></span> <span data-ttu-id="09786-201">必须完成响应或中止连接。</span><span class="sxs-lookup"><span data-stu-id="09786-201">The response must be completed or the connection aborted.</span></span>
+* <span data-ttu-id="f390d-346">应用无法更改响应的状态代码。</span><span class="sxs-lookup"><span data-stu-id="f390d-346">The app can't change the response's status code.</span></span>
+* <span data-ttu-id="f390d-347">任何异常页或处理程序都无法运行。</span><span class="sxs-lookup"><span data-stu-id="f390d-347">Any exception pages or handlers can't run.</span></span> <span data-ttu-id="f390d-348">必须完成响应或中止连接。</span><span class="sxs-lookup"><span data-stu-id="f390d-348">The response must be completed or the connection aborted.</span></span>
 
-## <a name="server-exception-handling"></a><span data-ttu-id="09786-202">服务器异常处理</span><span class="sxs-lookup"><span data-stu-id="09786-202">Server exception handling</span></span>
+## <a name="server-exception-handling"></a><span data-ttu-id="f390d-349">服务器异常处理</span><span class="sxs-lookup"><span data-stu-id="f390d-349">Server exception handling</span></span>
 
-<span data-ttu-id="09786-203">除了应用中的异常处理逻辑外，[HTTP 服务器实现](xref:fundamentals/servers/index)还能处理一些异常。</span><span class="sxs-lookup"><span data-stu-id="09786-203">In addition to the exception handling logic in your app, the [HTTP server implementation](xref:fundamentals/servers/index) can handle some exceptions.</span></span> <span data-ttu-id="09786-204">如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”响应。</span><span class="sxs-lookup"><span data-stu-id="09786-204">If the server catches an exception before response headers are sent, the server sends a *500 - Internal Server Error* response without a response body.</span></span> <span data-ttu-id="09786-205">如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。</span><span class="sxs-lookup"><span data-stu-id="09786-205">If the server catches an exception after response headers are sent, the server closes the connection.</span></span> <span data-ttu-id="09786-206">应用程序无法处理的请求将由服务器进行处理。</span><span class="sxs-lookup"><span data-stu-id="09786-206">Requests that aren't handled by your app are handled by the server.</span></span> <span data-ttu-id="09786-207">当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。</span><span class="sxs-lookup"><span data-stu-id="09786-207">Any exception that occurs when the server is handling the request is handled by the server's exception handling.</span></span> <span data-ttu-id="09786-208">应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。</span><span class="sxs-lookup"><span data-stu-id="09786-208">The app's custom error pages, exception handling middleware, and filters don't affect this behavior.</span></span>
+<span data-ttu-id="f390d-350">除了应用中的异常处理逻辑外，[HTTP 服务器实现](xref:fundamentals/servers/index)还能处理一些异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-350">In addition to the exception handling logic in your app, the [HTTP server implementation](xref:fundamentals/servers/index) can handle some exceptions.</span></span> <span data-ttu-id="f390d-351">如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”响应。</span><span class="sxs-lookup"><span data-stu-id="f390d-351">If the server catches an exception before response headers are sent, the server sends a *500 - Internal Server Error* response without a response body.</span></span> <span data-ttu-id="f390d-352">如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。</span><span class="sxs-lookup"><span data-stu-id="f390d-352">If the server catches an exception after response headers are sent, the server closes the connection.</span></span> <span data-ttu-id="f390d-353">应用程序无法处理的请求将由服务器进行处理。</span><span class="sxs-lookup"><span data-stu-id="f390d-353">Requests that aren't handled by your app are handled by the server.</span></span> <span data-ttu-id="f390d-354">当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。</span><span class="sxs-lookup"><span data-stu-id="f390d-354">Any exception that occurs when the server is handling the request is handled by the server's exception handling.</span></span> <span data-ttu-id="f390d-355">应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。</span><span class="sxs-lookup"><span data-stu-id="f390d-355">The app's custom error pages, exception handling middleware, and filters don't affect this behavior.</span></span>
 
-## <a name="startup-exception-handling"></a><span data-ttu-id="09786-209">启动异常处理</span><span class="sxs-lookup"><span data-stu-id="09786-209">Startup exception handling</span></span>
+## <a name="startup-exception-handling"></a><span data-ttu-id="f390d-356">启动异常处理</span><span class="sxs-lookup"><span data-stu-id="f390d-356">Startup exception handling</span></span>
 
-<span data-ttu-id="09786-210">应用程序启动期间发生的异常仅可在承载层进行处理。</span><span class="sxs-lookup"><span data-stu-id="09786-210">Only the hosting layer can handle exceptions that take place during app startup.</span></span> <span data-ttu-id="09786-211">可以将主机配置为，[捕获启动错误](xref:fundamentals/host/web-host#capture-startup-errors)和[捕获详细错误](xref:fundamentals/host/web-host#detailed-errors)。</span><span class="sxs-lookup"><span data-stu-id="09786-211">The host can be configured to [capture startup errors](xref:fundamentals/host/web-host#capture-startup-errors) and [capture detailed errors](xref:fundamentals/host/web-host#detailed-errors).</span></span>
+<span data-ttu-id="f390d-357">应用程序启动期间发生的异常仅可在承载层进行处理。</span><span class="sxs-lookup"><span data-stu-id="f390d-357">Only the hosting layer can handle exceptions that take place during app startup.</span></span> <span data-ttu-id="f390d-358">可以将主机配置为，[捕获启动错误](xref:fundamentals/host/web-host#capture-startup-errors)和[捕获详细错误](xref:fundamentals/host/web-host#detailed-errors)。</span><span class="sxs-lookup"><span data-stu-id="f390d-358">The host can be configured to [capture startup errors](xref:fundamentals/host/web-host#capture-startup-errors) and [capture detailed errors](xref:fundamentals/host/web-host#detailed-errors).</span></span>
 
-<span data-ttu-id="09786-212">仅当错误在主机地址/端口绑定后出现时，托管层才能显示捕获的启动错误的错误页。</span><span class="sxs-lookup"><span data-stu-id="09786-212">The hosting layer can show an error page for a captured startup error only if the error occurs after host address/port binding.</span></span> <span data-ttu-id="09786-213">如果绑定失败：</span><span class="sxs-lookup"><span data-stu-id="09786-213">If binding fails:</span></span>
+<span data-ttu-id="f390d-359">仅当错误在主机地址/端口绑定后出现时，托管层才能显示捕获的启动错误的错误页。</span><span class="sxs-lookup"><span data-stu-id="f390d-359">The hosting layer can show an error page for a captured startup error only if the error occurs after host address/port binding.</span></span> <span data-ttu-id="f390d-360">如果绑定失败：</span><span class="sxs-lookup"><span data-stu-id="f390d-360">If binding fails:</span></span>
 
-* <span data-ttu-id="09786-214">托管层将记录关键异常。</span><span class="sxs-lookup"><span data-stu-id="09786-214">The hosting layer logs a critical exception.</span></span>
-* <span data-ttu-id="09786-215">dotnet 进程崩溃。</span><span class="sxs-lookup"><span data-stu-id="09786-215">The dotnet process crashes.</span></span>
-* <span data-ttu-id="09786-216">不会在 HTTP 服务器为 [Kestrel](xref:fundamentals/servers/kestrel) 时显示任何错误页。</span><span class="sxs-lookup"><span data-stu-id="09786-216">No error page is displayed when the HTTP server is [Kestrel](xref:fundamentals/servers/kestrel).</span></span>
+* <span data-ttu-id="f390d-361">托管层将记录关键异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-361">The hosting layer logs a critical exception.</span></span>
+* <span data-ttu-id="f390d-362">dotnet 进程崩溃。</span><span class="sxs-lookup"><span data-stu-id="f390d-362">The dotnet process crashes.</span></span>
+* <span data-ttu-id="f390d-363">不会在 HTTP 服务器为 [Kestrel](xref:fundamentals/servers/kestrel) 时显示任何错误页。</span><span class="sxs-lookup"><span data-stu-id="f390d-363">No error page is displayed when the HTTP server is [Kestrel](xref:fundamentals/servers/kestrel).</span></span>
 
-<span data-ttu-id="09786-217">在 [IIS](/iis)（或 Azure 应用服务）或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”。</span><span class="sxs-lookup"><span data-stu-id="09786-217">When running on [IIS](/iis) (or Azure App Service) or [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), a *502.5 - Process Failure* is returned by the [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) if the process can't start.</span></span> <span data-ttu-id="09786-218">有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。</span><span class="sxs-lookup"><span data-stu-id="09786-218">For more information, see <xref:test/troubleshoot-azure-iis>.</span></span>
+<span data-ttu-id="f390d-364">在 [IIS](/iis)（或 Azure 应用服务）或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”。</span><span class="sxs-lookup"><span data-stu-id="f390d-364">When running on [IIS](/iis) (or Azure App Service) or [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), a *502.5 - Process Failure* is returned by the [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) if the process can't start.</span></span> <span data-ttu-id="f390d-365">有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。</span><span class="sxs-lookup"><span data-stu-id="f390d-365">For more information, see <xref:test/troubleshoot-azure-iis>.</span></span>
 
-## <a name="database-error-page"></a><span data-ttu-id="09786-219">数据库错误页</span><span class="sxs-lookup"><span data-stu-id="09786-219">Database error page</span></span>
+## <a name="database-error-page"></a><span data-ttu-id="f390d-366">数据库错误页</span><span class="sxs-lookup"><span data-stu-id="f390d-366">Database error page</span></span>
 
-<span data-ttu-id="09786-220">数据库错误页中间件捕获与数据库相关的异常，可使用实体框架迁移来解析这些异常。</span><span class="sxs-lookup"><span data-stu-id="09786-220">Database Error Page Middleware captures database-related exceptions that can be resolved by using Entity Framework migrations.</span></span> <span data-ttu-id="09786-221">当这些异常出现时，便会生成 HTML 响应，其中包含用于解决问题的可能操作的详细信息。</span><span class="sxs-lookup"><span data-stu-id="09786-221">When these exceptions occur, an HTML response with details of possible actions to resolve the issue is generated.</span></span> <span data-ttu-id="09786-222">应仅在开发环境中启用此页。</span><span class="sxs-lookup"><span data-stu-id="09786-222">This page should be enabled only in the Development environment.</span></span> <span data-ttu-id="09786-223">通过向 `Startup.Configure` 添加代码来启用此页：</span><span class="sxs-lookup"><span data-stu-id="09786-223">Enable the page by adding code to `Startup.Configure`:</span></span>
+<span data-ttu-id="f390d-367">数据库错误页中间件捕获与数据库相关的异常，可使用实体框架迁移来解析这些异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-367">Database Error Page Middleware captures database-related exceptions that can be resolved by using Entity Framework migrations.</span></span> <span data-ttu-id="f390d-368">当这些异常出现时，便会生成 HTML 响应，其中包含用于解决问题的可能操作的详细信息。</span><span class="sxs-lookup"><span data-stu-id="f390d-368">When these exceptions occur, an HTML response with details of possible actions to resolve the issue is generated.</span></span> <span data-ttu-id="f390d-369">应仅在开发环境中启用此页。</span><span class="sxs-lookup"><span data-stu-id="f390d-369">This page should be enabled only in the Development environment.</span></span> <span data-ttu-id="f390d-370">通过向 `Startup.Configure` 添加代码来启用此页：</span><span class="sxs-lookup"><span data-stu-id="f390d-370">Enable the page by adding code to `Startup.Configure`:</span></span>
 
 ```csharp
 if (env.IsDevelopment())
@@ -230,22 +468,24 @@ if (env.IsDevelopment())
 }
 ```
 
-<span data-ttu-id="09786-224"><xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage%2A> 需要 [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="09786-224"><xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage%2A> requires the [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/) NuGet package.</span></span>
+<span data-ttu-id="f390d-371"><xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage%2A> 需要 [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="f390d-371"><xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage%2A> requires the [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/) NuGet package.</span></span>
 
 <!-- FUTURE UPDATE: On the next topic overhaul/release update, add API crosslink to this section for xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage* when available via the API docs. -->
 
-## <a name="exception-filters"></a><span data-ttu-id="09786-225">异常筛选器</span><span class="sxs-lookup"><span data-stu-id="09786-225">Exception filters</span></span>
+## <a name="exception-filters"></a><span data-ttu-id="f390d-372">异常筛选器</span><span class="sxs-lookup"><span data-stu-id="f390d-372">Exception filters</span></span>
 
-<span data-ttu-id="09786-226">在 MVC 应用中，可以全局配置异常筛选器，也可以为每个控制器或每个操作单独配置。</span><span class="sxs-lookup"><span data-stu-id="09786-226">In MVC apps, exception filters can be configured globally or on a per-controller or per-action basis.</span></span> <span data-ttu-id="09786-227">在 Razor Pages 应用中，可以全局配置异常筛选器，也可以为每个页面模型单独配置。</span><span class="sxs-lookup"><span data-stu-id="09786-227">In Razor Pages apps, they can be configured globally or per page model.</span></span> <span data-ttu-id="09786-228">这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。</span><span class="sxs-lookup"><span data-stu-id="09786-228">These filters handle any unhandled exception that occurs during the execution of a controller action or another filter.</span></span> <span data-ttu-id="09786-229">有关详细信息，请参阅 <xref:mvc/controllers/filters#exception-filters>。</span><span class="sxs-lookup"><span data-stu-id="09786-229">For more information, see <xref:mvc/controllers/filters#exception-filters>.</span></span>
+<span data-ttu-id="f390d-373">在 MVC 应用中，可以全局配置异常筛选器，也可以为每个控制器或每个操作单独配置。</span><span class="sxs-lookup"><span data-stu-id="f390d-373">In MVC apps, exception filters can be configured globally or on a per-controller or per-action basis.</span></span> <span data-ttu-id="f390d-374">在 Razor Pages 应用中，可以全局配置异常筛选器，也可以为每个页面模型单独配置。</span><span class="sxs-lookup"><span data-stu-id="f390d-374">In Razor Pages apps, they can be configured globally or per page model.</span></span> <span data-ttu-id="f390d-375">这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。</span><span class="sxs-lookup"><span data-stu-id="f390d-375">These filters handle any unhandled exception that occurs during the execution of a controller action or another filter.</span></span> <span data-ttu-id="f390d-376">有关详细信息，请参阅 <xref:mvc/controllers/filters#exception-filters>。</span><span class="sxs-lookup"><span data-stu-id="f390d-376">For more information, see <xref:mvc/controllers/filters#exception-filters>.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="09786-230">异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如异常处理中间件灵活。</span><span class="sxs-lookup"><span data-stu-id="09786-230">Exception filters are useful for trapping exceptions that occur within MVC actions, but they're not as flexible as the Exception Handling Middleware.</span></span> <span data-ttu-id="09786-231">建议使用中间件。</span><span class="sxs-lookup"><span data-stu-id="09786-231">We recommend using the middleware.</span></span> <span data-ttu-id="09786-232">仅在需要根据选定 MVC 操作以不同方式执行错误处理时，才使用筛选器。</span><span class="sxs-lookup"><span data-stu-id="09786-232">Use filters only where you need to perform error handling differently based on which MVC action is chosen.</span></span>
+> <span data-ttu-id="f390d-377">异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如异常处理中间件灵活。</span><span class="sxs-lookup"><span data-stu-id="f390d-377">Exception filters are useful for trapping exceptions that occur within MVC actions, but they're not as flexible as the Exception Handling Middleware.</span></span> <span data-ttu-id="f390d-378">建议使用中间件。</span><span class="sxs-lookup"><span data-stu-id="f390d-378">We recommend using the middleware.</span></span> <span data-ttu-id="f390d-379">仅在需要根据选定 MVC 操作以不同方式执行错误处理时，才使用筛选器。</span><span class="sxs-lookup"><span data-stu-id="f390d-379">Use filters only where you need to perform error handling differently based on which MVC action is chosen.</span></span>
 
-## <a name="model-state-errors"></a><span data-ttu-id="09786-233">模型状态错误</span><span class="sxs-lookup"><span data-stu-id="09786-233">Model state errors</span></span>
+## <a name="model-state-errors"></a><span data-ttu-id="f390d-380">模型状态错误</span><span class="sxs-lookup"><span data-stu-id="f390d-380">Model state errors</span></span>
 
-<span data-ttu-id="09786-234">若要了解如何处理模型状态错误，请参阅[模型绑定](xref:mvc/models/model-binding)和[模型验证](xref:mvc/models/validation)。</span><span class="sxs-lookup"><span data-stu-id="09786-234">For information about how to handle model state errors, see [Model binding](xref:mvc/models/model-binding) and [Model validation](xref:mvc/models/validation).</span></span>
+<span data-ttu-id="f390d-381">若要了解如何处理模型状态错误，请参阅[模型绑定](xref:mvc/models/model-binding)和[模型验证](xref:mvc/models/validation)。</span><span class="sxs-lookup"><span data-stu-id="f390d-381">For information about how to handle model state errors, see [Model binding](xref:mvc/models/model-binding) and [Model validation](xref:mvc/models/validation).</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="09786-235">其他资源</span><span class="sxs-lookup"><span data-stu-id="09786-235">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="f390d-382">其他资源</span><span class="sxs-lookup"><span data-stu-id="f390d-382">Additional resources</span></span>
 
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
+
+::: moniker-end
