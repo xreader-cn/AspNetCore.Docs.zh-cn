@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 5d3cd1480dd37f437b2d6d5a89af0a842286be95
-ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
+ms.openlocfilehash: d1ad646f82e5c9ba611a60fc9be8378bedef8dee
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90080259"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90721718"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
 
@@ -81,10 +81,7 @@ ms.locfileid: "90080259"
 
 组件提供了一种方便的方法来生成代码和标记的可重用片段。 通常，我们建议创作最符合应用要求的单个组件。 需要注意的是，每个附加的子组件都会增加呈现父组件所需的总时间。 对于大多数应用，额外的开销可以忽略不计。 生成大量组件的应用应考虑使用策略来减少处理开销，例如限制所呈现的组件的数量。
 
-例如，如果某网格或列表要呈现数百个包含组件的行，则该网格或列表呈现时会大量使用处理器。 请考虑将网格或列表布局虚拟化，以便在任何给定时间都只呈现其中的一部分组件。 有关组件子集呈现的示例，请参阅 [`Virtualization` 示例应用（aspnet/示例 GitHub 存储库）中的以下组件](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Virtualization)：
-
-* `Virtualize` 组件 ([`Shared/Virtualize.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs))：用 C# 语言编写的一种组件，实现了 <xref:Microsoft.AspNetCore.Components.ComponentBase> 来根据用户滚动呈现一组天气数据行。
-* `FetchData` 组件 ([`Pages/FetchData.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor))：使用 `Virtualize` 组件一次显示 25 行天气数据。
+有关详细信息，请参阅 <xref:blazor/components/virtualization>。
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a>不要用 JavaScript 互操作来封送数据
 

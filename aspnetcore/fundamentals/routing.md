@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: cf450385db3c7327de233357d4c13d556ee44bad
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 1b8ccb510927fbc8a40f7424ae1ca4a131799095
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633664"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722879"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -50,7 +50,7 @@ ms.locfileid: "88633664"
 本文档中所述的终结点路由系统适用于 ASP.NET Core 3.0 及更高版本。 有关以前基于 <xref:Microsoft.AspNetCore.Routing.IRouter> 的路由系统信息，请使用以下方法之一选择 ASP.NET Core 2.1 版本：
 
 * 以前版本的版本选择器。
-* 选择 [ASP.NET Core 2.1 路由](https://docs.microsoft.com/aspnet/core/fundamentals/routing?view=aspnetcore-2.1)。
+* 选择 [ASP.NET Core 2.1 路由](?view=aspnetcore-2.1)。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples/3.x)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -507,14 +507,14 @@ URL 生成：
 
 | 约束 | 示例 | 匹配项示例 | 说明 |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数 |
-| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true` 或 `false`。 不区分大小写 |
-| `datetime` | `{dob:datetime}` | `2016-12-31`，`2016-12-31 7:32pm` | 在固定区域性中匹配有效的 `DateTime` 值。 请参阅前面的警告。 |
-| `decimal` | `{price:decimal}` | `49.99`，`-1,000.01` | 在固定区域性中匹配有效的 `decimal` 值。 请参阅前面的警告。|
-| `double` | `{weight:double}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `double` 值。 请参阅前面的警告。|
-| `float` | `{weight:float}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `float` 值。 请参阅前面的警告。|
+| `int` | `{id:int}` | `123456789`, `-123456789` | 匹配任何整数 |
+| `bool` | `{active:bool}` | `true`, `FALSE` | 匹配 `true` 或 `false`。 不区分大小写 |
+| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | 在固定区域性中匹配有效的 `DateTime` 值。 请参阅前面的警告。 |
+| `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | 在固定区域性中匹配有效的 `decimal` 值。 请参阅前面的警告。|
+| `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | 在固定区域性中匹配有效的 `double` 值。 请参阅前面的警告。|
+| `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | 在固定区域性中匹配有效的 `float` 值。 请参阅前面的警告。|
 | `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638` | 匹配有效的 `Guid` 值 |
-| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值 |
+| `long` | `{ticks:long}` | `123456789`, `-123456789` | 匹配有效的 `long` 值 |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `MyFile` | 字符串不得超过 8 个字符 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符 |
@@ -1025,7 +1025,7 @@ services.AddMvc(options => options.EnableEndpointRouting = false)
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-有关基于 <xref:Microsoft.AspNetCore.Routing.IRouter> 的路由的详细信息，请参阅本主题的 [ASP.NET Core 2.1 版本](/aspnet/core/fundamentals/routing?view=aspnetcore-2.1)。
+有关基于 <xref:Microsoft.AspNetCore.Routing.IRouter> 的路由的详细信息，请参阅本主题的 [ASP.NET Core 2.1 版本](?view=aspnetcore-2.1)。
 
 > [!IMPORTANT]
 > 本文档介绍较低级别的 ASP.NET Core 路由。 有关 ASP.NET Core MVC 路由的信息，请参阅 <xref:mvc/controllers/routing>。 有关 Razor Pages 中路由约定的信息，请参阅 <xref:razor-pages/razor-pages-conventions>。
@@ -1441,14 +1441,14 @@ routes.MapRoute(
 
 | 约束 | 示例 | 匹配项示例 | 说明 |
 |------------|---------|-----------------|-------|
-| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数。|
-| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true` 或 `false`。 不区分大小写。|
-| `datetime` | `{dob:datetime}` | `2016-12-31`，`2016-12-31 7:32pm` | 在固定区域性中匹配有效的 `DateTime` 值。 请参阅前面的警告。|
-| `decimal` | `{price:decimal}` | `49.99`，`-1,000.01` | 在固定区域性中匹配有效的 `decimal` 值。 请参阅前面的警告。|
-| `double` | `{weight:double}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `double` 值。 请参阅前面的警告。|
-| `float` | `{weight:float}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `float` 值。 请参阅前面的警告。|
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值。|
-| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值。|
+| `int` | `{id:int}` | `123456789`, `-123456789` | 匹配任何整数。|
+| `bool` | `{active:bool}` | `true`, `FALSE` | 匹配 `true` 或 `false`。 不区分大小写。|
+| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | 在固定区域性中匹配有效的 `DateTime` 值。 请参阅前面的警告。|
+| `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | 在固定区域性中匹配有效的 `decimal` 值。 请参阅前面的警告。|
+| `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | 在固定区域性中匹配有效的 `double` 值。 请参阅前面的警告。|
+| `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | 在固定区域性中匹配有效的 `float` 值。 请参阅前面的警告。|
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值。|
+| `long` | `{ticks:long}` | `123456789`, `-123456789` | 匹配有效的 `long` 值。|
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符。|
 | `maxlength(value)` | `{filename:maxlength(8)}` | `MyFile` | 字符串最多包含 8 个字符。|
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符。|
@@ -1557,8 +1557,8 @@ routes.MapRoute(
 
 对于结合使用参数转换器和所生成的路由，ASP.NET Core 提供了 API 约定：
 
-* ASP.NET Core MVC 还具有 `Microsoft.AspNetCore.Mvc.ApplicationModels.RouteTokenTransformerConvention` API 约定。 该约定将指定的参数转换器应用于应用中的所有属性路由。 在替换属性路径令牌时，参数转换器将转换这些令牌。 有关详细信息，请参阅[使用参数转换器自定义标记替换](/aspnet/core/mvc/controllers/routing#use-a-parameter-transformer-to-customize-token-replacement)。
-* Razor Pages 具有 `Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention` API 约定。 此约定将指定的参数转换器应用于所有自动发现的 Razor Pages。 参数转换器转换 Razor Pages 路由的文件夹和文件名段。 有关详细信息，请参阅[使用参数转换器自定义页面路由](/aspnet/core/razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes)。
+* ASP.NET Core MVC 还具有 `Microsoft.AspNetCore.Mvc.ApplicationModels.RouteTokenTransformerConvention` API 约定。 该约定将指定的参数转换器应用于应用中的所有属性路由。 在替换属性路径令牌时，参数转换器将转换这些令牌。 有关详细信息，请参阅[使用参数转换器自定义标记替换](xref:mvc/controllers/routing#use-a-parameter-transformer-to-customize-token-replacement)。
+* Razor Pages 具有 `Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention` API 约定。 此约定将指定的参数转换器应用于所有自动发现的 Razor Pages。 参数转换器转换 Razor Pages 路由的文件夹和文件名段。 有关详细信息，请参阅[使用参数转换器自定义页面路由](xref:razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes)。
 
 ## <a name="url-generation-reference"></a>URL 生成参考
 
@@ -1891,14 +1891,14 @@ routes.MapRoute(
 
 | 约束 | 示例 | 匹配项示例 | 说明 |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数 |
-| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true`或 `false`（区分大小写） |
-| `datetime` | `{dob:datetime}` | `2016-12-31`，`2016-12-31 7:32pm` | 在固定区域性中匹配有效的 `DateTime` 值。 请参阅前面的警告。|
-| `decimal` | `{price:decimal}` | `49.99`，`-1,000.01` | 在固定区域性中匹配有效的 `decimal` 值。 请参阅前面的警告。|
-| `double` | `{weight:double}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `double` 值。 请参阅前面的警告。|
-| `float` | `{weight:float}` | `1.234`，`-1,001.01e8` | 在固定区域性中匹配有效的 `float` 值。 请参阅前面的警告。|
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
-| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值 |
+| `int` | `{id:int}` | `123456789`, `-123456789` | 匹配任何整数 |
+| `bool` | `{active:bool}` | `true`, `FALSE` | 匹配 `true`或 `false`（区分大小写） |
+| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | 在固定区域性中匹配有效的 `DateTime` 值。 请参阅前面的警告。|
+| `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | 在固定区域性中匹配有效的 `decimal` 值。 请参阅前面的警告。|
+| `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | 在固定区域性中匹配有效的 `double` 值。 请参阅前面的警告。|
+| `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | 在固定区域性中匹配有效的 `float` 值。 请参阅前面的警告。|
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
+| `long` | `{ticks:long}` | `123456789`, `-123456789` | 匹配有效的 `long` 值 |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | 字符串不得超过 8 个字符 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符 |

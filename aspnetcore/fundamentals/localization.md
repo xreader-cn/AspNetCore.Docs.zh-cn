@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: d5be01c67f455a2706a654574ef9f5e273551e70
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 478e9e58f265a8c372dd048f9ba8593424050e01
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865450"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722665"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -66,7 +66,7 @@ ms.locfileid: "88865450"
 
 可以按控制器、区域对本地化字符串分区，或只有一个容器。 在示例应用中，名为 `SharedResource` 的虚拟类用于共享资源。
 
-[!code-csharp[](localization/sample/3.x/Localization/Resources/SharedResource.cs)]
+[!code-csharp[](localization/sample/3.x/Localization/SharedResource.cs)]
 
 某些开发者使用 `Startup` 类，以包含全局或共享字符串。 在下面的示例中，使用 `InfoController` 和 `SharedResource` 本地化工具：
 
@@ -420,7 +420,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 可以按控制器、区域对本地化字符串分区，或只有一个容器。 在示例应用中，名为 `SharedResource` 的虚拟类用于共享资源。
 
-[!code-csharp[](localization/sample/3.x/Localization/Resources/SharedResource.cs)]
+[!code-csharp[](localization/sample/3.x/Localization/SharedResource.cs)]
 
 某些开发者使用 `Startup` 类，以包含全局或共享字符串。 在下面的示例中，使用 `InfoController` 和 `SharedResource` 本地化工具：
 
@@ -775,7 +775,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 可以按控制器、区域对本地化字符串分区，或只有一个容器。 在示例应用中，名为 `SharedResource` 的虚拟类用于共享资源。
 
-[!code-csharp[](localization/sample/3.x/Localization/Resources/SharedResource.cs)]
+[!code-csharp[](localization/sample/3.x/Localization/SharedResource.cs)]
 
 某些开发者使用 `Startup` 类，以包含全局或共享字符串。 在下面的示例中，使用 `InfoController` 和 `SharedResource` 本地化工具：
 
