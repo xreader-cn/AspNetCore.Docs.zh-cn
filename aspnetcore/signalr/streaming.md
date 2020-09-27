@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: 29748ebe24fea03415b5a01b21300433e3fbc0f0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 5a172818f8910a637b731dc1b1315965f448b2ba
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634210"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393569"
 ---
 # <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>使用 ASP.NET Core 中的流式处理 SignalR
 
@@ -74,7 +74,7 @@ ASP.NET Core SignalR 支持服务器方法的流返回值。 这适用于数据�
 > [!NOTE]
 > `ChannelWriter<T>`在后台线程上写入，并尽快返回 `ChannelReader` 。 在返回之前，其他中心调用会被阻止 `ChannelReader` 。
 >
-> 在中环绕逻辑 `try ... catch` 。 完成 `Channel` 中 `catch` 和之外的， `catch` 以确保中心方法调用正确完成。
+> 在[ `try ... catch` 语句](/dotnet/csharp/language-reference/keywords/try-catch)中环绕逻辑。 `Channel`在[ `finally` 块](/dotnet/csharp/language-reference/keywords/try-catch-finally)中完成。 如果要流式传输错误，请将其捕获到块中， `catch` 并将其写入 `finally` 块。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -324,7 +324,7 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
 
 ## <a name="additional-resources"></a>其他资源
 
-* [集线器](xref:signalr/hubs)
+* [中心](xref:signalr/hubs)
 * [.NET 客户端](xref:signalr/dotnet-client)
 * [JavaScript 客户端](xref:signalr/javascript-client)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/configuration
-ms.openlocfilehash: fc0e6398884bb5c3b806a587a8a361d7f279461f
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 579491cfe60a26593ca038a1691f9b52f0fb1d06
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625552"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393868"
 ---
 # <a name="aspnet-core-no-locsignalr-configuration"></a>ASP.NET Core SignalR 配置
 
@@ -85,6 +85,7 @@ var connection = new HubConnectionBuilder()
 | `EnableDetailedErrors` | `false` | 如果为，则在 `true` 集线器方法中引发异常时，详细的异常消息将返回到客户端。 默认值为 `false` ，因为这些异常消息可能包含敏感信息。 |
 | `StreamBufferCapacity` | `10` | 可为客户端上载流缓冲的最大项数。 如果达到此限制，则会阻止处理调用，直到服务器处理流项。|
 | `MaximumReceiveMessageSize` | 32 KB | 单个传入集线器消息的最大大小。 |
+| `MaximumParallelInvocationsPerClient` | 1 | 每个客户端可以在进行排队之前并行调用的最大集线器方法数。 |
 
 可以通过在中提供对调用的选项委托，为所有中心配置选项 `AddSignalR` `Startup.ConfigureServices` 。
 
@@ -197,7 +198,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别**。
 
-| 字符串                      | LogLevel               |
+| String                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |
@@ -585,7 +586,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别**。
 
-| 字符串                      | LogLevel               |
+| String                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |
@@ -970,7 +971,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别**。
 
-| 字符串                      | LogLevel               |
+| String                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-compose-https
-ms.openlocfilehash: 71ead7dcce32dab090a9b0b3573aa855d00fa7f1
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: cd46fdcbe10dc0b7829fbe7eaef821889f395df4
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722756"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393699"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a>通过 HTTPS Docker Compose 宿主 ASP.NET Core 映像
 
@@ -74,7 +74,7 @@ dotnet dev-certs https --trust
 
 创建包含以下内容的 _docker-compose.yml docker-compose.override.yml_ 文件：
 
-```json
+```yaml
 version: '3.4'
 
 services:
@@ -114,7 +114,7 @@ dotnet dev-certs https --trust
 
 创建包含以下内容的 _docker-compose.yml docker-compose.override.yml_ 文件：
 
-```json
+```yaml
 version: '3.4'
 
 services:
@@ -152,7 +152,7 @@ dotnet dev-certs https --trust
 
 创建包含以下内容的 _docker-compose.yml docker-compose.override.yml_ 文件：
 
-```json
+```yaml
 version: '3.4'
 
 services:
