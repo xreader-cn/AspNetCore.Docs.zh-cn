@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/policies
-ms.openlocfilehash: 82ed4cc2ce47d3bd85ca9c2ba2bbeb075eaefcef
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: af282ec1f82b2ac31fd0b46b2406110e24e9211b
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635328"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424238"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于策略的授权
 
@@ -193,7 +193,7 @@ public void ConfigureServices(IServiceCollection services)
 
 * 若要保证故障，即使其他要求处理程序成功，请调用 `context.Fail` 。
 
-如果处理程序调用 `context.Succeed` 或 `context.Fail` ，则仍将调用所有其他处理程序。 这允许要求产生副作用，如日志记录，即使另一个处理程序已成功验证或失败，也会发生这种情况。 如果设置为 `false` ，则在调用时， [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性 (可用于 ASP.NET Core 1.1 及更高版本) 短线路执行处理程序 `context.Fail` 。 `InvokeHandlersAfterFailure` 默认为 `true` ，在这种情况下，将调用所有处理程序。
+如果处理程序调用 `context.Succeed` 或 `context.Fail` ，则仍将调用所有其他处理程序。 这允许要求产生副作用，如日志记录，即使另一个处理程序已成功验证或失败，也会发生这种情况。 当设置为时 `false` ， [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性将在调用时将处理程序的执行短路 `context.Fail` 。 `InvokeHandlersAfterFailure` 默认为 `true` ，在这种情况下，将调用所有处理程序。
 
 > [!NOTE]
 > 即使身份验证失败，也会调用授权处理程序。
@@ -427,7 +427,7 @@ public void ConfigureServices(IServiceCollection services)
 
 * 若要保证故障，即使其他要求处理程序成功，请调用 `context.Fail` 。
 
-如果处理程序调用 `context.Succeed` 或 `context.Fail` ，则仍将调用所有其他处理程序。 这允许要求产生副作用，如日志记录，即使另一个处理程序已成功验证或失败，也会发生这种情况。 如果设置为 `false` ，则在调用时， [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性 (可用于 ASP.NET Core 1.1 及更高版本) 短线路执行处理程序 `context.Fail` 。 `InvokeHandlersAfterFailure` 默认为 `true` ，在这种情况下，将调用所有处理程序。
+如果处理程序调用 `context.Succeed` 或 `context.Fail` ，则仍将调用所有其他处理程序。 这允许要求产生副作用，如日志记录，即使另一个处理程序已成功验证或失败，也会发生这种情况。 当设置为时 `false` ， [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性将在调用时将处理程序的执行短路 `context.Fail` 。 `InvokeHandlersAfterFailure` 默认为 `true` ，在这种情况下，将调用所有处理程序。
 
 > [!NOTE]
 > 即使身份验证失败，也会调用授权处理程序。
