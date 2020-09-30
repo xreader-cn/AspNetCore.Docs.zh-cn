@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/performance
-ms.openlocfilehash: a0a1a6901e07fb0074ca403870378f267d3d4403
-ms.sourcegitcommit: c9b03d8a6a4dcc59e4aacb30a691f349235a74c8
+ms.openlocfilehash: 4d50698b8c55f7fb3ef9a2c3102e73e046a22a9c
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/02/2020
-ms.locfileid: "89379440"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722840"
 ---
 # <a name="performance-best-practices-with-grpc"></a>GRPC 性能最佳做法
 
@@ -121,6 +121,12 @@ L7（应用程序）代理的工作级别高于 L4（传输）代理。 L7 代�
 * [YARP:反向代理](https://microsoft.github.io/reverse-proxy/) - 用 .NET 编写的预览开源代理。
 
 ::: moniker range=">= aspnetcore-5.0"
+
+## <a name="inter-process-communication"></a>进程内通信
+
+客户端和服务之间的 gRPC 调用通常通过 TCP 套接字发送。 TCP 非常适用于网络中的通信，但当客户端和服务在同一台计算机上时，[进程间通信 (IPC)](https://wikipedia.org/wiki/Inter-process_communication) 的效率更高。
+
+考虑在同一台计算机上的进程之间使用 Unix 域套接字或命名管道之类的传输进行 gRPC 调用。 有关详细信息，请参阅 <xref:grpc/interprocess>。
 
 ## <a name="keep-alive-pings"></a>保持活动 ping
 

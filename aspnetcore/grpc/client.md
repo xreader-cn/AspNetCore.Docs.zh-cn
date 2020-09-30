@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 9406c2a34126f3e5cd1406a55c3585e7a28f3dd9
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: 6515e87845cc5aa101532c18711d175a73581bee
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90593042"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722704"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
@@ -33,7 +33,7 @@ ms.locfileid: "90593042"
 
 ## <a name="configure-grpc-client"></a>配置 gRPC 客户端
 
-gRPC 客户端是从 [\*.proto  文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto  文件中 gRPC 服务的方法。
+gRPC 客户端是从 [\*.proto  文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto  文件中 gRPC 服务的方法。 例如，名为 `Greeter` 的服务生成 `GreeterClient` 类型（包含调用服务的方法）。
 
 gRPC 客户端是通过通道创建的。 首先使用 `GrpcChannel.ForAddress` 创建一个通道，然后使用该通道创建 gRPC 客户端：
 

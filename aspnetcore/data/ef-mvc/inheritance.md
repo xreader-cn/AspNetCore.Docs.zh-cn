@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 9a17a2ddbdac6b4fc6ba90804a31915d3b96d707
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 34c4ea28103b9eb12601b383a46091084391f120
+ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88629179"
+ms.lasthandoff: 09/22/2020
+ms.locfileid: "90847593"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>教程：实现继承 - ASP.NET MVC 和 EF Core
 
@@ -62,6 +62,9 @@ ms.locfileid: "88629179"
 从单个数据库表生成实体继承结构的模式称为每个层次结构一张 (TPH) 继承。
 
 另一种方法是使数据库看起来更像继承结构。 例如，可以仅将姓名字段包含到 Person 表中，在单独的 Instructor 和 Student 表中包含日期字段。
+
+> [!WARNING]
+> EF Core 3.x 不支持每个类型一个表 (TPT)，但 TPT 已在 [EF Core 5.0](https://docs.microsoft.com/ef/core/what-is-new/ef-core-5.0/plan) 中实现。
 
 ![每种类型一个表继承](inheritance/_static/tpt.png)
 

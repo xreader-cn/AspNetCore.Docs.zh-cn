@@ -5,7 +5,7 @@ description: 了解如何在 Blazor 应用中从 JavaScript 函数调用 .NET �
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/07/2020
+ms.date: 09/17/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: e7f23a4b44a0adb1d0b97c88e1d17f96aa2d28bd
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a62462e3a0a2366a8662573ada5d2e7589c14c0d
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625383"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722470"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -110,13 +110,20 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 <xref:Microsoft.JSInterop.IJSRuntime> 抽象是异步的，以便可以实现 Blazor Server 方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 <xref:Microsoft.JSInterop.IJSInProcessRuntime> 并改为调用 <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A>。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
 
+::: moniker range=">= aspnetcore-5.0"
+
+> [!NOTE]
+> 若要在标准 [JavaScript 模块](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules)中启用 JavaScript 隔离，请参阅 [BlazorJavaScript 隔离和对象引用](#blazor-javascript-isolation-and-object-references)部分。
+
+::: moniker-end
+
 该示例应用包含一个用于演示 JS 互操作的组件。 该组件：
 
 * 通过 JavaScript 提示接收用户输入。
 * 将文本返回给组件进行处理。
 * 调用第二个 JavaScript 函数，该函数与 DOM 交互以显示欢迎消息。
 
-`Pages/JsInterop.razor`：
+`Pages/JsInterop.razor`:
 
 ```razor
 @page "/JSInterop"
@@ -200,7 +207,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 例如，以下代码定义一个 .NET 扩展方法，通过该方法可在元素上设置焦点：
 
-`exampleJsInterop.js`：
+`exampleJsInterop.js`:
 
 ```javascript
 window.exampleJsFunctions = {
@@ -289,7 +296,7 @@ Welcome to your new app.
 <SurveyPrompt Parent="this" Title="How is Blazor working for you?" />
 ```
 
-`Pages/Index.razor.cs`：
+`Pages/Index.razor.cs`:
 
 ```csharp
 using System;
@@ -398,7 +405,7 @@ namespace {APP ASSEMBLY}.Pages
 }
 ```
 
-`Shared/SurveyPrompt.razor.cs`：
+`Shared/SurveyPrompt.razor.cs`:
 
 ```csharp
 using System;
@@ -485,6 +492,43 @@ JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 �
 
 * [循环引用不受支持，使用两个按钮 (dotnet/aspnetcore #20525)](https://github.com/dotnet/aspnetcore/issues/20525)
 * [建议：在序列化时添加机制来处理循环引用 (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
+
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="no-locblazor-javascript-isolation-and-object-references"></a>Blazor JavaScript 隔离和对象引用
+
+Blazor 在标准 [JavaScript 模块](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules)中启用 JavaScript 隔离。 JavaScript 隔离具有以下优势：
+
+* 导入的 JavaScript 不再污染全局命名空间。
+* 库和组件的使用者不需要导入相关的 JavaScript。
+
+例如，以下 JavaScript 模块导出用于显示浏览器提示的 JavaScript 函数：
+
+```javascript
+export function showPrompt(message) {
+  return prompt(message, 'Type anything here');
+}
+```
+
+将前面的 JavaScript 模块作为静态 Web 资产 (`wwwroot/exampleJsInterop.js`) 添加到 .NET 库，然后使用 <xref:Microsoft.JSInterop.IJSRuntime> 服务将该模块导入 .NET 代码。 以下示例将服务作为 `jsRuntime`（未显示）注入：
+
+```csharp
+var module = await jsRuntime.InvokeAsync<JSObjectReference>(
+    "import", "./_content/MyComponents/exampleJsInterop.js");
+```
+
+上例中的 `import` 标识符是专门用于导入 JavaScript 模块的特殊标识符。 使用模块的稳定静态 Web 资产路径 `_content/{LIBRARY NAME}/{PATH UNDER WWWROOT}` 指定模块。 占位符 `{LIBRARY NAME}` 是库的名称。 占位符 `{PATH UNDER WWWROOT}` 是 `wwwroot` 下脚本的路径。
+
+<xref:Microsoft.JSInterop.IJSRuntime> 将模块作为 `JSObjectReference` 导入，它表示对 .NET 代码中 JavaScript 对象的引用。 使用 `JSObjectReference` 调用从模块导出的 JavaScript 函数：
+
+```csharp
+public async ValueTask<string> Prompt(string message)
+{
+    return await module.InvokeAsync<string>("showPrompt", message);
+}
+```
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 
