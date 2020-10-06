@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 91fd2553803d855b338b1d1b46d55e1d1e4cc21e
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a342dd787eceadd22ac26b57a3615a6b0b21f461
+ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635146"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91754497"
 ---
 # <a name="aspnet-core-no-locsignalr-supported-platforms"></a>ASP.NET Core SignalR 支持的平台
 
@@ -35,13 +35,12 @@ SignalR 对于 ASP.NET Core 支持 ASP.NET Core 支持的任何服务器平台�
 
 [JavaScript 客户端](xref:signalr/javascript-client)在 NodeJS 8 及更高版本以及以下浏览器上运行：
 
-| 浏览者                         | Version         |
-| ------------------------------- | --------------- |
-| Microsoft Edge                  | 当前&dagger; |
-| Mozilla Firefox                 | 当前&dagger; |
-| Google Chrome;包括 Android | 当前&dagger; |
-| 免费包括 iOS            | 当前&dagger; |
-| Microsoft Internet Explorer     | 11              |
+| 浏览者                          | Version         |
+| -------------------------------- | --------------- |
+| Apple Safari，包括 iOS      | 当前&dagger; |
+| Google Chrome，包括 Android | 当前&dagger; |
+| Microsoft Edge                   | 当前&dagger; |
+| Mozilla Firefox                  | 当前&dagger; |
 
 &dagger;*当前* 是指浏览器的最新版本。
 
