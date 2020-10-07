@@ -918,18 +918,36 @@
         - name: ASP.NET Core 模块
           displayName: 'deploy, publish'
           uid: host-and-deploy/aspnet-core-module
+        - name: 进程内托管
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/in-process-hosting
+        - name: 进程外托管
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/out-of-process-hosting
+        - name: 托管捆绑包
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/hosting-bundle
+        - name: web.config 文件
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/web-config
         - name: Visual Studio 中的 IIS 支持
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/development-time-iis-support
         - name: IIS 模块
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/modules
+        - name: 日志记录和诊断
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/logging-and-diagnostics
         - name: 疑难解答
           displayName: 'deploy, publish'
           uid: test/troubleshoot-azure-iis
         - name: 错误参考
           displayName: 'deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
+        - name: 高级
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/advanced
         - name: 转换 web.config
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/transform-webconfig
