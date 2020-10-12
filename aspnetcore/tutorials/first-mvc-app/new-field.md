@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 40e615d0698a0ed1d3ef40a222e064d72184f0c8
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a0c53755bd56b6c169437ca9f0ea915e46ad79ec
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635289"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606753"
 ---
 # <a name="part-8-add-a-new-field-to-an-aspnet-core-mvc-app"></a>第 8 部分，将新字段添加到 ASP.NET Core MVC 应用
 
@@ -62,7 +62,7 @@ dotnet build
 
 ------
 
-因为已经添加新字段到 `Movie` 类，所以需要更新绑定允许名单，将此新属性纳入其中。 在 MoviesController.cs 中，更新 `Create` 和 `Edit` 操作方法的 `[Bind]` 属性，以包括 `Rating` 属性：
+因为已经添加新字段到 `Movie` 类，所以需要更新属性绑定列表，将此新属性纳入其中。 在 MoviesController.cs 中，更新 `Create` 和 `Edit` 操作方法的 `[Bind]` 属性，以包括 `Rating` 属性：
 
 ```csharp
 [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")]
@@ -133,7 +133,7 @@ Update-Database
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除 MvcMovie.db 数据库文件。 然后运行 `ef database update` 命令：
 
 ```dotnetcli
 dotnet ef database update

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: eb4aaa2f3d412cdf650ed2daf7c12166991d92a1
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: e874ec6f24d8b03fc6c7133013147498cbbc293a
+ms.sourcegitcommit: 4febe4efaf6e1a7be65d772b500c00fca0af216a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90592899"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91451161"
 ---
 # <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>在 ASP.NET Core Blazor WebAssembly 中延迟加载程序集
 
@@ -38,7 +38,7 @@ ms.locfileid: "90592899"
 
 ## <a name="project-file"></a>项目文件
 
-使用 `BlazorWebAssemblyLazyLoad` 项标记应用的项目文件 (`.csproj`) 中用于延迟加载的程序集。 使用不带 `.dll` 扩展名的程序集名称。 Blazor 框架可防止在应用启动时加载由此项组指定的程序集。 下面的示例将一个大型自定义程序集 (`GrantImaharaRobotControls.dll`) 标记为进行延迟加载。 如果标记为进行延迟加载的程序集具有依赖项，还必须在项目文件中同时将这些依赖项标记为延迟加载。
+使用 `BlazorWebAssemblyLazyLoad` 项标记应用的项目文件 (`.csproj`) 中用于延迟加载的程序集。 使用带 `.dll` 扩展名的程序集名称。 Blazor 框架可防止在应用启动时加载由此项组指定的程序集。 下面的示例将一个大型自定义程序集 (`GrantImaharaRobotControls.dll`) 标记为进行延迟加载。 如果标记为进行延迟加载的程序集具有依赖项，还必须在项目文件中同时将这些依赖项标记为延迟加载。
 
 ```xml
 <ItemGroup>
@@ -106,7 +106,7 @@ Blazor 的 `Router` 组件指定哪个程序集 Blazor 搜索可路由组件。 
 框架的延迟加载实现支持在托管的 Blazor 解决方案中使用预呈现进行延迟加载。 在预呈现期间，所有的程序集（包括那些被标记为延迟加载的程序集）都被假定为已加载。 在服务器项目的 `Startup.ConfigureServices` 方法 (`Startup.cs`) 中手动注册 `LazyAssemblyLoader`：
 
 ```csharp
-services.AddSingleton<LazyAssemblyLoader>();
+services.AddScoped<LazyAssemblyLoader>();
 ```
 
 ### <a name="user-interaction-with-navigating-content"></a>用户与 `<Navigating>` 内容的交互

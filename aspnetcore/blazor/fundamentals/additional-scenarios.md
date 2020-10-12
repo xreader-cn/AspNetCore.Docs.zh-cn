@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: 870509a3cbbcbea9b1c4804185c49a831af22630
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: 236d95e54b772ea522911421084ec0d9022c45ff
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009630"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424134"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
@@ -290,7 +290,15 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 }
 ```
 
-::: moniker-end
+## <a name="disconnect-the-no-locblazor-circuit-from-the-client"></a>从客户端断开 Blazor 线路连接
+
+默认情况下，触发 [`unload` 页面事件](https://developer.mozilla.org/docs/Web/API/Window/unload_event)时，Blazor 线路会断开连接。 若要断开客户端上其他方案的线路连接，请在相应的事件处理程序中调用 `Blazor.disconnect`。 在下面的示例中，当页面隐藏（[`pagehide` 事件](https://developer.mozilla.org/docs/Web/API/Window/pagehide_event)）时，线路会断开连接：
+
+```javascript
+window.addEventListener('pagehide', () => {
+  Blazor.disconnect();
+});
+```
 
 ## <a name="influence-html-head-tag-elements"></a>影响 HTML `<head>` 标记元素
 
@@ -322,6 +330,8 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 
 * 可以根据应用程序状态进行修改。 不能根据应用程序状态修改硬编码 HTML 标记。
 * 将在不再呈现父组件的情况下从 HTML `<head>` 中被删除。
+
+::: moniker-end
 
 ## <a name="static-files"></a>静态文件
 
