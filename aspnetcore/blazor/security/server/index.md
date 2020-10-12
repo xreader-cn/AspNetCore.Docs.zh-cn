@@ -5,7 +5,7 @@ description: 了解如何将 Blazor Server应用作为 ASP.NET Core 应用来保
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/02/2020
+ms.date: 10/06/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: ba9fe3c0149679fa5760c0c9214cd426f1804c31
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d6d0f6f859dbaef98c6c8a9c53fe9858705cdc0a
+ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626449"
+ms.lasthandoff: 10/07/2020
+ms.locfileid: "91805500"
 ---
 # <a name="secure-aspnet-core-no-locblazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。 有关详细信息，请参阅 <xref:security/index> 下的文章。 此“概述”下的主题特别适用于 Blazor Server。 
+Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。 有关详细信息，请参阅 <xref:security/index> 下的文章。 此“概述”下的主题特别适用于 Blazor Server。
 
 ## <a name="no-locblazor-server-project-template"></a>Blazor Server项目模板
 
@@ -108,7 +108,14 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 * 为项目创建文件夹。
 * 为该项目命名。
 
-有关详细信息，请参阅 .NET Core 指南中的 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令。
+更多相关信息：
+
+* 请参阅 .NET Core 指南中的 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令。
+* 在命令行界面中为 Blazor Server模板 (`blazorserver`) 执行 help 命令：
+
+  ```dotnetcli
+  dotnet new blazorserver --help
+  ```
 
 ---
 
@@ -118,3 +125,8 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 * [当前没有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-without-existing-authorization)。
 * [有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-with-authorization)。
+
+## <a name="additional-resources"></a>其他资源
+
+* [快速入门：将 Microsoft 登录添加到 ASP.NET Core Web 应用](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp)
+* [快速入门：使用 Microsoft 标识平台保护 ASP.NET Core Web API](/azure/active-directory/develop/quickstart-v2-aspnet-core-web-api)
