@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: e5346c1e58127747d777b5040fe7bc7d99b9a489
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 8ed9ec3447205107194ffa5c329c0e5ae0fc5553
+ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722866"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91653966"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -271,6 +271,23 @@ public IActionResult MyActionMethod()
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>代理服务器和负载均衡器方案
 
 如果应用由 HTTP.sys 托管并且与来自 Internet 或公司网络的请求进行交互，当在代理服务器和负载均衡器后托管时，可能需要其他配置。 有关详细信息，请参阅[配置 ASP.NET Core 以使用代理服务器和负载均衡器](xref:host-and-deploy/proxy-load-balancer)。
+
+## <a name="advanced-http2-features-to-support-grpc"></a>用于支持 gRPC 的高级 HTTP/2 功能
+
+HTTP.sys 中的其他 HTTP/2 功能支持 gRPC，包括对响应尾部和发送重置帧的支持。
+
+使用 HTTP.SYS 运行 gRPC 的要求：
+
+* Windows 10，OS 内部版本 19041.508 或更高版本
+* TLS 1.2 或更高版本的连接
+
+### <a name="trailers"></a>预告片
+
+[!INCLUDE[](~/includes/trailers.md)]
+
+### <a name="reset"></a>重置
+
+[!INCLUDE[](~/includes/reset.md)]
 
 ## <a name="additional-resources"></a>其他资源
 

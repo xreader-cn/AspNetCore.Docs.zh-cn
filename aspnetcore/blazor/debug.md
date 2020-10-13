@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: e12b0e6d1bf9eab751f6605b9a156f637f2b0c0f
-ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
+ms.openlocfilehash: d4fd0d501ff14e37bb55b78bb6493ad43f9e5a87
+ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/27/2020
-ms.locfileid: "91393829"
+ms.lasthandoff: 10/07/2020
+ms.locfileid: "91805565"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -345,6 +345,9 @@ Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://c
 * 在“调试程序”选项卡中，在浏览器中打开开发人员工具。 在控制台中，执行 `localStorage.clear()` 以删除所有断点。
 * 确认你已安装并信任 ASP.NET Core HTTPS 开发证书。 有关详细信息，请参阅 <xref:security/enforcing-ssl#troubleshoot-certificate-problems>。
 * Visual Studio 要求在“工具” > “选项” > “调试” > “常规”中选择“对 ASP.NET 启用 JavaScript 调试(Chrome、Edge 和 IE)”选项。 这是 Visual Studio 的默认设置。 如果调试不起作用，请确认已选中该选项。
+* 如果你的环境使用 HTTP 代理，请确保在代理绕过设置中包含 `localhost`。 这可以通过在以下二者之一中设置 `NO_PROXY` 环境变量来实现：
+  * 项目的 `launchSettings.json` 文件。
+  * 在将其应用于所有应用时所在的用户或系统环境变量级别。 使用环境变量时，请重新启动 Visual Studio 以使更改生效。
 
 ### <a name="breakpoints-in-oninitializedasync-not-hit"></a>`OnInitialized{Async}` 中的未命中断点
 

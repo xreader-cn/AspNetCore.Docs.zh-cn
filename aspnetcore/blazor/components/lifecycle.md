@@ -5,7 +5,7 @@ description: 了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 10/06/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,18 +18,48 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 00573f87b65e53a7bfd9cc2aed1d2ed7772b9a4a
-ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
+ms.openlocfilehash: 0acf757c21d444136e7a6d81d5958be5bc72c2fc
+ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/22/2020
-ms.locfileid: "90847606"
+ms.lasthandoff: 10/07/2020
+ms.locfileid: "91805539"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
 Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法，以在组件初始化和呈现期间对组件执行其他操作。
+
+下图展示的是 Blazor 生命周期。 本文以下部分中的示例定义了生命周期方法。
+
+组件生命周期事件：
+
+1. 如果组件是第一次呈现在请求上：
+   * 创建组件的实例。
+   * 执行属性注入。 运行 `SetParametersAsync`。
+   * 调用 [`OnInitialized{Async}`](#component-initialization-methods)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
+1. 调用 [`OnParametersSet{Async}`](#after-parameters-are-set)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
+
+<img src="lifecycle/_static/lifecycle1.png" alt="Component lifecycle events of a Razor component in Blazor" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
+
+文档对象模型 (DOM) 事件处理：
+
+1. 运行事件处理程序。
+1. 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
+
+<img src="lifecycle/_static/lifecycle2.png" alt="Document Object Model (DOM) event processing" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
+
+`Render` 生命周期：
+
+1. 如果这不是组件的第一个呈现或 [`ShouldRender`](#suppress-ui-refreshing) 计算为 `false`，那么请不要对该组件执行进一步的操作。
+1. 生成呈现树差异并呈现组件。
+1. 等待 DOM 更新。
+1. 调用 [`OnAfterRender{Async}`](#after-component-render)。
+
+<img src="lifecycle/_static/lifecycle3.png" alt="Render lifecycle" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
+
+开发人员调用 [`StateHasChanged`](#state-changes) 会产生呈现。
 
 ## <a name="lifecycle-methods"></a>生命周期方法
 
@@ -191,7 +221,7 @@ protected override bool ShouldRender()
 
 Blazor Server 模板中的 `Pages/FetchData.razor`：
 
-[!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
+[!code-razor[](lifecycle/samples_snapshot/FetchData.razor?highlight=9,21,25)]
 
 ## <a name="handle-errors"></a>处理错误
 
@@ -286,11 +316,11 @@ public class WeatherForecastService
 
 * 专用字段和 Lambda 方法
 
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+  [!code-razor[](lifecycle/samples_snapshot/event-handler-disposal-1.razor?highlight=23,28)]
 
 * 专用方法
 
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
+  [!code-razor[](lifecycle/samples_snapshot/event-handler-disposal-2.razor?highlight=16,26)]
 
 ## <a name="cancelable-background-work"></a>可取消的后台工作
 
