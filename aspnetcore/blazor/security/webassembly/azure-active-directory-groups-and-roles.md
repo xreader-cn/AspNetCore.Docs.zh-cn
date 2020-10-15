@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 7a0c606d82dd625c179ec89e22b9313dfa5d18b4
-ms.sourcegitcommit: c026bf76a0e14a5ee68983519a63574c674e9ff7
+ms.openlocfilehash: ac666a4c7493140d4ae93047e18202c3d8314c7b
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91636772"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900695"
 ---
 # <a name="azure-active-directory-aad-groups-administrator-roles-and-user-defined-roles"></a>Azure Active Directory (AAD) 组、管理员角色和用户定义的角色
 
@@ -49,7 +49,7 @@ Azure Active Directory (AAD) 提供了多种授权方法，它们可与 ASP.NET 
 
 具有五个以上 AAD 管理员角色和安全组成员身份的任何应用用户都需要调用 [Microsoft 图形 API](/graph/use-the-api)。
 
-若要允许调用图形 API，请在 Azure 门户中向托管的 Blazor 解决方案的独立应用或客户端应用授予以下任意[图形 API 权限](/graph/permissions-reference)：
+若要允许图形 API 调用，请在 Azure 门户中向托管的 Blazor 解决方案的独立应用或 `Client` 应用授予以下任意[图形 API 权限](/graph/permissions-reference)：
 
 * `Directory.Read.All`
 * `Directory.ReadWrite.All`
@@ -88,7 +88,7 @@ public class CustomUserAccount : RemoteUserAccount
 }
 ```
 
-在托管的 Blazor 解决方案的独立应用或客户端应用中，创建一个自定义 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> 类。 对获取角色和组信息的图形 API 调用使用正确的作用域（权限）。
+在托管的 Blazor 解决方案的独立应用或 `Client` 应用中，创建自定义 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> 类。 对获取角色和组信息的图形 API 调用使用正确的作用域（权限）。
 
 `GraphAPIAuthorizationMessageHandler.cs`:
 
@@ -250,7 +250,7 @@ public class CustomUserFactory
 >
 > 有关此方法的常规覆盖范围，请参阅 <xref:blazor/security/webassembly/additional-scenarios#custom-authorizationmessagehandler-class>一文。
 
-在托管的 Blazor 解决方案的独立应用或客户端应用的 `Program.Main` (`Program.cs`) 中注册工厂。 同意将 `Directory.Read.All` 权限范围作为应用的附加范围：
+在托管的 Blazor 解决方案的独立应用或 `Client` 应用的 `Program.Main` (`Program.cs`) 中注册工厂。 同意将 `Directory.Read.All` 权限范围作为应用的附加范围：
 
 ```csharp
 builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
@@ -651,9 +651,9 @@ foreach (var entry in groupsAndAzureRoles)
 
 AAD 发送的单个 `roles` 声明在 JSON 数组中将用户定义的角色作为 `appRoles` 的 `value` 显示。 应用必须将 JSON 角色数组转换为单个 `role` 声明。
 
-[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分中显示的 `CustomUserFactory` 设置为对具有 JSON 数组值的 `roles` 声明执行操作。 在托管的 Blazor 解决方案的独立应用或客户端应用中添加和注册 `CustomUserFactory`，如[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分所示。 无需提供代码来删除原始 `roles` 声明，因为框架会自动删除它。
+[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分中显示的 `CustomUserFactory` 设置为对具有 JSON 数组值的 `roles` 声明执行操作。 在托管的 Blazor 解决方案的独立应用或 `Client` 应用中添加和注册 `CustomUserFactory`，如[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分中所述。 无需提供代码来删除原始 `roles` 声明，因为框架会自动删除它。
 
-在托管的 Blazor 解决方案的独立应用或客户端应用的 `Program.Main` 中，将名为“`role`”的声明指定为角色声明：
+在托管的 Blazor 解决方案的独立应用或 `Client` 应用的 `Program.Main` 中，将名为“`role`”的声明指定为角色声明：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
