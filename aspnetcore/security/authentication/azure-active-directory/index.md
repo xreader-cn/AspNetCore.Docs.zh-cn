@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/azure-active-directory/index
-ms.openlocfilehash: b807681e00b196449c74dbe4240e9d6996af51fc
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a71f81b4fca6d9a84ad98e0e8935748cfd358fa0
+ms.sourcegitcommit: ecae2aa432628b9181d1fa11037c231c7dd56c9e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633079"
+ms.lasthandoff: 10/16/2020
+ms.locfileid: "92113772"
 ---
 # <a name="azure-active-directory-with-aspnet-core"></a>Azure Active Directory 与 ASP.NET Core
 
@@ -41,8 +41,6 @@ ms.locfileid: "88633079"
 
 * [使你的 ASP.NET Core 应用能够使用 Azure AD V2 登录用户并调用 Web API](/samples/azure-samples/active-directory-aspnetcore-webapp-openidconnect-v2/enable-webapp-signin/)： 
   * 请观看[这段相关视频](https://channel9.msdn.com/Events/Build/2018/THR5001)
-
 * [使用 Azure AD V2 从 WPF 应用程序调用 ASP.NET Core 2.0 Web API](/samples/azure-samples/active-directory-dotnet-native-aspnetcore-v2/calling-an-aspnet-core-web-api-from-a-wpf-application-using-azure-ad-v2/)： 
   * 请观看[这段相关视频](https://channel9.msdn.com/Events/Build/2018/THR5000)
-
-* [带有 Azure AD B2C 的 ASP.NET Core Web API](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/)
+* [带有 Azure AD B2C 的 ASP.NET Core Web 应用](/samples/azure-samples/active-directory-b2c-dotnetcore-webapp/an-aspnet-core-web-app-with-azure-ad-b2c/)
