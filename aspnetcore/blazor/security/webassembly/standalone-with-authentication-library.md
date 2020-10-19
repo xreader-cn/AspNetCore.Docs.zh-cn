@@ -5,7 +5,7 @@ description: 了解如何使用身份验证库保护 ASP.NET Core Blazor WebAsse
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/08/2020
+ms.date: 10/08/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: 795709853941f35b1645f72d6865fe1ebf935112
-ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
+ms.openlocfilehash: 03abaf0676860f50a3e4c1cba64039070910ff9d
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88712358"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900866"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -109,6 +109,8 @@ builder.Services.AddOidcAuthentication(options =>
 
 ## <a name="access-token-scopes"></a>访问令牌作用域
 
+Blazor WebAssembly 模板自动为 `openid` 和 `profile` 配置默认作用域。
+
 Blazor WebAssembly 模板不会自动将应用配置为请求安全 API 的访问令牌。 要将访问令牌作为登录流程的一部分进行预配，请将作用域添加到 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions> 的默认令牌作用域中：
 
 ```csharp
@@ -119,7 +121,7 @@ builder.Services.AddOidcAuthentication(options =>
 });
 ```
 
-[!INCLUDE[](~/includes/blazor-security/azure-scope.md)]
+[!INCLUDE[](~/includes/blazor-security/azure-scope-3x.md)]
 
 有关详细信息，请参阅“其他方案”一文的以下部分：
 

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 2881b5d01f3b2e41659e3166a4e77b64a450f017
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: 50d455b37c51fdd6d3b52b10b3e819eb45526de4
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90592913"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900955"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -177,7 +177,7 @@ builder.Services.AddScoped(sp => new HttpClient(
 
 ### <a name="graph-api-example"></a>图形 API 示例
 
-在下面的示例中，使用图形 API 的命名 <xref:System.Net.Http.HttpClient> 获取用户的移动电话号码以处理调用。 在 Azure 门户的 AAD 区域中添加 Microsoft Graph API `User.Read` 权限后，将为独立应用或托管 Blazor 解决方案的客户端应用中的命名客户端配置作用域。
+在下面的示例中，使用图形 API 的命名 <xref:System.Net.Http.HttpClient> 获取用户的移动电话号码以处理调用。 在 Azure 门户的 AAD 区域中添加 Microsoft Graph API `User.Read` 权限后，将为独立应用或托管 Blazor 解决方案的 `Client` 应用中的命名客户端配置作用域。
 
 > [!NOTE]
 > 本部分中的示例获取组件代码中用户的图形 API 数据。 若要根据图形 API 创建用户声明，请参阅以下资源：
@@ -1070,7 +1070,7 @@ builder.Services.AddMsalAuthentication<RemoteAuthenticationState,
 * 预呈现不需要授权的路径。
 * 不预呈现需要授权的路径。
 
-在客户端应用的 `Program` 类 (`Program.cs`) 中，将常见服务注册纳入单独的方法（例如 `ConfigureCommonServices`）：
+在 `Client` 应用的 `Program` 类 (`Program.cs`) 中，将常见服务注册纳入单独的方法（例如 `ConfigureCommonServices`）：
 
 ```csharp
 public class Program
@@ -1130,7 +1130,7 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-在服务器应用中，如果不存在 `Pages` 文件夹，请创建一个。 在服务器应用的 `Pages` 文件夹中创建 `_Host.cshtml` 页。 将客户端应用 `wwwroot/index.html` 文件中的内容粘贴到 `Pages/_Host.cshtml` 文件。 更新文件的内容：
+在服务器应用中，如果不存在 `Pages` 文件夹，请创建一个。 在服务器应用的 `Pages` 文件夹中创建 `_Host.cshtml` 页。 将 `Client` 应用 `wwwroot/index.html` 文件中的内容粘贴到 `Pages/_Host.cshtml` 文件。 更新文件的内容：
 
 * 将 `@page "_Host"` 添加到文件顶部。
 * 将 `<app>Loading...</app>` 标记替换为以下内容：

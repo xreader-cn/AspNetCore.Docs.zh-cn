@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 91cc7ffc46f5f1f68efd7e481479b19938476cb0
-ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
+ms.openlocfilehash: 6ae8c55fcfc85dc725a7dd20a7dbecba063a13e9
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91762238"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900775"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-no-locidentity-server"></a>使用 Identity 服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -72,7 +72,7 @@ dotnet new blazorwasm -au Individual -ho -o {APP NAME}
 
 ---
 
-## <a name="server-app-configuration"></a>服务器应用配置
+## <a name="server-app-configuration"></a>`Server` 应用配置
 
 以下部分介绍了在包括身份验证支持的情况下对项目添加的内容。
 
@@ -170,7 +170,7 @@ dotnet new blazorwasm -au Individual -ho -o {APP NAME}
 
 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample.Client`）。
 
-## <a name="client-app-configuration"></a>客户端应用配置
+## <a name="client-app-configuration"></a>`Client` 应用配置
 
 ### <a name="authentication-package"></a>身份验证包
 
@@ -287,7 +287,7 @@ builder.Services.AddApiAuthorization();
 
 ### <a name="custom-user-factory"></a>自定义用户工厂
 
-在“客户端”应用中，创建自定义用户工厂。 Identity 服务器在一个 `role` 声明中发送多个角色作为 JSON 数组。 单个角色在该声明中作为单个字符串值进行发送。 工厂为每个用户的角色创建单个 `role` 声明。
+在 `Client` 应用中，创建自定义用户工厂。 Identity 服务器在一个 `role` 声明中发送多个角色作为 JSON 数组。 单个角色在该声明中作为单个字符串值进行发送。 工厂为每个用户的角色创建单个 `role` 声明。
 
 `CustomUserFactory.cs`:
 
@@ -349,14 +349,14 @@ public class CustomUserFactory
 }
 ```
 
-在客户端应用中，在 `Program.Main` (`Program.cs`) 中注册工厂：
+在 `Client` 应用中，在 `Program.Main` (`Program.cs`) 中注册工厂：
 
 ```csharp
 builder.Services.AddApiAuthorization()
     .AddAccountClaimsPrincipalFactory<CustomUserFactory>();
 ```
 
-在服务器应用中，调用 Identity 生成器上的 <xref:Microsoft.AspNetCore.Identity.IdentityBuilder.AddRoles*>，添加与角色相关的服务：
+在 `Server` 应用中，调用 Identity 生成器上的 <xref:Microsoft.AspNetCore.Identity.IdentityBuilder.AddRoles*>，添加与角色相关的服务：
 
 ```csharp
 using Microsoft.AspNetCore.Identity;
@@ -378,7 +378,7 @@ services.AddDefaultIdentity<ApplicationUser>(options =>
 
 #### <a name="api-authorization-options"></a>API 身份验证选项
 
-在服务器应用中：
+在 `Server` 应用中：
 
 * 配置 Identity 服务器，将 `name` 和 `role` 声明放入 ID 令牌和访问令牌中。
 * 阻止 JWT 令牌处理程序中角色的默认映射。
@@ -402,7 +402,7 @@ JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 #### <a name="profile-service"></a>配置文件服务
 
-在服务器应用中，创建 `ProfileService` 实现。
+在 `Server` 应用中，创建 `ProfileService` 实现。
 
 `ProfileService.cs`:
 
@@ -436,7 +436,7 @@ public class ProfileService : IProfileService
 }
 ```
 
-在服务器应用中，在 `Startup.ConfigureServices` 中注册配置文件服务：
+在 `Server` 应用中，在 `Startup.ConfigureServices` 中注册配置文件服务：
 
 ```csharp
 using IdentityServer4.Services;
@@ -448,7 +448,7 @@ services.AddTransient<IProfileService, ProfileService>();
 
 ### <a name="use-authorization-mechanisms"></a>使用授权机制
 
-在客户端应用中，组件授权方法此时有效。 组件中的任何授权机制都可以使用角色来授权用户：
+在 `Client` 应用中，组件授权方法此时可以正常工作。 组件中的任何授权机制都可以使用角色来授权用户：
 
 * [`AuthorizeView` 组件](xref:blazor/security/index#authorizeview-component)（例如：`<AuthorizeView Roles="admin">`）
 * [`[Authorize]` 属性指令](xref:blazor/security/index#authorize-attribute) (<xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute>)（例如 `@attribute [Authorize(Roles = "admin")]`）
@@ -463,7 +463,7 @@ services.AddTransient<IProfileService, ProfileService>();
   }
   ```
 
-`User.Identity.Name` 在客户端应用中进行填充，并带有用户的用户名，这通常是他们的登录电子邮件地址。
+`User.Identity.Name` 在 `Client` 应用中进行填充，并带有用户的用户名，这通常是他们的登录电子邮件地址。
 
 [!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]
 

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: 36c0915649d9a25cf1b6b2d9ec69c3919aa7bc2c
-ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
+ms.openlocfilehash: fc902cb5a82fda9fdbed09c40d66a846d9360f6a
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/29/2020
-ms.locfileid: "91424160"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900734"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>具有 Entity Framework Core (EFCore) 的 ASP.NET Core Blazor Server
 
@@ -99,7 +99,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 
 要新建具有依赖项的 <xref:Microsoft.EntityFrameworkCore.DbContext>，推荐的解决方案是使用工厂。 EF Core 5.0 或更高版本提供了一个内置工厂用于创建新的上下文。
 
-以下示例会配置 [SQLite](https://www.sqlite.org/index.html) 并启用数据日志记录。 该代码使用扩展方法为 DI 配置数据库工厂并提供默认选项：
+以下示例会配置 [SQLite](https://www.sqlite.org/index.html) 并启用数据日志记录。 该代码使用[扩展方法 (`AddDbContextFactory`)](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Data/FactoryExtensions.cs) 为 DI 配置数据库工厂并提供默认选项：
 
 [!code-csharp[](./common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Startup.cs?name=snippet1)]
 

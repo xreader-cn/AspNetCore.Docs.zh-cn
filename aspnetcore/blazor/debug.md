@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: d4fd0d501ff14e37bb55b78bb6493ad43f9e5a87
-ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
+ms.openlocfilehash: b8dd272d673e84b45a39272531385ebfd1d06175
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2020
-ms.locfileid: "91805565"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900981"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -93,7 +93,7 @@ Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
    > [!NOTE]
    > 不支持“启动时不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。 当应用以调试配置运行时，调试开销始终会导致性能的小幅下降。
 
-1. 在客户端应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
+1. 在 `*Client*` 应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
 1. 在浏览器中，导航到 `Counter` 页，然后选择“单击此处”按钮以命中断点。
 1. 在 Visual Studio 中，检查“局部变量”窗口中 `currentCount` 字段的值。
 1. 按 <kbd>F5</kbd> 继续执行。
@@ -180,7 +180,7 @@ Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
 
 1. 此时会启动独立应用，并打开调试浏览器。
 
-1. 在客户端应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
+1. 在 `*Client*` 应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
 
 1. 在浏览器中，导航到 `Counter` 页，然后选择“单击此处”按钮以命中断点。
 
@@ -285,7 +285,7 @@ Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
    > [!IMPORTANT]
    > Google Chrome 或 Microsoft Edge 必须是调试会话的选定浏览器。
 
-1. 在客户端应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
+1. 在 `*Client*` 应用中，在 `Pages/Counter.razor` 中的 `currentCount++;` 行上设置断点。
 1. 在浏览器中，导航到 `Counter` 页，然后选择“单击此处”按钮以命中断点：
 1. 在 Visual Studio 中，检查“局部变量”窗口中 `currentCount` 字段的值。
 1. 按 <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> 继续执行。

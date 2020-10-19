@@ -5,7 +5,7 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/25/2020
+ms.date: 10/09/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 3436620123618ab32daa44c4a37057aaadb89563
-ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
+ms.openlocfilehash: 63954bd2fbb8fdb2e347d552a10adc52263c3ad6
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/27/2020
-ms.locfileid: "91393686"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900708"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -867,3 +867,76 @@ Remove-Item $filepath\bin\Release\$tfm\wwwroot\_framework\blazor.boot.json.gz
 
 > [!NOTE]
 > 重命名和延迟加载相同的程序集时，请参阅 <xref:blazor/webassembly-lazy-load-assemblies#onnavigateasync-events-and-renamed-assembly-files> 中的指南。
+
+## <a name="resolve-integrity-check-failures"></a>解决完整性检查失败
+
+当 Blazor WebAssembly 下载应用的启动文件时，它会指示浏览器对响应执行完整性检查。 它使用 `blazor.boot.json` 文件中的信息为 `.dll`、`.wasm` 和其他文件指定预期的 SHA-256 哈希值。 这对以下原因有所帮助：
+
+* 它可确保不会出现加载不一致文件集的风险，例如，在用户正在下载应用程序文件时将新部署应用到 Web 服务器的情况。 不一致的文件可能导致未定义的行为。
+* 它可确保用户的浏览器从不缓存不一致或无效的响应，这些响应可能会阻止他们启动应用（即使他们手动刷新了页面也是如此）。
+* 它可以安全地缓存响应，甚至无需检查服务器端更改，直到预期的 SHA-256 哈希本身发生更改，因此，后续页面加载需要较少的请求即可快速完成。
+
+如果你的 Web 服务器返回的响应与预期的 SHA-256 哈希不匹配，你将看到类似于以下内容的错误显示在浏览器的开发人员控制台中：
+
+```
+Failed to find a valid digest in the 'integrity' attribute for resource 'https://myapp.example.com/_framework/MyBlazorApp.dll' with computed SHA-256 integrity 'IIa70iwvmEg5WiDV17OpQ5eCztNYqL186J56852RpJY='. The resource has been blocked.
+```
+
+在大多数情况下，这不是完整性检查本身的问题。 相反，它表示存在其他问题，并且完整性检查会警告你其他问题。
+
+### <a name="diagnosing-integrity-problems"></a>诊断完整性问题
+
+生成应用时，生成的 `blazor.boot.json` 清单将描述生成输出生成时启动资源（例如，`.dll`、`.wasm` 和其他文件）的 SHA-256 哈希。 只要 `blazor.boot.json` 中的 SHA-256 哈希与传递到浏览器的文件相匹配，完整性检查就会通过。
+
+此失败的常见原因包括：
+
+ * Web 服务器的响应是一个错误（例如，“404 - 找不到”或“500 - 内部服务器错误”），而不是浏览器所请求的文件。 浏览器会将其报告为完整性检查失败，而不是响应失败。
+ * 在文件生成和传递到浏览器之间已更改文件的内容。 下面可能会发生这种情况：
+   * 你或生成工具手动修改生成输出的情况。
+   * 部署过程的某个方面修改了文件的情况。 例如，在使用基于 Git 的部署机制时，请记住，如果你在 Windows 上提交文件并在 Linux 上检查它们，则 Git 会以透明方式将 Windows 样式的行尾转换为 Unix 样式的行尾。 更改文件行尾将更改 SHA-256 哈希。 若要避免此问题，请考虑[使用 `.gitattributes` 将生成项目视为 `binary` 文件](https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes)。
+   * Web 服务器在提供文件内容的过程中对其进行修改。 例如，某些内容分发网络 (CDN) 会自动尝试[缩小](xref:client-side/bundling-and-minification#minification) HTML，从而对其进行修改。 可能需要禁用此类功能。
+
+若要诊断哪些功能适用于你的情况，请执行执行操作：
+
+ 1. 通过读取错误消息来记下哪个文件触发错误。
+ 1. 打开浏览器的开发人员工具，然后在“网络”选项卡中查找。如有必要，请重新加载页面以查看请求和响应的列表。 在该列表中查找触发错误的文件。
+ 1. 检查响应中的 HTTP 状态代码。 如果服务器返回除“200 - 正常”（或其他 2xx 状态代码）以外的任何内容，则需要诊断服务器端问题。 例如，状态代码 403 表示存在授权问题，而状态代码 500 表示服务器以未指定的方式失败。 请参阅服务器端日志以诊断和修复应用。
+ 1. 如果资源的状态代码为“200 - 正常”，请在浏览器的开发人员工具中查看响应内容，并检查内容是否与预期的数据匹配。 例如，常见问题是错误配置了路由，因此请求甚至返回其他文件的 `index.html` 数据。 请确保对 `.wasm` 请求的响应是 WebAssembly 二进制文件，对 `.dll` 请求的响应是 .NET 程序集二进制文件。 如果不是，则需要诊断服务器端路由问题。
+
+如果确认服务器返回看似正确的数据，则必须在生成文件和传递文件之间修改内容。 若要对此进行调查，请执行以下操作：
+
+ * 如果在生成文件后修改文件，请检查生成工具链和部署机制。 例如，在 Git 转换文件行尾时，如前所述。
+ * 如设置为动态修改响应（例如，尝试缩小 HTML），请检查 Web 服务器或 CDN 配置。 Web 服务器可以实现 HTTP 压缩（例如，返回 `content-encoding: br` 或 `content-encoding: gzip`），因为这不会影响解压缩后的结果。 但是，Web 服务器不可以修改未压缩的数据。
+
+### <a name="disable-integrity-checking-for-non-pwa-apps"></a>禁用非 PWA 应用的完整性检查
+
+在大多数情况下，不要禁用完整性检查。 禁用完整性检查并不能解决导致意外响应的根本问题，并且会导致丢失前面列出的权益。
+
+在某些情况下，Web 服务器无法用于返回一致的响应，但别无选择，只能禁用完整性检查。 若要禁用完整性检查，请将以下内容添加到 Blazor WebAssembly 项目的 `.csproj` 文件中的属性组：
+
+```xml
+<BlazorCacheBootResources>false</BlazorCacheBootResources>
+```
+
+`BlazorCacheBootResources` 还会根据 SHA-256 哈希禁用 Blazor 缓存 `.dll`、`.wasm` 和其他文件的默认行为，因为属性指示无法依靠 SHA-256 哈希来确保正确性。 即使有此设置，浏览器的普通 HTTP 缓存仍可能会缓存这些文件，但是否发生这种情况取决于你的 Web 服务器配置和它所提供的 `cache-control` 标头。
+
+> [!NOTE]
+> `BlazorCacheBootResources` 属性不会禁用[渐进式 Web 应用程序 (PWA)](xref:blazor/progressive-web-app) 的完整性检查。 有关 PWA 的相关指南，请参阅[禁用 PWA 的完整性检查](#disable-integrity-checking-for-pwas)部分。
+
+### <a name="disable-integrity-checking-for-pwas"></a>禁用 PWA 的完整性检查
+
+Blazor 的渐进式 Web 应用程序 (PWA) 模板包含建议的 `service-worker.published.js` 文件，该文件负责获取和存储应用程序文件以供脱机使用。 这是普通应用启动机制的独立进程，具有其自己单独的完整性检查逻辑。
+
+在 `service-worker.published.js` 文件中，出现以下行：
+
+```javascript
+.map(asset => new Request(asset.url, { integrity: asset.hash }));
+```
+
+若要禁用完整性检查，请通过将该行更改为以下行来删除 `integrity` 参数：
+
+```javascript
+.map(asset => new Request(asset.url));
+```
+
+同样，禁用完整性检查意味着会丢失完整性检查提供的安全保证。 例如，如果用户的浏览器在你部署新版本的那一刻缓存应用，则会存在风险，它可能会缓存旧部署中的某些文件和新部署中的某些文件。 如果发生这种情况，则在部署进一步更新之前，应用程序会在中断状态下停滞。
