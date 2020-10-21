@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/http-modules
-ms.openlocfilehash: 213807634a2a6990e9025de7871295cf97a81faf
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 808215d103db9c5d63fe63b6875a222e6b0ba1fa
+ms.sourcegitcommit: b5ebaf42422205d212e3dade93fcefcf7f16db39
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865591"
+ms.lasthandoff: 10/21/2020
+ms.locfileid: "92326614"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 
@@ -356,7 +356,7 @@ public async Task Invoke(HttpContext context)
 
 **TransmitFile**
 
-[此处](../fundamentals/request-features.md#middleware-and-request-features)讨论了如何提供文件。
+[中间件和请求功能](xref:fundamentals/request-features#middleware-and-request-features)中讨论了如何提供文件。
 
 **Httpcontext.current 标头**
 
