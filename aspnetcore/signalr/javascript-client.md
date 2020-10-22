@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: 6fc586d144547585ef75d653bf54193def5c8b7f
-ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
+ms.openlocfilehash: 6f611e56ec62ad7aea8a93e4761e1f67d0f76574
+ms.sourcegitcommit: fad0cd264c9d07a48a8c6ba1690807e0f8728898
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91606677"
+ms.lasthandoff: 10/22/2020
+ms.locfileid: "92379467"
 ---
 # <a name="aspnet-core-no-locsignalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
@@ -278,46 +278,6 @@ const connection = new signalR.HubConnectionBuilder()
 
 实际的实现将使用指数回退或在放弃之前重试指定的次数。
 
-## <a name="troubleshoot-websocket-handshake-errors"></a>排除 WebSocket 握手错误
-
-本部分提供有关在尝试建立与 ASP.NET Core 集线器的连接时发生的 *"WebSocket 握手期间发生的错误"* 异常的帮助 SignalR 。
-
-### <a name="response-code-400-or-503"></a>响应代码400或503
-
-对于以下错误：
-
-```log
-WebSocket connection to 'wss://xxx/HubName' failed: Error during WebSocket handshake: Unexpected response code: 400
-
-Error: Failed to start the connection: Error: There was an error with the transport.
-```
-
-此错误通常是由客户端仅使用 Websocket 传输引起的，但在服务器上未启用 Websocket 协议。
-
-### <a name="response-code-307"></a>响应代码307
-
-```log
-WebSocket connection to 'ws://xxx/HubName' failed: Error during WebSocket handshake: Unexpected response code: 307
-```
-
-通常，当 SignalR 中心服务器发生以下情况时：
-
-* 侦听 HTTP 和 HTTPS 并对其进行响应。
-* 配置为通过调用来强制使用 `UseHttpsRedirection` https `Startup` ，或通过 URL 重写规则强制执行 https。
-
-此错误的原因可能是使用在客户端指定 HTTP URL `.withUrl("http://xxx/HubName")` 。 这种情况的解决方法是修改代码以使用 HTTPS URL。
-
-### <a name="response-code-404"></a>响应代码404
-
-```log
-WebSocket connection to 'wss://xxx/HubName' failed: Error during WebSocket handshake: Unexpected response code: 404
-```
-
-如果应用在 localhost 上运行，但在发布到 IIS 服务器后返回此错误：
-
-* 验证 ASP.NET Core SignalR 应用是否作为 IIS 子应用程序承载。
-* 请勿在 JavaScript 客户端上设置具有子应用的 pathbase 的 URL SignalR `.withUrl("/SubAppName/HubName")` 。
-
 ## <a name="additional-resources"></a>其他资源
 
 * [JavaScript API 参考](/javascript/api/?view=signalr-js-latest&preserve-view=true )
@@ -328,6 +288,7 @@ WebSocket connection to 'wss://xxx/HubName' failed: Error during WebSocket hands
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)
 * [ (CORS 的跨源请求) ](xref:security/cors)
 * [Azure SignalR Service 无服务器文档](/azure/azure-signalr/signalr-concept-serverless-development-config)
+* [排查连接错误](xref:signalr/troubleshoot)
 
 ::: moniker-end
 

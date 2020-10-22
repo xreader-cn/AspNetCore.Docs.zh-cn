@@ -18,12 +18,12 @@ no-loc:
 - SignalR
 - Models
 uid: tutorials/first-web-api
-ms.openlocfilehash: 212d8a80bdc466479c34bc5fbd9c3261ca9d54c4
-ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
+ms.openlocfilehash: 9f67f8104eb5c21f244449ca3a4aaa96c750836d
+ms.sourcegitcommit: fad0cd264c9d07a48a8c6ba1690807e0f8728898
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/27/2020
-ms.locfileid: "91393907"
+ms.lasthandoff: 10/22/2020
+ms.locfileid: "92379483"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -520,7 +520,7 @@ ASP.NET Core 模板：
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`。
 * 选择**Send**。
 
-<a name="over-post"></a>
+<a name="over-post-v5"></a>
 
 ## <a name="prevent-over-posting"></a>防止过度发布
 
@@ -1008,6 +1008,7 @@ ASP.NET Core 模板：
 * 选择**Send**。
 
 <a name="over-post"></a>
+<a name="over-post-v3"></a>
 
 ## <a name="prevent-over-posting"></a>防止过度发布
 
@@ -1389,7 +1390,7 @@ DTO 可用于：
   ![Postman 控制台的“标头”选项卡](first-web-api/_static/pmc2.png)
 
 * 将方法设置为“GET”。
-*将 URI 设置为 `https://localhost:<port>/api/TodoItems/2`， 例如 `https://localhost:5001/api/TodoItems/2`。
+* 将 URI 设置为 `https://localhost:<port>/api/TodoItems/2`。 例如 `https://localhost:5001/api/TodoItems/2`。
 * 选择**Send**。
 
 ## <a name="add-a-puttodoitem-method-21"></a>添加 PutTodoItem 方法 2.1
