@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: d36140067ba6e75f2d00cb86ea488e40d28bd86f
-ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
+ms.openlocfilehash: 3bd881b124e00b91ab0aa9d3eb7531f10ef895f2
+ms.sourcegitcommit: b5ebaf42422205d212e3dade93fcefcf7f16db39
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91762160"
+ms.lasthandoff: 10/21/2020
+ms.locfileid: "92326500"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -164,7 +164,10 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 ## <a name="call-a-void-javascript-function"></a>调用 void JavaScript 函数
 
-返回 [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) 或 [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) 的 JavaScript 函数使用 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用。
+在以下场景中使用 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType>：
+
+* 返回 [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) 或 [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) 的 JavaScript 函数。
+* 如果 .NET 不需要读取 JavaScript 调用的结果。
 
 ## <a name="detect-when-a-no-locblazor-server-app-is-prerendering"></a>检测 Blazor Server 应用进行预呈现的时间
  
@@ -257,9 +260,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 ## <a name="reference-elements-across-components"></a>跨组件引用元素
 
-<xref:Microsoft.AspNetCore.Components.ElementReference> 仅保证在组件的 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 方法中有效（并且元素引用为 `struct`），因此无法在组件之间传递元素引用。
-
-若要使父组件可以向其他组件提供元素引用，父组件可以：
+<xref:Microsoft.AspNetCore.Components.ElementReference> 实例仅保证在组件的 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 方法中有效（并且元素引用为 `struct`），因此无法在组件之间传递元素引用。 若要使父组件可以向其他组件提供元素引用，父组件可以：
 
 * 允许子组件注册回调。
 * 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 事件期间，通过传递的元素引用调用注册的回调。 此方法间接地允许子组件与父级的元素引用交互。
@@ -665,8 +666,33 @@ export function setMapCenter(map, latitude, longitude) {
 
 ::: moniker-end
 
+## <a name="size-limits-on-js-interop-calls"></a>对 JS 互操作调用的大小限制
+
+在 Blazor WebAssembly 中，框架对 JS 互操作调用的输入和输出大小不施加限制。
+
+在 Blazor Server 中，JS 互操作调用的结果受 SignalR (<xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize>) 执行的最大有效负载大小的限制，默认值为 32 KB。 尝试响应有效负载大于 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize> 的 JS 互操作调用的应用程序将引发错误。 可以通过修改 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize> 来配置更大的限制。 下面的示例将最大接收消息大小设置为 64 KB (64 * 1024 * 1024)：
+
+```csharp
+services.AddServerSideBlazor()
+   .AddHubOptions(options => options.MaximumReceiveMessageSize = 64 * 1024 * 1024);
+```
+
+提高 SignalR 上限的代价是需要使用更多的服务器资源，这将使服务器面临来自恶意用户的更大风险。 此外，如果将大量内容作为字符串或字节数组读入内存中，还会导致垃圾回收器的分配工作状况不佳，从而导致额外的性能损失。 读取大型有效负载的一种方法是考虑以较小区块发送内容，并将有效负载作为 <xref:System.IO.Stream> 处理。 可以在读取大型 JSON 有效负载或者数据在 JavaScript 中以原始字节形式提供时使用此方法。 有关演示如何使用类似于 `InputFile` 组件的方法在 Blazor Server 中发送大型二进制有效负载的示例，请参阅[二进制文件提交示例应用](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/BinarySubmit)。
+
+开发在 JavaScript 和 Blazor 之间传输大量数据的代码时，请考虑以下指南：
+
+* 将数据切成小块，然后按顺序发送数据段，直到服务器收到所有数据。
+* 不要在 JavaScript 和 C# 代码中分配大型对象。
+* 发送或接收数据时，请勿长时间阻止主 UI 线程。
+* 在进程完成或取消时释放消耗的所有内存。
+* 为了安全起见，请强制执行以下附加要求：
+  * 声明可以传递的最大文件或数据大小。
+  * 声明从客户端到服务器的最低上传速率。
+* 在服务器收到数据后，数据可以：
+  * 暂时存储在内存缓冲区中，直到收集完所有数据段。
+  * 立即使用。 例如，在收到每个数据段时，数据可以立即存储到数据库中或写入磁盘。
+
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:blazor/call-dotnet-from-javascript>
 * [InteropComponent.razor 示例（dotnet/AspNetCore GitHub 存储库，3.1 版本分支）](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
-* [在 Blazor Server 应用中执行大型数据传输](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)

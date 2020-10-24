@@ -5,7 +5,7 @@ description: 了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/06/2020
+ms.date: 10/14/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 0acf757c21d444136e7a6d81d5958be5bc72c2fc
-ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
+ms.openlocfilehash: 035de12d17b676aac6af42e706f3741937d90fb3
+ms.sourcegitcommit: b3ec60f7682e43211c2b40c60eab3d4e45a48ab1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2020
-ms.locfileid: "91805539"
+ms.lasthandoff: 10/17/2020
+ms.locfileid: "92153598"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -41,14 +41,14 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
    * 调用 [`OnInitialized{Async}`](#component-initialization-methods)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
 1. 调用 [`OnParametersSet{Async}`](#after-parameters-are-set)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
 
-<img src="lifecycle/_static/lifecycle1.png" alt="Component lifecycle events of a Razor component in Blazor" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
+![Blazor 中 Razor 组件的组件生命周期事件](lifecycle/_static/lifecycle1.png)
 
 文档对象模型 (DOM) 事件处理：
 
 1. 运行事件处理程序。
 1. 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
 
-<img src="lifecycle/_static/lifecycle2.png" alt="Document Object Model (DOM) event processing" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
+![文档对象模型 (DOM) 事件处理](lifecycle/_static/lifecycle2.png)
 
 `Render` 生命周期：
 
@@ -57,7 +57,7 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 1. 等待 DOM 更新。
 1. 调用 [`OnAfterRender{Async}`](#after-component-render)。
 
-<img src="lifecycle/_static/lifecycle3.png" alt="Render lifecycle" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
+![呈现生命周期](lifecycle/_static/lifecycle3.png)
 
 开发人员调用 [`StateHasChanged`](#state-changes) 会产生呈现。
 

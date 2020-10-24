@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 63954bd2fbb8fdb2e347d552a10adc52263c3ad6
-ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
+ms.openlocfilehash: c3f537ff3b55f295db478cb097bc99023cc71a87
+ms.sourcegitcommit: b5ebaf42422205d212e3dade93fcefcf7f16db39
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/09/2020
-ms.locfileid: "91900708"
+ms.lasthandoff: 10/21/2020
+ms.locfileid: "92326516"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -450,7 +450,13 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
   
 #### <a name="use-a-custom-webconfig"></a>使用自定义 web.config
 
-要使用自定义 `web.config` 文件，请将自定义 `web.config` 文件放在项目文件夹的根目录下，然后发布该项目。
+要使用自定义 `web.config` 文件，请将自定义 `web.config` 文件置于项目文件夹的根目录下。 将项目配置为使用应用项目文件中的 `PublishIISAssets` 发布特定于 IIS 的资源，并发布项目：
+
+```xml
+<PropertyGroup>
+  <PublishIISAssets>true</PublishIISAssets>
+</PropertyGroup>
+```
 
 #### <a name="install-the-url-rewrite-module"></a>安装 URL 重写模块
 

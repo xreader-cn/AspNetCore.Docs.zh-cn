@@ -4,7 +4,7 @@ author: scottaddie
 description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测试 ASP.NET Core Web API。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
-ms.custom: mvc
+ms.custom: mvc, devx-track-azurecli
 ms.date: 05/20/2020
 no-loc:
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: e6263f19cdb7f9957fa8360f9e782e622589ea18
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: b12f4b10230f2631392011a6e443156bf9a2d843
+ms.sourcegitcommit: d5ecad1103306fac8d5468128d3e24e529f1472c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633313"
+ms.lasthandoff: 10/23/2020
+ms.locfileid: "92491439"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -366,7 +366,7 @@ pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
 
 ---
 
-若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。 例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HTTP REPL 在禁用了扩展的新会话中打开 Visual Studio Code。 运行以下命令：
+若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。 例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HTTP REPL 在禁用了扩展的新会话中打开 Visual Studio Code。 运行下面的命令：
 
 ```console
 pref set editor.command.default.arguments "--disable-extensions --new-window"

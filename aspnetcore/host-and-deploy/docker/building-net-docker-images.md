@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 791cc14feac30ad8a571d155624ab821dfd77981
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 6f94323873937d1428d6cfa1b0ef15e44611fd47
+ms.sourcegitcommit: b3ec60f7682e43211c2b40c60eab3d4e45a48ab1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722853"
+ms.lasthandoff: 10/17/2020
+ms.locfileid: "92153637"
 ---
 # <a name="docker-images-for-aspnet-core"></a>ASP.NET Core 的 Docker 映像
 
@@ -99,7 +99,7 @@ ms.locfileid: "90722853"
 
 ## <a name="run-in-a-linux-container"></a>在 Linux 容器中运行
 
-* 在 Docker 客户端中，切换到 Linux 容器。
+* 在 Docker 客户端中，[切换到 Linux 容器](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers)。
 
 * 导航到 dotnet-docker/samples/aspnetapp  下的 Dockerfile 文件夹。
 
@@ -125,7 +125,7 @@ ms.locfileid: "90722853"
 
 ## <a name="run-in-a-windows-container"></a>在 Windows 容器中运行
 
-* 在 Docker 客户端中，切换到 Windows 容器。
+* 在 Docker 客户端中，[切换到 Windows 容器](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers)。
 
 导航到 `dotnet-docker/samples/aspnetapp` 下的 docker 文件文件夹。
 

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 2b8820acba564bdfb85f8338ed5482573960fbb4
-ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
+ms.openlocfilehash: 4345dd8525c2e72aaddc8e45a4fd4d9bfdd63040
+ms.sourcegitcommit: b5ebaf42422205d212e3dade93fcefcf7f16db39
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90080272"
+ms.lasthandoff: 10/21/2020
+ms.locfileid: "92326519"
 ---
 # <a name="aspnet-core-no-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
@@ -76,7 +76,28 @@ Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozi
 
 ::: moniker range=">= aspnetcore-5.0"
 
-默认情况下，Blazor WebAssembly 携带在用户区域性中显示值（如日期和货币）所需的全球化资源。 如果应用不需要本地化，你可以将应用配置为支持不变区域性，这基于 `en-US` 区域性：
+默认情况下，Blazor WebAssembly 携带在用户区域性中显示值（如日期和货币）所需的最小全球化资源。 必须支持动态更改区域性的应用程序应在项目文件中配置 `BlazorWebAssemblyLoadAllGlobalizationData`：
+
+```xml
+<PropertyGroup>
+  <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+</PropertyGroup>
+```
+
+还可以通过传递给 `Blazor.start` 的选项将 Blazor WebAssembly 配置为使用特定应用程序区域性启动。 例如，下面的示例显示配置为使用 `en-GB` 区域性启动的应用：
+
+```html
+<script src="_framework/blazor.webassembly.js" autostart="false"></script>
+<script>
+  Blazor.start({
+    applicationCulture: 'en-GB'
+  });
+</script>
+```
+
+`applicationCulture` 的值应符合 [BCP-47 语言标记格式](https://tools.ietf.org/html/bcp47)。
+
+如果应用不需要本地化，你可以将应用配置为支持不变区域性，这基于 `en-US` 区域性：
 
 ```xml
 <PropertyGroup>
