@@ -385,6 +385,8 @@
               uid: blazor/components/virtualization
             - name: 模板化组件
               uid: blazor/components/templated-components
+            - name: CSS 隔离
+              uid: blazor/components/css-isolation
             - name: 集成组件
               uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
             - name: 组件库
@@ -447,7 +449,7 @@
           uid: blazor/webassembly-lazy-load-assemblies
         - name: WebAssembly 性能
           uid: blazor/webassembly-performance-best-practices
-        - name: 测试
+        - name: 测试组件
           uid: blazor/test
         - name: 渐进式 Web 应用程序
           uid: blazor/progressive-web-app
