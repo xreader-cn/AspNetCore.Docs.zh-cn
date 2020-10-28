@@ -4,7 +4,7 @@ author: bradygaster
 description: ASP.NET Core SignalR JavaScript 客户端概述。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
-ms.custom: mvc
+ms.custom: mvc, devx-track-js
 ms.date: 04/08/2020
 no-loc:
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: 6f611e56ec62ad7aea8a93e4761e1f67d0f76574
-ms.sourcegitcommit: fad0cd264c9d07a48a8c6ba1690807e0f8728898
+ms.openlocfilehash: be271272c952487fccc5136307c84fdf49391848
+ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/22/2020
-ms.locfileid: "92379467"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92690647"
 ---
 # <a name="aspnet-core-no-locsignalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
@@ -41,14 +41,14 @@ SignalRJavaScript 客户端库以[npm](https://www.npmjs.com/)包的形式提供
 
 ### <a name="install-with-npm"></a>通过 npm 安装
 
-对于 Visual Studio，请在根文件夹中的 " **包管理器控制台** " 中运行以下命令。 对于 Visual Studio Code，请从 **集成终端**运行以下命令。
+对于 Visual Studio，请在根文件夹中的 " **包管理器控制台** " 中运行以下命令。 对于 Visual Studio Code，请从 **集成终端** 运行以下命令。
 
 ```bash
 npm init -y
 npm install @microsoft/signalr
 ```
 
-npm 将包内容安装到*node_modules \\ @microsoft\signalr\dist\browser *文件夹中。 在*wwwroot \\ lib*文件夹下创建名为*signalr*的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
+npm 将包内容安装到 *node_modules \\ @microsoft\signalr\dist\browser* 文件夹中。 在 *wwwroot \\ lib* 文件夹下创建名为 *signalr* 的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
 
 SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
 
@@ -306,14 +306,14 @@ SignalRJavaScript 客户端库以[npm](https://www.npmjs.com/)包的形式提供
 
 ### <a name="install-with-npm"></a>通过 npm 安装
 
-如果使用的是 Visual Studio，请在根文件夹中的 " **包管理器控制台** " 中运行以下命令。 对于 Visual Studio Code，请从 **集成终端**运行以下命令。
+如果使用的是 Visual Studio，请在根文件夹中的 " **包管理器控制台** " 中运行以下命令。 对于 Visual Studio Code，请从 **集成终端** 运行以下命令。
 
 ```bash
 npm init -y
 npm install @aspnet/signalr
 ```
 
-npm 将包内容安装到*node_modules \\ @aspnet\signalr\dist\browser *文件夹中。 在*wwwroot \\ lib*文件夹下创建名为*signalr*的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
+npm 将包内容安装到 *node_modules \\ @aspnet\signalr\dist\browser* 文件夹中。 在 *wwwroot \\ lib* 文件夹下创建名为 *signalr* 的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
 
 SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
 
