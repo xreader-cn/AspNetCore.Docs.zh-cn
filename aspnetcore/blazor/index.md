@@ -4,7 +4,7 @@ author: guardrex
 description: 了解 ASP.NET Core Blazor，用户可用它在 ASP.NET Core 应用中使用 .NET 生成交互式客户端 Web UI。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
-ms.custom: mvc, seoapril2019
+ms.custom: mvc, seoapril2019, devx-track-js
 ms.date: 09/25/2020
 no-loc:
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 7ad374fdc7452664e3367d6ef214fd4cebdf3b08
-ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
+ms.openlocfilehash: bae3e96021971e373ad743a0b52da7f69d839c40
+ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2020
-ms.locfileid: "91805514"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92690601"
 ---
 # <a name="introduction-to-aspnet-core-no-locblazor"></a>ASP.NET Core Blazor 简介
 

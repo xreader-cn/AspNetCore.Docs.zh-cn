@@ -431,6 +431,8 @@
                   uid: blazor/security/webassembly/additional-scenarios
                 - name: AAD 组和角色
                   uid: blazor/security/webassembly/aad-groups-roles
+                - name: 图形 API
+                  uid: blazor/security/webassembly/graph-api
             - name: Blazor 服务器
               items:
                 - name: 概述
