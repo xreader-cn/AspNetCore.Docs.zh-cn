@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 035de12d17b676aac6af42e706f3741937d90fb3
-ms.sourcegitcommit: b3ec60f7682e43211c2b40c60eab3d4e45a48ab1
+ms.openlocfilehash: bf528bb68af25a8c469a0c7710abc7c0b730fce2
+ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/17/2020
-ms.locfileid: "92153598"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92690617"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -205,7 +205,7 @@ protected override bool ShouldRender()
 
 即使 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 被替代，组件也始终在最初呈现。
 
-有关详细信息，请参阅 <xref:blazor/webassembly-performance-best-practices#avoid-unnecessary-component-renders>。
+有关详细信息，请参阅 <xref:blazor/webassembly-performance-best-practices#avoid-unnecessary-rendering-of-component-subtrees>。
 
 ## <a name="state-changes"></a>状态更改
 
@@ -229,7 +229,7 @@ Blazor Server 模板中的 `Pages/FetchData.razor`：
 
 ## <a name="stateful-reconnection-after-prerendering"></a>预呈现后的有状态重新连接
 
-在 Blazor Server 应用中，当 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> 时，组件最初作为页面的一部分静态呈现。 浏览器重新建立与服务器的连接后，将*再次*呈现组件，并且该组件现在为交互式。 如果存在用于初始化组件的 [`OnInitialized{Async}`](#component-initialization-methods) 生命周期方法，则该方法执行两次：
+在 Blazor Server 应用中，当 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> 时，组件最初作为页面的一部分静态呈现。 浏览器重新建立与服务器的连接后，将 *再次* 呈现组件，并且该组件现在为交互式。 如果存在用于初始化组件的 [`OnInitialized{Async}`](#component-initialization-methods) 生命周期方法，则该方法执行两次：
 
 * 在静态预呈现组件时执行一次。
 * 在建立服务器连接后执行一次。

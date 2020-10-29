@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 46a9fc7776022a29bedf1c88e8230e1fd52d1607
-ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
+ms.openlocfilehash: e3dd7168e6974f63fa963d3732bc5df41814c70e
+ms.sourcegitcommit: d5ecad1103306fac8d5468128d3e24e529f1472c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91606758"
+ms.lasthandoff: 10/23/2020
+ms.locfileid: "92491610"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -339,8 +339,6 @@ URL 匹配在可配置的阶段集中运行。 在每个阶段中，输出为一
 > 
 > * 没有路由的概念。
 > * 不提供顺序保证。 同时处理所有终结点。
->
-> 如果这表示你无法使用旧版路由系统，请[提出 GitHub 问题以获取帮助](https://github.com/dotnet/aspnetcore/issues)。
 
 <a name="rtp"></a>
 
@@ -1175,7 +1173,7 @@ ASP.NET Core 2.2 或更高版本中的终结点路由与 ASP.NET Core 中早期�
 
 * 与终结点路由一起使用时，链接生成环境值失效算法的行为会有所不同。
 
-  *环境值失效*是一种算法，用于决定当前正在执行的请求（环境值）中的哪些路由值可用于链接生成操作。 链接到不同操作时，传统路由会使额外的路由值失效。 ASP.NET Core 2.2 之前的版本中，属性路由不具有此行为。 在 ASP.NET Core 的早期版本中，如果有另一个操作使用同一路由参数名称，则该操作的链接会导致发生链接生成错误。 在 ASP.NET Core 2.2 或更高版本中，链接到另一个操作时，这两种路由形式都会使值失效。
+  *环境值失效* 是一种算法，用于决定当前正在执行的请求（环境值）中的哪些路由值可用于链接生成操作。 链接到不同操作时，传统路由会使额外的路由值失效。 ASP.NET Core 2.2 之前的版本中，属性路由不具有此行为。 在 ASP.NET Core 的早期版本中，如果有另一个操作使用同一路由参数名称，则该操作的链接会导致发生链接生成错误。 在 ASP.NET Core 2.2 或更高版本中，链接到另一个操作时，这两种路由形式都会使值失效。
 
   请考虑 ASP.NET Core2.1 或更高版本中的以下示例。 链接到另一个操作（或另一页面）时，路由值可能会按非预期的方式被重用。
 

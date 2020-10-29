@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 88c3ded79db65557d9426fde6f43aace4d9d8ae2
-ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
+ms.openlocfilehash: ad244c29c8e8e904793745119366cd677389b12d
+ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91606666"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92690606"
 ---
 # <a name="aspnet-core-no-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -519,7 +519,7 @@ namespace BlazorSample.Server.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError("Validation Error: {MESSAGE}", ex.Message);
+                logger.LogError("Validation Error: {Message}", ex.Message);
             }
 
             return BadRequest(ModelState);
@@ -706,7 +706,7 @@ services.AddControllersWithViews()
         }
         catch (Exception ex)
         {
-            Logger.LogError("Form processing error: {MESSAGE}", ex.Message);
+            Logger.LogError("Form processing error: {Message}", ex.Message);
             disabled = true;
             messageStyles = "color:red";
             message = "There was an error processing the form.";
@@ -974,8 +974,8 @@ HTML 中最合理的 `null` 等效项是空字符串 `value`。 Blazor 框架处
 
 Blazor 执行两种类型的验证：
 
-* 当用户从某个字段中跳出时，将执行*字段验证*。 在字段验证期间，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件将报告的所有验证结果与该字段相关联。
-* 当用户提交窗体时，将执行*模型验证*。 在模型验证期间，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件尝试根据验证结果报告的成员名称来确定字段。 与单个成员无关的验证结果将与模型而不是字段相关联。
+* 当用户从某个字段中跳出时，将执行 *字段验证* 。 在字段验证期间，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件将报告的所有验证结果与该字段相关联。
+* 当用户提交窗体时，将执行 *模型验证* 。 在模型验证期间，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件尝试根据验证结果报告的成员名称来确定字段。 与单个成员无关的验证结果将与模型而不是字段相关联。
 
 ### <a name="validation-summary-and-validation-message-components"></a>验证摘要和验证消息组件
 
@@ -1059,7 +1059,7 @@ private class MyFieldClassProvider : FieldCssClassProvider
 
 ### <a name="no-locblazor-data-annotations-validation-package"></a>Blazor 数据注释验证包
 
-[`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 是使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件填补验证经验空白的包。 该包目前处于*试验阶段*。
+[`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 是使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件填补验证经验空白的包。 该包目前处于 *试验阶段* 。
 
 > [!NOTE]
 > [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 包具有最新版本的候选发布 ([Nuget.org](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation))。此时继续使用实验性候选发布包。 在将来的版本中，包的程序集可能会移动到框架或运行时。 请观看[公告 GitHub 存储库](https://github.com/aspnet/Announcements)、[dotnet/aspnetcore GitHub 存储库](https://github.com/dotnet/aspnetcore)或本主题部分，获取进一步更新。
