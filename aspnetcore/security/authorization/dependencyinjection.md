@@ -5,33 +5,34 @@ description: 了解如何使用依赖关系注入将授权要求处理程序注�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
-- ASP.NET Core Identity
-- cookie
-- Cookie
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- ':::no-loc(appsettings.json):::'
+- ':::no-loc(ASP.NET Core Identity):::'
+- ':::no-loc(cookie):::'
+- ':::no-loc(Cookie):::'
+- ':::no-loc(Blazor):::'
+- ':::no-loc(Blazor Server):::'
+- ':::no-loc(Blazor WebAssembly):::'
+- ':::no-loc(Identity):::'
+- ":::no-loc(Let's Encrypt):::"
+- ':::no-loc(Razor):::'
+- ':::no-loc(SignalR):::'
 uid: security/authorization/dependencyinjection
-ms.openlocfilehash: 4bc7eb38262c8a94a84aacc978737a778bfd71a1
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 6598a9c9cfd1e6597fffcc1aa0c53fa493532458
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632559"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060256"
 ---
-# <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a><span data-ttu-id="7d3d6-103">ASP.NET Core 中的要求处理程序中的依赖项注入</span><span class="sxs-lookup"><span data-stu-id="7d3d6-103">Dependency injection in requirement handlers in ASP.NET Core</span></span>
+# <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a><span data-ttu-id="08516-103">ASP.NET Core 中的要求处理程序中的依赖项注入</span><span class="sxs-lookup"><span data-stu-id="08516-103">Dependency injection in requirement handlers in ASP.NET Core</span></span>
 
 <a name="security-authorization-di"></a>
 
-<span data-ttu-id="7d3d6-104">在配置 (使用[依赖关系注入](xref:fundamentals/dependency-injection)) ，必须在服务集合中[注册授权处理程序](xref:security/authorization/policies#handler-registration)。</span><span class="sxs-lookup"><span data-stu-id="7d3d6-104">[Authorization handlers must be registered](xref:security/authorization/policies#handler-registration) in the service collection during configuration (using [dependency injection](xref:fundamentals/dependency-injection)).</span></span>
+<span data-ttu-id="08516-104">在使用[依赖关系注入](xref:fundamentals/dependency-injection)的配置过程中，必须在服务集合中[注册授权处理程序](xref:security/authorization/policies#handler-registration)。</span><span class="sxs-lookup"><span data-stu-id="08516-104">[Authorization handlers must be registered](xref:security/authorization/policies#handler-registration) in the service collection during configuration using [dependency injection](xref:fundamentals/dependency-injection).</span></span>
 
-<span data-ttu-id="7d3d6-105">假设你有一个规则存储库，你希望在授权处理程序中评估该存储库，并在服务集合中注册该存储库。</span><span class="sxs-lookup"><span data-stu-id="7d3d6-105">Suppose you had a repository of rules you wanted to evaluate inside an authorization handler and that repository was registered in the service collection.</span></span> <span data-ttu-id="7d3d6-106">授权将解析并注入构造函数。</span><span class="sxs-lookup"><span data-stu-id="7d3d6-106">Authorization will resolve and inject that into your constructor.</span></span>
+<span data-ttu-id="08516-105">假设你有一个规则存储库，你希望在授权处理程序中评估该存储库，并在服务集合中注册该存储库。</span><span class="sxs-lookup"><span data-stu-id="08516-105">Suppose you had a repository of rules you wanted to evaluate inside an authorization handler and that repository was registered in the service collection.</span></span> <span data-ttu-id="08516-106">授权将解析并注入到构造函数中。</span><span class="sxs-lookup"><span data-stu-id="08516-106">Authorization resolves and injects that into the constructor.</span></span>
 
-<span data-ttu-id="7d3d6-107">例如，如果你想要使用 ASP。要注入处理程序的网络日志记录基础结构 `ILoggerFactory` 。</span><span class="sxs-lookup"><span data-stu-id="7d3d6-107">For example, if you wanted to use ASP.NET's logging infrastructure you would want to inject `ILoggerFactory` into your handler.</span></span> <span data-ttu-id="7d3d6-108">此类处理程序可能如下所示：</span><span class="sxs-lookup"><span data-stu-id="7d3d6-108">Such a handler might look like:</span></span>
+<span data-ttu-id="08516-107">例如，使用 ASP。网络日志记录基础结构，注入 `ILoggerFactory` 处理程序。</span><span class="sxs-lookup"><span data-stu-id="08516-107">For example, to use ASP.NET's logging infrastructure, inject `ILoggerFactory` into the handler.</span></span> <span data-ttu-id="08516-108">此类处理程序可能类似于以下代码：</span><span class="sxs-lookup"><span data-stu-id="08516-108">Such a handler might look like the following code:</span></span>
 
 ```csharp
 public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
@@ -52,13 +53,13 @@ public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
    }
    ```
 
-<span data-ttu-id="7d3d6-109">将处理程序注册到 `services.AddSingleton()` ：</span><span class="sxs-lookup"><span data-stu-id="7d3d6-109">You would register the handler with `services.AddSingleton()`:</span></span>
+<span data-ttu-id="08516-109">前面的处理程序可注册到任何 [服务生存期](/dotnet/core/extensions/dependency-injection#service-lifetimes)。</span><span class="sxs-lookup"><span data-stu-id="08516-109">The preceding handler can be registered with any [service lifetime](/dotnet/core/extensions/dependency-injection#service-lifetimes).</span></span> <span data-ttu-id="08516-110">下面的代码使用 `AddSingleton` 注册前面的处理程序：</span><span class="sxs-lookup"><span data-stu-id="08516-110">The following code uses `AddSingleton` to register the preceding handler:</span></span>
 
 ```csharp
 services.AddSingleton<IAuthorizationHandler, LoggingAuthorizationHandler>();
 ```
 
-<span data-ttu-id="7d3d6-110">当应用程序启动时，将创建处理程序的实例，DI 会将注册的注入 `ILoggerFactory` 到构造函数中。</span><span class="sxs-lookup"><span data-stu-id="7d3d6-110">An instance of the handler will be created when your application starts, and DI will inject the registered `ILoggerFactory` into your constructor.</span></span>
+<span data-ttu-id="08516-111">处理程序的实例是在应用程序启动时创建的，DI 会将注册的注入 `ILoggerFactory` 构造函数中。</span><span class="sxs-lookup"><span data-stu-id="08516-111">An instance of the handler is created when the app starts, and DI injects the registered `ILoggerFactory` into the constructor.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="7d3d6-111">使用实体框架的处理程序不应注册为单一实例。</span><span class="sxs-lookup"><span data-stu-id="7d3d6-111">Handlers that use Entity Framework shouldn't be registered as singletons.</span></span>
+> <span data-ttu-id="08516-112">使用实体框架的处理程序不应注册为单一实例。</span><span class="sxs-lookup"><span data-stu-id="08516-112">Handlers that use Entity Framework shouldn't be registered as singletons.</span></span>

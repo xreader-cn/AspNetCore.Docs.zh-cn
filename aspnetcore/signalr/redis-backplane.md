@@ -1,173 +1,174 @@
 ---
-title: 用于 ASP.NET Core 横向扩展的 Redis 底板 SignalR
+title: '用于 ASP.NET Core 横向扩展的 Redis 底板 :::no-loc(SignalR):::'
 author: bradygaster
-description: 了解如何设置 Redis 底板以便为 ASP.NET Core 应用启用横向扩展 SignalR 。
+description: '了解如何设置 Redis 底板以便为 ASP.NET Core 应用启用横向扩展 :::no-loc(SignalR)::: 。'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
-- ASP.NET Core Identity
-- cookie
-- Cookie
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- ':::no-loc(appsettings.json):::'
+- ':::no-loc(ASP.NET Core Identity):::'
+- ':::no-loc(cookie):::'
+- ':::no-loc(Cookie):::'
+- ':::no-loc(Blazor):::'
+- ':::no-loc(Blazor Server):::'
+- ':::no-loc(Blazor WebAssembly):::'
+- ':::no-loc(Identity):::'
+- ":::no-loc(Let's Encrypt):::"
+- ':::no-loc(Razor):::'
+- ':::no-loc(SignalR):::'
 uid: signalr/redis-backplane
-ms.openlocfilehash: a57176409c5f9bcc620db7e070f6616951eb9a54
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: e92f515b82b8ee76f98eaa1fca51feb9cdd14d5c
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722769"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93059632"
 ---
-# <a name="set-up-a-redis-backplane-for-aspnet-core-no-locsignalr-scale-out"></a><span data-ttu-id="18cf9-103">设置用于 ASP.NET Core 横向扩展的 Redis 底板 SignalR</span><span class="sxs-lookup"><span data-stu-id="18cf9-103">Set up a Redis backplane for ASP.NET Core SignalR scale-out</span></span>
+# <a name="set-up-a-redis-backplane-for-aspnet-core-no-locsignalr-scale-out"></a><span data-ttu-id="b74d4-103">设置用于 ASP.NET Core 横向扩展的 Redis 底板 :::no-loc(SignalR):::</span><span class="sxs-lookup"><span data-stu-id="b74d4-103">Set up a Redis backplane for ASP.NET Core :::no-loc(SignalR)::: scale-out</span></span>
 
-<span data-ttu-id="18cf9-104">作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和[Tom Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="18cf9-104">By [Andrew Stanton-Nurse](https://twitter.com/anurse), [Brady Gaster](https://twitter.com/bradygaster), and [Tom Dykstra](https://github.com/tdykstra),</span></span>
+<span data-ttu-id="b74d4-104">作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和[Tom Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="b74d4-104">By [Andrew Stanton-Nurse](https://twitter.com/anurse), [Brady Gaster](https://twitter.com/bradygaster), and [Tom Dykstra](https://github.com/tdykstra),</span></span>
 
-<span data-ttu-id="18cf9-105">本文介绍了 SignalR 设置 [Redis](https://redis.io/) 服务器以用于横向扩展 ASP.NET Core 应用程序的特定方面 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-105">This article explains SignalR-specific aspects of setting up a [Redis](https://redis.io/) server to use for scaling out an ASP.NET Core SignalR app.</span></span>
+<span data-ttu-id="b74d4-105">本文介绍了 :::no-loc(SignalR)::: 设置 [Redis](https://redis.io/) 服务器以用于横向扩展 ASP.NET Core 应用程序的特定方面 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-105">This article explains :::no-loc(SignalR):::-specific aspects of setting up a [Redis](https://redis.io/) server to use for scaling out an ASP.NET Core :::no-loc(SignalR)::: app.</span></span>
 
-## <a name="set-up-a-redis-backplane"></a><span data-ttu-id="18cf9-106">设置 Redis 底板</span><span class="sxs-lookup"><span data-stu-id="18cf9-106">Set up a Redis backplane</span></span>
+## <a name="set-up-a-redis-backplane"></a><span data-ttu-id="b74d4-106">设置 Redis 底板</span><span class="sxs-lookup"><span data-stu-id="b74d4-106">Set up a Redis backplane</span></span>
 
-* <span data-ttu-id="18cf9-107">部署 Redis 服务器。</span><span class="sxs-lookup"><span data-stu-id="18cf9-107">Deploy a Redis server.</span></span>
+* <span data-ttu-id="b74d4-107">部署 Redis 服务器。</span><span class="sxs-lookup"><span data-stu-id="b74d4-107">Deploy a Redis server.</span></span>
 
   > [!IMPORTANT] 
-  > <span data-ttu-id="18cf9-108">对于生产用途，建议仅当 Redis 底板与应用在同一数据中心内运行时才使用它 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-108">For production use, a Redis backplane is recommended only when it runs in the same data center as the SignalR app.</span></span> <span data-ttu-id="18cf9-109">否则，网络延迟会降低性能。</span><span class="sxs-lookup"><span data-stu-id="18cf9-109">Otherwise, network latency degrades performance.</span></span> <span data-ttu-id="18cf9-110">如果你 SignalR 的应用在 azure 云中运行，我们建议使用 azure SignalR 服务，而不是 Redis 底板。</span><span class="sxs-lookup"><span data-stu-id="18cf9-110">If your SignalR app is running in the Azure cloud, we recommend Azure SignalR Service instead of a Redis backplane.</span></span> <span data-ttu-id="18cf9-111">可以使用 Azure Redis 缓存服务进行开发和测试环境。</span><span class="sxs-lookup"><span data-stu-id="18cf9-111">You can use the Azure Redis Cache Service for development and test environments.</span></span>
+  > <span data-ttu-id="b74d4-108">对于生产用途，建议仅当 Redis 底板与应用在同一数据中心内运行时才使用它 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-108">For production use, a Redis backplane is recommended only when it runs in the same data center as the :::no-loc(SignalR)::: app.</span></span> <span data-ttu-id="b74d4-109">否则，网络延迟会降低性能。</span><span class="sxs-lookup"><span data-stu-id="b74d4-109">Otherwise, network latency degrades performance.</span></span> <span data-ttu-id="b74d4-110">如果你 :::no-loc(SignalR)::: 的应用在 azure 云中运行，我们建议使用 azure :::no-loc(SignalR)::: 服务，而不是 Redis 底板。</span><span class="sxs-lookup"><span data-stu-id="b74d4-110">If your :::no-loc(SignalR)::: app is running in the Azure cloud, we recommend Azure :::no-loc(SignalR)::: Service instead of a Redis backplane.</span></span> <span data-ttu-id="b74d4-111">可以使用 Azure Redis 缓存服务进行开发和测试环境。</span><span class="sxs-lookup"><span data-stu-id="b74d4-111">You can use the Azure Redis Cache Service for development and test environments.</span></span>
 
-  <span data-ttu-id="18cf9-112">有关详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="18cf9-112">For more information, see the following resources:</span></span>
+  <span data-ttu-id="b74d4-112">有关详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="b74d4-112">For more information, see the following resources:</span></span>
 
   * <xref:signalr/scale>
-  * [<span data-ttu-id="18cf9-113">Redis 文档</span><span class="sxs-lookup"><span data-stu-id="18cf9-113">Redis documentation</span></span>](https://redis.io/)
-  * [<span data-ttu-id="18cf9-114">Azure Redis 缓存文档</span><span class="sxs-lookup"><span data-stu-id="18cf9-114">Azure Redis Cache documentation</span></span>](/azure/redis-cache/)
+  * [<span data-ttu-id="b74d4-113">Redis 文档</span><span class="sxs-lookup"><span data-stu-id="b74d4-113">Redis documentation</span></span>](https://redis.io/)
+  * [<span data-ttu-id="b74d4-114">Azure Redis 缓存文档</span><span class="sxs-lookup"><span data-stu-id="b74d4-114">Azure Redis Cache documentation</span></span>](/azure/redis-cache/)
 
 ::: moniker range="= aspnetcore-2.1"
 
-* <span data-ttu-id="18cf9-115">在 SignalR 应用中，安装 `Microsoft.AspNetCore.SignalR.Redis` NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="18cf9-115">In the SignalR app, install the `Microsoft.AspNetCore.SignalR.Redis` NuGet package.</span></span>
-* <span data-ttu-id="18cf9-116">在 `Startup.ConfigureServices` 方法中，调用 `AddRedis` after `AddSignalR` ：</span><span class="sxs-lookup"><span data-stu-id="18cf9-116">In the `Startup.ConfigureServices` method, call `AddRedis` after `AddSignalR`:</span></span>
+* <span data-ttu-id="b74d4-115">在 :::no-loc(SignalR)::: 应用中，安装 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis` NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="b74d4-115">In the :::no-loc(SignalR)::: app, install the `Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis` NuGet package.</span></span>
+* <span data-ttu-id="b74d4-116">在 `Startup.ConfigureServices` 方法中，调用 `AddRedis` after `Add:::no-loc(SignalR):::` ：</span><span class="sxs-lookup"><span data-stu-id="b74d4-116">In the `Startup.ConfigureServices` method, call `AddRedis` after `Add:::no-loc(SignalR):::`:</span></span>
 
   ```csharp
-  services.AddSignalR().AddRedis("<your_Redis_connection_string>");
+  services.Add:::no-loc(SignalR):::().AddRedis("<your_Redis_connection_string>");
   ```
 
-* <span data-ttu-id="18cf9-117">根据需要配置选项：</span><span class="sxs-lookup"><span data-stu-id="18cf9-117">Configure options as needed:</span></span>
+* <span data-ttu-id="b74d4-117">根据需要配置选项：</span><span class="sxs-lookup"><span data-stu-id="b74d4-117">Configure options as needed:</span></span>
  
-  <span data-ttu-id="18cf9-118">可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。</span><span class="sxs-lookup"><span data-stu-id="18cf9-118">Most options can be set in the connection string or in the [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) object.</span></span> <span data-ttu-id="18cf9-119">中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。</span><span class="sxs-lookup"><span data-stu-id="18cf9-119">Options specified in `ConfigurationOptions` override the ones set in the connection string.</span></span>
+  <span data-ttu-id="b74d4-118">可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。</span><span class="sxs-lookup"><span data-stu-id="b74d4-118">Most options can be set in the connection string or in the [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) object.</span></span> <span data-ttu-id="b74d4-119">中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。</span><span class="sxs-lookup"><span data-stu-id="b74d4-119">Options specified in `ConfigurationOptions` override the ones set in the connection string.</span></span>
 
-  <span data-ttu-id="18cf9-120">下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-120">The following example shows how to set options in the `ConfigurationOptions` object.</span></span> <span data-ttu-id="18cf9-121">此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。</span><span class="sxs-lookup"><span data-stu-id="18cf9-121">This example adds a channel prefix so that multiple apps can share the same Redis instance, as explained in the following step.</span></span>
+  <span data-ttu-id="b74d4-120">下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-120">The following example shows how to set options in the `ConfigurationOptions` object.</span></span> <span data-ttu-id="b74d4-121">此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。</span><span class="sxs-lookup"><span data-stu-id="b74d4-121">This example adds a channel prefix so that multiple apps can share the same Redis instance, as explained in the following step.</span></span>
 
   ```csharp
-  services.AddSignalR()
+  services.Add:::no-loc(SignalR):::()
     .AddRedis(connectionString, options => {
         options.Configuration.ChannelPrefix = "MyApp";
     });
   ```
 
-  <span data-ttu-id="18cf9-122">在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。</span><span class="sxs-lookup"><span data-stu-id="18cf9-122">In the preceding code, `options.Configuration` is initialized with whatever was specified in the connection string.</span></span>
+  <span data-ttu-id="b74d4-122">在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。</span><span class="sxs-lookup"><span data-stu-id="b74d4-122">In the preceding code, `options.Configuration` is initialized with whatever was specified in the connection string.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.2"
 
-* <span data-ttu-id="18cf9-123">在 SignalR 应用中，安装以下 NuGet 包之一：</span><span class="sxs-lookup"><span data-stu-id="18cf9-123">In the SignalR app, install one of the following NuGet packages:</span></span>
+* <span data-ttu-id="b74d4-123">在 :::no-loc(SignalR)::: 应用中，安装以下 NuGet 包之一：</span><span class="sxs-lookup"><span data-stu-id="b74d4-123">In the :::no-loc(SignalR)::: app, install one of the following NuGet packages:</span></span>
 
-  * <span data-ttu-id="18cf9-124">`Microsoft.AspNetCore.SignalR.StackExchangeRedis` -依赖于 Stackexchange.redis. Redis 2. 采用2.X.X。</span><span class="sxs-lookup"><span data-stu-id="18cf9-124">`Microsoft.AspNetCore.SignalR.StackExchangeRedis` - Depends on StackExchange.Redis 2.X.X.</span></span> <span data-ttu-id="18cf9-125">建议将此包用于 ASP.NET Core 2.2 及更高版本。</span><span class="sxs-lookup"><span data-stu-id="18cf9-125">This is the recommended package for ASP.NET Core 2.2 and later.</span></span>
-  * <span data-ttu-id="18cf9-126">`Microsoft.AspNetCore.SignalR.Redis` -依赖于 Stackexchange.redis. Redis 采用2.X.X。</span><span class="sxs-lookup"><span data-stu-id="18cf9-126">`Microsoft.AspNetCore.SignalR.Redis` - Depends on StackExchange.Redis 1.X.X.</span></span> <span data-ttu-id="18cf9-127">此包不包含在 ASP.NET Core 3.0 及更高版本中。</span><span class="sxs-lookup"><span data-stu-id="18cf9-127">This package isn't included in ASP.NET Core 3.0 and later.</span></span>
+  * <span data-ttu-id="b74d4-124">`Microsoft.AspNetCore.:::no-loc(SignalR):::.StackExchangeRedis` -依赖于 Stackexchange.redis. Redis 2. 采用2.X.X。</span><span class="sxs-lookup"><span data-stu-id="b74d4-124">`Microsoft.AspNetCore.:::no-loc(SignalR):::.StackExchangeRedis` - Depends on StackExchange.Redis 2.X.X.</span></span> <span data-ttu-id="b74d4-125">建议将此包用于 ASP.NET Core 2.2 及更高版本。</span><span class="sxs-lookup"><span data-stu-id="b74d4-125">This is the recommended package for ASP.NET Core 2.2 and later.</span></span>
+  * <span data-ttu-id="b74d4-126">`Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis` -依赖于 Stackexchange.redis. Redis 采用2.X.X。</span><span class="sxs-lookup"><span data-stu-id="b74d4-126">`Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis` - Depends on StackExchange.Redis 1.X.X.</span></span> <span data-ttu-id="b74d4-127">此包不包含在 ASP.NET Core 3.0 及更高版本中。</span><span class="sxs-lookup"><span data-stu-id="b74d4-127">This package isn't included in ASP.NET Core 3.0 and later.</span></span>
 
-* <span data-ttu-id="18cf9-128">在 `Startup.ConfigureServices` 方法中，调用 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*> ：</span><span class="sxs-lookup"><span data-stu-id="18cf9-128">In the `Startup.ConfigureServices` method, call <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>:</span></span>
+* <span data-ttu-id="b74d4-128">在 `Startup.ConfigureServices` 方法中，调用 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*> ：</span><span class="sxs-lookup"><span data-stu-id="b74d4-128">In the `Startup.ConfigureServices` method, call <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>:</span></span>
 
   ```csharp
-  services.AddSignalR().AddStackExchangeRedis("<your_Redis_connection_string>");
+  services.Add:::no-loc(SignalR):::().AddStackExchangeRedis("<your_Redis_connection_string>");
   ```
 
- <span data-ttu-id="18cf9-129">使用时 `Microsoft.AspNetCore.SignalR.Redis` ，请调用 <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*> 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-129">When using `Microsoft.AspNetCore.SignalR.Redis`, call <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>.</span></span>
+ <span data-ttu-id="b74d4-129">使用时 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis` ，请调用 <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*> 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-129">When using `Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis`, call <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>.</span></span>
 
-* <span data-ttu-id="18cf9-130">根据需要配置选项：</span><span class="sxs-lookup"><span data-stu-id="18cf9-130">Configure options as needed:</span></span>
+* <span data-ttu-id="b74d4-130">根据需要配置选项：</span><span class="sxs-lookup"><span data-stu-id="b74d4-130">Configure options as needed:</span></span>
  
-  <span data-ttu-id="18cf9-131">可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。</span><span class="sxs-lookup"><span data-stu-id="18cf9-131">Most options can be set in the connection string or in the [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) object.</span></span> <span data-ttu-id="18cf9-132">中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。</span><span class="sxs-lookup"><span data-stu-id="18cf9-132">Options specified in `ConfigurationOptions` override the ones set in the connection string.</span></span>
+  <span data-ttu-id="b74d4-131">可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。</span><span class="sxs-lookup"><span data-stu-id="b74d4-131">Most options can be set in the connection string or in the [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) object.</span></span> <span data-ttu-id="b74d4-132">中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。</span><span class="sxs-lookup"><span data-stu-id="b74d4-132">Options specified in `ConfigurationOptions` override the ones set in the connection string.</span></span>
 
-  <span data-ttu-id="18cf9-133">下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-133">The following example shows how to set options in the `ConfigurationOptions` object.</span></span> <span data-ttu-id="18cf9-134">此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。</span><span class="sxs-lookup"><span data-stu-id="18cf9-134">This example adds a channel prefix so that multiple apps can share the same Redis instance, as explained in the following step.</span></span>
+  <span data-ttu-id="b74d4-133">下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-133">The following example shows how to set options in the `ConfigurationOptions` object.</span></span> <span data-ttu-id="b74d4-134">此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。</span><span class="sxs-lookup"><span data-stu-id="b74d4-134">This example adds a channel prefix so that multiple apps can share the same Redis instance, as explained in the following step.</span></span>
 
   ```csharp
-  services.AddSignalR()
+  services.Add:::no-loc(SignalR):::()
     .AddStackExchangeRedis(connectionString, options => {
         options.Configuration.ChannelPrefix = "MyApp";
     });
   ```
 
- <span data-ttu-id="18cf9-135">使用时 `Microsoft.AspNetCore.SignalR.Redis` ，请调用 <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*> 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-135">When using `Microsoft.AspNetCore.SignalR.Redis`, call <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>.</span></span>
+ <span data-ttu-id="b74d4-135">使用时 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis` ，请调用 <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*> 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-135">When using `Microsoft.AspNetCore.:::no-loc(SignalR):::.Redis`, call <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>.</span></span>
 
-  <span data-ttu-id="18cf9-136">在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。</span><span class="sxs-lookup"><span data-stu-id="18cf9-136">In the preceding code, `options.Configuration` is initialized with whatever was specified in the connection string.</span></span>
+  <span data-ttu-id="b74d4-136">在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。</span><span class="sxs-lookup"><span data-stu-id="b74d4-136">In the preceding code, `options.Configuration` is initialized with whatever was specified in the connection string.</span></span>
 
-  <span data-ttu-id="18cf9-137">有关 Redis 选项的信息，请参阅 [Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。</span><span class="sxs-lookup"><span data-stu-id="18cf9-137">For information about Redis options, see the [StackExchange Redis documentation](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).</span></span>
+  <span data-ttu-id="b74d4-137">有关 Redis 选项的信息，请参阅 [Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。</span><span class="sxs-lookup"><span data-stu-id="b74d4-137">For information about Redis options, see the [StackExchange Redis documentation](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-* <span data-ttu-id="18cf9-138">在 SignalR 应用中，安装以下 NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="18cf9-138">In the SignalR app, install the following NuGet package:</span></span>
+* <span data-ttu-id="b74d4-138">在 :::no-loc(SignalR)::: 应用中，安装以下 NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="b74d4-138">In the :::no-loc(SignalR)::: app, install the following NuGet package:</span></span>
 
-  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis`
+  * `Microsoft.AspNetCore.:::no-loc(SignalR):::.StackExchangeRedis`
   
-* <span data-ttu-id="18cf9-139">在 `Startup.ConfigureServices` 方法中，调用 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*> ：</span><span class="sxs-lookup"><span data-stu-id="18cf9-139">In the `Startup.ConfigureServices` method, call <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>:</span></span>
+* <span data-ttu-id="b74d4-139">在 `Startup.ConfigureServices` 方法中，调用 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*> ：</span><span class="sxs-lookup"><span data-stu-id="b74d4-139">In the `Startup.ConfigureServices` method, call <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>:</span></span>
 
   ```csharp
-  services.AddSignalR().AddStackExchangeRedis("<your_Redis_connection_string>");
+  services.Add:::no-loc(SignalR):::().AddStackExchangeRedis("<your_Redis_connection_string>");
   ```
   
-* <span data-ttu-id="18cf9-140">根据需要配置选项：</span><span class="sxs-lookup"><span data-stu-id="18cf9-140">Configure options as needed:</span></span>
+* <span data-ttu-id="b74d4-140">根据需要配置选项：</span><span class="sxs-lookup"><span data-stu-id="b74d4-140">Configure options as needed:</span></span>
  
-  <span data-ttu-id="18cf9-141">可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。</span><span class="sxs-lookup"><span data-stu-id="18cf9-141">Most options can be set in the connection string or in the [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) object.</span></span> <span data-ttu-id="18cf9-142">中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。</span><span class="sxs-lookup"><span data-stu-id="18cf9-142">Options specified in `ConfigurationOptions` override the ones set in the connection string.</span></span>
+  <span data-ttu-id="b74d4-141">可以在连接字符串中或在 [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) 对象中设置大多数选项。</span><span class="sxs-lookup"><span data-stu-id="b74d4-141">Most options can be set in the connection string or in the [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) object.</span></span> <span data-ttu-id="b74d4-142">中指定的选项 `ConfigurationOptions` 替代在连接字符串中设置的选项。</span><span class="sxs-lookup"><span data-stu-id="b74d4-142">Options specified in `ConfigurationOptions` override the ones set in the connection string.</span></span>
 
-  <span data-ttu-id="18cf9-143">下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-143">The following example shows how to set options in the `ConfigurationOptions` object.</span></span> <span data-ttu-id="18cf9-144">此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。</span><span class="sxs-lookup"><span data-stu-id="18cf9-144">This example adds a channel prefix so that multiple apps can share the same Redis instance, as explained in the following step.</span></span>
+  <span data-ttu-id="b74d4-143">下面的示例演示如何在对象中设置选项 `ConfigurationOptions` 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-143">The following example shows how to set options in the `ConfigurationOptions` object.</span></span> <span data-ttu-id="b74d4-144">此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。</span><span class="sxs-lookup"><span data-stu-id="b74d4-144">This example adds a channel prefix so that multiple apps can share the same Redis instance, as explained in the following step.</span></span>
 
   ```csharp
-  services.AddSignalR()
+  services.Add:::no-loc(SignalR):::()
     .AddStackExchangeRedis(connectionString, options => {
         options.Configuration.ChannelPrefix = "MyApp";
     });
   ```
 
-  <span data-ttu-id="18cf9-145">在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。</span><span class="sxs-lookup"><span data-stu-id="18cf9-145">In the preceding code, `options.Configuration` is initialized with whatever was specified in the connection string.</span></span>
+  <span data-ttu-id="b74d4-145">在前面的代码中， `options.Configuration` 用连接字符串中指定的内容进行初始化。</span><span class="sxs-lookup"><span data-stu-id="b74d4-145">In the preceding code, `options.Configuration` is initialized with whatever was specified in the connection string.</span></span>
 
-  <span data-ttu-id="18cf9-146">有关 Redis 选项的信息，请参阅 [Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。</span><span class="sxs-lookup"><span data-stu-id="18cf9-146">For information about Redis options, see the [StackExchange Redis documentation](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).</span></span>
+  <span data-ttu-id="b74d4-146">有关 Redis 选项的信息，请参阅 [Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。</span><span class="sxs-lookup"><span data-stu-id="b74d4-146">For information about Redis options, see the [StackExchange Redis documentation](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).</span></span>
 
 ::: moniker-end
 
-* <span data-ttu-id="18cf9-147">如果将一个 Redis 服务器用于多个 SignalR 应用程序，请为每个应用程序使用不同的通道前缀 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="18cf9-147">If you're using one Redis server for multiple SignalR apps, use a different channel prefix for each SignalR app.</span></span>
+* <span data-ttu-id="b74d4-147">如果将一个 Redis 服务器用于多个 :::no-loc(SignalR)::: 应用程序，请为每个应用程序使用不同的通道前缀 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="b74d4-147">If you're using one Redis server for multiple :::no-loc(SignalR)::: apps, use a different channel prefix for each :::no-loc(SignalR)::: app.</span></span>
 
-  <span data-ttu-id="18cf9-148">设置通道前缀会将一个 SignalR 应用与其他使用不同通道前缀的应用隔离开来。</span><span class="sxs-lookup"><span data-stu-id="18cf9-148">Setting a channel prefix isolates one SignalR app from others that use different channel prefixes.</span></span> <span data-ttu-id="18cf9-149">如果未分配不同的前缀，则从一个应用发送到其所有客户端的消息将发送到使用 Redis 服务器作为底板的所有应用的所有客户端。</span><span class="sxs-lookup"><span data-stu-id="18cf9-149">If you don't assign different prefixes, a message sent from one app to all of its own clients will go to all clients of all apps that use the Redis server as a backplane.</span></span>
+  <span data-ttu-id="b74d4-148">设置通道前缀会将一个 :::no-loc(SignalR)::: 应用与其他使用不同通道前缀的应用隔离开来。</span><span class="sxs-lookup"><span data-stu-id="b74d4-148">Setting a channel prefix isolates one :::no-loc(SignalR)::: app from others that use different channel prefixes.</span></span> <span data-ttu-id="b74d4-149">如果未分配不同的前缀，则从一个应用发送到其所有客户端的消息将发送到使用 Redis 服务器作为底板的所有应用的所有客户端。</span><span class="sxs-lookup"><span data-stu-id="b74d4-149">If you don't assign different prefixes, a message sent from one app to all of its own clients will go to all clients of all apps that use the Redis server as a backplane.</span></span>
 
-* <span data-ttu-id="18cf9-150">为粘滞会话配置服务器场负载平衡软件。</span><span class="sxs-lookup"><span data-stu-id="18cf9-150">Configure your server farm load balancing software for sticky sessions.</span></span> <span data-ttu-id="18cf9-151">下面是有关如何执行此操作的一些文档示例：</span><span class="sxs-lookup"><span data-stu-id="18cf9-151">Here are some examples of documentation on how to do that:</span></span>
+* <span data-ttu-id="b74d4-150">为粘滞会话配置服务器场负载平衡软件。</span><span class="sxs-lookup"><span data-stu-id="b74d4-150">Configure your server farm load balancing software for sticky sessions.</span></span> <span data-ttu-id="b74d4-151">下面是有关如何执行此操作的一些文档示例：</span><span class="sxs-lookup"><span data-stu-id="b74d4-151">Here are some examples of documentation on how to do that:</span></span>
 
-  * [<span data-ttu-id="18cf9-152">IIS</span><span class="sxs-lookup"><span data-stu-id="18cf9-152">IIS</span></span>](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
-  * [<span data-ttu-id="18cf9-153">HAProxy</span><span class="sxs-lookup"><span data-stu-id="18cf9-153">HAProxy</span></span>](https://www.haproxy.com/blog/load-balancing-affinity-persistence-sticky-sessions-what-you-need-to-know/)
-  * [<span data-ttu-id="18cf9-154">Nginx</span><span class="sxs-lookup"><span data-stu-id="18cf9-154">Nginx</span></span>](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#sticky)
-  * [<span data-ttu-id="18cf9-155">pfSense</span><span class="sxs-lookup"><span data-stu-id="18cf9-155">pfSense</span></span>](https://www.netgate.com/docs/pfsense/loadbalancing/inbound-load-balancing.html#sticky-connections)
+  * [<span data-ttu-id="b74d4-152">IIS</span><span class="sxs-lookup"><span data-stu-id="b74d4-152">IIS</span></span>](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
+  * [<span data-ttu-id="b74d4-153">HAProxy</span><span class="sxs-lookup"><span data-stu-id="b74d4-153">HAProxy</span></span>](https://www.haproxy.com/blog/load-balancing-affinity-persistence-sticky-sessions-what-you-need-to-know/)
+  * [<span data-ttu-id="b74d4-154">Nginx</span><span class="sxs-lookup"><span data-stu-id="b74d4-154">Nginx</span></span>](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#sticky)
+  * [<span data-ttu-id="b74d4-155">pfSense</span><span class="sxs-lookup"><span data-stu-id="b74d4-155">pfSense</span></span>](https://www.netgate.com/docs/pfsense/loadbalancing/inbound-load-balancing.html#sticky-connections)
 
-## <a name="redis-server-errors"></a><span data-ttu-id="18cf9-156">Redis 服务器错误</span><span class="sxs-lookup"><span data-stu-id="18cf9-156">Redis server errors</span></span>
+## <a name="redis-server-errors"></a><span data-ttu-id="b74d4-156">Redis 服务器错误</span><span class="sxs-lookup"><span data-stu-id="b74d4-156">Redis server errors</span></span>
 
-<span data-ttu-id="18cf9-157">当 Redis 服务器发生故障时，将 SignalR 引发指示消息无法传递的异常。</span><span class="sxs-lookup"><span data-stu-id="18cf9-157">When a Redis server goes down, SignalR throws exceptions that indicate messages won't be delivered.</span></span> <span data-ttu-id="18cf9-158">一些典型的异常消息：</span><span class="sxs-lookup"><span data-stu-id="18cf9-158">Some typical exception messages:</span></span>
+<span data-ttu-id="b74d4-157">当 Redis 服务器发生故障时，将 :::no-loc(SignalR)::: 引发指示消息无法传递的异常。</span><span class="sxs-lookup"><span data-stu-id="b74d4-157">When a Redis server goes down, :::no-loc(SignalR)::: throws exceptions that indicate messages won't be delivered.</span></span> <span data-ttu-id="b74d4-158">一些典型的异常消息：</span><span class="sxs-lookup"><span data-stu-id="b74d4-158">Some typical exception messages:</span></span>
 
-* <span data-ttu-id="18cf9-159">*写入消息失败*</span><span class="sxs-lookup"><span data-stu-id="18cf9-159">*Failed writing message*</span></span>
-* <span data-ttu-id="18cf9-160">*未能调用中心方法 "方法名称"*</span><span class="sxs-lookup"><span data-stu-id="18cf9-160">*Failed to invoke hub method 'MethodName'*</span></span>
-* <span data-ttu-id="18cf9-161">*未能连接到 Redis*</span><span class="sxs-lookup"><span data-stu-id="18cf9-161">*Connection to Redis failed*</span></span>
+* <span data-ttu-id="b74d4-159">*写入消息失败*</span><span class="sxs-lookup"><span data-stu-id="b74d4-159">*Failed writing message*</span></span>
+* <span data-ttu-id="b74d4-160">*未能调用中心方法 "方法名称"*</span><span class="sxs-lookup"><span data-stu-id="b74d4-160">*Failed to invoke hub method 'MethodName'*</span></span>
+* <span data-ttu-id="b74d4-161">*未能连接到 Redis*</span><span class="sxs-lookup"><span data-stu-id="b74d4-161">*Connection to Redis failed*</span></span>
 
-<span data-ttu-id="18cf9-162">SignalR 不会在服务器重新启动时缓冲消息以发送这些消息。</span><span class="sxs-lookup"><span data-stu-id="18cf9-162">SignalR doesn't buffer messages to send them when the server comes back up.</span></span> <span data-ttu-id="18cf9-163">Redis 服务器关闭时发送的任何消息都将丢失。</span><span class="sxs-lookup"><span data-stu-id="18cf9-163">Any messages sent while the Redis server is down are lost.</span></span>
+<span data-ttu-id="b74d4-162">:::no-loc(SignalR)::: 不会在服务器重新启动时缓冲消息以发送这些消息。</span><span class="sxs-lookup"><span data-stu-id="b74d4-162">:::no-loc(SignalR)::: doesn't buffer messages to send them when the server comes back up.</span></span> <span data-ttu-id="b74d4-163">Redis 服务器关闭时发送的任何消息都将丢失。</span><span class="sxs-lookup"><span data-stu-id="b74d4-163">Any messages sent while the Redis server is down are lost.</span></span>
 
-<span data-ttu-id="18cf9-164">SignalR 当 Redis 服务器再次可用时，自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="18cf9-164">SignalR automatically reconnects when the Redis server is available again.</span></span>
+<span data-ttu-id="b74d4-164">:::no-loc(SignalR)::: 当 Redis 服务器再次可用时，自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="b74d4-164">:::no-loc(SignalR)::: automatically reconnects when the Redis server is available again.</span></span>
 
-### <a name="custom-behavior-for-connection-failures"></a><span data-ttu-id="18cf9-165">连接失败的自定义行为</span><span class="sxs-lookup"><span data-stu-id="18cf9-165">Custom behavior for connection failures</span></span>
+### <a name="custom-behavior-for-connection-failures"></a><span data-ttu-id="b74d4-165">连接失败的自定义行为</span><span class="sxs-lookup"><span data-stu-id="b74d4-165">Custom behavior for connection failures</span></span>
 
-<span data-ttu-id="18cf9-166">下面是演示如何处理 Redis 连接失败事件的示例。</span><span class="sxs-lookup"><span data-stu-id="18cf9-166">Here's an example that shows how to handle Redis connection failure events.</span></span>
+<span data-ttu-id="b74d4-166">下面是演示如何处理 Redis 连接失败事件的示例。</span><span class="sxs-lookup"><span data-stu-id="b74d4-166">Here's an example that shows how to handle Redis connection failure events.</span></span>
 
 ::: moniker range="= aspnetcore-2.1"
 
 ```csharp
-services.AddSignalR()
+services.Add:::no-loc(SignalR):::()
         .AddRedis(o =>
         {
             o.ConnectionFactory = async writer =>
@@ -199,7 +200,7 @@ services.AddSignalR()
 ::: moniker range="> aspnetcore-2.1"
 
 ```csharp
-services.AddSignalR()
+services.Add:::no-loc(SignalR):::()
         .AddMessagePackProtocol()
         .AddStackExchangeRedis(o =>
         {
@@ -229,15 +230,15 @@ services.AddSignalR()
 
 ::: moniker-end
 
-## <a name="redis-clustering"></a><span data-ttu-id="18cf9-167">Redis 群集</span><span class="sxs-lookup"><span data-stu-id="18cf9-167">Redis Clustering</span></span>
+## <a name="redis-clustering"></a><span data-ttu-id="b74d4-167">Redis 群集</span><span class="sxs-lookup"><span data-stu-id="b74d4-167">Redis Clustering</span></span>
 
-<span data-ttu-id="18cf9-168">[Redis 聚类分析](https://redis.io/topics/cluster-spec) 是一种通过使用多个 Redis 服务器实现高可用性的方法。</span><span class="sxs-lookup"><span data-stu-id="18cf9-168">[Redis Clustering](https://redis.io/topics/cluster-spec) is a method for achieving high availability by using multiple Redis servers.</span></span> <span data-ttu-id="18cf9-169">群集不是正式支持的，但它可能会起作用。</span><span class="sxs-lookup"><span data-stu-id="18cf9-169">Clustering isn't officially supported, but it might work.</span></span>
+<span data-ttu-id="b74d4-168">[Redis 聚类分析](https://redis.io/topics/cluster-spec) 是一种通过使用多个 Redis 服务器实现高可用性的方法。</span><span class="sxs-lookup"><span data-stu-id="b74d4-168">[Redis Clustering](https://redis.io/topics/cluster-spec) is a method for achieving high availability by using multiple Redis servers.</span></span> <span data-ttu-id="b74d4-169">群集不是正式支持的，但它可能会起作用。</span><span class="sxs-lookup"><span data-stu-id="b74d4-169">Clustering isn't officially supported, but it might work.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="18cf9-170">后续步骤</span><span class="sxs-lookup"><span data-stu-id="18cf9-170">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="b74d4-170">后续步骤</span><span class="sxs-lookup"><span data-stu-id="b74d4-170">Next steps</span></span>
 
-<span data-ttu-id="18cf9-171">有关详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="18cf9-171">For more information, see the following resources:</span></span>
+<span data-ttu-id="b74d4-171">有关详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="b74d4-171">For more information, see the following resources:</span></span>
 
 * <xref:signalr/scale>
-* [<span data-ttu-id="18cf9-172">Redis 文档</span><span class="sxs-lookup"><span data-stu-id="18cf9-172">Redis documentation</span></span>](https://redis.io/documentation)
-* [<span data-ttu-id="18cf9-173">Stackexchange.redis Redis 文档</span><span class="sxs-lookup"><span data-stu-id="18cf9-173">StackExchange Redis documentation</span></span>](https://stackexchange.github.io/StackExchange.Redis/)
-* [<span data-ttu-id="18cf9-174">Azure Redis 缓存文档</span><span class="sxs-lookup"><span data-stu-id="18cf9-174">Azure Redis Cache documentation</span></span>](/azure/redis-cache/)
+* [<span data-ttu-id="b74d4-172">Redis 文档</span><span class="sxs-lookup"><span data-stu-id="b74d4-172">Redis documentation</span></span>](https://redis.io/documentation)
+* [<span data-ttu-id="b74d4-173">Stackexchange.redis Redis 文档</span><span class="sxs-lookup"><span data-stu-id="b74d4-173">StackExchange Redis documentation</span></span>](https://stackexchange.github.io/StackExchange.Redis/)
+* [<span data-ttu-id="b74d4-174">Azure Redis 缓存文档</span><span class="sxs-lookup"><span data-stu-id="b74d4-174">Azure Redis Cache documentation</span></span>](/azure/redis-cache/)

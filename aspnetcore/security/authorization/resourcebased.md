@@ -6,51 +6,52 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/15/2018
 no-loc:
-- ASP.NET Core Identity
-- cookie
-- Cookie
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- ':::no-loc(appsettings.json):::'
+- ':::no-loc(ASP.NET Core Identity):::'
+- ':::no-loc(cookie):::'
+- ':::no-loc(Cookie):::'
+- ':::no-loc(Blazor):::'
+- ':::no-loc(Blazor Server):::'
+- ':::no-loc(Blazor WebAssembly):::'
+- ':::no-loc(Identity):::'
+- ":::no-loc(Let's Encrypt):::"
+- ':::no-loc(Razor):::'
+- ':::no-loc(SignalR):::'
 uid: security/authorization/resourcebased
-ms.openlocfilehash: bb47f3452d29dfeea0e4d3c4a9c22a06869a3fe7
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 202ca681a66ddf7f729d8835e2f77da846583df1
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631350"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060165"
 ---
-# <a name="resource-based-authorization-in-aspnet-core"></a><span data-ttu-id="a855a-103">ASP.NET Core 中基于资源的授权</span><span class="sxs-lookup"><span data-stu-id="a855a-103">Resource-based authorization in ASP.NET Core</span></span>
+# <a name="resource-based-authorization-in-aspnet-core"></a><span data-ttu-id="8625f-103">ASP.NET Core 中基于资源的授权</span><span class="sxs-lookup"><span data-stu-id="8625f-103">Resource-based authorization in ASP.NET Core</span></span>
 
-<span data-ttu-id="a855a-104">授权策略取决于要访问的资源。</span><span class="sxs-lookup"><span data-stu-id="a855a-104">Authorization strategy depends upon the resource being accessed.</span></span> <span data-ttu-id="a855a-105">假设有一个具有 author 属性的文档。</span><span class="sxs-lookup"><span data-stu-id="a855a-105">Consider a document that has an author property.</span></span> <span data-ttu-id="a855a-106">仅允许作者更新文档。</span><span class="sxs-lookup"><span data-stu-id="a855a-106">Only the author is allowed to update the document.</span></span> <span data-ttu-id="a855a-107">因此，在进行授权评估之前，必须从数据存储中检索文档。</span><span class="sxs-lookup"><span data-stu-id="a855a-107">Consequently, the document must be retrieved from the data store before authorization evaluation can occur.</span></span>
+<span data-ttu-id="8625f-104">授权策略取决于要访问的资源。</span><span class="sxs-lookup"><span data-stu-id="8625f-104">Authorization strategy depends upon the resource being accessed.</span></span> <span data-ttu-id="8625f-105">假设有一个具有 author 属性的文档。</span><span class="sxs-lookup"><span data-stu-id="8625f-105">Consider a document that has an author property.</span></span> <span data-ttu-id="8625f-106">仅允许作者更新文档。</span><span class="sxs-lookup"><span data-stu-id="8625f-106">Only the author is allowed to update the document.</span></span> <span data-ttu-id="8625f-107">因此，在进行授权评估之前，必须从数据存储中检索文档。</span><span class="sxs-lookup"><span data-stu-id="8625f-107">Consequently, the document must be retrieved from the data store before authorization evaluation can occur.</span></span>
 
-<span data-ttu-id="a855a-108">在数据绑定之前和在执行加载文档的页面处理程序或操作之前，会发生属性评估。</span><span class="sxs-lookup"><span data-stu-id="a855a-108">Attribute evaluation occurs before data binding and before execution of the page handler or action that loads the document.</span></span> <span data-ttu-id="a855a-109">由于这些原因，具有属性的声明性授权 `[Authorize]` 无法满足要求。</span><span class="sxs-lookup"><span data-stu-id="a855a-109">For these reasons, declarative authorization with an `[Authorize]` attribute doesn't suffice.</span></span> <span data-ttu-id="a855a-110">相反，你可以调用自定义授权方法， &mdash; 这种方法称为 *命令式 authorization*。</span><span class="sxs-lookup"><span data-stu-id="a855a-110">Instead, you can invoke a custom authorization method&mdash;a style known as *imperative authorization*.</span></span>
+<span data-ttu-id="8625f-108">在数据绑定之前和在执行加载文档的页面处理程序或操作之前，会发生属性评估。</span><span class="sxs-lookup"><span data-stu-id="8625f-108">Attribute evaluation occurs before data binding and before execution of the page handler or action that loads the document.</span></span> <span data-ttu-id="8625f-109">由于这些原因，具有属性的声明性授权 `[Authorize]` 无法满足要求。</span><span class="sxs-lookup"><span data-stu-id="8625f-109">For these reasons, declarative authorization with an `[Authorize]` attribute doesn't suffice.</span></span> <span data-ttu-id="8625f-110">相反，你可以调用自定义授权方法， &mdash; 这种方法称为 *命令式 authorization* 。</span><span class="sxs-lookup"><span data-stu-id="8625f-110">Instead, you can invoke a custom authorization method&mdash;a style known as *imperative authorization* .</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
-<span data-ttu-id="a855a-111">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/3_0)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="a855a-111">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/3_0) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="8625f-111">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/3_0)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="8625f-111">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/3_0) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 ::: moniker-end
 
  ::: moniker range=">= aspnetcore-2.0 < aspnetcore-3.0"
-<span data-ttu-id="a855a-112">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/2_2)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="a855a-112">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/2_2) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="8625f-112">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/2_2)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="8625f-112">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/2_2) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
-<span data-ttu-id="a855a-113">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/1_1)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="a855a-113">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/1_1) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="8625f-113">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/1_1)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="8625f-113">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/1_1) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 ::: moniker-end
 
-<span data-ttu-id="a855a-114">使用[由授权保护的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)包含使用基于资源的授权的示例应用。</span><span class="sxs-lookup"><span data-stu-id="a855a-114">[Create an ASP.NET Core app with user data protected by authorization](xref:security/authorization/secure-data) contains a sample app that uses resource-based authorization.</span></span>
+<span data-ttu-id="8625f-114">使用[由授权保护的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)包含使用基于资源的授权的示例应用。</span><span class="sxs-lookup"><span data-stu-id="8625f-114">[Create an ASP.NET Core app with user data protected by authorization](xref:security/authorization/secure-data) contains a sample app that uses resource-based authorization.</span></span>
 
-## <a name="use-imperative-authorization"></a><span data-ttu-id="a855a-115">使用命令性授权</span><span class="sxs-lookup"><span data-stu-id="a855a-115">Use imperative authorization</span></span>
+## <a name="use-imperative-authorization"></a><span data-ttu-id="8625f-115">使用命令性授权</span><span class="sxs-lookup"><span data-stu-id="8625f-115">Use imperative authorization</span></span>
 
-<span data-ttu-id="a855a-116">授权作为 [IAuthorizationService](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationservice) 服务实现，并在类中的服务集合中进行注册 `Startup` 。</span><span class="sxs-lookup"><span data-stu-id="a855a-116">Authorization is implemented as an [IAuthorizationService](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationservice) service and is registered in the service collection within the `Startup` class.</span></span> <span data-ttu-id="a855a-117">通过 [依赖关系注入](xref:fundamentals/dependency-injection) 到页面处理程序或操作使该服务可用。</span><span class="sxs-lookup"><span data-stu-id="a855a-117">The service is made available via [dependency injection](xref:fundamentals/dependency-injection) to page handlers or actions.</span></span>
+<span data-ttu-id="8625f-116">授权作为 [IAuthorizationService](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationservice) 服务实现，并在类中的服务集合中进行注册 `Startup` 。</span><span class="sxs-lookup"><span data-stu-id="8625f-116">Authorization is implemented as an [IAuthorizationService](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationservice) service and is registered in the service collection within the `Startup` class.</span></span> <span data-ttu-id="8625f-117">通过 [依赖关系注入](xref:fundamentals/dependency-injection) 到页面处理程序或操作使该服务可用。</span><span class="sxs-lookup"><span data-stu-id="8625f-117">The service is made available via [dependency injection](xref:fundamentals/dependency-injection) to page handlers or actions.</span></span>
 
 [!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Controllers/DocumentController.cs?name=snippet_IAuthServiceDI&highlight=6)]
 
-<span data-ttu-id="a855a-118">`IAuthorizationService` 具有两个 `AuthorizeAsync` 方法重载：一个接受资源和策略名称，另一个接受资源并提供要评估的要求的列表。</span><span class="sxs-lookup"><span data-stu-id="a855a-118">`IAuthorizationService` has two `AuthorizeAsync` method overloads: one accepting the resource and the policy name and the other accepting the resource and a list of requirements to evaluate.</span></span>
+<span data-ttu-id="8625f-118">`IAuthorizationService` 具有两个 `AuthorizeAsync` 方法重载：一个接受资源和策略名称，另一个接受资源并提供要评估的要求的列表。</span><span class="sxs-lookup"><span data-stu-id="8625f-118">`IAuthorizationService` has two `AuthorizeAsync` method overloads: one accepting the resource and the policy name and the other accepting the resource and a list of requirements to evaluate.</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -80,10 +81,10 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 <a name="security-authorization-resource-based-imperative"></a>
 
-<span data-ttu-id="a855a-119">在下面的示例中，要保护的资源将加载到自定义 `Document` 对象中。</span><span class="sxs-lookup"><span data-stu-id="a855a-119">In the following example, the resource to be secured is loaded into a custom `Document` object.</span></span> <span data-ttu-id="a855a-120">`AuthorizeAsync`调用重载来确定是否允许当前用户编辑提供的文档。</span><span class="sxs-lookup"><span data-stu-id="a855a-120">An `AuthorizeAsync` overload is invoked to determine whether the current user is allowed to edit the provided document.</span></span> <span data-ttu-id="a855a-121">将自定义 "EditPolicy" 授权策略分解为决定。</span><span class="sxs-lookup"><span data-stu-id="a855a-121">A custom "EditPolicy" authorization policy is factored into the decision.</span></span> <span data-ttu-id="a855a-122">有关创建授权策略的详细信息，请参阅 [基于策略的自定义授权](xref:security/authorization/policies) 。</span><span class="sxs-lookup"><span data-stu-id="a855a-122">See [Custom policy-based authorization](xref:security/authorization/policies) for more on creating authorization policies.</span></span>
+<span data-ttu-id="8625f-119">在下面的示例中，要保护的资源将加载到自定义 `Document` 对象中。</span><span class="sxs-lookup"><span data-stu-id="8625f-119">In the following example, the resource to be secured is loaded into a custom `Document` object.</span></span> <span data-ttu-id="8625f-120">`AuthorizeAsync`调用重载来确定是否允许当前用户编辑提供的文档。</span><span class="sxs-lookup"><span data-stu-id="8625f-120">An `AuthorizeAsync` overload is invoked to determine whether the current user is allowed to edit the provided document.</span></span> <span data-ttu-id="8625f-121">将自定义 "EditPolicy" 授权策略分解为决定。</span><span class="sxs-lookup"><span data-stu-id="8625f-121">A custom "EditPolicy" authorization policy is factored into the decision.</span></span> <span data-ttu-id="8625f-122">有关创建授权策略的详细信息，请参阅 [基于策略的自定义授权](xref:security/authorization/policies) 。</span><span class="sxs-lookup"><span data-stu-id="8625f-122">See [Custom policy-based authorization](xref:security/authorization/policies) for more on creating authorization policies.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="a855a-123">下面的代码示例假定已运行身份验证并设置了 `User` 属性。</span><span class="sxs-lookup"><span data-stu-id="a855a-123">The following code samples assume authentication has run and set the `User` property.</span></span>
+> <span data-ttu-id="8625f-123">下面的代码示例假定已运行身份验证并设置了 `User` 属性。</span><span class="sxs-lookup"><span data-stu-id="8625f-123">The following code samples assume authentication has run and set the `User` property.</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -97,11 +98,11 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker-end
 
-## <a name="write-a-resource-based-handler"></a><span data-ttu-id="a855a-124">编写基于资源的处理程序</span><span class="sxs-lookup"><span data-stu-id="a855a-124">Write a resource-based handler</span></span>
+## <a name="write-a-resource-based-handler"></a><span data-ttu-id="8625f-124">编写基于资源的处理程序</span><span class="sxs-lookup"><span data-stu-id="8625f-124">Write a resource-based handler</span></span>
 
-<span data-ttu-id="a855a-125">为基于资源的授权编写处理程序与 [编写简单的要求处理程序并无](xref:security/authorization/policies#security-authorization-policies-based-authorization-handler)差别。</span><span class="sxs-lookup"><span data-stu-id="a855a-125">Writing a handler for resource-based authorization isn't much different than [writing a plain requirements handler](xref:security/authorization/policies#security-authorization-policies-based-authorization-handler).</span></span> <span data-ttu-id="a855a-126">创建自定义要求类，并实现需求处理程序类。</span><span class="sxs-lookup"><span data-stu-id="a855a-126">Create a custom requirement class, and implement a requirement handler class.</span></span> <span data-ttu-id="a855a-127">有关创建要求类的详细信息，请参阅 [要求](xref:security/authorization/policies#requirements)。</span><span class="sxs-lookup"><span data-stu-id="a855a-127">For more information on creating a requirement class, see [Requirements](xref:security/authorization/policies#requirements).</span></span>
+<span data-ttu-id="8625f-125">为基于资源的授权编写处理程序与 [编写简单的要求处理程序并无](xref:security/authorization/policies#security-authorization-policies-based-authorization-handler)差别。</span><span class="sxs-lookup"><span data-stu-id="8625f-125">Writing a handler for resource-based authorization isn't much different than [writing a plain requirements handler](xref:security/authorization/policies#security-authorization-policies-based-authorization-handler).</span></span> <span data-ttu-id="8625f-126">创建自定义要求类，并实现需求处理程序类。</span><span class="sxs-lookup"><span data-stu-id="8625f-126">Create a custom requirement class, and implement a requirement handler class.</span></span> <span data-ttu-id="8625f-127">有关创建要求类的详细信息，请参阅 [要求](xref:security/authorization/policies#requirements)。</span><span class="sxs-lookup"><span data-stu-id="8625f-127">For more information on creating a requirement class, see [Requirements](xref:security/authorization/policies#requirements).</span></span>
 
-<span data-ttu-id="a855a-128">处理程序类同时指定要求和资源类型。</span><span class="sxs-lookup"><span data-stu-id="a855a-128">The handler class specifies both the requirement and resource type.</span></span> <span data-ttu-id="a855a-129">例如，使用和资源的处理程序 `SameAuthorRequirement` `Document` 如下所示：</span><span class="sxs-lookup"><span data-stu-id="a855a-129">For example, a handler utilizing a `SameAuthorRequirement` and a `Document` resource follows:</span></span>
+<span data-ttu-id="8625f-128">处理程序类同时指定要求和资源类型。</span><span class="sxs-lookup"><span data-stu-id="8625f-128">The handler class specifies both the requirement and resource type.</span></span> <span data-ttu-id="8625f-129">例如，使用和资源的处理程序 `SameAuthorRequirement` `Document` 如下所示：</span><span class="sxs-lookup"><span data-stu-id="8625f-129">For example, a handler utilizing a `SameAuthorRequirement` and a `Document` resource follows:</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -115,9 +116,9 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker-end
 
-<span data-ttu-id="a855a-130">在前面的示例中，假设 `SameAuthorRequirement` 是更为通用的类的特殊情况 `SpecificAuthorRequirement` 。</span><span class="sxs-lookup"><span data-stu-id="a855a-130">In the preceding example, imagine that `SameAuthorRequirement` is a special case of a more generic `SpecificAuthorRequirement` class.</span></span> <span data-ttu-id="a855a-131">`SpecificAuthorRequirement`类 (未显示) 包含 `Name` 表示作者姓名的属性。</span><span class="sxs-lookup"><span data-stu-id="a855a-131">The `SpecificAuthorRequirement` class (not shown) contains a `Name` property representing the name of the author.</span></span> <span data-ttu-id="a855a-132">`Name`属性可以设置为当前用户。</span><span class="sxs-lookup"><span data-stu-id="a855a-132">The `Name` property could be set to the current user.</span></span>
+<span data-ttu-id="8625f-130">在前面的示例中，假设 `SameAuthorRequirement` 是更为通用的类的特殊情况 `SpecificAuthorRequirement` 。</span><span class="sxs-lookup"><span data-stu-id="8625f-130">In the preceding example, imagine that `SameAuthorRequirement` is a special case of a more generic `SpecificAuthorRequirement` class.</span></span> <span data-ttu-id="8625f-131">`SpecificAuthorRequirement`类 (未显示) 包含 `Name` 表示作者姓名的属性。</span><span class="sxs-lookup"><span data-stu-id="8625f-131">The `SpecificAuthorRequirement` class (not shown) contains a `Name` property representing the name of the author.</span></span> <span data-ttu-id="8625f-132">`Name`属性可以设置为当前用户。</span><span class="sxs-lookup"><span data-stu-id="8625f-132">The `Name` property could be set to the current user.</span></span>
 
-<span data-ttu-id="a855a-133">在以下项中注册要求和处理程序 `Startup.ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="a855a-133">Register the requirement and handler in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="8625f-133">在以下项中注册要求和处理程序 `Startup.ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="8625f-133">Register the requirement and handler in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Startup.cs?name=snippet_ConfigureServicesSample&highlight=4-8,10)]
@@ -131,13 +132,13 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 [!code-csharp[](resourcebased/samples/1_1/ResourceBasedAuthApp1/Startup.cs?name=snippet_ConfigureServicesSample&highlight=3-7,9)]
 ::: moniker-end
 
-### <a name="operational-requirements"></a><span data-ttu-id="a855a-134">操作要求</span><span class="sxs-lookup"><span data-stu-id="a855a-134">Operational requirements</span></span>
+### <a name="operational-requirements"></a><span data-ttu-id="8625f-134">操作要求</span><span class="sxs-lookup"><span data-stu-id="8625f-134">Operational requirements</span></span>
 
-<span data-ttu-id="a855a-135">如果要根据 CRUD (创建、读取、更新、删除) 操作的结果做出决策，请使用 [OperationAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.infrastructure.operationauthorizationrequirement) 帮助器类。</span><span class="sxs-lookup"><span data-stu-id="a855a-135">If you're making decisions based on the outcomes of CRUD (Create, Read, Update, Delete) operations, use the [OperationAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.infrastructure.operationauthorizationrequirement) helper class.</span></span> <span data-ttu-id="a855a-136">此类使你能够为每个操作类型编写单一处理程序而不是单个类。</span><span class="sxs-lookup"><span data-stu-id="a855a-136">This class enables you to write a single handler instead of an individual class for each operation type.</span></span> <span data-ttu-id="a855a-137">若要使用它，请提供一些操作名称：</span><span class="sxs-lookup"><span data-stu-id="a855a-137">To use it, provide some operation names:</span></span>
+<span data-ttu-id="8625f-135">如果要根据 CRUD (创建、读取、更新、删除) 操作的结果做出决策，请使用 [OperationAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.infrastructure.operationauthorizationrequirement) 帮助器类。</span><span class="sxs-lookup"><span data-stu-id="8625f-135">If you're making decisions based on the outcomes of CRUD (Create, Read, Update, Delete) operations, use the [OperationAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.infrastructure.operationauthorizationrequirement) helper class.</span></span> <span data-ttu-id="8625f-136">此类使你能够为每个操作类型编写单一处理程序而不是单个类。</span><span class="sxs-lookup"><span data-stu-id="8625f-136">This class enables you to write a single handler instead of an individual class for each operation type.</span></span> <span data-ttu-id="8625f-137">若要使用它，请提供一些操作名称：</span><span class="sxs-lookup"><span data-stu-id="8625f-137">To use it, provide some operation names:</span></span>
 
 [!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_OperationsClass)]
 
-<span data-ttu-id="a855a-138">处理程序的实现方式如下 `OperationAuthorizationRequirement` `Document` ：</span><span class="sxs-lookup"><span data-stu-id="a855a-138">The handler is implemented as follows, using an `OperationAuthorizationRequirement` requirement and a `Document` resource:</span></span>
+<span data-ttu-id="8625f-138">处理程序的实现方式如下 `OperationAuthorizationRequirement` `Document` ：</span><span class="sxs-lookup"><span data-stu-id="8625f-138">The handler is implemented as follows, using an `OperationAuthorizationRequirement` requirement and a `Document` resource:</span></span>
 
  ::: moniker range=">= aspnetcore-2.0"
 [!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_Handler)]
@@ -150,22 +151,22 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker-end
 
-<span data-ttu-id="a855a-139">前面的处理程序使用资源、用户的标识和要求的属性验证操作 `Name` 。</span><span class="sxs-lookup"><span data-stu-id="a855a-139">The preceding handler validates the operation using the resource, the user's identity, and the requirement's `Name` property.</span></span>
+<span data-ttu-id="8625f-139">前面的处理程序使用资源、用户的标识和要求的属性验证操作 `Name` 。</span><span class="sxs-lookup"><span data-stu-id="8625f-139">The preceding handler validates the operation using the resource, the user's identity, and the requirement's `Name` property.</span></span>
 
-## <a name="challenge-and-forbid-with-an-operational-resource-handler"></a><span data-ttu-id="a855a-140">操作资源处理程序的挑战和禁止</span><span class="sxs-lookup"><span data-stu-id="a855a-140">Challenge and forbid with an operational resource handler</span></span>
+## <a name="challenge-and-forbid-with-an-operational-resource-handler"></a><span data-ttu-id="8625f-140">操作资源处理程序的挑战和禁止</span><span class="sxs-lookup"><span data-stu-id="8625f-140">Challenge and forbid with an operational resource handler</span></span>
 
-<span data-ttu-id="a855a-141">本部分说明如何处理质询和禁止操作结果，以及质询和禁止的不同之处。</span><span class="sxs-lookup"><span data-stu-id="a855a-141">This section shows how the challenge and forbid action results are processed and how challenge and forbid differ.</span></span>
+<span data-ttu-id="8625f-141">本部分说明如何处理质询和禁止操作结果，以及质询和禁止的不同之处。</span><span class="sxs-lookup"><span data-stu-id="8625f-141">This section shows how the challenge and forbid action results are processed and how challenge and forbid differ.</span></span>
 
-<span data-ttu-id="a855a-142">若要调用操作资源处理程序，请 `AuthorizeAsync` 在页面处理程序或操作中调用时指定操作。</span><span class="sxs-lookup"><span data-stu-id="a855a-142">To call an operational resource handler, specify the operation when invoking `AuthorizeAsync` in your page handler or action.</span></span> <span data-ttu-id="a855a-143">下面的示例确定是否允许经过身份验证的用户查看所提供的文档。</span><span class="sxs-lookup"><span data-stu-id="a855a-143">The following example determines whether the authenticated user is permitted to view the provided document.</span></span>
+<span data-ttu-id="8625f-142">若要调用操作资源处理程序，请 `AuthorizeAsync` 在页面处理程序或操作中调用时指定操作。</span><span class="sxs-lookup"><span data-stu-id="8625f-142">To call an operational resource handler, specify the operation when invoking `AuthorizeAsync` in your page handler or action.</span></span> <span data-ttu-id="8625f-143">下面的示例确定是否允许经过身份验证的用户查看所提供的文档。</span><span class="sxs-lookup"><span data-stu-id="8625f-143">The following example determines whether the authenticated user is permitted to view the provided document.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="a855a-144">下面的代码示例假定已运行身份验证并设置了 `User` 属性。</span><span class="sxs-lookup"><span data-stu-id="a855a-144">The following code samples assume authentication has run and set the `User` property.</span></span>
+> <span data-ttu-id="8625f-144">下面的代码示例假定已运行身份验证并设置了 `User` 属性。</span><span class="sxs-lookup"><span data-stu-id="8625f-144">The following code samples assume authentication has run and set the `User` property.</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
 [!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Pages/Document/View.cshtml.cs?name=snippet_DocumentViewHandler&highlight=10-11)]
 
-<span data-ttu-id="a855a-145">如果授权成功，则返回用于查看文档的页面。</span><span class="sxs-lookup"><span data-stu-id="a855a-145">If authorization succeeds, the page for viewing the document is returned.</span></span> <span data-ttu-id="a855a-146">如果授权失败，但用户已进行身份验证，则返回 `ForbidResult` 通知任何身份验证中间件验证失败。</span><span class="sxs-lookup"><span data-stu-id="a855a-146">If authorization fails but the user is authenticated, returning `ForbidResult` informs any authentication middleware that authorization failed.</span></span> <span data-ttu-id="a855a-147">`ChallengeResult`当必须执行身份验证时，将返回。</span><span class="sxs-lookup"><span data-stu-id="a855a-147">A `ChallengeResult` is returned when authentication must be performed.</span></span> <span data-ttu-id="a855a-148">对于交互式浏览器客户端，可能需要将用户重定向到登录页。</span><span class="sxs-lookup"><span data-stu-id="a855a-148">For interactive browser clients, it may be appropriate to redirect the user to a login page.</span></span>
+<span data-ttu-id="8625f-145">如果授权成功，则返回用于查看文档的页面。</span><span class="sxs-lookup"><span data-stu-id="8625f-145">If authorization succeeds, the page for viewing the document is returned.</span></span> <span data-ttu-id="8625f-146">如果授权失败，但用户已进行身份验证，则返回 `ForbidResult` 通知任何身份验证中间件验证失败。</span><span class="sxs-lookup"><span data-stu-id="8625f-146">If authorization fails but the user is authenticated, returning `ForbidResult` informs any authentication middleware that authorization failed.</span></span> <span data-ttu-id="8625f-147">`ChallengeResult`当必须执行身份验证时，将返回。</span><span class="sxs-lookup"><span data-stu-id="8625f-147">A `ChallengeResult` is returned when authentication must be performed.</span></span> <span data-ttu-id="8625f-148">对于交互式浏览器客户端，可能需要将用户重定向到登录页。</span><span class="sxs-lookup"><span data-stu-id="8625f-148">For interactive browser clients, it may be appropriate to redirect the user to a login page.</span></span>
 
 ::: moniker-end
 
@@ -173,6 +174,6 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 [!code-csharp[](resourcebased/samples/1_1/ResourceBasedAuthApp1/Controllers/DocumentController.cs?name=snippet_DocumentViewAction&highlight=11-12)]
 
-<span data-ttu-id="a855a-149">如果授权成功，则返回文档的视图。</span><span class="sxs-lookup"><span data-stu-id="a855a-149">If authorization succeeds, the view for the document is returned.</span></span> <span data-ttu-id="a855a-150">如果授权失败，则返回 `ChallengeResult` 通知任何身份验证中间件身份验证失败，中间件可以采取相应的响应。</span><span class="sxs-lookup"><span data-stu-id="a855a-150">If authorization fails, returning `ChallengeResult` informs any authentication middleware that authorization failed, and the middleware can take the appropriate response.</span></span> <span data-ttu-id="a855a-151">适当的响应可能返回401或403状态代码。</span><span class="sxs-lookup"><span data-stu-id="a855a-151">An appropriate response could be returning a 401 or 403 status code.</span></span> <span data-ttu-id="a855a-152">对于交互式浏览器客户端，这可能意味着将用户重定向到登录页。</span><span class="sxs-lookup"><span data-stu-id="a855a-152">For interactive browser clients, it could mean redirecting the user to a login page.</span></span>
+<span data-ttu-id="8625f-149">如果授权成功，则返回文档的视图。</span><span class="sxs-lookup"><span data-stu-id="8625f-149">If authorization succeeds, the view for the document is returned.</span></span> <span data-ttu-id="8625f-150">如果授权失败，则返回 `ChallengeResult` 通知任何身份验证中间件身份验证失败，中间件可以采取相应的响应。</span><span class="sxs-lookup"><span data-stu-id="8625f-150">If authorization fails, returning `ChallengeResult` informs any authentication middleware that authorization failed, and the middleware can take the appropriate response.</span></span> <span data-ttu-id="8625f-151">适当的响应可能返回401或403状态代码。</span><span class="sxs-lookup"><span data-stu-id="8625f-151">An appropriate response could be returning a 401 or 403 status code.</span></span> <span data-ttu-id="8625f-152">对于交互式浏览器客户端，这可能意味着将用户重定向到登录页。</span><span class="sxs-lookup"><span data-stu-id="8625f-152">For interactive browser clients, it could mean redirecting the user to a login page.</span></span>
 
 ::: moniker-end
