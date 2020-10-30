@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc, devx-track-js
 ms.date: 04/08/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: be271272c952487fccc5136307c84fdf49391848
-ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
+ms.openlocfilehash: b4b1bc6131a6676710adbf2503efe3f304d89a58
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/27/2020
-ms.locfileid: "92690647"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93050844"
 ---
 # <a name="aspnet-core-no-locsignalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
@@ -50,7 +51,7 @@ npm install @microsoft/signalr
 
 npm 将包内容安装到 *node_modules \\ @microsoft\signalr\dist\browser* 文件夹中。 在 *wwwroot \\ lib* 文件夹下创建名为 *signalr* 的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
 
-SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
+SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如： 。
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -58,7 +59,7 @@ SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
 
 ### <a name="use-a-content-delivery-network-cdn"></a>使用内容交付网络 (CDN) 
 
-若要在不使用 npm 先决条件的情况下使用客户端库，请引用 CDN 托管的客户端库副本。 例如：
+若要在不使用 npm 先决条件的情况下使用客户端库，请引用 CDN 托管的客户端库副本。 例如： 。
 
 [!code-html[](javascript-client/samples/3.x/SignalRChat/Pages/Index.cshtml?name=snippet_CDN)]
 
@@ -81,6 +82,9 @@ SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
 ### <a name="cross-origin-connections"></a>跨域连接
 
 通常，浏览器从与请求的页相同的域中加载连接。 但是，在某些情况下，需要与另一个域建立连接。
+
+> [!IMPORTANT]
+> 客户端代码必须使用绝对 URL，而不是相对 URL。 将 `.withUrl("/chathub")` 更改为 `.withUrl("https://myappurl/chathub")`。
 
 为了防止恶意站点读取其他站点中的敏感数据，默认情况下会禁用 [跨域连接](xref:security/cors) 。 若要允许跨源请求，请在类中启用该请求 `Startup` ：
 
@@ -315,7 +319,7 @@ npm install @aspnet/signalr
 
 npm 将包内容安装到 *node_modules \\ @aspnet\signalr\dist\browser* 文件夹中。 在 *wwwroot \\ lib* 文件夹下创建名为 *signalr* 的新文件夹。 将 *signalr.js* 文件复制到 *wwwroot\lib\signalr* 文件夹。
 
-SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
+SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如： 。
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -323,7 +327,7 @@ SignalR在元素中引用 JavaScript 客户端 `<script>` 。 例如：
 
 ### <a name="use-a-content-delivery-network-cdn"></a>使用内容交付网络 (CDN) 
 
-若要在不使用 npm 先决条件的情况下使用客户端库，请引用 CDN 托管的客户端库副本。 例如：
+若要在不使用 npm 先决条件的情况下使用客户端库，请引用 CDN 托管的客户端库副本。 例如： 。
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
