@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 09/24/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: 15ae8911e2ffba43c7bb885efd153d8b6803bc2a
-ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
+ms.openlocfilehash: e7d19a42e48048d2be4b87d6b0ac1ba6b2596ff1
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/27/2020
-ms.locfileid: "91393673"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93058163"
 ---
 # <a name="use-messagepack-hub-protocol-in-no-locsignalr-for-aspnet-core"></a>使用中的 MessagePack Hub 协议 SignalR 进行 ASP.NET Core
 
@@ -96,10 +97,10 @@ npm install @microsoft/signalr-protocol-msgpack
 
 *node_modules\\@microsoft\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
 
-在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js*中找到库。
+在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js* 中找到库。
 
 > [!NOTE]
-> 使用元素时 `<script>` ，顺序很重要。 如果在*msgpack5.js*之前引用*signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js*之前也需要*signalr.js* 。
+> 使用元素时 `<script>` ，顺序很重要。 如果在 *msgpack5.js* 之前引用 *signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js* 之前也需要 *signalr.js* 。
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -135,7 +136,7 @@ public class ChatMessage
 }
 ```
 
-从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如：
+从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如： 。
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -276,10 +277,10 @@ npm install @microsoft/signalr-protocol-msgpack
 
 *node_modules\\@microsoft\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
 
-在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js*中找到库。
+在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js* 中找到库。
 
 > [!NOTE]
-> 使用元素时 `<script>` ，顺序很重要。 如果在*msgpack5.js*之前引用*signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js*之前也需要*signalr.js* 。
+> 使用元素时 `<script>` ，顺序很重要。 如果在 *msgpack5.js* 之前引用 *signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js* 之前也需要 *signalr.js* 。
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -315,7 +316,7 @@ public class ChatMessage
 }
 ```
 
-从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如：
+从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如： 。
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -456,10 +457,10 @@ npm install @aspnet/signalr-protocol-msgpack
 
 *node_modules\\@aspnet\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js*
 
-在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js*中找到库。
+在浏览器中， `msgpack5` 还必须引用库。 使用 `<script>` 标记创建引用。 可在 *node_modules\msgpack5\dist\msgpack5.js* 中找到库。
 
 > [!NOTE]
-> 使用元素时 `<script>` ，顺序很重要。 如果在*msgpack5.js*之前引用*signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js*之前也需要*signalr.js* 。
+> 使用元素时 `<script>` ，顺序很重要。 如果在 *msgpack5.js* 之前引用 *signalr-protocol-msgpack.js* ，则在尝试使用 MessagePack 进行连接时将出现错误。 *signalr-protocol-msgpack.js* 之前也需要 *signalr.js* 。
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -495,7 +496,7 @@ public class ChatMessage
 }
 ```
 
-从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如：
+从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如： 。
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
