@@ -5,7 +5,7 @@ description: 了解如何在客户端和服务器之间流式传输数据。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc, devx-track-js
-ms.date: 11/12/2019
+ms.date: 10/29/2020
 no-loc:
 - ':::no-loc(appsettings.json):::'
 - ':::no-loc(ASP.NET Core Identity):::'
@@ -19,50 +19,50 @@ no-loc:
 - ':::no-loc(Razor):::'
 - ':::no-loc(SignalR):::'
 uid: signalr/streaming
-ms.openlocfilehash: 2f21248934395b682adf8060dae4e3d145e52215
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: b07c280f271ccdd525128b973da065001a5cf0ed
+ms.sourcegitcommit: 0d40fc4932531ce13fc4ee9432144584e03c2f1c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
-ms.locfileid: "93058202"
+ms.locfileid: "93062436"
 ---
-# <a name="use-streaming-in-aspnet-core-no-locsignalr"></a><span data-ttu-id="ff66e-103">使用 ASP.NET Core 中的流式处理 :::no-loc(SignalR):::</span><span class="sxs-lookup"><span data-stu-id="ff66e-103">Use streaming in ASP.NET Core :::no-loc(SignalR):::</span></span>
+# <a name="use-streaming-in-aspnet-core-no-locsignalr"></a><span data-ttu-id="387d2-103">使用 ASP.NET Core 中的流式处理 :::no-loc(SignalR):::</span><span class="sxs-lookup"><span data-stu-id="387d2-103">Use streaming in ASP.NET Core :::no-loc(SignalR):::</span></span>
 
-<span data-ttu-id="ff66e-104">作者： [Brennan Conroy](https://github.com/BrennanConroy)</span><span class="sxs-lookup"><span data-stu-id="ff66e-104">By [Brennan Conroy](https://github.com/BrennanConroy)</span></span>
+<span data-ttu-id="387d2-104">作者： [Brennan Conroy](https://github.com/BrennanConroy)</span><span class="sxs-lookup"><span data-stu-id="387d2-104">By [Brennan Conroy](https://github.com/BrennanConroy)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ff66e-105">ASP.NET Core :::no-loc(SignalR)::: 支持从客户端到服务器以及从服务器到客户端的流式传输。</span><span class="sxs-lookup"><span data-stu-id="ff66e-105">ASP.NET Core :::no-loc(SignalR)::: supports streaming from client to server and from server to client.</span></span> <span data-ttu-id="ff66e-106">这适用于数据片段随着时间的推移而发生的情况。</span><span class="sxs-lookup"><span data-stu-id="ff66e-106">This is useful for scenarios where fragments of data arrive over time.</span></span> <span data-ttu-id="ff66e-107">流式传输时，每个片段一旦变为可用，就会发送到客户端或服务器，而不是等待所有数据都可用。</span><span class="sxs-lookup"><span data-stu-id="ff66e-107">When streaming, each fragment is sent to the client or server as soon as it becomes available, rather than waiting for all of the data to become available.</span></span>
+<span data-ttu-id="387d2-105">ASP.NET Core :::no-loc(SignalR)::: 支持从客户端到服务器以及从服务器到客户端的流式传输。</span><span class="sxs-lookup"><span data-stu-id="387d2-105">ASP.NET Core :::no-loc(SignalR)::: supports streaming from client to server and from server to client.</span></span> <span data-ttu-id="387d2-106">这适用于数据片段随着时间的推移而发生的情况。</span><span class="sxs-lookup"><span data-stu-id="387d2-106">This is useful for scenarios where fragments of data arrive over time.</span></span> <span data-ttu-id="387d2-107">流式传输时，每个片段一旦变为可用，就会发送到客户端或服务器，而不是等待所有数据都可用。</span><span class="sxs-lookup"><span data-stu-id="387d2-107">When streaming, each fragment is sent to the client or server as soon as it becomes available, rather than waiting for all of the data to become available.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="ff66e-108">ASP.NET Core :::no-loc(SignalR)::: 支持服务器方法的流返回值。</span><span class="sxs-lookup"><span data-stu-id="ff66e-108">ASP.NET Core :::no-loc(SignalR)::: supports streaming return values of server methods.</span></span> <span data-ttu-id="ff66e-109">这适用于数据片段随着时间的推移而发生的情况。</span><span class="sxs-lookup"><span data-stu-id="ff66e-109">This is useful for scenarios where fragments of data arrive over time.</span></span> <span data-ttu-id="ff66e-110">将返回值流式传输到客户端时，每个片段会在其可用时立即发送到客户端，而不是等待所有数据都可用。</span><span class="sxs-lookup"><span data-stu-id="ff66e-110">When a return value is streamed to the client, each fragment is sent to the client as soon as it becomes available, rather than waiting for all the data to become available.</span></span>
+<span data-ttu-id="387d2-108">ASP.NET Core :::no-loc(SignalR)::: 支持服务器方法的流返回值。</span><span class="sxs-lookup"><span data-stu-id="387d2-108">ASP.NET Core :::no-loc(SignalR)::: supports streaming return values of server methods.</span></span> <span data-ttu-id="387d2-109">这适用于数据片段随着时间的推移而发生的情况。</span><span class="sxs-lookup"><span data-stu-id="387d2-109">This is useful for scenarios where fragments of data arrive over time.</span></span> <span data-ttu-id="387d2-110">将返回值流式传输到客户端时，每个片段会在其可用时立即发送到客户端，而不是等待所有数据都可用。</span><span class="sxs-lookup"><span data-stu-id="387d2-110">When a return value is streamed to the client, each fragment is sent to the client as soon as it becomes available, rather than waiting for all the data to become available.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="ff66e-111">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="ff66e-111">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="387d2-111">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="387d2-111">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="set-up-a-hub-for-streaming"></a><span data-ttu-id="ff66e-112">设置用于流式传输的集线器</span><span class="sxs-lookup"><span data-stu-id="ff66e-112">Set up a hub for streaming</span></span>
+## <a name="set-up-a-hub-for-streaming"></a><span data-ttu-id="387d2-112">设置用于流式传输的集线器</span><span class="sxs-lookup"><span data-stu-id="387d2-112">Set up a hub for streaming</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ff66e-113">当集线器方法返回、、或时，它会自动成为流式处理中心方法 <xref:System.Collections.Generic.IAsyncEnumerable`1> <xref:System.Threading.Channels.ChannelReader%601> `Task<IAsyncEnumerable<T>>` `Task<ChannelReader<T>>` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-113">A hub method automatically becomes a streaming hub method when it returns <xref:System.Collections.Generic.IAsyncEnumerable`1>, <xref:System.Threading.Channels.ChannelReader%601>, `Task<IAsyncEnumerable<T>>`, or `Task<ChannelReader<T>>`.</span></span>
+<span data-ttu-id="387d2-113">当集线器方法返回、、或时，它会自动成为流式处理中心方法 <xref:System.Collections.Generic.IAsyncEnumerable`1> <xref:System.Threading.Channels.ChannelReader%601> `Task<IAsyncEnumerable<T>>` `Task<ChannelReader<T>>` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-113">A hub method automatically becomes a streaming hub method when it returns <xref:System.Collections.Generic.IAsyncEnumerable`1>, <xref:System.Threading.Channels.ChannelReader%601>, `Task<IAsyncEnumerable<T>>`, or `Task<ChannelReader<T>>`.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="ff66e-114">当集线器方法返回或时，它会自动成为流式处理中心方法 <xref:System.Threading.Channels.ChannelReader%601> `Task<ChannelReader<T>>` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-114">A hub method automatically becomes a streaming hub method when it returns a <xref:System.Threading.Channels.ChannelReader%601> or a `Task<ChannelReader<T>>`.</span></span>
+<span data-ttu-id="387d2-114">当集线器方法返回或时，它会自动成为流式处理中心方法 <xref:System.Threading.Channels.ChannelReader%601> `Task<ChannelReader<T>>` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-114">A hub method automatically becomes a streaming hub method when it returns a <xref:System.Threading.Channels.ChannelReader%601> or a `Task<ChannelReader<T>>`.</span></span>
 
 ::: moniker-end
 
-### <a name="server-to-client-streaming"></a><span data-ttu-id="ff66e-115">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="ff66e-115">Server-to-client streaming</span></span>
+### <a name="server-to-client-streaming"></a><span data-ttu-id="387d2-115">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-115">Server-to-client streaming</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ff66e-116">除了之外，流集线器方法还可以返回 `IAsyncEnumerable<T>` `ChannelReader<T>` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-116">Streaming hub methods can return `IAsyncEnumerable<T>` in addition to `ChannelReader<T>`.</span></span> <span data-ttu-id="ff66e-117">返回的最简单方法 `IAsyncEnumerable<T>` 是将集线器方法设为异步迭代器方法，如下例所示。</span><span class="sxs-lookup"><span data-stu-id="ff66e-117">The simplest way to return `IAsyncEnumerable<T>` is by making the hub method an async iterator method as the following sample demonstrates.</span></span> <span data-ttu-id="ff66e-118">中心异步迭代器方法可以接受 `CancellationToken` 当客户端从流中取消订阅时触发的参数。</span><span class="sxs-lookup"><span data-stu-id="ff66e-118">Hub async iterator methods can accept a `CancellationToken` parameter that's triggered when the client unsubscribes from the stream.</span></span> <span data-ttu-id="ff66e-119">异步迭代器方法避免了与通道常见的问题，例如，在没有 `ChannelReader` 完成的情况下，不能提前返回或退出方法 <xref:System.Threading.Channels.ChannelWriter`1> 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-119">Async iterator methods avoid problems common with Channels, such as not returning the `ChannelReader` early enough or exiting the method without completing the <xref:System.Threading.Channels.ChannelWriter`1>.</span></span>
+<span data-ttu-id="387d2-116">除了之外，流集线器方法还可以返回 `IAsyncEnumerable<T>` `ChannelReader<T>` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-116">Streaming hub methods can return `IAsyncEnumerable<T>` in addition to `ChannelReader<T>`.</span></span> <span data-ttu-id="387d2-117">返回的最简单方法 `IAsyncEnumerable<T>` 是将集线器方法设为异步迭代器方法，如下例所示。</span><span class="sxs-lookup"><span data-stu-id="387d2-117">The simplest way to return `IAsyncEnumerable<T>` is by making the hub method an async iterator method as the following sample demonstrates.</span></span> <span data-ttu-id="387d2-118">中心异步迭代器方法可以接受 `CancellationToken` 当客户端从流中取消订阅时触发的参数。</span><span class="sxs-lookup"><span data-stu-id="387d2-118">Hub async iterator methods can accept a `CancellationToken` parameter that's triggered when the client unsubscribes from the stream.</span></span> <span data-ttu-id="387d2-119">异步迭代器方法避免了与通道常见的问题，例如，在没有 `ChannelReader` 完成的情况下，不能提前返回或退出方法 <xref:System.Threading.Channels.ChannelWriter`1> 。</span><span class="sxs-lookup"><span data-stu-id="387d2-119">Async iterator methods avoid problems common with Channels, such as not returning the `ChannelReader` early enough or exiting the method without completing the <xref:System.Threading.Channels.ChannelWriter`1>.</span></span>
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
@@ -70,12 +70,12 @@ ms.locfileid: "93058202"
 
 ::: moniker-end
 
-<span data-ttu-id="ff66e-120">下面的示例演示了使用通道将数据流式传输到客户端的基础知识。</span><span class="sxs-lookup"><span data-stu-id="ff66e-120">The following sample shows the basics of streaming data to the client using Channels.</span></span> <span data-ttu-id="ff66e-121">每当将对象写入到时 <xref:System.Threading.Channels.ChannelWriter%601> ，都会立即将对象发送到客户端。</span><span class="sxs-lookup"><span data-stu-id="ff66e-121">Whenever an object is written to the <xref:System.Threading.Channels.ChannelWriter%601>, the object is immediately sent to the client.</span></span> <span data-ttu-id="ff66e-122">结束时，已 `ChannelWriter` 完成，告诉客户端流已关闭。</span><span class="sxs-lookup"><span data-stu-id="ff66e-122">At the end, the `ChannelWriter` is completed to tell the client the stream is closed.</span></span>
+<span data-ttu-id="387d2-120">下面的示例演示了使用通道将数据流式传输到客户端的基础知识。</span><span class="sxs-lookup"><span data-stu-id="387d2-120">The following sample shows the basics of streaming data to the client using Channels.</span></span> <span data-ttu-id="387d2-121">每当将对象写入到时 <xref:System.Threading.Channels.ChannelWriter%601> ，都会立即将对象发送到客户端。</span><span class="sxs-lookup"><span data-stu-id="387d2-121">Whenever an object is written to the <xref:System.Threading.Channels.ChannelWriter%601>, the object is immediately sent to the client.</span></span> <span data-ttu-id="387d2-122">结束时，已 `ChannelWriter` 完成，告诉客户端流已关闭。</span><span class="sxs-lookup"><span data-stu-id="387d2-122">At the end, the `ChannelWriter` is completed to tell the client the stream is closed.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="ff66e-123">`ChannelWriter<T>`在后台线程上写入，并尽快返回 `ChannelReader` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-123">Write to the `ChannelWriter<T>` on a background thread and return the `ChannelReader` as soon as possible.</span></span> <span data-ttu-id="ff66e-124">在返回之前，其他中心调用会被阻止 `ChannelReader` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-124">Other hub invocations are blocked until a `ChannelReader` is returned.</span></span>
+> <span data-ttu-id="387d2-123">`ChannelWriter<T>`在后台线程上写入，并尽快返回 `ChannelReader` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-123">Write to the `ChannelWriter<T>` on a background thread and return the `ChannelReader` as soon as possible.</span></span> <span data-ttu-id="387d2-124">在返回之前，其他中心调用会被阻止 `ChannelReader` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-124">Other hub invocations are blocked until a `ChannelReader` is returned.</span></span>
 >
-> <span data-ttu-id="ff66e-125">在[ `try ... catch` 语句](/dotnet/csharp/language-reference/keywords/try-catch)中环绕逻辑。</span><span class="sxs-lookup"><span data-stu-id="ff66e-125">Wrap logic in a [`try ... catch` statement](/dotnet/csharp/language-reference/keywords/try-catch).</span></span> <span data-ttu-id="ff66e-126">`Channel`在[ `finally` 块](/dotnet/csharp/language-reference/keywords/try-catch-finally)中完成。</span><span class="sxs-lookup"><span data-stu-id="ff66e-126">Complete the `Channel` in a [`finally` block](/dotnet/csharp/language-reference/keywords/try-catch-finally).</span></span> <span data-ttu-id="ff66e-127">如果要流式传输错误，请将其捕获到块中， `catch` 并将其写入 `finally` 块。</span><span class="sxs-lookup"><span data-stu-id="ff66e-127">If you want to flow an error, capture it inside the `catch` block and write it in the `finally` block.</span></span>
+> <span data-ttu-id="387d2-125">在[ `try ... catch` 语句](/dotnet/csharp/language-reference/keywords/try-catch)中环绕逻辑。</span><span class="sxs-lookup"><span data-stu-id="387d2-125">Wrap logic in a [`try ... catch` statement](/dotnet/csharp/language-reference/keywords/try-catch).</span></span> <span data-ttu-id="387d2-126">`Channel`在[ `finally` 块](/dotnet/csharp/language-reference/keywords/try-catch-finally)中完成。</span><span class="sxs-lookup"><span data-stu-id="387d2-126">Complete the `Channel` in a [`finally` block](/dotnet/csharp/language-reference/keywords/try-catch-finally).</span></span> <span data-ttu-id="387d2-127">如果要流式传输错误，请将其捕获到块中， `catch` 并将其写入 `finally` 块。</span><span class="sxs-lookup"><span data-stu-id="387d2-127">If you want to flow an error, capture it inside the `catch` block and write it in the `finally` block.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -97,19 +97,19 @@ ms.locfileid: "93058202"
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="ff66e-128">服务器到客户端流式处理中心方法可以接受 `CancellationToken` 当客户端从流中取消订阅时触发的参数。</span><span class="sxs-lookup"><span data-stu-id="ff66e-128">Server-to-client streaming hub methods can accept a `CancellationToken` parameter that's triggered when the client unsubscribes from the stream.</span></span> <span data-ttu-id="ff66e-129">如果客户端在流末尾之前断开连接，请使用此标记停止服务器操作并释放任何资源。</span><span class="sxs-lookup"><span data-stu-id="ff66e-129">Use this token to stop the server operation and release any resources if the client disconnects before the end of the stream.</span></span>
+<span data-ttu-id="387d2-128">服务器到客户端流式处理中心方法可以接受 `CancellationToken` 当客户端从流中取消订阅时触发的参数。</span><span class="sxs-lookup"><span data-stu-id="387d2-128">Server-to-client streaming hub methods can accept a `CancellationToken` parameter that's triggered when the client unsubscribes from the stream.</span></span> <span data-ttu-id="387d2-129">如果客户端在流末尾之前断开连接，请使用此标记停止服务器操作并释放任何资源。</span><span class="sxs-lookup"><span data-stu-id="387d2-129">Use this token to stop the server operation and release any resources if the client disconnects before the end of the stream.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="client-to-server-streaming"></a><span data-ttu-id="ff66e-130">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="ff66e-130">Client-to-server streaming</span></span>
+### <a name="client-to-server-streaming"></a><span data-ttu-id="387d2-130">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-130">Client-to-server streaming</span></span>
 
-<span data-ttu-id="ff66e-131">当某个集线器方法接受一个或多个类型为或的对象时，它会自动成为客户端到服务器的流式处理中心方法 <xref:System.Threading.Channels.ChannelReader%601> <xref:System.Collections.Generic.IAsyncEnumerable%601> 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-131">A hub method automatically becomes a client-to-server streaming hub method when it accepts one or more objects of type <xref:System.Threading.Channels.ChannelReader%601> or <xref:System.Collections.Generic.IAsyncEnumerable%601>.</span></span> <span data-ttu-id="ff66e-132">下面的示例演示了读取从客户端发送的流式处理数据的基础知识。</span><span class="sxs-lookup"><span data-stu-id="ff66e-132">The following sample shows the basics of reading streaming data sent from the client.</span></span> <span data-ttu-id="ff66e-133">每当客户端向中写入 <xref:System.Threading.Channels.ChannelWriter%601> 数据时，数据就会写入 `ChannelReader` 中心方法所读取的服务器上的。</span><span class="sxs-lookup"><span data-stu-id="ff66e-133">Whenever the client writes to the <xref:System.Threading.Channels.ChannelWriter%601>, the data is written into the `ChannelReader` on the server from which the hub method is reading.</span></span>
+<span data-ttu-id="387d2-131">当某个集线器方法接受一个或多个类型为或的对象时，它会自动成为客户端到服务器的流式处理中心方法 <xref:System.Threading.Channels.ChannelReader%601> <xref:System.Collections.Generic.IAsyncEnumerable%601> 。</span><span class="sxs-lookup"><span data-stu-id="387d2-131">A hub method automatically becomes a client-to-server streaming hub method when it accepts one or more objects of type <xref:System.Threading.Channels.ChannelReader%601> or <xref:System.Collections.Generic.IAsyncEnumerable%601>.</span></span> <span data-ttu-id="387d2-132">下面的示例演示了读取从客户端发送的流式处理数据的基础知识。</span><span class="sxs-lookup"><span data-stu-id="387d2-132">The following sample shows the basics of reading streaming data sent from the client.</span></span> <span data-ttu-id="387d2-133">每当客户端向中写入 <xref:System.Threading.Channels.ChannelWriter%601> 数据时，数据就会写入 `ChannelReader` 中心方法所读取的服务器上的。</span><span class="sxs-lookup"><span data-stu-id="387d2-133">Whenever the client writes to the <xref:System.Threading.Channels.ChannelWriter%601>, the data is written into the `ChannelReader` on the server from which the hub method is reading.</span></span>
 
 [!code-csharp[Streaming upload hub method](streaming/samples/3.0/Hubs/StreamHub.cs?name=snippet2)]
 
-<span data-ttu-id="ff66e-134"><xref:System.Collections.Generic.IAsyncEnumerable%601>下面是方法的版本。</span><span class="sxs-lookup"><span data-stu-id="ff66e-134">An <xref:System.Collections.Generic.IAsyncEnumerable%601> version of the method follows.</span></span>
+<span data-ttu-id="387d2-134"><xref:System.Collections.Generic.IAsyncEnumerable%601>下面是方法的版本。</span><span class="sxs-lookup"><span data-stu-id="387d2-134">An <xref:System.Collections.Generic.IAsyncEnumerable%601> version of the method follows.</span></span>
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
@@ -125,16 +125,16 @@ public async Task UploadStream(IAsyncEnumerable<string> stream)
 
 ::: moniker-end
 
-## <a name="net-client"></a><span data-ttu-id="ff66e-135">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="ff66e-135">.NET client</span></span>
+## <a name="net-client"></a><span data-ttu-id="387d2-135">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="387d2-135">.NET client</span></span>
 
-### <a name="server-to-client-streaming"></a><span data-ttu-id="ff66e-136">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="ff66e-136">Server-to-client streaming</span></span>
+### <a name="server-to-client-streaming"></a><span data-ttu-id="387d2-136">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-136">Server-to-client streaming</span></span>
 
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ff66e-137">`StreamAsync`上的和 `StreamAsChannelAsync` 方法 `HubConnection` 用于调用服务器到客户端的流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-137">The `StreamAsync` and `StreamAsChannelAsync` methods on `HubConnection` are used to invoke server-to-client streaming methods.</span></span> <span data-ttu-id="ff66e-138">将 hub 方法中定义的集线器方法名称和参数传递给 `StreamAsync` 或 `StreamAsChannelAsync` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-138">Pass the hub method name and arguments defined in the hub method to `StreamAsync` or `StreamAsChannelAsync`.</span></span> <span data-ttu-id="ff66e-139">和上的泛型 `StreamAsync<T>` 参数 `StreamAsChannelAsync<T>` 指定流方法返回的对象的类型。</span><span class="sxs-lookup"><span data-stu-id="ff66e-139">The generic parameter on `StreamAsync<T>` and `StreamAsChannelAsync<T>` specifies the type of objects returned by the streaming method.</span></span> <span data-ttu-id="ff66e-140">类型 `IAsyncEnumerable<T>` 为或的对象 `ChannelReader<T>` 将从流调用返回，并表示客户端上的流。</span><span class="sxs-lookup"><span data-stu-id="ff66e-140">An object of type `IAsyncEnumerable<T>` or `ChannelReader<T>` is returned from the stream invocation and represents the stream on the client.</span></span>
+<span data-ttu-id="387d2-137">`StreamAsync`上的和 `StreamAsChannelAsync` 方法 `HubConnection` 用于调用服务器到客户端的流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-137">The `StreamAsync` and `StreamAsChannelAsync` methods on `HubConnection` are used to invoke server-to-client streaming methods.</span></span> <span data-ttu-id="387d2-138">将 hub 方法中定义的集线器方法名称和参数传递给 `StreamAsync` 或 `StreamAsChannelAsync` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-138">Pass the hub method name and arguments defined in the hub method to `StreamAsync` or `StreamAsChannelAsync`.</span></span> <span data-ttu-id="387d2-139">和上的泛型 `StreamAsync<T>` 参数 `StreamAsChannelAsync<T>` 指定流方法返回的对象的类型。</span><span class="sxs-lookup"><span data-stu-id="387d2-139">The generic parameter on `StreamAsync<T>` and `StreamAsChannelAsync<T>` specifies the type of objects returned by the streaming method.</span></span> <span data-ttu-id="387d2-140">类型 `IAsyncEnumerable<T>` 为或的对象 `ChannelReader<T>` 将从流调用返回，并表示客户端上的流。</span><span class="sxs-lookup"><span data-stu-id="387d2-140">An object of type `IAsyncEnumerable<T>` or `ChannelReader<T>` is returned from the stream invocation and represents the stream on the client.</span></span>
 
-<span data-ttu-id="ff66e-141">`StreamAsync`返回 `IAsyncEnumerable<int>` 以下内容的示例：</span><span class="sxs-lookup"><span data-stu-id="ff66e-141">A `StreamAsync` example that returns `IAsyncEnumerable<int>`:</span></span>
+<span data-ttu-id="387d2-141">`StreamAsync`返回 `IAsyncEnumerable<int>` 以下内容的示例：</span><span class="sxs-lookup"><span data-stu-id="387d2-141">A `StreamAsync` example that returns `IAsyncEnumerable<int>`:</span></span>
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -151,7 +151,7 @@ await foreach (var count in stream)
 Console.WriteLine("Streaming completed");
 ```
 
-<span data-ttu-id="ff66e-142">返回的相应 `StreamAsChannelAsync` 示例 `ChannelReader<int>` ：</span><span class="sxs-lookup"><span data-stu-id="ff66e-142">A corresponding `StreamAsChannelAsync` example that returns `ChannelReader<int>`:</span></span>
+<span data-ttu-id="387d2-142">返回的相应 `StreamAsChannelAsync` 示例 `ChannelReader<int>` ：</span><span class="sxs-lookup"><span data-stu-id="387d2-142">A corresponding `StreamAsChannelAsync` example that returns `ChannelReader<int>`:</span></span>
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -177,7 +177,7 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="ff66e-143">`StreamAsChannelAsync`上的方法 `HubConnection` 用于调用服务器到客户端流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-143">The `StreamAsChannelAsync` method on `HubConnection` is used to invoke a server-to-client streaming method.</span></span> <span data-ttu-id="ff66e-144">将中心方法中定义的集线器方法名称和参数传递给 `StreamAsChannelAsync` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-144">Pass the hub method name and arguments defined in the hub method to `StreamAsChannelAsync`.</span></span> <span data-ttu-id="ff66e-145">上的泛型参数 `StreamAsChannelAsync<T>` 指定流方法返回的对象的类型。</span><span class="sxs-lookup"><span data-stu-id="ff66e-145">The generic parameter on `StreamAsChannelAsync<T>` specifies the type of objects returned by the streaming method.</span></span> <span data-ttu-id="ff66e-146">`ChannelReader<T>`从流调用返回，表示客户端上的流。</span><span class="sxs-lookup"><span data-stu-id="ff66e-146">A `ChannelReader<T>` is returned from the stream invocation and represents the stream on the client.</span></span>
+<span data-ttu-id="387d2-143">`StreamAsChannelAsync`上的方法 `HubConnection` 用于调用服务器到客户端流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-143">The `StreamAsChannelAsync` method on `HubConnection` is used to invoke a server-to-client streaming method.</span></span> <span data-ttu-id="387d2-144">将中心方法中定义的集线器方法名称和参数传递给 `StreamAsChannelAsync` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-144">Pass the hub method name and arguments defined in the hub method to `StreamAsChannelAsync`.</span></span> <span data-ttu-id="387d2-145">上的泛型参数 `StreamAsChannelAsync<T>` 指定流方法返回的对象的类型。</span><span class="sxs-lookup"><span data-stu-id="387d2-145">The generic parameter on `StreamAsChannelAsync<T>` specifies the type of objects returned by the streaming method.</span></span> <span data-ttu-id="387d2-146">`ChannelReader<T>`从流调用返回，表示客户端上的流。</span><span class="sxs-lookup"><span data-stu-id="387d2-146">A `ChannelReader<T>` is returned from the stream invocation and represents the stream on the client.</span></span>
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -203,7 +203,7 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range="= aspnetcore-2.1"
 
-<span data-ttu-id="ff66e-147">`StreamAsChannelAsync`上的方法 `HubConnection` 用于调用服务器到客户端流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-147">The `StreamAsChannelAsync` method on `HubConnection` is used to invoke a server-to-client streaming method.</span></span> <span data-ttu-id="ff66e-148">将中心方法中定义的集线器方法名称和参数传递给 `StreamAsChannelAsync` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-148">Pass the hub method name and arguments defined in the hub method to `StreamAsChannelAsync`.</span></span> <span data-ttu-id="ff66e-149">上的泛型参数 `StreamAsChannelAsync<T>` 指定流方法返回的对象的类型。</span><span class="sxs-lookup"><span data-stu-id="ff66e-149">The generic parameter on `StreamAsChannelAsync<T>` specifies the type of objects returned by the streaming method.</span></span> <span data-ttu-id="ff66e-150">`ChannelReader<T>`从流调用返回，表示客户端上的流。</span><span class="sxs-lookup"><span data-stu-id="ff66e-150">A `ChannelReader<T>` is returned from the stream invocation and represents the stream on the client.</span></span>
+<span data-ttu-id="387d2-147">`StreamAsChannelAsync`上的方法 `HubConnection` 用于调用服务器到客户端流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-147">The `StreamAsChannelAsync` method on `HubConnection` is used to invoke a server-to-client streaming method.</span></span> <span data-ttu-id="387d2-148">将中心方法中定义的集线器方法名称和参数传递给 `StreamAsChannelAsync` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-148">Pass the hub method name and arguments defined in the hub method to `StreamAsChannelAsync`.</span></span> <span data-ttu-id="387d2-149">上的泛型参数 `StreamAsChannelAsync<T>` 指定流方法返回的对象的类型。</span><span class="sxs-lookup"><span data-stu-id="387d2-149">The generic parameter on `StreamAsChannelAsync<T>` specifies the type of objects returned by the streaming method.</span></span> <span data-ttu-id="387d2-150">`ChannelReader<T>`从流调用返回，表示客户端上的流。</span><span class="sxs-lookup"><span data-stu-id="387d2-150">A `ChannelReader<T>` is returned from the stream invocation and represents the stream on the client.</span></span>
 
 ```csharp
 var channel = await hubConnection
@@ -226,13 +226,13 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="client-to-server-streaming"></a><span data-ttu-id="ff66e-151">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="ff66e-151">Client-to-server streaming</span></span>
+### <a name="client-to-server-streaming"></a><span data-ttu-id="387d2-151">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-151">Client-to-server streaming</span></span>
 
-<span data-ttu-id="ff66e-152">可以通过两种方法从 .NET 客户端调用客户端到服务器的流式处理中心方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-152">There are two ways to invoke a client-to-server streaming hub method from the .NET client.</span></span> <span data-ttu-id="ff66e-153">可以将 `IAsyncEnumerable<T>` 或 `ChannelReader` 作为参数传入 `SendAsync` 、 `InvokeAsync` 或 `StreamAsChannelAsync` ，具体取决于所调用的中心方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-153">You can either pass in an `IAsyncEnumerable<T>` or a `ChannelReader` as an argument to `SendAsync`, `InvokeAsync`, or `StreamAsChannelAsync`, depending on the hub method invoked.</span></span>
+<span data-ttu-id="387d2-152">可以通过两种方法从 .NET 客户端调用客户端到服务器的流式处理中心方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-152">There are two ways to invoke a client-to-server streaming hub method from the .NET client.</span></span> <span data-ttu-id="387d2-153">可以将 `IAsyncEnumerable<T>` 或 `ChannelReader` 作为参数传入 `SendAsync` 、 `InvokeAsync` 或 `StreamAsChannelAsync` ，具体取决于所调用的中心方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-153">You can either pass in an `IAsyncEnumerable<T>` or a `ChannelReader` as an argument to `SendAsync`, `InvokeAsync`, or `StreamAsChannelAsync`, depending on the hub method invoked.</span></span>
 
-<span data-ttu-id="ff66e-154">只要将数据写入到 `IAsyncEnumerable` 或 `ChannelWriter` 对象，服务器上的集线器方法就会收到来自客户端的数据的新项。</span><span class="sxs-lookup"><span data-stu-id="ff66e-154">Whenever data is written to the `IAsyncEnumerable` or `ChannelWriter` object, the hub method on the server receives a new item with the data from the client.</span></span>
+<span data-ttu-id="387d2-154">只要将数据写入到 `IAsyncEnumerable` 或 `ChannelWriter` 对象，服务器上的集线器方法就会收到来自客户端的数据的新项。</span><span class="sxs-lookup"><span data-stu-id="387d2-154">Whenever data is written to the `IAsyncEnumerable` or `ChannelWriter` object, the hub method on the server receives a new item with the data from the client.</span></span>
 
-<span data-ttu-id="ff66e-155">如果使用 `IAsyncEnumerable` 对象，则流在返回流项的方法退出后结束。</span><span class="sxs-lookup"><span data-stu-id="ff66e-155">If using an `IAsyncEnumerable` object, the stream ends after the method returning stream items exits.</span></span>
+<span data-ttu-id="387d2-155">如果使用 `IAsyncEnumerable` 对象，则流在返回流项的方法退出后结束。</span><span class="sxs-lookup"><span data-stu-id="387d2-155">If using an `IAsyncEnumerable` object, the stream ends after the method returning stream items exits.</span></span>
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
@@ -250,7 +250,7 @@ async IAsyncEnumerable<string> clientStreamData()
 await connection.SendAsync("UploadStream", clientStreamData());
 ```
 
-<span data-ttu-id="ff66e-156">或者，如果使用的是 `ChannelWriter` ，请使用 `channel.Writer.Complete()` 以下内容完成通道：</span><span class="sxs-lookup"><span data-stu-id="ff66e-156">Or if you're using a `ChannelWriter`, you complete the channel with `channel.Writer.Complete()`:</span></span>
+<span data-ttu-id="387d2-156">或者，如果使用的是 `ChannelWriter` ，请使用 `channel.Writer.Complete()` 以下内容完成通道：</span><span class="sxs-lookup"><span data-stu-id="387d2-156">Or if you're using a `ChannelWriter`, you complete the channel with `channel.Writer.Complete()`:</span></span>
 
 ```csharp
 var channel = Channel.CreateBounded<string>(10);
@@ -262,22 +262,22 @@ channel.Writer.Complete();
 
 ::: moniker-end
 
-## <a name="javascript-client"></a><span data-ttu-id="ff66e-157">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="ff66e-157">JavaScript client</span></span>
+## <a name="javascript-client"></a><span data-ttu-id="387d2-157">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="387d2-157">JavaScript client</span></span>
 
-### <a name="server-to-client-streaming"></a><span data-ttu-id="ff66e-158">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="ff66e-158">Server-to-client streaming</span></span>
+### <a name="server-to-client-streaming"></a><span data-ttu-id="387d2-158">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-158">Server-to-client streaming</span></span>
 
-<span data-ttu-id="ff66e-159">JavaScript 客户端通过调用与的集线器上的服务器到客户端流式处理方法 `connection.stream` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-159">JavaScript clients call server-to-client streaming methods on hubs with `connection.stream`.</span></span> <span data-ttu-id="ff66e-160">此 `stream` 方法接受两个参数：</span><span class="sxs-lookup"><span data-stu-id="ff66e-160">The `stream` method accepts two arguments:</span></span>
+<span data-ttu-id="387d2-159">JavaScript 客户端通过调用与的集线器上的服务器到客户端流式处理方法 `connection.stream` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-159">JavaScript clients call server-to-client streaming methods on hubs with `connection.stream`.</span></span> <span data-ttu-id="387d2-160">此 `stream` 方法接受两个参数：</span><span class="sxs-lookup"><span data-stu-id="387d2-160">The `stream` method accepts two arguments:</span></span>
 
-* <span data-ttu-id="ff66e-161">集线器方法的名称。</span><span class="sxs-lookup"><span data-stu-id="ff66e-161">The name of the hub method.</span></span> <span data-ttu-id="ff66e-162">在下面的示例中，中心方法名称是 `Counter` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-162">In the following example, the hub method name is `Counter`.</span></span>
-* <span data-ttu-id="ff66e-163">在 hub 方法中定义的参数。</span><span class="sxs-lookup"><span data-stu-id="ff66e-163">Arguments defined in the hub method.</span></span> <span data-ttu-id="ff66e-164">在下面的示例中，参数是要接收的流项数的计数以及流项之间的延迟。</span><span class="sxs-lookup"><span data-stu-id="ff66e-164">In the following example, the arguments are a count for the number of stream items to receive and the delay between stream items.</span></span>
+* <span data-ttu-id="387d2-161">集线器方法的名称。</span><span class="sxs-lookup"><span data-stu-id="387d2-161">The name of the hub method.</span></span> <span data-ttu-id="387d2-162">在下面的示例中，中心方法名称是 `Counter` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-162">In the following example, the hub method name is `Counter`.</span></span>
+* <span data-ttu-id="387d2-163">在 hub 方法中定义的参数。</span><span class="sxs-lookup"><span data-stu-id="387d2-163">Arguments defined in the hub method.</span></span> <span data-ttu-id="387d2-164">在下面的示例中，参数是要接收的流项数的计数以及流项之间的延迟。</span><span class="sxs-lookup"><span data-stu-id="387d2-164">In the following example, the arguments are a count for the number of stream items to receive and the delay between stream items.</span></span>
 
-<span data-ttu-id="ff66e-165">`connection.stream` 返回一个 `IStreamResult` ，它包含 `subscribe` 方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-165">`connection.stream` returns an `IStreamResult`, which contains a `subscribe` method.</span></span> <span data-ttu-id="ff66e-166">向传递 `IStreamSubscriber` ， `subscribe` 并设置 `next` 、 `error` 和回调， `complete` 以接收来自调用的通知 `stream` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-166">Pass an `IStreamSubscriber` to `subscribe` and set the `next`, `error`, and `complete` callbacks to receive notifications from the `stream` invocation.</span></span>
+<span data-ttu-id="387d2-165">`connection.stream` 返回一个 `IStreamResult` ，它包含 `subscribe` 方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-165">`connection.stream` returns an `IStreamResult`, which contains a `subscribe` method.</span></span> <span data-ttu-id="387d2-166">向传递 `IStreamSubscriber` ， `subscribe` 并设置 `next` 、 `error` 和回调， `complete` 以接收来自调用的通知 `stream` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-166">Pass an `IStreamSubscriber` to `subscribe` and set the `next`, `error`, and `complete` callbacks to receive notifications from the `stream` invocation.</span></span>
 
 ::: moniker range=">= aspnetcore-2.2"
 
 [!code-javascript[Streaming javascript](streaming/samples/2.2/wwwroot/js/stream.js?range=19-36)]
 
-<span data-ttu-id="ff66e-167">若要从客户端结束流，请 `dispose` 对 `ISubscription` 从方法返回的调用方法 `subscribe` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-167">To end the stream from the client, call the `dispose` method on the `ISubscription` that's returned from the `subscribe` method.</span></span> <span data-ttu-id="ff66e-168">如果提供了，则调用此方法会导致取消 `CancellationToken` 集线器方法的参数。</span><span class="sxs-lookup"><span data-stu-id="ff66e-168">Calling this method causes cancellation of the `CancellationToken` parameter of the Hub method, if you provided one.</span></span>
+<span data-ttu-id="387d2-167">若要从客户端结束流，请 `dispose` 对 `ISubscription` 从方法返回的调用方法 `subscribe` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-167">To end the stream from the client, call the `dispose` method on the `ISubscription` that's returned from the `subscribe` method.</span></span> <span data-ttu-id="387d2-168">如果提供了，则调用此方法会导致取消 `CancellationToken` 集线器方法的参数。</span><span class="sxs-lookup"><span data-stu-id="387d2-168">Calling this method causes cancellation of the `CancellationToken` parameter of the Hub method, if you provided one.</span></span>
 
 ::: moniker-end
 
@@ -285,31 +285,31 @@ channel.Writer.Complete();
 
 [!code-javascript[Streaming javascript](streaming/samples/2.1/wwwroot/js/stream.js?range=19-36)]
 
-<span data-ttu-id="ff66e-169">若要从客户端结束流，请 `dispose` 对 `ISubscription` 从方法返回的调用方法 `subscribe` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-169">To end the stream from the client, call the `dispose` method on the `ISubscription` that's returned from the `subscribe` method.</span></span>
+<span data-ttu-id="387d2-169">若要从客户端结束流，请 `dispose` 对 `ISubscription` 从方法返回的调用方法 `subscribe` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-169">To end the stream from the client, call the `dispose` method on the `ISubscription` that's returned from the `subscribe` method.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="client-to-server-streaming"></a><span data-ttu-id="ff66e-170">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="ff66e-170">Client-to-server streaming</span></span>
+### <a name="client-to-server-streaming"></a><span data-ttu-id="387d2-170">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-170">Client-to-server streaming</span></span>
 
-<span data-ttu-id="ff66e-171">JavaScript 客户端通过将作为自变量传入、或，来调用集线器上的客户端到服务器流式处理方法， `Subject` `send` `invoke` `stream` 具体取决于所调用的集线器方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-171">JavaScript clients call client-to-server streaming methods on hubs by passing in a `Subject` as an argument to `send`, `invoke`, or `stream`, depending on the hub method invoked.</span></span> <span data-ttu-id="ff66e-172">`Subject`是一个类似于的类 `Subject` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-172">The `Subject` is a class that looks like a `Subject`.</span></span> <span data-ttu-id="ff66e-173">例如，在 RxJS 中，可以使用该库中的 [Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject) 类。</span><span class="sxs-lookup"><span data-stu-id="ff66e-173">For example in RxJS, you can use the [Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject) class from that library.</span></span>
+<span data-ttu-id="387d2-171">JavaScript 客户端通过将作为自变量传入、或，来调用集线器上的客户端到服务器流式处理方法， `Subject` `send` `invoke` `stream` 具体取决于所调用的集线器方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-171">JavaScript clients call client-to-server streaming methods on hubs by passing in a `Subject` as an argument to `send`, `invoke`, or `stream`, depending on the hub method invoked.</span></span> <span data-ttu-id="387d2-172">`Subject`是一个类似于的类 `Subject` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-172">The `Subject` is a class that looks like a `Subject`.</span></span> <span data-ttu-id="387d2-173">例如，在 RxJS 中，可以使用该库中的 [Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject) 类。</span><span class="sxs-lookup"><span data-stu-id="387d2-173">For example in RxJS, you can use the [Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject) class from that library.</span></span>
 
 [!code-javascript[Upload javascript](streaming/samples/3.0/wwwroot/js/stream.js?range=41-51)]
 
-<span data-ttu-id="ff66e-174">使用项调用会将 `subject.next(item)` 项写入流，集线器方法接收服务器上的项。</span><span class="sxs-lookup"><span data-stu-id="ff66e-174">Calling `subject.next(item)` with an item writes the item to the stream, and the hub method receives the item on the server.</span></span>
+<span data-ttu-id="387d2-174">使用项调用会将 `subject.next(item)` 项写入流，集线器方法接收服务器上的项。</span><span class="sxs-lookup"><span data-stu-id="387d2-174">Calling `subject.next(item)` with an item writes the item to the stream, and the hub method receives the item on the server.</span></span>
 
-<span data-ttu-id="ff66e-175">若要结束流，请调用 `subject.complete()` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-175">To end the stream, call `subject.complete()`.</span></span>
+<span data-ttu-id="387d2-175">若要结束流，请调用 `subject.complete()` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-175">To end the stream, call `subject.complete()`.</span></span>
 
-## <a name="java-client"></a><span data-ttu-id="ff66e-176">Java 客户端</span><span class="sxs-lookup"><span data-stu-id="ff66e-176">Java client</span></span>
+## <a name="java-client"></a><span data-ttu-id="387d2-176">Java 客户端</span><span class="sxs-lookup"><span data-stu-id="387d2-176">Java client</span></span>
 
-### <a name="server-to-client-streaming"></a><span data-ttu-id="ff66e-177">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="ff66e-177">Server-to-client streaming</span></span>
+### <a name="server-to-client-streaming"></a><span data-ttu-id="387d2-177">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-177">Server-to-client streaming</span></span>
 
-<span data-ttu-id="ff66e-178">:::no-loc(SignalR):::Java 客户端使用 `stream` 方法来调用流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="ff66e-178">The :::no-loc(SignalR)::: Java client uses the `stream` method to invoke streaming methods.</span></span> <span data-ttu-id="ff66e-179">`stream` 接受三个或更多参数：</span><span class="sxs-lookup"><span data-stu-id="ff66e-179">`stream` accepts three or more arguments:</span></span>
+<span data-ttu-id="387d2-178">:::no-loc(SignalR):::Java 客户端使用 `stream` 方法来调用流式处理方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-178">The :::no-loc(SignalR)::: Java client uses the `stream` method to invoke streaming methods.</span></span> <span data-ttu-id="387d2-179">`stream` 接受三个或更多参数：</span><span class="sxs-lookup"><span data-stu-id="387d2-179">`stream` accepts three or more arguments:</span></span>
 
-* <span data-ttu-id="ff66e-180">流项的预期类型。</span><span class="sxs-lookup"><span data-stu-id="ff66e-180">The expected type of the stream items.</span></span>
-* <span data-ttu-id="ff66e-181">集线器方法的名称。</span><span class="sxs-lookup"><span data-stu-id="ff66e-181">The name of the hub method.</span></span>
-* <span data-ttu-id="ff66e-182">在 hub 方法中定义的参数。</span><span class="sxs-lookup"><span data-stu-id="ff66e-182">Arguments defined in the hub method.</span></span>
+* <span data-ttu-id="387d2-180">流项的预期类型。</span><span class="sxs-lookup"><span data-stu-id="387d2-180">The expected type of the stream items.</span></span>
+* <span data-ttu-id="387d2-181">集线器方法的名称。</span><span class="sxs-lookup"><span data-stu-id="387d2-181">The name of the hub method.</span></span>
+* <span data-ttu-id="387d2-182">在 hub 方法中定义的参数。</span><span class="sxs-lookup"><span data-stu-id="387d2-182">Arguments defined in the hub method.</span></span>
 
 ```java
 hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
@@ -319,13 +319,29 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
         () -> {/* Define your onCompleted handler here. */});
 ```
 
-<span data-ttu-id="ff66e-183">`stream`上的方法 `HubConnection` 返回流项类型的可观察对象。</span><span class="sxs-lookup"><span data-stu-id="ff66e-183">The `stream` method on `HubConnection` returns an Observable of the stream item type.</span></span> <span data-ttu-id="ff66e-184">可观察的类型的 `subscribe` 方法是 `onNext` 定义的位置 `onError` `onCompleted` 。</span><span class="sxs-lookup"><span data-stu-id="ff66e-184">The Observable type's `subscribe` method is where `onNext`, `onError` and `onCompleted` handlers are defined.</span></span>
+<span data-ttu-id="387d2-183">`stream`上的方法 `HubConnection` 返回流项类型的可观察对象。</span><span class="sxs-lookup"><span data-stu-id="387d2-183">The `stream` method on `HubConnection` returns an Observable of the stream item type.</span></span> <span data-ttu-id="387d2-184">可观察的类型的 `subscribe` 方法是 `onNext` 定义的位置 `onError` `onCompleted` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-184">The Observable type's `subscribe` method is where `onNext`, `onError` and `onCompleted` handlers are defined.</span></span>
+
+### <a name="client-to-server-streaming"></a><span data-ttu-id="387d2-185">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="387d2-185">Client-to-server streaming</span></span>
+
+<span data-ttu-id="387d2-186">:::no-loc(SignalR):::Java 客户端可以通过将可[观察](https://rxjs-dev.firebaseapp.com/api/index/class/Observable)的作为自变量传入、或，来调用集线器上的客户端到服务器流式处理方法， `send` `invoke` `stream` 具体取决于所调用的集线器方法。</span><span class="sxs-lookup"><span data-stu-id="387d2-186">The :::no-loc(SignalR)::: Java client can call client-to-server streaming methods on hubs by passing in an [Observable](https://rxjs-dev.firebaseapp.com/api/index/class/Observable) as an argument to `send`, `invoke`, or `stream`, depending on the hub method invoked.</span></span>
+
+```java
+ReplaySubject<String> stream = ReplaySubject.create();
+hubConnection.send("UploadStream", stream);
+stream.onNext("FirstItem");
+stream.onNext("SecondItem");
+stream.onComplete();
+```
+
+<span data-ttu-id="387d2-187">使用项调用会将 `stream.onNext(item)` 项写入流，集线器方法接收服务器上的项。</span><span class="sxs-lookup"><span data-stu-id="387d2-187">Calling `stream.onNext(item)` with an item writes the item to the stream, and the hub method receives the item on the server.</span></span>
+
+<span data-ttu-id="387d2-188">若要结束流，请调用 `stream.onComplete()` 。</span><span class="sxs-lookup"><span data-stu-id="387d2-188">To end the stream, call `stream.onComplete()`.</span></span>
 
 ::: moniker-end
 
-## <a name="additional-resources"></a><span data-ttu-id="ff66e-185">其他资源</span><span class="sxs-lookup"><span data-stu-id="ff66e-185">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="387d2-189">其他资源</span><span class="sxs-lookup"><span data-stu-id="387d2-189">Additional resources</span></span>
 
-* [<span data-ttu-id="ff66e-186">中心</span><span class="sxs-lookup"><span data-stu-id="ff66e-186">Hubs</span></span>](xref:signalr/hubs)
-* [<span data-ttu-id="ff66e-187">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="ff66e-187">.NET client</span></span>](xref:signalr/dotnet-client)
-* [<span data-ttu-id="ff66e-188">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="ff66e-188">JavaScript client</span></span>](xref:signalr/javascript-client)
-* [<span data-ttu-id="ff66e-189">发布到 Azure</span><span class="sxs-lookup"><span data-stu-id="ff66e-189">Publish to Azure</span></span>](xref:signalr/publish-to-azure-web-app)
+* [<span data-ttu-id="387d2-190">中心</span><span class="sxs-lookup"><span data-stu-id="387d2-190">Hubs</span></span>](xref:signalr/hubs)
+* [<span data-ttu-id="387d2-191">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="387d2-191">.NET client</span></span>](xref:signalr/dotnet-client)
+* [<span data-ttu-id="387d2-192">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="387d2-192">JavaScript client</span></span>](xref:signalr/javascript-client)
+* [<span data-ttu-id="387d2-193">发布到 Azure</span><span class="sxs-lookup"><span data-stu-id="387d2-193">Publish to Azure</span></span>](xref:signalr/publish-to-azure-web-app)
