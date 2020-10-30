@@ -7,6 +7,7 @@ ms.author: anurse
 ms.custom: devx-track-csharp, signalr, devx-track-js
 ms.date: 06/12/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 890359c9e9f6c3c60f3105124f52c66b09a8a4fb
-ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
+ms.openlocfilehash: 6e5e9d866a1e03e69856cc63dcfe30284048dd6d
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/27/2020
-ms.locfileid: "92690670"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93061309"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-no-locsignalr"></a>ASP.NET Core 中的日志记录和诊断 SignalR
 
@@ -43,7 +44,7 @@ SignalR 使用两个记录器类别：
 * `Microsoft.AspNetCore.SignalR`：用于与集线器协议相关的日志、激活集线器、调用方法以及其他与中心相关的活动。
 * `Microsoft.AspNetCore.Http.Connections`：用于与传输相关的日志，例如 Websocket、长轮询、Server-Sent 事件和低级别 SignalR 基础结构。
 
-若要从中启用详细日志 SignalR ，请 `Debug` 通过将以下项添加到中的子部分，将上述两个前缀配置为文件中的 *appsettings.js* 级别 `LogLevel` `Logging` ：
+若要从中启用详细日志 SignalR ，请 `Debug` *appsettings.json* 通过将以下项添加到 `LogLevel` 中的子部分，将上述两个前缀配置为文件中的级别 `Logging` ：
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
@@ -225,7 +226,7 @@ tcpdump -i [interface] -w trace.pcap
 
 SignalR 在事件源上报告服务器指标 <xref:Microsoft.AspNetCore.Http.Connections> 。
 
-| 名称                    | 说明                 |
+| “属性”                    | 说明                 |
 |-------------------------|-----------------------------|
 | `connections-started`   | 已启动的连接总数   |
 | `connections-stopped`   | 已停止的连接总数   |

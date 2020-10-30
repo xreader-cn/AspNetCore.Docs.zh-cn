@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 07/16/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 57d46e34993148943b1e9680a372405be9c80605
-ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
+ms.openlocfilehash: 83525a4c1e87a60b57130c1bba14360c7d03f552
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/29/2020
-ms.locfileid: "91424199"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93061374"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -47,7 +48,7 @@ ms.locfileid: "91424199"
 
 如果身份验证失败，此处理程序将 `403 (Forbidden)` `401 (Unauthorized)` 像你所料，返回响应，而不是。 原因是，在初次 TLS 连接期间应进行身份验证。 当它到达处理程序时，它的时间太晚。 无法将连接从匿名连接升级到证书。
 
-还会 `app.UseAuthentication();` 在方法中添加 `Startup.Configure` 。 否则， `HttpContext.User` 将不会设置为 `ClaimsPrincipal` 从证书创建。 例如：
+还会 `app.UseAuthentication();` 在方法中添加 `Startup.Configure` 。 否则， `HttpContext.User` 将不会设置为 `ClaimsPrincipal` 从证书创建。 例如： 。
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -234,7 +235,7 @@ services.AddAuthentication(
 
 ### <a name="kestrel"></a>Kestrel
 
-在 *Program.cs*中，按如下所示配置 Kestrel：
+在 *Program.cs* 中，按如下所示配置 Kestrel：
 
 ```csharp
 public static void Main(string[] args)
@@ -266,8 +267,8 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 在 IIS 管理器中完成以下步骤：
 
 1. 从 " **连接** " 选项卡中选择你的站点。
-1. 双击 "**功能视图**" 窗口中的 " **SSL 设置**" 选项。
-1. 选中 "**需要 SSL** " 复选框，并选择 "**客户端证书**" 部分中的 "**要求**" 单选按钮。
+1. 双击 " **功能视图** " 窗口中的 " **SSL 设置** " 选项。
+1. 选中 " **需要 SSL** " 复选框，并选择 " **客户端证书** " 部分中的 " **要求** " 单选按钮。
 
 ![IIS 中的客户端证书设置](README-IISConfig.png)
 
@@ -617,7 +618,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-默认的缓存实现将结果存储在内存中。 可以通过实现 `ICertificateValidationCache` 并将其注册到依赖关系注入来提供自己的缓存。 例如，`services.AddSingleton<ICertificateValidationCache, YourCache>()`。
+默认的缓存实现将结果存储在内存中。 可以通过实现 `ICertificateValidationCache` 并将其注册到依赖关系注入来提供自己的缓存。 例如 `services.AddSingleton<ICertificateValidationCache, YourCache>()`。
 
 ::: moniker-end
 

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/policies
-ms.openlocfilehash: 140969c80191c9549bc19507b9c4818b88fed0d1
-ms.sourcegitcommit: c026bf76a0e14a5ee68983519a63574c674e9ff7
+ms.openlocfilehash: 286dc3bcc66b86a2a6b7d3cb7b6052bf7b474aff
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91636798"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060204"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于策略的授权
 
@@ -122,17 +123,17 @@ public void ConfigureServices(IServiceCollection services)
 
 如果使用的是 Razor 页面，请参阅本文档中的 [将策略应用于 Razor 页面](#apply-policies-to-razor-pages) 。
 
-策略通过使用 `[Authorize]` 具有策略名称的属性应用到控制器。 例如：
+策略通过使用 `[Authorize]` 具有策略名称的属性应用到控制器。 例如： 。
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="apply-policies-to-no-locrazor-pages"></a>将策略应用到 Razor 页面
 
-策略是 Razor 通过使用具有策略名称的属性应用于页面的 `[Authorize]` 。 例如：
+策略是 Razor 通过使用具有策略名称的属性应用于页面的 `[Authorize]` 。 例如： 。
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
-策略 ***不*** 能应用于 Razor 页面处理程序级别，它们必须应用于页面。
+策略可以在 **not** Razor 页面处理程序级别应用 * not *，它们必须应用于页面。
 
 可以 Razor 通过使用 [授权约定](xref:security/authorization/razor-pages-authorization)将策略应用于页面。
 
@@ -142,7 +143,7 @@ public void ConfigureServices(IServiceCollection services)
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Requirements/MinimumAgeRequirement.cs?name=snippet_MinimumAgeRequirementClass)]
 
-如果授权策略包含多个授权要求，则所有要求必须通过，才能成功进行策略评估。 换句话说，添加到单个授权策略中的多个授权要求 **将分别处理** 。
+如果授权策略包含多个授权要求，则所有要求必须通过，才能成功进行策略评估。 换句话说，添加到单个授权策略中的多个授权要求将按 _ *和* * 来处理。
 
 > [!NOTE]
 > 要求不需要具有数据或属性。
@@ -177,7 +178,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="handler-registration"></a>处理程序注册
 
-在配置过程中，将在服务集合中注册处理程序。 例如：
+在配置过程中，将在服务集合中注册处理程序。 例如： 。
 
 [!code-csharp[](policies/samples/3.0PoliciesAuthApp1/Startup.cs?range=31-32,39-40,42-45, 53-55, 58)]
 
@@ -202,7 +203,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="why-would-i-want-multiple-handlers-for-a-requirement"></a>为什么需要多个处理程序才能实现要求？
 
-如果希望计算基于 **或** ，请为单个要求实现多个处理程序。 例如，Microsoft 的门只有用密钥卡打开。 如果在家中保留了密钥卡，则接待员会打印一个临时贴纸，并为您打开门。 在这种情况下，你将有一个要求 *BuildingEntry*，但有多个处理程序，每个处理程序都检查单个需求。
+如果希望计算基于 **或** ，请为单个要求实现多个处理程序。 例如，Microsoft 的门只有用密钥卡打开。 如果在家中保留了密钥卡，则接待员会打印一个临时贴纸，并为您打开门。 在这种情况下，你将有一个要求 *BuildingEntry* ，但有多个处理程序，每个处理程序都检查单个需求。
 
 *BuildingEntryRequirement.cs*
 
@@ -230,7 +231,7 @@ public void ConfigureServices(IServiceCollection services)
 
 `HandleRequirementAsync`在授权处理程序中实现的方法具有两个参数： `AuthorizationHandlerContext` 和 `TRequirement` 正在处理的。 诸如 MVC 或的框架可 SignalR 自由地将任何对象添加到 `Resource` 上的属性 `AuthorizationHandlerContext` ，以传递附加信息。
 
-使用终结点路由时，授权通常由授权中间件进行处理。 在这种情况下， `Resource` 属性为的实例 <xref:Microsoft.AspNetCore.Http.Endpoint> 。 终结点可用于探测要路由到的基础资源。 例如：
+使用终结点路由时，授权通常由授权中间件进行处理。 在这种情况下， `Resource` 属性为的实例 <xref:Microsoft.AspNetCore.Http.Endpoint> 。 终结点可用于探测要路由到的基础资源。 例如： 。
 
 ```csharp
 if (context.Resource is Endpoint endpoint)
@@ -358,13 +359,13 @@ public void ConfigureServices(IServiceCollection services)
 
 如果使用的是 Razor 页面，请参阅本文档中的 [将策略应用于 Razor 页面](#apply-policies-to-razor-pages) 。
 
-策略通过使用 `[Authorize]` 具有策略名称的属性应用到控制器。 例如：
+策略通过使用 `[Authorize]` 具有策略名称的属性应用到控制器。 例如： 。
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="apply-policies-to-no-locrazor-pages"></a>将策略应用到 Razor 页面
 
-策略是 Razor 通过使用具有策略名称的属性应用于页面的 `[Authorize]` 。 例如：
+策略是 Razor 通过使用具有策略名称的属性应用于页面的 `[Authorize]` 。 例如： 。
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
@@ -411,7 +412,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="handler-registration"></a>处理程序注册
 
-在配置过程中，将在服务集合中注册处理程序。 例如：
+在配置过程中，将在服务集合中注册处理程序。 例如： 。
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 
@@ -436,7 +437,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="why-would-i-want-multiple-handlers-for-a-requirement"></a>为什么需要多个处理程序才能实现要求？
 
-如果希望计算基于 **或** ，请为单个要求实现多个处理程序。 例如，Microsoft 的门只有用密钥卡打开。 如果在家中保留了密钥卡，则接待员会打印一个临时贴纸，并为您打开门。 在这种情况下，你将有一个要求 *BuildingEntry*，但有多个处理程序，每个处理程序都检查单个需求。
+如果希望计算基于 **或** ，请为单个要求实现多个处理程序。 例如，Microsoft 的门只有用密钥卡打开。 如果在家中保留了密钥卡，则接待员会打印一个临时贴纸，并为您打开门。 在这种情况下，你将有一个要求 *BuildingEntry* ，但有多个处理程序，每个处理程序都检查单个需求。
 
 *BuildingEntryRequirement.cs*
 
