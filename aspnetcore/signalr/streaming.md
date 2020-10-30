@@ -5,7 +5,7 @@ description: 了解如何在客户端和服务器之间流式传输数据。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc, devx-track-js
-ms.date: 11/12/2019
+ms.date: 10/29/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: 2f21248934395b682adf8060dae4e3d145e52215
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: b07c280f271ccdd525128b973da065001a5cf0ed
+ms.sourcegitcommit: 0d40fc4932531ce13fc4ee9432144584e03c2f1c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
-ms.locfileid: "93058202"
+ms.locfileid: "93062436"
 ---
 # <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>使用 ASP.NET Core 中的流式处理 SignalR
 
@@ -320,6 +320,22 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
 ```
 
 `stream`上的方法 `HubConnection` 返回流项类型的可观察对象。 可观察的类型的 `subscribe` 方法是 `onNext` 定义的位置 `onError` `onCompleted` 。
+
+### <a name="client-to-server-streaming"></a>客户端到服务器的流式处理
+
+SignalRJava 客户端可以通过将可[观察](https://rxjs-dev.firebaseapp.com/api/index/class/Observable)的作为自变量传入、或，来调用集线器上的客户端到服务器流式处理方法， `send` `invoke` `stream` 具体取决于所调用的集线器方法。
+
+```java
+ReplaySubject<String> stream = ReplaySubject.create();
+hubConnection.send("UploadStream", stream);
+stream.onNext("FirstItem");
+stream.onNext("SecondItem");
+stream.onComplete();
+```
+
+使用项调用会将 `stream.onNext(item)` 项写入流，集线器方法接收服务器上的项。
+
+若要结束流，请调用 `stream.onComplete()` 。
 
 ::: moniker-end
 
