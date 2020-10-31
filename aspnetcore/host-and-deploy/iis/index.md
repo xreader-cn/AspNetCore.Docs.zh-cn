@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/7/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 7fe3e18b226061260d0c17220ba110bd61486b5f
-ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
+ms.openlocfilehash: e4a94ca9e3607868f3eb25d88338e8156f7f5206
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91754692"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93061517"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -391,7 +392,7 @@ net start w3svc
 
     ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载。 将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR)，在工作进程中托管应用。 将“.NET CLR 版本”设置为“无托管代码”是可选步骤，但建议采用此设置。
 
-1. *ASP.NET Core 2.2 或更高版本*：
+1. *ASP.NET Core 2.2 或更高版本* ：
 
    * 对于使用 32 位 SDK 发布的 32 位 (x86) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，且该 SDK 使用[进程内托管模型](#in-process-hosting-model)，请为 32 位启用应用程序池。 在 IIS 管理器中，导航到“连接”边栏中的“应用程序池” 。 选择应用的应用程序池。 在“操作”边栏中，选择，“高级设置” 。 将“启用 32 位应用程序”设置为 `True`。 
 
@@ -516,7 +517,7 @@ ASP.NET Core 应用不支持 [IIS 虚拟目录](/iis/get-started/planning-your-i
 
 1. 在 IIS 管理器中右击此子应用文件夹，并选择“转换为应用程序”。
 
-1. 在“添加应用程序”对话框中，使用“应用程序池”的“选择”按钮来分配为子应用创建的应用池。   选择“确定”  。
+1. 在“添加应用程序”对话框中，使用“应用程序池”的“选择”按钮来分配为子应用创建的应用池。   选择“确定”。
 
 使用进程内托管模型时，需要向子应用分配单独的应用池。
 
@@ -576,7 +577,7 @@ IIS 管理进程使用 Windows 安全系统中应用池的名称创建安全标�
 
    ![应用文件夹的“选择用户或组”对话框：在选择“检查名称”前，将“DefaultAppPool\"”的应用池名称追加到对象名称区域中的“IIS AppPool”。](index/_static/select-users-or-groups-1.png)
 
-1. 选择“确定”  。
+1. 选择“确定”。
 
    ![应用文件夹的“选择用户或组”对话框：在你选择“检查名称”后，对象名称“DefaultAppPool”显示在对象名称区域中。](index/_static/select-users-or-groups-2.png)
 
@@ -647,7 +648,7 @@ Windows Server 2008 R2 或更高版本：
 
   1. 在“连接”面板中选择“应用程序池”。
   1. 在列表中右键单击应用的应用池，并选择“高级设置”。
-  1. 默认的“启动模式”为“按需” 。 将“启动模式”设置为“始终运行”。 选择“确定”  。
+  1. 默认的“启动模式”为“按需” 。 将“启动模式”设置为“始终运行”。 选择“确定”。
   1. 打开“连接”面板中的“网站”节点。
   1. 右键单击应用，并选择“管理网站”>“高级设置” 。
   1. 默认的“预加载已启用”设置为“False” 。 将“预加载已启用”设置为“True”。 选择“确定”  。
@@ -673,7 +674,7 @@ Windows Server 2008 R2 或更高版本：
 
 1. 在“连接”面板中选择“应用程序池”。
 1. 在列表中右键单击应用的应用池，并选择“高级设置”。
-1. 默认的“空闲超时(分钟)”为“20”分钟 。 将“空闲超时(分钟)”设置为“0”（零） 。 选择“确定”  。
+1. 默认的“空闲超时(分钟)”为“20”分钟 。 将“空闲超时(分钟)”设置为“0”（零） 。 选择“确定”。
 1. 回收工作进程。
 
 若要防止托管在[进程外](#out-of-process-hosting-model)的应用超时，请使用下列任一方法：
@@ -791,7 +792,7 @@ Kestrel 从模块获取请求后，请求会被推送到 ASP.NET Core 中间件�
 
 ### <a name="enable-the-iisintegration-components"></a>启用 IISIntegration 组件
 
-在 `CreateWebHostBuilder` 中生成主机 (*Program.cs*)，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
+在 `CreateWebHostBuilder` 中生成主机 ( *Program.cs* )，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -870,7 +871,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 敏感文件存在于应用的物理路径中，如 \<assembly>.runtimeconfig.json、\<assembly>.xml（XML 文档注释）和 \<assembly>.deps.json  。 如果存在 web.config 文件且站点正常启动，则请求获取这些敏感文件时，IIS 不会提供。 如果缺少 web.config 文件、命名不正确，或无法配置站点以正常启动，IIS 可能会公开提供敏感文件。
 
-部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。**请勿从生产部署中删除 web.config 文件。**
+部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。 **请勿从生产部署中删除 web.config 文件。**
 
 ### <a name="transform-webconfig"></a>转换 web.config
 
@@ -992,7 +993,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
     ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载：将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR) ，在工作进程中托管应用。 将“.NET CLR 版本”设置为“无托管代码”是可选步骤，但建议采用此设置。
 
-1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
+1. *ASP.NET Core 2.2 或更高版本* ：对于使用 [进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
    在 IIS 管理器 >“应用程序池”的“操作”侧栏中，选择“设置应用程序池默认设置”或“高级设置”。 找到“启用 32 位应用程序”并将值设置为 `False`。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
@@ -1116,7 +1117,7 @@ ASP.NET Core 应用不支持 [IIS 虚拟目录](/iis/get-started/planning-your-i
 
 1. 在 IIS 管理器中右击此子应用文件夹，并选择“转换为应用程序”。
 
-1. 在“添加应用程序”对话框中，使用“应用程序池”的“选择”按钮来分配为子应用创建的应用池。   选择“确定”  。
+1. 在“添加应用程序”对话框中，使用“应用程序池”的“选择”按钮来分配为子应用创建的应用池。   选择“确定”。
 
 使用进程内托管模型时，需要向子应用分配单独的应用池。
 
@@ -1172,11 +1173,11 @@ IIS 管理进程使用 Windows 安全系统中应用池的名称创建安全标�
 
 1. 选择“位置”按钮，并确保该系统处于选中状态。
 
-1. 在“输入要选择的对象名称”区域中输入**IIS AppPool\\<app_pool_name>** 。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 **IIS AppPool\\<app_pool_name>** 格式。
+1. 在“输入要选择的对象名称”区域中输入 **IIS AppPool\\<app_pool_name>** 。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 **IIS AppPool\\<app_pool_name>** 格式。
 
    ![应用文件夹的“选择用户或组”对话框：在选择“检查名称”前，将“DefaultAppPool\"”的应用池名称追加到对象名称区域中的“IIS AppPool”。](index/_static/select-users-or-groups-1.png)
 
-1. 选择“确定”  。
+1. 选择“确定”。
 
    ![应用文件夹的“选择用户或组”对话框：在你选择“检查名称”后，对象名称“DefaultAppPool”显示在对象名称区域中。](index/_static/select-users-or-groups-2.png)
 
@@ -1247,10 +1248,10 @@ Windows Server 2008 R2 或更高版本：
 
   1. 在“连接”面板中选择“应用程序池”。
   1. 在列表中右键单击应用的应用池，并选择“高级设置”。
-  1. 默认的“启动模式”为“按需” 。 将“启动模式”设置为“始终运行”。 选择“确定”  。
+  1. 默认的“启动模式”为“按需” 。 将“启动模式”设置为“始终运行”。 选择“确定”。
   1. 打开“连接”面板中的“网站”节点。
   1. 右键单击应用，并选择“管理网站”>“高级设置” 。
-  1. 默认的“预加载已启用”设置为“False” 。 将“预加载已启用”设置为“True”。 选择“确定”  。
+  1. 默认的“预加载已启用”设置为“False” 。 将“预加载已启用”设置为“True”。 选择“确定”。
 
 * 使用 web.config 将 `doAppInitAfterRestart` 已设置为 `true` 的 `<applicationInitialization>` 元素添加到应用的 web.config 文件中的 `<system.webServer>` 元素中 ：
 
@@ -1273,7 +1274,7 @@ Windows Server 2008 R2 或更高版本：
 
 1. 在“连接”面板中选择“应用程序池”。
 1. 在列表中右键单击应用的应用池，并选择“高级设置”。
-1. 默认的“空闲超时(分钟)”为“20”分钟 。 将“空闲超时(分钟)”设置为“0”（零） 。 选择“确定”  。
+1. 默认的“空闲超时(分钟)”为“20”分钟 。 将“空闲超时(分钟)”设置为“0”（零） 。 选择“确定”。
 1. 回收工作进程。
 
 若要防止托管在[进程外](#out-of-process-hosting-model)的应用超时，请使用下列任一方法：
@@ -1372,7 +1373,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 ### <a name="enable-the-iisintegration-components"></a>启用 IISIntegration 组件
 
-在 `CreateWebHostBuilder` 中生成主机 (*Program.cs*)，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
+在 `CreateWebHostBuilder` 中生成主机 ( *Program.cs* )，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1438,7 +1439,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 敏感文件存在于应用的物理路径中，如 \<assembly>.runtimeconfig.json、\<assembly>.xml（XML 文档注释）和 \<assembly>.deps.json  。 如果存在 web.config 文件且站点正常启动，则请求获取这些敏感文件时，IIS 不会提供。 如果缺少 web.config 文件、命名不正确，或无法配置站点以正常启动，IIS 可能会公开提供敏感文件。
 
-部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。**请勿从生产部署中删除 web.config 文件。**
+部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。 **请勿从生产部署中删除 web.config 文件。**
 
 ### <a name="transform-webconfig"></a>转换 web.config
 
@@ -1560,7 +1561,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
     ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载：将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR) ，在工作进程中托管应用。 将“.NET CLR 版本”设置为“无托管代码”是可选步骤，但建议采用此设置。
 
-1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
+1. *ASP.NET Core 2.2 或更高版本* ：对于使用 [进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
    在 IIS 管理器 >“应用程序池”的“操作”侧栏中，选择“设置应用程序池默认设置”或“高级设置”。 找到“启用 32 位应用程序”并将值设置为 `False`。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
@@ -1717,7 +1718,7 @@ ASP.NET Core 应用不支持 [IIS 虚拟目录](/iis/get-started/planning-your-i
 
 1. 在 IIS 管理器中右击此子应用文件夹，并选择“转换为应用程序”。
 
-1. 在“添加应用程序”对话框中，使用“应用程序池”的“选择”按钮来分配为子应用创建的应用池。   选择“确定”  。
+1. 在“添加应用程序”对话框中，使用“应用程序池”的“选择”按钮来分配为子应用创建的应用池。   选择“确定”。
 
 使用进程内托管模型时，需要向子应用分配单独的应用池。
 
@@ -1768,11 +1769,11 @@ IIS 管理进程使用 Windows 安全系统中应用池的名称创建安全标�
 
 1. 选择“位置”按钮，并确保该系统处于选中状态。
 
-1. 在“输入要选择的对象名称”区域中输入**IIS AppPool\\<app_pool_name>** 。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 **IIS AppPool\\<app_pool_name>** 格式。
+1. 在“输入要选择的对象名称”区域中输入 **IIS AppPool\\<app_pool_name>** 。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 **IIS AppPool\\<app_pool_name>** 格式。
 
    ![应用文件夹的“选择用户或组”对话框：在选择“检查名称”前，将“DefaultAppPool\"”的应用池名称追加到对象名称区域中的“IIS AppPool”。](index/_static/select-users-or-groups-1.png)
 
-1. 选择“确定”  。
+1. 选择“确定”。
 
    ![应用文件夹的“选择用户或组”对话框：在你选择“检查名称”后，对象名称“DefaultAppPool”显示在对象名称区域中。](index/_static/select-users-or-groups-2.png)
 

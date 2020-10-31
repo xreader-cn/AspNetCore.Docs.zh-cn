@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: c79dfc64d4311088c3f9ea03aad7570189000e2a
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 813dd7837c265c78c584d66dd51bc23399d12fbe
+ms.sourcegitcommit: 5156eab2118584405eb663e1fcd82f8bd7764504
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93053314"
+ms.lasthandoff: 10/31/2020
+ms.locfileid: "93141490"
 ---
 # <a name="scaffold-no-locidentity-in-aspnet-core-projects"></a>IdentityASP.NET Core 项目中的基架
 
@@ -372,6 +372,14 @@ Identity可以修改页面布局和样式，以生成使用默认主题的页面
 
 某些 Identity 选项在 *区域/ Identity / Identity HostingStartup.cs* 中配置。 有关详细信息，请参阅 [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
+## <a name="standalone-or-hosted-no-locblazor-webassembly-apps"></a>独立应用或托管 Blazor WebAssembly 应用
+
+客户端 Blazor WebAssembly 应用使用其自己的 Identity UI 方法，不能使用 ASP.NET Core Identity 基架。 托管解决方案的服务器端 ASP.NET Core 应用 Blazor 可以遵循 Razor 本文中的页面/MVC 指南，并配置为与支持的任何其他类型的 ASP.NET Core 应用一样 Identity 。
+
+此 Blazor 框架不包括 Razor UI 页面的组件版本 Identity 。 Identity UI Razor 组件可以是自定义生成的，也可以从不受支持的第三方源获取。
+
+有关详细信息，请参阅[ Blazor 安全性和 Identity 文章](xref:blazor/security/index)。
+
 <a name="full"></a>
 
 ## <a name="create-full-no-locidentity-ui-source"></a>创建完整的 Identity UI 源
@@ -418,7 +426,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 禁用用户注册：
 
-* 基架 Identity 。 包括帐户. Register、RegisterConfirmation。 例如： 。
+* 基架 Identity 。 包括帐户. Register、RegisterConfirmation。 例如：
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -550,7 +558,7 @@ Identity在 *区域/ Identity / Identity HostingStartup.cs* 中配置。 有关�
 
 ### <a name="enable-authentication"></a>启用身份验证
 
-在 `Configure` 类的方法中 `Startup` ，在以下情况下调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) `UseStaticFiles` ：
+在 `Configure` 类的方法中 `Startup` ，在以下情况下调用 <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication%2A> `UseStaticFiles` ：
 
 [!code-csharp[](scaffold-identity/sample/StartupRPnoAuth.cs?name=snippet1&highlight=29)]
 
@@ -607,7 +615,7 @@ Identity在 *区域/ Identity / Identity HostingStartup.cs* 中配置。 有关�
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) 之后 `UseStaticFiles` ：
+调用 <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication%2A> 后 `UseStaticFiles` ：
 
 [!code-csharp[](scaffold-identity/sample/StartupMvcNoAuth.cs?name=snippet1&highlight=23)]
 
@@ -671,7 +679,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 禁用用户注册：
 
-* 基架 Identity 。 包括帐户. Register、RegisterConfirmation。 例如： 。
+* 基架 Identity 。 包括帐户. Register、RegisterConfirmation。 例如：
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
