@@ -18,13 +18,14 @@ no-loc:
 - Let's Encrypt
 - Razor
 - SignalR
+- IHubContext
 uid: signalr/hubcontext
-ms.openlocfilehash: 91d02ea9e15a2c3910c3b10159bf5b1523c8e271
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 0b1940dc85634051e8a566c6859f51c130b69269
+ms.sourcegitcommit: 1b7f2e1aabf43fa93b920cad36515d7336bfc2df
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
-ms.locfileid: "93058176"
+ms.locfileid: "93066728"
 ---
 # <a name="send-messages-from-outside-a-hub"></a>从中心外发送消息
 
@@ -34,14 +35,14 @@ SignalR中心是将消息发送到连接到服务器的客户端的核心抽象 
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubcontext/sample/)[（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="get-an-instance-of-ihubcontext"></a>获取 IHubContext 的实例
+## <a name="get-an-instance-of-no-locihubcontext"></a>获取实例 IHubContext
 
 在 ASP.NET Core 中 SignalR ，可以 `IHubContext` 通过依赖关系注入访问的实例。 可以将的实例注入 `IHubContext` 控制器、中间件或其他 DI 服务。 使用实例将消息发送到客户端。
 
 > [!NOTE]
 > 这不同于 ASP.NET 4.x SignalR ，后者使用 GlobalHost 提供对的访问 `IHubContext` 。 ASP.NET Core 具有依赖关系注入框架，无需此全局单一实例。
 
-### <a name="inject-an-instance-of-ihubcontext-in-a-controller"></a>在控制器中注入 IHubContext 的实例
+### <a name="inject-an-instance-of-no-locihubcontext-in-a-controller"></a>IHubContext在控制器中注入实例
 
 您可以 `IHubContext` 通过将实例添加到构造函数中，将实例注入控制器：
 
@@ -51,7 +52,7 @@ SignalR中心是将消息发送到连接到服务器的客户端的核心抽象 
 
 [!code-csharp[IHubContext](hubcontext/sample/Controllers/HomeController.cs?range=21-25)]
 
-### <a name="get-an-instance-of-ihubcontext-in-middleware"></a>在中间件中获取 IHubContext 的实例
+### <a name="get-an-instance-of-no-locihubcontext-in-middleware"></a>获取 IHubContext 中间件中的实例
 
 访问 `IHubContext` 中间件管道中的，如下所示：
 
@@ -72,7 +73,7 @@ app.Use(async (context, next) =>
 > [!NOTE]
 > 当从类的外部调用中心方法时 `Hub` ，没有与调用关联的调用方。 因此，没有对 `ConnectionId` 、和属性的访问权限 `Caller` `Others` 。
 
-### <a name="get-an-instance-of-ihubcontext-from-ihost"></a>从 IHost 获取 IHubContext 的实例
+### <a name="get-an-instance-of-no-locihubcontext-from-ihost"></a>从 IHost 获取的实例 IHubContext
 
 `IHubContext`从 web 主机访问可用于与 ASP.NET Core 以外的区域进行集成，例如，使用第三方依赖关系注入框架：
 
