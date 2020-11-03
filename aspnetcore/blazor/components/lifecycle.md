@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/14/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: bf528bb68af25a8c469a0c7710abc7c0b730fce2
-ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
+ms.openlocfilehash: 30dfd9e821490d016d1d2be5c4cfd56818d46655
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/27/2020
-ms.locfileid: "92690617"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93056369"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -37,7 +38,7 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 1. 如果组件是第一次呈现在请求上：
    * 创建组件的实例。
-   * 执行属性注入。 运行 `SetParametersAsync`。
+   * 执行属性注入。 运行 [`SetParametersAsync`](#before-parameters-are-set)。
    * 调用 [`OnInitialized{Async}`](#component-initialization-methods)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
 1. 调用 [`OnParametersSet{Async}`](#after-parameters-are-set)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
 
