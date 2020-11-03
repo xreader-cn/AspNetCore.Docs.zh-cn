@@ -5,7 +5,7 @@ description: 了解如何将 ASP.NET Core SignalR 应用程序发布到 Azure Ap
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/02/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/publish-to-azure-web-app
-ms.openlocfilehash: e00eea81788c9b335691b7e5ffe6a46534c3c492
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 8e6d36fe0b38486f94078b8f9cf12b852da7e0d9
+ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93058215"
+ms.lasthandoff: 11/03/2020
+ms.locfileid: "93234500"
 ---
 # <a name="publish-an-aspnet-core-no-locsignalr-app-to-azure-app-service"></a>SignalR将 ASP.NET Core 应用程序发布到 Azure App Service
 
@@ -47,14 +47,14 @@ ms.locfileid: "93058215"
 
    在 " **创建应用服务** " 对话框中，输入下表中所述的信息，然后选择 " **创建** "。
 
-   | 项               | 说明 |
+   | 项目               | 说明 |
    | ------------------ | ----------- |
    | **名称**           | 应用的唯一名称。 |
    | **订阅**   | 应用使用的 Azure 订阅。 |
-   | 资源组 | 应用所属的一组相关资源。 |
+   | **资源组** | 应用所属的一组相关资源。 |
    | **托管计划**   | Web 应用的定价计划。 |
 
-1. 在 " **依赖关系** " 下拉列表中选择 **Azure SignalR 服务**  >  **Add** ：
+1. 选择 " **服务依赖关系** " 部分中的 " **Azure SignalR 服务** "。 选择 **+** 按钮：
 
    !["依赖关系" 区域显示在 "添加" 下拉列表中选择的 Azure：：： no (SignalR) ：：： Service](publish-to-azure-web-app/_static/signalr-service-dependency.png)
 
