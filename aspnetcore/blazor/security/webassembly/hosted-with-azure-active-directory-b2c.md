@@ -5,7 +5,7 @@ description: 了解如何使用 Azure Active Directory B2C 保护 ASP.NET Core B
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2020
+ms.date: 10/27/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: aa6c865f5fd51d1634bde3ac96e1fddc7216a801
-ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
+ms.openlocfilehash: 1a58e19ecaf816ddfb724b9a575d35c801cebd04
+ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/09/2020
-ms.locfileid: "91900942"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92690561"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -45,7 +45,7 @@ ms.locfileid: "91900942"
 
 1. 在“Azure Active Directory” > “应用注册”中，选择“新建注册”  。
 1. 提供应用的名称（例如 Blazor Server AAD B2C） 。
-1. 对于“支持的帐户类型”，请选择多租户选项：任何组织目录或任何标识提供者中的帐户。用于使用 Azure AD B2C 对用户进行身份验证。
+1. 对于“支持的帐户类型”，请选择多租户选项：任何标识提供程序或组织目录中的帐户（用于通过用户流对用户进行身份验证）
 1. 在这种情况下，“服务器 API 应用”不需要“重定向 URI”，因此请将下拉列表设置为 Web，并且不输入重定向 URI 。
 1. 确认已选择“权限” > “授予对 openid 和 offline_access 权限的管理员同意”。
 1. 选择“注册”。
@@ -78,7 +78,7 @@ ms.locfileid: "91900942"
 
 1. 在“Azure Active Directory”>“应用注册”中，选择“新建注册”。
 1. 提供应用的“名称”（例如 Blazor 客户端 AAD B2C） 。
-1. 对于“支持的帐户类型”，请选择多租户选项：任何组织目录或任何标识提供者中的帐户。用于使用 Azure AD B2C 对用户进行身份验证。
+1. 对于“支持的帐户类型”，请选择多租户选项：任何标识提供程序或组织目录中的帐户（用于通过用户流对用户进行身份验证）
 1. 将“重定向 URI”下拉列表设置为“单页应用程序(SPA)”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback`。 在 Kestrel 上运行的应用的默认端口为 5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在“调试”面板的 `Server` 应用属性中找到应用随机生成的端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。 [创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。
 1. 确认已选择“权限”>“授予对 openid 和 offline_access 权限的管理员同意”。
 1. 选择“注册”。
@@ -98,7 +98,7 @@ ms.locfileid: "91900942"
 
 1. 在“Azure Active Directory”>“应用注册”中，选择“新建注册”。
 1. 提供应用的“名称”（例如 Blazor 客户端 AAD B2C） 。
-1. 对于“支持的帐户类型”，请选择多租户选项：任何组织目录或任何标识提供者中的帐户。用于使用 Azure AD B2C 对用户进行身份验证。
+1. 对于“支持的帐户类型”，请选择多租户选项：任何标识提供程序或组织目录中的帐户（用于通过用户流对用户进行身份验证）
 1. 将“重定向 URI”下拉列表设置为“Web”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为 5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在“调试”面板的 `Server` 应用属性中找到应用随机生成的端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。 [创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。
 1. 确认已选择“权限”>“授予对 openid 和 offline_access 权限的管理员同意”。
 1. 选择“注册”。
@@ -164,7 +164,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 
 ## <a name="server-app-configuration"></a>`Server` 应用配置
 
-本部分涉及解决方案的 `Server` 应用**。
+本部分涉及解决方案的 `Server` 应用。
 
 ### <a name="authentication-package"></a>身份验证包
 
@@ -265,7 +265,7 @@ public class WeatherForecastController : ControllerBase
 
 ## <a name="client-app-configuration"></a>`Client` 应用配置
 
-本部分涉及解决方案的 `Client` 应用**。
+本部分涉及解决方案的 `Client` 应用。
 
 ### <a name="authentication-package"></a>身份验证包
 

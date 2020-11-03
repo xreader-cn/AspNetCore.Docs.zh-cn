@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/index
-ms.openlocfilehash: 8fa44f567906ecf36a9bbaa5076cd36c75c10781
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 25348f8486ec6ccb53ebf527ad4519638dd5f73e
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634873"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93059372"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -100,7 +101,7 @@ ASP.NET Core 应用在启动时构建主机。 主机封装应用的所有资源
 `CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 方法为主机配置一组默认选项，例如：
 
 * 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
-* 从 appsettings.json、appsettings.[EnvironmentName].json、环境变量、命令行参数和其他配置源中加载配置 。
+* 从 appsettings.json、appsettings.{Environment Name}.json、环境变量、命令行参数和其他配置源中加载配置 。
 * 将日志记录输出发送到控制台并调试提供程序。
 
 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
@@ -137,7 +138,7 @@ ASP.NET Core 提供 Kestrel 跨平台服务器实现。 在 ASP.NET Core 2.0 或
 
 ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中将设置作为名称/值对。 可将内置配置提供程序用于各种源，例如 .json 文件、.xml 文件、环境变量和命令行参数 。 可编写自定义配置提供程序以支持其他源。
 
-[默认情况下](xref:fundamentals/configuration/index#default)，ASP.NET Core 应用配置为从 *appsettings.json*、环境变量和命令行等读取内容。 加载应用配置后，来自环境变量的值将替代来自 *appsettings.json* 的值。
+[默认情况下](xref:fundamentals/configuration/index#default)，ASP.NET Core 应用配置为从 appsettings.json、环境变量和命令行等读取内容。 加载应用配置后，来自环境变量的值将替代来自 appsettings.json 的值。
 
 读取相关配置值的首选方法是使用[选项模式](xref:fundamentals/configuration/options)。 有关详细信息，请参阅[使用选项模式绑定分层配置数据](xref:fundamentals/configuration/index#optpat)。
 
@@ -226,7 +227,7 @@ Web 根目录是公用静态资源文件的基路径，例如：
 * JavaScript (.js)
 * 图像（.png、.jpg）
 
-默认情况下，静态文件仅从 Web 根目录及其子目录提供。 Web 根目录路径默认为 *{content root}/wwwroot*。 在[构建主机](#host)时设置路径，可指定不同的 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/generic-host#webroot)。
+默认情况下，静态文件仅从 Web 根目录及其子目录提供。 Web 根目录路径默认为 *{content root}/wwwroot* 。 在[构建主机](#host)时设置路径，可指定不同的 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/generic-host#webroot)。
 
 防止使用项目文件中的 [\<Content> 项目项](/visualstudio/msbuild/common-msbuild-project-items#content)在 wwwroot 中发布文件。 下面的示例会阻止在 wwwroot/local 及其子目录中发布内容：
 
@@ -310,7 +311,7 @@ ASP.NET Core 应用在启动时构建主机。 主机是封装所有应用资源
 `CreateDefaultBuilder` 方法配置具有常用选项的主机，如下所示：
 
 * 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
-* 从 appsettings.json、appsettings.[EnvironmentName].json、环境变量、命令行参数和其他配置源中加载配置 。
+* 从 appsettings.json、appsettings.{Environment Name}.json、环境变量、命令行参数和其他配置源中加载配置 。
 * 将日志记录输出发送到控制台并调试提供程序。
 
 有关详细信息，请参阅 <xref:fundamentals/host/web-host>。
@@ -376,7 +377,7 @@ ASP.NET Core 提供 Kestrel 跨平台服务器实现。 Kestrel 可作为面向�
 
 ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中将设置作为名称/值对。 有适用于各种源的内置配置提供程序，例如 .json 文件、.xml 文件、环境变量和命令行参数 。 此外可以编写自定义配置提供程序。
 
-例如，可以指定配置来自 appsettings.json 和环境变量。 然后，当请求 ConnectionString 的值时，框架首先在 appsettings.json 文件中查找 。 如果也在环境变量中找到了值，那么来自环境变量的值将优先使用。
+例如，可指定配置来自 appsettings.json 和环境变量。 然后，当请求 ConnectionString 的值时，框架首先在 appsettings.json 文件中进行查找 。 如果也在环境变量中找到了值，那么来自环境变量的值将优先使用。
 
 为了管理密码等机密配置数据，ASP.NET Core 提供了[机密管理器工具](xref:security/app-secrets)。 对于生产机密，建议使用 [Azure 密钥保管库](xref:security/key-vault-configuration)。
 

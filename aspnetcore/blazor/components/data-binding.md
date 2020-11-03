@@ -5,7 +5,7 @@ description: 了解 Blazor 应用中组件和 DOM 元素的数据绑定功能。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/19/2020
+ms.date: 10/22/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 0884b0bedd9ed31b8c85790c6950c7c5d63bdf44
-ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
+ms.openlocfilehash: fd337a6fb54c418ff08af18014073a6b3f07bb8c
+ms.sourcegitcommit: d5ecad1103306fac8d5468128d3e24e529f1472c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/02/2020
-ms.locfileid: "91653901"
+ms.lasthandoff: 10/23/2020
+ms.locfileid: "92491454"
 ---
 # <a name="aspnet-core-no-locblazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
@@ -141,9 +141,15 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 <input type="date" @bind="startDate" @bind:format="yyyy-MM-dd">
 ```
 
-## <a name="parent-to-child-binding-with-component-parameters"></a>使用组件参数的父级到子级绑定
+## <a name="binding-with-component-parameters"></a>与组件参数绑定
+
+常见场景是将子组件中的属性绑定到其父组件中的属性。 此方案称为链接绑定，因为多个级别的绑定会同时进行。
 
 通过组件参数，可使用 `@bind-{PROPERTY OR FIELD}` 语法绑定父组件的属性和字段。
+
+不能在子组件中使用 [`@bind`](xref:mvc/views/razor#bind) 语法来实现链接绑定。 必须单独指定事件处理程序和值，以支持从子组件更新父组件中的属性。
+
+父组件仍利用 [`@bind`](xref:mvc/views/razor#bind) 语法来设置与子组件的数据绑定。
 
 以下 `Child` 组件 (`Shared/Child.razor`) 具有 `Year` 组件参数和 `YearChanged` 回调：
 
@@ -155,16 +161,25 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
     </div>
 </div>
 
+<button @onclick="UpdateYearFromChild">Update Year from Child</button>
+
 @code {
+    private Random r = new Random();
+
     [Parameter]
     public int Year { get; set; }
 
     [Parameter]
     public EventCallback<int> YearChanged { get; set; }
+
+    private async Task UpdateYearFromChild()
+    {
+        await YearChanged.InvokeAsync(r.Next(1950, 2021));
+    }
 }
 ```
 
-回调 (<xref:Microsoft.AspNetCore.Components.EventCallback%601>) 必须命名为组件参数名后跟“`Changed`”后缀 (`{PARAMETER NAME}Changed`)。 在上一示例中，回调名为 `YearChanged`。 有关 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 的详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。
+回调 (<xref:Microsoft.AspNetCore.Components.EventCallback%601>) 必须命名为组件参数名后跟“`Changed`”后缀 (`{PARAMETER NAME}Changed`)。 在上一示例中，回调名为 `YearChanged`。 <xref:Microsoft.AspNetCore.Components.EventCallback.InvokeAsync%2A?displayProperty=nameWithType> 调用与提供的参数进行绑定相关联的委托，并为已更改的属性调度事件通知。
 
 在下面的 `Parent` 组件 (`Parent.razor`) 中，`year` 字段绑定到子组件的 `Year` 参数：
 
@@ -198,13 +213,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 <Child @bind-Year="year" @bind-Year:event="YearChanged" />
 ```
 
-## <a name="child-to-parent-binding-with-chained-bind"></a>使用链接绑定的子级到父级绑定
-
-一种常见方案是将数据绑定参数链接到组件输出中的页面元素。 此方案称为链接绑定，因为多个级别的绑定会同时进行。
-
-无法在子组件中使用 [`@bind`](xref:mvc/views/razor#bind) 语法实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可将 [`@bind`](xref:mvc/views/razor#bind) 语法用于子组件的参数。
-
-以下 `PasswordField` 组件 (`PasswordField.razor`)：
+在更复杂和实际的示例中，以下 `PasswordField` 组件 (`PasswordField.razor`)：
 
 * 将 `<input>` 元素的值设置为 `password` 字段。
 * 将 `Password` 属性的更改公开给父组件，其中 [`EventCallback`](xref:blazor/components/event-handling#eventcallback) 以子级 `password` 字段的当前值作为参数传递。
@@ -234,11 +243,11 @@ Password:
     [Parameter]
     public EventCallback<string> PasswordChanged { get; set; }
 
-    private Task OnPasswordChanged(ChangeEventArgs e)
+    private async Task OnPasswordChanged(ChangeEventArgs e)
     {
         password = e.Value.ToString();
 
-        return PasswordChanged.InvokeAsync(password);
+        await PasswordChanged.InvokeAsync(password);
     }
 
     private void ToggleShowPassword()
@@ -294,7 +303,7 @@ Password:
     private Task OnPasswordChanged(ChangeEventArgs e)
     {
         password = e.Value.ToString();
-        
+
         if (password.Contains(' '))
         {
             validationMessage = "Spaces not allowed!";
@@ -315,6 +324,8 @@ Password:
     }
 }
 ```
+
+有关 <xref:Microsoft.AspNetCore.Components.EventCallback%601> 的详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。
 
 ## <a name="bind-across-more-than-two-components"></a>绑定到两个以上的组件
 
@@ -378,9 +389,9 @@ Password:
         set => PropertyChanged.InvokeAsync(value);
     }
 
-    private Task ChangeValue()
+    private async Task ChangeValue()
     {
-        return PropertyChanged.InvokeAsync($"Set in Child {DateTime.Now}");
+        await PropertyChanged.InvokeAsync($"Set in Child {DateTime.Now}");
     }
 }
 ```
@@ -405,9 +416,9 @@ Password:
     [Parameter]
     public EventCallback<string> PropertyChanged { get; set; }
 
-    private Task ChangeValue()
+    private async Task ChangeValue()
     {
-        return PropertyChanged.InvokeAsync($"Set in Grandchild {DateTime.Now}");
+        await PropertyChanged.InvokeAsync($"Set in Grandchild {DateTime.Now}");
     }
 }
 ```

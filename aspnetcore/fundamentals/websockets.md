@@ -5,7 +5,7 @@ description: 了解如何在 ASP.NET Core 中开始使用 WebSocket。
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/1/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: 685e694a3d974a8a51255bdbb83d33459137a3d9
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 11cd1c266516c696859c4116c940400e90d09ab4
+ms.sourcegitcommit: c06a5bf419541d17595af30e4cf6f2787c21855e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88629010"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92678544"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -37,39 +37,25 @@ ms.locfileid: "88629010"
 
 [ASP.NET Core SignalR](xref:signalr/introduction) 是一个库，可用于简化向应用添加实时 Web 功能。 它会尽可能地使用 WebSocket。
 
-对于大多数应用程序，我们建议使用 SignalR，而不是原始 WebSocket。 SignalR 可为 WebSocket 不可用的环境提供传输回退。 它还可提供简单的远程过程调用应用模型。 并且在大多数情况下，与使用原始 WebSocket 相比，SignalR 没有显著的性能缺点。
+对于大多数应用程序，我们建议使用 SignalR，而不是原始 WebSocket。 SignalR 可为 WebSocket 不可用的环境提供传输回退。 它还可提供基本的远程过程调用应用模型。 并且在大多数情况下，与使用原始 WebSocket 相比，SignalR 没有显著的性能缺点。
+
+对于某些应用，[.NET 上的 gRPC](xref:grpc/index) 提供了 WebSocket 的替代方法。
 
 ## <a name="prerequisites"></a>先决条件
 
-* ASP.NET Core 1.1 或更高版本
-* 支持 ASP.NET Core 的任何操作系统：
-  
+* 支持 ASP.NET Core 的任何操作系统：  
   * Windows 7/Windows Server 2008 或更高版本
   * Linux
-  * macOS
-  
+  * macOS  
 * 如果应用在安装了 IIS 的 Windows 上运行：
-
   * Windows 8 / Windows Server 2012 及更高版本
   * IIS 8 / IIS 8 Express
-  * 必须启用 WebSocket（请参阅 [IIS/IIS Express 支持](#iisiis-express-support)部分。）。
-  
+  * 必须启用 WebSocket。 请参阅 [IIS/IIS Express 支持](#iisiis-express-support)部分。  
 * 如果应用在 [HTTP.sys](xref:fundamentals/servers/httpsys) 上运行：
-
   * Windows 8 / Windows Server 2012 及更高版本
-
 * 有关支持的浏览器，请参阅 https://caniuse.com/#feat=websockets 。
 
-::: moniker range="< aspnetcore-2.1"
-
-## <a name="nuget-package"></a>NuGet 程序包
-
-安装 [Microsoft.AspNetCore.WebSockets](https://www.nuget.org/packages/Microsoft.AspNetCore.WebSockets/) 包。
-
-::: moniker-end
-
 ## <a name="configure-the-middleware"></a>配置中间件
-
 
 在 `Startup` 类的 `Configure` 方法中添加 WebSocket 中间件：
 
@@ -115,19 +101,11 @@ Object name: 'HttpResponseStream'.
 
 如果使用后台服务将数据写入 WebSocket，请确保保持中间件管道运行。 通过使用 <xref:System.Threading.Tasks.TaskCompletionSource%601> 执行此操作。 传递 `TaskCompletionSource` 到背景服务，并在通过 WebSocket 完成时让其调用 <xref:System.Threading.Tasks.TaskCompletionSource%601.TrySetResult%2A>。 在请求期间对 <xref:System.Threading.Tasks.TaskCompletionSource%601.Task> 执行 `await`，如下面的示例所示：
 
-```csharp
-app.Use(async (context, next) => {
-    var socket = await context.WebSockets.AcceptWebSocketAsync();
-    var socketFinishedTcs = new TaskCompletionSource<object>();
+[!code-csharp[](websockets/samples/2.x/WebSocketsSample/Startup2.cs?name=AcceptWebSocket)]
 
-    BackgroundSocketProcessor.AddSocket(socket, socketFinishedTcs); 
+如果从操作方法返回过快，则还可能发生 WebSocket 关闭异常。 接受操作方法中的套接字时，请等待使用该套接字的代码完成运行，然后再从操作方法返回。
 
-    await socketFinishedTcs.Task;
-});
-```
-如果从操作方法返回过快，则还可能发生 WebSocket 关闭异常。 如果接受操作方法中的套接字，请等待使用套接字的代码完成运行，然后再从操作方法返回。
-
-坚决不要使用 `Task.Wait()`、`Task.Result` 或类似阻塞调用来等待套接字完成，因为这可能导致严重的线程处理问题。 请始终使用 `await`。
+坚决不要使用 `Task.Wait`、`Task.Result` 或类似阻塞调用来等待套接字完成，因为这可能导致严重的线程处理问题。 请始终使用 `await`。
 
 ## <a name="send-and-receive-messages"></a>发送和接收消息
 
@@ -180,12 +158,12 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 > 使用 IIS Express 时无需执行这些步骤
 
 1. 通过“管理”菜单或“服务器管理器”中的链接使用“添加角色和功能”向导。
-1. 选择“基于角色或基于功能的安装”。 选择“下一步”。
-1. 选择适当的服务器（默认情况下选择本地服务器）。 选择“下一步”。
+1. 选择“基于角色或基于功能的安装”。 选择“下一步”  。
+1. 选择适当的服务器（默认情况下选择本地服务器）。 选择“下一步”  。
 1. 在“角色”树中展开“Web 服务器 (IIS)”、然后依次展开“Web 服务器”和“应用程序开发”   。
-1. 选择“WebSocket 协议”。 选择“下一步”。
+1. 选择“WebSocket 协议”。 选择“下一步”  。
 1. 如果无需其他功能，请选择“下一步”。
-1. 选择“安装” 。
+1. 选择“安装”  。
 1. 安装完成后，选择“关闭”以退出向导。
 
 在 Windows 8 或更高版本上启用对 WebSocket 协议的支持：
@@ -195,7 +173,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 
 1. 导航到“控制面板” > “程序” > “程序和功能” > “启用或禁用 Windows 功能”（位于屏幕左侧）   。
 1. 打开以下节点：“Internet Information Services” > “万维网服务” > “应用程序开发功能”  。
-1. 选择“WebSocket 协议”功能。 选择“确定”。
+1. 选择“WebSocket 协议”功能。 选择“确定”  。
 
 ### <a name="disable-websocket-when-using-socketio-on-nodejs"></a>在 Node.js 上使用 socket.io 时禁用 WebSocket
 

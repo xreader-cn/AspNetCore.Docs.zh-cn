@@ -5,7 +5,7 @@ description: 了解如何使用 Azure Active Directory 保护 ASP.NET Core Blazo
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: devx-track-csharp, mvc
-ms.date: 10/08/2020
+ms.date: 10/27/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,18 +18,25 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: e6f514793a2efde120f70ac58f4ad4be7516ada7
-ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
+ms.openlocfilehash: cb1deb71723660964954c2faae4512b7df9b2ed4
+ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/09/2020
-ms.locfileid: "91900829"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92690545"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)
 
 本文介绍如何创建使用 [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) 进行身份验证的[托管 Blazor WebAssembly 应用](xref:blazor/hosting-models#blazor-webassembly)。
+
+::: moniker range=">= aspnetcore-5.0"
+
+> [!NOTE]
+> 对于在 Visual Studio 中创建且配置为支持 AAD 组织目录中帐户的 Blazor WebAssembly 应用，Visual Studio 不会在项目生成时正确配置应用。 以后的 Visual Studio 版本将解决此问题。 本文演示如何使用 .NET Core CLI 的 `dotnet new` 命令创建应用。 如果希望在针对 ASP.NET Core 5.0 中的最新 Blazor 模板更新 IDE 之前使用 Visual Studio 创建应用，请参阅本文的各个部分，并在 Visual Studio 创建应用后确认或更新应用的配置。
+
+::: moniker-end
 
 ## <a name="register-apps-in-aad-and-create-solution"></a>在 AAD 中注册应用并创建解决方案
 
@@ -168,7 +175,7 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 
 ## <a name="server-app-configuration"></a>`Server` 应用配置
 
-本部分涉及解决方案的 `Server` 应用**。
+本部分涉及解决方案的 `Server` 应用。
 
 ### <a name="authentication-package"></a>身份验证包
 
@@ -342,7 +349,7 @@ public class WeatherForecastController : ControllerBase
 
 ## <a name="client-app-configuration"></a>`Client` 应用配置
 
-本部分涉及解决方案的 `Client` 应用**。
+本部分涉及解决方案的 `Client` 应用。
 
 ### <a name="authentication-package"></a>身份验证包
 

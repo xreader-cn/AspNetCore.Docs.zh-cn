@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 7565ede55acd936072fc1930918d46808548f287
-ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
+ms.openlocfilehash: 9e744ec6d0f0dd72bded8284e98fd9ce53056b84
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91762342"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93057968"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -57,13 +58,13 @@ ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行
  <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 按照以下顺序为应用提供默认配置：
 
 1. [ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource)：添加现有 `IConfiguration` 作为源。 在默认配置示例中，添加[主机](#hvac)配置，并将它设置为应用配置的第一个源。
-1. 使用 [JSON 配置提供程序](#file-configuration-provider)通过 [appsettings.json](#appsettingsjson) 提供。
+1. 使用 [JSON 配置提供程序](#file-configuration-provider)的 [appsettings.json](#appsettingsjson)。
 1. 使用 [JSON 配置提供程序](#file-configuration-provider)通过 appsettings.`Environment`.json 提供 。 例如，appsettings.Production.json 和 appsettings.Development.json 。
 1. 应用在 `Development` 环境中运行时的[应用机密](xref:security/app-secrets)。
 1. 使用[环境变量配置提供程序](#evcp)通过环境变量提供。
 1. 使用[命令行配置提供程序](#command-line)通过命令行参数提供。
 
-后来添加的配置提供程序会替代之前的密钥设置。 例如，如果在 appsettings.json 和环境中设置了 `MyKey`，则会使用环境值。 使用默认配置提供程序，[命令行配置提供程序](#clcp)将替代所有其他的提供程序。
+后来添加的配置提供程序会替代之前的密钥设置。 例如，如果 appsettings.json 和环境中都设置了 `MyKey`，则使用环境值。 使用默认配置提供程序，[命令行配置提供程序](#clcp)将替代所有其他的提供程序。
 
 若要详细了解 `CreateDefaultBuilder`，请参阅[默认生成器设置](xref:fundamentals/host/generic-host#default-builder-settings)。
 
@@ -71,9 +72,9 @@ ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Index2.cshtml.cs?name=snippet)]
 
-### <a name="appsettingsjson"></a>appsettings.json
+### appsettings.json
 
-请考虑使用以下 appsettings.json 文件：
+请考虑以下 appsettings.json 文件：
 
 [!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
@@ -84,12 +85,12 @@ ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行
 默认的 <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 会按以下顺序加载配置：
 
 1. *appsettings.json*
-1. appsettings.`Environment`.json ：例如，appsettings.Production.json 和 appsettings.Development.json  文件。 文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。 有关详细信息，请参阅 <xref:fundamentals/environments>。
+1. appsettings.`Environment`.json ：例如，appsettings.Production.json 和 appsettings.Development.json 。 文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。 有关详细信息，请参阅 <xref:fundamentals/environments>。
 
-appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥  。 例如，默认情况下：
+appsettings.`Environment`.json 值将替代 appsettings.json 中的键  。 例如，默认情况下：
 
-* 在开发环境中，appsettings.Development.json 配置将覆盖在 appsettings.json 中找到的值 。
-* 在生产环境中，appsettings.Production.json 配置将覆盖在 appsettings.json 中找到的值 。 例如，在将应用部署到 Azure 时。
+* 在开发环境中，appsettings.Development.json 配置会覆盖在 appsettings.json 中找到的值。
+* 在生产环境中，appsettings.Production.json 配置会覆盖在 appsettings.json 中找到的值。 例如，在将应用部署到 Azure 时。
 
 <a name="optpat"></a>
 
@@ -97,7 +98,7 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥  。 �
 
 [!INCLUDE[](~/includes/bind.md)]
 
-使用[默认](#default)配置，会通过 [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75) 启用 appsettings.json 和 appsettings.`Environment`.json 文件  。 应用启动后，对 appsettings.json 和 appsettings.`Environment`.json 文件做出的更改将由 [JSON 配置提供程序](#jcp)读取  。
+使用[默认](#default)配置时，会通过 [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75) 启用 appsettings.json 和 appsettings.`Environment`.json 文件  。 应用启动后，对 appsettings.json 和 appsettings.`Environment`.json 文件所作的更改将由 [JSON 配置提供程序](#jcp)读取  。
 
 有关添加其他 JSON 配置文件的信息，请参阅本文档中的 [JSON 配置提供程序](#jcp)。
 
@@ -111,7 +112,7 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥  。 �
 
 配置数据指南：
 
-* 请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。 [机密管理器](xref:security/app-secrets)可用于存储开发环境中的机密。
+请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。 [机密管理器](xref:security/app-secrets)可用于存储开发环境中的机密。
 * 不要在开发或测试环境中使用生产机密。
 * 请在项目外部指定机密，避免将其意外提交到源代码存储库。
 
@@ -128,7 +129,7 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥  。 �
 
 ## <a name="environment-variables"></a>环境变量
 
-使用[默认](#default)配置，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 appsettings.json、appsettings.`Environment`.json 和[机密管理器](xref:security/app-secrets)后从环境变量键值对加载配置  。 因此，从环境中读取的键值会替代从 appsettings.json、appsettings.`Environment`.json 和机密管理器中读取的值  。
+使用[默认](#default)配置时，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 appsettings.json、appsettings.`Environment`.json 和[机密管理器](xref:security/app-secrets)之后，从环境变量键值对中加载配置  。 因此，从环境中读取的键值会替代从 appsettings.json、appsettings.`Environment`.json 和机密管理器中读取的值  。
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
@@ -157,7 +158,7 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json：
+若要测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json  ：
 
 * 使用 Visual Studio：退出并重启 Visual Studio。
 * 使用 CLI：启动新的命令窗口并输入 `dotnet run`。
@@ -410,13 +411,13 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
   * `reloadOnChange: true`：保存更改后会重载文件。
 * 读取 MyConfig.json 文件之前的[默认配置提供程序](#default)。 MyConfig.json 文件中的设置会替代默认配置提供程序中的设置，包括[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)。
 
-通常情况下，你不会希望自定义 JSON 文件替代在[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中设置的值。
+通常，你不会希望自定义 JSON 文件替代在[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中设置的值。
 
 以下代码会清除所有配置提供程序并添加多个配置提供程序：
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON2.cs?name=snippet)]
 
-在前面的代码中，MyConfig.json 和 MyConfig.`Environment`.json 文件中的设置  ：
+在前面的代码中，MyConfig.json 和 MyConfig.`Environment`.json 文件中的设置 ：
 
 * 会替代 appsettings.json 和 appsettings.`Environment`.json 文件中的设置  。
 * 会被[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中的设置所替代。
@@ -646,25 +647,25 @@ Index: 5  Value: value5
 
 定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。
 
-*Models/EFConfigurationValue.cs*：
+*Models/EFConfigurationValue.cs* ：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
 添加 `EFConfigurationContext` 以存储和访问配置的值。
 
-*EFConfigurationProvider/EFConfigurationContext.cs*：
+*EFConfigurationProvider/EFConfigurationContext.cs* ：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
 创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。
 
-*EFConfigurationProvider/EFConfigurationSource.cs*：
+*EFConfigurationProvider/EFConfigurationSource.cs* ：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
 通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。 当数据库为空时，配置提供程序将对其进行初始化。 由于[配置密钥不区分大小写](#keys)，因此用来初始化数据库的字典是用不区分大小写的比较程序 ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)) 创建的。
 
-*EFConfigurationProvider/EFConfigurationProvider.cs*：
+*EFConfigurationProvider/EFConfigurationProvider.cs* ：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
@@ -824,7 +825,7 @@ using Microsoft.Extensions.Configuration;
   * 使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。 在配置键值对加载后，前缀 (`ASPNETCORE_`) 会遭去除。
   * 使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。
 * 应用配置通过以下方式提供：
-  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json 提供。
+  * 使用[文件配置提供程序](#file-configuration-provider)的 appsettings.json。
   * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。
   * 应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。
   * 使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。
@@ -950,7 +951,7 @@ public class HomeController : Controller
 
 配置提供程序的典型顺序为：
 
-1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）
+1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境） 
 1. [Azure 密钥保管库](xref:security/key-vault-configuration)
 1. [用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）
 1. 环境变量
@@ -1295,7 +1296,7 @@ key=value
 
 使用 `CreateDefaultBuilder` 初始化新的主机生成器时，会自动调用两次 `AddJsonFile`。 调用该方法来从以下文件加载配置：
 
-* appsettings.json：先读取此文件。 该文件的环境版本可以替代 appsettings.json 文件提供的值。
+* appsettings.json：先读取此文件。 文件的环境版本可替代 appsettings.json 文件提供的值。
 * appsettings.{Environment}.json：文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。
 
 有关详细信息，请参阅[默认配置](#default-configuration)部分。
@@ -1308,7 +1309,7 @@ key=value
 
 首先建立 JSON 配置提供程序。 因此，用户机密、环境变量和命令行参数会替代由 appsettings 文件设置的配置。
 
-构建主机时调用 `ConfigureAppConfiguration` 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置：
+构建主机时，调用 `ConfigureAppConfiguration` 来指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置 ：
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1322,7 +1323,7 @@ key=value
 
 示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用：
 
-* 第一次调用 `AddJsonFile` 会从 appsettings 加载配置：
+* 第一次调用 `AddJsonFile` 会从 appsettings.json 加载配置：
 
   [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
 
@@ -1336,7 +1337,7 @@ key=value
    1. 打开 Properties/launchSettings.json 文件。
    1. 在 `ConfigurationSample` 配置文件中，将 `ASPNETCORE_ENVIRONMENT` 环境变量的值更改为 `Production`。
    1. 保存文件，然后在命令外壳中使用 `dotnet run` 运行应用。
-1. appsettings.Development.json 中的设置不再替代 appsettings.json 中的设置 。 键 `Logging:LogLevel:Default` 的日志级别为 `Warning`。
+1. appsettings.Development.json 中的设置不再会替代 appsettings.json 中的设置 。 键 `Logging:LogLevel:Default` 的日志级别为 `Warning`。
 
 ### <a name="xml-configuration-provider"></a>XML 配置提供程序
 
@@ -1669,7 +1670,7 @@ _config.GetSection("array").Bind(arrayExample);
 
 可以在由任何在配置中生成正确键值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。 如果示例包含具有缺失键值对的其他 JSON 配置提供程序，则 `ArrayExample.Entries` 与完整配置数组相匹配：
 
-*missing_value.json*:
+*missing_value.json* :
 
 ```json
 {
@@ -1740,25 +1741,25 @@ JSON 配置提供程序将配置数据读入以下键值对：
 
 定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。
 
-*Models/EFConfigurationValue.cs*：
+*Models/EFConfigurationValue.cs* ：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
 添加 `EFConfigurationContext` 以存储和访问配置的值。
 
-*EFConfigurationProvider/EFConfigurationContext.cs*：
+*EFConfigurationProvider/EFConfigurationContext.cs* ：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
 创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。
 
-*EFConfigurationProvider/EFConfigurationSource.cs*：
+*EFConfigurationProvider/EFConfigurationSource.cs* ：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
 通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。 当数据库为空时，配置提供程序将对其进行初始化。
 
-*EFConfigurationProvider/EFConfigurationProvider.cs*：
+*EFConfigurationProvider/EFConfigurationProvider.cs* ：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 

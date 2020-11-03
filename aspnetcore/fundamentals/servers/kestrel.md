@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 44558a0f2fdc61eb860223658f5bef1d0117ba87
-ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
+ms.openlocfilehash: 50bf2a60f14238c9b71fe90a64c284da202bff59
+ms.sourcegitcommit: d5ecad1103306fac8d5468128d3e24e529f1472c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/02/2020
-ms.locfileid: "91653931"
+ms.lasthandoff: 10/23/2020
+ms.locfileid: "92491595"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -354,6 +354,34 @@ webBuilder.ConfigureKestrel(serverOptions =>
 ```
 
 默认值为 96 KB (98,304)。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-5.0"
+
+### <a name="http2-keep-alive-ping-configuration"></a>HTTP/2 保持活动 ping 配置
+
+Kestrel 可以配置为向连接的客户端发送 HTTP/2 ping。 HTTP/2 ping 有多种用途：
+
+* 使空闲连接保持活动状态。 某些客户端和代理服务器会关闭空闲的连接。 HTTP/2 ping 是对连接执行的活动，可防止空闲连接被关闭。
+* 关闭不正常的连接。 服务器会关闭在配置的时间内客户端未响应保持活动 ping 的连接。
+
+与 HTTP/2 保持活动 ping 关联的配置选项有两个：
+
+* `Http2.KeepAlivePingInterval` 是配置内部 ping 的 `TimeSpan`。 如果服务器在此时间段内没有收到任何帧，则服务器会向客户端发送保持活动 ping。 将此选项设置为 `TimeSpan.MaxValue` 时，会禁用保持活动 ping。 默认值为 `TimeSpan.MaxValue`。
+* `Http2.KeepAlivePingTimeout` 是配置 ping 超时的 `TimeSpan`。 如果服务器在此超时期间没有收到任何帧（如响应 ping），则连接将关闭。 将此选项设置为 `TimeSpan.MaxValue` 时，会禁用保持活动状态超时。 默认值为 20 秒。
+
+```csharp
+webBuilder.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Limits.Http2.KeepAlivePingInterval = TimeSpan.FromSeconds(30);
+    serverOptions.Limits.Http2.KeepAlivePingTimeout = TimeSpan.FromSeconds(60);
+});
+```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 ### <a name="trailers"></a>预告片
 

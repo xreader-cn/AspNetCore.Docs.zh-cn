@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 4345dd8525c2e72aaddc8e45a4fd4d9bfdd63040
-ms.sourcegitcommit: b5ebaf42422205d212e3dade93fcefcf7f16db39
+ms.openlocfilehash: 52810cb5a5961ffe932a7f5ac2a3a03033781cc9
+ms.sourcegitcommit: c06a5bf419541d17595af30e4cf6f2787c21855e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/21/2020
-ms.locfileid: "92326519"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92678485"
 ---
 # <a name="aspnet-core-no-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
@@ -164,6 +164,19 @@ Blazor Server 应用使用[本地化中间件](xref:fundamentals/localization#lo
 1. 浏览器打开 WebSocket 连接以创建交互式 Blazor Server 会话。
 1. 本地化中间件读取 cookie 并分配区域性。
 1. Blazor Server 会话以正确的区域性开始。
+
+使用 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage> 时，请使用 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context> 属性：
+
+```razor
+@{
+    this.Context.Response.Cookies.Append(
+        CookieRequestCultureProvider.DefaultCookieName,
+        CookieRequestCultureProvider.MakeCookieValue(
+            new RequestCulture(
+                CultureInfo.CurrentCulture,
+                CultureInfo.CurrentUICulture)));
+}
+```
 
 #### <a name="provide-ui-to-choose-the-culture"></a>提供用于选择区域性的 UI
 

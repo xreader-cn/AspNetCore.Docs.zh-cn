@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 99e0109ea4c2526e9f91a8a4df23c4557e9be83a
-ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
+ms.openlocfilehash: 6f677cc4fc26eb9d50ab6e149b7363079ae756a9
+ms.sourcegitcommit: c06a5bf419541d17595af30e4cf6f2787c21855e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91762303"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92678561"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core 依赖注入
 
@@ -32,6 +32,8 @@ ms.locfileid: "91762303"
 ASP.NET Core 支持依赖关系注入 (DI) 软件设计模式，这是一种在类及其依赖关系之间实现[控制反转 (IoC)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#dependency-inversion) 的技术。
 
 有关 MVC 控制器中依赖关系注入的详细信息，请参阅 <xref:mvc/controllers/dependency-injection>。
+
+若要了解如何在控制台应用中使用依赖注入，请参阅 [.NET 中的依赖注入](/dotnet/core/extensions/dependency-injection)
 
 有关选项的依赖项注入的详细信息，请参阅 <xref:fundamentals/configuration/options>。
 
@@ -180,9 +182,9 @@ ASP.NET Core 框架使用一种约定来注册一组相关服务。 约定使用
 
 使用 Entity Framework Core 时，默认情况下 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> 扩展方法使用范围内生存期来注册 `DbContext` 类型。
 
-不要从单一实例解析范围内服务。 当处理后续请求时，它可能会导致服务处于不正确的状态。 可以：
+不要从单一实例解析限定范围的服务，并小心不要间接地这样做，例如通过暂时性服务。 当处理后续请求时，它可能会导致服务处于不正确的状态。 可以：
 
-* 从范围内或暂时性服务解析单一实例服务。
+从限定范围或暂时性服务解析单一实例服务。
 * 从其他范围内或暂时性服务解析范围内服务。
 
 默认情况下在开发环境中，从具有较长生存期的其他服务解析服务将引发异常。 有关详细信息，请参阅[作用域验证](#sv)。
@@ -208,7 +210,7 @@ ASP.NET Core 框架使用一种约定来注册一组相关服务。 约定使用
 在处理请求的应用中，当应用关闭并释放 <xref:Microsoft.Extensions.DependencyInjection.ServiceProvider> 时，会释放单一实例服务。 由于应用关闭之前不释放内存，因此请考虑单一实例服务的内存使用。
 
 > [!WARNING]
-> 不要从单一实例解析范围内服务。 当处理后续请求时，它可能会导致服务处于不正确的状态。 可以从范围内或暂时性服务解析单一实例服务。
+> 不要从单一实例解析限定范围的服务。 当处理后续请求时，它可能会导致服务处于不正确的状态。 可以从范围内或暂时性服务解析单一实例服务。
 
 ## <a name="service-registration-methods"></a>服务注册方法
 
@@ -226,14 +228,46 @@ ASP.NET Core 框架使用一种约定来注册一组相关服务。 约定使用
 
 要详细了解释放类型，请参阅[服务释放](#disposal-of-services)部分。 在[为测试模拟类型](xref:test/integration-tests#inject-mock-services)时，使用多个实现很常见。
 
+仅使用实现类型注册服务等效于使用相同的实现和服务类型注册该服务。 因此，我们不能使用捕获显式服务类型的方法来注册服务的多个实现。 这些方法可以注册服务的多个实例，但它们都具有相同的实现类型。
+
+上述任何服务注册方法都可用于注册同一服务类型的多个服务实例。 下面的示例以 `IMyDependency` 作为服务类型调用 `AddSingleton` 两次。 第二次对 `AddSingleton` 的调用在解析为 `IMyDependency` 时替代上一次调用，在通过 `IEnumerable<IMyDependency>` 解析多个服务时添加到上一次调用。 通过 `IEnumerable<{SERVICE}>` 解析服务时，服务按其注册顺序显示。
+
+```csharp
+services.AddSingleton<IMyDependency, MyDependency>();
+services.AddSingleton<IMyDependency, DifferentDependency>();
+
+public class MyService
+{
+    public MyService(IMyDependency myDependency, 
+       IEnumberable<IMyDependency> myDependencies)
+    {
+        Trace.Assert(myDependency is DifferentDependency);
+
+        var dependencyArray = myDependencies.ToArray();
+        Trace.Assert(dependencyArray[0] is MyDependency);
+        Trace.Assert(dependencyArray[1] is DifferentDependency);
+    }
+}
+```
+
 框架还提供 `TryAdd{LIFETIME}` 扩展方法，只有当尚未注册某个实现时，才注册该服务。
 
-在下面的示例中，对 `AddSingleton` 的调用会将 `MyDependency` 注册为 `IMyDependency`的实现。 对 `TryAddSingleton` 的调用没有任何作用，因为 `IMyDependency` 已有一个已注册的实现：
+在下面的示例中，对 `AddSingleton` 的调用会将 `MyDependency` 注册为 `IMyDependency`的实现。 对 `TryAddSingleton` 的调用没有任何作用，因为 `IMyDependency` 已有一个已注册的实现。
 
 ```csharp
 services.AddSingleton<IMyDependency, MyDependency>();
 // The following line has no effect:
 services.TryAddSingleton<IMyDependency, DifferentDependency>();
+
+public class MyService
+{
+    public MyService(IMyDependency myDependency, 
+        IEnumberable<IMyDependency> myDependencies)
+    {
+        Trace.Assert(myDependency is MyDependency);
+        Trace.Assert(myDependencies.Single() is MyDependency);
+    }
+}
 ```
 
 有关详细信息，请参阅：
@@ -480,7 +514,7 @@ Service1.Dispose
 
     ![错误代码](dependency-injection/_static/bad.png)
 
-  **正确**：
+  **正确** ：
 
   ```csharp
   public class MyClass
@@ -780,14 +814,46 @@ public void ConfigureServices(IServiceCollection services)
 
 要详细了解释放类型，请参阅[服务释放](#disposal-of-services)部分。 多个实现的常见场景是[为了测试而模拟各个类型](xref:test/integration-tests#inject-mock-services)。
 
-`TryAdd{LIFETIME}` 方法仅当尚未注册实现时，注册该服务。
+仅使用实现类型注册服务等效于使用相同的实现和服务类型注册该服务。 因此，我们不能使用捕获显式服务类型的方法来注册服务的多个实现。 这些方法可以注册服务的多个实例，但它们都具有相同的实现类型 。
 
-在以下示例中，第一行向 `IMyDependency` 注册 `MyDependency`。 第二行没有任何作用，因为 `IMyDependency` 已有一个已注册的实现：
+上述任何服务注册方法都可用于注册同一服务类型的多个服务实例。 下面的示例以 `IMyDependency` 作为服务类型调用 `AddSingleton` 两次。 第二次对 `AddSingleton` 的调用在解析为 `IMyDependency` 时替代上一次调用，在通过 `IEnumerable<IMyDependency>` 解析多个服务时添加到上一次调用。 通过 `IEnumerable<{SERVICE}>` 解析服务时，服务按其注册顺序显示。
+
+```csharp
+services.AddSingleton<IMyDependency, MyDependency>();
+services.AddSingleton<IMyDependency, DifferentDependency>();
+
+public class MyService
+{
+    public MyService(IMyDependency myDependency, 
+       IEnumberable<IMyDependency> myDependencies)
+    {
+        Trace.Assert(myDependency is DifferentDependency);
+
+        var dependencyArray = myDependencies.ToArray();
+        Trace.Assert(dependencyArray[0] is MyDependency);
+        Trace.Assert(dependencyArray[1] is DifferentDependency);
+    }
+}
+```
+
+框架还提供 `TryAdd{LIFETIME}` 扩展方法，只有当尚未注册某个实现时，才注册该服务。
+
+在下面的示例中，对 `AddSingleton` 的调用会将 `MyDependency` 注册为 `IMyDependency`的实现。 对 `TryAddSingleton` 的调用没有任何作用，因为 `IMyDependency` 已有一个已注册的实现。
 
 ```csharp
 services.AddSingleton<IMyDependency, MyDependency>();
 // The following line has no effect:
 services.TryAddSingleton<IMyDependency, DifferentDependency>();
+
+public class MyService
+{
+    public MyService(IMyDependency myDependency, 
+        IEnumberable<IMyDependency> myDependencies)
+    {
+        Trace.Assert(myDependency is MyDependency);
+        Trace.Assert(myDependencies.Single() is MyDependency);
+    }
+}
 ```
 
 有关详情，请参阅：
@@ -1102,7 +1168,7 @@ public void ConfigureServices(IServiceCollection services)
       }
       ```
    
-    **正确**：
+    **正确** ：
 
     ```csharp
     public class MyClass

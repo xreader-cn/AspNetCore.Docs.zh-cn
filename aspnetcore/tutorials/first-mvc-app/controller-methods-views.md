@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 07b67cd7c267c39b99277114b73642b5caa3e312
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 745703aaa4ceb39c75789bab0bde4564f3d79a30
+ms.sourcegitcommit: c06a5bf419541d17595af30e4cf6f2787c21855e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632832"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92678557"
 ---
 # <a name="part-6-controller-methods-and-views-in-aspnet-core"></a>第 6 部分，ASP.NET Core 中的控制器方法和视图
 
@@ -149,7 +149,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 `[ValidateAntiForgeryToken]` 特性验证[表单标记帮助程序](xref:mvc/views/working-with-forms)中的防伪标记生成器生成的隐藏的 [XSRF](xref:security/anti-request-forgery) 标记
 
-[模型绑定](xref:mvc/models/model-binding)系统采用发布的表单值，并创建一个作为 `movie` 参数传递的 `Movie` 对象。 `ModelState.IsValid` 方法验证表单中提交的数据是否可以用于修改（编辑或更新）`Movie` 对象。 如果数据有效，将保存此数据。 通过调用数据库上下文的 `SaveChangesAsync` 方法，将更新（编辑）的电影数据保存到数据库。 保存数据后，代码将用户重定向到 `MoviesController` 类的 `Index` 操作方法，此方法显示电影集合，包括刚才所做的更改。
+[模型绑定](xref:mvc/models/model-binding)系统采用发布的表单值，并创建一个作为 `movie` 参数传递的 `Movie` 对象。 `ModelState.IsValid` 属性验证表单中提交的数据是否可以用于修改（编辑或更新）`Movie` 对象。 如果数据有效，将保存此数据。 通过调用数据库上下文的 `SaveChangesAsync` 方法，将更新（编辑）的电影数据保存到数据库。 保存数据后，代码将用户重定向到 `MoviesController` 类的 `Index` 操作方法，此方法显示电影集合，包括刚才所做的更改。
 
 在表单发布到服务器之前，客户端验证会检查字段上的任何验证规则。 如果有任何验证错误，则将显示错误消息，并且不会发布表单。 如果禁用 JavaScript，则不会进行客户端验证，但服务器将检测无效的发布值，并且表单值将与错误消息一起重新显示。 稍后在本教程中，我们将更详细地研究[模型验证](xref:mvc/models/validation)。 Views/Movies/Edit.cshtml 视图模板中的[验证标记帮助程序](xref:mvc/views/working-with-forms)负责显示相应的错误消息。
 
