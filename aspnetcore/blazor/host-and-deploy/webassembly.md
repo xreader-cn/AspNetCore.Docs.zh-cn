@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/09/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: c3f537ff3b55f295db478cb097bc99023cc71a87
-ms.sourcegitcommit: b5ebaf42422205d212e3dade93fcefcf7f16db39
+ms.openlocfilehash: 0912b3fbcd0b891deb4985eaa18841c22f4f3264
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/21/2020
-ms.locfileid: "92326516"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93055745"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -289,22 +290,30 @@ dotnet publish -p:BlazorEnableCompression=false
   <img alt="..." src="_content/{LIBRARY NAME}/{ASSET FILE NAME}" />
   ```
 
+<!-- HOLD for reactivation at 5.x
+
 ::: moniker range=">= aspnetcore-5.0"
 
-通常引用按类库提供给客户端应用的组件。 如果任何组件需要样式表或 JavaScript 文件，请使用以下方法之一来获取静态资产：
+Components provided to a client app by a class library are referenced normally. If any components require stylesheets or JavaScript files, use either of the following approaches to obtain the static assets:
 
-* 客户端应用的 `wwwroot/index.html` 文件可以链接 (`<link>`) 到静态资产。
-* 组件可以使用框架的 [`Link` 组件](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)获取静态资产。
+* The client app's `wwwroot/index.html` file can link (`<link>`) to the static assets.
+* The component can use the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) to obtain the static assets.
 
-下面的示例中演示了上述方法。
+The preceding approaches are demonstrated in the following examples.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-5.0"
 
+-->
+
 通常引用按类库提供给客户端应用的组件。 如果任何组件需要样式表或 JavaScript 文件，客户端应用的 `wwwroot/index.html` 文件必须包含正确的静态资产链接。 下面的示例中演示了这些方法。
 
+<!-- HOLD for reactivation at 5.x
+
 ::: moniker-end
+
+-->
 
 将以下 `Jeep` 组件添加到其中一个客户端应用中。 `Jeep` 组件使用：
 
@@ -338,9 +347,11 @@ dotnet publish -p:BlazorEnableCompression=false
 > [!WARNING]
 > 除非图像归你所有，否则不要公开发布车辆的图像。 否则，可能会侵犯版权。
 
+<!-- HOLD for reactivation at 5.x
+
 ::: moniker range=">= aspnetcore-5.0"
 
-另外，还可以向库的 `Component1` 组件(`Component1.razor`) 添加库的 `jeep-yj.png` 图像。 若要向客户端应用的页面提供 `my-component` CSS 类，请使用框架的 [`Link` 组件](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)链接到库的样式表：
+The library's `jeep-yj.png` image can also be added to the library's `Component1` component (`Component1.razor`). To provide the `my-component` CSS class to the client app's page, link to the library's stylesheet using the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements):
 
 ```razor
 <div class="my-component">
@@ -358,7 +369,7 @@ dotnet publish -p:BlazorEnableCompression=false
 </div>
 ```
 
-或者，使用 [`Link` 组件](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)的另一种方法是从客户端应用的 `wwwroot/index.html` 文件加载样式表。 这种方法使样式表可用于客户端应用中的所有组件：
+An alternative to using the [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) is to load the stylesheet from the client app's `wwwroot/index.html` file. This approach makes the stylesheet available to all of the components in the client app:
 
 ```html
 <head>
@@ -370,6 +381,8 @@ dotnet publish -p:BlazorEnableCompression=false
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-5.0"
+
+-->
 
 还可以向库的 `Component1` 组件 (`Component1.razor`) 添加库的 `jeep-yj.png` 图像：
 
@@ -396,7 +409,11 @@ dotnet publish -p:BlazorEnableCompression=false
 </head>
 ```
 
+<!-- HOLD for reactivation at 5.x
+
 ::: moniker-end
+
+-->
 
 向客户端应用的 `NavMenu` 组件中的 `Jeep` 组件 (`Shared/NavMenu.razor`) 添加导航：
 

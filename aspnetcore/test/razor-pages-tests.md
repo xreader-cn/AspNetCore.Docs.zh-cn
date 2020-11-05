@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/22/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/razor-pages-tests
-ms.openlocfilehash: bb376412daafd49b307c3c13ea7c88f34628f1c3
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 2486eb8c9fd0fc33ea77b0fedd99795218d7f4ca
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634834"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93058033"
 ---
 # <a name="no-locrazor-pages-unit-tests-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 单元测试
 
@@ -61,11 +62,11 @@ dotnet test
 
 消息应用是具有以下特征的 Razor Pages 消息系统：
 
-* 应用的索引页面（*Pages/Index.cshtml* 和 *Pages/Index.cshtml.cs*）提供 UI 和页面模型方法，用于控制添加、删除和分析消息（查找每条消息的平均字词数）。
-* 消息由 `Message` 类 (*Data/Message.cs*) 描述，并具有两个属性：`Id`（键）和 `Text`（消息）。 `Text` 属性是必需的，并限制为 200 个字符。
+* 应用的索引页面（ *Pages/Index.cshtml* 和 *Pages/Index.cshtml.cs* ）提供 UI 和页面模型方法，用于控制添加、删除和分析消息（查找每条消息的平均字词数）。
+* 消息由 `Message` 类 ( *Data/Message.cs* ) 描述，并具有两个属性：`Id`（键）和 `Text`（消息）。 `Text` 属性是必需的，并限制为 200 个字符。
 * 消息使用[实体框架的内存中数据库](/ef/core/providers/in-memory/)†存储。
-* 应用在其数据库上下文类 `AppDbContext` (*Data/AppDbContext.cs*) 中包含 DAL。 DAL 方法标记为 `virtual`，这允许模拟在测试中使用的方法。
-* 如果应用启动时数据库为空，则消息存储初始化为三条消息。 这些*种子消息*也用于测试。
+* 应用在其数据库上下文类 `AppDbContext` ( *Data/AppDbContext.cs* ) 中包含 DAL。 DAL 方法标记为 `virtual`，这允许模拟在测试中使用的方法。
+* 如果应用启动时数据库为空，则消息存储初始化为三条消息。 这些 *种子消息* 也用于测试。
 
 †EF 主题[使用 InMemory 进行测试](/ef/core/miscellaneous/testing/in-memory)说明如何将内存中数据库用于 MSTest 测试。 本主题使用 [xUnit](https://xunit.github.io/) 测试框架。 不同测试框架中的测试概念和测试实现相似，但不完全相同。
 
@@ -118,7 +119,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 }
 ```
 
-`DataAccessLayerTest` 类 (*UnitTests/DataAccessLayerTest.cs*) 中的每个测试方法都遵循类似的安排-执行-断言模式：
+`DataAccessLayerTest` 类 ( *UnitTests/DataAccessLayerTest.cs* ) 中的每个测试方法都遵循类似的安排-执行-断言模式：
 
 1. 安排：为测试配置数据库和/或定义预期结果。
 1. 执行：执行测试。
@@ -245,11 +246,11 @@ dotnet test
 
 消息应用是具有以下特征的 Razor Pages 消息系统：
 
-* 应用的索引页面（*Pages/Index.cshtml* 和 *Pages/Index.cshtml.cs*）提供 UI 和页面模型方法，用于控制添加、删除和分析消息（查找每条消息的平均字词数）。
-* 消息由 `Message` 类 (*Data/Message.cs*) 描述，并具有两个属性：`Id`（键）和 `Text`（消息）。 `Text` 属性是必需的，并限制为 200 个字符。
+* 应用的索引页面（ *Pages/Index.cshtml* 和 *Pages/Index.cshtml.cs* ）提供 UI 和页面模型方法，用于控制添加、删除和分析消息（查找每条消息的平均字词数）。
+* 消息由 `Message` 类 ( *Data/Message.cs* ) 描述，并具有两个属性：`Id`（键）和 `Text`（消息）。 `Text` 属性是必需的，并限制为 200 个字符。
 * 消息使用[实体框架的内存中数据库](/ef/core/providers/in-memory/)†存储。
-* 应用在其数据库上下文类 `AppDbContext` (*Data/AppDbContext.cs*) 中包含 DAL。 DAL 方法标记为 `virtual`，这允许模拟在测试中使用的方法。
-* 如果应用启动时数据库为空，则消息存储初始化为三条消息。 这些*种子消息*也用于测试。
+* 应用在其数据库上下文类 `AppDbContext` ( *Data/AppDbContext.cs* ) 中包含 DAL。 DAL 方法标记为 `virtual`，这允许模拟在测试中使用的方法。
+* 如果应用启动时数据库为空，则消息存储初始化为三条消息。 这些 *种子消息* 也用于测试。
 
 †EF 主题[使用 InMemory 进行测试](/ef/core/miscellaneous/testing/in-memory)说明如何将内存中数据库用于 MSTest 测试。 本主题使用 [xUnit](https://xunit.github.io/) 测试框架。 不同测试框架中的测试概念和测试实现相似，但不完全相同。
 
@@ -302,7 +303,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 }
 ```
 
-`DataAccessLayerTest` 类 (*UnitTests/DataAccessLayerTest.cs*) 中的每个测试方法都遵循类似的安排-执行-断言模式：
+`DataAccessLayerTest` 类 ( *UnitTests/DataAccessLayerTest.cs* ) 中的每个测试方法都遵循类似的安排-执行-断言模式：
 
 1. 安排：为测试配置数据库和/或定义预期结果。
 1. 执行：执行测试。
@@ -392,6 +393,6 @@ DAL 中的 `GetMessagesAsync` 方法不会返回此方法调用的结果。 方�
 * [Getting started with xUnit.net:Using .NET Core with the .NET SDK command line](https://xunit.github.io/docs/getting-started-dotnet-core)（xUnit.net 入门：将 .NET Core 与 .NET SDK 命令行配合使用）
 * [Moq](https://github.com/moq/moq4)
 * [Moq Quickstart](https://github.com/Moq/moq4/wiki/Quickstart)（Moq 快速入门）
-* [JustMockLite](https://github.com/telerik/JustMockLite)：面向 .NET 开发人员的模拟框架。 （*不由 Microsoft 进行支持或维护*。）
+* [JustMockLite](https://github.com/telerik/JustMockLite)：面向 .NET 开发人员的模拟框架。 （ *不由 Microsoft 进行支持或维护* 。）
 
 ::: moniker-end

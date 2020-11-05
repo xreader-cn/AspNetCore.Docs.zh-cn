@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 12/05/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: 3f0e44bb374214328f589c6ca3952c6d7aab88d8
-ms.sourcegitcommit: 9c031530d2e652fe422e786bd43392bc500d622f
+ms.openlocfilehash: 0fb50f07153f5f9953b667fe32062ad24b2bd66d
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2020
-ms.locfileid: "90770124"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93059944"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
@@ -36,7 +37,7 @@ ms.locfileid: "90770124"
 
 | 功能          | gRPC                                               | 具有 JSON 的 HTTP API           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
-| 协定         | 必需 ( *.proto*)                                | 可选 (OpenAPI)            |
+| 协定         | 必需 ( *.proto* )                                | 可选 (OpenAPI)            |
 | 协议         | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf（小型，二进制）](#performance)           | JSON（大型，人工可读取）  |
 | 规定性 | [严格规范](#strict-specification)      | 宽松。 任何 HTTP 均有效。     |

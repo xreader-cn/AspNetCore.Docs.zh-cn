@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 8ed9ec3447205107194ffa5c329c0e5ae0fc5553
-ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
+ms.openlocfilehash: ca8aa126a44ea417017f0be0372e818a95ad8413
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/02/2020
-ms.locfileid: "91653966"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93053743"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -150,8 +151,8 @@ public IActionResult MyActionMethod()
 
 1. 如果应用为[框架相关部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)，则安装 .NET Core、.NET Framework 或两者（如果应用是面向 .NET Framework 的 .NET Core 应用）。
 
-   * **.NET Core**：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
-   * **.NET Framework**：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
+   * **.NET Core** ：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
+   * **.NET Framework** ：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
 
    如果应用是[独立式部署](/dotnet/core/deploying/#self-contained-deployments-scd)，应用在部署中包含运行时。 无需在服务器上安装任何框架。
 
@@ -179,7 +180,7 @@ public IActionResult MyActionMethod()
 
 1. 在服务器上预注册 URL 前缀。
 
-   用于配置 HTTP.sys 的内置工具为 *netsh.exe*。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
+   用于配置 HTTP.sys 的内置工具为 *netsh.exe* 。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
 
    使用 netsh.exe 工具为应用注册 URL：
 
@@ -418,8 +419,8 @@ public IActionResult MyActionMethod()
 
 1. 如果应用为[框架相关部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)，则安装 .NET Core、.NET Framework 或两者（如果应用是面向 .NET Framework 的 .NET Core 应用）。
 
-   * **.NET Core**：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
-   * **.NET Framework**：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
+   * **.NET Core** ：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
+   * **.NET Framework** ：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
 
    如果应用是[独立式部署](/dotnet/core/deploying/#self-contained-deployments-scd)，应用在部署中包含运行时。 无需在服务器上安装任何框架。
 
@@ -447,7 +448,7 @@ public IActionResult MyActionMethod()
 
 1. 在服务器上预注册 URL 前缀。
 
-   用于配置 HTTP.sys 的内置工具为 *netsh.exe*。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
+   用于配置 HTTP.sys 的内置工具为 *netsh.exe* 。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
 
    使用 netsh.exe 工具为应用注册 URL：
 
@@ -671,8 +672,8 @@ public IActionResult MyActionMethod()
 
 1. 如果应用为[框架相关部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)，则安装 .NET Core、.NET Framework 或两者（如果应用是面向 .NET Framework 的 .NET Core 应用）。
 
-   * **.NET Core**：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
-   * **.NET Framework**：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
+   * **.NET Core** ：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
+   * **.NET Framework** ：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
 
    如果应用是[独立式部署](/dotnet/core/deploying/#self-contained-deployments-scd)，应用在部署中包含运行时。 无需在服务器上安装任何框架。
 
@@ -700,7 +701,7 @@ public IActionResult MyActionMethod()
 
 1. 在服务器上预注册 URL 前缀。
 
-   用于配置 HTTP.sys 的内置工具为 *netsh.exe*。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
+   用于配置 HTTP.sys 的内置工具为 *netsh.exe* 。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
 
    使用 netsh.exe 工具为应用注册 URL：
 
@@ -924,8 +925,8 @@ public IActionResult MyActionMethod()
 
 1. 如果应用为[框架相关部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)，则安装 .NET Core、.NET Framework 或两者（如果应用是面向 .NET Framework 的 .NET Core 应用）。
 
-   * **.NET Core**：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
-   * **.NET Framework**：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
+   * **.NET Core** ：如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
+   * **.NET Framework** ：如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
 
    如果应用是[独立式部署](/dotnet/core/deploying/#self-contained-deployments-scd)，应用在部署中包含运行时。 无需在服务器上安装任何框架。
 
@@ -953,7 +954,7 @@ public IActionResult MyActionMethod()
 
 1. 在服务器上预注册 URL 前缀。
 
-   用于配置 HTTP.sys 的内置工具为 *netsh.exe*。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
+   用于配置 HTTP.sys 的内置工具为 *netsh.exe* 。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
 
    使用 netsh.exe 工具为应用注册 URL：
 

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 55269c6985534b49cc2567b2d197e46d9b7b1fd7
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 1ac9d6303daac82f3973c5d027fe1f453dc32e02
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722522"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93054094"
 ---
 # <a name="part-5-no-locrazor-pages-with-ef-core-in-aspnet-core---data-model"></a>第 5 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型
 
@@ -306,7 +307,7 @@ public int InstructorID { get; set; }
 
 ![Course 实体](complex-data-model/_static/course-entity.png)
 
-用以下代码更新 *Models/Course.cs*：
+用以下代码更新 *Models/Course.cs* ：
 
 [!code-csharp[](intro/samples/cu30/Models/Course.cs?highlight=2,10,13,16,19,21,23)]
 
@@ -416,7 +417,7 @@ public ICollection<Course> Courses { get; set; }
 
 ![Enrollment 实体](complex-data-model/_static/enrollment-entity.png)
 
-用以下代码更新 *Models/Enrollment.cs*：
+用以下代码更新 *Models/Enrollment.cs* ：
 
 [!code-csharp[](intro/samples/cu30/Models/Enrollment.cs?highlight=1-2,16)]
 
@@ -756,7 +757,7 @@ https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intr
 
 学生页面当前显示注册日期。 通常情况下，日期字段仅显示日期，不显示时间。
 
-用以下突出显示的代码更新 *Models/Student.cs*：
+用以下突出显示的代码更新 *Models/Student.cs* ：
 
 [!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
 
@@ -881,7 +882,7 @@ Please review the migration for accuracy.
 
 ![Student 实体](complex-data-model/_static/student-entity.png)
 
-用以下代码更新 *Models/Student.cs*：
+用以下代码更新 *Models/Student.cs* ：
 
 [!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_BeforeInheritance&highlight=11,13,15,18,22,24-31)]
 
@@ -1001,7 +1002,7 @@ public Instructor Instructor { get; set; }
 
 ![Course 实体](complex-data-model/_static/course-entity.png)
 
-用以下代码更新 *Models/Course.cs*：
+用以下代码更新 *Models/Course.cs* ：
 
 [!code-csharp[](intro/samples/cu21/Models/Course.cs?name=snippet_Final&highlight=2,10,13,16,19,21,23)]
 
@@ -1119,7 +1120,7 @@ public ICollection<Course> Courses { get; set; }
 
 ![Enrollment 实体](complex-data-model/_static/enrollment-entity.png)
 
-用以下代码更新 *Models/Enrollment.cs*：
+用以下代码更新 *Models/Enrollment.cs* ：
 
 [!code-csharp[](intro/samples/cu21/Models/Enrollment.cs?name=snippet_Final&highlight=1-2,16)]
 
@@ -1289,7 +1290,7 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 现已有一个数据库，需要考虑如何将未来的更改应用到其中。 本教程演示两种方法：
 
 * [删除并重新创建数据库](#drop)
-* [将迁移应用到现有数据库](#applyexisting)。 虽然此方法更复杂且耗时，但在实际应用和生产环境中为首选方法。 **说明**：这是本教程的一个可选部分。 你可以执行删除和重新创建的相关步骤并跳过此部分。 如果希望执行本部分中的步骤，请勿执行删除和重新创建步骤。 
+* [将迁移应用到现有数据库](#applyexisting)。 虽然此方法更复杂且耗时，但在实际应用和生产环境中为首选方法。 **说明** ：这是本教程的一个可选部分。 你可以执行删除和重新创建的相关步骤并跳过此部分。 如果希望执行本部分中的步骤，请勿执行删除和重新创建步骤。 
 
 <a name="drop"></a>
 

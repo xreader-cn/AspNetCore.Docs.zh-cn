@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 01/09/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: client-side/using-browserlink
-ms.openlocfilehash: ab4ca78fa50768ff66536608a7cf03e73aecf73a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 80f05acab55af973faf08b5db79ea4cbaf896b14
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628815"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93054484"
 ---
 # <a name="browser-link-in-aspnet-core"></a>ASP.NET Core 中的浏览器链接
 

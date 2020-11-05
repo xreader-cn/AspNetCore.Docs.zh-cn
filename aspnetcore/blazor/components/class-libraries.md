@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/27/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: afd1bfffae11520a5d9abccc1d2ee4cf3a46a4bf
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: f8e36cbe905b5ec2e674123c0f2ab6db99683c7c
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722457"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93056408"
 ---
 # <a name="aspnet-core-no-locrazor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -120,9 +121,11 @@ Welcome to your new app.
 
 可以选择在顶级 `_Import.razor` 文件中包含 `@using ComponentLibrary` 指令，使库的组件可用于整个项目。 将指令添加到任何级别的 `_Import.razor` 文件，将命名空间应用于文件夹中的单个组件或一组组件。
 
+<!-- HOLD for reactivation at 5.x
+
 ::: moniker range=">= aspnetcore-5.0"
 
-若要向组件提供 `Component1` 的 `my-component` CSS 类，请在 `Component1.razor` 中使用框架的 [`Link` 组件](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)链接到库的样式表：
+To provide `Component1`'s `my-component` CSS class to the component, link to the library's stylesheet using the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) in `Component1.razor`:
 
 ```razor
 <div class="my-component">
@@ -134,7 +137,7 @@ Welcome to your new app.
 </div>
 ```
 
-若要在应用中提供样式表，可以在应用的 `wwwroot/index.html` 文件 (Blazor WebAssembly) 或 `Pages/_Host.cshtml` 文件 (Blazor Server) 中链接到库的样式表：
+To provide the stylesheet across the app, you can alternatively link to the library's stylesheet in the app's `wwwroot/index.html` file (Blazor WebAssembly) or `Pages/_Host.cshtml` file (Blazor Server):
 
 ```html
 <head>
@@ -143,14 +146,16 @@ Welcome to your new app.
 </head>
 ```
 
-在子组件中使用 `Link` 组件时，只要呈现 `Link` 组件的子组件，链接的资源就可用于父组件的任何其他子组件。 在子组件中使用 `Link` 组件，与在 `wwwroot/index.html` 或 `Pages/_Host.cshtml` 中放置一个 `<link>` HTML 标记之间的区别是，框架组件已呈现的 HTML 标记：
+When the `Link` component is used in a child component, the linked asset is also available to any other child component of the parent component as long as the child with the `Link` component is rendered. The distinction between using the `Link` component in a child component and placing a `<link>` HTML tag in `wwwroot/index.html` or `Pages/_Host.cshtml` is that a framework component's rendered HTML tag:
 
-* 可以根据应用程序状态进行修改。 不能根据应用程序状态修改硬编码 `<link>` HTML 标记。
-* 将在不再呈现父组件的情况下从 HTML `<head>` 中被删除。
+* Can be modified by application state. A hard-coded `<link>` HTML tag can't be modified by application state.
+* Is removed from the HTML `<head>` when the parent component is no longer rendered.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-5.0"
+
+-->
 
 若要提供 `Component1` 的 `my-component` CSS 类，请在应用的 `wwwroot/index.html` 文件 (Blazor WebAssembly) 或 `Pages/_Host.cshtml` 文件 (Blazor Server) 中链接到库的样式表：
 
@@ -161,7 +166,11 @@ Welcome to your new app.
 </head>
 ```
 
+<!-- HOLD for reactivation at 5.x
+
 ::: moniker-end
+
+-->
 
 ## <a name="create-a-no-locrazor-components-class-library-with-static-assets"></a>创建包括静态资源的 Razor 组件类库
 

@@ -5,6 +5,7 @@ description: ASP.NET Core MVC 教程系列第 3 部分。
 ms.author: riande
 ms.date: 8/04/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 970cc1fe6e0a0e0204ddafec09c15db6fed9aa66
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 078329d1e5dfe41a7713b1e53894a9b09886752d
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88629751"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93052664"
 ---
 # <a name="part-3-add-a-view-to-an-aspnet-core-mvc-app"></a>第 3 部分，将视图添加到 ASP.NET Core MVC 应用
 
@@ -108,7 +109,7 @@ ms.locfileid: "88629751"
 
 在前面的标记中，省略了 `asp-area=""` [定位点标记帮助程序属性](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)和属性值，因为此应用未使用[区域](xref:mvc/controllers/areas)。
 
-**说明**：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
+**说明** ：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
 
 保存更改并选择“隐私”链接。 请注意浏览器选项卡上的标题现在显示的是“隐私策略 - 电影应用”，而不是“隐私策略 - Mvc 电影”：
 
@@ -268,7 +269,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 > We haven't implemented the `Movies` controller yet, so if you click the `Movie App` link, you get a 404 (Not found) error.
 -->
 
-**说明**：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
+**说明** ：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
 
 保存更改并选择“隐私”链接。 请注意浏览器选项卡上的标题现在显示的是“隐私策略 - 电影应用”，而不是“隐私策略 - Mvc 电影”：
 

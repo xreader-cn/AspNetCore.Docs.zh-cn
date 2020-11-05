@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: devx-track-csharp, mvc, seodec18
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/cicd
-ms.openlocfilehash: 3632f1c4bd419aae08105005de3d81fc2cb9e410
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: eddd7034bf1860fb35cf00eefb7a11a408869700
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625877"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93052638"
 ---
 # <a name="continuous-integration-and-deployment"></a>持续集成和持续部署
 

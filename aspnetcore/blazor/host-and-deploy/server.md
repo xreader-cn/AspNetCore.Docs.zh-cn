@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/26/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: afbaad2f27359a4a1cac5c5fe1da16d3e80d038f
-ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
+ms.openlocfilehash: 74473eb5c0efcd8798d260b765c848d7e621e534
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/29/2020
-ms.locfileid: "89102648"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93055758"
 ---
 # <a name="host-and-deploy-no-locblazor-server"></a>托管和部署 Blazor Server
 
@@ -102,7 +103,7 @@ Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [Sig
      * Azure 门户中的应用服务“配置” > “应用程序设置”（名称：`Azure:SignalR:ServerStickyMode`，值：`Required`）   。
 
 1. 在 Visual Studio 中创建适用于 Blazor Server 应用的 Azure 应用发布配置文件。
-1. 将 **Azure SignalR 服务**依赖项添加到配置文件。 如果 Azure 订阅没有要分配给应用的预先存在的 Azure SignalR 服务实例，请选择“创建新的 Azure SignalR 服务实例”以预配新的服务实例。
+1. 将 **Azure SignalR 服务** 依赖项添加到配置文件。 如果 Azure 订阅没有要分配给应用的预先存在的 Azure SignalR 服务实例，请选择“创建新的 Azure SignalR 服务实例”以预配新的服务实例。
 1. 将应用发布到 Azure。
 
 #### <a name="iis"></a>IIS

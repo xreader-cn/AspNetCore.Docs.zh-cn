@@ -6,6 +6,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/21/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: b69d60e7d0e24f6d3c8032b391c98a6cd1589305
-ms.sourcegitcommit: 9c031530d2e652fe422e786bd43392bc500d622f
+ms.openlocfilehash: 59c296f3388e71254badb02fa3ae4279005c359c
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2020
-ms.locfileid: "90770176"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93056876"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-no-locsignalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -176,7 +177,7 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 ## <a name="create-a-no-locsignalr-hub"></a>创建 SignalR 中心
 
-*中心*是一个类，用作处理客户端 - 服务器通信的高级管道。
+*中心* 是一个类，用作处理客户端 - 服务器通信的高级管道。
 
 * 在 SignalRChat 项目文件夹中，创建 Hubs 文件夹。
 
@@ -409,7 +410,7 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 ## <a name="create-a-no-locsignalr-hub"></a>创建 SignalR 中心   
 
-*中心*是一个类，用作处理客户端 - 服务器通信的高级管道。   
+*中心* 是一个类，用作处理客户端 - 服务器通信的高级管道。   
 
 * 在 SignalRChat 项目文件夹中，创建 Hubs 文件夹。  
 

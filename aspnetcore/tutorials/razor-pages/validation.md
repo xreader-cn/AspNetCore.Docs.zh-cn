@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 86c523c69d3ee85f56bf1a51719a0bd93cbe97fc
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 991a0f29c0edc5a220dfde69bd22dc4ed758394d
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633547"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060724"
 ---
 # <a name="part-8-add-validation-to-an-aspnet-core-no-locrazor-page"></a>第 8 部分，将验证添加到 ASP.NET Core Razor 页面
 
@@ -145,7 +146,7 @@ public DateTime ReleaseDate { get; set; }
 * 默认情况下，浏览器将根据区域设置采用正确的格式呈现数据。
 * 借助 `DataType` 特性，ASP.NET Core 框架可选择适当的字段模板来呈现数据。 单独使用时，`DisplayFormat` 特性将使用字符串模板。
 
-**注意**：jQuery 验证不适用于 `Range` 特性和 `DateTime`。 例如，以下代码将始终显示客户端验证错误，即便日期在指定的范围内：
+**注意** ：jQuery 验证不适用于 `Range` 特性和 `DateTime`。 例如，以下代码将始终显示客户端验证错误，即便日期在指定的范围内：
 
 ```csharp
 [Range(typeof(DateTime), "1/1/1966", "1/1/2020")]

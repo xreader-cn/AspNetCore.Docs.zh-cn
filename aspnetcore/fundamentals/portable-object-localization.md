@@ -5,6 +5,7 @@ description: 本文介绍可移植对象文件，并概述通过 Orchard Core �
 ms.author: scaddie
 ms.date: 09/26/2017
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/portable-object-localization
-ms.openlocfilehash: f471c5b7511434cf42717e52ef271663c2e36647
-ms.sourcegitcommit: 6ecdc481d5b9a10d2c6e091217f017b36bdba957
+ms.openlocfilehash: 2e28ebaf1962ebd834c43f1cfbc28929b1937c40
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90456044"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93053717"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>在 ASP.NET Core 中配置可移植对象本地化
 

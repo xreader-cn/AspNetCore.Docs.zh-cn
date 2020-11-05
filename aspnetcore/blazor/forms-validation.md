@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/17/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: ad244c29c8e8e904793745119366cd677389b12d
-ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
+ms.openlocfilehash: cd613b2b76b8e876786988fdcefc0e7275d3bf53
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/27/2020
-ms.locfileid: "92690606"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93056057"
 ---
 # <a name="aspnet-core-no-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -805,7 +806,7 @@ public Engine? Engine { get; set; } = null;
 将以下 `enums` 添加到应用。 创建一个新文件来保存 `enums`，或将 `enums` 添加到 `Starship.cs` 文件中。 使 `Starship` 模型和 Starfleet Starship 数据库窗体都可访问 `enums`：
 
 ```csharp
-public enum Manufacturer { SpaceX, NASA, ULA, Virgin, Unknown }
+public enum Manufacturer { SpaceX, NASA, ULA, VirginGalactic, Unknown }
 public enum Color { ImperialRed, SpacecruiserGreen, StarshipBlue, VoyagerOrange }
 public enum Engine { Ion, Plasma, Fusion, Warp }
 ```

@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 05/26/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 01044c2b0656743ad608be9ca040880e82231919
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 2efed6b76228227f032482346a36f528b3448de2
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633820"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93053561"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>gRPC for ASP.NET Core 中的身份验证和授权
 
@@ -187,7 +188,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-各个服务方法也可以应用 `[Authorize]` 特性。 如果当前用户与**同时**应用于方法和类的策略不匹配，则会向调用方返回错误：
+各个服务方法也可以应用 `[Authorize]` 特性。 如果当前用户与 **同时** 应用于方法和类的策略不匹配，则会向调用方返回错误：
 
 ```csharp
 [Authorize]

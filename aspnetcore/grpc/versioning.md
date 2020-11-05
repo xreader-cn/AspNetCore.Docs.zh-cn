@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 01/09/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/versioning
-ms.openlocfilehash: 0d8c5d953c9d703788a1686bbc800248c46efa48
-ms.sourcegitcommit: 47c9a59ff8a359baa6bca2637d3af87ddca1245b
+ms.openlocfilehash: 38204b16d041f21221862c566b90a6a9571d26a1
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2020
-ms.locfileid: "88945397"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93058696"
 ---
 # <a name="versioning-grpc-services"></a>版本控制 gRPC 服务
 

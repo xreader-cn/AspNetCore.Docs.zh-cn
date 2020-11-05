@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/crud
-ms.openlocfilehash: c17461f8d1d43335230a967a4b62943c055c06b9
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 043fe513f370cf63637733b66ca195e7887faab0
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88629205"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93054289"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
@@ -103,7 +104,7 @@ http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 
 ### <a name="add-enrollments-to-the-details-view"></a>将注册添加到“详细信息”视图
 
-打开 *Views/Students/Details.cshtml*。 每个字段都使用 `DisplayNameFor` 和 `DisplayFor` 帮助器来显示，如下面的示例中所示：
+打开 *Views/Students/Details.cshtml* 。 每个字段都使用 `DisplayNameFor` 和 `DisplayFor` 帮助器来显示，如下面的示例中所示：
 
 [!code-cshtml[](intro/samples/cu/Views/Students/Details.cshtml?range=13-18&highlight=2,5)]
 
@@ -210,15 +211,15 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 实体可能处于以下状态之一：
 
-* `Added`。 数据库中尚不存在实体。 `SaveChanges` 方法发出 INSERT 语句。
+* `Added`. 数据库中尚不存在实体。 `SaveChanges` 方法发出 INSERT 语句。
 
-* `Unchanged`。 不需要通过 `SaveChanges` 方法对此实体执行操作。 从数据库读取实体时，实体将从此状态开始。
+* `Unchanged`. 不需要通过 `SaveChanges` 方法对此实体执行操作。 从数据库读取实体时，实体将从此状态开始。
 
-* `Modified`。 已修改实体的部分或全部属性值。 `SaveChanges` 方法发出 UPDATE 语句。
+* `Modified`. 已修改实体的部分或全部属性值。 `SaveChanges` 方法发出 UPDATE 语句。
 
-* `Deleted`。 已标记该实体进行删除。 `SaveChanges` 方法发出 DELETE 语句。
+* `Deleted`. 已标记该实体进行删除。 `SaveChanges` 方法发出 DELETE 语句。
 
-* `Detached`。 数据库上下文未跟踪该实体。
+* `Detached`. 数据库上下文未跟踪该实体。
 
 在桌面应用程序中，通常会自动设置状态更改。 读取一个实体并对其某些属性值做出更改。 这将使其实体状态自动更改为 `Modified`。 然后调用 `SaveChanges` 时，Entity Framework 生成 SQL UPDATE 语句，该语句仅更新已更改的实际属性。
 

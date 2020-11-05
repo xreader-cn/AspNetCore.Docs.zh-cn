@@ -5,6 +5,7 @@ description: Razor 页面教程系列第 6 部分。
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 5e899929372697f7a381cd493655309fa3f70f79
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 960f60198f5e65ed05d0374fd0704537376d27d6
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633846"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93058085"
 ---
 # <a name="part-6-add-search-to-aspnet-core-no-locrazor-pages"></a>第 6 部分，将搜索添加到 ASP.NET Core Razor 页面
 

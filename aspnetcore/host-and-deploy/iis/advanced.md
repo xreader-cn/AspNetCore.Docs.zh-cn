@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/7/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/advanced
-ms.openlocfilehash: ad2480faeea2f07e51585f5bc6a1c63b3a0b1668
-ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
+ms.openlocfilehash: 9f14929a7d298d6f4d66abcc88665db34fc072bf
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91755143"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93058606"
 ---
 # <a name="advanced-configuration-of-the-aspnet-core-module-and-iis"></a>ASP.NET Core 模块和 IIS 的高级配置
 

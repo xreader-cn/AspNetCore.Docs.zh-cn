@@ -5,6 +5,7 @@ description: Razor 页面教程系列第 5 部分。
 ms.author: riande
 ms.date: 12/20/2018
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: 04479e5c3a0b1e9badbb4e58043cf059beefb4ab
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 7d25dae67c928fa659654ce4ab34cfdad08b5300
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632793"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060061"
 ---
 # <a name="part-5-update-the-generated-pages-in-an-aspnet-core-app"></a>第 5 部分，在 ASP.NET Core 应用中更新生成的页面
 

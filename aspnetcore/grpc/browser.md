@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 06/30/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: 5c9501b3e7cbdcbb02e3d78d67185a0a75ccba7c
-ms.sourcegitcommit: c9b03d8a6a4dcc59e4aacb30a691f349235a74c8
+ms.openlocfilehash: 6456707620ae1c1f4d23f3562c78d1bf05d4844f
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/02/2020
-ms.locfileid: "89379401"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93058904"
 ---
 # <a name="use-grpc-in-browser-apps"></a>在浏览器应用中使用 gRPC
 
@@ -123,11 +124,11 @@ HTTP/2 上的传统 gRPC 支持所有方向的流式处理。 gRPC-Web 对流式
 
 `GrpcWebHandler` 具有以下配置选项：
 
-* **InnerHandler**：发出 gRPC HTTP 请求的基础 <xref:System.Net.Http.HttpMessageHandler>，例如 `HttpClientHandler`。
+* **InnerHandler** ：发出 gRPC HTTP 请求的基础 <xref:System.Net.Http.HttpMessageHandler>，例如 `HttpClientHandler`。
 * GrpcWebMode：枚举类型，指定 gRPC HTTP 请求 `Content-Type` 是 `application/grpc-web` 还是 `application/grpc-web-text`。
     * `GrpcWebMode.GrpcWeb` 配置不进行编码即发送的内容。 默认值。
     * `GrpcWebMode.GrpcWebText` 配置需进行 base64 编码的内容。 对于浏览器中的服务器流式处理调用是必需的。
-* **HttpVersion**：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [HttpRequestMessage.Version](xref:System.Net.Http.HttpRequestMessage.Version)。 gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。
+* **HttpVersion** ：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [HttpRequestMessage.Version](xref:System.Net.Http.HttpRequestMessage.Version)。 gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。
 
 > [!IMPORTANT]
 > 生成的 gRPC 客户端具有用于调用一元方法的同步和异步方法。 例如，`SayHello` 是同步的，而 `SayHelloAsync` 是异步的。 在 Blazor WebAssembly 应用中调用同步方法将导致应用无响应。 必须始终在 Blazor WebAssembly 中使用异步方法。

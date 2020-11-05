@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/web-config
-ms.openlocfilehash: 4d7305f7184745b66c5de6c86b907d419183cb3f
-ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
+ms.openlocfilehash: edeef31042547db79fcec98f1236787f78e187a5
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91755150"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93057279"
 ---
 # <a name="webconfig-file"></a>`web.config` 文件
 

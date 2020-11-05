@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: f5efb121b95d84876c9029cf06a96f827137e660
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 951a8ada57ae523f362313426c0279556eb8339b
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631441"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93050610"
 ---
 # <a name="part-7-add-a-new-field-to-a-no-locrazor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -120,7 +121,7 @@ Update-Database
 * 在 SSOX 中选择数据库。
 * 右键单击数据库，并选择“删除”。
 * 检查“关闭现有连接”。
-* 选择“确定”。
+* 选择“确定”  。
 * 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
   ```powershell
@@ -245,7 +246,7 @@ Update-Database
 * 在 SSOX 中选择数据库。
 * 右键单击数据库，并选择“删除”。
 * 检查“关闭现有连接”。
-* 选择“确定”。
+* 选择“确定”  。
 * 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
   ```powershell

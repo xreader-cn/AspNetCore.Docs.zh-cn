@@ -5,8 +5,9 @@ description: 了解如何在 Blazor Server 应用中保留状态。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/22/2020
+ms.date: 10/29/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -19,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/state-management
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: a74f056447839c4cf057948f26a9ece9b5799656
-ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
+ms.openlocfilehash: 1769ddbb95c9ffe373e916c885e411adc3d4c65b
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91606728"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93054991"
 ---
 # <a name="aspnet-core-no-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -236,15 +237,6 @@ ASP.NET Core 受保护的浏览器存储将 [ASP.NET Core 数据保护](xref:sec
 > [!NOTE]
 > 受保护的浏览器存储依赖于 ASP.NET Core 数据保护，仅支持用于 Blazor Server 应用。
 
-### <a name="configuration"></a>配置
-
-1. 将包引用添加到 [`Microsoft.AspNetCore.Components.Web.Extensions`](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions)。
-1. 在 `Startup.ConfigureServices` 中，调用 `AddProtectedBrowserStorage` 以将 `localStorage` 和 `sessionStorage` 服务添加到服务集合：
-
-   ```csharp
-   services.AddProtectedBrowserStorage();
-   ```
-
 ### <a name="save-and-load-data-within-a-component"></a>保存和加载组件中的数据
 
 在需要将数据加载或保存到浏览器存储的任何组件中，使用 [`@inject`](xref:mvc/views/razor#inject) 指令注入以下任意一项的实例：
@@ -255,7 +247,7 @@ ASP.NET Core 受保护的浏览器存储将 [ASP.NET Core 数据保护](xref:sec
 具体选择取决于要使用的浏览器存储位置。 在以下示例中，使用 `sessionStorage`：
 
 ```razor
-@using Microsoft.AspNetCore.Components.Web.Extensions
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 ```
 
@@ -336,7 +328,7 @@ else
 对于不使用 `localStorage` 或 `sessionStorage` 的其他页面，预呈现可能很有用。 若要保持预呈现状态，可延迟加载操作，直到浏览器连接到线路。 以下是存储计数器值的示例：
 
 ```razor
-@using Microsoft.AspNetCore.Components.Web.Extensions
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedLocalStorage ProtectedLocalStore
 
 @if (isConnected)
@@ -384,7 +376,7 @@ else
 在 `CounterStateProvider` 组件的以下示例中，将计数器数据保留到 `sessionStorage`：
 
 ```razor
-@using Microsoft.AspNetCore.Components.Web.Extensions
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 
 @if (isLoaded)

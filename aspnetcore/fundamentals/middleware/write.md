@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/18/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/write
-ms.openlocfilehash: 52985917c34ebf007c0d205625956c772456ee2b
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 5f33691cbcc00f407fff907ca62547fd80f2aa3c
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635250"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93057461"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>写入自定义 ASP.NET Core 中间件
 

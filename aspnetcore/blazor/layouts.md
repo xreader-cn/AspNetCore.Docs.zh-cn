@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/23/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,22 +19,22 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: f41b41194f597505d775c95f1e65960c2f827e3b
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: e61c76b5d53ad7646961632d00b047ecd2d9e477
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628009"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93055602"
 ---
 # <a name="aspnet-core-no-locblazor-layouts"></a>ASP.NET Core Blazor 布局
 
 作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Luke Latham](https://github.com/guardrex)
 
-有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。 将这些元素的代码复制到应用的所有组件并不是一种有效的方法。 每当一个元素需要更新时，每个组件都必须更新。 此类复制难以维护，并会随时间推移导致内容不一致。 *布局*可解决此问题。
+有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。 将这些元素的代码复制到应用的所有组件并不是一种有效的方法。 每当一个元素需要更新时，每个组件都必须更新。 此类复制难以维护，并会随时间推移导致内容不一致。 *布局* 可解决此问题。
 
 从技术上讲，布局也是一个组件。 布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/components/data-binding)、[依赖项注入](xref:blazor/fundamentals/dependency-injection)和其他组件方案。
 
-若要将*组件*转换为*布局*，该组件应：
+若要将 *组件* 转换为 *布局* ，该组件应：
 
 * 继承自 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase>，后者为布局内的呈现内容定义 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase.Body> 属性。
 * 使用 Razor 语法 `@Body` 在布局标记中指定呈现内容的位置。

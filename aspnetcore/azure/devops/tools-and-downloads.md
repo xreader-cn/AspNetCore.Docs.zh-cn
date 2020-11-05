@@ -6,6 +6,7 @@ ms.author: casoper
 ms.custom: devx-track-csharp, mvc, seodec18
 ms.date: 10/24/2018
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/tools-and-downloads
-ms.openlocfilehash: 3242031f07f3fa344422db4591ea1a244b6723dd
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 8c7f10a6b6f8504efaba6054533aba034982820c
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625240"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93056564"
 ---
 # <a name="tools-and-downloads"></a>工具和下载
 
@@ -39,7 +40,7 @@ Azure 拥有多个用于预配和管理资源的界面，例如 [Azure 门户](h
 需要以下工具：
 
 * [Git](https://git-scm.com/downloads) &mdash; 本指南建议对 Git 有基本的了解。 查看 [Git 文档](https://git-scm.com/doc)，特别是 [git remote](https://git-scm.com/docs/git-remote) 和 [git push](https://git-scm.com/docs/git-push)。
-* [.NET Core SDK](https://dotnet.microsoft.com/download/) &mdash; 必须使用版本 2.1.300 或更高版本才能生成和运行示例应用。 如果随 **.NET Core 跨平台开发**工作负荷安装了 Visual Studio，则 .NET Core SDK 已安装。
+* [.NET Core SDK](https://dotnet.microsoft.com/download/) &mdash; 必须使用版本 2.1.300 或更高版本才能生成和运行示例应用。 如果随 **.NET Core 跨平台开发** 工作负荷安装了 Visual Studio，则 .NET Core SDK 已安装。
 
     验证 .NET Core SDK 安装。 打开命令行界面，然后运行以下命令：
 

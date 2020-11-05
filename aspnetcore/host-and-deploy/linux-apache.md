@@ -7,6 +7,7 @@ ms.author: shboyer
 ms.custom: mvc
 ms.date: 04/10/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: ac23f3f53bd7e200b843c10cd246ff16d4a12811
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 0bae3f888a1b7a3c2860b85754779189c636d86f
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634652"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93057695"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -217,7 +218,7 @@ WantedBy=multi-user.target
 
 在前面的示例中，管理服务的用户由 `User` 选项指定。 用户 (`apache`) 必须存在并且拥有正确应用文件的所有权。
 
-使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。 如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。 提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。 `TimeoutStopSec` 默认为管理器配置文件（*systemd-system.conf*、*system.conf.d*、*systemd-user.conf*、*user.conf.d*）中 `DefaultTimeoutStopSec` 的值。 大多数分发版的默认超时时间为 90 秒。
+使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。 如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。 提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。 `TimeoutStopSec` 默认为管理器配置文件（ *systemd-system.conf* 、 *system.conf.d* 、 *systemd-user.conf* 、 *user.conf.d* ）中 `DefaultTimeoutStopSec` 的值。 大多数分发版的默认超时时间为 90 秒。
 
 ```
 # The default value is 90 seconds for most distributions.
@@ -309,7 +310,7 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ### <a name="configure-firewall"></a>配置防火墙
 
-*Firewalld* 是管理防火墙的动态守护程序，支持网络区域。 仍可以使用 iptable 管理端口和数据包筛选。 默认情况下应安装 *Firewalld*。 `yum` 可用于安装包或验证是否已安装。
+*Firewalld* 是管理防火墙的动态守护程序，支持网络区域。 仍可以使用 iptable 管理端口和数据包筛选。 默认情况下应安装 *Firewalld* 。 `yum` 可用于安装包或验证是否已安装。
 
 ```bash
 sudo yum install firewalld -y
@@ -424,7 +425,7 @@ sudo yum install mod_headers
 
 #### <a name="secure-apache-from-clickjacking-attacks"></a>保护 Apache 免受点击劫持攻击
 
-[点击劫持](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)（也称为 *UI 伪装攻击*）是一种恶意攻击，其中网站访问者会上当受骗，从而导致在与当前要访问的页面不同的页面上单击链接或按钮。 使用 `X-FRAME-OPTIONS` 可保护网站。
+[点击劫持](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)（也称为 *UI 伪装攻击* ）是一种恶意攻击，其中网站访问者会上当受骗，从而导致在与当前要访问的页面不同的页面上单击链接或按钮。 使用 `X-FRAME-OPTIONS` 可保护网站。
 
 缓解点击劫持攻击：
 
@@ -440,7 +441,7 @@ sudo yum install mod_headers
 
 #### <a name="mime-type-sniffing"></a>MIME 类型探查
 
-`X-Content-Type-Options` 标头阻止 Internet Explorer 进行 *MIME 探查*（从文件内容中确定文件的 `Content-Type`）。 如果服务器通过设置 `nosniff` 选项将 `Content-Type` 标头设置为 `text/html`，则不管文件内容为何，Internet Explorer 都会将内容呈现为 `text/html`。
+`X-Content-Type-Options` 标头阻止 Internet Explorer 进行 *MIME 探查* （从文件内容中确定文件的 `Content-Type`）。 如果服务器通过设置 `nosniff` 选项将 `Content-Type` 标头设置为 `text/html`，则不管文件内容为何，Internet Explorer 都会将内容呈现为 `text/html`。
 
 编辑 *httpd.conf* 文件：
 

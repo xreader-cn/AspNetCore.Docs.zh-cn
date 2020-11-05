@@ -6,6 +6,7 @@ ms.author: casoper
 ms.custom: devx-track-csharp, mvc, seodec18, devx-track-azurecli
 ms.date: 10/24/2018
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: e6d8b4bcbbbe909fde971a8c706287654fcc98ba
-ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
+ms.openlocfilehash: 52c4905ecb3a76f1dd10629f834b2b541b698774
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/22/2020
-ms.locfileid: "90847619"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93052352"
 ---
 # <a name="deploy-an-app-to-app-service"></a>将应用部署到应用服务
 
@@ -152,7 +153,7 @@ ms.locfileid: "90847619"
 
 ## <a name="deployment-with-visual-studio"></a>使用 Visual Studio 进行部署
 
-> *注意：本部分仅适用于 Windows。Linux 和 macOS 用户应进行下面步骤 2 中所述的更改。保存文件，然后使用 `git commit` 将更改提交到本地存储库。最后如第一部分所述，使用 `git push` 推送更改*。
+> *注意：本部分仅适用于 Windows。Linux 和 macOS 用户应进行下面步骤 2 中所述的更改。保存文件，然后使用 `git commit` 将更改提交到本地存储库。最后如第一部分所述，使用 `git push` 推送更改* 。
 
 已从命令行界面部署了应用。 接下来使用 Visual Studio 的集成工具将更新部署到应用。 在后台，Visual Studio 会实现与命令行工具相同的操作，但是在 Visual Studio 的常见 UI 中完成的。
 

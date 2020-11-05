@@ -7,6 +7,7 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/06/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: spa/angular
-ms.openlocfilehash: c4afddca1d0c2428371c90013f5dbd5c1afb5108
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 2fff0d60b71bbbab9347dbe74cad023264247388
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628776"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93054562"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 Angular 项目模板
 
@@ -65,7 +66,7 @@ Now listening on: http://localhost:<port>
 在浏览器中导航到此 URL。
 
 > [!WARNING]
-> 该应用在后台启动 Angular CLI 服务器的一个实例。 记录类似于以下内容的消息：*NG Live 开发服务器正在 localhost:&lt;otherport&gt; 上进行侦听，在 http://localhost:&lt;otherport&gt;/* 上打开浏览器。 忽略此消息&mdash;这**不是**组合 ASP.NET Core 和 Angular CLI 应用的 URL。
+> 该应用在后台启动 Angular CLI 服务器的一个实例。 记录类似于以下内容的消息： *NG Live 开发服务器正在 localhost:&lt;otherport&gt; 上进行侦听，在 http://localhost:&lt;otherport&gt;/* 上打开浏览器。 忽略此消息&mdash;这 **不是** 组合 ASP.NET Core 和 Angular CLI 应用的 URL。
 
 ---
 

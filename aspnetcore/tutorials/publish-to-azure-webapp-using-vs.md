@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: devx-track-csharp, mvc
 ms.date: 07/10/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: ebfe89d68725d597d6975015bbf84414ff818829
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 817169503a80a771354e32123d65ba2bf388aa2d
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722905"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060217"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure
 
@@ -82,7 +83,7 @@ Visual Studio 随即创建解决方案。
 
 * 选择“注册”并注册新用户。 可使用虚构电子邮件地址。 提交时，页面上会显示以下错误：
 
-    “处理请求时，数据库操作失败。*可通过向应用程序数据库上下文应用现有迁移解决此问题。”*
+    “处理请求时，数据库操作失败。 *可通过向应用程序数据库上下文应用现有迁移解决此问题。”*
 * 选择“应用迁移”，并在页面更新后刷新页面。
 
 ![处理请求时，数据库操作失败。 可能可通过向应用程序数据库上下文应用现有迁移解决此问题。](publish-to-azure-webapp-using-vs/_static/mig.png)

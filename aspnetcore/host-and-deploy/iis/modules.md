@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: 6936071339786262fa8eeb669a59225a695d7488
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 47ba04f199f9b77cf6032de9f80f2410f5c69424
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722801"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93057396"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>IIS 模块与 ASP.NET Core
 
@@ -59,7 +60,7 @@ ms.locfileid: "90722801"
 | **协议支持**<br>`ProtocolSupportModule`                                                  | 是 | |
 | **请求筛选**<br>`RequestFilteringModule`                                                | 是 | [URL 重写中间件`IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
 | **请求监视器**<br>`RequestMonitorModule`                                                    | 是 | |
-| **URL 重写**&#8224；<br>`RewriteModule`                                                      | 是 | [URL 重写中间件](xref:fundamentals/url-rewriting) |
+| **URL 重写** &#8224；<br>`RewriteModule`                                                      | 是 | [URL 重写中间件](xref:fundamentals/url-rewriting) |
 | **服务器端包括**<br>`ServerSideIncludeModule`                                            | 否  | |
 | **静态压缩**<br>`StaticCompressionModule`                                              | 否  | [响应压缩中间件](xref:performance/response-compression) |
 | **静态内容**<br>`StaticFileModule`                                                         | 否  | [静态文件中间件](xref:fundamentals/static-files) |

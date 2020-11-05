@@ -5,6 +5,7 @@ description: Razor 页面教程系列的第 3 部分。
 ms.author: riande
 ms.date: 08/17/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 03febbd71df19cd3524d26e229a8bd8798a874b5
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 7d0085e1d444de30ca124ef544668122ab350c93
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865115"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060048"
 ---
 # <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>第 3 部分，ASP.NET Core 中已搭建基架的 Razor 页面
 

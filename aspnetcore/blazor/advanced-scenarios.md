@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/18/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: 295e5dd025afc486be08ecadbf661bf765c2745f
-ms.sourcegitcommit: ecae2aa432628b9181d1fa11037c231c7dd56c9e
+ms.openlocfilehash: 95714b3c0d21d3b348a9a8a984e2a42e7708499e
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2020
-ms.locfileid: "92113603"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93056551"
 ---
 # <a name="aspnet-core-no-locblazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
 
@@ -134,13 +135,13 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!WARNING]
-> <xref:Microsoft.AspNetCore.Components.RenderTree> 中的类型允许处理呈现操作的*结果*。 这些是 Blazor 框架实现的内部细节。 这些类型应视为*不稳定*，并且在未来版本中可能会有更改。
+> <xref:Microsoft.AspNetCore.Components.RenderTree> 中的类型允许处理呈现操作的 *结果* 。 这些是 Blazor 框架实现的内部细节。 这些类型应视为 *不稳定* ，并且在未来版本中可能会有更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不与执行顺序相关
 
 Razor 组件文件 (`.razor`) 始终被编译。 与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。
 
-这些改进的关键示例涉及*序列号*。 序列号向运行时指示哪些输出来自哪些不同的已排序代码行。 运行时使用此信息在线性时间内生成高效的树上差分，这比常规树上差分算法通常可以做到的速度快得多。
+这些改进的关键示例涉及 *序列号* 。 序列号向运行时指示哪些输出来自哪些不同的已排序代码行。 运行时使用此信息在线性时间内生成高效的树上差分，这比常规树上差分算法通常可以做到的速度快得多。
 
 请考虑使用以下 Razor 组件（`.razor` 文件）：
 
@@ -177,7 +178,7 @@ builder.AddContent(1, "Second");
 | :------: | ---------- | :----: |
 | 1        | Text 节点  | 秒 |
 
-当运行时执行差分时，它会看到序列 `0` 处的项目已被删除，因此，它会生成以下普通*编辑脚本*：
+当运行时执行差分时，它会看到序列 `0` 处的项目已被删除，因此，它会生成以下普通 *编辑脚本* ：
 
 * 删除第一个文本节点。
 
@@ -209,12 +210,12 @@ builder.AddContent(seq++, "Second");
 | :------: | --------- | ------ |
 | 0        | Text 节点 | 秒 |
 
-此时，差分算法发现发生了*两个*变化，且算法生成以下编辑脚本：
+此时，差分算法发现发生了 *两个* 变化，且算法生成以下编辑脚本：
 
 * 将第一个文本节点的值更改为 `Second`。
 * 删除第二个文本节点。
 
-生成序列号会丢失有关原始代码中 `if/else` 分支和循环的位置的所有有用信息。 这会导致**两倍于**之前长度的差异。
+生成序列号会丢失有关原始代码中 `if/else` 分支和循环的位置的所有有用信息。 这会导致 **两倍于** 之前长度的差异。
 
 这是一个普通示例。 在具有深度嵌套的复杂结构（尤其是带有循环）的更真实的情况下，性能成本通常会更高。 差分算法必须深入递归到呈现树中，而不是立即确定已插入或删除的循环块或分支。 这通常导致必须生成更长的编辑脚本，因为差分算法获知了关于新旧结构之间关系的错误信息。
 

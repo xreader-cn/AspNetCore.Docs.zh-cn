@@ -5,6 +5,7 @@ description: 本教程演示如何在 ASP.NET Core 应用中安装和使用 .NET
 ms.author: riande
 ms.date: 05/31/2018
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 3569e9440b8e431ec0e5357e548af2e3783481ac
-ms.sourcegitcommit: 422e02bad384775bfe19a90910737340ad106c5b
+ms.openlocfilehash: 27420fe00ba6375e15b67fb359be06df055eff1f
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90083448"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060035"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>使用文件观察程序开发 ASP.NET Core 应用
 
