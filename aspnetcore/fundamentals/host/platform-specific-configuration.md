@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: fadd93cf28603653e20ed6c7dceadcabf0dfb9a5
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: c12487875db69472ee328dfc7a611ee99974c770
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627515"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93061049"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
 
@@ -262,7 +263,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 dotnet store --manifest {MANIFEST FILE} --runtime {RUNTIME IDENTIFIER} --output {OUTPUT LOCATION} --skip-optimization
 ```
 
-在示例应用（*RuntimeStore* 项目）中，使用以下命令：
+在示例应用（ *RuntimeStore* 项目）中，使用以下命令：
 
 ```dotnetcli
 dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./deployment/store --skip-optimization
@@ -339,7 +340,7 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 * `{SHARED FRAMEWORK VERSION}`：最低共享框架版本。
 * `{ENHANCEMENT ASSEMBLY NAME}`：增强程序集名称。
 
-在示例应用（*RuntimeStore*  项目）中，附加依赖项文件放于以下位置：
+在示例应用（ *RuntimeStore*  项目）中，附加依赖项文件放于以下位置：
 
 ```
 deployment/additionalDeps/shared/Microsoft.AspNetCore.App/3.0.0/StartupDiagnostics.deps.json
@@ -347,7 +348,7 @@ deployment/additionalDeps/shared/Microsoft.AspNetCore.App/3.0.0/StartupDiagnosti
 
 对于发现运行时存储位置的运行时，附加依赖项文件位置将添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量中。
 
-在示例应用（*RuntimeStore* 项目）中，使用 [PowerShell](/powershell/scripting/powershell-scripting) 脚本完成构建运行时存储并生成附加依赖项文件。
+在示例应用（ *RuntimeStore* 项目）中，使用 [PowerShell](/powershell/scripting/powershell-scripting) 脚本完成构建运行时存储并生成附加依赖项文件。
 
 有关如何设置各种操作系统的环境变量的示例，请参阅[使用多个环境](xref:fundamentals/environments)。
 
@@ -648,7 +649,7 @@ HostingStartupLibrary;HostingStartupPackage;StartupDiagnostics
 dotnet store --manifest {MANIFEST FILE} --runtime {RUNTIME IDENTIFIER} --output {OUTPUT LOCATION} --skip-optimization
 ```
 
-在示例应用（*RuntimeStore* 项目）中，使用以下命令：
+在示例应用（ *RuntimeStore* 项目）中，使用以下命令：
 
 ```dotnetcli
 dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./deployment/store --skip-optimization
@@ -725,7 +726,7 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 * `{SHARED FRAMEWORK VERSION}`：最低共享框架版本。
 * `{ENHANCEMENT ASSEMBLY NAME}`：增强程序集名称。
 
-在示例应用（*RuntimeStore*  项目）中，附加依赖项文件放于以下位置：
+在示例应用（ *RuntimeStore*  项目）中，附加依赖项文件放于以下位置：
 
 ```
 deployment/additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnostics.deps.json
@@ -733,7 +734,7 @@ deployment/additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnosti
 
 对于发现运行时存储位置的运行时，附加依赖项文件位置将添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量中。
 
-在示例应用（*RuntimeStore* 项目）中，使用 [PowerShell](/powershell/scripting/powershell-scripting) 脚本完成构建运行时存储并生成附加依赖项文件。
+在示例应用（ *RuntimeStore* 项目）中，使用 [PowerShell](/powershell/scripting/powershell-scripting) 脚本完成构建运行时存储并生成附加依赖项文件。
 
 有关如何设置各种操作系统的环境变量的示例，请参阅[使用多个环境](xref:fundamentals/environments)。
 
