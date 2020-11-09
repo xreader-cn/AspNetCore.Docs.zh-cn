@@ -6,17 +6,17 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: performance/caching/response
 ms.openlocfilehash: 2864de5b9931ed255569cb087c67c71004c4df92
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -84,13 +84,13 @@ ms.locfileid: "93059008"
 
 ### <a name="cache-tag-helper"></a><span data-ttu-id="1faf6-169">缓存标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="1faf6-169">Cache Tag Helper</span></span>
 
-<span data-ttu-id="1faf6-170">使用缓存标记帮助程序从 MVC 视图或页面缓存内容 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="1faf6-170">Cache the content from an MVC view or :::no-loc(Razor)::: Page with the Cache Tag Helper.</span></span> <span data-ttu-id="1faf6-171">缓存标记帮助程序使用内存中缓存来存储数据。</span><span class="sxs-lookup"><span data-stu-id="1faf6-171">The Cache Tag Helper uses in-memory caching to store data.</span></span>
+<span data-ttu-id="1faf6-170">使用缓存标记帮助程序从 MVC 视图或页面缓存内容 Razor 。</span><span class="sxs-lookup"><span data-stu-id="1faf6-170">Cache the content from an MVC view or Razor Page with the Cache Tag Helper.</span></span> <span data-ttu-id="1faf6-171">缓存标记帮助程序使用内存中缓存来存储数据。</span><span class="sxs-lookup"><span data-stu-id="1faf6-171">The Cache Tag Helper uses in-memory caching to store data.</span></span>
 
 <span data-ttu-id="1faf6-172">有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>。</span><span class="sxs-lookup"><span data-stu-id="1faf6-172">For more information, see <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>.</span></span>
 
 ### <a name="distributed-cache-tag-helper"></a><span data-ttu-id="1faf6-173">分布式缓存标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="1faf6-173">Distributed Cache Tag Helper</span></span>
 
-<span data-ttu-id="1faf6-174">:::no-loc(Razor):::使用分布式缓存标记帮助程序在分布式云和 web 场方案中，通过 MVC 视图或页面缓存内容。</span><span class="sxs-lookup"><span data-stu-id="1faf6-174">Cache the content from an MVC view or :::no-loc(Razor)::: Page in distributed cloud or web farm scenarios with the Distributed Cache Tag Helper.</span></span> <span data-ttu-id="1faf6-175">分布式缓存标记帮助程序使用 SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)或 [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) 来存储数据。</span><span class="sxs-lookup"><span data-stu-id="1faf6-175">The Distributed Cache Tag Helper uses SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis), or [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) to store data.</span></span>
+<span data-ttu-id="1faf6-174">Razor使用分布式缓存标记帮助程序在分布式云和 web 场方案中，通过 MVC 视图或页面缓存内容。</span><span class="sxs-lookup"><span data-stu-id="1faf6-174">Cache the content from an MVC view or Razor Page in distributed cloud or web farm scenarios with the Distributed Cache Tag Helper.</span></span> <span data-ttu-id="1faf6-175">分布式缓存标记帮助程序使用 SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)或 [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) 来存储数据。</span><span class="sxs-lookup"><span data-stu-id="1faf6-175">The Distributed Cache Tag Helper uses SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis), or [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) to store data.</span></span>
 
 <span data-ttu-id="1faf6-176">有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>。</span><span class="sxs-lookup"><span data-stu-id="1faf6-176">For more information, see <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>.</span></span>
 
@@ -176,7 +176,7 @@ Cache-Control: public,max-age=10
 
 ### <a name="cache-profiles"></a><span data-ttu-id="1faf6-232">缓存配置文件</span><span class="sxs-lookup"><span data-stu-id="1faf6-232">Cache profiles</span></span>
 
-<span data-ttu-id="1faf6-233">在中设置 MVC/Pages 时，可以将缓存配置文件配置为选项，而不是在许多控制器操作属性上复制响应缓存设置 :::no-loc(Razor)::: `Startup.ConfigureServices` 。</span><span class="sxs-lookup"><span data-stu-id="1faf6-233">Instead of duplicating response cache settings on many controller action attributes, cache profiles can be configured as options when setting up MVC/:::no-loc(Razor)::: Pages in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="1faf6-234">在引用的缓存配置文件中找到的值将用作默认值 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> ，并由特性上指定的任何属性重写。</span><span class="sxs-lookup"><span data-stu-id="1faf6-234">Values found in a referenced cache profile are used as the defaults by the <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> and are overridden by any properties specified on the attribute.</span></span>
+<span data-ttu-id="1faf6-233">在中设置 MVC/Pages 时，可以将缓存配置文件配置为选项，而不是在许多控制器操作属性上复制响应缓存设置 Razor `Startup.ConfigureServices` 。</span><span class="sxs-lookup"><span data-stu-id="1faf6-233">Instead of duplicating response cache settings on many controller action attributes, cache profiles can be configured as options when setting up MVC/Razor Pages in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="1faf6-234">在引用的缓存配置文件中找到的值将用作默认值 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> ，并由特性上指定的任何属性重写。</span><span class="sxs-lookup"><span data-stu-id="1faf6-234">Values found in a referenced cache profile are used as the defaults by the <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> and are overridden by any properties specified on the attribute.</span></span>
 
 <span data-ttu-id="1faf6-235">设置缓存配置文件。</span><span class="sxs-lookup"><span data-stu-id="1faf6-235">Set up a cache profile.</span></span> <span data-ttu-id="1faf6-236">下面的示例显示了示例应用中的30秒缓存配置文件 `Startup.ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="1faf6-236">The following example shows a 30 second cache profile in the sample app's `Startup.ConfigureServices`:</span></span>
 
@@ -198,7 +198,7 @@ Cache-Control: public,max-age=10
 
 <span data-ttu-id="1faf6-238"><xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>可应用于：</span><span class="sxs-lookup"><span data-stu-id="1faf6-238">The <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> can be applied to:</span></span>
 
-* <span data-ttu-id="1faf6-239">:::no-loc(Razor)::: Pages：特性不能应用于处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="1faf6-239">:::no-loc(Razor)::: Pages: Attributes can't be applied to handler methods.</span></span>
+* <span data-ttu-id="1faf6-239">Razor Pages：特性不能应用于处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="1faf6-239">Razor Pages: Attributes can't be applied to handler methods.</span></span>
 * <span data-ttu-id="1faf6-240">MVC 控制器。</span><span class="sxs-lookup"><span data-stu-id="1faf6-240">MVC controllers.</span></span>
 * <span data-ttu-id="1faf6-241">MVC 操作方法：方法级特性替代类级特性中指定的设置。</span><span class="sxs-lookup"><span data-stu-id="1faf6-241">MVC action methods: Method-level attributes override the settings specified in class-level attributes.</span></span>
 

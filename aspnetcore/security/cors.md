@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/17/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/cors
 ms.openlocfilehash: 03008f40fc1c4b323535d08a1bb4c4007bc145f7
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -131,7 +131,7 @@ ms.locfileid: "93060815"
 
 * <span data-ttu-id="78033-166">`app.UseCors` 启用 CORS 中间件。</span><span class="sxs-lookup"><span data-stu-id="78033-166">`app.UseCors` enables the CORS middleware.</span></span> <span data-ttu-id="78033-167">由于尚未配置默认策略，因此 `app.UseCors()` 单独不启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="78033-167">Because a default policy hasn't been configured, `app.UseCors()` alone doesn't enable CORS.</span></span>
 * <span data-ttu-id="78033-168">`/echo`和控制器端点允许使用指定策略的跨域请求。</span><span class="sxs-lookup"><span data-stu-id="78033-168">The `/echo` and controller endpoints allow cross-origin requests using the specified policy.</span></span>
-* <span data-ttu-id="78033-169">`/echo2`和 :::no-loc(Razor)::: Pages 终结点 **不** 允许跨源请求，因为未指定默认策略。</span><span class="sxs-lookup"><span data-stu-id="78033-169">The `/echo2` and :::no-loc(Razor)::: Pages endpoints do **not** allow cross-origin requests because no default policy was specified.</span></span>
+* <span data-ttu-id="78033-169">`/echo2`和 Razor Pages 终结点 **不** 允许跨源请求，因为未指定默认策略。</span><span class="sxs-lookup"><span data-stu-id="78033-169">The `/echo2` and Razor Pages endpoints do **not** allow cross-origin requests because no default policy was specified.</span></span>
 
 <span data-ttu-id="78033-170">[[DisableCors]](#dc)特性 **不** 会禁用通过终结点路由启用的 CORS `RequireCors` 。</span><span class="sxs-lookup"><span data-stu-id="78033-170">The [[DisableCors]](#dc) attribute does **not**  disable CORS that has been enabled by endpoint routing with `RequireCors`.</span></span>
 
@@ -150,7 +150,7 @@ ms.locfileid: "93060815"
 
 <span data-ttu-id="78033-178">`[EnableCors]`特性可应用于：</span><span class="sxs-lookup"><span data-stu-id="78033-178">The `[EnableCors]` attribute can be applied to:</span></span>
 
-* <span data-ttu-id="78033-179">:::no-loc(Razor)::: 分页 `PageModel`</span><span class="sxs-lookup"><span data-stu-id="78033-179">:::no-loc(Razor)::: Page `PageModel`</span></span>
+* <span data-ttu-id="78033-179">Razor 分页 `PageModel`</span><span class="sxs-lookup"><span data-stu-id="78033-179">Razor Page `PageModel`</span></span>
 * <span data-ttu-id="78033-180">控制器</span><span class="sxs-lookup"><span data-stu-id="78033-180">Controller</span></span>
 * <span data-ttu-id="78033-181">控制器操作方法</span><span class="sxs-lookup"><span data-stu-id="78033-181">Controller action method</span></span>
 
@@ -276,7 +276,7 @@ Access-Control-Request-Headers: Cache-Control, Content-Language
 [!code-csharp[](cors/3.1sample/Cors/WebAPI/StartupAllowSubdomain.cs?name=snippet5)]
 ### <a name="credentials-in-cross-origin-requests"></a><span data-ttu-id="78033-242">跨域请求中的凭据</span><span class="sxs-lookup"><span data-stu-id="78033-242">Credentials in cross-origin requests</span></span>
 
-<span data-ttu-id="78033-243">凭据需要在 CORS 请求中进行特殊处理。</span><span class="sxs-lookup"><span data-stu-id="78033-243">Credentials require special handling in a CORS request.</span></span> <span data-ttu-id="78033-244">默认情况下，浏览器不会使用跨域请求发送凭据。</span><span class="sxs-lookup"><span data-stu-id="78033-244">By default, the browser doesn't send credentials with a cross-origin request.</span></span> <span data-ttu-id="78033-245">凭据包括 :::no-loc(cookie)::: s 和 HTTP 身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="78033-245">Credentials include :::no-loc(cookie):::s and HTTP authentication schemes.</span></span> <span data-ttu-id="78033-246">若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。</span><span class="sxs-lookup"><span data-stu-id="78033-246">To send credentials with a cross-origin request, the client must set `XMLHttpRequest.withCredentials` to `true`.</span></span>
+<span data-ttu-id="78033-243">凭据需要在 CORS 请求中进行特殊处理。</span><span class="sxs-lookup"><span data-stu-id="78033-243">Credentials require special handling in a CORS request.</span></span> <span data-ttu-id="78033-244">默认情况下，浏览器不会使用跨域请求发送凭据。</span><span class="sxs-lookup"><span data-stu-id="78033-244">By default, the browser doesn't send credentials with a cross-origin request.</span></span> <span data-ttu-id="78033-245">凭据包括 cookie s 和 HTTP 身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="78033-245">Credentials include cookies and HTTP authentication schemes.</span></span> <span data-ttu-id="78033-246">若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。</span><span class="sxs-lookup"><span data-stu-id="78033-246">To send credentials with a cross-origin request, the client must set `XMLHttpRequest.withCredentials` to `true`.</span></span>
 
 <span data-ttu-id="78033-247">`XMLHttpRequest`直接使用：</span><span class="sxs-lookup"><span data-stu-id="78033-247">Using `XMLHttpRequest` directly:</span></span>
 
@@ -346,7 +346,7 @@ Response Headers:
 Access-Control-Allow-Methods: PUT,DELETE,GET
 Access-Control-Allow-Origin: https://cors1.azurewebsites.net
 Server: Microsoft-IIS/10.0
-Set-:::no-loc(Cookie):::: ARRAffinity=8f8...8;Path=/;HttpOnly;Domain=cors1.azurewebsites.net
+Set-Cookie: ARRAffinity=8f8...8;Path=/;HttpOnly;Domain=cors1.azurewebsites.net
 Vary: Origin
 
 Request Headers:
@@ -462,7 +462,7 @@ Status Code: 200 OK
 Content-Encoding: gzip
 Content-Type: text/plain; charset=utf-8
 Server: Microsoft-IIS/10.0
-Set-:::no-loc(Cookie):::: ARRAffinity=8f...;Path=/;HttpOnly;Domain=cors1.azurewebsites.net
+Set-Cookie: ARRAffinity=8f...;Path=/;HttpOnly;Domain=cors1.azurewebsites.net
 Transfer-Encoding: chunked
 Vary: Accept-Encoding
 X-Powered-By: ASP.NET
@@ -501,7 +501,7 @@ Access-Control-Allow-Headers: Content-Type,x-custom-header
 Access-Control-Allow-Methods: PUT,DELETE,GET,OPTIONS
 Access-Control-Allow-Origin: https://cors1.azurewebsites.net
 Server: Microsoft-IIS/10.0
-Set-:::no-loc(Cookie):::: ARRAffinity=8f...;Path=/;HttpOnly;Domain=cors3.azurewebsites.net
+Set-Cookie: ARRAffinity=8f...;Path=/;HttpOnly;Domain=cors3.azurewebsites.net
 Vary: Origin
 X-Powered-By: ASP.NET
 ```
@@ -550,7 +550,7 @@ User-Agent: Mozilla/5.0
 
 ## <a name="test-cors"></a><span data-ttu-id="78033-356">测试 CORS</span><span class="sxs-lookup"><span data-stu-id="78033-356">Test CORS</span></span>
 
-<span data-ttu-id="78033-357">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/3.1sample/Cors/WebAPI)包含测试 CORS 的代码。</span><span class="sxs-lookup"><span data-stu-id="78033-357">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/3.1sample/Cors/WebAPI) has code to test CORS.</span></span> <span data-ttu-id="78033-358">请参阅[如何下载](xref:index#how-to-download-a-sample)。</span><span class="sxs-lookup"><span data-stu-id="78033-358">See [how to download](xref:index#how-to-download-a-sample).</span></span> <span data-ttu-id="78033-359">该示例是一个 API 项目，其中 :::no-loc(Razor)::: 添加了页面：</span><span class="sxs-lookup"><span data-stu-id="78033-359">The sample is an API project with :::no-loc(Razor)::: Pages added:</span></span>
+<span data-ttu-id="78033-357">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/3.1sample/Cors/WebAPI)包含测试 CORS 的代码。</span><span class="sxs-lookup"><span data-stu-id="78033-357">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/3.1sample/Cors/WebAPI) has code to test CORS.</span></span> <span data-ttu-id="78033-358">请参阅[如何下载](xref:index#how-to-download-a-sample)。</span><span class="sxs-lookup"><span data-stu-id="78033-358">See [how to download](xref:index#how-to-download-a-sample).</span></span> <span data-ttu-id="78033-359">该示例是一个 API 项目，其中 Razor 添加了页面：</span><span class="sxs-lookup"><span data-stu-id="78033-359">The sample is an API project with Razor Pages added:</span></span>
 
 [!code-csharp[](cors/3.1sample/Cors/WebAPI/StartupTest2.cs?name=snippet2)]
 
@@ -708,7 +708,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 <span data-ttu-id="78033-440">注意： `UseCors` 必须先调用 `UseMvc` 。</span><span class="sxs-lookup"><span data-stu-id="78033-440">Note: `UseCors` must be called before `UseMvc`.</span></span>
 
-<span data-ttu-id="78033-441">请参阅 [在页面 :::no-loc(Razor)::: 、控制器和操作方法中启用 cors，](#ecors) 以在页面/控制器/操作级别应用 cors 策略。</span><span class="sxs-lookup"><span data-stu-id="78033-441">See [Enable CORS in :::no-loc(Razor)::: Pages, controllers, and action methods](#ecors) to apply CORS policy at the page/controller/action level.</span></span>
+<span data-ttu-id="78033-441">请参阅 [在页面 Razor 、控制器和操作方法中启用 cors，](#ecors) 以在页面/控制器/操作级别应用 cors 策略。</span><span class="sxs-lookup"><span data-stu-id="78033-441">See [Enable CORS in Razor Pages, controllers, and action methods](#ecors) to apply CORS policy at the page/controller/action level.</span></span>
 
 <span data-ttu-id="78033-442">有关测试代码的说明，请参阅 [测试 CORS](#test) ，如以上代码所示。</span><span class="sxs-lookup"><span data-stu-id="78033-442">See [Test CORS](#test) for instructions on testing code similar to the preceding code.</span></span>
 
@@ -720,7 +720,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 <span data-ttu-id="78033-447">`[EnableCors]`特性可应用于：</span><span class="sxs-lookup"><span data-stu-id="78033-447">The `[EnableCors]` attribute can be applied to:</span></span>
 
-* <span data-ttu-id="78033-448">:::no-loc(Razor)::: 分页 `PageModel`</span><span class="sxs-lookup"><span data-stu-id="78033-448">:::no-loc(Razor)::: Page `PageModel`</span></span>
+* <span data-ttu-id="78033-448">Razor 分页 `PageModel`</span><span class="sxs-lookup"><span data-stu-id="78033-448">Razor Page `PageModel`</span></span>
 * <span data-ttu-id="78033-449">控制器</span><span class="sxs-lookup"><span data-stu-id="78033-449">Controller</span></span>
 * <span data-ttu-id="78033-450">控制器操作方法</span><span class="sxs-lookup"><span data-stu-id="78033-450">Controller action method</span></span>
 
@@ -823,7 +823,7 @@ Access-Control-Request-Headers: Cache-Control, Content-Language
 
 ### <a name="credentials-in-cross-origin-requests"></a><span data-ttu-id="78033-498">跨域请求中的凭据</span><span class="sxs-lookup"><span data-stu-id="78033-498">Credentials in cross-origin requests</span></span>
 
-<span data-ttu-id="78033-499">凭据需要在 CORS 请求中进行特殊处理。</span><span class="sxs-lookup"><span data-stu-id="78033-499">Credentials require special handling in a CORS request.</span></span> <span data-ttu-id="78033-500">默认情况下，浏览器不会使用跨域请求发送凭据。</span><span class="sxs-lookup"><span data-stu-id="78033-500">By default, the browser doesn't send credentials with a cross-origin request.</span></span> <span data-ttu-id="78033-501">凭据包括 :::no-loc(cookie)::: s 和 HTTP 身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="78033-501">Credentials include :::no-loc(cookie):::s and HTTP authentication schemes.</span></span> <span data-ttu-id="78033-502">若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。</span><span class="sxs-lookup"><span data-stu-id="78033-502">To send credentials with a cross-origin request, the client must set `XMLHttpRequest.withCredentials` to `true`.</span></span>
+<span data-ttu-id="78033-499">凭据需要在 CORS 请求中进行特殊处理。</span><span class="sxs-lookup"><span data-stu-id="78033-499">Credentials require special handling in a CORS request.</span></span> <span data-ttu-id="78033-500">默认情况下，浏览器不会使用跨域请求发送凭据。</span><span class="sxs-lookup"><span data-stu-id="78033-500">By default, the browser doesn't send credentials with a cross-origin request.</span></span> <span data-ttu-id="78033-501">凭据包括 cookie s 和 HTTP 身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="78033-501">Credentials include cookies and HTTP authentication schemes.</span></span> <span data-ttu-id="78033-502">若要使用跨域请求发送凭据，客户端必须设置 `XMLHttpRequest.withCredentials` 为 `true` 。</span><span class="sxs-lookup"><span data-stu-id="78033-502">To send credentials with a cross-origin request, the client must set `XMLHttpRequest.withCredentials` to `true`.</span></span>
 
 <span data-ttu-id="78033-503">`XMLHttpRequest`直接使用：</span><span class="sxs-lookup"><span data-stu-id="78033-503">Using `XMLHttpRequest` directly:</span></span>
 
@@ -999,14 +999,14 @@ Test message
   > [!WARNING]
   > <span data-ttu-id="78033-579">`WithOrigins("https://localhost:<port>");` 应仅用于测试示例应用程序，类似于 [下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors)。</span><span class="sxs-lookup"><span data-stu-id="78033-579">`WithOrigins("https://localhost:<port>");` should only be used for testing a sample app similar to the [download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors).</span></span>
 
-1. <span data-ttu-id="78033-580"> (:::no-loc(Razor)::: 页面或 MVC) 创建 web 应用项目。</span><span class="sxs-lookup"><span data-stu-id="78033-580">Create a web app project (:::no-loc(Razor)::: Pages or MVC).</span></span> <span data-ttu-id="78033-581">该示例使用 :::no-loc(Razor)::: 页面。</span><span class="sxs-lookup"><span data-stu-id="78033-581">The sample uses :::no-loc(Razor)::: Pages.</span></span> <span data-ttu-id="78033-582">可以在与 API 项目相同的解决方案中创建 web 应用。</span><span class="sxs-lookup"><span data-stu-id="78033-582">You can create the web app in the same solution as the API project.</span></span>
+1. <span data-ttu-id="78033-580"> (Razor 页面或 MVC) 创建 web 应用项目。</span><span class="sxs-lookup"><span data-stu-id="78033-580">Create a web app project (Razor Pages or MVC).</span></span> <span data-ttu-id="78033-581">该示例使用 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="78033-581">The sample uses Razor Pages.</span></span> <span data-ttu-id="78033-582">可以在与 API 项目相同的解决方案中创建 web 应用。</span><span class="sxs-lookup"><span data-stu-id="78033-582">You can create the web app in the same solution as the API project.</span></span>
 1. <span data-ttu-id="78033-583">将以下突出显示的代码添加到 *索引 cshtml* 文件中：</span><span class="sxs-lookup"><span data-stu-id="78033-583">Add the following highlighted code to the *Index.cshtml* file:</span></span>
 
   [!code-cshtml[](cors/sample/Cors/ClientApp/Pages/Index2.cshtml?highlight=7-99)]
 
 1. <span data-ttu-id="78033-584">在上面的代码中，将替换 `url: 'https://<web app>.azurewebsites.net/api/values/1',` 为已部署应用的 URL。</span><span class="sxs-lookup"><span data-stu-id="78033-584">In the preceding code, replace `url: 'https://<web app>.azurewebsites.net/api/values/1',` with the URL to the deployed app.</span></span>
 1. <span data-ttu-id="78033-585">部署 API 项目。</span><span class="sxs-lookup"><span data-stu-id="78033-585">Deploy the API project.</span></span> <span data-ttu-id="78033-586">例如， [部署到 Azure](xref:host-and-deploy/azure-apps/index)。</span><span class="sxs-lookup"><span data-stu-id="78033-586">For example, [deploy to Azure](xref:host-and-deploy/azure-apps/index).</span></span>
-1. <span data-ttu-id="78033-587">:::no-loc(Razor):::从桌面运行页面或 MVC 应用，并单击 " **测试** " 按钮。</span><span class="sxs-lookup"><span data-stu-id="78033-587">Run the :::no-loc(Razor)::: Pages or MVC app from the desktop and click on the **Test** button.</span></span> <span data-ttu-id="78033-588">使用 F12 工具查看错误消息。</span><span class="sxs-lookup"><span data-stu-id="78033-588">Use the F12 tools to review error messages.</span></span>
+1. <span data-ttu-id="78033-587">Razor从桌面运行页面或 MVC 应用，并单击 " **测试** " 按钮。</span><span class="sxs-lookup"><span data-stu-id="78033-587">Run the Razor Pages or MVC app from the desktop and click on the **Test** button.</span></span> <span data-ttu-id="78033-588">使用 F12 工具查看错误消息。</span><span class="sxs-lookup"><span data-stu-id="78033-588">Use the F12 tools to review error messages.</span></span>
 1. <span data-ttu-id="78033-589">从中删除 localhost 源 `WithOrigins` 并部署应用。</span><span class="sxs-lookup"><span data-stu-id="78033-589">Remove the localhost origin from `WithOrigins` and deploy the app.</span></span> <span data-ttu-id="78033-590">或者，使用其他端口运行客户端应用。</span><span class="sxs-lookup"><span data-stu-id="78033-590">Alternatively, run the client app with a different port.</span></span> <span data-ttu-id="78033-591">例如，在 Visual Studio 中运行。</span><span class="sxs-lookup"><span data-stu-id="78033-591">For example, run from Visual Studio.</span></span>
 1. <span data-ttu-id="78033-592">与客户端应用程序进行测试。</span><span class="sxs-lookup"><span data-stu-id="78033-592">Test with the client app.</span></span> <span data-ttu-id="78033-593">CORS 故障返回一个错误，但错误消息不能用于 JavaScript。</span><span class="sxs-lookup"><span data-stu-id="78033-593">CORS failures return an error, but the error message isn't available to JavaScript.</span></span> <span data-ttu-id="78033-594">使用 F12 工具中的 "控制台" 选项卡查看错误。</span><span class="sxs-lookup"><span data-stu-id="78033-594">Use the console tab in the F12 tools to see the error.</span></span> <span data-ttu-id="78033-595">根据浏览器，你会在 "F12 工具" 控制台 (出现错误，如下所示) ：</span><span class="sxs-lookup"><span data-stu-id="78033-595">Depending on the browser, you get an error (in the F12 tools console) similar to the following:</span></span>
 

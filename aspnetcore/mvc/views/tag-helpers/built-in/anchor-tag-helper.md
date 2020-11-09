@@ -6,17 +6,17 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/13/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
 ms.openlocfilehash: d39db59b0fc273fe4193a4864f302ecd3f4ad348
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -151,7 +151,7 @@ ms.locfileid: "93060906"
 
 <span data-ttu-id="08c6f-147">[asp-all-route-data](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.RouteValues*) 属性支持创建键值对字典。</span><span class="sxs-lookup"><span data-stu-id="08c6f-147">The [asp-all-route-data](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.RouteValues*) attribute supports the creation of a dictionary of key-value pairs.</span></span> <span data-ttu-id="08c6f-148">键是参数名称，值是参数值。</span><span class="sxs-lookup"><span data-stu-id="08c6f-148">The key is the parameter name, and the value is the parameter value.</span></span>
 
-<span data-ttu-id="08c6f-149">在下面的示例中，将对字典进行初始化并将其传递给 :::no-loc(Razor)::: 视图。</span><span class="sxs-lookup"><span data-stu-id="08c6f-149">In the following example, a dictionary is initialized and passed to a :::no-loc(Razor)::: view.</span></span> <span data-ttu-id="08c6f-150">或者，也可以使用模型传入数据。</span><span class="sxs-lookup"><span data-stu-id="08c6f-150">Alternatively, the data could be passed in with your model.</span></span>
+<span data-ttu-id="08c6f-149">在下面的示例中，将对字典进行初始化并将其传递给 Razor 视图。</span><span class="sxs-lookup"><span data-stu-id="08c6f-149">In the following example, a dictionary is initialized and passed to a Razor view.</span></span> <span data-ttu-id="08c6f-150">或者，也可以使用模型传入数据。</span><span class="sxs-lookup"><span data-stu-id="08c6f-150">Alternatively, the data could be passed in with your model.</span></span>
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspAllRouteData)]
 
@@ -185,9 +185,9 @@ ms.locfileid: "93060906"
 
 <span data-ttu-id="08c6f-163">[asp-area](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area*) 属性可设置用来设置相应路由的区域名称。</span><span class="sxs-lookup"><span data-stu-id="08c6f-163">The [asp-area](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area*) attribute sets the area name used to set the appropriate route.</span></span> <span data-ttu-id="08c6f-164">以下示例展示了 `asp-area` 属性如何导致重新映射路由。</span><span class="sxs-lookup"><span data-stu-id="08c6f-164">The following examples depict how the `asp-area` attribute causes a remapping of routes.</span></span>
 
-#### <a name="usage-in-no-locrazor-pages"></a><span data-ttu-id="08c6f-165">页面使用量 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="08c6f-165">Usage in :::no-loc(Razor)::: Pages</span></span>
+#### <a name="usage-in-no-locrazor-pages"></a><span data-ttu-id="08c6f-165">页面使用量 Razor</span><span class="sxs-lookup"><span data-stu-id="08c6f-165">Usage in Razor Pages</span></span>
 
-<span data-ttu-id="08c6f-166">:::no-loc(Razor)::: ASP.NET Core 2.1 或更高版本中支持页区域。</span><span class="sxs-lookup"><span data-stu-id="08c6f-166">:::no-loc(Razor)::: Pages areas are supported in ASP.NET Core 2.1 or later.</span></span>
+<span data-ttu-id="08c6f-166">Razor ASP.NET Core 2.1 或更高版本中支持页区域。</span><span class="sxs-lookup"><span data-stu-id="08c6f-166">Razor Pages areas are supported in ASP.NET Core 2.1 or later.</span></span>
 
 <span data-ttu-id="08c6f-167">考虑以下目录层次结构：</span><span class="sxs-lookup"><span data-stu-id="08c6f-167">Consider the following directory hierarchy:</span></span>
 
@@ -201,9 +201,9 @@ ms.locfileid: "93060906"
         * <span data-ttu-id="08c6f-175">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="08c6f-175">*Index.cshtml.cs*</span></span>
   * <span data-ttu-id="08c6f-176">**页**</span><span class="sxs-lookup"><span data-stu-id="08c6f-176">**Pages**</span></span>
 
-<span data-ttu-id="08c6f-177">用于引用 *会话* 区域 *索引* :::no-loc(Razor)::: 页的标记为：</span><span class="sxs-lookup"><span data-stu-id="08c6f-177">The markup to reference the *Sessions* area *Index* :::no-loc(Razor)::: Page is:</span></span>
+<span data-ttu-id="08c6f-177">用于引用 *会话* 区域 *索引* Razor 页的标记为：</span><span class="sxs-lookup"><span data-stu-id="08c6f-177">The markup to reference the *Sessions* area *Index* Razor Page is:</span></span>
 
-[!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspArea:::no-loc(Razor):::Pages)]
+[!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspAreaRazorPages)]
 
 <span data-ttu-id="08c6f-178">生成的 HTML：</span><span class="sxs-lookup"><span data-stu-id="08c6f-178">The generated HTML:</span></span>
 
@@ -212,10 +212,10 @@ ms.locfileid: "93060906"
 ```
 
 > [!TIP]
-> <span data-ttu-id="08c6f-179">若要在页面应用中支持区域 :::no-loc(Razor)::: ，请在中执行以下 `Startup.ConfigureServices` 操作之一：</span><span class="sxs-lookup"><span data-stu-id="08c6f-179">To support areas in a :::no-loc(Razor)::: Pages app, do one of the following in `Startup.ConfigureServices`:</span></span>
+> <span data-ttu-id="08c6f-179">若要在页面应用中支持区域 Razor ，请在中执行以下 `Startup.ConfigureServices` 操作之一：</span><span class="sxs-lookup"><span data-stu-id="08c6f-179">To support areas in a Razor Pages app, do one of the following in `Startup.ConfigureServices`:</span></span>
 >
 > * <span data-ttu-id="08c6f-180">将[兼容性版本](xref:mvc/compatibility-version)设置为 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="08c6f-180">Set the [compatibility version](xref:mvc/compatibility-version) to 2.1 or later.</span></span>
-> * <span data-ttu-id="08c6f-181">将 AllowAreas 属性设置为[ :::no-loc(Razor)::: PagesOptions](xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.:::no-loc(Razor):::PagesOptions.AllowAreas*) `true` ：</span><span class="sxs-lookup"><span data-stu-id="08c6f-181">Set the [:::no-loc(Razor):::PagesOptions.AllowAreas](xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.:::no-loc(Razor):::PagesOptions.AllowAreas*) property to `true`:</span></span>
+> * <span data-ttu-id="08c6f-181">将 AllowAreas 属性设置为[ Razor PagesOptions](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) `true` ：</span><span class="sxs-lookup"><span data-stu-id="08c6f-181">Set the [RazorPagesOptions.AllowAreas](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) property to `true`:</span></span>
 >
 >   [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_AllowAreas)]
 
@@ -279,9 +279,9 @@ ms.locfileid: "93060906"
 
 ### <a name="asp-page"></a><span data-ttu-id="08c6f-211">asp-page</span><span class="sxs-lookup"><span data-stu-id="08c6f-211">asp-page</span></span>
 
-<span data-ttu-id="08c6f-212">[Asp 页](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Page*)属性用于 :::no-loc(Razor)::: 页面。</span><span class="sxs-lookup"><span data-stu-id="08c6f-212">The [asp-page](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Page*) attribute is used with :::no-loc(Razor)::: Pages.</span></span> <span data-ttu-id="08c6f-213">使用它向特定页设置定位点标记的 `href` 属性值。</span><span class="sxs-lookup"><span data-stu-id="08c6f-213">Use it to set an anchor tag's `href` attribute value to a specific page.</span></span> <span data-ttu-id="08c6f-214">通过在页面名称前面使用正斜杠 (“/”) 作为前缀，可创建 URL。</span><span class="sxs-lookup"><span data-stu-id="08c6f-214">Prefixing the page name with a forward slash ("/") creates the URL.</span></span>
+<span data-ttu-id="08c6f-212">[Asp 页](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Page*)属性用于 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="08c6f-212">The [asp-page](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Page*) attribute is used with Razor Pages.</span></span> <span data-ttu-id="08c6f-213">使用它向特定页设置定位点标记的 `href` 属性值。</span><span class="sxs-lookup"><span data-stu-id="08c6f-213">Use it to set an anchor tag's `href` attribute value to a specific page.</span></span> <span data-ttu-id="08c6f-214">通过在页面名称前面使用正斜杠 (“/”) 作为前缀，可创建 URL。</span><span class="sxs-lookup"><span data-stu-id="08c6f-214">Prefixing the page name with a forward slash ("/") creates the URL.</span></span>
 
-<span data-ttu-id="08c6f-215">以下示例指向 "与会者" :::no-loc(Razor)::: 页：</span><span class="sxs-lookup"><span data-stu-id="08c6f-215">The following sample points to the attendee :::no-loc(Razor)::: Page:</span></span>
+<span data-ttu-id="08c6f-215">以下示例指向 "与会者" Razor 页：</span><span class="sxs-lookup"><span data-stu-id="08c6f-215">The following sample points to the attendee Razor Page:</span></span>
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspPage)]
 
@@ -303,7 +303,7 @@ ms.locfileid: "93060906"
 
 ### <a name="asp-page-handler"></a><span data-ttu-id="08c6f-220">asp-page-handler</span><span class="sxs-lookup"><span data-stu-id="08c6f-220">asp-page-handler</span></span>
 
-<span data-ttu-id="08c6f-221">[Asp 页处理程序](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.PageHandler*)属性与页一起使用 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="08c6f-221">The [asp-page-handler](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.PageHandler*) attribute is used with :::no-loc(Razor)::: Pages.</span></span> <span data-ttu-id="08c6f-222">它用于链接到特定的页处理程序。</span><span class="sxs-lookup"><span data-stu-id="08c6f-222">It's intended for linking to specific page handlers.</span></span>
+<span data-ttu-id="08c6f-221">[Asp 页处理程序](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.PageHandler*)属性与页一起使用 Razor 。</span><span class="sxs-lookup"><span data-stu-id="08c6f-221">The [asp-page-handler](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.PageHandler*) attribute is used with Razor Pages.</span></span> <span data-ttu-id="08c6f-222">它用于链接到特定的页处理程序。</span><span class="sxs-lookup"><span data-stu-id="08c6f-222">It's intended for linking to specific page handlers.</span></span>
 
 <span data-ttu-id="08c6f-223">请考虑以下页处理程序：</span><span class="sxs-lookup"><span data-stu-id="08c6f-223">Consider the following page handler:</span></span>
 

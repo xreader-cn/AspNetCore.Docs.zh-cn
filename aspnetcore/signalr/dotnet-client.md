@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(SignalR)::: .Net 客户端'
+title: 'ASP.NET Core SignalR .Net 客户端'
 author: bradygaster
-description: '有关 ASP.NET Core :::no-loc(SignalR)::: .Net 客户端的信息'
+description: '有关 ASP.NET Core SignalR .Net 客户端的信息'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/14/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: signalr/dotnet-client
 ms.openlocfilehash: 7849322e50aeceda0850d94f9c9bcda79a6051c8
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,24 +26,24 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93061218"
 ---
-# <a name="aspnet-core-no-locsignalr-net-client"></a><span data-ttu-id="c8976-103">ASP.NET Core :::no-loc(SignalR)::: .Net 客户端</span><span class="sxs-lookup"><span data-stu-id="c8976-103">ASP.NET Core :::no-loc(SignalR)::: .NET Client</span></span>
+# <a name="aspnet-core-no-locsignalr-net-client"></a><span data-ttu-id="c8976-103">ASP.NET Core SignalR .Net 客户端</span><span class="sxs-lookup"><span data-stu-id="c8976-103">ASP.NET Core SignalR .NET Client</span></span>
 
-<span data-ttu-id="c8976-104">通过 ASP.NET Core :::no-loc(SignalR)::: .net 客户端库，你可以 :::no-loc(SignalR)::: 从 .net 应用程序与中心进行通信。</span><span class="sxs-lookup"><span data-stu-id="c8976-104">The ASP.NET Core :::no-loc(SignalR)::: .NET client library lets you communicate with :::no-loc(SignalR)::: hubs from .NET apps.</span></span>
+<span data-ttu-id="c8976-104">通过 ASP.NET Core SignalR .net 客户端库，你可以 SignalR 从 .net 应用程序与中心进行通信。</span><span class="sxs-lookup"><span data-stu-id="c8976-104">The ASP.NET Core SignalR .NET client library lets you communicate with SignalR hubs from .NET apps.</span></span>
 
 <span data-ttu-id="c8976-105">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="c8976-105">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="c8976-106">本文中的代码示例是使用 .Net 客户端 ASP.NET Core 的 WPF 应用程序 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="c8976-106">The code sample in this article is a WPF app that uses the ASP.NET Core :::no-loc(SignalR)::: .NET client.</span></span>
+<span data-ttu-id="c8976-106">本文中的代码示例是使用 .Net 客户端 ASP.NET Core 的 WPF 应用程序 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="c8976-106">The code sample in this article is a WPF app that uses the ASP.NET Core SignalR .NET client.</span></span>
 
-## <a name="install-the-no-locsignalr-net-client-package"></a><span data-ttu-id="c8976-107">安装 :::no-loc(SignalR)::: .net 客户端包</span><span class="sxs-lookup"><span data-stu-id="c8976-107">Install the :::no-loc(SignalR)::: .NET client package</span></span>
+## <a name="install-the-no-locsignalr-net-client-package"></a><span data-ttu-id="c8976-107">安装 SignalR .net 客户端包</span><span class="sxs-lookup"><span data-stu-id="c8976-107">Install the SignalR .NET client package</span></span>
 
-<span data-ttu-id="c8976-108">[AspNetCore. :::no-loc(SignalR):::](https://www.nuget.org/packages/Microsoft.AspNetCore.:::no-loc(SignalR):::.Client)若要连接到集线器，.net 客户端需要客户端包 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="c8976-108">The [Microsoft.AspNetCore.:::no-loc(SignalR):::.Client](https://www.nuget.org/packages/Microsoft.AspNetCore.:::no-loc(SignalR):::.Client) package is required for .NET clients to connect to :::no-loc(SignalR)::: hubs.</span></span>
+<span data-ttu-id="c8976-108">[AspNetCore. SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)若要连接到集线器，.net 客户端需要客户端包 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="c8976-108">The [Microsoft.AspNetCore.SignalR.Client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) package is required for .NET clients to connect to SignalR hubs.</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="c8976-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c8976-109">Visual Studio</span></span>](#tab/visual-studio)
 
 <span data-ttu-id="c8976-110">若要安装客户端库，请在 " **包管理器控制台** " 窗口中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="c8976-110">To install the client library, run the following command in the **Package Manager Console** window:</span></span>
 
 ```powershell
-Install-Package Microsoft.AspNetCore.:::no-loc(SignalR):::.Client
+Install-Package Microsoft.AspNetCore.SignalR.Client
 ```
 
 # <a name="net-core-cli"></a>[<span data-ttu-id="c8976-111">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="c8976-111">.NET Core CLI</span></span>](#tab/netcore-cli)
@@ -51,7 +51,7 @@ Install-Package Microsoft.AspNetCore.:::no-loc(SignalR):::.Client
 <span data-ttu-id="c8976-112">若要安装客户端库，请在命令 shell 中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="c8976-112">To install the client library, run the following command in a command shell:</span></span>
 
 ```dotnetcli
-dotnet add package Microsoft.AspNetCore.:::no-loc(SignalR):::.Client
+dotnet add package Microsoft.AspNetCore.SignalR.Client
 ```
 
 ---
@@ -68,7 +68,7 @@ dotnet add package Microsoft.AspNetCore.:::no-loc(SignalR):::.Client
 
 ### <a name="automatically-reconnect"></a><span data-ttu-id="c8976-119">自动重新连接</span><span class="sxs-lookup"><span data-stu-id="c8976-119">Automatically reconnect</span></span>
 
-<span data-ttu-id="c8976-120"><xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnection>可以将配置为使用上的方法自动重新连接 `WithAutomaticReconnect` <xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnectionBuilder> 。</span><span class="sxs-lookup"><span data-stu-id="c8976-120">The <xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnection> can be configured to automatically reconnect using the `WithAutomaticReconnect` method on the <xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnectionBuilder>.</span></span> <span data-ttu-id="c8976-121">默认情况下，它不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-121">It won't automatically reconnect by default.</span></span>
+<span data-ttu-id="c8976-120"><xref:Microsoft.AspNetCore.SignalR.Client.HubConnection>可以将配置为使用上的方法自动重新连接 `WithAutomaticReconnect` <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder> 。</span><span class="sxs-lookup"><span data-stu-id="c8976-120">The <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> can be configured to automatically reconnect using the `WithAutomaticReconnect` method on the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>.</span></span> <span data-ttu-id="c8976-121">默认情况下，它不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-121">It won't automatically reconnect by default.</span></span>
 
 ```csharp
 HubConnection connection= new HubConnectionBuilder()
@@ -140,7 +140,7 @@ public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, C
 }
 ```
 
-<span data-ttu-id="c8976-131">如果客户端在其前四次尝试中未成功重新连接，则 `HubConnection` 将转换为 `Disconnected` 状态并触发 <xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnection.Closed> 事件。</span><span class="sxs-lookup"><span data-stu-id="c8976-131">If the client doesn't successfully reconnect within its first four attempts, the `HubConnection` will transition to the `Disconnected` state and fire the <xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnection.Closed> event.</span></span> <span data-ttu-id="c8976-132">这为尝试手动重新启动连接或通知用户连接永久丢失有机会。</span><span class="sxs-lookup"><span data-stu-id="c8976-132">This provides an opportunity to attempt to restart the connection manually or inform users the connection has been permanently lost.</span></span>
+<span data-ttu-id="c8976-131">如果客户端在其前四次尝试中未成功重新连接，则 `HubConnection` 将转换为 `Disconnected` 状态并触发 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> 事件。</span><span class="sxs-lookup"><span data-stu-id="c8976-131">If the client doesn't successfully reconnect within its first four attempts, the `HubConnection` will transition to the `Disconnected` state and fire the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> event.</span></span> <span data-ttu-id="c8976-132">这为尝试手动重新启动连接或通知用户连接永久丢失有机会。</span><span class="sxs-lookup"><span data-stu-id="c8976-132">This provides an opportunity to attempt to restart the connection manually or inform users the connection has been permanently lost.</span></span>
 
 ```csharp
 connection.Closed += error =>
@@ -216,11 +216,11 @@ HubConnection connection = new HubConnectionBuilder()
 ::: moniker range="< aspnetcore-3.0"
 
 > [!WARNING]
-> <span data-ttu-id="c8976-148">在3.0 之前，.NET 客户端 :::no-loc(SignalR)::: 不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-148">Prior to 3.0, the .NET client for :::no-loc(SignalR)::: doesn't automatically reconnect.</span></span> <span data-ttu-id="c8976-149">必须编写代码来手动重新连接客户端。</span><span class="sxs-lookup"><span data-stu-id="c8976-149">You must write code that will reconnect your client manually.</span></span>
+> <span data-ttu-id="c8976-148">在3.0 之前，.NET 客户端 SignalR 不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-148">Prior to 3.0, the .NET client for SignalR doesn't automatically reconnect.</span></span> <span data-ttu-id="c8976-149">必须编写代码来手动重新连接客户端。</span><span class="sxs-lookup"><span data-stu-id="c8976-149">You must write code that will reconnect your client manually.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="c8976-150">使用 <xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnection.Closed> 事件响应断开连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-150">Use the <xref:Microsoft.AspNetCore.:::no-loc(SignalR):::.Client.HubConnection.Closed> event to respond to a lost connection.</span></span> <span data-ttu-id="c8976-151">例如，你可能需要自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-151">For example, you might want to automate reconnection.</span></span>
+<span data-ttu-id="c8976-150">使用 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> 事件响应断开连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-150">Use the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> event to respond to a lost connection.</span></span> <span data-ttu-id="c8976-151">例如，你可能需要自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="c8976-151">For example, you might want to automate reconnection.</span></span>
 
 <span data-ttu-id="c8976-152">`Closed`事件需要一个返回的委托 `Task` ，该委托允许异步代码在不使用的情况下运行 `async void` 。</span><span class="sxs-lookup"><span data-stu-id="c8976-152">The `Closed` event requires a delegate that returns a `Task`, which allows async code to run without using `async void`.</span></span> <span data-ttu-id="c8976-153">若要在 `Closed` 同步运行的事件处理程序中满足委托签名，请返回 `Task.CompletedTask` ：</span><span class="sxs-lookup"><span data-stu-id="c8976-153">To satisfy the delegate signature in a `Closed` event handler that runs synchronously, return `Task.CompletedTask`:</span></span>
 
@@ -239,7 +239,7 @@ connection.Closed += (error) => {
 
 ## <a name="call-hub-methods-from-client"></a><span data-ttu-id="c8976-157">从客户端调用集线器方法</span><span class="sxs-lookup"><span data-stu-id="c8976-157">Call hub methods from client</span></span>
 
-<span data-ttu-id="c8976-158">`InvokeAsync` 在集线器上调用方法。</span><span class="sxs-lookup"><span data-stu-id="c8976-158">`InvokeAsync` calls methods on the hub.</span></span> <span data-ttu-id="c8976-159">将 hub 方法名称和在 hub 方法中定义的任何自变量传递给 `InvokeAsync` 。</span><span class="sxs-lookup"><span data-stu-id="c8976-159">Pass the hub method name and any arguments defined in the hub method to `InvokeAsync`.</span></span> <span data-ttu-id="c8976-160">:::no-loc(SignalR)::: 是异步的，因此 `async` 在 `await` 进行调用时使用和。</span><span class="sxs-lookup"><span data-stu-id="c8976-160">:::no-loc(SignalR)::: is asynchronous, so use `async` and `await` when making the calls.</span></span>
+<span data-ttu-id="c8976-158">`InvokeAsync` 在集线器上调用方法。</span><span class="sxs-lookup"><span data-stu-id="c8976-158">`InvokeAsync` calls methods on the hub.</span></span> <span data-ttu-id="c8976-159">将 hub 方法名称和在 hub 方法中定义的任何自变量传递给 `InvokeAsync` 。</span><span class="sxs-lookup"><span data-stu-id="c8976-159">Pass the hub method name and any arguments defined in the hub method to `InvokeAsync`.</span></span> <span data-ttu-id="c8976-160">SignalR 是异步的，因此 `async` 在 `await` 进行调用时使用和。</span><span class="sxs-lookup"><span data-stu-id="c8976-160">SignalR is asynchronous, so use `async` and `await` when making the calls.</span></span>
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
 
@@ -248,7 +248,7 @@ connection.Closed += (error) => {
 <span data-ttu-id="c8976-165">`SendAsync`方法返回一个，该方法在 `Task` 消息已发送到服务器时完成。</span><span class="sxs-lookup"><span data-stu-id="c8976-165">The `SendAsync` method returns a `Task` which completes when the message has been sent to the server.</span></span> <span data-ttu-id="c8976-166">不会提供返回值，因为它 `Task` 不会等到服务器方法完成。</span><span class="sxs-lookup"><span data-stu-id="c8976-166">No return value is provided since this `Task` doesn't wait until the server method completes.</span></span> <span data-ttu-id="c8976-167">发送消息时，在客户端上引发的任何异常都会产生出错 `Task` 。</span><span class="sxs-lookup"><span data-stu-id="c8976-167">Any exceptions thrown on the client while sending the message produce a faulted `Task`.</span></span> <span data-ttu-id="c8976-168">使用 `await` 和 `try...catch` 语法处理发送错误。</span><span class="sxs-lookup"><span data-stu-id="c8976-168">Use `await` and `try...catch` syntax to handle send errors.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="c8976-169">仅 :::no-loc(SignalR)::: 在 *默认* 模式下使用 Azure 服务时，才支持从客户端调用中心方法。</span><span class="sxs-lookup"><span data-stu-id="c8976-169">Calling hub methods from a client is only supported when using the Azure :::no-loc(SignalR)::: Service in *Default* mode.</span></span> <span data-ttu-id="c8976-170">有关详细信息，请参阅 [Signalr GitHub 存储库)  (常见问题解答 ](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose)。</span><span class="sxs-lookup"><span data-stu-id="c8976-170">For more information, see [Frequently Asked Questions (azure-signalr GitHub repository)](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose).</span></span>
+> <span data-ttu-id="c8976-169">仅 SignalR 在 *默认* 模式下使用 Azure 服务时，才支持从客户端调用中心方法。</span><span class="sxs-lookup"><span data-stu-id="c8976-169">Calling hub methods from a client is only supported when using the Azure SignalR Service in *Default* mode.</span></span> <span data-ttu-id="c8976-170">有关详细信息，请参阅 [Signalr GitHub 存储库)  (常见问题解答 ](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose)。</span><span class="sxs-lookup"><span data-stu-id="c8976-170">For more information, see [Frequently Asked Questions (azure-signalr GitHub repository)](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose).</span></span>
 
 ## <a name="call-client-methods-from-hub"></a><span data-ttu-id="c8976-171">从中心调用客户端方法</span><span class="sxs-lookup"><span data-stu-id="c8976-171">Call client methods from hub</span></span>
 
@@ -271,4 +271,4 @@ connection.Closed += (error) => {
 * [<span data-ttu-id="c8976-178">中心</span><span class="sxs-lookup"><span data-stu-id="c8976-178">Hubs</span></span>](xref:signalr/hubs)
 * [<span data-ttu-id="c8976-179">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="c8976-179">JavaScript client</span></span>](xref:signalr/javascript-client)
 * [<span data-ttu-id="c8976-180">发布到 Azure</span><span class="sxs-lookup"><span data-stu-id="c8976-180">Publish to Azure</span></span>](xref:signalr/publish-to-azure-web-app)
-* [<span data-ttu-id="c8976-181">Azure :::no-loc(SignalR)::: Service 无服务器文档</span><span class="sxs-lookup"><span data-stu-id="c8976-181">Azure :::no-loc(SignalR)::: Service serverless documentation</span></span>](/azure/azure-signalr/signalr-concept-serverless-development-config)
+* [<span data-ttu-id="c8976-181">Azure SignalR Service 无服务器文档</span><span class="sxs-lookup"><span data-stu-id="c8976-181">Azure SignalR Service serverless documentation</span></span>](/azure/azure-signalr/signalr-concept-serverless-development-config)

@@ -1,22 +1,22 @@
 ---
-title: '第 8 部分，将验证添加到 ASP.NET Core :::no-loc(Razor)::: 页面'
+title: '第 8 部分，将验证添加到 ASP.NET Core Razor 页面'
 author: rick-anderson
-description: ':::no-loc(Razor)::: 页面教程系列的第 8 部分。'
+description: 'Razor 页面教程系列的第 8 部分。'
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: tutorials/razor-pages/validation
 ms.openlocfilehash: 991a0f29c0edc5a220dfde69bd22dc4ed758394d
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -25,7 +25,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93060724"
 ---
-# <a name="part-8-add-validation-to-an-aspnet-core-no-locrazor-page"></a><span data-ttu-id="3bf27-103">第 8 部分，将验证添加到 ASP.NET Core :::no-loc(Razor)::: 页面</span><span class="sxs-lookup"><span data-stu-id="3bf27-103">Part 8, add validation to an ASP.NET Core :::no-loc(Razor)::: Page</span></span>
+# <a name="part-8-add-validation-to-an-aspnet-core-no-locrazor-page"></a><span data-ttu-id="3bf27-103">第 8 部分，将验证添加到 ASP.NET Core Razor 页面</span><span class="sxs-lookup"><span data-stu-id="3bf27-103">Part 8, add validation to an ASP.NET Core Razor Page</span></span>
 
 <span data-ttu-id="3bf27-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="3bf27-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
@@ -33,12 +33,12 @@ ms.locfileid: "93060724"
 
 ## <a name="validation"></a><span data-ttu-id="3bf27-107">验证</span><span class="sxs-lookup"><span data-stu-id="3bf27-107">Validation</span></span>
 
-<span data-ttu-id="3bf27-108">软件开发的一个关键原则被称为 [DRY](https://wikipedia.org/wiki/Don%27t_repeat_yourself)（即“不要自我重复”）  。</span><span class="sxs-lookup"><span data-stu-id="3bf27-108">A key tenet of software development is called [DRY](https://wikipedia.org/wiki/Don%27t_repeat_yourself) (" **D** on't **R** epeat **Y** ourself").</span></span> <span data-ttu-id="3bf27-109">:::no-loc(Razor)::: 页面鼓励进行仅指定一次功能的开发，且功能在整个应用中反映。</span><span class="sxs-lookup"><span data-stu-id="3bf27-109">:::no-loc(Razor)::: Pages encourages development where functionality is specified once, and it's reflected throughout the app.</span></span> <span data-ttu-id="3bf27-110">DRY 可以帮助：</span><span class="sxs-lookup"><span data-stu-id="3bf27-110">DRY can help:</span></span>
+<span data-ttu-id="3bf27-108">软件开发的一个关键原则被称为 [DRY](https://wikipedia.org/wiki/Don%27t_repeat_yourself)（即“不要自我重复”）  。</span><span class="sxs-lookup"><span data-stu-id="3bf27-108">A key tenet of software development is called [DRY](https://wikipedia.org/wiki/Don%27t_repeat_yourself) (" **D** on't **R** epeat **Y** ourself").</span></span> <span data-ttu-id="3bf27-109">Razor 页面鼓励进行仅指定一次功能的开发，且功能在整个应用中反映。</span><span class="sxs-lookup"><span data-stu-id="3bf27-109">Razor Pages encourages development where functionality is specified once, and it's reflected throughout the app.</span></span> <span data-ttu-id="3bf27-110">DRY 可以帮助：</span><span class="sxs-lookup"><span data-stu-id="3bf27-110">DRY can help:</span></span>
 
 * <span data-ttu-id="3bf27-111">减少应用中的代码量。</span><span class="sxs-lookup"><span data-stu-id="3bf27-111">Reduce the amount of code in an app.</span></span>
 * <span data-ttu-id="3bf27-112">使代码更加不易出错，且更易于测试和维护。</span><span class="sxs-lookup"><span data-stu-id="3bf27-112">Make the code less error prone, and easier to test and maintain.</span></span>
 
-<span data-ttu-id="3bf27-113">:::no-loc(Razor)::: 页面和实体框架提供的验证支持是 DRY 原则的极佳示例。</span><span class="sxs-lookup"><span data-stu-id="3bf27-113">The validation support provided by :::no-loc(Razor)::: Pages and Entity Framework is a good example of the DRY principle.</span></span> <span data-ttu-id="3bf27-114">验证规则在模型类中的某处以声明方式指定，且在应用的所有位置强制执行。</span><span class="sxs-lookup"><span data-stu-id="3bf27-114">Validation rules are declaratively specified in one place (in the model class), and the rules are enforced everywhere in the app.</span></span>
+<span data-ttu-id="3bf27-113">Razor 页面和实体框架提供的验证支持是 DRY 原则的极佳示例。</span><span class="sxs-lookup"><span data-stu-id="3bf27-113">The validation support provided by Razor Pages and Entity Framework is a good example of the DRY principle.</span></span> <span data-ttu-id="3bf27-114">验证规则在模型类中的某处以声明方式指定，且在应用的所有位置强制执行。</span><span class="sxs-lookup"><span data-stu-id="3bf27-114">Validation rules are declaratively specified in one place (in the model class), and the rules are enforced everywhere in the app.</span></span>
 
 ## <a name="add-validation-rules-to-the-movie-model"></a><span data-ttu-id="3bf27-115">将验证规则添加到电影模型</span><span class="sxs-lookup"><span data-stu-id="3bf27-115">Add validation rules to the movie model</span></span>
 
@@ -46,7 +46,7 @@ ms.locfileid: "93060724"
 
 <span data-ttu-id="3bf27-118">更新 `Movie` 类以使用内置的 `Required`、`StringLength`、`RegularExpression` 和 `Range` 验证特性。</span><span class="sxs-lookup"><span data-stu-id="3bf27-118">Update the `Movie` class to take advantage of the built-in `Required`, `StringLength`, `RegularExpression`, and `Range` validation attributes.</span></span>
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Models/MovieDateRatingDA.cs?name=snippet1)]
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDA.cs?name=snippet1)]
 
 <span data-ttu-id="3bf27-119">验证特性指定要对应用这些特性的模型属性强制执行的行为：</span><span class="sxs-lookup"><span data-stu-id="3bf27-119">The validation attributes specify behavior that you want to enforce on the model properties they're applied to:</span></span>
 
@@ -67,7 +67,7 @@ ms.locfileid: "93060724"
 
 <span data-ttu-id="3bf27-133">让 ASP.NET Core 强制自动执行验证规则有助于提升你的应用的可靠性。</span><span class="sxs-lookup"><span data-stu-id="3bf27-133">Having validation rules automatically enforced by ASP.NET Core helps make your app more robust.</span></span> <span data-ttu-id="3bf27-134">同时它能确保你无法忘记验证某些内容，并防止你无意中将错误数据导入数据库。</span><span class="sxs-lookup"><span data-stu-id="3bf27-134">It also ensures that you can't forget to validate something and inadvertently let bad data into the database.</span></span>
 
-### <a name="validation-error-ui-in-no-locrazor-pages"></a><span data-ttu-id="3bf27-135">:::no-loc(Razor)::: 页面中的验证错误 UI</span><span class="sxs-lookup"><span data-stu-id="3bf27-135">Validation Error UI in :::no-loc(Razor)::: Pages</span></span>
+### <a name="validation-error-ui-in-no-locrazor-pages"></a><span data-ttu-id="3bf27-135">Razor 页面中的验证错误 UI</span><span class="sxs-lookup"><span data-stu-id="3bf27-135">Validation Error UI in Razor Pages</span></span>
 
 <span data-ttu-id="3bf27-136">运行应用并导航到“页面/电影”。</span><span class="sxs-lookup"><span data-stu-id="3bf27-136">Run the app and navigate to Pages/Movies.</span></span>
 
@@ -79,7 +79,7 @@ ms.locfileid: "93060724"
 
 <span data-ttu-id="3bf27-141">请注意表单如何自动呈现每个包含无效值的字段中的验证错误消息。</span><span class="sxs-lookup"><span data-stu-id="3bf27-141">Notice how the form has automatically rendered a validation error message in each field containing an invalid value.</span></span> <span data-ttu-id="3bf27-142">客户端（使用 JavaScript 和 jQuery）和服务器端（若用户禁用 JavaScript）都必定会遇到这些错误。</span><span class="sxs-lookup"><span data-stu-id="3bf27-142">The errors are enforced both client-side (using JavaScript and jQuery) and server-side (when a user has JavaScript disabled).</span></span>
 
-<span data-ttu-id="3bf27-143">一项重要优势是，无需在“创建”或“编辑”页面中更改代码。</span><span class="sxs-lookup"><span data-stu-id="3bf27-143">A significant benefit is that **no** code changes were necessary in the Create  or Edit pages.</span></span> <span data-ttu-id="3bf27-144">在模型应用 DataAnnotations 后，即已启用验证 UI。</span><span class="sxs-lookup"><span data-stu-id="3bf27-144">Once DataAnnotations were applied to the model, the validation UI was enabled.</span></span> <span data-ttu-id="3bf27-145">本教程中创建的 :::no-loc(Razor)::: 页面自动选取了验证规则（使用 `Movie` 模型类的属性上的验证特性）。</span><span class="sxs-lookup"><span data-stu-id="3bf27-145">The :::no-loc(Razor)::: Pages created in this tutorial automatically picked up the validation rules (using validation attributes on the properties of the `Movie` model class).</span></span> <span data-ttu-id="3bf27-146">使用“编辑”页面测试验证后，即已应用相同验证。</span><span class="sxs-lookup"><span data-stu-id="3bf27-146">Test validation using the Edit page, the same validation is applied.</span></span>
+<span data-ttu-id="3bf27-143">一项重要优势是，无需在“创建”或“编辑”页面中更改代码。</span><span class="sxs-lookup"><span data-stu-id="3bf27-143">A significant benefit is that **no** code changes were necessary in the Create  or Edit pages.</span></span> <span data-ttu-id="3bf27-144">在模型应用 DataAnnotations 后，即已启用验证 UI。</span><span class="sxs-lookup"><span data-stu-id="3bf27-144">Once DataAnnotations were applied to the model, the validation UI was enabled.</span></span> <span data-ttu-id="3bf27-145">本教程中创建的 Razor 页面自动选取了验证规则（使用 `Movie` 模型类的属性上的验证特性）。</span><span class="sxs-lookup"><span data-stu-id="3bf27-145">The Razor Pages created in this tutorial automatically picked up the validation rules (using validation attributes on the properties of the `Movie` model class).</span></span> <span data-ttu-id="3bf27-146">使用“编辑”页面测试验证后，即已应用相同验证。</span><span class="sxs-lookup"><span data-stu-id="3bf27-146">Test validation using the Edit page, the same validation is applied.</span></span>
 
 <span data-ttu-id="3bf27-147">存在客户端验证错误时，不会将表单数据发布到服务器。</span><span class="sxs-lookup"><span data-stu-id="3bf27-147">The form data isn't posted to the server until there are no client-side validation errors.</span></span> <span data-ttu-id="3bf27-148">请通过以下一种或多种方法验证是否未发布表单数据：</span><span class="sxs-lookup"><span data-stu-id="3bf27-148">Verify form data isn't posted by one or more of the following approaches:</span></span>
 
@@ -109,11 +109,11 @@ ms.locfileid: "93060724"
 
 <span data-ttu-id="3bf27-164">以下代码显示了之前在本教程中设定其基架的“Create.cshtml”的一部分。</span><span class="sxs-lookup"><span data-stu-id="3bf27-164">The following code shows a portion of the *Create.cshtml* page scaffolded earlier in the tutorial.</span></span> <span data-ttu-id="3bf27-165">它用于在“创建”和“编辑”页面中显示初始表单并在发生错误后重新显示表单。</span><span class="sxs-lookup"><span data-stu-id="3bf27-165">It's used by the Create and Edit pages to display the initial form and to redisplay the form in the event of an error.</span></span>
 
-[!code-cshtml[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie/Pages/Movies/Create.cshtml?range=14-20)]
+[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Create.cshtml?range=14-20)]
 
 <span data-ttu-id="3bf27-166">[输入标记帮助程序](xref:mvc/views/working-with-forms)使用 [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) 特性并在客户端生成 jQuery 验证所需的 HTML 特性。</span><span class="sxs-lookup"><span data-stu-id="3bf27-166">The [Input Tag Helper](xref:mvc/views/working-with-forms) uses the [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) attributes and produces HTML attributes needed for jQuery Validation on the client-side.</span></span> <span data-ttu-id="3bf27-167">[验证标记帮助程序](xref:mvc/views/working-with-forms#the-validation-tag-helpers)用于显示验证错误。</span><span class="sxs-lookup"><span data-stu-id="3bf27-167">The [Validation Tag Helper](xref:mvc/views/working-with-forms#the-validation-tag-helpers) displays validation errors.</span></span> <span data-ttu-id="3bf27-168">有关详细信息，请参阅[验证](xref:mvc/models/validation)。</span><span class="sxs-lookup"><span data-stu-id="3bf27-168">See [Validation](xref:mvc/models/validation) for more information.</span></span>
 
-<span data-ttu-id="3bf27-169">“创建”和“编辑”页面中没有验证规则。</span><span class="sxs-lookup"><span data-stu-id="3bf27-169">The Create and Edit pages have no validation rules in them.</span></span> <span data-ttu-id="3bf27-170">仅可在 `Movie` 类中指定验证规则和错误字符串。</span><span class="sxs-lookup"><span data-stu-id="3bf27-170">The validation rules and the error strings are specified only in the `Movie` class.</span></span> <span data-ttu-id="3bf27-171">这些验证规则将自动应用于编辑 `Movie` 模型的 :::no-loc(Razor)::: 页面。</span><span class="sxs-lookup"><span data-stu-id="3bf27-171">These validation rules are automatically applied to :::no-loc(Razor)::: Pages that edit the `Movie` model.</span></span>
+<span data-ttu-id="3bf27-169">“创建”和“编辑”页面中没有验证规则。</span><span class="sxs-lookup"><span data-stu-id="3bf27-169">The Create and Edit pages have no validation rules in them.</span></span> <span data-ttu-id="3bf27-170">仅可在 `Movie` 类中指定验证规则和错误字符串。</span><span class="sxs-lookup"><span data-stu-id="3bf27-170">The validation rules and the error strings are specified only in the `Movie` class.</span></span> <span data-ttu-id="3bf27-171">这些验证规则将自动应用于编辑 `Movie` 模型的 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="3bf27-171">These validation rules are automatically applied to Razor Pages that edit the `Movie` model.</span></span>
 
 <span data-ttu-id="3bf27-172">需要更改验证逻辑时，也只能在该模型中更改。</span><span class="sxs-lookup"><span data-stu-id="3bf27-172">When validation logic needs to change, it's done only in the model.</span></span> <span data-ttu-id="3bf27-173">将始终在整个应用程序中应用验证（在一处定义验证逻辑）。</span><span class="sxs-lookup"><span data-stu-id="3bf27-173">Validation is applied consistently throughout the application (validation logic is defined in one place).</span></span> <span data-ttu-id="3bf27-174">单处验证有助于保持代码干净，且更易于维护和更新。</span><span class="sxs-lookup"><span data-stu-id="3bf27-174">Validation in one place helps keep the code clean, and makes it easier to maintain and update.</span></span>
 
@@ -121,7 +121,7 @@ ms.locfileid: "93060724"
 
 <span data-ttu-id="3bf27-176">检查 `Movie` 类。</span><span class="sxs-lookup"><span data-stu-id="3bf27-176">Examine the `Movie` class.</span></span> <span data-ttu-id="3bf27-177">除了一组内置的验证特性，`System.ComponentModel.DataAnnotations` 命名空间还提供格式特性。</span><span class="sxs-lookup"><span data-stu-id="3bf27-177">The `System.ComponentModel.DataAnnotations` namespace provides formatting attributes in addition to the built-in set of validation attributes.</span></span> <span data-ttu-id="3bf27-178">`DataType` 特性应用于 `ReleaseDate` 和 `Price` 属性。</span><span class="sxs-lookup"><span data-stu-id="3bf27-178">The `DataType` attribute is applied to the `ReleaseDate` and `Price` properties.</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
 <span data-ttu-id="3bf27-179">`DataType` 特性仅提供相关提示来帮助视图引擎设置数据格式（并提供特性，例如向 URL 提供 `<a>` 和向电子邮件提供 `<a href="mailto:EmailAddress.com">`）。</span><span class="sxs-lookup"><span data-stu-id="3bf27-179">The `DataType` attributes only provide hints for the view engine to format the data (and supplies attributes such as `<a>` for URL's and `<a href="mailto:EmailAddress.com">` for email).</span></span> <span data-ttu-id="3bf27-180">使用 `RegularExpression` 特性验证数据的格式。</span><span class="sxs-lookup"><span data-stu-id="3bf27-180">Use the `RegularExpression` attribute to validate the format of the data.</span></span> <span data-ttu-id="3bf27-181">`DataType` 属性用于指定比数据库内部类型更具体的数据类型。</span><span class="sxs-lookup"><span data-stu-id="3bf27-181">The `DataType` attribute is used to specify a data type that's more specific than the database intrinsic type.</span></span> <span data-ttu-id="3bf27-182">`DataType` 特性不是验证特性。</span><span class="sxs-lookup"><span data-stu-id="3bf27-182">`DataType` attributes are not validation attributes.</span></span> <span data-ttu-id="3bf27-183">示例应用程序中仅显示日期，不显示时间。</span><span class="sxs-lookup"><span data-stu-id="3bf27-183">In the sample application, only the date is displayed, without time.</span></span>
 
@@ -156,15 +156,15 @@ public DateTime ReleaseDate { get; set; }
 
 <span data-ttu-id="3bf27-207">以下代码显示组合在一行上的特性：</span><span class="sxs-lookup"><span data-stu-id="3bf27-207">The following code shows combining attributes on one line:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Models/MovieDateRatingDAmult.cs?name=snippet1)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDAmult.cs?name=snippet1)]
 
-<span data-ttu-id="3bf27-208">[:::no-loc(Razor)::: 页面和 EF Core 入门](xref:data/ef-rp/intro)显示了 :::no-loc(Razor)::: 页面的高级 EF Core 操作。</span><span class="sxs-lookup"><span data-stu-id="3bf27-208">[Get started with :::no-loc(Razor)::: Pages and EF Core](xref:data/ef-rp/intro) shows advanced EF Core operations with :::no-loc(Razor)::: Pages.</span></span>
+<span data-ttu-id="3bf27-208">[Razor 页面和 EF Core 入门](xref:data/ef-rp/intro)显示了 Razor 页面的高级 EF Core 操作。</span><span class="sxs-lookup"><span data-stu-id="3bf27-208">[Get started with Razor Pages and EF Core](xref:data/ef-rp/intro) shows advanced EF Core operations with Razor Pages.</span></span>
 
 ### <a name="apply-migrations"></a><span data-ttu-id="3bf27-209">应用迁移</span><span class="sxs-lookup"><span data-stu-id="3bf27-209">Apply migrations</span></span>
 
 <span data-ttu-id="3bf27-210">应用于类的 DataAnnotations 会更改架构。</span><span class="sxs-lookup"><span data-stu-id="3bf27-210">The DataAnnotations applied to the class changes the schema.</span></span> <span data-ttu-id="3bf27-211">例如，应用于 `Title` 字段的 DataAnnotations 会：</span><span class="sxs-lookup"><span data-stu-id="3bf27-211">For example, the DataAnnotations applied to the `Title` field:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Models/MovieDateRatingDA.cs?name=snippet11)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDA.cs?name=snippet11)]
 
 * <span data-ttu-id="3bf27-212">将字符数限制为 60。</span><span class="sxs-lookup"><span data-stu-id="3bf27-212">Limits the characters to 60.</span></span>
 * <span data-ttu-id="3bf27-213">不允许使用 `null` 值。</span><span class="sxs-lookup"><span data-stu-id="3bf27-213">Doesn't allow a `null` value.</span></span>
@@ -197,7 +197,7 @@ Update-Database
 
 <span data-ttu-id="3bf27-220">`Update-Database` 运行 `New_DataAnnotations` 类的 `Up` 方法。</span><span class="sxs-lookup"><span data-stu-id="3bf27-220">`Update-Database` runs the `Up` methods of the `New_DataAnnotations` class.</span></span> <span data-ttu-id="3bf27-221">检查 `Up` 方法：</span><span class="sxs-lookup"><span data-stu-id="3bf27-221">Examine the `Up` method:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Migrations/20190724163003_New_DataAnnotations.cs?name=snippet)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Migrations/20190724163003_New_DataAnnotations.cs?name=snippet)]
 
 <span data-ttu-id="3bf27-222">更新的 `Movie` 表具有以下架构：</span><span class="sxs-lookup"><span data-stu-id="3bf27-222">The updated `Movie` table has the following schema:</span></span>
 
@@ -223,7 +223,7 @@ CREATE TABLE [dbo].[Movie] (
 
 <span data-ttu-id="3bf27-226">若要了解如何部署到 Azure，请参阅[教程：使用 SQL 数据库在 Azure 中生成 ASP.NET Core 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。</span><span class="sxs-lookup"><span data-stu-id="3bf27-226">For information on deploying to Azure, see [Tutorial: Build an ASP.NET Core app in Azure with SQL Database](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb).</span></span>
 
-<span data-ttu-id="3bf27-227">感谢读完这篇 :::no-loc(Razor)::: Pages 简介。</span><span class="sxs-lookup"><span data-stu-id="3bf27-227">Thanks for completing this introduction to :::no-loc(Razor)::: Pages.</span></span> <span data-ttu-id="3bf27-228">[:::no-loc(Razor)::: Pages 和 EF Core 入门](xref:data/ef-rp/intro)是本教程的优选后续教程。</span><span class="sxs-lookup"><span data-stu-id="3bf27-228">[Get started with :::no-loc(Razor)::: Pages and EF Core](xref:data/ef-rp/intro) is an excellent follow up to this tutorial.</span></span>
+<span data-ttu-id="3bf27-227">感谢读完这篇 Razor Pages 简介。</span><span class="sxs-lookup"><span data-stu-id="3bf27-227">Thanks for completing this introduction to Razor Pages.</span></span> <span data-ttu-id="3bf27-228">[Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)是本教程的优选后续教程。</span><span class="sxs-lookup"><span data-stu-id="3bf27-228">[Get started with Razor Pages and EF Core](xref:data/ef-rp/intro) is an excellent follow up to this tutorial.</span></span>
 
 ## <a name="additional-resources"></a><span data-ttu-id="3bf27-229">其他资源</span><span class="sxs-lookup"><span data-stu-id="3bf27-229">Additional resources</span></span>
 

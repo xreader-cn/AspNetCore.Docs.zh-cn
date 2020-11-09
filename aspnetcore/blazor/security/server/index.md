@@ -1,23 +1,23 @@
 ---
-title: 保护 ASP.NET Core :::no-loc(Blazor Server):::应用
+title: 保护 ASP.NET Core Blazor Server应用
 author: guardrex
-description: 了解如何将 :::no-loc(Blazor Server):::应用作为 ASP.NET Core 应用来保护。
+description: 了解如何将 Blazor Server应用作为 ASP.NET Core 应用来保护。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/06/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/server/index
 ms.openlocfilehash: 108fb3a8a24295cad43fd8c83303abd95a7ecd33
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,34 +26,34 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93055472"
 ---
-# <a name="secure-aspnet-core-no-locblazor-server-apps"></a><span data-ttu-id="3f060-103">保护 ASP.NET Core :::no-loc(Blazor Server):::应用</span><span class="sxs-lookup"><span data-stu-id="3f060-103">Secure ASP.NET Core :::no-loc(Blazor Server)::: apps</span></span>
+# <a name="secure-aspnet-core-no-locblazor-server-apps"></a><span data-ttu-id="3f060-103">保护 ASP.NET Core Blazor Server应用</span><span class="sxs-lookup"><span data-stu-id="3f060-103">Secure ASP.NET Core Blazor Server apps</span></span>
 
 <span data-ttu-id="3f060-104">作者：[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="3f060-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="3f060-105">:::no-loc(Blazor Server):::应用的安全配置方式与 ASP.NET Core 应用相同。</span><span class="sxs-lookup"><span data-stu-id="3f060-105">:::no-loc(Blazor Server)::: apps are configured for security in the same manner as ASP.NET Core apps.</span></span> <span data-ttu-id="3f060-106">有关详细信息，请参阅 <xref:security/index> 下的文章。</span><span class="sxs-lookup"><span data-stu-id="3f060-106">For more information, see the articles under <xref:security/index>.</span></span> <span data-ttu-id="3f060-107">此“概述”下的主题特别适用于 :::no-loc(Blazor Server):::。</span><span class="sxs-lookup"><span data-stu-id="3f060-107">Topics under this overview apply specifically to :::no-loc(Blazor Server):::.</span></span>
+<span data-ttu-id="3f060-105">Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。</span><span class="sxs-lookup"><span data-stu-id="3f060-105">Blazor Server apps are configured for security in the same manner as ASP.NET Core apps.</span></span> <span data-ttu-id="3f060-106">有关详细信息，请参阅 <xref:security/index> 下的文章。</span><span class="sxs-lookup"><span data-stu-id="3f060-106">For more information, see the articles under <xref:security/index>.</span></span> <span data-ttu-id="3f060-107">此“概述”下的主题特别适用于 Blazor Server。</span><span class="sxs-lookup"><span data-stu-id="3f060-107">Topics under this overview apply specifically to Blazor Server.</span></span>
 
-## <a name="no-locblazor-server-project-template"></a><span data-ttu-id="3f060-108">:::no-loc(Blazor Server):::项目模板</span><span class="sxs-lookup"><span data-stu-id="3f060-108">:::no-loc(Blazor Server)::: project template</span></span>
+## <a name="no-locblazor-server-project-template"></a><span data-ttu-id="3f060-108">Blazor Server项目模板</span><span class="sxs-lookup"><span data-stu-id="3f060-108">Blazor Server project template</span></span>
 
-<span data-ttu-id="3f060-109">创建项目后，可配置 :::no-loc(Blazor Server):::项目模板来进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="3f060-109">The :::no-loc(Blazor Server)::: project template can be configured for authentication when the project is created.</span></span>
+<span data-ttu-id="3f060-109">创建项目后，可配置 Blazor Server项目模板来进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="3f060-109">The Blazor Server project template can be configured for authentication when the project is created.</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="3f060-110">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="3f060-110">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="3f060-111">请按照 <xref:blazor/tooling> 中的 Visual Studio 指南操作，新建具有身份验证机制的 :::no-loc(Blazor Server):::项目。</span><span class="sxs-lookup"><span data-stu-id="3f060-111">Follow the Visual Studio guidance in <xref:blazor/tooling> to create a new :::no-loc(Blazor Server)::: project with an authentication mechanism.</span></span>
+<span data-ttu-id="3f060-111">请按照 <xref:blazor/tooling> 中的 Visual Studio 指南操作，新建具有身份验证机制的 Blazor Server项目。</span><span class="sxs-lookup"><span data-stu-id="3f060-111">Follow the Visual Studio guidance in <xref:blazor/tooling> to create a new Blazor Server project with an authentication mechanism.</span></span>
 
-<span data-ttu-id="3f060-112">在“新建 ASP.NET Core Web 应用”对话框中选择“:::no-loc(Blazor Server):::应用”模板后，选择“身份验证”下的“更改”。</span><span class="sxs-lookup"><span data-stu-id="3f060-112">After choosing the **:::no-loc(Blazor Server)::: App** template in the **Create a new ASP.NET Core Web Application** dialog, select **Change** under **Authentication** .</span></span>
+<span data-ttu-id="3f060-112">在“新建 ASP.NET Core Web 应用”对话框中选择“Blazor Server应用”模板后，选择“身份验证”下的“更改”。</span><span class="sxs-lookup"><span data-stu-id="3f060-112">After choosing the **Blazor Server App** template in the **Create a new ASP.NET Core Web Application** dialog, select **Change** under **Authentication** .</span></span>
 
 <span data-ttu-id="3f060-113">此时将打开一个对话框，为其他 ASP.NET Core 项目提供一组相同的身份验证机制：</span><span class="sxs-lookup"><span data-stu-id="3f060-113">A dialog opens to offer the same set of authentication mechanisms available for other ASP.NET Core projects:</span></span>
 
 * <span data-ttu-id="3f060-114">**无身份验证**</span><span class="sxs-lookup"><span data-stu-id="3f060-114">**No Authentication**</span></span>
 * <span data-ttu-id="3f060-115">**个人用户帐户** ：可存储用户帐户：</span><span class="sxs-lookup"><span data-stu-id="3f060-115">**Individual User Accounts** : User accounts can be stored:</span></span>
-  * <span data-ttu-id="3f060-116">在使用 ASP.NET Core 的 [:::no-loc(Identity):::](xref:security/authentication/identity) 系统的应用中存储。</span><span class="sxs-lookup"><span data-stu-id="3f060-116">Within the app using ASP.NET Core's [:::no-loc(Identity):::](xref:security/authentication/identity) system.</span></span>
+  * <span data-ttu-id="3f060-116">在使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统的应用中存储。</span><span class="sxs-lookup"><span data-stu-id="3f060-116">Within the app using ASP.NET Core's [Identity](xref:security/authentication/identity) system.</span></span>
   * <span data-ttu-id="3f060-117">使用 [Azure AD B2C](xref:security/authentication/azure-ad-b2c) 存储。</span><span class="sxs-lookup"><span data-stu-id="3f060-117">With [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span></span>
 * <span data-ttu-id="3f060-118">**工作或学校帐户**</span><span class="sxs-lookup"><span data-stu-id="3f060-118">**Work or School Accounts**</span></span>
 * <span data-ttu-id="3f060-119">**Windows 身份验证**</span><span class="sxs-lookup"><span data-stu-id="3f060-119">**Windows Authentication**</span></span>
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="3f060-120">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="3f060-120">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="3f060-121">请按照 <xref:blazor/tooling> 中的 Visual Studio Code 指南操作，新建具有身份验证机制的 :::no-loc(Blazor Server):::项目：</span><span class="sxs-lookup"><span data-stu-id="3f060-121">Follow the Visual Studio Code guidance in <xref:blazor/tooling> to create a new :::no-loc(Blazor Server)::: project with an authentication mechanism:</span></span>
+<span data-ttu-id="3f060-121">请按照 <xref:blazor/tooling> 中的 Visual Studio Code 指南操作，新建具有身份验证机制的 Blazor Server项目：</span><span class="sxs-lookup"><span data-stu-id="3f060-121">Follow the Visual Studio Code guidance in <xref:blazor/tooling> to create a new Blazor Server project with an authentication mechanism:</span></span>
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -64,7 +64,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 | <span data-ttu-id="3f060-123">身份验证机制</span><span class="sxs-lookup"><span data-stu-id="3f060-123">Authentication mechanism</span></span> | <span data-ttu-id="3f060-124">描述</span><span class="sxs-lookup"><span data-stu-id="3f060-124">Description</span></span> |
 | ------------------------ | ----------- |
 | <span data-ttu-id="3f060-125">`None`（默认值）</span><span class="sxs-lookup"><span data-stu-id="3f060-125">`None` (default)</span></span>         | <span data-ttu-id="3f060-126">无身份验证</span><span class="sxs-lookup"><span data-stu-id="3f060-126">No authentication</span></span> |
-| `Individual`             | <span data-ttu-id="3f060-127">使用 :::no-loc(ASP.NET Core Identity)::: 将用户存储在应用中</span><span class="sxs-lookup"><span data-stu-id="3f060-127">Users stored in the app with :::no-loc(ASP.NET Core Identity):::</span></span> |
+| `Individual`             | <span data-ttu-id="3f060-127">使用 ASP.NET Core Identity 将用户存储在应用中</span><span class="sxs-lookup"><span data-stu-id="3f060-127">Users stored in the app with ASP.NET Core Identity</span></span> |
 | `IndividualB2C`          | <span data-ttu-id="3f060-128">用户存储在 [Azure AD B2C](xref:security/authentication/azure-ad-b2c) 中</span><span class="sxs-lookup"><span data-stu-id="3f060-128">Users stored in [Azure AD B2C](xref:security/authentication/azure-ad-b2c)</span></span> |
 | `SingleOrg`              | <span data-ttu-id="3f060-129">对一个租户进行组织身份验证</span><span class="sxs-lookup"><span data-stu-id="3f060-129">Organizational authentication for a single tenant</span></span> |
 | `MultiOrg`               | <span data-ttu-id="3f060-130">对多个租户进行组织身份验证</span><span class="sxs-lookup"><span data-stu-id="3f060-130">Organizational authentication for multiple tenants</span></span> |
@@ -81,13 +81,13 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 1. <span data-ttu-id="3f060-137">请按照 <xref:blazor/tooling> 中的 Visual Studio for Mac 指南进行操作。</span><span class="sxs-lookup"><span data-stu-id="3f060-137">Follow the Visual Studio for Mac guidance in <xref:blazor/tooling>.</span></span>
 
-1. <span data-ttu-id="3f060-138">在“配置新的 :::no-loc(Blazor Server):::应用”步骤中，从“身份验证”下拉列表中选择“个人身份验证(应用内)”。</span><span class="sxs-lookup"><span data-stu-id="3f060-138">On the **Configure your new :::no-loc(Blazor Server)::: App** step, select **Individual Authentication (in-app)** from the **Authentication** drop down.</span></span>
+1. <span data-ttu-id="3f060-138">在“配置新的 Blazor Server应用”步骤中，从“身份验证”下拉列表中选择“个人身份验证(应用内)”。</span><span class="sxs-lookup"><span data-stu-id="3f060-138">On the **Configure your new Blazor Server App** step, select **Individual Authentication (in-app)** from the **Authentication** drop down.</span></span>
 
-1. <span data-ttu-id="3f060-139">此应用是使用 :::no-loc(ASP.NET Core Identity)::: 为应用中存储的个人用户创建的。</span><span class="sxs-lookup"><span data-stu-id="3f060-139">The app is created for individual users stored in the app with :::no-loc(ASP.NET Core Identity):::.</span></span>
+1. <span data-ttu-id="3f060-139">此应用是使用 ASP.NET Core Identity 为应用中存储的个人用户创建的。</span><span class="sxs-lookup"><span data-stu-id="3f060-139">The app is created for individual users stored in the app with ASP.NET Core Identity.</span></span>
 
 # <a name="net-core-cli"></a>[<span data-ttu-id="3f060-140">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="3f060-140">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
-<span data-ttu-id="3f060-141">在命令行界面中使用以下命令，新建具有身份验证机制的 :::no-loc(Blazor Server):::项目：</span><span class="sxs-lookup"><span data-stu-id="3f060-141">Create a new :::no-loc(Blazor Server)::: project with an authentication mechanism using the following command in a command shell:</span></span>
+<span data-ttu-id="3f060-141">在命令行界面中使用以下命令，新建具有身份验证机制的 Blazor Server项目：</span><span class="sxs-lookup"><span data-stu-id="3f060-141">Create a new Blazor Server project with an authentication mechanism using the following command in a command shell:</span></span>
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -98,7 +98,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 | <span data-ttu-id="3f060-143">身份验证机制</span><span class="sxs-lookup"><span data-stu-id="3f060-143">Authentication mechanism</span></span> | <span data-ttu-id="3f060-144">描述</span><span class="sxs-lookup"><span data-stu-id="3f060-144">Description</span></span> |
 | ------------------------ | ----------- |
 | <span data-ttu-id="3f060-145">`None`（默认值）</span><span class="sxs-lookup"><span data-stu-id="3f060-145">`None` (default)</span></span>         | <span data-ttu-id="3f060-146">无身份验证</span><span class="sxs-lookup"><span data-stu-id="3f060-146">No authentication</span></span> |
-| `Individual`             | <span data-ttu-id="3f060-147">使用 :::no-loc(ASP.NET Core Identity)::: 将用户存储在应用中</span><span class="sxs-lookup"><span data-stu-id="3f060-147">Users stored in the app with :::no-loc(ASP.NET Core Identity):::</span></span> |
+| `Individual`             | <span data-ttu-id="3f060-147">使用 ASP.NET Core Identity 将用户存储在应用中</span><span class="sxs-lookup"><span data-stu-id="3f060-147">Users stored in the app with ASP.NET Core Identity</span></span> |
 | `IndividualB2C`          | <span data-ttu-id="3f060-148">用户存储在 [Azure AD B2C](xref:security/authentication/azure-ad-b2c) 中</span><span class="sxs-lookup"><span data-stu-id="3f060-148">Users stored in [Azure AD B2C](xref:security/authentication/azure-ad-b2c)</span></span> |
 | `SingleOrg`              | <span data-ttu-id="3f060-149">对一个租户进行组织身份验证</span><span class="sxs-lookup"><span data-stu-id="3f060-149">Organizational authentication for a single tenant</span></span> |
 | `MultiOrg`               | <span data-ttu-id="3f060-150">对多个租户进行组织身份验证</span><span class="sxs-lookup"><span data-stu-id="3f060-150">Organizational authentication for multiple tenants</span></span> |
@@ -112,7 +112,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 <span data-ttu-id="3f060-155">更多相关信息：</span><span class="sxs-lookup"><span data-stu-id="3f060-155">For more information:</span></span>
 
 * <span data-ttu-id="3f060-156">请参阅 .NET Core 指南中的 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令。</span><span class="sxs-lookup"><span data-stu-id="3f060-156">See the [`dotnet new`](/dotnet/core/tools/dotnet-new) command in the .NET Core Guide.</span></span>
-* <span data-ttu-id="3f060-157">在命令行界面中为 :::no-loc(Blazor Server):::模板 (`blazorserver`) 执行 help 命令：</span><span class="sxs-lookup"><span data-stu-id="3f060-157">Execute the help command for the :::no-loc(Blazor Server)::: template (`blazorserver`) in a command shell:</span></span>
+* <span data-ttu-id="3f060-157">在命令行界面中为 Blazor Server模板 (`blazorserver`) 执行 help 命令：</span><span class="sxs-lookup"><span data-stu-id="3f060-157">Execute the help command for the Blazor Server template (`blazorserver`) in a command shell:</span></span>
 
   ```dotnetcli
   dotnet new blazorserver --help
@@ -120,9 +120,9 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 ---
 
-## <a name="scaffold-no-locidentity"></a><span data-ttu-id="3f060-158">设置:::no-loc(Identity):::的基架</span><span class="sxs-lookup"><span data-stu-id="3f060-158">Scaffold :::no-loc(Identity):::</span></span>
+## <a name="scaffold-no-locidentity"></a><span data-ttu-id="3f060-158">设置Identity的基架</span><span class="sxs-lookup"><span data-stu-id="3f060-158">Scaffold Identity</span></span>
 
-<span data-ttu-id="3f060-159">将 :::no-loc(Identity)::: 架构到 :::no-loc(Blazor Server):::项目中：</span><span class="sxs-lookup"><span data-stu-id="3f060-159">Scaffold :::no-loc(Identity)::: into a :::no-loc(Blazor Server)::: project:</span></span>
+<span data-ttu-id="3f060-159">将 Identity 架构到 Blazor Server项目中：</span><span class="sxs-lookup"><span data-stu-id="3f060-159">Scaffold Identity into a Blazor Server project:</span></span>
 
 * <span data-ttu-id="3f060-160">[当前没有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-without-existing-authorization)。</span><span class="sxs-lookup"><span data-stu-id="3f060-160">[Without existing authorization](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-without-existing-authorization).</span></span>
 * <span data-ttu-id="3f060-161">[有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-with-authorization)。</span><span class="sxs-lookup"><span data-stu-id="3f060-161">[With authorization](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-with-authorization).</span></span>

@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc, devx-track-azurecli
 ms.date: 02/07/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/key-vault-configuration
 ms.openlocfilehash: 10a949831c180f51bc6bb9b8294150a558f9343c
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -135,7 +135,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
    1. <span data-ttu-id="9dd46-167">在 Azure AD 中选择应用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-167">Select the app in Azure AD.</span></span>
    1. <span data-ttu-id="9dd46-168">导航到 " **证书" & "机密** "。</span><span class="sxs-lookup"><span data-stu-id="9dd46-168">Navigate to **Certificates & secrets** .</span></span>
    1. <span data-ttu-id="9dd46-169">选择 " **上传证书** "，上传包含公钥的证书。</span><span class="sxs-lookup"><span data-stu-id="9dd46-169">Select **Upload certificate** to upload the certificate, which contains the public key.</span></span> <span data-ttu-id="9dd46-170">*.Cer* 、 *pem* 或 *.crt* 证书是可接受的。</span><span class="sxs-lookup"><span data-stu-id="9dd46-170">A *.cer* , *.pem* , or *.crt* certificate is acceptable.</span></span>
-1. <span data-ttu-id="9dd46-171">在应用的文件中存储密钥保管库名称、应用程序 ID 和证书指纹 *:::no-loc(appsettings.json):::* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-171">Store the key vault name, Application ID, and certificate thumbprint in the app's *:::no-loc(appsettings.json):::* file.</span></span>
+1. <span data-ttu-id="9dd46-171">在应用的文件中存储密钥保管库名称、应用程序 ID 和证书指纹 *appsettings.json* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-171">Store the key vault name, Application ID, and certificate thumbprint in the app's *appsettings.json* file.</span></span>
 1. <span data-ttu-id="9dd46-172">导航到 Azure 门户中的 **密钥保管库** 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-172">Navigate to **Key vaults** in the Azure portal.</span></span>
 1. <span data-ttu-id="9dd46-173">选择在 [生产环境中的机密存储中](#secret-storage-in-the-production-environment-with-azure-key-vault) 创建的密钥保管库，其中 Azure Key Vault "部分。</span><span class="sxs-lookup"><span data-stu-id="9dd46-173">Select the key vault that you created in the [Secret storage in the Production environment with Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) section.</span></span>
 1. <span data-ttu-id="9dd46-174">选择“访问策略”。</span><span class="sxs-lookup"><span data-stu-id="9dd46-174">Select **Access policies** .</span></span>
@@ -153,7 +153,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-<span data-ttu-id="9dd46-186">X.509 证书由操作系统管理。</span><span class="sxs-lookup"><span data-stu-id="9dd46-186">The X.509 certificate is managed by the OS.</span></span> <span data-ttu-id="9dd46-187">应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用文件提供的值调用 *:::no-loc(appsettings.json):::* ：</span><span class="sxs-lookup"><span data-stu-id="9dd46-187">The app calls <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> with values supplied by the *:::no-loc(appsettings.json):::* file:</span></span>
+<span data-ttu-id="9dd46-186">X.509 证书由操作系统管理。</span><span class="sxs-lookup"><span data-stu-id="9dd46-186">The X.509 certificate is managed by the OS.</span></span> <span data-ttu-id="9dd46-187">应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用文件提供的值调用 *appsettings.json* ：</span><span class="sxs-lookup"><span data-stu-id="9dd46-187">The app calls <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> with values supplied by the *appsettings.json* file:</span></span>
 
 [!code-csharp[](key-vault-configuration/samples/3.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
 
@@ -163,9 +163,9 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 * <span data-ttu-id="9dd46-190">应用程序 ID： `627e911e-43cc-61d4-992e-12db9c81b413`</span><span class="sxs-lookup"><span data-stu-id="9dd46-190">Application ID: `627e911e-43cc-61d4-992e-12db9c81b413`</span></span>
 * <span data-ttu-id="9dd46-191">证书指纹： `fe14593dd66b2406c5269d742d04b6e1ab03adb1`</span><span class="sxs-lookup"><span data-stu-id="9dd46-191">Certificate thumbprint: `fe14593dd66b2406c5269d742d04b6e1ab03adb1`</span></span>
 
-<span data-ttu-id="9dd46-192">*:::no-loc(appsettings.json):::* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-192">*:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="9dd46-192">*appsettings.json* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-192">*appsettings.json* :</span></span>
 
-[!code-json[](key-vault-configuration/samples/3.x/SampleApp/:::no-loc(appsettings.json):::?highlight=10-12)]
+[!code-json[](key-vault-configuration/samples/3.x/SampleApp/appsettings.json?highlight=10-12)]
 
 <span data-ttu-id="9dd46-193">运行应用时，网页将显示加载的机密值。</span><span class="sxs-lookup"><span data-stu-id="9dd46-193">When you run the app, a webpage shows the loaded secret values.</span></span> <span data-ttu-id="9dd46-194">在开发环境中，机密值用后缀进行加载 `_dev` 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-194">In the Development environment, secret values load with the `_dev` suffix.</span></span> <span data-ttu-id="9dd46-195">在生产环境中，值以后缀进行加载 `_prod` 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-195">In the Production environment, the values load with the `_prod` suffix.</span></span>
 
@@ -175,11 +175,11 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 <span data-ttu-id="9dd46-198">当 `#define` *Program.cs* 文件顶部的语句设置为时，示例应用使用 Azure 资源的托管标识 `Managed` 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-198">The sample app uses Managed identities for Azure resources when the `#define` statement at the top of the *Program.cs* file is set to `Managed`.</span></span>
 
-<span data-ttu-id="9dd46-199">在应用的文件中输入保管库名称 *:::no-loc(appsettings.json):::* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-199">Enter the vault name into the app's *:::no-loc(appsettings.json):::* file.</span></span> <span data-ttu-id="9dd46-200">当设置为版本时，示例应用不需要应用程序 ID 和密码 (的客户端机密) `Managed` ，因此你可以忽略这些配置条目。</span><span class="sxs-lookup"><span data-stu-id="9dd46-200">The sample app doesn't require an Application ID and Password (Client Secret) when set to the `Managed` version, so you can ignore those configuration entries.</span></span> <span data-ttu-id="9dd46-201">应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在文件中的保管库名称访问 Azure Key Vault *:::no-loc(appsettings.json):::* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-201">The app is deployed to Azure, and Azure authenticates the app to access Azure Key Vault only using the vault name stored in the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="9dd46-199">在应用的文件中输入保管库名称 *appsettings.json* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-199">Enter the vault name into the app's *appsettings.json* file.</span></span> <span data-ttu-id="9dd46-200">当设置为版本时，示例应用不需要应用程序 ID 和密码 (的客户端机密) `Managed` ，因此你可以忽略这些配置条目。</span><span class="sxs-lookup"><span data-stu-id="9dd46-200">The sample app doesn't require an Application ID and Password (Client Secret) when set to the `Managed` version, so you can ignore those configuration entries.</span></span> <span data-ttu-id="9dd46-201">应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在文件中的保管库名称访问 Azure Key Vault *appsettings.json* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-201">The app is deployed to Azure, and Azure authenticates the app to access Azure Key Vault only using the vault name stored in the *appsettings.json* file.</span></span>
 
 <span data-ttu-id="9dd46-202">将示例应用部署到 Azure App Service。</span><span class="sxs-lookup"><span data-stu-id="9dd46-202">Deploy the sample app to Azure App Service.</span></span>
 
-<span data-ttu-id="9dd46-203">在创建服务时，会自动向 Azure AD 注册部署到 Azure App Service 的应用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-203">An app deployed to Azure App Service is automatically registered with Azure AD when the service is created.</span></span> <span data-ttu-id="9dd46-204">从部署中获取对象 ID 以在下面的命令中使用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-204">Obtain the Object ID from the deployment for use in the following command.</span></span> <span data-ttu-id="9dd46-205">对象 ID 显示在应用服务面板上的 "Azure 门户中 **:::no-loc(Identity):::** 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-205">The Object ID is shown in the Azure portal on the **:::no-loc(Identity):::** panel of the App Service.</span></span>
+<span data-ttu-id="9dd46-203">在创建服务时，会自动向 Azure AD 注册部署到 Azure App Service 的应用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-203">An app deployed to Azure App Service is automatically registered with Azure AD when the service is created.</span></span> <span data-ttu-id="9dd46-204">从部署中获取对象 ID 以在下面的命令中使用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-204">Obtain the Object ID from the deployment for use in the following command.</span></span> <span data-ttu-id="9dd46-205">对象 ID 显示在应用服务面板上的 "Azure 门户中 **Identity** 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-205">The Object ID is shown in the Azure portal on the **Identity** panel of the App Service.</span></span>
 
 <span data-ttu-id="9dd46-206">使用 Azure CLI 和应用程序的对象 ID，为应用程序提供 `list` `get` 访问密钥保管库的和权限：</span><span class="sxs-lookup"><span data-stu-id="9dd46-206">Using Azure CLI and the app's Object ID, provide the app with `list` and `get` permissions to access the key vault:</span></span>
 
@@ -199,7 +199,7 @@ az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-
 
 <span data-ttu-id="9dd46-213">Key vault 名称示例值： `contosovault`</span><span class="sxs-lookup"><span data-stu-id="9dd46-213">Key vault name example value: `contosovault`</span></span>
     
-<span data-ttu-id="9dd46-214">*:::no-loc(appsettings.json):::* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-214">*:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="9dd46-214">*appsettings.json* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-214">*appsettings.json* :</span></span>
 
 ```json
 {
@@ -481,7 +481,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
    1. <span data-ttu-id="9dd46-362">在 Azure AD 中选择应用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-362">Select the app in Azure AD.</span></span>
    1. <span data-ttu-id="9dd46-363">导航到 " **证书" & "机密** "。</span><span class="sxs-lookup"><span data-stu-id="9dd46-363">Navigate to **Certificates & secrets** .</span></span>
    1. <span data-ttu-id="9dd46-364">选择 " **上传证书** "，上传包含公钥的证书。</span><span class="sxs-lookup"><span data-stu-id="9dd46-364">Select **Upload certificate** to upload the certificate, which contains the public key.</span></span> <span data-ttu-id="9dd46-365">*.Cer* 、 *pem* 或 *.crt* 证书是可接受的。</span><span class="sxs-lookup"><span data-stu-id="9dd46-365">A *.cer* , *.pem* , or *.crt* certificate is acceptable.</span></span>
-1. <span data-ttu-id="9dd46-366">在应用的文件中存储密钥保管库名称、应用程序 ID 和证书指纹 *:::no-loc(appsettings.json):::* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-366">Store the key vault name, Application ID, and certificate thumbprint in the app's *:::no-loc(appsettings.json):::* file.</span></span>
+1. <span data-ttu-id="9dd46-366">在应用的文件中存储密钥保管库名称、应用程序 ID 和证书指纹 *appsettings.json* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-366">Store the key vault name, Application ID, and certificate thumbprint in the app's *appsettings.json* file.</span></span>
 1. <span data-ttu-id="9dd46-367">导航到 Azure 门户中的 **密钥保管库** 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-367">Navigate to **Key vaults** in the Azure portal.</span></span>
 1. <span data-ttu-id="9dd46-368">选择在 [生产环境中的机密存储中](#secret-storage-in-the-production-environment-with-azure-key-vault) 创建的密钥保管库，其中 Azure Key Vault "部分。</span><span class="sxs-lookup"><span data-stu-id="9dd46-368">Select the key vault that you created in the [Secret storage in the Production environment with Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) section.</span></span>
 1. <span data-ttu-id="9dd46-369">选择“访问策略”。</span><span class="sxs-lookup"><span data-stu-id="9dd46-369">Select **Access policies** .</span></span>
@@ -499,7 +499,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-<span data-ttu-id="9dd46-381">X.509 证书由操作系统管理。</span><span class="sxs-lookup"><span data-stu-id="9dd46-381">The X.509 certificate is managed by the OS.</span></span> <span data-ttu-id="9dd46-382">应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用文件提供的值调用 *:::no-loc(appsettings.json):::* ：</span><span class="sxs-lookup"><span data-stu-id="9dd46-382">The app calls <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> with values supplied by the *:::no-loc(appsettings.json):::* file:</span></span>
+<span data-ttu-id="9dd46-381">X.509 证书由操作系统管理。</span><span class="sxs-lookup"><span data-stu-id="9dd46-381">The X.509 certificate is managed by the OS.</span></span> <span data-ttu-id="9dd46-382">应用 <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> 使用文件提供的值调用 *appsettings.json* ：</span><span class="sxs-lookup"><span data-stu-id="9dd46-382">The app calls <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> with values supplied by the *appsettings.json* file:</span></span>
 
 [!code-csharp[](key-vault-configuration/samples/2.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
 
@@ -509,9 +509,9 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 * <span data-ttu-id="9dd46-385">应用程序 ID： `627e911e-43cc-61d4-992e-12db9c81b413`</span><span class="sxs-lookup"><span data-stu-id="9dd46-385">Application ID: `627e911e-43cc-61d4-992e-12db9c81b413`</span></span>
 * <span data-ttu-id="9dd46-386">证书指纹： `fe14593dd66b2406c5269d742d04b6e1ab03adb1`</span><span class="sxs-lookup"><span data-stu-id="9dd46-386">Certificate thumbprint: `fe14593dd66b2406c5269d742d04b6e1ab03adb1`</span></span>
 
-<span data-ttu-id="9dd46-387">*:::no-loc(appsettings.json):::* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-387">*:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="9dd46-387">*appsettings.json* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-387">*appsettings.json* :</span></span>
 
-[!code-json[](key-vault-configuration/samples/2.x/SampleApp/:::no-loc(appsettings.json):::?highlight=10-12)]
+[!code-json[](key-vault-configuration/samples/2.x/SampleApp/appsettings.json?highlight=10-12)]
 
 <span data-ttu-id="9dd46-388">运行应用时，网页将显示加载的机密值。</span><span class="sxs-lookup"><span data-stu-id="9dd46-388">When you run the app, a webpage shows the loaded secret values.</span></span> <span data-ttu-id="9dd46-389">在开发环境中，机密值用后缀进行加载 `_dev` 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-389">In the Development environment, secret values load with the `_dev` suffix.</span></span> <span data-ttu-id="9dd46-390">在生产环境中，值以后缀进行加载 `_prod` 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-390">In the Production environment, the values load with the `_prod` suffix.</span></span>
 
@@ -521,11 +521,11 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 <span data-ttu-id="9dd46-393">当 `#define` *Program.cs* 文件顶部的语句设置为时，示例应用使用 Azure 资源的托管标识 `Managed` 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-393">The sample app uses Managed identities for Azure resources when the `#define` statement at the top of the *Program.cs* file is set to `Managed`.</span></span>
 
-<span data-ttu-id="9dd46-394">在应用的文件中输入保管库名称 *:::no-loc(appsettings.json):::* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-394">Enter the vault name into the app's *:::no-loc(appsettings.json):::* file.</span></span> <span data-ttu-id="9dd46-395">当设置为版本时，示例应用不需要应用程序 ID 和密码 (的客户端机密) `Managed` ，因此你可以忽略这些配置条目。</span><span class="sxs-lookup"><span data-stu-id="9dd46-395">The sample app doesn't require an Application ID and Password (Client Secret) when set to the `Managed` version, so you can ignore those configuration entries.</span></span> <span data-ttu-id="9dd46-396">应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在文件中的保管库名称访问 Azure Key Vault *:::no-loc(appsettings.json):::* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-396">The app is deployed to Azure, and Azure authenticates the app to access Azure Key Vault only using the vault name stored in the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="9dd46-394">在应用的文件中输入保管库名称 *appsettings.json* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-394">Enter the vault name into the app's *appsettings.json* file.</span></span> <span data-ttu-id="9dd46-395">当设置为版本时，示例应用不需要应用程序 ID 和密码 (的客户端机密) `Managed` ，因此你可以忽略这些配置条目。</span><span class="sxs-lookup"><span data-stu-id="9dd46-395">The sample app doesn't require an Application ID and Password (Client Secret) when set to the `Managed` version, so you can ignore those configuration entries.</span></span> <span data-ttu-id="9dd46-396">应用将部署到 Azure，Azure 将对应用进行身份验证，以便仅使用存储在文件中的保管库名称访问 Azure Key Vault *appsettings.json* 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-396">The app is deployed to Azure, and Azure authenticates the app to access Azure Key Vault only using the vault name stored in the *appsettings.json* file.</span></span>
 
 <span data-ttu-id="9dd46-397">将示例应用部署到 Azure App Service。</span><span class="sxs-lookup"><span data-stu-id="9dd46-397">Deploy the sample app to Azure App Service.</span></span>
 
-<span data-ttu-id="9dd46-398">在创建服务时，会自动向 Azure AD 注册部署到 Azure App Service 的应用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-398">An app deployed to Azure App Service is automatically registered with Azure AD when the service is created.</span></span> <span data-ttu-id="9dd46-399">从部署中获取对象 ID 以在下面的命令中使用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-399">Obtain the Object ID from the deployment for use in the following command.</span></span> <span data-ttu-id="9dd46-400">对象 ID 显示在应用服务面板上的 "Azure 门户中 **:::no-loc(Identity):::** 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-400">The Object ID is shown in the Azure portal on the **:::no-loc(Identity):::** panel of the App Service.</span></span>
+<span data-ttu-id="9dd46-398">在创建服务时，会自动向 Azure AD 注册部署到 Azure App Service 的应用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-398">An app deployed to Azure App Service is automatically registered with Azure AD when the service is created.</span></span> <span data-ttu-id="9dd46-399">从部署中获取对象 ID 以在下面的命令中使用。</span><span class="sxs-lookup"><span data-stu-id="9dd46-399">Obtain the Object ID from the deployment for use in the following command.</span></span> <span data-ttu-id="9dd46-400">对象 ID 显示在应用服务面板上的 "Azure 门户中 **Identity** 。</span><span class="sxs-lookup"><span data-stu-id="9dd46-400">The Object ID is shown in the Azure portal on the **Identity** panel of the App Service.</span></span>
 
 <span data-ttu-id="9dd46-401">使用 Azure CLI 和应用程序的对象 ID，为应用程序提供 `list` `get` 访问密钥保管库的和权限：</span><span class="sxs-lookup"><span data-stu-id="9dd46-401">Using Azure CLI and the app's Object ID, provide the app with `list` and `get` permissions to access the key vault:</span></span>
 
@@ -545,7 +545,7 @@ az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-
 
 <span data-ttu-id="9dd46-408">Key vault 名称示例值： `contosovault`</span><span class="sxs-lookup"><span data-stu-id="9dd46-408">Key vault name example value: `contosovault`</span></span>
     
-<span data-ttu-id="9dd46-409">*:::no-loc(appsettings.json):::* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-409">*:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="9dd46-409">*appsettings.json* :</span><span class="sxs-lookup"><span data-stu-id="9dd46-409">*appsettings.json* :</span></span>
 
 ```json
 {

@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core MVC 中基于视图的授权
 author: rick-anderson
-description: '本文档演示如何在 ASP.NET Core 视图中注入和使用授权服务 :::no-loc(Razor)::: 。'
+description: '本文档演示如何在 ASP.NET Core 视图中注入和使用授权服务 Razor 。'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/08/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authorization/views
 ms.openlocfilehash: b3d6e595aa08208f2bf9e95d7070cf9c24802b62
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -27,7 +27,7 @@ ms.locfileid: "93061322"
 ---
 # <a name="view-based-authorization-in-aspnet-core-mvc"></a><span data-ttu-id="a92db-103">ASP.NET Core MVC 中基于视图的授权</span><span class="sxs-lookup"><span data-stu-id="a92db-103">View-based authorization in ASP.NET Core MVC</span></span>
 
-<span data-ttu-id="a92db-104">开发人员通常需要根据当前用户标识来显示、隐藏或修改 UI。</span><span class="sxs-lookup"><span data-stu-id="a92db-104">A developer often wants to show, hide, or otherwise modify a UI based on the current user identity.</span></span> <span data-ttu-id="a92db-105">可以通过 [依赖关系注入](xref:fundamentals/dependency-injection)访问 MVC 视图中的授权服务。</span><span class="sxs-lookup"><span data-stu-id="a92db-105">You can access the authorization service within MVC views via [dependency injection](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="a92db-106">若要将授权服务注入 :::no-loc(Razor)::: 视图，请使用 `@inject` 指令：</span><span class="sxs-lookup"><span data-stu-id="a92db-106">To inject the authorization service into a :::no-loc(Razor)::: view, use the `@inject` directive:</span></span>
+<span data-ttu-id="a92db-104">开发人员通常需要根据当前用户标识来显示、隐藏或修改 UI。</span><span class="sxs-lookup"><span data-stu-id="a92db-104">A developer often wants to show, hide, or otherwise modify a UI based on the current user identity.</span></span> <span data-ttu-id="a92db-105">可以通过 [依赖关系注入](xref:fundamentals/dependency-injection)访问 MVC 视图中的授权服务。</span><span class="sxs-lookup"><span data-stu-id="a92db-105">You can access the authorization service within MVC views via [dependency injection](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="a92db-106">若要将授权服务注入 Razor 视图，请使用 `@inject` 指令：</span><span class="sxs-lookup"><span data-stu-id="a92db-106">To inject the authorization service into a Razor view, use the `@inject` directive:</span></span>
 
 ```cshtml
 @using Microsoft.AspNetCore.Authorization

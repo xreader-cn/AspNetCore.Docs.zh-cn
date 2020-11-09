@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: 组件虚拟化'
+title: 'ASP.NET Core Blazor 组件虚拟化'
 author: guardrex
-description: '了解如何在 ASP.NET Core :::no-loc(Blazor)::: 应用中使用组件虚拟化。'
+description: '了解如何在 ASP.NET Core Blazor 应用中使用组件虚拟化。'
 monikerRange: '>= aspnetcore-5.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/02/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/components/virtualization
 ms.openlocfilehash: b23e4814daaabbe2c8660d49cc5b6940a9cc3b4f
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,11 +26,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93056161"
 ---
-# <a name="aspnet-core-no-locblazor-component-virtualization"></a><span data-ttu-id="ea89c-103">ASP.NET Core :::no-loc(Blazor)::: 组件虚拟化</span><span class="sxs-lookup"><span data-stu-id="ea89c-103">ASP.NET Core :::no-loc(Blazor)::: component virtualization</span></span>
+# <a name="aspnet-core-no-locblazor-component-virtualization"></a><span data-ttu-id="ea89c-103">ASP.NET Core Blazor 组件虚拟化</span><span class="sxs-lookup"><span data-stu-id="ea89c-103">ASP.NET Core Blazor component virtualization</span></span>
 
 <span data-ttu-id="ea89c-104">作者：[Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="ea89c-104">By [Daniel Roth](https://github.com/danroth27)</span></span>
 
-<span data-ttu-id="ea89c-105">使用 :::no-loc(Blazor)::: 框架的内置虚拟化支持提高组件呈现的感知性能。</span><span class="sxs-lookup"><span data-stu-id="ea89c-105">Improve the perceived performance of component rendering using the :::no-loc(Blazor)::: framework's built-in virtualization support.</span></span> <span data-ttu-id="ea89c-106">虚拟化是一种技术，用于将 UI 呈现限制为仅当前可见的部分。</span><span class="sxs-lookup"><span data-stu-id="ea89c-106">Virtualization is a technique for limiting UI rendering to just the parts that are currently visible.</span></span> <span data-ttu-id="ea89c-107">例如，当应用必须呈现项的长列表，并且在任何给定的时间只需要一小部分项可见时，虚拟化很有帮助。</span><span class="sxs-lookup"><span data-stu-id="ea89c-107">For example, virtualization is helpful when the app must render a long list of items and only a subset of items is required to be visible at any given time.</span></span> <span data-ttu-id="ea89c-108">:::no-loc(Blazor)::: 提供 `Virtualize` 组件，可用于向应用的组件添加虚拟化。</span><span class="sxs-lookup"><span data-stu-id="ea89c-108">:::no-loc(Blazor)::: provides the `Virtualize` component that can be used to add virtualization to an app's components.</span></span>
+<span data-ttu-id="ea89c-105">使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。</span><span class="sxs-lookup"><span data-stu-id="ea89c-105">Improve the perceived performance of component rendering using the Blazor framework's built-in virtualization support.</span></span> <span data-ttu-id="ea89c-106">虚拟化是一种技术，用于将 UI 呈现限制为仅当前可见的部分。</span><span class="sxs-lookup"><span data-stu-id="ea89c-106">Virtualization is a technique for limiting UI rendering to just the parts that are currently visible.</span></span> <span data-ttu-id="ea89c-107">例如，当应用必须呈现项的长列表，并且在任何给定的时间只需要一小部分项可见时，虚拟化很有帮助。</span><span class="sxs-lookup"><span data-stu-id="ea89c-107">For example, virtualization is helpful when the app must render a long list of items and only a subset of items is required to be visible at any given time.</span></span> <span data-ttu-id="ea89c-108">Blazor 提供 `Virtualize` 组件，可用于向应用的组件添加虚拟化。</span><span class="sxs-lookup"><span data-stu-id="ea89c-108">Blazor provides the `Virtualize` component that can be used to add virtualization to an app's components.</span></span>
 
 <span data-ttu-id="ea89c-109">如果不使用虚拟化，典型列表可能会使用 C# [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环来呈现列表中的每一项：</span><span class="sxs-lookup"><span data-stu-id="ea89c-109">Without virtualization, a typical list might use a C# [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) loop to render each item in the list:</span></span>
 
@@ -72,9 +72,9 @@ ms.locfileid: "93056161"
 
 <span data-ttu-id="ea89c-116">`Virtualize` 组件的项内容可以包括：</span><span class="sxs-lookup"><span data-stu-id="ea89c-116">The item content for the `Virtualize` component can include:</span></span>
 
-* <span data-ttu-id="ea89c-117">纯 HTML 和 :::no-loc(Razor)::: 代码，如前面的示例所示。</span><span class="sxs-lookup"><span data-stu-id="ea89c-117">Plain HTML and :::no-loc(Razor)::: code, as the preceding example shows.</span></span>
-* <span data-ttu-id="ea89c-118">一个或多个 :::no-loc(Razor)::: 组件。</span><span class="sxs-lookup"><span data-stu-id="ea89c-118">One or more :::no-loc(Razor)::: components.</span></span>
-* <span data-ttu-id="ea89c-119">HTML/:::no-loc(Razor)::: 和 :::no-loc(Razor)::: 组件的组合。</span><span class="sxs-lookup"><span data-stu-id="ea89c-119">A mix of HTML/:::no-loc(Razor)::: and :::no-loc(Razor)::: components.</span></span>
+* <span data-ttu-id="ea89c-117">纯 HTML 和 Razor 代码，如前面的示例所示。</span><span class="sxs-lookup"><span data-stu-id="ea89c-117">Plain HTML and Razor code, as the preceding example shows.</span></span>
+* <span data-ttu-id="ea89c-118">一个或多个 Razor 组件。</span><span class="sxs-lookup"><span data-stu-id="ea89c-118">One or more Razor components.</span></span>
+* <span data-ttu-id="ea89c-119">HTML/Razor 和 Razor 组件的组合。</span><span class="sxs-lookup"><span data-stu-id="ea89c-119">A mix of HTML/Razor and Razor components.</span></span>
 
 ## <a name="item-provider-delegate"></a><span data-ttu-id="ea89c-120">项提供程序委托</span><span class="sxs-lookup"><span data-stu-id="ea89c-120">Item provider delegate</span></span>
 

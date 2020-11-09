@@ -1,23 +1,23 @@
 ---
 title: ASP.NET Core 上的单页面应用的身份验证简介
 author: javiercn
-description: '用于 :::no-loc(Identity)::: ASP.NET Core 应用内托管的单页面应用。'
+description: '用于 Identity ASP.NET Core 应用内托管的单页面应用。'
 monikerRange: '>= aspnetcore-3.0'
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/27/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authentication/identity/spa
 ms.openlocfilehash: 8acc34c88bf62b3da1b920acc7318c94435c100e
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -28,9 +28,9 @@ ms.locfileid: "93051975"
 ---
 # <a name="authentication-and-authorization-for-spas"></a><span data-ttu-id="77758-103">Spa 的身份验证和授权</span><span class="sxs-lookup"><span data-stu-id="77758-103">Authentication and authorization for SPAs</span></span>
 
-<span data-ttu-id="77758-104">ASP.NET Core 3.1 和更高版本模板在单页面应用中提供身份验证， (Spa) 使用对 API 授权的支持。</span><span class="sxs-lookup"><span data-stu-id="77758-104">The ASP.NET Core 3.1 and later templates offer authentication in Single Page Apps (SPAs) using the support for API authorization.</span></span> <span data-ttu-id="77758-105">:::no-loc(ASP.NET Core Identity):::对于身份验证和存储用户，将与用于实现 OpenID Connect 的[ :::no-loc(Identity)::: 服务器](https://identityserver.io/)结合。</span><span class="sxs-lookup"><span data-stu-id="77758-105">:::no-loc(ASP.NET Core Identity)::: for authenticating and storing users is combined with [:::no-loc(Identity):::Server](https://identityserver.io/) for implementing OpenID Connect.</span></span>
+<span data-ttu-id="77758-104">ASP.NET Core 3.1 和更高版本模板在单页面应用中提供身份验证， (Spa) 使用对 API 授权的支持。</span><span class="sxs-lookup"><span data-stu-id="77758-104">The ASP.NET Core 3.1 and later templates offer authentication in Single Page Apps (SPAs) using the support for API authorization.</span></span> <span data-ttu-id="77758-105">ASP.NET Core Identity对于身份验证和存储用户，将与用于实现 OpenID Connect 的[ Identity 服务器](https://identityserver.io/)结合。</span><span class="sxs-lookup"><span data-stu-id="77758-105">ASP.NET Core Identity for authenticating and storing users is combined with [IdentityServer](https://identityserver.io/) for implementing OpenID Connect.</span></span>
 
-<span data-ttu-id="77758-106">已将身份验证参数添加到 " **角度** " 和 " **响应** " 项目模板，该模板类似于 Web 应用程序中的身份验证参数 **(模型-视图-控制器)** (MVC) 和 **web 应用** (:::no-loc(Razor)::: 页) 项目模板。</span><span class="sxs-lookup"><span data-stu-id="77758-106">An authentication parameter was added to the **Angular** and **React** project templates that is similar to the authentication parameter in the **Web Application (Model-View-Controller)** (MVC) and **Web Application** (:::no-loc(Razor)::: Pages) project templates.</span></span> <span data-ttu-id="77758-107">允许的参数值为 **None** 和 **个体** 。</span><span class="sxs-lookup"><span data-stu-id="77758-107">The allowed parameter values are **None** and **Individual** .</span></span> <span data-ttu-id="77758-108">**React.js 和 Redux** 项目模板此时不支持身份验证参数。</span><span class="sxs-lookup"><span data-stu-id="77758-108">The **React.js and Redux** project template doesn't support the authentication parameter at this time.</span></span>
+<span data-ttu-id="77758-106">已将身份验证参数添加到 " **角度** " 和 " **响应** " 项目模板，该模板类似于 Web 应用程序中的身份验证参数 **(模型-视图-控制器)** (MVC) 和 **web 应用** (Razor 页) 项目模板。</span><span class="sxs-lookup"><span data-stu-id="77758-106">An authentication parameter was added to the **Angular** and **React** project templates that is similar to the authentication parameter in the **Web Application (Model-View-Controller)** (MVC) and **Web Application** (Razor Pages) project templates.</span></span> <span data-ttu-id="77758-107">允许的参数值为 **None** 和 **个体** 。</span><span class="sxs-lookup"><span data-stu-id="77758-107">The allowed parameter values are **None** and **Individual** .</span></span> <span data-ttu-id="77758-108">**React.js 和 Redux** 项目模板此时不支持身份验证参数。</span><span class="sxs-lookup"><span data-stu-id="77758-108">The **React.js and Redux** project template doesn't support the authentication parameter at this time.</span></span>
 
 ## <a name="create-an-app-with-api-authorization-support"></a><span data-ttu-id="77758-109">使用 API 授权支持创建应用</span><span class="sxs-lookup"><span data-stu-id="77758-109">Create an app with API authorization support</span></span>
 
@@ -56,33 +56,33 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="startup-class"></a><span data-ttu-id="77758-117">Startup 类</span><span class="sxs-lookup"><span data-stu-id="77758-117">Startup class</span></span>
 
-<span data-ttu-id="77758-118">下面的代码示例依赖于 [AspNetCore. ApiAuthorization。 :::no-loc(Identity):::Server](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.:::no-loc(Identity):::Server) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="77758-118">The following code examples rely on the [Microsoft.AspNetCore.ApiAuthorization.:::no-loc(Identity):::Server](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.:::no-loc(Identity):::Server) NuGet package.</span></span> <span data-ttu-id="77758-119">示例使用 <xref:Microsoft.Extensions.DependencyInjection.:::no-loc(Identity):::ServerBuilderConfigurationExtensions.AddApiAuthorization%2A> 和扩展方法配置 API 身份验证和授权 <xref:Microsoft.AspNetCore.ApiAuthorization.:::no-loc(Identity):::Server.ApiResourceCollection.Add:::no-loc(Identity):::ServerJwt%2A> 。</span><span class="sxs-lookup"><span data-stu-id="77758-119">The examples configure API authentication and authorization using the <xref:Microsoft.Extensions.DependencyInjection.:::no-loc(Identity):::ServerBuilderConfigurationExtensions.AddApiAuthorization%2A> and <xref:Microsoft.AspNetCore.ApiAuthorization.:::no-loc(Identity):::Server.ApiResourceCollection.Add:::no-loc(Identity):::ServerJwt%2A> extension methods.</span></span> <span data-ttu-id="77758-120">使用带有身份验证的响应或角 SPA 项目模板的项目包括对此包的引用。</span><span class="sxs-lookup"><span data-stu-id="77758-120">Projects using the React or Angular SPA project templates with authentication include a reference to this package.</span></span>
+<span data-ttu-id="77758-118">下面的代码示例依赖于 [AspNetCore. ApiAuthorization。 IdentityServer](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="77758-118">The following code examples rely on the [Microsoft.AspNetCore.ApiAuthorization.IdentityServer](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) NuGet package.</span></span> <span data-ttu-id="77758-119">示例使用 <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> 和扩展方法配置 API 身份验证和授权 <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> 。</span><span class="sxs-lookup"><span data-stu-id="77758-119">The examples configure API authentication and authorization using the <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> and <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> extension methods.</span></span> <span data-ttu-id="77758-120">使用带有身份验证的响应或角 SPA 项目模板的项目包括对此包的引用。</span><span class="sxs-lookup"><span data-stu-id="77758-120">Projects using the React or Angular SPA project templates with authentication include a reference to this package.</span></span>
 
 <span data-ttu-id="77758-121">`Startup`类添加了以下内容：</span><span class="sxs-lookup"><span data-stu-id="77758-121">The `Startup` class has the following additions:</span></span>
 
 * <span data-ttu-id="77758-122">在 `Startup.ConfigureServices` 方法中：</span><span class="sxs-lookup"><span data-stu-id="77758-122">Inside the `Startup.ConfigureServices` method:</span></span>
-  * <span data-ttu-id="77758-123">:::no-loc(Identity)::: 对于默认的 UI：</span><span class="sxs-lookup"><span data-stu-id="77758-123">:::no-loc(Identity)::: with the default UI:</span></span>
+  * <span data-ttu-id="77758-123">Identity 对于默认的 UI：</span><span class="sxs-lookup"><span data-stu-id="77758-123">Identity with the default UI:</span></span>
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-    services.AddDefault:::no-loc(Identity):::<ApplicationUser>()
+    services.AddDefaultIdentity<ApplicationUser>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * <span data-ttu-id="77758-124">:::no-loc(Identity):::具有其他 `AddApiAuthorization` 帮助器方法的服务器，用于在服务器上设置某些默认 ASP.NET Core 约定 :::no-loc(Identity)::: ：</span><span class="sxs-lookup"><span data-stu-id="77758-124">:::no-loc(Identity):::Server with an additional `AddApiAuthorization` helper method that sets up some default ASP.NET Core conventions on top of :::no-loc(Identity):::Server:</span></span>
+  * <span data-ttu-id="77758-124">Identity具有其他 `AddApiAuthorization` 帮助器方法的服务器，用于在服务器上设置某些默认 ASP.NET Core 约定 Identity ：</span><span class="sxs-lookup"><span data-stu-id="77758-124">IdentityServer with an additional `AddApiAuthorization` helper method that sets up some default ASP.NET Core conventions on top of IdentityServer:</span></span>
 
     ```csharp
-    services.Add:::no-loc(Identity):::Server()
+    services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * <span data-ttu-id="77758-125">包含附加 `Add:::no-loc(Identity):::ServerJwt` 帮助器方法的身份验证，该方法将应用配置为验证由 :::no-loc(Identity):::Server 生成的 JWT 令牌：</span><span class="sxs-lookup"><span data-stu-id="77758-125">Authentication with an additional `Add:::no-loc(Identity):::ServerJwt` helper method that configures the app to validate JWT tokens produced by :::no-loc(Identity):::Server:</span></span>
+  * <span data-ttu-id="77758-125">包含附加 `AddIdentityServerJwt` 帮助器方法的身份验证，该方法将应用配置为验证由 IdentityServer 生成的 JWT 令牌：</span><span class="sxs-lookup"><span data-stu-id="77758-125">Authentication with an additional `AddIdentityServerJwt` helper method that configures the app to validate JWT tokens produced by IdentityServer:</span></span>
 
     ```csharp
     services.AddAuthentication()
-        .Add:::no-loc(Identity):::ServerJwt();
+        .AddIdentityServerJwt();
     ```
 
 * <span data-ttu-id="77758-126">在 `Startup.Configure` 方法中：</span><span class="sxs-lookup"><span data-stu-id="77758-126">Inside the `Startup.Configure` method:</span></span>
@@ -92,43 +92,43 @@ dotnet new react -o <output_directory_name> -au Individual
     app.UseAuthentication();
     ```
 
-  * <span data-ttu-id="77758-128">:::no-loc(Identity):::公开 OpenID connect 终结点的服务器中间件：</span><span class="sxs-lookup"><span data-stu-id="77758-128">The :::no-loc(Identity):::Server middleware that exposes the OpenID Connect endpoints:</span></span>
+  * <span data-ttu-id="77758-128">Identity公开 OpenID connect 终结点的服务器中间件：</span><span class="sxs-lookup"><span data-stu-id="77758-128">The IdentityServer middleware that exposes the OpenID Connect endpoints:</span></span>
 
     ```csharp
-    app.Use:::no-loc(Identity):::Server();
+    app.UseIdentityServer();
     ```
 
 ### <a name="addapiauthorization"></a><span data-ttu-id="77758-129">AddApiAuthorization</span><span class="sxs-lookup"><span data-stu-id="77758-129">AddApiAuthorization</span></span>
 
-<span data-ttu-id="77758-130">此帮助程序方法将 :::no-loc(Identity)::: 服务器配置为使用受支持的配置。</span><span class="sxs-lookup"><span data-stu-id="77758-130">This helper method configures :::no-loc(Identity):::Server to use our supported configuration.</span></span> <span data-ttu-id="77758-131">:::no-loc(Identity):::Server 是一个功能强大且可扩展的框架，用于处理应用安全问题。</span><span class="sxs-lookup"><span data-stu-id="77758-131">:::no-loc(Identity):::Server is a powerful and extensible framework for handling app security concerns.</span></span> <span data-ttu-id="77758-132">同时，对于最常见的方案，这会造成不必要的复杂性。</span><span class="sxs-lookup"><span data-stu-id="77758-132">At the same time, that exposes unnecessary complexity for the most common scenarios.</span></span> <span data-ttu-id="77758-133">因此，系统会为您提供一组约定和配置选项，这是一个很好的起点。</span><span class="sxs-lookup"><span data-stu-id="77758-133">Consequently, a set of conventions and configuration options is provided to you that are considered a good starting point.</span></span> <span data-ttu-id="77758-134">一旦你的身份验证需要更改，服务器的全部功能 :::no-loc(Identity)::: 仍可用于自定义身份验证以满足你的需求。</span><span class="sxs-lookup"><span data-stu-id="77758-134">Once your authentication needs change, the full power of :::no-loc(Identity):::Server is still available to customize authentication to suit your needs.</span></span>
+<span data-ttu-id="77758-130">此帮助程序方法将 Identity 服务器配置为使用受支持的配置。</span><span class="sxs-lookup"><span data-stu-id="77758-130">This helper method configures IdentityServer to use our supported configuration.</span></span> <span data-ttu-id="77758-131">IdentityServer 是一个功能强大且可扩展的框架，用于处理应用安全问题。</span><span class="sxs-lookup"><span data-stu-id="77758-131">IdentityServer is a powerful and extensible framework for handling app security concerns.</span></span> <span data-ttu-id="77758-132">同时，对于最常见的方案，这会造成不必要的复杂性。</span><span class="sxs-lookup"><span data-stu-id="77758-132">At the same time, that exposes unnecessary complexity for the most common scenarios.</span></span> <span data-ttu-id="77758-133">因此，系统会为您提供一组约定和配置选项，这是一个很好的起点。</span><span class="sxs-lookup"><span data-stu-id="77758-133">Consequently, a set of conventions and configuration options is provided to you that are considered a good starting point.</span></span> <span data-ttu-id="77758-134">一旦你的身份验证需要更改，服务器的全部功能 Identity 仍可用于自定义身份验证以满足你的需求。</span><span class="sxs-lookup"><span data-stu-id="77758-134">Once your authentication needs change, the full power of IdentityServer is still available to customize authentication to suit your needs.</span></span>
 
-### <a name="addno-locidentityserverjwt"></a><span data-ttu-id="77758-135">Add:::no-loc(Identity):::ServerJwt</span><span class="sxs-lookup"><span data-stu-id="77758-135">Add:::no-loc(Identity):::ServerJwt</span></span>
+### <a name="addno-locidentityserverjwt"></a><span data-ttu-id="77758-135">AddIdentityServerJwt</span><span class="sxs-lookup"><span data-stu-id="77758-135">AddIdentityServerJwt</span></span>
 
-<span data-ttu-id="77758-136">此帮助器方法将应用程序的策略方案配置为默认的身份验证处理程序。</span><span class="sxs-lookup"><span data-stu-id="77758-136">This helper method configures a policy scheme for the app as the default authentication handler.</span></span> <span data-ttu-id="77758-137">此策略配置为允许 :::no-loc(Identity)::: 处理路由到 :::no-loc(Identity)::: URL 空间 "/" 中任何子路径的所有请求 :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="77758-137">The policy is configured to let :::no-loc(Identity)::: handle all requests routed to any subpath in the :::no-loc(Identity)::: URL space "/:::no-loc(Identity):::".</span></span> <span data-ttu-id="77758-138">`JwtBearerHandler` 处理所有其他请求。</span><span class="sxs-lookup"><span data-stu-id="77758-138">The `JwtBearerHandler` handles all other requests.</span></span> <span data-ttu-id="77758-139">此外，此方法向服务器注册一个 `<<ApplicationName>>API` :::no-loc(Identity)::: 具有默认作用域的 API 资源 `<<ApplicationName>>API` ，并将 JWT 持有者令牌中间件配置为验证 :::no-loc(Identity)::: 服务器为应用程序颁发的令牌。</span><span class="sxs-lookup"><span data-stu-id="77758-139">Additionally, this method registers an `<<ApplicationName>>API` API resource with :::no-loc(Identity):::Server with a default scope of `<<ApplicationName>>API` and configures the JWT Bearer token middleware to validate tokens issued by :::no-loc(Identity):::Server for the app.</span></span>
+<span data-ttu-id="77758-136">此帮助器方法将应用程序的策略方案配置为默认的身份验证处理程序。</span><span class="sxs-lookup"><span data-stu-id="77758-136">This helper method configures a policy scheme for the app as the default authentication handler.</span></span> <span data-ttu-id="77758-137">此策略配置为允许 Identity 处理路由到 Identity URL 空间 "/" 中任何子路径的所有请求 Identity 。</span><span class="sxs-lookup"><span data-stu-id="77758-137">The policy is configured to let Identity handle all requests routed to any subpath in the Identity URL space "/Identity".</span></span> <span data-ttu-id="77758-138">`JwtBearerHandler` 处理所有其他请求。</span><span class="sxs-lookup"><span data-stu-id="77758-138">The `JwtBearerHandler` handles all other requests.</span></span> <span data-ttu-id="77758-139">此外，此方法向服务器注册一个 `<<ApplicationName>>API` Identity 具有默认作用域的 API 资源 `<<ApplicationName>>API` ，并将 JWT 持有者令牌中间件配置为验证 Identity 服务器为应用程序颁发的令牌。</span><span class="sxs-lookup"><span data-stu-id="77758-139">Additionally, this method registers an `<<ApplicationName>>API` API resource with IdentityServer with a default scope of `<<ApplicationName>>API` and configures the JWT Bearer token middleware to validate tokens issued by IdentityServer for the app.</span></span>
 
 ### <a name="weatherforecastcontroller"></a><span data-ttu-id="77758-140">WeatherForecastController</span><span class="sxs-lookup"><span data-stu-id="77758-140">WeatherForecastController</span></span>
 
-<span data-ttu-id="77758-141">在 *Controllers\WeatherForecastController.cs* 文件中，请注意 `[Authorize]` 应用于类的属性，该属性指示用户需要根据默认策略进行授权才能访问资源。</span><span class="sxs-lookup"><span data-stu-id="77758-141">In the *Controllers\WeatherForecastController.cs* file, notice the `[Authorize]` attribute applied to the class that indicates that the user needs to be authorized based on the default policy to access the resource.</span></span> <span data-ttu-id="77758-142">默认授权策略将配置为使用默认的身份验证方案，该方案由设置 `Add:::no-loc(Identity):::ServerJwt` 为上面提到的策略方案，并使此 `JwtBearerHandler` 类 helper 方法配置的应用程序请求的默认处理程序。</span><span class="sxs-lookup"><span data-stu-id="77758-142">The default authorization policy happens to be configured to use the default authentication scheme, which is set up by `Add:::no-loc(Identity):::ServerJwt` to the policy scheme that was mentioned above, making the `JwtBearerHandler` configured by such helper method the default handler for requests to the app.</span></span>
+<span data-ttu-id="77758-141">在 *Controllers\WeatherForecastController.cs* 文件中，请注意 `[Authorize]` 应用于类的属性，该属性指示用户需要根据默认策略进行授权才能访问资源。</span><span class="sxs-lookup"><span data-stu-id="77758-141">In the *Controllers\WeatherForecastController.cs* file, notice the `[Authorize]` attribute applied to the class that indicates that the user needs to be authorized based on the default policy to access the resource.</span></span> <span data-ttu-id="77758-142">默认授权策略将配置为使用默认的身份验证方案，该方案由设置 `AddIdentityServerJwt` 为上面提到的策略方案，并使此 `JwtBearerHandler` 类 helper 方法配置的应用程序请求的默认处理程序。</span><span class="sxs-lookup"><span data-stu-id="77758-142">The default authorization policy happens to be configured to use the default authentication scheme, which is set up by `AddIdentityServerJwt` to the policy scheme that was mentioned above, making the `JwtBearerHandler` configured by such helper method the default handler for requests to the app.</span></span>
 
 ### <a name="applicationdbcontext"></a><span data-ttu-id="77758-143">ApplicationDbContext</span><span class="sxs-lookup"><span data-stu-id="77758-143">ApplicationDbContext</span></span>
 
-<span data-ttu-id="77758-144">在 *Data\ApplicationDbContext.cs* 文件中，请注意， `DbContext` 在中使用了相同的， :::no-loc(Identity)::: 因为它将扩展 `ApiAuthorizationDbContext` (一个派生程度更高的类 `:::no-loc(Identity):::DbContext`) 以包括服务器的架构 :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="77758-144">In the *Data\ApplicationDbContext.cs* file, notice the same `DbContext` is used in :::no-loc(Identity)::: with the exception that it extends `ApiAuthorizationDbContext` (a more derived class from `:::no-loc(Identity):::DbContext`) to include the schema for :::no-loc(Identity):::Server.</span></span>
+<span data-ttu-id="77758-144">在 *Data\ApplicationDbContext.cs* 文件中，请注意， `DbContext` 在中使用了相同的， Identity 因为它将扩展 `ApiAuthorizationDbContext` (一个派生程度更高的类 `IdentityDbContext`) 以包括服务器的架构 Identity 。</span><span class="sxs-lookup"><span data-stu-id="77758-144">In the *Data\ApplicationDbContext.cs* file, notice the same `DbContext` is used in Identity with the exception that it extends `ApiAuthorizationDbContext` (a more derived class from `IdentityDbContext`) to include the schema for IdentityServer.</span></span>
 
-<span data-ttu-id="77758-145">若要完全控制数据库架构，请从某个可用的类继承， :::no-loc(Identity)::: `DbContext` 并将上下文配置为 :::no-loc(Identity)::: 通过调用方法来包含架构 `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating` 。</span><span class="sxs-lookup"><span data-stu-id="77758-145">To gain full control of the database schema, inherit from one of the available :::no-loc(Identity)::: `DbContext` classes and configure the context to include the :::no-loc(Identity)::: schema by calling `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` on the `OnModelCreating` method.</span></span>
+<span data-ttu-id="77758-145">若要完全控制数据库架构，请从某个可用的类继承， Identity `DbContext` 并将上下文配置为 Identity 通过调用方法来包含架构 `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating` 。</span><span class="sxs-lookup"><span data-stu-id="77758-145">To gain full control of the database schema, inherit from one of the available Identity `DbContext` classes and configure the context to include the Identity schema by calling `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` on the `OnModelCreating` method.</span></span>
 
 ### <a name="oidcconfigurationcontroller"></a><span data-ttu-id="77758-146">OidcConfigurationController</span><span class="sxs-lookup"><span data-stu-id="77758-146">OidcConfigurationController</span></span>
 
 <span data-ttu-id="77758-147">在 *Controllers\OidcConfigurationController.cs* 文件中，请注意为提供客户端需要使用的 OIDC 参数而设置的终结点。</span><span class="sxs-lookup"><span data-stu-id="77758-147">In the *Controllers\OidcConfigurationController.cs* file, notice the endpoint that's provisioned to serve the OIDC parameters that the client needs to use.</span></span>
 
-### :::no-loc(appsettings.json):::
+### appsettings.json
 
-<span data-ttu-id="77758-148">在 *:::no-loc(appsettings.json):::* 项目根目录的文件中，有一个新 `:::no-loc(Identity):::Server` 部分描述了已配置的客户端的列表。</span><span class="sxs-lookup"><span data-stu-id="77758-148">In the *:::no-loc(appsettings.json):::* file of the project root, there's a new `:::no-loc(Identity):::Server` section that describes the list of configured clients.</span></span> <span data-ttu-id="77758-149">下例中存在一个客户端。</span><span class="sxs-lookup"><span data-stu-id="77758-149">In the following example, there's a single client.</span></span> <span data-ttu-id="77758-150">客户端名称对应于应用名称，并通过约定映射到 OAuth `ClientId` 参数。</span><span class="sxs-lookup"><span data-stu-id="77758-150">The client name corresponds to the app name and is mapped by convention to the OAuth `ClientId` parameter.</span></span> <span data-ttu-id="77758-151">配置文件指示正在配置的应用类型。</span><span class="sxs-lookup"><span data-stu-id="77758-151">The profile indicates the app type being configured.</span></span> <span data-ttu-id="77758-152">它在内部用于驱动约定，以简化服务器的配置过程。</span><span class="sxs-lookup"><span data-stu-id="77758-152">It's used internally to drive conventions that simplify the configuration process for the server.</span></span> <span data-ttu-id="77758-153">有几个配置文件可用，如 " [应用程序配置文件](#application-profiles) " 部分中所述。</span><span class="sxs-lookup"><span data-stu-id="77758-153">There are several profiles available, as explained in the [Application profiles](#application-profiles) section.</span></span>
+<span data-ttu-id="77758-148">在 *appsettings.json* 项目根目录的文件中，有一个新 `IdentityServer` 部分描述了已配置的客户端的列表。</span><span class="sxs-lookup"><span data-stu-id="77758-148">In the *appsettings.json* file of the project root, there's a new `IdentityServer` section that describes the list of configured clients.</span></span> <span data-ttu-id="77758-149">下例中存在一个客户端。</span><span class="sxs-lookup"><span data-stu-id="77758-149">In the following example, there's a single client.</span></span> <span data-ttu-id="77758-150">客户端名称对应于应用名称，并通过约定映射到 OAuth `ClientId` 参数。</span><span class="sxs-lookup"><span data-stu-id="77758-150">The client name corresponds to the app name and is mapped by convention to the OAuth `ClientId` parameter.</span></span> <span data-ttu-id="77758-151">配置文件指示正在配置的应用类型。</span><span class="sxs-lookup"><span data-stu-id="77758-151">The profile indicates the app type being configured.</span></span> <span data-ttu-id="77758-152">它在内部用于驱动约定，以简化服务器的配置过程。</span><span class="sxs-lookup"><span data-stu-id="77758-152">It's used internally to drive conventions that simplify the configuration process for the server.</span></span> <span data-ttu-id="77758-153">有几个配置文件可用，如 " [应用程序配置文件](#application-profiles) " 部分中所述。</span><span class="sxs-lookup"><span data-stu-id="77758-153">There are several profiles available, as explained in the [Application profiles](#application-profiles) section.</span></span>
 
 ```json
-":::no-loc(Identity):::Server": {
+"IdentityServer": {
   "Clients": {
     "angularindividualpreview3final": {
-      "Profile": ":::no-loc(Identity):::ServerSPA"
+      "Profile": "IdentityServerSPA"
     }
   }
 }
@@ -136,10 +136,10 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsdevelopmentjson"></a><span data-ttu-id="77758-154">appsettings.Development.js</span><span class="sxs-lookup"><span data-stu-id="77758-154">appsettings.Development.json</span></span>
 
-<span data-ttu-id="77758-155">在项目根的 *appsettings.Development.js* 文件中，有一个 `:::no-loc(Identity):::Server` 描述用于对令牌进行签名的密钥的部分。</span><span class="sxs-lookup"><span data-stu-id="77758-155">In the *appsettings.Development.json* file of the project root, there's an `:::no-loc(Identity):::Server` section that describes the key used to sign tokens.</span></span> <span data-ttu-id="77758-156">部署到生产环境时，需要在应用中预配和部署密钥，如 " [部署到生产](#deploy-to-production) " 一节中所述。</span><span class="sxs-lookup"><span data-stu-id="77758-156">When deploying to production, a key needs to be provisioned and deployed alongside the app, as explained in the [Deploy to production](#deploy-to-production) section.</span></span>
+<span data-ttu-id="77758-155">在项目根的 *appsettings.Development.js* 文件中，有一个 `IdentityServer` 描述用于对令牌进行签名的密钥的部分。</span><span class="sxs-lookup"><span data-stu-id="77758-155">In the *appsettings.Development.json* file of the project root, there's an `IdentityServer` section that describes the key used to sign tokens.</span></span> <span data-ttu-id="77758-156">部署到生产环境时，需要在应用中预配和部署密钥，如 " [部署到生产](#deploy-to-production) " 一节中所述。</span><span class="sxs-lookup"><span data-stu-id="77758-156">When deploying to production, a key needs to be provisioned and deployed alongside the app, as explained in the [Deploy to production](#deploy-to-production) section.</span></span>
 
 ```json
-":::no-loc(Identity):::Server": {
+"IdentityServer": {
   "Key": {
     "Type": "Development"
   }
@@ -186,23 +186,23 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ```csharp
 services.AddAuthentication()
-    .Add:::no-loc(Identity):::ServerJwt();
+    .AddIdentityServerJwt();
 
 services.Configure<JwtBearerOptions>(
-    :::no-loc(Identity):::ServerJwtConstants.:::no-loc(Identity):::ServerJwtBearerScheme,
+    IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
     options =>
     {
         ...
     });
 ```
 
-<span data-ttu-id="77758-188">API 的 JWT 处理程序会引发事件，这些事件可以使用来控制身份验证过程 `JwtBearerEvents` 。</span><span class="sxs-lookup"><span data-stu-id="77758-188">The API's JWT handler raises events that enable control over the authentication process using `JwtBearerEvents`.</span></span> <span data-ttu-id="77758-189">若要为 API 授权提供支持，请 `Add:::no-loc(Identity):::ServerJwt` 注册其自己的事件处理程序。</span><span class="sxs-lookup"><span data-stu-id="77758-189">To provide support for API authorization, `Add:::no-loc(Identity):::ServerJwt` registers its own event handlers.</span></span>
+<span data-ttu-id="77758-188">API 的 JWT 处理程序会引发事件，这些事件可以使用来控制身份验证过程 `JwtBearerEvents` 。</span><span class="sxs-lookup"><span data-stu-id="77758-188">The API's JWT handler raises events that enable control over the authentication process using `JwtBearerEvents`.</span></span> <span data-ttu-id="77758-189">若要为 API 授权提供支持，请 `AddIdentityServerJwt` 注册其自己的事件处理程序。</span><span class="sxs-lookup"><span data-stu-id="77758-189">To provide support for API authorization, `AddIdentityServerJwt` registers its own event handlers.</span></span>
 
 <span data-ttu-id="77758-190">若要自定义事件的处理，请根据需要使用其他逻辑来包装现有的事件处理程序。</span><span class="sxs-lookup"><span data-stu-id="77758-190">To customize the handling of an event, wrap the existing event handler with additional logic as required.</span></span> <span data-ttu-id="77758-191">例如： 。</span><span class="sxs-lookup"><span data-stu-id="77758-191">For example:</span></span>
 
 ```csharp
 services.Configure<JwtBearerOptions>(
-    :::no-loc(Identity):::ServerJwtConstants.:::no-loc(Identity):::ServerJwtBearerScheme,
+    IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
     options =>
     {
         var onTokenValidated = options.Events.OnTokenValidated;       
@@ -277,7 +277,7 @@ async populateWeatherData() {
 
 <span data-ttu-id="77758-215">若要将应用部署到生产环境，需预配以下资源：</span><span class="sxs-lookup"><span data-stu-id="77758-215">To deploy the app to production, the following resources need to be provisioned:</span></span>
 
-* <span data-ttu-id="77758-216">用于存储 :::no-loc(Identity)::: 用户帐户和服务器授予的数据库 :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="77758-216">A database to store the :::no-loc(Identity)::: user accounts and the :::no-loc(Identity):::Server grants.</span></span>
+* <span data-ttu-id="77758-216">用于存储 Identity 用户帐户和服务器授予的数据库 Identity 。</span><span class="sxs-lookup"><span data-stu-id="77758-216">A database to store the Identity user accounts and the IdentityServer grants.</span></span>
 * <span data-ttu-id="77758-217">用于对令牌进行签名的生产证书。</span><span class="sxs-lookup"><span data-stu-id="77758-217">A production certificate to use for signing tokens.</span></span>
   * <span data-ttu-id="77758-218">此证书没有特定要求;此证书可以是自签名证书，也可以是通过 CA 颁发机构预配的证书。</span><span class="sxs-lookup"><span data-stu-id="77758-218">There are no specific requirements for this certificate; it can be a self-signed certificate or a certificate provisioned through a CA authority.</span></span>
   * <span data-ttu-id="77758-219">它可通过 PowerShell 或 OpenSSL 等标准工具生成。</span><span class="sxs-lookup"><span data-stu-id="77758-219">It can be generated through standard tools like PowerShell or OpenSSL.</span></span>
@@ -285,10 +285,10 @@ async populateWeatherData() {
 
 ### <a name="example-deploy-to-a-non-azure-web-hosting-provider"></a><span data-ttu-id="77758-221">示例：部署到非 Azure web 托管提供程序</span><span class="sxs-lookup"><span data-stu-id="77758-221">Example: Deploy to a non-Azure web hosting provider</span></span>
 
-<span data-ttu-id="77758-222">在 web 托管面板中，创建或加载证书。</span><span class="sxs-lookup"><span data-stu-id="77758-222">In your web hosting panel, create or load your certificate.</span></span> <span data-ttu-id="77758-223">然后，在应用的 *:::no-loc(appsettings.json):::* 文件中修改 `:::no-loc(Identity):::Server` 部分以包含关键详细信息。</span><span class="sxs-lookup"><span data-stu-id="77758-223">Then in the app's *:::no-loc(appsettings.json):::* file, modify the `:::no-loc(Identity):::Server` section to include the key details.</span></span> <span data-ttu-id="77758-224">例如： 。</span><span class="sxs-lookup"><span data-stu-id="77758-224">For example:</span></span>
+<span data-ttu-id="77758-222">在 web 托管面板中，创建或加载证书。</span><span class="sxs-lookup"><span data-stu-id="77758-222">In your web hosting panel, create or load your certificate.</span></span> <span data-ttu-id="77758-223">然后，在应用的 *appsettings.json* 文件中修改 `IdentityServer` 部分以包含关键详细信息。</span><span class="sxs-lookup"><span data-stu-id="77758-223">Then in the app's *appsettings.json* file, modify the `IdentityServer` section to include the key details.</span></span> <span data-ttu-id="77758-224">例如： 。</span><span class="sxs-lookup"><span data-stu-id="77758-224">For example:</span></span>
 
 ```json
-":::no-loc(Identity):::Server": {
+"IdentityServer": {
   "Key": {
     "Type": "Store",
     "StoreName": "WebHosting",
@@ -308,10 +308,10 @@ async populateWeatherData() {
 
 <span data-ttu-id="77758-231">本部分介绍如何使用存储在证书存储区中的证书，将应用部署到 Azure App Service。</span><span class="sxs-lookup"><span data-stu-id="77758-231">This section describes deploying the app to Azure App Service using a certificate stored in the certificate store.</span></span> <span data-ttu-id="77758-232">若要将应用修改为从证书存储区中加载证书，请在稍后的步骤中配置 Azure 门户应用时，需要使用标准层服务计划或更高版本。</span><span class="sxs-lookup"><span data-stu-id="77758-232">To modify the app to load a certificate from the certificate store, a Standard tier service plan or better is required when you configure the app in the Azure portal in a later step.</span></span>
 
-<span data-ttu-id="77758-233">在应用的 *:::no-loc(appsettings.json):::* 文件中，修改 `:::no-loc(Identity):::Server` 部分以包含关键详细信息：</span><span class="sxs-lookup"><span data-stu-id="77758-233">In the app's *:::no-loc(appsettings.json):::* file, modify the `:::no-loc(Identity):::Server` section to include the key details:</span></span>
+<span data-ttu-id="77758-233">在应用的 *appsettings.json* 文件中，修改 `IdentityServer` 部分以包含关键详细信息：</span><span class="sxs-lookup"><span data-stu-id="77758-233">In the app's *appsettings.json* file, modify the `IdentityServer` section to include the key details:</span></span>
 
 ```json
-":::no-loc(Identity):::Server": {
+"IdentityServer": {
   "Key": {
     "Type": "Store",
     "StoreName": "My",
@@ -335,25 +335,25 @@ async populateWeatherData() {
 
 ## <a name="other-configuration-options"></a><span data-ttu-id="77758-244">其他配置选项</span><span class="sxs-lookup"><span data-stu-id="77758-244">Other configuration options</span></span>
 
-<span data-ttu-id="77758-245">支持 API 授权构建在 :::no-loc(Identity)::: 服务器之上，具有一组约定、默认值和增强功能，可简化 spa 的体验。</span><span class="sxs-lookup"><span data-stu-id="77758-245">The support for API authorization builds on top of :::no-loc(Identity):::Server with a set of conventions, default values, and enhancements to simplify the experience for SPAs.</span></span> <span data-ttu-id="77758-246">不用说， :::no-loc(Identity)::: 如果 ASP.NET Core 集成不涵盖方案，则可以在幕后使用服务器的完整功能。</span><span class="sxs-lookup"><span data-stu-id="77758-246">Needless to say, the full power of :::no-loc(Identity):::Server is available behind the scenes if the ASP.NET Core integrations don't cover your scenario.</span></span> <span data-ttu-id="77758-247">ASP.NET Core 支持重点介绍 "第一方" 应用，其中的所有应用都是由我们的组织创建和部署的。</span><span class="sxs-lookup"><span data-stu-id="77758-247">The ASP.NET Core support is focused on "first-party" apps, where all the apps are created and deployed by our organization.</span></span> <span data-ttu-id="77758-248">因此，不支持许可或联合等。</span><span class="sxs-lookup"><span data-stu-id="77758-248">As such, support isn't offered for things like consent or federation.</span></span> <span data-ttu-id="77758-249">对于这些方案，请使用 :::no-loc(Identity)::: 服务器并按照其文档进行操作。</span><span class="sxs-lookup"><span data-stu-id="77758-249">For those scenarios, use :::no-loc(Identity):::Server and follow their documentation.</span></span>
+<span data-ttu-id="77758-245">支持 API 授权构建在 Identity 服务器之上，具有一组约定、默认值和增强功能，可简化 spa 的体验。</span><span class="sxs-lookup"><span data-stu-id="77758-245">The support for API authorization builds on top of IdentityServer with a set of conventions, default values, and enhancements to simplify the experience for SPAs.</span></span> <span data-ttu-id="77758-246">不用说， Identity 如果 ASP.NET Core 集成不涵盖方案，则可以在幕后使用服务器的完整功能。</span><span class="sxs-lookup"><span data-stu-id="77758-246">Needless to say, the full power of IdentityServer is available behind the scenes if the ASP.NET Core integrations don't cover your scenario.</span></span> <span data-ttu-id="77758-247">ASP.NET Core 支持重点介绍 "第一方" 应用，其中的所有应用都是由我们的组织创建和部署的。</span><span class="sxs-lookup"><span data-stu-id="77758-247">The ASP.NET Core support is focused on "first-party" apps, where all the apps are created and deployed by our organization.</span></span> <span data-ttu-id="77758-248">因此，不支持许可或联合等。</span><span class="sxs-lookup"><span data-stu-id="77758-248">As such, support isn't offered for things like consent or federation.</span></span> <span data-ttu-id="77758-249">对于这些方案，请使用 Identity 服务器并按照其文档进行操作。</span><span class="sxs-lookup"><span data-stu-id="77758-249">For those scenarios, use IdentityServer and follow their documentation.</span></span>
 
 ### <a name="application-profiles"></a><span data-ttu-id="77758-250">应用程序配置文件</span><span class="sxs-lookup"><span data-stu-id="77758-250">Application profiles</span></span>
 
 <span data-ttu-id="77758-251">应用程序配置文件是用于进一步定义其参数的应用的预定义配置。</span><span class="sxs-lookup"><span data-stu-id="77758-251">Application profiles are predefined configurations for apps that further define their parameters.</span></span> <span data-ttu-id="77758-252">目前支持以下配置文件：</span><span class="sxs-lookup"><span data-stu-id="77758-252">At this time, the following profiles are supported:</span></span>
 
-* <span data-ttu-id="77758-253">`:::no-loc(Identity):::ServerSPA`：表示 :::no-loc(Identity)::: 作为一个单元与服务器一起托管的 SPA。</span><span class="sxs-lookup"><span data-stu-id="77758-253">`:::no-loc(Identity):::ServerSPA`: Represents a SPA hosted alongside :::no-loc(Identity):::Server as a single unit.</span></span>
+* <span data-ttu-id="77758-253">`IdentityServerSPA`：表示 Identity 作为一个单元与服务器一起托管的 SPA。</span><span class="sxs-lookup"><span data-stu-id="77758-253">`IdentityServerSPA`: Represents a SPA hosted alongside IdentityServer as a single unit.</span></span>
   * <span data-ttu-id="77758-254">`redirect_uri`默认值为 `/authentication/login-callback` 。</span><span class="sxs-lookup"><span data-stu-id="77758-254">The `redirect_uri` defaults to `/authentication/login-callback`.</span></span>
   * <span data-ttu-id="77758-255">`post_logout_redirect_uri`默认值为 `/authentication/logout-callback` 。</span><span class="sxs-lookup"><span data-stu-id="77758-255">The `post_logout_redirect_uri` defaults to `/authentication/logout-callback`.</span></span>
   * <span data-ttu-id="77758-256">作用域集包括 `openid` `profile` 为应用中的 api 定义的、和每个作用域。</span><span class="sxs-lookup"><span data-stu-id="77758-256">The set of scopes includes the `openid`, `profile`, and every scope defined for the APIs in the app.</span></span>
   * <span data-ttu-id="77758-257">一组允许的 OIDC 响应类型为 `id_token token` ，每个响应类型分别 `id_token` (`token`) 。</span><span class="sxs-lookup"><span data-stu-id="77758-257">The set of allowed OIDC response types is `id_token token` or each of them individually (`id_token`, `token`).</span></span>
   * <span data-ttu-id="77758-258">允许的响应模式为 `fragment` 。</span><span class="sxs-lookup"><span data-stu-id="77758-258">The allowed response mode is `fragment`.</span></span>
-* <span data-ttu-id="77758-259">`SPA`：表示不随服务器承载的 SPA :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="77758-259">`SPA`: Represents a SPA that isn't hosted with :::no-loc(Identity):::Server.</span></span>
+* <span data-ttu-id="77758-259">`SPA`：表示不随服务器承载的 SPA Identity 。</span><span class="sxs-lookup"><span data-stu-id="77758-259">`SPA`: Represents a SPA that isn't hosted with IdentityServer.</span></span>
   * <span data-ttu-id="77758-260">作用域集包括 `openid` `profile` 为应用中的 api 定义的、和每个作用域。</span><span class="sxs-lookup"><span data-stu-id="77758-260">The set of scopes includes the `openid`, `profile`, and every scope defined for the APIs in the app.</span></span>
   * <span data-ttu-id="77758-261">一组允许的 OIDC 响应类型为 `id_token token` ，每个响应类型分别 `id_token` (`token`) 。</span><span class="sxs-lookup"><span data-stu-id="77758-261">The set of allowed OIDC response types is `id_token token` or each of them individually (`id_token`, `token`).</span></span>
   * <span data-ttu-id="77758-262">允许的响应模式为 `fragment` 。</span><span class="sxs-lookup"><span data-stu-id="77758-262">The allowed response mode is `fragment`.</span></span>
-* <span data-ttu-id="77758-263">`:::no-loc(Identity):::ServerJwt`：表示与服务器一起托管的 API :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="77758-263">`:::no-loc(Identity):::ServerJwt`: Represents an API that is hosted alongside with :::no-loc(Identity):::Server.</span></span>
+* <span data-ttu-id="77758-263">`IdentityServerJwt`：表示与服务器一起托管的 API Identity 。</span><span class="sxs-lookup"><span data-stu-id="77758-263">`IdentityServerJwt`: Represents an API that is hosted alongside with IdentityServer.</span></span>
   * <span data-ttu-id="77758-264">应用配置为具有一个默认为应用名称的作用域。</span><span class="sxs-lookup"><span data-stu-id="77758-264">The app is configured to have a single scope that defaults to the app name.</span></span>
-* <span data-ttu-id="77758-265">`API`：表示不与服务器托管的 API :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="77758-265">`API`: Represents an API that isn't hosted with :::no-loc(Identity):::Server.</span></span>
+* <span data-ttu-id="77758-265">`API`：表示不与服务器托管的 API Identity 。</span><span class="sxs-lookup"><span data-stu-id="77758-265">`API`: Represents an API that isn't hosted with IdentityServer.</span></span>
   * <span data-ttu-id="77758-266">应用配置为具有一个默认为应用名称的作用域。</span><span class="sxs-lookup"><span data-stu-id="77758-266">The app is configured to have a single scope that defaults to the app name.</span></span>
 
 ### <a name="configuration-through-appsettings"></a><span data-ttu-id="77758-267">通过 AppSettings 配置</span><span class="sxs-lookup"><span data-stu-id="77758-267">Configuration through AppSettings</span></span>
@@ -363,7 +363,7 @@ async populateWeatherData() {
 <span data-ttu-id="77758-269">配置每个客户端的 `redirect_uri` 和 `post_logout_redirect_uri` 属性，如以下示例中所示：</span><span class="sxs-lookup"><span data-stu-id="77758-269">Configure each client's `redirect_uri` and `post_logout_redirect_uri` property, as shown in the following example:</span></span>
 
 ```json
-":::no-loc(Identity):::Server": {
+"IdentityServer": {
   "Clients": {
     "MySPA": {
       "Profile": "SPA",
@@ -377,7 +377,7 @@ async populateWeatherData() {
 <span data-ttu-id="77758-270">配置资源时，可以按如下所示配置资源的作用域：</span><span class="sxs-lookup"><span data-stu-id="77758-270">When configuring resources, you can configure the scopes for the resource as shown below:</span></span>
 
 ```json
-":::no-loc(Identity):::Server": {
+"IdentityServer": {
   "Resources": {
     "MyExternalApi": {
       "Profile": "API",

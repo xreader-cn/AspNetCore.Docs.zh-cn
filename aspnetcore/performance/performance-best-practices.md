@@ -6,17 +6,17 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 04/06/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: performance/performance-best-practices
 ms.openlocfilehash: a3fc398569fafefc0b4634e80433a5d4e0e1b4ff
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -55,7 +55,7 @@ ms.locfileid: "93060997"
 
 * <span data-ttu-id="b0596-126">使 [热代码路径](#understand-hot-code-paths) 处于异步状态。</span><span class="sxs-lookup"><span data-stu-id="b0596-126">Make [hot code paths](#understand-hot-code-paths) asynchronous.</span></span>
 * <span data-ttu-id="b0596-127">如果异步 API 可用，则异步调用数据访问、i/o 和长时间运行的操作 Api。</span><span class="sxs-lookup"><span data-stu-id="b0596-127">Call data access, I/O, and long-running operations APIs asynchronously if an asynchronous API is available.</span></span> <span data-ttu-id="b0596-128">不要 **使用**[任务。运行](/dotnet/api/system.threading.tasks.task.run)以使同步 API 成为异步同步。</span><span class="sxs-lookup"><span data-stu-id="b0596-128">Do **not** use [Task.Run](/dotnet/api/system.threading.tasks.task.run) to make a synchronous API asynchronous.</span></span>
-* <span data-ttu-id="b0596-129">使控制器/ :::no-loc(Razor)::: 页面操作异步。</span><span class="sxs-lookup"><span data-stu-id="b0596-129">Make controller/:::no-loc(Razor)::: Page actions asynchronous.</span></span> <span data-ttu-id="b0596-130">为了受益于 [async/await](/dotnet/csharp/programming-guide/concepts/async/) 模式，整个调用堆栈是异步的。</span><span class="sxs-lookup"><span data-stu-id="b0596-130">The entire call stack is asynchronous in order to benefit from [async/await](/dotnet/csharp/programming-guide/concepts/async/) patterns.</span></span>
+* <span data-ttu-id="b0596-129">使控制器/ Razor 页面操作异步。</span><span class="sxs-lookup"><span data-stu-id="b0596-129">Make controller/Razor Page actions asynchronous.</span></span> <span data-ttu-id="b0596-130">为了受益于 [async/await](/dotnet/csharp/programming-guide/concepts/async/) 模式，整个调用堆栈是异步的。</span><span class="sxs-lookup"><span data-stu-id="b0596-130">The entire call stack is asynchronous in order to benefit from [async/await](/dotnet/csharp/programming-guide/concepts/async/) patterns.</span></span>
 
 <span data-ttu-id="b0596-131">探查器（如 [PerfView](https://github.com/Microsoft/perfview)）可用于查找频繁添加到 [线程池中](/windows/desktop/procthread/thread-pools)的线程。</span><span class="sxs-lookup"><span data-stu-id="b0596-131">A profiler, such as [PerfView](https://github.com/Microsoft/perfview), can be used to find threads frequently added to the [Thread Pool](/windows/desktop/procthread/thread-pools).</span></span> <span data-ttu-id="b0596-132">`Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start`事件指示添加到线程池的线程。</span><span class="sxs-lookup"><span data-stu-id="b0596-132">The `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` event indicates a thread added to the thread pool.</span></span> <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
 
@@ -136,7 +136,7 @@ ms.locfileid: "93060997"
 
 * <span data-ttu-id="b0596-208">**请** 不要等待长时间运行的任务在普通的 HTTP 请求处理过程中完成。</span><span class="sxs-lookup"><span data-stu-id="b0596-208">**Do not** wait for long-running tasks to complete as part of ordinary HTTP request processing.</span></span>
 * <span data-ttu-id="b0596-209">**请考虑使用**[后台服务](xref:fundamentals/host/hosted-services)处理长时间运行的请求，或使用 [Azure 函数](/azure/azure-functions/)处理进程外的请求。</span><span class="sxs-lookup"><span data-stu-id="b0596-209">**Do** consider handling long-running requests with [background services](xref:fundamentals/host/hosted-services) or out of process with an [Azure Function](/azure/azure-functions/).</span></span> <span data-ttu-id="b0596-210">在进程外完成工作对于 CPU 密集型任务特别有用。</span><span class="sxs-lookup"><span data-stu-id="b0596-210">Completing work out-of-process is especially beneficial for CPU-intensive tasks.</span></span>
-* <span data-ttu-id="b0596-211">**请使用实时** 通信选项（如 [:::no-loc(SignalR):::](xref:signalr/introduction) ）以异步方式与客户端进行通信。</span><span class="sxs-lookup"><span data-stu-id="b0596-211">**Do** use real-time communication options, such as [:::no-loc(SignalR):::](xref:signalr/introduction), to communicate with clients asynchronously.</span></span>
+* <span data-ttu-id="b0596-211">**请使用实时** 通信选项（如 [SignalR](xref:signalr/introduction) ）以异步方式与客户端进行通信。</span><span class="sxs-lookup"><span data-stu-id="b0596-211">**Do** use real-time communication options, such as [SignalR](xref:signalr/introduction), to communicate with clients asynchronously.</span></span>
 
 ## <a name="minify-client-assets"></a><span data-ttu-id="b0596-212">缩小客户端资产</span><span class="sxs-lookup"><span data-stu-id="b0596-212">Minify client assets</span></span>
 

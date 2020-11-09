@@ -1,21 +1,21 @@
 ---
-title: :::no-loc(Razor):::与 ASP.NET Core 中的应用程序部件共享控制器、视图和页面等
+title: Razor与 ASP.NET Core 中的应用程序部件共享控制器、视图和页面等
 author: rick-anderson
-description: :::no-loc(Razor):::与 ASP.NET Core 中的应用程序部件共享控制器、视图、页面及更多内容
+description: Razor与 ASP.NET Core 中的应用程序部件共享控制器、视图、页面及更多内容
 ms.author: riande
 ms.date: 11/11/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/extensibility/app-parts
 ms.openlocfilehash: 33deb5ff794982e0c074186bb2abb88344e8a116
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -24,7 +24,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93061179"
 ---
-# <a name="share-controllers-views-no-locrazor-pages-and-more-with-application-parts"></a><span data-ttu-id="0840d-103">与应用程序部件共享控制器、视图、 :::no-loc(Razor)::: 页和更多内容</span><span class="sxs-lookup"><span data-stu-id="0840d-103">Share controllers, views, :::no-loc(Razor)::: Pages and more with Application Parts</span></span>
+# <a name="share-controllers-views-no-locrazor-pages-and-more-with-application-parts"></a><span data-ttu-id="0840d-103">与应用程序部件共享控制器、视图、 Razor 页和更多内容</span><span class="sxs-lookup"><span data-stu-id="0840d-103">Share controllers, views, Razor Pages and more with Application Parts</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -32,9 +32,9 @@ ms.locfileid: "93061179"
 
 <span data-ttu-id="0840d-105">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="0840d-105">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="0840d-106">应用程序部件是对应用资源的抽象化。 </span><span class="sxs-lookup"><span data-stu-id="0840d-106">An *Application Part* is an abstraction over the resources of an app.</span></span> <span data-ttu-id="0840d-107">应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 :::no-loc(Razor)::: 页面、razor 编译源等。</span><span class="sxs-lookup"><span data-stu-id="0840d-107">Application Parts allow ASP.NET Core to discover controllers, view components, tag helpers, :::no-loc(Razor)::: Pages, razor compilation sources, and more.</span></span> <span data-ttu-id="0840d-108"><xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 是应用程序部件。</span><span class="sxs-lookup"><span data-stu-id="0840d-108"><xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> is an Application part.</span></span> <span data-ttu-id="0840d-109">`AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。</span><span class="sxs-lookup"><span data-stu-id="0840d-109">`AssemblyPart` encapsulates an assembly reference and exposes types and compilation references.</span></span>
+<span data-ttu-id="0840d-106">应用程序部件是对应用资源的抽象化。 </span><span class="sxs-lookup"><span data-stu-id="0840d-106">An *Application Part* is an abstraction over the resources of an app.</span></span> <span data-ttu-id="0840d-107">应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 Razor 页面、razor 编译源等。</span><span class="sxs-lookup"><span data-stu-id="0840d-107">Application Parts allow ASP.NET Core to discover controllers, view components, tag helpers, Razor Pages, razor compilation sources, and more.</span></span> <span data-ttu-id="0840d-108"><xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 是应用程序部件。</span><span class="sxs-lookup"><span data-stu-id="0840d-108"><xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> is an Application part.</span></span> <span data-ttu-id="0840d-109">`AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。</span><span class="sxs-lookup"><span data-stu-id="0840d-109">`AssemblyPart` encapsulates an assembly reference and exposes types and compilation references.</span></span>
 
-<span data-ttu-id="0840d-110">[功能提供程序](#fp)使用应用程序部件填充 ASP.NET Core 应用的功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-110">[Feature providers](#fp) work with application parts to populate the features of an ASP.NET Core app.</span></span> <span data-ttu-id="0840d-111">应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-111">The main use case for application parts is to configure an app to discover (or avoid loading) ASP.NET Core features from an assembly.</span></span> <span data-ttu-id="0840d-112">例如，可能需要在多个应用之间共享通用功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-112">For example, you might want to share common functionality between multiple apps.</span></span> <span data-ttu-id="0840d-113">使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 :::no-loc(Razor)::: 页面、razor 编译源、标记帮助程序以及更多应用程序 (DLL) 的程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-113">Using Application Parts, you can share an assembly (DLL) containing controllers, views, :::no-loc(Razor)::: Pages, razor compilation sources, Tag Helpers, and more with multiple apps.</span></span> <span data-ttu-id="0840d-114">相对于在多个项目中复制代码，首选共享程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-114">Sharing an assembly is preferred to duplicating code in multiple projects.</span></span>
+<span data-ttu-id="0840d-110">[功能提供程序](#fp)使用应用程序部件填充 ASP.NET Core 应用的功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-110">[Feature providers](#fp) work with application parts to populate the features of an ASP.NET Core app.</span></span> <span data-ttu-id="0840d-111">应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-111">The main use case for application parts is to configure an app to discover (or avoid loading) ASP.NET Core features from an assembly.</span></span> <span data-ttu-id="0840d-112">例如，可能需要在多个应用之间共享通用功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-112">For example, you might want to share common functionality between multiple apps.</span></span> <span data-ttu-id="0840d-113">使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序 (DLL) 的程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-113">Using Application Parts, you can share an assembly (DLL) containing controllers, views, Razor Pages, razor compilation sources, Tag Helpers, and more with multiple apps.</span></span> <span data-ttu-id="0840d-114">相对于在多个项目中复制代码，首选共享程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-114">Sharing an assembly is preferred to duplicating code in multiple projects.</span></span>
 
 <span data-ttu-id="0840d-115">ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-115">ASP.NET Core apps load features from <xref:System.Web.WebPages.ApplicationPart>.</span></span> <span data-ttu-id="0840d-116"><xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类表示受程序集支持的应用程序部件。</span><span class="sxs-lookup"><span data-stu-id="0840d-116">The <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> class represents an application part that's backed by an assembly.</span></span>
 
@@ -52,7 +52,7 @@ ms.locfileid: "93061179"
 
 ### <a name="include-views"></a><span data-ttu-id="0840d-125">包含视图</span><span class="sxs-lookup"><span data-stu-id="0840d-125">Include views</span></span>
 
-<span data-ttu-id="0840d-126">使用类库[ :::no-loc(Razor)::: 将视图](xref:razor-pages/ui-class)包含在程序集中。</span><span class="sxs-lookup"><span data-stu-id="0840d-126">Use a [:::no-loc(Razor)::: class library](xref:razor-pages/ui-class) to include views in the assembly.</span></span>
+<span data-ttu-id="0840d-126">使用类库[ Razor 将视图](xref:razor-pages/ui-class)包含在程序集中。</span><span class="sxs-lookup"><span data-stu-id="0840d-126">Use a [Razor class library](xref:razor-pages/ui-class) to include views in the assembly.</span></span>
 
 ### <a name="prevent-loading-resources"></a><span data-ttu-id="0840d-127">阻止加载资源</span><span class="sxs-lookup"><span data-stu-id="0840d-127">Prevent loading resources</span></span>
 
@@ -61,10 +61,10 @@ ms.locfileid: "93061179"
 <span data-ttu-id="0840d-134">`ApplicationPartManager` 包括以下内容的部件：</span><span class="sxs-lookup"><span data-stu-id="0840d-134">The `ApplicationPartManager` includes parts for:</span></span>
 
 * <span data-ttu-id="0840d-135">应用的程序集和依赖程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-135">The app's assembly and dependent assemblies.</span></span>
-* `Microsoft.AspNetCore.Mvc.ApplicationParts.Compiled:::no-loc(Razor):::AssemblyPart`
-* `Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::.RuntimeCompilation`
+* `Microsoft.AspNetCore.Mvc.ApplicationParts.CompiledRazorAssemblyPart`
+* `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`
 * <span data-ttu-id="0840d-136">`Microsoft.AspNetCore.Mvc.TagHelpers`.</span><span class="sxs-lookup"><span data-stu-id="0840d-136">`Microsoft.AspNetCore.Mvc.TagHelpers`.</span></span>
-* <span data-ttu-id="0840d-137">`Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::`.</span><span class="sxs-lookup"><span data-stu-id="0840d-137">`Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::`.</span></span>
+* <span data-ttu-id="0840d-137">`Microsoft.AspNetCore.Mvc.Razor`.</span><span class="sxs-lookup"><span data-stu-id="0840d-137">`Microsoft.AspNetCore.Mvc.Razor`.</span></span>
 
 <a name="fp"></a>
 
@@ -73,10 +73,10 @@ ms.locfileid: "93061179"
 <span data-ttu-id="0840d-139">应用程序功能提供程序用于检查应用程序部件，并为这些部件提供功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-139">Application feature providers examine application parts and provide features for those parts.</span></span> <span data-ttu-id="0840d-140">以下 ASP.NET Core 功能有内置功能提供程序：</span><span class="sxs-lookup"><span data-stu-id="0840d-140">There are built-in feature providers for the following ASP.NET Core features:</span></span>
 
 * <xref:Microsoft.AspNetCore.Mvc.Controllers.ControllerFeatureProvider>
-* <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::.TagHelpers.TagHelperFeatureProvider>
-* <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::.Compilation.MetadataReferenceFeatureProvider>
-* <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::.Compilation.ViewsFeatureProvider>
-* <span data-ttu-id="0840d-141">`internal class`[ :::no-loc(Razor)::: CompiledItemFeatureProvider](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.:::no-loc(Razor):::/src/ApplicationParts/:::no-loc(Razor):::CompiledItemFeatureProvider.cs#L14)</span><span class="sxs-lookup"><span data-stu-id="0840d-141">`internal class` [:::no-loc(Razor):::CompiledItemFeatureProvider](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.:::no-loc(Razor):::/src/ApplicationParts/:::no-loc(Razor):::CompiledItemFeatureProvider.cs#L14)</span></span>
+* <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperFeatureProvider>
+* <xref:Microsoft.AspNetCore.Mvc.Razor.Compilation.MetadataReferenceFeatureProvider>
+* <xref:Microsoft.AspNetCore.Mvc.Razor.Compilation.ViewsFeatureProvider>
+* <span data-ttu-id="0840d-141">`internal class`[ Razor CompiledItemFeatureProvider](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Razor/src/ApplicationParts/RazorCompiledItemFeatureProvider.cs#L14)</span><span class="sxs-lookup"><span data-stu-id="0840d-141">`internal class` [RazorCompiledItemFeatureProvider](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Razor/src/ApplicationParts/RazorCompiledItemFeatureProvider.cs#L14)</span></span>
 
 <span data-ttu-id="0840d-142">功能提供程序从 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.IApplicationFeatureProvider`1> 继承，其中 `T` 是功能的类型。</span><span class="sxs-lookup"><span data-stu-id="0840d-142">Feature providers inherit from <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.IApplicationFeatureProvider`1>, where `T` is the type of the feature.</span></span> <span data-ttu-id="0840d-143">可以为上面列出的任意功能类型实现功能提供程序。</span><span class="sxs-lookup"><span data-stu-id="0840d-143">Feature providers can be implemented for any of the previously listed feature types.</span></span> <span data-ttu-id="0840d-144">`ApplicationPartManager.FeatureProviders` 中的功能提供程序的顺序可能影响运行时行为。</span><span class="sxs-lookup"><span data-stu-id="0840d-144">The order of feature providers in the `ApplicationPartManager.FeatureProviders` can impact run time behavior.</span></span> <span data-ttu-id="0840d-145">较晚添加的提供程序可能会影响较早添加的提供程序执行的操作。</span><span class="sxs-lookup"><span data-stu-id="0840d-145">Later added providers can react to actions taken by earlier added providers.</span></span>
 
@@ -122,9 +122,9 @@ View Components:
 
 <span data-ttu-id="0840d-160">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="0840d-160">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="0840d-161">应用程序部件是对应用资源的抽象化。 </span><span class="sxs-lookup"><span data-stu-id="0840d-161">An *Application Part* is an abstraction over the resources of an app.</span></span> <span data-ttu-id="0840d-162">应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 :::no-loc(Razor)::: 页面、razor 编译源等。</span><span class="sxs-lookup"><span data-stu-id="0840d-162">Application Parts allow ASP.NET Core to discover controllers, view components, tag helpers, :::no-loc(Razor)::: Pages, razor compilation sources, and more.</span></span> <span data-ttu-id="0840d-163">[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 是一种应用程序部件。</span><span class="sxs-lookup"><span data-stu-id="0840d-163">[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) is an Application part.</span></span> <span data-ttu-id="0840d-164">`AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。</span><span class="sxs-lookup"><span data-stu-id="0840d-164">`AssemblyPart` encapsulates an assembly reference and exposes types and compilation references.</span></span>
+<span data-ttu-id="0840d-161">应用程序部件是对应用资源的抽象化。 </span><span class="sxs-lookup"><span data-stu-id="0840d-161">An *Application Part* is an abstraction over the resources of an app.</span></span> <span data-ttu-id="0840d-162">应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 Razor 页面、razor 编译源等。</span><span class="sxs-lookup"><span data-stu-id="0840d-162">Application Parts allow ASP.NET Core to discover controllers, view components, tag helpers, Razor Pages, razor compilation sources, and more.</span></span> <span data-ttu-id="0840d-163">[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 是一种应用程序部件。</span><span class="sxs-lookup"><span data-stu-id="0840d-163">[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) is an Application part.</span></span> <span data-ttu-id="0840d-164">`AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。</span><span class="sxs-lookup"><span data-stu-id="0840d-164">`AssemblyPart` encapsulates an assembly reference and exposes types and compilation references.</span></span>
 
-<span data-ttu-id="0840d-165">*功能提供程序* 使用应用程序部件填充 ASP.NET Core 应用的功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-165">*Feature providers* work with application parts to populate the features of an ASP.NET Core app.</span></span> <span data-ttu-id="0840d-166">应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-166">The main use case for application parts is to configure an app to discover (or avoid loading) ASP.NET Core features from an assembly.</span></span> <span data-ttu-id="0840d-167">例如，可能需要在多个应用之间共享通用功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-167">For example, you might want to share common functionality between multiple apps.</span></span> <span data-ttu-id="0840d-168">使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 :::no-loc(Razor)::: 页面、razor 编译源、标记帮助程序以及更多应用程序 (DLL) 的程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-168">Using Application Parts, you can share an assembly (DLL) containing controllers, views, :::no-loc(Razor)::: Pages, razor compilation sources, Tag Helpers, and more with multiple apps.</span></span> <span data-ttu-id="0840d-169">相对于在多个项目中复制代码，首选共享程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-169">Sharing an assembly is preferred to duplicating code in multiple projects.</span></span>
+<span data-ttu-id="0840d-165">*功能提供程序* 使用应用程序部件填充 ASP.NET Core 应用的功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-165">*Feature providers* work with application parts to populate the features of an ASP.NET Core app.</span></span> <span data-ttu-id="0840d-166">应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-166">The main use case for application parts is to configure an app to discover (or avoid loading) ASP.NET Core features from an assembly.</span></span> <span data-ttu-id="0840d-167">例如，可能需要在多个应用之间共享通用功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-167">For example, you might want to share common functionality between multiple apps.</span></span> <span data-ttu-id="0840d-168">使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序 (DLL) 的程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-168">Using Application Parts, you can share an assembly (DLL) containing controllers, views, Razor Pages, razor compilation sources, Tag Helpers, and more with multiple apps.</span></span> <span data-ttu-id="0840d-169">相对于在多个项目中复制代码，首选共享程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-169">Sharing an assembly is preferred to duplicating code in multiple projects.</span></span>
 
 <span data-ttu-id="0840d-170">ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能。</span><span class="sxs-lookup"><span data-stu-id="0840d-170">ASP.NET Core apps load features from <xref:System.Web.WebPages.ApplicationPart>.</span></span> <span data-ttu-id="0840d-171"><xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类表示受程序集支持的应用程序部件。</span><span class="sxs-lookup"><span data-stu-id="0840d-171">The <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> class represents an application part that's backed by an assembly.</span></span>
 
@@ -142,7 +142,7 @@ View Components:
 
 ### <a name="include-views"></a><span data-ttu-id="0840d-180">包含视图</span><span class="sxs-lookup"><span data-stu-id="0840d-180">Include views</span></span>
 
-<span data-ttu-id="0840d-181">使用类库[ :::no-loc(Razor)::: 将视图](xref:razor-pages/ui-class)包含在程序集中。</span><span class="sxs-lookup"><span data-stu-id="0840d-181">Use a [:::no-loc(Razor)::: class library](xref:razor-pages/ui-class) to include views in the assembly.</span></span>
+<span data-ttu-id="0840d-181">使用类库[ Razor 将视图](xref:razor-pages/ui-class)包含在程序集中。</span><span class="sxs-lookup"><span data-stu-id="0840d-181">Use a [Razor class library](xref:razor-pages/ui-class) to include views in the assembly.</span></span>
 
 ### <a name="prevent-loading-resources"></a><span data-ttu-id="0840d-182">阻止加载资源</span><span class="sxs-lookup"><span data-stu-id="0840d-182">Prevent loading resources</span></span>
 
@@ -154,7 +154,7 @@ View Components:
 
 * <span data-ttu-id="0840d-191">应用的程序集和依赖程序集。</span><span class="sxs-lookup"><span data-stu-id="0840d-191">The app's assembly and dependent assemblies.</span></span>
 * <span data-ttu-id="0840d-192">`Microsoft.AspNetCore.Mvc.TagHelpers`.</span><span class="sxs-lookup"><span data-stu-id="0840d-192">`Microsoft.AspNetCore.Mvc.TagHelpers`.</span></span>
-* <span data-ttu-id="0840d-193">`Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::`.</span><span class="sxs-lookup"><span data-stu-id="0840d-193">`Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::`.</span></span>
+* <span data-ttu-id="0840d-193">`Microsoft.AspNetCore.Mvc.Razor`.</span><span class="sxs-lookup"><span data-stu-id="0840d-193">`Microsoft.AspNetCore.Mvc.Razor`.</span></span>
 
 ## <a name="application-feature-providers"></a><span data-ttu-id="0840d-194">应用程序功能提供程序</span><span class="sxs-lookup"><span data-stu-id="0840d-194">Application feature providers</span></span>
 

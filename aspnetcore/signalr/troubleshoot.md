@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(SignalR)::: 连接故障排除'
+title: 'ASP.NET Core SignalR 连接故障排除'
 author: bradygaster
-description: 'ASP.NET Core :::no-loc(SignalR)::: 连接故障排除。'
+description: 'ASP.NET Core SignalR 连接故障排除。'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/08/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: signalr/troubleshoot
 ms.openlocfilehash: f1d9761267d7c6af76c0be6abb238742f40fb016
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -28,7 +28,7 @@ ms.locfileid: "93059606"
 ---
 # <a name="troubleshoot-connection-errors"></a><span data-ttu-id="10c48-103">排查连接错误</span><span class="sxs-lookup"><span data-stu-id="10c48-103">Troubleshoot connection errors</span></span>
 
-<span data-ttu-id="10c48-104">本部分提供有关在尝试建立与 ASP.NET Core 集线器的连接时可能出现的错误的帮助 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="10c48-104">This section provides help with errors that can occur when trying to establish a connection to a ASP.NET Core :::no-loc(SignalR)::: hub.</span></span>
+<span data-ttu-id="10c48-104">本部分提供有关在尝试建立与 ASP.NET Core 集线器的连接时可能出现的错误的帮助 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="10c48-104">This section provides help with errors that can occur when trying to establish a connection to a ASP.NET Core SignalR hub.</span></span>
 
 ### <a name="response-code-404"></a><span data-ttu-id="10c48-105">响应代码404</span><span class="sxs-lookup"><span data-stu-id="10c48-105">Response code 404</span></span>
 
@@ -99,9 +99,9 @@ Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remot
 
 <span data-ttu-id="10c48-134">这通常是由于访问令牌超过4k 而导致的。</span><span class="sxs-lookup"><span data-stu-id="10c48-134">This is often caused by having an access token that is over 4k.</span></span>
 
-* <span data-ttu-id="10c48-135">如果使用 Azure :::no-loc(SignalR)::: 服务，请通过自定义通过服务发送的声明来减小令牌大小，方法是：</span><span class="sxs-lookup"><span data-stu-id="10c48-135">If using the Azure :::no-loc(SignalR)::: Service, reduce the token size by customizing the claims being sent through the Service with:</span></span>
+* <span data-ttu-id="10c48-135">如果使用 Azure SignalR 服务，请通过自定义通过服务发送的声明来减小令牌大小，方法是：</span><span class="sxs-lookup"><span data-stu-id="10c48-135">If using the Azure SignalR Service, reduce the token size by customizing the claims being sent through the Service with:</span></span>
 ```csharp
-.AddAzure:::no-loc(SignalR):::(options =>
+.AddAzureSignalR(options =>
 {
     options.ClaimsProvider = context => context.User.Claims;
 });
@@ -109,4 +109,4 @@ Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remot
 
 ### <a name="transient-network-failures"></a><span data-ttu-id="10c48-136">暂时性网络故障</span><span class="sxs-lookup"><span data-stu-id="10c48-136">Transient network failures</span></span>
 
-<span data-ttu-id="10c48-137">暂时性网络故障可能会关闭 :::no-loc(SignalR)::: 连接。</span><span class="sxs-lookup"><span data-stu-id="10c48-137">Transient network failures may close the :::no-loc(SignalR)::: connection.</span></span> <span data-ttu-id="10c48-138">服务器可以将关闭的连接解释为正常的客户端断开连接。</span><span class="sxs-lookup"><span data-stu-id="10c48-138">The server may interpret the closed connection as a graceful client disconnect.</span></span> <span data-ttu-id="10c48-139">若要获取有关在这些情况下客户端断开连接的原因的详细信息 [，请从客户端和服务器收集日志](xref:signalr/diagnostics)。</span><span class="sxs-lookup"><span data-stu-id="10c48-139">To get more info on why a client disconnected in those cases [gather logs from the client and server](xref:signalr/diagnostics).</span></span>
+<span data-ttu-id="10c48-137">暂时性网络故障可能会关闭 SignalR 连接。</span><span class="sxs-lookup"><span data-stu-id="10c48-137">Transient network failures may close the SignalR connection.</span></span> <span data-ttu-id="10c48-138">服务器可以将关闭的连接解释为正常的客户端断开连接。</span><span class="sxs-lookup"><span data-stu-id="10c48-138">The server may interpret the closed connection as a graceful client disconnect.</span></span> <span data-ttu-id="10c48-139">若要获取有关在这些情况下客户端断开连接的原因的详细信息 [，请从客户端和服务器收集日志](xref:signalr/diagnostics)。</span><span class="sxs-lookup"><span data-stu-id="10c48-139">To get more info on why a client disconnected in those cases [gather logs from the client and server](xref:signalr/diagnostics).</span></span>

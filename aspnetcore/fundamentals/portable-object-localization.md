@@ -5,17 +5,17 @@ description: 本文介绍可移植对象文件，并概述通过 Orchard Core �
 ms.author: scaddie
 ms.date: 09/26/2017
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/portable-object-localization
 ms.openlocfilehash: 2e28ebaf1962ebd834c43f1cfbc28929b1937c40
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -97,7 +97,7 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 [!code-csharp[](localization/sample/3.x/POLocalization/Startup.cs?name=snippet_Configure&highlight=15)]
 
-<span data-ttu-id="12508-138">将以下代码添加到所选的 :::no-loc(Razor)::: 视图中。</span><span class="sxs-lookup"><span data-stu-id="12508-138">Add the following code to your :::no-loc(Razor)::: view of choice.</span></span> <span data-ttu-id="12508-139">在此示例中，使用了 About.cshtml。</span><span class="sxs-lookup"><span data-stu-id="12508-139">*About.cshtml* is used in this example.</span></span>
+<span data-ttu-id="12508-138">将以下代码添加到所选的 Razor 视图中。</span><span class="sxs-lookup"><span data-stu-id="12508-138">Add the following code to your Razor view of choice.</span></span> <span data-ttu-id="12508-139">在此示例中，使用了 About.cshtml。</span><span class="sxs-lookup"><span data-stu-id="12508-139">*About.cshtml* is used in this example.</span></span>
 
 [!code-cshtml[](localization/sample/3.x/POLocalization/Views/Home/About.cshtml)]
 
@@ -201,11 +201,11 @@ Existuje 5 položek.
 
 ### <a name="contextualizing-strings"></a><span data-ttu-id="12508-179">将字符串置于上下文中理解</span><span class="sxs-lookup"><span data-stu-id="12508-179">Contextualizing strings</span></span>
 
-<span data-ttu-id="12508-180">应用程序通常包含要在多个位置中进行转换的字符串。</span><span class="sxs-lookup"><span data-stu-id="12508-180">Applications often contain the strings to be translated in several places.</span></span> <span data-ttu-id="12508-181">在应用中的特定位置（:::no-loc(Razor)::: 视图或类文件），相同字符串可能具有不同转换。</span><span class="sxs-lookup"><span data-stu-id="12508-181">The same string may have a different translation in certain locations within an app (:::no-loc(Razor)::: views or class files).</span></span> <span data-ttu-id="12508-182">PO 文件支持文件上下文概念，此概念可用于对所表示的字符串进行分类。</span><span class="sxs-lookup"><span data-stu-id="12508-182">A PO file supports the notion of a file context, which can be used to categorize the string being represented.</span></span> <span data-ttu-id="12508-183">使用文件上下文，可将字符串进行不同转换，具体取决于文件上下文（或缺乏文件上下文）。</span><span class="sxs-lookup"><span data-stu-id="12508-183">Using a file context, a string can be translated differently, depending on the file context (or lack of a file context).</span></span>
+<span data-ttu-id="12508-180">应用程序通常包含要在多个位置中进行转换的字符串。</span><span class="sxs-lookup"><span data-stu-id="12508-180">Applications often contain the strings to be translated in several places.</span></span> <span data-ttu-id="12508-181">在应用中的特定位置（Razor 视图或类文件），相同字符串可能具有不同转换。</span><span class="sxs-lookup"><span data-stu-id="12508-181">The same string may have a different translation in certain locations within an app (Razor views or class files).</span></span> <span data-ttu-id="12508-182">PO 文件支持文件上下文概念，此概念可用于对所表示的字符串进行分类。</span><span class="sxs-lookup"><span data-stu-id="12508-182">A PO file supports the notion of a file context, which can be used to categorize the string being represented.</span></span> <span data-ttu-id="12508-183">使用文件上下文，可将字符串进行不同转换，具体取决于文件上下文（或缺乏文件上下文）。</span><span class="sxs-lookup"><span data-stu-id="12508-183">Using a file context, a string can be translated differently, depending on the file context (or lack of a file context).</span></span>
 
 <span data-ttu-id="12508-184">PO 本地化服务使用完整类的名称或转换字符串时使用的视图。</span><span class="sxs-lookup"><span data-stu-id="12508-184">The PO localization services use the name of the full class or the view that's used when translating a string.</span></span> <span data-ttu-id="12508-185">这通过在 `msgctxt` 条目上设置值来完成。</span><span class="sxs-lookup"><span data-stu-id="12508-185">This is accomplished by setting the value on the `msgctxt` entry.</span></span>
 
-<span data-ttu-id="12508-186">请考虑对以前的 fr.po 示例作一点小小的补充。</span><span class="sxs-lookup"><span data-stu-id="12508-186">Consider a minor addition to the previous *fr.po* example.</span></span> <span data-ttu-id="12508-187">可通过设置保留的 `msgctxt` 条目的值将位于 Views/Home/About.cshtml 的 :::no-loc(Razor)::: 视图定义为文件上下文：</span><span class="sxs-lookup"><span data-stu-id="12508-187">A :::no-loc(Razor)::: view located at *Views/Home/About.cshtml* can be defined as the file context by setting the reserved `msgctxt` entry's value:</span></span>
+<span data-ttu-id="12508-186">请考虑对以前的 fr.po 示例作一点小小的补充。</span><span class="sxs-lookup"><span data-stu-id="12508-186">Consider a minor addition to the previous *fr.po* example.</span></span> <span data-ttu-id="12508-187">可通过设置保留的 `msgctxt` 条目的值将位于 Views/Home/About.cshtml 的 Razor 视图定义为文件上下文：</span><span class="sxs-lookup"><span data-stu-id="12508-187">A Razor view located at *Views/Home/About.cshtml* can be defined as the file context by setting the reserved `msgctxt` entry's value:</span></span>
 
 ```text
 msgctxt "Views.Home.About"
@@ -312,7 +312,7 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 [!code-csharp[](localization/sample/2.x/POLocalization/Startup.cs?name=snippet_Configure&highlight=15)]
 
-<span data-ttu-id="12508-237">将以下代码添加到所选的 :::no-loc(Razor)::: 视图中。</span><span class="sxs-lookup"><span data-stu-id="12508-237">Add the following code to your :::no-loc(Razor)::: view of choice.</span></span> <span data-ttu-id="12508-238">在此示例中，使用了 About.cshtml。</span><span class="sxs-lookup"><span data-stu-id="12508-238">*About.cshtml* is used in this example.</span></span>
+<span data-ttu-id="12508-237">将以下代码添加到所选的 Razor 视图中。</span><span class="sxs-lookup"><span data-stu-id="12508-237">Add the following code to your Razor view of choice.</span></span> <span data-ttu-id="12508-238">在此示例中，使用了 About.cshtml。</span><span class="sxs-lookup"><span data-stu-id="12508-238">*About.cshtml* is used in this example.</span></span>
 
 [!code-cshtml[](localization/sample/2.x/POLocalization/Views/Home/About.cshtml)]
 
@@ -416,11 +416,11 @@ Existuje 5 položek.
 
 ### <a name="contextualizing-strings"></a><span data-ttu-id="12508-278">将字符串置于上下文中理解</span><span class="sxs-lookup"><span data-stu-id="12508-278">Contextualizing strings</span></span>
 
-<span data-ttu-id="12508-279">应用程序通常包含要在多个位置中进行转换的字符串。</span><span class="sxs-lookup"><span data-stu-id="12508-279">Applications often contain the strings to be translated in several places.</span></span> <span data-ttu-id="12508-280">在应用中的特定位置（:::no-loc(Razor)::: 视图或类文件），相同字符串可能具有不同转换。</span><span class="sxs-lookup"><span data-stu-id="12508-280">The same string may have a different translation in certain locations within an app (:::no-loc(Razor)::: views or class files).</span></span> <span data-ttu-id="12508-281">PO 文件支持文件上下文概念，此概念可用于对所表示的字符串进行分类。</span><span class="sxs-lookup"><span data-stu-id="12508-281">A PO file supports the notion of a file context, which can be used to categorize the string being represented.</span></span> <span data-ttu-id="12508-282">使用文件上下文，可将字符串进行不同转换，具体取决于文件上下文（或缺乏文件上下文）。</span><span class="sxs-lookup"><span data-stu-id="12508-282">Using a file context, a string can be translated differently, depending on the file context (or lack of a file context).</span></span>
+<span data-ttu-id="12508-279">应用程序通常包含要在多个位置中进行转换的字符串。</span><span class="sxs-lookup"><span data-stu-id="12508-279">Applications often contain the strings to be translated in several places.</span></span> <span data-ttu-id="12508-280">在应用中的特定位置（Razor 视图或类文件），相同字符串可能具有不同转换。</span><span class="sxs-lookup"><span data-stu-id="12508-280">The same string may have a different translation in certain locations within an app (Razor views or class files).</span></span> <span data-ttu-id="12508-281">PO 文件支持文件上下文概念，此概念可用于对所表示的字符串进行分类。</span><span class="sxs-lookup"><span data-stu-id="12508-281">A PO file supports the notion of a file context, which can be used to categorize the string being represented.</span></span> <span data-ttu-id="12508-282">使用文件上下文，可将字符串进行不同转换，具体取决于文件上下文（或缺乏文件上下文）。</span><span class="sxs-lookup"><span data-stu-id="12508-282">Using a file context, a string can be translated differently, depending on the file context (or lack of a file context).</span></span>
 
 <span data-ttu-id="12508-283">PO 本地化服务使用完整类的名称或转换字符串时使用的视图。</span><span class="sxs-lookup"><span data-stu-id="12508-283">The PO localization services use the name of the full class or the view that's used when translating a string.</span></span> <span data-ttu-id="12508-284">这通过在 `msgctxt` 条目上设置值来完成。</span><span class="sxs-lookup"><span data-stu-id="12508-284">This is accomplished by setting the value on the `msgctxt` entry.</span></span>
 
-<span data-ttu-id="12508-285">请考虑对以前的 fr.po 示例作一点小小的补充。</span><span class="sxs-lookup"><span data-stu-id="12508-285">Consider a minor addition to the previous *fr.po* example.</span></span> <span data-ttu-id="12508-286">可通过设置保留的 `msgctxt` 条目的值将位于 Views/Home/About.cshtml 的 :::no-loc(Razor)::: 视图定义为文件上下文：</span><span class="sxs-lookup"><span data-stu-id="12508-286">A :::no-loc(Razor)::: view located at *Views/Home/About.cshtml* can be defined as the file context by setting the reserved `msgctxt` entry's value:</span></span>
+<span data-ttu-id="12508-285">请考虑对以前的 fr.po 示例作一点小小的补充。</span><span class="sxs-lookup"><span data-stu-id="12508-285">Consider a minor addition to the previous *fr.po* example.</span></span> <span data-ttu-id="12508-286">可通过设置保留的 `msgctxt` 条目的值将位于 Views/Home/About.cshtml 的 Razor 视图定义为文件上下文：</span><span class="sxs-lookup"><span data-stu-id="12508-286">A Razor view located at *Views/Home/About.cshtml* can be defined as the file context by setting the reserved `msgctxt` entry's value:</span></span>
 
 ```text
 msgctxt "Views.Home.About"

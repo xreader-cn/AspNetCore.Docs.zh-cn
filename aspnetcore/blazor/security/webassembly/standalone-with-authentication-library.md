@@ -1,23 +1,23 @@
 ---
-title: '使用身份验证库保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 独立应用'
+title: '使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用'
 author: guardrex
-description: '了解如何使用身份验证库保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 独立应用。'
+description: '了解如何使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/27/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/webassembly/standalone-with-authentication-library
 ms.openlocfilehash: d030e97a3adc17f53b42b98a53f04f155ea93bb6
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,25 +26,25 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93055108"
 ---
-# <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-the-authentication-library"></a><span data-ttu-id="5189d-103">使用身份验证库保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 独立应用</span><span class="sxs-lookup"><span data-stu-id="5189d-103">Secure an ASP.NET Core :::no-loc(Blazor WebAssembly)::: standalone app with the Authentication library</span></span>
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-the-authentication-library"></a><span data-ttu-id="5189d-103">使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用</span><span class="sxs-lookup"><span data-stu-id="5189d-103">Secure an ASP.NET Core Blazor WebAssembly standalone app with the Authentication library</span></span>
 
 <span data-ttu-id="5189d-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="5189d-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
 <span data-ttu-id="5189d-105">对于 Azure Active Directory (AAD) 和 Azure Active Directory B2C (AAD B2C)，请勿按照本主题中的指南进行操作。请参阅此目录节点中的 AAD 和 AAD B2C 主题。</span><span class="sxs-lookup"><span data-stu-id="5189d-105">*For Azure Active Directory (AAD) and Azure Active Directory B2C (AAD B2C), don't follow the guidance in this topic. See the AAD and AAD B2C topics in this table of contents node.*</span></span>
 
-<span data-ttu-id="5189d-106">若要创建使用 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 库的[独立 :::no-loc(Blazor WebAssembly)::: 应用](xref:blazor/hosting-models#blazor-webassembly)，请按照适用于所选工具的指南操作。</span><span class="sxs-lookup"><span data-stu-id="5189d-106">To create a [standalone :::no-loc(Blazor WebAssembly)::: app](xref:blazor/hosting-models#blazor-webassembly) that uses [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) library, follow the guidance for your choice of tooling.</span></span>
+<span data-ttu-id="5189d-106">若要创建使用 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 库的[独立 Blazor WebAssembly 应用](xref:blazor/hosting-models#blazor-webassembly)，请按照适用于所选工具的指南操作。</span><span class="sxs-lookup"><span data-stu-id="5189d-106">To create a [standalone Blazor WebAssembly app](xref:blazor/hosting-models#blazor-webassembly) that uses [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) library, follow the guidance for your choice of tooling.</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="5189d-107">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="5189d-107">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="5189d-108">新建具有身份验证机制的 :::no-loc(Blazor WebAssembly)::: 项目：</span><span class="sxs-lookup"><span data-stu-id="5189d-108">To create a new :::no-loc(Blazor WebAssembly)::: project with an authentication mechanism:</span></span>
+<span data-ttu-id="5189d-108">新建具有身份验证机制的 Blazor WebAssembly 项目：</span><span class="sxs-lookup"><span data-stu-id="5189d-108">To create a new Blazor WebAssembly project with an authentication mechanism:</span></span>
 
-1. <span data-ttu-id="5189d-109">在“新建 ASP.NET Core Web 应用”对话框中选择“:::no-loc(Blazor WebAssembly):::应用”模板后，选择“身份验证”下的“更改”。</span><span class="sxs-lookup"><span data-stu-id="5189d-109">After choosing the **:::no-loc(Blazor WebAssembly)::: App** template in the **Create a new ASP.NET Core Web Application** dialog, select **Change** under **Authentication**.</span></span>
+1. <span data-ttu-id="5189d-109">在“新建 ASP.NET Core Web 应用”对话框中选择“Blazor WebAssembly应用”模板后，选择“身份验证”下的“更改”。</span><span class="sxs-lookup"><span data-stu-id="5189d-109">After choosing the **Blazor WebAssembly App** template in the **Create a new ASP.NET Core Web Application** dialog, select **Change** under **Authentication**.</span></span>
 
-1. <span data-ttu-id="5189d-110">通过“存储应用内的用户帐户”选项选择“单个用户帐户”，以使用 ASP.NET Core 的 [:::no-loc(Identity):::](xref:security/authentication/identity) 系统存储应用内的用户。 </span><span class="sxs-lookup"><span data-stu-id="5189d-110">Select **Individual User Accounts** with the **Store user accounts in-app** option to store users within the app using ASP.NET Core's [:::no-loc(Identity):::](xref:security/authentication/identity) system.</span></span>
+1. <span data-ttu-id="5189d-110">通过“存储应用内的用户帐户”选项选择“单个用户帐户”，以使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统存储应用内的用户。 </span><span class="sxs-lookup"><span data-stu-id="5189d-110">Select **Individual User Accounts** with the **Store user accounts in-app** option to store users within the app using ASP.NET Core's [Identity](xref:security/authentication/identity) system.</span></span>
 
 # <a name="visual-studio-code--net-core-cli"></a>[<span data-ttu-id="5189d-111">Visual Studio Code/.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="5189d-111">Visual Studio Code / .NET Core CLI</span></span>](#tab/visual-studio-code+netcore-cli)
 
-<span data-ttu-id="5189d-112">在空文件夹中新建具有身份验证机制的 :::no-loc(Blazor WebAssembly):::项目。</span><span class="sxs-lookup"><span data-stu-id="5189d-112">Create a new :::no-loc(Blazor WebAssembly)::: project with an authentication mechanism in an empty folder.</span></span> <span data-ttu-id="5189d-113">通过 `-au|--auth` 选项指定 `Individual` 身份验证机制，以使用 ASP.NET Core 的 [:::no-loc(Identity):::](xref:security/authentication/identity) 系统存储应用内的用户：</span><span class="sxs-lookup"><span data-stu-id="5189d-113">Specify the `Individual` authentication mechanism with the `-au|--auth` option to store users within the app using ASP.NET Core's [:::no-loc(Identity):::](xref:security/authentication/identity) system:</span></span>
+<span data-ttu-id="5189d-112">在空文件夹中新建具有身份验证机制的 Blazor WebAssembly项目。</span><span class="sxs-lookup"><span data-stu-id="5189d-112">Create a new Blazor WebAssembly project with an authentication mechanism in an empty folder.</span></span> <span data-ttu-id="5189d-113">通过 `-au|--auth` 选项指定 `Individual` 身份验证机制，以使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统存储应用内的用户：</span><span class="sxs-lookup"><span data-stu-id="5189d-113">Specify the `Individual` authentication mechanism with the `-au|--auth` option to store users within the app using ASP.NET Core's [Identity](xref:security/authentication/identity) system:</span></span>
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual -o {APP NAME}
@@ -52,7 +52,7 @@ dotnet new blazorwasm -au Individual -o {APP NAME}
 
 | <span data-ttu-id="5189d-114">占位符</span><span class="sxs-lookup"><span data-stu-id="5189d-114">Placeholder</span></span>  | <span data-ttu-id="5189d-115">示例</span><span class="sxs-lookup"><span data-stu-id="5189d-115">Example</span></span>        |
 | ------------ | -------------- |
-| `{APP NAME}` | `:::no-loc(Blazor):::Sample` |
+| `{APP NAME}` | `BlazorSample` |
 
 <span data-ttu-id="5189d-116">使用 `-o|--output` 选项指定的输出位置将创建一个项目文件夹（如果该文件夹不存在）并成为应用程序名称的一部分。</span><span class="sxs-lookup"><span data-stu-id="5189d-116">The output location specified with the `-o|--output` option creates a project folder if it doesn't exist and becomes part of the app's name.</span></span>
 
@@ -60,11 +60,11 @@ dotnet new blazorwasm -au Individual -o {APP NAME}
 
 # <a name="visual-studio-for-mac"></a>[<span data-ttu-id="5189d-118">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="5189d-118">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="5189d-119">新建具有身份验证机制的 :::no-loc(Blazor WebAssembly)::: 项目：</span><span class="sxs-lookup"><span data-stu-id="5189d-119">To create a new :::no-loc(Blazor WebAssembly)::: project with an authentication mechanism:</span></span>
+<span data-ttu-id="5189d-119">新建具有身份验证机制的 Blazor WebAssembly 项目：</span><span class="sxs-lookup"><span data-stu-id="5189d-119">To create a new Blazor WebAssembly project with an authentication mechanism:</span></span>
 
-1. <span data-ttu-id="5189d-120">在“配置新的 :::no-loc(Blazor WebAssembly):::应用”步骤中，从“身份验证”下拉列表中选择“个人身份验证(应用内)”。</span><span class="sxs-lookup"><span data-stu-id="5189d-120">On the **Configure your new :::no-loc(Blazor WebAssembly)::: App** step, select **Individual Authentication (in-app)** from the **Authentication** drop down.</span></span>
+1. <span data-ttu-id="5189d-120">在“配置新的 Blazor WebAssembly应用”步骤中，从“身份验证”下拉列表中选择“个人身份验证(应用内)”。</span><span class="sxs-lookup"><span data-stu-id="5189d-120">On the **Configure your new Blazor WebAssembly App** step, select **Individual Authentication (in-app)** from the **Authentication** drop down.</span></span>
 
-1. <span data-ttu-id="5189d-121">此应用是使用 ASP.NET Core [:::no-loc(Identity):::](xref:security/authentication/identity) 为应用中存储的个人用户创建的。</span><span class="sxs-lookup"><span data-stu-id="5189d-121">The app is created for individual users stored in the app with ASP.NET Core [:::no-loc(Identity):::](xref:security/authentication/identity).</span></span>
+1. <span data-ttu-id="5189d-121">此应用是使用 ASP.NET Core [Identity](xref:security/authentication/identity) 为应用中存储的个人用户创建的。</span><span class="sxs-lookup"><span data-stu-id="5189d-121">The app is created for individual users stored in the app with ASP.NET Core [Identity](xref:security/authentication/identity).</span></span>
 
 ---
 
@@ -84,7 +84,7 @@ dotnet new blazorwasm -au Individual -o {APP NAME}
 
 ## <a name="authentication-service-support"></a><span data-ttu-id="5189d-127">身份验证服务支持</span><span class="sxs-lookup"><span data-stu-id="5189d-127">Authentication service support</span></span>
 
-<span data-ttu-id="5189d-128">使用由 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> 扩展方法在服务容器中注册用户身份验证支持。</span><span class="sxs-lookup"><span data-stu-id="5189d-128">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> extension method provided by the [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) package.</span></span> <span data-ttu-id="5189d-129">此方法设置应用与 :::no-loc(Identity)::: 提供者 (IP) 交互所需的服务。</span><span class="sxs-lookup"><span data-stu-id="5189d-129">This method sets up the services required for the app to interact with the :::no-loc(Identity)::: Provider (IP).</span></span>
+<span data-ttu-id="5189d-128">使用由 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> 扩展方法在服务容器中注册用户身份验证支持。</span><span class="sxs-lookup"><span data-stu-id="5189d-128">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> extension method provided by the [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) package.</span></span> <span data-ttu-id="5189d-129">此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。</span><span class="sxs-lookup"><span data-stu-id="5189d-129">This method sets up the services required for the app to interact with the Identity Provider (IP).</span></span>
 
 <span data-ttu-id="5189d-130">`Program.cs`:</span><span class="sxs-lookup"><span data-stu-id="5189d-130">`Program.cs`:</span></span>
 
@@ -95,7 +95,7 @@ builder.Services.AddOidcAuthentication(options =>
 });
 ```
 
-<span data-ttu-id="5189d-131">配置由 `wwwroot/:::no-loc(appsettings.json):::` 文件提供：</span><span class="sxs-lookup"><span data-stu-id="5189d-131">Configuration is supplied by the `wwwroot/:::no-loc(appsettings.json):::` file:</span></span>
+<span data-ttu-id="5189d-131">配置由 `wwwroot/appsettings.json` 文件提供：</span><span class="sxs-lookup"><span data-stu-id="5189d-131">Configuration is supplied by the `wwwroot/appsettings.json` file:</span></span>
 
 ```json
 {
@@ -110,9 +110,9 @@ builder.Services.AddOidcAuthentication(options =>
 
 ## <a name="access-token-scopes"></a><span data-ttu-id="5189d-136">访问令牌作用域</span><span class="sxs-lookup"><span data-stu-id="5189d-136">Access token scopes</span></span>
 
-<span data-ttu-id="5189d-137">:::no-loc(Blazor WebAssembly)::: 模板自动为 `openid` 和 `profile` 配置默认作用域。</span><span class="sxs-lookup"><span data-stu-id="5189d-137">The :::no-loc(Blazor WebAssembly)::: template automatically configures default scopes for `openid` and `profile`.</span></span>
+<span data-ttu-id="5189d-137">Blazor WebAssembly 模板自动为 `openid` 和 `profile` 配置默认作用域。</span><span class="sxs-lookup"><span data-stu-id="5189d-137">The Blazor WebAssembly template automatically configures default scopes for `openid` and `profile`.</span></span>
 
-<span data-ttu-id="5189d-138">:::no-loc(Blazor WebAssembly)::: 模板不会自动将应用配置为请求安全 API 的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="5189d-138">The :::no-loc(Blazor WebAssembly)::: template doesn't automatically configure the app to request an access token for a secure API.</span></span> <span data-ttu-id="5189d-139">要将访问令牌作为登录流程的一部分进行预配，请将作用域添加到 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions> 的默认令牌作用域中：</span><span class="sxs-lookup"><span data-stu-id="5189d-139">To provision an access token as part of the sign-in flow, add the scope to the default token scopes of the <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions>:</span></span>
+<span data-ttu-id="5189d-138">Blazor WebAssembly 模板不会自动将应用配置为请求安全 API 的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="5189d-138">The Blazor WebAssembly template doesn't automatically configure the app to request an access token for a secure API.</span></span> <span data-ttu-id="5189d-139">要将访问令牌作为登录流程的一部分进行预配，请将作用域添加到 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions> 的默认令牌作用域中：</span><span class="sxs-lookup"><span data-stu-id="5189d-139">To provision an access token as part of the sign-in flow, add the scope to the default token scopes of the <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions>:</span></span>
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
@@ -160,7 +160,7 @@ builder.Services.AddOidcAuthentication(options =>
 
 <AuthorizeView>
     <Authorized>
-        Hello, @context.User.:::no-loc(Identity):::.Name!
+        Hello, @context.User.Identity.Name!
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">
             Log out
         </button>

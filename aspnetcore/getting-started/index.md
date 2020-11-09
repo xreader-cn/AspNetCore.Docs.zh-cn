@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/07/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: getting-started
 ms.openlocfilehash: fef5ae525a7c01d0ea7733e990233f413aac61a7
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -35,7 +35,7 @@ ms.locfileid: "93057786"
 > * <span data-ttu-id="55844-106">创建 Web 应用项目。</span><span class="sxs-lookup"><span data-stu-id="55844-106">Create a web app project.</span></span>
 > * <span data-ttu-id="55844-107">信任开发证书。</span><span class="sxs-lookup"><span data-stu-id="55844-107">Trust the development certificate.</span></span>
 > * <span data-ttu-id="55844-108">运行应用。</span><span class="sxs-lookup"><span data-stu-id="55844-108">Run the app.</span></span>
-> * <span data-ttu-id="55844-109">编辑 :::no-loc(Razor)::: 页面。</span><span class="sxs-lookup"><span data-stu-id="55844-109">Edit a :::no-loc(Razor)::: page.</span></span>
+> * <span data-ttu-id="55844-109">编辑 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="55844-109">Edit a Razor page.</span></span>
 
 <span data-ttu-id="55844-110">最后，在本地计算机上运行工作 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="55844-110">At the end, you'll have a working web app running on your local machine.</span></span>
 
@@ -105,7 +105,7 @@ dotnet watch run
 
 <span data-ttu-id="55844-134">命令行界面指明应用已启动后，浏览到 `https://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="55844-134">After the command shell indicates that the app has started, browse to `https://localhost:5001`.</span></span>
 
-## <a name="edit-a-no-locrazor-page"></a><span data-ttu-id="55844-135">编辑 :::no-loc(Razor)::: 页面</span><span class="sxs-lookup"><span data-stu-id="55844-135">Edit a :::no-loc(Razor)::: page</span></span>
+## <a name="edit-a-no-locrazor-page"></a><span data-ttu-id="55844-135">编辑 Razor 页面</span><span class="sxs-lookup"><span data-stu-id="55844-135">Edit a Razor page</span></span>
 
 <span data-ttu-id="55844-136">打开 Pages/Index.cshtml，并使用以下突出显示标记修改并保存页面：</span><span class="sxs-lookup"><span data-stu-id="55844-136">Open *Pages/Index.cshtml* and modify and save the page with the following highlighted markup:</span></span>
 

@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/views/partial
 ms.openlocfilehash: 01fb87205f7855f0995cbcd135b6b01f15835e3b
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -29,11 +29,11 @@ ms.locfileid: "93060594"
 
 <span data-ttu-id="8165d-104">作者：[Steve Smith](https://ardalis.com/)、[Maher JENDOUBI](https://twitter.com/maherjend)、[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Scott Sauber](https://twitter.com/scottsauber)</span><span class="sxs-lookup"><span data-stu-id="8165d-104">By [Steve Smith](https://ardalis.com/), [Maher JENDOUBI](https://twitter.com/maherjend), [Rick Anderson](https://twitter.com/RickAndMSFT), and [Scott Sauber](https://twitter.com/scottsauber)</span></span>
 
-<span data-ttu-id="8165d-105">分部视图是 [:::no-loc(Razor):::](xref:mvc/views/razor) () 的标记文件 *.cshtml* ，没有在 [`@page`](xref:mvc/views/razor#page) 其他标记文件呈现的输出 *中* 呈现 HTML 输出的指令。</span><span class="sxs-lookup"><span data-stu-id="8165d-105">A partial view is a [:::no-loc(Razor):::](xref:mvc/views/razor) markup file ( *.cshtml* ) without an [`@page`](xref:mvc/views/razor#page) directive that renders HTML output *within* another markup file's rendered output.</span></span>
+<span data-ttu-id="8165d-105">分部视图是 [Razor](xref:mvc/views/razor) () 的标记文件 *.cshtml* ，没有在 [`@page`](xref:mvc/views/razor#page) 其他标记文件呈现的输出 *中* 呈现 HTML 输出的指令。</span><span class="sxs-lookup"><span data-stu-id="8165d-105">A partial view is a [Razor](xref:mvc/views/razor) markup file ( *.cshtml* ) without an [`@page`](xref:mvc/views/razor#page) directive that renders HTML output *within* another markup file's rendered output.</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="8165d-106">当开发 MVC 应用程序时，将使用术语 *分部视图* ，其中标记文件称为 *视图* ，或 :::no-loc(Razor)::: 页面应用，其中的标记文件被称为 *页* 。</span><span class="sxs-lookup"><span data-stu-id="8165d-106">The term *partial view* is used when developing either an MVC app, where markup files are called *views* , or a :::no-loc(Razor)::: Pages app, where markup files are called *pages* .</span></span> <span data-ttu-id="8165d-107">本主题一般将 MVC 视图和 :::no-loc(Razor)::: 页面页称为 *标记文件* 。</span><span class="sxs-lookup"><span data-stu-id="8165d-107">This topic generically refers to MVC views and :::no-loc(Razor)::: Pages pages as *markup files* .</span></span>
+<span data-ttu-id="8165d-106">当开发 MVC 应用程序时，将使用术语 *分部视图* ，其中标记文件称为 *视图* ，或 Razor 页面应用，其中的标记文件被称为 *页* 。</span><span class="sxs-lookup"><span data-stu-id="8165d-106">The term *partial view* is used when developing either an MVC app, where markup files are called *views* , or a Razor Pages app, where markup files are called *pages* .</span></span> <span data-ttu-id="8165d-107">本主题一般将 MVC 视图和 Razor 页面页称为 *标记文件* 。</span><span class="sxs-lookup"><span data-stu-id="8165d-107">This topic generically refers to MVC views and Razor Pages pages as *markup files* .</span></span>
 
 ::: moniker-end
 
@@ -58,9 +58,9 @@ ms.locfileid: "93060594"
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="8165d-122">分部视图是未在 *.cshtml* [`@page`](xref:mvc/views/razor#page) *Views* 文件夹中维护的指令 (MVC) 或 *页面* 文件夹 (:::no-loc(Razor)::: 页面) 。</span><span class="sxs-lookup"><span data-stu-id="8165d-122">A partial view is a *.cshtml* markup file without an [`@page`](xref:mvc/views/razor#page) directive maintained within the *Views* folder (MVC) or *Pages* folder (:::no-loc(Razor)::: Pages).</span></span>
+<span data-ttu-id="8165d-122">分部视图是未在 *.cshtml* [`@page`](xref:mvc/views/razor#page) *Views* 文件夹中维护的指令 (MVC) 或 *页面* 文件夹 (Razor 页面) 。</span><span class="sxs-lookup"><span data-stu-id="8165d-122">A partial view is a *.cshtml* markup file without an [`@page`](xref:mvc/views/razor#page) directive maintained within the *Views* folder (MVC) or *Pages* folder (Razor Pages).</span></span>
 
-<span data-ttu-id="8165d-123">在 ASP.NET Core MVC 中，控制器的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 能够返回视图或分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-123">In ASP.NET Core MVC, a controller's <xref:Microsoft.AspNetCore.Mvc.ViewResult> is capable of returning either a view or a partial view.</span></span> <span data-ttu-id="8165d-124">在 :::no-loc(Razor)::: 页中， <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageModel> 可以返回以对象形式表示的分部视图 <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> 。</span><span class="sxs-lookup"><span data-stu-id="8165d-124">In :::no-loc(Razor)::: Pages, a <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageModel> can return a partial view represented as a <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> object.</span></span> <span data-ttu-id="8165d-125">[引用分部视图](#reference-a-partial-view)部分介绍了引用和呈现分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-125">Referencing and rendering partial views is described in the [Reference a partial view](#reference-a-partial-view) section.</span></span>
+<span data-ttu-id="8165d-123">在 ASP.NET Core MVC 中，控制器的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 能够返回视图或分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-123">In ASP.NET Core MVC, a controller's <xref:Microsoft.AspNetCore.Mvc.ViewResult> is capable of returning either a view or a partial view.</span></span> <span data-ttu-id="8165d-124">在 Razor 页中， <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 可以返回以对象形式表示的分部视图 <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> 。</span><span class="sxs-lookup"><span data-stu-id="8165d-124">In Razor Pages, a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> can return a partial view represented as a <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> object.</span></span> <span data-ttu-id="8165d-125">[引用分部视图](#reference-a-partial-view)部分介绍了引用和呈现分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-125">Referencing and rendering partial views is described in the [Reference a partial view](#reference-a-partial-view) section.</span></span>
 
 <span data-ttu-id="8165d-126">与 MVC 视图或页面呈现不同，分部视图不会运行 _ViewStart.cshtml  。</span><span class="sxs-lookup"><span data-stu-id="8165d-126">Unlike MVC view or page rendering, a partial view doesn't run *_ViewStart.cshtml* .</span></span> <span data-ttu-id="8165d-127">有关 _ViewStart.cshtml  的详细信息，请参阅 <xref:mvc/views/layout>。</span><span class="sxs-lookup"><span data-stu-id="8165d-127">For more information on *_ViewStart.cshtml* , see <xref:mvc/views/layout>.</span></span>
 
@@ -84,7 +84,7 @@ ms.locfileid: "93060594"
 
 ::: moniker range=">= aspnetcore-2.0"
 
-### <a name="use-a-partial-view-in-a-no-locrazor-pages-pagemodel"></a><span data-ttu-id="8165d-138">在页面中使用分部视图 :::no-loc(Razor)::: PageModel</span><span class="sxs-lookup"><span data-stu-id="8165d-138">Use a partial view in a :::no-loc(Razor)::: Pages PageModel</span></span>
+### <a name="use-a-partial-view-in-a-no-locrazor-pages-pagemodel"></a><span data-ttu-id="8165d-138">在页面中使用分部视图 Razor PageModel</span><span class="sxs-lookup"><span data-stu-id="8165d-138">Use a partial view in a Razor Pages PageModel</span></span>
 
 <span data-ttu-id="8165d-139">在 ASP.NET Core 2.0 或2.1 中，以下处理程序方法将 *\_ AuthorPartialRP* 分部视图呈现给响应：</span><span class="sxs-lookup"><span data-stu-id="8165d-139">In ASP.NET Core 2.0 or 2.1, the following handler method renders the *\_AuthorPartialRP.cshtml* partial view to the response:</span></span>
 
@@ -101,7 +101,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="8165d-140">在 ASP.NET Core 2.2 或更高版本中，处理程序方法也可以调用 <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageBase.Partial*> 方法来生成 `PartialViewResult` 对象：</span><span class="sxs-lookup"><span data-stu-id="8165d-140">In ASP.NET Core 2.2 or later, a handler method can alternatively call the <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageBase.Partial*> method to produce a `PartialViewResult` object:</span></span>
+<span data-ttu-id="8165d-140">在 ASP.NET Core 2.2 或更高版本中，处理程序方法也可以调用 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> 方法来生成 `PartialViewResult` 对象：</span><span class="sxs-lookup"><span data-stu-id="8165d-140">In ASP.NET Core 2.2 or later, a handler method can alternatively call the <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> method to produce a `PartialViewResult` object:</span></span>
 
 [!code-csharp[](partial/sample/PartialViewsSample/Pages/DiscoveryRP.cshtml.cs?name=snippet_OnGetPartial)]
 
@@ -149,7 +149,7 @@ public IActionResult OnGetPartial() =>
 
 <span data-ttu-id="8165d-154">以下示例从应用程序根目录引用分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-154">The following example references a partial view from the app root.</span></span> <span data-ttu-id="8165d-155">以波形符斜杠 (`~/`) 或斜杠 (`/`) 开头的路径指代应用程序根目录：</span><span class="sxs-lookup"><span data-stu-id="8165d-155">Paths that start with a tilde-slash (`~/`) or a slash (`/`) refer to the app root:</span></span>
 
-<span data-ttu-id="8165d-156">**:::no-loc(Razor)::: 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-156">**:::no-loc(Razor)::: Pages**</span></span>
+<span data-ttu-id="8165d-156">**Razor 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-156">**Razor Pages**</span></span>
 
 ```cshtml
 <partial name="~/Pages/Folder/_PartialName.cshtml" />
@@ -191,7 +191,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="8165d-167">**:::no-loc(Razor)::: 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-167">**:::no-loc(Razor)::: Pages**</span></span>
+<span data-ttu-id="8165d-167">**Razor 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-167">**Razor Pages**</span></span>
 
 ```cshtml
 @await Html.PartialAsync("~/Pages/Folder/_PartialName.cshtml")
@@ -213,7 +213,7 @@ public IActionResult OnGetPartial() =>
 @await Html.PartialAsync("../Account/_LoginPartial.cshtml")
 ```
 
-<span data-ttu-id="8165d-170">或者，也可以使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*> 呈现分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-170">Alternatively, you can render a partial view with <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>.</span></span> <span data-ttu-id="8165d-171">此方法不返回 <xref:Microsoft.AspNetCore.Html.IHtmlContent>。</span><span class="sxs-lookup"><span data-stu-id="8165d-171">This method doesn't return an <xref:Microsoft.AspNetCore.Html.IHtmlContent>.</span></span> <span data-ttu-id="8165d-172">它将呈现的输出直接流式传输到响应。</span><span class="sxs-lookup"><span data-stu-id="8165d-172">It streams the rendered output directly to the response.</span></span> <span data-ttu-id="8165d-173">因为该方法不返回结果，所以必须在代码块中调用该方法 :::no-loc(Razor)::: ：</span><span class="sxs-lookup"><span data-stu-id="8165d-173">Because the method doesn't return a result, it must be called within a :::no-loc(Razor)::: code block:</span></span>
+<span data-ttu-id="8165d-170">或者，也可以使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*> 呈现分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-170">Alternatively, you can render a partial view with <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>.</span></span> <span data-ttu-id="8165d-171">此方法不返回 <xref:Microsoft.AspNetCore.Html.IHtmlContent>。</span><span class="sxs-lookup"><span data-stu-id="8165d-171">This method doesn't return an <xref:Microsoft.AspNetCore.Html.IHtmlContent>.</span></span> <span data-ttu-id="8165d-172">它将呈现的输出直接流式传输到响应。</span><span class="sxs-lookup"><span data-stu-id="8165d-172">It streams the rendered output directly to the response.</span></span> <span data-ttu-id="8165d-173">因为该方法不返回结果，所以必须在代码块中调用该方法 Razor ：</span><span class="sxs-lookup"><span data-stu-id="8165d-173">Because the method doesn't return a result, it must be called within a Razor code block:</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Home/Discovery.cshtml?name=snippet_RenderPartialAsync)]
 
@@ -242,7 +242,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="8165d-189">**:::no-loc(Razor)::: 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-189">**:::no-loc(Razor)::: Pages**</span></span>
+<span data-ttu-id="8165d-189">**Razor 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-189">**Razor Pages**</span></span>
 
 1. <span data-ttu-id="8165d-190">当前正在执行页面的文件夹</span><span class="sxs-lookup"><span data-stu-id="8165d-190">Currently executing page's folder</span></span>
 1. <span data-ttu-id="8165d-191">该页面文件夹上方的目录图</span><span class="sxs-lookup"><span data-stu-id="8165d-191">Directory graph above the page's folder</span></span>
@@ -278,7 +278,7 @@ public IActionResult OnGetPartial() =>
 * <span data-ttu-id="8165d-198">分部视图可以 *链接* &mdash; 到分部视图，如果不是由调用形成循环引用，则可以调用另一个分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-198">Partial views can be *chained*&mdash;a partial view can call another partial view if a circular reference isn't formed by the calls.</span></span> <span data-ttu-id="8165d-199">相对路径始终相对于当前文件，而不是相对于文件的根视图或父视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-199">Relative paths are always relative to the current file, not to the root or parent of the file.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="8165d-200">[:::no-loc(Razor):::](xref:mvc/views/razor) `section` 分部视图中定义的对于父标记文件是不可见的。</span><span class="sxs-lookup"><span data-stu-id="8165d-200">A [:::no-loc(Razor):::](xref:mvc/views/razor) `section` defined in a partial view is invisible to parent markup files.</span></span> <span data-ttu-id="8165d-201">`section` 仅对定义它时所在的分部视图可见。</span><span class="sxs-lookup"><span data-stu-id="8165d-201">The `section` is only visible to the partial view in which it's defined.</span></span>
+> <span data-ttu-id="8165d-200">[Razor](xref:mvc/views/razor) `section` 分部视图中定义的对于父标记文件是不可见的。</span><span class="sxs-lookup"><span data-stu-id="8165d-200">A [Razor](xref:mvc/views/razor) `section` defined in a partial view is invisible to parent markup files.</span></span> <span data-ttu-id="8165d-201">`section` 仅对定义它时所在的分部视图可见。</span><span class="sxs-lookup"><span data-stu-id="8165d-201">The `section` is only visible to the partial view in which it's defined.</span></span>
 
 ## <a name="access-data-from-partial-views"></a><span data-ttu-id="8165d-202">通过分部视图访问数据</span><span class="sxs-lookup"><span data-stu-id="8165d-202">Access data from partial views</span></span>
 
@@ -298,7 +298,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="8165d-210">**:::no-loc(Razor)::: 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-210">**:::no-loc(Razor)::: Pages**</span></span>
+<span data-ttu-id="8165d-210">**Razor 页**</span><span class="sxs-lookup"><span data-stu-id="8165d-210">**Razor Pages**</span></span>
 
 <span data-ttu-id="8165d-211">示例应用程序中的以下标记来自 *Pages/ArticlesRP/ReadRP.cshtml* 页面。</span><span class="sxs-lookup"><span data-stu-id="8165d-211">The following markup in the sample app is from the *Pages/ArticlesRP/ReadRP.cshtml* page.</span></span> <span data-ttu-id="8165d-212">此页包含两个分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-212">The page contains two partial views.</span></span> <span data-ttu-id="8165d-213">第二个分部视图将模型和 `ViewData` 传入分部视图。</span><span class="sxs-lookup"><span data-stu-id="8165d-213">The second partial view passes in a model and `ViewData` to the partial view.</span></span> <span data-ttu-id="8165d-214">`ViewDataDictionary` 构造函数重载可用于传递新 `ViewData` 字典，同时保留现有的 `ViewData` 字典。</span><span class="sxs-lookup"><span data-stu-id="8165d-214">The `ViewDataDictionary` constructor overload is used to pass a new `ViewData` dictionary while retaining the existing `ViewData` dictionary.</span></span>
 

@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core 中的安全注意事项 :::no-loc(SignalR):::'
+title: 'ASP.NET Core 中的安全注意事项 SignalR'
 author: bradygaster
-description: '了解如何在 ASP.NET Core 中使用身份验证和授权 :::no-loc(SignalR)::: 。'
+description: '了解如何在 ASP.NET Core 中使用身份验证和授权 SignalR 。'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: signalr/security
 ms.openlocfilehash: 5ecbf07b1527e9c68443870f7fce77adc29a5416
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,35 +26,35 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93050831"
 ---
-# <a name="security-considerations-in-aspnet-core-no-locsignalr"></a><span data-ttu-id="645e0-103">ASP.NET Core 中的安全注意事项 :::no-loc(SignalR):::</span><span class="sxs-lookup"><span data-stu-id="645e0-103">Security considerations in ASP.NET Core :::no-loc(SignalR):::</span></span>
+# <a name="security-considerations-in-aspnet-core-no-locsignalr"></a><span data-ttu-id="645e0-103">ASP.NET Core 中的安全注意事项 SignalR</span><span class="sxs-lookup"><span data-stu-id="645e0-103">Security considerations in ASP.NET Core SignalR</span></span>
 
 <span data-ttu-id="645e0-104">作者： [Andrew Stanton](https://twitter.com/anurse)</span><span class="sxs-lookup"><span data-stu-id="645e0-104">By [Andrew Stanton-Nurse](https://twitter.com/anurse)</span></span>
 
-<span data-ttu-id="645e0-105">本文提供有关如何保护的信息 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="645e0-105">This article provides information on securing :::no-loc(SignalR):::.</span></span>
+<span data-ttu-id="645e0-105">本文提供有关如何保护的信息 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="645e0-105">This article provides information on securing SignalR.</span></span>
 
 ## <a name="cross-origin-resource-sharing"></a><span data-ttu-id="645e0-106">跨域资源共享</span><span class="sxs-lookup"><span data-stu-id="645e0-106">Cross-origin resource sharing</span></span>
 
-<span data-ttu-id="645e0-107">[跨域资源共享 (CORS) ](https://www.w3.org/TR/cors/) 可用于 :::no-loc(SignalR)::: 在浏览器中允许跨域连接。</span><span class="sxs-lookup"><span data-stu-id="645e0-107">[Cross-origin resource sharing (CORS)](https://www.w3.org/TR/cors/) can be used to allow cross-origin :::no-loc(SignalR)::: connections in the browser.</span></span> <span data-ttu-id="645e0-108">如果 JavaScript 代码托管在应用的另一个域中 :::no-loc(SignalR)::: ，则必须启用 [CORS 中间件](xref:security/cors) ，以允许 JavaScript 连接到 :::no-loc(SignalR)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="645e0-108">If JavaScript code is hosted on a different domain from the :::no-loc(SignalR)::: app, [CORS middleware](xref:security/cors) must be enabled to allow the JavaScript to connect to the :::no-loc(SignalR)::: app.</span></span> <span data-ttu-id="645e0-109">仅允许来自你信任或控制的域的跨域请求。</span><span class="sxs-lookup"><span data-stu-id="645e0-109">Allow cross-origin requests only from domains you trust or control.</span></span> <span data-ttu-id="645e0-110">例如： 。</span><span class="sxs-lookup"><span data-stu-id="645e0-110">For example:</span></span>
+<span data-ttu-id="645e0-107">[跨域资源共享 (CORS) ](https://www.w3.org/TR/cors/) 可用于 SignalR 在浏览器中允许跨域连接。</span><span class="sxs-lookup"><span data-stu-id="645e0-107">[Cross-origin resource sharing (CORS)](https://www.w3.org/TR/cors/) can be used to allow cross-origin SignalR connections in the browser.</span></span> <span data-ttu-id="645e0-108">如果 JavaScript 代码托管在应用的另一个域中 SignalR ，则必须启用 [CORS 中间件](xref:security/cors) ，以允许 JavaScript 连接到 SignalR 应用。</span><span class="sxs-lookup"><span data-stu-id="645e0-108">If JavaScript code is hosted on a different domain from the SignalR app, [CORS middleware](xref:security/cors) must be enabled to allow the JavaScript to connect to the SignalR app.</span></span> <span data-ttu-id="645e0-109">仅允许来自你信任或控制的域的跨域请求。</span><span class="sxs-lookup"><span data-stu-id="645e0-109">Allow cross-origin requests only from domains you trust or control.</span></span> <span data-ttu-id="645e0-110">例如： 。</span><span class="sxs-lookup"><span data-stu-id="645e0-110">For example:</span></span>
 
 * <span data-ttu-id="645e0-111">你的网站承载于 `http://www.example.com`</span><span class="sxs-lookup"><span data-stu-id="645e0-111">Your site is hosted on `http://www.example.com`</span></span>
-* <span data-ttu-id="645e0-112">你的 :::no-loc(SignalR)::: 应用程序承载于 `http://signalr.example.com`</span><span class="sxs-lookup"><span data-stu-id="645e0-112">Your :::no-loc(SignalR)::: app is hosted on `http://signalr.example.com`</span></span>
+* <span data-ttu-id="645e0-112">你的 SignalR 应用程序承载于 `http://signalr.example.com`</span><span class="sxs-lookup"><span data-stu-id="645e0-112">Your SignalR app is hosted on `http://signalr.example.com`</span></span>
 
-<span data-ttu-id="645e0-113">应在应用程序中配置 CORS，使其 :::no-loc(SignalR)::: 仅允许源 `www.example.com` 。</span><span class="sxs-lookup"><span data-stu-id="645e0-113">CORS should be configured in the :::no-loc(SignalR)::: app to only allow the origin `www.example.com`.</span></span>
+<span data-ttu-id="645e0-113">应在应用程序中配置 CORS，使其 SignalR 仅允许源 `www.example.com` 。</span><span class="sxs-lookup"><span data-stu-id="645e0-113">CORS should be configured in the SignalR app to only allow the origin `www.example.com`.</span></span>
 
-<span data-ttu-id="645e0-114">有关配置 CORS 的详细信息，请参阅 [ (CORS) 启用跨域请求 ](xref:security/cors)。</span><span class="sxs-lookup"><span data-stu-id="645e0-114">For more information on configuring CORS, see [Enable Cross-Origin Requests (CORS)](xref:security/cors).</span></span> <span data-ttu-id="645e0-115">:::no-loc(SignalR):::**需要** 以下 CORS 策略：</span><span class="sxs-lookup"><span data-stu-id="645e0-115">:::no-loc(SignalR)::: **requires** the following CORS policies:</span></span>
+<span data-ttu-id="645e0-114">有关配置 CORS 的详细信息，请参阅 [ (CORS) 启用跨域请求 ](xref:security/cors)。</span><span class="sxs-lookup"><span data-stu-id="645e0-114">For more information on configuring CORS, see [Enable Cross-Origin Requests (CORS)](xref:security/cors).</span></span> <span data-ttu-id="645e0-115">SignalR**需要** 以下 CORS 策略：</span><span class="sxs-lookup"><span data-stu-id="645e0-115">SignalR **requires** the following CORS policies:</span></span>
 
 * <span data-ttu-id="645e0-116">允许特定的预期来源。</span><span class="sxs-lookup"><span data-stu-id="645e0-116">Allow the specific expected origins.</span></span> <span data-ttu-id="645e0-117">允许任何来源是可行的，但不安全或 **不** 推荐使用。</span><span class="sxs-lookup"><span data-stu-id="645e0-117">Allowing any origin is possible but is **not** secure or recommended.</span></span>
 * <span data-ttu-id="645e0-118">`GET` `POST` 必须允许使用 HTTP 方法。</span><span class="sxs-lookup"><span data-stu-id="645e0-118">HTTP methods `GET` and `POST` must be allowed.</span></span>
-* <span data-ttu-id="645e0-119">为了使 :::no-loc(cookie)::: 基于的粘滞会话正常工作，必须允许使用凭据。</span><span class="sxs-lookup"><span data-stu-id="645e0-119">Credentials must be allowed in order for :::no-loc(cookie):::-based sticky sessions to work correctly.</span></span> <span data-ttu-id="645e0-120">即使未使用身份验证，也必须启用它们。</span><span class="sxs-lookup"><span data-stu-id="645e0-120">They must be enabled even when authentication isn't used.</span></span>
+* <span data-ttu-id="645e0-119">为了使 cookie 基于的粘滞会话正常工作，必须允许使用凭据。</span><span class="sxs-lookup"><span data-stu-id="645e0-119">Credentials must be allowed in order for cookie-based sticky sessions to work correctly.</span></span> <span data-ttu-id="645e0-120">即使未使用身份验证，也必须启用它们。</span><span class="sxs-lookup"><span data-stu-id="645e0-120">They must be enabled even when authentication isn't used.</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
 <span data-ttu-id="645e0-121">但是，在5.0 中，我们在 TypeScript 客户端中提供了一个不使用凭据的选项。</span><span class="sxs-lookup"><span data-stu-id="645e0-121">However, in 5.0 we have provided an option in the TypeScript client to not use credentials.</span></span>
-<span data-ttu-id="645e0-122">如果你100知道在 :::no-loc(Cookie)::: 你的应用 (程序中 :::no-loc(cookie)::: 使用多个服务器) 时，azure 应用服务使用多个服务器时，azure 应用服务使用多个凭据，则不使用凭据选项仅应使用。</span><span class="sxs-lookup"><span data-stu-id="645e0-122">The option to not use credentials should only be used when you know 100% that credentials like :::no-loc(Cookie):::s are not needed in your app (:::no-loc(cookie):::s are used by azure app service when using multiple servers for sticky sessions).</span></span>
+<span data-ttu-id="645e0-122">如果你100知道在 Cookie 你的应用 (程序中 cookie 使用多个服务器) 时，azure 应用服务使用多个服务器时，azure 应用服务使用多个凭据，则不使用凭据选项仅应使用。</span><span class="sxs-lookup"><span data-stu-id="645e0-122">The option to not use credentials should only be used when you know 100% that credentials like Cookies are not needed in your app (cookies are used by azure app service when using multiple servers for sticky sessions).</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="645e0-123">例如，以下 CORS 策略允许 :::no-loc(SignalR)::: 中托管的浏览器客户端 `https://example.com` 访问 :::no-loc(SignalR)::: 托管在上的应用 `https://signalr.example.com` ：</span><span class="sxs-lookup"><span data-stu-id="645e0-123">For example, the following CORS policy allows a :::no-loc(SignalR)::: browser client hosted on `https://example.com` to access the :::no-loc(SignalR)::: app hosted on `https://signalr.example.com`:</span></span>
+<span data-ttu-id="645e0-123">例如，以下 CORS 策略允许 SignalR 中托管的浏览器客户端 `https://example.com` 访问 SignalR 托管在上的应用 `https://signalr.example.com` ：</span><span class="sxs-lookup"><span data-stu-id="645e0-123">For example, the following CORS policy allows a SignalR browser client hosted on `https://example.com` to access the SignalR app hosted on `https://signalr.example.com`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -63,7 +63,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
     // ... other middleware ...
 
-    // Make sure the CORS middleware is ahead of :::no-loc(SignalR):::.
+    // Make sure the CORS middleware is ahead of SignalR.
     app.UseCors(builder =>
     {
         builder.WithOrigins("https://example.com")
@@ -109,7 +109,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 <span data-ttu-id="645e0-131">但是，浏览器在发出 WebSocket 请求时会发送 `Origin` 标头。</span><span class="sxs-lookup"><span data-stu-id="645e0-131">However, browsers do send the `Origin` header when issuing WebSocket requests.</span></span> <span data-ttu-id="645e0-132">应将应用程序配置为验证这些标头，以确保只允许来自预期来源的 WebSocket。</span><span class="sxs-lookup"><span data-stu-id="645e0-132">Applications should be configured to validate these headers to ensure that only WebSockets coming from the expected origins are allowed.</span></span>
 
-<span data-ttu-id="645e0-133">在 ASP.NET Core 2.1 及更高版本中，可以使用在中放置的自定义中间件和中的 **`Use:::no-loc(SignalR):::` 身份验证中间** 件来实现标题验证 `Configure` ：</span><span class="sxs-lookup"><span data-stu-id="645e0-133">In ASP.NET Core 2.1 and later, header validation can be achieved using a custom middleware placed **before `Use:::no-loc(SignalR):::`, and authentication middleware** in `Configure`:</span></span>
+<span data-ttu-id="645e0-133">在 ASP.NET Core 2.1 及更高版本中，可以使用在中放置的自定义中间件和中的 **`UseSignalR` 身份验证中间** 件来实现标题验证 `Configure` ：</span><span class="sxs-lookup"><span data-stu-id="645e0-133">In ASP.NET Core 2.1 and later, header validation can be achieved using a custom middleware placed **before `UseSignalR`, and authentication middleware** in `Configure`:</span></span>
 
 [!code-csharp[Main](security/sample/Startup.cs?name=snippet2)]
 
@@ -120,7 +120,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ## <a name="connectionid"></a><span data-ttu-id="645e0-136">ConnectionId</span><span class="sxs-lookup"><span data-stu-id="645e0-136">ConnectionId</span></span>
 
-<span data-ttu-id="645e0-137">`ConnectionId`如果 :::no-loc(SignalR)::: 服务器或客户端版本 ASP.NET Core 2.2 或更低版本，则公开可能会导致恶意模拟。</span><span class="sxs-lookup"><span data-stu-id="645e0-137">Exposing `ConnectionId` can lead to malicious impersonation if the :::no-loc(SignalR)::: server or client version is ASP.NET Core 2.2 or earlier.</span></span> <span data-ttu-id="645e0-138">如果 :::no-loc(SignalR)::: 服务器和客户端版本 ASP.NET Core 3.0 或更高版本，则 `ConnectionToken` 而不是 `ConnectionId` 必须保持机密。</span><span class="sxs-lookup"><span data-stu-id="645e0-138">If the :::no-loc(SignalR)::: server and client version are ASP.NET Core 3.0 or later, the `ConnectionToken` rather than the `ConnectionId` must be kept secret.</span></span> <span data-ttu-id="645e0-139">`ConnectionToken`特意不在任何 API 中公开。</span><span class="sxs-lookup"><span data-stu-id="645e0-139">The `ConnectionToken` is purposely not exposed in any API.</span></span>  <span data-ttu-id="645e0-140">很难确保较旧的 :::no-loc(SignalR)::: 客户端无法连接到服务器，因此即使 :::no-loc(SignalR)::: 服务器版本 ASP.NET Core 3.0 或更高版本，也不应 `ConnectionId` 公开。</span><span class="sxs-lookup"><span data-stu-id="645e0-140">It can be difficult to ensure that older :::no-loc(SignalR)::: clients aren't connecting to the server, so even if your :::no-loc(SignalR)::: server version is ASP.NET Core 3.0 or later, the `ConnectionId` shouldn't be exposed.</span></span>
+<span data-ttu-id="645e0-137">`ConnectionId`如果 SignalR 服务器或客户端版本 ASP.NET Core 2.2 或更低版本，则公开可能会导致恶意模拟。</span><span class="sxs-lookup"><span data-stu-id="645e0-137">Exposing `ConnectionId` can lead to malicious impersonation if the SignalR server or client version is ASP.NET Core 2.2 or earlier.</span></span> <span data-ttu-id="645e0-138">如果 SignalR 服务器和客户端版本 ASP.NET Core 3.0 或更高版本，则 `ConnectionToken` 而不是 `ConnectionId` 必须保持机密。</span><span class="sxs-lookup"><span data-stu-id="645e0-138">If the SignalR server and client version are ASP.NET Core 3.0 or later, the `ConnectionToken` rather than the `ConnectionId` must be kept secret.</span></span> <span data-ttu-id="645e0-139">`ConnectionToken`特意不在任何 API 中公开。</span><span class="sxs-lookup"><span data-stu-id="645e0-139">The `ConnectionToken` is purposely not exposed in any API.</span></span>  <span data-ttu-id="645e0-140">很难确保较旧的 SignalR 客户端无法连接到服务器，因此即使 SignalR 服务器版本 ASP.NET Core 3.0 或更高版本，也不应 `ConnectionId` 公开。</span><span class="sxs-lookup"><span data-stu-id="645e0-140">It can be difficult to ensure that older SignalR clients aren't connecting to the server, so even if your SignalR server version is ASP.NET Core 3.0 or later, the `ConnectionId` shouldn't be exposed.</span></span>
 
 ## <a name="access-token-logging"></a><span data-ttu-id="645e0-141">访问令牌日志记录</span><span class="sxs-lookup"><span data-stu-id="645e0-141">Access token logging</span></span>
 
@@ -135,11 +135,11 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
 
 ## <a name="exceptions"></a><span data-ttu-id="645e0-152">异常</span><span class="sxs-lookup"><span data-stu-id="645e0-152">Exceptions</span></span>
 
-<span data-ttu-id="645e0-153">异常消息通常被认为是不应透露给客户端的敏感数据。</span><span class="sxs-lookup"><span data-stu-id="645e0-153">Exception messages are generally considered sensitive data that shouldn't be revealed to a client.</span></span> <span data-ttu-id="645e0-154">默认情况下， :::no-loc(SignalR)::: 不会将集线器方法引发的异常的详细信息发送到客户端。</span><span class="sxs-lookup"><span data-stu-id="645e0-154">By default, :::no-loc(SignalR)::: doesn't send the details of an exception thrown by a hub method to the client.</span></span> <span data-ttu-id="645e0-155">客户端将收到指示出现错误的一般消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-155">Instead, the client receives a generic message indicating an error occurred.</span></span> <span data-ttu-id="645e0-156">可以将异常消息传递给客户端 (例如，用 [EnableDetailedErrors](xref:signalr/configuration#configure-server-options)进行开发或测试) 。</span><span class="sxs-lookup"><span data-stu-id="645e0-156">Exception message delivery to the client can be overridden (for example in development or test) with [EnableDetailedErrors](xref:signalr/configuration#configure-server-options).</span></span> <span data-ttu-id="645e0-157">不应在生产应用程序中向客户端公开异常消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-157">Exception messages should not be exposed to the client in production apps.</span></span>
+<span data-ttu-id="645e0-153">异常消息通常被认为是不应透露给客户端的敏感数据。</span><span class="sxs-lookup"><span data-stu-id="645e0-153">Exception messages are generally considered sensitive data that shouldn't be revealed to a client.</span></span> <span data-ttu-id="645e0-154">默认情况下， SignalR 不会将集线器方法引发的异常的详细信息发送到客户端。</span><span class="sxs-lookup"><span data-stu-id="645e0-154">By default, SignalR doesn't send the details of an exception thrown by a hub method to the client.</span></span> <span data-ttu-id="645e0-155">客户端将收到指示出现错误的一般消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-155">Instead, the client receives a generic message indicating an error occurred.</span></span> <span data-ttu-id="645e0-156">可以将异常消息传递给客户端 (例如，用 [EnableDetailedErrors](xref:signalr/configuration#configure-server-options)进行开发或测试) 。</span><span class="sxs-lookup"><span data-stu-id="645e0-156">Exception message delivery to the client can be overridden (for example in development or test) with [EnableDetailedErrors](xref:signalr/configuration#configure-server-options).</span></span> <span data-ttu-id="645e0-157">不应在生产应用程序中向客户端公开异常消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-157">Exception messages should not be exposed to the client in production apps.</span></span>
 
 ## <a name="buffer-management"></a><span data-ttu-id="645e0-158">缓冲区管理</span><span class="sxs-lookup"><span data-stu-id="645e0-158">Buffer management</span></span>
 
-<span data-ttu-id="645e0-159">:::no-loc(SignalR)::: 使用每个连接缓冲区管理传入消息和传出消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-159">:::no-loc(SignalR)::: uses per-connection buffers to manage incoming and outgoing messages.</span></span> <span data-ttu-id="645e0-160">默认情况下， :::no-loc(SignalR)::: 将这些缓冲区限制为 32 KB。</span><span class="sxs-lookup"><span data-stu-id="645e0-160">By default, :::no-loc(SignalR)::: limits these buffers to 32 KB.</span></span> <span data-ttu-id="645e0-161">客户端或服务器可以发送的最大消息为 32 KB。</span><span class="sxs-lookup"><span data-stu-id="645e0-161">The largest message a client or server can send is 32 KB.</span></span> <span data-ttu-id="645e0-162">消息连接使用的最大内存为 32 KB。</span><span class="sxs-lookup"><span data-stu-id="645e0-162">The maximum memory consumed by a connection for messages is 32 KB.</span></span> <span data-ttu-id="645e0-163">如果消息始终小于 32 KB，则可以减少限制：</span><span class="sxs-lookup"><span data-stu-id="645e0-163">If your messages are always smaller than 32 KB, you can reduce the limit, which:</span></span>
+<span data-ttu-id="645e0-159">SignalR 使用每个连接缓冲区管理传入消息和传出消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-159">SignalR uses per-connection buffers to manage incoming and outgoing messages.</span></span> <span data-ttu-id="645e0-160">默认情况下， SignalR 将这些缓冲区限制为 32 KB。</span><span class="sxs-lookup"><span data-stu-id="645e0-160">By default, SignalR limits these buffers to 32 KB.</span></span> <span data-ttu-id="645e0-161">客户端或服务器可以发送的最大消息为 32 KB。</span><span class="sxs-lookup"><span data-stu-id="645e0-161">The largest message a client or server can send is 32 KB.</span></span> <span data-ttu-id="645e0-162">消息连接使用的最大内存为 32 KB。</span><span class="sxs-lookup"><span data-stu-id="645e0-162">The maximum memory consumed by a connection for messages is 32 KB.</span></span> <span data-ttu-id="645e0-163">如果消息始终小于 32 KB，则可以减少限制：</span><span class="sxs-lookup"><span data-stu-id="645e0-163">If your messages are always smaller than 32 KB, you can reduce the limit, which:</span></span>
 
 * <span data-ttu-id="645e0-164">禁止客户端发送更大的消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-164">Prevents a client from being able to send a larger message.</span></span>
 * <span data-ttu-id="645e0-165">服务器绝不会需要分配大型缓冲区来接受消息。</span><span class="sxs-lookup"><span data-stu-id="645e0-165">The server will never need to allocate large buffers to accept messages.</span></span>

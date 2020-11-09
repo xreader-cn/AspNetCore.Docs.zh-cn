@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core MVC 中的模型验证
 author: rick-anderson
-description: '了解 ASP.NET Core MVC 和页面中的模型验证 :::no-loc(Razor)::: 。'
+description: '了解 ASP.NET Core MVC 和页面中的模型验证 Razor 。'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/models/validation
 ms.openlocfilehash: 77d49710b9d69f6fbbe92970f1c455de32489444
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -25,13 +25,13 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93056954"
 ---
-# <a name="model-validation-in-aspnet-core-mvc-and-no-locrazor-pages"></a><span data-ttu-id="0ce99-103">ASP.NET Core MVC 和页面中的模型验证 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="0ce99-103">Model validation in ASP.NET Core MVC and :::no-loc(Razor)::: Pages</span></span>
+# <a name="model-validation-in-aspnet-core-mvc-and-no-locrazor-pages"></a><span data-ttu-id="0ce99-103">ASP.NET Core MVC 和页面中的模型验证 Razor</span><span class="sxs-lookup"><span data-stu-id="0ce99-103">Model validation in ASP.NET Core MVC and Razor Pages</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
 <span data-ttu-id="0ce99-104">作者：[Kirk Larkin](https://github.com/serpent5)</span><span class="sxs-lookup"><span data-stu-id="0ce99-104">By [Kirk Larkin](https://github.com/serpent5)</span></span>
 
-<span data-ttu-id="0ce99-105">本文介绍如何在 ASP.NET Core MVC 或页面应用中验证用户输入 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="0ce99-105">This article explains how to validate user input in an ASP.NET Core MVC or :::no-loc(Razor)::: Pages app.</span></span>
+<span data-ttu-id="0ce99-105">本文介绍如何在 ASP.NET Core MVC 或页面应用中验证用户输入 Razor 。</span><span class="sxs-lookup"><span data-stu-id="0ce99-105">This article explains how to validate user input in an ASP.NET Core MVC or Razor Pages app.</span></span>
 
 <span data-ttu-id="0ce99-106">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="0ce99-106">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
@@ -39,7 +39,7 @@ ms.locfileid: "93056954"
 
 <span data-ttu-id="0ce99-108">模型状态表示两个子系统的错误：模型绑定和模型验证。</span><span class="sxs-lookup"><span data-stu-id="0ce99-108">Model state represents errors that come from two subsystems: model binding and model validation.</span></span> <span data-ttu-id="0ce99-109">源自[模型绑定](model-binding.md)的错误通常是数据转换错误。</span><span class="sxs-lookup"><span data-stu-id="0ce99-109">Errors that originate from [model binding](model-binding.md) are generally data conversion errors.</span></span> <span data-ttu-id="0ce99-110">例如，在一个整数字段中输入一个“x”。</span><span class="sxs-lookup"><span data-stu-id="0ce99-110">For example, an "x" is entered in an integer field.</span></span> <span data-ttu-id="0ce99-111">模型验证在模型绑定后发生，并报告数据不符合业务规则的错误。</span><span class="sxs-lookup"><span data-stu-id="0ce99-111">Model validation occurs after model binding and reports errors where data doesn't conform to business rules.</span></span> <span data-ttu-id="0ce99-112">例如，在需要 1 到 5 之间评分的字段中输入 0。</span><span class="sxs-lookup"><span data-stu-id="0ce99-112">For example, a 0 is entered in a field that expects a rating between 1 and 5.</span></span>
 
-<span data-ttu-id="0ce99-113">模型绑定和模型验证在执行控制器操作或 :::no-loc(Razor)::: 页面处理程序方法之前发生。</span><span class="sxs-lookup"><span data-stu-id="0ce99-113">Both model binding and model validation occur before the execution of a controller action or a :::no-loc(Razor)::: Pages handler method.</span></span> <span data-ttu-id="0ce99-114">Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。</span><span class="sxs-lookup"><span data-stu-id="0ce99-114">For web apps, it's the app's responsibility to inspect `ModelState.IsValid` and react appropriately.</span></span> <span data-ttu-id="0ce99-115">Web 应用通常会重新显示带有错误消息的页面：</span><span class="sxs-lookup"><span data-stu-id="0ce99-115">Web apps typically redisplay the page with an error message:</span></span>
+<span data-ttu-id="0ce99-113">模型绑定和模型验证在执行控制器操作或 Razor 页面处理程序方法之前发生。</span><span class="sxs-lookup"><span data-stu-id="0ce99-113">Both model binding and model validation occur before the execution of a controller action or a Razor Pages handler method.</span></span> <span data-ttu-id="0ce99-114">Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。</span><span class="sxs-lookup"><span data-stu-id="0ce99-114">For web apps, it's the app's responsibility to inspect `ModelState.IsValid` and react appropriately.</span></span> <span data-ttu-id="0ce99-115">Web 应用通常会重新显示带有错误消息的页面：</span><span class="sxs-lookup"><span data-stu-id="0ce99-115">Web apps typically redisplay the page with an error message:</span></span>
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_OnPostAsync&highlight=3-6)]
 
@@ -379,7 +379,7 @@ $.get({
 
 ## <a name="disable-client-side-validation"></a><span data-ttu-id="0ce99-310">禁用客户端验证</span><span class="sxs-lookup"><span data-stu-id="0ce99-310">Disable client-side validation</span></span>
 
-<span data-ttu-id="0ce99-311">下面的代码在页中禁用客户端验证 :::no-loc(Razor)::: ：</span><span class="sxs-lookup"><span data-stu-id="0ce99-311">The following code disables client validation in :::no-loc(Razor)::: Pages:</span></span>
+<span data-ttu-id="0ce99-311">下面的代码在页中禁用客户端验证 Razor ：</span><span class="sxs-lookup"><span data-stu-id="0ce99-311">The following code disables client validation in Razor Pages:</span></span>
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_DisableClientValidation&highlight=2-5)]
 
@@ -388,7 +388,7 @@ $.get({
 * <span data-ttu-id="0ce99-313">在所有 *.cshtml* 文件中注释掉对 `_ValidationScriptsPartial` 的引用。</span><span class="sxs-lookup"><span data-stu-id="0ce99-313">Comment out the reference to `_ValidationScriptsPartial` in all the *.cshtml* files.</span></span>
 * <span data-ttu-id="0ce99-314">删除 *Pages\Shared\_ValidationScriptsPartial.cshtml* 文件的内容。</span><span class="sxs-lookup"><span data-stu-id="0ce99-314">Remove the contents of the *Pages\Shared\_ValidationScriptsPartial.cshtml* file.</span></span>
 
-<span data-ttu-id="0ce99-315">上述方法不会阻止对类库的客户端验证 :::no-loc(ASP.NET Core Identity)::: :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="0ce99-315">The preceding approach won't prevent client side validation of :::no-loc(ASP.NET Core Identity)::: :::no-loc(Razor)::: Class Library.</span></span> <span data-ttu-id="0ce99-316">有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。</span><span class="sxs-lookup"><span data-stu-id="0ce99-316">For more information, see <xref:security/authentication/scaffold-identity>.</span></span>
+<span data-ttu-id="0ce99-315">上述方法不会阻止对类库的客户端验证 ASP.NET Core Identity Razor 。</span><span class="sxs-lookup"><span data-stu-id="0ce99-315">The preceding approach won't prevent client side validation of ASP.NET Core Identity Razor Class Library.</span></span> <span data-ttu-id="0ce99-316">有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。</span><span class="sxs-lookup"><span data-stu-id="0ce99-316">For more information, see <xref:security/authentication/scaffold-identity>.</span></span>
 
 ## <a name="additional-resources"></a><span data-ttu-id="0ce99-317">其他资源</span><span class="sxs-lookup"><span data-stu-id="0ce99-317">Additional resources</span></span>
 
@@ -399,7 +399,7 @@ $.get({
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="0ce99-320">本文介绍如何在 ASP.NET Core MVC 或页面应用中验证用户输入 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="0ce99-320">This article explains how to validate user input in an ASP.NET Core MVC or :::no-loc(Razor)::: Pages app.</span></span>
+<span data-ttu-id="0ce99-320">本文介绍如何在 ASP.NET Core MVC 或页面应用中验证用户输入 Razor 。</span><span class="sxs-lookup"><span data-stu-id="0ce99-320">This article explains how to validate user input in an ASP.NET Core MVC or Razor Pages app.</span></span>
 
 <span data-ttu-id="0ce99-321">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="0ce99-321">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
@@ -407,7 +407,7 @@ $.get({
 
 <span data-ttu-id="0ce99-323">模型状态表示两个子系统的错误：模型绑定和模型验证。</span><span class="sxs-lookup"><span data-stu-id="0ce99-323">Model state represents errors that come from two subsystems: model binding and model validation.</span></span> <span data-ttu-id="0ce99-324">[模型绑定](model-binding.md)的错误通常是数据转换错误（例如，在要求为整数的字段中输入“x”）。</span><span class="sxs-lookup"><span data-stu-id="0ce99-324">Errors that originate from [model binding](model-binding.md) are generally data conversion errors (for example, an "x" is entered in a field that expects an integer).</span></span> <span data-ttu-id="0ce99-325">模型验证在模型绑定之后进行，并在数据不符合业务规则时报告错误（例如，在要求评级为 1 至 5 之间的字段中输入 0）。</span><span class="sxs-lookup"><span data-stu-id="0ce99-325">Model validation occurs after model binding and reports errors where the data doesn't conform to business rules (for example, a 0 is entered in a field that expects a rating between 1 and 5).</span></span>
 
-<span data-ttu-id="0ce99-326">模型绑定和验证都在执行控制器操作或 :::no-loc(Razor)::: 页面处理程序方法之前发生。</span><span class="sxs-lookup"><span data-stu-id="0ce99-326">Both model binding and validation occur before the execution of a controller action or a :::no-loc(Razor)::: Pages handler method.</span></span> <span data-ttu-id="0ce99-327">Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。</span><span class="sxs-lookup"><span data-stu-id="0ce99-327">For web apps, it's the app's responsibility to inspect `ModelState.IsValid` and react appropriately.</span></span> <span data-ttu-id="0ce99-328">Web 应用通常会重新显示带有错误消息的页面：</span><span class="sxs-lookup"><span data-stu-id="0ce99-328">Web apps typically redisplay the page with an error message:</span></span>
+<span data-ttu-id="0ce99-326">模型绑定和验证都在执行控制器操作或 Razor 页面处理程序方法之前发生。</span><span class="sxs-lookup"><span data-stu-id="0ce99-326">Both model binding and validation occur before the execution of a controller action or a Razor Pages handler method.</span></span> <span data-ttu-id="0ce99-327">Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。</span><span class="sxs-lookup"><span data-stu-id="0ce99-327">For web apps, it's the app's responsibility to inspect `ModelState.IsValid` and react appropriately.</span></span> <span data-ttu-id="0ce99-328">Web 应用通常会重新显示带有错误消息的页面：</span><span class="sxs-lookup"><span data-stu-id="0ce99-328">Web apps typically redisplay the page with an error message:</span></span>
 
 [!code-csharp[](validation/samples_snapshot/2.x/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
@@ -430,7 +430,7 @@ $.get({
 <span data-ttu-id="0ce99-342">内置验证特性包括：</span><span class="sxs-lookup"><span data-stu-id="0ce99-342">Built-in validation attributes include:</span></span>
 
 * <span data-ttu-id="0ce99-343">`[CreditCard]`：验证属性是否具有信用卡格式。</span><span class="sxs-lookup"><span data-stu-id="0ce99-343">`[CreditCard]`: Validates that the property has a credit card format.</span></span>
-* <span data-ttu-id="0ce99-344">`[Compare]`：验证模型中的两个属性是否匹配。</span><span class="sxs-lookup"><span data-stu-id="0ce99-344">`[Compare]`: Validates that two properties in a model match.</span></span> <span data-ttu-id="0ce99-345">例如， *Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。</span><span class="sxs-lookup"><span data-stu-id="0ce99-345">For example, the *Register.cshtml.cs* file uses `[Compare]` to validate the two entered passwords match.</span></span> <span data-ttu-id="0ce99-346">[基架 :::no-loc(Identity)::: ](xref:security/authentication/scaffold-identity)查看注册代码。</span><span class="sxs-lookup"><span data-stu-id="0ce99-346">[Scaffold :::no-loc(Identity):::](xref:security/authentication/scaffold-identity) to see the Register code.</span></span>
+* <span data-ttu-id="0ce99-344">`[Compare]`：验证模型中的两个属性是否匹配。</span><span class="sxs-lookup"><span data-stu-id="0ce99-344">`[Compare]`: Validates that two properties in a model match.</span></span> <span data-ttu-id="0ce99-345">例如， *Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。</span><span class="sxs-lookup"><span data-stu-id="0ce99-345">For example, the *Register.cshtml.cs* file uses `[Compare]` to validate the two entered passwords match.</span></span> <span data-ttu-id="0ce99-346">[基架 Identity ](xref:security/authentication/scaffold-identity)查看注册代码。</span><span class="sxs-lookup"><span data-stu-id="0ce99-346">[Scaffold Identity](xref:security/authentication/scaffold-identity) to see the Register code.</span></span>
 * <span data-ttu-id="0ce99-347">`[EmailAddress]`：验证属性是否具有电子邮件格式。</span><span class="sxs-lookup"><span data-stu-id="0ce99-347">`[EmailAddress]`: Validates that the property has an email format.</span></span>
 * <span data-ttu-id="0ce99-348">`[Phone]`：验证属性是否具有电话号码格式。</span><span class="sxs-lookup"><span data-stu-id="0ce99-348">`[Phone]`: Validates that the property has a telephone number format.</span></span>
 * <span data-ttu-id="0ce99-349">`[Range]`：验证属性值是否在指定的范围内。</span><span class="sxs-lookup"><span data-stu-id="0ce99-349">`[Range]`: Validates that the property value falls within a specified range.</span></span>
@@ -754,7 +754,7 @@ $.get({
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup2.cs?name=snippet_DisableClientValidation)]
 
-<span data-ttu-id="0ce99-531">:::no-loc(Razor):::页面：</span><span class="sxs-lookup"><span data-stu-id="0ce99-531">And in :::no-loc(Razor)::: Pages:</span></span>
+<span data-ttu-id="0ce99-531">Razor页面：</span><span class="sxs-lookup"><span data-stu-id="0ce99-531">And in Razor Pages:</span></span>
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup3.cs?name=snippet_DisableClientValidation)]
 

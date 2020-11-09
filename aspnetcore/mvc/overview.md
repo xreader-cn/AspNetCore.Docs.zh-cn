@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/overview
 ms.openlocfilehash: c55421efa1fd559f462549bfaceb794d4a9c35b8
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -49,7 +49,7 @@ ms.locfileid: "93059307"
 
 ### <a name="view-responsibilities"></a><span data-ttu-id="aa309-127">视图责任</span><span class="sxs-lookup"><span data-stu-id="aa309-127">View Responsibilities</span></span>
 
-<span data-ttu-id="aa309-128">视图 (V) 负责通过用户界面展示内容。</span><span class="sxs-lookup"><span data-stu-id="aa309-128">Views are responsible for presenting content through the user interface.</span></span> <span data-ttu-id="aa309-129">它们使用[ :::no-loc(Razor)::: 视图引擎](#razor-view-engine)在 HTML 标记中嵌入 .net 代码。</span><span class="sxs-lookup"><span data-stu-id="aa309-129">They use the [:::no-loc(Razor)::: view engine](#razor-view-engine) to embed .NET code in HTML markup.</span></span> <span data-ttu-id="aa309-130">视图中应该有最小逻辑，并且其中的任何逻辑都必须与展示内容相关。</span><span class="sxs-lookup"><span data-stu-id="aa309-130">There should be minimal logic within views, and any logic in them should relate to presenting content.</span></span> <span data-ttu-id="aa309-131">如果发现需要在视图文件中执行大量逻辑以显示复杂模型中的数据，请考虑使用 [View Component](views/view-components.md)、ViewModel 或视图模板来简化视图。</span><span class="sxs-lookup"><span data-stu-id="aa309-131">If you find the need to perform a great deal of logic in view files in order to display data from a complex model, consider using a [View Component](views/view-components.md), ViewModel, or view template to simplify the view.</span></span>
+<span data-ttu-id="aa309-128">视图 (V) 负责通过用户界面展示内容。</span><span class="sxs-lookup"><span data-stu-id="aa309-128">Views are responsible for presenting content through the user interface.</span></span> <span data-ttu-id="aa309-129">它们使用[ Razor 视图引擎](#razor-view-engine)在 HTML 标记中嵌入 .net 代码。</span><span class="sxs-lookup"><span data-stu-id="aa309-129">They use the [Razor view engine](#razor-view-engine) to embed .NET code in HTML markup.</span></span> <span data-ttu-id="aa309-130">视图中应该有最小逻辑，并且其中的任何逻辑都必须与展示内容相关。</span><span class="sxs-lookup"><span data-stu-id="aa309-130">There should be minimal logic within views, and any logic in them should relate to presenting content.</span></span> <span data-ttu-id="aa309-131">如果发现需要在视图文件中执行大量逻辑以显示复杂模型中的数据，请考虑使用 [View Component](views/view-components.md)、ViewModel 或视图模板来简化视图。</span><span class="sxs-lookup"><span data-stu-id="aa309-131">If you find the need to perform a great deal of logic in view files in order to display data from a complex model, consider using a [View Component](views/view-components.md), ViewModel, or view template to simplify the view.</span></span>
 
 ### <a name="controller-responsibilities"></a><span data-ttu-id="aa309-132">控制器职责</span><span class="sxs-lookup"><span data-stu-id="aa309-132">Controller Responsibilities</span></span>
 
@@ -79,7 +79,7 @@ ms.locfileid: "93059307"
 * [<span data-ttu-id="aa309-150">Areas</span><span class="sxs-lookup"><span data-stu-id="aa309-150">Areas</span></span>](#areas)
 * [<span data-ttu-id="aa309-151">Web API</span><span class="sxs-lookup"><span data-stu-id="aa309-151">Web APIs</span></span>](#web-apis)
 * [<span data-ttu-id="aa309-152">Testability</span><span class="sxs-lookup"><span data-stu-id="aa309-152">Testability</span></span>](#testability)
-* [<span data-ttu-id="aa309-153">:::no-loc(Razor)::: 查看引擎</span><span class="sxs-lookup"><span data-stu-id="aa309-153">:::no-loc(Razor)::: view engine</span></span>](#razor-view-engine)
+* [<span data-ttu-id="aa309-153">Razor 查看引擎</span><span class="sxs-lookup"><span data-stu-id="aa309-153">Razor view engine</span></span>](#razor-view-engine)
 * [<span data-ttu-id="aa309-154">强类型视图</span><span class="sxs-lookup"><span data-stu-id="aa309-154">Strongly typed views</span></span>](#strongly-typed-views)
 * [<span data-ttu-id="aa309-155">标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="aa309-155">Tag Helpers</span></span>](#tag-helpers)
 * [<span data-ttu-id="aa309-156">查看组件</span><span class="sxs-lookup"><span data-stu-id="aa309-156">View Components</span></span>](#view-components)
@@ -198,9 +198,9 @@ public class AccountController : Controller
 
 <span data-ttu-id="aa309-198">框架对界面和依赖项注入的使用非常适用于单元测试，并且该框架还包括使得[集成测试](xref:test/integration-tests)快速轻松的功能（例如 TestHost 和实体框架的 InMemory 提供程序）。</span><span class="sxs-lookup"><span data-stu-id="aa309-198">The framework's use of interfaces and dependency injection make it well-suited to unit testing, and the framework includes features (like a TestHost and InMemory provider for Entity Framework) that make [integration tests](xref:test/integration-tests) quick and easy as well.</span></span> <span data-ttu-id="aa309-199">详细了解[如何测试控制器逻辑](controllers/testing.md)。</span><span class="sxs-lookup"><span data-stu-id="aa309-199">Learn more about [how to test controller logic](controllers/testing.md).</span></span>
 
-### <a name="no-locrazor-view-engine"></a><span data-ttu-id="aa309-200">:::no-loc(Razor)::: 查看引擎</span><span class="sxs-lookup"><span data-stu-id="aa309-200">:::no-loc(Razor)::: view engine</span></span>
+### <a name="no-locrazor-view-engine"></a><span data-ttu-id="aa309-200">Razor 查看引擎</span><span class="sxs-lookup"><span data-stu-id="aa309-200">Razor view engine</span></span>
 
-<span data-ttu-id="aa309-201">[ASP.NET CORE MVC 视图](views/overview.md)使用[ :::no-loc(Razor)::: 视图引擎](views/razor.md)呈现视图。</span><span class="sxs-lookup"><span data-stu-id="aa309-201">[ASP.NET Core MVC views](views/overview.md) use the [:::no-loc(Razor)::: view engine](views/razor.md) to render views.</span></span> <span data-ttu-id="aa309-202">:::no-loc(Razor)::: 是一种紧凑、富于表现力且流畅的模板标记语言，用于使用 embedded c # 代码定义视图。</span><span class="sxs-lookup"><span data-stu-id="aa309-202">:::no-loc(Razor)::: is a compact, expressive and fluid template markup language for defining views using embedded C# code.</span></span> <span data-ttu-id="aa309-203">:::no-loc(Razor)::: 用于在服务器上动态生成 web 内容。</span><span class="sxs-lookup"><span data-stu-id="aa309-203">:::no-loc(Razor)::: is used to dynamically generate web content on the server.</span></span> <span data-ttu-id="aa309-204">可以完全混合服务器代码与客户端内容和代码。</span><span class="sxs-lookup"><span data-stu-id="aa309-204">You can cleanly mix server code with client side content and code.</span></span>
+<span data-ttu-id="aa309-201">[ASP.NET CORE MVC 视图](views/overview.md)使用[ Razor 视图引擎](views/razor.md)呈现视图。</span><span class="sxs-lookup"><span data-stu-id="aa309-201">[ASP.NET Core MVC views](views/overview.md) use the [Razor view engine](views/razor.md) to render views.</span></span> <span data-ttu-id="aa309-202">Razor 是一种紧凑、富于表现力且流畅的模板标记语言，用于使用 embedded c # 代码定义视图。</span><span class="sxs-lookup"><span data-stu-id="aa309-202">Razor is a compact, expressive and fluid template markup language for defining views using embedded C# code.</span></span> <span data-ttu-id="aa309-203">Razor 用于在服务器上动态生成 web 内容。</span><span class="sxs-lookup"><span data-stu-id="aa309-203">Razor is used to dynamically generate web content on the server.</span></span> <span data-ttu-id="aa309-204">可以完全混合服务器代码与客户端内容和代码。</span><span class="sxs-lookup"><span data-stu-id="aa309-204">You can cleanly mix server code with client side content and code.</span></span>
 
 ```cshtml
 <ul>
@@ -210,11 +210,11 @@ public class AccountController : Controller
 </ul>
 ```
 
-<span data-ttu-id="aa309-205">使用 :::no-loc(Razor)::: 视图引擎可以定义 [布局](views/layout.md)、 [分部视图](views/partial.md) 和可替换部分。</span><span class="sxs-lookup"><span data-stu-id="aa309-205">Using the :::no-loc(Razor)::: view engine you can define [layouts](views/layout.md), [partial views](views/partial.md) and replaceable sections.</span></span>
+<span data-ttu-id="aa309-205">使用 Razor 视图引擎可以定义 [布局](views/layout.md)、 [分部视图](views/partial.md) 和可替换部分。</span><span class="sxs-lookup"><span data-stu-id="aa309-205">Using the Razor view engine you can define [layouts](views/layout.md), [partial views](views/partial.md) and replaceable sections.</span></span>
 
 ### <a name="strongly-typed-views"></a><span data-ttu-id="aa309-206">强类型视图</span><span class="sxs-lookup"><span data-stu-id="aa309-206">Strongly typed views</span></span>
 
-<span data-ttu-id="aa309-207">:::no-loc(Razor)::: MVC 中的视图可以基于模型进行强类型化。</span><span class="sxs-lookup"><span data-stu-id="aa309-207">:::no-loc(Razor)::: views in MVC can be strongly typed based on your model.</span></span> <span data-ttu-id="aa309-208">控制器可以将强类型化的模型传递给视图，使视图具备类型检查和 IntelliSense 支持。</span><span class="sxs-lookup"><span data-stu-id="aa309-208">Controllers can pass a strongly typed model to views enabling your views to have type checking and IntelliSense support.</span></span>
+<span data-ttu-id="aa309-207">Razor MVC 中的视图可以基于模型进行强类型化。</span><span class="sxs-lookup"><span data-stu-id="aa309-207">Razor views in MVC can be strongly typed based on your model.</span></span> <span data-ttu-id="aa309-208">控制器可以将强类型化的模型传递给视图，使视图具备类型检查和 IntelliSense 支持。</span><span class="sxs-lookup"><span data-stu-id="aa309-208">Controllers can pass a strongly typed model to views enabling your views to have type checking and IntelliSense support.</span></span>
 
 <span data-ttu-id="aa309-209">例如，以下视图呈现类型为 `IEnumerable<Product>` 的模型：</span><span class="sxs-lookup"><span data-stu-id="aa309-209">For example, the following view renders a model of type `IEnumerable<Product>`:</span></span>
 
@@ -230,7 +230,7 @@ public class AccountController : Controller
 
 ### <a name="tag-helpers"></a><span data-ttu-id="aa309-210">标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="aa309-210">Tag Helpers</span></span>
 
-<span data-ttu-id="aa309-211">[标记帮助](views/tag-helpers/intro.md) 程序使服务器端代码可以在文件中参与创建和呈现 HTML 元素 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="aa309-211">[Tag Helpers](views/tag-helpers/intro.md) enable server side code to participate in creating and rendering HTML elements in :::no-loc(Razor)::: files.</span></span> <span data-ttu-id="aa309-212">可以使用标记帮助程序定义自定义标记（例如 `<environment>`），或者修改现有标记的行为（例如 `<label>`）。</span><span class="sxs-lookup"><span data-stu-id="aa309-212">You can use tag helpers to define custom tags (for example, `<environment>`) or to modify the behavior of existing tags (for example, `<label>`).</span></span> <span data-ttu-id="aa309-213">标记帮助程序基于元素名称及其属性绑定到特定的元素。</span><span class="sxs-lookup"><span data-stu-id="aa309-213">Tag Helpers bind to specific elements based on the element name and its attributes.</span></span> <span data-ttu-id="aa309-214">它们提供了服务器端呈现的优势，同时仍然保留了 HTML 编辑体验。</span><span class="sxs-lookup"><span data-stu-id="aa309-214">They provide the benefits of server-side rendering while still preserving an HTML editing experience.</span></span>
+<span data-ttu-id="aa309-211">[标记帮助](views/tag-helpers/intro.md) 程序使服务器端代码可以在文件中参与创建和呈现 HTML 元素 Razor 。</span><span class="sxs-lookup"><span data-stu-id="aa309-211">[Tag Helpers](views/tag-helpers/intro.md) enable server side code to participate in creating and rendering HTML elements in Razor files.</span></span> <span data-ttu-id="aa309-212">可以使用标记帮助程序定义自定义标记（例如 `<environment>`），或者修改现有标记的行为（例如 `<label>`）。</span><span class="sxs-lookup"><span data-stu-id="aa309-212">You can use tag helpers to define custom tags (for example, `<environment>`) or to modify the behavior of existing tags (for example, `<label>`).</span></span> <span data-ttu-id="aa309-213">标记帮助程序基于元素名称及其属性绑定到特定的元素。</span><span class="sxs-lookup"><span data-stu-id="aa309-213">Tag Helpers bind to specific elements based on the element name and its attributes.</span></span> <span data-ttu-id="aa309-214">它们提供了服务器端呈现的优势，同时仍然保留了 HTML 编辑体验。</span><span class="sxs-lookup"><span data-stu-id="aa309-214">They provide the benefits of server-side rendering while still preserving an HTML editing experience.</span></span>
 
 <span data-ttu-id="aa309-215">有多种常见任务（例如创建表单、链接，加载资产等）的内置标记帮助程序，公共 GitHub 存储库和 NuGet 包中甚至还有更多可用标记帮助程序。</span><span class="sxs-lookup"><span data-stu-id="aa309-215">There are many built-in Tag Helpers for common tasks - such as creating forms, links, loading assets and more - and even more available in public GitHub repositories and as NuGet packages.</span></span> <span data-ttu-id="aa309-216">标记帮助程序使用 C# 创建，基于元素名称、属性名称或父标记以 HTML 元素为目标。</span><span class="sxs-lookup"><span data-stu-id="aa309-216">Tag Helpers are authored in C#, and they target HTML elements based on element name, attribute name, or parent tag.</span></span> <span data-ttu-id="aa309-217">例如，内置 LinkTagHelper 可以用来创建指向 `AccountsController` 的 `Login` 操作的链接：</span><span class="sxs-lookup"><span data-stu-id="aa309-217">For example, the built-in LinkTagHelper can be used to create a link to the `Login` action of the `AccountsController`:</span></span>
 
@@ -255,7 +255,7 @@ public class AccountController : Controller
 </environment>
 ```
 
-<span data-ttu-id="aa309-219">标记帮助程序提供 HTML 友好的开发体验，并提供丰富的 IntelliSense 环境用于创建 HTML 和 :::no-loc(Razor)::: 标记。</span><span class="sxs-lookup"><span data-stu-id="aa309-219">Tag Helpers provide an HTML-friendly development experience and a rich IntelliSense environment for creating HTML and :::no-loc(Razor)::: markup.</span></span> <span data-ttu-id="aa309-220">大多数内置标记帮助程序以现有 HTML 元素为目标，为该元素提供服务器端属性。</span><span class="sxs-lookup"><span data-stu-id="aa309-220">Most of the built-in Tag Helpers target existing HTML elements and provide server-side attributes for the element.</span></span>
+<span data-ttu-id="aa309-219">标记帮助程序提供 HTML 友好的开发体验，并提供丰富的 IntelliSense 环境用于创建 HTML 和 Razor 标记。</span><span class="sxs-lookup"><span data-stu-id="aa309-219">Tag Helpers provide an HTML-friendly development experience and a rich IntelliSense environment for creating HTML and Razor markup.</span></span> <span data-ttu-id="aa309-220">大多数内置标记帮助程序以现有 HTML 元素为目标，为该元素提供服务器端属性。</span><span class="sxs-lookup"><span data-stu-id="aa309-220">Most of the built-in Tag Helpers target existing HTML elements and provide server-side attributes for the element.</span></span>
 
 ### <a name="view-components"></a><span data-ttu-id="aa309-221">视图组件</span><span class="sxs-lookup"><span data-stu-id="aa309-221">View Components</span></span>
 

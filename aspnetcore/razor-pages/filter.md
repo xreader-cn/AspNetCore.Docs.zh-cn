@@ -1,22 +1,22 @@
 ---
-title: 'ASP.NET Core 中的 :::no-loc(Razor)::: Pages 的筛选方法'
+title: 'ASP.NET Core 中的 Razor Pages 的筛选方法'
 author: Rick-Anderson
-description: '了解如何为 ASP.NET Core 中的 :::no-loc(Razor)::: Pages 创建筛选方法。'
+description: '了解如何为 ASP.NET Core 中的 Razor Pages 创建筛选方法。'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 2/18/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: razor-pages/filter
 ms.openlocfilehash: a6d25c1b88e09560c1aad9aefd9148f7fe293909
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -25,15 +25,15 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93056824"
 ---
-# <a name="filter-methods-for-no-locrazor-pages-in-aspnet-core"></a><span data-ttu-id="7167e-103">ASP.NET Core 中的 :::no-loc(Razor)::: Pages 的筛选方法</span><span class="sxs-lookup"><span data-stu-id="7167e-103">Filter methods for :::no-loc(Razor)::: Pages in ASP.NET Core</span></span>
+# <a name="filter-methods-for-no-locrazor-pages-in-aspnet-core"></a><span data-ttu-id="7167e-103">ASP.NET Core 中的 Razor Pages 的筛选方法</span><span class="sxs-lookup"><span data-stu-id="7167e-103">Filter methods for Razor Pages in ASP.NET Core</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
 <span data-ttu-id="7167e-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="7167e-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="7167e-105">:::no-loc(Razor)::: 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 :::no-loc(Razor)::: Pages 在运行 :::no-loc(Razor)::: 页面处理程序的前后运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-105">:::no-loc(Razor)::: Page filters [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) and [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) allow :::no-loc(Razor)::: Pages to run code before and after a :::no-loc(Razor)::: Page handler is run.</span></span> <span data-ttu-id="7167e-106">:::no-loc(Razor)::: 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-106">:::no-loc(Razor)::: Page filters are similar to [ASP.NET Core MVC action filters](xref:mvc/controllers/filters#action-filters), except they can't be applied to individual page handler methods.</span></span>
+<span data-ttu-id="7167e-105">Razor 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 Razor Pages 在运行 Razor 页面处理程序的前后运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-105">Razor Page filters [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) and [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) allow Razor Pages to run code before and after a Razor Page handler is run.</span></span> <span data-ttu-id="7167e-106">Razor 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-106">Razor Page filters are similar to [ASP.NET Core MVC action filters](xref:mvc/controllers/filters#action-filters), except they can't be applied to individual page handler methods.</span></span>
 
-<span data-ttu-id="7167e-107">:::no-loc(Razor)::: 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-107">:::no-loc(Razor)::: Page filters:</span></span>
+<span data-ttu-id="7167e-107">Razor 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-107">Razor Page filters:</span></span>
 
 * <span data-ttu-id="7167e-108">在选择处理程序方法后但在模型绑定发生前运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-108">Run code after a handler method has been selected, but before model binding occurs.</span></span>
 * <span data-ttu-id="7167e-109">在模型绑定完成后，执行处理程序方法前运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-109">Run code before the handler method executes, after model binding is complete.</span></span>
@@ -42,11 +42,11 @@ ms.locfileid: "93056824"
 * <span data-ttu-id="7167e-112">无法应用于特定的页面处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-112">Cannot be applied to specific page handler methods.</span></span>
 * <span data-ttu-id="7167e-113">可以用[依赖项注入](xref:fundamentals/dependency-injection) (DI) 填充构造函数依赖项。</span><span class="sxs-lookup"><span data-stu-id="7167e-113">Can have constructor dependencies populated by [Dependency Injection](xref:fundamentals/dependency-injection) (DI).</span></span> <span data-ttu-id="7167e-114">有关详细信息，请参阅 [ServiceFilterAttribute](../mvc/controllers/filters.md#servicefilterattribute) 和 [TypeFilterAttribute](../mvc/controllers/filters.md#typefilterattribute)。</span><span class="sxs-lookup"><span data-stu-id="7167e-114">For more information, see [ServiceFilterAttribute](../mvc/controllers/filters.md#servicefilterattribute) and [TypeFilterAttribute](../mvc/controllers/filters.md#typefilterattribute).</span></span>
 
-<span data-ttu-id="7167e-115">虽然页构造函数和中间件允许在处理程序方法执行之前执行自定义代码，但只有 :::no-loc(Razor)::: 页面筛选器允许访问 <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageModel.HttpContext> 和页面。</span><span class="sxs-lookup"><span data-stu-id="7167e-115">While page constructors and middleware enable executing custom code before a handler method executes, only :::no-loc(Razor)::: Page filters enable access to <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageModel.HttpContext> and the page.</span></span> <span data-ttu-id="7167e-116">中间件可以访问 `HttpContext`，但不能访问“页面上下文”。</span><span class="sxs-lookup"><span data-stu-id="7167e-116">Middleware has access to the `HttpContext`, but not to the "page context".</span></span> <span data-ttu-id="7167e-117">筛选器具有 <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> 派生参数，该参数提供对 `HttpContext` 的访问权限。</span><span class="sxs-lookup"><span data-stu-id="7167e-117">Filters have a <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> derived parameter, which provides access to `HttpContext`.</span></span> <span data-ttu-id="7167e-118">下面是页面筛选器的示例：[实现筛选器属性](#ifa)，该属性将标头添加到响应中，而使用构造函数或中间件则无法做到这点。</span><span class="sxs-lookup"><span data-stu-id="7167e-118">Here's a sample for a page filter: [Implement a filter attribute](#ifa) that adds a header to the response, something that can't be done with constructors or middleware.</span></span> <span data-ttu-id="7167e-119">对页面上下文的访问（包括对页面实例及其模型的访问）仅在执行筛选器、处理程序或 :::no-loc(Razor)::: 页面的正文时适用。</span><span class="sxs-lookup"><span data-stu-id="7167e-119">Access to the page context, which includes access to the instances of the page and it's model, are only available when executing filters, handlers, or the body of a :::no-loc(Razor)::: Page.</span></span>
+<span data-ttu-id="7167e-115">虽然页构造函数和中间件允许在处理程序方法执行之前执行自定义代码，但只有 Razor 页面筛选器允许访问 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> 和页面。</span><span class="sxs-lookup"><span data-stu-id="7167e-115">While page constructors and middleware enable executing custom code before a handler method executes, only Razor Page filters enable access to <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> and the page.</span></span> <span data-ttu-id="7167e-116">中间件可以访问 `HttpContext`，但不能访问“页面上下文”。</span><span class="sxs-lookup"><span data-stu-id="7167e-116">Middleware has access to the `HttpContext`, but not to the "page context".</span></span> <span data-ttu-id="7167e-117">筛选器具有 <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> 派生参数，该参数提供对 `HttpContext` 的访问权限。</span><span class="sxs-lookup"><span data-stu-id="7167e-117">Filters have a <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> derived parameter, which provides access to `HttpContext`.</span></span> <span data-ttu-id="7167e-118">下面是页面筛选器的示例：[实现筛选器属性](#ifa)，该属性将标头添加到响应中，而使用构造函数或中间件则无法做到这点。</span><span class="sxs-lookup"><span data-stu-id="7167e-118">Here's a sample for a page filter: [Implement a filter attribute](#ifa) that adds a header to the response, something that can't be done with constructors or middleware.</span></span> <span data-ttu-id="7167e-119">对页面上下文的访问（包括对页面实例及其模型的访问）仅在执行筛选器、处理程序或 Razor 页面的正文时适用。</span><span class="sxs-lookup"><span data-stu-id="7167e-119">Access to the page context, which includes access to the instances of the page and it's model, are only available when executing filters, handlers, or the body of a Razor Page.</span></span>
 
 <span data-ttu-id="7167e-120">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/3.1sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="7167e-120">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/3.1sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="7167e-121">:::no-loc(Razor)::: 页面筛选器提供的以下方法可在全局或页面级应用：</span><span class="sxs-lookup"><span data-stu-id="7167e-121">:::no-loc(Razor)::: Page filters provide the following methods, which can be applied globally or at the page level:</span></span>
+<span data-ttu-id="7167e-121">Razor 页面筛选器提供的以下方法可在全局或页面级应用：</span><span class="sxs-lookup"><span data-stu-id="7167e-121">Razor Page filters provide the following methods, which can be applied globally or at the page level:</span></span>
 
 * <span data-ttu-id="7167e-122">同步方法：</span><span class="sxs-lookup"><span data-stu-id="7167e-122">Synchronous methods:</span></span>
 
@@ -61,7 +61,7 @@ ms.locfileid: "93056824"
 
 <span data-ttu-id="7167e-129">筛选器接口的同步和异步版本任意实现一个，而不是同时实现 。</span><span class="sxs-lookup"><span data-stu-id="7167e-129">Implement **either** the synchronous or the async version of a filter interface, **not** both.</span></span> <span data-ttu-id="7167e-130">该框架会先查看筛选器是否实现了异步接口，如果是，则调用该接口。</span><span class="sxs-lookup"><span data-stu-id="7167e-130">The framework checks first to see if the filter implements the async interface, and if so, it calls that.</span></span> <span data-ttu-id="7167e-131">如果不是，则调用同步接口的方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-131">If not, it calls the synchronous interface's method(s).</span></span> <span data-ttu-id="7167e-132">如果两个接口都已实现，则只会调用异步方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-132">If both interfaces are implemented, only the async methods are called.</span></span> <span data-ttu-id="7167e-133">对页面中的替代应用相同的规则，同步替代或异步替代只能任选其一实现，不可二者皆选。</span><span class="sxs-lookup"><span data-stu-id="7167e-133">The same rule applies to overrides in pages, implement the synchronous or the async version of the override, not both.</span></span>
 
-## <a name="implement-no-locrazor-page-filters-globally"></a><span data-ttu-id="7167e-134">全局实现 :::no-loc(Razor)::: 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-134">Implement :::no-loc(Razor)::: Page filters globally</span></span>
+## <a name="implement-no-locrazor-page-filters-globally"></a><span data-ttu-id="7167e-134">全局实现 Razor 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-134">Implement Razor Page filters globally</span></span>
 
 <span data-ttu-id="7167e-135">以下代码实现了 `IAsyncPageFilter`：</span><span class="sxs-lookup"><span data-stu-id="7167e-135">The following code implements `IAsyncPageFilter`:</span></span>
 
@@ -85,9 +85,9 @@ ms.locfileid: "93056824"
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/StartupSync.cs?name=snippet2)]
 
-## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a><span data-ttu-id="7167e-141">通过重写筛选器方法实现 :::no-loc(Razor)::: 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-141">Implement :::no-loc(Razor)::: Page filters by overriding filter methods</span></span>
+## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a><span data-ttu-id="7167e-141">通过重写筛选器方法实现 Razor 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-141">Implement Razor Page filters by overriding filter methods</span></span>
 
-<span data-ttu-id="7167e-142">以下代码替代异步 :::no-loc(Razor)::: 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-142">The following code overrides the asynchronous :::no-loc(Razor)::: Page filters:</span></span>
+<span data-ttu-id="7167e-142">以下代码替代异步 Razor 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-142">The following code overrides the asynchronous Razor Page filters:</span></span>
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/Pages/Index.cshtml.cs?name=snippet)]
 
@@ -123,9 +123,9 @@ ms.locfileid: "93056824"
 
 <span data-ttu-id="7167e-153">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="7167e-153">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="7167e-154">:::no-loc(Razor)::: 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 :::no-loc(Razor)::: Pages 在运行 :::no-loc(Razor)::: 页面处理程序的前后运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-154">:::no-loc(Razor)::: Page filters [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) and [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) allow :::no-loc(Razor)::: Pages to run code before and after a :::no-loc(Razor)::: Page handler is run.</span></span> <span data-ttu-id="7167e-155">:::no-loc(Razor)::: 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-155">:::no-loc(Razor)::: Page filters are similar to [ASP.NET Core MVC action filters](xref:mvc/controllers/filters#action-filters), except they can't be applied to individual page handler methods.</span></span>
+<span data-ttu-id="7167e-154">Razor 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 Razor Pages 在运行 Razor 页面处理程序的前后运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-154">Razor Page filters [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) and [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) allow Razor Pages to run code before and after a Razor Page handler is run.</span></span> <span data-ttu-id="7167e-155">Razor 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-155">Razor Page filters are similar to [ASP.NET Core MVC action filters](xref:mvc/controllers/filters#action-filters), except they can't be applied to individual page handler methods.</span></span>
 
-<span data-ttu-id="7167e-156">:::no-loc(Razor)::: 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-156">:::no-loc(Razor)::: Page filters:</span></span>
+<span data-ttu-id="7167e-156">Razor 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-156">Razor Page filters:</span></span>
 
 * <span data-ttu-id="7167e-157">在选择处理程序方法后但在模型绑定发生前运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-157">Run code after a handler method has been selected, but before model binding occurs.</span></span>
 * <span data-ttu-id="7167e-158">在模型绑定完成后，执行处理程序方法前运行代码。</span><span class="sxs-lookup"><span data-stu-id="7167e-158">Run code before the handler method executes, after model binding is complete.</span></span>
@@ -133,11 +133,11 @@ ms.locfileid: "93056824"
 * <span data-ttu-id="7167e-160">可在页面或全局范围内实现。</span><span class="sxs-lookup"><span data-stu-id="7167e-160">Can be implemented on a page or globally.</span></span>
 * <span data-ttu-id="7167e-161">无法应用于特定的页面处理程序方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-161">Cannot be applied to specific page handler methods.</span></span>
 
-<span data-ttu-id="7167e-162">代码可在使用页面构造函数或中间件执行处理程序方法前运行，但仅 :::no-loc(Razor)::: 页面筛选器可访问 [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_:::no-loc(Razor):::Pages_PageModel_HttpContext)。</span><span class="sxs-lookup"><span data-stu-id="7167e-162">Code can be run before a handler method executes using the page constructor or middleware, but only :::no-loc(Razor)::: Page filters have access to [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_:::no-loc(Razor):::Pages_PageModel_HttpContext).</span></span> <span data-ttu-id="7167e-163">筛选器具有 [FilterContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0) 派生参数，可用于访问 `HttpContext`。</span><span class="sxs-lookup"><span data-stu-id="7167e-163">Filters have a [FilterContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0) derived parameter, which provides access to `HttpContext`.</span></span> <span data-ttu-id="7167e-164">例如，[实现筛选器属性](#ifa)示例将标头添加到响应中，而使用构造函数或中间件则无法做到这点。</span><span class="sxs-lookup"><span data-stu-id="7167e-164">For example, the [Implement a filter attribute](#ifa) sample adds a header to the response, something that can't be done with constructors or middleware.</span></span>
+<span data-ttu-id="7167e-162">代码可在使用页面构造函数或中间件执行处理程序方法前运行，但仅 Razor 页面筛选器可访问 [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_HttpContext)。</span><span class="sxs-lookup"><span data-stu-id="7167e-162">Code can be run before a handler method executes using the page constructor or middleware, but only Razor Page filters have access to [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_HttpContext).</span></span> <span data-ttu-id="7167e-163">筛选器具有 [FilterContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0) 派生参数，可用于访问 `HttpContext`。</span><span class="sxs-lookup"><span data-stu-id="7167e-163">Filters have a [FilterContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0) derived parameter, which provides access to `HttpContext`.</span></span> <span data-ttu-id="7167e-164">例如，[实现筛选器属性](#ifa)示例将标头添加到响应中，而使用构造函数或中间件则无法做到这点。</span><span class="sxs-lookup"><span data-stu-id="7167e-164">For example, the [Implement a filter attribute](#ifa) sample adds a header to the response, something that can't be done with constructors or middleware.</span></span>
 
 <span data-ttu-id="7167e-165">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="7167e-165">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="7167e-166">:::no-loc(Razor)::: 页面筛选器提供的以下方法可在全局或页面级应用：</span><span class="sxs-lookup"><span data-stu-id="7167e-166">:::no-loc(Razor)::: Page filters provide the following methods, which can be applied globally or at the page level:</span></span>
+<span data-ttu-id="7167e-166">Razor 页面筛选器提供的以下方法可在全局或页面级应用：</span><span class="sxs-lookup"><span data-stu-id="7167e-166">Razor Page filters provide the following methods, which can be applied globally or at the page level:</span></span>
 
 * <span data-ttu-id="7167e-167">同步方法：</span><span class="sxs-lookup"><span data-stu-id="7167e-167">Synchronous methods:</span></span>
 
@@ -153,7 +153,7 @@ ms.locfileid: "93056824"
 > [!NOTE]
 > <span data-ttu-id="7167e-174">筛选器接口的同步和异步版本 **任意** 实现一个，而不是同时实现。</span><span class="sxs-lookup"><span data-stu-id="7167e-174">Implement **either** the synchronous or the async version of a filter interface, not both.</span></span> <span data-ttu-id="7167e-175">该框架会先查看筛选器是否实现了异步接口，如果是，则调用该接口。</span><span class="sxs-lookup"><span data-stu-id="7167e-175">The framework checks first to see if the filter implements the async interface, and if so, it calls that.</span></span> <span data-ttu-id="7167e-176">如果不是，则调用同步接口的方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-176">If not, it calls the synchronous interface's method(s).</span></span> <span data-ttu-id="7167e-177">如果两个接口都已实现，则只会调用异步方法。</span><span class="sxs-lookup"><span data-stu-id="7167e-177">If both interfaces are implemented, only the async methods are called.</span></span> <span data-ttu-id="7167e-178">对页面中的替代应用相同的规则，同步替代或异步替代只能任选其一实现，不可二者皆选。</span><span class="sxs-lookup"><span data-stu-id="7167e-178">The same rule applies to overrides in pages, implement the synchronous or the async version of the override, not both.</span></span>
 
-## <a name="implement-no-locrazor-page-filters-globally"></a><span data-ttu-id="7167e-179">全局实现 :::no-loc(Razor)::: 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-179">Implement :::no-loc(Razor)::: Page filters globally</span></span>
+## <a name="implement-no-locrazor-page-filters-globally"></a><span data-ttu-id="7167e-179">全局实现 Razor 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-179">Implement Razor Page filters globally</span></span>
 
 <span data-ttu-id="7167e-180">以下代码实现了 `IAsyncPageFilter`：</span><span class="sxs-lookup"><span data-stu-id="7167e-180">The following code implements `IAsyncPageFilter`:</span></span>
 
@@ -181,9 +181,9 @@ ms.locfileid: "93056824"
 
 [!code-csharp[Main](filter/sample/PageFilter/StartupSync.cs?name=snippet2&highlight=11)]
 
-## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a><span data-ttu-id="7167e-188">通过重写筛选器方法实现 :::no-loc(Razor)::: 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-188">Implement :::no-loc(Razor)::: Page filters by overriding filter methods</span></span>
+## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a><span data-ttu-id="7167e-188">通过重写筛选器方法实现 Razor 页面筛选器</span><span class="sxs-lookup"><span data-stu-id="7167e-188">Implement Razor Page filters by overriding filter methods</span></span>
 
-<span data-ttu-id="7167e-189">以下代码替代同步 :::no-loc(Razor)::: 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-189">The following code overrides the synchronous :::no-loc(Razor)::: Page filters:</span></span>
+<span data-ttu-id="7167e-189">以下代码替代同步 Razor 页面筛选器：</span><span class="sxs-lookup"><span data-stu-id="7167e-189">The following code overrides the synchronous Razor Page filters:</span></span>
 
 [!code-csharp[Main](filter/sample/PageFilter/Pages/Index.cshtml.cs)]
 

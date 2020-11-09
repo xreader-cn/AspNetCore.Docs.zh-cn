@@ -5,17 +5,17 @@ description: 了解跨站点脚本 (XSS) 以及在 ASP.NET Core 应用程序中�
 ms.author: riande
 ms.date: 10/02/2018
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/cross-site-scripting
 ms.openlocfilehash: 1c90a786efe8c3c205a729a2da9d3a99d0222012
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -28,7 +28,7 @@ ms.locfileid: "93053080"
 
 <span data-ttu-id="48060-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="48060-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="48060-105">跨站点脚本 (XSS) 是一个安全漏洞，攻击者可利用此漏洞将客户端脚本 (通常是 JavaScript) 到网页中。</span><span class="sxs-lookup"><span data-stu-id="48060-105">Cross-Site Scripting (XSS) is a security vulnerability which enables an attacker to place client side scripts (usually JavaScript) into web pages.</span></span> <span data-ttu-id="48060-106">当其他用户加载受影响的页面时，攻击者的脚本将运行，使攻击者能够盗取 :::no-loc(cookie)::: 和会话令牌，通过 DOM 操作更改网页的内容，或者将浏览器重定向到另一页。</span><span class="sxs-lookup"><span data-stu-id="48060-106">When other users load affected pages the attacker's scripts will run, enabling the attacker to steal :::no-loc(cookie):::s and session tokens, change the contents of the web page through DOM manipulation or redirect the browser to another page.</span></span> <span data-ttu-id="48060-107">当应用程序采用用户输入并将其输出到页面而不进行验证、编码或转义时，通常会出现 XSS 漏洞。</span><span class="sxs-lookup"><span data-stu-id="48060-107">XSS vulnerabilities generally occur when an application takes user input and outputs it to a page without validating, encoding or escaping it.</span></span>
+<span data-ttu-id="48060-105">跨站点脚本 (XSS) 是一个安全漏洞，攻击者可利用此漏洞将客户端脚本 (通常是 JavaScript) 到网页中。</span><span class="sxs-lookup"><span data-stu-id="48060-105">Cross-Site Scripting (XSS) is a security vulnerability which enables an attacker to place client side scripts (usually JavaScript) into web pages.</span></span> <span data-ttu-id="48060-106">当其他用户加载受影响的页面时，攻击者的脚本将运行，使攻击者能够盗取 cookie 和会话令牌，通过 DOM 操作更改网页的内容，或者将浏览器重定向到另一页。</span><span class="sxs-lookup"><span data-stu-id="48060-106">When other users load affected pages the attacker's scripts will run, enabling the attacker to steal cookies and session tokens, change the contents of the web page through DOM manipulation or redirect the browser to another page.</span></span> <span data-ttu-id="48060-107">当应用程序采用用户输入并将其输出到页面而不进行验证、编码或转义时，通常会出现 XSS 漏洞。</span><span class="sxs-lookup"><span data-stu-id="48060-107">XSS vulnerabilities generally occur when an application takes user input and outputs it to a page without validating, encoding or escaping it.</span></span>
 
 ## <a name="protecting-your-application-against-xss"></a><span data-ttu-id="48060-108">针对 XSS 保护应用程序</span><span class="sxs-lookup"><span data-stu-id="48060-108">Protecting your application against XSS</span></span>
 
@@ -44,11 +44,11 @@ ms.locfileid: "93053080"
 
 5. <span data-ttu-id="48060-120">将不受信任的数据置于 URL 查询字符串之前，请确保其 URL 已编码。</span><span class="sxs-lookup"><span data-stu-id="48060-120">Before putting untrusted data into a URL query string ensure it's URL encoded.</span></span>
 
-## <a name="html-encoding-using-no-locrazor"></a><span data-ttu-id="48060-121">HTML 编码使用 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="48060-121">HTML Encoding using :::no-loc(Razor):::</span></span>
+## <a name="html-encoding-using-no-locrazor"></a><span data-ttu-id="48060-121">HTML 编码使用 Razor</span><span class="sxs-lookup"><span data-stu-id="48060-121">HTML Encoding using Razor</span></span>
 
-<span data-ttu-id="48060-122">:::no-loc(Razor):::MVC 中使用的引擎会自动对源自变量的所有输出进行编码，除非您确实很难避免这样做。</span><span class="sxs-lookup"><span data-stu-id="48060-122">The :::no-loc(Razor)::: engine used in MVC automatically encodes all output sourced from variables, unless you work really hard to prevent it doing so.</span></span> <span data-ttu-id="48060-123">使用指令时，它将使用 HTML 属性编码规则 *@* 。</span><span class="sxs-lookup"><span data-stu-id="48060-123">It uses HTML attribute encoding rules whenever you use the *@* directive.</span></span> <span data-ttu-id="48060-124">HTML 特性编码是 HTML 编码的超集，这意味着您无需担心您应该使用 HTML 编码还是 HTML 特性编码。</span><span class="sxs-lookup"><span data-stu-id="48060-124">As HTML attribute encoding is a superset of HTML encoding this means you don't have to concern yourself with whether you should use HTML encoding or HTML attribute encoding.</span></span> <span data-ttu-id="48060-125">您必须确保在 HTML 上下文中只使用 @，而不能在尝试将不受信任的输入直接插入 JavaScript 时使用。</span><span class="sxs-lookup"><span data-stu-id="48060-125">You must ensure that you only use @ in an HTML context, not when attempting to insert untrusted input directly into JavaScript.</span></span> <span data-ttu-id="48060-126">标记帮助程序还将对在标记参数中使用的输入进行编码。</span><span class="sxs-lookup"><span data-stu-id="48060-126">Tag helpers will also encode input you use in tag parameters.</span></span>
+<span data-ttu-id="48060-122">RazorMVC 中使用的引擎会自动对源自变量的所有输出进行编码，除非您确实很难避免这样做。</span><span class="sxs-lookup"><span data-stu-id="48060-122">The Razor engine used in MVC automatically encodes all output sourced from variables, unless you work really hard to prevent it doing so.</span></span> <span data-ttu-id="48060-123">使用指令时，它将使用 HTML 属性编码规则 *@* 。</span><span class="sxs-lookup"><span data-stu-id="48060-123">It uses HTML attribute encoding rules whenever you use the *@* directive.</span></span> <span data-ttu-id="48060-124">HTML 特性编码是 HTML 编码的超集，这意味着您无需担心您应该使用 HTML 编码还是 HTML 特性编码。</span><span class="sxs-lookup"><span data-stu-id="48060-124">As HTML attribute encoding is a superset of HTML encoding this means you don't have to concern yourself with whether you should use HTML encoding or HTML attribute encoding.</span></span> <span data-ttu-id="48060-125">您必须确保在 HTML 上下文中只使用 @，而不能在尝试将不受信任的输入直接插入 JavaScript 时使用。</span><span class="sxs-lookup"><span data-stu-id="48060-125">You must ensure that you only use @ in an HTML context, not when attempting to insert untrusted input directly into JavaScript.</span></span> <span data-ttu-id="48060-126">标记帮助程序还将对在标记参数中使用的输入进行编码。</span><span class="sxs-lookup"><span data-stu-id="48060-126">Tag helpers will also encode input you use in tag parameters.</span></span>
 
-<span data-ttu-id="48060-127">获取以下 :::no-loc(Razor)::: 视图：</span><span class="sxs-lookup"><span data-stu-id="48060-127">Take the following :::no-loc(Razor)::: view:</span></span>
+<span data-ttu-id="48060-127">获取以下 Razor 视图：</span><span class="sxs-lookup"><span data-stu-id="48060-127">Take the following Razor view:</span></span>
 
 ```cshtml
 @{
@@ -67,7 +67,7 @@ ms.locfileid: "93053080"
 >[!WARNING]
 > <span data-ttu-id="48060-131">ASP.NET Core MVC 提供的 `HtmlString` 类在输出时不自动编码。</span><span class="sxs-lookup"><span data-stu-id="48060-131">ASP.NET Core MVC provides an `HtmlString` class which isn't automatically encoded upon output.</span></span> <span data-ttu-id="48060-132">请勿将此项与不受信任的输入结合使用，因为这将公开 XSS 漏洞。</span><span class="sxs-lookup"><span data-stu-id="48060-132">This should never be used in combination with untrusted input as this will expose an XSS vulnerability.</span></span>
 
-## <a name="javascript-encoding-using-no-locrazor"></a><span data-ttu-id="48060-133">JavaScript 编码使用 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="48060-133">JavaScript Encoding using :::no-loc(Razor):::</span></span>
+## <a name="javascript-encoding-using-no-locrazor"></a><span data-ttu-id="48060-133">JavaScript 编码使用 Razor</span><span class="sxs-lookup"><span data-stu-id="48060-133">JavaScript Encoding using Razor</span></span>
 
 <span data-ttu-id="48060-134">有时可能需要将值插入 JavaScript 中，以便在视图中进行处理。</span><span class="sxs-lookup"><span data-stu-id="48060-134">There may be times you want to insert a value into JavaScript to process in your view.</span></span> <span data-ttu-id="48060-135">可通过两种方式来执行此操作。</span><span class="sxs-lookup"><span data-stu-id="48060-135">There are two ways to do this.</span></span> <span data-ttu-id="48060-136">插入值的最安全方式是将值放入标记的数据属性中，并在 JavaScript 中检索它。</span><span class="sxs-lookup"><span data-stu-id="48060-136">The safest way to insert values is to place the value in a data attribute of a tag and retrieve it in your JavaScript.</span></span> <span data-ttu-id="48060-137">例如： 。</span><span class="sxs-lookup"><span data-stu-id="48060-137">For example:</span></span>
 
@@ -211,13 +211,13 @@ var example = "\"Quoted Value with spaces and &\"";
 
 ## <a name="customizing-the-encoders"></a><span data-ttu-id="48060-155">自定义编码器</span><span class="sxs-lookup"><span data-stu-id="48060-155">Customizing the Encoders</span></span>
 
-<span data-ttu-id="48060-156">默认情况下，编码器使用限制为基本拉丁语 Unicode 范围的安全列表，并将该范围之外的所有字符编码为等效的字符代码。</span><span class="sxs-lookup"><span data-stu-id="48060-156">By default encoders use a safe list limited to the Basic Latin Unicode range and encode all characters outside of that range as their character code equivalents.</span></span> <span data-ttu-id="48060-157">此行为还会影响 :::no-loc(Razor)::: TagHelper 和 HtmlHelper 渲染，因为它将使用编码器输出字符串。</span><span class="sxs-lookup"><span data-stu-id="48060-157">This behavior also affects :::no-loc(Razor)::: TagHelper and HtmlHelper rendering as it will use the encoders to output your strings.</span></span>
+<span data-ttu-id="48060-156">默认情况下，编码器使用限制为基本拉丁语 Unicode 范围的安全列表，并将该范围之外的所有字符编码为等效的字符代码。</span><span class="sxs-lookup"><span data-stu-id="48060-156">By default encoders use a safe list limited to the Basic Latin Unicode range and encode all characters outside of that range as their character code equivalents.</span></span> <span data-ttu-id="48060-157">此行为还会影响 Razor TagHelper 和 HtmlHelper 渲染，因为它将使用编码器输出字符串。</span><span class="sxs-lookup"><span data-stu-id="48060-157">This behavior also affects Razor TagHelper and HtmlHelper rendering as it will use the encoders to output your strings.</span></span>
 
 <span data-ttu-id="48060-158">这种情况的原因是为了防止未知或将来的浏览器 bug， (以前的浏览器 bug 在处理) 的非英语字符时，将会触发分析。</span><span class="sxs-lookup"><span data-stu-id="48060-158">The reasoning behind this is to protect against unknown or future browser bugs (previous browser bugs have tripped up parsing based on the processing of non-English characters).</span></span> <span data-ttu-id="48060-159">如果你的网站大量使用非拉丁字符（如中文、西里尔语或其他），这可能不是你所希望的行为。</span><span class="sxs-lookup"><span data-stu-id="48060-159">If your web site makes heavy use of non-Latin characters, such as Chinese, Cyrillic or others this is probably not the behavior you want.</span></span>
 
 <span data-ttu-id="48060-160">在中，你可以自定义编码器安全列表，以包含在启动过程中适用于你的应用程序的 Unicode 范围 `ConfigureServices()` 。</span><span class="sxs-lookup"><span data-stu-id="48060-160">You can customize the encoder safe lists to include Unicode ranges appropriate to your application during startup, in `ConfigureServices()`.</span></span>
 
-<span data-ttu-id="48060-161">例如，使用默认配置时，可以使用 HtmlHelper， :::no-loc(Razor)::: 如下所示：</span><span class="sxs-lookup"><span data-stu-id="48060-161">For example, using the default configuration you might use a :::no-loc(Razor)::: HtmlHelper like so;</span></span>
+<span data-ttu-id="48060-161">例如，使用默认配置时，可以使用 HtmlHelper， Razor 如下所示：</span><span class="sxs-lookup"><span data-stu-id="48060-161">For example, using the default configuration you might use a Razor HtmlHelper like so;</span></span>
 
 ```html
 <p>This link text is in Chinese: @Html.ActionLink("汉语/漢語", "Index")</p>

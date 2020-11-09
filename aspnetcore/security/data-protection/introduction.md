@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/data-protection/introduction
 ms.openlocfilehash: 5fd5676b286e758f0648d78bf8cb4171e7a98f60
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -35,7 +35,7 @@ ms.locfileid: "93051689"
 
 <span data-ttu-id="ffdac-110">整体问题声明可在一个句子中简单地表述：我需要保存可信信息供以后检索，但不信任持久性机制。</span><span class="sxs-lookup"><span data-stu-id="ffdac-110">The overall problem statement can be succinctly stated in a single sentence: I need to persist trusted information for later retrieval, but I don't trust the persistence mechanism.</span></span> <span data-ttu-id="ffdac-111">在 web 术语中，这可能被编写为 "我需要通过不受信任的客户端往返的受信任状态。"</span><span class="sxs-lookup"><span data-stu-id="ffdac-111">In web terms, this might be written as "I need to round-trip trusted state via an untrusted client."</span></span>
 
-<span data-ttu-id="ffdac-112">此规范的典型示例是身份验证 :::no-loc(cookie)::: 令牌或持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="ffdac-112">The canonical example of this is an authentication :::no-loc(cookie)::: or bearer token.</span></span> <span data-ttu-id="ffdac-113">服务器生成一个 "I Groot" 和 "xyz 权限" 令牌并将其交给客户端。</span><span class="sxs-lookup"><span data-stu-id="ffdac-113">The server generates an "I am Groot and have xyz permissions" token and hands it to the client.</span></span> <span data-ttu-id="ffdac-114">在将来的某个日期，客户端会将该令牌提供给服务器，但服务器需要某种形式的保证，那就是客户端未伪造令牌。</span><span class="sxs-lookup"><span data-stu-id="ffdac-114">At some future date the client will present that token back to the server, but the server needs some kind of assurance that the client hasn't forged the token.</span></span> <span data-ttu-id="ffdac-115">因此，第一个要求是 (也称为</span><span class="sxs-lookup"><span data-stu-id="ffdac-115">Thus the first requirement: authenticity (a.k.a.</span></span> <span data-ttu-id="ffdac-116">完整性、防篡改) 。</span><span class="sxs-lookup"><span data-stu-id="ffdac-116">integrity, tamper-proofing).</span></span>
+<span data-ttu-id="ffdac-112">此规范的典型示例是身份验证 cookie 令牌或持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="ffdac-112">The canonical example of this is an authentication cookie or bearer token.</span></span> <span data-ttu-id="ffdac-113">服务器生成一个 "I Groot" 和 "xyz 权限" 令牌并将其交给客户端。</span><span class="sxs-lookup"><span data-stu-id="ffdac-113">The server generates an "I am Groot and have xyz permissions" token and hands it to the client.</span></span> <span data-ttu-id="ffdac-114">在将来的某个日期，客户端会将该令牌提供给服务器，但服务器需要某种形式的保证，那就是客户端未伪造令牌。</span><span class="sxs-lookup"><span data-stu-id="ffdac-114">At some future date the client will present that token back to the server, but the server needs some kind of assurance that the client hasn't forged the token.</span></span> <span data-ttu-id="ffdac-115">因此，第一个要求是 (也称为</span><span class="sxs-lookup"><span data-stu-id="ffdac-115">Thus the first requirement: authenticity (a.k.a.</span></span> <span data-ttu-id="ffdac-116">完整性、防篡改) 。</span><span class="sxs-lookup"><span data-stu-id="ffdac-116">integrity, tamper-proofing).</span></span>
 
 <span data-ttu-id="ffdac-117">由于持久状态受服务器信任，因此我们预计此状态可能包含特定于操作环境的信息。</span><span class="sxs-lookup"><span data-stu-id="ffdac-117">Since the persisted state is trusted by the server, we anticipate that this state might contain information that's specific to the operating environment.</span></span> <span data-ttu-id="ffdac-118">这可能是文件路径、权限、句柄或其他间接引用的形式，也可能是其他特定于服务器的数据的形式。</span><span class="sxs-lookup"><span data-stu-id="ffdac-118">This could be in the form of a file path, a permission, a handle or other indirect reference, or some other piece of server-specific data.</span></span> <span data-ttu-id="ffdac-119">此类信息通常不会泄露给不受信任的客户端。</span><span class="sxs-lookup"><span data-stu-id="ffdac-119">Such information should generally not be disclosed to an untrusted client.</span></span> <span data-ttu-id="ffdac-120">因此，第二个要求：保密性。</span><span class="sxs-lookup"><span data-stu-id="ffdac-120">Thus the second requirement: confidentiality.</span></span>
 

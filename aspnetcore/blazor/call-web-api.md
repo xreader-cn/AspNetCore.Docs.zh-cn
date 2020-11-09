@@ -1,23 +1,23 @@
 ---
-title: '从 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 调用 Web API'
+title: '从 ASP.NET Core Blazor WebAssembly 调用 Web API'
 author: guardrex
-description: '了解如何使用 JSON 帮助程序从 :::no-loc(Blazor WebAssembly)::: 应用程序调用 Web API，包括进行跨域资源共享 (CORS) 请求。'
+description: '了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用程序调用 Web API，包括进行跨域资源共享 (CORS) 请求。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/24/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/call-web-api
 ms.openlocfilehash: 85b3ded6ec25310a573e99cbedf0df005d92bdbe
 ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
@@ -26,18 +26,18 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/03/2020
 ms.locfileid: "93234408"
 ---
-# <a name="call-a-web-api-from-aspnet-core-no-locblazor"></a><span data-ttu-id="ece0d-103">从 ASP.NET Core :::no-loc(Blazor)::: 调用 Web API</span><span class="sxs-lookup"><span data-stu-id="ece0d-103">Call a web API from ASP.NET Core :::no-loc(Blazor):::</span></span>
+# <a name="call-a-web-api-from-aspnet-core-no-locblazor"></a><span data-ttu-id="ece0d-103">从 ASP.NET Core Blazor 调用 Web API</span><span class="sxs-lookup"><span data-stu-id="ece0d-103">Call a web API from ASP.NET Core Blazor</span></span>
 
 <span data-ttu-id="ece0d-104">作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Juan De la Cruz](https://github.com/juandelacruz23)</span><span class="sxs-lookup"><span data-stu-id="ece0d-104">By [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), and [Juan De la Cruz](https://github.com/juandelacruz23)</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="ece0d-105">本主题适用于 :::no-loc(Blazor WebAssembly):::。</span><span class="sxs-lookup"><span data-stu-id="ece0d-105">This topic applies to :::no-loc(Blazor WebAssembly):::.</span></span> <span data-ttu-id="ece0d-106">[:::no-loc(Blazor Server):::](xref:blazor/hosting-models#blazor-server) 应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。</span><span class="sxs-lookup"><span data-stu-id="ece0d-106">[:::no-loc(Blazor Server):::](xref:blazor/hosting-models#blazor-server) apps call web APIs using <xref:System.Net.Http.HttpClient> instances, typically created using <xref:System.Net.Http.IHttpClientFactory>.</span></span> <span data-ttu-id="ece0d-107">有关适用于 :::no-loc(Blazor Server)::: 的指南，请参阅 <xref:fundamentals/http-requests>。</span><span class="sxs-lookup"><span data-stu-id="ece0d-107">For guidance that applies to :::no-loc(Blazor Server):::, see <xref:fundamentals/http-requests>.</span></span>
+> <span data-ttu-id="ece0d-105">本主题适用于 Blazor WebAssembly。</span><span class="sxs-lookup"><span data-stu-id="ece0d-105">This topic applies to Blazor WebAssembly.</span></span> <span data-ttu-id="ece0d-106">[Blazor Server](xref:blazor/hosting-models#blazor-server) 应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。</span><span class="sxs-lookup"><span data-stu-id="ece0d-106">[Blazor Server](xref:blazor/hosting-models#blazor-server) apps call web APIs using <xref:System.Net.Http.HttpClient> instances, typically created using <xref:System.Net.Http.IHttpClientFactory>.</span></span> <span data-ttu-id="ece0d-107">有关适用于 Blazor Server 的指南，请参阅 <xref:fundamentals/http-requests>。</span><span class="sxs-lookup"><span data-stu-id="ece0d-107">For guidance that applies to Blazor Server, see <xref:fundamentals/http-requests>.</span></span>
 
-<span data-ttu-id="ece0d-108">[:::no-loc(Blazor WebAssembly):::](xref:blazor/hosting-models#blazor-webassembly) 应用使用预配置的 <xref:System.Net.Http.HttpClient> 服务调用 Web API。</span><span class="sxs-lookup"><span data-stu-id="ece0d-108">[:::no-loc(Blazor WebAssembly):::](xref:blazor/hosting-models#blazor-webassembly) apps call web APIs using a preconfigured <xref:System.Net.Http.HttpClient> service.</span></span> <span data-ttu-id="ece0d-109">使用 :::no-loc(Blazor)::: JSON 帮助程序或通过 <xref:System.Net.Http.HttpRequestMessage> 撰写请求，其中可以包含 JavaScript [Fetch API ](https://developer.mozilla.org/docs/Web/API/Fetch_API) 选项。</span><span class="sxs-lookup"><span data-stu-id="ece0d-109">Compose requests, which can include JavaScript [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) options, using :::no-loc(Blazor)::: JSON helpers or with <xref:System.Net.Http.HttpRequestMessage>.</span></span> <span data-ttu-id="ece0d-110">:::no-loc(Blazor WebAssembly)::: 应用中的 <xref:System.Net.Http.HttpClient> 服务侧重于使请求返回源服务器。</span><span class="sxs-lookup"><span data-stu-id="ece0d-110">The <xref:System.Net.Http.HttpClient> service in :::no-loc(Blazor WebAssembly)::: apps is focused on making requests back to the server of origin.</span></span> <span data-ttu-id="ece0d-111">本主题中的指导仅适用于 :::no-loc(Blazor WebAssembly)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="ece0d-111">The guidance in this topic only pertains to :::no-loc(Blazor WebAssembly)::: apps.</span></span>
+<span data-ttu-id="ece0d-108">[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 应用使用预配置的 <xref:System.Net.Http.HttpClient> 服务调用 Web API。</span><span class="sxs-lookup"><span data-stu-id="ece0d-108">[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) apps call web APIs using a preconfigured <xref:System.Net.Http.HttpClient> service.</span></span> <span data-ttu-id="ece0d-109">使用 Blazor JSON 帮助程序或通过 <xref:System.Net.Http.HttpRequestMessage> 撰写请求，其中可以包含 JavaScript [Fetch API ](https://developer.mozilla.org/docs/Web/API/Fetch_API) 选项。</span><span class="sxs-lookup"><span data-stu-id="ece0d-109">Compose requests, which can include JavaScript [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) options, using Blazor JSON helpers or with <xref:System.Net.Http.HttpRequestMessage>.</span></span> <span data-ttu-id="ece0d-110">Blazor WebAssembly 应用中的 <xref:System.Net.Http.HttpClient> 服务侧重于使请求返回源服务器。</span><span class="sxs-lookup"><span data-stu-id="ece0d-110">The <xref:System.Net.Http.HttpClient> service in Blazor WebAssembly apps is focused on making requests back to the server of origin.</span></span> <span data-ttu-id="ece0d-111">本主题中的指导仅适用于 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="ece0d-111">The guidance in this topic only pertains to Blazor WebAssembly apps.</span></span>
 
-<span data-ttu-id="ece0d-112">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）：选择 `:::no-loc(Blazor):::WebAssemblySample` 应用。</span><span class="sxs-lookup"><span data-stu-id="ece0d-112">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([how to download](xref:index#how-to-download-a-sample)): Select the `:::no-loc(Blazor):::WebAssemblySample` app.</span></span>
+<span data-ttu-id="ece0d-112">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）：选择 `BlazorWebAssemblySample` 应用。</span><span class="sxs-lookup"><span data-stu-id="ece0d-112">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([how to download](xref:index#how-to-download-a-sample)): Select the `BlazorWebAssemblySample` app.</span></span>
 
-<span data-ttu-id="ece0d-113">请查看 `:::no-loc(Blazor):::WebAssemblySample` 示例应用中的以下组件：</span><span class="sxs-lookup"><span data-stu-id="ece0d-113">See the following components in the `:::no-loc(Blazor):::WebAssemblySample` sample app:</span></span>
+<span data-ttu-id="ece0d-113">请查看 `BlazorWebAssemblySample` 示例应用中的以下组件：</span><span class="sxs-lookup"><span data-stu-id="ece0d-113">See the following components in the `BlazorWebAssemblySample` sample app:</span></span>
 
 * <span data-ttu-id="ece0d-114">调用 Web API (`Pages/CallWebAPI.razor`)</span><span class="sxs-lookup"><span data-stu-id="ece0d-114">Call Web API (`Pages/CallWebAPI.razor`)</span></span>
 * <span data-ttu-id="ece0d-115">HTTP 请求测试程序 (`Components/HTTPRequestTester.razor`)</span><span class="sxs-lookup"><span data-stu-id="ece0d-115">HTTP Request Tester (`Components/HTTPRequestTester.razor`)</span></span>
@@ -60,9 +60,9 @@ builder.Services.AddScoped(sp =>
 
 ## <a name="httpclient-and-json-helpers"></a><span data-ttu-id="ece0d-120">HttpClient 和 JSON 帮助程序</span><span class="sxs-lookup"><span data-stu-id="ece0d-120">HttpClient and JSON helpers</span></span>
 
-<span data-ttu-id="ece0d-121">在 :::no-loc(Blazor WebAssembly)::: 应用中，[`HttpClient`](xref:fundamentals/http-requests) 作为预配置服务提供，用于使请求返回源服务器。</span><span class="sxs-lookup"><span data-stu-id="ece0d-121">In a :::no-loc(Blazor WebAssembly)::: app, [`HttpClient`](xref:fundamentals/http-requests) is available as a preconfigured service for making requests back to the origin server.</span></span>
+<span data-ttu-id="ece0d-121">在 Blazor WebAssembly 应用中，[`HttpClient`](xref:fundamentals/http-requests) 作为预配置服务提供，用于使请求返回源服务器。</span><span class="sxs-lookup"><span data-stu-id="ece0d-121">In a Blazor WebAssembly app, [`HttpClient`](xref:fundamentals/http-requests) is available as a preconfigured service for making requests back to the origin server.</span></span>
 
-<span data-ttu-id="ece0d-122">默认情况下，:::no-loc(Blazor Server)::: 应用不包含 <xref:System.Net.Http.HttpClient> 服务。</span><span class="sxs-lookup"><span data-stu-id="ece0d-122">A :::no-loc(Blazor Server)::: app doesn't include an <xref:System.Net.Http.HttpClient> service by default.</span></span> <span data-ttu-id="ece0d-123">使用 [`HttpClient` 工厂基础结构](xref:fundamentals/http-requests)向应用提供 <xref:System.Net.Http.HttpClient>。</span><span class="sxs-lookup"><span data-stu-id="ece0d-123">Provide an <xref:System.Net.Http.HttpClient> to the app using the [`HttpClient` factory infrastructure](xref:fundamentals/http-requests).</span></span>
+<span data-ttu-id="ece0d-122">默认情况下，Blazor Server 应用不包含 <xref:System.Net.Http.HttpClient> 服务。</span><span class="sxs-lookup"><span data-stu-id="ece0d-122">A Blazor Server app doesn't include an <xref:System.Net.Http.HttpClient> service by default.</span></span> <span data-ttu-id="ece0d-123">使用 [`HttpClient` 工厂基础结构](xref:fundamentals/http-requests)向应用提供 <xref:System.Net.Http.HttpClient>。</span><span class="sxs-lookup"><span data-stu-id="ece0d-123">Provide an <xref:System.Net.Http.HttpClient> to the app using the [`HttpClient` factory infrastructure](xref:fundamentals/http-requests).</span></span>
 
 <span data-ttu-id="ece0d-124"><xref:System.Net.Http.HttpClient> 和 JSON 帮助程序还用于调用第三方 Web API 终结点。</span><span class="sxs-lookup"><span data-stu-id="ece0d-124"><xref:System.Net.Http.HttpClient> and JSON helpers are also used to call third-party web API endpoints.</span></span> <span data-ttu-id="ece0d-125"><xref:System.Net.Http.HttpClient> 使用浏览器 [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) 来实现，受其限制制约，包括强制实施相同初始策略。</span><span class="sxs-lookup"><span data-stu-id="ece0d-125"><xref:System.Net.Http.HttpClient> is implemented using the browser [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) and is subject to its limitations, including enforcement of the same origin policy.</span></span>
 
@@ -284,7 +284,7 @@ builder.Services.AddHttpClient<WeatherForecastHttpClient>(client =>
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a><span data-ttu-id="ece0d-167">具有提取 API 请求选项的 `HttpClient` 和 `HttpRequestMessage`</span><span class="sxs-lookup"><span data-stu-id="ece0d-167">`HttpClient` and `HttpRequestMessage` with Fetch API request options</span></span>
 
-<span data-ttu-id="ece0d-168">在 :::no-loc(Blazor WebAssembly)::: 应用中的 WebAssembly 上运行时，可以使用 [`HttpClient`](xref:fundamentals/http-requests)（[API 文档](xref:System.Net.Http.HttpClient)）和 <xref:System.Net.Http.HttpRequestMessage> 自定义请求。</span><span class="sxs-lookup"><span data-stu-id="ece0d-168">When running on WebAssembly in a :::no-loc(Blazor WebAssembly)::: app, [`HttpClient`](xref:fundamentals/http-requests) ([API documentation](xref:System.Net.Http.HttpClient)) and <xref:System.Net.Http.HttpRequestMessage> can be used to customize requests.</span></span> <span data-ttu-id="ece0d-169">例如，可以指定 HTTP 方法和请求标头。</span><span class="sxs-lookup"><span data-stu-id="ece0d-169">For example, you can specify the HTTP method and request headers.</span></span> <span data-ttu-id="ece0d-170">以下组件向服务器上的待办事项列表 API 终结点发出 `POST` 请求，并显示响应正文：</span><span class="sxs-lookup"><span data-stu-id="ece0d-170">The following component makes a `POST` request to a To Do List API endpoint on the server and shows the response body:</span></span>
+<span data-ttu-id="ece0d-168">在 Blazor WebAssembly 应用中的 WebAssembly 上运行时，可以使用 [`HttpClient`](xref:fundamentals/http-requests)（[API 文档](xref:System.Net.Http.HttpClient)）和 <xref:System.Net.Http.HttpRequestMessage> 自定义请求。</span><span class="sxs-lookup"><span data-stu-id="ece0d-168">When running on WebAssembly in a Blazor WebAssembly app, [`HttpClient`](xref:fundamentals/http-requests) ([API documentation](xref:System.Net.Http.HttpClient)) and <xref:System.Net.Http.HttpRequestMessage> can be used to customize requests.</span></span> <span data-ttu-id="ece0d-169">例如，可以指定 HTTP 方法和请求标头。</span><span class="sxs-lookup"><span data-stu-id="ece0d-169">For example, you can specify the HTTP method and request headers.</span></span> <span data-ttu-id="ece0d-170">以下组件向服务器上的待办事项列表 API 终结点发出 `POST` 请求，并显示响应正文：</span><span class="sxs-lookup"><span data-stu-id="ece0d-170">The following component makes a `POST` request to a To Do List API endpoint on the server and shows the response body:</span></span>
 
 ```razor
 @page "/todorequest"
@@ -359,7 +359,7 @@ builder.Services.AddHttpClient<WeatherForecastHttpClient>(client =>
 
 <span data-ttu-id="ece0d-176">可使用更通用的 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestOption%2A> 扩展方法设置其他选项。</span><span class="sxs-lookup"><span data-stu-id="ece0d-176">You can set additional options using the more generic <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestOption%2A> extension method.</span></span>
  
-<span data-ttu-id="ece0d-177">HTTP 响应通常在 :::no-loc(Blazor WebAssembly)::: 应用中缓冲，以支持同步读取响应内容。</span><span class="sxs-lookup"><span data-stu-id="ece0d-177">The HTTP response is typically buffered in a :::no-loc(Blazor WebAssembly)::: app to enable support for sync reads on the response content.</span></span> <span data-ttu-id="ece0d-178">要支持响应流式处理，请对请求使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserResponseStreamingEnabled%2A> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="ece0d-178">To enable support for response streaming, use the <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserResponseStreamingEnabled%2A> extension method on the request.</span></span>
+<span data-ttu-id="ece0d-177">HTTP 响应通常在 Blazor WebAssembly 应用中缓冲，以支持同步读取响应内容。</span><span class="sxs-lookup"><span data-stu-id="ece0d-177">The HTTP response is typically buffered in a Blazor WebAssembly app to enable support for sync reads on the response content.</span></span> <span data-ttu-id="ece0d-178">要支持响应流式处理，请对请求使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserResponseStreamingEnabled%2A> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="ece0d-178">To enable support for response streaming, use the <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserResponseStreamingEnabled%2A> extension method on the request.</span></span>
 
 <span data-ttu-id="ece0d-179">要在跨源请求中加入凭据，请使用 <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestCredentials%2A> 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="ece0d-179">To include credentials in a cross-origin request, use the <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestCredentials%2A> extension method:</span></span>
 
@@ -403,9 +403,9 @@ protected override async Task OnInitializedAsync()
 
 <span data-ttu-id="ece0d-195">浏览器安全可防止网页向不同域（而不是向网页提供服务的域）进行请求。</span><span class="sxs-lookup"><span data-stu-id="ece0d-195">Browser security prevents a webpage from making requests to a different domain than the one that served the webpage.</span></span> <span data-ttu-id="ece0d-196">此限制称为同域策略。</span><span class="sxs-lookup"><span data-stu-id="ece0d-196">This restriction is called the *same-origin policy*.</span></span> <span data-ttu-id="ece0d-197">同域策略可防止恶意站点从另一站点读取敏感数据。</span><span class="sxs-lookup"><span data-stu-id="ece0d-197">The same-origin policy prevents a malicious site from reading sensitive data from another site.</span></span> <span data-ttu-id="ece0d-198">若要从浏览器向具有不同源的终结点进行请求，终结点必须启用[跨域资源共享 (CORS)](https://www.w3.org/TR/cors/)。</span><span class="sxs-lookup"><span data-stu-id="ece0d-198">To make requests from the browser to an endpoint with a different origin, the *endpoint* must enable [cross-origin resource sharing (CORS)](https://www.w3.org/TR/cors/).</span></span>
 
-<span data-ttu-id="ece0d-199">[:::no-loc(Blazor WebAssembly)::: 示例应用 (:::no-loc(Blazor):::WebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) 演示如何在调用 Web API 组件 (`Pages/CallWebAPI.razor`) 中使用 CORS。</span><span class="sxs-lookup"><span data-stu-id="ece0d-199">The [:::no-loc(Blazor WebAssembly)::: sample app (:::no-loc(Blazor):::WebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) demonstrates the use of CORS in the Call Web API component (`Pages/CallWebAPI.razor`).</span></span>
+<span data-ttu-id="ece0d-199">[Blazor WebAssembly 示例应用 (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) 演示如何在调用 Web API 组件 (`Pages/CallWebAPI.razor`) 中使用 CORS。</span><span class="sxs-lookup"><span data-stu-id="ece0d-199">The [Blazor WebAssembly sample app (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) demonstrates the use of CORS in the Call Web API component (`Pages/CallWebAPI.razor`).</span></span>
 
-<span data-ttu-id="ece0d-200">有关 CORS 与 :::no-loc(Blazor)::: 应用中的安全请求的详细信息，请参阅 <xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors>。</span><span class="sxs-lookup"><span data-stu-id="ece0d-200">For more information on CORS with secure requests in :::no-loc(Blazor)::: apps, see <xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors>.</span></span>
+<span data-ttu-id="ece0d-200">有关 CORS 与 Blazor 应用中的安全请求的详细信息，请参阅 <xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors>。</span><span class="sxs-lookup"><span data-stu-id="ece0d-200">For more information on CORS with secure requests in Blazor apps, see <xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors>.</span></span>
 
 <span data-ttu-id="ece0d-201">有关 CORS 与 ASP.NET Core 应用的一般信息，请参阅 <xref:security/cors>。</span><span class="sxs-lookup"><span data-stu-id="ece0d-201">For general information on CORS with ASP.NET Core apps, see <xref:security/cors>.</span></span>
 

@@ -5,17 +5,17 @@ description: Microsoft.NET.Sdk.Web 概述。
 ms.author: riande
 ms.date: 01/25/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: razor-pages/web-sdk
 ms.openlocfilehash: 8cc0a51d3d917300f3add31f5884b4784dd573dd
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -55,4 +55,4 @@ ms.locfileid: "93059749"
 | -------- | ----------- |
 | `DisableImplicitFrameworkReferences` | <span data-ttu-id="2c19c-118">禁用对 `Microsoft.AspNetCore.App` 共享框架的隐式引用。</span><span class="sxs-lookup"><span data-stu-id="2c19c-118">Disables implicit reference to the `Microsoft.AspNetCore.App` shared framework.</span></span> |
 | `DisableImplicitAspNetCoreAnalyzers` | <span data-ttu-id="2c19c-119">禁用对 ASP.NET Core 分析器的隐式引用。</span><span class="sxs-lookup"><span data-stu-id="2c19c-119">Disables implicit reference to ASP.NET Core analyzers.</span></span> |
-| `DisableImplicitComponentsAnalyzers` | <span data-ttu-id="2c19c-120">在构建 :::no-loc(Blazor):::（服务器）应用程序时禁用对 :::no-loc(Razor)::: 组件分析器的隐式引用。</span><span class="sxs-lookup"><span data-stu-id="2c19c-120">Disables implicit reference to :::no-loc(Razor)::: Components analyzers when building :::no-loc(Blazor)::: (server) applications.</span></span> |
+| `DisableImplicitComponentsAnalyzers` | <span data-ttu-id="2c19c-120">在构建 Blazor（服务器）应用程序时禁用对 Razor 组件分析器的隐式引用。</span><span class="sxs-lookup"><span data-stu-id="2c19c-120">Disables implicit reference to Razor Components analyzers when building Blazor (server) applications.</span></span> |

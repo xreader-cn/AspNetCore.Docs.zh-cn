@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/startup
 ms.openlocfilehash: 747b13abb0ce3fed2d1dc018c6dbf82db1ae7130
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -45,7 +45,7 @@ ms.locfileid: "93052235"
 
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-<span data-ttu-id="c9455-114">前面的示例适用于 [:::no-loc(Razor)::: Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c9455-114">The preceding sample is for [:::no-loc(Razor)::: Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
+<span data-ttu-id="c9455-114">前面的示例适用于 [Razor Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c9455-114">The preceding sample is for [Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
 
 
 <span data-ttu-id="c9455-115">在构建应用[主机](xref:fundamentals/index#host)时指定 `Startup` 类。</span><span class="sxs-lookup"><span data-stu-id="c9455-115">The `Startup` class is specified when the app's [host](xref:fundamentals/index#host) is built.</span></span> <span data-ttu-id="c9455-116">通常，通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="c9455-116">The `Startup` class is typically specified by calling the [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) method on the host builder:</span></span>
@@ -80,9 +80,9 @@ ms.locfileid: "93052235"
 
 <span data-ttu-id="c9455-134">主机可能会在调用 `Startup` 方法之前配置某些服务。</span><span class="sxs-lookup"><span data-stu-id="c9455-134">The host may configure some services before `Startup` methods are called.</span></span> <span data-ttu-id="c9455-135">有关详细信息，请参阅[主机](xref:fundamentals/index#host)。</span><span class="sxs-lookup"><span data-stu-id="c9455-135">For more information, see [The host](xref:fundamentals/index#host).</span></span>
 
-<span data-ttu-id="c9455-136">对于需要大量设置的功能，<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 上有 `Add{Service}` 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9455-136">For features that require substantial setup, there are `Add{Service}` extension methods on <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span></span> <span data-ttu-id="c9455-137">例如，AddDbContext、AddDefault:::no-loc(Identity):::、AddEntityFrameworkStores 和 Add:::no-loc(Razor):::Pages   ：</span><span class="sxs-lookup"><span data-stu-id="c9455-137">For example, **Add** DbContext, **Add** Default:::no-loc(Identity):::, **Add** EntityFrameworkStores, and **Add**:::no-loc(Razor):::Pages:</span></span>
+<span data-ttu-id="c9455-136">对于需要大量设置的功能，<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 上有 `Add{Service}` 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9455-136">For features that require substantial setup, there are `Add{Service}` extension methods on <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span></span> <span data-ttu-id="c9455-137">例如，AddDbContext、AddDefaultIdentity、AddEntityFrameworkStores 和 AddRazorPages   ：</span><span class="sxs-lookup"><span data-stu-id="c9455-137">For example, **Add** DbContext, **Add** DefaultIdentity, **Add** EntityFrameworkStores, and **Add**RazorPages:</span></span>
 
-[!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup:::no-loc(Identity):::.cs?name=snippet)]
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/StartupIdentity.cs?name=snippet)]
 
 <span data-ttu-id="c9455-138">将服务添加到服务容器，使其在应用和 `Configure` 方法中可用。</span><span class="sxs-lookup"><span data-stu-id="c9455-138">Adding services to the service container makes them available within the app and in the `Configure` method.</span></span> <span data-ttu-id="c9455-139">服务通过[依赖关系注入](xref:fundamentals/dependency-injection)或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 进行解析。</span><span class="sxs-lookup"><span data-stu-id="c9455-139">The services are resolved via [dependency injection](xref:fundamentals/dependency-injection) or from <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span></span>
 
@@ -97,12 +97,12 @@ ms.locfileid: "93052235"
 * [<span data-ttu-id="c9455-148">HTTP 严格传输安全性 (HSTS)</span><span class="sxs-lookup"><span data-stu-id="c9455-148">HTTP Strict Transport Security (HSTS)</span></span>](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [<span data-ttu-id="c9455-149">HTTPS 重定向</span><span class="sxs-lookup"><span data-stu-id="c9455-149">HTTPS redirection</span></span>](xref:security/enforcing-ssl)
 * [<span data-ttu-id="c9455-150">静态文件</span><span class="sxs-lookup"><span data-stu-id="c9455-150">Static files</span></span>](xref:fundamentals/static-files)
-* <span data-ttu-id="c9455-151">ASP.NET Core [MVC](xref:mvc/overview) 和 [:::no-loc(Razor)::: Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c9455-151">ASP.NET Core [MVC](xref:mvc/overview) and [:::no-loc(Razor)::: Pages](xref:razor-pages/index)</span></span>
+* <span data-ttu-id="c9455-151">ASP.NET Core [MVC](xref:mvc/overview) 和 [Razor Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c9455-151">ASP.NET Core [MVC](xref:mvc/overview) and [Razor Pages](xref:razor-pages/index)</span></span>
 
 
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-<span data-ttu-id="c9455-152">前面的示例适用于 [:::no-loc(Razor)::: Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c9455-152">The preceding sample is for [:::no-loc(Razor)::: Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
+<span data-ttu-id="c9455-152">前面的示例适用于 [Razor Pages](xref:razor-pages/index)；MVC 版本类似。</span><span class="sxs-lookup"><span data-stu-id="c9455-152">The preceding sample is for [Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
 
 <span data-ttu-id="c9455-153">每个 `Use` 扩展方法将一个或多个中间件组件添加到请求管道。</span><span class="sxs-lookup"><span data-stu-id="c9455-153">Each `Use` extension method adds one or more middleware components to the request pipeline.</span></span> <span data-ttu-id="c9455-154">例如，<xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> 配置[中间件](xref:fundamentals/middleware/index)提供[静态文件](xref:fundamentals/static-files)。</span><span class="sxs-lookup"><span data-stu-id="c9455-154">For instance, <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> configures [middleware](xref:fundamentals/middleware/index) to serve [static files](xref:fundamentals/static-files).</span></span>
 
@@ -212,7 +212,7 @@ ms.locfileid: "93052235"
 
 <span data-ttu-id="c9455-223">主机可能会在调用 `Startup` 方法之前配置某些服务。</span><span class="sxs-lookup"><span data-stu-id="c9455-223">The host may configure some services before `Startup` methods are called.</span></span> <span data-ttu-id="c9455-224">有关详细信息，请参阅[主机](xref:fundamentals/index#host)。</span><span class="sxs-lookup"><span data-stu-id="c9455-224">For more information, see [The host](xref:fundamentals/index#host).</span></span>
 
-<span data-ttu-id="c9455-225">对于需要大量设置的功能，<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 上有 `Add{Service}` 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9455-225">For features that require substantial setup, there are `Add{Service}` extension methods on <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span></span> <span data-ttu-id="c9455-226">例如，AddDbContext、AddDefault:::no-loc(Identity):::、AddEntityFrameworkStores 和 Add:::no-loc(Razor):::Pages   ：</span><span class="sxs-lookup"><span data-stu-id="c9455-226">For example, **Add** DbContext, **Add** Default:::no-loc(Identity):::, **Add** EntityFrameworkStores, and **Add**:::no-loc(Razor):::Pages:</span></span>
+<span data-ttu-id="c9455-225">对于需要大量设置的功能，<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 上有 `Add{Service}` 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9455-225">For features that require substantial setup, there are `Add{Service}` extension methods on <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span></span> <span data-ttu-id="c9455-226">例如，AddDbContext、AddDefaultIdentity、AddEntityFrameworkStores 和 AddRazorPages   ：</span><span class="sxs-lookup"><span data-stu-id="c9455-226">For example, **Add** DbContext, **Add** DefaultIdentity, **Add** EntityFrameworkStores, and **Add**RazorPages:</span></span>
 
 [!code-csharp[](startup/sample_snapshot/Startup3.cs)]
 
@@ -231,7 +231,7 @@ ms.locfileid: "93052235"
 * [<span data-ttu-id="c9455-238">HTTP 严格传输安全性 (HSTS)</span><span class="sxs-lookup"><span data-stu-id="c9455-238">HTTP Strict Transport Security (HSTS)</span></span>](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [<span data-ttu-id="c9455-239">HTTPS 重定向</span><span class="sxs-lookup"><span data-stu-id="c9455-239">HTTPS redirection</span></span>](xref:security/enforcing-ssl)
 * [<span data-ttu-id="c9455-240">静态文件</span><span class="sxs-lookup"><span data-stu-id="c9455-240">Static files</span></span>](xref:fundamentals/static-files)
-* <span data-ttu-id="c9455-241">ASP.NET Core [MVC](xref:mvc/overview) 和 [:::no-loc(Razor)::: Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c9455-241">ASP.NET Core [MVC](xref:mvc/overview) and [:::no-loc(Razor)::: Pages](xref:razor-pages/index)</span></span>
+* <span data-ttu-id="c9455-241">ASP.NET Core [MVC](xref:mvc/overview) 和 [Razor Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="c9455-241">ASP.NET Core [MVC](xref:mvc/overview) and [Razor Pages](xref:razor-pages/index)</span></span>
 * [<span data-ttu-id="c9455-242">一般数据保护条例 (GDPR)</span><span class="sxs-lookup"><span data-stu-id="c9455-242">General Data Protection Regulation (GDPR)</span></span>](xref:security/gdpr)
 
 [!code-csharp[](startup/sample_snapshot/Startup4.cs)]

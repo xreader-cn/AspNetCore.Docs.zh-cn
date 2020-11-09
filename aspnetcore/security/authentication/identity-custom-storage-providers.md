@@ -1,22 +1,22 @@
 ---
-title: '自定义存储提供程序 :::no-loc(ASP.NET Core Identity):::'
+title: '自定义存储提供程序 ASP.NET Core Identity'
 author: ardalis
-description: '了解如何为配置自定义存储提供程序 :::no-loc(ASP.NET Core Identity)::: 。'
+description: '了解如何为配置自定义存储提供程序 ASP.NET Core Identity 。'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authentication/identity-custom-storage-providers
 ms.openlocfilehash: c89098bf0b2c4396f9856aca2be9967af5df0cb7
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -25,17 +25,17 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93051897"
 ---
-# <a name="custom-storage-providers-for-no-locaspnet-core-identity"></a><span data-ttu-id="c6c85-103">自定义存储提供程序 :::no-loc(ASP.NET Core Identity):::</span><span class="sxs-lookup"><span data-stu-id="c6c85-103">Custom storage providers for :::no-loc(ASP.NET Core Identity):::</span></span>
+# <a name="custom-storage-providers-for-no-locaspnet-core-identity"></a><span data-ttu-id="c6c85-103">自定义存储提供程序 ASP.NET Core Identity</span><span class="sxs-lookup"><span data-stu-id="c6c85-103">Custom storage providers for ASP.NET Core Identity</span></span>
 
 <span data-ttu-id="c6c85-104">作者：[Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="c6c85-104">By [Steve Smith](https://ardalis.com/)</span></span>
 
-<span data-ttu-id="c6c85-105">:::no-loc(ASP.NET Core Identity)::: 是一个可扩展系统，可让你创建自定义存储提供程序并将其连接到你的应用程序。</span><span class="sxs-lookup"><span data-stu-id="c6c85-105">:::no-loc(ASP.NET Core Identity)::: is an extensible system which enables you to create a custom storage provider and connect it to your app.</span></span> <span data-ttu-id="c6c85-106">本主题介绍如何为创建自定义的存储提供程序 :::no-loc(ASP.NET Core Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-106">This topic describes how to create a customized storage provider for :::no-loc(ASP.NET Core Identity):::.</span></span> <span data-ttu-id="c6c85-107">它介绍了用于创建自己的存储提供程序的重要概念，但并不是分步演练。</span><span class="sxs-lookup"><span data-stu-id="c6c85-107">It covers the important concepts for creating your own storage provider, but isn't a step-by-step walkthrough.</span></span>
+<span data-ttu-id="c6c85-105">ASP.NET Core Identity 是一个可扩展系统，可让你创建自定义存储提供程序并将其连接到你的应用程序。</span><span class="sxs-lookup"><span data-stu-id="c6c85-105">ASP.NET Core Identity is an extensible system which enables you to create a custom storage provider and connect it to your app.</span></span> <span data-ttu-id="c6c85-106">本主题介绍如何为创建自定义的存储提供程序 ASP.NET Core Identity 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-106">This topic describes how to create a customized storage provider for ASP.NET Core Identity.</span></span> <span data-ttu-id="c6c85-107">它介绍了用于创建自己的存储提供程序的重要概念，但并不是分步演练。</span><span class="sxs-lookup"><span data-stu-id="c6c85-107">It covers the important concepts for creating your own storage provider, but isn't a step-by-step walkthrough.</span></span>
 
-<span data-ttu-id="c6c85-108">[查看或下载 GitHub 中的示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/Custom:::no-loc(Identity):::ProviderSample)。</span><span class="sxs-lookup"><span data-stu-id="c6c85-108">[View or download sample from GitHub](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/Custom:::no-loc(Identity):::ProviderSample).</span></span>
+<span data-ttu-id="c6c85-108">[查看或下载 GitHub 中的示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample)。</span><span class="sxs-lookup"><span data-stu-id="c6c85-108">[View or download sample from GitHub](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample).</span></span>
 
 ## <a name="introduction"></a><span data-ttu-id="c6c85-109">简介</span><span class="sxs-lookup"><span data-stu-id="c6c85-109">Introduction</span></span>
 
-<span data-ttu-id="c6c85-110">默认情况下， :::no-loc(ASP.NET Core Identity)::: 系统使用 Entity Framework Core 将用户信息存储在 SQL Server 数据库中。</span><span class="sxs-lookup"><span data-stu-id="c6c85-110">By default, the :::no-loc(ASP.NET Core Identity)::: system stores user information in a SQL Server database using Entity Framework Core.</span></span> <span data-ttu-id="c6c85-111">对于许多应用程序而言，这种方法的效果很好。</span><span class="sxs-lookup"><span data-stu-id="c6c85-111">For many apps, this approach works well.</span></span> <span data-ttu-id="c6c85-112">但是，你可能希望使用不同的持久性机制或数据架构。</span><span class="sxs-lookup"><span data-stu-id="c6c85-112">However, you may prefer to use a different persistence mechanism or data schema.</span></span> <span data-ttu-id="c6c85-113">例如： 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-113">For example:</span></span>
+<span data-ttu-id="c6c85-110">默认情况下， ASP.NET Core Identity 系统使用 Entity Framework Core 将用户信息存储在 SQL Server 数据库中。</span><span class="sxs-lookup"><span data-stu-id="c6c85-110">By default, the ASP.NET Core Identity system stores user information in a SQL Server database using Entity Framework Core.</span></span> <span data-ttu-id="c6c85-111">对于许多应用程序而言，这种方法的效果很好。</span><span class="sxs-lookup"><span data-stu-id="c6c85-111">For many apps, this approach works well.</span></span> <span data-ttu-id="c6c85-112">但是，你可能希望使用不同的持久性机制或数据架构。</span><span class="sxs-lookup"><span data-stu-id="c6c85-112">However, you may prefer to use a different persistence mechanism or data schema.</span></span> <span data-ttu-id="c6c85-113">例如： 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-113">For example:</span></span>
 
 * <span data-ttu-id="c6c85-114">使用 [Azure 表存储](/azure/storage/) 或其他数据存储。</span><span class="sxs-lookup"><span data-stu-id="c6c85-114">You use [Azure Table Storage](/azure/storage/) or another data store.</span></span>
 * <span data-ttu-id="c6c85-115">数据库表具有不同的结构。</span><span class="sxs-lookup"><span data-stu-id="c6c85-115">Your database tables have a different structure.</span></span> 
@@ -43,7 +43,7 @@ ms.locfileid: "93051897"
 
 <span data-ttu-id="c6c85-117">在上述每种情况下，都可以为存储机制编写自定义的提供程序，并将该提供程序插入到应用程序中。</span><span class="sxs-lookup"><span data-stu-id="c6c85-117">In each of these cases, you can write a customized provider for your storage mechanism and plug that provider into your app.</span></span>
 
-<span data-ttu-id="c6c85-118">:::no-loc(ASP.NET Core Identity)::: 包含在 Visual Studio 中具有 "单独用户帐户" 选项的项目模板中。</span><span class="sxs-lookup"><span data-stu-id="c6c85-118">:::no-loc(ASP.NET Core Identity)::: is included in project templates in Visual Studio with the "Individual User Accounts" option.</span></span>
+<span data-ttu-id="c6c85-118">ASP.NET Core Identity 包含在 Visual Studio 中具有 "单独用户帐户" 选项的项目模板中。</span><span class="sxs-lookup"><span data-stu-id="c6c85-118">ASP.NET Core Identity is included in project templates in Visual Studio with the "Individual User Accounts" option.</span></span>
 
 <span data-ttu-id="c6c85-119">使用 .NET Core CLI 时，请添加 `-au Individual` ：</span><span class="sxs-lookup"><span data-stu-id="c6c85-119">When using the .NET Core CLI, add `-au Individual`:</span></span>
 
@@ -51,9 +51,9 @@ ms.locfileid: "93051897"
 dotnet new mvc -au Individual
 ```
 
-## <a name="the-no-locaspnet-core-identity-architecture"></a><span data-ttu-id="c6c85-120">:::no-loc(ASP.NET Core Identity):::体系结构</span><span class="sxs-lookup"><span data-stu-id="c6c85-120">The :::no-loc(ASP.NET Core Identity)::: architecture</span></span>
+## <a name="the-no-locaspnet-core-identity-architecture"></a><span data-ttu-id="c6c85-120">ASP.NET Core Identity体系结构</span><span class="sxs-lookup"><span data-stu-id="c6c85-120">The ASP.NET Core Identity architecture</span></span>
 
-<span data-ttu-id="c6c85-121">:::no-loc(ASP.NET Core Identity)::: 由称为管理器和存储的类组成。</span><span class="sxs-lookup"><span data-stu-id="c6c85-121">:::no-loc(ASP.NET Core Identity)::: consists of classes called managers and stores.</span></span> <span data-ttu-id="c6c85-122">*管理* 层是应用程序开发人员用来执行操作（如创建用户）的高级类 :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-122">*Managers* are high-level classes which an app developer uses to perform operations, such as creating an :::no-loc(Identity)::: user.</span></span> <span data-ttu-id="c6c85-123">*存储* 是用于指定如何保存实体（如用户和角色）的较低级别类。</span><span class="sxs-lookup"><span data-stu-id="c6c85-123">*Stores* are lower-level classes that specify how entities, such as users and roles, are persisted.</span></span> <span data-ttu-id="c6c85-124">存储遵循存储库模式，并与持久性机制紧密耦合。</span><span class="sxs-lookup"><span data-stu-id="c6c85-124">Stores follow the repository pattern and are closely coupled with the persistence mechanism.</span></span> <span data-ttu-id="c6c85-125">管理器与存储分离，这意味着，你可以在不更改应用程序代码的情况下替换持久性机制， (配置) 除外。</span><span class="sxs-lookup"><span data-stu-id="c6c85-125">Managers are decoupled from stores, which means you can replace the persistence mechanism without changing your application code (except for configuration).</span></span>
+<span data-ttu-id="c6c85-121">ASP.NET Core Identity 由称为管理器和存储的类组成。</span><span class="sxs-lookup"><span data-stu-id="c6c85-121">ASP.NET Core Identity consists of classes called managers and stores.</span></span> <span data-ttu-id="c6c85-122">*管理* 层是应用程序开发人员用来执行操作（如创建用户）的高级类 Identity 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-122">*Managers* are high-level classes which an app developer uses to perform operations, such as creating an Identity user.</span></span> <span data-ttu-id="c6c85-123">*存储* 是用于指定如何保存实体（如用户和角色）的较低级别类。</span><span class="sxs-lookup"><span data-stu-id="c6c85-123">*Stores* are lower-level classes that specify how entities, such as users and roles, are persisted.</span></span> <span data-ttu-id="c6c85-124">存储遵循存储库模式，并与持久性机制紧密耦合。</span><span class="sxs-lookup"><span data-stu-id="c6c85-124">Stores follow the repository pattern and are closely coupled with the persistence mechanism.</span></span> <span data-ttu-id="c6c85-125">管理器与存储分离，这意味着，你可以在不更改应用程序代码的情况下替换持久性机制， (配置) 除外。</span><span class="sxs-lookup"><span data-stu-id="c6c85-125">Managers are decoupled from stores, which means you can replace the persistence mechanism without changing your application code (except for configuration).</span></span>
 
 <span data-ttu-id="c6c85-126">下图显示了 web 应用如何与管理器进行交互，同时存储与数据访问层交互。</span><span class="sxs-lookup"><span data-stu-id="c6c85-126">The following diagram shows how a web app interacts with the managers, while stores interact with the data access layer.</span></span>
 
@@ -65,13 +65,13 @@ dotnet new mvc -au Individual
 
 <span data-ttu-id="c6c85-133">[重新配置应用程序以使用新的存储提供程序](#reconfigure-app-to-use-a-new-storage-provider) 演示如何实例化 `UserManager` 和 `RoleManager` 使用自定义存储。</span><span class="sxs-lookup"><span data-stu-id="c6c85-133">[Reconfigure app to use new storage provider](#reconfigure-app-to-use-a-new-storage-provider) shows how to instantiate `UserManager` and `RoleManager` with a customized store.</span></span>
 
-## <a name="no-locaspnet-core-identity-stores-data-types"></a><span data-ttu-id="c6c85-134">:::no-loc(ASP.NET Core Identity)::: 存储数据类型</span><span class="sxs-lookup"><span data-stu-id="c6c85-134">:::no-loc(ASP.NET Core Identity)::: stores data types</span></span>
+## <a name="no-locaspnet-core-identity-stores-data-types"></a><span data-ttu-id="c6c85-134">ASP.NET Core Identity 存储数据类型</span><span class="sxs-lookup"><span data-stu-id="c6c85-134">ASP.NET Core Identity stores data types</span></span>
 
-<span data-ttu-id="c6c85-135">[:::no-loc(ASP.NET Core Identity):::](https://github.com/aspnet/identity) 以下部分详细介绍了数据类型：</span><span class="sxs-lookup"><span data-stu-id="c6c85-135">[:::no-loc(ASP.NET Core Identity):::](https://github.com/aspnet/identity) data types are detailed in the following sections:</span></span>
+<span data-ttu-id="c6c85-135">[ASP.NET Core Identity](https://github.com/aspnet/identity) 以下部分详细介绍了数据类型：</span><span class="sxs-lookup"><span data-stu-id="c6c85-135">[ASP.NET Core Identity](https://github.com/aspnet/identity) data types are detailed in the following sections:</span></span>
 
 ### <a name="users"></a><span data-ttu-id="c6c85-136">用户</span><span class="sxs-lookup"><span data-stu-id="c6c85-136">Users</span></span>
 
-<span data-ttu-id="c6c85-137">网站的已注册用户。</span><span class="sxs-lookup"><span data-stu-id="c6c85-137">Registered users of your web site.</span></span> <span data-ttu-id="c6c85-138">可以扩展[ :::no-loc(Identity)::: 用户](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)类型，也可以将其用作你自己的自定义类型的示例。</span><span class="sxs-lookup"><span data-stu-id="c6c85-138">The [:::no-loc(Identity):::User](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser) type may be extended or used as an example for your own custom type.</span></span> <span data-ttu-id="c6c85-139">无需从特定类型继承即可实现您自己的自定义标识存储解决方案。</span><span class="sxs-lookup"><span data-stu-id="c6c85-139">You don't need to inherit from a particular type to implement your own custom identity storage solution.</span></span>
+<span data-ttu-id="c6c85-137">网站的已注册用户。</span><span class="sxs-lookup"><span data-stu-id="c6c85-137">Registered users of your web site.</span></span> <span data-ttu-id="c6c85-138">可以扩展[ Identity 用户](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)类型，也可以将其用作你自己的自定义类型的示例。</span><span class="sxs-lookup"><span data-stu-id="c6c85-138">The [IdentityUser](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser) type may be extended or used as an example for your own custom type.</span></span> <span data-ttu-id="c6c85-139">无需从特定类型继承即可实现您自己的自定义标识存储解决方案。</span><span class="sxs-lookup"><span data-stu-id="c6c85-139">You don't need to inherit from a particular type to implement your own custom identity storage solution.</span></span>
 
 ### <a name="user-claims"></a><span data-ttu-id="c6c85-140">用户声明</span><span class="sxs-lookup"><span data-stu-id="c6c85-140">User Claims</span></span>
 
@@ -87,11 +87,11 @@ dotnet new mvc -au Individual
 
 ## <a name="the-data-access-layer"></a><span data-ttu-id="c6c85-150">数据访问层</span><span class="sxs-lookup"><span data-stu-id="c6c85-150">The data access layer</span></span>
 
-<span data-ttu-id="c6c85-151">本主题假定您熟悉要使用的持久性机制以及如何创建该机制的实体。</span><span class="sxs-lookup"><span data-stu-id="c6c85-151">This topic assumes you are familiar with the persistence mechanism that you are going to use and how to create entities for that mechanism.</span></span> <span data-ttu-id="c6c85-152">本主题不提供有关如何创建存储库或数据访问类的详细信息;在使用时，它提供了有关设计决策的一些建议 :::no-loc(ASP.NET Core Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-152">This topic doesn't provide details about how to create the repositories or data access classes; it provides some suggestions about design decisions when working with :::no-loc(ASP.NET Core Identity):::.</span></span>
+<span data-ttu-id="c6c85-151">本主题假定您熟悉要使用的持久性机制以及如何创建该机制的实体。</span><span class="sxs-lookup"><span data-stu-id="c6c85-151">This topic assumes you are familiar with the persistence mechanism that you are going to use and how to create entities for that mechanism.</span></span> <span data-ttu-id="c6c85-152">本主题不提供有关如何创建存储库或数据访问类的详细信息;在使用时，它提供了有关设计决策的一些建议 ASP.NET Core Identity 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-152">This topic doesn't provide details about how to create the repositories or data access classes; it provides some suggestions about design decisions when working with ASP.NET Core Identity.</span></span>
 
-<span data-ttu-id="c6c85-153">设计自定义存储提供程序的数据访问层时，有很多自由。</span><span class="sxs-lookup"><span data-stu-id="c6c85-153">You have a lot of freedom when designing the data access layer for a customized store provider.</span></span> <span data-ttu-id="c6c85-154">你只需为你打算在应用程序中使用的功能创建持久性机制。</span><span class="sxs-lookup"><span data-stu-id="c6c85-154">You only need to create persistence mechanisms for features that you intend to use in your app.</span></span> <span data-ttu-id="c6c85-155">例如，如果你未在应用中使用角色，则无需为角色或用户角色关联创建存储。</span><span class="sxs-lookup"><span data-stu-id="c6c85-155">For example, if you are not using roles in your app, you don't need to create storage for roles or user role associations.</span></span> <span data-ttu-id="c6c85-156">你的技术和现有基础结构可能需要与的默认实现非常不同的结构 :::no-loc(ASP.NET Core Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-156">Your technology and existing infrastructure may require a structure that's very different from the default implementation of :::no-loc(ASP.NET Core Identity):::.</span></span> <span data-ttu-id="c6c85-157">在数据访问层中，提供用于处理存储实现结构的逻辑。</span><span class="sxs-lookup"><span data-stu-id="c6c85-157">In your data access layer, you provide the logic to work with the structure of your storage implementation.</span></span>
+<span data-ttu-id="c6c85-153">设计自定义存储提供程序的数据访问层时，有很多自由。</span><span class="sxs-lookup"><span data-stu-id="c6c85-153">You have a lot of freedom when designing the data access layer for a customized store provider.</span></span> <span data-ttu-id="c6c85-154">你只需为你打算在应用程序中使用的功能创建持久性机制。</span><span class="sxs-lookup"><span data-stu-id="c6c85-154">You only need to create persistence mechanisms for features that you intend to use in your app.</span></span> <span data-ttu-id="c6c85-155">例如，如果你未在应用中使用角色，则无需为角色或用户角色关联创建存储。</span><span class="sxs-lookup"><span data-stu-id="c6c85-155">For example, if you are not using roles in your app, you don't need to create storage for roles or user role associations.</span></span> <span data-ttu-id="c6c85-156">你的技术和现有基础结构可能需要与的默认实现非常不同的结构 ASP.NET Core Identity 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-156">Your technology and existing infrastructure may require a structure that's very different from the default implementation of ASP.NET Core Identity.</span></span> <span data-ttu-id="c6c85-157">在数据访问层中，提供用于处理存储实现结构的逻辑。</span><span class="sxs-lookup"><span data-stu-id="c6c85-157">In your data access layer, you provide the logic to work with the structure of your storage implementation.</span></span>
 
-<span data-ttu-id="c6c85-158">数据访问层提供了将数据保存 :::no-loc(ASP.NET Core Identity)::: 到数据源的逻辑。</span><span class="sxs-lookup"><span data-stu-id="c6c85-158">The data access layer provides the logic to save the data from :::no-loc(ASP.NET Core Identity)::: to a data source.</span></span> <span data-ttu-id="c6c85-159">自定义存储提供程序的数据访问层可能包含以下类来存储用户和角色信息。</span><span class="sxs-lookup"><span data-stu-id="c6c85-159">The data access layer for your customized storage provider might include the following classes to store user and role information.</span></span>
+<span data-ttu-id="c6c85-158">数据访问层提供了将数据保存 ASP.NET Core Identity 到数据源的逻辑。</span><span class="sxs-lookup"><span data-stu-id="c6c85-158">The data access layer provides the logic to save the data from ASP.NET Core Identity to a data source.</span></span> <span data-ttu-id="c6c85-159">自定义存储提供程序的数据访问层可能包含以下类来存储用户和角色信息。</span><span class="sxs-lookup"><span data-stu-id="c6c85-159">The data access layer for your customized storage provider might include the following classes to store user and role information.</span></span>
 
 ### <a name="context-class"></a><span data-ttu-id="c6c85-160">Context 类</span><span class="sxs-lookup"><span data-stu-id="c6c85-160">Context class</span></span>
 
@@ -121,17 +121,17 @@ dotnet new mvc -au Individual
 
 <span data-ttu-id="c6c85-180">在数据访问类中，提供代码来执行持久性机制的数据操作。</span><span class="sxs-lookup"><span data-stu-id="c6c85-180">In the data access classes, provide code to perform data operations for your persistence mechanism.</span></span> <span data-ttu-id="c6c85-181">例如，在自定义提供程序中，你可能具有以下代码，以便在 *store* 类中创建新用户：</span><span class="sxs-lookup"><span data-stu-id="c6c85-181">For example, within a custom provider, you might have the following code to create a new user in the *store* class:</span></span>
 
-[!code-csharp[](identity-custom-storage-providers/sample/Custom:::no-loc(Identity):::ProviderSample/CustomProvider/CustomUserStore.cs?name=createuser&highlight=7)]
+[!code-csharp[](identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs?name=createuser&highlight=7)]
 
 <span data-ttu-id="c6c85-182">用于创建用户的实现逻辑位于 `_usersTable.CreateAsync` 方法中，如下所示。</span><span class="sxs-lookup"><span data-stu-id="c6c85-182">The implementation logic for creating the user is in the `_usersTable.CreateAsync` method, shown below.</span></span>
 
 ## <a name="customize-the-user-class"></a><span data-ttu-id="c6c85-183">自定义用户类</span><span class="sxs-lookup"><span data-stu-id="c6c85-183">Customize the user class</span></span>
 
-<span data-ttu-id="c6c85-184">实现存储提供程序时，创建一个与[ :::no-loc(Identity)::: 用户类](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)等效的用户类。</span><span class="sxs-lookup"><span data-stu-id="c6c85-184">When implementing a storage provider, create a user class which is equivalent to the [:::no-loc(Identity):::User class](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser).</span></span>
+<span data-ttu-id="c6c85-184">实现存储提供程序时，创建一个与[ Identity 用户类](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)等效的用户类。</span><span class="sxs-lookup"><span data-stu-id="c6c85-184">When implementing a storage provider, create a user class which is equivalent to the [IdentityUser class](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser).</span></span>
 
 <span data-ttu-id="c6c85-185">用户类至少必须包括 `Id` 和 `UserName` 属性。</span><span class="sxs-lookup"><span data-stu-id="c6c85-185">At a minimum, your user class must include an `Id` and a `UserName` property.</span></span>
 
-<span data-ttu-id="c6c85-186">`:::no-loc(Identity):::User`类定义 `UserManager` 执行请求的操作时调用的属性。</span><span class="sxs-lookup"><span data-stu-id="c6c85-186">The `:::no-loc(Identity):::User` class defines the properties that the `UserManager` calls when performing requested operations.</span></span> <span data-ttu-id="c6c85-187">属性的默认类型 `Id` 是字符串，但您可以从继承 `:::no-loc(Identity):::User<TKey, TUserClaim, TUserRole, TUserLogin, TUserToken>` 并指定其他类型。</span><span class="sxs-lookup"><span data-stu-id="c6c85-187">The default type of the `Id` property is a string, but you can inherit from `:::no-loc(Identity):::User<TKey, TUserClaim, TUserRole, TUserLogin, TUserToken>` and specify a different type.</span></span> <span data-ttu-id="c6c85-188">框架需要存储实现来处理数据类型转换。</span><span class="sxs-lookup"><span data-stu-id="c6c85-188">The framework expects the storage implementation to handle data type conversions.</span></span>
+<span data-ttu-id="c6c85-186">`IdentityUser`类定义 `UserManager` 执行请求的操作时调用的属性。</span><span class="sxs-lookup"><span data-stu-id="c6c85-186">The `IdentityUser` class defines the properties that the `UserManager` calls when performing requested operations.</span></span> <span data-ttu-id="c6c85-187">属性的默认类型 `Id` 是字符串，但您可以从继承 `IdentityUser<TKey, TUserClaim, TUserRole, TUserLogin, TUserToken>` 并指定其他类型。</span><span class="sxs-lookup"><span data-stu-id="c6c85-187">The default type of the `Id` property is a string, but you can inherit from `IdentityUser<TKey, TUserClaim, TUserRole, TUserLogin, TUserToken>` and specify a different type.</span></span> <span data-ttu-id="c6c85-188">框架需要存储实现来处理数据类型转换。</span><span class="sxs-lookup"><span data-stu-id="c6c85-188">The framework expects the storage implementation to handle data type conversions.</span></span>
 
 ## <a name="customize-the-user-store"></a><span data-ttu-id="c6c85-189">自定义用户存储</span><span class="sxs-lookup"><span data-stu-id="c6c85-189">Customize the user store</span></span>
 
@@ -150,11 +150,11 @@ dotnet new mvc -au Individual
 * [<span data-ttu-id="c6c85-203">IUserTwoFactorStore</span><span class="sxs-lookup"><span data-stu-id="c6c85-203">IUserTwoFactorStore</span></span>](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1)
 * [<span data-ttu-id="c6c85-204">IUserLockoutStore</span><span class="sxs-lookup"><span data-stu-id="c6c85-204">IUserLockoutStore</span></span>](/dotnet/api/microsoft.aspnetcore.identity.iuserlockoutstore-1)
 
-<span data-ttu-id="c6c85-205">可选接口继承自 `IUserStore<TUser>` 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-205">The optional interfaces inherit from `IUserStore<TUser>`.</span></span> <span data-ttu-id="c6c85-206">可以在 [示例应用](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/Custom:::no-loc(Identity):::ProviderSample/CustomProvider/CustomUserStore.cs)中查看部分实现的示例用户存储。</span><span class="sxs-lookup"><span data-stu-id="c6c85-206">You can see a partially implemented sample user store in the [sample app](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/Custom:::no-loc(Identity):::ProviderSample/CustomProvider/CustomUserStore.cs).</span></span>
+<span data-ttu-id="c6c85-205">可选接口继承自 `IUserStore<TUser>` 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-205">The optional interfaces inherit from `IUserStore<TUser>`.</span></span> <span data-ttu-id="c6c85-206">可以在 [示例应用](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)中查看部分实现的示例用户存储。</span><span class="sxs-lookup"><span data-stu-id="c6c85-206">You can see a partially implemented sample user store in the [sample app](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs).</span></span>
 
 <span data-ttu-id="c6c85-207">在 `UserStore` 类中，可以使用您创建的数据访问类来执行操作。</span><span class="sxs-lookup"><span data-stu-id="c6c85-207">Within the `UserStore` class, you use the data access classes that you created to perform operations.</span></span> <span data-ttu-id="c6c85-208">使用依赖关系注入传入它们。</span><span class="sxs-lookup"><span data-stu-id="c6c85-208">These are passed in using dependency injection.</span></span> <span data-ttu-id="c6c85-209">例如，在使用 Dapper 实现的 SQL Server 中， `UserStore` 类具有方法，该 `CreateAsync` 方法使用的实例 `DapperUsersTable` 插入新记录：</span><span class="sxs-lookup"><span data-stu-id="c6c85-209">For example, in the SQL Server with Dapper implementation, the `UserStore` class has the `CreateAsync` method which uses an instance of `DapperUsersTable` to insert a new record:</span></span>
 
-[!code-csharp[](identity-custom-storage-providers/sample/Custom:::no-loc(Identity):::ProviderSample/CustomProvider/DapperUsersTable.cs?name=createuser&highlight=7)]
+[!code-csharp[](identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/DapperUsersTable.cs?name=createuser&highlight=7)]
 
 ### <a name="interfaces-to-implement-when-customizing-user-store"></a><span data-ttu-id="c6c85-210">自定义用户存储时要实现的接口</span><span class="sxs-lookup"><span data-stu-id="c6c85-210">Interfaces to implement when customizing user store</span></span>
 
@@ -184,20 +184,20 @@ dotnet new mvc -au Individual
 <span data-ttu-id="c6c85-244">只需实现应用程序中所需的接口。</span><span class="sxs-lookup"><span data-stu-id="c6c85-244">You implement only the interfaces that are needed in your app.</span></span> <span data-ttu-id="c6c85-245">例如： 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-245">For example:</span></span>
 
 ```csharp
-public class UserStore : IUserStore<:::no-loc(Identity):::User>,
-                         IUserClaimStore<:::no-loc(Identity):::User>,
-                         IUserLoginStore<:::no-loc(Identity):::User>,
-                         IUserRoleStore<:::no-loc(Identity):::User>,
-                         IUserPasswordStore<:::no-loc(Identity):::User>,
-                         IUserSecurityStampStore<:::no-loc(Identity):::User>
+public class UserStore : IUserStore<IdentityUser>,
+                         IUserClaimStore<IdentityUser>,
+                         IUserLoginStore<IdentityUser>,
+                         IUserRoleStore<IdentityUser>,
+                         IUserPasswordStore<IdentityUser>,
+                         IUserSecurityStampStore<IdentityUser>
 {
     // interface implementations not shown
 }
 ```
 
-### <a name="no-locidentityuserclaim-no-locidentityuserlogin-and-no-locidentityuserrole"></a><span data-ttu-id="c6c85-246">:::no-loc(Identity):::UserClaim、 :::no-loc(Identity)::: UserLogin 和 :::no-loc(Identity)::: UserRole</span><span class="sxs-lookup"><span data-stu-id="c6c85-246">:::no-loc(Identity):::UserClaim, :::no-loc(Identity):::UserLogin, and :::no-loc(Identity):::UserRole</span></span>
+### <a name="no-locidentityuserclaim-no-locidentityuserlogin-and-no-locidentityuserrole"></a><span data-ttu-id="c6c85-246">IdentityUserClaim、 Identity UserLogin 和 Identity UserRole</span><span class="sxs-lookup"><span data-stu-id="c6c85-246">IdentityUserClaim, IdentityUserLogin, and IdentityUserRole</span></span>
 
-<span data-ttu-id="c6c85-247">`Microsoft.AspNet.:::no-loc(Identity):::.EntityFramework`命名空间包含[ :::no-loc(Identity)::: UserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1)、 [ :::no-loc(Identity)::: UserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)和[ :::no-loc(Identity)::: UserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)类的实现。</span><span class="sxs-lookup"><span data-stu-id="c6c85-247">The `Microsoft.AspNet.:::no-loc(Identity):::.EntityFramework` namespace contains implementations of the [:::no-loc(Identity):::UserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1), [:::no-loc(Identity):::UserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin), and [:::no-loc(Identity):::UserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1) classes.</span></span> <span data-ttu-id="c6c85-248">如果使用这些功能，可能需要创建自己版本的这些类并定义应用的属性。</span><span class="sxs-lookup"><span data-stu-id="c6c85-248">If you are using these features, you may want to create your own versions of these classes and define the properties for your app.</span></span> <span data-ttu-id="c6c85-249">但是，在执行基本操作时，如果不将这些实体加载到内存中， (例如添加或删除用户的声明) ，则效率更高。</span><span class="sxs-lookup"><span data-stu-id="c6c85-249">However, sometimes it's more efficient to not load these entities into memory when performing basic operations (such as adding or removing a user's claim).</span></span> <span data-ttu-id="c6c85-250">而后端存储类可以直接对数据源执行这些操作。</span><span class="sxs-lookup"><span data-stu-id="c6c85-250">Instead, the backend store classes can execute these operations directly on the data source.</span></span> <span data-ttu-id="c6c85-251">例如， `UserStore.GetClaimsAsync` 方法可以调用 `userClaimTable.FindByUserId(user.Id)` 方法来对该表直接执行查询，并返回声明列表。</span><span class="sxs-lookup"><span data-stu-id="c6c85-251">For example, the `UserStore.GetClaimsAsync` method can call the `userClaimTable.FindByUserId(user.Id)` method to execute a query on that table directly and return a list of claims.</span></span>
+<span data-ttu-id="c6c85-247">`Microsoft.AspNet.Identity.EntityFramework`命名空间包含[ Identity UserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1)、 [ Identity UserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)和[ Identity UserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)类的实现。</span><span class="sxs-lookup"><span data-stu-id="c6c85-247">The `Microsoft.AspNet.Identity.EntityFramework` namespace contains implementations of the [IdentityUserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1), [IdentityUserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin), and [IdentityUserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1) classes.</span></span> <span data-ttu-id="c6c85-248">如果使用这些功能，可能需要创建自己版本的这些类并定义应用的属性。</span><span class="sxs-lookup"><span data-stu-id="c6c85-248">If you are using these features, you may want to create your own versions of these classes and define the properties for your app.</span></span> <span data-ttu-id="c6c85-249">但是，在执行基本操作时，如果不将这些实体加载到内存中， (例如添加或删除用户的声明) ，则效率更高。</span><span class="sxs-lookup"><span data-stu-id="c6c85-249">However, sometimes it's more efficient to not load these entities into memory when performing basic operations (such as adding or removing a user's claim).</span></span> <span data-ttu-id="c6c85-250">而后端存储类可以直接对数据源执行这些操作。</span><span class="sxs-lookup"><span data-stu-id="c6c85-250">Instead, the backend store classes can execute these operations directly on the data source.</span></span> <span data-ttu-id="c6c85-251">例如， `UserStore.GetClaimsAsync` 方法可以调用 `userClaimTable.FindByUserId(user.Id)` 方法来对该表直接执行查询，并返回声明列表。</span><span class="sxs-lookup"><span data-stu-id="c6c85-251">For example, the `UserStore.GetClaimsAsync` method can call the `userClaimTable.FindByUserId(user.Id)` method to execute a query on that table directly and return a list of claims.</span></span>
 
 ## <a name="customize-the-role-class"></a><span data-ttu-id="c6c85-252">自定义 role 类</span><span class="sxs-lookup"><span data-stu-id="c6c85-252">Customize the role class</span></span>
 
@@ -205,7 +205,7 @@ public class UserStore : IUserStore<:::no-loc(Identity):::User>,
 
 <span data-ttu-id="c6c85-255">下面是一个示例 role 类：</span><span class="sxs-lookup"><span data-stu-id="c6c85-255">The following is an example role class:</span></span>
 
-[!code-csharp[](identity-custom-storage-providers/sample/Custom:::no-loc(Identity):::ProviderSample/CustomProvider/ApplicationRole.cs)]
+[!code-csharp[](identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/ApplicationRole.cs)]
 
 ## <a name="customize-the-role-store"></a><span data-ttu-id="c6c85-256">自定义角色存储</span><span class="sxs-lookup"><span data-stu-id="c6c85-256">Customize the role store</span></span>
 
@@ -220,10 +220,10 @@ public class UserStore : IUserStore<:::no-loc(Identity):::User>,
 
 <span data-ttu-id="c6c85-266">实现存储提供程序后，可将应用程序配置为使用该访问接口。</span><span class="sxs-lookup"><span data-stu-id="c6c85-266">Once you have implemented a storage provider, you configure your app to use it.</span></span> <span data-ttu-id="c6c85-267">如果你的应用程序使用了默认提供程序，请将其替换为你的自定义提供程序。</span><span class="sxs-lookup"><span data-stu-id="c6c85-267">If your app used the default provider, replace it with your custom provider.</span></span>
 
-1. <span data-ttu-id="c6c85-268">删除 `Microsoft.AspNetCore.EntityFramework.:::no-loc(Identity):::` NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="c6c85-268">Remove the `Microsoft.AspNetCore.EntityFramework.:::no-loc(Identity):::` NuGet package.</span></span>
+1. <span data-ttu-id="c6c85-268">删除 `Microsoft.AspNetCore.EntityFramework.Identity` NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="c6c85-268">Remove the `Microsoft.AspNetCore.EntityFramework.Identity` NuGet package.</span></span>
 1. <span data-ttu-id="c6c85-269">如果存储提供程序驻留在单独的项目或包中，请添加对它的引用。</span><span class="sxs-lookup"><span data-stu-id="c6c85-269">If the storage provider resides in a separate project or package, add a reference to it.</span></span>
-1. <span data-ttu-id="c6c85-270">将所有对的引用替换为 `Microsoft.AspNetCore.EntityFramework.:::no-loc(Identity):::` 存储提供程序的命名空间的 using 语句。</span><span class="sxs-lookup"><span data-stu-id="c6c85-270">Replace all references to `Microsoft.AspNetCore.EntityFramework.:::no-loc(Identity):::` with a using statement for the namespace of your storage provider.</span></span>
-1. <span data-ttu-id="c6c85-271">在 `ConfigureServices` 方法中，将 `Add:::no-loc(Identity):::` 方法更改为使用您的自定义类型。</span><span class="sxs-lookup"><span data-stu-id="c6c85-271">In the `ConfigureServices` method, change the `Add:::no-loc(Identity):::` method to use your custom types.</span></span> <span data-ttu-id="c6c85-272">出于此目的，你可以创建自己的扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c6c85-272">You can create your own extension methods for this purpose.</span></span> <span data-ttu-id="c6c85-273">有关示例，请参阅[ :::no-loc(Identity)::: ServiceCollectionExtensions](https://github.com/aspnet/:::no-loc(Identity):::/blob/rel/1.1.0/src/Microsoft.AspNetCore.:::no-loc(Identity):::/:::no-loc(Identity):::ServiceCollectionExtensions.cs) 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-273">See [:::no-loc(Identity):::ServiceCollectionExtensions](https://github.com/aspnet/:::no-loc(Identity):::/blob/rel/1.1.0/src/Microsoft.AspNetCore.:::no-loc(Identity):::/:::no-loc(Identity):::ServiceCollectionExtensions.cs) for an example.</span></span>
+1. <span data-ttu-id="c6c85-270">将所有对的引用替换为 `Microsoft.AspNetCore.EntityFramework.Identity` 存储提供程序的命名空间的 using 语句。</span><span class="sxs-lookup"><span data-stu-id="c6c85-270">Replace all references to `Microsoft.AspNetCore.EntityFramework.Identity` with a using statement for the namespace of your storage provider.</span></span>
+1. <span data-ttu-id="c6c85-271">在 `ConfigureServices` 方法中，将 `AddIdentity` 方法更改为使用您的自定义类型。</span><span class="sxs-lookup"><span data-stu-id="c6c85-271">In the `ConfigureServices` method, change the `AddIdentity` method to use your custom types.</span></span> <span data-ttu-id="c6c85-272">出于此目的，你可以创建自己的扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c6c85-272">You can create your own extension methods for this purpose.</span></span> <span data-ttu-id="c6c85-273">有关示例，请参阅[ Identity ServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) 。</span><span class="sxs-lookup"><span data-stu-id="c6c85-273">See [IdentityServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) for an example.</span></span>
 1. <span data-ttu-id="c6c85-274">如果使用的是角色，请更新 `RoleManager` 以使用 `RoleStore` 类。</span><span class="sxs-lookup"><span data-stu-id="c6c85-274">If you are using Roles, update the `RoleManager` to use your `RoleStore` class.</span></span>
 1. <span data-ttu-id="c6c85-275">更新应用程序配置的连接字符串和凭据。</span><span class="sxs-lookup"><span data-stu-id="c6c85-275">Update the connection string and credentials to your app's configuration.</span></span>
 
@@ -233,10 +233,10 @@ public class UserStore : IUserStore<:::no-loc(Identity):::User>,
 public void ConfigureServices(IServiceCollection services)
 {
     // Add identity types
-    services.Add:::no-loc(Identity):::<ApplicationUser, ApplicationRole>()
+    services.AddIdentity<ApplicationUser, ApplicationRole>()
         .AddDefaultTokenProviders();
 
-    // :::no-loc(Identity)::: Services
+    // Identity Services
     services.AddTransient<IUserStore<ApplicationUser>, CustomUserStore>();
     services.AddTransient<IRoleStore<ApplicationRole>, CustomRoleStore>();
     string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -249,5 +249,5 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="references"></a><span data-ttu-id="c6c85-277">参考</span><span class="sxs-lookup"><span data-stu-id="c6c85-277">References</span></span>
 
-* [<span data-ttu-id="c6c85-278">ASP.NET 4.x 的自定义存储提供程序 :::no-loc(Identity):::</span><span class="sxs-lookup"><span data-stu-id="c6c85-278">Custom Storage Providers for ASP.NET 4.x :::no-loc(Identity):::</span></span>](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
-* <span data-ttu-id="c6c85-279">[:::no-loc(ASP.NET Core Identity):::](https://github.com/dotnet/AspNetCore/tree/master/src/:::no-loc(Identity):::)：此存储库包含社区维护的存储提供程序的链接。</span><span class="sxs-lookup"><span data-stu-id="c6c85-279">[:::no-loc(ASP.NET Core Identity):::](https://github.com/dotnet/AspNetCore/tree/master/src/:::no-loc(Identity):::): This repository includes links to community maintained store providers.</span></span>
+* [<span data-ttu-id="c6c85-278">ASP.NET 4.x 的自定义存储提供程序 Identity</span><span class="sxs-lookup"><span data-stu-id="c6c85-278">Custom Storage Providers for ASP.NET 4.x Identity</span></span>](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
+* <span data-ttu-id="c6c85-279">[ASP.NET Core Identity](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)：此存储库包含社区维护的存储提供程序的链接。</span><span class="sxs-lookup"><span data-stu-id="c6c85-279">[ASP.NET Core Identity](https://github.com/dotnet/AspNetCore/tree/master/src/Identity): This repository includes links to community maintained store providers.</span></span>

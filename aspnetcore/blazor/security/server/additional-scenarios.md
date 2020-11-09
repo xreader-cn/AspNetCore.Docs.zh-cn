@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor Server)::: 其他安全方案'
+title: 'ASP.NET Core Blazor Server 其他安全方案'
 author: guardrex
-description: 了解如何为其他安全方案配置 :::no-loc(Blazor Server):::。
+description: 了解如何为其他安全方案配置 Blazor Server。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/06/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/server/additional-scenarios
 ms.openlocfilehash: 56b226f8e4a10aa996b0344f10c76dad2ae32b51
 ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
@@ -26,21 +26,21 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/03/2020
 ms.locfileid: "93234426"
 ---
-# <a name="aspnet-core-no-locblazor-server-additional-security-scenarios"></a><span data-ttu-id="29c4c-103">ASP.NET Core :::no-loc(Blazor Server)::: 其他安全方案</span><span class="sxs-lookup"><span data-stu-id="29c4c-103">ASP.NET Core :::no-loc(Blazor Server)::: additional security scenarios</span></span>
+# <a name="aspnet-core-no-locblazor-server-additional-security-scenarios"></a><span data-ttu-id="29c4c-103">ASP.NET Core Blazor Server 其他安全方案</span><span class="sxs-lookup"><span data-stu-id="29c4c-103">ASP.NET Core Blazor Server additional security scenarios</span></span>
 
 <span data-ttu-id="29c4c-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn)</span><span class="sxs-lookup"><span data-stu-id="29c4c-104">By [Javier Calvarro Nelson](https://github.com/javiercn)</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
-<h2 id="pass-tokens-to-a-blazor-server-app"><span data-ttu-id="29c4c-105">将令牌传递到 :::no-loc(Blazor Server)::: 应用</span><span class="sxs-lookup"><span data-stu-id="29c4c-105">Pass tokens to a :::no-loc(Blazor Server)::: app</span></span></h2>
+<h2 id="pass-tokens-to-a-blazor-server-app"><span data-ttu-id="29c4c-105">将令牌传递到 Blazor Server 应用</span><span class="sxs-lookup"><span data-stu-id="29c4c-105">Pass tokens to a Blazor Server app</span></span></h2>
 
-<span data-ttu-id="29c4c-106">可以使用本节中介绍的方法将 :::no-loc(Blazor Server)::: 应用中 :::no-loc(Razor)::: 组件外部可用的令牌传递给组件。</span><span class="sxs-lookup"><span data-stu-id="29c4c-106">Tokens available outside of the :::no-loc(Razor)::: components in a :::no-loc(Blazor Server)::: app can be passed to components with the approach described in this section.</span></span>
+<span data-ttu-id="29c4c-106">可以使用本节中介绍的方法将 Blazor Server 应用中 Razor 组件外部可用的令牌传递给组件。</span><span class="sxs-lookup"><span data-stu-id="29c4c-106">Tokens available outside of the Razor components in a Blazor Server app can be passed to components with the approach described in this section.</span></span>
 
-<span data-ttu-id="29c4c-107">与对常规 :::no-loc(Razor)::: Pages 或 MVC 应用进行身份验证一样，对 :::no-loc(Blazor Server)::: 应用进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="29c4c-107">Authenticate the :::no-loc(Blazor Server)::: app as you would with a regular :::no-loc(Razor)::: Pages or MVC app.</span></span> <span data-ttu-id="29c4c-108">预配令牌并将其保存到身份验证 :::no-loc(cookie):::。</span><span class="sxs-lookup"><span data-stu-id="29c4c-108">Provision and save the tokens to the authentication :::no-loc(cookie):::.</span></span> <span data-ttu-id="29c4c-109">例如：</span><span class="sxs-lookup"><span data-stu-id="29c4c-109">For example:</span></span>
+<span data-ttu-id="29c4c-107">与对常规 Razor Pages 或 MVC 应用进行身份验证一样，对 Blazor Server 应用进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="29c4c-107">Authenticate the Blazor Server app as you would with a regular Razor Pages or MVC app.</span></span> <span data-ttu-id="29c4c-108">预配令牌并将其保存到身份验证 cookie。</span><span class="sxs-lookup"><span data-stu-id="29c4c-108">Provision and save the tokens to the authentication cookie.</span></span> <span data-ttu-id="29c4c-109">例如：</span><span class="sxs-lookup"><span data-stu-id="29c4c-109">For example:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.:::no-loc(Identity):::Model.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 ...
 
@@ -55,7 +55,7 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =
 
 <span data-ttu-id="29c4c-110">可选择使用 `options.Scope.Add("{SCOPE}");` 添加其他作用域，其中占位符 `{SCOPE}` 是要添加的其他作用域。</span><span class="sxs-lookup"><span data-stu-id="29c4c-110">Optionally, additional scopes are added with `options.Scope.Add("{SCOPE}");`, where the placeholder `{SCOPE}` is the additional scope to add.</span></span>
 
-<span data-ttu-id="29c4c-111">定义可在 :::no-loc(Blazor)::: 应用中使用的作用域令牌提供程序服务，以解析[依赖项注入 (DI)](xref:blazor/fundamentals/dependency-injection) 中的令牌：</span><span class="sxs-lookup"><span data-stu-id="29c4c-111">Define a **scoped** token provider service that can be used within the :::no-loc(Blazor)::: app to resolve the tokens from [dependency injection (DI)](xref:blazor/fundamentals/dependency-injection):</span></span>
+<span data-ttu-id="29c4c-111">定义可在 Blazor 应用中使用的作用域令牌提供程序服务，以解析[依赖项注入 (DI)](xref:blazor/fundamentals/dependency-injection) 中的令牌：</span><span class="sxs-lookup"><span data-stu-id="29c4c-111">Define a **scoped** token provider service that can be used within the Blazor app to resolve the tokens from [dependency injection (DI)](xref:blazor/fundamentals/dependency-injection):</span></span>
 
 ```csharp
 public class TokenProvider
@@ -162,10 +162,10 @@ public class WeatherForecastService
 
 <h2 id="set-the-authentication-scheme"><span data-ttu-id="29c4c-118">设置身份验证方案</span><span class="sxs-lookup"><span data-stu-id="29c4c-118">Set the authentication scheme</span></span></h2>
 
-<span data-ttu-id="29c4c-119">对于使用多个身份验证中间件并因此具有多个身份验证方案的应用，可以在 `Startup.Configure` 的终结点配置中显式设置 :::no-loc(Blazor)::: 使用的方案。</span><span class="sxs-lookup"><span data-stu-id="29c4c-119">For an app that uses more than one Authentication Middleware and thus has more than one authentication scheme, the scheme that :::no-loc(Blazor)::: uses can be explicitly set in the endpoint configuration of `Startup.Configure`.</span></span> <span data-ttu-id="29c4c-120">下面的示例设置 Azure Active Directory 方案：</span><span class="sxs-lookup"><span data-stu-id="29c4c-120">The following example sets the Azure Active Directory scheme:</span></span>
+<span data-ttu-id="29c4c-119">对于使用多个身份验证中间件并因此具有多个身份验证方案的应用，可以在 `Startup.Configure` 的终结点配置中显式设置 Blazor 使用的方案。</span><span class="sxs-lookup"><span data-stu-id="29c4c-119">For an app that uses more than one Authentication Middleware and thus has more than one authentication scheme, the scheme that Blazor uses can be explicitly set in the endpoint configuration of `Startup.Configure`.</span></span> <span data-ttu-id="29c4c-120">下面的示例设置 Azure Active Directory 方案：</span><span class="sxs-lookup"><span data-stu-id="29c4c-120">The following example sets the Azure Active Directory scheme:</span></span>
 
 ```csharp
-endpoints.Map:::no-loc(Blazor):::Hub().RequireAuthorization(
+endpoints.MapBlazorHub().RequireAuthorization(
     new AuthorizeAttribute 
     {
         AuthenticationSchemes = AzureADDefaults.AuthenticationScheme
@@ -176,15 +176,15 @@ endpoints.Map:::no-loc(Blazor):::Hub().RequireAuthorization(
 
 ::: moniker range="< aspnetcore-5.0"
 
-<h2 id="pass-tokens-to-a-blazor-server-app"><span data-ttu-id="29c4c-121">将令牌传递到 :::no-loc(Blazor Server)::: 应用</span><span class="sxs-lookup"><span data-stu-id="29c4c-121">Pass tokens to a :::no-loc(Blazor Server)::: app</span></span></h2>
+<h2 id="pass-tokens-to-a-blazor-server-app"><span data-ttu-id="29c4c-121">将令牌传递到 Blazor Server 应用</span><span class="sxs-lookup"><span data-stu-id="29c4c-121">Pass tokens to a Blazor Server app</span></span></h2>
 
-<span data-ttu-id="29c4c-122">可以使用本节中介绍的方法将 :::no-loc(Blazor Server)::: 应用中 :::no-loc(Razor)::: 组件外部可用的令牌传递给组件。</span><span class="sxs-lookup"><span data-stu-id="29c4c-122">Tokens available outside of the :::no-loc(Razor)::: components in a :::no-loc(Blazor Server)::: app can be passed to components with the approach described in this section.</span></span>
+<span data-ttu-id="29c4c-122">可以使用本节中介绍的方法将 Blazor Server 应用中 Razor 组件外部可用的令牌传递给组件。</span><span class="sxs-lookup"><span data-stu-id="29c4c-122">Tokens available outside of the Razor components in a Blazor Server app can be passed to components with the approach described in this section.</span></span>
 
-<span data-ttu-id="29c4c-123">与对常规 :::no-loc(Razor)::: Pages 或 MVC 应用进行身份验证一样，对 :::no-loc(Blazor Server)::: 应用进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="29c4c-123">Authenticate the :::no-loc(Blazor Server)::: app as you would with a regular :::no-loc(Razor)::: Pages or MVC app.</span></span> <span data-ttu-id="29c4c-124">预配令牌并将其保存到身份验证 :::no-loc(cookie):::。</span><span class="sxs-lookup"><span data-stu-id="29c4c-124">Provision and save the tokens to the authentication :::no-loc(cookie):::.</span></span> <span data-ttu-id="29c4c-125">例如：</span><span class="sxs-lookup"><span data-stu-id="29c4c-125">For example:</span></span>
+<span data-ttu-id="29c4c-123">与对常规 Razor Pages 或 MVC 应用进行身份验证一样，对 Blazor Server 应用进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="29c4c-123">Authenticate the Blazor Server app as you would with a regular Razor Pages or MVC app.</span></span> <span data-ttu-id="29c4c-124">预配令牌并将其保存到身份验证 cookie。</span><span class="sxs-lookup"><span data-stu-id="29c4c-124">Provision and save the tokens to the authentication cookie.</span></span> <span data-ttu-id="29c4c-125">例如：</span><span class="sxs-lookup"><span data-stu-id="29c4c-125">For example:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.:::no-loc(Identity):::Model.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 ...
 
@@ -215,7 +215,7 @@ public class InitialApplicationState
 }
 ```
 
-<span data-ttu-id="29c4c-130">定义可在 :::no-loc(Blazor)::: 应用中使用的作用域令牌提供程序服务，以解析[依赖项注入 (DI)](xref:blazor/fundamentals/dependency-injection) 中的令牌：</span><span class="sxs-lookup"><span data-stu-id="29c4c-130">Define a **scoped** token provider service that can be used within the :::no-loc(Blazor)::: app to resolve the tokens from [dependency injection (DI)](xref:blazor/fundamentals/dependency-injection):</span></span>
+<span data-ttu-id="29c4c-130">定义可在 Blazor 应用中使用的作用域令牌提供程序服务，以解析[依赖项注入 (DI)](xref:blazor/fundamentals/dependency-injection) 中的令牌：</span><span class="sxs-lookup"><span data-stu-id="29c4c-130">Define a **scoped** token provider service that can be used within the Blazor app to resolve the tokens from [dependency injection (DI)](xref:blazor/fundamentals/dependency-injection):</span></span>
 
 ```csharp
 public class TokenProvider
@@ -314,10 +314,10 @@ public class WeatherForecastService
 
 <h2 id="set-the-authentication-scheme"><span data-ttu-id="29c4c-136">设置身份验证方案</span><span class="sxs-lookup"><span data-stu-id="29c4c-136">Set the authentication scheme</span></span></h2>
 
-<span data-ttu-id="29c4c-137">对于使用多个身份验证中间件并因此具有多个身份验证方案的应用，可以在 `Startup.Configure` 的终结点配置中显式设置 :::no-loc(Blazor)::: 使用的方案。</span><span class="sxs-lookup"><span data-stu-id="29c4c-137">For an app that uses more than one Authentication Middleware and thus has more than one authentication scheme, the scheme that :::no-loc(Blazor)::: uses can be explicitly set in the endpoint configuration of `Startup.Configure`.</span></span> <span data-ttu-id="29c4c-138">下面的示例设置 Azure Active Directory 方案：</span><span class="sxs-lookup"><span data-stu-id="29c4c-138">The following example sets the Azure Active Directory scheme:</span></span>
+<span data-ttu-id="29c4c-137">对于使用多个身份验证中间件并因此具有多个身份验证方案的应用，可以在 `Startup.Configure` 的终结点配置中显式设置 Blazor 使用的方案。</span><span class="sxs-lookup"><span data-stu-id="29c4c-137">For an app that uses more than one Authentication Middleware and thus has more than one authentication scheme, the scheme that Blazor uses can be explicitly set in the endpoint configuration of `Startup.Configure`.</span></span> <span data-ttu-id="29c4c-138">下面的示例设置 Azure Active Directory 方案：</span><span class="sxs-lookup"><span data-stu-id="29c4c-138">The following example sets the Azure Active Directory scheme:</span></span>
 
 ```csharp
-endpoints.Map:::no-loc(Blazor):::Hub().RequireAuthorization(
+endpoints.MapBlazorHub().RequireAuthorization(
     new AuthorizeAttribute 
     {
         AuthenticationSchemes = AzureADDefaults.AuthenticationScheme
@@ -326,7 +326,7 @@ endpoints.Map:::no-loc(Blazor):::Hub().RequireAuthorization(
 
 ## <a name="use-openid-connect-oidc-v20-endpoints"></a><span data-ttu-id="29c4c-139">使用 OpenID Connect (OIDC) v2.0 终结点</span><span class="sxs-lookup"><span data-stu-id="29c4c-139">Use OpenID Connect (OIDC) v2.0 endpoints</span></span>
 
-<span data-ttu-id="29c4c-140">在 5.0 之前的 ASP.NET Core 版本中，身份验证库和 :::no-loc(Blazor)::: 模板使用 OpenID Connect (OIDC) v1.0 终结点。</span><span class="sxs-lookup"><span data-stu-id="29c4c-140">In versions of ASP.NET Core prior to 5.0, the authentication library and :::no-loc(Blazor)::: templates use OpenID Connect (OIDC) v1.0 endpoints.</span></span> <span data-ttu-id="29c4c-141">若要在 5.0 以前的版本中使用 v2.0 终结点，请在 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> 中配置 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> 选项：</span><span class="sxs-lookup"><span data-stu-id="29c4c-141">To use a v2.0 endpoint with versions of ASP.NET Core prior to 5.0, configure the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> option in the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions>:</span></span>
+<span data-ttu-id="29c4c-140">在 5.0 之前的 ASP.NET Core 版本中，身份验证库和 Blazor 模板使用 OpenID Connect (OIDC) v1.0 终结点。</span><span class="sxs-lookup"><span data-stu-id="29c4c-140">In versions of ASP.NET Core prior to 5.0, the authentication library and Blazor templates use OpenID Connect (OIDC) v1.0 endpoints.</span></span> <span data-ttu-id="29c4c-141">若要在 5.0 以前的版本中使用 v2.0 终结点，请在 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> 中配置 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> 选项：</span><span class="sxs-lookup"><span data-stu-id="29c4c-141">To use a v2.0 endpoint with versions of ASP.NET Core prior to 5.0, configure the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> option in the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions>:</span></span>
 
 ```csharp
 services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, 
@@ -336,7 +336,7 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme,
     }
 ```
 
-<span data-ttu-id="29c4c-142">也可以在应用设置 (`:::no-loc(appsettings.json):::`) 文件中进行设置：</span><span class="sxs-lookup"><span data-stu-id="29c4c-142">Alternatively, the setting can be made in the app settings (`:::no-loc(appsettings.json):::`) file:</span></span>
+<span data-ttu-id="29c4c-142">也可以在应用设置 (`appsettings.json`) 文件中进行设置：</span><span class="sxs-lookup"><span data-stu-id="29c4c-142">Alternatively, the setting can be made in the app settings (`appsettings.json`) file:</span></span>
 
 ```json
 {
@@ -371,7 +371,7 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme,
 * <span data-ttu-id="29c4c-153">所有作用域都将应用 ID URI 用作前缀，v2.0 终结点以应用 ID URI 为受众发出访问令牌。</span><span class="sxs-lookup"><span data-stu-id="29c4c-153">All scopes include the App ID URI as a prefix, and v2.0 endpoints emit access tokens with the App ID URI as the audience.</span></span>
 * <span data-ttu-id="29c4c-154">使用 V2.0 终结点时，服务器 API 中配置的客户端 ID 会从 API 应用程序 ID（客户端 ID）更改为应用 ID URI。</span><span class="sxs-lookup"><span data-stu-id="29c4c-154">When using V2.0 endpoints, the client ID configured in the Server API changes from the API Application ID (Client ID) to the App ID URI.</span></span>
 
-<span data-ttu-id="29c4c-155">`:::no-loc(appsettings.json):::`:</span><span class="sxs-lookup"><span data-stu-id="29c4c-155">`:::no-loc(appsettings.json):::`:</span></span>
+<span data-ttu-id="29c4c-155">`appsettings.json`:</span><span class="sxs-lookup"><span data-stu-id="29c4c-155">`appsettings.json`:</span></span>
 
 ```json
 {

@@ -5,17 +5,17 @@ description: 了解如何通过将角色传递到授权属性来限制 ASP.NET C
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authorization/roles
 ms.openlocfilehash: 0a2e62afebbcda9710ef82857c87cae8af0375fe
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -102,7 +102,7 @@ public class ControlPanelController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="f4105-117">对于 :::no-loc(Razor)::: 页面， `AuthorizeAttribute` 可以通过以下任一方法来应用：</span><span class="sxs-lookup"><span data-stu-id="f4105-117">For :::no-loc(Razor)::: Pages, the `AuthorizeAttribute` can be applied by either:</span></span>
+<span data-ttu-id="f4105-117">对于 Razor 页面， `AuthorizeAttribute` 可以通过以下任一方法来应用：</span><span class="sxs-lookup"><span data-stu-id="f4105-117">For Razor Pages, the `AuthorizeAttribute` can be applied by either:</span></span>
 
 * <span data-ttu-id="f4105-118">使用 [约定](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)，或</span><span class="sxs-lookup"><span data-stu-id="f4105-118">Using a [convention](xref:razor-pages/razor-pages-conventions#page-model-action-conventions), or</span></span>
 * <span data-ttu-id="f4105-119">将应用 `AuthorizeAttribute` 到 `PageModel` 实例：</span><span class="sxs-lookup"><span data-stu-id="f4105-119">Applying the `AuthorizeAttribute` to the `PageModel` instance:</span></span>
@@ -132,7 +132,7 @@ public class UpdateModel : PageModel
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddControllersWithViews();
-    services.Add:::no-loc(Razor):::Pages();
+    services.AddRazorPages();
 
     services.AddAuthorization(options =>
     {
@@ -177,9 +177,9 @@ options.AddPolicy("ElevatedRights", policy =>
 
 <span data-ttu-id="f4105-126">此示例授权属于或角色的用户 `Administrator` `PowerUser` `BackupAdministrator` 。</span><span class="sxs-lookup"><span data-stu-id="f4105-126">This example authorizes users who belong to the `Administrator`, `PowerUser` or `BackupAdministrator` roles.</span></span>
 
-### <a name="add-role-services-to-no-locidentity"></a><span data-ttu-id="f4105-127">将角色服务添加到 :::no-loc(Identity):::</span><span class="sxs-lookup"><span data-stu-id="f4105-127">Add Role services to :::no-loc(Identity):::</span></span>
+### <a name="add-role-services-to-no-locidentity"></a><span data-ttu-id="f4105-127">将角色服务添加到 Identity</span><span class="sxs-lookup"><span data-stu-id="f4105-127">Add Role services to Identity</span></span>
 
-<span data-ttu-id="f4105-128">追加 [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_:::no-loc(Identity):::_:::no-loc(Identity):::Builder_AddRoles__1) 以添加角色服务：</span><span class="sxs-lookup"><span data-stu-id="f4105-128">Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_:::no-loc(Identity):::_:::no-loc(Identity):::Builder_AddRoles__1) to add Role services:</span></span>
+<span data-ttu-id="f4105-128">追加 [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) 以添加角色服务：</span><span class="sxs-lookup"><span data-stu-id="f4105-128">Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](roles/samples/3_0/Startup.cs?name=snippet&highlight=7)]

@@ -6,17 +6,17 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/16/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authentication/ws-federation
 ms.openlocfilehash: ed78923a2bdd1ed683a72c0a6f34337a38350035
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -63,7 +63,7 @@ ms.locfileid: "93053366"
 
 * <span data-ttu-id="05670-133">在向导的其余部分中单击 " **下一步** "，然后 **关闭** 。</span><span class="sxs-lookup"><span data-stu-id="05670-133">Click **Next** through the rest of the wizard and **Close** at the end.</span></span>
 
-* <span data-ttu-id="05670-134">:::no-loc(ASP.NET Core Identity)::: 需要 **名称 ID** 声明。</span><span class="sxs-lookup"><span data-stu-id="05670-134">:::no-loc(ASP.NET Core Identity)::: requires a **Name ID** claim.</span></span> <span data-ttu-id="05670-135">从 " **编辑声明规则** " 对话框中添加一个：</span><span class="sxs-lookup"><span data-stu-id="05670-135">Add one from the **Edit Claim Rules** dialog:</span></span>
+* <span data-ttu-id="05670-134">ASP.NET Core Identity 需要 **名称 ID** 声明。</span><span class="sxs-lookup"><span data-stu-id="05670-134">ASP.NET Core Identity requires a **Name ID** claim.</span></span> <span data-ttu-id="05670-135">从 " **编辑声明规则** " 对话框中添加一个：</span><span class="sxs-lookup"><span data-stu-id="05670-135">Add one from the **Edit Claim Rules** dialog:</span></span>
 
 ![编辑声明规则](ws-federation/_static/EditClaimRules.png)
 
@@ -92,9 +92,9 @@ ms.locfileid: "93053366"
 
 ![Azure Active Directory：应用注册属性](ws-federation/_static/AadAppIdUri.png)
 
-## <a name="use-ws-federation-without-no-locaspnet-core-identity"></a><span data-ttu-id="05670-158">使用 WS-Federation 而不 :::no-loc(ASP.NET Core Identity):::</span><span class="sxs-lookup"><span data-stu-id="05670-158">Use WS-Federation without :::no-loc(ASP.NET Core Identity):::</span></span>
+## <a name="use-ws-federation-without-no-locaspnet-core-identity"></a><span data-ttu-id="05670-158">使用 WS-Federation 而不 ASP.NET Core Identity</span><span class="sxs-lookup"><span data-stu-id="05670-158">Use WS-Federation without ASP.NET Core Identity</span></span>
 
-<span data-ttu-id="05670-159">WS-Federation 中间件可以在不使用的情况下使用 :::no-loc(Identity)::: 。</span><span class="sxs-lookup"><span data-stu-id="05670-159">The WS-Federation middleware can be used without :::no-loc(Identity):::.</span></span> <span data-ttu-id="05670-160">例如： 。</span><span class="sxs-lookup"><span data-stu-id="05670-160">For example:</span></span>
+<span data-ttu-id="05670-159">WS-Federation 中间件可以在不使用的情况下使用 Identity 。</span><span class="sxs-lookup"><span data-stu-id="05670-159">The WS-Federation middleware can be used without Identity.</span></span> <span data-ttu-id="05670-160">例如： 。</span><span class="sxs-lookup"><span data-stu-id="05670-160">For example:</span></span>
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](ws-federation/samples/StartupNon31.cs?name=snippet)]
 ::: moniker-end
@@ -103,7 +103,7 @@ ms.locfileid: "93053366"
 [!code-csharp[](ws-federation/samples/StartupNon21.cs?name=snippet)]
 ::: moniker-end
 
-## <a name="add-ws-federation-as-an-external-login-provider-for-no-locaspnet-core-identity"></a><span data-ttu-id="05670-161">添加 WS-Federation 作为的外部登录提供程序 :::no-loc(ASP.NET Core Identity):::</span><span class="sxs-lookup"><span data-stu-id="05670-161">Add WS-Federation as an external login provider for :::no-loc(ASP.NET Core Identity):::</span></span>
+## <a name="add-ws-federation-as-an-external-login-provider-for-no-locaspnet-core-identity"></a><span data-ttu-id="05670-161">添加 WS-Federation 作为的外部登录提供程序 ASP.NET Core Identity</span><span class="sxs-lookup"><span data-stu-id="05670-161">Add WS-Federation as an external login provider for ASP.NET Core Identity</span></span>
 
 * <span data-ttu-id="05670-162">将 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation) 上的依赖项添加到项目。</span><span class="sxs-lookup"><span data-stu-id="05670-162">Add a dependency on [Microsoft.AspNetCore.Authentication.WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation) to the project.</span></span>
 * <span data-ttu-id="05670-163">将 WS-Federation 添加到 `Startup.ConfigureServices` ：</span><span class="sxs-lookup"><span data-stu-id="05670-163">Add WS-Federation to `Startup.ConfigureServices`:</span></span>

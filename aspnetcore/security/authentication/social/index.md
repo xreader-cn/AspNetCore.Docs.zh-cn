@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authentication/social/index
 ms.openlocfilehash: 1f7c8cd0716f1ada3517add0d37a09e419f38774
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -69,7 +69,7 @@ ms.locfileid: "93053301"
   dotnet new webapp -o WebApp1 -au Individual
   ```
 
-  * <span data-ttu-id="c3469-128">`dotnet new` 命令在“WebApp1”文件夹中新建 :::no-loc(Razor)::: Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="c3469-128">The `dotnet new` command creates a new :::no-loc(Razor)::: Pages project in the *WebApp1* folder.</span></span>
+  * <span data-ttu-id="c3469-128">`dotnet new` 命令在“WebApp1”文件夹中新建 Razor Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="c3469-128">The `dotnet new` command creates a new Razor Pages project in the *WebApp1* folder.</span></span>
   * <span data-ttu-id="c3469-129">`-au Individual` 创建用于个人身份验证的代码。</span><span class="sxs-lookup"><span data-stu-id="c3469-129">`-au Individual` creates the code for Individual authentication.</span></span>
   * <span data-ttu-id="c3469-130">`-uld` 使用 LocalDB，这是 SQL Server Express for Windows 的轻型版本。</span><span class="sxs-lookup"><span data-stu-id="c3469-130">`-uld` uses LocalDB, a lightweight version of SQL Server Express for Windows.</span></span> <span data-ttu-id="c3469-131">省略 `-uld` 以使用 SQLite。</span><span class="sxs-lookup"><span data-stu-id="c3469-131">Omit `-uld` to use SQLite.</span></span>
   * <span data-ttu-id="c3469-132">`code` 命令将在新 Visual Studio Code 实例中打开“WebApp1”文件夹。</span><span class="sxs-lookup"><span data-stu-id="c3469-132">The `code` command opens the *WebApp1* folder in a new instance of Visual Studio Code.</span></span>
@@ -86,7 +86,7 @@ ms.locfileid: "93053301"
 
 ## <a name="use-secretmanager-to-store-tokens-assigned-by-login-providers"></a><span data-ttu-id="c3469-137">使用 SecretManager 存储登录提供程序分配的令牌</span><span class="sxs-lookup"><span data-stu-id="c3469-137">Use SecretManager to store tokens assigned by login providers</span></span>
 
-<span data-ttu-id="c3469-138">社交登录提供程序在注册过程中分配“应用程序 ID”和“应用程序机密”。</span><span class="sxs-lookup"><span data-stu-id="c3469-138">Social login providers assign **Application Id** and **Application Secret** tokens during the registration process.</span></span> <span data-ttu-id="c3469-139">确切的令牌名称因提供程序而异。</span><span class="sxs-lookup"><span data-stu-id="c3469-139">The exact token names vary by provider.</span></span> <span data-ttu-id="c3469-140">这些令牌代表应用用来访问其 API 的凭据。</span><span class="sxs-lookup"><span data-stu-id="c3469-140">These tokens represent the credentials your app uses to access their API.</span></span> <span data-ttu-id="c3469-141">令牌构成“机密”，可利用[机密管理器](xref:security/app-secrets#secret-manager)将其链接到应用配置。</span><span class="sxs-lookup"><span data-stu-id="c3469-141">The tokens constitute the "secrets" that can be linked to your app configuration with the help of [Secret Manager](xref:security/app-secrets#secret-manager).</span></span> <span data-ttu-id="c3469-142">机密管理器是一种在配置文件（例如 :::no-loc(appsettings.json):::）中存储令牌的更安全的替代方法。</span><span class="sxs-lookup"><span data-stu-id="c3469-142">Secret Manager is a more secure alternative to storing the tokens in a configuration file, such as *:::no-loc(appsettings.json):::*.</span></span>
+<span data-ttu-id="c3469-138">社交登录提供程序在注册过程中分配“应用程序 ID”和“应用程序机密”。</span><span class="sxs-lookup"><span data-stu-id="c3469-138">Social login providers assign **Application Id** and **Application Secret** tokens during the registration process.</span></span> <span data-ttu-id="c3469-139">确切的令牌名称因提供程序而异。</span><span class="sxs-lookup"><span data-stu-id="c3469-139">The exact token names vary by provider.</span></span> <span data-ttu-id="c3469-140">这些令牌代表应用用来访问其 API 的凭据。</span><span class="sxs-lookup"><span data-stu-id="c3469-140">These tokens represent the credentials your app uses to access their API.</span></span> <span data-ttu-id="c3469-141">令牌构成“机密”，可利用[机密管理器](xref:security/app-secrets#secret-manager)将其链接到应用配置。</span><span class="sxs-lookup"><span data-stu-id="c3469-141">The tokens constitute the "secrets" that can be linked to your app configuration with the help of [Secret Manager](xref:security/app-secrets#secret-manager).</span></span> <span data-ttu-id="c3469-142">机密管理器是一种在配置文件（例如 appsettings.json）中存储令牌的更安全的替代方法。</span><span class="sxs-lookup"><span data-stu-id="c3469-142">Secret Manager is a more secure alternative to storing the tokens in a configuration file, such as *appsettings.json*.</span></span>
 
 > [!IMPORTANT]
 > <span data-ttu-id="c3469-143">机密管理器仅用于开发目的。</span><span class="sxs-lookup"><span data-stu-id="c3469-143">Secret Manager is for development purposes only.</span></span> <span data-ttu-id="c3469-144">可使用 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。</span><span class="sxs-lookup"><span data-stu-id="c3469-144">You can store and protect Azure test and production secrets with the [Azure Key Vault configuration provider](xref:security/key-vault-configuration).</span></span>

@@ -5,17 +5,17 @@ description: 了解如何在 ASP.NET Core 应用中呈现视图之前，使用�
 ms.author: riande
 ms.date: 07/30/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/views/layout
 ms.openlocfilehash: 502df268e7f5f33acfffccd5ec0bd65267fa12da
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -34,9 +34,9 @@ ms.locfileid: "93060971"
 * <span data-ttu-id="65b9c-108">共享指令。</span><span class="sxs-lookup"><span data-stu-id="65b9c-108">Share directives.</span></span>
 * <span data-ttu-id="65b9c-109">在呈现页面或视图之前运行通用代码。</span><span class="sxs-lookup"><span data-stu-id="65b9c-109">Run common code before rendering pages or views.</span></span>
 
-<span data-ttu-id="65b9c-110">本文档讨论了两种不同方法 ASP.NET Core MVC： :::no-loc(Razor)::: 页面和控制器与视图的布局。</span><span class="sxs-lookup"><span data-stu-id="65b9c-110">This document discusses layouts for the two different approaches to ASP.NET Core MVC: :::no-loc(Razor)::: Pages and controllers with views.</span></span> <span data-ttu-id="65b9c-111">在本主题中，差异很小：</span><span class="sxs-lookup"><span data-stu-id="65b9c-111">For this topic, the differences are minimal:</span></span>
+<span data-ttu-id="65b9c-110">本文档讨论了两种不同方法 ASP.NET Core MVC： Razor 页面和控制器与视图的布局。</span><span class="sxs-lookup"><span data-stu-id="65b9c-110">This document discusses layouts for the two different approaches to ASP.NET Core MVC: Razor Pages and controllers with views.</span></span> <span data-ttu-id="65b9c-111">在本主题中，差异很小：</span><span class="sxs-lookup"><span data-stu-id="65b9c-111">For this topic, the differences are minimal:</span></span>
 
-* <span data-ttu-id="65b9c-112">:::no-loc(Razor)::: 页面位于 " *页面* " 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="65b9c-112">:::no-loc(Razor)::: Pages are in the *Pages* folder.</span></span>
+* <span data-ttu-id="65b9c-112">Razor 页面位于 " *页面* " 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="65b9c-112">Razor Pages are in the *Pages* folder.</span></span>
 * <span data-ttu-id="65b9c-113">具有视图的控制器使用视图的“视图”文件夹。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-113">Controllers with views uses a *Views* folder for views.</span></span>
 
 ## <a name="what-is-a-layout"></a><span data-ttu-id="65b9c-114">什么是布局</span><span class="sxs-lookup"><span data-stu-id="65b9c-114">What is a Layout</span></span>
@@ -49,7 +49,7 @@ ms.locfileid: "93060971"
 
 <span data-ttu-id="65b9c-121">按照约定，ASP.NET Core 应用的默认布局名为 _Layout.cshtml。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-121">By convention, the default layout for an ASP.NET Core app is named *_Layout.cshtml* .</span></span> <span data-ttu-id="65b9c-122">使用模板创建的新 ASP.NET Core 项目的布局文件为：</span><span class="sxs-lookup"><span data-stu-id="65b9c-122">The layout files for new ASP.NET Core projects created with the templates are:</span></span>
 
-* <span data-ttu-id="65b9c-123">:::no-loc(Razor)::: 页面： *pages/Shared/_Layout cshtml*</span><span class="sxs-lookup"><span data-stu-id="65b9c-123">:::no-loc(Razor)::: Pages: *Pages/Shared/_Layout.cshtml*</span></span>
+* <span data-ttu-id="65b9c-123">Razor 页面： *pages/Shared/_Layout cshtml*</span><span class="sxs-lookup"><span data-stu-id="65b9c-123">Razor Pages: *Pages/Shared/_Layout.cshtml*</span></span>
 
   ![解决方案资源管理器中的页面文件夹](layout/_static/rp-web-project-views.png)
 
@@ -65,11 +65,11 @@ ms.locfileid: "93060971"
 
 ## <a name="specifying-a-layout"></a><span data-ttu-id="65b9c-131">指定布局</span><span class="sxs-lookup"><span data-stu-id="65b9c-131">Specifying a Layout</span></span>
 
-<span data-ttu-id="65b9c-132">:::no-loc(Razor)::: 视图具有 `Layout` 属性。</span><span class="sxs-lookup"><span data-stu-id="65b9c-132">:::no-loc(Razor)::: views have a `Layout` property.</span></span> <span data-ttu-id="65b9c-133">单个视图通过设置此属性来指定布局：</span><span class="sxs-lookup"><span data-stu-id="65b9c-133">Individual views specify a layout by setting this property:</span></span>
+<span data-ttu-id="65b9c-132">Razor 视图具有 `Layout` 属性。</span><span class="sxs-lookup"><span data-stu-id="65b9c-132">Razor views have a `Layout` property.</span></span> <span data-ttu-id="65b9c-133">单个视图通过设置此属性来指定布局：</span><span class="sxs-lookup"><span data-stu-id="65b9c-133">Individual views specify a layout by setting this property:</span></span>
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
-<span data-ttu-id="65b9c-134">指定的布局可以使用完整路径（例如 /Pages/Shared/_Layout.cshtml 或 /Views/Shared/_Layout.cshtml）或部分名称（示例：`_Layout`）。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-134">The layout specified can use a full path (for example, */Pages/Shared/_Layout.cshtml* or */Views/Shared/_Layout.cshtml* ) or a partial name (example: `_Layout`).</span></span> <span data-ttu-id="65b9c-135">如果提供了部分名称， :::no-loc(Razor)::: 视图引擎将使用其标准发现进程搜索布局文件。</span><span class="sxs-lookup"><span data-stu-id="65b9c-135">When a partial name is provided, the :::no-loc(Razor)::: view engine searches for the layout file using its standard discovery process.</span></span> <span data-ttu-id="65b9c-136">首先搜索处理程序方法（或控制器）所在的文件夹，然后搜索 Shared 文件夹。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-136">The folder where the handler method (or controller) exists is searched first, followed by the *Shared* folder.</span></span> <span data-ttu-id="65b9c-137">此发现过程与用于发现[分部视图](xref:mvc/views/partial#partial-view-discovery)的过程相同。</span><span class="sxs-lookup"><span data-stu-id="65b9c-137">This discovery process is identical to the process used to discover [partial views](xref:mvc/views/partial#partial-view-discovery).</span></span>
+<span data-ttu-id="65b9c-134">指定的布局可以使用完整路径（例如 /Pages/Shared/_Layout.cshtml 或 /Views/Shared/_Layout.cshtml）或部分名称（示例：`_Layout`）。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-134">The layout specified can use a full path (for example, */Pages/Shared/_Layout.cshtml* or */Views/Shared/_Layout.cshtml* ) or a partial name (example: `_Layout`).</span></span> <span data-ttu-id="65b9c-135">如果提供了部分名称， Razor 视图引擎将使用其标准发现进程搜索布局文件。</span><span class="sxs-lookup"><span data-stu-id="65b9c-135">When a partial name is provided, the Razor view engine searches for the layout file using its standard discovery process.</span></span> <span data-ttu-id="65b9c-136">首先搜索处理程序方法（或控制器）所在的文件夹，然后搜索 Shared 文件夹。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-136">The folder where the handler method (or controller) exists is searched first, followed by the *Shared* folder.</span></span> <span data-ttu-id="65b9c-137">此发现过程与用于发现[分部视图](xref:mvc/views/partial#partial-view-discovery)的过程相同。</span><span class="sxs-lookup"><span data-stu-id="65b9c-137">This discovery process is identical to the process used to discover [partial views](xref:mvc/views/partial#partial-view-discovery).</span></span>
 
 <span data-ttu-id="65b9c-138">默认情况下，每个布局必须调用 `RenderBody`。</span><span class="sxs-lookup"><span data-stu-id="65b9c-138">By default, every layout must call `RenderBody`.</span></span> <span data-ttu-id="65b9c-139">无论在何处调用 `RenderBody`，都会呈现视图的内容。</span><span class="sxs-lookup"><span data-stu-id="65b9c-139">Wherever the call to `RenderBody` is placed, the contents of the view will be rendered.</span></span>
 
@@ -85,9 +85,9 @@ ms.locfileid: "93060971"
 @RenderSection("Scripts", required: false)
 ```
 
-<span data-ttu-id="65b9c-144">如果找不到所需的节，将引发异常。</span><span class="sxs-lookup"><span data-stu-id="65b9c-144">If a required section isn't found, an exception is thrown.</span></span> <span data-ttu-id="65b9c-145">单个视图使用语法指定要在节中呈现的内容 `@section` :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="65b9c-145">Individual views specify the content to be rendered within a section using the `@section` :::no-loc(Razor)::: syntax.</span></span> <span data-ttu-id="65b9c-146">如果某个页面或视图定义了一个部分，则必须呈现该部分（否则将发生错误）。</span><span class="sxs-lookup"><span data-stu-id="65b9c-146">If a page or view defines a section, it must be rendered (or an error will occur).</span></span>
+<span data-ttu-id="65b9c-144">如果找不到所需的节，将引发异常。</span><span class="sxs-lookup"><span data-stu-id="65b9c-144">If a required section isn't found, an exception is thrown.</span></span> <span data-ttu-id="65b9c-145">单个视图使用语法指定要在节中呈现的内容 `@section` Razor 。</span><span class="sxs-lookup"><span data-stu-id="65b9c-145">Individual views specify the content to be rendered within a section using the `@section` Razor syntax.</span></span> <span data-ttu-id="65b9c-146">如果某个页面或视图定义了一个部分，则必须呈现该部分（否则将发生错误）。</span><span class="sxs-lookup"><span data-stu-id="65b9c-146">If a page or view defines a section, it must be rendered (or an error will occur).</span></span>
 
-<span data-ttu-id="65b9c-147">`@section`页面视图中的示例定义 :::no-loc(Razor)::: ：</span><span class="sxs-lookup"><span data-stu-id="65b9c-147">An example `@section` definition in :::no-loc(Razor)::: Pages view:</span></span>
+<span data-ttu-id="65b9c-147">`@section`页面视图中的示例定义 Razor ：</span><span class="sxs-lookup"><span data-stu-id="65b9c-147">An example `@section` definition in Razor Pages view:</span></span>
 
 ```html
 @section Scripts {
@@ -105,23 +105,23 @@ ms.locfileid: "93060971"
 }
 ```
 
-<span data-ttu-id="65b9c-151">上述标记是由[基架 :::no-loc(Identity)::: ](xref:security/authentication/scaffold-identity)生成的。</span><span class="sxs-lookup"><span data-stu-id="65b9c-151">The preceding markup was generated by [scaffolding :::no-loc(Identity):::](xref:security/authentication/scaffold-identity).</span></span>
+<span data-ttu-id="65b9c-151">上述标记是由[基架 Identity ](xref:security/authentication/scaffold-identity)生成的。</span><span class="sxs-lookup"><span data-stu-id="65b9c-151">The preceding markup was generated by [scaffolding Identity](xref:security/authentication/scaffold-identity).</span></span>
 
 <span data-ttu-id="65b9c-152">在页面或视图中定义的部分仅在其即时布局页面中可用。</span><span class="sxs-lookup"><span data-stu-id="65b9c-152">Sections defined in a page or view are available only in its immediate layout page.</span></span> <span data-ttu-id="65b9c-153">不能从部分、视图组件或视图系统的其他部分引用它们。</span><span class="sxs-lookup"><span data-stu-id="65b9c-153">They cannot be referenced from partials, view components, or other parts of the view system.</span></span>
 
 ### <a name="ignoring-sections"></a><span data-ttu-id="65b9c-154">忽略节</span><span class="sxs-lookup"><span data-stu-id="65b9c-154">Ignoring sections</span></span>
 
-<span data-ttu-id="65b9c-155">默认情况下，必须由布局页面呈现内容页中的正文和所有节。</span><span class="sxs-lookup"><span data-stu-id="65b9c-155">By default, the body and all sections in a content page must all be rendered by the layout page.</span></span> <span data-ttu-id="65b9c-156">:::no-loc(Razor):::视图引擎通过跟踪正文和每个部分是否已呈现来强制执行此方法。</span><span class="sxs-lookup"><span data-stu-id="65b9c-156">The :::no-loc(Razor)::: view engine enforces this by tracking whether the body and each section have been rendered.</span></span>
+<span data-ttu-id="65b9c-155">默认情况下，必须由布局页面呈现内容页中的正文和所有节。</span><span class="sxs-lookup"><span data-stu-id="65b9c-155">By default, the body and all sections in a content page must all be rendered by the layout page.</span></span> <span data-ttu-id="65b9c-156">Razor视图引擎通过跟踪正文和每个部分是否已呈现来强制执行此方法。</span><span class="sxs-lookup"><span data-stu-id="65b9c-156">The Razor view engine enforces this by tracking whether the body and each section have been rendered.</span></span>
 
 <span data-ttu-id="65b9c-157">要让视图引擎忽略正文或节，请调用 `IgnoreBody` 和 `IgnoreSection` 方法。</span><span class="sxs-lookup"><span data-stu-id="65b9c-157">To instruct the view engine to ignore the body or sections, call the `IgnoreBody` and `IgnoreSection` methods.</span></span>
 
-<span data-ttu-id="65b9c-158">页面中的正文和每个节 :::no-loc(Razor)::: 必须呈现或忽略。</span><span class="sxs-lookup"><span data-stu-id="65b9c-158">The body and every section in a :::no-loc(Razor)::: page must be either rendered or ignored.</span></span>
+<span data-ttu-id="65b9c-158">页面中的正文和每个节 Razor 必须呈现或忽略。</span><span class="sxs-lookup"><span data-stu-id="65b9c-158">The body and every section in a Razor page must be either rendered or ignored.</span></span>
 
 <a name="viewimports"></a>
 
 ## <a name="importing-shared-directives"></a><span data-ttu-id="65b9c-159">导入共享指令</span><span class="sxs-lookup"><span data-stu-id="65b9c-159">Importing Shared Directives</span></span>
 
-<span data-ttu-id="65b9c-160">视图和页面可以使用 :::no-loc(Razor)::: 指令导入命名空间和使用 [依赖关系注入](dependency-injection.md)。</span><span class="sxs-lookup"><span data-stu-id="65b9c-160">Views and pages can use :::no-loc(Razor)::: directives to import namespaces and use [dependency injection](dependency-injection.md).</span></span> <span data-ttu-id="65b9c-161">由多个视图共享的指令可以在通用 _ViewImports.cshtml 文件中进行指定。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-161">Directives shared by many views may be specified in a common *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="65b9c-162">`_ViewImports` 文件支持以下指令：</span><span class="sxs-lookup"><span data-stu-id="65b9c-162">The `_ViewImports` file supports the following directives:</span></span>
+<span data-ttu-id="65b9c-160">视图和页面可以使用 Razor 指令导入命名空间和使用 [依赖关系注入](dependency-injection.md)。</span><span class="sxs-lookup"><span data-stu-id="65b9c-160">Views and pages can use Razor directives to import namespaces and use [dependency injection](dependency-injection.md).</span></span> <span data-ttu-id="65b9c-161">由多个视图共享的指令可以在通用 _ViewImports.cshtml 文件中进行指定。 </span><span class="sxs-lookup"><span data-stu-id="65b9c-161">Directives shared by many views may be specified in a common *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="65b9c-162">`_ViewImports` 文件支持以下指令：</span><span class="sxs-lookup"><span data-stu-id="65b9c-162">The `_ViewImports` file supports the following directives:</span></span>
 
 * `@addTagHelper`
 * `@removeTagHelper`
@@ -131,7 +131,7 @@ ms.locfileid: "93060971"
 * `@inherits`
 * `@inject`
 
-<span data-ttu-id="65b9c-163">文件不支持其他 :::no-loc(Razor)::: 功能，例如函数和节定义。</span><span class="sxs-lookup"><span data-stu-id="65b9c-163">The file doesn't support other :::no-loc(Razor)::: features, such as functions and section definitions.</span></span>
+<span data-ttu-id="65b9c-163">文件不支持其他 Razor 功能，例如函数和节定义。</span><span class="sxs-lookup"><span data-stu-id="65b9c-163">The file doesn't support other Razor features, such as functions and section definitions.</span></span>
 
 <span data-ttu-id="65b9c-164">示例 `_ViewImports.cshtml` 文件：</span><span class="sxs-lookup"><span data-stu-id="65b9c-164">A sample `_ViewImports.cshtml` file:</span></span>
 

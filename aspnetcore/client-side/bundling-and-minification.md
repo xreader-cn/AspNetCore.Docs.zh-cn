@@ -6,17 +6,17 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/02/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: client-side/bundling-and-minification
 ms.openlocfilehash: 7dd11ceb7a7c01ce1042f50595013b7fe7f1cd5c
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -75,7 +75,7 @@ ms.locfileid: "93054835"
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a><span data-ttu-id="2039b-151">选择捆绑和缩小策略</span><span class="sxs-lookup"><span data-stu-id="2039b-151">Choose a bundling and minification strategy</span></span>
 
-<span data-ttu-id="2039b-152">MVC 和 :::no-loc(Razor)::: Pages 项目模板提供了一种用于捆绑和缩小的解决方案，它们构成 JSON 配置文件。</span><span class="sxs-lookup"><span data-stu-id="2039b-152">The MVC and :::no-loc(Razor)::: Pages project templates provide a solution for bundling and minification consisting of a JSON configuration file.</span></span> <span data-ttu-id="2039b-153">第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。</span><span class="sxs-lookup"><span data-stu-id="2039b-153">Third-party tools, such as the [Grunt](xref:client-side/using-grunt) task runner, accomplish the same tasks with a bit more complexity.</span></span> <span data-ttu-id="2039b-154">开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。</span><span class="sxs-lookup"><span data-stu-id="2039b-154">A third-party tool is a great fit when your development workflow requires processing beyond bundling and minification&mdash;such as linting and image optimization.</span></span> <span data-ttu-id="2039b-155">通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。</span><span class="sxs-lookup"><span data-stu-id="2039b-155">By using design-time bundling and minification, the minified files are created prior to the app's deployment.</span></span> <span data-ttu-id="2039b-156">在部署之前进行捆绑和缩小具有减少服务器负载的优点。</span><span class="sxs-lookup"><span data-stu-id="2039b-156">Bundling and minifying before deployment provides the advantage of reduced server load.</span></span> <span data-ttu-id="2039b-157">但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。</span><span class="sxs-lookup"><span data-stu-id="2039b-157">However, it's important to recognize that design-time bundling and minification increases build complexity and only works with static files.</span></span>
+<span data-ttu-id="2039b-152">MVC 和 Razor Pages 项目模板提供了一种用于捆绑和缩小的解决方案，它们构成 JSON 配置文件。</span><span class="sxs-lookup"><span data-stu-id="2039b-152">The MVC and Razor Pages project templates provide a solution for bundling and minification consisting of a JSON configuration file.</span></span> <span data-ttu-id="2039b-153">第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。</span><span class="sxs-lookup"><span data-stu-id="2039b-153">Third-party tools, such as the [Grunt](xref:client-side/using-grunt) task runner, accomplish the same tasks with a bit more complexity.</span></span> <span data-ttu-id="2039b-154">开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。</span><span class="sxs-lookup"><span data-stu-id="2039b-154">A third-party tool is a great fit when your development workflow requires processing beyond bundling and minification&mdash;such as linting and image optimization.</span></span> <span data-ttu-id="2039b-155">通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。</span><span class="sxs-lookup"><span data-stu-id="2039b-155">By using design-time bundling and minification, the minified files are created prior to the app's deployment.</span></span> <span data-ttu-id="2039b-156">在部署之前进行捆绑和缩小具有减少服务器负载的优点。</span><span class="sxs-lookup"><span data-stu-id="2039b-156">Bundling and minifying before deployment provides the advantage of reduced server load.</span></span> <span data-ttu-id="2039b-157">但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。</span><span class="sxs-lookup"><span data-stu-id="2039b-157">However, it's important to recognize that design-time bundling and minification increases build complexity and only works with static files.</span></span>
 
 ## <a name="configure-bundling-and-minification"></a><span data-ttu-id="2039b-158">配置捆绑和缩小</span><span class="sxs-lookup"><span data-stu-id="2039b-158">Configure bundling and minification</span></span>
 
@@ -84,13 +84,13 @@ ms.locfileid: "93054835"
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="2039b-160">在 ASP.NET Core 2.0 或更早版本中，MVC 和 :::no-loc(Razor)::: Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项：</span><span class="sxs-lookup"><span data-stu-id="2039b-160">In ASP.NET Core 2.0 or earlier, the MVC and :::no-loc(Razor)::: Pages project templates provide a *bundleconfig.json* configuration file that defines the options for each bundle:</span></span>
+<span data-ttu-id="2039b-160">在 ASP.NET Core 2.0 或更早版本中，MVC 和 Razor Pages 项目模板提供了一个 bundleconfig.json 配置文件，该文件定义每个捆绑的选项：</span><span class="sxs-lookup"><span data-stu-id="2039b-160">In ASP.NET Core 2.0 or earlier, the MVC and Razor Pages project templates provide a *bundleconfig.json* configuration file that defines the options for each bundle:</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="2039b-161">在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 :::no-loc(Razor)::: Pages 项目根目录。</span><span class="sxs-lookup"><span data-stu-id="2039b-161">In ASP.NET Core 2.1 or later, add a new JSON file, named *bundleconfig.json* , to the MVC or :::no-loc(Razor)::: Pages project root.</span></span> <span data-ttu-id="2039b-162">在该文件中包含以下 JSON 作为起点：</span><span class="sxs-lookup"><span data-stu-id="2039b-162">Include the following JSON in that file as a starting point:</span></span>
+<span data-ttu-id="2039b-161">在 ASP.NET Core 2.1 或更高版本中，将名为 bundleconfig.json 的新 JSON 文件添加到 MVC 或 Razor Pages 项目根目录。</span><span class="sxs-lookup"><span data-stu-id="2039b-161">In ASP.NET Core 2.1 or later, add a new JSON file, named *bundleconfig.json* , to the MVC or Razor Pages project root.</span></span> <span data-ttu-id="2039b-162">在该文件中包含以下 JSON 作为起点：</span><span class="sxs-lookup"><span data-stu-id="2039b-162">Include the following JSON in that file as a starting point:</span></span>
 
 ::: moniker-end
 

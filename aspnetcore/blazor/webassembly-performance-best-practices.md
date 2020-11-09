@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor WebAssembly)::: 性能最佳做法'
+title: 'ASP.NET Core Blazor WebAssembly 性能最佳做法'
 author: pranavkm
-description: '用于提高 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 应用性能并避免常见性能问题的提示。'
+description: '用于提高 ASP.NET Core Blazor WebAssembly 应用性能并避免常见性能问题的提示。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, devx-track-js
 ms.date: 10/09/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/webassembly-performance-best-practices
 ms.openlocfilehash: 423745d734d8da2b8f3f974f9b4dd1a0265d4877
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,11 +26,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93054731"
 ---
-# <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a><span data-ttu-id="21fff-103">ASP.NET Core :::no-loc(Blazor WebAssembly)::: 性能最佳做法</span><span class="sxs-lookup"><span data-stu-id="21fff-103">ASP.NET Core :::no-loc(Blazor WebAssembly)::: performance best practices</span></span>
+# <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a><span data-ttu-id="21fff-103">ASP.NET Core Blazor WebAssembly 性能最佳做法</span><span class="sxs-lookup"><span data-stu-id="21fff-103">ASP.NET Core Blazor WebAssembly performance best practices</span></span>
 
 <span data-ttu-id="21fff-104">作者：[Pranav Krishnamoorthy](https://github.com/pranavkm) 和 [Steve Sanderson](https://github.com/SteveSandersonMS)</span><span class="sxs-lookup"><span data-stu-id="21fff-104">By [Pranav Krishnamoorthy](https://github.com/pranavkm) and [Steve Sanderson](https://github.com/SteveSandersonMS)</span></span>
 
-<span data-ttu-id="21fff-105">:::no-loc(Blazor WebAssembly)::: 经过精心设计和优化，可在最真实的应用程序 UI 方案中提高性能。</span><span class="sxs-lookup"><span data-stu-id="21fff-105">:::no-loc(Blazor WebAssembly)::: is carefully designed and optimized to enable high performance in most realistic application UI scenarios.</span></span> <span data-ttu-id="21fff-106">但是，仅当开发人员使用正确的模式和功能时才会产生最佳结果。</span><span class="sxs-lookup"><span data-stu-id="21fff-106">However, producing the best results depends on developers using the right patterns and features.</span></span> <span data-ttu-id="21fff-107">请考虑以下方面：</span><span class="sxs-lookup"><span data-stu-id="21fff-107">Consider the following aspects:</span></span>
+<span data-ttu-id="21fff-105">Blazor WebAssembly 经过精心设计和优化，可在最真实的应用程序 UI 方案中提高性能。</span><span class="sxs-lookup"><span data-stu-id="21fff-105">Blazor WebAssembly is carefully designed and optimized to enable high performance in most realistic application UI scenarios.</span></span> <span data-ttu-id="21fff-106">但是，仅当开发人员使用正确的模式和功能时才会产生最佳结果。</span><span class="sxs-lookup"><span data-stu-id="21fff-106">However, producing the best results depends on developers using the right patterns and features.</span></span> <span data-ttu-id="21fff-107">请考虑以下方面：</span><span class="sxs-lookup"><span data-stu-id="21fff-107">Consider the following aspects:</span></span>
 
 * <span data-ttu-id="21fff-108">运行时吞吐量：.NET 代码在 WebAssembly 运行时内在解释器上运行，因此 CPU 吞吐量会受到限制。</span><span class="sxs-lookup"><span data-stu-id="21fff-108">**Runtime throughput** : The .NET code runs on an interpreter within the WebAssembly runtime, so CPU throughput is limited.</span></span> <span data-ttu-id="21fff-109">在要求苛刻的方案中，应用受益于[优化呈现速度](#optimize-rendering-speed)。</span><span class="sxs-lookup"><span data-stu-id="21fff-109">In demanding scenarios, the app benefits from [optimizing rendering speed](#optimize-rendering-speed).</span></span>
 * <span data-ttu-id="21fff-110">启动时间：应用会将 .NET 运行时传输到浏览器，因此，使用[最小化应用程序下载大小](#minimize-app-download-size)的功能非常重要。</span><span class="sxs-lookup"><span data-stu-id="21fff-110">**Startup time** : The app transfers a .NET runtime to the browser, so it's important to use features that [minimize the application download size](#minimize-app-download-size).</span></span>
@@ -41,7 +41,7 @@ ms.locfileid: "93054731"
 
 ### <a name="avoid-unnecessary-rendering-of-component-subtrees"></a><span data-ttu-id="21fff-114">避免不必要地呈现组件子树</span><span class="sxs-lookup"><span data-stu-id="21fff-114">Avoid unnecessary rendering of component subtrees</span></span>
 
-<span data-ttu-id="21fff-115">在运行时，组件作为层次结构存在。</span><span class="sxs-lookup"><span data-stu-id="21fff-115">At runtime, components exist as a hierarchy.</span></span> <span data-ttu-id="21fff-116">根组件具有子组件。</span><span class="sxs-lookup"><span data-stu-id="21fff-116">A root component has child components.</span></span> <span data-ttu-id="21fff-117">反过来，根的子项也有其自己的子组件，依此类推。</span><span class="sxs-lookup"><span data-stu-id="21fff-117">In turn, the root's children have their own child components, and so on.</span></span> <span data-ttu-id="21fff-118">发生事件（例如用户选择某个按钮）时，这就是 :::no-loc(Blazor)::: 如何决定要重新呈现哪些组件：</span><span class="sxs-lookup"><span data-stu-id="21fff-118">When an event occurs, such as a user selecting a button, this is how :::no-loc(Blazor)::: decides which components to rerender:</span></span>
+<span data-ttu-id="21fff-115">在运行时，组件作为层次结构存在。</span><span class="sxs-lookup"><span data-stu-id="21fff-115">At runtime, components exist as a hierarchy.</span></span> <span data-ttu-id="21fff-116">根组件具有子组件。</span><span class="sxs-lookup"><span data-stu-id="21fff-116">A root component has child components.</span></span> <span data-ttu-id="21fff-117">反过来，根的子项也有其自己的子组件，依此类推。</span><span class="sxs-lookup"><span data-stu-id="21fff-117">In turn, the root's children have their own child components, and so on.</span></span> <span data-ttu-id="21fff-118">发生事件（例如用户选择某个按钮）时，这就是 Blazor 如何决定要重新呈现哪些组件：</span><span class="sxs-lookup"><span data-stu-id="21fff-118">When an event occurs, such as a user selecting a button, this is how Blazor decides which components to rerender:</span></span>
 
  1. <span data-ttu-id="21fff-119">事件本身将被调度到呈现事件处理程序的任何组件。</span><span class="sxs-lookup"><span data-stu-id="21fff-119">The event itself is dispatched to whichever component rendered the event's handler.</span></span> <span data-ttu-id="21fff-120">执行事件处理程序后，将重新呈现该组件。</span><span class="sxs-lookup"><span data-stu-id="21fff-120">After executing the event handler, that component is rerendered.</span></span>
  1. <span data-ttu-id="21fff-121">每当重新呈现任何组件时，都会向其每个子组件提供参数值的新副本。</span><span class="sxs-lookup"><span data-stu-id="21fff-121">Whenever any component is rerendered, it supplies a new copy of the parameter values to each of its child components.</span></span>
@@ -109,7 +109,7 @@ ms.locfileid: "93054731"
 
 <span data-ttu-id="21fff-145">在循环中呈现大量 UI（例如，具有数千个条目的列表或网格）时，呈现操作的极大数量可能会导致 UI 呈现延迟，从而导致用户体验不佳。</span><span class="sxs-lookup"><span data-stu-id="21fff-145">When rendering large amounts of UI within a loop, for example a list or grid with thousands of entries, the sheer quantity of rendering operations can lead to a lag in UI rendering and thus a poor user experience.</span></span> <span data-ttu-id="21fff-146">假设用户只能在不滚动的情况下同时查看少量元素，则花费太多时间呈现当前不可见的元素似乎太浪费了。</span><span class="sxs-lookup"><span data-stu-id="21fff-146">Given that the user can only see a small number of elements at once without scrolling, it seems wasteful to spend so much time rendering elements that aren't currently visible.</span></span>
 
-<span data-ttu-id="21fff-147">为了解决此问题，:::no-loc(Blazor)::: 提供内置 [`<Virtualize>` 组件](xref:blazor/components/virtualization)，该组件可创建任意规模的列表的外观和滚动行为，但实际上只会呈现当前滚动视区内的列表项。</span><span class="sxs-lookup"><span data-stu-id="21fff-147">To address this, :::no-loc(Blazor)::: provides a built-in [`<Virtualize>` component](xref:blazor/components/virtualization) that creates the appearance and scroll behaviors of an arbitrarily-large list but actually only renders the list items that are within the current scroll viewport.</span></span> <span data-ttu-id="21fff-148">例如，这意味着应用可以有一个包含 100,000 个条目的列表，但每次只需支付 20 个可见项的费用。</span><span class="sxs-lookup"><span data-stu-id="21fff-148">For example, this means that the app can have a list with 100,000 entries but only pay the rendering cost of 20 items that are visible at any one time.</span></span> <span data-ttu-id="21fff-149">使用 `<Virtualize>` 组件可以按数量级提高 UI 性能。</span><span class="sxs-lookup"><span data-stu-id="21fff-149">Use of the `<Virtualize>` component can scale up UI performance by orders of magnitude.</span></span>
+<span data-ttu-id="21fff-147">为了解决此问题，Blazor 提供内置 [`<Virtualize>` 组件](xref:blazor/components/virtualization)，该组件可创建任意规模的列表的外观和滚动行为，但实际上只会呈现当前滚动视区内的列表项。</span><span class="sxs-lookup"><span data-stu-id="21fff-147">To address this, Blazor provides a built-in [`<Virtualize>` component](xref:blazor/components/virtualization) that creates the appearance and scroll behaviors of an arbitrarily-large list but actually only renders the list items that are within the current scroll viewport.</span></span> <span data-ttu-id="21fff-148">例如，这意味着应用可以有一个包含 100,000 个条目的列表，但每次只需支付 20 个可见项的费用。</span><span class="sxs-lookup"><span data-stu-id="21fff-148">For example, this means that the app can have a list with 100,000 entries but only pay the rendering cost of 20 items that are visible at any one time.</span></span> <span data-ttu-id="21fff-149">使用 `<Virtualize>` 组件可以按数量级提高 UI 性能。</span><span class="sxs-lookup"><span data-stu-id="21fff-149">Use of the `<Virtualize>` component can scale up UI performance by orders of magnitude.</span></span>
 
 <span data-ttu-id="21fff-150">`<Virtualize>` 可在以下情况下使用：</span><span class="sxs-lookup"><span data-stu-id="21fff-150">`<Virtualize>` can be used when:</span></span>
 
@@ -148,7 +148,7 @@ ms.locfileid: "93054731"
 
 ### <a name="create-lightweight-optimized-components"></a><span data-ttu-id="21fff-163">创建轻型且优化的组件</span><span class="sxs-lookup"><span data-stu-id="21fff-163">Create lightweight, optimized components</span></span>
 
-<span data-ttu-id="21fff-164">大多数 :::no-loc(Blazor)::: 组件不需要强硬的优化工作。</span><span class="sxs-lookup"><span data-stu-id="21fff-164">Most :::no-loc(Blazor)::: components don't require aggressive optimization efforts.</span></span> <span data-ttu-id="21fff-165">这是因为大多数组件并不经常在 UI 中重复，也不会高频率重新呈现。</span><span class="sxs-lookup"><span data-stu-id="21fff-165">This is because most components don't often repeat in the UI and don't rerender at high frequency.</span></span> <span data-ttu-id="21fff-166">例如，`@page` 组件和表示高级 UI 块（如对话框或窗体）的组件在大多数情况下一次仅显示一个，并且仅为了响应用户手势而重新呈现。</span><span class="sxs-lookup"><span data-stu-id="21fff-166">For example, `@page` components and components representing high-level UI pieces such as dialogs or forms, most likely appear only one at a time and only rerender in response to a user gesture.</span></span> <span data-ttu-id="21fff-167">这些组件不会创建较高的呈现工作负载，因此你可以自由地使用所需的任何框架功能组合，而无需担心呈现性能。</span><span class="sxs-lookup"><span data-stu-id="21fff-167">These components don't create a high rendering workload, so you can freely use any combination of framework features you want without worrying much about rendering performance.</span></span>
+<span data-ttu-id="21fff-164">大多数 Blazor 组件不需要强硬的优化工作。</span><span class="sxs-lookup"><span data-stu-id="21fff-164">Most Blazor components don't require aggressive optimization efforts.</span></span> <span data-ttu-id="21fff-165">这是因为大多数组件并不经常在 UI 中重复，也不会高频率重新呈现。</span><span class="sxs-lookup"><span data-stu-id="21fff-165">This is because most components don't often repeat in the UI and don't rerender at high frequency.</span></span> <span data-ttu-id="21fff-166">例如，`@page` 组件和表示高级 UI 块（如对话框或窗体）的组件在大多数情况下一次仅显示一个，并且仅为了响应用户手势而重新呈现。</span><span class="sxs-lookup"><span data-stu-id="21fff-166">For example, `@page` components and components representing high-level UI pieces such as dialogs or forms, most likely appear only one at a time and only rerender in response to a user gesture.</span></span> <span data-ttu-id="21fff-167">这些组件不会创建较高的呈现工作负载，因此你可以自由地使用所需的任何框架功能组合，而无需担心呈现性能。</span><span class="sxs-lookup"><span data-stu-id="21fff-167">These components don't create a high rendering workload, so you can freely use any combination of framework features you want without worrying much about rendering performance.</span></span>
 
 <span data-ttu-id="21fff-168">但是，还有生成需要大规模重复的组件的常见情况。</span><span class="sxs-lookup"><span data-stu-id="21fff-168">However, there are also common scenarios where you build components that need to be repeated at scale.</span></span> <span data-ttu-id="21fff-169">例如：</span><span class="sxs-lookup"><span data-stu-id="21fff-169">For example:</span></span>
 
@@ -165,7 +165,7 @@ ms.locfileid: "93054731"
  * <span data-ttu-id="21fff-179">将 UI 拆分为多个组件后，当发生事件时，可以有较小部分的 UI 重新呈现。</span><span class="sxs-lookup"><span data-stu-id="21fff-179">By splitting the UI into more components, you can have smaller portions of the UI rerender when events occur.</span></span> <span data-ttu-id="21fff-180">例如，当用户单击表行中的某个按钮时，你可能能够仅重新呈现单行，而不是整页或整个表。</span><span class="sxs-lookup"><span data-stu-id="21fff-180">For example when a user clicks a button in a table row, you may be able to have only that single row rerender instead of the whole page or table.</span></span>
  * <span data-ttu-id="21fff-181">但是，每个额外组件都包含一些额外内存和 CPU 开销，用于处理其独立状态和呈现生命周期。</span><span class="sxs-lookup"><span data-stu-id="21fff-181">However, each extra component involves some extra memory and CPU overhead to deal with its independent state and rendering lifecycle.</span></span>
 
-<span data-ttu-id="21fff-182">优化 .NET 5 上的 :::no-loc(Blazor WebAssembly)::: 性能时，我们计算了每个组件实例大约 0.06 毫秒的呈现开销。</span><span class="sxs-lookup"><span data-stu-id="21fff-182">When tuning the performance of :::no-loc(Blazor WebAssembly)::: on .NET 5, we measured a rendering overhead of around 0.06 ms per component instance.</span></span> <span data-ttu-id="21fff-183">这基于接受在典型便携式计算机上运行的三个参数的简单组件。</span><span class="sxs-lookup"><span data-stu-id="21fff-183">This is based on a simple component that accepts three parameters running on a typical laptop.</span></span> <span data-ttu-id="21fff-184">在内部，开销很大程度上取决于从字典中检索每个组件的状态以及传递和接收参数。</span><span class="sxs-lookup"><span data-stu-id="21fff-184">Internally, the overhead is largely due to retrieving per-component state from dictionaries and passing and receiving parameters.</span></span> <span data-ttu-id="21fff-185">通过成倍增加，你可以看到添加 2,000 个额外的组件实例会使呈现时间增加 0.12 秒，并且用户会觉得 UI 开始变得缓慢。</span><span class="sxs-lookup"><span data-stu-id="21fff-185">By multiplication, you can see that adding 2,000 extra component instances would add 0.12 seconds to the rendering time and the UI would begin feeling slow to users.</span></span>
+<span data-ttu-id="21fff-182">优化 .NET 5 上的 Blazor WebAssembly 性能时，我们计算了每个组件实例大约 0.06 毫秒的呈现开销。</span><span class="sxs-lookup"><span data-stu-id="21fff-182">When tuning the performance of Blazor WebAssembly on .NET 5, we measured a rendering overhead of around 0.06 ms per component instance.</span></span> <span data-ttu-id="21fff-183">这基于接受在典型便携式计算机上运行的三个参数的简单组件。</span><span class="sxs-lookup"><span data-stu-id="21fff-183">This is based on a simple component that accepts three parameters running on a typical laptop.</span></span> <span data-ttu-id="21fff-184">在内部，开销很大程度上取决于从字典中检索每个组件的状态以及传递和接收参数。</span><span class="sxs-lookup"><span data-stu-id="21fff-184">Internally, the overhead is largely due to retrieving per-component state from dictionaries and passing and receiving parameters.</span></span> <span data-ttu-id="21fff-185">通过成倍增加，你可以看到添加 2,000 个额外的组件实例会使呈现时间增加 0.12 秒，并且用户会觉得 UI 开始变得缓慢。</span><span class="sxs-lookup"><span data-stu-id="21fff-185">By multiplication, you can see that adding 2,000 extra component instances would add 0.12 seconds to the rendering time and the UI would begin feeling slow to users.</span></span>
 
 <span data-ttu-id="21fff-186">可以使组件变得更轻量，以便你可以拥有更多组件，但功能更强大的技术通常不会有如此多的组件。</span><span class="sxs-lookup"><span data-stu-id="21fff-186">It's possible to make components more lightweight so that you can have more of them, but often the more powerful technique is not to have so many components.</span></span> <span data-ttu-id="21fff-187">以下部分将介绍两种方法。</span><span class="sxs-lookup"><span data-stu-id="21fff-187">The following sections describe two approaches.</span></span>
 
@@ -227,13 +227,13 @@ ms.locfileid: "93054731"
         <div>
             <p>Welcome to your new app!</p>
 
-            <SurveyPrompt Title="How is :::no-loc(Blazor)::: working for you?" />
+            <SurveyPrompt Title="How is Blazor working for you?" />
         </div>
     };
 }
 ```
 
-<span data-ttu-id="21fff-199">如前面的示例中所述，组件可通过其 `@code` 块内外的代码发出标记。</span><span class="sxs-lookup"><span data-stu-id="21fff-199">As demonstated in the preceding example, components can emit markup from code within their `@code` block and outside it.</span></span> <span data-ttu-id="21fff-200">此方法可在多处定义可在组件的常规呈现输出内呈现的 <xref:Microsoft.AspNetCore.Components.RenderFragment> 委托。</span><span class="sxs-lookup"><span data-stu-id="21fff-200">This approach defines a <xref:Microsoft.AspNetCore.Components.RenderFragment> delegate that you can render inside the component's normal render output, optionally in multiple places.</span></span> <span data-ttu-id="21fff-201">委托必须接受名为 `__builder`、类型为 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 的参数，以便 :::no-loc(Razor)::: 编译器可以为其生成呈现说明。</span><span class="sxs-lookup"><span data-stu-id="21fff-201">It's necessary for the delegate to accept a parameter called `__builder` of type <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> so that the :::no-loc(Razor)::: compiler can produce rendering instructions for it.</span></span>
+<span data-ttu-id="21fff-199">如前面的示例中所述，组件可通过其 `@code` 块内外的代码发出标记。</span><span class="sxs-lookup"><span data-stu-id="21fff-199">As demonstated in the preceding example, components can emit markup from code within their `@code` block and outside it.</span></span> <span data-ttu-id="21fff-200">此方法可在多处定义可在组件的常规呈现输出内呈现的 <xref:Microsoft.AspNetCore.Components.RenderFragment> 委托。</span><span class="sxs-lookup"><span data-stu-id="21fff-200">This approach defines a <xref:Microsoft.AspNetCore.Components.RenderFragment> delegate that you can render inside the component's normal render output, optionally in multiple places.</span></span> <span data-ttu-id="21fff-201">委托必须接受名为 `__builder`、类型为 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 的参数，以便 Razor 编译器可以为其生成呈现说明。</span><span class="sxs-lookup"><span data-stu-id="21fff-201">It's necessary for the delegate to accept a parameter called `__builder` of type <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> so that the Razor compiler can produce rendering instructions for it.</span></span>
 
 <span data-ttu-id="21fff-202">如果要使其可在多个组件之间重复使用，请考虑将其声明为 `public static` 成员：</span><span class="sxs-lookup"><span data-stu-id="21fff-202">If you want to make this reusable across multiple components, consider declaring it as a `public static` member:</span></span>
 
@@ -446,7 +446,7 @@ public static RenderFragment SayHello = __builder =>
 </script>
 ```
 
-<span data-ttu-id="21fff-260">此方法对于 :::no-loc(Blazor Server)::: 更为重要，因为每个事件调用都涉及通过网络传递消息。</span><span class="sxs-lookup"><span data-stu-id="21fff-260">This technique can be even more important for :::no-loc(Blazor Server):::, since each event invocation involves delivering a message over the network.</span></span> <span data-ttu-id="21fff-261">它对于 :::no-loc(Blazor WebAssembly)::: 非常有用，因为它可以极大地减少呈现工作量。</span><span class="sxs-lookup"><span data-stu-id="21fff-261">It's valuable for :::no-loc(Blazor WebAssembly)::: because it can greatly reduce the amount of rendering work.</span></span>
+<span data-ttu-id="21fff-260">此方法对于 Blazor Server 更为重要，因为每个事件调用都涉及通过网络传递消息。</span><span class="sxs-lookup"><span data-stu-id="21fff-260">This technique can be even more important for Blazor Server, since each event invocation involves delivering a message over the network.</span></span> <span data-ttu-id="21fff-261">它对于 Blazor WebAssembly 非常有用，因为它可以极大地减少呈现工作量。</span><span class="sxs-lookup"><span data-stu-id="21fff-261">It's valuable for Blazor WebAssembly because it can greatly reduce the amount of rendering work.</span></span>
 
 ## <a name="optimize-javascript-interop-speed"></a><span data-ttu-id="21fff-262">优化 JavaScript 互操作速度</span><span class="sxs-lookup"><span data-stu-id="21fff-262">Optimize JavaScript interop speed</span></span>
 
@@ -455,7 +455,7 @@ public static RenderFragment SayHello = __builder =>
  * <span data-ttu-id="21fff-264">默认情况下，调用是异步的。</span><span class="sxs-lookup"><span data-stu-id="21fff-264">By default, calls are asynchronous.</span></span>
  * <span data-ttu-id="21fff-265">默认情况下，参数和返回值已进行 JSON 序列化。</span><span class="sxs-lookup"><span data-stu-id="21fff-265">By default, parameters and return values are JSON-serialized.</span></span> <span data-ttu-id="21fff-266">这是为了在 .NET 和 JavaScript 类型之间提供一种易于理解的转换机制。</span><span class="sxs-lookup"><span data-stu-id="21fff-266">This is to provide an easy-to-understand conversion mechanism between .NET and JavaScript types.</span></span>
 
-<span data-ttu-id="21fff-267">此外，在 :::no-loc(Blazor Server)::: 上，这些调用通过网络传递。</span><span class="sxs-lookup"><span data-stu-id="21fff-267">Additionally on :::no-loc(Blazor Server):::, these calls are passed across the network.</span></span>
+<span data-ttu-id="21fff-267">此外，在 Blazor Server 上，这些调用通过网络传递。</span><span class="sxs-lookup"><span data-stu-id="21fff-267">Additionally on Blazor Server, these calls are passed across the network.</span></span>
 
 ### <a name="avoid-excessively-fine-grained-calls"></a><span data-ttu-id="21fff-268">避免过度细化的调用</span><span class="sxs-lookup"><span data-stu-id="21fff-268">Avoid excessively fine-grained calls</span></span>
 
@@ -491,13 +491,13 @@ function storeAllInLocalStorage(items) {
 }
 ```
 
-<span data-ttu-id="21fff-274">对于 :::no-loc(Blazor WebAssembly):::，这仅在进行大量 JS 互操作调用时才有影响。</span><span class="sxs-lookup"><span data-stu-id="21fff-274">For :::no-loc(Blazor WebAssembly):::, this usually only matters if you're making a large number of JS interop calls.</span></span>
+<span data-ttu-id="21fff-274">对于 Blazor WebAssembly，这仅在进行大量 JS 互操作调用时才有影响。</span><span class="sxs-lookup"><span data-stu-id="21fff-274">For Blazor WebAssembly, this usually only matters if you're making a large number of JS interop calls.</span></span>
 
 ### <a name="consider-making-synchronous-calls"></a><span data-ttu-id="21fff-275">考虑进行同步调用</span><span class="sxs-lookup"><span data-stu-id="21fff-275">Consider making synchronous calls</span></span>
 
-<span data-ttu-id="21fff-276">默认情况下，JavaScript 互操作调用是异步的，无论调用的代码是同步还是异步。</span><span class="sxs-lookup"><span data-stu-id="21fff-276">JavaScript interop calls are asynchronous by default, regardless of whether the code being called is synchronous or asynchronous.</span></span> <span data-ttu-id="21fff-277">这是为了确保组件与 :::no-loc(Blazor WebAssembly)::: 和 :::no-loc(Blazor Server)::: 兼容。</span><span class="sxs-lookup"><span data-stu-id="21fff-277">This is to ensure components are compatible with both :::no-loc(Blazor WebAssembly)::: and :::no-loc(Blazor Server):::.</span></span> <span data-ttu-id="21fff-278">在 :::no-loc(Blazor Server)::: 上，所有 JavaScript 互操作调用都必须是异步的，因为它们是通过网络连接发送的。</span><span class="sxs-lookup"><span data-stu-id="21fff-278">On :::no-loc(Blazor Server):::, all JavaScript interop calls must be asynchronous because they are sent over a network connection.</span></span>
+<span data-ttu-id="21fff-276">默认情况下，JavaScript 互操作调用是异步的，无论调用的代码是同步还是异步。</span><span class="sxs-lookup"><span data-stu-id="21fff-276">JavaScript interop calls are asynchronous by default, regardless of whether the code being called is synchronous or asynchronous.</span></span> <span data-ttu-id="21fff-277">这是为了确保组件与 Blazor WebAssembly 和 Blazor Server 兼容。</span><span class="sxs-lookup"><span data-stu-id="21fff-277">This is to ensure components are compatible with both Blazor WebAssembly and Blazor Server.</span></span> <span data-ttu-id="21fff-278">在 Blazor Server 上，所有 JavaScript 互操作调用都必须是异步的，因为它们是通过网络连接发送的。</span><span class="sxs-lookup"><span data-stu-id="21fff-278">On Blazor Server, all JavaScript interop calls must be asynchronous because they are sent over a network connection.</span></span>
 
-<span data-ttu-id="21fff-279">如果你确定你的应用只在 :::no-loc(Blazor WebAssembly)::: 上运行，则可以选择执行同步 JavaScript 互操作调用。</span><span class="sxs-lookup"><span data-stu-id="21fff-279">If you know for certain that your app only ever runs on :::no-loc(Blazor WebAssembly):::, you can choose to make synchronous JavaScript interop calls.</span></span> <span data-ttu-id="21fff-280">与进行异步调用相比，它的开销略少，并且可能会导致呈现周期更少，因为在等待结果时没有中间状态。</span><span class="sxs-lookup"><span data-stu-id="21fff-280">This has slightly less overhead than making asynchronous calls and can result in fewer render cycles because there is no intermediate state while awaiting results.</span></span>
+<span data-ttu-id="21fff-279">如果你确定你的应用只在 Blazor WebAssembly 上运行，则可以选择执行同步 JavaScript 互操作调用。</span><span class="sxs-lookup"><span data-stu-id="21fff-279">If you know for certain that your app only ever runs on Blazor WebAssembly, you can choose to make synchronous JavaScript interop calls.</span></span> <span data-ttu-id="21fff-280">与进行异步调用相比，它的开销略少，并且可能会导致呈现周期更少，因为在等待结果时没有中间状态。</span><span class="sxs-lookup"><span data-stu-id="21fff-280">This has slightly less overhead than making asynchronous calls and can result in fewer render cycles because there is no intermediate state while awaiting results.</span></span>
 
 <span data-ttu-id="21fff-281">若要进行从 .NET 到 JavaScript 的同步调用，请将 <xref:Microsoft.JSInterop.IJSRuntime> 转换为 <xref:Microsoft.JSInterop.IJSInProcessRuntime>：</span><span class="sxs-lookup"><span data-stu-id="21fff-281">To make a synchronous call from .NET to JavaScript, cast <xref:Microsoft.JSInterop.IJSRuntime> to <xref:Microsoft.JSInterop.IJSInProcessRuntime>:</span></span>
 
@@ -525,7 +525,7 @@ function storeAllInLocalStorage(items) {
 
 <span data-ttu-id="21fff-284">同步调用在以下情况下起作用：</span><span class="sxs-lookup"><span data-stu-id="21fff-284">Synchronous calls work if:</span></span>
 
-* <span data-ttu-id="21fff-285">应用在 :::no-loc(Blazor WebAssembly):::（而不是 :::no-loc(Blazor Server):::）上运行。</span><span class="sxs-lookup"><span data-stu-id="21fff-285">The app is running on :::no-loc(Blazor WebAssembly):::, not :::no-loc(Blazor Server):::.</span></span>
+* <span data-ttu-id="21fff-285">应用在 Blazor WebAssembly（而不是 Blazor Server）上运行。</span><span class="sxs-lookup"><span data-stu-id="21fff-285">The app is running on Blazor WebAssembly, not Blazor Server.</span></span>
 * <span data-ttu-id="21fff-286">调用的函数以同步方式返回值（它不是 `async` 方法，不会返回 .NET <xref:System.Threading.Tasks.Task> 或 JavaScript `Promise`）。</span><span class="sxs-lookup"><span data-stu-id="21fff-286">The called function returns a value synchronously (it isn't an `async` method and doesn't return a .NET <xref:System.Threading.Tasks.Task> or JavaScript `Promise`).</span></span>
 
 <span data-ttu-id="21fff-287">有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。</span><span class="sxs-lookup"><span data-stu-id="21fff-287">For more information, see <xref:blazor/call-javascript-from-dotnet>.</span></span>
@@ -534,7 +534,7 @@ function storeAllInLocalStorage(items) {
  
 ### <a name="consider-making-unmarshalled-calls"></a><span data-ttu-id="21fff-288">考虑进行已打乱的调用</span><span class="sxs-lookup"><span data-stu-id="21fff-288">Consider making unmarshalled calls</span></span>
 
-<span data-ttu-id="21fff-289">在 :::no-loc(Blazor WebAssembly)::: 上运行时，可以进行从 .NET 到 JavaScript 的已打乱调用。</span><span class="sxs-lookup"><span data-stu-id="21fff-289">When running on :::no-loc(Blazor WebAssembly):::, it's possible to make unmarshalled calls from .NET to JavaScript.</span></span> <span data-ttu-id="21fff-290">这些是不执行参数或返回值的 JSON 序列化的同步调用。</span><span class="sxs-lookup"><span data-stu-id="21fff-290">These are synchronous calls that don't perform JSON serialization of arguments or return values.</span></span> <span data-ttu-id="21fff-291">内存管理以及 .NET 和 JavaScript 表示形式之间的转换的所有方面均留给开发人员处理。</span><span class="sxs-lookup"><span data-stu-id="21fff-291">All aspects of memory management and translations between .NET and JavaScript representations are left up to the developer.</span></span>
+<span data-ttu-id="21fff-289">在 Blazor WebAssembly 上运行时，可以进行从 .NET 到 JavaScript 的已打乱调用。</span><span class="sxs-lookup"><span data-stu-id="21fff-289">When running on Blazor WebAssembly, it's possible to make unmarshalled calls from .NET to JavaScript.</span></span> <span data-ttu-id="21fff-290">这些是不执行参数或返回值的 JSON 序列化的同步调用。</span><span class="sxs-lookup"><span data-stu-id="21fff-290">These are synchronous calls that don't perform JSON serialization of arguments or return values.</span></span> <span data-ttu-id="21fff-291">内存管理以及 .NET 和 JavaScript 表示形式之间的转换的所有方面均留给开发人员处理。</span><span class="sxs-lookup"><span data-stu-id="21fff-291">All aspects of memory management and translations between .NET and JavaScript representations are left up to the developer.</span></span>
 
 > [!WARNING]
 > <span data-ttu-id="21fff-292">虽然使用 `IJSUnmarshalledRuntime` 这种 JS 互操作方法的开销最小，但与这些 API 交互所需的 JavaScript API 目前没有文档记录，而且可能会在将来的版本中出现中断性变更。</span><span class="sxs-lookup"><span data-stu-id="21fff-292">While using `IJSUnmarshalledRuntime` has the least overhead of the JS interop approaches, the JavaScript APIs required to interact with these APIs are currently undocumented and subject to breaking changes in future releases.</span></span>
@@ -565,7 +565,7 @@ function jsInteropCall() {
 
 ### <a name="intermediate-language-il-trimming"></a><span data-ttu-id="21fff-294">中间语言 (IL) 剪裁</span><span class="sxs-lookup"><span data-stu-id="21fff-294">Intermediate Language (IL) trimming</span></span>
 
-<span data-ttu-id="21fff-295">[从 :::no-loc(Blazor WebAssembly)::: 应用修剪未使用的程序集](xref:blazor/host-and-deploy/configure-trimmer)会通过删除应用的二进制文件中的未使用代码来减小应用的大小。</span><span class="sxs-lookup"><span data-stu-id="21fff-295">[Trimming unused assemblies from a :::no-loc(Blazor WebAssembly)::: app](xref:blazor/host-and-deploy/configure-trimmer) reduces the app's size by removing unused code in the app's binaries.</span></span> <span data-ttu-id="21fff-296">默认情况下，裁边器在发布应用程序时执行。</span><span class="sxs-lookup"><span data-stu-id="21fff-296">By default, the Trimmer is executed when publishing an application.</span></span> <span data-ttu-id="21fff-297">要从剪裁中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：</span><span class="sxs-lookup"><span data-stu-id="21fff-297">To benefit from trimming, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:</span></span>
+<span data-ttu-id="21fff-295">[从 Blazor WebAssembly 应用修剪未使用的程序集](xref:blazor/host-and-deploy/configure-trimmer)会通过删除应用的二进制文件中的未使用代码来减小应用的大小。</span><span class="sxs-lookup"><span data-stu-id="21fff-295">[Trimming unused assemblies from a Blazor WebAssembly app](xref:blazor/host-and-deploy/configure-trimmer) reduces the app's size by removing unused code in the app's binaries.</span></span> <span data-ttu-id="21fff-296">默认情况下，裁边器在发布应用程序时执行。</span><span class="sxs-lookup"><span data-stu-id="21fff-296">By default, the Trimmer is executed when publishing an application.</span></span> <span data-ttu-id="21fff-297">要从剪裁中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：</span><span class="sxs-lookup"><span data-stu-id="21fff-297">To benefit from trimming, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:</span></span>
 
 ::: moniker-end
 
@@ -573,7 +573,7 @@ function jsInteropCall() {
 
 ### <a name="intermediate-language-il-linking"></a><span data-ttu-id="21fff-298">中间语言 (IL) 链接</span><span class="sxs-lookup"><span data-stu-id="21fff-298">Intermediate Language (IL) linking</span></span>
 
-<span data-ttu-id="21fff-299">通过[链接 :::no-loc(Blazor WebAssembly)::: 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。</span><span class="sxs-lookup"><span data-stu-id="21fff-299">[Linking a :::no-loc(Blazor WebAssembly)::: app](xref:blazor/host-and-deploy/configure-linker) reduces the app's size by trimming unused code in the app's binaries.</span></span> <span data-ttu-id="21fff-300">默认情况下，仅在 `Release` 配置中生成时才启用中间语言 (IL) 链接器。</span><span class="sxs-lookup"><span data-stu-id="21fff-300">By default, the Intermediate Language (IL) Linker is only enabled when building in `Release` configuration.</span></span> <span data-ttu-id="21fff-301">要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：</span><span class="sxs-lookup"><span data-stu-id="21fff-301">To benefit from this, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:</span></span>
+<span data-ttu-id="21fff-299">通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。</span><span class="sxs-lookup"><span data-stu-id="21fff-299">[Linking a Blazor WebAssembly app](xref:blazor/host-and-deploy/configure-linker) reduces the app's size by trimming unused code in the app's binaries.</span></span> <span data-ttu-id="21fff-300">默认情况下，仅在 `Release` 配置中生成时才启用中间语言 (IL) 链接器。</span><span class="sxs-lookup"><span data-stu-id="21fff-300">By default, the Intermediate Language (IL) Linker is only enabled when building in `Release` configuration.</span></span> <span data-ttu-id="21fff-301">要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：</span><span class="sxs-lookup"><span data-stu-id="21fff-301">To benefit from this, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:</span></span>
 
 ::: moniker-end
 
@@ -583,7 +583,7 @@ dotnet publish -c Release
 
 ### <a name="use-systemtextjson"></a><span data-ttu-id="21fff-302">使用 System.Text.Json</span><span class="sxs-lookup"><span data-stu-id="21fff-302">Use System.Text.Json</span></span>
 
-<span data-ttu-id="21fff-303">:::no-loc(Blazor)::: 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性能高但内存分配较低的 JSON 序列化库。</span><span class="sxs-lookup"><span data-stu-id="21fff-303">:::no-loc(Blazor):::'s JS interop implementation relies on <xref:System.Text.Json>, which is a high-performance JSON serialization library with low memory allocation.</span></span> <span data-ttu-id="21fff-304">与添加一个或多个备用 JSON 库相比，使用 <xref:System.Text.Json> 不会增加应用有效负载的大小。</span><span class="sxs-lookup"><span data-stu-id="21fff-304">Using <xref:System.Text.Json> doesn't result in additional app payload size over adding one or more alternate JSON libraries.</span></span>
+<span data-ttu-id="21fff-303">Blazor 的 JS 互操作实现依赖于 <xref:System.Text.Json> - 这是一个性能高但内存分配较低的 JSON 序列化库。</span><span class="sxs-lookup"><span data-stu-id="21fff-303">Blazor's JS interop implementation relies on <xref:System.Text.Json>, which is a high-performance JSON serialization library with low memory allocation.</span></span> <span data-ttu-id="21fff-304">与添加一个或多个备用 JSON 库相比，使用 <xref:System.Text.Json> 不会增加应用有效负载的大小。</span><span class="sxs-lookup"><span data-stu-id="21fff-304">Using <xref:System.Text.Json> doesn't result in additional app payload size over adding one or more alternate JSON libraries.</span></span>
 
 <span data-ttu-id="21fff-305">有关迁移指南，请参阅[如何从 `Newtonsoft.Json` 迁移到 `System.Text.Json`](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to)。</span><span class="sxs-lookup"><span data-stu-id="21fff-305">For migration guidance, see [How to migrate from `Newtonsoft.Json` to `System.Text.Json`](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to).</span></span>
 
@@ -593,25 +593,25 @@ dotnet publish -c Release
 
 ### <a name="compression"></a><span data-ttu-id="21fff-309">压缩</span><span class="sxs-lookup"><span data-stu-id="21fff-309">Compression</span></span>
 
-<span data-ttu-id="21fff-310">发布 :::no-loc(Blazor WebAssembly)::: 应用时，将在发布过程中对输出内容进行静态压缩，从而减小应用的大小，并免去运行时压缩的开销。</span><span class="sxs-lookup"><span data-stu-id="21fff-310">When a :::no-loc(Blazor WebAssembly)::: app is published, the output is statically compressed during publish to reduce the app's size and remove the overhead for runtime compression.</span></span> <span data-ttu-id="21fff-311">:::no-loc(Blazor)::: 依赖服务器来执行内容协商和提供静态压缩的文件。</span><span class="sxs-lookup"><span data-stu-id="21fff-311">:::no-loc(Blazor)::: relies on the server to perform content negotation and serve statically-compressed files.</span></span>
+<span data-ttu-id="21fff-310">发布 Blazor WebAssembly 应用时，将在发布过程中对输出内容进行静态压缩，从而减小应用的大小，并免去运行时压缩的开销。</span><span class="sxs-lookup"><span data-stu-id="21fff-310">When a Blazor WebAssembly app is published, the output is statically compressed during publish to reduce the app's size and remove the overhead for runtime compression.</span></span> <span data-ttu-id="21fff-311">Blazor 依赖服务器来执行内容协商和提供静态压缩的文件。</span><span class="sxs-lookup"><span data-stu-id="21fff-311">Blazor relies on the server to perform content negotation and serve statically-compressed files.</span></span>
 
 <span data-ttu-id="21fff-312">部署应用后，请验证该应用是否提供压缩的文件。</span><span class="sxs-lookup"><span data-stu-id="21fff-312">After an app is deployed, verify that the app serves compressed files.</span></span> <span data-ttu-id="21fff-313">检查浏览器开发人员工具中的“网络”选项卡，并验证文件是否具有 `Content-Encoding: br` 或 `Content-Encoding: gz`。</span><span class="sxs-lookup"><span data-stu-id="21fff-313">Inspect the Network tab in a browser's Developer Tools and verify that the files are served with `Content-Encoding: br` or `Content-Encoding: gz`.</span></span> <span data-ttu-id="21fff-314">如果主机未提供压缩的文件，请按照 <xref:blazor/host-and-deploy/webassembly#compression> 中的说明操作。</span><span class="sxs-lookup"><span data-stu-id="21fff-314">If the host isn't serving compressed files, follow the instructions in <xref:blazor/host-and-deploy/webassembly#compression>.</span></span>
 
 ### <a name="disable-unused-features"></a><span data-ttu-id="21fff-315">禁用未使用的功能</span><span class="sxs-lookup"><span data-stu-id="21fff-315">Disable unused features</span></span>
 
-<span data-ttu-id="21fff-316">:::no-loc(Blazor WebAssembly)::: 的运行时包含以下 .NET 功能；如果应用不需要这些功能就能减少有效负载的大小，可将它们禁用：</span><span class="sxs-lookup"><span data-stu-id="21fff-316">:::no-loc(Blazor WebAssembly):::'s runtime includes the following .NET features that can be disabled if the app doesn't require them for a smaller payload size:</span></span>
+<span data-ttu-id="21fff-316">Blazor WebAssembly 的运行时包含以下 .NET 功能；如果应用不需要这些功能就能减少有效负载的大小，可将它们禁用：</span><span class="sxs-lookup"><span data-stu-id="21fff-316">Blazor WebAssembly's runtime includes the following .NET features that can be disabled if the app doesn't require them for a smaller payload size:</span></span>
 
-* <span data-ttu-id="21fff-317">包含数据文件来确保时区信息正确。</span><span class="sxs-lookup"><span data-stu-id="21fff-317">A data file is included to make timezone information correct.</span></span> <span data-ttu-id="21fff-318">如果应用不需要此功能，请考虑通过将应用项目文件中的 `:::no-loc(Blazor):::EnableTimeZoneSupport` MSBuild 属性设置为 `false` 来禁用它：</span><span class="sxs-lookup"><span data-stu-id="21fff-318">If the app doesn't require this feature, consider disabling it by setting the `:::no-loc(Blazor):::EnableTimeZoneSupport` MSBuild property in the app's project file to `false`:</span></span>
+* <span data-ttu-id="21fff-317">包含数据文件来确保时区信息正确。</span><span class="sxs-lookup"><span data-stu-id="21fff-317">A data file is included to make timezone information correct.</span></span> <span data-ttu-id="21fff-318">如果应用不需要此功能，请考虑通过将应用项目文件中的 `BlazorEnableTimeZoneSupport` MSBuild 属性设置为 `false` 来禁用它：</span><span class="sxs-lookup"><span data-stu-id="21fff-318">If the app doesn't require this feature, consider disabling it by setting the `BlazorEnableTimeZoneSupport` MSBuild property in the app's project file to `false`:</span></span>
 
   ```xml
   <PropertyGroup>
-    <:::no-loc(Blazor):::EnableTimeZoneSupport>false</:::no-loc(Blazor):::EnableTimeZoneSupport>
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
   </PropertyGroup>
   ```
 
 ::: moniker range=">= aspnetcore-5.0"
 
-* <span data-ttu-id="21fff-319">默认情况下，:::no-loc(Blazor WebAssembly)::: 携带在用户区域性中显示值（如日期和货币）所需的全球化资源。</span><span class="sxs-lookup"><span data-stu-id="21fff-319">By default, :::no-loc(Blazor WebAssembly)::: carries globalization resources required to display values, such as dates and currency, in the user's culture.</span></span> <span data-ttu-id="21fff-320">如果应用不需要本地化，你可以[将应用配置为支持不变区域性](xref:blazor/globalization-localization)，这基于 `en-US` 区域性：</span><span class="sxs-lookup"><span data-stu-id="21fff-320">If the app doesn't require localization, you may [configure the app to support the invariant culture](xref:blazor/globalization-localization), which is based on the `en-US` culture:</span></span>
+* <span data-ttu-id="21fff-319">默认情况下，Blazor WebAssembly 携带在用户区域性中显示值（如日期和货币）所需的全球化资源。</span><span class="sxs-lookup"><span data-stu-id="21fff-319">By default, Blazor WebAssembly carries globalization resources required to display values, such as dates and currency, in the user's culture.</span></span> <span data-ttu-id="21fff-320">如果应用不需要本地化，你可以[将应用配置为支持不变区域性](xref:blazor/globalization-localization)，这基于 `en-US` 区域性：</span><span class="sxs-lookup"><span data-stu-id="21fff-320">If the app doesn't require localization, you may [configure the app to support the invariant culture](xref:blazor/globalization-localization), which is based on the `en-US` culture:</span></span>
 
   ```xml
   <PropertyGroup>
@@ -623,11 +623,11 @@ dotnet publish -c Release
 
 ::: moniker range="< aspnetcore-5.0"
 
-* <span data-ttu-id="21fff-321">包括排序规则信息来确保 <xref:System.StringComparison.InvariantCultureIgnoreCase?displayProperty=nameWithType> 之类的 API 正常工作。</span><span class="sxs-lookup"><span data-stu-id="21fff-321">Collation information is included to make APIs such as <xref:System.StringComparison.InvariantCultureIgnoreCase?displayProperty=nameWithType> work correctly.</span></span> <span data-ttu-id="21fff-322">如果确定应用不需要排序规则数据，请考虑通过将应用项目文件中的 `:::no-loc(Blazor):::WebAssemblyPreserveCollationData` MSBuild 属性设置为 `false` 来禁用它：</span><span class="sxs-lookup"><span data-stu-id="21fff-322">If you're certain that the app doesn't require the collation data, consider disabling it by setting the `:::no-loc(Blazor):::WebAssemblyPreserveCollationData` MSBuild property in the app's project file to `false`:</span></span>
+* <span data-ttu-id="21fff-321">包括排序规则信息来确保 <xref:System.StringComparison.InvariantCultureIgnoreCase?displayProperty=nameWithType> 之类的 API 正常工作。</span><span class="sxs-lookup"><span data-stu-id="21fff-321">Collation information is included to make APIs such as <xref:System.StringComparison.InvariantCultureIgnoreCase?displayProperty=nameWithType> work correctly.</span></span> <span data-ttu-id="21fff-322">如果确定应用不需要排序规则数据，请考虑通过将应用项目文件中的 `BlazorWebAssemblyPreserveCollationData` MSBuild 属性设置为 `false` 来禁用它：</span><span class="sxs-lookup"><span data-stu-id="21fff-322">If you're certain that the app doesn't require the collation data, consider disabling it by setting the `BlazorWebAssemblyPreserveCollationData` MSBuild property in the app's project file to `false`:</span></span>
 
   ```xml
   <PropertyGroup>
-    <:::no-loc(Blazor):::WebAssemblyPreserveCollationData>false</:::no-loc(Blazor):::WebAssemblyPreserveCollationData>
+    <BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData>
   </PropertyGroup>
   ```
 

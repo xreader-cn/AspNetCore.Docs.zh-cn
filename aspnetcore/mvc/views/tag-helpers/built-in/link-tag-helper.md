@@ -6,17 +6,17 @@ description: 了解 ASP.NET Core 链接标记帮助程序属性以及每个属�
 ms.custom: mvc
 ms.date: 09/24/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
 ms.openlocfilehash: 7998cec94ebb56cbe6dbc321f7cb499260d6fe74
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -35,7 +35,7 @@ ms.locfileid: "93059112"
 
 <span data-ttu-id="fae95-107">可以使用链接标记帮助程序指定 CSS 文件的 CDN 以及回退文件（CDN 不可用时）。</span><span class="sxs-lookup"><span data-stu-id="fae95-107">The Link Tag Helper allows you to specify a CDN for the CSS file and a fallback when the CDN is not available.</span></span> <span data-ttu-id="fae95-108">链接标记帮助程序借助本地宿主的可靠性提供 CDN 性能优势。</span><span class="sxs-lookup"><span data-stu-id="fae95-108">The Link Tag Helper provides the performance advantage of a CDN with the robustness of local hosting.</span></span>
 
-<span data-ttu-id="fae95-109">以下 :::no-loc(Razor)::: 标记显示 `head` 使用 ASP.NET Core web 应用程序模板创建的布局文件的元素：</span><span class="sxs-lookup"><span data-stu-id="fae95-109">The following :::no-loc(Razor)::: markup shows the `head` element of a layout file created with the ASP.NET Core web app template:</span></span>
+<span data-ttu-id="fae95-109">以下 Razor 标记显示 `head` 使用 ASP.NET Core web 应用程序模板创建的布局文件的元素：</span><span class="sxs-lookup"><span data-stu-id="fae95-109">The following Razor markup shows the `head` element of a layout file created with the ASP.NET Core web app template:</span></span>
 
 [!code-cshtml[](link-tag-helper/sample/_Layout.cshtml?name=snippet)]
 

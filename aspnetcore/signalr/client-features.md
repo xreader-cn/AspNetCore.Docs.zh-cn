@@ -1,22 +1,22 @@
 ---
-title: 'ASP.NET Core :::no-loc(SignalR)::: 客户端'
+title: 'ASP.NET Core SignalR 客户端'
 author: bradygaster
-description: '了解各种 ASP.NET Core 的客户端支持的功能 :::no-loc(SignalR)::: 。'
+description: '了解各种 ASP.NET Core 的客户端支持的功能 SignalR 。'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: signalr/client-features
 ms.openlocfilehash: 1d1778f95c53179ca05eaced3d1913f208220df4
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -25,21 +25,21 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93050974"
 ---
-# <a name="aspnet-core-no-locsignalr-clients"></a><span data-ttu-id="fcff3-103">ASP.NET Core :::no-loc(SignalR)::: 客户端</span><span class="sxs-lookup"><span data-stu-id="fcff3-103">ASP.NET Core :::no-loc(SignalR)::: clients</span></span>
+# <a name="aspnet-core-no-locsignalr-clients"></a><span data-ttu-id="fcff3-103">ASP.NET Core SignalR 客户端</span><span class="sxs-lookup"><span data-stu-id="fcff3-103">ASP.NET Core SignalR clients</span></span>
 
 ## <a name="versioning-support-and-compatibility"></a><span data-ttu-id="fcff3-104">版本控制、支持和兼容性</span><span class="sxs-lookup"><span data-stu-id="fcff3-104">Versioning, support, and compatibility</span></span>
 
-<span data-ttu-id="fcff3-105">:::no-loc(SignalR):::客户端与服务器组件一起发运，并进行版本控制以使其匹配。</span><span class="sxs-lookup"><span data-stu-id="fcff3-105">The :::no-loc(SignalR)::: clients ship alongside the server components and are versioned to match.</span></span> <span data-ttu-id="fcff3-106">任何受支持的客户端都可以安全地连接到任何受支持的服务器，任何兼容性问题都将被视为修复 bug。</span><span class="sxs-lookup"><span data-stu-id="fcff3-106">Any supported client can safely connect to any supported server, and any compatibility issues would be considered bugs to be fixed.</span></span> <span data-ttu-id="fcff3-107">:::no-loc(SignalR)::: 支持与 .NET Core 的其余部分相同的支持生命周期中的客户端。</span><span class="sxs-lookup"><span data-stu-id="fcff3-107">:::no-loc(SignalR)::: clients are supported in the same support lifecycle as the rest of .NET Core.</span></span> <span data-ttu-id="fcff3-108">有关详细信息，请参阅 [.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) 。</span><span class="sxs-lookup"><span data-stu-id="fcff3-108">See [the .NET Core Support Policy](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) for details.</span></span>
+<span data-ttu-id="fcff3-105">SignalR客户端与服务器组件一起发运，并进行版本控制以使其匹配。</span><span class="sxs-lookup"><span data-stu-id="fcff3-105">The SignalR clients ship alongside the server components and are versioned to match.</span></span> <span data-ttu-id="fcff3-106">任何受支持的客户端都可以安全地连接到任何受支持的服务器，任何兼容性问题都将被视为修复 bug。</span><span class="sxs-lookup"><span data-stu-id="fcff3-106">Any supported client can safely connect to any supported server, and any compatibility issues would be considered bugs to be fixed.</span></span> <span data-ttu-id="fcff3-107">SignalR 支持与 .NET Core 的其余部分相同的支持生命周期中的客户端。</span><span class="sxs-lookup"><span data-stu-id="fcff3-107">SignalR clients are supported in the same support lifecycle as the rest of .NET Core.</span></span> <span data-ttu-id="fcff3-108">有关详细信息，请参阅 [.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) 。</span><span class="sxs-lookup"><span data-stu-id="fcff3-108">See [the .NET Core Support Policy](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) for details.</span></span>
 
 <span data-ttu-id="fcff3-109">许多功能都需要兼容的客户端 **和** 服务器。</span><span class="sxs-lookup"><span data-stu-id="fcff3-109">Many features require a compatible client **and** server.</span></span> <span data-ttu-id="fcff3-110">请参阅下面的表，其中显示了各种功能的最低版本。</span><span class="sxs-lookup"><span data-stu-id="fcff3-110">See below for a table showing the minimum versions for various features.</span></span>
 
-<span data-ttu-id="fcff3-111">:::no-loc(SignalR):::2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。</span><span class="sxs-lookup"><span data-stu-id="fcff3-111">The 1.x versions of :::no-loc(SignalR)::: map to the 2.1 and 2.2 .NET Core releases and have the same lifetime.</span></span> <span data-ttu-id="fcff3-112">对于版本1.x 和更高版本， :::no-loc(SignalR)::: 版本与 .net 的其余部分完全匹配并具有相同的支持生命周期。</span><span class="sxs-lookup"><span data-stu-id="fcff3-112">For version 3.x and above, the :::no-loc(SignalR)::: version exactly matches the rest of .NET and has the same support lifecycle.</span></span>
+<span data-ttu-id="fcff3-111">SignalR2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。</span><span class="sxs-lookup"><span data-stu-id="fcff3-111">The 1.x versions of SignalR map to the 2.1 and 2.2 .NET Core releases and have the same lifetime.</span></span> <span data-ttu-id="fcff3-112">对于版本1.x 和更高版本， SignalR 版本与 .net 的其余部分完全匹配并具有相同的支持生命周期。</span><span class="sxs-lookup"><span data-stu-id="fcff3-112">For version 3.x and above, the SignalR version exactly matches the rest of .NET and has the same support lifecycle.</span></span>
 
-| <span data-ttu-id="fcff3-113">:::no-loc(SignalR)::: 版本</span><span class="sxs-lookup"><span data-stu-id="fcff3-113">:::no-loc(SignalR)::: version</span></span> | <span data-ttu-id="fcff3-114">.NET Core 版本</span><span class="sxs-lookup"><span data-stu-id="fcff3-114">.NET Core version</span></span> | <span data-ttu-id="fcff3-115">支持级别</span><span class="sxs-lookup"><span data-stu-id="fcff3-115">Support level</span></span> | <span data-ttu-id="fcff3-116">结束支持</span><span class="sxs-lookup"><span data-stu-id="fcff3-116">End of support</span></span> |
+| <span data-ttu-id="fcff3-113">SignalR 版本</span><span class="sxs-lookup"><span data-stu-id="fcff3-113">SignalR version</span></span> | <span data-ttu-id="fcff3-114">.NET Core 版本</span><span class="sxs-lookup"><span data-stu-id="fcff3-114">.NET Core version</span></span> | <span data-ttu-id="fcff3-115">支持级别</span><span class="sxs-lookup"><span data-stu-id="fcff3-115">Support level</span></span> | <span data-ttu-id="fcff3-116">结束支持</span><span class="sxs-lookup"><span data-stu-id="fcff3-116">End of support</span></span> |
 | - | - | - | - |
 | <span data-ttu-id="fcff3-117">1.0. x</span><span class="sxs-lookup"><span data-stu-id="fcff3-117">1.0.x</span></span> | <span data-ttu-id="fcff3-118">2.1.x</span><span class="sxs-lookup"><span data-stu-id="fcff3-118">2.1.x</span></span> | <span data-ttu-id="fcff3-119">长期支持</span><span class="sxs-lookup"><span data-stu-id="fcff3-119">Long Term Support</span></span> | <span data-ttu-id="fcff3-120">2021年8月21日</span><span class="sxs-lookup"><span data-stu-id="fcff3-120">August 21, 2021</span></span> |
 | <span data-ttu-id="fcff3-121">1.1. x</span><span class="sxs-lookup"><span data-stu-id="fcff3-121">1.1.x</span></span> | <span data-ttu-id="fcff3-122">2.2. x</span><span class="sxs-lookup"><span data-stu-id="fcff3-122">2.2.x</span></span> | <span data-ttu-id="fcff3-123">生命周期结束</span><span class="sxs-lookup"><span data-stu-id="fcff3-123">End Of Life</span></span> | <span data-ttu-id="fcff3-124">2019年12月23日</span><span class="sxs-lookup"><span data-stu-id="fcff3-124">December 23, 2019</span></span> |
-| <span data-ttu-id="fcff3-125">3. x 或更高版本</span><span class="sxs-lookup"><span data-stu-id="fcff3-125">3.x or higher</span></span> | <span data-ttu-id="fcff3-126">*与 :::no-loc(SignalR)::: 版本相同*</span><span class="sxs-lookup"><span data-stu-id="fcff3-126">*same as :::no-loc(SignalR)::: version*</span></span> | <span data-ttu-id="fcff3-127">请参阅 [.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)</span><span class="sxs-lookup"><span data-stu-id="fcff3-127">See the [the .NET Core Support Policy](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)</span></span> |
+| <span data-ttu-id="fcff3-125">3. x 或更高版本</span><span class="sxs-lookup"><span data-stu-id="fcff3-125">3.x or higher</span></span> | <span data-ttu-id="fcff3-126">*与 SignalR 版本相同*</span><span class="sxs-lookup"><span data-stu-id="fcff3-126">*same as SignalR version*</span></span> | <span data-ttu-id="fcff3-127">请参阅 [.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)</span><span class="sxs-lookup"><span data-stu-id="fcff3-127">See the [the .NET Core Support Policy](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)</span></span> |
 
 <span data-ttu-id="fcff3-128">**注意：** 在 ASP.NET Core 3.0 中，JavaScript 客户端 *移* 到 `@microsoft/signalr` npm 包。</span><span class="sxs-lookup"><span data-stu-id="fcff3-128">**NOTE:** In ASP.NET Core 3.0, the JavaScript client *moved* to the `@microsoft/signalr` npm package.</span></span>
 
@@ -49,7 +49,7 @@ ms.locfileid: "93050974"
 
 | <span data-ttu-id="fcff3-133">功能</span><span class="sxs-lookup"><span data-stu-id="fcff3-133">Feature</span></span> | <span data-ttu-id="fcff3-134">服务器</span><span class="sxs-lookup"><span data-stu-id="fcff3-134">Server</span></span> | <span data-ttu-id="fcff3-135">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="fcff3-135">.NET client</span></span> | <span data-ttu-id="fcff3-136">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="fcff3-136">JavaScript client</span></span> | <span data-ttu-id="fcff3-137">Java 客户端</span><span class="sxs-lookup"><span data-stu-id="fcff3-137">Java client</span></span> |
 | ---- | :-: | :-: | :-: | :-: |
-| <span data-ttu-id="fcff3-138">Azure :::no-loc(SignalR)::: 服务支持</span><span class="sxs-lookup"><span data-stu-id="fcff3-138">Azure :::no-loc(SignalR)::: Service Support</span></span> |<span data-ttu-id="fcff3-139">2.1.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-139">2.1.0</span></span>|<span data-ttu-id="fcff3-140">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-140">1.0.0</span></span>|<span data-ttu-id="fcff3-141">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-141">1.0.0</span></span>|<span data-ttu-id="fcff3-142">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-142">1.0.0</span></span>|
+| <span data-ttu-id="fcff3-138">Azure SignalR 服务支持</span><span class="sxs-lookup"><span data-stu-id="fcff3-138">Azure SignalR Service Support</span></span> |<span data-ttu-id="fcff3-139">2.1.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-139">2.1.0</span></span>|<span data-ttu-id="fcff3-140">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-140">1.0.0</span></span>|<span data-ttu-id="fcff3-141">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-141">1.0.0</span></span>|<span data-ttu-id="fcff3-142">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-142">1.0.0</span></span>|
 | [<span data-ttu-id="fcff3-143">服务器到客户端流式处理</span><span class="sxs-lookup"><span data-stu-id="fcff3-143">Server-to-client Streaming</span></span>](xref:signalr/streaming)          |<span data-ttu-id="fcff3-144">2.1.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-144">2.1.0</span></span>|<span data-ttu-id="fcff3-145">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-145">1.0.0</span></span>|<span data-ttu-id="fcff3-146">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-146">1.0.0</span></span>|<span data-ttu-id="fcff3-147">1.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-147">1.0.0</span></span>|
 | [<span data-ttu-id="fcff3-148">客户端到服务器的流式处理</span><span class="sxs-lookup"><span data-stu-id="fcff3-148">Client-to-server Streaming</span></span>](xref:signalr/streaming)          |<span data-ttu-id="fcff3-149">3.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-149">3.0.0</span></span>|<span data-ttu-id="fcff3-150">3.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-150">3.0.0</span></span>|<span data-ttu-id="fcff3-151">3.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-151">3.0.0</span></span>|<span data-ttu-id="fcff3-152">3.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-152">3.0.0</span></span>|
 | <span data-ttu-id="fcff3-153">[.Net](./dotnet-client.md?tabs=visual-studio&view=aspnetcore-3.0#handle-lost-connection)、 [JavaScript](./javascript-client.md?view=aspnetcore-3.0#reconnect-clients))  (自动重新连接</span><span class="sxs-lookup"><span data-stu-id="fcff3-153">Automatic Reconnection ([.NET](./dotnet-client.md?tabs=visual-studio&view=aspnetcore-3.0#handle-lost-connection), [JavaScript](./javascript-client.md?view=aspnetcore-3.0#reconnect-clients))</span></span>          |<span data-ttu-id="fcff3-154">3.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-154">3.0.0</span></span>|<span data-ttu-id="fcff3-155">3.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-155">3.0.0</span></span>|<span data-ttu-id="fcff3-156">3.0.0</span><span class="sxs-lookup"><span data-stu-id="fcff3-156">3.0.0</span></span>|❌|
@@ -63,7 +63,7 @@ ms.locfileid: "93050974"
 
 ## <a name="additional-resources"></a><span data-ttu-id="fcff3-181">其他资源</span><span class="sxs-lookup"><span data-stu-id="fcff3-181">Additional resources</span></span>
 
-* [<span data-ttu-id="fcff3-182">:::no-loc(SignalR):::ASP.NET Core 入门</span><span class="sxs-lookup"><span data-stu-id="fcff3-182">Get started with :::no-loc(SignalR)::: for ASP.NET Core</span></span>](xref:tutorials/signalr)
+* [<span data-ttu-id="fcff3-182">SignalRASP.NET Core 入门</span><span class="sxs-lookup"><span data-stu-id="fcff3-182">Get started with SignalR for ASP.NET Core</span></span>](xref:tutorials/signalr)
 * [<span data-ttu-id="fcff3-183">支持的平台</span><span class="sxs-lookup"><span data-stu-id="fcff3-183">Supported platforms</span></span>](xref:signalr/supported-platforms)
 * [<span data-ttu-id="fcff3-184">中心</span><span class="sxs-lookup"><span data-stu-id="fcff3-184">Hubs</span></span>](xref:signalr/hubs)
 * [<span data-ttu-id="fcff3-185">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="fcff3-185">JavaScript client</span></span>](xref:signalr/javascript-client)

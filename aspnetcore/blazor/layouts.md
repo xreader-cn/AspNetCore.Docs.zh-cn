@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: 布局'
+title: 'ASP.NET Core Blazor 布局'
 author: guardrex
-description: '了解如何为 :::no-loc(Blazor)::: 应用创建可重用布局组件。'
+description: '了解如何为 Blazor 应用创建可重用布局组件。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/23/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/layouts
 ms.openlocfilehash: e61c76b5d53ad7646961632d00b047ecd2d9e477
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,32 +26,32 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93055602"
 ---
-# <a name="aspnet-core-no-locblazor-layouts"></a><span data-ttu-id="4e5e9-103">ASP.NET Core :::no-loc(Blazor)::: 布局</span><span class="sxs-lookup"><span data-stu-id="4e5e9-103">ASP.NET Core :::no-loc(Blazor)::: layouts</span></span>
+# <a name="aspnet-core-no-locblazor-layouts"></a><span data-ttu-id="4e5e9-103">ASP.NET Core Blazor 布局</span><span class="sxs-lookup"><span data-stu-id="4e5e9-103">ASP.NET Core Blazor layouts</span></span>
 
 <span data-ttu-id="4e5e9-104">作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="4e5e9-104">By [Rainer Stropek](https://www.timecockpit.com) and [Luke Latham](https://github.com/guardrex)</span></span>
 
 <span data-ttu-id="4e5e9-105">有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-105">Some app elements, such as menus, copyright messages, and company logos, are usually part of app's overall layout and used by every component in the app.</span></span> <span data-ttu-id="4e5e9-106">将这些元素的代码复制到应用的所有组件并不是一种有效的方法。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-106">Copying the code of these elements into all of the components of an app isn't an efficient approach.</span></span> <span data-ttu-id="4e5e9-107">每当一个元素需要更新时，每个组件都必须更新。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-107">Every time one of the elements requires an update, every component must be updated.</span></span> <span data-ttu-id="4e5e9-108">此类复制难以维护，并会随时间推移导致内容不一致。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-108">Such duplication is difficult to maintain and can lead to inconsistent content over time.</span></span> <span data-ttu-id="4e5e9-109">*布局* 可解决此问题。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-109">*Layouts* solve this problem.</span></span>
 
-<span data-ttu-id="4e5e9-110">从技术上讲，布局也是一个组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-110">Technically, a layout is just another component.</span></span> <span data-ttu-id="4e5e9-111">布局在 :::no-loc(Razor)::: 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/components/data-binding)、[依赖项注入](xref:blazor/fundamentals/dependency-injection)和其他组件方案。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-111">A layout is defined in a :::no-loc(Razor)::: template or in C# code and can use [data binding](xref:blazor/components/data-binding), [dependency injection](xref:blazor/fundamentals/dependency-injection), and other component scenarios.</span></span>
+<span data-ttu-id="4e5e9-110">从技术上讲，布局也是一个组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-110">Technically, a layout is just another component.</span></span> <span data-ttu-id="4e5e9-111">布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/components/data-binding)、[依赖项注入](xref:blazor/fundamentals/dependency-injection)和其他组件方案。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-111">A layout is defined in a Razor template or in C# code and can use [data binding](xref:blazor/components/data-binding), [dependency injection](xref:blazor/fundamentals/dependency-injection), and other component scenarios.</span></span>
 
 <span data-ttu-id="4e5e9-112">若要将 *组件* 转换为 *布局* ，该组件应：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-112">To turn a *component* into a *layout* , the component:</span></span>
 
 * <span data-ttu-id="4e5e9-113">继承自 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase>，后者为布局内的呈现内容定义 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase.Body> 属性。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-113">Inherits from <xref:Microsoft.AspNetCore.Components.LayoutComponentBase>, which defines a <xref:Microsoft.AspNetCore.Components.LayoutComponentBase.Body> property for the rendered content inside the layout.</span></span>
-* <span data-ttu-id="4e5e9-114">使用 :::no-loc(Razor)::: 语法 `@Body` 在布局标记中指定呈现内容的位置。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-114">Uses the :::no-loc(Razor)::: syntax `@Body` to specify the location in the layout markup where the content is rendered.</span></span>
+* <span data-ttu-id="4e5e9-114">使用 Razor 语法 `@Body` 在布局标记中指定呈现内容的位置。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-114">Uses the Razor syntax `@Body` to specify the location in the layout markup where the content is rendered.</span></span>
 
-<span data-ttu-id="4e5e9-115">以下代码示例显示布局组件 `MainLayout.razor` 的 :::no-loc(Razor)::: 模板。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-115">The following code sample shows the :::no-loc(Razor)::: template of a layout component, `MainLayout.razor`.</span></span> <span data-ttu-id="4e5e9-116">布局继承 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> 并在导航栏和页脚之间设置 `@Body`：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-116">The layout inherits <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> and sets the `@Body` between the navigation bar and the footer:</span></span>
+<span data-ttu-id="4e5e9-115">以下代码示例显示布局组件 `MainLayout.razor` 的 Razor 模板。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-115">The following code sample shows the Razor template of a layout component, `MainLayout.razor`.</span></span> <span data-ttu-id="4e5e9-116">布局继承 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> 并在导航栏和页脚之间设置 `@Body`：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-116">The layout inherits <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> and sets the `@Body` between the navigation bar and the footer:</span></span>
 
 [!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
 ## <a name="mainlayout-component"></a><span data-ttu-id="4e5e9-117">`MainLayout` 组件</span><span class="sxs-lookup"><span data-stu-id="4e5e9-117">`MainLayout` component</span></span>
 
-<span data-ttu-id="4e5e9-118">在基于其中一个 :::no-loc(Blazor)::: 项目模板的应用中，`MainLayout` 组件 (`MainLayout.razor`) 位于应用的“`Shared`”文件夹中：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-118">In an app based on one of the :::no-loc(Blazor)::: project templates, the `MainLayout` component (`MainLayout.razor`) is in the app's `Shared` folder:</span></span>
+<span data-ttu-id="4e5e9-118">在基于其中一个 Blazor 项目模板的应用中，`MainLayout` 组件 (`MainLayout.razor`) 位于应用的“`Shared`”文件夹中：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-118">In an app based on one of the Blazor project templates, the `MainLayout` component (`MainLayout.razor`) is in the app's `Shared` folder:</span></span>
 
-[!code-razor[](./common/samples/3.x/:::no-loc(Blazor):::WebAssemblySample/Shared/MainLayout.razor)]
+[!code-razor[](./common/samples/3.x/BlazorWebAssemblySample/Shared/MainLayout.razor)]
 
 ## <a name="default-layout"></a><span data-ttu-id="4e5e9-119">默认布局</span><span class="sxs-lookup"><span data-stu-id="4e5e9-119">Default layout</span></span>
 
-<span data-ttu-id="4e5e9-120">在应用的 `App.razor` 文件的 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件中指定默认应用布局。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-120">Specify the default app layout in the <xref:Microsoft.AspNetCore.Components.Routing.Router> component in the app's `App.razor` file.</span></span> <span data-ttu-id="4e5e9-121">默认 :::no-loc(Blazor)::: 模板提供的以下 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件将默认布局设置为 `MainLayout` 组件：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-121">The following <xref:Microsoft.AspNetCore.Components.Routing.Router> component, which is provided by the default :::no-loc(Blazor)::: templates, sets the default layout to the `MainLayout` component:</span></span>
+<span data-ttu-id="4e5e9-120">在应用的 `App.razor` 文件的 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件中指定默认应用布局。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-120">Specify the default app layout in the <xref:Microsoft.AspNetCore.Components.Routing.Router> component in the app's `App.razor` file.</span></span> <span data-ttu-id="4e5e9-121">默认 Blazor 模板提供的以下 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件将默认布局设置为 `MainLayout` 组件：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-121">The following <xref:Microsoft.AspNetCore.Components.Routing.Router> component, which is provided by the default Blazor templates, sets the default layout to the `MainLayout` component:</span></span>
 
 [!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
@@ -65,7 +65,7 @@ ms.locfileid: "93055602"
 
 ## <a name="specify-a-layout-in-a-component"></a><span data-ttu-id="4e5e9-126">在组件中指定布局</span><span class="sxs-lookup"><span data-stu-id="4e5e9-126">Specify a layout in a component</span></span>
 
-<span data-ttu-id="4e5e9-127">使用 :::no-loc(Razor)::: 指令 `@layout` 将布局应用于组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-127">Use the :::no-loc(Razor)::: directive `@layout` to apply a layout to a component.</span></span> <span data-ttu-id="4e5e9-128">编译器将 `@layout` 转换为 <xref:Microsoft.AspNetCore.Components.LayoutAttribute>，后者应用于组件类。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-128">The compiler converts `@layout` into a <xref:Microsoft.AspNetCore.Components.LayoutAttribute>, which is applied to the component class.</span></span>
+<span data-ttu-id="4e5e9-127">使用 Razor 指令 `@layout` 将布局应用于组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-127">Use the Razor directive `@layout` to apply a layout to a component.</span></span> <span data-ttu-id="4e5e9-128">编译器将 `@layout` 转换为 <xref:Microsoft.AspNetCore.Components.LayoutAttribute>，后者应用于组件类。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-128">The compiler converts `@layout` into a <xref:Microsoft.AspNetCore.Components.LayoutAttribute>, which is applied to the component class.</span></span>
 
 <span data-ttu-id="4e5e9-129">以下 `MasterList` 组件的内容插入到 `MasterLayout` 中 `@Body` 的位置：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-129">The content of the following `MasterList` component is inserted into the `MasterLayout` at the position of `@Body`:</span></span>
 
@@ -75,22 +75,22 @@ ms.locfileid: "93055602"
 
 ## <a name="centralized-layout-selection"></a><span data-ttu-id="4e5e9-131">集中式布局选择</span><span class="sxs-lookup"><span data-stu-id="4e5e9-131">Centralized layout selection</span></span>
 
-<span data-ttu-id="4e5e9-132">应用的每个文件夹都可以选择包含名为 `_Imports.razor` 的模板文件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-132">Every folder of an app can optionally contain a template file named `_Imports.razor`.</span></span> <span data-ttu-id="4e5e9-133">编译器将导入文件中指定的指令包括在同一文件夹中的所有 :::no-loc(Razor)::: 模板内，并在其所有子文件夹中以递归方式包括。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-133">The compiler includes the directives specified in the imports file in all of the :::no-loc(Razor)::: templates in the same folder and recursively in all of its subfolders.</span></span> <span data-ttu-id="4e5e9-134">因此，包含 `@layout MyCoolLayout` 的 `_Imports.razor` 文件可确保文件夹中的所有组件都使用 `MyCoolLayout`。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-134">Therefore, an `_Imports.razor` file containing `@layout MyCoolLayout` ensures that all of the components in a folder use `MyCoolLayout`.</span></span> <span data-ttu-id="4e5e9-135">无需将 `@layout MyCoolLayout` 重复添加到文件夹和子文件夹内的所有 `.razor` 文件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-135">There's no need to repeatedly add `@layout MyCoolLayout` to all of the `.razor` files within the folder and subfolders.</span></span> <span data-ttu-id="4e5e9-136">`@using` 指令也以相同的方式应用于组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-136">`@using` directives are also applied to components in the same way.</span></span>
+<span data-ttu-id="4e5e9-132">应用的每个文件夹都可以选择包含名为 `_Imports.razor` 的模板文件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-132">Every folder of an app can optionally contain a template file named `_Imports.razor`.</span></span> <span data-ttu-id="4e5e9-133">编译器将导入文件中指定的指令包括在同一文件夹中的所有 Razor 模板内，并在其所有子文件夹中以递归方式包括。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-133">The compiler includes the directives specified in the imports file in all of the Razor templates in the same folder and recursively in all of its subfolders.</span></span> <span data-ttu-id="4e5e9-134">因此，包含 `@layout MyCoolLayout` 的 `_Imports.razor` 文件可确保文件夹中的所有组件都使用 `MyCoolLayout`。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-134">Therefore, an `_Imports.razor` file containing `@layout MyCoolLayout` ensures that all of the components in a folder use `MyCoolLayout`.</span></span> <span data-ttu-id="4e5e9-135">无需将 `@layout MyCoolLayout` 重复添加到文件夹和子文件夹内的所有 `.razor` 文件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-135">There's no need to repeatedly add `@layout MyCoolLayout` to all of the `.razor` files within the folder and subfolders.</span></span> <span data-ttu-id="4e5e9-136">`@using` 指令也以相同的方式应用于组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-136">`@using` directives are also applied to components in the same way.</span></span>
 
 <span data-ttu-id="4e5e9-137">添加以下 `_Imports.razor` 文件导入内容：</span><span class="sxs-lookup"><span data-stu-id="4e5e9-137">The following `_Imports.razor` file imports:</span></span>
 
 * <span data-ttu-id="4e5e9-138">`MyCoolLayout`。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-138">`MyCoolLayout`.</span></span>
-* <span data-ttu-id="4e5e9-139">同一文件夹以及任何子文件夹中的所有 :::no-loc(Razor)::: 组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-139">All :::no-loc(Razor)::: components in the same folder and any subfolders.</span></span>
-* <span data-ttu-id="4e5e9-140">`:::no-loc(Blazor):::App1.Data` 命名空间。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-140">The `:::no-loc(Blazor):::App1.Data` namespace.</span></span>
+* <span data-ttu-id="4e5e9-139">同一文件夹以及任何子文件夹中的所有 Razor 组件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-139">All Razor components in the same folder and any subfolders.</span></span>
+* <span data-ttu-id="4e5e9-140">`BlazorApp1.Data` 命名空间。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-140">The `BlazorApp1.Data` namespace.</span></span>
  
 [!code-razor[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
-<span data-ttu-id="4e5e9-141">`_Imports.razor` 文件类似于 [:::no-loc(Razor)::: 视图和页面的 _ViewImports.cshtml 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 :::no-loc(Razor)::: 组件文件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-141">The `_Imports.razor` file is similar to the [_ViewImports.cshtml file for :::no-loc(Razor)::: views and pages](xref:mvc/views/layout#importing-shared-directives) but applied specifically to :::no-loc(Razor)::: component files.</span></span>
+<span data-ttu-id="4e5e9-141">`_Imports.razor` 文件类似于 [Razor 视图和页面的 _ViewImports.cshtml 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 Razor 组件文件。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-141">The `_Imports.razor` file is similar to the [_ViewImports.cshtml file for Razor views and pages](xref:mvc/views/layout#importing-shared-directives) but applied specifically to Razor component files.</span></span>
 
 <span data-ttu-id="4e5e9-142">在 `_Imports.razor` 中指定布局会替代指定为路由器默认布局的布局。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-142">Specifying a layout in `_Imports.razor` overrides a layout specified as the router's *default layout*.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="4e5e9-143">请勿向根 `_Imports.razor` 文件添加 :::no-loc(Razor)::: `@layout` 指令，这会导致应用中的布局形成无限循环。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-143">Do **not** add a :::no-loc(Razor)::: `@layout` directive to the root `_Imports.razor` file, which results in an infinite loop of layouts in the app.</span></span> <span data-ttu-id="4e5e9-144">请在 `Router` 组件中指定布局，以控制默认应用布局。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-144">To control the default app layout, specify the layout in the `Router` component.</span></span> <span data-ttu-id="4e5e9-145">有关详细信息，请参阅[默认布局](#default-layout)部分。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-145">For more information, see the [Default layout](#default-layout) section.</span></span>
+> <span data-ttu-id="4e5e9-143">请勿向根 `_Imports.razor` 文件添加 Razor `@layout` 指令，这会导致应用中的布局形成无限循环。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-143">Do **not** add a Razor `@layout` directive to the root `_Imports.razor` file, which results in an infinite loop of layouts in the app.</span></span> <span data-ttu-id="4e5e9-144">请在 `Router` 组件中指定布局，以控制默认应用布局。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-144">To control the default app layout, specify the layout in the `Router` component.</span></span> <span data-ttu-id="4e5e9-145">有关详细信息，请参阅[默认布局](#default-layout)部分。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-145">For more information, see the [Default layout](#default-layout) section.</span></span>
 
 ## <a name="nested-layouts"></a><span data-ttu-id="4e5e9-146">嵌套布局</span><span class="sxs-lookup"><span data-stu-id="4e5e9-146">Nested layouts</span></span>
 
@@ -108,9 +108,9 @@ ms.locfileid: "93055602"
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
-## <a name="share-a-no-locrazor-pages-layout-with-integrated-components"></a><span data-ttu-id="4e5e9-158">与集成组件共享 :::no-loc(Razor)::: Pages 布局</span><span class="sxs-lookup"><span data-stu-id="4e5e9-158">Share a :::no-loc(Razor)::: Pages layout with integrated components</span></span>
+## <a name="share-a-no-locrazor-pages-layout-with-integrated-components"></a><span data-ttu-id="4e5e9-158">与集成组件共享 Razor Pages 布局</span><span class="sxs-lookup"><span data-stu-id="4e5e9-158">Share a Razor Pages layout with integrated components</span></span>
 
-<span data-ttu-id="4e5e9-159">当可路由组件集成到 :::no-loc(Razor)::: Pages 应用中时，该应用的共享布局可与这些组件配合使用。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-159">When routable components are integrated into a :::no-loc(Razor)::: Pages app, the app's shared layout can be used with the components.</span></span> <span data-ttu-id="4e5e9-160">有关详细信息，请参阅 <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-160">For more information, see <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>.</span></span>
+<span data-ttu-id="4e5e9-159">当可路由组件集成到 Razor Pages 应用中时，该应用的共享布局可与这些组件配合使用。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-159">When routable components are integrated into a Razor Pages app, the app's shared layout can be used with the components.</span></span> <span data-ttu-id="4e5e9-160">有关详细信息，请参阅 <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>。</span><span class="sxs-lookup"><span data-stu-id="4e5e9-160">For more information, see <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>.</span></span>
 
 ## <a name="additional-resources"></a><span data-ttu-id="4e5e9-161">其他资源</span><span class="sxs-lookup"><span data-stu-id="4e5e9-161">Additional resources</span></span>
 

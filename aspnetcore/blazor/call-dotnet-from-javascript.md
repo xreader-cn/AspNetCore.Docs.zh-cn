@@ -1,23 +1,23 @@
 ---
-title: '从 ASP.NET Core :::no-loc(Blazor)::: 中的 JavaScript 函数调用 .NET 方法'
+title: '从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法'
 author: guardrex
-description: '了解如何在 :::no-loc(Blazor)::: 应用中通过 JavaScript 函数调用 .NET 方法。'
+description: '了解如何在 Blazor 应用中通过 JavaScript 函数调用 .NET 方法。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, devx-track-js
 ms.date: 08/12/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/call-dotnet-from-javascript
 ms.openlocfilehash: 456339d46cf2991baaa27ae2a3a97a5c221fd3b0
 ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
@@ -26,11 +26,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/03/2020
 ms.locfileid: "93234395"
 ---
-# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-no-locblazor"></a><span data-ttu-id="3d8c6-103">从 ASP.NET Core :::no-loc(Blazor)::: 中的 JavaScript 函数调用 .NET 方法</span><span class="sxs-lookup"><span data-stu-id="3d8c6-103">Call .NET methods from JavaScript functions in ASP.NET Core :::no-loc(Blazor):::</span></span>
+# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-no-locblazor"></a><span data-ttu-id="3d8c6-103">从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法</span><span class="sxs-lookup"><span data-stu-id="3d8c6-103">Call .NET methods from JavaScript functions in ASP.NET Core Blazor</span></span>
 
 <span data-ttu-id="3d8c6-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27)、[Shashikant Rudrawadi](http://wisne.co) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="3d8c6-104">By [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Roth](https://github.com/danroth27), [Shashikant Rudrawadi](http://wisne.co), and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="3d8c6-105">:::no-loc(Blazor)::: 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-105">A :::no-loc(Blazor)::: app can invoke JavaScript functions from .NET methods and .NET methods from JavaScript functions.</span></span> <span data-ttu-id="3d8c6-106">这被称为 JavaScript 互操作（JS 互操作） 。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-106">These scenarios are called *JavaScript interoperability* ( *JS interop* ).</span></span>
+<span data-ttu-id="3d8c6-105">Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-105">A Blazor app can invoke JavaScript functions from .NET methods and .NET methods from JavaScript functions.</span></span> <span data-ttu-id="3d8c6-106">这被称为 JavaScript 互操作（JS 互操作） 。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-106">These scenarios are called *JavaScript interoperability* ( *JS interop* ).</span></span>
 
 <span data-ttu-id="3d8c6-107">本文介绍如何从 JavaScript 调用 .NET 方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-107">This article covers invoking .NET methods from JavaScript.</span></span> <span data-ttu-id="3d8c6-108">要详细了解如何通过 .NET 调用 JavaScript 函数，请参阅 <xref:blazor/call-javascript-from-dotnet>。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-108">For information on how to call JavaScript functions from .NET, see <xref:blazor/call-javascript-from-dotnet>.</span></span>
 
@@ -38,7 +38,7 @@ ms.locfileid: "93234395"
 
 ## <a name="static-net-method-call"></a><span data-ttu-id="3d8c6-110">静态 .NET 方法调用</span><span class="sxs-lookup"><span data-stu-id="3d8c6-110">Static .NET method call</span></span>
 
-<span data-ttu-id="3d8c6-111">要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-111">To invoke a static .NET method from JavaScript, use the `DotNet.invokeMethod` or `DotNet.invokeMethodAsync` functions.</span></span> <span data-ttu-id="3d8c6-112">传入要调用的静态方法的标识符、包含该函数的程序集的名称以及任意自变量。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-112">Pass in the identifier of the static method you wish to call, the name of the assembly containing the function, and any arguments.</span></span> <span data-ttu-id="3d8c6-113">异步版本是支持 :::no-loc(Blazor Server)::: 方案的首选。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-113">The asynchronous version is preferred to support :::no-loc(Blazor Server)::: scenarios.</span></span> <span data-ttu-id="3d8c6-114">.NET 方法必须是公共的静态方法，并且包含 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-114">The .NET method must be public, static, and have the [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) attribute.</span></span> <span data-ttu-id="3d8c6-115">当前不支持调用开放式泛型方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-115">Calling open generic methods isn't currently supported.</span></span>
+<span data-ttu-id="3d8c6-111">要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-111">To invoke a static .NET method from JavaScript, use the `DotNet.invokeMethod` or `DotNet.invokeMethodAsync` functions.</span></span> <span data-ttu-id="3d8c6-112">传入要调用的静态方法的标识符、包含该函数的程序集的名称以及任意自变量。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-112">Pass in the identifier of the static method you wish to call, the name of the assembly containing the function, and any arguments.</span></span> <span data-ttu-id="3d8c6-113">异步版本是支持 Blazor Server 方案的首选。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-113">The asynchronous version is preferred to support Blazor Server scenarios.</span></span> <span data-ttu-id="3d8c6-114">.NET 方法必须是公共的静态方法，并且包含 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-114">The .NET method must be public, static, and have the [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) attribute.</span></span> <span data-ttu-id="3d8c6-115">当前不支持调用开放式泛型方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-115">Calling open generic methods isn't currently supported.</span></span>
 
 <span data-ttu-id="3d8c6-116">该示例应用包含一个 C# 方法，用于返回 `int` 数组。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-116">The sample app includes a C# method to return an `int` array.</span></span> <span data-ttu-id="3d8c6-117">[`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性应用于方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-117">The [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) attribute is applied to the method.</span></span>
 
@@ -63,7 +63,7 @@ ms.locfileid: "93234395"
 
 <span data-ttu-id="3d8c6-120">`wwwroot/exampleJsInterop.js`：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-120">`wwwroot/exampleJsInterop.js`:</span></span>
 
-[!code-javascript[](./common/samples/3.x/:::no-loc(Blazor):::WebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
 <span data-ttu-id="3d8c6-121">如果选择了“`Trigger .NET static method ReturnArrayAsync`”按钮，请在浏览器的 Web 开发人员工具中检查控制台输出。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-121">When the **`Trigger .NET static method ReturnArrayAsync`** button is selected, examine the console output in the browser's web developer tools.</span></span>
 
@@ -99,7 +99,7 @@ returnArrayAsyncJs: function () {
 }
 ```
 
-<span data-ttu-id="3d8c6-126">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-126">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span>
+<span data-ttu-id="3d8c6-126">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-126">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `BlazorSample`).</span></span>
 
 ## <a name="instance-method-call"></a><span data-ttu-id="3d8c6-127">实例方法调用</span><span class="sxs-lookup"><span data-stu-id="3d8c6-127">Instance method call</span></span>
 
@@ -113,7 +113,7 @@ returnArrayAsyncJs: function () {
 > [!NOTE]
 > <span data-ttu-id="3d8c6-136">示例应用会将消息记录到客户端控制台。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-136">The sample app logs messages to the client-side console.</span></span> <span data-ttu-id="3d8c6-137">对于示例应用展示的以下示例，请在浏览器的开发人员工具中检查浏览器的控制台输出。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-137">For the following examples demonstrated by the sample app, examine the browser's console output in the browser's developer tools.</span></span>
 
-<span data-ttu-id="3d8c6-138">如果选择了“`Trigger .NET instance method HelloHelper.SayHello`”按钮，则 `ExampleJsInterop.CallHelloHelperSayHello` 会被调用并将名称 `:::no-loc(Blazor):::` 传递给方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-138">When the **`Trigger .NET instance method HelloHelper.SayHello`** button is selected, `ExampleJsInterop.CallHelloHelperSayHello` is called and passes a name, `:::no-loc(Blazor):::`, to the method.</span></span>
+<span data-ttu-id="3d8c6-138">如果选择了“`Trigger .NET instance method HelloHelper.SayHello`”按钮，则 `ExampleJsInterop.CallHelloHelperSayHello` 会被调用并将名称 `Blazor` 传递给方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-138">When the **`Trigger .NET instance method HelloHelper.SayHello`** button is selected, `ExampleJsInterop.CallHelloHelperSayHello` is called and passes a name, `Blazor`, to the method.</span></span>
 
 <span data-ttu-id="3d8c6-139">`Pages/JsInterop.razor`：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-139">`Pages/JsInterop.razor`:</span></span>
 
@@ -126,7 +126,7 @@ returnArrayAsyncJs: function () {
     public async Task TriggerNetInstanceMethod()
     {
         var exampleJsInterop = new ExampleJsInterop(JS);
-        await exampleJsInterop.CallHelloHelperSayHello(":::no-loc(Blazor):::");
+        await exampleJsInterop.CallHelloHelperSayHello("Blazor");
     }
 }
 ```
@@ -135,22 +135,22 @@ returnArrayAsyncJs: function () {
 
 <span data-ttu-id="3d8c6-141">`JsInteropClasses/ExampleJsInterop.cs`：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-141">`JsInteropClasses/ExampleJsInterop.cs`:</span></span>
 
-[!code-csharp[](./common/samples/3.x/:::no-loc(Blazor):::WebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=11-18)]
+[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=11-18)]
 
 <span data-ttu-id="3d8c6-142">`wwwroot/exampleJsInterop.js`：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-142">`wwwroot/exampleJsInterop.js`:</span></span>
 
-[!code-javascript[](./common/samples/3.x/:::no-loc(Blazor):::WebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
 <span data-ttu-id="3d8c6-143">该名称将传递给 `HelloHelper` 的构造函数，该构造函数设置 `HelloHelper.Name` 属性。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-143">The name is passed to `HelloHelper`'s constructor, which sets the `HelloHelper.Name` property.</span></span> <span data-ttu-id="3d8c6-144">执行 JavaScript 函数 `sayHello` 时，`HelloHelper.SayHello` 返回 `Hello, {Name}!` 消息，JavaScript 函数将该消息写入控制台。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-144">When the JavaScript function `sayHello` is executed, `HelloHelper.SayHello` returns the `Hello, {Name}!` message, which is written to the console by the JavaScript function.</span></span>
 
 <span data-ttu-id="3d8c6-145">`JsInteropClasses/HelloHelper.cs`：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-145">`JsInteropClasses/HelloHelper.cs`:</span></span>
 
-[!code-csharp[](./common/samples/3.x/:::no-loc(Blazor):::WebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
+[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 
 <span data-ttu-id="3d8c6-146">浏览器 Web 开发人员工具中的控制台输出：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-146">Console output in the browser's web developer tools:</span></span>
 
 ```console
-Hello, :::no-loc(Blazor):::!
+Hello, Blazor!
 ```
 
 <span data-ttu-id="3d8c6-147">为避免内存泄露并允许对创建 <xref:Microsoft.JSInterop.DotNetObjectReference> 的组件进行垃圾回收，请采用以下任一方法：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-147">To avoid a memory leak and allow garbage collection on a component that creates a <xref:Microsoft.JSInterop.DotNetObjectReference>, adopt one of the following approaches:</span></span>
@@ -203,7 +203,7 @@ Hello, :::no-loc(Blazor):::!
 
       public async Task TriggerNetInstanceMethod()
       {
-          objRef = DotNetObjectReference.Create(new HelloHelper(":::no-loc(Blazor):::"));
+          objRef = DotNetObjectReference.Create(new HelloHelper("Blazor"));
 
           await JS.InvokeAsync<string>(
               "exampleJsFunctions.sayHello",
@@ -217,7 +217,7 @@ Hello, :::no-loc(Blazor):::!
   }
   ```
   
-  <span data-ttu-id="3d8c6-150">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-150">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span>
+  <span data-ttu-id="3d8c6-150">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-150">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `BlazorSample`).</span></span>
 
 * <span data-ttu-id="3d8c6-151">如果组件或类不处置 <xref:Microsoft.JSInterop.DotNetObjectReference>，请通过调用 `.dispose()` 在客户端上处置该对象：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-151">When the component or class doesn't dispose of the <xref:Microsoft.JSInterop.DotNetObjectReference>, dispose of the object on the client by calling `.dispose()`:</span></span>
 
@@ -236,7 +236,7 @@ Hello, :::no-loc(Blazor):::!
 * <span data-ttu-id="3d8c6-155">组件的静态方法将其实例方法调用包装为已调用的 <xref:System.Action>。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-155">The component's static method wraps the call to its instance method as an invoked <xref:System.Action>.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="3d8c6-156">对于多名用户可能同时使用同一组件的 :::no-loc(Blazor Server)::: 应用，请使用帮助程序类来调用实例方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-156">For :::no-loc(Blazor Server)::: apps, where several users might be concurrently using the same component, use a helper class to invoke instance methods.</span></span>
+> <span data-ttu-id="3d8c6-156">对于多名用户可能同时使用同一组件的 Blazor Server 应用，请使用帮助程序类来调用实例方法。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-156">For Blazor Server apps, where several users might be concurrently using the same component, use a helper class to invoke instance methods.</span></span>
 >
 > <span data-ttu-id="3d8c6-157">有关详细信息，请参阅[组件实例方法帮助程序类](#component-instance-method-helper-class)部分。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-157">For more information, see the [Component instance method helper class](#component-instance-method-helper-class) section.</span></span>
 
@@ -248,7 +248,7 @@ function updateMessageCallerJS() {
 }
 ```
 
-<span data-ttu-id="3d8c6-159">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-159">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span>
+<span data-ttu-id="3d8c6-159">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-159">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `BlazorSample`).</span></span>
 
 <span data-ttu-id="3d8c6-160">`Pages/JSInteropComponent.razor`:</span><span class="sxs-lookup"><span data-stu-id="3d8c6-160">`Pages/JSInteropComponent.razor`:</span></span>
 
@@ -296,7 +296,7 @@ function updateMessageCallerJS() {
   }
   ```
   
-  <span data-ttu-id="3d8c6-165">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-165">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span>
+  <span data-ttu-id="3d8c6-165">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-165">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `BlazorSample`).</span></span>
 
 * <span data-ttu-id="3d8c6-166">向参数的 <xref:System.Action> 提供正确的类型。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-166">Provide the correct types to the <xref:System.Action> for the parameters.</span></span> <span data-ttu-id="3d8c6-167">向 C# 方法提供参数列表。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-167">Provide the parameter list to the C# methods.</span></span> <span data-ttu-id="3d8c6-168">使用参数 (`action.Invoke(name)`) 调用 <xref:System.Action> (`UpdateMessage`)。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-168">Invoke the <xref:System.Action> (`UpdateMessage`) with the parameters (`action.Invoke(name)`).</span></span>
 
@@ -349,7 +349,7 @@ function updateMessageCallerJS() {
 <span data-ttu-id="3d8c6-172">帮助程序类用于将实例方法作为 <xref:System.Action> 进行调用。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-172">The helper class is used to invoke an instance method as an <xref:System.Action>.</span></span> <span data-ttu-id="3d8c6-173">帮助程序类在以下情况中非常有用：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-173">Helper classes are useful when:</span></span>
 
 * <span data-ttu-id="3d8c6-174">同一类型的多个组件呈现在同一页上。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-174">Several components of the same type are rendered on the same page.</span></span>
-* <span data-ttu-id="3d8c6-175">使用 :::no-loc(Blazor Server)::: 应用，其中多名用户可能同时使用某个组件。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-175">A :::no-loc(Blazor Server)::: app is used, where multiple users might be using a component concurrently.</span></span>
+* <span data-ttu-id="3d8c6-175">使用 Blazor Server 应用，其中多名用户可能同时使用某个组件。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-175">A Blazor Server app is used, where multiple users might be using a component concurrently.</span></span>
 
 <span data-ttu-id="3d8c6-176">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-176">In the following example:</span></span>
 
@@ -380,7 +380,7 @@ public class MessageUpdateInvokeHelper
 }
 ```
 
-<span data-ttu-id="3d8c6-181">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-181">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span>
+<span data-ttu-id="3d8c6-181">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-181">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `BlazorSample`).</span></span>
 
 <span data-ttu-id="3d8c6-182">在客户端 JavaScript 中：</span><span class="sxs-lookup"><span data-stu-id="3d8c6-182">In the client-side JavaScript:</span></span>
 
@@ -391,7 +391,7 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-<span data-ttu-id="3d8c6-183">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-183">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span>
+<span data-ttu-id="3d8c6-183">占位符 `{APP ASSEMBLY}` 是应用的应用程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="3d8c6-183">The placeholder `{APP ASSEMBLY}` is the app's app assembly name (for example, `BlazorSample`).</span></span>
 
 <span data-ttu-id="3d8c6-184">`Shared/ListItem.razor`:</span><span class="sxs-lookup"><span data-stu-id="3d8c6-184">`Shared/ListItem.razor`:</span></span>
 
@@ -461,4 +461,4 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 
 * <xref:blazor/call-javascript-from-dotnet>
 * [<span data-ttu-id="3d8c6-194">`InteropComponent.razor` 示例（dotnet/AspNetCore GitHub 存储库，3.1 版本分支）</span><span class="sxs-lookup"><span data-stu-id="3d8c6-194">`InteropComponent.razor` example (dotnet/AspNetCore GitHub repository, 3.1 release branch)</span></span>](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
-* [<span data-ttu-id="3d8c6-195">在 :::no-loc(Blazor Server)::: 应用中执行大型数据传输</span><span class="sxs-lookup"><span data-stu-id="3d8c6-195">Perform large data transfers in :::no-loc(Blazor Server)::: apps</span></span>](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)
+* [<span data-ttu-id="3d8c6-195">在 Blazor Server 应用中执行大型数据传输</span><span class="sxs-lookup"><span data-stu-id="3d8c6-195">Perform large data transfers in Blazor Server apps</span></span>](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)

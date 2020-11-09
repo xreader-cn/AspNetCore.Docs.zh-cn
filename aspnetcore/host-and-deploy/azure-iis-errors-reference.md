@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: host-and-deploy/azure-iis-errors-reference
 ms.openlocfilehash: b009cc61a94e618a48d96ecbd770ef6371308f6a
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -177,7 +177,7 @@ ms.locfileid: "93059840"
 
   <span data-ttu-id="5fdc6-216">有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-216">For more information, see [Install the .NET Core Hosting Bundle](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).</span></span>
 
-* <span data-ttu-id="5fdc6-217">请确保将“应用程序池”>“进程模型”>“:::no-loc(Identity):::”设置为“ApplicationPool:::no-loc(Identity):::”，或确保自定义标识具有访问应用部署文件夹的相应权限   。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-217">Make sure that the **Application Pool** > **Process Model** > **:::no-loc(Identity):::** is set to **ApplicationPool:::no-loc(Identity):::** or the custom identity has the correct permissions to access the app's deployment folder.</span></span>
+* <span data-ttu-id="5fdc6-217">请确保将“应用程序池”>“进程模型”>“Identity”设置为“ApplicationPoolIdentity”，或确保自定义标识具有访问应用部署文件夹的相应权限   。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-217">Make sure that the **Application Pool** > **Process Model** > **Identity** is set to **ApplicationPoolIdentity** or the custom identity has the correct permissions to access the app's deployment folder.</span></span>
 
 * <span data-ttu-id="5fdc6-218">如果卸载了 ASP.NET Core 托管捆绑包并已安装了一个早期版本的托管捆绑包，则 applicationHost.config 文件将不包含 ASP.NET Core 模块分区。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-218">If you uninstalled the ASP.NET Core Hosting Bundle and installed an earlier version of the hosting bundle, the *applicationHost.config* file doesn't include a section for the ASP.NET Core Module.</span></span> <span data-ttu-id="5fdc6-219">可打开 %windir%/System32/inetsrv/config 处的 applicationHost.config 文件并找到 `<configuration><configSections><sectionGroup name="system.webServer">` 分区组 。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-219">Open *applicationHost.config* at *%windir%/System32/inetsrv/config* and find the `<configuration><configSections><sectionGroup name="system.webServer">` section group.</span></span> <span data-ttu-id="5fdc6-220">如果分区组中缺少 ASP.NET Core 模块分区，请添加以下分区元素：</span><span class="sxs-lookup"><span data-stu-id="5fdc6-220">If the section for the ASP.NET Core Module is missing from the section group, add the section element:</span></span>
 
@@ -455,7 +455,7 @@ ms.locfileid: "93059840"
 
   <span data-ttu-id="5fdc6-430">有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-430">For more information, see [Install the .NET Core Hosting Bundle](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).</span></span>
 
-* <span data-ttu-id="5fdc6-431">请确保将“应用程序池”>“进程模型”>“:::no-loc(Identity):::”设置为“ApplicationPool:::no-loc(Identity):::”，或确保自定义标识具有访问应用部署文件夹的相应权限   。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-431">Make sure that the **Application Pool** > **Process Model** > **:::no-loc(Identity):::** is set to **ApplicationPool:::no-loc(Identity):::** or the custom identity has the correct permissions to access the app's deployment folder.</span></span>
+* <span data-ttu-id="5fdc6-431">请确保将“应用程序池”>“进程模型”>“Identity”设置为“ApplicationPoolIdentity”，或确保自定义标识具有访问应用部署文件夹的相应权限   。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-431">Make sure that the **Application Pool** > **Process Model** > **Identity** is set to **ApplicationPoolIdentity** or the custom identity has the correct permissions to access the app's deployment folder.</span></span>
 
 * <span data-ttu-id="5fdc6-432">如果卸载了 ASP.NET Core 托管捆绑包并已安装了一个早期版本的托管捆绑包，则 applicationHost.config 文件将不包含 ASP.NET Core 模块分区。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-432">If you uninstalled the ASP.NET Core Hosting Bundle and installed an earlier version of the hosting bundle, the *applicationHost.config* file doesn't include a section for the ASP.NET Core Module.</span></span> <span data-ttu-id="5fdc6-433">可打开 %windir%/System32/inetsrv/config 处的 applicationHost.config 文件并找到 `<configuration><configSections><sectionGroup name="system.webServer">` 分区组 。</span><span class="sxs-lookup"><span data-stu-id="5fdc6-433">Open *applicationHost.config* at *%windir%/System32/inetsrv/config* and find the `<configuration><configSections><sectionGroup name="system.webServer">` section group.</span></span> <span data-ttu-id="5fdc6-434">如果分区组中缺少 ASP.NET Core 模块分区，请添加以下分区元素：</span><span class="sxs-lookup"><span data-stu-id="5fdc6-434">If the section for the ASP.NET Core Module is missing from the section group, add the section element:</span></span>
 

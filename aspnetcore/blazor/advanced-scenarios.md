@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: 高级方案'
+title: 'ASP.NET Core Blazor 高级方案'
 author: guardrex
-description: '了解 :::no-loc(Blazor)::: 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。'
+description: '了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/18/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/advanced-scenarios
 ms.openlocfilehash: 95714b3c0d21d3b348a9a8a984e2a42e7708499e
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,13 +26,13 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93056551"
 ---
-# <a name="aspnet-core-no-locblazor-advanced-scenarios"></a><span data-ttu-id="baeb5-103">ASP.NET Core :::no-loc(Blazor)::: 高级方案</span><span class="sxs-lookup"><span data-stu-id="baeb5-103">ASP.NET Core :::no-loc(Blazor)::: advanced scenarios</span></span>
+# <a name="aspnet-core-no-locblazor-advanced-scenarios"></a><span data-ttu-id="baeb5-103">ASP.NET Core Blazor 高级方案</span><span class="sxs-lookup"><span data-stu-id="baeb5-103">ASP.NET Core Blazor advanced scenarios</span></span>
 
 <span data-ttu-id="baeb5-104">作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="baeb5-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
 
-## <a name="no-locblazor-server-circuit-handler"></a><span data-ttu-id="baeb5-105">:::no-loc(Blazor Server)::: 线路处理程序</span><span class="sxs-lookup"><span data-stu-id="baeb5-105">:::no-loc(Blazor Server)::: circuit handler</span></span>
+## <a name="no-locblazor-server-circuit-handler"></a><span data-ttu-id="baeb5-105">Blazor Server 线路处理程序</span><span class="sxs-lookup"><span data-stu-id="baeb5-105">Blazor Server circuit handler</span></span>
 
-<span data-ttu-id="baeb5-106">:::no-loc(Blazor Server)::: 允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。</span><span class="sxs-lookup"><span data-stu-id="baeb5-106">:::no-loc(Blazor Server)::: allows code to define a *circuit handler* , which allows running code on changes to the state of a user's circuit.</span></span> <span data-ttu-id="baeb5-107">线路处理程序通过从 `CircuitHandler` 派生并在应用的服务容器中注册该类实现。</span><span class="sxs-lookup"><span data-stu-id="baeb5-107">A circuit handler is implemented by deriving from `CircuitHandler` and registering the class in the app's service container.</span></span> <span data-ttu-id="baeb5-108">以下线路处理程序示例跟踪打开的 :::no-loc(SignalR)::: 连接：</span><span class="sxs-lookup"><span data-stu-id="baeb5-108">The following example of a circuit handler tracks open :::no-loc(SignalR)::: connections:</span></span>
+<span data-ttu-id="baeb5-106">Blazor Server 允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。</span><span class="sxs-lookup"><span data-stu-id="baeb5-106">Blazor Server allows code to define a *circuit handler* , which allows running code on changes to the state of a user's circuit.</span></span> <span data-ttu-id="baeb5-107">线路处理程序通过从 `CircuitHandler` 派生并在应用的服务容器中注册该类实现。</span><span class="sxs-lookup"><span data-stu-id="baeb5-107">A circuit handler is implemented by deriving from `CircuitHandler` and registering the class in the app's service container.</span></span> <span data-ttu-id="baeb5-108">以下线路处理程序示例跟踪打开的 SignalR 连接：</span><span class="sxs-lookup"><span data-stu-id="baeb5-108">The following example of a circuit handler tracks open SignalR connections:</span></span>
 
 ```csharp
 using System.Collections.Generic;
@@ -74,7 +74,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="baeb5-112">如果自定义线路处理程序的方法引发未处理异常，则该异常会导致 :::no-loc(Blazor Server)::: 线路产生严重错误。</span><span class="sxs-lookup"><span data-stu-id="baeb5-112">If a custom circuit handler's methods throw an unhandled exception, the exception is fatal to the :::no-loc(Blazor Server)::: circuit.</span></span> <span data-ttu-id="baeb5-113">若要容忍处理程序代码或被调用方法中的异常，请使用错误处理和日志记录将代码包装到一个或多个 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句中。</span><span class="sxs-lookup"><span data-stu-id="baeb5-113">To tolerate exceptions in a handler's code or called methods, wrap the code in one or more [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) statements with error handling and logging.</span></span>
+<span data-ttu-id="baeb5-112">如果自定义线路处理程序的方法引发未处理异常，则该异常会导致 Blazor Server 线路产生严重错误。</span><span class="sxs-lookup"><span data-stu-id="baeb5-112">If a custom circuit handler's methods throw an unhandled exception, the exception is fatal to the Blazor Server circuit.</span></span> <span data-ttu-id="baeb5-113">若要容忍处理程序代码或被调用方法中的异常，请使用错误处理和日志记录将代码包装到一个或多个 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句中。</span><span class="sxs-lookup"><span data-stu-id="baeb5-113">To tolerate exceptions in a handler's code or called methods, wrap the code in one or more [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) statements with error handling and logging.</span></span>
 
 <span data-ttu-id="baeb5-114">当线路因用户断开连接而结束且框架正在清除线路状态时，框架会处置线路的 DI 范围。</span><span class="sxs-lookup"><span data-stu-id="baeb5-114">When a circuit ends because a user has disconnected and the framework is cleaning up the circuit state, the framework disposes of the circuit's DI scope.</span></span> <span data-ttu-id="baeb5-115">处置范围时会处置所有实现 <xref:System.IDisposable?displayProperty=fullName> 的区分线路范围的 DI 服务。</span><span class="sxs-lookup"><span data-stu-id="baeb5-115">Disposing the scope disposes any circuit-scoped DI services that implement <xref:System.IDisposable?displayProperty=fullName>.</span></span> <span data-ttu-id="baeb5-116">如果有任何 DI 服务在处置期间引发未处理异常，则框架会记录该异常。</span><span class="sxs-lookup"><span data-stu-id="baeb5-116">If any DI service throws an unhandled exception during disposal, the framework logs the exception.</span></span>
 
@@ -99,7 +99,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="baeb5-122">在以下示例中，`CreateComponent` 方法中的循环生成三个 `PetDetails` 组件。</span><span class="sxs-lookup"><span data-stu-id="baeb5-122">In the following example, the loop in the `CreateComponent` method generates three `PetDetails` components.</span></span> <span data-ttu-id="baeb5-123">在具有序列号的 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 方法中，序列号是源代码行号。</span><span class="sxs-lookup"><span data-stu-id="baeb5-123">In <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> methods with a sequence number, sequence numbers are source code line numbers.</span></span> <span data-ttu-id="baeb5-124">:::no-loc(Blazor)::: 差分算法依赖于对应于不同代码行（而不是不同调用的调用）的序列号。</span><span class="sxs-lookup"><span data-stu-id="baeb5-124">The :::no-loc(Blazor)::: difference algorithm relies on the sequence numbers corresponding to distinct lines of code, not distinct call invocations.</span></span> <span data-ttu-id="baeb5-125">使用 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 方法创建组件时，请对序列号的参数进行硬编码。</span><span class="sxs-lookup"><span data-stu-id="baeb5-125">When creating a component with <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> methods, hardcode the arguments for sequence numbers.</span></span> <span data-ttu-id="baeb5-126">**通过计算或计数器生成序列号可能导致性能不佳。**</span><span class="sxs-lookup"><span data-stu-id="baeb5-126">**Using a calculation or counter to generate the sequence number can lead to poor performance.**</span></span> <span data-ttu-id="baeb5-127">有关详细信息，请参阅[序列号与代码行号相关，而不与执行顺序相关](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)部分。</span><span class="sxs-lookup"><span data-stu-id="baeb5-127">For more information, see the [Sequence numbers relate to code line numbers and not execution order](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) section.</span></span>
+<span data-ttu-id="baeb5-122">在以下示例中，`CreateComponent` 方法中的循环生成三个 `PetDetails` 组件。</span><span class="sxs-lookup"><span data-stu-id="baeb5-122">In the following example, the loop in the `CreateComponent` method generates three `PetDetails` components.</span></span> <span data-ttu-id="baeb5-123">在具有序列号的 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 方法中，序列号是源代码行号。</span><span class="sxs-lookup"><span data-stu-id="baeb5-123">In <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> methods with a sequence number, sequence numbers are source code line numbers.</span></span> <span data-ttu-id="baeb5-124">Blazor 差分算法依赖于对应于不同代码行（而不是不同调用的调用）的序列号。</span><span class="sxs-lookup"><span data-stu-id="baeb5-124">The Blazor difference algorithm relies on the sequence numbers corresponding to distinct lines of code, not distinct call invocations.</span></span> <span data-ttu-id="baeb5-125">使用 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 方法创建组件时，请对序列号的参数进行硬编码。</span><span class="sxs-lookup"><span data-stu-id="baeb5-125">When creating a component with <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> methods, hardcode the arguments for sequence numbers.</span></span> <span data-ttu-id="baeb5-126">**通过计算或计数器生成序列号可能导致性能不佳。**</span><span class="sxs-lookup"><span data-stu-id="baeb5-126">**Using a calculation or counter to generate the sequence number can lead to poor performance.**</span></span> <span data-ttu-id="baeb5-127">有关详细信息，请参阅[序列号与代码行号相关，而不与执行顺序相关](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)部分。</span><span class="sxs-lookup"><span data-stu-id="baeb5-127">For more information, see the [Sequence numbers relate to code line numbers and not execution order](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) section.</span></span>
 
 <span data-ttu-id="baeb5-128">`BuiltContent` 组件：</span><span class="sxs-lookup"><span data-stu-id="baeb5-128">`BuiltContent` component:</span></span>
 
@@ -135,15 +135,15 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!WARNING]
-> <span data-ttu-id="baeb5-129"><xref:Microsoft.AspNetCore.Components.RenderTree> 中的类型允许处理呈现操作的 *结果* 。</span><span class="sxs-lookup"><span data-stu-id="baeb5-129">The types in <xref:Microsoft.AspNetCore.Components.RenderTree> allow processing of the *results* of rendering operations.</span></span> <span data-ttu-id="baeb5-130">这些是 :::no-loc(Blazor)::: 框架实现的内部细节。</span><span class="sxs-lookup"><span data-stu-id="baeb5-130">These are internal details of the :::no-loc(Blazor)::: framework implementation.</span></span> <span data-ttu-id="baeb5-131">这些类型应视为 *不稳定* ，并且在未来版本中可能会有更改。</span><span class="sxs-lookup"><span data-stu-id="baeb5-131">These types should be considered *unstable* and subject to change in future releases.</span></span>
+> <span data-ttu-id="baeb5-129"><xref:Microsoft.AspNetCore.Components.RenderTree> 中的类型允许处理呈现操作的 *结果* 。</span><span class="sxs-lookup"><span data-stu-id="baeb5-129">The types in <xref:Microsoft.AspNetCore.Components.RenderTree> allow processing of the *results* of rendering operations.</span></span> <span data-ttu-id="baeb5-130">这些是 Blazor 框架实现的内部细节。</span><span class="sxs-lookup"><span data-stu-id="baeb5-130">These are internal details of the Blazor framework implementation.</span></span> <span data-ttu-id="baeb5-131">这些类型应视为 *不稳定* ，并且在未来版本中可能会有更改。</span><span class="sxs-lookup"><span data-stu-id="baeb5-131">These types should be considered *unstable* and subject to change in future releases.</span></span>
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a><span data-ttu-id="baeb5-132">序列号与代码行号相关，而不与执行顺序相关</span><span class="sxs-lookup"><span data-stu-id="baeb5-132">Sequence numbers relate to code line numbers and not execution order</span></span>
 
-<span data-ttu-id="baeb5-133">:::no-loc(Razor)::: 组件文件 (`.razor`) 始终被编译。</span><span class="sxs-lookup"><span data-stu-id="baeb5-133">:::no-loc(Razor)::: component files (`.razor`) are always compiled.</span></span> <span data-ttu-id="baeb5-134">与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。</span><span class="sxs-lookup"><span data-stu-id="baeb5-134">Compilation is a potential advantage over interpreting code because the compile step can be used to inject information that improves app performance at runtime.</span></span>
+<span data-ttu-id="baeb5-133">Razor 组件文件 (`.razor`) 始终被编译。</span><span class="sxs-lookup"><span data-stu-id="baeb5-133">Razor component files (`.razor`) are always compiled.</span></span> <span data-ttu-id="baeb5-134">与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。</span><span class="sxs-lookup"><span data-stu-id="baeb5-134">Compilation is a potential advantage over interpreting code because the compile step can be used to inject information that improves app performance at runtime.</span></span>
 
 <span data-ttu-id="baeb5-135">这些改进的关键示例涉及 *序列号* 。</span><span class="sxs-lookup"><span data-stu-id="baeb5-135">A key example of these improvements involves *sequence numbers*.</span></span> <span data-ttu-id="baeb5-136">序列号向运行时指示哪些输出来自哪些不同的已排序代码行。</span><span class="sxs-lookup"><span data-stu-id="baeb5-136">Sequence numbers indicate to the runtime which outputs came from which distinct and ordered lines of code.</span></span> <span data-ttu-id="baeb5-137">运行时使用此信息在线性时间内生成高效的树上差分，这比常规树上差分算法通常可以做到的速度快得多。</span><span class="sxs-lookup"><span data-stu-id="baeb5-137">The runtime uses this information to generate efficient tree diffs in linear time, which is far faster than is normally possible for a general tree diff algorithm.</span></span>
 
-<span data-ttu-id="baeb5-138">请考虑使用以下 :::no-loc(Razor)::: 组件（`.razor` 文件）：</span><span class="sxs-lookup"><span data-stu-id="baeb5-138">Consider the following :::no-loc(Razor)::: component (`.razor`) file:</span></span>
+<span data-ttu-id="baeb5-138">请考虑使用以下 Razor 组件（`.razor` 文件）：</span><span class="sxs-lookup"><span data-stu-id="baeb5-138">Consider the following Razor component (`.razor`) file:</span></span>
 
 ```razor
 @if (someFlag)
@@ -225,4 +225,4 @@ builder.AddContent(seq++, "Second");
 * <span data-ttu-id="baeb5-191">该框架无法在运行时自动创建自己的序列号，因为除非在编译时捕获了必需的信息，否则这些信息不存在。</span><span class="sxs-lookup"><span data-stu-id="baeb5-191">The framework can't create its own sequence numbers automatically at runtime because the necessary information doesn't exist unless it's captured at compile time.</span></span>
 * <span data-ttu-id="baeb5-192">不要编写手动实现的冗长 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 逻辑块。</span><span class="sxs-lookup"><span data-stu-id="baeb5-192">Don't write long blocks of manually-implemented <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logic.</span></span> <span data-ttu-id="baeb5-193">优先使用 `.razor` 文件并允许编译器处理序列号。</span><span class="sxs-lookup"><span data-stu-id="baeb5-193">Prefer `.razor` files and allow the compiler to deal with the sequence numbers.</span></span> <span data-ttu-id="baeb5-194">如果无法避免 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 手动逻辑，请将较长的代码块拆分为封装在 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A>/<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> 调用中的较小部分。</span><span class="sxs-lookup"><span data-stu-id="baeb5-194">If you're unable to avoid manual <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logic, split long blocks of code into smaller pieces wrapped in <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A>/<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> calls.</span></span> <span data-ttu-id="baeb5-195">每个区域都有自己的独立序列号空间，因此可在每个区域内从零（或任何其他任意数）重新开始。</span><span class="sxs-lookup"><span data-stu-id="baeb5-195">Each region has its own separate space of sequence numbers, so you can restart from zero (or any other arbitrary number) inside each region.</span></span>
 * <span data-ttu-id="baeb5-196">如果序列号已硬编码，则差分算法仅要求序列号的值增加。</span><span class="sxs-lookup"><span data-stu-id="baeb5-196">If sequence numbers are hardcoded, the diff algorithm only requires that sequence numbers increase in value.</span></span> <span data-ttu-id="baeb5-197">初始值和间隔不相关。</span><span class="sxs-lookup"><span data-stu-id="baeb5-197">The initial value and gaps are irrelevant.</span></span> <span data-ttu-id="baeb5-198">一个合理选择是使用代码行号作为序列号，或者从零开始并以 1 或 100 的间隔（或任何首选间隔）增加。</span><span class="sxs-lookup"><span data-stu-id="baeb5-198">One legitimate option is to use the code line number as the sequence number, or start from zero and increase by ones or hundreds (or any preferred interval).</span></span> 
-* <span data-ttu-id="baeb5-199">:::no-loc(Blazor)::: 使用序列号，而其他树上差分 UI 框架不使用它们。</span><span class="sxs-lookup"><span data-stu-id="baeb5-199">:::no-loc(Blazor)::: uses sequence numbers, while other tree-diffing UI frameworks don't use them.</span></span> <span data-ttu-id="baeb5-200">使用序列号时，差分速度要快得多，并且 :::no-loc(Blazor)::: 的优势在于编译步骤可为编写 `.razor` 文件的开发人员自动处理序列号。</span><span class="sxs-lookup"><span data-stu-id="baeb5-200">Diffing is far faster when sequence numbers are used, and :::no-loc(Blazor)::: has the advantage of a compile step that deals with sequence numbers automatically for developers authoring `.razor` files.</span></span>
+* <span data-ttu-id="baeb5-199">Blazor 使用序列号，而其他树上差分 UI 框架不使用它们。</span><span class="sxs-lookup"><span data-stu-id="baeb5-199">Blazor uses sequence numbers, while other tree-diffing UI frameworks don't use them.</span></span> <span data-ttu-id="baeb5-200">使用序列号时，差分速度要快得多，并且 Blazor 的优势在于编译步骤可为编写 `.razor` 文件的开发人员自动处理序列号。</span><span class="sxs-lookup"><span data-stu-id="baeb5-200">Diffing is far faster when sequence numbers are used, and Blazor has the advantage of a compile step that deals with sequence numbers automatically for developers authoring `.razor` files.</span></span>

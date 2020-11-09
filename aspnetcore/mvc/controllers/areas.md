@@ -5,17 +5,17 @@ description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的
 ms.author: riande
 ms.date: 03/21/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/controllers/areas
 ms.openlocfilehash: 42eec406813adce4d7edbc1ab66a1f689c4aca0e
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -33,11 +33,11 @@ ms.locfileid: "93053522"
 <span data-ttu-id="be36c-105">区域是一种 ASP.NET 功能，用于将相关功能作为单独的组进行组织：</span><span class="sxs-lookup"><span data-stu-id="be36c-105">Areas are an ASP.NET feature used to organize related functionality into a group as a separate:</span></span>
 
 * <span data-ttu-id="be36c-106">用于路由的命名空间。</span><span class="sxs-lookup"><span data-stu-id="be36c-106">Namespace for routing.</span></span>
-* <span data-ttu-id="be36c-107">视图和页面的文件夹结构 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="be36c-107">Folder structure for views and :::no-loc(Razor)::: Pages.</span></span>
+* <span data-ttu-id="be36c-107">视图和页面的文件夹结构 Razor 。</span><span class="sxs-lookup"><span data-stu-id="be36c-107">Folder structure for views and Razor Pages.</span></span>
 
-<span data-ttu-id="be36c-108">使用区域通过向 `area` `controller` 和 `action` 或 :::no-loc(Razor)::: 页添加另一个路由参数来创建用于路由目的的层次结构 `page` 。</span><span class="sxs-lookup"><span data-stu-id="be36c-108">Using areas creates a hierarchy for the purpose of routing by adding another route parameter, `area`, to `controller` and `action` or a :::no-loc(Razor)::: Page `page`.</span></span>
+<span data-ttu-id="be36c-108">使用区域通过向 `area` `controller` 和 `action` 或 Razor 页添加另一个路由参数来创建用于路由目的的层次结构 `page` 。</span><span class="sxs-lookup"><span data-stu-id="be36c-108">Using areas creates a hierarchy for the purpose of routing by adding another route parameter, `area`, to `controller` and `action` or a Razor Page `page`.</span></span>
 
-<span data-ttu-id="be36c-109">区域提供了一种方法，用于将 ASP.NET Core Web 应用划分为较小的功能组，每个组都有自己的一组 :::no-loc(Razor)::: 页、控制器、视图和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-109">Areas provide a way to partition an ASP.NET Core Web app into smaller functional groups, each  with its own set of :::no-loc(Razor)::: Pages, controllers, views, and models.</span></span> <span data-ttu-id="be36c-110">区域实际上是应用内的结构。</span><span class="sxs-lookup"><span data-stu-id="be36c-110">An area is effectively a structure inside an app.</span></span> <span data-ttu-id="be36c-111">在 ASP.NET Core Web 项目中，Pages、模型、控制器和视图等逻辑组件保存在不同的文件夹中。</span><span class="sxs-lookup"><span data-stu-id="be36c-111">In an ASP.NET Core web project, logical components like Pages, Model, Controller, and View are kept in different folders.</span></span> <span data-ttu-id="be36c-112">ASP.NET Core 运行时使用命名约定来创建这些组件之间的关系。</span><span class="sxs-lookup"><span data-stu-id="be36c-112">The ASP.NET Core runtime uses naming conventions to create the relationship between these components.</span></span> <span data-ttu-id="be36c-113">对于大型应用，将应用分区为独立的高级功能区域可能更有利。</span><span class="sxs-lookup"><span data-stu-id="be36c-113">For a large app, it may be advantageous to partition the app into separate high level areas of functionality.</span></span> <span data-ttu-id="be36c-114">例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。</span><span class="sxs-lookup"><span data-stu-id="be36c-114">For instance, an e-commerce app with multiple business units, such as checkout, billing, and search.</span></span> <span data-ttu-id="be36c-115">其中每个单位都有各自的区域来包含视图、控制器、 :::no-loc(Razor)::: 页面和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-115">Each of these units have their own area to contain views, controllers, :::no-loc(Razor)::: Pages, and models.</span></span>
+<span data-ttu-id="be36c-109">区域提供了一种方法，用于将 ASP.NET Core Web 应用划分为较小的功能组，每个组都有自己的一组 Razor 页、控制器、视图和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-109">Areas provide a way to partition an ASP.NET Core Web app into smaller functional groups, each  with its own set of Razor Pages, controllers, views, and models.</span></span> <span data-ttu-id="be36c-110">区域实际上是应用内的结构。</span><span class="sxs-lookup"><span data-stu-id="be36c-110">An area is effectively a structure inside an app.</span></span> <span data-ttu-id="be36c-111">在 ASP.NET Core Web 项目中，Pages、模型、控制器和视图等逻辑组件保存在不同的文件夹中。</span><span class="sxs-lookup"><span data-stu-id="be36c-111">In an ASP.NET Core web project, logical components like Pages, Model, Controller, and View are kept in different folders.</span></span> <span data-ttu-id="be36c-112">ASP.NET Core 运行时使用命名约定来创建这些组件之间的关系。</span><span class="sxs-lookup"><span data-stu-id="be36c-112">The ASP.NET Core runtime uses naming conventions to create the relationship between these components.</span></span> <span data-ttu-id="be36c-113">对于大型应用，将应用分区为独立的高级功能区域可能更有利。</span><span class="sxs-lookup"><span data-stu-id="be36c-113">For a large app, it may be advantageous to partition the app into separate high level areas of functionality.</span></span> <span data-ttu-id="be36c-114">例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。</span><span class="sxs-lookup"><span data-stu-id="be36c-114">For instance, an e-commerce app with multiple business units, such as checkout, billing, and search.</span></span> <span data-ttu-id="be36c-115">其中每个单位都有各自的区域来包含视图、控制器、 Razor 页面和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-115">Each of these units have their own area to contain views, controllers, Razor Pages, and models.</span></span>
 
 <span data-ttu-id="be36c-116">如果发生以下情况，请考虑在项目中使用区域：</span><span class="sxs-lookup"><span data-stu-id="be36c-116">Consider using Areas in a project when:</span></span>
 
@@ -46,7 +46,7 @@ ms.locfileid: "93053522"
 
 <span data-ttu-id="be36c-119">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="be36c-119">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples) ([how to download](xref:index#how-to-download-a-sample)).</span></span> <span data-ttu-id="be36c-120">下载示例提供了用于测试区域的基本应用。</span><span class="sxs-lookup"><span data-stu-id="be36c-120">The download sample provides a basic app for testing areas.</span></span>
 
-<span data-ttu-id="be36c-121">如果使用的是 :::no-loc(Razor)::: 页面，请参阅本文档中 [包含 :::no-loc(Razor)::: 页面的区域](#areas-with-razor-pages) 。</span><span class="sxs-lookup"><span data-stu-id="be36c-121">If you're using :::no-loc(Razor)::: Pages, see [Areas with :::no-loc(Razor)::: Pages](#areas-with-razor-pages) in this document.</span></span>
+<span data-ttu-id="be36c-121">如果使用的是 Razor 页面，请参阅本文档中 [包含 Razor 页面的区域](#areas-with-razor-pages) 。</span><span class="sxs-lookup"><span data-stu-id="be36c-121">If you're using Razor Pages, see [Areas with Razor Pages](#areas-with-razor-pages) in this document.</span></span>
 
 ## <a name="areas-for-controllers-with-views"></a><span data-ttu-id="be36c-122">带视图的控制器区域</span><span class="sxs-lookup"><span data-stu-id="be36c-122">Areas for controllers with views</span></span>
 
@@ -149,7 +149,7 @@ ms.locfileid: "93053522"
 
 ### <a name="_viewimportscshtml"></a><span data-ttu-id="be36c-179">_ViewImports.cshtml</span><span class="sxs-lookup"><span data-stu-id="be36c-179">_ViewImports.cshtml</span></span>
 
- <span data-ttu-id="be36c-180">对于 MVC， *_ViewImports 的/Views/* 和 */Pages/_ViewImports* :::no-loc(Razor)::: ，不会导入到区域中的视图。</span><span class="sxs-lookup"><span data-stu-id="be36c-180">*/Views/_ViewImports.cshtml* , for MVC, and */Pages/_ViewImports.cshtml* for :::no-loc(Razor)::: Pages, is not imported to views in areas.</span></span> <span data-ttu-id="be36c-181">使用以下方法之一来提供所有视图的视图导入：</span><span class="sxs-lookup"><span data-stu-id="be36c-181">Use one of the following approaches to provide view imports to all views:</span></span>
+ <span data-ttu-id="be36c-180">对于 MVC， *_ViewImports 的/Views/* 和 */Pages/_ViewImports* Razor ，不会导入到区域中的视图。</span><span class="sxs-lookup"><span data-stu-id="be36c-180">*/Views/_ViewImports.cshtml* , for MVC, and */Pages/_ViewImports.cshtml* for Razor Pages, is not imported to views in areas.</span></span> <span data-ttu-id="be36c-181">使用以下方法之一来提供所有视图的视图导入：</span><span class="sxs-lookup"><span data-stu-id="be36c-181">Use one of the following approaches to provide view imports to all views:</span></span>
 
 * <span data-ttu-id="be36c-182">将 *_ViewImports* 添加到 [应用程序根文件夹](#arf)。</span><span class="sxs-lookup"><span data-stu-id="be36c-182">Add *_ViewImports.cshtml* to the [application root folder](#arf).</span></span> <span data-ttu-id="be36c-183">应用程序根文件夹中的 *_ViewImports* 将应用到应用中的所有视图。</span><span class="sxs-lookup"><span data-stu-id="be36c-183">A *_ViewImports.cshtml* in the application root folder will apply to all views in the app.</span></span>
 * <span data-ttu-id="be36c-184">将 *_ViewImports* 的文件复制到 "区域" 下的相应视图文件夹中。</span><span class="sxs-lookup"><span data-stu-id="be36c-184">Copy the *_ViewImports.cshtml* file to the appropriate view folder under areas.</span></span>
@@ -166,9 +166,9 @@ ms.locfileid: "93053522"
 
 <a name="arp"></a>
 
-## <a name="areas-with-no-locrazor-pages"></a><span data-ttu-id="be36c-189">包含页面的区域 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="be36c-189">Areas with :::no-loc(Razor)::: Pages</span></span>
+## <a name="areas-with-no-locrazor-pages"></a><span data-ttu-id="be36c-189">包含页面的区域 Razor</span><span class="sxs-lookup"><span data-stu-id="be36c-189">Areas with Razor Pages</span></span>
 
-<span data-ttu-id="be36c-190">包含页面的区域 :::no-loc(Razor)::: `Areas/<area name>/Pages` 在应用的根目录中需要一个文件夹。</span><span class="sxs-lookup"><span data-stu-id="be36c-190">Areas with :::no-loc(Razor)::: Pages require an `Areas/<area name>/Pages` folder in the root of the app.</span></span> <span data-ttu-id="be36c-191">以下文件夹结构用于[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples)：</span><span class="sxs-lookup"><span data-stu-id="be36c-191">The following folder structure is used with the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples):</span></span>
+<span data-ttu-id="be36c-190">包含页面的区域 Razor `Areas/<area name>/Pages` 在应用的根目录中需要一个文件夹。</span><span class="sxs-lookup"><span data-stu-id="be36c-190">Areas with Razor Pages require an `Areas/<area name>/Pages` folder in the root of the app.</span></span> <span data-ttu-id="be36c-191">以下文件夹结构用于[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples)：</span><span class="sxs-lookup"><span data-stu-id="be36c-191">The following folder structure is used with the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples):</span></span>
 
 * <span data-ttu-id="be36c-192">项目名称</span><span class="sxs-lookup"><span data-stu-id="be36c-192">Project name</span></span>
   * <span data-ttu-id="be36c-193">Areas</span><span class="sxs-lookup"><span data-stu-id="be36c-193">Areas</span></span>
@@ -183,7 +183,7 @@ ms.locfileid: "93053522"
           * <span data-ttu-id="be36c-202">关于</span><span class="sxs-lookup"><span data-stu-id="be36c-202">About</span></span>
           * <span data-ttu-id="be36c-203">索引</span><span class="sxs-lookup"><span data-stu-id="be36c-203">Index</span></span>
 
-### <a name="link-generation-with-no-locrazor-pages-and-areas"></a><span data-ttu-id="be36c-204">与 :::no-loc(Razor)::: 页面和区域一起生成链接</span><span class="sxs-lookup"><span data-stu-id="be36c-204">Link generation with :::no-loc(Razor)::: Pages and areas</span></span>
+### <a name="link-generation-with-no-locrazor-pages-and-areas"></a><span data-ttu-id="be36c-204">与 Razor 页面和区域一起生成链接</span><span class="sxs-lookup"><span data-stu-id="be36c-204">Link generation with Razor Pages and areas</span></span>
 
 <span data-ttu-id="be36c-205">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas)中的以下代码显示指定区域（例如 `asp-area="Products"`）的链接生成：</span><span class="sxs-lookup"><span data-stu-id="be36c-205">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) shows link generation with the area specified (for example, `asp-area="Products"`):</span></span>
 
@@ -203,9 +203,9 @@ ms.locfileid: "93053522"
 
 ### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a><span data-ttu-id="be36c-218">使用 _ViewImports 文件导入命名空间和标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="be36c-218">Import namespace and Tag Helpers with _ViewImports file</span></span>
 
-<span data-ttu-id="be36c-219">可以将 *_ViewImports 的 cshtml* 文件添加到每个区域 *页面* 文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 :::no-loc(Razor)::: 页。</span><span class="sxs-lookup"><span data-stu-id="be36c-219">A *_ViewImports.cshtml* file can be added to each area *Pages* folder to import the namespace and Tag Helpers to each :::no-loc(Razor)::: Page in the folder.</span></span>
+<span data-ttu-id="be36c-219">可以将 *_ViewImports 的 cshtml* 文件添加到每个区域 *页面* 文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 Razor 页。</span><span class="sxs-lookup"><span data-stu-id="be36c-219">A *_ViewImports.cshtml* file can be added to each area *Pages* folder to import the namespace and Tag Helpers to each Razor Page in the folder.</span></span>
 
-<span data-ttu-id="be36c-220">请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件  。</span><span class="sxs-lookup"><span data-stu-id="be36c-220">Consider the *Services* area of the sample code, which doesn't contain a *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="be36c-221">以下标记显示了 " */Services/Manage/About* " :::no-loc(Razor)::: 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-221">The following markup shows the */Services/Manage/About* :::no-loc(Razor)::: Page:</span></span>
+<span data-ttu-id="be36c-220">请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件  。</span><span class="sxs-lookup"><span data-stu-id="be36c-220">Consider the *Services* area of the sample code, which doesn't contain a *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="be36c-221">以下标记显示了 " */Services/Manage/About* " Razor 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-221">The following markup shows the */Services/Manage/About* Razor Page:</span></span>
 
 [!code-cshtml[](areas/31samples/RPareas/Areas/Services/Pages/Manage/About.cshtml)]
 
@@ -218,7 +218,7 @@ ms.locfileid: "93053522"
 
 [!code-cshtml[](areas/31samples/RPareas/Areas/Products/Pages/_ViewImports.cshtml)]
 
-<span data-ttu-id="be36c-226">以下标记显示了 " */Products/About* " :::no-loc(Razor)::: 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-226">The following markup shows the */Products/About* :::no-loc(Razor)::: Page:</span></span>
+<span data-ttu-id="be36c-226">以下标记显示了 " */Products/About* " Razor 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-226">The following markup shows the */Products/About* Razor Page:</span></span>
 
 [!code-cshtml[](areas/31samples/RPareas/Areas/Products/Pages/About.cshtml)]
 
@@ -226,7 +226,7 @@ ms.locfileid: "93053522"
 
 <span data-ttu-id="be36c-228">有关详细信息，请参阅[管理标记帮助程序范围](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope)和[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。</span><span class="sxs-lookup"><span data-stu-id="be36c-228">For more information, see [Managing Tag Helper scope](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope) and [Importing Shared Directives](xref:mvc/views/layout#importing-shared-directives).</span></span>
 
-### <a name="shared-layout-for-no-locrazor-pages-areas"></a><span data-ttu-id="be36c-229">页面区域的共享布局 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="be36c-229">Shared layout for :::no-loc(Razor)::: Pages Areas</span></span>
+### <a name="shared-layout-for-no-locrazor-pages-areas"></a><span data-ttu-id="be36c-229">页面区域的共享布局 Razor</span><span class="sxs-lookup"><span data-stu-id="be36c-229">Shared layout for Razor Pages Areas</span></span>
 
 <span data-ttu-id="be36c-230">要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹  。</span><span class="sxs-lookup"><span data-stu-id="be36c-230">To share a common layout for the entire app, move the *_ViewStart.cshtml* to the application root folder.</span></span>
 
@@ -237,9 +237,9 @@ ms.locfileid: "93053522"
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="be36c-233">区域是 ASP.NET 功能，用于将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。</span><span class="sxs-lookup"><span data-stu-id="be36c-233">Areas are an ASP.NET feature used to organize related functionality into a group as a separate namespace (for routing) and folder structure (for views).</span></span> <span data-ttu-id="be36c-234">使用区域通过向 `area` `controller` 和 `action` 或 :::no-loc(Razor)::: 页添加另一个路由参数来创建用于路由目的的层次结构 `page` 。</span><span class="sxs-lookup"><span data-stu-id="be36c-234">Using areas creates a hierarchy for the purpose of routing by adding another route parameter, `area`, to `controller` and `action` or a :::no-loc(Razor)::: Page `page`.</span></span>
+<span data-ttu-id="be36c-233">区域是 ASP.NET 功能，用于将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。</span><span class="sxs-lookup"><span data-stu-id="be36c-233">Areas are an ASP.NET feature used to organize related functionality into a group as a separate namespace (for routing) and folder structure (for views).</span></span> <span data-ttu-id="be36c-234">使用区域通过向 `area` `controller` 和 `action` 或 Razor 页添加另一个路由参数来创建用于路由目的的层次结构 `page` 。</span><span class="sxs-lookup"><span data-stu-id="be36c-234">Using areas creates a hierarchy for the purpose of routing by adding another route parameter, `area`, to `controller` and `action` or a Razor Page `page`.</span></span>
 
-<span data-ttu-id="be36c-235">区域提供了一种方法，用于将 ASP.NET Core Web 应用划分为较小的功能组，每个组都有自己的一组 :::no-loc(Razor)::: 页、控制器、视图和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-235">Areas provide a way to partition an ASP.NET Core Web app into smaller functional groups, each  with its own set of :::no-loc(Razor)::: Pages, controllers, views, and models.</span></span> <span data-ttu-id="be36c-236">区域实际上是应用内的结构。</span><span class="sxs-lookup"><span data-stu-id="be36c-236">An area is effectively a structure inside an app.</span></span> <span data-ttu-id="be36c-237">在 ASP.NET Core Web 项目中，Pages、模型、控制器和视图等逻辑组件保存在不同的文件夹中。</span><span class="sxs-lookup"><span data-stu-id="be36c-237">In an ASP.NET Core web project, logical components like Pages, Model, Controller, and View are kept in different folders.</span></span> <span data-ttu-id="be36c-238">ASP.NET Core 运行时使用命名约定来创建这些组件之间的关系。</span><span class="sxs-lookup"><span data-stu-id="be36c-238">The ASP.NET Core runtime uses naming conventions to create the relationship between these components.</span></span> <span data-ttu-id="be36c-239">对于大型应用，将应用分区为独立的高级功能区域可能更有利。</span><span class="sxs-lookup"><span data-stu-id="be36c-239">For a large app, it may be advantageous to partition the app into separate high level areas of functionality.</span></span> <span data-ttu-id="be36c-240">例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。</span><span class="sxs-lookup"><span data-stu-id="be36c-240">For instance, an e-commerce app with multiple business units, such as checkout, billing, and search.</span></span> <span data-ttu-id="be36c-241">其中每个单位都有各自的区域来包含视图、控制器、 :::no-loc(Razor)::: 页面和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-241">Each of these units have their own area to contain views, controllers, :::no-loc(Razor)::: Pages, and models.</span></span>
+<span data-ttu-id="be36c-235">区域提供了一种方法，用于将 ASP.NET Core Web 应用划分为较小的功能组，每个组都有自己的一组 Razor 页、控制器、视图和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-235">Areas provide a way to partition an ASP.NET Core Web app into smaller functional groups, each  with its own set of Razor Pages, controllers, views, and models.</span></span> <span data-ttu-id="be36c-236">区域实际上是应用内的结构。</span><span class="sxs-lookup"><span data-stu-id="be36c-236">An area is effectively a structure inside an app.</span></span> <span data-ttu-id="be36c-237">在 ASP.NET Core Web 项目中，Pages、模型、控制器和视图等逻辑组件保存在不同的文件夹中。</span><span class="sxs-lookup"><span data-stu-id="be36c-237">In an ASP.NET Core web project, logical components like Pages, Model, Controller, and View are kept in different folders.</span></span> <span data-ttu-id="be36c-238">ASP.NET Core 运行时使用命名约定来创建这些组件之间的关系。</span><span class="sxs-lookup"><span data-stu-id="be36c-238">The ASP.NET Core runtime uses naming conventions to create the relationship between these components.</span></span> <span data-ttu-id="be36c-239">对于大型应用，将应用分区为独立的高级功能区域可能更有利。</span><span class="sxs-lookup"><span data-stu-id="be36c-239">For a large app, it may be advantageous to partition the app into separate high level areas of functionality.</span></span> <span data-ttu-id="be36c-240">例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。</span><span class="sxs-lookup"><span data-stu-id="be36c-240">For instance, an e-commerce app with multiple business units, such as checkout, billing, and search.</span></span> <span data-ttu-id="be36c-241">其中每个单位都有各自的区域来包含视图、控制器、 Razor 页面和模型。</span><span class="sxs-lookup"><span data-stu-id="be36c-241">Each of these units have their own area to contain views, controllers, Razor Pages, and models.</span></span>
 
 <span data-ttu-id="be36c-242">如果发生以下情况，请考虑在项目中使用区域：</span><span class="sxs-lookup"><span data-stu-id="be36c-242">Consider using Areas in a project when:</span></span>
 
@@ -248,7 +248,7 @@ ms.locfileid: "93053522"
 
 <span data-ttu-id="be36c-245">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="be36c-245">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples) ([how to download](xref:index#how-to-download-a-sample)).</span></span> <span data-ttu-id="be36c-246">下载示例提供了用于测试区域的基本应用。</span><span class="sxs-lookup"><span data-stu-id="be36c-246">The download sample provides a basic app for testing areas.</span></span>
 
-<span data-ttu-id="be36c-247">如果使用的是 :::no-loc(Razor)::: 页面，请参阅本文档中 [包含 :::no-loc(Razor)::: 页面的区域](#areas-with-razor-pages) 。</span><span class="sxs-lookup"><span data-stu-id="be36c-247">If you're using :::no-loc(Razor)::: Pages, see [Areas with :::no-loc(Razor)::: Pages](#areas-with-razor-pages) in this document.</span></span>
+<span data-ttu-id="be36c-247">如果使用的是 Razor 页面，请参阅本文档中 [包含 Razor 页面的区域](#areas-with-razor-pages) 。</span><span class="sxs-lookup"><span data-stu-id="be36c-247">If you're using Razor Pages, see [Areas with Razor Pages](#areas-with-razor-pages) in this document.</span></span>
 
 ## <a name="areas-for-controllers-with-views"></a><span data-ttu-id="be36c-248">带视图的控制器区域</span><span class="sxs-lookup"><span data-stu-id="be36c-248">Areas for controllers with views</span></span>
 
@@ -353,9 +353,9 @@ ms.locfileid: "93053522"
 
 <a name="arp"></a>
 
-## <a name="areas-with-no-locrazor-pages"></a><span data-ttu-id="be36c-306">包含页面的区域 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="be36c-306">Areas with :::no-loc(Razor)::: Pages</span></span>
+## <a name="areas-with-no-locrazor-pages"></a><span data-ttu-id="be36c-306">包含页面的区域 Razor</span><span class="sxs-lookup"><span data-stu-id="be36c-306">Areas with Razor Pages</span></span>
 
-<span data-ttu-id="be36c-307">包含页面的区域 :::no-loc(Razor)::: `Areas/<area name>/Pages` 在应用的根目录中需要一个文件夹。</span><span class="sxs-lookup"><span data-stu-id="be36c-307">Areas with :::no-loc(Razor)::: Pages require an `Areas/<area name>/Pages` folder in the root of the app.</span></span> <span data-ttu-id="be36c-308">以下文件夹结构用于[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)：</span><span class="sxs-lookup"><span data-stu-id="be36c-308">The following folder structure is used with the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples):</span></span>
+<span data-ttu-id="be36c-307">包含页面的区域 Razor `Areas/<area name>/Pages` 在应用的根目录中需要一个文件夹。</span><span class="sxs-lookup"><span data-stu-id="be36c-307">Areas with Razor Pages require an `Areas/<area name>/Pages` folder in the root of the app.</span></span> <span data-ttu-id="be36c-308">以下文件夹结构用于[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)：</span><span class="sxs-lookup"><span data-stu-id="be36c-308">The following folder structure is used with the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples):</span></span>
 
 * <span data-ttu-id="be36c-309">项目名称</span><span class="sxs-lookup"><span data-stu-id="be36c-309">Project name</span></span>
   * <span data-ttu-id="be36c-310">Areas</span><span class="sxs-lookup"><span data-stu-id="be36c-310">Areas</span></span>
@@ -370,7 +370,7 @@ ms.locfileid: "93053522"
           * <span data-ttu-id="be36c-319">关于</span><span class="sxs-lookup"><span data-stu-id="be36c-319">About</span></span>
           * <span data-ttu-id="be36c-320">索引</span><span class="sxs-lookup"><span data-stu-id="be36c-320">Index</span></span>
 
-### <a name="link-generation-with-no-locrazor-pages-and-areas"></a><span data-ttu-id="be36c-321">与 :::no-loc(Razor)::: 页面和区域一起生成链接</span><span class="sxs-lookup"><span data-stu-id="be36c-321">Link generation with :::no-loc(Razor)::: Pages and areas</span></span>
+### <a name="link-generation-with-no-locrazor-pages-and-areas"></a><span data-ttu-id="be36c-321">与 Razor 页面和区域一起生成链接</span><span class="sxs-lookup"><span data-stu-id="be36c-321">Link generation with Razor Pages and areas</span></span>
 
 <span data-ttu-id="be36c-322">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas)中的以下代码显示指定区域（例如 `asp-area="Products"`）的链接生成：</span><span class="sxs-lookup"><span data-stu-id="be36c-322">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) shows link generation with the area specified (for example, `asp-area="Products"`):</span></span>
 
@@ -392,9 +392,9 @@ ms.locfileid: "93053522"
 
 ### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a><span data-ttu-id="be36c-336">使用 _ViewImports 文件导入命名空间和标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="be36c-336">Import namespace and Tag Helpers with _ViewImports file</span></span>
 
-<span data-ttu-id="be36c-337">可以将 *_ViewImports 的 cshtml* 文件添加到每个区域 *页面* 文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 :::no-loc(Razor)::: 页。</span><span class="sxs-lookup"><span data-stu-id="be36c-337">A *_ViewImports.cshtml* file can be added to each area *Pages* folder to import the namespace and Tag Helpers to each :::no-loc(Razor)::: Page in the folder.</span></span>
+<span data-ttu-id="be36c-337">可以将 *_ViewImports 的 cshtml* 文件添加到每个区域 *页面* 文件夹，以将命名空间和标记帮助程序导入到文件夹中的每一 Razor 页。</span><span class="sxs-lookup"><span data-stu-id="be36c-337">A *_ViewImports.cshtml* file can be added to each area *Pages* folder to import the namespace and Tag Helpers to each Razor Page in the folder.</span></span>
 
-<span data-ttu-id="be36c-338">请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件  。</span><span class="sxs-lookup"><span data-stu-id="be36c-338">Consider the *Services* area of the sample code, which doesn't contain a *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="be36c-339">以下标记显示了 " */Services/Manage/About* " :::no-loc(Razor)::: 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-339">The following markup shows the */Services/Manage/About* :::no-loc(Razor)::: Page:</span></span>
+<span data-ttu-id="be36c-338">请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件  。</span><span class="sxs-lookup"><span data-stu-id="be36c-338">Consider the *Services* area of the sample code, which doesn't contain a *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="be36c-339">以下标记显示了 " */Services/Manage/About* " Razor 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-339">The following markup shows the */Services/Manage/About* Razor Page:</span></span>
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Services/Pages/Manage/About.cshtml)]
 
@@ -407,7 +407,7 @@ ms.locfileid: "93053522"
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/_ViewImports.cshtml)]
 
-<span data-ttu-id="be36c-344">以下标记显示了 " */Products/About* " :::no-loc(Razor)::: 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-344">The following markup shows the */Products/About* :::no-loc(Razor)::: Page:</span></span>
+<span data-ttu-id="be36c-344">以下标记显示了 " */Products/About* " Razor 页：</span><span class="sxs-lookup"><span data-stu-id="be36c-344">The following markup shows the */Products/About* Razor Page:</span></span>
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/About.cshtml)]
 
@@ -415,7 +415,7 @@ ms.locfileid: "93053522"
 
 <span data-ttu-id="be36c-346">有关详细信息，请参阅[管理标记帮助程序范围](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope)和[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。</span><span class="sxs-lookup"><span data-stu-id="be36c-346">For more information, see [Managing Tag Helper scope](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope) and [Importing Shared Directives](xref:mvc/views/layout#importing-shared-directives).</span></span>
 
-### <a name="shared-layout-for-no-locrazor-pages-areas"></a><span data-ttu-id="be36c-347">页面区域的共享布局 :::no-loc(Razor):::</span><span class="sxs-lookup"><span data-stu-id="be36c-347">Shared layout for :::no-loc(Razor)::: Pages Areas</span></span>
+### <a name="shared-layout-for-no-locrazor-pages-areas"></a><span data-ttu-id="be36c-347">页面区域的共享布局 Razor</span><span class="sxs-lookup"><span data-stu-id="be36c-347">Shared layout for Razor Pages Areas</span></span>
 
 <span data-ttu-id="be36c-348">要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹  。</span><span class="sxs-lookup"><span data-stu-id="be36c-348">To share a common layout for the entire app, move the *_ViewStart.cshtml* to the application root folder.</span></span>
 

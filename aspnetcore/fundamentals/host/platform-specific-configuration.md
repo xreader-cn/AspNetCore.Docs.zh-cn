@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/configuration/platform-specific-configuration
 ms.openlocfilehash: c12487875db69472ee328dfc7a611ee99974c770
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -106,7 +106,7 @@ ms.locfileid: "93061049"
 
 <span data-ttu-id="69b1f-135">可在类库中提供承载启动增强。</span><span class="sxs-lookup"><span data-stu-id="69b1f-135">A hosting startup enhancement can be provided in a class library.</span></span> <span data-ttu-id="69b1f-136">库包含 `HostingStartup` 属性。</span><span class="sxs-lookup"><span data-stu-id="69b1f-136">The library contains a `HostingStartup` attribute.</span></span>
 
-<span data-ttu-id="69b1f-137">[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 :::no-loc(Razor)::: Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary 。</span><span class="sxs-lookup"><span data-stu-id="69b1f-137">The [sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) includes a :::no-loc(Razor)::: Pages app, *HostingStartupApp* , and a class library, *HostingStartupLibrary*.</span></span> <span data-ttu-id="69b1f-138">类库：</span><span class="sxs-lookup"><span data-stu-id="69b1f-138">The class library:</span></span>
+<span data-ttu-id="69b1f-137">[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 Razor Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary 。</span><span class="sxs-lookup"><span data-stu-id="69b1f-137">The [sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) includes a Razor Pages app, *HostingStartupApp* , and a class library, *HostingStartupLibrary*.</span></span> <span data-ttu-id="69b1f-138">类库：</span><span class="sxs-lookup"><span data-stu-id="69b1f-138">The class library:</span></span>
 
 * <span data-ttu-id="69b1f-139">包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。</span><span class="sxs-lookup"><span data-stu-id="69b1f-139">Contains a hosting startup class, `ServiceKeyInjection`, which implements `IHostingStartup`.</span></span> <span data-ttu-id="69b1f-140">`ServiceKeyInjection` 使用内存中配置提供程序 ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)) 将一对服务字符串添加到应用的配置中。</span><span class="sxs-lookup"><span data-stu-id="69b1f-140">`ServiceKeyInjection` adds a pair of service strings to the app's configuration using the in-memory configuration provider ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)).</span></span>
 * <span data-ttu-id="69b1f-141">包含 `HostingStartup` 属性，用于标识承载启动的命名空间和类。</span><span class="sxs-lookup"><span data-stu-id="69b1f-141">Includes a `HostingStartup` attribute that identifies the hosting startup's namespace and class.</span></span>
@@ -504,7 +504,7 @@ dotnet nuget locals all --clear
 
 <span data-ttu-id="69b1f-343">可在类库中提供承载启动增强。</span><span class="sxs-lookup"><span data-stu-id="69b1f-343">A hosting startup enhancement can be provided in a class library.</span></span> <span data-ttu-id="69b1f-344">库包含 `HostingStartup` 属性。</span><span class="sxs-lookup"><span data-stu-id="69b1f-344">The library contains a `HostingStartup` attribute.</span></span>
 
-<span data-ttu-id="69b1f-345">[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 :::no-loc(Razor)::: Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary 。</span><span class="sxs-lookup"><span data-stu-id="69b1f-345">The [sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) includes a :::no-loc(Razor)::: Pages app, *HostingStartupApp* , and a class library, *HostingStartupLibrary*.</span></span> <span data-ttu-id="69b1f-346">类库：</span><span class="sxs-lookup"><span data-stu-id="69b1f-346">The class library:</span></span>
+<span data-ttu-id="69b1f-345">[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 Razor Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary 。</span><span class="sxs-lookup"><span data-stu-id="69b1f-345">The [sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) includes a Razor Pages app, *HostingStartupApp* , and a class library, *HostingStartupLibrary*.</span></span> <span data-ttu-id="69b1f-346">类库：</span><span class="sxs-lookup"><span data-stu-id="69b1f-346">The class library:</span></span>
 
 * <span data-ttu-id="69b1f-347">包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。</span><span class="sxs-lookup"><span data-stu-id="69b1f-347">Contains a hosting startup class, `ServiceKeyInjection`, which implements `IHostingStartup`.</span></span> <span data-ttu-id="69b1f-348">`ServiceKeyInjection` 使用内存中配置提供程序 ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)) 将一对服务字符串添加到应用的配置中。</span><span class="sxs-lookup"><span data-stu-id="69b1f-348">`ServiceKeyInjection` adds a pair of service strings to the app's configuration using the in-memory configuration provider ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)).</span></span>
 * <span data-ttu-id="69b1f-349">包含 `HostingStartup` 属性，用于标识承载启动的命名空间和类。</span><span class="sxs-lookup"><span data-stu-id="69b1f-349">Includes a `HostingStartup` attribute that identifies the hosting startup's namespace and class.</span></span>

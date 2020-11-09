@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/configuration/index
 ms.openlocfilehash: 9e744ec6d0f0dd72bded8284e98fd9ce53056b84
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -34,7 +34,7 @@ ms.locfileid: "93057968"
 
 <span data-ttu-id="d47c1-105">ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行的。</span><span class="sxs-lookup"><span data-stu-id="d47c1-105">Configuration in ASP.NET Core is performed using one or more [configuration providers](#cp).</span></span> <span data-ttu-id="d47c1-106">配置提供程序使用各种配置源从键值对读取配置数据：</span><span class="sxs-lookup"><span data-stu-id="d47c1-106">Configuration providers read configuration data from key-value pairs using a variety of configuration sources:</span></span>
 
-* <span data-ttu-id="d47c1-107">设置文件，例如 :::no-loc(appsettings.json):::</span><span class="sxs-lookup"><span data-stu-id="d47c1-107">Settings files, such as *:::no-loc(appsettings.json):::*</span></span>
+* <span data-ttu-id="d47c1-107">设置文件，例如 appsettings.json</span><span class="sxs-lookup"><span data-stu-id="d47c1-107">Settings files, such as *appsettings.json*</span></span>
 * <span data-ttu-id="d47c1-108">环境变量</span><span class="sxs-lookup"><span data-stu-id="d47c1-108">Environment variables</span></span>
 * <span data-ttu-id="d47c1-109">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="d47c1-109">Azure Key Vault</span></span>
 * <span data-ttu-id="d47c1-110">Azure 应用程序配置</span><span class="sxs-lookup"><span data-stu-id="d47c1-110">Azure App Configuration</span></span>
@@ -58,13 +58,13 @@ ms.locfileid: "93057968"
  <span data-ttu-id="d47c1-120"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 按照以下顺序为应用提供默认配置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-120"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> provides default configuration for the app in the following order:</span></span>
 
 1. <span data-ttu-id="d47c1-121">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource)：添加现有 `IConfiguration` 作为源。</span><span class="sxs-lookup"><span data-stu-id="d47c1-121">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) :  Adds an existing `IConfiguration` as a source.</span></span> <span data-ttu-id="d47c1-122">在默认配置示例中，添加[主机](#hvac)配置，并将它设置为应用配置的第一个源。</span><span class="sxs-lookup"><span data-stu-id="d47c1-122">In the default configuration case, adds the [host](#hvac) configuration and setting it as the first source for the _app_ configuration.</span></span>
-1. <span data-ttu-id="d47c1-123">使用 [JSON 配置提供程序](#file-configuration-provider)的 [:::no-loc(appsettings.json):::](#appsettingsjson)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-123">[:::no-loc(appsettings.json):::](#appsettingsjson) using the [JSON configuration provider](#file-configuration-provider).</span></span>
+1. <span data-ttu-id="d47c1-123">使用 [JSON 配置提供程序](#file-configuration-provider)的 [appsettings.json](#appsettingsjson)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-123">[appsettings.json](#appsettingsjson) using the [JSON configuration provider](#file-configuration-provider).</span></span>
 1. <span data-ttu-id="d47c1-124">使用 [JSON 配置提供程序](#file-configuration-provider)通过 appsettings.`Environment`.json 提供 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-124">*appsettings.*`Environment`*.json* using the [JSON configuration provider](#file-configuration-provider).</span></span> <span data-ttu-id="d47c1-125">例如，appsettings.Production.json 和 appsettings.Development.json 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-125">For example, *appsettings*. ***Production\*\*_._json* and *appsettings*.\*\*\*Development** _._json\*.</span></span>
 1. <span data-ttu-id="d47c1-126">应用在 `Development` 环境中运行时的[应用机密](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-126">[App secrets](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
 1. <span data-ttu-id="d47c1-127">使用[环境变量配置提供程序](#evcp)通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="d47c1-127">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
 1. <span data-ttu-id="d47c1-128">使用[命令行配置提供程序](#command-line)通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="d47c1-128">Command-line arguments using the [Command-line configuration provider](#command-line).</span></span>
 
-<span data-ttu-id="d47c1-129">后来添加的配置提供程序会替代之前的密钥设置。</span><span class="sxs-lookup"><span data-stu-id="d47c1-129">Configuration providers that are added later override previous key settings.</span></span> <span data-ttu-id="d47c1-130">例如，如果 :::no-loc(appsettings.json)::: 和环境中都设置了 `MyKey`，则使用环境值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-130">For example, if `MyKey` is set in both *:::no-loc(appsettings.json):::* and the environment, the environment value is used.</span></span> <span data-ttu-id="d47c1-131">使用默认配置提供程序，[命令行配置提供程序](#clcp)将替代所有其他的提供程序。</span><span class="sxs-lookup"><span data-stu-id="d47c1-131">Using the default configuration providers, the  [Command-line configuration provider](#clcp) overrides all other providers.</span></span>
+<span data-ttu-id="d47c1-129">后来添加的配置提供程序会替代之前的密钥设置。</span><span class="sxs-lookup"><span data-stu-id="d47c1-129">Configuration providers that are added later override previous key settings.</span></span> <span data-ttu-id="d47c1-130">例如，如果 appsettings.json 和环境中都设置了 `MyKey`，则使用环境值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-130">For example, if `MyKey` is set in both *appsettings.json* and the environment, the environment value is used.</span></span> <span data-ttu-id="d47c1-131">使用默认配置提供程序，[命令行配置提供程序](#clcp)将替代所有其他的提供程序。</span><span class="sxs-lookup"><span data-stu-id="d47c1-131">Using the default configuration providers, the  [Command-line configuration provider](#clcp) overrides all other providers.</span></span>
 
 <span data-ttu-id="d47c1-132">若要详细了解 `CreateDefaultBuilder`，请参阅[默认生成器设置](xref:fundamentals/host/generic-host#default-builder-settings)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-132">For more information on `CreateDefaultBuilder`, see [Default builder settings](xref:fundamentals/host/generic-host#default-builder-settings).</span></span>
 
@@ -72,11 +72,11 @@ ms.locfileid: "93057968"
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Index2.cshtml.cs?name=snippet)]
 
-### :::no-loc(appsettings.json):::
+### appsettings.json
 
-<span data-ttu-id="d47c1-134">请考虑以下 :::no-loc(appsettings.json)::: 文件：</span><span class="sxs-lookup"><span data-stu-id="d47c1-134">Consider the following *:::no-loc(appsettings.json):::* file:</span></span>
+<span data-ttu-id="d47c1-134">请考虑以下 appsettings.json 文件：</span><span class="sxs-lookup"><span data-stu-id="d47c1-134">Consider the following *appsettings.json* file:</span></span>
 
-[!code-json[](index/samples/3.x/ConfigSample/:::no-loc(appsettings.json):::)]
+[!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
 <span data-ttu-id="d47c1-135">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-135">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
@@ -84,13 +84,13 @@ ms.locfileid: "93057968"
 
 <span data-ttu-id="d47c1-136">默认的 <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 会按以下顺序加载配置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-136">The default <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration in the following order:</span></span>
 
-1. *:::no-loc(appsettings.json):::*
+1. *appsettings.json*
 1. <span data-ttu-id="d47c1-137">appsettings.`Environment`.json ：例如，appsettings.Production.json 和 appsettings.Development.json 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-137">*appsettings.*`Environment`*.json* : For example, the *appsettings*. ***Production\*\*_._json* and *appsettings*.\*\*\*Development** _._json\* files.</span></span> <span data-ttu-id="d47c1-138">文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。</span><span class="sxs-lookup"><span data-stu-id="d47c1-138">The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span> <span data-ttu-id="d47c1-139">有关详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="d47c1-139">For more information, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="d47c1-140">appsettings.`Environment`.json 值将替代 :::no-loc(appsettings.json)::: 中的键  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-140">*appsettings*.`Environment`. *json* values override keys in *:::no-loc(appsettings.json):::*.</span></span> <span data-ttu-id="d47c1-141">例如，默认情况下：</span><span class="sxs-lookup"><span data-stu-id="d47c1-141">For example, by default:</span></span>
+<span data-ttu-id="d47c1-140">appsettings.`Environment`.json 值将替代 appsettings.json 中的键  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-140">*appsettings*.`Environment`. *json* values override keys in *appsettings.json*.</span></span> <span data-ttu-id="d47c1-141">例如，默认情况下：</span><span class="sxs-lookup"><span data-stu-id="d47c1-141">For example, by default:</span></span>
 
-* <span data-ttu-id="d47c1-142">在开发环境中，appsettings.Development.json 配置会覆盖在 :::no-loc(appsettings.json)::: 中找到的值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-142">In development, *appsettings*.\* **Development** _._json\* configuration overwrites values found in *:::no-loc(appsettings.json):::*.</span></span>
-* <span data-ttu-id="d47c1-143">在生产环境中，appsettings.Production.json 配置会覆盖在 :::no-loc(appsettings.json)::: 中找到的值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-143">In production, *appsettings*.\* **Production** _._json\* configuration overwrites values found in *:::no-loc(appsettings.json):::*.</span></span> <span data-ttu-id="d47c1-144">例如，在将应用部署到 Azure 时。</span><span class="sxs-lookup"><span data-stu-id="d47c1-144">For example, when deploying the app to Azure.</span></span>
+* <span data-ttu-id="d47c1-142">在开发环境中，appsettings.Development.json 配置会覆盖在 appsettings.json 中找到的值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-142">In development, *appsettings*.\* **Development** _._json\* configuration overwrites values found in *appsettings.json*.</span></span>
+* <span data-ttu-id="d47c1-143">在生产环境中，appsettings.Production.json 配置会覆盖在 appsettings.json 中找到的值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-143">In production, *appsettings*.\* **Production** _._json\* configuration overwrites values found in *appsettings.json*.</span></span> <span data-ttu-id="d47c1-144">例如，在将应用部署到 Azure 时。</span><span class="sxs-lookup"><span data-stu-id="d47c1-144">For example, when deploying the app to Azure.</span></span>
 
 <a name="optpat"></a>
 
@@ -98,7 +98,7 @@ ms.locfileid: "93057968"
 
 [!INCLUDE[](~/includes/bind.md)]
 
-<span data-ttu-id="d47c1-146">使用[默认](#default)配置时，会通过 [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75) 启用 :::no-loc(appsettings.json)::: 和 appsettings.`Environment`.json 文件  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-146">Using the [default](#default) configuration, the *:::no-loc(appsettings.json):::* and *appsettings.*`Environment`*.json* files are enabled with [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75).</span></span> <span data-ttu-id="d47c1-147">应用启动后，对 :::no-loc(appsettings.json)::: 和 appsettings.`Environment`.json 文件所作的更改将由 [JSON 配置提供程序](#jcp)读取  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-147">Changes made to the *:::no-loc(appsettings.json):::* and *appsettings.*`Environment`*.json* file \* **after** _ the app starts are read by the [JSON configuration provider](#jcp).</span></span>
+<span data-ttu-id="d47c1-146">使用[默认](#default)配置时，会通过 [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75) 启用 appsettings.json 和 appsettings.`Environment`.json 文件  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-146">Using the [default](#default) configuration, the *appsettings.json* and *appsettings.*`Environment`*.json* files are enabled with [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75).</span></span> <span data-ttu-id="d47c1-147">应用启动后，对 appsettings.json 和 appsettings.`Environment`.json 文件所作的更改将由 [JSON 配置提供程序](#jcp)读取  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-147">Changes made to the *appsettings.json* and *appsettings.*`Environment`*.json* file \* **after** _ the app starts are read by the [JSON configuration provider](#jcp).</span></span>
 
 <span data-ttu-id="d47c1-148">有关添加其他 JSON 配置文件的信息，请参阅本文档中的 [JSON 配置提供程序](#jcp)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-148">See [JSON configuration provider](#jcp) in this document for information on adding additional JSON configuration files.</span></span>
 
@@ -116,7 +116,7 @@ ms.locfileid: "93057968"
 * <span data-ttu-id="d47c1-154">不要在开发或测试环境中使用生产机密。</span><span class="sxs-lookup"><span data-stu-id="d47c1-154">Don't use production secrets in development or test environments.</span></span>
 * <span data-ttu-id="d47c1-155">请在项目外部指定机密，避免将其意外提交到源代码存储库。</span><span class="sxs-lookup"><span data-stu-id="d47c1-155">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
 
-<span data-ttu-id="d47c1-156">[默认情况下](#default)，[机密管理器](xref:security/app-secrets)会在 :::no-loc(appsettings.json)::: 和 appsettings.`Environment`.json 之后读取配置设置  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-156">By [default](#default), [Secret manager](xref:security/app-secrets) reads configuration settings after *:::no-loc(appsettings.json):::* and *appsettings.*`Environment`*.json*.</span></span>
+<span data-ttu-id="d47c1-156">[默认情况下](#default)，[机密管理器](xref:security/app-secrets)会在 appsettings.json 和 appsettings.`Environment`.json 之后读取配置设置  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-156">By [default](#default), [Secret manager](xref:security/app-secrets) reads configuration settings after *appsettings.json* and *appsettings.*`Environment`*.json*.</span></span>
 
 <span data-ttu-id="d47c1-157">有关存储密码或其他敏感数据的详细信息：</span><span class="sxs-lookup"><span data-stu-id="d47c1-157">For more information on storing passwords or other sensitive data:</span></span>
 
@@ -129,7 +129,7 @@ ms.locfileid: "93057968"
 
 ## <a name="environment-variables"></a><span data-ttu-id="d47c1-162">环境变量</span><span class="sxs-lookup"><span data-stu-id="d47c1-162">Environment variables</span></span>
 
-<span data-ttu-id="d47c1-163">使用[默认](#default)配置时，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 :::no-loc(appsettings.json):::、appsettings.`Environment`.json 和[机密管理器](xref:security/app-secrets)之后，从环境变量键值对中加载配置  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-163">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs after reading *:::no-loc(appsettings.json):::* , *appsettings.*`Environment`*.json* , and [Secret manager](xref:security/app-secrets).</span></span> <span data-ttu-id="d47c1-164">因此，从环境中读取的键值会替代从 :::no-loc(appsettings.json):::、appsettings.`Environment`.json 和机密管理器中读取的值  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-164">Therefore, key values read from the environment override values read from *:::no-loc(appsettings.json):::* , *appsettings.*`Environment`*.json* , and Secret manager.</span></span>
+<span data-ttu-id="d47c1-163">使用[默认](#default)配置时，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 appsettings.json、appsettings.`Environment`.json 和[机密管理器](xref:security/app-secrets)之后，从环境变量键值对中加载配置  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-163">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs after reading *appsettings.json* , *appsettings.*`Environment`*.json* , and [Secret manager](xref:security/app-secrets).</span></span> <span data-ttu-id="d47c1-164">因此，从环境中读取的键值会替代从 appsettings.json、appsettings.`Environment`.json 和机密管理器中读取的值  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-164">Therefore, key values read from the environment override values read from *appsettings.json* , *appsettings.*`Environment`*.json* , and Secret manager.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
@@ -158,7 +158,7 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-<span data-ttu-id="d47c1-176">若要测试前面的命令是否会替代 :::no-loc(appsettings.json)::: 和 appsettings.`Environment`.json  ：</span><span class="sxs-lookup"><span data-stu-id="d47c1-176">To test that the preceding commands override *:::no-loc(appsettings.json):::* and *appsettings.*`Environment`*.json* :</span></span>
+<span data-ttu-id="d47c1-176">若要测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json  ：</span><span class="sxs-lookup"><span data-stu-id="d47c1-176">To test that the preceding commands override *appsettings.json* and *appsettings.*`Environment`*.json* :</span></span>
 
 * <span data-ttu-id="d47c1-177">使用 Visual Studio：退出并重启 Visual Studio。</span><span class="sxs-lookup"><span data-stu-id="d47c1-177">With Visual Studio: Exit and restart Visual Studio.</span></span>
 * <span data-ttu-id="d47c1-178">使用 CLI：启动新的命令窗口并输入 `dotnet run`。</span><span class="sxs-lookup"><span data-stu-id="d47c1-178">With the CLI: Start a new command window and enter `dotnet run`.</span></span>
@@ -204,7 +204,7 @@ dotnet run
 
 <span data-ttu-id="d47c1-199">使用[默认](#default)配置，<xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 会从以下配置源后的命令行参数键值对中加载配置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-199">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs after the following configuration sources:</span></span>
 
-* <span data-ttu-id="d47c1-200">:::no-loc(appsettings.json)::: 和 appsettings.`Environment`.json 文件  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-200">*:::no-loc(appsettings.json):::* and *appsettings*.`Environment`. *json* files.</span></span>
+* <span data-ttu-id="d47c1-200">appsettings.json 和 appsettings.`Environment`.json 文件  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-200">*appsettings.json* and *appsettings*.`Environment`. *json* files.</span></span>
 * <span data-ttu-id="d47c1-201">开发环境中的[应用机密（机密管理器）](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-201">[App secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
 * <span data-ttu-id="d47c1-202">环境变量。</span><span class="sxs-lookup"><span data-stu-id="d47c1-202">Environment variables.</span></span>
 
@@ -268,9 +268,9 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 
 <span data-ttu-id="d47c1-229">配置 API 在配置键中使用分隔符来展平分层数据，以此来读取分层配置数据。</span><span class="sxs-lookup"><span data-stu-id="d47c1-229">The Configuration API reads hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
 
-<span data-ttu-id="d47c1-230">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 :::no-loc(appsettings.json)::: 文件：</span><span class="sxs-lookup"><span data-stu-id="d47c1-230">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *:::no-loc(appsettings.json):::* file:</span></span>
+<span data-ttu-id="d47c1-230">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 appsettings.json 文件：</span><span class="sxs-lookup"><span data-stu-id="d47c1-230">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *appsettings.json* file:</span></span>
 
-[!code-json[](index/samples/3.x/ConfigSample/:::no-loc(appsettings.json):::)]
+[!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
 <span data-ttu-id="d47c1-231">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-231">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the configurations settings:</span></span>
 
@@ -323,7 +323,7 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 
 <span data-ttu-id="d47c1-277">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="d47c1-277">A typical sequence of configuration providers is:</span></span>
 
-1. *:::no-loc(appsettings.json):::*
+1. *appsettings.json*
 1. <span data-ttu-id="d47c1-278">appsettings.`Environment`.json</span><span class="sxs-lookup"><span data-stu-id="d47c1-278">*appsettings*.`Environment`. *json*</span></span>
 1. [<span data-ttu-id="d47c1-279">机密管理器</span><span class="sxs-lookup"><span data-stu-id="d47c1-279">Secret Manager</span></span>](xref:security/app-secrets)
 1. <span data-ttu-id="d47c1-280">使用[环境变量配置提供程序](#evcp)通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="d47c1-280">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
@@ -419,7 +419,7 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 
 <span data-ttu-id="d47c1-335">在前面的代码中，MyConfig.json 和 MyConfig.`Environment`.json 文件中的设置 ：</span><span class="sxs-lookup"><span data-stu-id="d47c1-335">In the preceding code, settings in the _MyConfig.json\* and  *MyConfig*.`Environment`. *json* files:</span></span>
 
-* <span data-ttu-id="d47c1-336">会替代 :::no-loc(appsettings.json)::: 和 appsettings.`Environment`.json 文件中的设置  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-336">Override settings in the *:::no-loc(appsettings.json):::* and *appsettings*.`Environment`. *json* files.</span></span>
+* <span data-ttu-id="d47c1-336">会替代 appsettings.json 和 appsettings.`Environment`.json 文件中的设置  。</span><span class="sxs-lookup"><span data-stu-id="d47c1-336">Override settings in the *appsettings.json* and *appsettings*.`Environment`. *json* files.</span></span>
 * <span data-ttu-id="d47c1-337">会被[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中的设置所替代。</span><span class="sxs-lookup"><span data-stu-id="d47c1-337">Are overridden by settings in the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
 
 <span data-ttu-id="d47c1-338">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 MyConfig.json 文件：</span><span class="sxs-lookup"><span data-stu-id="d47c1-338">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *MyConfig.json* file:</span></span>
@@ -689,9 +689,9 @@ Index: 5  Value: value5
 
 <span data-ttu-id="d47c1-436">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-436">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
 
-## <a name="access-configuration-in-no-locrazor-pages"></a><span data-ttu-id="d47c1-437">访问 :::no-loc(Razor)::: Pages 中的配置</span><span class="sxs-lookup"><span data-stu-id="d47c1-437">Access configuration in :::no-loc(Razor)::: Pages</span></span>
+## <a name="access-configuration-in-no-locrazor-pages"></a><span data-ttu-id="d47c1-437">访问 Razor Pages 中的配置</span><span class="sxs-lookup"><span data-stu-id="d47c1-437">Access configuration in Razor Pages</span></span>
 
-<span data-ttu-id="d47c1-438">以下代码显示 :::no-loc(Razor)::: Pages 中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="d47c1-438">The following code displays configuration data in a :::no-loc(Razor)::: Page:</span></span>
+<span data-ttu-id="d47c1-438">以下代码显示 Razor Pages 中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="d47c1-438">The following code displays configuration data in a Razor Page:</span></span>
 
 [!code-cshtml[](index/samples/3.x/ConfigSample/Pages/Test5.cshtml)]
 
@@ -699,7 +699,7 @@ Index: 5  Value: value5
 
 [!code-csharp[](~/fundamentals/configuration/options/samples/3.x/OptionsSample/Startup3.cs?name=snippet_Example2)]
 
-<span data-ttu-id="d47c1-440">以下标记使用 [`@inject`](xref:mvc/views/razor#inject) :::no-loc(Razor)::: 指令来解析和显示选项值：</span><span class="sxs-lookup"><span data-stu-id="d47c1-440">The following markup uses the [`@inject`](xref:mvc/views/razor#inject) :::no-loc(Razor)::: directive to resolve and display the options values:</span></span>
+<span data-ttu-id="d47c1-440">以下标记使用 [`@inject`](xref:mvc/views/razor#inject) Razor 指令来解析和显示选项值：</span><span class="sxs-lookup"><span data-stu-id="d47c1-440">The following markup uses the [`@inject`](xref:mvc/views/razor#inject) Razor directive to resolve and display the options values:</span></span>
 
 [!code-cshtml[](~/fundamentals/configuration/options/samples/3.x/OptionsSample/Pages/Test3.cshtml)]
 
@@ -723,7 +723,7 @@ Index: 5  Value: value5
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Test2.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="d47c1-449">在前面的示例中，`Option1` 和 `Option2` 的值在 :::no-loc(appsettings.json)::: 中指定，然后被配置的委托替代。</span><span class="sxs-lookup"><span data-stu-id="d47c1-449">In the preceding example, the values of `Option1` and `Option2` are specified in *:::no-loc(appsettings.json):::* and then overridden by the configured delegate.</span></span>
+<span data-ttu-id="d47c1-449">在前面的示例中，`Option1` 和 `Option2` 的值在 appsettings.json 中指定，然后被配置的委托替代。</span><span class="sxs-lookup"><span data-stu-id="d47c1-449">In the preceding example, the values of `Option1` and `Option2` are specified in *appsettings.json* and then overridden by the configured delegate.</span></span>
 
 <a name="hvac"></a>
 
@@ -825,7 +825,7 @@ using Microsoft.Extensions.Configuration;
   * <span data-ttu-id="d47c1-517">使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="d47c1-517">Environment variables prefixed with `ASPNETCORE_` (for example, `ASPNETCORE_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="d47c1-518">在配置键值对加载后，前缀 (`ASPNETCORE_`) 会遭去除。</span><span class="sxs-lookup"><span data-stu-id="d47c1-518">The prefix (`ASPNETCORE_`) is stripped when the configuration key-value pairs are loaded.</span></span>
   * <span data-ttu-id="d47c1-519">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="d47c1-519">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
 * <span data-ttu-id="d47c1-520">应用配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="d47c1-520">App configuration is provided from:</span></span>
-  * <span data-ttu-id="d47c1-521">使用[文件配置提供程序](#file-configuration-provider)的 :::no-loc(appsettings.json):::。</span><span class="sxs-lookup"><span data-stu-id="d47c1-521">*:::no-loc(appsettings.json):::* using the [File Configuration Provider](#file-configuration-provider).</span></span>
+  * <span data-ttu-id="d47c1-521">使用[文件配置提供程序](#file-configuration-provider)的 appsettings.json。</span><span class="sxs-lookup"><span data-stu-id="d47c1-521">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
   * <span data-ttu-id="d47c1-522">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。</span><span class="sxs-lookup"><span data-stu-id="d47c1-522">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
   * <span data-ttu-id="d47c1-523">应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-523">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
   * <span data-ttu-id="d47c1-524">使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="d47c1-524">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span>
@@ -882,7 +882,7 @@ using Microsoft.Extensions.Configuration;
 
 <span data-ttu-id="d47c1-551">实现更改检测的配置提供程序能够在基础设置更改时重新加载配置。</span><span class="sxs-lookup"><span data-stu-id="d47c1-551">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="d47c1-552">例如，文件配置提供程序（本主题后面将对此进行介绍）和 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)实现更改检测。</span><span class="sxs-lookup"><span data-stu-id="d47c1-552">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
 
-<span data-ttu-id="d47c1-553">应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="d47c1-553"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="d47c1-554"><xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 :::no-loc(Razor)::: Pages <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageModel> 或 MVC <xref:Microsoft.AspNetCore.Mvc.Controller> 中，以获取类的配置。</span><span class="sxs-lookup"><span data-stu-id="d47c1-554"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a :::no-loc(Razor)::: Pages <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageModel> or MVC <xref:Microsoft.AspNetCore.Mvc.Controller> to obtain configuration for the class.</span></span>
+<span data-ttu-id="d47c1-553">应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="d47c1-553"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="d47c1-554"><xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 或 MVC <xref:Microsoft.AspNetCore.Mvc.Controller> 中，以获取类的配置。</span><span class="sxs-lookup"><span data-stu-id="d47c1-554"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> or MVC <xref:Microsoft.AspNetCore.Mvc.Controller> to obtain configuration for the class.</span></span>
 
 <span data-ttu-id="d47c1-555">在下面的示例中，使用 `_config` 字段来访问配置值：</span><span class="sxs-lookup"><span data-stu-id="d47c1-555">In the following examples, the `_config` field is used to access configuration values:</span></span>
 
@@ -951,7 +951,7 @@ public class HomeController : Controller
 
 <span data-ttu-id="d47c1-600">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="d47c1-600">A typical sequence of configuration providers is:</span></span>
 
-1. <span data-ttu-id="d47c1-601">文件（:::no-loc(appsettings.json):::、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境） </span><span class="sxs-lookup"><span data-stu-id="d47c1-601">Files ( *:::no-loc(appsettings.json):::* , *appsettings.{Environment}.json* , where `{Environment}` is the app's current hosting environment)</span></span>
+1. <span data-ttu-id="d47c1-601">文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境） </span><span class="sxs-lookup"><span data-stu-id="d47c1-601">Files ( *appsettings.json* , *appsettings.{Environment}.json* , where `{Environment}` is the app's current hosting environment)</span></span>
 1. [<span data-ttu-id="d47c1-602">Azure 密钥保管库</span><span class="sxs-lookup"><span data-stu-id="d47c1-602">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
 1. <span data-ttu-id="d47c1-603">[用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）</span><span class="sxs-lookup"><span data-stu-id="d47c1-603">[User secrets (Secret Manager)](xref:security/app-secrets) (Development environment only)</span></span>
 1. <span data-ttu-id="d47c1-604">环境变量</span><span class="sxs-lookup"><span data-stu-id="d47c1-604">Environment variables</span></span>
@@ -1028,7 +1028,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 <span data-ttu-id="d47c1-625">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="d47c1-625">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="d47c1-626">:::no-loc(appsettings.json)::: 和 appsettings.{Environment}.json 文件中的可选配置 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-626">Optional configuration from *:::no-loc(appsettings.json):::* and *appsettings.{Environment}.json* files.</span></span>
+* <span data-ttu-id="d47c1-626">appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-626">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
 * <span data-ttu-id="d47c1-627">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="d47c1-627">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
 * <span data-ttu-id="d47c1-628">环境变量。</span><span class="sxs-lookup"><span data-stu-id="d47c1-628">Environment variables.</span></span>
 
@@ -1143,7 +1143,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 <span data-ttu-id="d47c1-682">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="d47c1-682">`CreateDefaultBuilder` also loads:</span></span>
 
 * <span data-ttu-id="d47c1-683">来自没有前缀的环境变量的应用配置，方法是通过调用不带前缀的 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="d47c1-683">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
-* <span data-ttu-id="d47c1-684">:::no-loc(appsettings.json)::: 和 appsettings.{Environment}.json 文件中的可选配置 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-684">Optional configuration from *:::no-loc(appsettings.json):::* and *appsettings.{Environment}.json* files.</span></span>
+* <span data-ttu-id="d47c1-684">appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-684">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
 * <span data-ttu-id="d47c1-685">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="d47c1-685">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
 * <span data-ttu-id="d47c1-686">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="d47c1-686">Command-line arguments.</span></span>
 
@@ -1296,7 +1296,7 @@ key=value
 
 <span data-ttu-id="d47c1-762">使用 `CreateDefaultBuilder` 初始化新的主机生成器时，会自动调用两次 `AddJsonFile`。</span><span class="sxs-lookup"><span data-stu-id="d47c1-762">`AddJsonFile` is automatically called twice when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="d47c1-763">调用该方法来从以下文件加载配置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-763">The method is called to load configuration from:</span></span>
 
-* <span data-ttu-id="d47c1-764">:::no-loc(appsettings.json):::：先读取此文件。</span><span class="sxs-lookup"><span data-stu-id="d47c1-764">*:::no-loc(appsettings.json):::* : This file is read first.</span></span> <span data-ttu-id="d47c1-765">文件的环境版本可替代 :::no-loc(appsettings.json)::: 文件提供的值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-765">The environment version of the file can override the values provided by the *:::no-loc(appsettings.json):::* file.</span></span>
+* <span data-ttu-id="d47c1-764">appsettings.json：先读取此文件。</span><span class="sxs-lookup"><span data-stu-id="d47c1-764">*appsettings.json* : This file is read first.</span></span> <span data-ttu-id="d47c1-765">文件的环境版本可替代 appsettings.json 文件提供的值。</span><span class="sxs-lookup"><span data-stu-id="d47c1-765">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
 * <span data-ttu-id="d47c1-766">appsettings.{Environment}.json：文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。</span><span class="sxs-lookup"><span data-stu-id="d47c1-766">*appsettings.{Environment}.json* : The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
 
 <span data-ttu-id="d47c1-767">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="d47c1-767">For more information, see the [Default configuration](#default-configuration) section.</span></span>
@@ -1309,7 +1309,7 @@ key=value
 
 <span data-ttu-id="d47c1-772">首先建立 JSON 配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="d47c1-772">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="d47c1-773">因此，用户机密、环境变量和命令行参数会替代由 appsettings 文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="d47c1-773">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
 
-<span data-ttu-id="d47c1-774">构建主机时，调用 `ConfigureAppConfiguration` 来指定除 :::no-loc(appsettings.json)::: 和 appsettings.{Environment}.json 以外的文件的应用配置 ：</span><span class="sxs-lookup"><span data-stu-id="d47c1-774">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration for files other than *:::no-loc(appsettings.json):::* and *appsettings.{Environment}.json* :</span></span>
+<span data-ttu-id="d47c1-774">构建主机时，调用 `ConfigureAppConfiguration` 来指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置 ：</span><span class="sxs-lookup"><span data-stu-id="d47c1-774">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json* :</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1323,9 +1323,9 @@ key=value
 
 <span data-ttu-id="d47c1-776">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用：</span><span class="sxs-lookup"><span data-stu-id="d47c1-776">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`:</span></span>
 
-* <span data-ttu-id="d47c1-777">第一次调用 `AddJsonFile` 会从 :::no-loc(appsettings.json)::: 加载配置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-777">The first call to `AddJsonFile` loads configuration from *:::no-loc(appsettings.json):::* :</span></span>
+* <span data-ttu-id="d47c1-777">第一次调用 `AddJsonFile` 会从 appsettings.json 加载配置：</span><span class="sxs-lookup"><span data-stu-id="d47c1-777">The first call to `AddJsonFile` loads configuration from *appsettings.json* :</span></span>
 
-  [!code-json[](index/samples/2.x/ConfigurationSample/:::no-loc(appsettings.json):::)]
+  [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
 
 * <span data-ttu-id="d47c1-778">第二次调用 `AddJsonFile` 会从 appsettings.{Environment}.json 加载配置。</span><span class="sxs-lookup"><span data-stu-id="d47c1-778">The second call to `AddJsonFile` loads configuration from *appsettings.{Environment}.json*.</span></span> <span data-ttu-id="d47c1-779">对于示例应用中的 appsettings.Development.json，将加载以下文件：</span><span class="sxs-lookup"><span data-stu-id="d47c1-779">For *appsettings.Development.json* in the sample app, the following file is loaded:</span></span>
 
@@ -1337,7 +1337,7 @@ key=value
    1. <span data-ttu-id="d47c1-785">打开 Properties/launchSettings.json 文件。</span><span class="sxs-lookup"><span data-stu-id="d47c1-785">Open the *Properties/launchSettings.json* file.</span></span>
    1. <span data-ttu-id="d47c1-786">在 `ConfigurationSample` 配置文件中，将 `ASPNETCORE_ENVIRONMENT` 环境变量的值更改为 `Production`。</span><span class="sxs-lookup"><span data-stu-id="d47c1-786">In the `ConfigurationSample` profile, change the value of the `ASPNETCORE_ENVIRONMENT` environment variable to `Production`.</span></span>
    1. <span data-ttu-id="d47c1-787">保存文件，然后在命令外壳中使用 `dotnet run` 运行应用。</span><span class="sxs-lookup"><span data-stu-id="d47c1-787">Save the file and run the app with `dotnet run` in a command shell.</span></span>
-1. <span data-ttu-id="d47c1-788">appsettings.Development.json 中的设置不再会替代 :::no-loc(appsettings.json)::: 中的设置 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-788">The settings in the *appsettings.Development.json* no longer override the settings in *:::no-loc(appsettings.json):::*.</span></span> <span data-ttu-id="d47c1-789">键 `Logging:LogLevel:Default` 的日志级别为 `Warning`。</span><span class="sxs-lookup"><span data-stu-id="d47c1-789">The log level for the key `Logging:LogLevel:Default` is `Warning`.</span></span>
+1. <span data-ttu-id="d47c1-788">appsettings.Development.json 中的设置不再会替代 appsettings.json 中的设置 。</span><span class="sxs-lookup"><span data-stu-id="d47c1-788">The settings in the *appsettings.Development.json* no longer override the settings in *appsettings.json*.</span></span> <span data-ttu-id="d47c1-789">键 `Logging:LogLevel:Default` 的日志级别为 `Warning`。</span><span class="sxs-lookup"><span data-stu-id="d47c1-789">The log level for the key `Logging:LogLevel:Default` is `Warning`.</span></span>
 
 ### <a name="xml-configuration-provider"></a><span data-ttu-id="d47c1-790">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="d47c1-790">XML Configuration Provider</span></span>
 
@@ -1801,11 +1801,11 @@ public class Startup
 
 <span data-ttu-id="d47c1-994">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="d47c1-994">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
 
-## <a name="access-configuration-in-a-no-locrazor-pages-page-or-mvc-view"></a><span data-ttu-id="d47c1-995">在 :::no-loc(Razor)::: Pages 页面或 MVC 视图中访问配置</span><span class="sxs-lookup"><span data-stu-id="d47c1-995">Access configuration in a :::no-loc(Razor)::: Pages page or MVC view</span></span>
+## <a name="access-configuration-in-a-no-locrazor-pages-page-or-mvc-view"></a><span data-ttu-id="d47c1-995">在 Razor Pages 页面或 MVC 视图中访问配置</span><span class="sxs-lookup"><span data-stu-id="d47c1-995">Access configuration in a Razor Pages page or MVC view</span></span>
 
-<span data-ttu-id="d47c1-996">若要访问 :::no-loc(Razor)::: Pages 页面或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) 命名空间添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入该页面或视图。</span><span class="sxs-lookup"><span data-stu-id="d47c1-996">To access configuration settings in a :::no-loc(Razor)::: Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
+<span data-ttu-id="d47c1-996">若要访问 Razor Pages 页面或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) 命名空间添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入该页面或视图。</span><span class="sxs-lookup"><span data-stu-id="d47c1-996">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
 
-<span data-ttu-id="d47c1-997">在 :::no-loc(Razor)::: Pages 页面中：</span><span class="sxs-lookup"><span data-stu-id="d47c1-997">In a :::no-loc(Razor)::: Pages page:</span></span>
+<span data-ttu-id="d47c1-997">在 Razor Pages 页面中：</span><span class="sxs-lookup"><span data-stu-id="d47c1-997">In a Razor Pages page:</span></span>
 
 ```cshtml
 @page
@@ -1819,7 +1819,7 @@ public class Startup
     <title>Index Page</title>
 </head>
 <body>
-    <h1>Access configuration in a :::no-loc(Razor)::: Pages page</h1>
+    <h1>Access configuration in a Razor Pages page</h1>
     <p>Configuration value for 'key': @Configuration["key"]</p>
 </body>
 </html>

@@ -5,17 +5,17 @@ description: 了解如何使用 ASP.NET Core 数据保护 Api 在应用中保护
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/data-protection/using-data-protection
 ms.openlocfilehash: 1f0d42a7b12edb870481024372d75cdc9e57be21
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -36,7 +36,7 @@ ms.locfileid: "93051650"
 
 3. <span data-ttu-id="52ecf-107">`Unprotect`用要恢复为纯文本的数据调用方法。</span><span class="sxs-lookup"><span data-stu-id="52ecf-107">Call the `Unprotect` method with the data you want to turn back into plain text.</span></span>
 
-<span data-ttu-id="52ecf-108">大多数框架和应用模型（如 ASP.NET Core 或 :::no-loc(SignalR)::: ）已配置数据保护系统，并将其添加到通过依赖关系注入访问的服务容器。</span><span class="sxs-lookup"><span data-stu-id="52ecf-108">Most frameworks and app models, such as ASP.NET Core or :::no-loc(SignalR):::, already configure the data protection system and add it to a service container you access via dependency injection.</span></span> <span data-ttu-id="52ecf-109">下面的示例演示如何为依赖关系注入配置服务容器并注册数据保护堆栈，通过 DI 接收数据保护提供程序，创建保护程序并保护然后取消保护数据。</span><span class="sxs-lookup"><span data-stu-id="52ecf-109">The following sample demonstrates configuring a service container for dependency injection and registering the data protection stack, receiving the data protection provider via DI, creating a protector and protecting then unprotecting data.</span></span>
+<span data-ttu-id="52ecf-108">大多数框架和应用模型（如 ASP.NET Core 或 SignalR ）已配置数据保护系统，并将其添加到通过依赖关系注入访问的服务容器。</span><span class="sxs-lookup"><span data-stu-id="52ecf-108">Most frameworks and app models, such as ASP.NET Core or SignalR, already configure the data protection system and add it to a service container you access via dependency injection.</span></span> <span data-ttu-id="52ecf-109">下面的示例演示如何为依赖关系注入配置服务容器并注册数据保护堆栈，通过 DI 接收数据保护提供程序，创建保护程序并保护然后取消保护数据。</span><span class="sxs-lookup"><span data-stu-id="52ecf-109">The following sample demonstrates configuring a service container for dependency injection and registering the data protection stack, receiving the data protection provider via DI, creating a protector and protecting then unprotecting data.</span></span>
 
 [!code-csharp[](../../security/data-protection/using-data-protection/samples/protectunprotect.cs?highlight=26,34,35,36,37,38,39,40)]
 
@@ -45,4 +45,4 @@ ms.locfileid: "93051650"
 >[!TIP]
 > <span data-ttu-id="52ecf-113">和的 `IDataProtectionProvider` 实例 `IDataProtector` 对于多个调用方是线程安全的。</span><span class="sxs-lookup"><span data-stu-id="52ecf-113">Instances of `IDataProtectionProvider` and `IDataProtector` are thread-safe for multiple callers.</span></span> <span data-ttu-id="52ecf-114">它的目的是，在组件通过调用获取对的引用后 `IDataProtector` `CreateProtector` ，它会将该引用用于多次调用 `Protect` 和 `Unprotect` 。</span><span class="sxs-lookup"><span data-stu-id="52ecf-114">It's intended that once a component gets a reference to an `IDataProtector` via a call to `CreateProtector`, it will use that reference for multiple calls to `Protect` and `Unprotect`.</span></span>
 >
-><span data-ttu-id="52ecf-115">`Unprotect`如果无法验证或解密受保护的有效负载，则对的调用将引发 system.security.cryptography.cryptographicexception。</span><span class="sxs-lookup"><span data-stu-id="52ecf-115">A call to `Unprotect` will throw CryptographicException if the protected payload cannot be verified or deciphered.</span></span> <span data-ttu-id="52ecf-116">某些组件可能希望在取消保护操作期间忽略错误;读取身份验证的组件 :::no-loc(cookie)::: 可能会处理此错误，并将该请求视为 :::no-loc(cookie)::: 根本不会失败，而不是完全导致请求失败。</span><span class="sxs-lookup"><span data-stu-id="52ecf-116">Some components may wish to ignore errors during unprotect operations; a component which reads authentication :::no-loc(cookie):::s might handle this error and treat the request as if it had no :::no-loc(cookie)::: at all rather than fail the request outright.</span></span> <span data-ttu-id="52ecf-117">需要此行为的组件应专门捕获 System.security.cryptography.cryptographicexception，而不是抑制所有异常。</span><span class="sxs-lookup"><span data-stu-id="52ecf-117">Components which want this behavior should specifically catch CryptographicException instead of swallowing all exceptions.</span></span>
+><span data-ttu-id="52ecf-115">`Unprotect`如果无法验证或解密受保护的有效负载，则对的调用将引发 system.security.cryptography.cryptographicexception。</span><span class="sxs-lookup"><span data-stu-id="52ecf-115">A call to `Unprotect` will throw CryptographicException if the protected payload cannot be verified or deciphered.</span></span> <span data-ttu-id="52ecf-116">某些组件可能希望在取消保护操作期间忽略错误;读取身份验证的组件 cookie 可能会处理此错误，并将该请求视为 cookie 根本不会失败，而不是完全导致请求失败。</span><span class="sxs-lookup"><span data-stu-id="52ecf-116">Some components may wish to ignore errors during unprotect operations; a component which reads authentication cookies might handle this error and treat the request as if it had no cookie at all rather than fail the request outright.</span></span> <span data-ttu-id="52ecf-117">需要此行为的组件应专门捕获 System.security.cryptography.cryptographicexception，而不是抑制所有异常。</span><span class="sxs-lookup"><span data-stu-id="52ecf-117">Components which want this behavior should specifically catch CryptographicException instead of swallowing all exceptions.</span></span>

@@ -1,22 +1,22 @@
 ---
-title: '使用 Azure Active Directory B2C 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 托管应用'
+title: '使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用'
 author: guardrex
-description: '了解如何使用 Azure Active Directory B2C 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 托管应用。'
+description: '了解如何使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/27/2020
 no-loc:
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
 ms.openlocfilehash: 1a58e19ecaf816ddfb724b9a575d35c801cebd04
 ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
@@ -25,11 +25,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/27/2020
 ms.locfileid: "92690561"
 ---
-# <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a><span data-ttu-id="9519f-103">使用 Azure Active Directory B2C 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 托管应用</span><span class="sxs-lookup"><span data-stu-id="9519f-103">Secure an ASP.NET Core :::no-loc(Blazor WebAssembly)::: hosted app with Azure Active Directory B2C</span></span>
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a><span data-ttu-id="9519f-103">使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用</span><span class="sxs-lookup"><span data-stu-id="9519f-103">Secure an ASP.NET Core Blazor WebAssembly hosted app with Azure Active Directory B2C</span></span>
 
 <span data-ttu-id="9519f-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="9519f-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="9519f-105">本文介绍如何创建使用 [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) 进行身份验证的[托管 :::no-loc(Blazor WebAssembly)::: 应用](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="9519f-105">This article describes how to create a [hosted :::no-loc(Blazor WebAssembly)::: app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) for authentication.</span></span>
+<span data-ttu-id="9519f-105">本文介绍如何创建使用 [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) 进行身份验证的[托管 Blazor WebAssembly 应用](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="9519f-105">This article describes how to create a [hosted Blazor WebAssembly app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) for authentication.</span></span>
 
 ## <a name="register-apps-in-aad-b2c-and-create-solution"></a><span data-ttu-id="9519f-106">在 AAD B2C 中注册应用并创建解决方案</span><span class="sxs-lookup"><span data-stu-id="9519f-106">Register apps in AAD B2C and create solution</span></span>
 
@@ -44,7 +44,7 @@ ms.locfileid: "92690561"
 <span data-ttu-id="9519f-112">请按照[教程：在 Azure Active Directory B2C 中注册应用程序](/azure/active-directory-b2c/tutorial-register-applications)中的指南，为服务器 API 应用注册 AAD 应用，然后执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="9519f-112">Follow the guidance in [Tutorial: Register an application in Azure Active Directory B2C](/azure/active-directory-b2c/tutorial-register-applications) to register an AAD app for the *Server API app* and then do the following:</span></span>
 
 1. <span data-ttu-id="9519f-113">在“Azure Active Directory” > “应用注册”中，选择“新建注册”  。</span><span class="sxs-lookup"><span data-stu-id="9519f-113">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="9519f-114">提供应用的名称（例如 :::no-loc(Blazor Server)::: AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="9519f-114">Provide a **Name** for the app (for example, **:::no-loc(Blazor Server)::: AAD B2C** ).</span></span>
+1. <span data-ttu-id="9519f-114">提供应用的名称（例如 Blazor Server AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="9519f-114">Provide a **Name** for the app (for example, **Blazor Server AAD B2C** ).</span></span>
 1. <span data-ttu-id="9519f-115">对于“支持的帐户类型”，请选择多租户选项：任何标识提供程序或组织目录中的帐户（用于通过用户流对用户进行身份验证）</span><span class="sxs-lookup"><span data-stu-id="9519f-115">For **Supported account types** , select the multi-tenant option: **Accounts in any identity provider or organizational directory (for authenticating users with user flows)**</span></span>
 1. <span data-ttu-id="9519f-116">在这种情况下，“服务器 API 应用”不需要“重定向 URI”，因此请将下拉列表设置为 Web，并且不输入重定向 URI 。</span><span class="sxs-lookup"><span data-stu-id="9519f-116">The *Server API app* doesn't require a **Redirect URI** in this scenario, so leave the drop down set to **Web** and don't enter a redirect URI.</span></span>
 1. <span data-ttu-id="9519f-117">确认已选择“权限” > “授予对 openid 和 offline_access 权限的管理员同意”。</span><span class="sxs-lookup"><span data-stu-id="9519f-117">Confirm that **Permissions** > **Grant admin consent to openid and offline_access permissions** is selected.</span></span>
@@ -77,7 +77,7 @@ ms.locfileid: "92690561"
 ::: moniker range=">= aspnetcore-5.0"
 
 1. <span data-ttu-id="9519f-135">在“Azure Active Directory”>“应用注册”中，选择“新建注册”。</span><span class="sxs-lookup"><span data-stu-id="9519f-135">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="9519f-136">提供应用的“名称”（例如 :::no-loc(Blazor)::: 客户端 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="9519f-136">Provide a **Name** for the app (for example, **:::no-loc(Blazor)::: Client AAD B2C** ).</span></span>
+1. <span data-ttu-id="9519f-136">提供应用的“名称”（例如 Blazor 客户端 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="9519f-136">Provide a **Name** for the app (for example, **Blazor Client AAD B2C** ).</span></span>
 1. <span data-ttu-id="9519f-137">对于“支持的帐户类型”，请选择多租户选项：任何标识提供程序或组织目录中的帐户（用于通过用户流对用户进行身份验证）</span><span class="sxs-lookup"><span data-stu-id="9519f-137">For **Supported account types** , select the multi-tenant option: **Accounts in any identity provider or organizational directory (for authenticating users with user flows)**</span></span>
 1. <span data-ttu-id="9519f-138">将“重定向 URI”下拉列表设置为“单页应用程序(SPA)”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback`。</span><span class="sxs-lookup"><span data-stu-id="9519f-138">Set the **Redirect URI** drop down to **Single-page application (SPA)** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="9519f-139">在 Kestrel 上运行的应用的默认端口为 5001。</span><span class="sxs-lookup"><span data-stu-id="9519f-139">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="9519f-140">如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。</span><span class="sxs-lookup"><span data-stu-id="9519f-140">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="9519f-141">对于 IIS Express，可以在“调试”面板的 `Server` 应用属性中找到应用随机生成的端口。</span><span class="sxs-lookup"><span data-stu-id="9519f-141">For IIS Express, the randomly generated port for the app can be found in the *`Server`* app's properties in the **Debug** panel.</span></span> <span data-ttu-id="9519f-142">由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="9519f-142">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="9519f-143">[创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="9519f-143">A remark appears in the [Create the app](#create-the-app) section to remind IIS Express users to update the redirect URI.</span></span>
 1. <span data-ttu-id="9519f-144">确认已选择“权限”>“授予对 openid 和 offline_access 权限的管理员同意”。</span><span class="sxs-lookup"><span data-stu-id="9519f-144">Confirm that **Permissions** > **Grant admin consent to openid and offline_access permissions** is selected.</span></span>
@@ -97,7 +97,7 @@ ms.locfileid: "92690561"
 ::: moniker range="< aspnetcore-5.0"
 
 1. <span data-ttu-id="9519f-152">在“Azure Active Directory”>“应用注册”中，选择“新建注册”。</span><span class="sxs-lookup"><span data-stu-id="9519f-152">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="9519f-153">提供应用的“名称”（例如 :::no-loc(Blazor)::: 客户端 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="9519f-153">Provide a **Name** for the app (for example, **:::no-loc(Blazor)::: Client AAD B2C** ).</span></span>
+1. <span data-ttu-id="9519f-153">提供应用的“名称”（例如 Blazor 客户端 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="9519f-153">Provide a **Name** for the app (for example, **Blazor Client AAD B2C** ).</span></span>
 1. <span data-ttu-id="9519f-154">对于“支持的帐户类型”，请选择多租户选项：任何标识提供程序或组织目录中的帐户（用于通过用户流对用户进行身份验证）</span><span class="sxs-lookup"><span data-stu-id="9519f-154">For **Supported account types** , select the multi-tenant option: **Accounts in any identity provider or organizational directory (for authenticating users with user flows)**</span></span>
 1. <span data-ttu-id="9519f-155">将“重定向 URI”下拉列表设置为“Web”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback` 。</span><span class="sxs-lookup"><span data-stu-id="9519f-155">Leave the **Redirect URI** drop down set to **Web** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="9519f-156">在 Kestrel 上运行的应用的默认端口为 5001。</span><span class="sxs-lookup"><span data-stu-id="9519f-156">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="9519f-157">如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。</span><span class="sxs-lookup"><span data-stu-id="9519f-157">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="9519f-158">对于 IIS Express，可以在“调试”面板的 `Server` 应用属性中找到应用随机生成的端口。</span><span class="sxs-lookup"><span data-stu-id="9519f-158">For IIS Express, the randomly generated port for the app can be found in the *`Server`* app's properties in the **Debug** panel.</span></span> <span data-ttu-id="9519f-159">由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="9519f-159">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="9519f-160">[创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="9519f-160">A remark appears in the [Create the app](#create-the-app) section to remind IIS Express users to update the redirect URI.</span></span>
 1. <span data-ttu-id="9519f-161">确认已选择“权限”>“授予对 openid 和 offline_access 权限的管理员同意”。</span><span class="sxs-lookup"><span data-stu-id="9519f-161">Confirm that **Permissions** > **Grant admin consent to openid and offline_access permissions** is selected.</span></span>
@@ -117,7 +117,7 @@ ms.locfileid: "92690561"
 <span data-ttu-id="9519f-169">在“API 权限”中：</span><span class="sxs-lookup"><span data-stu-id="9519f-169">In **API permissions** :</span></span>
 
 1. <span data-ttu-id="9519f-170">选择“添加权限”，然后选择“我的 API” 。</span><span class="sxs-lookup"><span data-stu-id="9519f-170">Select **Add a permission** followed by **My APIs**.</span></span>
-1. <span data-ttu-id="9519f-171">从“名称”列（例如 :::no-loc(Blazor Server)::: AAD B2C）中选择“服务器 API 应用” 。</span><span class="sxs-lookup"><span data-stu-id="9519f-171">Select the *Server API app* from the **Name** column (for example, **:::no-loc(Blazor Server)::: AAD B2C** ).</span></span>
+1. <span data-ttu-id="9519f-171">从“名称”列（例如 Blazor Server AAD B2C）中选择“服务器 API 应用” 。</span><span class="sxs-lookup"><span data-stu-id="9519f-171">Select the *Server API app* from the **Name** column (for example, **Blazor Server AAD B2C** ).</span></span>
 1. <span data-ttu-id="9519f-172">打开 API 列表。</span><span class="sxs-lookup"><span data-stu-id="9519f-172">Open the **API** list.</span></span>
 1. <span data-ttu-id="9519f-173">启用对 API 的访问（例如 `API.Access`）。</span><span class="sxs-lookup"><span data-stu-id="9519f-173">Enable access to the API (for example, `API.Access`).</span></span>
 1. <span data-ttu-id="9519f-174">选择“添加权限”。</span><span class="sxs-lookup"><span data-stu-id="9519f-174">Select **Add permissions**.</span></span>
@@ -127,7 +127,7 @@ ms.locfileid: "92690561"
 
 [<span data-ttu-id="9519f-178">创建注册和登录用户流</span><span class="sxs-lookup"><span data-stu-id="9519f-178">Create a sign-up and sign-in user flow</span></span>](/azure/active-directory-b2c/tutorial-create-user-flows)
 
-<span data-ttu-id="9519f-179">至少选择“应用程序声明” > “显示名称”用户属性以填充 `LoginDisplay` 组件 (`Shared/LoginDisplay.razor`) 中的 `context.User.:::no-loc(Identity):::.Name` 。</span><span class="sxs-lookup"><span data-stu-id="9519f-179">At a minimum, select the **Application claims** > **Display Name** user attribute to populate the `context.User.:::no-loc(Identity):::.Name` in the `LoginDisplay` component (`Shared/LoginDisplay.razor`).</span></span>
+<span data-ttu-id="9519f-179">至少选择“应用程序声明” > “显示名称”用户属性以填充 `LoginDisplay` 组件 (`Shared/LoginDisplay.razor`) 中的 `context.User.Identity.Name` 。</span><span class="sxs-lookup"><span data-stu-id="9519f-179">At a minimum, select the **Application claims** > **Display Name** user attribute to populate the `context.User.Identity.Name` in the `LoginDisplay` component (`Shared/LoginDisplay.razor`).</span></span>
 
 <span data-ttu-id="9519f-180">记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin`）。</span><span class="sxs-lookup"><span data-stu-id="9519f-180">Record the sign-up and sign-in user flow name created for the app (for example, `B2C_1_signupsignin`).</span></span>
 
@@ -142,7 +142,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 | <span data-ttu-id="9519f-183">占位符</span><span class="sxs-lookup"><span data-stu-id="9519f-183">Placeholder</span></span>                   | <span data-ttu-id="9519f-184">Azure 门户中的名称</span><span class="sxs-lookup"><span data-stu-id="9519f-184">Azure portal name</span></span>                                     | <span data-ttu-id="9519f-185">示例</span><span class="sxs-lookup"><span data-stu-id="9519f-185">Example</span></span>                                      |
 | ----------------------------- | ----------------------------------------------------- | -------------------------------------------- |
 | `{AAD B2C INSTANCE}`          | <span data-ttu-id="9519f-186">实例</span><span class="sxs-lookup"><span data-stu-id="9519f-186">Instance</span></span>                                              | `https://contoso.b2clogin.com/`              |
-| `{APP NAME}`                  | &mdash;                                               | `:::no-loc(Blazor):::Sample`                               |
+| `{APP NAME}`                  | &mdash;                                               | `BlazorSample`                               |
 | `{CLIENT APP CLIENT ID}`      | <span data-ttu-id="9519f-187">`Client` 应用的应用程序（客户端）ID</span><span class="sxs-lookup"><span data-stu-id="9519f-187">Application (client) ID for the *`Client`* app</span></span>        | `4369008b-21fa-427c-abaa-9b53bf58e538`       |
 | `{DEFAULT SCOPE}`             | <span data-ttu-id="9519f-188">作用域名</span><span class="sxs-lookup"><span data-stu-id="9519f-188">Scope name</span></span>                                            | `API.Access`                                 |
 | `{SERVER API APP CLIENT ID}`  | <span data-ttu-id="9519f-189">“服务器 API 应用”的应用程序（客户端）ID</span><span class="sxs-lookup"><span data-stu-id="9519f-189">Application (client) ID for the *Server API app*</span></span>      | `41451fa7-82d9-4673-8fa5-69eff5a761fd`       |
@@ -153,7 +153,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 <span data-ttu-id="9519f-193">使用 `-o|--output` 选项指定的输出位置将创建一个项目文件夹（如果该文件夹不存在）并成为应用程序名称的一部分。</span><span class="sxs-lookup"><span data-stu-id="9519f-193">The output location specified with the `-o|--output` option creates a project folder if it doesn't exist and becomes part of the app's name.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="9519f-194">由托管 :::no-loc(Blazor)::: 模板设置的作用域可能会重复应用 ID URI 主机。</span><span class="sxs-lookup"><span data-stu-id="9519f-194">The scope set up by the Hosted :::no-loc(Blazor)::: template might have the App ID URI host repeated.</span></span> <span data-ttu-id="9519f-195">确认为 `DefaultAccessTokenScopes` 集合配置的作用域在 `Client` 应用的 `Program.Main` (`Program.cs`) 中是正确的。</span><span class="sxs-lookup"><span data-stu-id="9519f-195">Confirm that the scope configured for the `DefaultAccessTokenScopes` collection is correct in `Program.Main` (`Program.cs`) of the *`Client`* app.</span></span>
+> <span data-ttu-id="9519f-194">由托管 Blazor 模板设置的作用域可能会重复应用 ID URI 主机。</span><span class="sxs-lookup"><span data-stu-id="9519f-194">The scope set up by the Hosted Blazor template might have the App ID URI host repeated.</span></span> <span data-ttu-id="9519f-195">确认为 `DefaultAccessTokenScopes` 集合配置的作用域在 `Client` 应用的 `Program.Main` (`Program.cs`) 中是正确的。</span><span class="sxs-lookup"><span data-stu-id="9519f-195">Confirm that the scope configured for the `DefaultAccessTokenScopes` collection is correct in `Program.Main` (`Program.cs`) of the *`Client`* app.</span></span>
 
 > [!NOTE]
 > <span data-ttu-id="9519f-196">在 Azure 门户中，使用默认设置为在 Kestrel 服务器上运行的应用的端口 5001 配置 `Client` 应用的平台配置“重定向 URI”。</span><span class="sxs-lookup"><span data-stu-id="9519f-196">In the Azure portal, the *`Client`* app's platform configuration **Redirect URI** is configured for port 5001 for apps that run on the Kestrel server with default settings.</span></span>
@@ -196,11 +196,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 ```
 
-### <a name="userno-locidentityname"></a><span data-ttu-id="9519f-210">User.:::no-loc(Identity):::.Name</span><span class="sxs-lookup"><span data-stu-id="9519f-210">User.:::no-loc(Identity):::.Name</span></span>
+### <a name="userno-locidentityname"></a><span data-ttu-id="9519f-210">User.Identity.Name</span><span class="sxs-lookup"><span data-stu-id="9519f-210">User.Identity.Name</span></span>
 
-<span data-ttu-id="9519f-211">默认情况下，不填充 `User.:::no-loc(Identity):::.Name`。</span><span class="sxs-lookup"><span data-stu-id="9519f-211">By default, the `User.:::no-loc(Identity):::.Name` isn't populated.</span></span>
+<span data-ttu-id="9519f-211">默认情况下，不填充 `User.Identity.Name`。</span><span class="sxs-lookup"><span data-stu-id="9519f-211">By default, the `User.Identity.Name` isn't populated.</span></span>
 
-<span data-ttu-id="9519f-212">要将应用配置为从 `name` 声明类型接收值，请在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> 的 <xref:Microsoft.:::no-loc(Identity):::Model.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType>：</span><span class="sxs-lookup"><span data-stu-id="9519f-212">To configure the app to receive the value from the `name` claim type, configure the <xref:Microsoft.:::no-loc(Identity):::Model.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType> of the <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="9519f-212">要将应用配置为从 `name` 声明类型接收值，请在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> 的 <xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType>：</span><span class="sxs-lookup"><span data-stu-id="9519f-212">To configure the app to receive the value from the `name` claim type, configure the <xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType> of the <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -247,7 +247,7 @@ services.Configure<JwtBearerOptions>(
 <span data-ttu-id="9519f-217">WeatherForecast 控制器 (Controllers/WeatherForecastController.cs) 公开了一个受保护的 API，并将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性应用于控制器。</span><span class="sxs-lookup"><span data-stu-id="9519f-217">The WeatherForecast controller ( *Controllers/WeatherForecastController.cs* ) exposes a protected API with the [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute applied to the controller.</span></span> <span data-ttu-id="9519f-218">务必了解以下内容：</span><span class="sxs-lookup"><span data-stu-id="9519f-218">It's **important** to understand that:</span></span>
 
 * <span data-ttu-id="9519f-219">仅此 API 控制器中的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性可以保护此 API 免受未经授权的访问。</span><span class="sxs-lookup"><span data-stu-id="9519f-219">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute in this API controller is the only thing that protect this API from unauthorized access.</span></span>
-* <span data-ttu-id="9519f-220">:::no-loc(Blazor WebAssembly)::: 应用中使用的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性仅用作应用的提示，提示应授权用户应用才能正常运行。</span><span class="sxs-lookup"><span data-stu-id="9519f-220">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute used in the :::no-loc(Blazor WebAssembly)::: app only serves as a hint to the app that the user should be authorized for the app to work correctly.</span></span>
+* <span data-ttu-id="9519f-220">Blazor WebAssembly 应用中使用的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性仅用作应用的提示，提示应授权用户应用才能正常运行。</span><span class="sxs-lookup"><span data-stu-id="9519f-220">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute used in the Blazor WebAssembly app only serves as a hint to the app that the user should be authorized for the app to work correctly.</span></span>
 
 ```csharp
 [Authorize]
@@ -297,9 +297,9 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("{APP ASSEMBLY}.ServerAPI"));
 ```
 
-<span data-ttu-id="9519f-232">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `:::no-loc(Blazor):::Sample.ServerAPI`）。</span><span class="sxs-lookup"><span data-stu-id="9519f-232">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `:::no-loc(Blazor):::Sample.ServerAPI`).</span></span>
+<span data-ttu-id="9519f-232">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample.ServerAPI`）。</span><span class="sxs-lookup"><span data-stu-id="9519f-232">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `BlazorSample.ServerAPI`).</span></span>
 
-<span data-ttu-id="9519f-233">使用由 [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册对用户进行身份验证的支持。</span><span class="sxs-lookup"><span data-stu-id="9519f-233">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> extension method provided by the [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package.</span></span> <span data-ttu-id="9519f-234">此方法设置应用与 :::no-loc(Identity)::: 提供者 (IP) 交互所需的服务。</span><span class="sxs-lookup"><span data-stu-id="9519f-234">This method sets up the services required for the app to interact with the :::no-loc(Identity)::: Provider (IP).</span></span>
+<span data-ttu-id="9519f-233">使用由 [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册对用户进行身份验证的支持。</span><span class="sxs-lookup"><span data-stu-id="9519f-233">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> extension method provided by the [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package.</span></span> <span data-ttu-id="9519f-234">此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。</span><span class="sxs-lookup"><span data-stu-id="9519f-234">This method sets up the services required for the app to interact with the Identity Provider (IP).</span></span>
 
 <span data-ttu-id="9519f-235">`Program.cs`:</span><span class="sxs-lookup"><span data-stu-id="9519f-235">`Program.cs`:</span></span>
 

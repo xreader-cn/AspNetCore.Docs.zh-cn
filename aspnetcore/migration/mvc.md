@@ -5,17 +5,17 @@ description: 了解如何开始将 ASP.NET MVC 项目迁移到 ASP.NET Core MVC�
 ms.author: wpickett
 ms.date: 06/18/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: migration/mvc
 ms.openlocfilehash: 226ac6da508378c7b3c81779d38dd2e0840f1fed
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -37,7 +37,7 @@ ms.locfileid: "93051508"
 * <span data-ttu-id="9ac19-110">静态内容。</span><span class="sxs-lookup"><span data-stu-id="9ac19-110">Static content.</span></span>
 * <span data-ttu-id="9ac19-111">客户端依赖关系。</span><span class="sxs-lookup"><span data-stu-id="9ac19-111">Client-side dependencies.</span></span>
 
-<span data-ttu-id="9ac19-112">若要迁移配置和 :::no-loc(Identity)::: 代码，请参阅将 [配置迁移到 ASP.NET Core](xref:migration/configuration) 并 [迁移身份验证和 :::no-loc(Identity)::: ASP.NET Core](xref:migration/identity)。</span><span class="sxs-lookup"><span data-stu-id="9ac19-112">For migrating configuration and :::no-loc(Identity)::: code, see [Migrate configuration to ASP.NET Core](xref:migration/configuration) and [Migrate Authentication and :::no-loc(Identity)::: to ASP.NET Core](xref:migration/identity).</span></span>
+<span data-ttu-id="9ac19-112">若要迁移配置和 Identity 代码，请参阅将 [配置迁移到 ASP.NET Core](xref:migration/configuration) 并 [迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)。</span><span class="sxs-lookup"><span data-stu-id="9ac19-112">For migrating configuration and Identity code, see [Migrate configuration to ASP.NET Core](xref:migration/configuration) and [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity).</span></span>
 
 ## <a name="prerequisites"></a><span data-ttu-id="9ac19-113">先决条件</span><span class="sxs-lookup"><span data-stu-id="9ac19-113">Prerequisites</span></span>
 
@@ -101,7 +101,7 @@ ms.locfileid: "93051508"
 1. <span data-ttu-id="9ac19-158">复制 ASP.NET MVC 中的方法 `HomeController` 以替换新的 ASP.NET Core `HomeController` 方法。</span><span class="sxs-lookup"><span data-stu-id="9ac19-158">Copy the methods from the ASP.NET MVC `HomeController` to replace the new ASP.NET Core `HomeController` methods.</span></span> <span data-ttu-id="9ac19-159">无需更改操作方法的返回类型。</span><span class="sxs-lookup"><span data-stu-id="9ac19-159">There's no need to change the return type of the action methods.</span></span> <span data-ttu-id="9ac19-160">ASP.NET MVC 内置模板的控制器操作方法返回类型为 <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ; 在 ASP.NET CORE mvc 中，操作方法将改为返回 `IActionResult` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-160">The ASP.NET MVC built-in template's controller action method return type is <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2>; in ASP.NET Core MVC, the action methods return `IActionResult` instead.</span></span> <span data-ttu-id="9ac19-161">`ActionResult` 可实现 `IActionResult`。</span><span class="sxs-lookup"><span data-stu-id="9ac19-161">`ActionResult` implements `IActionResult`.</span></span>
 1. <span data-ttu-id="9ac19-162">在 ASP.NET Core 项目中，右键单击 " *视图"/"主* " 目录，选择 " **添加** > **现有项** "。</span><span class="sxs-lookup"><span data-stu-id="9ac19-162">In the ASP.NET Core project, right-click the *Views/Home* directory, select **Add** > **Existing Item** .</span></span>
 1. <span data-ttu-id="9ac19-163">在 " **添加现有项** " 对话框中，导航到 ASP.NET MVC *WebApp1* 项目的 " *视图"/"主* 目录"。</span><span class="sxs-lookup"><span data-stu-id="9ac19-163">In the **Add Existing Item** dialog, navigate to the ASP.NET MVC *WebApp1* project's *Views/Home* directory.</span></span>
-1. <span data-ttu-id="9ac19-164">选择 " *关于* *"，然后依次选择 "* *Index.cshtml* :::no-loc(Razor)::: **添加** "、"替换现有文件"。</span><span class="sxs-lookup"><span data-stu-id="9ac19-164">Select the *About.cshtml* , *Contact.cshtml* , and *Index.cshtml* :::no-loc(Razor)::: view files, then select **Add** , replacing the existing files.</span></span>
+1. <span data-ttu-id="9ac19-164">选择 " *关于* *"，然后依次选择 "* *Index.cshtml* Razor **添加** "、"替换现有文件"。</span><span class="sxs-lookup"><span data-stu-id="9ac19-164">Select the *About.cshtml* , *Contact.cshtml* , and *Index.cshtml* Razor view files, then select **Add** , replacing the existing files.</span></span>
 
 <span data-ttu-id="9ac19-165">有关详细信息，请参阅 <xref:mvc/controllers/actions> 和 <xref:mvc/views/overview>。</span><span class="sxs-lookup"><span data-stu-id="9ac19-165">For more information, see <xref:mvc/controllers/actions> and <xref:mvc/views/overview>.</span></span>
 
@@ -203,7 +203,7 @@ ms.locfileid: "93051508"
 * <span data-ttu-id="9ac19-222">静态内容</span><span class="sxs-lookup"><span data-stu-id="9ac19-222">Static content</span></span>
 * <span data-ttu-id="9ac19-223">客户端依赖关系。</span><span class="sxs-lookup"><span data-stu-id="9ac19-223">Client-side dependencies.</span></span>
 
-<span data-ttu-id="9ac19-224">有关迁移配置和 :::no-loc(Identity)::: 代码的详细，请参阅 <xref:migration/configuration> 和 <xref:migration/identity> 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-224">For migrating configuration and :::no-loc(Identity)::: code, see <xref:migration/configuration> and <xref:migration/identity>.</span></span>
+<span data-ttu-id="9ac19-224">有关迁移配置和 Identity 代码的详细，请参阅 <xref:migration/configuration> 和 <xref:migration/identity> 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-224">For migrating configuration and Identity code, see <xref:migration/configuration> and <xref:migration/identity>.</span></span>
 
 > [!NOTE]
 > <span data-ttu-id="9ac19-225">示例中的版本号可能不是最新的，请相应地更新项目。</span><span class="sxs-lookup"><span data-stu-id="9ac19-225">The version numbers in the samples might not be current, update the projects accordingly.</span></span>
@@ -254,7 +254,7 @@ ms.locfileid: "93051508"
 
 * <span data-ttu-id="9ac19-261">添加 *视图/主* 目录。</span><span class="sxs-lookup"><span data-stu-id="9ac19-261">Add a *Views/Home* directory.</span></span>
 
-* <span data-ttu-id="9ac19-262">将名为 *Index* 的 **:::no-loc(Razor)::: 视图** 添加到 *Views/Home* 目录。</span><span class="sxs-lookup"><span data-stu-id="9ac19-262">Add a **:::no-loc(Razor)::: View** named *Index.cshtml* to the *Views/Home* directory.</span></span>
+* <span data-ttu-id="9ac19-262">将名为 *Index* 的 **Razor 视图** 添加到 *Views/Home* 目录。</span><span class="sxs-lookup"><span data-stu-id="9ac19-262">Add a **Razor View** named *Index.cshtml* to the *Views/Home* directory.</span></span>
 
 ![“添加新项”对话框](mvc/_static/view.png)
 
@@ -288,13 +288,13 @@ ms.locfileid: "93051508"
 
 * <span data-ttu-id="9ac19-276">筛选器</span><span class="sxs-lookup"><span data-stu-id="9ac19-276">filters</span></span>
 
-* <span data-ttu-id="9ac19-277">登录/注销， :::no-loc(Identity)::: (在下一教程中完成此操作。 ) </span><span class="sxs-lookup"><span data-stu-id="9ac19-277">Log in/out, :::no-loc(Identity)::: (This is done in the next tutorial.)</span></span>
+* <span data-ttu-id="9ac19-277">登录/注销， Identity (在下一教程中完成此操作。 ) </span><span class="sxs-lookup"><span data-stu-id="9ac19-277">Log in/out, Identity (This is done in the next tutorial.)</span></span>
 
 ## <a name="controllers-and-views"></a><span data-ttu-id="9ac19-278">控制器和视图</span><span class="sxs-lookup"><span data-stu-id="9ac19-278">Controllers and views</span></span>
 
 * <span data-ttu-id="9ac19-279">将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-279">Copy each of the methods from the ASP.NET MVC `HomeController` to the new `HomeController`.</span></span> <span data-ttu-id="9ac19-280">在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为 <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ; 在 ASP.NET CORE mvc 中，操作方法将改为返回 `IActionResult` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-280">In ASP.NET MVC, the built-in template's controller action method return type is <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2>; in ASP.NET Core MVC, the action methods return `IActionResult` instead.</span></span> <span data-ttu-id="9ac19-281">`ActionResult` 实现 `IActionResult` ，因此无需更改操作方法的返回类型。</span><span class="sxs-lookup"><span data-stu-id="9ac19-281">`ActionResult` implements `IActionResult`, so there's no need to change the return type of the action methods.</span></span>
 
-* <span data-ttu-id="9ac19-282">将 ASP.NET MVC 项目中的 *About* 、 *Contact\*\*和* :::no-loc(Razor)::: 视图文件复制到 ASP.NET Core 项目。</span><span class="sxs-lookup"><span data-stu-id="9ac19-282">Copy the *About.cshtml* , *Contact.cshtml* , and *Index.cshtml* :::no-loc(Razor)::: view files from the ASP.NET MVC project to the ASP.NET Core project.</span></span>
+* <span data-ttu-id="9ac19-282">将 ASP.NET MVC 项目中的 *About* 、 *Contact\*\*和* Razor 视图文件复制到 ASP.NET Core 项目。</span><span class="sxs-lookup"><span data-stu-id="9ac19-282">Copy the *About.cshtml* , *Contact.cshtml* , and *Index.cshtml* Razor view files from the ASP.NET MVC project to the ASP.NET Core project.</span></span>
 
 ## <a name="test-each-method"></a><span data-ttu-id="9ac19-283">测试每个方法</span><span class="sxs-lookup"><span data-stu-id="9ac19-283">Test each method</span></span>
 
@@ -330,7 +330,7 @@ ms.locfileid: "93051508"
 
 * <span data-ttu-id="9ac19-313">删除 `@Scripts.Render("~/bundles/modernizr")`。</span><span class="sxs-lookup"><span data-stu-id="9ac19-313">Remove `@Scripts.Render("~/bundles/modernizr")`.</span></span>
 
-* <span data-ttu-id="9ac19-314">注释掉 `@Html.Partial("_LoginPartial")`) 行 (环绕行的行 `@*...*@` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-314">Comment out the `@Html.Partial("_LoginPartial")` line (surround the line with `@*...*@`).</span></span> <span data-ttu-id="9ac19-315">有关详细信息，请参阅 [迁移身份验证和 :::no-loc(Identity)::: ASP.NET Core](xref:migration/identity)</span><span class="sxs-lookup"><span data-stu-id="9ac19-315">For more information, see [Migrate Authentication and :::no-loc(Identity)::: to ASP.NET Core](xref:migration/identity)</span></span>
+* <span data-ttu-id="9ac19-314">注释掉 `@Html.Partial("_LoginPartial")`) 行 (环绕行的行 `@*...*@` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-314">Comment out the `@Html.Partial("_LoginPartial")` line (surround the line with `@*...*@`).</span></span> <span data-ttu-id="9ac19-315">有关详细信息，请参阅 [迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)</span><span class="sxs-lookup"><span data-stu-id="9ac19-315">For more information, see [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity)</span></span>
 
 * <span data-ttu-id="9ac19-316">替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素 (参见下面的) 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-316">Replace `@Scripts.Render("~/bundles/jquery")` with a `<script>` element (see below).</span></span>
 
@@ -389,7 +389,7 @@ ms.locfileid: "93051508"
 * <span data-ttu-id="9ac19-343">静态内容</span><span class="sxs-lookup"><span data-stu-id="9ac19-343">Static content</span></span>
 * <span data-ttu-id="9ac19-344">客户端依赖关系。</span><span class="sxs-lookup"><span data-stu-id="9ac19-344">Client-side dependencies.</span></span>
 
-<span data-ttu-id="9ac19-345">若要迁移配置和 :::no-loc(Identity)::: 代码，请参阅将 [配置迁移到 ASP.NET Core](xref:migration/configuration) 并 [迁移身份验证和 :::no-loc(Identity)::: ASP.NET Core](xref:migration/identity)。</span><span class="sxs-lookup"><span data-stu-id="9ac19-345">For migrating configuration and :::no-loc(Identity)::: code, see [Migrate configuration to ASP.NET Core](xref:migration/configuration) and [Migrate Authentication and :::no-loc(Identity)::: to ASP.NET Core](xref:migration/identity).</span></span>
+<span data-ttu-id="9ac19-345">若要迁移配置和 Identity 代码，请参阅将 [配置迁移到 ASP.NET Core](xref:migration/configuration) 并 [迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)。</span><span class="sxs-lookup"><span data-stu-id="9ac19-345">For migrating configuration and Identity code, see [Migrate configuration to ASP.NET Core](xref:migration/configuration) and [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity).</span></span>
 
 > [!NOTE]
 > <span data-ttu-id="9ac19-346">示例中的版本号可能不是最新的，请相应地更新项目。</span><span class="sxs-lookup"><span data-stu-id="9ac19-346">The version numbers in the samples might not be current, update the projects accordingly.</span></span>
@@ -440,7 +440,7 @@ ms.locfileid: "93051508"
 
 * <span data-ttu-id="9ac19-383">添加 *视图/主* 目录。</span><span class="sxs-lookup"><span data-stu-id="9ac19-383">Add a *Views/Home* directory.</span></span>
 
-* <span data-ttu-id="9ac19-384">将名为 *Index* 的 **:::no-loc(Razor)::: 视图** 添加到 *Views/Home* 目录。</span><span class="sxs-lookup"><span data-stu-id="9ac19-384">Add a **:::no-loc(Razor)::: View** named *Index.cshtml* to the *Views/Home* directory.</span></span>
+* <span data-ttu-id="9ac19-384">将名为 *Index* 的 **Razor 视图** 添加到 *Views/Home* 目录。</span><span class="sxs-lookup"><span data-stu-id="9ac19-384">Add a **Razor View** named *Index.cshtml* to the *Views/Home* directory.</span></span>
 
 ![“添加新项”对话框](mvc/_static/view.png)
 
@@ -474,13 +474,13 @@ ms.locfileid: "93051508"
 
 * <span data-ttu-id="9ac19-398">筛选器</span><span class="sxs-lookup"><span data-stu-id="9ac19-398">filters</span></span>
 
-* <span data-ttu-id="9ac19-399">登录/注销， :::no-loc(Identity)::: (在下一教程中完成此操作。 ) </span><span class="sxs-lookup"><span data-stu-id="9ac19-399">Log in/out, :::no-loc(Identity)::: (This is done in the next tutorial.)</span></span>
+* <span data-ttu-id="9ac19-399">登录/注销， Identity (在下一教程中完成此操作。 ) </span><span class="sxs-lookup"><span data-stu-id="9ac19-399">Log in/out, Identity (This is done in the next tutorial.)</span></span>
 
 ## <a name="controllers-and-views"></a><span data-ttu-id="9ac19-400">控制器和视图</span><span class="sxs-lookup"><span data-stu-id="9ac19-400">Controllers and views</span></span>
 
 * <span data-ttu-id="9ac19-401">将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-401">Copy each of the methods from the ASP.NET MVC `HomeController` to the new `HomeController`.</span></span> <span data-ttu-id="9ac19-402">在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为 <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ; 在 ASP.NET CORE mvc 中，操作方法将改为返回 `IActionResult` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-402">In ASP.NET MVC, the built-in template's controller action method return type is <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2>; in ASP.NET Core MVC, the action methods return `IActionResult` instead.</span></span> <span data-ttu-id="9ac19-403">`ActionResult` 实现 `IActionResult` ，因此无需更改操作方法的返回类型。</span><span class="sxs-lookup"><span data-stu-id="9ac19-403">`ActionResult` implements `IActionResult`, so there's no need to change the return type of the action methods.</span></span>
 
-* <span data-ttu-id="9ac19-404">将 ASP.NET MVC 项目中的 *About* 、 *Contact\*\*和* :::no-loc(Razor)::: 视图文件复制到 ASP.NET Core 项目。</span><span class="sxs-lookup"><span data-stu-id="9ac19-404">Copy the *About.cshtml* , *Contact.cshtml* , and *Index.cshtml* :::no-loc(Razor)::: view files from the ASP.NET MVC project to the ASP.NET Core project.</span></span>
+* <span data-ttu-id="9ac19-404">将 ASP.NET MVC 项目中的 *About* 、 *Contact\*\*和* Razor 视图文件复制到 ASP.NET Core 项目。</span><span class="sxs-lookup"><span data-stu-id="9ac19-404">Copy the *About.cshtml* , *Contact.cshtml* , and *Index.cshtml* Razor view files from the ASP.NET MVC project to the ASP.NET Core project.</span></span>
 
 ## <a name="test-each-method"></a><span data-ttu-id="9ac19-405">测试每个方法</span><span class="sxs-lookup"><span data-stu-id="9ac19-405">Test each method</span></span>
 
@@ -516,7 +516,7 @@ ms.locfileid: "93051508"
 
 * <span data-ttu-id="9ac19-435">删除 `@Scripts.Render("~/bundles/modernizr")`。</span><span class="sxs-lookup"><span data-stu-id="9ac19-435">Remove `@Scripts.Render("~/bundles/modernizr")`.</span></span>
 
-* <span data-ttu-id="9ac19-436">注释掉 `@Html.Partial("_LoginPartial")`) 行 (环绕行的行 `@*...*@` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-436">Comment out the `@Html.Partial("_LoginPartial")` line (surround the line with `@*...*@`).</span></span> <span data-ttu-id="9ac19-437">有关详细信息，请参阅 [迁移身份验证和 :::no-loc(Identity)::: ASP.NET Core](xref:migration/identity)</span><span class="sxs-lookup"><span data-stu-id="9ac19-437">For more information, see [Migrate Authentication and :::no-loc(Identity)::: to ASP.NET Core](xref:migration/identity)</span></span>
+* <span data-ttu-id="9ac19-436">注释掉 `@Html.Partial("_LoginPartial")`) 行 (环绕行的行 `@*...*@` 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-436">Comment out the `@Html.Partial("_LoginPartial")` line (surround the line with `@*...*@`).</span></span> <span data-ttu-id="9ac19-437">有关详细信息，请参阅 [迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)</span><span class="sxs-lookup"><span data-stu-id="9ac19-437">For more information, see [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity)</span></span>
 
 * <span data-ttu-id="9ac19-438">替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素 (参见下面的) 。</span><span class="sxs-lookup"><span data-stu-id="9ac19-438">Replace `@Scripts.Render("~/bundles/jquery")` with a `<script>` element (see below).</span></span>
 

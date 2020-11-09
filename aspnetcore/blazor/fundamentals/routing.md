@@ -1,5 +1,5 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: 路由'
+title: 'ASP.NET Core Blazor 路由'
 author: guardrex
 description: 了解如何在应用中路由请求以及有关 NavLink 组件的信息。
 monikerRange: '>= aspnetcore-3.1'
@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/02/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/fundamentals/routing
 ms.openlocfilehash: 5898059d83576cd0d2af15ad61bc399cbfbe0e99
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,21 +26,21 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93055849"
 ---
-# <a name="aspnet-core-no-locblazor-routing"></a><span data-ttu-id="483e6-103">ASP.NET Core :::no-loc(Blazor)::: 路由</span><span class="sxs-lookup"><span data-stu-id="483e6-103">ASP.NET Core :::no-loc(Blazor)::: routing</span></span>
+# <a name="aspnet-core-no-locblazor-routing"></a><span data-ttu-id="483e6-103">ASP.NET Core Blazor 路由</span><span class="sxs-lookup"><span data-stu-id="483e6-103">ASP.NET Core Blazor routing</span></span>
 
 <span data-ttu-id="483e6-104">作者：[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="483e6-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="483e6-105">了解如何路由请求，以及如何使用 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件在 :::no-loc(Blazor)::: 应用中创建导航链接。</span><span class="sxs-lookup"><span data-stu-id="483e6-105">Learn how to route requests and how to use the <xref:Microsoft.AspNetCore.Components.Routing.NavLink> component to create navigation links in :::no-loc(Blazor)::: apps.</span></span>
+<span data-ttu-id="483e6-105">了解如何路由请求，以及如何使用 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件在 Blazor 应用中创建导航链接。</span><span class="sxs-lookup"><span data-stu-id="483e6-105">Learn how to route requests and how to use the <xref:Microsoft.AspNetCore.Components.Routing.NavLink> component to create navigation links in Blazor apps.</span></span>
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a><span data-ttu-id="483e6-106">ASP.NET Core 终结点路由集成</span><span class="sxs-lookup"><span data-stu-id="483e6-106">ASP.NET Core endpoint routing integration</span></span>
 
-<span data-ttu-id="483e6-107">:::no-loc(Blazor Server)::: 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/routing)中。</span><span class="sxs-lookup"><span data-stu-id="483e6-107">:::no-loc(Blazor Server)::: is integrated into [ASP.NET Core Endpoint Routing](xref:fundamentals/routing).</span></span> <span data-ttu-id="483e6-108">ASP.NET Core 应用配置为接受 `Startup.Configure` 中带有 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.Map:::no-loc(Blazor):::Hub%2A> 的交互式组件的传入连接：</span><span class="sxs-lookup"><span data-stu-id="483e6-108">An ASP.NET Core app is configured to accept incoming connections for interactive components with <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.Map:::no-loc(Blazor):::Hub%2A> in `Startup.Configure`:</span></span>
+<span data-ttu-id="483e6-107">Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/routing)中。</span><span class="sxs-lookup"><span data-stu-id="483e6-107">Blazor Server is integrated into [ASP.NET Core Endpoint Routing](xref:fundamentals/routing).</span></span> <span data-ttu-id="483e6-108">ASP.NET Core 应用配置为接受 `Startup.Configure` 中带有 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A> 的交互式组件的传入连接：</span><span class="sxs-lookup"><span data-stu-id="483e6-108">An ASP.NET Core app is configured to accept incoming connections for interactive components with <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A> in `Startup.Configure`:</span></span>
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-<span data-ttu-id="483e6-109">最典型的配置是将所有请求路由到 :::no-loc(Razor)::: 页面，该页面充当 :::no-loc(Blazor Server)::: 应用的服务器端部分的主机。</span><span class="sxs-lookup"><span data-stu-id="483e6-109">The most typical configuration is to route all requests to a :::no-loc(Razor)::: page, which acts as the host for the server-side part of the :::no-loc(Blazor Server)::: app.</span></span> <span data-ttu-id="483e6-110">按照约定，“主机”页通常命名为 `_Host.cshtml`。</span><span class="sxs-lookup"><span data-stu-id="483e6-110">By convention, the *host* page is usually named `_Host.cshtml`.</span></span> <span data-ttu-id="483e6-111">主机文件中指定的路由称为 *回退路由* ，因为它在路由匹配中以较低的优先级运行。</span><span class="sxs-lookup"><span data-stu-id="483e6-111">The route specified in the host file is called a *fallback route* because it operates with a low priority in route matching.</span></span> <span data-ttu-id="483e6-112">其他路由不匹配时，会考虑回退路由。</span><span class="sxs-lookup"><span data-stu-id="483e6-112">The fallback route is considered when other routes don't match.</span></span> <span data-ttu-id="483e6-113">这让应用能够使用其他控制器和页面，而不会干扰 :::no-loc(Blazor Server)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="483e6-113">This allows the app to use others controllers and pages without interfering with the :::no-loc(Blazor Server)::: app.</span></span>
+<span data-ttu-id="483e6-109">最典型的配置是将所有请求路由到 Razor 页面，该页面充当 Blazor Server 应用的服务器端部分的主机。</span><span class="sxs-lookup"><span data-stu-id="483e6-109">The most typical configuration is to route all requests to a Razor page, which acts as the host for the server-side part of the Blazor Server app.</span></span> <span data-ttu-id="483e6-110">按照约定，“主机”页通常命名为 `_Host.cshtml`。</span><span class="sxs-lookup"><span data-stu-id="483e6-110">By convention, the *host* page is usually named `_Host.cshtml`.</span></span> <span data-ttu-id="483e6-111">主机文件中指定的路由称为 *回退路由* ，因为它在路由匹配中以较低的优先级运行。</span><span class="sxs-lookup"><span data-stu-id="483e6-111">The route specified in the host file is called a *fallback route* because it operates with a low priority in route matching.</span></span> <span data-ttu-id="483e6-112">其他路由不匹配时，会考虑回退路由。</span><span class="sxs-lookup"><span data-stu-id="483e6-112">The fallback route is considered when other routes don't match.</span></span> <span data-ttu-id="483e6-113">这让应用能够使用其他控制器和页面，而不会干扰 Blazor Server 应用。</span><span class="sxs-lookup"><span data-stu-id="483e6-113">This allows the app to use others controllers and pages without interfering with the Blazor Server app.</span></span>
 
-<span data-ttu-id="483e6-114">若要了解如何为非根 URL 服务器托管配置 <xref:Microsoft.AspNetCore.Builder.:::no-loc(Razor):::PagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A>，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。</span><span class="sxs-lookup"><span data-stu-id="483e6-114">For information on configuring <xref:Microsoft.AspNetCore.Builder.:::no-loc(Razor):::PagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A> for non-root URL server hosting, see <xref:blazor/host-and-deploy/index#app-base-path>.</span></span>
+<span data-ttu-id="483e6-114">若要了解如何为非根 URL 服务器托管配置 <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A>，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。</span><span class="sxs-lookup"><span data-stu-id="483e6-114">For information on configuring <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A> for non-root URL server hosting, see <xref:blazor/host-and-deploy/index#app-base-path>.</span></span>
 
 ## <a name="route-templates"></a><span data-ttu-id="483e6-115">路由模板</span><span class="sxs-lookup"><span data-stu-id="483e6-115">Route templates</span></span>
 
@@ -64,19 +64,19 @@ ms.locfileid: "93055849"
 * <span data-ttu-id="483e6-120">从 <xref:Microsoft.AspNetCore.Components.Routing.Router> 接收 <xref:Microsoft.AspNetCore.Components.RouteData> 以及任何所需的参数。</span><span class="sxs-lookup"><span data-stu-id="483e6-120">Receives the <xref:Microsoft.AspNetCore.Components.RouteData> from the <xref:Microsoft.AspNetCore.Components.Routing.Router> along with any desired parameters.</span></span>
 * <span data-ttu-id="483e6-121">通过指定参数使用指定组件的布局（或可选的默认布局）呈现该组件。</span><span class="sxs-lookup"><span data-stu-id="483e6-121">Renders the specified component with its layout (or an optional default layout) using the specified parameters.</span></span>
 
-<span data-ttu-id="483e6-122">可选择使用布局类指定 <xref:Microsoft.AspNetCore.Components.RouteView.DefaultLayout> 参数，以用于未指定布局的组件。</span><span class="sxs-lookup"><span data-stu-id="483e6-122">You can optionally specify a <xref:Microsoft.AspNetCore.Components.RouteView.DefaultLayout> parameter with a layout class to use for components that don't specify a layout.</span></span> <span data-ttu-id="483e6-123">默认的 :::no-loc(Blazor)::: 模板指定 `MainLayout` 组件。</span><span class="sxs-lookup"><span data-stu-id="483e6-123">The default :::no-loc(Blazor)::: templates specify the `MainLayout` component.</span></span> <span data-ttu-id="483e6-124">`MainLayout.razor` 位于模板项目的 `Shared` 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="483e6-124">`MainLayout.razor` is in the template project's `Shared` folder.</span></span> <span data-ttu-id="483e6-125">有关布局的详细信息，请参阅 <xref:blazor/layouts>。</span><span class="sxs-lookup"><span data-stu-id="483e6-125">For more information on layouts, see <xref:blazor/layouts>.</span></span>
+<span data-ttu-id="483e6-122">可选择使用布局类指定 <xref:Microsoft.AspNetCore.Components.RouteView.DefaultLayout> 参数，以用于未指定布局的组件。</span><span class="sxs-lookup"><span data-stu-id="483e6-122">You can optionally specify a <xref:Microsoft.AspNetCore.Components.RouteView.DefaultLayout> parameter with a layout class to use for components that don't specify a layout.</span></span> <span data-ttu-id="483e6-123">默认的 Blazor 模板指定 `MainLayout` 组件。</span><span class="sxs-lookup"><span data-stu-id="483e6-123">The default Blazor templates specify the `MainLayout` component.</span></span> <span data-ttu-id="483e6-124">`MainLayout.razor` 位于模板项目的 `Shared` 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="483e6-124">`MainLayout.razor` is in the template project's `Shared` folder.</span></span> <span data-ttu-id="483e6-125">有关布局的详细信息，请参阅 <xref:blazor/layouts>。</span><span class="sxs-lookup"><span data-stu-id="483e6-125">For more information on layouts, see <xref:blazor/layouts>.</span></span>
 
-<span data-ttu-id="483e6-126">可将多个路由模板应用于一个组件。</span><span class="sxs-lookup"><span data-stu-id="483e6-126">Multiple route templates can be applied to a component.</span></span> <span data-ttu-id="483e6-127">以下组件响应对 `/:::no-loc(Blazor):::Route` 和 `/Different:::no-loc(Blazor):::Route` 的请求：</span><span class="sxs-lookup"><span data-stu-id="483e6-127">The following component responds to requests for `/:::no-loc(Blazor):::Route` and `/Different:::no-loc(Blazor):::Route`:</span></span>
+<span data-ttu-id="483e6-126">可将多个路由模板应用于一个组件。</span><span class="sxs-lookup"><span data-stu-id="483e6-126">Multiple route templates can be applied to a component.</span></span> <span data-ttu-id="483e6-127">以下组件响应对 `/BlazorRoute` 和 `/DifferentBlazorRoute` 的请求：</span><span class="sxs-lookup"><span data-stu-id="483e6-127">The following component responds to requests for `/BlazorRoute` and `/DifferentBlazorRoute`:</span></span>
 
 ```razor
-@page "/:::no-loc(Blazor):::Route"
-@page "/Different:::no-loc(Blazor):::Route"
+@page "/BlazorRoute"
+@page "/DifferentBlazorRoute"
 
-<h1>:::no-loc(Blazor)::: routing</h1>
+<h1>Blazor routing</h1>
 ```
 
 > [!IMPORTANT]
-> <span data-ttu-id="483e6-128">若要正确解析 URL，应用必须在其 `wwwroot/index.html` 文件 (:::no-loc(Blazor WebAssembly):::) 或 `Pages/_Host.cshtml` 文件 (:::no-loc(Blazor Server):::) 中加入 `<base>` 标记，并在 `href` 属性 (`<base href="/">`) 中指定应用基路径。</span><span class="sxs-lookup"><span data-stu-id="483e6-128">For URLs to resolve correctly, the app must include a `<base>` tag in its `wwwroot/index.html` file (:::no-loc(Blazor WebAssembly):::) or `Pages/_Host.cshtml` file (:::no-loc(Blazor Server):::) with the app base path specified in the `href` attribute (`<base href="/">`).</span></span> <span data-ttu-id="483e6-129">有关详细信息，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。</span><span class="sxs-lookup"><span data-stu-id="483e6-129">For more information, see <xref:blazor/host-and-deploy/index#app-base-path>.</span></span>
+> <span data-ttu-id="483e6-128">若要正确解析 URL，应用必须在其 `wwwroot/index.html` 文件 (Blazor WebAssembly) 或 `Pages/_Host.cshtml` 文件 (Blazor Server) 中加入 `<base>` 标记，并在 `href` 属性 (`<base href="/">`) 中指定应用基路径。</span><span class="sxs-lookup"><span data-stu-id="483e6-128">For URLs to resolve correctly, the app must include a `<base>` tag in its `wwwroot/index.html` file (Blazor WebAssembly) or `Pages/_Host.cshtml` file (Blazor Server) with the app base path specified in the `href` attribute (`<base href="/">`).</span></span> <span data-ttu-id="483e6-129">有关详细信息，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。</span><span class="sxs-lookup"><span data-stu-id="483e6-129">For more information, see <xref:blazor/host-and-deploy/index#app-base-path>.</span></span>
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a><span data-ttu-id="483e6-130">在找不到内容时提供自定义内容</span><span class="sxs-lookup"><span data-stu-id="483e6-130">Provide custom content when content isn't found</span></span>
 
@@ -118,7 +118,7 @@ ms.locfileid: "93055849"
 @page "/RouteParameter"
 @page "/RouteParameter/{text}"
 
-<h1>:::no-loc(Blazor)::: is @Text!</h1>
+<h1>Blazor is @Text!</h1>
 
 @code {
     [Parameter]
@@ -162,7 +162,7 @@ ms.locfileid: "93055849"
 
 ### <a name="routing-with-urls-that-contain-dots"></a><span data-ttu-id="483e6-177">使用包含点的 URL 进行路由</span><span class="sxs-lookup"><span data-stu-id="483e6-177">Routing with URLs that contain dots</span></span>
 
-<span data-ttu-id="483e6-178">对于托管的 :::no-loc(Blazor WebAssembly)::: 和 :::no-loc(Blazor Server)::: 应用，服务器端默认路由模板假定，如果请求 URL 的最后一段包含一个点 (`.`)，则请求一个文件（例如 `https://localhost.com:5001/example/some.thing`）。</span><span class="sxs-lookup"><span data-stu-id="483e6-178">For hosted :::no-loc(Blazor WebAssembly)::: and :::no-loc(Blazor Server)::: apps, the server-side default route template assumes that if the last segment of a request URL contains a dot (`.`) that a file is requested (for example, `https://localhost.com:5001/example/some.thing`).</span></span> <span data-ttu-id="483e6-179">在没有额外配置的情况下，应用将返回“404 - 未找到”响应（如果这将路由到组件）。</span><span class="sxs-lookup"><span data-stu-id="483e6-179">Without additional configuration, an app returns a *404 - Not Found* response if this was meant to route to a component.</span></span> <span data-ttu-id="483e6-180">若要使用具有包含点的一个或多个参数的路由，则应用必须使用自定义模板配置该路由。</span><span class="sxs-lookup"><span data-stu-id="483e6-180">To use a route with one or more parameters that contains a dot, the app must configure the route with a custom template.</span></span>
+<span data-ttu-id="483e6-178">对于托管的 Blazor WebAssembly 和 Blazor Server 应用，服务器端默认路由模板假定，如果请求 URL 的最后一段包含一个点 (`.`)，则请求一个文件（例如 `https://localhost.com:5001/example/some.thing`）。</span><span class="sxs-lookup"><span data-stu-id="483e6-178">For hosted Blazor WebAssembly and Blazor Server apps, the server-side default route template assumes that if the last segment of a request URL contains a dot (`.`) that a file is requested (for example, `https://localhost.com:5001/example/some.thing`).</span></span> <span data-ttu-id="483e6-179">在没有额外配置的情况下，应用将返回“404 - 未找到”响应（如果这将路由到组件）。</span><span class="sxs-lookup"><span data-stu-id="483e6-179">Without additional configuration, an app returns a *404 - Not Found* response if this was meant to route to a component.</span></span> <span data-ttu-id="483e6-180">若要使用具有包含点的一个或多个参数的路由，则应用必须使用自定义模板配置该路由。</span><span class="sxs-lookup"><span data-stu-id="483e6-180">To use a route with one or more parameters that contains a dot, the app must configure the route with a custom template.</span></span>
 
 <span data-ttu-id="483e6-181">请考虑下面的 `Example` 组件，它可以从 URL 的最后一段接收路由参数：</span><span class="sxs-lookup"><span data-stu-id="483e6-181">Consider the following `Example` component that can receive a route parameter from the last segment of the URL:</span></span>
 
@@ -180,13 +180,13 @@ ms.locfileid: "93055849"
 }
 ```
 
-<span data-ttu-id="483e6-182">若要允许托管的 :::no-loc(Blazor WebAssembly)::: 解决方案的服务器应用路由 `param` 参数中包含一个点的请求，请添加一个回退文件路由模板，在该模板的 `Startup.Configure` (`Startup.cs`) 中包含该可选参数：</span><span class="sxs-lookup"><span data-stu-id="483e6-182">To permit the *Server* app of a hosted :::no-loc(Blazor WebAssembly)::: solution to route the request with a dot in the `param` parameter, add a fallback file route template with the optional parameter in `Startup.Configure` (`Startup.cs`):</span></span>
+<span data-ttu-id="483e6-182">若要允许托管的 Blazor WebAssembly 解决方案的服务器应用路由 `param` 参数中包含一个点的请求，请添加一个回退文件路由模板，在该模板的 `Startup.Configure` (`Startup.cs`) 中包含该可选参数：</span><span class="sxs-lookup"><span data-stu-id="483e6-182">To permit the *Server* app of a hosted Blazor WebAssembly solution to route the request with a dot in the `param` parameter, add a fallback file route template with the optional parameter in `Startup.Configure` (`Startup.cs`):</span></span>
 
 ```csharp
 endpoints.MapFallbackToFile("/example/{param?}", "index.html");
 ```
 
-<span data-ttu-id="483e6-183">若要配置 :::no-loc(Blazor Server)::: 应用以在 `param` 参数中使用一个点来路由请求，请添加一个回退页面路由模板，该模板具有 `Startup.Configure` (`Startup.cs`) 中的可选参数：</span><span class="sxs-lookup"><span data-stu-id="483e6-183">To configure a :::no-loc(Blazor Server)::: app to route the request with a dot in the `param` parameter, add a fallback page route template with the optional parameter in `Startup.Configure` (`Startup.cs`):</span></span>
+<span data-ttu-id="483e6-183">若要配置 Blazor Server 应用以在 `param` 参数中使用一个点来路由请求，请添加一个回退页面路由模板，该模板具有 `Startup.Configure` (`Startup.cs`) 中的可选参数：</span><span class="sxs-lookup"><span data-stu-id="483e6-183">To configure a Blazor Server app to route the request with a dot in the `param` parameter, add a fallback page route template with the optional parameter in `Startup.Configure` (`Startup.cs`):</span></span>
 
 ```csharp
 endpoints.MapFallbackToPage("/example/{param?}", "/_Host");
@@ -255,7 +255,7 @@ endpoints.MapFallbackToPage("/example/{param?}", "/_Host");
 ```
 
 > [!WARNING]
-> <span data-ttu-id="483e6-212">由于 :::no-loc(Blazor)::: 呈现子内容的方式，如果在 `NavLink`（子）组件的内容中使用递增循环变量，则在 `for` 循环内呈现 `NavLink` 组件需要本地索引变量：</span><span class="sxs-lookup"><span data-stu-id="483e6-212">Due to the way that :::no-loc(Blazor)::: renders child content, rendering `NavLink` components inside a `for` loop requires a local index variable if the incrementing loop variable is used in the `NavLink` (child) component's content:</span></span>
+> <span data-ttu-id="483e6-212">由于 Blazor 呈现子内容的方式，如果在 `NavLink`（子）组件的内容中使用递增循环变量，则在 `for` 循环内呈现 `NavLink` 组件需要本地索引变量：</span><span class="sxs-lookup"><span data-stu-id="483e6-212">Due to the way that Blazor renders child content, rendering `NavLink` components inside a `for` loop requires a local index variable if the incrementing loop variable is used in the `NavLink` (child) component's content:</span></span>
 >
 > ```razor
 > @for (int c = 0; c < 10; c++)
@@ -291,7 +291,7 @@ endpoints.MapFallbackToPage("/example/{param?}", "/_Host");
 | <span data-ttu-id="483e6-218">成员</span><span class="sxs-lookup"><span data-stu-id="483e6-218">Member</span></span> | <span data-ttu-id="483e6-219">描述</span><span class="sxs-lookup"><span data-stu-id="483e6-219">Description</span></span> |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.Uri> | <span data-ttu-id="483e6-220">获取当前绝对 URI。</span><span class="sxs-lookup"><span data-stu-id="483e6-220">Gets the current absolute URI.</span></span> |
-| <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | <span data-ttu-id="483e6-221">获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。</span><span class="sxs-lookup"><span data-stu-id="483e6-221">Gets the base URI (with a trailing slash) that can be prepended to relative URI paths to produce an absolute URI.</span></span> <span data-ttu-id="483e6-222">通常，<xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> 对应于 `wwwroot/index.html` (:::no-loc(Blazor WebAssembly):::) 或 `Pages/_Host.cshtml` (:::no-loc(Blazor Server):::) 中文档的 `<base>` 元素上的 `href` 属性。</span><span class="sxs-lookup"><span data-stu-id="483e6-222">Typically, <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> corresponds to the `href` attribute on the document's `<base>` element in `wwwroot/index.html` (:::no-loc(Blazor WebAssembly):::) or `Pages/_Host.cshtml` (:::no-loc(Blazor Server):::).</span></span> |
+| <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | <span data-ttu-id="483e6-221">获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。</span><span class="sxs-lookup"><span data-stu-id="483e6-221">Gets the base URI (with a trailing slash) that can be prepended to relative URI paths to produce an absolute URI.</span></span> <span data-ttu-id="483e6-222">通常，<xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> 对应于 `wwwroot/index.html` (Blazor WebAssembly) 或 `Pages/_Host.cshtml` (Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。</span><span class="sxs-lookup"><span data-stu-id="483e6-222">Typically, <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> corresponds to the `href` attribute on the document's `<base>` element in `wwwroot/index.html` (Blazor WebAssembly) or `Pages/_Host.cshtml` (Blazor Server).</span></span> |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A> | <span data-ttu-id="483e6-223">导航到指定 URI。</span><span class="sxs-lookup"><span data-stu-id="483e6-223">Navigates to the specified URI.</span></span> <span data-ttu-id="483e6-224">如果 `forceLoad` 为 `true`，则：</span><span class="sxs-lookup"><span data-stu-id="483e6-224">If `forceLoad` is `true`:</span></span><ul><li><span data-ttu-id="483e6-225">客户端路由会被绕过。</span><span class="sxs-lookup"><span data-stu-id="483e6-225">Client-side routing is bypassed.</span></span></li><li><span data-ttu-id="483e6-226">无论 URI 是否通常由客户端路由器处理，浏览器都必须从服务器加载新页面。</span><span class="sxs-lookup"><span data-stu-id="483e6-226">The browser is forced to load the new page from the server, whether or not the URI is normally handled by the client-side router.</span></span></li></ul> |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged> | <span data-ttu-id="483e6-227">导航位置更改时触发的事件。</span><span class="sxs-lookup"><span data-stu-id="483e6-227">An event that fires when the navigation location has changed.</span></span> |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.ToAbsoluteUri%2A> | <span data-ttu-id="483e6-228">将相对 URI 转换为绝对 URI。</span><span class="sxs-lookup"><span data-stu-id="483e6-228">Converts a relative URI into an absolute URI.</span></span> |
@@ -344,7 +344,7 @@ public void Dispose()
 <span data-ttu-id="483e6-234"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs> 可提供以下有关该事件的信息：</span><span class="sxs-lookup"><span data-stu-id="483e6-234"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs> provides the following information about the event:</span></span>
 
 * <span data-ttu-id="483e6-235"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location>：新位置的 URL。</span><span class="sxs-lookup"><span data-stu-id="483e6-235"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location>: The URL of the new location.</span></span>
-* <span data-ttu-id="483e6-236"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>：如果为 `true`，则 :::no-loc(Blazor)::: 拦截了浏览器中的导航。</span><span class="sxs-lookup"><span data-stu-id="483e6-236"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>: If `true`, :::no-loc(Blazor)::: intercepted the navigation from the browser.</span></span> <span data-ttu-id="483e6-237">如果为 `false`，则 <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A?displayProperty=nameWithType> 导致了导航发生。</span><span class="sxs-lookup"><span data-stu-id="483e6-237">If `false`, <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A?displayProperty=nameWithType> caused the navigation to occur.</span></span>
+* <span data-ttu-id="483e6-236"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>：如果为 `true`，则 Blazor 拦截了浏览器中的导航。</span><span class="sxs-lookup"><span data-stu-id="483e6-236"><xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>: If `true`, Blazor intercepted the navigation from the browser.</span></span> <span data-ttu-id="483e6-237">如果为 `false`，则 <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A?displayProperty=nameWithType> 导致了导航发生。</span><span class="sxs-lookup"><span data-stu-id="483e6-237">If `false`, <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A?displayProperty=nameWithType> caused the navigation to occur.</span></span>
 
 <span data-ttu-id="483e6-238">要详细了解组件处置，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。</span><span class="sxs-lookup"><span data-stu-id="483e6-238">For more information on component disposal, see <xref:blazor/components/lifecycle#component-disposal-with-idisposable>.</span></span>
 

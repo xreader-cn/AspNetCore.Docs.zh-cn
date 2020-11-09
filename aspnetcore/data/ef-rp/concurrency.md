@@ -1,22 +1,22 @@
 ---
-title: '第 8 部分，ASP.NET Core 中的 :::no-loc(Razor)::: 页面和 EF Core - 并发'
+title: '第 8 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 并发'
 author: rick-anderson
-description: ':::no-loc(Razor)::: 页面和实体框架教程系列第 8 部分。'
+description: 'Razor 页面和实体框架教程系列第 8 部分。'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: data/ef-rp/concurrency
 ms.openlocfilehash: 573a509041bfb34faf50a227c451824db03f92ee
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -25,7 +25,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93053990"
 ---
-# <a name="part-8-no-locrazor-pages-with-ef-core-in-aspnet-core---concurrency"></a><span data-ttu-id="1d6a3-103">第 8 部分，ASP.NET Core 中的 :::no-loc(Razor)::: 页面和 EF Core - 并发</span><span class="sxs-lookup"><span data-stu-id="1d6a3-103">Part 8, :::no-loc(Razor)::: Pages with EF Core in ASP.NET Core - Concurrency</span></span>
+# <a name="part-8-no-locrazor-pages-with-ef-core-in-aspnet-core---concurrency"></a><span data-ttu-id="1d6a3-103">第 8 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 并发</span><span class="sxs-lookup"><span data-stu-id="1d6a3-103">Part 8, Razor Pages with EF Core in ASP.NET Core - Concurrency</span></span>
 
 <span data-ttu-id="1d6a3-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Tom Dykstra](https://github.com/tdykstra) 和 [Jon P Smith](https://twitter.com/thereformedprog)</span><span class="sxs-lookup"><span data-stu-id="1d6a3-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Tom Dykstra](https://github.com/tdykstra), and [Jon P Smith](https://twitter.com/thereformedprog)</span></span>
 
@@ -268,7 +268,7 @@ modelBuilder.Entity<Department>()
 
 <span data-ttu-id="1d6a3-244">在上述突出显示的代码中：</span><span class="sxs-lookup"><span data-stu-id="1d6a3-244">In the preceding highlighted code:</span></span>
 
-* <span data-ttu-id="1d6a3-245">`Department.RowVersion` 中的值是最初在“编辑”页的 Get 请求中所提取的实体中的值。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-245">The value in `Department.RowVersion` is what was in the entity when it was originally fetched in the Get request for the Edit page.</span></span> <span data-ttu-id="1d6a3-246">通过 :::no-loc(Razor)::: 页面中显示将要编辑的实体的隐藏字段将该值提供给 `OnPost` 方法。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-246">The value is provided to the `OnPost` method by a hidden field in the :::no-loc(Razor)::: page that displays the entity to be edited.</span></span> <span data-ttu-id="1d6a3-247">模型绑定器将隐藏字段值复制到 `Department.RowVersion`。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-247">The hidden field value is copied to `Department.RowVersion` by the model binder.</span></span>
+* <span data-ttu-id="1d6a3-245">`Department.RowVersion` 中的值是最初在“编辑”页的 Get 请求中所提取的实体中的值。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-245">The value in `Department.RowVersion` is what was in the entity when it was originally fetched in the Get request for the Edit page.</span></span> <span data-ttu-id="1d6a3-246">通过 Razor 页面中显示将要编辑的实体的隐藏字段将该值提供给 `OnPost` 方法。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-246">The value is provided to the `OnPost` method by a hidden field in the Razor page that displays the entity to be edited.</span></span> <span data-ttu-id="1d6a3-247">模型绑定器将隐藏字段值复制到 `Department.RowVersion`。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-247">The hidden field value is copied to `Department.RowVersion` by the model binder.</span></span>
 * <span data-ttu-id="1d6a3-248">`OriginalValue` 是 EF Core 将用于 Where 子句的值。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-248">`OriginalValue` is what EF Core will use in the Where clause.</span></span> <span data-ttu-id="1d6a3-249">在执行突出显示的代码行之前，`OriginalValue` 具有在此方法中调用 `FirstOrDefaultAsync` 时数据库中的值，该值可能与“编辑”页面上所显示的值不同。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-249">Before the highlighted line of code executes, `OriginalValue` has the value that was in the database when `FirstOrDefaultAsync` was called in this method, which might be different from what was displayed on the Edit page.</span></span>
 * <span data-ttu-id="1d6a3-250">突出显示的代码可确保 EF Core 使用原始 `RowVersion` 值，该值来自于 SQL UPDATE 语句的 Where 子句中所显示的 `Department` 实体。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-250">The highlighted code makes sure that EF Core uses the original `RowVersion` value from the displayed `Department` entity in the SQL UPDATE statement's Where clause.</span></span>
 
@@ -284,7 +284,7 @@ modelBuilder.Entity<Department>()
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_TryUpdateModel&highlight=28)]
 
-<span data-ttu-id="1d6a3-255">`ModelState` 具有旧的 `RowVersion` 值，因此需使用 `ModelState.Remove` 语句。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-255">The `ModelState.Remove` statement is required because `ModelState` has the old `RowVersion` value.</span></span> <span data-ttu-id="1d6a3-256">在 :::no-loc(Razor)::: 页面中，当两者都存在时，字段的 `ModelState` 值优于模型属性值。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-256">In the :::no-loc(Razor)::: Page, the `ModelState` value for a field takes precedence over the model property values when both are present.</span></span>
+<span data-ttu-id="1d6a3-255">`ModelState` 具有旧的 `RowVersion` 值，因此需使用 `ModelState.Remove` 语句。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-255">The `ModelState.Remove` statement is required because `ModelState` has the old `RowVersion` value.</span></span> <span data-ttu-id="1d6a3-256">在 Razor 页面中，当两者都存在时，字段的 `ModelState` 值优于模型属性值。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-256">In the Razor Page, the `ModelState` value for a field takes precedence over the model property values when both are present.</span></span>
 
 ### <a name="update-the-edit-page"></a><span data-ttu-id="1d6a3-257">更新“编辑”页</span><span class="sxs-lookup"><span data-stu-id="1d6a3-257">Update the Edit page</span></span>
 
@@ -580,7 +580,7 @@ dotnet ef database update
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_try&highlight=23)]
 
-<span data-ttu-id="1d6a3-443">`ModelState` 具有旧的 `RowVersion` 值，因此需使用 `ModelState.Remove` 语句。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-443">The `ModelState.Remove` statement is required because `ModelState` has the old `RowVersion` value.</span></span> <span data-ttu-id="1d6a3-444">在 :::no-loc(Razor)::: 页面中，当两者都存在时，字段的 `ModelState` 值优于模型属性值。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-444">In the :::no-loc(Razor)::: Page, the `ModelState` value for a field takes precedence over the model property values when both are present.</span></span>
+<span data-ttu-id="1d6a3-443">`ModelState` 具有旧的 `RowVersion` 值，因此需使用 `ModelState.Remove` 语句。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-443">The `ModelState.Remove` statement is required because `ModelState` has the old `RowVersion` value.</span></span> <span data-ttu-id="1d6a3-444">在 Razor 页面中，当两者都存在时，字段的 `ModelState` 值优于模型属性值。</span><span class="sxs-lookup"><span data-stu-id="1d6a3-444">In the Razor Page, the `ModelState` value for a field takes precedence over the model property values when both are present.</span></span>
 
 ## <a name="update-the-edit-page"></a><span data-ttu-id="1d6a3-445">更新“编辑”页</span><span class="sxs-lookup"><span data-stu-id="1d6a3-445">Update the Edit page</span></span>
 

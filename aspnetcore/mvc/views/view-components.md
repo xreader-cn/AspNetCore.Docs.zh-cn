@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/views/view-components
 ms.openlocfilehash: e0ff97b53d12fbf6c6a89e94704de1aee9d7f9e6
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -33,7 +33,7 @@ ms.locfileid: "93060581"
 
 ## <a name="view-components"></a><span data-ttu-id="5fb4c-106">视图组件</span><span class="sxs-lookup"><span data-stu-id="5fb4c-106">View components</span></span>
 
-<span data-ttu-id="5fb4c-107">视图组件与分部视图类似，但它们的功能更加强大。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-107">View components are similar to partial views, but they're much more powerful.</span></span> <span data-ttu-id="5fb4c-108">视图组件不使用模型绑定，并且仅依赖调用时提供的数据。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-108">View components don't use model binding, and only depend on the data provided when calling into it.</span></span> <span data-ttu-id="5fb4c-109">本文是使用控制器和视图编写的，但视图组件也适用于 :::no-loc(Razor)::: 页。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-109">This article was written using controllers and views, but view components also work with :::no-loc(Razor)::: Pages.</span></span>
+<span data-ttu-id="5fb4c-107">视图组件与分部视图类似，但它们的功能更加强大。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-107">View components are similar to partial views, but they're much more powerful.</span></span> <span data-ttu-id="5fb4c-108">视图组件不使用模型绑定，并且仅依赖调用时提供的数据。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-108">View components don't use model binding, and only depend on the data provided when calling into it.</span></span> <span data-ttu-id="5fb4c-109">本文是使用控制器和视图编写的，但视图组件也适用于 Razor 页。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-109">This article was written using controllers and views, but view components also work with Razor Pages.</span></span>
 
 <span data-ttu-id="5fb4c-110">视图组件：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-110">A view component:</span></span>
 
@@ -54,7 +54,7 @@ ms.locfileid: "93060581"
 
 <span data-ttu-id="5fb4c-123">视图组件由两部分组成：类（通常派生自 [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)）及其返回的结果（通常为视图）。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-123">A view component consists of two parts: the class (typically derived from [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) and the result it returns (typically a view).</span></span> <span data-ttu-id="5fb4c-124">与控制器一样，视图组件也可以是 POCO，但大多数开发人员都希望利用派生自 `ViewComponent` 的可用方法和属性。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-124">Like controllers, a view component can be a POCO, but most developers will want to take advantage of the methods and properties available by deriving from `ViewComponent`.</span></span>
 
-<span data-ttu-id="5fb4c-125">考虑视图组件是否满足应用的规范时，请考虑 :::no-loc(Razor)::: 改用组件。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-125">When considering if view components meet an app's specifications, consider using :::no-loc(Razor)::: Components instead.</span></span> <span data-ttu-id="5fb4c-126">:::no-loc(Razor)::: 组件还将标记与 c # 代码结合起来，以生成可重用的 UI 单元。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-126">:::no-loc(Razor)::: Components also combine markup with C# code to produce reusable UI units.</span></span> <span data-ttu-id="5fb4c-127">:::no-loc(Razor)::: 在提供客户端 UI 逻辑和组合时，组件旨在提高开发人员的工作效率。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-127">:::no-loc(Razor)::: Components are designed for developer productivity when providing client-side UI logic and composition.</span></span> <span data-ttu-id="5fb4c-128">有关详细信息，请参阅 <xref:blazor/components/index>。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-128">For more information, see <xref:blazor/components/index>.</span></span>
+<span data-ttu-id="5fb4c-125">考虑视图组件是否满足应用的规范时，请考虑 Razor 改用组件。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-125">When considering if view components meet an app's specifications, consider using Razor Components instead.</span></span> <span data-ttu-id="5fb4c-126">Razor 组件还将标记与 c # 代码结合起来，以生成可重用的 UI 单元。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-126">Razor Components also combine markup with C# code to produce reusable UI units.</span></span> <span data-ttu-id="5fb4c-127">Razor 在提供客户端 UI 逻辑和组合时，组件旨在提高开发人员的工作效率。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-127">Razor Components are designed for developer productivity when providing client-side UI logic and composition.</span></span> <span data-ttu-id="5fb4c-128">有关详细信息，请参阅 <xref:blazor/components/index>。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-128">For more information, see <xref:blazor/components/index>.</span></span>
 
 ## <a name="creating-a-view-component"></a><span data-ttu-id="5fb4c-129">创建视图组件</span><span class="sxs-lookup"><span data-stu-id="5fb4c-129">Creating a view component</span></span>
 
@@ -94,7 +94,7 @@ ms.locfileid: "93060581"
 * <span data-ttu-id="5fb4c-160">/Views/Shared/Components/{View Component Name}/{View Name}</span><span class="sxs-lookup"><span data-stu-id="5fb4c-160">/Views/Shared/Components/{View Component Name}/{View Name}</span></span>
 * <span data-ttu-id="5fb4c-161">/Pages/Shared/Components/{View Component Name}/{View Name}</span><span class="sxs-lookup"><span data-stu-id="5fb4c-161">/Pages/Shared/Components/{View Component Name}/{View Name}</span></span>
 
-<span data-ttu-id="5fb4c-162">搜索路径适用于使用控制器 + 视图和页的项目 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-162">The search path applies to projects using controllers + views and :::no-loc(Razor)::: Pages.</span></span>
+<span data-ttu-id="5fb4c-162">搜索路径适用于使用控制器 + 视图和页的项目 Razor 。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-162">The search path applies to projects using controllers + views and Razor Pages.</span></span>
 
 <span data-ttu-id="5fb4c-163">视图组件的默认视图名称为“默认”，这意味着视图文件通常命名为“Default.cshtml”  。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-163">The default view name for a view component is *Default* , which means your view file will typically be named *Default.cshtml* .</span></span> <span data-ttu-id="5fb4c-164">可以在创建视图组件结果或调用 `View` 方法时指定不同的视图名称。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-164">You can specify a different view name when creating the view component result or when calling the `View` method.</span></span>
 
@@ -102,7 +102,7 @@ ms.locfileid: "93060581"
 
 ### <a name="customize-the-view-search-path"></a><span data-ttu-id="5fb4c-167">自定义视图搜索路径</span><span class="sxs-lookup"><span data-stu-id="5fb4c-167">Customize the view search path</span></span>
 
-<span data-ttu-id="5fb4c-168">若要自定义视图搜索路径，请修改 :::no-loc(Razor)::: 的 <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::.:::no-loc(Razor):::ViewEngineOptions.ViewLocationFormats> 集合。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-168">To customize the view search path, modify :::no-loc(Razor):::'s <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::.:::no-loc(Razor):::ViewEngineOptions.ViewLocationFormats> collection.</span></span> <span data-ttu-id="5fb4c-169">例如，将新项添加到集合，以搜索路径“/Components/{视图组件名称}/{视图名称}”中的视图：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-169">For example, to search for views within the path "/Components/{View Component Name}/{View Name}", add a new item to the collection:</span></span>
+<span data-ttu-id="5fb4c-168">若要自定义视图搜索路径，请修改 Razor 的 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.ViewLocationFormats> 集合。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-168">To customize the view search path, modify Razor's <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.ViewLocationFormats> collection.</span></span> <span data-ttu-id="5fb4c-169">例如，将新项添加到集合，以搜索路径“/Components/{视图组件名称}/{视图名称}”中的视图：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-169">For example, to search for views within the path "/Components/{View Component Name}/{View Name}", add a new item to the collection:</span></span>
 
 [!code-csharp[](view-components/samples_snapshot/2.x/Startup.cs?name=snippet_ViewLocationFormats&highlight=4)]
 
@@ -193,18 +193,18 @@ ms.locfileid: "93060581"
 * <span data-ttu-id="5fb4c-208">`InvokeAsync` 公开可以从视图调用的方法，且可以采用任意数量的参数。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-208">`InvokeAsync` exposes a method which can be called from a view, and it can take an arbitrary number of arguments.</span></span>
 * <span data-ttu-id="5fb4c-209">`InvokeAsync` 方法返回满足 `isDone` 和 `maxPriority` 参数的 `ToDo` 项集。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-209">The `InvokeAsync` method returns the set of `ToDo` items that satisfy the `isDone` and `maxPriority` parameters.</span></span>
 
-### <a name="create-the-view-component-no-locrazor-view"></a><span data-ttu-id="5fb4c-210">创建视图组件 :::no-loc(Razor)::: 视图</span><span class="sxs-lookup"><span data-stu-id="5fb4c-210">Create the view component :::no-loc(Razor)::: view</span></span>
+### <a name="create-the-view-component-no-locrazor-view"></a><span data-ttu-id="5fb4c-210">创建视图组件 Razor 视图</span><span class="sxs-lookup"><span data-stu-id="5fb4c-210">Create the view component Razor view</span></span>
 
 * <span data-ttu-id="5fb4c-211">创建 Views/Shared/Components 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-211">Create the *Views/Shared/Components* folder.</span></span> <span data-ttu-id="5fb4c-212">此文件夹 **必须** 命名为 *Components* 。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-212">This folder **must** be named *Components* .</span></span>
 
 * <span data-ttu-id="5fb4c-213">创建 Views/Shared/Components/PriorityList 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-213">Create the *Views/Shared/Components/PriorityList* folder.</span></span> <span data-ttu-id="5fb4c-214">此文件夹名称必须与视图组件类的名称或类名去掉后缀（如果遵照约定并在类名中使用了“ViewComponent”后缀）的名称相匹配  。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-214">This folder name must match the name of the view component class, or the name of the class minus the suffix (if we followed convention and used the *ViewComponent* suffix in the class name).</span></span> <span data-ttu-id="5fb4c-215">如果使用了 `ViewComponent` 属性，则类名称需要匹配指定的属性。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-215">If you used the `ViewComponent` attribute, the class name would need to match the attribute designation.</span></span>
 
-* <span data-ttu-id="5fb4c-216">创建 *Views/Shared/Components/PriorityList/Default ...* :::no-loc(Razor)::: view：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-216">Create a *Views/Shared/Components/PriorityList/Default.cshtml* :::no-loc(Razor)::: view:</span></span>
+* <span data-ttu-id="5fb4c-216">创建 *Views/Shared/Components/PriorityList/Default ...* Razor view：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-216">Create a *Views/Shared/Components/PriorityList/Default.cshtml* Razor view:</span></span>
 
 
   [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
 
-   <span data-ttu-id="5fb4c-217">:::no-loc(Razor):::视图采用列表 `TodoItem` ，并显示它们。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-217">The :::no-loc(Razor)::: view takes a list of `TodoItem` and displays them.</span></span> <span data-ttu-id="5fb4c-218">如果视图组件 `InvokeAsync` 方法不传递视图名称（如示例中所示），则按照约定使用“默认”作为视图名称  。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-218">If the view component `InvokeAsync` method doesn't pass the name of the view (as in our sample), *Default* is used for the view name by convention.</span></span> <span data-ttu-id="5fb4c-219">在本教程后面部分，我将演示如何传递视图名称。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-219">Later in the tutorial, I'll show you how to pass the name of the view.</span></span> <span data-ttu-id="5fb4c-220">要替代特定控制器的默认样式，请将视图添加到控制器特定的视图文件夹（例如 Views/ToDo/Components/PriorityList/Default.cshtml  ）。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-220">To override the default styling for a specific controller, add a view to the controller-specific view folder (for example *Views/ToDo/Components/PriorityList/Default.cshtml)* .</span></span>
+   <span data-ttu-id="5fb4c-217">Razor视图采用列表 `TodoItem` ，并显示它们。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-217">The Razor view takes a list of `TodoItem` and displays them.</span></span> <span data-ttu-id="5fb4c-218">如果视图组件 `InvokeAsync` 方法不传递视图名称（如示例中所示），则按照约定使用“默认”作为视图名称  。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-218">If the view component `InvokeAsync` method doesn't pass the name of the view (as in our sample), *Default* is used for the view name by convention.</span></span> <span data-ttu-id="5fb4c-219">在本教程后面部分，我将演示如何传递视图名称。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-219">Later in the tutorial, I'll show you how to pass the name of the view.</span></span> <span data-ttu-id="5fb4c-220">要替代特定控制器的默认样式，请将视图添加到控制器特定的视图文件夹（例如 Views/ToDo/Components/PriorityList/Default.cshtml  ）。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-220">To override the default styling for a specific controller, add a view to the controller-specific view folder (for example *Views/ToDo/Components/PriorityList/Default.cshtml)* .</span></span>
 
     <span data-ttu-id="5fb4c-221">如果视图组件是控制器特定的，则可将其添加到控制器特定的文件夹 (Views/ToDo/Components/PriorityList/Default.cshtml  )。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-221">If the view component is controller-specific, you can add it to the controller-specific folder ( *Views/ToDo/Components/PriorityList/Default.cshtml* ).</span></span>
 
@@ -272,7 +272,7 @@ ms.locfileid: "93060581"
 
 [!code-csharp[](../../mvc/views/view-components/sample/ViewCompFinal/ViewComponents/PriorityList.cs?highlight=10&range=5-35)]
 
-<span data-ttu-id="5fb4c-253">向 `using` 视图文件添加语句 :::no-loc(Razor)::: ，并使用 `nameof` 运算符：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-253">Add a `using` statement to your :::no-loc(Razor)::: view file, and use the `nameof` operator:</span></span>
+<span data-ttu-id="5fb4c-253">向 `using` 视图文件添加语句 Razor ，并使用 `nameof` 运算符：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-253">Add a `using` statement to your Razor view file, and use the `nameof` operator:</span></span>
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexNameof.cshtml?range=1-6,35-)]
 
@@ -291,7 +291,7 @@ public class PriorityList : ViewComponent
 }
 ```
 
-<span data-ttu-id="5fb4c-257">视图组件的 :::no-loc(Razor)::: 文件列出传递给方法的字符串 `Invoke` ( *Views/Home/component/PriorityList/* ) ：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-257">The view component's :::no-loc(Razor)::: file lists the strings passed to the `Invoke` method ( *Views/Home/Components/PriorityList/Default.cshtml* ):</span></span>
+<span data-ttu-id="5fb4c-257">视图组件的 Razor 文件列出传递给方法的字符串 `Invoke` ( *Views/Home/component/PriorityList/* ) ：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-257">The view component's Razor file lists the strings passed to the `Invoke` method ( *Views/Home/Components/PriorityList/Default.cshtml* ):</span></span>
 
 ```cshtml
 @model List<string>
@@ -307,7 +307,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker range=">= aspnetcore-1.1"
 
-<span data-ttu-id="5fb4c-258">视图组件在文件中调用 :::no-loc(Razor)::: (例如， *Views/Home/* ) 使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-258">The view component is invoked in a :::no-loc(Razor)::: file (for example, *Views/Home/Index.cshtml* ) using one of the following approaches:</span></span>
+<span data-ttu-id="5fb4c-258">视图组件在文件中调用 Razor (例如， *Views/Home/* ) 使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-258">The view component is invoked in a Razor file (for example, *Views/Home/Index.cshtml* ) using one of the following approaches:</span></span>
 
 * <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>
 * [<span data-ttu-id="5fb4c-259">标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="5fb4c-259">Tag Helper</span></span>](xref:mvc/views/tag-helpers/intro)
@@ -318,7 +318,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker range="< aspnetcore-1.1"
 
-<span data-ttu-id="5fb4c-261">视图组件在文件中调用 :::no-loc(Razor)::: (例如， *Views/Home/索引* ) 使用 <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> 。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-261">The view component is invoked in a :::no-loc(Razor)::: file (for example, *Views/Home/Index.cshtml* ) with <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>.</span></span>
+<span data-ttu-id="5fb4c-261">视图组件在文件中调用 Razor (例如， *Views/Home/索引* ) 使用 <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> 。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-261">The view component is invoked in a Razor file (for example, *Views/Home/Index.cshtml* ) with <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>.</span></span>
 
 <span data-ttu-id="5fb4c-262">调用 `Component.InvokeAsync`：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-262">Call `Component.InvokeAsync`:</span></span>
 
@@ -336,7 +336,7 @@ public class PriorityList : ViewComponent
 @addTagHelper *, MyWebApp
 ```
 
-<span data-ttu-id="5fb4c-264">使用标记文件中的 "查看组件标记帮助器" :::no-loc(Razor)::: ：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-264">Use the view component Tag Helper in the :::no-loc(Razor)::: markup file:</span></span>
+<span data-ttu-id="5fb4c-264">使用标记文件中的 "查看组件标记帮助器" Razor ：</span><span class="sxs-lookup"><span data-stu-id="5fb4c-264">Use the view component Tag Helper in the Razor markup file:</span></span>
 
 ```cshtml
 <vc:priority-list max-priority="999" is-done="false">
@@ -345,7 +345,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker-end
 
-<span data-ttu-id="5fb4c-265">的方法签名 `PriorityList.Invoke` 是同步的，但会 :::no-loc(Razor)::: `Component.InvokeAsync` 在标记文件中查找并调用方法。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-265">The method signature of `PriorityList.Invoke` is synchronous, but :::no-loc(Razor)::: finds and calls the method with `Component.InvokeAsync` in the markup file.</span></span>
+<span data-ttu-id="5fb4c-265">的方法签名 `PriorityList.Invoke` 是同步的，但会 Razor `Component.InvokeAsync` 在标记文件中查找并调用方法。</span><span class="sxs-lookup"><span data-stu-id="5fb4c-265">The method signature of `PriorityList.Invoke` is synchronous, but Razor finds and calls the method with `Component.InvokeAsync` in the markup file.</span></span>
 
 ## <a name="all-view-component-parameters-are-required"></a><span data-ttu-id="5fb4c-266">所有视图组件参数都是必需的</span><span class="sxs-lookup"><span data-stu-id="5fb4c-266">All view component parameters are required</span></span>
 

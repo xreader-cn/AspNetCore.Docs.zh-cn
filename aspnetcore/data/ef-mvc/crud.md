@@ -7,17 +7,17 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: data/ef-mvc/crud
 ms.openlocfilehash: 043fe513f370cf63637733b66ca195e7887faab0
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -76,7 +76,7 @@ http://localhost:1230/Instructor/Index/1?courseID=2021
 http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 ```
 
-<span data-ttu-id="37d7b-134">在索引页中，超链接 URL 由 :::no-loc(Razor)::: 视图中的标记帮助器语句创建。</span><span class="sxs-lookup"><span data-stu-id="37d7b-134">In the Index page, hyperlink URLs are created by tag helper statements in the :::no-loc(Razor)::: view.</span></span> <span data-ttu-id="37d7b-135">在以下 :::no-loc(Razor)::: 代码中，`id` 参数与默认路由相匹配，因此 `id` 将添加到路由数据。</span><span class="sxs-lookup"><span data-stu-id="37d7b-135">In the following :::no-loc(Razor)::: code, the `id` parameter matches the default route, so `id` is added to the route data.</span></span>
+<span data-ttu-id="37d7b-134">在索引页中，超链接 URL 由 Razor 视图中的标记帮助器语句创建。</span><span class="sxs-lookup"><span data-stu-id="37d7b-134">In the Index page, hyperlink URLs are created by tag helper statements in the Razor view.</span></span> <span data-ttu-id="37d7b-135">在以下 Razor 代码中，`id` 参数与默认路由相匹配，因此 `id` 将添加到路由数据。</span><span class="sxs-lookup"><span data-stu-id="37d7b-135">In the following Razor code, the `id` parameter matches the default route, so `id` is added to the route data.</span></span>
 
 ```html
 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
@@ -88,7 +88,7 @@ http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 <a href="/Students/Edit/6">Edit</a>
 ```
 
-<span data-ttu-id="37d7b-137">在以下 :::no-loc(Razor)::: 代码中，`studentID` 与默认路由中的参数不匹配，所以将它作为查询字符串添加。</span><span class="sxs-lookup"><span data-stu-id="37d7b-137">In the following :::no-loc(Razor)::: code, `studentID` doesn't match a parameter in the default route, so it's added as a query string.</span></span>
+<span data-ttu-id="37d7b-137">在以下 Razor 代码中，`studentID` 与默认路由中的参数不匹配，所以将它作为查询字符串添加。</span><span class="sxs-lookup"><span data-stu-id="37d7b-137">In the following Razor code, `studentID` doesn't match a parameter in the default route, so it's added as a query string.</span></span>
 
 ```html
 <a asp-action="Edit" asp-route-studentID="@item.ID">Edit</a>

@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/index
 ms.openlocfilehash: 25348f8486ec6ccb53ebf527ad4519638dd5f73e
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -55,7 +55,7 @@ ms.locfileid: "93059372"
 
 <span data-ttu-id="8bd11-116">通常使用构造函数注入从 DI 解析服务。</span><span class="sxs-lookup"><span data-stu-id="8bd11-116">Services are typically resolved from DI using constructor injection.</span></span> <span data-ttu-id="8bd11-117">通过构造函数注入，有一个类声明请求的类型或接口的构造函数参数。</span><span class="sxs-lookup"><span data-stu-id="8bd11-117">With constructor injection, a class declares a constructor parameter of either the required type or an interface.</span></span> <span data-ttu-id="8bd11-118">DI 框架在运行时提供此服务的实例。</span><span class="sxs-lookup"><span data-stu-id="8bd11-118">The DI framework provides an instance of this service at runtime.</span></span>
 
-<span data-ttu-id="8bd11-119">以下示例使用构造函数注入从 DI 解析 `:::no-loc(Razor):::PagesMovieContext`：</span><span class="sxs-lookup"><span data-stu-id="8bd11-119">The following example uses constructor injection to resolve a `:::no-loc(Razor):::PagesMovieContext` from DI:</span></span>
+<span data-ttu-id="8bd11-119">以下示例使用构造函数注入从 DI 解析 `RazorPagesMovieContext`：</span><span class="sxs-lookup"><span data-stu-id="8bd11-119">The following example uses constructor injection to resolve a `RazorPagesMovieContext` from DI:</span></span>
 
 [!code-csharp[](index/samples_snapshot/3.x/Index.cshtml.cs?highlight=5)]
 
@@ -101,7 +101,7 @@ ms.locfileid: "93059372"
 <span data-ttu-id="8bd11-145">`CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 方法为主机配置一组默认选项，例如：</span><span class="sxs-lookup"><span data-stu-id="8bd11-145">The `CreateDefaultBuilder` and `ConfigureWebHostDefaults` methods configure a host with a set of default options, such as:</span></span>
 
 * <span data-ttu-id="8bd11-146">将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="8bd11-146">Use [Kestrel](#servers) as the web server and enable IIS integration.</span></span>
-* <span data-ttu-id="8bd11-147">从 :::no-loc(appsettings.json):::、appsettings.{Environment Name}.json、环境变量、命令行参数和其他配置源中加载配置 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-147">Load configuration from *:::no-loc(appsettings.json):::* , *appsettings.{Environment Name}.json* , environment variables, command line arguments, and other configuration sources.</span></span>
+* <span data-ttu-id="8bd11-147">从 appsettings.json、appsettings.{Environment Name}.json、环境变量、命令行参数和其他配置源中加载配置 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-147">Load configuration from *appsettings.json* , *appsettings.{Environment Name}.json* , environment variables, command line arguments, and other configuration sources.</span></span>
 * <span data-ttu-id="8bd11-148">将日志记录输出发送到控制台并调试提供程序。</span><span class="sxs-lookup"><span data-stu-id="8bd11-148">Send logging output to the console and debug providers.</span></span>
 
 <span data-ttu-id="8bd11-149">有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。</span><span class="sxs-lookup"><span data-stu-id="8bd11-149">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
@@ -138,7 +138,7 @@ ms.locfileid: "93059372"
 
 <span data-ttu-id="8bd11-174">ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中将设置作为名称/值对。</span><span class="sxs-lookup"><span data-stu-id="8bd11-174">ASP.NET Core provides a configuration framework that gets settings as name-value pairs from an ordered set of configuration providers.</span></span> <span data-ttu-id="8bd11-175">可将内置配置提供程序用于各种源，例如 .json 文件、.xml 文件、环境变量和命令行参数 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-175">Built-in configuration providers are available for a variety of sources, such as *.json* files, *.xml* files, environment variables, and command-line arguments.</span></span> <span data-ttu-id="8bd11-176">可编写自定义配置提供程序以支持其他源。</span><span class="sxs-lookup"><span data-stu-id="8bd11-176">Write custom configuration providers to support other sources.</span></span>
 
-<span data-ttu-id="8bd11-177">[默认情况下](xref:fundamentals/configuration/index#default)，ASP.NET Core 应用配置为从 :::no-loc(appsettings.json):::、环境变量和命令行等读取内容。</span><span class="sxs-lookup"><span data-stu-id="8bd11-177">By [default](xref:fundamentals/configuration/index#default), ASP.NET Core apps are configured to read from *:::no-loc(appsettings.json):::* , environment variables, the command line, and more.</span></span> <span data-ttu-id="8bd11-178">加载应用配置后，来自环境变量的值将替代来自 :::no-loc(appsettings.json)::: 的值。</span><span class="sxs-lookup"><span data-stu-id="8bd11-178">When the app's configuration is loaded, values from environment variables override values from *:::no-loc(appsettings.json):::*.</span></span>
+<span data-ttu-id="8bd11-177">[默认情况下](xref:fundamentals/configuration/index#default)，ASP.NET Core 应用配置为从 appsettings.json、环境变量和命令行等读取内容。</span><span class="sxs-lookup"><span data-stu-id="8bd11-177">By [default](xref:fundamentals/configuration/index#default), ASP.NET Core apps are configured to read from *appsettings.json* , environment variables, the command line, and more.</span></span> <span data-ttu-id="8bd11-178">加载应用配置后，来自环境变量的值将替代来自 appsettings.json 的值。</span><span class="sxs-lookup"><span data-stu-id="8bd11-178">When the app's configuration is loaded, values from environment variables override values from *appsettings.json*.</span></span>
 
 <span data-ttu-id="8bd11-179">读取相关配置值的首选方法是使用[选项模式](xref:fundamentals/configuration/options)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-179">The preferred way to read related configuration values is using the [options pattern](xref:fundamentals/configuration/options).</span></span> <span data-ttu-id="8bd11-180">有关详细信息，请参阅[使用选项模式绑定分层配置数据](xref:fundamentals/configuration/index#optpat)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-180">For more information, see [Bind hierarchical configuration data using the options pattern](xref:fundamentals/configuration/index#optpat).</span></span>
 
@@ -178,7 +178,7 @@ ms.locfileid: "93059372"
 
 ## <a name="routing"></a><span data-ttu-id="8bd11-207">路由</span><span class="sxs-lookup"><span data-stu-id="8bd11-207">Routing</span></span>
 
-<span data-ttu-id="8bd11-208">路由是映射到处理程序的 URL 模式。</span><span class="sxs-lookup"><span data-stu-id="8bd11-208">A *route* is a URL pattern that is mapped to a handler.</span></span> <span data-ttu-id="8bd11-209">处理程序通常是 :::no-loc(Razor)::: 页面、MVC 控制器中的操作方法或中间件。</span><span class="sxs-lookup"><span data-stu-id="8bd11-209">The handler is typically a :::no-loc(Razor)::: page, an action method in an MVC controller, or a middleware.</span></span> <span data-ttu-id="8bd11-210">借助 ASP.NET Core 路由，可以控制应用使用的 URL。</span><span class="sxs-lookup"><span data-stu-id="8bd11-210">ASP.NET Core routing gives you control over the URLs used by your app.</span></span>
+<span data-ttu-id="8bd11-208">路由是映射到处理程序的 URL 模式。</span><span class="sxs-lookup"><span data-stu-id="8bd11-208">A *route* is a URL pattern that is mapped to a handler.</span></span> <span data-ttu-id="8bd11-209">处理程序通常是 Razor 页面、MVC 控制器中的操作方法或中间件。</span><span class="sxs-lookup"><span data-stu-id="8bd11-209">The handler is typically a Razor page, an action method in an MVC controller, or a middleware.</span></span> <span data-ttu-id="8bd11-210">借助 ASP.NET Core 路由，可以控制应用使用的 URL。</span><span class="sxs-lookup"><span data-stu-id="8bd11-210">ASP.NET Core routing gives you control over the URLs used by your app.</span></span>
 
 <span data-ttu-id="8bd11-211">有关详细信息，请参阅 <xref:fundamentals/routing>。</span><span class="sxs-lookup"><span data-stu-id="8bd11-211">For more information, see <xref:fundamentals/routing>.</span></span>
 
@@ -212,7 +212,7 @@ ms.locfileid: "93059372"
 * <span data-ttu-id="8bd11-234">托管应用的可执行文件 (.exe)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-234">The executable hosting the app ( *.exe* ).</span></span>
 * <span data-ttu-id="8bd11-235">构成应用程序的已编译程序集 (.dll)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-235">Compiled assemblies that make up the app ( *.dll* ).</span></span>
 * <span data-ttu-id="8bd11-236">应用使用的内容文件，例如：</span><span class="sxs-lookup"><span data-stu-id="8bd11-236">Content files used by the app, such as:</span></span>
-  * <span data-ttu-id="8bd11-237">:::no-loc(Razor)::: 文件（.cshtml、.razor） </span><span class="sxs-lookup"><span data-stu-id="8bd11-237">:::no-loc(Razor)::: files ( *.cshtml* , *.razor* )</span></span>
+  * <span data-ttu-id="8bd11-237">Razor 文件（.cshtml、.razor） </span><span class="sxs-lookup"><span data-stu-id="8bd11-237">Razor files ( *.cshtml* , *.razor* )</span></span>
   * <span data-ttu-id="8bd11-238">配置文件（.json、.xml）</span><span class="sxs-lookup"><span data-stu-id="8bd11-238">Configuration files ( *.json* , *.xml* )</span></span>
   * <span data-ttu-id="8bd11-239">数据文件 (.db)</span><span class="sxs-lookup"><span data-stu-id="8bd11-239">Data files ( *.db* )</span></span>
 * <span data-ttu-id="8bd11-240">[Web 根目录](#web-root)，通常是 wwwroot 文件夹。</span><span class="sxs-lookup"><span data-stu-id="8bd11-240">The [Web root](#web-root), typically the *wwwroot* folder.</span></span>
@@ -237,7 +237,7 @@ ms.locfileid: "93059372"
 </ItemGroup>
 ```
 
-<span data-ttu-id="8bd11-256">在 :::no-loc(Razor)::: .cshtml 文件中，波形符-斜线 (`~/`) 指向 Web 根。</span><span class="sxs-lookup"><span data-stu-id="8bd11-256">In :::no-loc(Razor)::: *.cshtml* files, tilde-slash (`~/`) points to the web root.</span></span> <span data-ttu-id="8bd11-257">以 `~/` 开头的路径称为虚拟路径。</span><span class="sxs-lookup"><span data-stu-id="8bd11-257">A path beginning with `~/` is referred to as a *virtual path*.</span></span>
+<span data-ttu-id="8bd11-256">在 Razor .cshtml 文件中，波形符-斜线 (`~/`) 指向 Web 根。</span><span class="sxs-lookup"><span data-stu-id="8bd11-256">In Razor *.cshtml* files, tilde-slash (`~/`) points to the web root.</span></span> <span data-ttu-id="8bd11-257">以 `~/` 开头的路径称为虚拟路径。</span><span class="sxs-lookup"><span data-stu-id="8bd11-257">A path beginning with `~/` is referred to as a *virtual path*.</span></span>
 
 <span data-ttu-id="8bd11-258">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="8bd11-258">For more information, see <xref:fundamentals/static-files>.</span></span>
 
@@ -311,7 +311,7 @@ ms.locfileid: "93059372"
 <span data-ttu-id="8bd11-302">`CreateDefaultBuilder` 方法配置具有常用选项的主机，如下所示：</span><span class="sxs-lookup"><span data-stu-id="8bd11-302">The `CreateDefaultBuilder` method configures a host with commonly used options, such as the following:</span></span>
 
 * <span data-ttu-id="8bd11-303">将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="8bd11-303">Use [Kestrel](#servers) as the web server and enable IIS integration.</span></span>
-* <span data-ttu-id="8bd11-304">从 :::no-loc(appsettings.json):::、appsettings.{Environment Name}.json、环境变量、命令行参数和其他配置源中加载配置 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-304">Load configuration from *:::no-loc(appsettings.json):::* , *appsettings.{Environment Name}.json* , environment variables, command line arguments, and other configuration sources.</span></span>
+* <span data-ttu-id="8bd11-304">从 appsettings.json、appsettings.{Environment Name}.json、环境变量、命令行参数和其他配置源中加载配置 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-304">Load configuration from *appsettings.json* , *appsettings.{Environment Name}.json* , environment variables, command line arguments, and other configuration sources.</span></span>
 * <span data-ttu-id="8bd11-305">将日志记录输出发送到控制台并调试提供程序。</span><span class="sxs-lookup"><span data-stu-id="8bd11-305">Send logging output to the console and debug providers.</span></span>
 
 <span data-ttu-id="8bd11-306">有关详细信息，请参阅 <xref:fundamentals/host/web-host>。</span><span class="sxs-lookup"><span data-stu-id="8bd11-306">For more information, see <xref:fundamentals/host/web-host>.</span></span>
@@ -377,7 +377,7 @@ ms.locfileid: "93059372"
 
 <span data-ttu-id="8bd11-345">ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中将设置作为名称/值对。</span><span class="sxs-lookup"><span data-stu-id="8bd11-345">ASP.NET Core provides a configuration framework that gets settings as name-value pairs from an ordered set of configuration providers.</span></span> <span data-ttu-id="8bd11-346">有适用于各种源的内置配置提供程序，例如 .json 文件、.xml 文件、环境变量和命令行参数 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-346">There are built-in configuration providers for a variety of sources, such as *.json* files, *.xml* files, environment variables, and command-line arguments.</span></span> <span data-ttu-id="8bd11-347">此外可以编写自定义配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="8bd11-347">You can also write custom configuration providers.</span></span>
 
-<span data-ttu-id="8bd11-348">例如，可指定配置来自 :::no-loc(appsettings.json)::: 和环境变量。</span><span class="sxs-lookup"><span data-stu-id="8bd11-348">For example, you could specify that configuration comes from *:::no-loc(appsettings.json):::* and environment variables.</span></span> <span data-ttu-id="8bd11-349">然后，当请求 ConnectionString 的值时，框架首先在 :::no-loc(appsettings.json)::: 文件中进行查找 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-349">Then when the value of *ConnectionString* is requested, the framework looks first in the *:::no-loc(appsettings.json):::* file.</span></span> <span data-ttu-id="8bd11-350">如果也在环境变量中找到了值，那么来自环境变量的值将优先使用。</span><span class="sxs-lookup"><span data-stu-id="8bd11-350">If the value is found there but also in an environment variable, the value from the environment variable would take precedence.</span></span>
+<span data-ttu-id="8bd11-348">例如，可指定配置来自 appsettings.json 和环境变量。</span><span class="sxs-lookup"><span data-stu-id="8bd11-348">For example, you could specify that configuration comes from *appsettings.json* and environment variables.</span></span> <span data-ttu-id="8bd11-349">然后，当请求 ConnectionString 的值时，框架首先在 appsettings.json 文件中进行查找 。</span><span class="sxs-lookup"><span data-stu-id="8bd11-349">Then when the value of *ConnectionString* is requested, the framework looks first in the *appsettings.json* file.</span></span> <span data-ttu-id="8bd11-350">如果也在环境变量中找到了值，那么来自环境变量的值将优先使用。</span><span class="sxs-lookup"><span data-stu-id="8bd11-350">If the value is found there but also in an environment variable, the value from the environment variable would take precedence.</span></span>
 
 <span data-ttu-id="8bd11-351">为了管理密码等机密配置数据，ASP.NET Core 提供了[机密管理器工具](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-351">For managing confidential configuration data such as passwords, ASP.NET Core provides a [Secret Manager tool](xref:security/app-secrets).</span></span> <span data-ttu-id="8bd11-352">对于生产机密，建议使用 [Azure 密钥保管库](xref:security/key-vault-configuration)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-352">For production secrets, we recommend [Azure Key Vault](xref:security/key-vault-configuration).</span></span>
 
@@ -427,7 +427,7 @@ ms.locfileid: "93059372"
 
 ## <a name="routing"></a><span data-ttu-id="8bd11-382">路由</span><span class="sxs-lookup"><span data-stu-id="8bd11-382">Routing</span></span>
 
-<span data-ttu-id="8bd11-383">路由是映射到处理程序的 URL 模式。</span><span class="sxs-lookup"><span data-stu-id="8bd11-383">A *route* is a URL pattern that is mapped to a handler.</span></span> <span data-ttu-id="8bd11-384">处理程序通常是 :::no-loc(Razor)::: 页面、MVC 控制器中的操作方法或中间件。</span><span class="sxs-lookup"><span data-stu-id="8bd11-384">The handler is typically a :::no-loc(Razor)::: page, an action method in an MVC controller, or a middleware.</span></span> <span data-ttu-id="8bd11-385">借助 ASP.NET Core 路由，可以控制应用使用的 URL。</span><span class="sxs-lookup"><span data-stu-id="8bd11-385">ASP.NET Core routing gives you control over the URLs used by your app.</span></span>
+<span data-ttu-id="8bd11-383">路由是映射到处理程序的 URL 模式。</span><span class="sxs-lookup"><span data-stu-id="8bd11-383">A *route* is a URL pattern that is mapped to a handler.</span></span> <span data-ttu-id="8bd11-384">处理程序通常是 Razor 页面、MVC 控制器中的操作方法或中间件。</span><span class="sxs-lookup"><span data-stu-id="8bd11-384">The handler is typically a Razor page, an action method in an MVC controller, or a middleware.</span></span> <span data-ttu-id="8bd11-385">借助 ASP.NET Core 路由，可以控制应用使用的 URL。</span><span class="sxs-lookup"><span data-stu-id="8bd11-385">ASP.NET Core routing gives you control over the URLs used by your app.</span></span>
 
 <span data-ttu-id="8bd11-386">有关详细信息，请参阅 <xref:fundamentals/routing>。</span><span class="sxs-lookup"><span data-stu-id="8bd11-386">For more information, see <xref:fundamentals/routing>.</span></span>
 
@@ -461,7 +461,7 @@ ms.locfileid: "93059372"
 * <span data-ttu-id="8bd11-409">托管应用程序的可执行文件 (.exe)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-409">Executable hosting the app ( *.exe* ).</span></span>
 * <span data-ttu-id="8bd11-410">构成应用程序的已编译程序集 (.dll)。</span><span class="sxs-lookup"><span data-stu-id="8bd11-410">Compiled assemblies that make up the app ( *.dll* ).</span></span>
 * <span data-ttu-id="8bd11-411">应用使用的非代码内容文件，例如：</span><span class="sxs-lookup"><span data-stu-id="8bd11-411">Non-code content files used by the app, such as:</span></span>
-  * <span data-ttu-id="8bd11-412">:::no-loc(Razor)::: 文件（.cshtml、.razor） </span><span class="sxs-lookup"><span data-stu-id="8bd11-412">:::no-loc(Razor)::: files ( *.cshtml* , *.razor* )</span></span>
+  * <span data-ttu-id="8bd11-412">Razor 文件（.cshtml、.razor） </span><span class="sxs-lookup"><span data-stu-id="8bd11-412">Razor files ( *.cshtml* , *.razor* )</span></span>
   * <span data-ttu-id="8bd11-413">配置文件（.json、.xml）</span><span class="sxs-lookup"><span data-stu-id="8bd11-413">Configuration files ( *.json* , *.xml* )</span></span>
   * <span data-ttu-id="8bd11-414">数据文件 (.db)</span><span class="sxs-lookup"><span data-stu-id="8bd11-414">Data files ( *.db* )</span></span>
 * <span data-ttu-id="8bd11-415">[Web 根目录](#web-root)，通常是已发布的 wwwroot 文件夹。</span><span class="sxs-lookup"><span data-stu-id="8bd11-415">[Web root](#web-root), typically the published *wwwroot* folder.</span></span>
@@ -495,7 +495,7 @@ ms.locfileid: "93059372"
 </ItemGroup>
 ```
 
-<span data-ttu-id="8bd11-433">在 :::no-loc(Razor)::: (.cshtml) 文件中，波浪号斜杠 (`~/`) 指向 Web 根目录。</span><span class="sxs-lookup"><span data-stu-id="8bd11-433">In :::no-loc(Razor)::: ( *.cshtml* ) files, the tilde-slash (`~/`) points to the web root.</span></span> <span data-ttu-id="8bd11-434">以 `~/` 开头的路径称为虚拟路径。</span><span class="sxs-lookup"><span data-stu-id="8bd11-434">A path beginning with `~/` is referred to as a *virtual path*.</span></span>
+<span data-ttu-id="8bd11-433">在 Razor (.cshtml) 文件中，波浪号斜杠 (`~/`) 指向 Web 根目录。</span><span class="sxs-lookup"><span data-stu-id="8bd11-433">In Razor ( *.cshtml* ) files, the tilde-slash (`~/`) points to the web root.</span></span> <span data-ttu-id="8bd11-434">以 `~/` 开头的路径称为虚拟路径。</span><span class="sxs-lookup"><span data-stu-id="8bd11-434">A path beginning with `~/` is referred to as a *virtual path*.</span></span>
 
 <span data-ttu-id="8bd11-435">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="8bd11-435">For more information, see <xref:fundamentals/static-files>.</span></span>
 

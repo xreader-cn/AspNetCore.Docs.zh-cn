@@ -7,17 +7,17 @@ ms.custom: mvc
 ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authentication/microsoft-logins
 ms.openlocfilehash: 3161e4f0f735294d69dd51634b424d1ed573e615
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -100,7 +100,7 @@ ms.locfileid: "93060295"
 * <span data-ttu-id="a9fb8-145">如果 Microsoft 帐户提供程序将您重定向到登录错误页面，请记下 `#` Uri 中 (井号号) 的错误标题和说明查询字符串参数。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-145">If the Microsoft Account provider redirects you to a sign in error page, note the error title and description query string parameters directly following the `#` (hashtag) in the Uri.</span></span>
 
   <span data-ttu-id="a9fb8-146">尽管错误消息似乎指出了 Microsoft 身份验证存在问题，但最常见的原因是应用程序 Uri 与为 **Web** 平台指定的任何 **重定向 uri** 都不匹配。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-146">Although the error message seems to indicate a problem with Microsoft authentication, the most common cause is your application Uri not matching any of the **Redirect URIs** specified for the **Web** platform.</span></span>
-* <span data-ttu-id="a9fb8-147">如果 :::no-loc(Identity)::: 未通过调用进行 `services.Add:::no-loc(Identity):::` 配置 `ConfigureServices` ，尝试进行身份验证会导致 *ArgumentException：必须提供 "SignInScheme" 选项* 。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-147">If :::no-loc(Identity)::: isn't configured by calling `services.Add:::no-loc(Identity):::` in `ConfigureServices`, attempting to authenticate will result in *ArgumentException: The 'SignInScheme' option must be provided* .</span></span> <span data-ttu-id="a9fb8-148">本示例中使用的项目模板可确保完成此操作。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-148">The project template used in this sample ensures that this is done.</span></span>
+* <span data-ttu-id="a9fb8-147">如果 Identity 未通过调用进行 `services.AddIdentity` 配置 `ConfigureServices` ，尝试进行身份验证会导致 *ArgumentException：必须提供 "SignInScheme" 选项* 。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-147">If Identity isn't configured by calling `services.AddIdentity` in `ConfigureServices`, attempting to authenticate will result in *ArgumentException: The 'SignInScheme' option must be provided* .</span></span> <span data-ttu-id="a9fb8-148">本示例中使用的项目模板可确保完成此操作。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-148">The project template used in this sample ensures that this is done.</span></span>
 * <span data-ttu-id="a9fb8-149">如果尚未通过应用初始迁移来创建站点数据库，则在处理请求错误时将会获得 *数据库操作失败* 。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-149">If the site database has not been created by applying the initial migration, you will get *A database operation failed while processing the request* error.</span></span> <span data-ttu-id="a9fb8-150">点击 " **应用迁移** " 以创建数据库，然后单击 "刷新" 以继续出现错误。</span><span class="sxs-lookup"><span data-stu-id="a9fb8-150">Tap **Apply Migrations** to create the database and refresh to continue past the error.</span></span>
 
 ## <a name="next-steps"></a><span data-ttu-id="a9fb8-151">后续步骤</span><span class="sxs-lookup"><span data-stu-id="a9fb8-151">Next steps</span></span>

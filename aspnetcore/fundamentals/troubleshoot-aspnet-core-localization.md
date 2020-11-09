@@ -5,17 +5,17 @@ description: 了解如何诊断 ASP.NET Core 应用中本地化的问题。
 ms.author: riande
 ms.date: 01/24/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/troubleshoot-aspnet-core-localization
 ms.openlocfilehash: 995db4c8c9d0c0f1f77b1fd3665e707975406a7f
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -62,7 +62,7 @@ public void ConfigureServices(IServiceCollection services)
 - <span data-ttu-id="0d59d-118">`resx` 中缺少某些语言的资源，但存在其他语言的资源。</span><span class="sxs-lookup"><span data-stu-id="0d59d-118">The resource is missing from the `resx` for some languages, but exists in others.</span></span>
 - <span data-ttu-id="0d59d-119">如果仍有问题，请检查本地化日志消息（在 `Debug` 日志级别），了解有关缺少资源的详细信息。</span><span class="sxs-lookup"><span data-stu-id="0d59d-119">If you're still having trouble, check the localization log messages (which are at `Debug` log level) for more details about the missing resources.</span></span>
 
-<span data-ttu-id="0d59d-120">_**提示：** 使用 `:::no-loc(Cookie):::RequestCultureProvider` 时，验证未对本地化 :::no-loc(cookie)::: 值内的区域性使用单引号。例如，`c='en-UK'|uic='en-US'` 是无效的:::no-loc(cookie)::: 值，而 `c=en-UK|uic=en-US` 有效。_</span><span class="sxs-lookup"><span data-stu-id="0d59d-120">_**Hint:** When using `:::no-loc(Cookie):::RequestCultureProvider`, verify single quotes are not used with the cultures inside the localization :::no-loc(cookie)::: value. For example, `c='en-UK'|uic='en-US'` is an invalid :::no-loc(cookie)::: value, while `c=en-UK|uic=en-US` is a valid._</span></span>
+<span data-ttu-id="0d59d-120">_**提示：** 使用 `CookieRequestCultureProvider` 时，验证未对本地化 cookie 值内的区域性使用单引号。例如，`c='en-UK'|uic='en-US'` 是无效的cookie 值，而 `c=en-UK|uic=en-US` 有效。_</span><span class="sxs-lookup"><span data-stu-id="0d59d-120">_**Hint:** When using `CookieRequestCultureProvider`, verify single quotes are not used with the cultures inside the localization cookie value. For example, `c='en-UK'|uic='en-US'` is an invalid cookie value, while `c=en-UK|uic=en-US` is a valid._</span></span>
 
 ## <a name="resources--class-libraries-issues"></a><span data-ttu-id="0d59d-121">资源和类库问题</span><span class="sxs-lookup"><span data-stu-id="0d59d-121">Resources & Class Libraries issues</span></span>
 
@@ -78,7 +78,7 @@ public void ConfigureServices(IServiceCollection services)
 <span data-ttu-id="0d59d-130">`RequestLocalizationOptions` 类具有三个默认提供程序：</span><span class="sxs-lookup"><span data-stu-id="0d59d-130">The `RequestLocalizationOptions` class has three default providers:</span></span>
 
 1. `QueryStringRequestCultureProvider`
-2. `:::no-loc(Cookie):::RequestCultureProvider`
+2. `CookieRequestCultureProvider`
 3. `AcceptLanguageHeaderRequestCultureProvider`
 
 <span data-ttu-id="0d59d-131">[CustomRequestCultureProvider](/dotnet/api/microsoft.aspnetcore.localization.customrequestcultureprovider?view=aspnetcore-2.1) 可用于自定义在应用中提供本地化区域性的方式。</span><span class="sxs-lookup"><span data-stu-id="0d59d-131">The [CustomRequestCultureProvider](/dotnet/api/microsoft.aspnetcore.localization.customrequestcultureprovider?view=aspnetcore-2.1) allows you to customize how the localization culture is provided in your app.</span></span> <span data-ttu-id="0d59d-132">在默认提供程序无法满足需求时，可使用 `CustomRequestCultureProvider`。</span><span class="sxs-lookup"><span data-stu-id="0d59d-132">The `CustomRequestCultureProvider` is used when the default providers don't meet your requirements.</span></span>

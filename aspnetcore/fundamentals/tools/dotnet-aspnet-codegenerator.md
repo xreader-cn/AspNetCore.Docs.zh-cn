@@ -6,17 +6,17 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
 ms.openlocfilehash: 88d761b09833a14de5af9f9610753174867aa09a
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -68,8 +68,8 @@ dotnet aspnet-codegenerator [-h|--help]
 | ---------- | -------------------------------------------------------------------- |
 | <span data-ttu-id="3d153-120">area</span><span class="sxs-lookup"><span data-stu-id="3d153-120">area</span></span>       | [<span data-ttu-id="3d153-121">搭建区域的基架</span><span class="sxs-lookup"><span data-stu-id="3d153-121">Scaffolds an Area</span></span>](xref:mvc/controllers/areas)                      |
 | <span data-ttu-id="3d153-122">controller</span><span class="sxs-lookup"><span data-stu-id="3d153-122">controller</span></span> | [<span data-ttu-id="3d153-123">搭建控制器的基架</span><span class="sxs-lookup"><span data-stu-id="3d153-123">Scaffolds a controller</span></span>](xref:tutorials/first-mvc-app/adding-model)  |
-| <span data-ttu-id="3d153-124">标识</span><span class="sxs-lookup"><span data-stu-id="3d153-124">identity</span></span>   | [<span data-ttu-id="3d153-125">构建 :::no-loc(Identity):::</span><span class="sxs-lookup"><span data-stu-id="3d153-125">Scaffolds :::no-loc(Identity):::</span></span>](xref:security/authentication/scaffold-identity) |
-| <span data-ttu-id="3d153-126">razorpage</span><span class="sxs-lookup"><span data-stu-id="3d153-126">razorpage</span></span>  | [<span data-ttu-id="3d153-127">构建 :::no-loc(Razor)::: Pages</span><span class="sxs-lookup"><span data-stu-id="3d153-127">Scaffolds :::no-loc(Razor)::: Pages</span></span>](xref:tutorials/razor-pages/model)            |
+| <span data-ttu-id="3d153-124">标识</span><span class="sxs-lookup"><span data-stu-id="3d153-124">identity</span></span>   | [<span data-ttu-id="3d153-125">构建 Identity</span><span class="sxs-lookup"><span data-stu-id="3d153-125">Scaffolds Identity</span></span>](xref:security/authentication/scaffold-identity) |
+| <span data-ttu-id="3d153-126">razorpage</span><span class="sxs-lookup"><span data-stu-id="3d153-126">razorpage</span></span>  | [<span data-ttu-id="3d153-127">构建 Razor Pages</span><span class="sxs-lookup"><span data-stu-id="3d153-127">Scaffolds Razor Pages</span></span>](xref:tutorials/razor-pages/model)            |
 | <span data-ttu-id="3d153-128">查看</span><span class="sxs-lookup"><span data-stu-id="3d153-128">view</span></span>       | [<span data-ttu-id="3d153-129">搭建视图的基架</span><span class="sxs-lookup"><span data-stu-id="3d153-129">Scaffolds a view</span></span>](xref:mvc/views/overview)                          |
 
 ## <a name="options"></a><span data-ttu-id="3d153-130">选项</span><span class="sxs-lookup"><span data-stu-id="3d153-130">Options</span></span>
@@ -108,15 +108,15 @@ dotnet aspnet-codegenerator [-h|--help]
 
 * <span data-ttu-id="3d153-144">区域</span><span class="sxs-lookup"><span data-stu-id="3d153-144">Area</span></span>
 * <span data-ttu-id="3d153-145">控制器</span><span class="sxs-lookup"><span data-stu-id="3d153-145">Controller</span></span>
-* :::no-loc(Identity):::  
-* <span data-ttu-id="3d153-146">:::no-loc(Razor):::page</span><span class="sxs-lookup"><span data-stu-id="3d153-146">:::no-loc(Razor):::page</span></span>
+* Identity  
+* <span data-ttu-id="3d153-146">Razorpage</span><span class="sxs-lookup"><span data-stu-id="3d153-146">Razorpage</span></span>
 * <span data-ttu-id="3d153-147">视图</span><span class="sxs-lookup"><span data-stu-id="3d153-147">View</span></span>
 
 <a name="area"></a>
 
 ### <a name="area-options"></a><span data-ttu-id="3d153-148">区域选项</span><span class="sxs-lookup"><span data-stu-id="3d153-148">Area options</span></span>
 
-<span data-ttu-id="3d153-149">此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。</span><span class="sxs-lookup"><span data-stu-id="3d153-149">This tool is intended for ASP.NET Core web projects with controllers and views.</span></span> <span data-ttu-id="3d153-150">它不适用于 :::no-loc(Razor)::: Pages 应用。</span><span class="sxs-lookup"><span data-stu-id="3d153-150">It's not intended for :::no-loc(Razor)::: Pages apps.</span></span>
+<span data-ttu-id="3d153-149">此工具适用于具有控制器和视图的 ASP.NET Core Web 项目。</span><span class="sxs-lookup"><span data-stu-id="3d153-149">This tool is intended for ASP.NET Core web projects with controllers and views.</span></span> <span data-ttu-id="3d153-150">它不适用于 Razor Pages 应用。</span><span class="sxs-lookup"><span data-stu-id="3d153-150">It's not intended for Razor Pages apps.</span></span>
 
 <span data-ttu-id="3d153-151">用法：`dotnet aspnet-codegenerator area AreaNameToGenerate`</span><span class="sxs-lookup"><span data-stu-id="3d153-151">Usage: `dotnet aspnet-codegenerator area AreaNameToGenerate`</span></span>
 
@@ -155,11 +155,11 @@ dotnet aspnet-codegenerator controller -h
 
 <span data-ttu-id="3d153-176">请参阅[搭建 movie 模型的基架](xref:tutorials/first-mvc-app/adding-model)，查看 `dotnet aspnet-codegenerator controller` 示例。</span><span class="sxs-lookup"><span data-stu-id="3d153-176">See [Scaffold the movie model](xref:tutorials/first-mvc-app/adding-model) for an example of `dotnet aspnet-codegenerator controller`.</span></span>
 
-### <a name="no-locrazorpage"></a><span data-ttu-id="3d153-177">:::no-loc(Razor):::page</span><span class="sxs-lookup"><span data-stu-id="3d153-177">:::no-loc(Razor):::page</span></span>
+### <a name="no-locrazorpage"></a><span data-ttu-id="3d153-177">Razorpage</span><span class="sxs-lookup"><span data-stu-id="3d153-177">Razorpage</span></span>
 
 <a name="rp"></a>
 
-<span data-ttu-id="3d153-178">可以通过指定新页面的名称和要使用的模板来单独搭建 :::no-loc(Razor)::: Pages 的基架。</span><span class="sxs-lookup"><span data-stu-id="3d153-178">:::no-loc(Razor)::: Pages can be individually scaffolded by specifying the name of the new page and the template to use.</span></span> <span data-ttu-id="3d153-179">支持如下模板：</span><span class="sxs-lookup"><span data-stu-id="3d153-179">The supported templates are:</span></span>
+<span data-ttu-id="3d153-178">可以通过指定新页面的名称和要使用的模板来单独搭建 Razor Pages 的基架。</span><span class="sxs-lookup"><span data-stu-id="3d153-178">Razor Pages can be individually scaffolded by specifying the name of the new page and the template to use.</span></span> <span data-ttu-id="3d153-179">支持如下模板：</span><span class="sxs-lookup"><span data-stu-id="3d153-179">The supported templates are:</span></span>
 
 * `Empty`
 * `Create`
@@ -171,7 +171,7 @@ dotnet aspnet-codegenerator controller -h
 <span data-ttu-id="3d153-180">例如，以下命令使用 Edit 模板生成MyEdit.cshtml  和 MyEdit.cshtml.cs：</span><span class="sxs-lookup"><span data-stu-id="3d153-180">For example, the following command uses the Edit template to generate *MyEdit.cshtml* and *MyEdit.cshtml.cs* :</span></span>
 
 ```dotnetcli
-dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc :::no-loc(Razor):::PagesMovieContext -outDir Pages/Movies
+dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieContext -outDir Pages/Movies
 ```
 
 <span data-ttu-id="3d153-181">通常不指定模板和生成的文件名，而是创建以下模板：</span><span class="sxs-lookup"><span data-stu-id="3d153-181">Typically, the template and generated file name is not specified, and the following templates are created:</span></span>
@@ -202,6 +202,6 @@ dotnet aspnet-codegenerator razorpage -h
 
 <span data-ttu-id="3d153-194">请参阅[搭建 movie 模型的基架](xref:tutorials/razor-pages/model)，查看 `dotnet aspnet-codegenerator razorpage` 示例。</span><span class="sxs-lookup"><span data-stu-id="3d153-194">See [Scaffold the movie model](xref:tutorials/razor-pages/model) for an example of `dotnet aspnet-codegenerator razorpage`.</span></span>
 
-### :::no-loc(Identity):::
+### Identity
 
-<span data-ttu-id="3d153-195">请参阅[基架:::no-loc(Identity):::](xref:security/authentication/scaffold-identity)</span><span class="sxs-lookup"><span data-stu-id="3d153-195">See [Scaffold :::no-loc(Identity):::](xref:security/authentication/scaffold-identity)</span></span>
+<span data-ttu-id="3d153-195">请参阅[基架Identity](xref:security/authentication/scaffold-identity)</span><span class="sxs-lookup"><span data-stu-id="3d153-195">See [Scaffold Identity](xref:security/authentication/scaffold-identity)</span></span>

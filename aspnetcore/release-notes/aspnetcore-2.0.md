@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: aspnetcore-2.0
 ms.openlocfilehash: f9fad5a63c76a3b21341a12fd40baafcdf2c9dac
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -29,14 +29,14 @@ ms.locfileid: "93059723"
 
 <span data-ttu-id="5f442-104">本文重点介绍 ASP.NET Core 2.0 中最重要的更改，并提供相关文档的链接。</span><span class="sxs-lookup"><span data-stu-id="5f442-104">This article highlights the most significant changes in ASP.NET Core 2.0, with links to relevant documentation.</span></span>
 
-## <a name="no-locrazor-pages"></a><span data-ttu-id="5f442-105">:::no-loc(Razor)::: Pages</span><span class="sxs-lookup"><span data-stu-id="5f442-105">:::no-loc(Razor)::: Pages</span></span>
+## <a name="no-locrazor-pages"></a><span data-ttu-id="5f442-105">Razor Pages</span><span class="sxs-lookup"><span data-stu-id="5f442-105">Razor Pages</span></span>
 
-<span data-ttu-id="5f442-106">:::no-loc(Razor)::: Pages 是 ASP.NET Core MVC 的一个新功能，它可以使基于页面的编码方式更简单高效。</span><span class="sxs-lookup"><span data-stu-id="5f442-106">:::no-loc(Razor)::: Pages is a new feature of ASP.NET Core MVC that makes coding page-focused scenarios easier and more productive.</span></span>
+<span data-ttu-id="5f442-106">Razor Pages 是 ASP.NET Core MVC 的一个新功能，它可以使基于页面的编码方式更简单高效。</span><span class="sxs-lookup"><span data-stu-id="5f442-106">Razor Pages is a new feature of ASP.NET Core MVC that makes coding page-focused scenarios easier and more productive.</span></span>
 
 <span data-ttu-id="5f442-107">有关详细信息，请参阅相关介绍和教程：</span><span class="sxs-lookup"><span data-stu-id="5f442-107">For more information, see the introduction and tutorial:</span></span>
 
-* [<span data-ttu-id="5f442-108">:::no-loc(Razor)::: Pages 简介</span><span class="sxs-lookup"><span data-stu-id="5f442-108">Introduction to :::no-loc(Razor)::: Pages</span></span>](xref:razor-pages/index)
-* [<span data-ttu-id="5f442-109">:::no-loc(Razor)::: Pages 入门</span><span class="sxs-lookup"><span data-stu-id="5f442-109">Get started with :::no-loc(Razor)::: Pages</span></span>](xref:tutorials/razor-pages/razor-pages-start)
+* [<span data-ttu-id="5f442-108">Razor Pages 简介</span><span class="sxs-lookup"><span data-stu-id="5f442-108">Introduction to Razor Pages</span></span>](xref:razor-pages/index)
+* [<span data-ttu-id="5f442-109">Razor Pages 入门</span><span class="sxs-lookup"><span data-stu-id="5f442-109">Get started with Razor Pages</span></span>](xref:tutorials/razor-pages/razor-pages-start)
 
 ## <a name="aspnet-core-metapackage"></a><span data-ttu-id="5f442-110">ASP.NET Core 元包</span><span class="sxs-lookup"><span data-stu-id="5f442-110">ASP.NET Core metapackage</span></span>
 
@@ -76,15 +76,15 @@ ms.locfileid: "93059723"
 
 <span data-ttu-id="5f442-138">有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/3054)。</span><span class="sxs-lookup"><span data-stu-id="5f442-138">For information about the status of planned documentation, see the [GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/3054).</span></span>
 
-## <a name="no-locidentity-update"></a><span data-ttu-id="5f442-139">:::no-loc(Identity)::: 更新</span><span class="sxs-lookup"><span data-stu-id="5f442-139">:::no-loc(Identity)::: update</span></span>
+## <a name="no-locidentity-update"></a><span data-ttu-id="5f442-139">Identity 更新</span><span class="sxs-lookup"><span data-stu-id="5f442-139">Identity update</span></span>
 
-<span data-ttu-id="5f442-140">在 ASP.NET Core 2.0 中，我们简化了使用 :::no-loc(Identity)::: 生成安全的 Web API 的过程。</span><span class="sxs-lookup"><span data-stu-id="5f442-140">We've made it easier to build secure web APIs using :::no-loc(Identity)::: in ASP.NET Core 2.0.</span></span> <span data-ttu-id="5f442-141">可以使用 [Microsoft 身份验证库 (MSAL)](https://www.nuget.org/packages/Microsoft.:::no-loc(Identity):::.Client)获取用于访问 Web API 的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="5f442-141">You can acquire access tokens for accessing your web APIs using the [Microsoft Authentication Library (MSAL)](https://www.nuget.org/packages/Microsoft.:::no-loc(Identity):::.Client).</span></span>
+<span data-ttu-id="5f442-140">在 ASP.NET Core 2.0 中，我们简化了使用 Identity 生成安全的 Web API 的过程。</span><span class="sxs-lookup"><span data-stu-id="5f442-140">We've made it easier to build secure web APIs using Identity in ASP.NET Core 2.0.</span></span> <span data-ttu-id="5f442-141">可以使用 [Microsoft 身份验证库 (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client)获取用于访问 Web API 的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="5f442-141">You can acquire access tokens for accessing your web APIs using the [Microsoft Authentication Library (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client).</span></span>
 
 <span data-ttu-id="5f442-142">有关 2.0 中的身份验证更改的详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="5f442-142">For more information on authentication changes in 2.0, see the following resources:</span></span>
 
 * [<span data-ttu-id="5f442-143">ASP.NET Core 中的帐户确认和密码恢复</span><span class="sxs-lookup"><span data-stu-id="5f442-143">Account confirmation and password recovery in ASP.NET Core</span></span>](xref:security/authentication/accconfirm)
 * [<span data-ttu-id="5f442-144">为 ASP.NET Core 中的验证器应用启用 QR 码生成</span><span class="sxs-lookup"><span data-stu-id="5f442-144">Enable QR Code generation for authenticator apps in ASP.NET Core</span></span>](xref:security/authentication/identity-enable-qrcodes)
-* [<span data-ttu-id="5f442-145">将身份验证和 :::no-loc(Identity)::: 迁移到 ASP.NET Core 2.0</span><span class="sxs-lookup"><span data-stu-id="5f442-145">Migrate Authentication and :::no-loc(Identity)::: to ASP.NET Core 2.0</span></span>](xref:migration/1x-to-2x/identity-2x)
+* [<span data-ttu-id="5f442-145">将身份验证和 Identity 迁移到 ASP.NET Core 2.0</span><span class="sxs-lookup"><span data-stu-id="5f442-145">Migrate Authentication and Identity to ASP.NET Core 2.0</span></span>](xref:migration/1x-to-2x/identity-2x)
 
 ## <a name="spa-templates"></a><span data-ttu-id="5f442-146">SPA 模板</span><span class="sxs-lookup"><span data-stu-id="5f442-146">SPA templates</span></span>
 
@@ -136,13 +136,13 @@ return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNo
 
 ## <a name="automatic-precompilation"></a><span data-ttu-id="5f442-180">自动预编译</span><span class="sxs-lookup"><span data-stu-id="5f442-180">Automatic precompilation</span></span>
 
-<span data-ttu-id="5f442-181">默认情况下，会在发布时启用 :::no-loc(Razor)::: 视图预编译，以缩减发布输出大小和应用程序启动时间。</span><span class="sxs-lookup"><span data-stu-id="5f442-181">:::no-loc(Razor)::: view pre-compilation is enabled during publish by default, reducing the publish output size and application startup time.</span></span>
+<span data-ttu-id="5f442-181">默认情况下，会在发布时启用 Razor 视图预编译，以缩减发布输出大小和应用程序启动时间。</span><span class="sxs-lookup"><span data-stu-id="5f442-181">Razor view pre-compilation is enabled during publish by default, reducing the publish output size and application startup time.</span></span>
 
-<span data-ttu-id="5f442-182">有关详细信息，请参阅 [ASP.NET Core 中的 :::no-loc(Razor)::: 视图编译和预编译](xref:mvc/views/view-compilation)。</span><span class="sxs-lookup"><span data-stu-id="5f442-182">For more information, see [:::no-loc(Razor)::: view compilation and precompilation in ASP.NET Core](xref:mvc/views/view-compilation).</span></span>
+<span data-ttu-id="5f442-182">有关详细信息，请参阅 [ASP.NET Core 中的 Razor 视图编译和预编译](xref:mvc/views/view-compilation)。</span><span class="sxs-lookup"><span data-stu-id="5f442-182">For more information, see [Razor view compilation and precompilation in ASP.NET Core](xref:mvc/views/view-compilation).</span></span>
 
-## <a name="no-locrazor-support-for-c-71"></a><span data-ttu-id="5f442-183">:::no-loc(Razor)::: 支持 C# 7.1</span><span class="sxs-lookup"><span data-stu-id="5f442-183">:::no-loc(Razor)::: support for C# 7.1</span></span>
+## <a name="no-locrazor-support-for-c-71"></a><span data-ttu-id="5f442-183">Razor 支持 C# 7.1</span><span class="sxs-lookup"><span data-stu-id="5f442-183">Razor support for C# 7.1</span></span>
 
-<span data-ttu-id="5f442-184">:::no-loc(Razor)::: 视图引擎已更新为可使用新的 Roslyn 编译器。</span><span class="sxs-lookup"><span data-stu-id="5f442-184">The :::no-loc(Razor)::: view engine has been updated to work with the new Roslyn compiler.</span></span> <span data-ttu-id="5f442-185">其中包含对 C# 7.1 功能的支持，例如默认表达式、推断元组名称和泛型模式匹配。</span><span class="sxs-lookup"><span data-stu-id="5f442-185">That includes support for C# 7.1 features like Default Expressions, Inferred Tuple Names, and Pattern-Matching with Generics.</span></span> <span data-ttu-id="5f442-186">若要在项目中使用 C# 7.1，请在项目文件中添加以下属性，然后重新加载解决方案：</span><span class="sxs-lookup"><span data-stu-id="5f442-186">To use C# 7.1 in your project, add the following property in your project file and then reload the solution:</span></span>
+<span data-ttu-id="5f442-184">Razor 视图引擎已更新为可使用新的 Roslyn 编译器。</span><span class="sxs-lookup"><span data-stu-id="5f442-184">The Razor view engine has been updated to work with the new Roslyn compiler.</span></span> <span data-ttu-id="5f442-185">其中包含对 C# 7.1 功能的支持，例如默认表达式、推断元组名称和泛型模式匹配。</span><span class="sxs-lookup"><span data-stu-id="5f442-185">That includes support for C# 7.1 features like Default Expressions, Inferred Tuple Names, and Pattern-Matching with Generics.</span></span> <span data-ttu-id="5f442-186">若要在项目中使用 C# 7.1，请在项目文件中添加以下属性，然后重新加载解决方案：</span><span class="sxs-lookup"><span data-stu-id="5f442-186">To use C# 7.1 in your project, add the following property in your project file and then reload the solution:</span></span>
 
 ```xml
 <LangVersion>latest</LangVersion>
@@ -164,7 +164,7 @@ return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNo
 <span data-ttu-id="5f442-196">有关如何将 ASP.NET Core 1.x 应用程序迁移到 ASP.NET Core 2.0 的指南，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="5f442-196">For guidance on how to migrate ASP.NET Core 1.x applications to ASP.NET Core 2.0, see the following resources:</span></span>
 
 * [<span data-ttu-id="5f442-197">从 ASP.NET Core 1.x 迁移到 ASP.NET Core 2.0</span><span class="sxs-lookup"><span data-stu-id="5f442-197">Migrate from ASP.NET Core 1.x to ASP.NET Core 2.0</span></span>](xref:migration/1x-to-2x/index)
-* [<span data-ttu-id="5f442-198">将身份验证和 :::no-loc(Identity)::: 迁移到 ASP.NET Core 2.0</span><span class="sxs-lookup"><span data-stu-id="5f442-198">Migrate Authentication and :::no-loc(Identity)::: to ASP.NET Core 2.0</span></span>](xref:migration/1x-to-2x/identity-2x)
+* [<span data-ttu-id="5f442-198">将身份验证和 Identity 迁移到 ASP.NET Core 2.0</span><span class="sxs-lookup"><span data-stu-id="5f442-198">Migrate Authentication and Identity to ASP.NET Core 2.0</span></span>](xref:migration/1x-to-2x/identity-2x)
 
 ## <a name="additional-information"></a><span data-ttu-id="5f442-199">其他信息</span><span class="sxs-lookup"><span data-stu-id="5f442-199">Additional Information</span></span>
 

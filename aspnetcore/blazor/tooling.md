@@ -1,23 +1,23 @@
 ---
-title: '用于 ASP.NET Core :::no-loc(Blazor)::: 的工具'
+title: '用于 ASP.NET Core Blazor 的工具'
 author: guardrex
-description: '了解可用于构建 :::no-loc(Blazor)::: 应用程序的工具。'
+description: '了解可用于构建 Blazor 应用程序的工具。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
 ms.openlocfilehash: 500342ac979efdee824ac0d4b5757ca9804f3b30
@@ -27,7 +27,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93054809"
 ---
-# <a name="tooling-for-aspnet-core-no-locblazor"></a><span data-ttu-id="57dbf-103">用于 ASP.NET Core :::no-loc(Blazor)::: 的工具</span><span class="sxs-lookup"><span data-stu-id="57dbf-103">Tooling for ASP.NET Core :::no-loc(Blazor):::</span></span>
+# <a name="tooling-for-aspnet-core-no-locblazor"></a><span data-ttu-id="57dbf-103">用于 ASP.NET Core Blazor 的工具</span><span class="sxs-lookup"><span data-stu-id="57dbf-103">Tooling for ASP.NET Core Blazor</span></span>
 
 <span data-ttu-id="57dbf-104">作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="57dbf-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
@@ -37,13 +37,13 @@ ms.locfileid: "93054809"
 
 1. <span data-ttu-id="57dbf-106">创建新项目。</span><span class="sxs-lookup"><span data-stu-id="57dbf-106">Create a new project.</span></span>
 
-1. <span data-ttu-id="57dbf-107">选择“:::no-loc(Blazor)::: 应用”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-107">Select **:::no-loc(Blazor)::: App**.</span></span> <span data-ttu-id="57dbf-108">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-108">Select **Next**.</span></span>
+1. <span data-ttu-id="57dbf-107">选择“Blazor 应用”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-107">Select **Blazor App**.</span></span> <span data-ttu-id="57dbf-108">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-108">Select **Next**.</span></span>
 
 1. <span data-ttu-id="57dbf-109">在“项目名称”字段提供项目名称，或接受默认项目名称。</span><span class="sxs-lookup"><span data-stu-id="57dbf-109">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="57dbf-110">确认“位置”条目正确无误或为项目提供位置。</span><span class="sxs-lookup"><span data-stu-id="57dbf-110">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="57dbf-111">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-111">Select **Create**.</span></span>
 
-1. <span data-ttu-id="57dbf-112">若要获得 :::no-loc(Blazor WebAssembly)::: 体验，请选择“:::no-loc(Blazor WebAssembly)::: 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-112">For a :::no-loc(Blazor WebAssembly)::: experience, choose the **:::no-loc(Blazor WebAssembly)::: App** template.</span></span> <span data-ttu-id="57dbf-113">若要获得 :::no-loc(Blazor Server)::: 体验，请选择“:::no-loc(Blazor Server)::: 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-113">For a :::no-loc(Blazor Server)::: experience, choose the **:::no-loc(Blazor Server)::: App** template.</span></span> <span data-ttu-id="57dbf-114">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-114">Select **Create**.</span></span>
+1. <span data-ttu-id="57dbf-112">若要获得 Blazor WebAssembly 体验，请选择“Blazor WebAssembly 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-112">For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="57dbf-113">若要获得 Blazor Server 体验，请选择“Blazor Server 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-113">For a Blazor Server experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="57dbf-114">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-114">Select **Create**.</span></span>
 
-   <span data-ttu-id="57dbf-115">有关 :::no-loc(Blazor WebAssembly)::: 和 :::no-loc(Blazor Server)::: 这两个 :::no-loc(Blazor)::: 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 </span><span class="sxs-lookup"><span data-stu-id="57dbf-115">For information on the two :::no-loc(Blazor)::: hosting models, *:::no-loc(Blazor WebAssembly):::* and *:::no-loc(Blazor Server):::* , see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="57dbf-115">有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 </span><span class="sxs-lookup"><span data-stu-id="57dbf-115">For information on the two Blazor hosting models, *Blazor WebAssembly* and *Blazor Server* , see <xref:blazor/hosting-models>.</span></span>
 
 1. <span data-ttu-id="57dbf-116">按 Ctrl+F5 运行应用<kbd></kbd><kbd></kbd>。</span><span class="sxs-lookup"><span data-stu-id="57dbf-116">Press <kbd>Ctrl</kbd>+<kbd>F5</kbd> to run the app.</span></span>
 
@@ -63,19 +63,19 @@ ms.locfileid: "93054809"
 
 1. <span data-ttu-id="57dbf-121">安装最新的 [C# for Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)。</span><span class="sxs-lookup"><span data-stu-id="57dbf-121">Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp).</span></span>
 
-1. <span data-ttu-id="57dbf-122">若要获得 :::no-loc(Blazor WebAssembly)::: 体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="57dbf-122">For a :::no-loc(Blazor WebAssembly)::: experience, execute the following command in a command shell:</span></span>
+1. <span data-ttu-id="57dbf-122">若要获得 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="57dbf-122">For a Blazor WebAssembly experience, execute the following command in a command shell:</span></span>
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
    ```
 
-   <span data-ttu-id="57dbf-123">若要获得 :::no-loc(Blazor Server)::: 体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="57dbf-123">For a :::no-loc(Blazor Server)::: experience, execute the following command in a command shell:</span></span>
+   <span data-ttu-id="57dbf-123">若要获得 Blazor Server 体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="57dbf-123">For a Blazor Server experience, execute the following command in a command shell:</span></span>
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
    ```
 
-   <span data-ttu-id="57dbf-124">有关 :::no-loc(Blazor WebAssembly)::: 和 :::no-loc(Blazor Server)::: 这两个 :::no-loc(Blazor)::: 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 </span><span class="sxs-lookup"><span data-stu-id="57dbf-124">For information on the two :::no-loc(Blazor)::: hosting models, *:::no-loc(Blazor WebAssembly):::* and *:::no-loc(Blazor Server):::* , see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="57dbf-124">有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 </span><span class="sxs-lookup"><span data-stu-id="57dbf-124">For information on the two Blazor hosting models, *Blazor WebAssembly* and *Blazor Server* , see <xref:blazor/hosting-models>.</span></span>
 
 1. <span data-ttu-id="57dbf-125">在 Visual Studio Code 中打开 `WebApplication1` 文件夹，</span><span class="sxs-lookup"><span data-stu-id="57dbf-125">Open the `WebApplication1` folder in Visual Studio Code.</span></span>
 
@@ -103,9 +103,9 @@ ms.locfileid: "93054809"
 
 1. <span data-ttu-id="57dbf-138">在边栏中，选择“Web 和控制台” > “应用”。 </span><span class="sxs-lookup"><span data-stu-id="57dbf-138">In the sidebar, select **Web and Console** > **App**.</span></span>
 
-   <span data-ttu-id="57dbf-139">若要获得 :::no-loc(Blazor WebAssembly)::: 体验，请选择“:::no-loc(Blazor WebAssembly)::: 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-139">For a :::no-loc(Blazor WebAssembly)::: experience, choose the **:::no-loc(Blazor WebAssembly)::: App** template.</span></span> <span data-ttu-id="57dbf-140">若要获得 :::no-loc(Blazor Server)::: 体验，请选择“:::no-loc(Blazor Server)::: 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-140">For a :::no-loc(Blazor Server)::: experience, choose the **:::no-loc(Blazor Server)::: App** template.</span></span> <span data-ttu-id="57dbf-141">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-141">Select **Next**.</span></span>
+   <span data-ttu-id="57dbf-139">若要获得 Blazor WebAssembly 体验，请选择“Blazor WebAssembly 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-139">For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="57dbf-140">若要获得 Blazor Server 体验，请选择“Blazor Server 应用”模板。</span><span class="sxs-lookup"><span data-stu-id="57dbf-140">For a Blazor Server experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="57dbf-141">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-141">Select **Next**.</span></span>
 
-   <span data-ttu-id="57dbf-142">有关 :::no-loc(Blazor WebAssembly)::: 和 :::no-loc(Blazor Server)::: 这两个 :::no-loc(Blazor)::: 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 </span><span class="sxs-lookup"><span data-stu-id="57dbf-142">For information on the two :::no-loc(Blazor)::: hosting models, *:::no-loc(Blazor WebAssembly):::* and *:::no-loc(Blazor Server):::* , see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="57dbf-142">有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 </span><span class="sxs-lookup"><span data-stu-id="57dbf-142">For information on the two Blazor hosting models, *Blazor WebAssembly* and *Blazor Server* , see <xref:blazor/hosting-models>.</span></span>
 
 1. <span data-ttu-id="57dbf-143">确认已将“身份验证”设置为“无身份验证”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-143">Confirm that **Authentication** is set to **No Authentication**.</span></span> <span data-ttu-id="57dbf-144">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="57dbf-144">Select **Next**.</span></span>
 

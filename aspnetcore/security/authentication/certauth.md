@@ -6,17 +6,17 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 07/16/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/authentication/certauth
 ms.openlocfilehash: 83525a4c1e87a60b57130c1bba14360c7d03f552
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -175,7 +175,7 @@ services.AddAuthentication(
                 };
 
                 context.Principal = new ClaimsPrincipal(
-                    new Claims:::no-loc(Identity):::(claims, context.Scheme.Name));
+                    new ClaimsIdentity(claims, context.Scheme.Name));
                 context.Success();
 
                 return Task.CompletedTask;
@@ -219,7 +219,7 @@ services.AddAuthentication(
                     };
 
                     context.Principal = new ClaimsPrincipal(
-                        new Claims:::no-loc(Identity):::(claims, context.Scheme.Name));
+                        new ClaimsIdentity(claims, context.Scheme.Name));
                     context.Success();
                 }                     
 
@@ -624,7 +624,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="optional-client-certificates"></a><span data-ttu-id="188e3-244">可选客户端证书</span><span class="sxs-lookup"><span data-stu-id="188e3-244">Optional client certificates</span></span>
 
-<span data-ttu-id="188e3-245">本部分为必须使用证书保护应用程序子集的应用提供信息。</span><span class="sxs-lookup"><span data-stu-id="188e3-245">This section provides information for apps that must protect a subset of the app with a certificate.</span></span> <span data-ttu-id="188e3-246">例如， :::no-loc(Razor)::: 应用中的页面或控制器可能需要客户端证书。</span><span class="sxs-lookup"><span data-stu-id="188e3-246">For example, a :::no-loc(Razor)::: Page or controller in the app might require client certificates.</span></span> <span data-ttu-id="188e3-247">这是客户端证书带来的挑战：</span><span class="sxs-lookup"><span data-stu-id="188e3-247">This presents challenges as client certificates:</span></span>
+<span data-ttu-id="188e3-245">本部分为必须使用证书保护应用程序子集的应用提供信息。</span><span class="sxs-lookup"><span data-stu-id="188e3-245">This section provides information for apps that must protect a subset of the app with a certificate.</span></span> <span data-ttu-id="188e3-246">例如， Razor 应用中的页面或控制器可能需要客户端证书。</span><span class="sxs-lookup"><span data-stu-id="188e3-246">For example, a Razor Page or controller in the app might require client certificates.</span></span> <span data-ttu-id="188e3-247">这是客户端证书带来的挑战：</span><span class="sxs-lookup"><span data-stu-id="188e3-247">This presents challenges as client certificates:</span></span>
   
 * <span data-ttu-id="188e3-248">是 TLS 功能，而不是 HTTP 功能。</span><span class="sxs-lookup"><span data-stu-id="188e3-248">Are a TLS feature, not an HTTP feature.</span></span>
 * <span data-ttu-id="188e3-249">按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。</span><span class="sxs-lookup"><span data-stu-id="188e3-249">Are negotiated per-connection and must be be negotiated at the start of the connection before any HTTP data is available.</span></span> <span data-ttu-id="188e3-250">在连接开始时，仅知道服务器名称指示 (SNI) &dagger; 是已知的。</span><span class="sxs-lookup"><span data-stu-id="188e3-250">At the start of the connection, only the Server Name Indication (SNI)&dagger; is known.</span></span> <span data-ttu-id="188e3-251">客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。</span><span class="sxs-lookup"><span data-stu-id="188e3-251">The client and server certificates are negotiated prior to the first request on a connection and requests generally aren't able to renegotiate.</span></span>

@@ -6,17 +6,17 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 06/30/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: grpc/browser
 ms.openlocfilehash: 6456707620ae1c1f4d23f3562c78d1bf05d4844f
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -29,7 +29,7 @@ ms.locfileid: "93058904"
 
 <span data-ttu-id="4b704-104">作者：[James Newton-King](https://twitter.com/jamesnk)</span><span class="sxs-lookup"><span data-stu-id="4b704-104">By [James Newton-King](https://twitter.com/jamesnk)</span></span>
 
- <span data-ttu-id="4b704-105">了解如何配置现有 ASP.NET Core gRPC 服务，以使其可以从使用 [gRPC-Web](https://github.com/grpc/grpc/blob/2a388793792cc80944334535b7c729494d209a7e/doc/PROTOCOL-WEB.md) 协议的浏览器应用中进行调用。</span><span class="sxs-lookup"><span data-stu-id="4b704-105">Learn how to configure an existing ASP.NET Core gRPC service to be callable from browser apps, using the [gRPC-Web](https://github.com/grpc/grpc/blob/2a388793792cc80944334535b7c729494d209a7e/doc/PROTOCOL-WEB.md) protocol.</span></span> <span data-ttu-id="4b704-106">gRPC-Web 允许浏览器 JavaScript 和 :::no-loc(Blazor)::: 应用调用 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="4b704-106">gRPC-Web allows browser JavaScript and :::no-loc(Blazor)::: apps to call gRPC services.</span></span> <span data-ttu-id="4b704-107">无法从基于浏览器的应用中调用 HTTP/2 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="4b704-107">It's not possible to call an HTTP/2 gRPC service from a browser-based app.</span></span> <span data-ttu-id="4b704-108">可将托管于 ASP.NET Core 中的 gRPC 服务配置为随 HTTP/2 gRPC 一起支持 gRPC-Web。</span><span class="sxs-lookup"><span data-stu-id="4b704-108">gRPC services hosted in ASP.NET Core can be configured to support gRPC-Web alongside HTTP/2 gRPC.</span></span>
+ <span data-ttu-id="4b704-105">了解如何配置现有 ASP.NET Core gRPC 服务，以使其可以从使用 [gRPC-Web](https://github.com/grpc/grpc/blob/2a388793792cc80944334535b7c729494d209a7e/doc/PROTOCOL-WEB.md) 协议的浏览器应用中进行调用。</span><span class="sxs-lookup"><span data-stu-id="4b704-105">Learn how to configure an existing ASP.NET Core gRPC service to be callable from browser apps, using the [gRPC-Web](https://github.com/grpc/grpc/blob/2a388793792cc80944334535b7c729494d209a7e/doc/PROTOCOL-WEB.md) protocol.</span></span> <span data-ttu-id="4b704-106">gRPC-Web 允许浏览器 JavaScript 和 Blazor 应用调用 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="4b704-106">gRPC-Web allows browser JavaScript and Blazor apps to call gRPC services.</span></span> <span data-ttu-id="4b704-107">无法从基于浏览器的应用中调用 HTTP/2 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="4b704-107">It's not possible to call an HTTP/2 gRPC service from a browser-based app.</span></span> <span data-ttu-id="4b704-108">可将托管于 ASP.NET Core 中的 gRPC 服务配置为随 HTTP/2 gRPC 一起支持 gRPC-Web。</span><span class="sxs-lookup"><span data-stu-id="4b704-108">gRPC services hosted in ASP.NET Core can be configured to support gRPC-Web alongside HTTP/2 gRPC.</span></span>
 
 
 <span data-ttu-id="4b704-109">有关将 gRPC 服务添加到现有 ASP.NET Core 应用的说明，请参阅[将 gRPC 服务添加到 ASP.NET Core 应用](xref:grpc/aspnetcore#add-grpc-services-to-an-aspnet-core-app)。</span><span class="sxs-lookup"><span data-stu-id="4b704-109">For instructions on adding a gRPC service to an existing ASP.NET Core app, see [Add gRPC services to an ASP.NET Core app](xref:grpc/aspnetcore#add-grpc-services-to-an-aspnet-core-app).</span></span>
@@ -107,7 +107,7 @@ ms.locfileid: "93058904"
 
 ### <a name="configure-grpc-web-with-the-net-grpc-client"></a><span data-ttu-id="4b704-161">使用 .NET gRPC 客户端配置 gRPC-Web</span><span class="sxs-lookup"><span data-stu-id="4b704-161">Configure gRPC-Web with the .NET gRPC client</span></span>
 
-<span data-ttu-id="4b704-162">可以将 .NET gRPC 客户端配置为发出 gRPC-Web 调用。</span><span class="sxs-lookup"><span data-stu-id="4b704-162">The .NET gRPC client can be configured to make gRPC-Web calls.</span></span> <span data-ttu-id="4b704-163">这对于托管在浏览器中且具有相同 JavaScript 代码 HTTP 限制的 [:::no-loc(Blazor WebAssembly):::](xref:blazor/index#blazor-webassembly) 应用来说非常有用。</span><span class="sxs-lookup"><span data-stu-id="4b704-163">This is useful for [:::no-loc(Blazor WebAssembly):::](xref:blazor/index#blazor-webassembly) apps, which are hosted in the browser and have the same HTTP limitations of JavaScript code.</span></span> <span data-ttu-id="4b704-164">使用 .NET 客户端调用 gRPC-Web [与 HTTP/2 gRPC 相同](xref:grpc/client)。</span><span class="sxs-lookup"><span data-stu-id="4b704-164">Calling gRPC-Web with a .NET client is [the same as HTTP/2 gRPC](xref:grpc/client).</span></span> <span data-ttu-id="4b704-165">唯一的修改是创建通道的方式。</span><span class="sxs-lookup"><span data-stu-id="4b704-165">The only modification is how the channel is created.</span></span>
+<span data-ttu-id="4b704-162">可以将 .NET gRPC 客户端配置为发出 gRPC-Web 调用。</span><span class="sxs-lookup"><span data-stu-id="4b704-162">The .NET gRPC client can be configured to make gRPC-Web calls.</span></span> <span data-ttu-id="4b704-163">这对于托管在浏览器中且具有相同 JavaScript 代码 HTTP 限制的 [Blazor WebAssembly](xref:blazor/index#blazor-webassembly) 应用来说非常有用。</span><span class="sxs-lookup"><span data-stu-id="4b704-163">This is useful for [Blazor WebAssembly](xref:blazor/index#blazor-webassembly) apps, which are hosted in the browser and have the same HTTP limitations of JavaScript code.</span></span> <span data-ttu-id="4b704-164">使用 .NET 客户端调用 gRPC-Web [与 HTTP/2 gRPC 相同](xref:grpc/client)。</span><span class="sxs-lookup"><span data-stu-id="4b704-164">Calling gRPC-Web with a .NET client is [the same as HTTP/2 gRPC](xref:grpc/client).</span></span> <span data-ttu-id="4b704-165">唯一的修改是创建通道的方式。</span><span class="sxs-lookup"><span data-stu-id="4b704-165">The only modification is how the channel is created.</span></span>
 
 <span data-ttu-id="4b704-166">若要使用 gRPC-Web：</span><span class="sxs-lookup"><span data-stu-id="4b704-166">To use gRPC-Web:</span></span>
 
@@ -131,7 +131,7 @@ ms.locfileid: "93058904"
 * <span data-ttu-id="4b704-180">**HttpVersion** ：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [HttpRequestMessage.Version](xref:System.Net.Http.HttpRequestMessage.Version)。</span><span class="sxs-lookup"><span data-stu-id="4b704-180">**HttpVersion** : HTTP protocol `Version` used to set [HttpRequestMessage.Version](xref:System.Net.Http.HttpRequestMessage.Version) on the underlying gRPC HTTP request.</span></span> <span data-ttu-id="4b704-181">gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。</span><span class="sxs-lookup"><span data-stu-id="4b704-181">gRPC-Web doesn't require a specific version and doesn't override the default unless specified.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="4b704-182">生成的 gRPC 客户端具有用于调用一元方法的同步和异步方法。</span><span class="sxs-lookup"><span data-stu-id="4b704-182">Generated gRPC clients have sync and async methods for calling unary methods.</span></span> <span data-ttu-id="4b704-183">例如，`SayHello` 是同步的，而 `SayHelloAsync` 是异步的。</span><span class="sxs-lookup"><span data-stu-id="4b704-183">For example, `SayHello` is sync and `SayHelloAsync` is async.</span></span> <span data-ttu-id="4b704-184">在 :::no-loc(Blazor WebAssembly)::: 应用中调用同步方法将导致应用无响应。</span><span class="sxs-lookup"><span data-stu-id="4b704-184">Calling a sync method in a :::no-loc(Blazor WebAssembly)::: app will cause the app to become unresponsive.</span></span> <span data-ttu-id="4b704-185">必须始终在 :::no-loc(Blazor WebAssembly)::: 中使用异步方法。</span><span class="sxs-lookup"><span data-stu-id="4b704-185">Async methods must always be used in :::no-loc(Blazor WebAssembly):::.</span></span>
+> <span data-ttu-id="4b704-182">生成的 gRPC 客户端具有用于调用一元方法的同步和异步方法。</span><span class="sxs-lookup"><span data-stu-id="4b704-182">Generated gRPC clients have sync and async methods for calling unary methods.</span></span> <span data-ttu-id="4b704-183">例如，`SayHello` 是同步的，而 `SayHelloAsync` 是异步的。</span><span class="sxs-lookup"><span data-stu-id="4b704-183">For example, `SayHello` is sync and `SayHelloAsync` is async.</span></span> <span data-ttu-id="4b704-184">在 Blazor WebAssembly 应用中调用同步方法将导致应用无响应。</span><span class="sxs-lookup"><span data-stu-id="4b704-184">Calling a sync method in a Blazor WebAssembly app will cause the app to become unresponsive.</span></span> <span data-ttu-id="4b704-185">必须始终在 Blazor WebAssembly 中使用异步方法。</span><span class="sxs-lookup"><span data-stu-id="4b704-185">Async methods must always be used in Blazor WebAssembly.</span></span>
 
 ### <a name="use-grpc-client-factory-with-grpc-web"></a><span data-ttu-id="4b704-186">将 gRPC-Web 与 gRPC 客户端工厂一起使用</span><span class="sxs-lookup"><span data-stu-id="4b704-186">Use gRPC client factory with gRPC-Web</span></span>
 
@@ -142,7 +142,7 @@ ms.locfileid: "93058904"
 * <span data-ttu-id="4b704-189">将包引用添加到以下包的项目文件中：</span><span class="sxs-lookup"><span data-stu-id="4b704-189">Add package references to the project file for the following packages:</span></span>
   * [<span data-ttu-id="4b704-190">Grpc.Net.Client.Web</span><span class="sxs-lookup"><span data-stu-id="4b704-190">Grpc.Net.Client.Web</span></span>](https://www.nuget.org/packages/Grpc.Net.Client.Web)
   * [<span data-ttu-id="4b704-191">Grpc.Net.ClientFactory</span><span class="sxs-lookup"><span data-stu-id="4b704-191">Grpc.Net.ClientFactory</span></span>](https://www.nuget.org/packages/Grpc.Net.ClientFactory)
-* <span data-ttu-id="4b704-192">使用泛型 `AddGrpcClient` 扩展方法，通过依赖项注入 (DI) 注册 gRPC 客户端。</span><span class="sxs-lookup"><span data-stu-id="4b704-192">Register a gRPC client with dependency injection (DI) using the generic `AddGrpcClient` extension method.</span></span> <span data-ttu-id="4b704-193">在 :::no-loc(Blazor WebAssembly)::: 应用中，服务在 `Program.cs` 中通过 DI 注册。</span><span class="sxs-lookup"><span data-stu-id="4b704-193">In a :::no-loc(Blazor WebAssembly)::: app, services are registered with DI in `Program.cs`.</span></span>
+* <span data-ttu-id="4b704-192">使用泛型 `AddGrpcClient` 扩展方法，通过依赖项注入 (DI) 注册 gRPC 客户端。</span><span class="sxs-lookup"><span data-stu-id="4b704-192">Register a gRPC client with dependency injection (DI) using the generic `AddGrpcClient` extension method.</span></span> <span data-ttu-id="4b704-193">在 Blazor WebAssembly 应用中，服务在 `Program.cs` 中通过 DI 注册。</span><span class="sxs-lookup"><span data-stu-id="4b704-193">In a Blazor WebAssembly app, services are registered with DI in `Program.cs`.</span></span>
 * <span data-ttu-id="4b704-194">使用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler%2A> 扩展方法配置 `GrpcWebHandler`。</span><span class="sxs-lookup"><span data-stu-id="4b704-194">Configure `GrpcWebHandler` using the <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler%2A> extension method.</span></span>
 
 ```csharp

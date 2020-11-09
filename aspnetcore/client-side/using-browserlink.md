@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 01/09/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: client-side/using-browserlink
 ms.openlocfilehash: 80f05acab55af973faf08b5db79ea4cbaf896b14
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -35,7 +35,7 @@ ms.locfileid: "93054484"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="cd080-109">将 [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) 包添加到项目。</span><span class="sxs-lookup"><span data-stu-id="cd080-109">Add the [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) package to your project.</span></span> <span data-ttu-id="cd080-110">对于 ASP.NET Core :::no-loc(Razor)::: Pages 或 MVC 项目，还需按照 <xref:mvc/views/view-compilation> 中所述的步骤，启用 :::no-loc(Razor)::: (.cshtml) 文件的运行时编译  。</span><span class="sxs-lookup"><span data-stu-id="cd080-110">For ASP.NET Core :::no-loc(Razor)::: Pages or MVC projects, also enable runtime compilation of :::no-loc(Razor)::: ( *.cshtml* ) files as described in <xref:mvc/views/view-compilation>.</span></span> <span data-ttu-id="cd080-111">仅当已启用运行时编译时，才会应用 :::no-loc(Razor)::: 语法更改。</span><span class="sxs-lookup"><span data-stu-id="cd080-111">:::no-loc(Razor)::: syntax changes are applied only when runtime compilation has been enabled.</span></span>
+<span data-ttu-id="cd080-109">将 [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) 包添加到项目。</span><span class="sxs-lookup"><span data-stu-id="cd080-109">Add the [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) package to your project.</span></span> <span data-ttu-id="cd080-110">对于 ASP.NET Core Razor Pages 或 MVC 项目，还需按照 <xref:mvc/views/view-compilation> 中所述的步骤，启用 Razor (.cshtml) 文件的运行时编译  。</span><span class="sxs-lookup"><span data-stu-id="cd080-110">For ASP.NET Core Razor Pages or MVC projects, also enable runtime compilation of Razor ( *.cshtml* ) files as described in <xref:mvc/views/view-compilation>.</span></span> <span data-ttu-id="cd080-111">仅当已启用运行时编译时，才会应用 Razor 语法更改。</span><span class="sxs-lookup"><span data-stu-id="cd080-111">Razor syntax changes are applied only when runtime compilation has been enabled.</span></span>
 
 ::: moniker-end
 
@@ -140,7 +140,7 @@ if (env.IsDevelopment())
 
 ## <a name="how-it-works"></a><span data-ttu-id="cd080-157">工作原理</span><span class="sxs-lookup"><span data-stu-id="cd080-157">How it works</span></span>
 
-<span data-ttu-id="cd080-158">浏览器链接使用 [:::no-loc(SignalR):::](xref:signalr/introduction) 在 Visual Studio 与浏览器之间创建信道。</span><span class="sxs-lookup"><span data-stu-id="cd080-158">Browser Link uses [:::no-loc(SignalR):::](xref:signalr/introduction) to create a communication channel between Visual Studio and the browser.</span></span> <span data-ttu-id="cd080-159">启用浏览器链接后，Visual Studio 会充当 :::no-loc(SignalR)::: 服务器，多个客户端（浏览器）可以连接到它。</span><span class="sxs-lookup"><span data-stu-id="cd080-159">When Browser Link is enabled, Visual Studio acts as a :::no-loc(SignalR)::: server that multiple clients (browsers) can connect to.</span></span> <span data-ttu-id="cd080-160">浏览器链接还会在 ASP.NET Core 请求管道中注册一个中间件组件。</span><span class="sxs-lookup"><span data-stu-id="cd080-160">Browser Link also registers a middleware component in the ASP.NET Core request pipeline.</span></span> <span data-ttu-id="cd080-161">此组件从服务器将特殊的 `<script>` 引用注入到每个页面请求中。</span><span class="sxs-lookup"><span data-stu-id="cd080-161">This component injects special `<script>` references into every page request from the server.</span></span> <span data-ttu-id="cd080-162">可以通过在浏览器中选择“查看源文件”  并滚动到 `<body>` 标记内容末尾来查看脚本引用：</span><span class="sxs-lookup"><span data-stu-id="cd080-162">You can see the script references by selecting **View source** in the browser and scrolling to the end of the `<body>` tag content:</span></span>
+<span data-ttu-id="cd080-158">浏览器链接使用 [SignalR](xref:signalr/introduction) 在 Visual Studio 与浏览器之间创建信道。</span><span class="sxs-lookup"><span data-stu-id="cd080-158">Browser Link uses [SignalR](xref:signalr/introduction) to create a communication channel between Visual Studio and the browser.</span></span> <span data-ttu-id="cd080-159">启用浏览器链接后，Visual Studio 会充当 SignalR 服务器，多个客户端（浏览器）可以连接到它。</span><span class="sxs-lookup"><span data-stu-id="cd080-159">When Browser Link is enabled, Visual Studio acts as a SignalR server that multiple clients (browsers) can connect to.</span></span> <span data-ttu-id="cd080-160">浏览器链接还会在 ASP.NET Core 请求管道中注册一个中间件组件。</span><span class="sxs-lookup"><span data-stu-id="cd080-160">Browser Link also registers a middleware component in the ASP.NET Core request pipeline.</span></span> <span data-ttu-id="cd080-161">此组件从服务器将特殊的 `<script>` 引用注入到每个页面请求中。</span><span class="sxs-lookup"><span data-stu-id="cd080-161">This component injects special `<script>` references into every page request from the server.</span></span> <span data-ttu-id="cd080-162">可以通过在浏览器中选择“查看源文件”  并滚动到 `<body>` 标记内容末尾来查看脚本引用：</span><span class="sxs-lookup"><span data-stu-id="cd080-162">You can see the script references by selecting **View source** in the browser and scrolling to the end of the `<body>` tag content:</span></span>
 
 ```html
     <!-- Visual Studio Browser Link -->
@@ -154,4 +154,4 @@ if (env.IsDevelopment())
 
 <span data-ttu-id="cd080-163">源文件不会进行修改。</span><span class="sxs-lookup"><span data-stu-id="cd080-163">Your source files aren't modified.</span></span> <span data-ttu-id="cd080-164">该中间件组件会动态注入脚本引用。</span><span class="sxs-lookup"><span data-stu-id="cd080-164">The middleware component injects the script references dynamically.</span></span>
 
-<span data-ttu-id="cd080-165">由于浏览器端代码都是 JavaScript，因此它适用于 :::no-loc(SignalR)::: 支持的所有浏览器，而无需浏览器插件。</span><span class="sxs-lookup"><span data-stu-id="cd080-165">Because the browser-side code is all JavaScript, it works on all browsers that :::no-loc(SignalR)::: supports without requiring a browser plug-in.</span></span>
+<span data-ttu-id="cd080-165">由于浏览器端代码都是 JavaScript，因此它适用于 SignalR 支持的所有浏览器，而无需浏览器插件。</span><span class="sxs-lookup"><span data-stu-id="cd080-165">Because the browser-side code is all JavaScript, it works on all browsers that SignalR supports without requiring a browser plug-in.</span></span>

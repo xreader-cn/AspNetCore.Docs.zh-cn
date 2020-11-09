@@ -1,23 +1,23 @@
 ---
-title: '使用中的 MessagePack Hub 协议 :::no-loc(SignalR)::: 进行 ASP.NET Core'
+title: '使用中的 MessagePack Hub 协议 SignalR 进行 ASP.NET Core'
 author: bradygaster
-description: '将 MessagePack Hub 协议添加到 ASP.NET Core :::no-loc(SignalR)::: 。'
+description: '将 MessagePack Hub 协议添加到 ASP.NET Core SignalR 。'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 09/24/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: signalr/messagepackhubprotocol
 ms.openlocfilehash: e7d19a42e48048d2be4b87d6b0ac1ba6b2596ff1
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,7 +26,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93058163"
 ---
-# <a name="use-messagepack-hub-protocol-in-no-locsignalr-for-aspnet-core"></a><span data-ttu-id="2ce78-103">使用中的 MessagePack Hub 协议 :::no-loc(SignalR)::: 进行 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="2ce78-103">Use MessagePack Hub Protocol in :::no-loc(SignalR)::: for ASP.NET Core</span></span>
+# <a name="use-messagepack-hub-protocol-in-no-locsignalr-for-aspnet-core"></a><span data-ttu-id="2ce78-103">使用中的 MessagePack Hub 协议 SignalR 进行 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="2ce78-103">Use MessagePack Hub Protocol in SignalR for ASP.NET Core</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -34,24 +34,24 @@ ms.locfileid: "93058163"
 
 ## <a name="what-is-messagepack"></a><span data-ttu-id="2ce78-105">什么是 MessagePack？</span><span class="sxs-lookup"><span data-stu-id="2ce78-105">What is MessagePack?</span></span>
 
-<span data-ttu-id="2ce78-106">[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-106">[MessagePack](https://msgpack.org/index.html) is a fast and compact binary serialization format.</span></span> <span data-ttu-id="2ce78-107">当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。</span><span class="sxs-lookup"><span data-stu-id="2ce78-107">It's useful when performance and bandwidth are a concern because it creates smaller messages compared to [JSON](https://www.json.org/).</span></span> <span data-ttu-id="2ce78-108">在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。</span><span class="sxs-lookup"><span data-stu-id="2ce78-108">The binary messages are unreadable when looking at network traces and logs unless the bytes are passed through a MessagePack parser.</span></span> <span data-ttu-id="2ce78-109">:::no-loc(SignalR)::: 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。</span><span class="sxs-lookup"><span data-stu-id="2ce78-109">:::no-loc(SignalR)::: has built-in support for the MessagePack format and provides APIs for the client and server to use.</span></span>
+<span data-ttu-id="2ce78-106">[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-106">[MessagePack](https://msgpack.org/index.html) is a fast and compact binary serialization format.</span></span> <span data-ttu-id="2ce78-107">当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。</span><span class="sxs-lookup"><span data-stu-id="2ce78-107">It's useful when performance and bandwidth are a concern because it creates smaller messages compared to [JSON](https://www.json.org/).</span></span> <span data-ttu-id="2ce78-108">在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。</span><span class="sxs-lookup"><span data-stu-id="2ce78-108">The binary messages are unreadable when looking at network traces and logs unless the bytes are passed through a MessagePack parser.</span></span> <span data-ttu-id="2ce78-109">SignalR 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。</span><span class="sxs-lookup"><span data-stu-id="2ce78-109">SignalR has built-in support for the MessagePack format and provides APIs for the client and server to use.</span></span>
 
 ## <a name="configure-messagepack-on-the-server"></a><span data-ttu-id="2ce78-110">在服务器上配置 MessagePack</span><span class="sxs-lookup"><span data-stu-id="2ce78-110">Configure MessagePack on the server</span></span>
 
-<span data-ttu-id="2ce78-111">若要在服务器上启用 MessagePack 集线器协议，请 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` 在应用中安装包。</span><span class="sxs-lookup"><span data-stu-id="2ce78-111">To enable the MessagePack Hub Protocol on the server, install the `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` package in your app.</span></span> <span data-ttu-id="2ce78-112">在 `Startup.ConfigureServices` 方法中，将添加 `AddMessagePackProtocol` 到在 `Add:::no-loc(SignalR):::` 服务器上启用 MessagePack 支持的调用。</span><span class="sxs-lookup"><span data-stu-id="2ce78-112">In the `Startup.ConfigureServices` method, add `AddMessagePackProtocol` to the `Add:::no-loc(SignalR):::` call to enable MessagePack support on the server.</span></span>
+<span data-ttu-id="2ce78-111">若要在服务器上启用 MessagePack 集线器协议，请 `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` 在应用中安装包。</span><span class="sxs-lookup"><span data-stu-id="2ce78-111">To enable the MessagePack Hub Protocol on the server, install the `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` package in your app.</span></span> <span data-ttu-id="2ce78-112">在 `Startup.ConfigureServices` 方法中，将添加 `AddMessagePackProtocol` 到在 `AddSignalR` 服务器上启用 MessagePack 支持的调用。</span><span class="sxs-lookup"><span data-stu-id="2ce78-112">In the `Startup.ConfigureServices` method, add `AddMessagePackProtocol` to the `AddSignalR` call to enable MessagePack support on the server.</span></span>
 
 > [!NOTE]
 > <span data-ttu-id="2ce78-113">默认情况下启用 JSON。</span><span class="sxs-lookup"><span data-stu-id="2ce78-113">JSON is enabled by default.</span></span> <span data-ttu-id="2ce78-114">添加 MessagePack 可支持 JSON 和 MessagePack 客户端。</span><span class="sxs-lookup"><span data-stu-id="2ce78-114">Adding MessagePack enables support for both JSON and MessagePack clients.</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
 <span data-ttu-id="2ce78-115">若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。</span><span class="sxs-lookup"><span data-stu-id="2ce78-115">To customize how MessagePack will format your data, `AddMessagePackProtocol` takes a delegate for configuring options.</span></span> <span data-ttu-id="2ce78-116">在该委托中， `SerializerOptions` 属性可用于配置 MessagePack 序列化选项。</span><span class="sxs-lookup"><span data-stu-id="2ce78-116">In that delegate, the `SerializerOptions` property can be used to configure MessagePack serialization options.</span></span> <span data-ttu-id="2ce78-117">有关解析程序工作方式的详细信息，请访问 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。</span><span class="sxs-lookup"><span data-stu-id="2ce78-117">For more information on how the resolvers work, visit the MessagePack library at [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp).</span></span> <span data-ttu-id="2ce78-118">属性可用于要序列化的对象，以定义应如何处理它们。</span><span class="sxs-lookup"><span data-stu-id="2ce78-118">Attributes can be used on the objects you want to serialize to define how they should be handled.</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol(options =>
     {
         options.SerializerOptions = MessagePackSerializerOptions.Standard
@@ -70,10 +70,10 @@ services.Add:::no-loc(SignalR):::()
 
 ### <a name="net-client"></a><span data-ttu-id="2ce78-125">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="2ce78-125">.NET client</span></span>
 
-<span data-ttu-id="2ce78-126">若要在 .NET 客户端中启用 MessagePack，请 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` 在上安装包并调用 `AddMessagePackProtocol` `HubConnectionBuilder` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-126">To enable MessagePack in the .NET Client, install the `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` package and call `AddMessagePackProtocol` on `HubConnectionBuilder`.</span></span>
+<span data-ttu-id="2ce78-126">若要在 .NET 客户端中启用 MessagePack，请 `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` 在上安装包并调用 `AddMessagePackProtocol` `HubConnectionBuilder` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-126">To enable MessagePack in the .NET Client, install the `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` package and call `AddMessagePackProtocol` on `HubConnectionBuilder`.</span></span>
 
 ```csharp
-using Microsoft.AspNetCore.:::no-loc(SignalR):::.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 var hubConnection = new HubConnectionBuilder()
@@ -150,7 +150,7 @@ connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a><span data-ttu-id="2ce78-156">JavaScript 中的 MessagePack 不支持 MinValue</span><span class="sxs-lookup"><span data-stu-id="2ce78-156">DateTime.MinValue is not supported by MessagePack in JavaScript</span></span>
 
-<span data-ttu-id="2ce78-157">JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 :::no-loc(SignalR)::: 不支持 `timestamp96` MessagePack 中的类型。</span><span class="sxs-lookup"><span data-stu-id="2ce78-157">The [msgpack5](https://github.com/mcollina/msgpack5) library used by the :::no-loc(SignalR)::: JavaScript client doesn't support the `timestamp96` type in MessagePack.</span></span> <span data-ttu-id="2ce78-158">此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-158">This type is used to encode very large date values (either very early in the past or very far in the future).</span></span> <span data-ttu-id="2ce78-159">的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-159">The value of `DateTime.MinValue` is `January 1, 0001`, which must be encoded in a `timestamp96` value.</span></span> <span data-ttu-id="2ce78-160">因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。</span><span class="sxs-lookup"><span data-stu-id="2ce78-160">Because of this, sending `DateTime.MinValue` to a JavaScript client isn't supported.</span></span> <span data-ttu-id="2ce78-161">当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：</span><span class="sxs-lookup"><span data-stu-id="2ce78-161">When `DateTime.MinValue` is received by the JavaScript client, the following error is thrown:</span></span>
+<span data-ttu-id="2ce78-157">JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 SignalR 不支持 `timestamp96` MessagePack 中的类型。</span><span class="sxs-lookup"><span data-stu-id="2ce78-157">The [msgpack5](https://github.com/mcollina/msgpack5) library used by the SignalR JavaScript client doesn't support the `timestamp96` type in MessagePack.</span></span> <span data-ttu-id="2ce78-158">此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-158">This type is used to encode very large date values (either very early in the past or very far in the future).</span></span> <span data-ttu-id="2ce78-159">的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-159">The value of `DateTime.MinValue` is `January 1, 0001`, which must be encoded in a `timestamp96` value.</span></span> <span data-ttu-id="2ce78-160">因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。</span><span class="sxs-lookup"><span data-stu-id="2ce78-160">Because of this, sending `DateTime.MinValue` to a JavaScript client isn't supported.</span></span> <span data-ttu-id="2ce78-161">当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：</span><span class="sxs-lookup"><span data-stu-id="2ce78-161">When `DateTime.MinValue` is received by the JavaScript client, the following error is thrown:</span></span>
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
@@ -158,14 +158,14 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 
 <span data-ttu-id="2ce78-162">通常， `DateTime.MinValue` 用于对 "缺失" 或值进行编码 `null` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-162">Usually, `DateTime.MinValue` is used to encode a "missing" or `null` value.</span></span> <span data-ttu-id="2ce78-163">如果需要在 MessagePack 中对该值进行编码，请使用 () 的可以为 null 的 `DateTime` 值， `DateTime?` 或对 `bool` 指示日期是否存在的单独值进行编码。</span><span class="sxs-lookup"><span data-stu-id="2ce78-163">If you need to encode that value in MessagePack, use a nullable `DateTime` value (`DateTime?`) or encode a separate `bool` value indicating if the date is present.</span></span>
 
-<span data-ttu-id="2ce78-164">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2228](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2228)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-164">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2228](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2228).</span></span>
+<span data-ttu-id="2ce78-164">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-164">For more information on this limitation, see GitHub issue [aspnet/SignalR#2228](https://github.com/aspnet/SignalR/issues/2228).</span></span>
 
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a><span data-ttu-id="2ce78-165">"提前" 编译环境中的 MessagePack 支持</span><span class="sxs-lookup"><span data-stu-id="2ce78-165">MessagePack support in "ahead-of-time" compilation environment</span></span>
 
 <span data-ttu-id="2ce78-166">.NET 客户端和服务器使用的 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90) 库使用代码生成来优化序列化。</span><span class="sxs-lookup"><span data-stu-id="2ce78-166">The [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90) library used by the .NET client and server uses code generation to optimize serialization.</span></span> <span data-ttu-id="2ce78-167">因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。</span><span class="sxs-lookup"><span data-stu-id="2ce78-167">As a result, it isn't supported by default on environments that use "ahead-of-time" compilation (such as Xamarin iOS or Unity).</span></span> <span data-ttu-id="2ce78-168">可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。</span><span class="sxs-lookup"><span data-stu-id="2ce78-168">It's possible to use MessagePack in these environments by "pre-generating" the serializer/deserializer code.</span></span> <span data-ttu-id="2ce78-169">有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90#aot-code-generation-to-support-unityxamarin)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-169">For more information, see [the MessagePack-CSharp documentation](https://github.com/neuecc/MessagePack-CSharp/tree/v2.1.90#aot-code-generation-to-support-unityxamarin).</span></span> <span data-ttu-id="2ce78-170">预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：</span><span class="sxs-lookup"><span data-stu-id="2ce78-170">Once you have pre-generated the serializers, you can register them using the configuration delegate passed to `AddMessagePackProtocol`:</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol(options =>
     {
         StaticCompositeResolver.Instance.Register(
@@ -186,7 +186,7 @@ services.Add:::no-loc(SignalR):::()
 InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
 ```
 
-<span data-ttu-id="2ce78-175">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2937](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2937)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-175">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2937](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2937).</span></span>
+<span data-ttu-id="2ce78-175">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-175">For more information on this limitation, see GitHub issue [aspnet/SignalR#2937](https://github.com/aspnet/SignalR/issues/2937).</span></span>
 
 ## <a name="related-resources"></a><span data-ttu-id="2ce78-176">相关资源</span><span class="sxs-lookup"><span data-stu-id="2ce78-176">Related resources</span></span>
 
@@ -202,24 +202,24 @@ InvalidDataException: Error binding arguments. Make sure that the types of the p
 
 ## <a name="what-is-messagepack"></a><span data-ttu-id="2ce78-181">什么是 MessagePack？</span><span class="sxs-lookup"><span data-stu-id="2ce78-181">What is MessagePack?</span></span>
 
-<span data-ttu-id="2ce78-182">[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-182">[MessagePack](https://msgpack.org/index.html) is a fast and compact binary serialization format.</span></span> <span data-ttu-id="2ce78-183">当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。</span><span class="sxs-lookup"><span data-stu-id="2ce78-183">It's useful when performance and bandwidth are a concern because it creates smaller messages compared to [JSON](https://www.json.org/).</span></span> <span data-ttu-id="2ce78-184">在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。</span><span class="sxs-lookup"><span data-stu-id="2ce78-184">The binary messages are unreadable when looking at network traces and logs unless the bytes are passed through a MessagePack parser.</span></span> <span data-ttu-id="2ce78-185">:::no-loc(SignalR)::: 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。</span><span class="sxs-lookup"><span data-stu-id="2ce78-185">:::no-loc(SignalR)::: has built-in support for the MessagePack format, and provides APIs for the client and server to use.</span></span>
+<span data-ttu-id="2ce78-182">[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-182">[MessagePack](https://msgpack.org/index.html) is a fast and compact binary serialization format.</span></span> <span data-ttu-id="2ce78-183">当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。</span><span class="sxs-lookup"><span data-stu-id="2ce78-183">It's useful when performance and bandwidth are a concern because it creates smaller messages compared to [JSON](https://www.json.org/).</span></span> <span data-ttu-id="2ce78-184">在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。</span><span class="sxs-lookup"><span data-stu-id="2ce78-184">The binary messages are unreadable when looking at network traces and logs unless the bytes are passed through a MessagePack parser.</span></span> <span data-ttu-id="2ce78-185">SignalR 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。</span><span class="sxs-lookup"><span data-stu-id="2ce78-185">SignalR has built-in support for the MessagePack format, and provides APIs for the client and server to use.</span></span>
 
 ## <a name="configure-messagepack-on-the-server"></a><span data-ttu-id="2ce78-186">在服务器上配置 MessagePack</span><span class="sxs-lookup"><span data-stu-id="2ce78-186">Configure MessagePack on the server</span></span>
 
-<span data-ttu-id="2ce78-187">若要在服务器上启用 MessagePack 集线器协议，请 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` 在应用中安装包。</span><span class="sxs-lookup"><span data-stu-id="2ce78-187">To enable the MessagePack Hub Protocol on the server, install the `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` package in your app.</span></span> <span data-ttu-id="2ce78-188">在 `Startup.ConfigureServices` 方法中，将添加 `AddMessagePackProtocol` 到在 `Add:::no-loc(SignalR):::` 服务器上启用 MessagePack 支持的调用。</span><span class="sxs-lookup"><span data-stu-id="2ce78-188">In the `Startup.ConfigureServices` method, add `AddMessagePackProtocol` to the `Add:::no-loc(SignalR):::` call to enable MessagePack support on the server.</span></span>
+<span data-ttu-id="2ce78-187">若要在服务器上启用 MessagePack 集线器协议，请 `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` 在应用中安装包。</span><span class="sxs-lookup"><span data-stu-id="2ce78-187">To enable the MessagePack Hub Protocol on the server, install the `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` package in your app.</span></span> <span data-ttu-id="2ce78-188">在 `Startup.ConfigureServices` 方法中，将添加 `AddMessagePackProtocol` 到在 `AddSignalR` 服务器上启用 MessagePack 支持的调用。</span><span class="sxs-lookup"><span data-stu-id="2ce78-188">In the `Startup.ConfigureServices` method, add `AddMessagePackProtocol` to the `AddSignalR` call to enable MessagePack support on the server.</span></span>
 
 > [!NOTE]
 > <span data-ttu-id="2ce78-189">默认情况下启用 JSON。</span><span class="sxs-lookup"><span data-stu-id="2ce78-189">JSON is enabled by default.</span></span> <span data-ttu-id="2ce78-190">添加 MessagePack 可支持 JSON 和 MessagePack 客户端。</span><span class="sxs-lookup"><span data-stu-id="2ce78-190">Adding MessagePack enables support for both JSON and MessagePack clients.</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
 <span data-ttu-id="2ce78-191">若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。</span><span class="sxs-lookup"><span data-stu-id="2ce78-191">To customize how MessagePack will format your data, `AddMessagePackProtocol` takes a delegate for configuring options.</span></span> <span data-ttu-id="2ce78-192">在该委托中， `FormatterResolvers` 属性可用于配置 MessagePack 序列化选项。</span><span class="sxs-lookup"><span data-stu-id="2ce78-192">In that delegate, the `FormatterResolvers` property can be used to configure MessagePack serialization options.</span></span> <span data-ttu-id="2ce78-193">有关解析程序工作方式的详细信息，请访问 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。</span><span class="sxs-lookup"><span data-stu-id="2ce78-193">For more information on how the resolvers work, visit the MessagePack library at [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp).</span></span> <span data-ttu-id="2ce78-194">属性可用于要序列化的对象，以定义应如何处理它们。</span><span class="sxs-lookup"><span data-stu-id="2ce78-194">Attributes can be used on the objects you want to serialize to define how they should be handled.</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol(options =>
     {
         options.FormatterResolvers = new List<MessagePack.IFormatterResolver>()
@@ -230,7 +230,7 @@ services.Add:::no-loc(SignalR):::()
 ```
 
 > [!WARNING]
-> <span data-ttu-id="2ce78-195">强烈建议查看 [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) 和应用建议的修补程序。</span><span class="sxs-lookup"><span data-stu-id="2ce78-195">We strongly recommend reviewing [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) and applying the recommended patches.</span></span> <span data-ttu-id="2ce78-196">例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-196">For example, setting the `MessagePackSecurity.Active` static property to `MessagePackSecurity.UntrustedData`.</span></span> <span data-ttu-id="2ce78-197">设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3)</span><span class="sxs-lookup"><span data-stu-id="2ce78-197">Setting the `MessagePackSecurity.Active` requires manually installing a [1.9.x version of MessagePack](https://www.nuget.org/packages/MessagePack/1.9.3).</span></span> <span data-ttu-id="2ce78-198">正在安装 `MessagePack` 版本为的 1.9. x 的升级 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-198">Installing `MessagePack` 1.9.x upgrades the version :::no-loc(SignalR)::: uses.</span></span> <span data-ttu-id="2ce78-199">`MessagePack` 版本2.x 引入了重大更改，与 :::no-loc(SignalR)::: 版本3.1 及更早版本不兼容。</span><span class="sxs-lookup"><span data-stu-id="2ce78-199">`MessagePack` version 2.x introduced breaking changes and is incompatible with :::no-loc(SignalR)::: versions 3.1 and earlier.</span></span> <span data-ttu-id="2ce78-200">如果 `MessagePackSecurity.Active` 未设置为 `MessagePackSecurity.UntrustedData` ，则恶意客户端可能会导致拒绝服务。</span><span class="sxs-lookup"><span data-stu-id="2ce78-200">When `MessagePackSecurity.Active` isn't set to `MessagePackSecurity.UntrustedData`, a malicious client could cause a denial of service.</span></span> <span data-ttu-id="2ce78-201">`MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：</span><span class="sxs-lookup"><span data-stu-id="2ce78-201">Set `MessagePackSecurity.Active` in `Program.Main`, as shown in the following code:</span></span>
+> <span data-ttu-id="2ce78-195">强烈建议查看 [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) 和应用建议的修补程序。</span><span class="sxs-lookup"><span data-stu-id="2ce78-195">We strongly recommend reviewing [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) and applying the recommended patches.</span></span> <span data-ttu-id="2ce78-196">例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-196">For example, setting the `MessagePackSecurity.Active` static property to `MessagePackSecurity.UntrustedData`.</span></span> <span data-ttu-id="2ce78-197">设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3)</span><span class="sxs-lookup"><span data-stu-id="2ce78-197">Setting the `MessagePackSecurity.Active` requires manually installing a [1.9.x version of MessagePack](https://www.nuget.org/packages/MessagePack/1.9.3).</span></span> <span data-ttu-id="2ce78-198">正在安装 `MessagePack` 版本为的 1.9. x 的升级 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-198">Installing `MessagePack` 1.9.x upgrades the version SignalR uses.</span></span> <span data-ttu-id="2ce78-199">`MessagePack` 版本2.x 引入了重大更改，与 SignalR 版本3.1 及更早版本不兼容。</span><span class="sxs-lookup"><span data-stu-id="2ce78-199">`MessagePack` version 2.x introduced breaking changes and is incompatible with SignalR versions 3.1 and earlier.</span></span> <span data-ttu-id="2ce78-200">如果 `MessagePackSecurity.Active` 未设置为 `MessagePackSecurity.UntrustedData` ，则恶意客户端可能会导致拒绝服务。</span><span class="sxs-lookup"><span data-stu-id="2ce78-200">When `MessagePackSecurity.Active` isn't set to `MessagePackSecurity.UntrustedData`, a malicious client could cause a denial of service.</span></span> <span data-ttu-id="2ce78-201">`MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：</span><span class="sxs-lookup"><span data-stu-id="2ce78-201">Set `MessagePackSecurity.Active` in `Program.Main`, as shown in the following code:</span></span>
 
 ```csharp
 using MessagePack;
@@ -250,10 +250,10 @@ public static void Main(string[] args)
 
 ### <a name="net-client"></a><span data-ttu-id="2ce78-206">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="2ce78-206">.NET client</span></span>
 
-<span data-ttu-id="2ce78-207">若要在 .NET 客户端中启用 MessagePack，请 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` 在上安装包并调用 `AddMessagePackProtocol` `HubConnectionBuilder` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-207">To enable MessagePack in the .NET Client, install the `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` package and call `AddMessagePackProtocol` on `HubConnectionBuilder`.</span></span>
+<span data-ttu-id="2ce78-207">若要在 .NET 客户端中启用 MessagePack，请 `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` 在上安装包并调用 `AddMessagePackProtocol` `HubConnectionBuilder` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-207">To enable MessagePack in the .NET Client, install the `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` package and call `AddMessagePackProtocol` on `HubConnectionBuilder`.</span></span>
 
 ```csharp
-using Microsoft.AspNetCore.:::no-loc(SignalR):::.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 var hubConnection = new HubConnectionBuilder()
@@ -328,11 +328,11 @@ connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 
 <span data-ttu-id="2ce78-233">MessagePack 协议不提供对的值进行编码的方法 `Kind` `DateTime` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-233">The MessagePack protocol doesn't provide a way to encode the `Kind` value of a `DateTime`.</span></span> <span data-ttu-id="2ce78-234">因此，在对日期进行反序列化时，MessagePack Hub 协议假设传入日期为 UTC 格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-234">As a result, when deserializing a date, the MessagePack Hub Protocol assumes the incoming date is in UTC format.</span></span> <span data-ttu-id="2ce78-235">如果使用的是 `DateTime` 本地时间的值，建议在发送之前将值转换为 UTC。</span><span class="sxs-lookup"><span data-stu-id="2ce78-235">If you're working with `DateTime` values in local time, we recommend converting to UTC before sending them.</span></span> <span data-ttu-id="2ce78-236">接收到本地时间时将它们从 UTC 转换为本地时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-236">Convert them from UTC to local time when you receive them.</span></span>
 
-<span data-ttu-id="2ce78-237">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2632](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2632)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-237">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2632](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2632).</span></span>
+<span data-ttu-id="2ce78-237">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2632](https://github.com/aspnet/SignalR/issues/2632)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-237">For more information on this limitation, see GitHub issue [aspnet/SignalR#2632](https://github.com/aspnet/SignalR/issues/2632).</span></span>
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a><span data-ttu-id="2ce78-238">JavaScript 中的 MessagePack 不支持 MinValue</span><span class="sxs-lookup"><span data-stu-id="2ce78-238">DateTime.MinValue is not supported by MessagePack in JavaScript</span></span>
 
-<span data-ttu-id="2ce78-239">JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 :::no-loc(SignalR)::: 不支持 `timestamp96` MessagePack 中的类型。</span><span class="sxs-lookup"><span data-stu-id="2ce78-239">The [msgpack5](https://github.com/mcollina/msgpack5) library used by the :::no-loc(SignalR)::: JavaScript client doesn't support the `timestamp96` type in MessagePack.</span></span> <span data-ttu-id="2ce78-240">此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-240">This type is used to encode very large date values (either very early in the past or very far in the future).</span></span> <span data-ttu-id="2ce78-241">的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-241">The value of `DateTime.MinValue` is `January 1, 0001`, which must be encoded in a `timestamp96` value.</span></span> <span data-ttu-id="2ce78-242">因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。</span><span class="sxs-lookup"><span data-stu-id="2ce78-242">Because of this, sending `DateTime.MinValue` to a JavaScript client isn't supported.</span></span> <span data-ttu-id="2ce78-243">当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：</span><span class="sxs-lookup"><span data-stu-id="2ce78-243">When `DateTime.MinValue` is received by the JavaScript client, the following error is thrown:</span></span>
+<span data-ttu-id="2ce78-239">JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 SignalR 不支持 `timestamp96` MessagePack 中的类型。</span><span class="sxs-lookup"><span data-stu-id="2ce78-239">The [msgpack5](https://github.com/mcollina/msgpack5) library used by the SignalR JavaScript client doesn't support the `timestamp96` type in MessagePack.</span></span> <span data-ttu-id="2ce78-240">此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-240">This type is used to encode very large date values (either very early in the past or very far in the future).</span></span> <span data-ttu-id="2ce78-241">的值 `DateTime.MinValue` 为 `January 1, 0001` ，必须在值中对其进行编码 `timestamp96` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-241">The value of `DateTime.MinValue` is `January 1, 0001`, which must be encoded in a `timestamp96` value.</span></span> <span data-ttu-id="2ce78-242">因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。</span><span class="sxs-lookup"><span data-stu-id="2ce78-242">Because of this, sending `DateTime.MinValue` to a JavaScript client isn't supported.</span></span> <span data-ttu-id="2ce78-243">当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：</span><span class="sxs-lookup"><span data-stu-id="2ce78-243">When `DateTime.MinValue` is received by the JavaScript client, the following error is thrown:</span></span>
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
@@ -340,14 +340,14 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 
 <span data-ttu-id="2ce78-244">通常， `DateTime.MinValue` 用于对 "缺失" 或值进行编码 `null` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-244">Usually, `DateTime.MinValue` is used to encode a "missing" or `null` value.</span></span> <span data-ttu-id="2ce78-245">如果需要在 MessagePack 中对该值进行编码，请使用 () 的可以为 null 的 `DateTime` 值， `DateTime?` 或对 `bool` 指示日期是否存在的单独值进行编码。</span><span class="sxs-lookup"><span data-stu-id="2ce78-245">If you need to encode that value in MessagePack, use a nullable `DateTime` value (`DateTime?`) or encode a separate `bool` value indicating if the date is present.</span></span>
 
-<span data-ttu-id="2ce78-246">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2228](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2228)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-246">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2228](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2228).</span></span>
+<span data-ttu-id="2ce78-246">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-246">For more information on this limitation, see GitHub issue [aspnet/SignalR#2228](https://github.com/aspnet/SignalR/issues/2228).</span></span>
 
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a><span data-ttu-id="2ce78-247">"提前" 编译环境中的 MessagePack 支持</span><span class="sxs-lookup"><span data-stu-id="2ce78-247">MessagePack support in "ahead-of-time" compilation environment</span></span>
 
 <span data-ttu-id="2ce78-248">.NET 客户端和服务器使用的 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80) 库使用代码生成来优化序列化。</span><span class="sxs-lookup"><span data-stu-id="2ce78-248">The [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80) library used by the .NET client and server uses code generation to optimize serialization.</span></span> <span data-ttu-id="2ce78-249">因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。</span><span class="sxs-lookup"><span data-stu-id="2ce78-249">As a result, it isn't supported by default on environments that use "ahead-of-time" compilation (such as Xamarin iOS or Unity).</span></span> <span data-ttu-id="2ce78-250">可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。</span><span class="sxs-lookup"><span data-stu-id="2ce78-250">It's possible to use MessagePack in these environments by "pre-generating" the serializer/deserializer code.</span></span> <span data-ttu-id="2ce78-251">有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-251">For more information, see [the MessagePack-CSharp documentation](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports).</span></span> <span data-ttu-id="2ce78-252">预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：</span><span class="sxs-lookup"><span data-stu-id="2ce78-252">Once you have pre-generated the serializers, you can register them using the configuration delegate passed to `AddMessagePackProtocol`:</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol(options =>
     {
         options.FormatterResolvers = new List<MessagePack.IFormatterResolver>()
@@ -366,7 +366,7 @@ services.Add:::no-loc(SignalR):::()
 InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
 ```
 
-<span data-ttu-id="2ce78-257">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2937](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2937)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-257">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2937](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2937).</span></span>
+<span data-ttu-id="2ce78-257">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-257">For more information on this limitation, see GitHub issue [aspnet/SignalR#2937](https://github.com/aspnet/SignalR/issues/2937).</span></span>
 
 ## <a name="related-resources"></a><span data-ttu-id="2ce78-258">相关资源</span><span class="sxs-lookup"><span data-stu-id="2ce78-258">Related resources</span></span>
 
@@ -382,24 +382,24 @@ InvalidDataException: Error binding arguments. Make sure that the types of the p
 
 ## <a name="what-is-messagepack"></a><span data-ttu-id="2ce78-263">什么是 MessagePack？</span><span class="sxs-lookup"><span data-stu-id="2ce78-263">What is MessagePack?</span></span>
 
-<span data-ttu-id="2ce78-264">[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-264">[MessagePack](https://msgpack.org/index.html) is a fast and compact binary serialization format.</span></span> <span data-ttu-id="2ce78-265">当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。</span><span class="sxs-lookup"><span data-stu-id="2ce78-265">It's useful when performance and bandwidth are a concern because it creates smaller messages compared to [JSON](https://www.json.org/).</span></span> <span data-ttu-id="2ce78-266">在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。</span><span class="sxs-lookup"><span data-stu-id="2ce78-266">The binary messages are unreadable when looking at network traces and logs unless the bytes are passed through a MessagePack parser.</span></span> <span data-ttu-id="2ce78-267">:::no-loc(SignalR)::: 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。</span><span class="sxs-lookup"><span data-stu-id="2ce78-267">:::no-loc(SignalR)::: has built-in support for the MessagePack format, and provides APIs for the client and server to use.</span></span>
+<span data-ttu-id="2ce78-264">[MessagePack](https://msgpack.org/index.html) 是一种快速、精简的二进制序列化格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-264">[MessagePack](https://msgpack.org/index.html) is a fast and compact binary serialization format.</span></span> <span data-ttu-id="2ce78-265">当性能和带宽需要考虑时，它很有用，因为它会创建比 [JSON](https://www.json.org/)更小的消息。</span><span class="sxs-lookup"><span data-stu-id="2ce78-265">It's useful when performance and bandwidth are a concern because it creates smaller messages compared to [JSON](https://www.json.org/).</span></span> <span data-ttu-id="2ce78-266">在查看网络跟踪和日志时，不能读取二进制消息，除非这些字节是通过 MessagePack 分析器传递的。</span><span class="sxs-lookup"><span data-stu-id="2ce78-266">The binary messages are unreadable when looking at network traces and logs unless the bytes are passed through a MessagePack parser.</span></span> <span data-ttu-id="2ce78-267">SignalR 提供对 MessagePack 格式的内置支持，并为客户端和服务器提供要使用的 Api。</span><span class="sxs-lookup"><span data-stu-id="2ce78-267">SignalR has built-in support for the MessagePack format, and provides APIs for the client and server to use.</span></span>
 
 ## <a name="configure-messagepack-on-the-server"></a><span data-ttu-id="2ce78-268">在服务器上配置 MessagePack</span><span class="sxs-lookup"><span data-stu-id="2ce78-268">Configure MessagePack on the server</span></span>
 
-<span data-ttu-id="2ce78-269">若要在服务器上启用 MessagePack 集线器协议，请 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` 在应用中安装包。</span><span class="sxs-lookup"><span data-stu-id="2ce78-269">To enable the MessagePack Hub Protocol on the server, install the `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` package in your app.</span></span> <span data-ttu-id="2ce78-270">在 `Startup.ConfigureServices` 方法中，将添加 `AddMessagePackProtocol` 到在 `Add:::no-loc(SignalR):::` 服务器上启用 MessagePack 支持的调用。</span><span class="sxs-lookup"><span data-stu-id="2ce78-270">In the `Startup.ConfigureServices` method, add `AddMessagePackProtocol` to the `Add:::no-loc(SignalR):::` call to enable MessagePack support on the server.</span></span>
+<span data-ttu-id="2ce78-269">若要在服务器上启用 MessagePack 集线器协议，请 `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` 在应用中安装包。</span><span class="sxs-lookup"><span data-stu-id="2ce78-269">To enable the MessagePack Hub Protocol on the server, install the `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` package in your app.</span></span> <span data-ttu-id="2ce78-270">在 `Startup.ConfigureServices` 方法中，将添加 `AddMessagePackProtocol` 到在 `AddSignalR` 服务器上启用 MessagePack 支持的调用。</span><span class="sxs-lookup"><span data-stu-id="2ce78-270">In the `Startup.ConfigureServices` method, add `AddMessagePackProtocol` to the `AddSignalR` call to enable MessagePack support on the server.</span></span>
 
 > [!NOTE]
 > <span data-ttu-id="2ce78-271">默认情况下启用 JSON。</span><span class="sxs-lookup"><span data-stu-id="2ce78-271">JSON is enabled by default.</span></span> <span data-ttu-id="2ce78-272">添加 MessagePack 可支持 JSON 和 MessagePack 客户端。</span><span class="sxs-lookup"><span data-stu-id="2ce78-272">Adding MessagePack enables support for both JSON and MessagePack clients.</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
 <span data-ttu-id="2ce78-273">若要自定义 MessagePack 如何设置数据的格式，请 `AddMessagePackProtocol` 使用委托来配置选项。</span><span class="sxs-lookup"><span data-stu-id="2ce78-273">To customize how MessagePack will format your data, `AddMessagePackProtocol` takes a delegate for configuring options.</span></span> <span data-ttu-id="2ce78-274">在该委托中， `FormatterResolvers` 属性可用于配置 MessagePack 序列化选项。</span><span class="sxs-lookup"><span data-stu-id="2ce78-274">In that delegate, the `FormatterResolvers` property can be used to configure MessagePack serialization options.</span></span> <span data-ttu-id="2ce78-275">有关解析程序工作方式的详细信息，请访问 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)上的 MessagePack 库。</span><span class="sxs-lookup"><span data-stu-id="2ce78-275">For more information on how the resolvers work, visit the MessagePack library at [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp).</span></span> <span data-ttu-id="2ce78-276">属性可用于要序列化的对象，以定义应如何处理它们。</span><span class="sxs-lookup"><span data-stu-id="2ce78-276">Attributes can be used on the objects you want to serialize to define how they should be handled.</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol(options =>
     {
         options.FormatterResolvers = new List<MessagePack.IFormatterResolver>()
@@ -410,7 +410,7 @@ services.Add:::no-loc(SignalR):::()
 ```
 
 > [!WARNING]
-> <span data-ttu-id="2ce78-277">强烈建议查看 [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) 和应用建议的修补程序。</span><span class="sxs-lookup"><span data-stu-id="2ce78-277">We strongly recommend reviewing [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) and applying the recommended patches.</span></span> <span data-ttu-id="2ce78-278">例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-278">For example, setting the `MessagePackSecurity.Active` static property to `MessagePackSecurity.UntrustedData`.</span></span> <span data-ttu-id="2ce78-279">设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3)</span><span class="sxs-lookup"><span data-stu-id="2ce78-279">Setting the `MessagePackSecurity.Active` requires manually installing a [1.9.x version of MessagePack](https://www.nuget.org/packages/MessagePack/1.9.3).</span></span> <span data-ttu-id="2ce78-280">正在安装 `MessagePack` 版本为的 1.9. x 的升级 :::no-loc(SignalR)::: 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-280">Installing `MessagePack` 1.9.x upgrades the version :::no-loc(SignalR)::: uses.</span></span> <span data-ttu-id="2ce78-281">当未 `MessagePackSecurity.Active` 设置为时 `MessagePackSecurity.UntrustedData` ，恶意客户端可能会导致拒绝服务。</span><span class="sxs-lookup"><span data-stu-id="2ce78-281">When `MessagePackSecurity.Active` is not set to `MessagePackSecurity.UntrustedData`, a malicious client could cause a denial of service.</span></span> <span data-ttu-id="2ce78-282">`MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：</span><span class="sxs-lookup"><span data-stu-id="2ce78-282">Set `MessagePackSecurity.Active` in `Program.Main`, as shown in the following code:</span></span>
+> <span data-ttu-id="2ce78-277">强烈建议查看 [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) 和应用建议的修补程序。</span><span class="sxs-lookup"><span data-stu-id="2ce78-277">We strongly recommend reviewing [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf) and applying the recommended patches.</span></span> <span data-ttu-id="2ce78-278">例如，将 `MessagePackSecurity.Active` 静态属性设置为 `MessagePackSecurity.UntrustedData` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-278">For example, setting the `MessagePackSecurity.Active` static property to `MessagePackSecurity.UntrustedData`.</span></span> <span data-ttu-id="2ce78-279">设置 `MessagePackSecurity.Active` 需要手动安装[MessagePack 的1.9 版。](https://www.nuget.org/packages/MessagePack/1.9.3)</span><span class="sxs-lookup"><span data-stu-id="2ce78-279">Setting the `MessagePackSecurity.Active` requires manually installing a [1.9.x version of MessagePack](https://www.nuget.org/packages/MessagePack/1.9.3).</span></span> <span data-ttu-id="2ce78-280">正在安装 `MessagePack` 版本为的 1.9. x 的升级 SignalR 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-280">Installing `MessagePack` 1.9.x upgrades the version SignalR uses.</span></span> <span data-ttu-id="2ce78-281">当未 `MessagePackSecurity.Active` 设置为时 `MessagePackSecurity.UntrustedData` ，恶意客户端可能会导致拒绝服务。</span><span class="sxs-lookup"><span data-stu-id="2ce78-281">When `MessagePackSecurity.Active` is not set to `MessagePackSecurity.UntrustedData`, a malicious client could cause a denial of service.</span></span> <span data-ttu-id="2ce78-282">`MessagePackSecurity.Active`在中设置 `Program.Main` ，如下面的代码所示：</span><span class="sxs-lookup"><span data-stu-id="2ce78-282">Set `MessagePackSecurity.Active` in `Program.Main`, as shown in the following code:</span></span>
 
 ```csharp
 using MessagePack;
@@ -430,10 +430,10 @@ public static void Main(string[] args)
 
 ### <a name="net-client"></a><span data-ttu-id="2ce78-287">.NET 客户端</span><span class="sxs-lookup"><span data-stu-id="2ce78-287">.NET client</span></span>
 
-<span data-ttu-id="2ce78-288">若要在 .NET 客户端中启用 MessagePack，请 `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` 在上安装包并调用 `AddMessagePackProtocol` `HubConnectionBuilder` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-288">To enable MessagePack in the .NET Client, install the `Microsoft.AspNetCore.:::no-loc(SignalR):::.Protocols.MessagePack` package and call `AddMessagePackProtocol` on `HubConnectionBuilder`.</span></span>
+<span data-ttu-id="2ce78-288">若要在 .NET 客户端中启用 MessagePack，请 `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` 在上安装包并调用 `AddMessagePackProtocol` `HubConnectionBuilder` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-288">To enable MessagePack in the .NET Client, install the `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` package and call `AddMessagePackProtocol` on `HubConnectionBuilder`.</span></span>
 
 ```csharp
-using Microsoft.AspNetCore.:::no-loc(SignalR):::.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 var hubConnection = new HubConnectionBuilder()
@@ -508,11 +508,11 @@ connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 
 <span data-ttu-id="2ce78-314">MessagePack 协议不提供对的值进行编码的方法 `Kind` `DateTime` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-314">The MessagePack protocol doesn't provide a way to encode the `Kind` value of a `DateTime`.</span></span> <span data-ttu-id="2ce78-315">因此，在对日期进行反序列化时，MessagePack Hub 协议假设传入日期为 UTC 格式。</span><span class="sxs-lookup"><span data-stu-id="2ce78-315">As a result, when deserializing a date, the MessagePack Hub Protocol assumes the incoming date is in UTC format.</span></span> <span data-ttu-id="2ce78-316">如果使用的是 `DateTime` 本地时间的值，建议在发送之前将值转换为 UTC。</span><span class="sxs-lookup"><span data-stu-id="2ce78-316">If you're working with `DateTime` values in local time, we recommend converting to UTC before sending them.</span></span> <span data-ttu-id="2ce78-317">接收到本地时间时将它们从 UTC 转换为本地时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-317">Convert them from UTC to local time when you receive them.</span></span>
 
-<span data-ttu-id="2ce78-318">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2632](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2632)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-318">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2632](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2632).</span></span>
+<span data-ttu-id="2ce78-318">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2632](https://github.com/aspnet/SignalR/issues/2632)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-318">For more information on this limitation, see GitHub issue [aspnet/SignalR#2632](https://github.com/aspnet/SignalR/issues/2632).</span></span>
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a><span data-ttu-id="2ce78-319">JavaScript 中的 MessagePack 不支持 MinValue</span><span class="sxs-lookup"><span data-stu-id="2ce78-319">DateTime.MinValue is not supported by MessagePack in JavaScript</span></span>
 
-<span data-ttu-id="2ce78-320">JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 :::no-loc(SignalR)::: 不支持 `timestamp96` MessagePack 中的类型。</span><span class="sxs-lookup"><span data-stu-id="2ce78-320">The [msgpack5](https://github.com/mcollina/msgpack5) library used by the :::no-loc(SignalR)::: JavaScript client doesn't support the `timestamp96` type in MessagePack.</span></span> <span data-ttu-id="2ce78-321">此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-321">This type is used to encode very large date values (either very early in the past or very far in the future).</span></span> <span data-ttu-id="2ce78-322">的值 `DateTime.MinValue` `January 1, 0001` 必须在值中进行编码 `timestamp96` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-322">The value of `DateTime.MinValue` is `January 1, 0001` which must be encoded in a `timestamp96` value.</span></span> <span data-ttu-id="2ce78-323">因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。</span><span class="sxs-lookup"><span data-stu-id="2ce78-323">Because of this, sending `DateTime.MinValue` to a JavaScript client isn't supported.</span></span> <span data-ttu-id="2ce78-324">当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：</span><span class="sxs-lookup"><span data-stu-id="2ce78-324">When `DateTime.MinValue` is received by the JavaScript client, the following error is thrown:</span></span>
+<span data-ttu-id="2ce78-320">JavaScript 客户端使用的 [msgpack5](https://github.com/mcollina/msgpack5) 库 SignalR 不支持 `timestamp96` MessagePack 中的类型。</span><span class="sxs-lookup"><span data-stu-id="2ce78-320">The [msgpack5](https://github.com/mcollina/msgpack5) library used by the SignalR JavaScript client doesn't support the `timestamp96` type in MessagePack.</span></span> <span data-ttu-id="2ce78-321">此类型用于对非常大的日期值进行编码， (在将来或在未来) 中非常早的时间。</span><span class="sxs-lookup"><span data-stu-id="2ce78-321">This type is used to encode very large date values (either very early in the past or very far in the future).</span></span> <span data-ttu-id="2ce78-322">的值 `DateTime.MinValue` `January 1, 0001` 必须在值中进行编码 `timestamp96` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-322">The value of `DateTime.MinValue` is `January 1, 0001` which must be encoded in a `timestamp96` value.</span></span> <span data-ttu-id="2ce78-323">因此， `DateTime.MinValue` 不支持向 JavaScript 客户端发送发送。</span><span class="sxs-lookup"><span data-stu-id="2ce78-323">Because of this, sending `DateTime.MinValue` to a JavaScript client isn't supported.</span></span> <span data-ttu-id="2ce78-324">当 `DateTime.MinValue` JavaScript 客户端收到时，将引发以下错误：</span><span class="sxs-lookup"><span data-stu-id="2ce78-324">When `DateTime.MinValue` is received by the JavaScript client, the following error is thrown:</span></span>
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
@@ -520,14 +520,14 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 
 <span data-ttu-id="2ce78-325">通常， `DateTime.MinValue` 用于对 "缺失" 或值进行编码 `null` 。</span><span class="sxs-lookup"><span data-stu-id="2ce78-325">Usually, `DateTime.MinValue` is used to encode a "missing" or `null` value.</span></span> <span data-ttu-id="2ce78-326">如果需要在 MessagePack 中对该值进行编码，请使用 () 的可以为 null 的 `DateTime` 值， `DateTime?` 或对 `bool` 指示日期是否存在的单独值进行编码。</span><span class="sxs-lookup"><span data-stu-id="2ce78-326">If you need to encode that value in MessagePack, use a nullable `DateTime` value (`DateTime?`) or encode a separate `bool` value indicating if the date is present.</span></span>
 
-<span data-ttu-id="2ce78-327">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2228](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2228)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-327">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2228](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2228).</span></span>
+<span data-ttu-id="2ce78-327">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-327">For more information on this limitation, see GitHub issue [aspnet/SignalR#2228](https://github.com/aspnet/SignalR/issues/2228).</span></span>
 
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a><span data-ttu-id="2ce78-328">"提前" 编译环境中的 MessagePack 支持</span><span class="sxs-lookup"><span data-stu-id="2ce78-328">MessagePack support in "ahead-of-time" compilation environment</span></span>
 
 <span data-ttu-id="2ce78-329">.NET 客户端和服务器使用的 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80) 库使用代码生成来优化序列化。</span><span class="sxs-lookup"><span data-stu-id="2ce78-329">The [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80) library used by the .NET client and server uses code generation to optimize serialization.</span></span> <span data-ttu-id="2ce78-330">因此，默认情况下，在使用 "预先" 编译 (（如 Xamarin iOS 或 Unity) ）的环境中不支持默认值。</span><span class="sxs-lookup"><span data-stu-id="2ce78-330">As a result, it isn't supported by default on environments that use "ahead-of-time" compilation (such as Xamarin iOS or Unity).</span></span> <span data-ttu-id="2ce78-331">可以通过 "预生成" 序列化程序/反序列化程序代码，在这些环境中使用 MessagePack。</span><span class="sxs-lookup"><span data-stu-id="2ce78-331">It's possible to use MessagePack in these environments by "pre-generating" the serializer/deserializer code.</span></span> <span data-ttu-id="2ce78-332">有关详细信息，请参阅 [MessagePack-CSharp 文档](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-332">For more information, see [the MessagePack-CSharp documentation](https://github.com/neuecc/MessagePack-CSharp/tree/v1.8.80#pre-code-generationunityxamarin-supports).</span></span> <span data-ttu-id="2ce78-333">预生成序列化程序后，可以使用传递给的配置委托注册它们 `AddMessagePackProtocol` ：</span><span class="sxs-lookup"><span data-stu-id="2ce78-333">Once you have pre-generated the serializers, you can register them using the configuration delegate passed to `AddMessagePackProtocol`:</span></span>
 
 ```csharp
-services.Add:::no-loc(SignalR):::()
+services.AddSignalR()
     .AddMessagePackProtocol(options =>
     {
         options.FormatterResolvers = new List<MessagePack.IFormatterResolver>()
@@ -546,7 +546,7 @@ services.Add:::no-loc(SignalR):::()
 InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
 ```
 
-<span data-ttu-id="2ce78-338">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ :::no-loc(SignalR)::: #2937](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2937)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-338">For more information on this limitation, see GitHub issue [aspnet/:::no-loc(SignalR):::#2937](https://github.com/aspnet/:::no-loc(SignalR):::/issues/2937).</span></span>
+<span data-ttu-id="2ce78-338">有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。</span><span class="sxs-lookup"><span data-stu-id="2ce78-338">For more information on this limitation, see GitHub issue [aspnet/SignalR#2937](https://github.com/aspnet/SignalR/issues/2937).</span></span>
 
 ## <a name="related-resources"></a><span data-ttu-id="2ce78-339">相关资源</span><span class="sxs-lookup"><span data-stu-id="2ce78-339">Related resources</span></span>
 

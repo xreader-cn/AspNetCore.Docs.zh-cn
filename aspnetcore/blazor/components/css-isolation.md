@@ -1,5 +1,5 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: CSS 隔离'
+title: 'ASP.NET Core Blazor CSS 隔离'
 author: daveabrock
 description: 了解如何通过 CSS 隔离将 CSS 范围限定到组件，以简化 CSS 并避免与其他组件或库发生冲突。
 monikerRange: '>= aspnetcore-5.0'
@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/20/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/components/css-isolation
 ms.openlocfilehash: 628e7dc897912beaae0df792b82958517ac70ca4
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,7 +26,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93056317"
 ---
-# <a name="aspnet-core-no-locblazor-css-isolation"></a><span data-ttu-id="8e114-103">ASP.NET Core :::no-loc(Blazor)::: CSS 隔离</span><span class="sxs-lookup"><span data-stu-id="8e114-103">ASP.NET Core :::no-loc(Blazor)::: CSS isolation</span></span>
+# <a name="aspnet-core-no-locblazor-css-isolation"></a><span data-ttu-id="8e114-103">ASP.NET Core Blazor CSS 隔离</span><span class="sxs-lookup"><span data-stu-id="8e114-103">ASP.NET Core Blazor CSS isolation</span></span>
 
 <span data-ttu-id="8e114-104">作者：[Dave Brock](https://twitter.com/daveabrock)</span><span class="sxs-lookup"><span data-stu-id="8e114-104">By [Dave Brock](https://twitter.com/daveabrock)</span></span>
 
@@ -38,7 +38,7 @@ ms.locfileid: "93056317"
 
 <span data-ttu-id="8e114-109">对于具有 `MyComponent.razor` 文件的 `MyComponent` 组件，请随组件一起创建一个名为 `MyComponent.razor.css` 的文件。</span><span class="sxs-lookup"><span data-stu-id="8e114-109">For a `MyComponent` component that has a `MyComponent.razor` file, create a file alongside the component called `MyComponent.razor.css`.</span></span> <span data-ttu-id="8e114-110">`razor.css` 文件名中的 `MyComponent` 值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="8e114-110">The `MyComponent` value in the `razor.css` filename is **not** case-sensitive.</span></span>
 
-<span data-ttu-id="8e114-111">例如，若要将 CSS 隔离添加到默认 :::no-loc(Blazor)::: 项目模板中的 `Counter` 组件，请随 `Counter.razor` 文件一起添加一个名为 `Counter.razor.css` 的新文件，然后添加以下 CSS：</span><span class="sxs-lookup"><span data-stu-id="8e114-111">For example to add CSS isolation to the `Counter` component in the default :::no-loc(Blazor)::: project template, add a new file named `Counter.razor.css` alongside the `Counter.razor` file, then add the following CSS:</span></span>
+<span data-ttu-id="8e114-111">例如，若要将 CSS 隔离添加到默认 Blazor 项目模板中的 `Counter` 组件，请随 `Counter.razor` 文件一起添加一个名为 `Counter.razor.css` 的新文件，然后添加以下 CSS：</span><span class="sxs-lookup"><span data-stu-id="8e114-111">For example to add CSS isolation to the `Counter` component in the default Blazor project template, add a new file named `Counter.razor.css` alongside the `Counter.razor` file, then add the following CSS:</span></span>
 
 ```css
 h1 { 
@@ -50,11 +50,11 @@ h1 {
 <span data-ttu-id="8e114-112">`Counter.razor.css` 中定义的样式仅应用于 `Counter` 组件的呈现输出。</span><span class="sxs-lookup"><span data-stu-id="8e114-112">The styles defined in `Counter.razor.css` are only applied to the rendered output of the `Counter` component.</span></span> <span data-ttu-id="8e114-113">在应用的其他位置定义的任何 `h1` CSS 声明都不会与 `Counter` 样式冲突。</span><span class="sxs-lookup"><span data-stu-id="8e114-113">Any `h1` CSS declarations defined elsewhere in the app don't conflict with `Counter` styles.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="8e114-114">为了保证发生捆绑时的样式隔离，限定范围的 CSS 文件不支持 `@import` :::no-loc(Razor)::: 块。</span><span class="sxs-lookup"><span data-stu-id="8e114-114">In order to guarantee style isolation when bundling occurs, `@import` :::no-loc(Razor)::: blocks aren't supported with scoped CSS files.</span></span>
+> <span data-ttu-id="8e114-114">为了保证发生捆绑时的样式隔离，限定范围的 CSS 文件不支持 `@import` Razor 块。</span><span class="sxs-lookup"><span data-stu-id="8e114-114">In order to guarantee style isolation when bundling occurs, `@import` Razor blocks aren't supported with scoped CSS files.</span></span>
 
 ## <a name="css-isolation-bundling"></a><span data-ttu-id="8e114-115">CSS 隔离捆绑</span><span class="sxs-lookup"><span data-stu-id="8e114-115">CSS isolation bundling</span></span>
 
-<span data-ttu-id="8e114-116">CSS 隔离在生成时发生。</span><span class="sxs-lookup"><span data-stu-id="8e114-116">CSS isolation occurs at build time.</span></span> <span data-ttu-id="8e114-117">在此过程中，:::no-loc(Blazor)::: 会重写 CSS 选择器以匹配组件呈现的标记。</span><span class="sxs-lookup"><span data-stu-id="8e114-117">During this process, :::no-loc(Blazor)::: rewrites CSS selectors to match markup rendered by the component.</span></span> <span data-ttu-id="8e114-118">这些重写的 CSS 样式在 `{PROJECT NAME}.styles.css` 处捆绑并生成为静态资产，其中占位符 `{PROJECT NAME}` 是引用的包或产品名称。</span><span class="sxs-lookup"><span data-stu-id="8e114-118">These rewritten CSS styles are bundled and produced as a static asset at `{PROJECT NAME}.styles.css`, where the placeholder `{PROJECT NAME}` is the referenced package or product name.</span></span>
+<span data-ttu-id="8e114-116">CSS 隔离在生成时发生。</span><span class="sxs-lookup"><span data-stu-id="8e114-116">CSS isolation occurs at build time.</span></span> <span data-ttu-id="8e114-117">在此过程中，Blazor 会重写 CSS 选择器以匹配组件呈现的标记。</span><span class="sxs-lookup"><span data-stu-id="8e114-117">During this process, Blazor rewrites CSS selectors to match markup rendered by the component.</span></span> <span data-ttu-id="8e114-118">这些重写的 CSS 样式在 `{PROJECT NAME}.styles.css` 处捆绑并生成为静态资产，其中占位符 `{PROJECT NAME}` 是引用的包或产品名称。</span><span class="sxs-lookup"><span data-stu-id="8e114-118">These rewritten CSS styles are bundled and produced as a static asset at `{PROJECT NAME}.styles.css`, where the placeholder `{PROJECT NAME}` is the referenced package or product name.</span></span>
 
 <span data-ttu-id="8e114-119">默认情况下，这些静态文件从应用的根路径引用。</span><span class="sxs-lookup"><span data-stu-id="8e114-119">These static files are referenced from the root path of the app by default.</span></span> <span data-ttu-id="8e114-120">在应用中，通过检查所生成 HTML 的 `<head>` 标记内的引用来引用捆绑的文件：</span><span class="sxs-lookup"><span data-stu-id="8e114-120">In the app, reference the bundled file by inspecting the reference inside the `<head>` tag of the generated HTML:</span></span>
 
@@ -62,7 +62,7 @@ h1 {
 <link href="MyProjectName.styles.css" rel="stylesheet">
 ```
 
-<span data-ttu-id="8e114-121">在捆绑的文件中，每个组件都与范围标识符关联。</span><span class="sxs-lookup"><span data-stu-id="8e114-121">Within the bundled file, each component is associated with a scope identifier.</span></span> <span data-ttu-id="8e114-122">对于每个样式的组件，HTML 属性都会追加 `b-<10-character-string>` 格式。</span><span class="sxs-lookup"><span data-stu-id="8e114-122">For each styled component, an HTML attribute is appended with the format `b-<10-character-string>`.</span></span> <span data-ttu-id="8e114-123">标识符是唯一的，每个应用各不相同。</span><span class="sxs-lookup"><span data-stu-id="8e114-123">The identifier is unique and different for each app.</span></span> <span data-ttu-id="8e114-124">在呈现的 `Counter` 组件中，:::no-loc(Blazor)::: 将范围标识符追加到 `h1` 元素：</span><span class="sxs-lookup"><span data-stu-id="8e114-124">In the rendered `Counter` component, :::no-loc(Blazor)::: appends a scope identifier to the `h1` element:</span></span>
+<span data-ttu-id="8e114-121">在捆绑的文件中，每个组件都与范围标识符关联。</span><span class="sxs-lookup"><span data-stu-id="8e114-121">Within the bundled file, each component is associated with a scope identifier.</span></span> <span data-ttu-id="8e114-122">对于每个样式的组件，HTML 属性都会追加 `b-<10-character-string>` 格式。</span><span class="sxs-lookup"><span data-stu-id="8e114-122">For each styled component, an HTML attribute is appended with the format `b-<10-character-string>`.</span></span> <span data-ttu-id="8e114-123">标识符是唯一的，每个应用各不相同。</span><span class="sxs-lookup"><span data-stu-id="8e114-123">The identifier is unique and different for each app.</span></span> <span data-ttu-id="8e114-124">在呈现的 `Counter` 组件中，Blazor 将范围标识符追加到 `h1` 元素：</span><span class="sxs-lookup"><span data-stu-id="8e114-124">In the rendered `Counter` component, Blazor appends a scope identifier to the `h1` element:</span></span>
 
 ```html
 <h1 b-3xxtam6d07>
@@ -79,7 +79,7 @@ h1[b-3xxtam6d07] {
 
 <span data-ttu-id="8e114-127">在生成时，会使用约定 `{STATIC WEB ASSETS BASE PATH}/MyProject.lib.scp.css` 创建项目捆绑包，其中占位符 `{STATIC WEB ASSETS BASE PATH}` 是静态 Web 资产的基路径。</span><span class="sxs-lookup"><span data-stu-id="8e114-127">At build time, a project bundle is created with the convention `{STATIC WEB ASSETS BASE PATH}/MyProject.lib.scp.css`, where the placeholder `{STATIC WEB ASSETS BASE PATH}` is the static web assets base path.</span></span>
 
-<span data-ttu-id="8e114-128">如果利用了其他项目（如 NuGet 包或[ :::no-loc(Razor)::: 类库](xref:blazor/components/class-libraries)），则捆绑的文件将发生以下情况：</span><span class="sxs-lookup"><span data-stu-id="8e114-128">If other projects are utilized, such as NuGet packages or [:::no-loc(Razor)::: class libraries](xref:blazor/components/class-libraries), the bundled file:</span></span>
+<span data-ttu-id="8e114-128">如果利用了其他项目（如 NuGet 包或[ Razor 类库](xref:blazor/components/class-libraries)），则捆绑的文件将发生以下情况：</span><span class="sxs-lookup"><span data-stu-id="8e114-128">If other projects are utilized, such as NuGet packages or [Razor class libraries](xref:blazor/components/class-libraries), the bundled file:</span></span>
 
 * <span data-ttu-id="8e114-129">使用 CSS 导入引用这些样式。</span><span class="sxs-lookup"><span data-stu-id="8e114-129">References the styles using CSS imports.</span></span>
 * <span data-ttu-id="8e114-130">不会发布为使用这些样式的应用的静态 Web 资产。</span><span class="sxs-lookup"><span data-stu-id="8e114-130">Isn't published as a static web asset of the app that consumes the styles.</span></span>
@@ -141,7 +141,7 @@ h1[b-3xxtam6d07] {
 
 ## <a name="css-preprocessor-support"></a><span data-ttu-id="8e114-144">CSS 预处理器支持</span><span class="sxs-lookup"><span data-stu-id="8e114-144">CSS preprocessor support</span></span>
 
-<span data-ttu-id="8e114-145">利用 CSS 预处理器的变量、嵌套、模块、混合和继承等功能，可有效改进 CSS 开发。</span><span class="sxs-lookup"><span data-stu-id="8e114-145">CSS preprocessors are useful for improving CSS development by utilizing features such as variables, nesting, modules, mixins, and inheritance.</span></span> <span data-ttu-id="8e114-146">虽然 CSS 隔离并不原生支持 CSS 预处理器（如 Sass 或 Less），但只要在生成过程中 :::no-loc(Blazor)::: 重写 CSS 选择器的步骤之前进行预处理器编译，就可以无缝集成 CSS 预处理器。</span><span class="sxs-lookup"><span data-stu-id="8e114-146">While CSS isolation doesn't natively support CSS preprocessors such as Sass or Less, integrating CSS preprocessors is seamless as long as preprocessor compilation occurs before :::no-loc(Blazor)::: rewrites the CSS selectors during the build process.</span></span> <span data-ttu-id="8e114-147">例如，使用 Visual Studio 将现有预处理器编译配置为 Visual Studio 任务运行程序资源管理器中的“生成前”任务。</span><span class="sxs-lookup"><span data-stu-id="8e114-147">Using Visual Studio for example, configure existing preprocessor compilation as a **Before Build** task in the Visual Studio Task Runner Explorer.</span></span>
+<span data-ttu-id="8e114-145">利用 CSS 预处理器的变量、嵌套、模块、混合和继承等功能，可有效改进 CSS 开发。</span><span class="sxs-lookup"><span data-stu-id="8e114-145">CSS preprocessors are useful for improving CSS development by utilizing features such as variables, nesting, modules, mixins, and inheritance.</span></span> <span data-ttu-id="8e114-146">虽然 CSS 隔离并不原生支持 CSS 预处理器（如 Sass 或 Less），但只要在生成过程中 Blazor 重写 CSS 选择器的步骤之前进行预处理器编译，就可以无缝集成 CSS 预处理器。</span><span class="sxs-lookup"><span data-stu-id="8e114-146">While CSS isolation doesn't natively support CSS preprocessors such as Sass or Less, integrating CSS preprocessors is seamless as long as preprocessor compilation occurs before Blazor rewrites the CSS selectors during the build process.</span></span> <span data-ttu-id="8e114-147">例如，使用 Visual Studio 将现有预处理器编译配置为 Visual Studio 任务运行程序资源管理器中的“生成前”任务。</span><span class="sxs-lookup"><span data-stu-id="8e114-147">Using Visual Studio for example, configure existing preprocessor compilation as a **Before Build** task in the Visual Studio Task Runner Explorer.</span></span>
 
 <span data-ttu-id="8e114-148">许多第三方 NuGet 包（如 [Delegate.SassBuilder](https://www.nuget.org/packages/Delegate.SassBuilder)）都可以在生成过程开始时编译 SASS/SCSS 文件，再进行 CSS 隔离，而无需其他配置。</span><span class="sxs-lookup"><span data-stu-id="8e114-148">Many third-party NuGet packages, such as [Delegate.SassBuilder](https://www.nuget.org/packages/Delegate.SassBuilder), can compile SASS/SCSS files at the beginning of the build process before CSS isolation occurs, and no additional additional configuration is required.</span></span>
 
@@ -159,7 +159,7 @@ h1[b-3xxtam6d07] {
 </ItemGroup>
 ```
 
-<span data-ttu-id="8e114-154">在上面的示例中，为 `MyComponent.:::no-loc(Razor):::.css` 生成的 CSS 将其范围标识符从 `b-<10-character-string>` 更改为了 `my-custom-scope-identifier`。</span><span class="sxs-lookup"><span data-stu-id="8e114-154">In the preceding example, the CSS generated for `MyComponent.:::no-loc(Razor):::.css` changes its scope identifier from `b-<10-character-string>` to `my-custom-scope-identifier`.</span></span>
+<span data-ttu-id="8e114-154">在上面的示例中，为 `MyComponent.Razor.css` 生成的 CSS 将其范围标识符从 `b-<10-character-string>` 更改为了 `my-custom-scope-identifier`。</span><span class="sxs-lookup"><span data-stu-id="8e114-154">In the preceding example, the CSS generated for `MyComponent.Razor.css` changes its scope identifier from `b-<10-character-string>` to `my-custom-scope-identifier`.</span></span>
 
 ### <a name="change-base-path-for-static-web-assets"></a><span data-ttu-id="8e114-155">更改静态 Web 资产的基路径</span><span class="sxs-lookup"><span data-stu-id="8e114-155">Change base path for static web assets</span></span>
 
@@ -173,7 +173,7 @@ h1[b-3xxtam6d07] {
 
 ### <a name="disable-automatic-bundling"></a><span data-ttu-id="8e114-159">禁用自动捆绑</span><span class="sxs-lookup"><span data-stu-id="8e114-159">Disable automatic bundling</span></span>
 
-<span data-ttu-id="8e114-160">若要禁用 :::no-loc(Blazor)::: 在运行时发布和加载限定范围的文件，请使用 `DisableScopedCssBundling` 属性。</span><span class="sxs-lookup"><span data-stu-id="8e114-160">To opt out of how :::no-loc(Blazor)::: publishes and loads scoped files at runtime, use the `DisableScopedCssBundling` property.</span></span> <span data-ttu-id="8e114-161">使用此属性时，意味着将由其他工具或进程从 `obj` 目录中捕获隔离的 CSS 文件，并在运行时发布和加载这些文件：</span><span class="sxs-lookup"><span data-stu-id="8e114-161">When using this property, it means other tools or processes are responsible for taking the isolated CSS files from the `obj` directory and publishing and loading them at runtime:</span></span>
+<span data-ttu-id="8e114-160">若要禁用 Blazor 在运行时发布和加载限定范围的文件，请使用 `DisableScopedCssBundling` 属性。</span><span class="sxs-lookup"><span data-stu-id="8e114-160">To opt out of how Blazor publishes and loads scoped files at runtime, use the `DisableScopedCssBundling` property.</span></span> <span data-ttu-id="8e114-161">使用此属性时，意味着将由其他工具或进程从 `obj` 目录中捕获隔离的 CSS 文件，并在运行时发布和加载这些文件：</span><span class="sxs-lookup"><span data-stu-id="8e114-161">When using this property, it means other tools or processes are responsible for taking the isolated CSS files from the `obj` directory and publishing and loading them at runtime:</span></span>
 
 ```xml
 <PropertyGroup>

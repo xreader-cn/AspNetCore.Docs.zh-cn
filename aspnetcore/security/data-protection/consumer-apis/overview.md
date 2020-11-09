@@ -5,17 +5,17 @@ description: 获取 ASP.NET Core 数据保护库中可用的各种使用者 Api 
 ms.author: riande
 ms.date: 06/11/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/data-protection/consumer-apis/overview
 ms.openlocfilehash: 485ea3f669b518f2979d04493b281bd116b05f65
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -64,4 +64,4 @@ ms.locfileid: "93051871"
 [!code-csharp[](./overview/samples/getdataprotector.cs?highlight=15)]
 
 >[!TIP]
-> <span data-ttu-id="27fc2-133">和的 `IDataProtectionProvider` 实例 `IDataProtector` 对于多个调用方是线程安全的。</span><span class="sxs-lookup"><span data-stu-id="27fc2-133">Instances of `IDataProtectionProvider` and `IDataProtector` are thread-safe for multiple callers.</span></span> <span data-ttu-id="27fc2-134">它的目的是，在组件通过调用获取对的引用后 `IDataProtector` `CreateProtector` ，它会将该引用用于多次调用 `Protect` 和 `Unprotect` 。</span><span class="sxs-lookup"><span data-stu-id="27fc2-134">It's intended that once a component gets a reference to an `IDataProtector` via a call to `CreateProtector`, it will use that reference for multiple calls to `Protect` and `Unprotect`.</span></span> <span data-ttu-id="27fc2-135">`Unprotect`如果无法验证或解密受保护的有效负载，则对的调用将引发 system.security.cryptography.cryptographicexception。</span><span class="sxs-lookup"><span data-stu-id="27fc2-135">A call to `Unprotect` will throw CryptographicException if the protected payload cannot be verified or deciphered.</span></span> <span data-ttu-id="27fc2-136">某些组件可能希望在取消保护操作期间忽略错误;读取身份验证的组件 :::no-loc(cookie)::: 可能会处理此错误，并将该请求视为 :::no-loc(cookie)::: 根本不会失败，而不是完全导致请求失败。</span><span class="sxs-lookup"><span data-stu-id="27fc2-136">Some components may wish to ignore errors during unprotect operations; a component which reads authentication :::no-loc(cookie):::s might handle this error and treat the request as if it had no :::no-loc(cookie)::: at all rather than fail the request outright.</span></span> <span data-ttu-id="27fc2-137">需要此行为的组件应专门捕获 System.security.cryptography.cryptographicexception，而不是抑制所有异常。</span><span class="sxs-lookup"><span data-stu-id="27fc2-137">Components which want this behavior should specifically catch CryptographicException instead of swallowing all exceptions.</span></span>
+> <span data-ttu-id="27fc2-133">和的 `IDataProtectionProvider` 实例 `IDataProtector` 对于多个调用方是线程安全的。</span><span class="sxs-lookup"><span data-stu-id="27fc2-133">Instances of `IDataProtectionProvider` and `IDataProtector` are thread-safe for multiple callers.</span></span> <span data-ttu-id="27fc2-134">它的目的是，在组件通过调用获取对的引用后 `IDataProtector` `CreateProtector` ，它会将该引用用于多次调用 `Protect` 和 `Unprotect` 。</span><span class="sxs-lookup"><span data-stu-id="27fc2-134">It's intended that once a component gets a reference to an `IDataProtector` via a call to `CreateProtector`, it will use that reference for multiple calls to `Protect` and `Unprotect`.</span></span> <span data-ttu-id="27fc2-135">`Unprotect`如果无法验证或解密受保护的有效负载，则对的调用将引发 system.security.cryptography.cryptographicexception。</span><span class="sxs-lookup"><span data-stu-id="27fc2-135">A call to `Unprotect` will throw CryptographicException if the protected payload cannot be verified or deciphered.</span></span> <span data-ttu-id="27fc2-136">某些组件可能希望在取消保护操作期间忽略错误;读取身份验证的组件 cookie 可能会处理此错误，并将该请求视为 cookie 根本不会失败，而不是完全导致请求失败。</span><span class="sxs-lookup"><span data-stu-id="27fc2-136">Some components may wish to ignore errors during unprotect operations; a component which reads authentication cookies might handle this error and treat the request as if it had no cookie at all rather than fail the request outright.</span></span> <span data-ttu-id="27fc2-137">需要此行为的组件应专门捕获 System.security.cryptography.cryptographicexception，而不是抑制所有异常。</span><span class="sxs-lookup"><span data-stu-id="27fc2-137">Components which want this behavior should specifically catch CryptographicException instead of swallowing all exceptions.</span></span>

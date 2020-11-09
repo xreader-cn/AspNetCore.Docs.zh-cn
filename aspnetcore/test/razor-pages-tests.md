@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core 中的 :::no-loc(Razor)::: Pages 单元测试'
+title: 'ASP.NET Core 中的 Razor Pages 单元测试'
 author: rick-anderson
-description: '了解如何为 :::no-loc(Razor)::: Pages 应用创建单元测试。'
+description: '了解如何为 Razor Pages 应用创建单元测试。'
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/22/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: test/razor-pages-tests
 ms.openlocfilehash: 2486eb8c9fd0fc33ea77b0fedd99795218d7f4ca
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,18 +26,18 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93058033"
 ---
-# <a name="no-locrazor-pages-unit-tests-in-aspnet-core"></a><span data-ttu-id="7ce9f-103">ASP.NET Core 中的 :::no-loc(Razor)::: Pages 单元测试</span><span class="sxs-lookup"><span data-stu-id="7ce9f-103">:::no-loc(Razor)::: Pages unit tests in ASP.NET Core</span></span>
+# <a name="no-locrazor-pages-unit-tests-in-aspnet-core"></a><span data-ttu-id="7ce9f-103">ASP.NET Core 中的 Razor Pages 单元测试</span><span class="sxs-lookup"><span data-stu-id="7ce9f-103">Razor Pages unit tests in ASP.NET Core</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="7ce9f-104">ASP.NET Core 支持 :::no-loc(Razor)::: Pages 应用的单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-104">ASP.NET Core supports unit tests of :::no-loc(Razor)::: Pages apps.</span></span> <span data-ttu-id="7ce9f-105">数据访问层 (DAL) 和页面模型测试有助于确保：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-105">Tests of the data access layer (DAL) and page models help ensure:</span></span>
+<span data-ttu-id="7ce9f-104">ASP.NET Core 支持 Razor Pages 应用的单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-104">ASP.NET Core supports unit tests of Razor Pages apps.</span></span> <span data-ttu-id="7ce9f-105">数据访问层 (DAL) 和页面模型测试有助于确保：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-105">Tests of the data access layer (DAL) and page models help ensure:</span></span>
 
-* <span data-ttu-id="7ce9f-106">:::no-loc(Razor)::: Pages 应用的各个部分在应用构造过程中既可以独立运行，也可以作为一个整体运行。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-106">Parts of a :::no-loc(Razor)::: Pages app work independently and together as a unit during app construction.</span></span>
+* <span data-ttu-id="7ce9f-106">Razor Pages 应用的各个部分在应用构造过程中既可以独立运行，也可以作为一个整体运行。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-106">Parts of a Razor Pages app work independently and together as a unit during app construction.</span></span>
 * <span data-ttu-id="7ce9f-107">类和方法具有有限责任范围。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-107">Classes and methods have limited scopes of responsibility.</span></span>
 * <span data-ttu-id="7ce9f-108">存在有关应用应如何运行的其他文档。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-108">Additional documentation exists on how the app should behave.</span></span>
 * <span data-ttu-id="7ce9f-109">回归指代码更新引起的错误，可在自动生成和部署过程中出现。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-109">Regressions, which are errors brought about by updates to the code, are found during automated building and deployment.</span></span>
 
-<span data-ttu-id="7ce9f-110">本主题假定你对 :::no-loc(Razor)::: Pages 应用和单元测试有基本的了解。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-110">This topic assumes that you have a basic understanding of :::no-loc(Razor)::: Pages apps and unit tests.</span></span> <span data-ttu-id="7ce9f-111">如果你不熟悉 :::no-loc(Razor)::: Pages 应用或测试概念，请参阅以下主题：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-111">If you're unfamiliar with :::no-loc(Razor)::: Pages apps or test concepts, see the following topics:</span></span>
+<span data-ttu-id="7ce9f-110">本主题假定你对 Razor Pages 应用和单元测试有基本的了解。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-110">This topic assumes that you have a basic understanding of Razor Pages apps and unit tests.</span></span> <span data-ttu-id="7ce9f-111">如果你不熟悉 Razor Pages 应用或测试概念，请参阅以下主题：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-111">If you're unfamiliar with Razor Pages apps or test concepts, see the following topics:</span></span>
 
 * <xref:razor-pages/index>
 * <xref:tutorials/razor-pages/razor-pages-start>
@@ -49,10 +49,10 @@ ms.locfileid: "93058033"
 
 | <span data-ttu-id="7ce9f-115">应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-115">App</span></span>         | <span data-ttu-id="7ce9f-116">项目文件夹</span><span class="sxs-lookup"><span data-stu-id="7ce9f-116">Project folder</span></span>                     | <span data-ttu-id="7ce9f-117">描述</span><span class="sxs-lookup"><span data-stu-id="7ce9f-117">Description</span></span> |
 | ----------- | ---------------------------------- | ----------- |
-| <span data-ttu-id="7ce9f-118">消息应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-118">Message app</span></span> | <span data-ttu-id="7ce9f-119">src/:::no-loc(Razor):::PagesTestSample</span><span class="sxs-lookup"><span data-stu-id="7ce9f-119">*src/:::no-loc(Razor):::PagesTestSample*</span></span>         | <span data-ttu-id="7ce9f-120">允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-120">Allows a user to add a message, delete one message, delete all messages, and analyze messages (find the average number of words per message).</span></span> |
-| <span data-ttu-id="7ce9f-121">测试应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-121">Test app</span></span>    | <span data-ttu-id="7ce9f-122">tests/:::no-loc(Razor):::PagesTestSample.Tests</span><span class="sxs-lookup"><span data-stu-id="7ce9f-122">*tests/:::no-loc(Razor):::PagesTestSample.Tests*</span></span> | <span data-ttu-id="7ce9f-123">用于对消息应用的 DAL 和索引页面模型进行单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-123">Used to unit test the DAL and Index page model of the message app.</span></span> |
+| <span data-ttu-id="7ce9f-118">消息应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-118">Message app</span></span> | <span data-ttu-id="7ce9f-119">src/RazorPagesTestSample</span><span class="sxs-lookup"><span data-stu-id="7ce9f-119">*src/RazorPagesTestSample*</span></span>         | <span data-ttu-id="7ce9f-120">允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-120">Allows a user to add a message, delete one message, delete all messages, and analyze messages (find the average number of words per message).</span></span> |
+| <span data-ttu-id="7ce9f-121">测试应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-121">Test app</span></span>    | <span data-ttu-id="7ce9f-122">tests/RazorPagesTestSample.Tests</span><span class="sxs-lookup"><span data-stu-id="7ce9f-122">*tests/RazorPagesTestSample.Tests*</span></span> | <span data-ttu-id="7ce9f-123">用于对消息应用的 DAL 和索引页面模型进行单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-123">Used to unit test the DAL and Index page model of the message app.</span></span> |
 
-<span data-ttu-id="7ce9f-124">可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-124">The tests can be run using the built-in test features of an IDE, such as [Visual Studio](/visualstudio/test/unit-test-your-code) or [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution).</span></span> <span data-ttu-id="7ce9f-125">如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 tests/:::no-loc(Razor):::PagesTestSample.Tests 文件夹中的命令提示符处执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-125">If using [Visual Studio Code](https://code.visualstudio.com/) or the command line, execute the following command at a command prompt in the *tests/:::no-loc(Razor):::PagesTestSample.Tests* folder:</span></span>
+<span data-ttu-id="7ce9f-124">可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-124">The tests can be run using the built-in test features of an IDE, such as [Visual Studio](/visualstudio/test/unit-test-your-code) or [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution).</span></span> <span data-ttu-id="7ce9f-125">如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 tests/RazorPagesTestSample.Tests 文件夹中的命令提示符处执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-125">If using [Visual Studio Code](https://code.visualstudio.com/) or the command line, execute the following command at a command prompt in the *tests/RazorPagesTestSample.Tests* folder:</span></span>
 
 ```dotnetcli
 dotnet test
@@ -60,7 +60,7 @@ dotnet test
 
 ## <a name="message-app-organization"></a><span data-ttu-id="7ce9f-126">消息应用组织</span><span class="sxs-lookup"><span data-stu-id="7ce9f-126">Message app organization</span></span>
 
-<span data-ttu-id="7ce9f-127">消息应用是具有以下特征的 :::no-loc(Razor)::: Pages 消息系统：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-127">The message app is a :::no-loc(Razor)::: Pages message system with the following characteristics:</span></span>
+<span data-ttu-id="7ce9f-127">消息应用是具有以下特征的 Razor Pages 消息系统：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-127">The message app is a Razor Pages message system with the following characteristics:</span></span>
 
 * <span data-ttu-id="7ce9f-128">应用的索引页面（ *Pages/Index.cshtml* 和 *Pages/Index.cshtml.cs* ）提供 UI 和页面模型方法，用于控制添加、删除和分析消息（查找每条消息的平均字词数）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-128">The Index page of the app ( *Pages/Index.cshtml* and *Pages/Index.cshtml.cs* ) provides a UI and page model methods to control the addition, deletion, and analysis of messages (find the average number of words per message).</span></span>
 * <span data-ttu-id="7ce9f-129">消息由 `Message` 类 ( *Data/Message.cs* ) 描述，并具有两个属性：`Id`（键）和 `Text`（消息）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-129">A message is described by the `Message` class ( *Data/Message.cs* ) with two properties: `Id` (key) and `Text` (message).</span></span> <span data-ttu-id="7ce9f-130">`Text` 属性是必需的，并限制为 200 个字符。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-130">The `Text` property is required and limited to 200 characters.</span></span>
@@ -70,11 +70,11 @@ dotnet test
 
 <span data-ttu-id="7ce9f-136">†EF 主题[使用 InMemory 进行测试](/ef/core/miscellaneous/testing/in-memory)说明如何将内存中数据库用于 MSTest 测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-136">&#8224;The EF topic, [Test with InMemory](/ef/core/miscellaneous/testing/in-memory), explains how to use an in-memory database for tests with MSTest.</span></span> <span data-ttu-id="7ce9f-137">本主题使用 [xUnit](https://xunit.github.io/) 测试框架。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-137">This topic uses the [xUnit](https://xunit.github.io/) test framework.</span></span> <span data-ttu-id="7ce9f-138">不同测试框架中的测试概念和测试实现相似，但不完全相同。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-138">Test concepts and test implementations across different test frameworks are similar but not identical.</span></span>
 
-<span data-ttu-id="7ce9f-139">尽管示例应用未使用存储库模式且不是[工作单元 (UoW) 模式](https://martinfowler.com/eaaCatalog/unitOfWork.html)的有效示例，但 :::no-loc(Razor)::: Pages 支持这些开发模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-139">Although the sample app doesn't use the repository pattern and isn't an effective example of the [Unit of Work (UoW) pattern](https://martinfowler.com/eaaCatalog/unitOfWork.html), :::no-loc(Razor)::: Pages supports these patterns of development.</span></span> <span data-ttu-id="7ce9f-140">有关详细信息，请参阅[设计基础设施持久性层](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)和 <xref:mvc/controllers/testing>（该示例实现存储库模式）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-140">For more information, see [Designing the infrastructure persistence layer](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) and <xref:mvc/controllers/testing> (the sample implements the repository pattern).</span></span>
+<span data-ttu-id="7ce9f-139">尽管示例应用未使用存储库模式且不是[工作单元 (UoW) 模式](https://martinfowler.com/eaaCatalog/unitOfWork.html)的有效示例，但 Razor Pages 支持这些开发模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-139">Although the sample app doesn't use the repository pattern and isn't an effective example of the [Unit of Work (UoW) pattern](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor Pages supports these patterns of development.</span></span> <span data-ttu-id="7ce9f-140">有关详细信息，请参阅[设计基础设施持久性层](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)和 <xref:mvc/controllers/testing>（该示例实现存储库模式）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-140">For more information, see [Designing the infrastructure persistence layer](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) and <xref:mvc/controllers/testing> (the sample implements the repository pattern).</span></span>
 
 ## <a name="test-app-organization"></a><span data-ttu-id="7ce9f-141">测试应用组织</span><span class="sxs-lookup"><span data-stu-id="7ce9f-141">Test app organization</span></span>
 
-<span data-ttu-id="7ce9f-142">测试应用是 tests/:::no-loc(Razor):::PagesTestSample.Tests 文件夹中的控制台应用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-142">The test app is a console app inside the *tests/:::no-loc(Razor):::PagesTestSample.Tests* folder.</span></span>
+<span data-ttu-id="7ce9f-142">测试应用是 tests/RazorPagesTestSample.Tests 文件夹中的控制台应用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-142">The test app is a console app inside the *tests/RazorPagesTestSample.Tests* folder.</span></span>
 
 | <span data-ttu-id="7ce9f-143">测试应用文件夹</span><span class="sxs-lookup"><span data-stu-id="7ce9f-143">Test app folder</span></span> | <span data-ttu-id="7ce9f-144">描述</span><span class="sxs-lookup"><span data-stu-id="7ce9f-144">Description</span></span> |
 | --------------- | ----------- |
@@ -85,7 +85,7 @@ dotnet test
 
 ## <a name="unit-tests-of-the-data-access-layer-dal"></a><span data-ttu-id="7ce9f-152">数据访问层 (DAL) 的单元测试</span><span class="sxs-lookup"><span data-stu-id="7ce9f-152">Unit tests of the data access layer (DAL)</span></span>
 
-<span data-ttu-id="7ce9f-153">消息应用具有 DAL，其中 `AppDbContext` 类 (src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs) 中包含 4 个方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-153">The message app has a DAL with four methods contained in the `AppDbContext` class ( *src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs* ).</span></span> <span data-ttu-id="7ce9f-154">每个方法在测试应用中都有一到两个单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-154">Each method has one or two unit tests in the test app.</span></span>
+<span data-ttu-id="7ce9f-153">消息应用具有 DAL，其中 `AppDbContext` 类 (src/RazorPagesTestSample/Data/AppDbContext.cs) 中包含 4 个方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-153">The message app has a DAL with four methods contained in the `AppDbContext` class ( *src/RazorPagesTestSample/Data/AppDbContext.cs* ).</span></span> <span data-ttu-id="7ce9f-154">每个方法在测试应用中都有一到两个单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-154">Each method has one or two unit tests in the test app.</span></span>
 
 | <span data-ttu-id="7ce9f-155">DAL 方法</span><span class="sxs-lookup"><span data-stu-id="7ce9f-155">DAL method</span></span>               | <span data-ttu-id="7ce9f-156">函数</span><span class="sxs-lookup"><span data-stu-id="7ce9f-156">Function</span></span>                                                                   |
 | ------------------------ | -------------------------------------------------------------------------- |
@@ -106,9 +106,9 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-<span data-ttu-id="7ce9f-163">此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-163">The problem with this approach is that each test receives the database in whatever state the previous test left it.</span></span> <span data-ttu-id="7ce9f-164">尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-164">This can be problematic when trying to write atomic unit tests that don't interfere with each other.</span></span> <span data-ttu-id="7ce9f-165">若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-165">To force the `AppDbContext` to use a new database context for each test, supply a `DbContextOptions` instance that's based on a new service provider.</span></span> <span data-ttu-id="7ce9f-166">测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (tests/:::no-loc(Razor):::PagesTestSample.Tests/Utilities/Utilities.cs) 执行此操作：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-166">The test app shows how to do this using its `Utilities` class method `TestDbContextOptions` ( *tests/:::no-loc(Razor):::PagesTestSample.Tests/Utilities/Utilities.cs* ):</span></span>
+<span data-ttu-id="7ce9f-163">此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-163">The problem with this approach is that each test receives the database in whatever state the previous test left it.</span></span> <span data-ttu-id="7ce9f-164">尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-164">This can be problematic when trying to write atomic unit tests that don't interfere with each other.</span></span> <span data-ttu-id="7ce9f-165">若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-165">To force the `AppDbContext` to use a new database context for each test, supply a `DbContextOptions` instance that's based on a new service provider.</span></span> <span data-ttu-id="7ce9f-166">测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs) 执行此操作：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-166">The test app shows how to do this using its `Utilities` class method `TestDbContextOptions` ( *tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
 <span data-ttu-id="7ce9f-167">在 DAL 单元测试中使用 `DbContextOptions` 可使每个测试使用新的数据库实例自动运行：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-167">Using the `DbContextOptions` in the DAL unit tests allows each test to run atomically with a fresh database instance:</span></span>
 
@@ -125,25 +125,25 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 1. <span data-ttu-id="7ce9f-170">执行：执行测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-170">Act: The test is executed.</span></span>
 1. <span data-ttu-id="7ce9f-171">断言：进行断言以确定测试结果是否成功。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-171">Assert: Assertions are made to determine if the test result is a success.</span></span>
 
-<span data-ttu-id="7ce9f-172">例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs) 标识的单个消息：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-172">For example, the `DeleteMessageAsync` method is responsible for removing a single message identified by its `Id` ( *src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs* ):</span></span>
+<span data-ttu-id="7ce9f-172">例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (src/RazorPagesTestSample/Data/AppDbContext.cs) 标识的单个消息：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-172">For example, the `DeleteMessageAsync` method is responsible for removing a single message identified by its `Id` ( *src/RazorPagesTestSample/Data/AppDbContext.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs?name=snippet4)]
+[!code-csharp[](razor-pages-tests/samples/3.x/src/RazorPagesTestSample/Data/AppDbContext.cs?name=snippet4)]
 
 <span data-ttu-id="7ce9f-173">此方法有两个测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-173">There are two tests for this method.</span></span> <span data-ttu-id="7ce9f-174">一个测试检查当数据库中存在消息时该方法是否删除消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-174">One test checks that the method deletes a message when the message is present in the database.</span></span> <span data-ttu-id="7ce9f-175">另一个方法测试在要删除的消息 `Id` 不存在的情况下，数据库是否保持不变。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-175">The other method tests that the database doesn't change if the message `Id` for deletion doesn't exist.</span></span> <span data-ttu-id="7ce9f-176">`DeleteMessageAsync_MessageIsDeleted_WhenMessageIsFound` 方法如下所示：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-176">The `DeleteMessageAsync_MessageIsDeleted_WhenMessageIsFound` method is shown below:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples_snapshot/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples_snapshot/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
 <span data-ttu-id="7ce9f-177">首先，方法执行“安排”步骤，并在该步骤中为“执行”步骤做好准备。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-177">First, the method performs the Arrange step, where preparation for the Act step takes place.</span></span> <span data-ttu-id="7ce9f-178">获取种子消息并将其保存在 `seedMessages` 中。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-178">The seeding messages are obtained and held in `seedMessages`.</span></span> <span data-ttu-id="7ce9f-179">种子消息会保存到数据库中。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-179">The seeding messages are saved into the database.</span></span> <span data-ttu-id="7ce9f-180">`Id` 为 `1` 的消息设置为删除。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-180">The message with an `Id` of `1` is set for deletion.</span></span> <span data-ttu-id="7ce9f-181">执行 `DeleteMessageAsync` 方法时，预期的消息应是除 `Id` 为 `1` 的消息以外的所有消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-181">When the `DeleteMessageAsync` method is executed, the expected messages should have all of the messages except for the one with an `Id` of `1`.</span></span> <span data-ttu-id="7ce9f-182">`expectedMessages` 变量表示此预期结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-182">The `expectedMessages` variable represents this expected outcome.</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
 <span data-ttu-id="7ce9f-183">该方法执行：执行 `DeleteMessageAsync` 方法并传入值为 `1` 的 `recId`：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-183">The method acts: The `DeleteMessageAsync` method is executed passing in the `recId` of `1`:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
 
 <span data-ttu-id="7ce9f-184">最后，该方法从上下文中获取 `Messages` 并将其与断言两者相等的 `expectedMessages` 进行比较：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-184">Finally, the method obtains the `Messages` from the context and compares it to the `expectedMessages` asserting that the two are equal:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet3)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet3)]
 
 <span data-ttu-id="7ce9f-185">若要比较两个 `List<Message>` 是否相同，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-185">In order to compare that the two `List<Message>` are the same:</span></span>
 
@@ -152,11 +152,11 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 <span data-ttu-id="7ce9f-188">类似的测试方法 `DeleteMessageAsync_NoMessageIsDeleted_WhenMessageIsNotFound` 检查尝试删除不存在的消息的结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-188">A similar test method, `DeleteMessageAsync_NoMessageIsDeleted_WhenMessageIsNotFound` checks the result of attempting to delete a message that doesn't exist.</span></span> <span data-ttu-id="7ce9f-189">在这种情况下，执行 `DeleteMessageAsync` 方法后，数据库中的预期消息数应等于实际消息数。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-189">In this case, the expected messages in the database should be equal to the actual messages after the `DeleteMessageAsync` method is executed.</span></span> <span data-ttu-id="7ce9f-190">数据库的内容不应有任何变化：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-190">There should be no change to the database's content:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet4)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet4)]
 
 ## <a name="unit-tests-of-the-page-model-methods"></a><span data-ttu-id="7ce9f-191">页面模型方法的单元测试</span><span class="sxs-lookup"><span data-stu-id="7ce9f-191">Unit tests of the page model methods</span></span>
 
-<span data-ttu-id="7ce9f-192">另一组单元测试负责测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-192">Another set of unit tests is responsible for tests of page model methods.</span></span> <span data-ttu-id="7ce9f-193">在消息应用中，可在 src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs 的 `IndexModel` 类中找到索引页面模型。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-193">In the message app, the Index page models are found in the `IndexModel` class in *src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs*.</span></span>
+<span data-ttu-id="7ce9f-192">另一组单元测试负责测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-192">Another set of unit tests is responsible for tests of page model methods.</span></span> <span data-ttu-id="7ce9f-193">在消息应用中，可在 src/RazorPagesTestSample/Pages/Index.cshtml.cs 的 `IndexModel` 类中找到索引页面模型。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-193">In the message app, the Index page models are found in the `IndexModel` class in *src/RazorPagesTestSample/Pages/Index.cshtml.cs*.</span></span>
 
 | <span data-ttu-id="7ce9f-194">页面模型方法</span><span class="sxs-lookup"><span data-stu-id="7ce9f-194">Page model method</span></span> | <span data-ttu-id="7ce9f-195">函数</span><span class="sxs-lookup"><span data-stu-id="7ce9f-195">Function</span></span> |
 | ----------------- | -------- |
@@ -166,7 +166,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 | `OnPostDeleteMessageAsync` | <span data-ttu-id="7ce9f-199">执行 `DeleteMessageAsync` 以删除指定了 `Id` 的消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-199">Executes `DeleteMessageAsync` to delete a message with the `Id` specified.</span></span> |
 | `OnPostAnalyzeMessagesAsync` | <span data-ttu-id="7ce9f-200">如果数据库中有一条或多条消息，请计算每条消息的平均字词数。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-200">If one or more messages are in the database, calculates the average number of words per message.</span></span> |
 
-<span data-ttu-id="7ce9f-201">使用 `IndexPageTests` 类 (tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs) 中的 7 个测试来测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-201">The page model methods are tested using seven tests in the `IndexPageTests` class ( *tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs* ).</span></span> <span data-ttu-id="7ce9f-202">测试使用熟悉的安排-断言-执行模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-202">The tests use the familiar Arrange-Assert-Act pattern.</span></span> <span data-ttu-id="7ce9f-203">这些测试的重点在于：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-203">These tests focus on:</span></span>
+<span data-ttu-id="7ce9f-201">使用 `IndexPageTests` 类 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs) 中的 7 个测试来测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-201">The page model methods are tested using seven tests in the `IndexPageTests` class ( *tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs* ).</span></span> <span data-ttu-id="7ce9f-202">测试使用熟悉的安排-断言-执行模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-202">The tests use the familiar Arrange-Assert-Act pattern.</span></span> <span data-ttu-id="7ce9f-203">这些测试的重点在于：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-203">These tests focus on:</span></span>
 
 * <span data-ttu-id="7ce9f-204">确定 [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) 无效时方法是否遵循正确的行为模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-204">Determining if the methods follow the correct behavior when the [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) is invalid.</span></span>
 * <span data-ttu-id="7ce9f-205">确认方法是否会生成正确的 <xref:Microsoft.AspNetCore.Mvc.IActionResult>。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-205">Confirming the methods produce the correct <xref:Microsoft.AspNetCore.Mvc.IActionResult>.</span></span>
@@ -176,27 +176,27 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 <span data-ttu-id="7ce9f-212">`OnGetAsync_PopulatesThePageModel_WithAListOfMessages` 测试演示如何为页面模型模拟 `GetMessagesAsync` 方法：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-212">The `OnGetAsync_PopulatesThePageModel_WithAListOfMessages` test shows how the `GetMessagesAsync` method is mocked for the page model:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet1&highlight=3-4)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet1&highlight=3-4)]
 
 <span data-ttu-id="7ce9f-213">在“执行”步骤中执行 `OnGetAsync` 方法时，它会调用页面模型的 `GetMessagesAsync` 方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-213">When the `OnGetAsync` method is executed in the Act step, it calls the page model's `GetMessagesAsync` method.</span></span>
 
-<span data-ttu-id="7ce9f-214">单元测试“执行”步骤 (tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-214">Unit test Act step ( *tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs* ):</span></span>
+<span data-ttu-id="7ce9f-214">单元测试“执行”步骤 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-214">Unit test Act step ( *tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
 
-<span data-ttu-id="7ce9f-215">`IndexPage` 页面模型的 `OnGetAsync` 方法 (src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-215">`IndexPage` page model's `OnGetAsync` method ( *src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs* ):</span></span>
+<span data-ttu-id="7ce9f-215">`IndexPage` 页面模型的 `OnGetAsync` 方法 (src/RazorPagesTestSample/Pages/Index.cshtml.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-215">`IndexPage` page model's `OnGetAsync` method ( *src/RazorPagesTestSample/Pages/Index.cshtml.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
+[!code-csharp[](razor-pages-tests/samples/3.x/src/RazorPagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
 
 <span data-ttu-id="7ce9f-216">DAL 中的 `GetMessagesAsync` 方法不会返回此方法调用的结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-216">The `GetMessagesAsync` method in the DAL doesn't return the result for this method call.</span></span> <span data-ttu-id="7ce9f-217">方法的模拟版本返回结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-217">The mocked version of the method returns the result.</span></span>
 
 <span data-ttu-id="7ce9f-218">在 `Assert` 步骤中，从页面模型的 `Messages` 属性分配实际消息 (`actualMessages`)。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-218">In the `Assert` step, the actual messages (`actualMessages`) are assigned from the `Messages` property of the page model.</span></span> <span data-ttu-id="7ce9f-219">分配消息后，还会执行类型检查。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-219">A type check is also performed when the messages are assigned.</span></span> <span data-ttu-id="7ce9f-220">预期消息和实际消息通过其 `Text` 属性进行比较。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-220">The expected and actual messages are compared by their `Text` properties.</span></span> <span data-ttu-id="7ce9f-221">该测试断言两个 `List<Message>` 实例包含相同的消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-221">The test asserts that the two `List<Message>` instances contain the same messages.</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
 
-<span data-ttu-id="7ce9f-222">此组的其他测试创建页面模型对象，这些对象包括 <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>、用于建立 `PageContext` 的 <xref:Microsoft.AspNetCore.Mvc.ActionContext>、`ViewDataDictionary` 和 `PageContext`。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-222">Other tests in this group create page model objects that include the <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>, the <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>, an <xref:Microsoft.AspNetCore.Mvc.ActionContext> to establish the `PageContext`, a `ViewDataDictionary`, and a `PageContext`.</span></span> <span data-ttu-id="7ce9f-223">这些对象对于执行测试很有用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-223">These are useful in conducting tests.</span></span> <span data-ttu-id="7ce9f-224">例如，消息应用与 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> 建立 `ModelState` 错误，以检查执行 `OnPostAddMessageAsync` 时是否返回有效的 <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageResult>：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-224">For example, the message app establishes a `ModelState` error with <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> to check that a valid <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageResult> is returned when `OnPostAddMessageAsync` is executed:</span></span>
+<span data-ttu-id="7ce9f-222">此组的其他测试创建页面模型对象，这些对象包括 <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>、用于建立 `PageContext` 的 <xref:Microsoft.AspNetCore.Mvc.ActionContext>、`ViewDataDictionary` 和 `PageContext`。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-222">Other tests in this group create page model objects that include the <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>, the <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>, an <xref:Microsoft.AspNetCore.Mvc.ActionContext> to establish the `PageContext`, a `ViewDataDictionary`, and a `PageContext`.</span></span> <span data-ttu-id="7ce9f-223">这些对象对于执行测试很有用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-223">These are useful in conducting tests.</span></span> <span data-ttu-id="7ce9f-224">例如，消息应用与 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> 建立 `ModelState` 错误，以检查执行 `OnPostAddMessageAsync` 时是否返回有效的 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult>：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-224">For example, the message app establishes a `ModelState` error with <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> to check that a valid <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult> is returned when `OnPostAddMessageAsync` is executed:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/3.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
 
 ## <a name="additional-resources"></a><span data-ttu-id="7ce9f-225">其他资源</span><span class="sxs-lookup"><span data-stu-id="7ce9f-225">Additional resources</span></span>
 
@@ -214,14 +214,14 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="7ce9f-233">ASP.NET Core 支持 :::no-loc(Razor)::: Pages 应用的单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-233">ASP.NET Core supports unit tests of :::no-loc(Razor)::: Pages apps.</span></span> <span data-ttu-id="7ce9f-234">数据访问层 (DAL) 和页面模型测试有助于确保：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-234">Tests of the data access layer (DAL) and page models help ensure:</span></span>
+<span data-ttu-id="7ce9f-233">ASP.NET Core 支持 Razor Pages 应用的单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-233">ASP.NET Core supports unit tests of Razor Pages apps.</span></span> <span data-ttu-id="7ce9f-234">数据访问层 (DAL) 和页面模型测试有助于确保：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-234">Tests of the data access layer (DAL) and page models help ensure:</span></span>
 
-* <span data-ttu-id="7ce9f-235">:::no-loc(Razor)::: Pages 应用的各个部分在应用构造过程中既可以独立运行，也可以作为一个整体运行。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-235">Parts of a :::no-loc(Razor)::: Pages app work independently and together as a unit during app construction.</span></span>
+* <span data-ttu-id="7ce9f-235">Razor Pages 应用的各个部分在应用构造过程中既可以独立运行，也可以作为一个整体运行。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-235">Parts of a Razor Pages app work independently and together as a unit during app construction.</span></span>
 * <span data-ttu-id="7ce9f-236">类和方法具有有限责任范围。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-236">Classes and methods have limited scopes of responsibility.</span></span>
 * <span data-ttu-id="7ce9f-237">存在有关应用应如何运行的其他文档。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-237">Additional documentation exists on how the app should behave.</span></span>
 * <span data-ttu-id="7ce9f-238">回归指代码更新引起的错误，可在自动生成和部署过程中出现。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-238">Regressions, which are errors brought about by updates to the code, are found during automated building and deployment.</span></span>
 
-<span data-ttu-id="7ce9f-239">本主题假定你对 :::no-loc(Razor)::: Pages 应用和单元测试有基本的了解。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-239">This topic assumes that you have a basic understanding of :::no-loc(Razor)::: Pages apps and unit tests.</span></span> <span data-ttu-id="7ce9f-240">如果你不熟悉 :::no-loc(Razor)::: Pages 应用或测试概念，请参阅以下主题：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-240">If you're unfamiliar with :::no-loc(Razor)::: Pages apps or test concepts, see the following topics:</span></span>
+<span data-ttu-id="7ce9f-239">本主题假定你对 Razor Pages 应用和单元测试有基本的了解。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-239">This topic assumes that you have a basic understanding of Razor Pages apps and unit tests.</span></span> <span data-ttu-id="7ce9f-240">如果你不熟悉 Razor Pages 应用或测试概念，请参阅以下主题：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-240">If you're unfamiliar with Razor Pages apps or test concepts, see the following topics:</span></span>
 
 * <xref:razor-pages/index>
 * <xref:tutorials/razor-pages/razor-pages-start>
@@ -233,10 +233,10 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 | <span data-ttu-id="7ce9f-244">应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-244">App</span></span>         | <span data-ttu-id="7ce9f-245">项目文件夹</span><span class="sxs-lookup"><span data-stu-id="7ce9f-245">Project folder</span></span>                     | <span data-ttu-id="7ce9f-246">描述</span><span class="sxs-lookup"><span data-stu-id="7ce9f-246">Description</span></span> |
 | ----------- | ---------------------------------- | ----------- |
-| <span data-ttu-id="7ce9f-247">消息应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-247">Message app</span></span> | <span data-ttu-id="7ce9f-248">src/:::no-loc(Razor):::PagesTestSample</span><span class="sxs-lookup"><span data-stu-id="7ce9f-248">*src/:::no-loc(Razor):::PagesTestSample*</span></span>         | <span data-ttu-id="7ce9f-249">允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-249">Allows a user to add a message, delete one message, delete all messages, and analyze messages (find the average number of words per message).</span></span> |
-| <span data-ttu-id="7ce9f-250">测试应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-250">Test app</span></span>    | <span data-ttu-id="7ce9f-251">tests/:::no-loc(Razor):::PagesTestSample.Tests</span><span class="sxs-lookup"><span data-stu-id="7ce9f-251">*tests/:::no-loc(Razor):::PagesTestSample.Tests*</span></span> | <span data-ttu-id="7ce9f-252">用于对消息应用的 DAL 和索引页面模型进行单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-252">Used to unit test the DAL and Index page model of the message app.</span></span> |
+| <span data-ttu-id="7ce9f-247">消息应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-247">Message app</span></span> | <span data-ttu-id="7ce9f-248">src/RazorPagesTestSample</span><span class="sxs-lookup"><span data-stu-id="7ce9f-248">*src/RazorPagesTestSample*</span></span>         | <span data-ttu-id="7ce9f-249">允许用户添加消息、删除一条消息、删除所有消息以及分析消息（查找每条消息的平均字词数）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-249">Allows a user to add a message, delete one message, delete all messages, and analyze messages (find the average number of words per message).</span></span> |
+| <span data-ttu-id="7ce9f-250">测试应用</span><span class="sxs-lookup"><span data-stu-id="7ce9f-250">Test app</span></span>    | <span data-ttu-id="7ce9f-251">tests/RazorPagesTestSample.Tests</span><span class="sxs-lookup"><span data-stu-id="7ce9f-251">*tests/RazorPagesTestSample.Tests*</span></span> | <span data-ttu-id="7ce9f-252">用于对消息应用的 DAL 和索引页面模型进行单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-252">Used to unit test the DAL and Index page model of the message app.</span></span> |
 
-<span data-ttu-id="7ce9f-253">可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-253">The tests can be run using the built-in test features of an IDE, such as [Visual Studio](/visualstudio/test/unit-test-your-code) or [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution).</span></span> <span data-ttu-id="7ce9f-254">如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 tests/:::no-loc(Razor):::PagesTestSample.Tests 文件夹中的命令提示符处执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-254">If using [Visual Studio Code](https://code.visualstudio.com/) or the command line, execute the following command at a command prompt in the *tests/:::no-loc(Razor):::PagesTestSample.Tests* folder:</span></span>
+<span data-ttu-id="7ce9f-253">可使用 IDE 的内置测试功能（例如 [Visual Studio](/visualstudio/test/unit-test-your-code) 或 [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)）运行测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-253">The tests can be run using the built-in test features of an IDE, such as [Visual Studio](/visualstudio/test/unit-test-your-code) or [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution).</span></span> <span data-ttu-id="7ce9f-254">如果使用 [Visual Studio Code](https://code.visualstudio.com/) 或命令行，请在 tests/RazorPagesTestSample.Tests 文件夹中的命令提示符处执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-254">If using [Visual Studio Code](https://code.visualstudio.com/) or the command line, execute the following command at a command prompt in the *tests/RazorPagesTestSample.Tests* folder:</span></span>
 
 ```dotnetcli
 dotnet test
@@ -244,7 +244,7 @@ dotnet test
 
 ## <a name="message-app-organization"></a><span data-ttu-id="7ce9f-255">消息应用组织</span><span class="sxs-lookup"><span data-stu-id="7ce9f-255">Message app organization</span></span>
 
-<span data-ttu-id="7ce9f-256">消息应用是具有以下特征的 :::no-loc(Razor)::: Pages 消息系统：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-256">The message app is a :::no-loc(Razor)::: Pages message system with the following characteristics:</span></span>
+<span data-ttu-id="7ce9f-256">消息应用是具有以下特征的 Razor Pages 消息系统：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-256">The message app is a Razor Pages message system with the following characteristics:</span></span>
 
 * <span data-ttu-id="7ce9f-257">应用的索引页面（ *Pages/Index.cshtml* 和 *Pages/Index.cshtml.cs* ）提供 UI 和页面模型方法，用于控制添加、删除和分析消息（查找每条消息的平均字词数）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-257">The Index page of the app ( *Pages/Index.cshtml* and *Pages/Index.cshtml.cs* ) provides a UI and page model methods to control the addition, deletion, and analysis of messages (find the average number of words per message).</span></span>
 * <span data-ttu-id="7ce9f-258">消息由 `Message` 类 ( *Data/Message.cs* ) 描述，并具有两个属性：`Id`（键）和 `Text`（消息）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-258">A message is described by the `Message` class ( *Data/Message.cs* ) with two properties: `Id` (key) and `Text` (message).</span></span> <span data-ttu-id="7ce9f-259">`Text` 属性是必需的，并限制为 200 个字符。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-259">The `Text` property is required and limited to 200 characters.</span></span>
@@ -254,11 +254,11 @@ dotnet test
 
 <span data-ttu-id="7ce9f-265">†EF 主题[使用 InMemory 进行测试](/ef/core/miscellaneous/testing/in-memory)说明如何将内存中数据库用于 MSTest 测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-265">&#8224;The EF topic, [Test with InMemory](/ef/core/miscellaneous/testing/in-memory), explains how to use an in-memory database for tests with MSTest.</span></span> <span data-ttu-id="7ce9f-266">本主题使用 [xUnit](https://xunit.github.io/) 测试框架。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-266">This topic uses the [xUnit](https://xunit.github.io/) test framework.</span></span> <span data-ttu-id="7ce9f-267">不同测试框架中的测试概念和测试实现相似，但不完全相同。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-267">Test concepts and test implementations across different test frameworks are similar but not identical.</span></span>
 
-<span data-ttu-id="7ce9f-268">尽管示例应用未使用存储库模式且不是[工作单元 (UoW) 模式](https://martinfowler.com/eaaCatalog/unitOfWork.html)的有效示例，但 :::no-loc(Razor)::: Pages 支持这些开发模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-268">Although the sample app doesn't use the repository pattern and isn't an effective example of the [Unit of Work (UoW) pattern](https://martinfowler.com/eaaCatalog/unitOfWork.html), :::no-loc(Razor)::: Pages supports these patterns of development.</span></span> <span data-ttu-id="7ce9f-269">有关详细信息，请参阅[设计基础设施持久性层](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)和 <xref:mvc/controllers/testing>（该示例实现存储库模式）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-269">For more information, see [Designing the infrastructure persistence layer](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) and <xref:mvc/controllers/testing> (the sample implements the repository pattern).</span></span>
+<span data-ttu-id="7ce9f-268">尽管示例应用未使用存储库模式且不是[工作单元 (UoW) 模式](https://martinfowler.com/eaaCatalog/unitOfWork.html)的有效示例，但 Razor Pages 支持这些开发模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-268">Although the sample app doesn't use the repository pattern and isn't an effective example of the [Unit of Work (UoW) pattern](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor Pages supports these patterns of development.</span></span> <span data-ttu-id="7ce9f-269">有关详细信息，请参阅[设计基础设施持久性层](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)和 <xref:mvc/controllers/testing>（该示例实现存储库模式）。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-269">For more information, see [Designing the infrastructure persistence layer](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) and <xref:mvc/controllers/testing> (the sample implements the repository pattern).</span></span>
 
 ## <a name="test-app-organization"></a><span data-ttu-id="7ce9f-270">测试应用组织</span><span class="sxs-lookup"><span data-stu-id="7ce9f-270">Test app organization</span></span>
 
-<span data-ttu-id="7ce9f-271">测试应用是 tests/:::no-loc(Razor):::PagesTestSample.Tests 文件夹中的控制台应用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-271">The test app is a console app inside the *tests/:::no-loc(Razor):::PagesTestSample.Tests* folder.</span></span>
+<span data-ttu-id="7ce9f-271">测试应用是 tests/RazorPagesTestSample.Tests 文件夹中的控制台应用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-271">The test app is a console app inside the *tests/RazorPagesTestSample.Tests* folder.</span></span>
 
 | <span data-ttu-id="7ce9f-272">测试应用文件夹</span><span class="sxs-lookup"><span data-stu-id="7ce9f-272">Test app folder</span></span> | <span data-ttu-id="7ce9f-273">描述</span><span class="sxs-lookup"><span data-stu-id="7ce9f-273">Description</span></span> |
 | --------------- | ----------- |
@@ -269,7 +269,7 @@ dotnet test
 
 ## <a name="unit-tests-of-the-data-access-layer-dal"></a><span data-ttu-id="7ce9f-281">数据访问层 (DAL) 的单元测试</span><span class="sxs-lookup"><span data-stu-id="7ce9f-281">Unit tests of the data access layer (DAL)</span></span>
 
-<span data-ttu-id="7ce9f-282">消息应用具有 DAL，其中 `AppDbContext` 类 (src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs) 中包含 4 个方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-282">The message app has a DAL with four methods contained in the `AppDbContext` class ( *src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs* ).</span></span> <span data-ttu-id="7ce9f-283">每个方法在测试应用中都有一到两个单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-283">Each method has one or two unit tests in the test app.</span></span>
+<span data-ttu-id="7ce9f-282">消息应用具有 DAL，其中 `AppDbContext` 类 (src/RazorPagesTestSample/Data/AppDbContext.cs) 中包含 4 个方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-282">The message app has a DAL with four methods contained in the `AppDbContext` class ( *src/RazorPagesTestSample/Data/AppDbContext.cs* ).</span></span> <span data-ttu-id="7ce9f-283">每个方法在测试应用中都有一到两个单元测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-283">Each method has one or two unit tests in the test app.</span></span>
 
 | <span data-ttu-id="7ce9f-284">DAL 方法</span><span class="sxs-lookup"><span data-stu-id="7ce9f-284">DAL method</span></span>               | <span data-ttu-id="7ce9f-285">函数</span><span class="sxs-lookup"><span data-stu-id="7ce9f-285">Function</span></span>                                                                   |
 | ------------------------ | -------------------------------------------------------------------------- |
@@ -290,9 +290,9 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-<span data-ttu-id="7ce9f-292">此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-292">The problem with this approach is that each test receives the database in whatever state the previous test left it.</span></span> <span data-ttu-id="7ce9f-293">尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-293">This can be problematic when trying to write atomic unit tests that don't interfere with each other.</span></span> <span data-ttu-id="7ce9f-294">若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-294">To force the `AppDbContext` to use a new database context for each test, supply a `DbContextOptions` instance that's based on a new service provider.</span></span> <span data-ttu-id="7ce9f-295">测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (tests/:::no-loc(Razor):::PagesTestSample.Tests/Utilities/Utilities.cs) 执行此操作：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-295">The test app shows how to do this using its `Utilities` class method `TestDbContextOptions` ( *tests/:::no-loc(Razor):::PagesTestSample.Tests/Utilities/Utilities.cs* ):</span></span>
+<span data-ttu-id="7ce9f-292">此方法的问题在于，每个测试收到的数据库都处于之前测试中的状态。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-292">The problem with this approach is that each test receives the database in whatever state the previous test left it.</span></span> <span data-ttu-id="7ce9f-293">尝试编写不会相互干扰的原子单元测试时，这可能会导致问题。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-293">This can be problematic when trying to write atomic unit tests that don't interfere with each other.</span></span> <span data-ttu-id="7ce9f-294">若要强制 `AppDbContext` 为每个测试使用新的数据库上下文，请提供基于新服务提供程序的 `DbContextOptions` 实例。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-294">To force the `AppDbContext` to use a new database context for each test, supply a `DbContextOptions` instance that's based on a new service provider.</span></span> <span data-ttu-id="7ce9f-295">测试应用演示如何使用其 `Utilities` 类方法 `TestDbContextOptions` (tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs) 执行此操作：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-295">The test app shows how to do this using its `Utilities` class method `TestDbContextOptions` ( *tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
 <span data-ttu-id="7ce9f-296">在 DAL 单元测试中使用 `DbContextOptions` 可使每个测试使用新的数据库实例自动运行：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-296">Using the `DbContextOptions` in the DAL unit tests allows each test to run atomically with a fresh database instance:</span></span>
 
@@ -309,25 +309,25 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 1. <span data-ttu-id="7ce9f-299">执行：执行测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-299">Act: The test is executed.</span></span>
 1. <span data-ttu-id="7ce9f-300">断言：进行断言以确定测试结果是否成功。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-300">Assert: Assertions are made to determine if the test result is a success.</span></span>
 
-<span data-ttu-id="7ce9f-301">例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs) 标识的单个消息：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-301">For example, the `DeleteMessageAsync` method is responsible for removing a single message identified by its `Id` ( *src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs* ):</span></span>
+<span data-ttu-id="7ce9f-301">例如，`DeleteMessageAsync` 方法负责删除由其 `Id` (src/RazorPagesTestSample/Data/AppDbContext.cs) 标识的单个消息：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-301">For example, the `DeleteMessageAsync` method is responsible for removing a single message identified by its `Id` ( *src/RazorPagesTestSample/Data/AppDbContext.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/src/:::no-loc(Razor):::PagesTestSample/Data/AppDbContext.cs?name=snippet4)]
+[!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Data/AppDbContext.cs?name=snippet4)]
 
 <span data-ttu-id="7ce9f-302">此方法有两个测试。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-302">There are two tests for this method.</span></span> <span data-ttu-id="7ce9f-303">一个测试检查当数据库中存在消息时该方法是否删除消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-303">One test checks that the method deletes a message when the message is present in the database.</span></span> <span data-ttu-id="7ce9f-304">另一个方法测试在要删除的消息 `Id` 不存在的情况下，数据库是否保持不变。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-304">The other method tests that the database doesn't change if the message `Id` for deletion doesn't exist.</span></span> <span data-ttu-id="7ce9f-305">`DeleteMessageAsync_MessageIsDeleted_WhenMessageIsFound` 方法如下所示：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-305">The `DeleteMessageAsync_MessageIsDeleted_WhenMessageIsFound` method is shown below:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples_snapshot/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples_snapshot/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
 <span data-ttu-id="7ce9f-306">首先，方法执行“安排”步骤，并在该步骤中为“执行”步骤做好准备。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-306">First, the method performs the Arrange step, where preparation for the Act step takes place.</span></span> <span data-ttu-id="7ce9f-307">获取种子消息并将其保存在 `seedMessages` 中。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-307">The seeding messages are obtained and held in `seedMessages`.</span></span> <span data-ttu-id="7ce9f-308">种子消息会保存到数据库中。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-308">The seeding messages are saved into the database.</span></span> <span data-ttu-id="7ce9f-309">`Id` 为 `1` 的消息设置为删除。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-309">The message with an `Id` of `1` is set for deletion.</span></span> <span data-ttu-id="7ce9f-310">执行 `DeleteMessageAsync` 方法时，预期的消息应是除 `Id` 为 `1` 的消息以外的所有消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-310">When the `DeleteMessageAsync` method is executed, the expected messages should have all of the messages except for the one with an `Id` of `1`.</span></span> <span data-ttu-id="7ce9f-311">`expectedMessages` 变量表示此预期结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-311">The `expectedMessages` variable represents this expected outcome.</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
 <span data-ttu-id="7ce9f-312">该方法执行：执行 `DeleteMessageAsync` 方法并传入值为 `1` 的 `recId`：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-312">The method acts: The `DeleteMessageAsync` method is executed passing in the `recId` of `1`:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
 
 <span data-ttu-id="7ce9f-313">最后，该方法从上下文中获取 `Messages` 并将其与断言两者相等的 `expectedMessages` 进行比较：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-313">Finally, the method obtains the `Messages` from the context and compares it to the `expectedMessages` asserting that the two are equal:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet3)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet3)]
 
 <span data-ttu-id="7ce9f-314">若要比较两个 `List<Message>` 是否相同，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-314">In order to compare that the two `List<Message>` are the same:</span></span>
 
@@ -336,11 +336,11 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 <span data-ttu-id="7ce9f-317">类似的测试方法 `DeleteMessageAsync_NoMessageIsDeleted_WhenMessageIsNotFound` 检查尝试删除不存在的消息的结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-317">A similar test method, `DeleteMessageAsync_NoMessageIsDeleted_WhenMessageIsNotFound` checks the result of attempting to delete a message that doesn't exist.</span></span> <span data-ttu-id="7ce9f-318">在这种情况下，执行 `DeleteMessageAsync` 方法后，数据库中的预期消息数应等于实际消息数。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-318">In this case, the expected messages in the database should be equal to the actual messages after the `DeleteMessageAsync` method is executed.</span></span> <span data-ttu-id="7ce9f-319">数据库的内容不应有任何变化：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-319">There should be no change to the database's content:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet4)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet4)]
 
 ## <a name="unit-tests-of-the-page-model-methods"></a><span data-ttu-id="7ce9f-320">页面模型方法的单元测试</span><span class="sxs-lookup"><span data-stu-id="7ce9f-320">Unit tests of the page model methods</span></span>
 
-<span data-ttu-id="7ce9f-321">另一组单元测试负责测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-321">Another set of unit tests is responsible for tests of page model methods.</span></span> <span data-ttu-id="7ce9f-322">在消息应用中，可在 src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs 的 `IndexModel` 类中找到索引页面模型。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-322">In the message app, the Index page models are found in the `IndexModel` class in *src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs*.</span></span>
+<span data-ttu-id="7ce9f-321">另一组单元测试负责测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-321">Another set of unit tests is responsible for tests of page model methods.</span></span> <span data-ttu-id="7ce9f-322">在消息应用中，可在 src/RazorPagesTestSample/Pages/Index.cshtml.cs 的 `IndexModel` 类中找到索引页面模型。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-322">In the message app, the Index page models are found in the `IndexModel` class in *src/RazorPagesTestSample/Pages/Index.cshtml.cs*.</span></span>
 
 | <span data-ttu-id="7ce9f-323">页面模型方法</span><span class="sxs-lookup"><span data-stu-id="7ce9f-323">Page model method</span></span> | <span data-ttu-id="7ce9f-324">函数</span><span class="sxs-lookup"><span data-stu-id="7ce9f-324">Function</span></span> |
 | ----------------- | -------- |
@@ -350,7 +350,7 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 | `OnPostDeleteMessageAsync` | <span data-ttu-id="7ce9f-328">执行 `DeleteMessageAsync` 以删除指定了 `Id` 的消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-328">Executes `DeleteMessageAsync` to delete a message with the `Id` specified.</span></span> |
 | `OnPostAnalyzeMessagesAsync` | <span data-ttu-id="7ce9f-329">如果数据库中有一条或多条消息，请计算每条消息的平均字词数。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-329">If one or more messages are in the database, calculates the average number of words per message.</span></span> |
 
-<span data-ttu-id="7ce9f-330">使用 `IndexPageTests` 类 (tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs) 中的 7 个测试来测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-330">The page model methods are tested using seven tests in the `IndexPageTests` class ( *tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs* ).</span></span> <span data-ttu-id="7ce9f-331">测试使用熟悉的安排-断言-执行模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-331">The tests use the familiar Arrange-Assert-Act pattern.</span></span> <span data-ttu-id="7ce9f-332">这些测试的重点在于：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-332">These tests focus on:</span></span>
+<span data-ttu-id="7ce9f-330">使用 `IndexPageTests` 类 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs) 中的 7 个测试来测试页面模型方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-330">The page model methods are tested using seven tests in the `IndexPageTests` class ( *tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs* ).</span></span> <span data-ttu-id="7ce9f-331">测试使用熟悉的安排-断言-执行模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-331">The tests use the familiar Arrange-Assert-Act pattern.</span></span> <span data-ttu-id="7ce9f-332">这些测试的重点在于：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-332">These tests focus on:</span></span>
 
 * <span data-ttu-id="7ce9f-333">确定 [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) 无效时方法是否遵循正确的行为模式。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-333">Determining if the methods follow the correct behavior when the [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) is invalid.</span></span>
 * <span data-ttu-id="7ce9f-334">确认方法是否会生成正确的 <xref:Microsoft.AspNetCore.Mvc.IActionResult>。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-334">Confirming the methods produce the correct <xref:Microsoft.AspNetCore.Mvc.IActionResult>.</span></span>
@@ -360,27 +360,27 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 
 <span data-ttu-id="7ce9f-341">`OnGetAsync_PopulatesThePageModel_WithAListOfMessages` 测试演示如何为页面模型模拟 `GetMessagesAsync` 方法：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-341">The `OnGetAsync_PopulatesThePageModel_WithAListOfMessages` test shows how the `GetMessagesAsync` method is mocked for the page model:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet1&highlight=3-4)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet1&highlight=3-4)]
 
 <span data-ttu-id="7ce9f-342">在“执行”步骤中执行 `OnGetAsync` 方法时，它会调用页面模型的 `GetMessagesAsync` 方法。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-342">When the `OnGetAsync` method is executed in the Act step, it calls the page model's `GetMessagesAsync` method.</span></span>
 
-<span data-ttu-id="7ce9f-343">单元测试“执行”步骤 (tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-343">Unit test Act step ( *tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs* ):</span></span>
+<span data-ttu-id="7ce9f-343">单元测试“执行”步骤 (tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-343">Unit test Act step ( *tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
 
-<span data-ttu-id="7ce9f-344">`IndexPage` 页面模型的 `OnGetAsync` 方法 (src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-344">`IndexPage` page model's `OnGetAsync` method ( *src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs* ):</span></span>
+<span data-ttu-id="7ce9f-344">`IndexPage` 页面模型的 `OnGetAsync` 方法 (src/RazorPagesTestSample/Pages/Index.cshtml.cs)：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-344">`IndexPage` page model's `OnGetAsync` method ( *src/RazorPagesTestSample/Pages/Index.cshtml.cs* ):</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/src/:::no-loc(Razor):::PagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
+[!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
 
 <span data-ttu-id="7ce9f-345">DAL 中的 `GetMessagesAsync` 方法不会返回此方法调用的结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-345">The `GetMessagesAsync` method in the DAL doesn't return the result for this method call.</span></span> <span data-ttu-id="7ce9f-346">方法的模拟版本返回结果。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-346">The mocked version of the method returns the result.</span></span>
 
 <span data-ttu-id="7ce9f-347">在 `Assert` 步骤中，从页面模型的 `Messages` 属性分配实际消息 (`actualMessages`)。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-347">In the `Assert` step, the actual messages (`actualMessages`) are assigned from the `Messages` property of the page model.</span></span> <span data-ttu-id="7ce9f-348">分配消息后，还会执行类型检查。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-348">A type check is also performed when the messages are assigned.</span></span> <span data-ttu-id="7ce9f-349">预期消息和实际消息通过其 `Text` 属性进行比较。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-349">The expected and actual messages are compared by their `Text` properties.</span></span> <span data-ttu-id="7ce9f-350">该测试断言两个 `List<Message>` 实例包含相同的消息。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-350">The test asserts that the two `List<Message>` instances contain the same messages.</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
 
-<span data-ttu-id="7ce9f-351">此组的其他测试创建页面模型对象，这些对象包括 <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>、用于建立 `PageContext` 的 <xref:Microsoft.AspNetCore.Mvc.ActionContext>、`ViewDataDictionary` 和 `PageContext`。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-351">Other tests in this group create page model objects that include the <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>, the <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>, an <xref:Microsoft.AspNetCore.Mvc.ActionContext> to establish the `PageContext`, a `ViewDataDictionary`, and a `PageContext`.</span></span> <span data-ttu-id="7ce9f-352">这些对象对于执行测试很有用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-352">These are useful in conducting tests.</span></span> <span data-ttu-id="7ce9f-353">例如，消息应用与 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> 建立 `ModelState` 错误，以检查执行 `OnPostAddMessageAsync` 时是否返回有效的 <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageResult>：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-353">For example, the message app establishes a `ModelState` error with <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> to check that a valid <xref:Microsoft.AspNetCore.Mvc.:::no-loc(Razor):::Pages.PageResult> is returned when `OnPostAddMessageAsync` is executed:</span></span>
+<span data-ttu-id="7ce9f-351">此组的其他测试创建页面模型对象，这些对象包括 <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>、用于建立 `PageContext` 的 <xref:Microsoft.AspNetCore.Mvc.ActionContext>、`ViewDataDictionary` 和 `PageContext`。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-351">Other tests in this group create page model objects that include the <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>, the <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>, an <xref:Microsoft.AspNetCore.Mvc.ActionContext> to establish the `PageContext`, a `ViewDataDictionary`, and a `PageContext`.</span></span> <span data-ttu-id="7ce9f-352">这些对象对于执行测试很有用。</span><span class="sxs-lookup"><span data-stu-id="7ce9f-352">These are useful in conducting tests.</span></span> <span data-ttu-id="7ce9f-353">例如，消息应用与 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> 建立 `ModelState` 错误，以检查执行 `OnPostAddMessageAsync` 时是否返回有效的 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult>：</span><span class="sxs-lookup"><span data-stu-id="7ce9f-353">For example, the message app establishes a `ModelState` error with <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> to check that a valid <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult> is returned when `OnPostAddMessageAsync` is executed:</span></span>
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/:::no-loc(Razor):::PagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
 
 ## <a name="additional-resources"></a><span data-ttu-id="7ce9f-354">其他资源</span><span class="sxs-lookup"><span data-stu-id="7ce9f-354">Additional resources</span></span>
 

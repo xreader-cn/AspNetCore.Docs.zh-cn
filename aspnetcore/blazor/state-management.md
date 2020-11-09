@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: 状态管理'
+title: 'ASP.NET Core Blazor 状态管理'
 author: guardrex
-description: '了解如何在 :::no-loc(Blazor Server)::: 应用中保留状态。'
+description: '了解如何在 Blazor Server 应用中保留状态。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/29/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/state-management
 zone_pivot_groups: blazor-hosting-models
 ms.openlocfilehash: 1769ddbb95c9ffe373e916c885e411adc3d4c65b
@@ -27,13 +27,13 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93054991"
 ---
-# <a name="aspnet-core-no-locblazor-state-management"></a><span data-ttu-id="20658-103">ASP.NET Core :::no-loc(Blazor)::: 状态管理</span><span class="sxs-lookup"><span data-stu-id="20658-103">ASP.NET Core :::no-loc(Blazor)::: state management</span></span>
+# <a name="aspnet-core-no-locblazor-state-management"></a><span data-ttu-id="20658-103">ASP.NET Core Blazor 状态管理</span><span class="sxs-lookup"><span data-stu-id="20658-103">ASP.NET Core Blazor state management</span></span>
 
 <span data-ttu-id="20658-104">作者：[Steve Sanderson](https://github.com/SteveSandersonMS) 及 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="20658-104">By [Steve Sanderson](https://github.com/SteveSandersonMS) and [Luke Latham](https://github.com/guardrex)</span></span>
 
 ::: zone pivot="webassembly"
 
-<span data-ttu-id="20658-105">在 :::no-loc(Blazor WebAssembly)::: 应用中创建的用户状态会保存在浏览器的内存中。</span><span class="sxs-lookup"><span data-stu-id="20658-105">User state created in a :::no-loc(Blazor WebAssembly)::: app is held in the browser's memory.</span></span>
+<span data-ttu-id="20658-105">在 Blazor WebAssembly 应用中创建的用户状态会保存在浏览器的内存中。</span><span class="sxs-lookup"><span data-stu-id="20658-105">User state created in a Blazor WebAssembly app is held in the browser's memory.</span></span>
 
 <span data-ttu-id="20658-106">浏览器内存中保留的用户状态的示例：</span><span class="sxs-lookup"><span data-stu-id="20658-106">Examples of user state held in browser memory include:</span></span>
 
@@ -77,13 +77,13 @@ ms.locfileid: "93054991"
 
 <span data-ttu-id="20658-140">保存数据后，将保留用户的状态，并在任何新的浏览器会话中可用。</span><span class="sxs-lookup"><span data-stu-id="20658-140">After data is saved, the user's state is retained and available in any new browser session.</span></span>
 
-<span data-ttu-id="20658-141">由于 :::no-loc(Blazor WebAssembly)::: 应用完全在用户的浏览器中运行，因此它们需要额外的措施来访问安全的外部系统，如存储服务和数据库。</span><span class="sxs-lookup"><span data-stu-id="20658-141">Because :::no-loc(Blazor WebAssembly)::: apps run entirely in the user's browser, they require additional measures to access secure external systems, such as storage services and databases.</span></span> <span data-ttu-id="20658-142">:::no-loc(Blazor WebAssembly)::: 应用的保护方式与单页应用 (SPA) 相同。</span><span class="sxs-lookup"><span data-stu-id="20658-142">:::no-loc(Blazor WebAssembly)::: apps are secured in the same manner as Single Page Applications (SPAs).</span></span> <span data-ttu-id="20658-143">通常，应用通过 [OAuth](https://oauth.net)/[OpenID Connect (OIDC)](https://openid.net/connect/) 对用户进行身份验证，然后通过对服务器端应用的 Web API 调用与存储服务和数据库进行交互。</span><span class="sxs-lookup"><span data-stu-id="20658-143">Typically, an app authenticates a user via [OAuth](https://oauth.net)/[OpenID Connect (OIDC)](https://openid.net/connect/) and then interacts with storage services and databases through web API calls to a server-side app.</span></span> <span data-ttu-id="20658-144">服务器端应用可协调 :::no-loc(Blazor WebAssembly)::: 应用与存储服务或数据库之间的数据传输。</span><span class="sxs-lookup"><span data-stu-id="20658-144">The server-side app mediates the transfer of data between the :::no-loc(Blazor WebAssembly)::: app and the storage service or database.</span></span> <span data-ttu-id="20658-145">:::no-loc(Blazor WebAssembly)::: 应用保持与服务器端应用的临时连接，而服务器端应用具有到存储的持久连接。</span><span class="sxs-lookup"><span data-stu-id="20658-145">The :::no-loc(Blazor WebAssembly)::: app maintains an ephemeral connection to the server-side app, while the server-side app has a persistent connection to storage.</span></span>
+<span data-ttu-id="20658-141">由于 Blazor WebAssembly 应用完全在用户的浏览器中运行，因此它们需要额外的措施来访问安全的外部系统，如存储服务和数据库。</span><span class="sxs-lookup"><span data-stu-id="20658-141">Because Blazor WebAssembly apps run entirely in the user's browser, they require additional measures to access secure external systems, such as storage services and databases.</span></span> <span data-ttu-id="20658-142">Blazor WebAssembly 应用的保护方式与单页应用 (SPA) 相同。</span><span class="sxs-lookup"><span data-stu-id="20658-142">Blazor WebAssembly apps are secured in the same manner as Single Page Applications (SPAs).</span></span> <span data-ttu-id="20658-143">通常，应用通过 [OAuth](https://oauth.net)/[OpenID Connect (OIDC)](https://openid.net/connect/) 对用户进行身份验证，然后通过对服务器端应用的 Web API 调用与存储服务和数据库进行交互。</span><span class="sxs-lookup"><span data-stu-id="20658-143">Typically, an app authenticates a user via [OAuth](https://oauth.net)/[OpenID Connect (OIDC)](https://openid.net/connect/) and then interacts with storage services and databases through web API calls to a server-side app.</span></span> <span data-ttu-id="20658-144">服务器端应用可协调 Blazor WebAssembly 应用与存储服务或数据库之间的数据传输。</span><span class="sxs-lookup"><span data-stu-id="20658-144">The server-side app mediates the transfer of data between the Blazor WebAssembly app and the storage service or database.</span></span> <span data-ttu-id="20658-145">Blazor WebAssembly 应用保持与服务器端应用的临时连接，而服务器端应用具有到存储的持久连接。</span><span class="sxs-lookup"><span data-stu-id="20658-145">The Blazor WebAssembly app maintains an ephemeral connection to the server-side app, while the server-side app has a persistent connection to storage.</span></span>
 
 <span data-ttu-id="20658-146">有关详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="20658-146">For more information, see the following resources:</span></span>
 
 * <xref:blazor/call-web-api>
 * <xref:blazor/security/webassembly/index>
-* <span data-ttu-id="20658-147">:::no-loc(Blazor)::: 安全和 :::no-loc(Identity)::: 文章</span><span class="sxs-lookup"><span data-stu-id="20658-147">:::no-loc(Blazor)::: *Security and :::no-loc(Identity):::* articles</span></span>
+* <span data-ttu-id="20658-147">Blazor 安全和 Identity 文章</span><span class="sxs-lookup"><span data-stu-id="20658-147">Blazor *Security and Identity* articles</span></span>
 
 <span data-ttu-id="20658-148">有关 Azure 数据存储选项的详细信息，请参阅以下内容：</span><span class="sxs-lookup"><span data-stu-id="20658-148">For more information on Azure data storage options, see the following:</span></span>
 
@@ -109,7 +109,7 @@ ms.locfileid: "93054991"
 * <span data-ttu-id="20658-164">`sessionStorage` 的应用范围限定为浏览器的选项卡。如果用户重载该选项卡，则状态保持不变。</span><span class="sxs-lookup"><span data-stu-id="20658-164">`sessionStorage` is scoped to the browser tab. If the user reloads the tab, the state persists.</span></span> <span data-ttu-id="20658-165">如果用户关闭该选项卡或该浏览器，则状态丢失。</span><span class="sxs-lookup"><span data-stu-id="20658-165">If the user closes the tab or the browser, the state is lost.</span></span> <span data-ttu-id="20658-166">如果用户打开多个浏览器选项卡，则每个选项卡都有自己独立的数据版本。</span><span class="sxs-lookup"><span data-stu-id="20658-166">If the user opens multiple browser tabs, each tab has its own independent version of the data.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="20658-167">`localStorage` 和 `sessionStorage` 可用于 :::no-loc(Blazor WebAssembly)::: 应用，但只能通过编写自定义代码或使用第三方包的方式使用。</span><span class="sxs-lookup"><span data-stu-id="20658-167">`localStorage` and `sessionStorage` can be used in :::no-loc(Blazor WebAssembly)::: apps but only by writing custom code or using a third-party package.</span></span>
+> <span data-ttu-id="20658-167">`localStorage` 和 `sessionStorage` 可用于 Blazor WebAssembly 应用，但只能通过编写自定义代码或使用第三方包的方式使用。</span><span class="sxs-lookup"><span data-stu-id="20658-167">`localStorage` and `sessionStorage` can be used in Blazor WebAssembly apps but only by writing custom code or using a third-party package.</span></span>
 
 <span data-ttu-id="20658-168">通常，`sessionStorage` 使用起来更安全。</span><span class="sxs-lookup"><span data-stu-id="20658-168">Generally, `sessionStorage` is safer to use.</span></span> <span data-ttu-id="20658-169">`sessionStorage` 避免了用户打开多个选项卡并遇到以下问题的风险：</span><span class="sxs-lookup"><span data-stu-id="20658-169">`sessionStorage` avoids the risk that a user opens multiple tabs and encounters the following:</span></span>
 
@@ -135,7 +135,7 @@ ms.locfileid: "93054991"
 
 ::: zone pivot="server"
 
-<span data-ttu-id="20658-177">:::no-loc(Blazor Server)::: 是有状态的应用框架。</span><span class="sxs-lookup"><span data-stu-id="20658-177">:::no-loc(Blazor Server)::: is a stateful app framework.</span></span> <span data-ttu-id="20658-178">大多数情况下，应用保持与服务器的连接。</span><span class="sxs-lookup"><span data-stu-id="20658-178">Most of the time, the app maintains a connection to the server.</span></span> <span data-ttu-id="20658-179">用户的状态保留在线路中的服务器内存中。</span><span class="sxs-lookup"><span data-stu-id="20658-179">The user's state is held in the server's memory in a *circuit*.</span></span> 
+<span data-ttu-id="20658-177">Blazor Server 是有状态的应用框架。</span><span class="sxs-lookup"><span data-stu-id="20658-177">Blazor Server is a stateful app framework.</span></span> <span data-ttu-id="20658-178">大多数情况下，应用保持与服务器的连接。</span><span class="sxs-lookup"><span data-stu-id="20658-178">Most of the time, the app maintains a connection to the server.</span></span> <span data-ttu-id="20658-179">用户的状态保留在线路中的服务器内存中。</span><span class="sxs-lookup"><span data-stu-id="20658-179">The user's state is held in the server's memory in a *circuit*.</span></span> 
 
 <span data-ttu-id="20658-180">线路中保留的用户状态示例：</span><span class="sxs-lookup"><span data-stu-id="20658-180">Examples of user state held in a circuit include:</span></span>
 
@@ -145,7 +145,7 @@ ms.locfileid: "93054991"
 
 <span data-ttu-id="20658-184">还可以通过 [JavaScript 互操作](xref:blazor/call-javascript-from-dotnet) 调用在浏览器的内存集的 JavaScript 变量中找到用户状态。</span><span class="sxs-lookup"><span data-stu-id="20658-184">User state might also be found in JavaScript variables in the browser's memory set via [JavaScript interop](xref:blazor/call-javascript-from-dotnet) calls.</span></span>
 
-<span data-ttu-id="20658-185">如果用户遇到暂时的网络连接丢失问题，:::no-loc(Blazor)::: 会尝试将用户重新连接到具有其原始状态的原始线路。</span><span class="sxs-lookup"><span data-stu-id="20658-185">If a user experiences a temporary network connection loss, :::no-loc(Blazor)::: attempts to reconnect the user to their original circuit with their original state.</span></span> <span data-ttu-id="20658-186">但是，将用户重新连接到服务器内存中的原始电路并非总是能够实现的：</span><span class="sxs-lookup"><span data-stu-id="20658-186">However, reconnecting a user to their original circuit in the server's memory isn't always possible:</span></span>
+<span data-ttu-id="20658-185">如果用户遇到暂时的网络连接丢失问题，Blazor 会尝试将用户重新连接到具有其原始状态的原始线路。</span><span class="sxs-lookup"><span data-stu-id="20658-185">If a user experiences a temporary network connection loss, Blazor attempts to reconnect the user to their original circuit with their original state.</span></span> <span data-ttu-id="20658-186">但是，将用户重新连接到服务器内存中的原始电路并非总是能够实现的：</span><span class="sxs-lookup"><span data-stu-id="20658-186">However, reconnecting a user to their original circuit in the server's memory isn't always possible:</span></span>
 
 * <span data-ttu-id="20658-187">服务器不能永久保留断开连接的线路。</span><span class="sxs-lookup"><span data-stu-id="20658-187">The server can't retain a disconnected circuit forever.</span></span> <span data-ttu-id="20658-188">超时后或在服务器面临内存压力时，服务器必须释放断开连接的线路。</span><span class="sxs-lookup"><span data-stu-id="20658-188">The server must release a disconnected circuit after a timeout or when the server is under memory pressure.</span></span>
 * <span data-ttu-id="20658-189">在负载均衡的多服务器部署环境中，不再需要单个服务器处理整个请求量时，它可能会失败或被自动删除。</span><span class="sxs-lookup"><span data-stu-id="20658-189">In multi-server, load-balanced deployment environments, individual servers may fail or be automatically removed when no longer required to handle the overall volume of requests.</span></span> <span data-ttu-id="20658-190">在用户尝试重新连接时，用户的原始服务器处理请求可能会变得不可用。</span><span class="sxs-lookup"><span data-stu-id="20658-190">The original server processing requests for a user may become unavailable when the user attempts to reconnect.</span></span>
@@ -223,7 +223,7 @@ ms.locfileid: "93054991"
 
 * <span data-ttu-id="20658-251">与使用服务器端数据库类似，加载和保存数据都是异步的。</span><span class="sxs-lookup"><span data-stu-id="20658-251">Similar to the use of a server-side database, loading and saving data are asynchronous.</span></span>
 * <span data-ttu-id="20658-252">与服务器端数据库不同，在预呈现期间，存储不可用，因为在预呈现阶段，请求的页面在浏览器中不存在。</span><span class="sxs-lookup"><span data-stu-id="20658-252">Unlike a server-side database, storage isn't available during prerendering because the requested page doesn't exist in the browser during the prerendering stage.</span></span>
-* <span data-ttu-id="20658-253">保留状态的位置对于 :::no-loc(Blazor Server)::: 应用，持久存储几千字节的数据是合理的。</span><span class="sxs-lookup"><span data-stu-id="20658-253">Storage of a few kilobytes of data is reasonable to persist for :::no-loc(Blazor Server)::: apps.</span></span> <span data-ttu-id="20658-254">超出几千字节后，你就须考虑性能影响，因为数据是跨网络加载和保存的。</span><span class="sxs-lookup"><span data-stu-id="20658-254">Beyond a few kilobytes, you must consider the performance implications because the data is loaded and saved across the network.</span></span>
+* <span data-ttu-id="20658-253">保留状态的位置对于 Blazor Server 应用，持久存储几千字节的数据是合理的。</span><span class="sxs-lookup"><span data-stu-id="20658-253">Storage of a few kilobytes of data is reasonable to persist for Blazor Server apps.</span></span> <span data-ttu-id="20658-254">超出几千字节后，你就须考虑性能影响，因为数据是跨网络加载和保存的。</span><span class="sxs-lookup"><span data-stu-id="20658-254">Beyond a few kilobytes, you must consider the performance implications because the data is loaded and saved across the network.</span></span>
 * <span data-ttu-id="20658-255">用户可以查看或篡改数据。</span><span class="sxs-lookup"><span data-stu-id="20658-255">Users may view or tamper with the data.</span></span> <span data-ttu-id="20658-256">[ASP.NET Core 数据保护](xref:security/data-protection/introduction)可以降低风险。</span><span class="sxs-lookup"><span data-stu-id="20658-256">[ASP.NET Core Data Protection](xref:security/data-protection/introduction) can mitigate the risk.</span></span> <span data-ttu-id="20658-257">例如，[ASP.NET Core 受保护的浏览器存储](#aspnet-core-protected-browser-storage)使用 ASP.NET Core 数据保护。</span><span class="sxs-lookup"><span data-stu-id="20658-257">For example, [ASP.NET Core Protected Browser Storage](#aspnet-core-protected-browser-storage) uses ASP.NET Core Data Protection.</span></span>
 
 <span data-ttu-id="20658-258">第三方 NuGet 包提供使用 `localStorage` 和 `sessionStorage` 时采用的 API。</span><span class="sxs-lookup"><span data-stu-id="20658-258">Third-party NuGet packages provide APIs for working with `localStorage` and `sessionStorage`.</span></span> <span data-ttu-id="20658-259">值得考虑的是，选择一个透明地使用 [ASP.NET Core 数据保护](xref:security/data-protection/introduction)的包。</span><span class="sxs-lookup"><span data-stu-id="20658-259">It's worth considering choosing a package that transparently uses [ASP.NET Core Data Protection](xref:security/data-protection/introduction).</span></span> <span data-ttu-id="20658-260">数据保护可对存储的数据进行加密，并降低篡改存储数据的潜在风险。</span><span class="sxs-lookup"><span data-stu-id="20658-260">Data Protection encrypts stored data and reduces the potential risk of tampering with stored data.</span></span> <span data-ttu-id="20658-261">如果 JSON 序列化的数据以纯文本形式存储，则用户可以使用浏览器开发人员工具查看数据，还可以修改存储的数据。</span><span class="sxs-lookup"><span data-stu-id="20658-261">If JSON-serialized data is stored in plain text, users can see the data using browser developer tools and also modify the stored data.</span></span> <span data-ttu-id="20658-262">保护数据并非总是一个问题，因为有些数据本质上可能是无足轻重的。</span><span class="sxs-lookup"><span data-stu-id="20658-262">Securing data isn't always a problem because the data might be trivial in nature.</span></span> <span data-ttu-id="20658-263">例如，读取或修改 UI 元素的存储颜色不会对用户或组织造成严重的安全风险。</span><span class="sxs-lookup"><span data-stu-id="20658-263">For example, reading or modifying the stored color of a UI element isn't a significant security risk to the user or the organization.</span></span> <span data-ttu-id="20658-264">避免允许用户检查或篡改敏感数据。</span><span class="sxs-lookup"><span data-stu-id="20658-264">Avoid allowing users to inspect or tamper with *sensitive data*.</span></span>
@@ -235,7 +235,7 @@ ms.locfileid: "93054991"
 <span data-ttu-id="20658-266">ASP.NET Core 受保护的浏览器存储将 [ASP.NET Core 数据保护](xref:security/data-protection/introduction)用于 [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) 和 [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage)。</span><span class="sxs-lookup"><span data-stu-id="20658-266">ASP.NET Core Protected Browser Storage leverages [ASP.NET Core Data Protection](xref:security/data-protection/introduction) for [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) and [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage).</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="20658-267">受保护的浏览器存储依赖于 ASP.NET Core 数据保护，仅支持用于 :::no-loc(Blazor Server)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="20658-267">Protected Browser Storage relies on ASP.NET Core Data Protection and is only supported for :::no-loc(Blazor Server)::: apps.</span></span>
+> <span data-ttu-id="20658-267">受保护的浏览器存储依赖于 ASP.NET Core 数据保护，仅支持用于 Blazor Server 应用。</span><span class="sxs-lookup"><span data-stu-id="20658-267">Protected Browser Storage relies on ASP.NET Core Data Protection and is only supported for Blazor Server apps.</span></span>
 
 ### <a name="save-and-load-data-within-a-component"></a><span data-ttu-id="20658-268">保存和加载组件中的数据</span><span class="sxs-lookup"><span data-stu-id="20658-268">Save and load data within a component</span></span>
 
@@ -253,7 +253,7 @@ ms.locfileid: "93054991"
 
 <span data-ttu-id="20658-272">可将 `@using` 指令放在应用的 `_Imports.razor` 文件而不是组件中。</span><span class="sxs-lookup"><span data-stu-id="20658-272">The `@using` directive can be placed in the app's `_Imports.razor` file instead of in the component.</span></span> <span data-ttu-id="20658-273">使用 `_Imports.razor` 文件可使命名空间可用于应用的较大部分或整个应用。</span><span class="sxs-lookup"><span data-stu-id="20658-273">Use of the `_Imports.razor` file makes the namespace available to larger segments of the app or the whole app.</span></span>
 
-<span data-ttu-id="20658-274">若要在基于 :::no-loc(Blazor Server)::: 项目模板的应用的 `Counter` 组件中保留 `currentCount` 值，请修改 `IncrementCount` 方法以使用 `ProtectedSessionStore.SetAsync`：</span><span class="sxs-lookup"><span data-stu-id="20658-274">To persist the `currentCount` value in the `Counter` component of an app based on the :::no-loc(Blazor Server)::: project template, modify the `IncrementCount` method to use `ProtectedSessionStore.SetAsync`:</span></span>
+<span data-ttu-id="20658-274">若要在基于 Blazor Server 项目模板的应用的 `Counter` 组件中保留 `currentCount` 值，请修改 `IncrementCount` 方法以使用 `ProtectedSessionStore.SetAsync`：</span><span class="sxs-lookup"><span data-stu-id="20658-274">To persist the `currentCount` value in the `Counter` component of an app based on the Blazor Server project template, modify the `IncrementCount` method to use `ProtectedSessionStore.SetAsync`:</span></span>
 
 ```csharp
 private async Task IncrementCount()
@@ -466,7 +466,7 @@ else
 > [!WARNING]
 > <span data-ttu-id="20658-329">`Microsoft.AspNetCore.ProtectedBrowserStorage` 是一个不受支持的实验性包，不适合用于生产。</span><span class="sxs-lookup"><span data-stu-id="20658-329">`Microsoft.AspNetCore.ProtectedBrowserStorage` is an unsupported, experimental package unsuitable for production use.</span></span>
 >
-> <span data-ttu-id="20658-330">此包仅适用于 ASP.NET Core 3.1 :::no-loc(Blazor Server)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="20658-330">The package is only available for use in ASP.NET Core 3.1 :::no-loc(Blazor Server)::: apps.</span></span>
+> <span data-ttu-id="20658-330">此包仅适用于 ASP.NET Core 3.1 Blazor Server 应用。</span><span class="sxs-lookup"><span data-stu-id="20658-330">The package is only available for use in ASP.NET Core 3.1 Blazor Server apps.</span></span>
 
 ### <a name="configuration"></a><span data-ttu-id="20658-331">配置</span><span class="sxs-lookup"><span data-stu-id="20658-331">Configuration</span></span>
 
@@ -499,7 +499,7 @@ else
 
 <span data-ttu-id="20658-339">可将 `@using` 语句放置在 `_Imports.razor` 文件而不是组件中。</span><span class="sxs-lookup"><span data-stu-id="20658-339">The `@using` statement can be placed into an `_Imports.razor` file instead of in the component.</span></span> <span data-ttu-id="20658-340">使用 `_Imports.razor` 文件可使命名空间可用于应用的较大部分或整个应用。</span><span class="sxs-lookup"><span data-stu-id="20658-340">Use of the `_Imports.razor` file makes the namespace available to larger segments of the app or the whole app.</span></span>
 
-<span data-ttu-id="20658-341">若要在基于 :::no-loc(Blazor Server)::: 项目模板的应用的 `Counter` 组件中保留 `currentCount` 值，请修改 `IncrementCount` 方法以使用 `ProtectedSessionStore.SetAsync`：</span><span class="sxs-lookup"><span data-stu-id="20658-341">To persist the `currentCount` value in the `Counter` component of an app based on the :::no-loc(Blazor Server)::: project template, modify the `IncrementCount` method to use `ProtectedSessionStore.SetAsync`:</span></span>
+<span data-ttu-id="20658-341">若要在基于 Blazor Server 项目模板的应用的 `Counter` 组件中保留 `currentCount` 值，请修改 `IncrementCount` 方法以使用 `ProtectedSessionStore.SetAsync`：</span><span class="sxs-lookup"><span data-stu-id="20658-341">To persist the `currentCount` value in the `Counter` component of an app based on the Blazor Server project template, modify the `IncrementCount` method to use `ProtectedSessionStore.SetAsync`:</span></span>
 
 ```csharp
 private async Task IncrementCount()

@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(SignalR)::: Java 客户端'
+title: 'ASP.NET Core SignalR Java 客户端'
 author: mikaelm12
-description: '了解如何使用 ASP.NET Core :::no-loc(SignalR)::: Java 客户端。'
+description: '了解如何使用 ASP.NET Core SignalR Java 客户端。'
 monikerRange: '>= aspnetcore-2.2'
 ms.author: mimengis
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: signalr/java-client
 ms.openlocfilehash: 638333176ae31b088bdf5ebefe97e87bde6c0d32
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,19 +26,19 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93051455"
 ---
-# <a name="aspnet-core-no-locsignalr-java-client"></a><span data-ttu-id="00f6b-103">ASP.NET Core :::no-loc(SignalR)::: Java 客户端</span><span class="sxs-lookup"><span data-stu-id="00f6b-103">ASP.NET Core :::no-loc(SignalR)::: Java client</span></span>
+# <a name="aspnet-core-no-locsignalr-java-client"></a><span data-ttu-id="00f6b-103">ASP.NET Core SignalR Java 客户端</span><span class="sxs-lookup"><span data-stu-id="00f6b-103">ASP.NET Core SignalR Java client</span></span>
 
 <span data-ttu-id="00f6b-104">作者：[Mikael Mengistu](https://twitter.com/MikaelM_12)</span><span class="sxs-lookup"><span data-stu-id="00f6b-104">By [Mikael Mengistu](https://twitter.com/MikaelM_12)</span></span>
 
-<span data-ttu-id="00f6b-105">Java 客户端允许 :::no-loc(SignalR)::: 从 java 代码（包括 Android 应用）连接到 ASP.NET Core 服务器。</span><span class="sxs-lookup"><span data-stu-id="00f6b-105">The Java client enables connecting to an ASP.NET Core :::no-loc(SignalR)::: server from Java code, including Android apps.</span></span> <span data-ttu-id="00f6b-106">与 [JavaScript 客户端](xref:signalr/javascript-client) 和 [.net 客户](xref:signalr/dotnet-client)端一样，Java 客户端允许您实时接收消息并向中心发送消息。</span><span class="sxs-lookup"><span data-stu-id="00f6b-106">Like the [JavaScript client](xref:signalr/javascript-client) and the [.NET client](xref:signalr/dotnet-client), the Java client enables you to receive and send messages to a hub in real time.</span></span> <span data-ttu-id="00f6b-107">Java 客户端在 ASP.NET Core 2.2 及更高版本中可用。</span><span class="sxs-lookup"><span data-stu-id="00f6b-107">The Java client is available in ASP.NET Core 2.2 and later.</span></span>
+<span data-ttu-id="00f6b-105">Java 客户端允许 SignalR 从 java 代码（包括 Android 应用）连接到 ASP.NET Core 服务器。</span><span class="sxs-lookup"><span data-stu-id="00f6b-105">The Java client enables connecting to an ASP.NET Core SignalR server from Java code, including Android apps.</span></span> <span data-ttu-id="00f6b-106">与 [JavaScript 客户端](xref:signalr/javascript-client) 和 [.net 客户](xref:signalr/dotnet-client)端一样，Java 客户端允许您实时接收消息并向中心发送消息。</span><span class="sxs-lookup"><span data-stu-id="00f6b-106">Like the [JavaScript client](xref:signalr/javascript-client) and the [.NET client](xref:signalr/dotnet-client), the Java client enables you to receive and send messages to a hub in real time.</span></span> <span data-ttu-id="00f6b-107">Java 客户端在 ASP.NET Core 2.2 及更高版本中可用。</span><span class="sxs-lookup"><span data-stu-id="00f6b-107">The Java client is available in ASP.NET Core 2.2 and later.</span></span>
 
-<span data-ttu-id="00f6b-108">本文中引用的示例 Java 控制台应用使用 :::no-loc(SignalR)::: java 客户端。</span><span class="sxs-lookup"><span data-stu-id="00f6b-108">The sample Java console app referenced in this article uses the :::no-loc(SignalR)::: Java client.</span></span>
+<span data-ttu-id="00f6b-108">本文中引用的示例 Java 控制台应用使用 SignalR java 客户端。</span><span class="sxs-lookup"><span data-stu-id="00f6b-108">The sample Java console app referenced in this article uses the SignalR Java client.</span></span>
 
 <span data-ttu-id="00f6b-109">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="00f6b-109">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="install-the-no-locsignalr-java-client-package"></a><span data-ttu-id="00f6b-110">安装 :::no-loc(SignalR)::: Java 客户端包</span><span class="sxs-lookup"><span data-stu-id="00f6b-110">Install the :::no-loc(SignalR)::: Java client package</span></span>
+## <a name="install-the-no-locsignalr-java-client-package"></a><span data-ttu-id="00f6b-110">安装 SignalR Java 客户端包</span><span class="sxs-lookup"><span data-stu-id="00f6b-110">Install the SignalR Java client package</span></span>
 
-<span data-ttu-id="00f6b-111">*Signalr-1.0.0* JAR 文件允许客户端连接到 :::no-loc(SignalR)::: 中心。</span><span class="sxs-lookup"><span data-stu-id="00f6b-111">The *signalr-1.0.0* JAR file allows clients to connect to :::no-loc(SignalR)::: hubs.</span></span> <span data-ttu-id="00f6b-112">若要查找最新的 JAR 文件版本号，请参阅 [Maven 搜索结果](https://search.maven.org/search?q=g:com.microsoft.signalr%20AND%20a:signalr)。</span><span class="sxs-lookup"><span data-stu-id="00f6b-112">To find the latest JAR file version number, see the [Maven search results](https://search.maven.org/search?q=g:com.microsoft.signalr%20AND%20a:signalr).</span></span>
+<span data-ttu-id="00f6b-111">*Signalr-1.0.0* JAR 文件允许客户端连接到 SignalR 中心。</span><span class="sxs-lookup"><span data-stu-id="00f6b-111">The *signalr-1.0.0* JAR file allows clients to connect to SignalR hubs.</span></span> <span data-ttu-id="00f6b-112">若要查找最新的 JAR 文件版本号，请参阅 [Maven 搜索结果](https://search.maven.org/search?q=g:com.microsoft.signalr%20AND%20a:signalr)。</span><span class="sxs-lookup"><span data-stu-id="00f6b-112">To find the latest JAR file version number, see the [Maven search results](https://search.maven.org/search?q=g:com.microsoft.signalr%20AND%20a:signalr).</span></span>
 
 <span data-ttu-id="00f6b-113">如果使用 Gradle，请将以下行添加到 `dependencies` *Gradle* 文件的部分：</span><span class="sxs-lookup"><span data-stu-id="00f6b-113">If using Gradle, add the following line to the `dependencies` section of your *build.gradle* file:</span></span>
 
@@ -63,7 +63,7 @@ implementation 'com.microsoft.signalr:signalr:1.0.0'
 [!code-java[send method](java-client/sample/src/main/java/Chat.java?range=28)]
 
 > [!NOTE]
-> <span data-ttu-id="00f6b-123">仅 :::no-loc(SignalR)::: 在 *默认* 模式下使用 Azure 服务时，才支持从客户端调用中心方法。</span><span class="sxs-lookup"><span data-stu-id="00f6b-123">Calling hub methods from a client is only supported when using the Azure :::no-loc(SignalR)::: Service in *Default* mode.</span></span> <span data-ttu-id="00f6b-124">有关详细信息，请参阅 [Signalr GitHub 存储库)  (常见问题解答 ](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose)。</span><span class="sxs-lookup"><span data-stu-id="00f6b-124">For more information, see [Frequently Asked Questions (azure-signalr GitHub repository)](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose).</span></span>
+> <span data-ttu-id="00f6b-123">仅 SignalR 在 *默认* 模式下使用 Azure 服务时，才支持从客户端调用中心方法。</span><span class="sxs-lookup"><span data-stu-id="00f6b-123">Calling hub methods from a client is only supported when using the Azure SignalR Service in *Default* mode.</span></span> <span data-ttu-id="00f6b-124">有关详细信息，请参阅 [Signalr GitHub 存储库)  (常见问题解答 ](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose)。</span><span class="sxs-lookup"><span data-stu-id="00f6b-124">For more information, see [Frequently Asked Questions (azure-signalr GitHub repository)](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose).</span></span>
 
 ## <a name="call-client-methods-from-hub"></a><span data-ttu-id="00f6b-125">从中心调用客户端方法</span><span class="sxs-lookup"><span data-stu-id="00f6b-125">Call client methods from hub</span></span>
 
@@ -73,7 +73,7 @@ implementation 'com.microsoft.signalr:signalr:1.0.0'
 
 ## <a name="add-logging"></a><span data-ttu-id="00f6b-128">添加日志记录</span><span class="sxs-lookup"><span data-stu-id="00f6b-128">Add logging</span></span>
 
-<span data-ttu-id="00f6b-129">:::no-loc(SignalR):::Java 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。</span><span class="sxs-lookup"><span data-stu-id="00f6b-129">The :::no-loc(SignalR)::: Java client uses the [SLF4J](https://www.slf4j.org/) library for logging.</span></span> <span data-ttu-id="00f6b-130">这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。</span><span class="sxs-lookup"><span data-stu-id="00f6b-130">It's a high-level logging API that allows users of the library to chose their own specific logging implementation by bringing in a specific logging dependency.</span></span> <span data-ttu-id="00f6b-131">下面的代码段演示如何将用于 `java.util.logging` :::no-loc(SignalR)::: Java 客户端。</span><span class="sxs-lookup"><span data-stu-id="00f6b-131">The following code snippet shows how to use `java.util.logging` with the :::no-loc(SignalR)::: Java client.</span></span>
+<span data-ttu-id="00f6b-129">SignalRJava 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。</span><span class="sxs-lookup"><span data-stu-id="00f6b-129">The SignalR Java client uses the [SLF4J](https://www.slf4j.org/) library for logging.</span></span> <span data-ttu-id="00f6b-130">这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。</span><span class="sxs-lookup"><span data-stu-id="00f6b-130">It's a high-level logging API that allows users of the library to chose their own specific logging implementation by bringing in a specific logging dependency.</span></span> <span data-ttu-id="00f6b-131">下面的代码段演示如何将用于 `java.util.logging` SignalR Java 客户端。</span><span class="sxs-lookup"><span data-stu-id="00f6b-131">The following code snippet shows how to use `java.util.logging` with the SignalR Java client.</span></span>
 
 ```gradle
 implementation 'org.slf4j:slf4j-jdk14:1.7.25'
@@ -91,14 +91,14 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 ## <a name="android-development-notes"></a><span data-ttu-id="00f6b-134">Android 开发说明</span><span class="sxs-lookup"><span data-stu-id="00f6b-134">Android development notes</span></span>
 
-<span data-ttu-id="00f6b-135">对于客户端功能 Android SDK 兼容性 :::no-loc(SignalR)::: ，在指定目标 Android SDK 版本时，请考虑以下各项：</span><span class="sxs-lookup"><span data-stu-id="00f6b-135">With regards to Android SDK compatibility for the :::no-loc(SignalR)::: client features, consider the following items when specifying your target Android SDK version:</span></span>
+<span data-ttu-id="00f6b-135">对于客户端功能 Android SDK 兼容性 SignalR ，在指定目标 Android SDK 版本时，请考虑以下各项：</span><span class="sxs-lookup"><span data-stu-id="00f6b-135">With regards to Android SDK compatibility for the SignalR client features, consider the following items when specifying your target Android SDK version:</span></span>
 
-* <span data-ttu-id="00f6b-136">:::no-loc(SignalR):::Java 客户端将在 ANDROID API Level 16 和更高版本上运行。</span><span class="sxs-lookup"><span data-stu-id="00f6b-136">The :::no-loc(SignalR)::: Java Client will run on Android API Level 16 and later.</span></span>
-* <span data-ttu-id="00f6b-137">通过 Azure 服务连接 :::no-loc(SignalR)::: 将需要 ANDROID API 级别20和更高版本，因为 [Azure :::no-loc(SignalR)::: 服务](/azure/azure-signalr/signalr-overview) 需要 TLS 1.2，并且不支持基于 sha-1 的密码套件。</span><span class="sxs-lookup"><span data-stu-id="00f6b-137">Connecting through the Azure :::no-loc(SignalR)::: Service will require Android API Level 20 and later because the [Azure :::no-loc(SignalR)::: Service](/azure/azure-signalr/signalr-overview) requires TLS 1.2 and doesn't support SHA-1-based cipher suites.</span></span> <span data-ttu-id="00f6b-138">Android [增加了对 SHA-256 (及更) 高](https://developer.android.com/reference/javax/net/ssl/SSLSocket) 版本的支持。</span><span class="sxs-lookup"><span data-stu-id="00f6b-138">Android [added support for SHA-256 (and above) cipher suites](https://developer.android.com/reference/javax/net/ssl/SSLSocket) in API Level 20.</span></span>
+* <span data-ttu-id="00f6b-136">SignalRJava 客户端将在 ANDROID API Level 16 和更高版本上运行。</span><span class="sxs-lookup"><span data-stu-id="00f6b-136">The SignalR Java Client will run on Android API Level 16 and later.</span></span>
+* <span data-ttu-id="00f6b-137">通过 Azure 服务连接 SignalR 将需要 ANDROID API 级别20和更高版本，因为 [Azure SignalR 服务](/azure/azure-signalr/signalr-overview) 需要 TLS 1.2，并且不支持基于 sha-1 的密码套件。</span><span class="sxs-lookup"><span data-stu-id="00f6b-137">Connecting through the Azure SignalR Service will require Android API Level 20 and later because the [Azure SignalR Service](/azure/azure-signalr/signalr-overview) requires TLS 1.2 and doesn't support SHA-1-based cipher suites.</span></span> <span data-ttu-id="00f6b-138">Android [增加了对 SHA-256 (及更) 高](https://developer.android.com/reference/javax/net/ssl/SSLSocket) 版本的支持。</span><span class="sxs-lookup"><span data-stu-id="00f6b-138">Android [added support for SHA-256 (and above) cipher suites](https://developer.android.com/reference/javax/net/ssl/SSLSocket) in API Level 20.</span></span>
 
 ## <a name="configure-bearer-token-authentication"></a><span data-ttu-id="00f6b-139">配置持有者令牌身份验证</span><span class="sxs-lookup"><span data-stu-id="00f6b-139">Configure bearer token authentication</span></span>
 
-<span data-ttu-id="00f6b-140">在 :::no-loc(SignalR)::: Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)提供 "访问令牌工厂" 来配置用于身份验证的持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="00f6b-140">In the :::no-loc(SignalR)::: Java client, you can configure a bearer token to use for authentication by providing an "access token factory" to the [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java).</span></span> <span data-ttu-id="00f6b-141">使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。</span><span class="sxs-lookup"><span data-stu-id="00f6b-141">Use [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) to provide an [RxJava](https://github.com/ReactiveX/RxJava) [Single\<String>](https://reactivex.io/documentation/single.html).</span></span> <span data-ttu-id="00f6b-142">如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。</span><span class="sxs-lookup"><span data-stu-id="00f6b-142">With a call to [Single.defer](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-), you can write logic to produce access tokens for your client.</span></span>
+<span data-ttu-id="00f6b-140">在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)提供 "访问令牌工厂" 来配置用于身份验证的持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="00f6b-140">In the SignalR Java client, you can configure a bearer token to use for authentication by providing an "access token factory" to the [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java).</span></span> <span data-ttu-id="00f6b-141">使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。</span><span class="sxs-lookup"><span data-stu-id="00f6b-141">Use [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) to provide an [RxJava](https://github.com/ReactiveX/RxJava) [Single\<String>](https://reactivex.io/documentation/single.html).</span></span> <span data-ttu-id="00f6b-142">如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。</span><span class="sxs-lookup"><span data-stu-id="00f6b-142">With a call to [Single.defer](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-), you can write logic to produce access tokens for your client.</span></span>
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
@@ -131,4 +131,4 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
 * <xref:signalr/hubs>
 * <xref:signalr/javascript-client>
 * <xref:signalr/publish-to-azure-web-app>
-* [<span data-ttu-id="00f6b-151">Azure :::no-loc(SignalR)::: Service 无服务器文档</span><span class="sxs-lookup"><span data-stu-id="00f6b-151">Azure :::no-loc(SignalR)::: Service serverless documentation</span></span>](/azure/azure-signalr/signalr-concept-serverless-development-config)
+* [<span data-ttu-id="00f6b-151">Azure SignalR Service 无服务器文档</span><span class="sxs-lookup"><span data-stu-id="00f6b-151">Azure SignalR Service serverless documentation</span></span>](/azure/azure-signalr/signalr-concept-serverless-development-config)

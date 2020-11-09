@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor WebAssembly)::: 与 Azure Active Directory 组和角色'
+title: 'ASP.NET Core Blazor WebAssembly 与 Azure Active Directory 组和角色'
 author: guardrex
-description: '了解如何配置 :::no-loc(Blazor WebAssembly)::: 以使用 Azure Active Directory 组和角色。'
+description: '了解如何配置 Blazor WebAssembly 以使用 Azure Active Directory 组和角色。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: devx-track-csharp, mvc
 ms.date: 10/27/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/webassembly/aad-groups-roles
 ms.openlocfilehash: 680b44a705b66be0aab824487119cdb118b44d0f
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -30,7 +30,7 @@ ms.locfileid: "93055303"
 
 <span data-ttu-id="eff78-104">作者：[Luke Latham](https://github.com/guardrex) 和 [Javier Calvarro Nelson](https://github.com/javiercn)</span><span class="sxs-lookup"><span data-stu-id="eff78-104">By [Luke Latham](https://github.com/guardrex) and [Javier Calvarro Nelson](https://github.com/javiercn)</span></span>
 
-<span data-ttu-id="eff78-105">Azure Active Directory (AAD) 提供了多种授权方法，它们可与 :::no-loc(ASP.NET Core Identity)::: 结合使用：</span><span class="sxs-lookup"><span data-stu-id="eff78-105">Azure Active Directory (AAD) provides several authorization approaches that can be combined with :::no-loc(ASP.NET Core Identity)::::</span></span>
+<span data-ttu-id="eff78-105">Azure Active Directory (AAD) 提供了多种授权方法，它们可与 ASP.NET Core Identity 结合使用：</span><span class="sxs-lookup"><span data-stu-id="eff78-105">Azure Active Directory (AAD) provides several authorization approaches that can be combined with ASP.NET Core Identity:</span></span>
 
 * <span data-ttu-id="eff78-106">用户定义的组</span><span class="sxs-lookup"><span data-stu-id="eff78-106">User-defined groups</span></span>
   * <span data-ttu-id="eff78-107">安全性</span><span class="sxs-lookup"><span data-stu-id="eff78-107">Security</span></span>
@@ -40,7 +40,7 @@ ms.locfileid: "93055303"
   * <span data-ttu-id="eff78-111">AAD 管理员角色</span><span class="sxs-lookup"><span data-stu-id="eff78-111">AAD Administrator Roles</span></span>
   * <span data-ttu-id="eff78-112">用户定义的角色</span><span class="sxs-lookup"><span data-stu-id="eff78-112">User-defined roles</span></span>
 
-<span data-ttu-id="eff78-113">本文中的指南适用于以下主题中所述的 :::no-loc(Blazor WebAssembly)::: AAD 部署方案：</span><span class="sxs-lookup"><span data-stu-id="eff78-113">The guidance in this article applies to the :::no-loc(Blazor WebAssembly)::: AAD deployment scenarios described in the following topics:</span></span>
+<span data-ttu-id="eff78-113">本文中的指南适用于以下主题中所述的 Blazor WebAssembly AAD 部署方案：</span><span class="sxs-lookup"><span data-stu-id="eff78-113">The guidance in this article applies to the Blazor WebAssembly AAD deployment scenarios described in the following topics:</span></span>
 
 * [<span data-ttu-id="eff78-114">包含 Microsoft 帐户的独立产品</span><span class="sxs-lookup"><span data-stu-id="eff78-114">Standalone with Microsoft Accounts</span></span>](xref:blazor/security/webassembly/standalone-with-microsoft-accounts)
 * [<span data-ttu-id="eff78-115">包含 AAD 的独立产品</span><span class="sxs-lookup"><span data-stu-id="eff78-115">Standalone with AAD</span></span>](xref:blazor/security/webassembly/standalone-with-azure-active-directory)
@@ -50,7 +50,7 @@ ms.locfileid: "93055303"
 
 <span data-ttu-id="eff78-118">具有五个以上 AAD 管理员角色和安全组成员身份的任何应用用户都需要调用 [Microsoft 图形 API](/graph/use-the-api)。</span><span class="sxs-lookup"><span data-stu-id="eff78-118">A [Microsoft Graph API](/graph/use-the-api) call is required for any app user with more than five AAD Administrator role and security group memberships.</span></span>
 
-<span data-ttu-id="eff78-119">若要允许 Graph API 调用，请在 Azure 门户中向托管 :::no-loc(Blazor)::: 解决方案的独立应用或 `Client` 应用授予以下任意 [Graph API 权限（范围）](/graph/permissions-reference)：</span><span class="sxs-lookup"><span data-stu-id="eff78-119">To permit Graph API calls, give the standalone or *`Client`* app of a hosted :::no-loc(Blazor)::: solution any of the following [Graph API permissions (scopes)](/graph/permissions-reference) in the Azure portal:</span></span>
+<span data-ttu-id="eff78-119">若要允许 Graph API 调用，请在 Azure 门户中向托管 Blazor 解决方案的独立应用或 `Client` 应用授予以下任意 [Graph API 权限（范围）](/graph/permissions-reference)：</span><span class="sxs-lookup"><span data-stu-id="eff78-119">To permit Graph API calls, give the standalone or *`Client`* app of a hosted Blazor solution any of the following [Graph API permissions (scopes)](/graph/permissions-reference) in the Azure portal:</span></span>
 
 * `Directory.Read.All`
 * `Directory.ReadWrite.All`
@@ -98,11 +98,11 @@ public class CustomUserAccount : RemoteUserAccount
 
 ### <a name="use-the-graph-sdk"></a><span data-ttu-id="eff78-139">使用 Graph SDK</span><span class="sxs-lookup"><span data-stu-id="eff78-139">Use the Graph SDK</span></span>
 
-<span data-ttu-id="eff78-140">将包引用添加到 [`Microsoft.Graph`](https://www.nuget.org/packages/Microsoft.Graph) 托管 :::no-loc(Blazor)::: 解决方案的独立应用或 `Client` 应用。</span><span class="sxs-lookup"><span data-stu-id="eff78-140">Add a package reference to the standalone app or *`Client`* app of a hosted :::no-loc(Blazor)::: solution for [`Microsoft.Graph`](https://www.nuget.org/packages/Microsoft.Graph).</span></span>
+<span data-ttu-id="eff78-140">将包引用添加到 [`Microsoft.Graph`](https://www.nuget.org/packages/Microsoft.Graph) 托管 Blazor 解决方案的独立应用或 `Client` 应用。</span><span class="sxs-lookup"><span data-stu-id="eff78-140">Add a package reference to the standalone app or *`Client`* app of a hosted Blazor solution for [`Microsoft.Graph`](https://www.nuget.org/packages/Microsoft.Graph).</span></span>
 
 <span data-ttu-id="eff78-141">添加 <xref:blazor/security/webassembly/graph-api#graph-sdk> 一文中“Graph SDK”部分的 Graph SDK 实用工具类和配置。</span><span class="sxs-lookup"><span data-stu-id="eff78-141">Add the Graph SDK utility classes and configuration in the *Graph SDK* section of the <xref:blazor/security/webassembly/graph-api#graph-sdk> article.</span></span>
 
-<span data-ttu-id="eff78-142">将下面的自定义用户帐户工厂添加到托管 :::no-loc(Blazor)::: 解决方案的独立应用或 `Client` 应用 (`CustomAccountFactory.cs`)。</span><span class="sxs-lookup"><span data-stu-id="eff78-142">Add the following custom user account factory to the standalone appo or *`Client`* app of a hosted :::no-loc(Blazor)::: solution (`CustomAccountFactory.cs`).</span></span> <span data-ttu-id="eff78-143">使用自定义用户工厂来处理角色和组声明。</span><span class="sxs-lookup"><span data-stu-id="eff78-143">The custom user factory is used to process roles and groups claims.</span></span> <span data-ttu-id="eff78-144">`roles` 声明数组在[用户定义的角色](#user-defined-roles)部分介绍。</span><span class="sxs-lookup"><span data-stu-id="eff78-144">The `roles` claim array is covered in the [User-defined roles](#user-defined-roles) section.</span></span> <span data-ttu-id="eff78-145">如果存在 `hasgroups` 声明，则使用 Graph SDK 向 Graph API 发出授权请求，以获取用户的角色和组：</span><span class="sxs-lookup"><span data-stu-id="eff78-145">If the `hasgroups` claim is present, the Graph SDK is used to make an authorized request to Graph API to obtain the user's roles and groups:</span></span>
+<span data-ttu-id="eff78-142">将下面的自定义用户帐户工厂添加到托管 Blazor 解决方案的独立应用或 `Client` 应用 (`CustomAccountFactory.cs`)。</span><span class="sxs-lookup"><span data-stu-id="eff78-142">Add the following custom user account factory to the standalone appo or *`Client`* app of a hosted Blazor solution (`CustomAccountFactory.cs`).</span></span> <span data-ttu-id="eff78-143">使用自定义用户工厂来处理角色和组声明。</span><span class="sxs-lookup"><span data-stu-id="eff78-143">The custom user factory is used to process roles and groups claims.</span></span> <span data-ttu-id="eff78-144">`roles` 声明数组在[用户定义的角色](#user-defined-roles)部分介绍。</span><span class="sxs-lookup"><span data-stu-id="eff78-144">The `roles` claim array is covered in the [User-defined roles](#user-defined-roles) section.</span></span> <span data-ttu-id="eff78-145">如果存在 `hasgroups` 声明，则使用 Graph SDK 向 Graph API 发出授权请求，以获取用户的角色和组：</span><span class="sxs-lookup"><span data-stu-id="eff78-145">If the `hasgroups` claim is present, the Graph SDK is used to make an authorized request to Graph API to obtain the user's roles and groups:</span></span>
 
 ```csharp
 using System;
@@ -137,16 +137,16 @@ public class CustomAccountFactory
     {
         var initialUser = await base.CreateUserAsync(account, options);
 
-        if (initialUser.:::no-loc(Identity):::.IsAuthenticated)
+        if (initialUser.Identity.IsAuthenticated)
         {
-            var user:::no-loc(Identity)::: = (Claims:::no-loc(Identity):::)initialUser.:::no-loc(Identity):::;
+            var userIdentity = (ClaimsIdentity)initialUser.Identity;
 
             foreach (var role in account.Roles)
             {
-                user:::no-loc(Identity):::.AddClaim(new Claim("role", role));
+                userIdentity.AddClaim(new Claim("role", role));
             }
 
-            if (user:::no-loc(Identity):::.HasClaim(c => c.Type == "hasgroups"))
+            if (userIdentity.HasClaim(c => c.Type == "hasgroups"))
             {
                 IUserMemberOfCollectionWithReferencesPage groupsAndAzureRoles = 
                     null;
@@ -155,7 +155,7 @@ public class CustomAccountFactory
                 {
                     var graphClient = ActivatorUtilities
                         .CreateInstance<GraphServiceClient>(serviceProvider);
-                    var oid = user:::no-loc(Identity):::.Claims.FirstOrDefault(x => x.Type == "oid")?
+                    var oid = userIdentity.Claims.FirstOrDefault(x => x.Type == "oid")?
                         .Value;
 
                     if (!string.IsNullOrEmpty(oid))
@@ -173,20 +173,20 @@ public class CustomAccountFactory
                 {
                     foreach (var entry in groupsAndAzureRoles)
                     {
-                        user:::no-loc(Identity):::.AddClaim(new Claim("group", entry.Id));
+                        userIdentity.AddClaim(new Claim("group", entry.Id));
                     }
                 }
 
-                var claim = user:::no-loc(Identity):::.Claims.FirstOrDefault(
+                var claim = userIdentity.Claims.FirstOrDefault(
                     c => c.Type == "hasgroups");
 
-                user:::no-loc(Identity):::.RemoveClaim(claim);
+                userIdentity.RemoveClaim(claim);
             }
             else
             {
                 foreach (var group in account.Groups)
                 {
-                    user:::no-loc(Identity):::.AddClaim(new Claim("group", group));
+                    userIdentity.AddClaim(new Claim("group", group));
                 }
             }
         }
@@ -227,7 +227,7 @@ builder.Services.AddMsalAuthentication<RemoteAuthenticationState,
 
 ::: moniker-end
 
-<span data-ttu-id="eff78-152">在托管的 :::no-loc(Blazor)::: 解决方案的独立应用或 `Client` 应用中，创建自定义 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> 类。</span><span class="sxs-lookup"><span data-stu-id="eff78-152">In the standalone app or the *`Client`* app of a hosted :::no-loc(Blazor)::: solution, create a custom <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> class.</span></span> <span data-ttu-id="eff78-153">对获取角色和组信息的 Graph API 调用使用正确的范围。</span><span class="sxs-lookup"><span data-stu-id="eff78-153">Use the correct scope for Graph API calls that obtain role and group information.</span></span>
+<span data-ttu-id="eff78-152">在托管的 Blazor 解决方案的独立应用或 `Client` 应用中，创建自定义 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> 类。</span><span class="sxs-lookup"><span data-stu-id="eff78-152">In the standalone app or the *`Client`* app of a hosted Blazor solution, create a custom <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> class.</span></span> <span data-ttu-id="eff78-153">对获取角色和组信息的 Graph API 调用使用正确的范围。</span><span class="sxs-lookup"><span data-stu-id="eff78-153">Use the correct scope for Graph API calls that obtain role and group information.</span></span>
 
 <span data-ttu-id="eff78-154">`GraphAPIAuthorizationMessageHandler.cs`:</span><span class="sxs-lookup"><span data-stu-id="eff78-154">`GraphAPIAuthorizationMessageHandler.cs`:</span></span>
 
@@ -285,7 +285,7 @@ public class Value
 }
 ```
 
-<span data-ttu-id="eff78-160">创建一个自定义用户工厂来处理角色和组声明。</span><span class="sxs-lookup"><span data-stu-id="eff78-160">Create a custom user factory to process roles and groups claims.</span></span> <span data-ttu-id="eff78-161">下面的示例实现还处理 `roles` 声明数组，[用户定义角色](#user-defined-roles)一节中对此进行了说明。</span><span class="sxs-lookup"><span data-stu-id="eff78-161">The following example implementation also handles the `roles` claim array, which is covered in the [User-defined roles](#user-defined-roles) section.</span></span> <span data-ttu-id="eff78-162">如果存在 `hasgroups` 声明，则使用已命名的 <xref:System.Net.Http.HttpClient> 向提供图形 API 发出授权请求，以获取用户的角色和组。</span><span class="sxs-lookup"><span data-stu-id="eff78-162">If the `hasgroups` claim is present, the named <xref:System.Net.Http.HttpClient> is used to make an authorized request to Graph API to obtain the user's roles and groups.</span></span> <span data-ttu-id="eff78-163">此实现使用 Microsoft :::no-loc(Identity)::: Platform v1.0 终结点 `https://graph.microsoft.com/v1.0/me/memberOf`（[API 文档](/graph/api/user-list-memberof)）。</span><span class="sxs-lookup"><span data-stu-id="eff78-163">This implementation uses the Microsoft :::no-loc(Identity)::: Platform v1.0 endpoint `https://graph.microsoft.com/v1.0/me/memberOf` ([API documentation](/graph/api/user-list-memberof)).</span></span>
+<span data-ttu-id="eff78-160">创建一个自定义用户工厂来处理角色和组声明。</span><span class="sxs-lookup"><span data-stu-id="eff78-160">Create a custom user factory to process roles and groups claims.</span></span> <span data-ttu-id="eff78-161">下面的示例实现还处理 `roles` 声明数组，[用户定义角色](#user-defined-roles)一节中对此进行了说明。</span><span class="sxs-lookup"><span data-stu-id="eff78-161">The following example implementation also handles the `roles` claim array, which is covered in the [User-defined roles](#user-defined-roles) section.</span></span> <span data-ttu-id="eff78-162">如果存在 `hasgroups` 声明，则使用已命名的 <xref:System.Net.Http.HttpClient> 向提供图形 API 发出授权请求，以获取用户的角色和组。</span><span class="sxs-lookup"><span data-stu-id="eff78-162">If the `hasgroups` claim is present, the named <xref:System.Net.Http.HttpClient> is used to make an authorized request to Graph API to obtain the user's roles and groups.</span></span> <span data-ttu-id="eff78-163">此实现使用 Microsoft Identity Platform v1.0 终结点 `https://graph.microsoft.com/v1.0/me/memberOf`（[API 文档](/graph/api/user-list-memberof)）。</span><span class="sxs-lookup"><span data-stu-id="eff78-163">This implementation uses the Microsoft Identity Platform v1.0 endpoint `https://graph.microsoft.com/v1.0/me/memberOf` ([API documentation](/graph/api/user-list-memberof)).</span></span>
 
 <span data-ttu-id="eff78-164">`CustomAccountFactory.cs`:</span><span class="sxs-lookup"><span data-stu-id="eff78-164">`CustomAccountFactory.cs`:</span></span>
 
@@ -320,16 +320,16 @@ public class CustomUserFactory
     {
         var initialUser = await base.CreateUserAsync(account, options);
 
-        if (initialUser.:::no-loc(Identity):::.IsAuthenticated)
+        if (initialUser.Identity.IsAuthenticated)
         {
-            var user:::no-loc(Identity)::: = (Claims:::no-loc(Identity):::)initialUser.:::no-loc(Identity):::;
+            var userIdentity = (ClaimsIdentity)initialUser.Identity;
 
             foreach (var role in account.Roles)
             {
-                user:::no-loc(Identity):::.AddClaim(new Claim("role", role));
+                userIdentity.AddClaim(new Claim("role", role));
             }
 
-            if (user:::no-loc(Identity):::.HasClaim(c => c.Type == "hasgroups"))
+            if (userIdentity.HasClaim(c => c.Type == "hasgroups"))
             {
                 try
                 {
@@ -344,13 +344,13 @@ public class CustomUserFactory
 
                         foreach (var obj in userObjects?.Values)
                         {
-                            user:::no-loc(Identity):::.AddClaim(new Claim("group", obj.Id));
+                            userIdentity.AddClaim(new Claim("group", obj.Id));
                         }
 
-                        var claim = user:::no-loc(Identity):::.Claims.FirstOrDefault(
+                        var claim = userIdentity.Claims.FirstOrDefault(
                             c => c.Type == "hasgroups");
 
-                        user:::no-loc(Identity):::.RemoveClaim(claim);
+                        userIdentity.RemoveClaim(claim);
                     }
                     else
                     {
@@ -368,7 +368,7 @@ public class CustomUserFactory
             {
                 foreach (var group in account.Groups)
                 {
-                    user:::no-loc(Identity):::.AddClaim(new Claim("group", group));
+                    userIdentity.AddClaim(new Claim("group", group));
                 }
             }
         }
@@ -389,7 +389,7 @@ public class CustomUserFactory
 >
 > <span data-ttu-id="eff78-170">有关此方法的常规覆盖范围，请参阅 <xref:blazor/security/webassembly/additional-scenarios#custom-authorizationmessagehandler-class>一文。</span><span class="sxs-lookup"><span data-stu-id="eff78-170">General coverage for this approach is found in the <xref:blazor/security/webassembly/additional-scenarios#custom-authorizationmessagehandler-class> article.</span></span>
 
-<span data-ttu-id="eff78-171">在托管的 :::no-loc(Blazor)::: 解决方案的独立应用或 `Client` 应用的 `Program.Main` (`Program.cs`) 中注册工厂。</span><span class="sxs-lookup"><span data-stu-id="eff78-171">Register the factory in `Program.Main` (`Program.cs`) of the standalone app or *`Client`* app of a hosted :::no-loc(Blazor)::: solution.</span></span> <span data-ttu-id="eff78-172">同意将 `Directory.Read.All` 范围作为应用的附加范围：</span><span class="sxs-lookup"><span data-stu-id="eff78-172">Consent to the `Directory.Read.All` scope as an additional scope for the app:</span></span>
+<span data-ttu-id="eff78-171">在托管的 Blazor 解决方案的独立应用或 `Client` 应用的 `Program.Main` (`Program.cs`) 中注册工厂。</span><span class="sxs-lookup"><span data-stu-id="eff78-171">Register the factory in `Program.Main` (`Program.cs`) of the standalone app or *`Client`* app of a hosted Blazor solution.</span></span> <span data-ttu-id="eff78-172">同意将 `Directory.Read.All` 范围作为应用的附加范围：</span><span class="sxs-lookup"><span data-stu-id="eff78-172">Consent to the `Directory.Read.All` scope as an additional scope for the app:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -520,7 +520,7 @@ builder.Services.AddAuthorizationCore(options =>
 
 ### <a name="app-settings"></a><span data-ttu-id="eff78-202">应用设置</span><span class="sxs-lookup"><span data-stu-id="eff78-202">App settings</span></span>
 
-<span data-ttu-id="eff78-203">在应用设置文件（`:::no-loc(appsettings.json):::` 或 `appsettings.Production.json`）中，使用服务器应用的客户端密码从 Azure 门户创建 `ClientSecret` 条目：</span><span class="sxs-lookup"><span data-stu-id="eff78-203">In the app settings file (`:::no-loc(appsettings.json):::` or `appsettings.Production.json`), create a `ClientSecret` entry with the *Server* app's client secret from the Azure portal:</span></span>
+<span data-ttu-id="eff78-203">在应用设置文件（`appsettings.json` 或 `appsettings.Production.json`）中，使用服务器应用的客户端密码从 Azure 门户创建 `ClientSecret` 条目：</span><span class="sxs-lookup"><span data-stu-id="eff78-203">In the app settings file (`appsettings.json` or `appsettings.Production.json`), create a `ClientSecret` entry with the *Server* app's client secret from the Azure portal:</span></span>
 
 ```json
 "AzureAd": {
@@ -547,7 +547,7 @@ builder.Services.AddAuthorizationCore(options =>
 ::: moniker range=">= aspnetcore-5.0"
 
 > [!NOTE]
-> <span data-ttu-id="eff78-205">如果未验证租户发布者域，则用户/客户端访问的服务器 API 范围将使用基于 `https://` 的 URI。</span><span class="sxs-lookup"><span data-stu-id="eff78-205">If the tenant publisher domain isn't verified, the server API scope for user/client access uses an `https://`-based URI.</span></span> <span data-ttu-id="eff78-206">在这种情况下，服务器 API 应用需要在 `:::no-loc(appsettings.json):::` 文件中配置 `Audience`。</span><span class="sxs-lookup"><span data-stu-id="eff78-206">In this scenario, the server API app requires `Audience` configuration in the `:::no-loc(appsettings.json):::` file.</span></span> <span data-ttu-id="eff78-207">在下面的配置中，`Audience` 值的末尾不包含默认范围 `/{DEFAULT SCOPE}`，其中占位符 `{DEFAULT SCOPE}` 是默认范围：</span><span class="sxs-lookup"><span data-stu-id="eff78-207">In the following configuration, the end of the `Audience` value does **not** include the default scope `/{DEFAULT SCOPE}`, where the placeholder `{DEFAULT SCOPE}` is the default scope:</span></span>
+> <span data-ttu-id="eff78-205">如果未验证租户发布者域，则用户/客户端访问的服务器 API 范围将使用基于 `https://` 的 URI。</span><span class="sxs-lookup"><span data-stu-id="eff78-205">If the tenant publisher domain isn't verified, the server API scope for user/client access uses an `https://`-based URI.</span></span> <span data-ttu-id="eff78-206">在这种情况下，服务器 API 应用需要在 `appsettings.json` 文件中配置 `Audience`。</span><span class="sxs-lookup"><span data-stu-id="eff78-206">In this scenario, the server API app requires `Audience` configuration in the `appsettings.json` file.</span></span> <span data-ttu-id="eff78-207">在下面的配置中，`Audience` 值的末尾不包含默认范围 `/{DEFAULT SCOPE}`，其中占位符 `{DEFAULT SCOPE}` 是默认范围：</span><span class="sxs-lookup"><span data-stu-id="eff78-207">In the following configuration, the end of the `Audience` value does **not** include the default scope `/{DEFAULT SCOPE}`, where the placeholder `{DEFAULT SCOPE}` is the default scope:</span></span>
 >
 > ```json
 > {
@@ -623,7 +623,7 @@ public class BillingDataController : ControllerBase
 <span data-ttu-id="eff78-221">将包引用添加到以下包的服务器应用中：</span><span class="sxs-lookup"><span data-stu-id="eff78-221">Add package references to the *Server* app for the following packages:</span></span>
 
 * [<span data-ttu-id="eff78-222">Microsoft.Graph</span><span class="sxs-lookup"><span data-stu-id="eff78-222">Microsoft.Graph</span></span>](https://www.nuget.org/packages/Microsoft.Graph)
-* <span data-ttu-id="eff78-223">[Microsoft.:::no-loc(Identity):::.Client](https://www.nuget.org/packages/Microsoft.:::no-loc(Identity):::.Client)</span><span class="sxs-lookup"><span data-stu-id="eff78-223">[Microsoft.:::no-loc(Identity):::.Client](https://www.nuget.org/packages/Microsoft.:::no-loc(Identity):::.Client)</span></span>
+* <span data-ttu-id="eff78-223">[Microsoft.Identity.Client](https://www.nuget.org/packages/Microsoft.Identity.Client)</span><span class="sxs-lookup"><span data-stu-id="eff78-223">[Microsoft.Identity.Client](https://www.nuget.org/packages/Microsoft.Identity.Client)</span></span>
 
 ### <a name="services"></a><span data-ttu-id="eff78-224">服务</span><span class="sxs-lookup"><span data-stu-id="eff78-224">Services</span></span>
 
@@ -631,13 +631,13 @@ public class BillingDataController : ControllerBase
 
 ```csharp
 using System;
-using System.:::no-loc(Identity):::Model.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Graph;
-using Microsoft.:::no-loc(Identity):::.Client;
-using Microsoft.:::no-loc(Identity):::Model.Logging;
+using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Logging;
 ```
 
 <span data-ttu-id="eff78-227">配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents> 时：</span><span class="sxs-lookup"><span data-stu-id="eff78-227">When configuring <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents>:</span></span>
@@ -646,7 +646,7 @@ using Microsoft.:::no-loc(Identity):::Model.Logging;
 * <span data-ttu-id="eff78-230">在 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnTokenValidated?displayProperty=nameWithType> 中，进行图形 API 调用以获取用户的组和角色。</span><span class="sxs-lookup"><span data-stu-id="eff78-230">In <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnTokenValidated?displayProperty=nameWithType>, make a Graph API call to obtain the user's groups and roles.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="eff78-231"><xref:Microsoft.:::no-loc(Identity):::Model.Logging.:::no-loc(Identity):::ModelEventSource.ShowPII?displayProperty=nameWithType> 在日志消息中提供个人身份信息 (PII)。</span><span class="sxs-lookup"><span data-stu-id="eff78-231"><xref:Microsoft.:::no-loc(Identity):::Model.Logging.:::no-loc(Identity):::ModelEventSource.ShowPII?displayProperty=nameWithType> provides Personally Identifiable Information (PII) in logging messages.</span></span> <span data-ttu-id="eff78-232">只能用测试用户帐号激活 PII 进行调试。</span><span class="sxs-lookup"><span data-stu-id="eff78-232">Only activate PII for debugging with test user accounts.</span></span>
+> <span data-ttu-id="eff78-231"><xref:Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII?displayProperty=nameWithType> 在日志消息中提供个人身份信息 (PII)。</span><span class="sxs-lookup"><span data-stu-id="eff78-231"><xref:Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII?displayProperty=nameWithType> provides Personally Identifiable Information (PII) in logging messages.</span></span> <span data-ttu-id="eff78-232">只能用测试用户帐号激活 PII 进行调试。</span><span class="sxs-lookup"><span data-stu-id="eff78-232">Only activate PII for debugging with test user accounts.</span></span>
 
 <span data-ttu-id="eff78-233">在 `Startup.ConfigureServices`中：</span><span class="sxs-lookup"><span data-stu-id="eff78-233">In `Startup.ConfigureServices`:</span></span>
 
@@ -654,7 +654,7 @@ using Microsoft.:::no-loc(Identity):::Model.Logging;
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
 #if DEBUG
-:::no-loc(Identity):::ModelEventSource.ShowPII = true;
+IdentityModelEventSource.ShowPII = true;
 #endif
 
 var scopes = new string[] { "https://graph.microsoft.com/.default" };
@@ -665,7 +665,7 @@ var app = ConfidentialClientApplicationBuilder.Create(Configuration["AzureAd:Cli
    .Build();
 
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoft:::no-loc(Identity):::WebApi(options =>
+    .AddMicrosoftIdentityWebApi(options =>
 {
     Configuration.Bind("AzureAd", options);
 
@@ -680,7 +680,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             if (!string.IsNullOrEmpty(oid))
             {
-                var user:::no-loc(Identity)::: = (Claims:::no-loc(Identity):::)context.Principal.:::no-loc(Identity):::;
+                var userIdentity = (ClaimsIdentity)context.Principal.Identity;
 
                 AuthenticationResult authResult = null;
 
@@ -723,7 +723,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 {
                     foreach (var entry in groupsAndAzureRoles)
                     {
-                        user:::no-loc(Identity):::.AddClaim(new Claim("group", entry.Id));
+                        userIdentity.AddClaim(new Claim("group", entry.Id));
                     }
                 }
             }
@@ -754,20 +754,20 @@ options =>
 <span data-ttu-id="eff78-240">将包引用添加到以下包的服务器应用中：</span><span class="sxs-lookup"><span data-stu-id="eff78-240">Add package references to the *Server* app for the following packages:</span></span>
 
 * [<span data-ttu-id="eff78-241">Microsoft.Graph</span><span class="sxs-lookup"><span data-stu-id="eff78-241">Microsoft.Graph</span></span>](https://www.nuget.org/packages/Microsoft.Graph)
-* <span data-ttu-id="eff78-242">[Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory](https://www.nuget.org/packages?q=Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory)</span><span class="sxs-lookup"><span data-stu-id="eff78-242">[Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory](https://www.nuget.org/packages?q=Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory)</span></span>
+* <span data-ttu-id="eff78-242">[Microsoft.IdentityModel.Clients.ActiveDirectory](https://www.nuget.org/packages?q=Microsoft.IdentityModel.Clients.ActiveDirectory)</span><span class="sxs-lookup"><span data-stu-id="eff78-242">[Microsoft.IdentityModel.Clients.ActiveDirectory](https://www.nuget.org/packages?q=Microsoft.IdentityModel.Clients.ActiveDirectory)</span></span>
 
 ### <a name="service-configuration"></a><span data-ttu-id="eff78-243">服务配置</span><span class="sxs-lookup"><span data-stu-id="eff78-243">Service configuration</span></span>
 
 <span data-ttu-id="eff78-244">在服务器应用的 `Startup.ConfigureServices` 方法中，添加逻辑以进行图形 API 调用，并为用户的安全组和角色建立用户 `group` 声明。</span><span class="sxs-lookup"><span data-stu-id="eff78-244">In the *Server* app's `Startup.ConfigureServices` method add logic to make the Graph API call and establish user `group` claims for the user's security groups and roles.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="eff78-245">本节中的示例代码使用基于 Microsoft :::no-loc(Identity)::: Platform v1.0 的 Active Directory 身份验证库 (ADAL)。</span><span class="sxs-lookup"><span data-stu-id="eff78-245">The example code in this section uses the Active Directory Authentication Library (ADAL), which is based on Microsoft :::no-loc(Identity)::: Platform v1.0.</span></span>
+> <span data-ttu-id="eff78-245">本节中的示例代码使用基于 Microsoft Identity Platform v1.0 的 Active Directory 身份验证库 (ADAL)。</span><span class="sxs-lookup"><span data-stu-id="eff78-245">The example code in this section uses the Active Directory Authentication Library (ADAL), which is based on Microsoft Identity Platform v1.0.</span></span>
 
 <span data-ttu-id="eff78-246">服务器应用的 `Startup` 类中的代码需要更多命名空间。</span><span class="sxs-lookup"><span data-stu-id="eff78-246">Additional namespaces are required for the code in the `Startup` class of the *Server* app.</span></span> <span data-ttu-id="eff78-247">下面的一组 `using` 语句包含本节下面的代码所需的命名空间：</span><span class="sxs-lookup"><span data-stu-id="eff78-247">The following set of `using` statements includes the required namespaces for the code that follows in this section:</span></span>
 
 ```csharp
 using System;
-using System.:::no-loc(Identity):::Model.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -782,8 +782,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Graph;
-using Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory;
-using Microsoft.:::no-loc(Identity):::Model.Logging;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.IdentityModel.Logging;
 ```
 
 <span data-ttu-id="eff78-248">配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents> 时：</span><span class="sxs-lookup"><span data-stu-id="eff78-248">When configuring <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents>:</span></span>
@@ -792,13 +792,13 @@ using Microsoft.:::no-loc(Identity):::Model.Logging;
 * <span data-ttu-id="eff78-251">在 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnTokenValidated?displayProperty=nameWithType> 中，进行图形 API 调用以获取用户的组和角色。</span><span class="sxs-lookup"><span data-stu-id="eff78-251">In <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnTokenValidated?displayProperty=nameWithType>, make a Graph API call to obtain the user's groups and roles.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="eff78-252"><xref:Microsoft.:::no-loc(Identity):::Model.Logging.:::no-loc(Identity):::ModelEventSource.ShowPII?displayProperty=nameWithType> 在日志消息中提供个人身份信息 (PII)。</span><span class="sxs-lookup"><span data-stu-id="eff78-252"><xref:Microsoft.:::no-loc(Identity):::Model.Logging.:::no-loc(Identity):::ModelEventSource.ShowPII?displayProperty=nameWithType> provides Personally Identifiable Information (PII) in logging messages.</span></span> <span data-ttu-id="eff78-253">只能用测试用户帐号激活 PII 进行调试。</span><span class="sxs-lookup"><span data-stu-id="eff78-253">Only activate PII for debugging with test user accounts.</span></span>
+> <span data-ttu-id="eff78-252"><xref:Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII?displayProperty=nameWithType> 在日志消息中提供个人身份信息 (PII)。</span><span class="sxs-lookup"><span data-stu-id="eff78-252"><xref:Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII?displayProperty=nameWithType> provides Personally Identifiable Information (PII) in logging messages.</span></span> <span data-ttu-id="eff78-253">只能用测试用户帐号激活 PII 进行调试。</span><span class="sxs-lookup"><span data-stu-id="eff78-253">Only activate PII for debugging with test user accounts.</span></span>
 
 <span data-ttu-id="eff78-254">在 `Startup.ConfigureServices`中：</span><span class="sxs-lookup"><span data-stu-id="eff78-254">In `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 #if DEBUG
-:::no-loc(Identity):::ModelEventSource.ShowPII = true;
+IdentityModelEventSource.ShowPII = true;
 #endif
 
 services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
@@ -855,7 +855,7 @@ services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationSche
                         await Task.CompletedTask;
                     }));
 
-                var user:::no-loc(Identity)::: = (Claims:::no-loc(Identity):::)context.Principal.:::no-loc(Identity):::;
+                var userIdentity = (ClaimsIdentity)context.Principal.Identity;
 
                 IUserMemberOfCollectionWithReferencesPage groupsAndAzureRoles = 
                     null;
@@ -874,7 +874,7 @@ services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationSche
                 {
                     foreach (var entry in groupsAndAzureRoles)
                     {
-                        user:::no-loc(Identity):::.AddClaim(new Claim("group", entry.Id));
+                        userIdentity.AddClaim(new Claim("group", entry.Id));
                     }
                 }
             }
@@ -887,8 +887,8 @@ services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationSche
 
 <span data-ttu-id="eff78-255">在上面的示例中：</span><span class="sxs-lookup"><span data-stu-id="eff78-255">In the preceding example:</span></span>
 
-* <span data-ttu-id="eff78-256">首先尝试静默令牌获取 (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A>)，因为访问令牌可能已经存储在 ADAL 令牌缓存中。</span><span class="sxs-lookup"><span data-stu-id="eff78-256">Silent token acquisition (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A>) is attempted first because the access token may have already been stored in the ADAL token cache.</span></span> <span data-ttu-id="eff78-257">从缓存中获取令牌比请求新令牌更快。</span><span class="sxs-lookup"><span data-stu-id="eff78-257">It's faster to obtain the token from cache than to request a new token.</span></span>
-* <span data-ttu-id="eff78-258">如果访问令牌不是从缓存中获取的（引发 <xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AdalError.FailedToAcquireTokenSilently?displayProperty=nameWithType> 或 <xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AdalError.UserInteractionRequired?displayProperty=nameWithType>），则使用客户端凭据 (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.ClientCredential>) 生成用户断言 (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.UserAssertion>)，以代表用户 (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync%2A>) 获取令牌。</span><span class="sxs-lookup"><span data-stu-id="eff78-258">If the access token isn't acquired from cache (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AdalError.FailedToAcquireTokenSilently?displayProperty=nameWithType> or <xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AdalError.UserInteractionRequired?displayProperty=nameWithType> is thrown), a user assertion (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.UserAssertion>) is made with the client credential (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.ClientCredential>) to obtain the token on behalf of the user (<xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync%2A>).</span></span> <span data-ttu-id="eff78-259">接下来，`Microsoft.Graph.GraphServiceClient` 可以继续使用令牌进行图形 API 调用。</span><span class="sxs-lookup"><span data-stu-id="eff78-259">Next, the `Microsoft.Graph.GraphServiceClient` can proceed to use the token to make the Graph API call.</span></span> <span data-ttu-id="eff78-260">令牌放置在 ADAL 令牌缓存中。</span><span class="sxs-lookup"><span data-stu-id="eff78-260">The token is placed into the ADAL token cache.</span></span> <span data-ttu-id="eff78-261">对于同一用户的未来图形 API 调用，将通过 <xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A> 以无提示方式从缓存中获取令牌。</span><span class="sxs-lookup"><span data-stu-id="eff78-261">For future Graph API calls for the same user, the token is acquired from cache silently with <xref:Microsoft.:::no-loc(Identity):::Model.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A>.</span></span>
+* <span data-ttu-id="eff78-256">首先尝试静默令牌获取 (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A>)，因为访问令牌可能已经存储在 ADAL 令牌缓存中。</span><span class="sxs-lookup"><span data-stu-id="eff78-256">Silent token acquisition (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A>) is attempted first because the access token may have already been stored in the ADAL token cache.</span></span> <span data-ttu-id="eff78-257">从缓存中获取令牌比请求新令牌更快。</span><span class="sxs-lookup"><span data-stu-id="eff78-257">It's faster to obtain the token from cache than to request a new token.</span></span>
+* <span data-ttu-id="eff78-258">如果访问令牌不是从缓存中获取的（引发 <xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AdalError.FailedToAcquireTokenSilently?displayProperty=nameWithType> 或 <xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AdalError.UserInteractionRequired?displayProperty=nameWithType>），则使用客户端凭据 (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential>) 生成用户断言 (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion>)，以代表用户 (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync%2A>) 获取令牌。</span><span class="sxs-lookup"><span data-stu-id="eff78-258">If the access token isn't acquired from cache (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AdalError.FailedToAcquireTokenSilently?displayProperty=nameWithType> or <xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AdalError.UserInteractionRequired?displayProperty=nameWithType> is thrown), a user assertion (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion>) is made with the client credential (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential>) to obtain the token on behalf of the user (<xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync%2A>).</span></span> <span data-ttu-id="eff78-259">接下来，`Microsoft.Graph.GraphServiceClient` 可以继续使用令牌进行图形 API 调用。</span><span class="sxs-lookup"><span data-stu-id="eff78-259">Next, the `Microsoft.Graph.GraphServiceClient` can proceed to use the token to make the Graph API call.</span></span> <span data-ttu-id="eff78-260">令牌放置在 ADAL 令牌缓存中。</span><span class="sxs-lookup"><span data-stu-id="eff78-260">The token is placed into the ADAL token cache.</span></span> <span data-ttu-id="eff78-261">对于同一用户的未来图形 API 调用，将通过 <xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A> 以无提示方式从缓存中获取令牌。</span><span class="sxs-lookup"><span data-stu-id="eff78-261">For future Graph API calls for the same user, the token is acquired from cache silently with <xref:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync%2A>.</span></span>
 
 ::: moniker-end
 
@@ -926,12 +926,12 @@ foreach (var entry in groupsAndAzureRoles)
 {
     if (entry.ODataType == "#microsoft.graph.group")
     {
-        user:::no-loc(Identity):::.AddClaim(new Claim("group", entry.Id));
+        userIdentity.AddClaim(new Claim("group", entry.Id));
     }
     else
     {
         // entry.ODataType == "#microsoft.graph.directoryRole"
-        user:::no-loc(Identity):::.AddClaim(new Claim("role", entry.Id));
+        userIdentity.AddClaim(new Claim("role", entry.Id));
     }
 }
 ```
@@ -954,9 +954,9 @@ foreach (var entry in groupsAndAzureRoles)
 
 <span data-ttu-id="eff78-278">AAD 发送的单个 `roles` 声明在 JSON 数组中将用户定义的角色作为 `appRoles` 的 `value` 显示。</span><span class="sxs-lookup"><span data-stu-id="eff78-278">The single `roles` claim sent by AAD presents the user-defined roles as the `appRoles`'s `value`s in a JSON array.</span></span> <span data-ttu-id="eff78-279">应用必须将 JSON 角色数组转换为单个 `role` 声明。</span><span class="sxs-lookup"><span data-stu-id="eff78-279">The app must convert the JSON array of roles into individual `role` claims.</span></span>
 
-<span data-ttu-id="eff78-280">[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分中显示的 `CustomUserFactory` 设置为对具有 JSON 数组值的 `roles` 声明执行操作。</span><span class="sxs-lookup"><span data-stu-id="eff78-280">The `CustomUserFactory` shown in the [User-defined groups and AAD Administrator Roles](#user-defined-groups-and-administrator-roles) section is set up to act on a `roles` claim with a JSON array value.</span></span> <span data-ttu-id="eff78-281">在托管的 :::no-loc(Blazor)::: 解决方案的独立应用或 `Client` 应用中添加和注册 `CustomUserFactory`，如[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分中所述。</span><span class="sxs-lookup"><span data-stu-id="eff78-281">Add and register the `CustomUserFactory` in the standalone app or *`Client`* app of a hosted :::no-loc(Blazor)::: solution as shown in the [User-defined groups and AAD Administrator Roles](#user-defined-groups-and-administrator-roles) section.</span></span> <span data-ttu-id="eff78-282">无需提供代码来删除原始 `roles` 声明，因为框架会自动删除它。</span><span class="sxs-lookup"><span data-stu-id="eff78-282">There's no need to provide code to remove the original `roles` claim because it's automatically removed by the framework.</span></span>
+<span data-ttu-id="eff78-280">[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分中显示的 `CustomUserFactory` 设置为对具有 JSON 数组值的 `roles` 声明执行操作。</span><span class="sxs-lookup"><span data-stu-id="eff78-280">The `CustomUserFactory` shown in the [User-defined groups and AAD Administrator Roles](#user-defined-groups-and-administrator-roles) section is set up to act on a `roles` claim with a JSON array value.</span></span> <span data-ttu-id="eff78-281">在托管的 Blazor 解决方案的独立应用或 `Client` 应用中添加和注册 `CustomUserFactory`，如[用户定义的组和 AAD 管理员角色](#user-defined-groups-and-administrator-roles)部分中所述。</span><span class="sxs-lookup"><span data-stu-id="eff78-281">Add and register the `CustomUserFactory` in the standalone app or *`Client`* app of a hosted Blazor solution as shown in the [User-defined groups and AAD Administrator Roles](#user-defined-groups-and-administrator-roles) section.</span></span> <span data-ttu-id="eff78-282">无需提供代码来删除原始 `roles` 声明，因为框架会自动删除它。</span><span class="sxs-lookup"><span data-stu-id="eff78-282">There's no need to provide code to remove the original `roles` claim because it's automatically removed by the framework.</span></span>
 
-<span data-ttu-id="eff78-283">在托管的 :::no-loc(Blazor)::: 解决方案的独立应用或 `Client` 应用的 `Program.Main` 中，将名为“`role`”的声明指定为角色声明：</span><span class="sxs-lookup"><span data-stu-id="eff78-283">In `Program.Main` of the standalone app or *`Client`* app of a hosted :::no-loc(Blazor)::: solution, specify the claim named "`role`" as the role claim:</span></span>
+<span data-ttu-id="eff78-283">在托管的 Blazor 解决方案的独立应用或 `Client` 应用的 `Program.Main` 中，将名为“`role`”的声明指定为角色声明：</span><span class="sxs-lookup"><span data-stu-id="eff78-283">In `Program.Main` of the standalone app or *`Client`* app of a hosted Blazor solution, specify the claim named "`role`" as the role claim:</span></span>
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -1008,7 +1008,7 @@ builder.Services.AddMsalAuthentication(options =>
 <span data-ttu-id="eff78-330">目录读者</span><span class="sxs-lookup"><span data-stu-id="eff78-330">Directory readers</span></span> | <span data-ttu-id="eff78-331">e1fc84a6-7762-4b9b-8e29-518b4adbc23b</span><span class="sxs-lookup"><span data-stu-id="eff78-331">e1fc84a6-7762-4b9b-8e29-518b4adbc23b</span></span>
 <span data-ttu-id="eff78-332">Dynamics 365 管理员</span><span class="sxs-lookup"><span data-stu-id="eff78-332">Dynamics 365 administrator</span></span> | <span data-ttu-id="eff78-333">f20a9cfa-9fdf-49a8-a977-1afe446a1d6e</span><span class="sxs-lookup"><span data-stu-id="eff78-333">f20a9cfa-9fdf-49a8-a977-1afe446a1d6e</span></span>
 <span data-ttu-id="eff78-334">Exchange 管理员</span><span class="sxs-lookup"><span data-stu-id="eff78-334">Exchange administrator</span></span> | <span data-ttu-id="eff78-335">b2ec2cc0-d5c9-4864-ad9b-38dd9dba2652</span><span class="sxs-lookup"><span data-stu-id="eff78-335">b2ec2cc0-d5c9-4864-ad9b-38dd9dba2652</span></span>
-<span data-ttu-id="eff78-336">外部 :::no-loc(Identity)::: 提供者管理员</span><span class="sxs-lookup"><span data-stu-id="eff78-336">External :::no-loc(Identity)::: Provider administrator</span></span> | <span data-ttu-id="eff78-337">febfaeb4-e478-407a-b4b3-f4d9716618a2</span><span class="sxs-lookup"><span data-stu-id="eff78-337">febfaeb4-e478-407a-b4b3-f4d9716618a2</span></span>
+<span data-ttu-id="eff78-336">外部 Identity 提供者管理员</span><span class="sxs-lookup"><span data-stu-id="eff78-336">External Identity Provider administrator</span></span> | <span data-ttu-id="eff78-337">febfaeb4-e478-407a-b4b3-f4d9716618a2</span><span class="sxs-lookup"><span data-stu-id="eff78-337">febfaeb4-e478-407a-b4b3-f4d9716618a2</span></span>
 <span data-ttu-id="eff78-338">全局管理员</span><span class="sxs-lookup"><span data-stu-id="eff78-338">Global administrator</span></span> | <span data-ttu-id="eff78-339">a45ba61b-44db-462c-924b-3b2719152588</span><span class="sxs-lookup"><span data-stu-id="eff78-339">a45ba61b-44db-462c-924b-3b2719152588</span></span>
 <span data-ttu-id="eff78-340">全局读取者</span><span class="sxs-lookup"><span data-stu-id="eff78-340">Global reader</span></span> | <span data-ttu-id="eff78-341">f6903b21-6aba-4124-b44c-76671796b9d5</span><span class="sxs-lookup"><span data-stu-id="eff78-341">f6903b21-6aba-4124-b44c-76671796b9d5</span></span>
 <span data-ttu-id="eff78-342">组管理员</span><span class="sxs-lookup"><span data-stu-id="eff78-342">Groups administrator</span></span> | <span data-ttu-id="eff78-343">158b3e5a-d89d-460b-92b5-3b34985f0197</span><span class="sxs-lookup"><span data-stu-id="eff78-343">158b3e5a-d89d-460b-92b5-3b34985f0197</span></span>

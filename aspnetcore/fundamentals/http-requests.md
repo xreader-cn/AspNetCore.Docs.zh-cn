@@ -7,17 +7,17 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/09/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/http-requests
 ms.openlocfilehash: 34c35daac3da845bac9156fe96078df7902a4cd0
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -363,14 +363,14 @@ public class ValuesController : ControllerBase
 - <span data-ttu-id="84c3e-301">`SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。</span><span class="sxs-lookup"><span data-stu-id="84c3e-301">The `SocketsHttpHandler` shares connections across `HttpClient` instances.</span></span> <span data-ttu-id="84c3e-302">此共享可防止套接字耗尽。</span><span class="sxs-lookup"><span data-stu-id="84c3e-302">This sharing prevents socket exhaustion.</span></span>
 - <span data-ttu-id="84c3e-303">`SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。</span><span class="sxs-lookup"><span data-stu-id="84c3e-303">The `SocketsHttpHandler` cycles connections according to `PooledConnectionLifetime` to avoid stale DNS problems.</span></span>
 
-### <a name="no-loccookies"></a><span data-ttu-id="84c3e-304">:::no-loc(Cookie):::s</span><span class="sxs-lookup"><span data-stu-id="84c3e-304">:::no-loc(Cookie):::s</span></span>
+### <a name="no-loccookies"></a><span data-ttu-id="84c3e-304">Cookies</span><span class="sxs-lookup"><span data-stu-id="84c3e-304">Cookies</span></span>
 
-<span data-ttu-id="84c3e-305">共用 `HttpMessageHandler` 实例将导致共享 `:::no-loc(Cookie):::Container` 对象。</span><span class="sxs-lookup"><span data-stu-id="84c3e-305">The pooled `HttpMessageHandler` instances results in `:::no-loc(Cookie):::Container` objects being shared.</span></span> <span data-ttu-id="84c3e-306">意外的 `:::no-loc(Cookie):::Container` 对象共享通常会导致错误的代码。</span><span class="sxs-lookup"><span data-stu-id="84c3e-306">Unanticipated `:::no-loc(Cookie):::Container` object sharing often results in incorrect code.</span></span> <span data-ttu-id="84c3e-307">对于需要 :::no-loc(cookie)::: 的应用，请考虑执行以下任一操作：</span><span class="sxs-lookup"><span data-stu-id="84c3e-307">For apps that require :::no-loc(cookie):::s, consider either:</span></span>
+<span data-ttu-id="84c3e-305">共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。</span><span class="sxs-lookup"><span data-stu-id="84c3e-305">The pooled `HttpMessageHandler` instances results in `CookieContainer` objects being shared.</span></span> <span data-ttu-id="84c3e-306">意外的 `CookieContainer` 对象共享通常会导致错误的代码。</span><span class="sxs-lookup"><span data-stu-id="84c3e-306">Unanticipated `CookieContainer` object sharing often results in incorrect code.</span></span> <span data-ttu-id="84c3e-307">对于需要 cookie 的应用，请考虑执行以下任一操作：</span><span class="sxs-lookup"><span data-stu-id="84c3e-307">For apps that require cookies, consider either:</span></span>
 
- - <span data-ttu-id="84c3e-308">禁用自动 :::no-loc(cookie)::: 处理</span><span class="sxs-lookup"><span data-stu-id="84c3e-308">Disabling automatic :::no-loc(cookie)::: handling</span></span>
+ - <span data-ttu-id="84c3e-308">禁用自动 cookie 处理</span><span class="sxs-lookup"><span data-stu-id="84c3e-308">Disabling automatic cookie handling</span></span>
  - <span data-ttu-id="84c3e-309">避免 `IHttpClientFactory`</span><span class="sxs-lookup"><span data-stu-id="84c3e-309">Avoiding `IHttpClientFactory`</span></span>
 
-<span data-ttu-id="84c3e-310">调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 :::no-loc(cookie)::: 处理：</span><span class="sxs-lookup"><span data-stu-id="84c3e-310">Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic :::no-loc(cookie)::: handling:</span></span>
+<span data-ttu-id="84c3e-310">调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：</span><span class="sxs-lookup"><span data-stu-id="84c3e-310">Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic cookie handling:</span></span>
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
@@ -681,14 +681,14 @@ public class ValuesController : ControllerBase
 - <span data-ttu-id="84c3e-505">`SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。</span><span class="sxs-lookup"><span data-stu-id="84c3e-505">The `SocketsHttpHandler` shares connections across `HttpClient` instances.</span></span> <span data-ttu-id="84c3e-506">此共享可防止套接字耗尽。</span><span class="sxs-lookup"><span data-stu-id="84c3e-506">This sharing prevents socket exhaustion.</span></span>
 - <span data-ttu-id="84c3e-507">`SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。</span><span class="sxs-lookup"><span data-stu-id="84c3e-507">The `SocketsHttpHandler` cycles connections according to `PooledConnectionLifetime` to avoid stale DNS problems.</span></span>
 
-### <a name="no-loccookies"></a><span data-ttu-id="84c3e-508">:::no-loc(Cookie):::s</span><span class="sxs-lookup"><span data-stu-id="84c3e-508">:::no-loc(Cookie):::s</span></span>
+### <a name="no-loccookies"></a><span data-ttu-id="84c3e-508">Cookies</span><span class="sxs-lookup"><span data-stu-id="84c3e-508">Cookies</span></span>
 
-<span data-ttu-id="84c3e-509">共用 `HttpMessageHandler` 实例将导致共享 `:::no-loc(Cookie):::Container` 对象。</span><span class="sxs-lookup"><span data-stu-id="84c3e-509">The pooled `HttpMessageHandler` instances results in `:::no-loc(Cookie):::Container` objects being shared.</span></span> <span data-ttu-id="84c3e-510">意外的 `:::no-loc(Cookie):::Container` 对象共享通常会导致错误的代码。</span><span class="sxs-lookup"><span data-stu-id="84c3e-510">Unanticipated `:::no-loc(Cookie):::Container` object sharing often results in incorrect code.</span></span> <span data-ttu-id="84c3e-511">对于需要 :::no-loc(cookie)::: 的应用，请考虑执行以下任一操作：</span><span class="sxs-lookup"><span data-stu-id="84c3e-511">For apps that require :::no-loc(cookie):::s, consider either:</span></span>
+<span data-ttu-id="84c3e-509">共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。</span><span class="sxs-lookup"><span data-stu-id="84c3e-509">The pooled `HttpMessageHandler` instances results in `CookieContainer` objects being shared.</span></span> <span data-ttu-id="84c3e-510">意外的 `CookieContainer` 对象共享通常会导致错误的代码。</span><span class="sxs-lookup"><span data-stu-id="84c3e-510">Unanticipated `CookieContainer` object sharing often results in incorrect code.</span></span> <span data-ttu-id="84c3e-511">对于需要 cookie 的应用，请考虑执行以下任一操作：</span><span class="sxs-lookup"><span data-stu-id="84c3e-511">For apps that require cookies, consider either:</span></span>
 
- - <span data-ttu-id="84c3e-512">禁用自动 :::no-loc(cookie)::: 处理</span><span class="sxs-lookup"><span data-stu-id="84c3e-512">Disabling automatic :::no-loc(cookie)::: handling</span></span>
+ - <span data-ttu-id="84c3e-512">禁用自动 cookie 处理</span><span class="sxs-lookup"><span data-stu-id="84c3e-512">Disabling automatic cookie handling</span></span>
  - <span data-ttu-id="84c3e-513">避免 `IHttpClientFactory`</span><span class="sxs-lookup"><span data-stu-id="84c3e-513">Avoiding `IHttpClientFactory`</span></span>
 
-<span data-ttu-id="84c3e-514">调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 :::no-loc(cookie)::: 处理：</span><span class="sxs-lookup"><span data-stu-id="84c3e-514">Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic :::no-loc(cookie)::: handling:</span></span>
+<span data-ttu-id="84c3e-514">调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：</span><span class="sxs-lookup"><span data-stu-id="84c3e-514">Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic cookie handling:</span></span>
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
@@ -989,14 +989,14 @@ public class ValuesController : ControllerBase
 - <span data-ttu-id="84c3e-706">`SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。</span><span class="sxs-lookup"><span data-stu-id="84c3e-706">The `SocketsHttpHandler` shares connections across `HttpClient` instances.</span></span> <span data-ttu-id="84c3e-707">此共享可防止套接字耗尽。</span><span class="sxs-lookup"><span data-stu-id="84c3e-707">This sharing prevents socket exhaustion.</span></span>
 - <span data-ttu-id="84c3e-708">`SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。</span><span class="sxs-lookup"><span data-stu-id="84c3e-708">The `SocketsHttpHandler` cycles connections according to `PooledConnectionLifetime` to avoid stale DNS problems.</span></span>
 
-### <a name="no-loccookies"></a><span data-ttu-id="84c3e-709">:::no-loc(Cookie):::s</span><span class="sxs-lookup"><span data-stu-id="84c3e-709">:::no-loc(Cookie):::s</span></span>
+### <a name="no-loccookies"></a><span data-ttu-id="84c3e-709">Cookies</span><span class="sxs-lookup"><span data-stu-id="84c3e-709">Cookies</span></span>
 
-<span data-ttu-id="84c3e-710">共用 `HttpMessageHandler` 实例将导致共享 `:::no-loc(Cookie):::Container` 对象。</span><span class="sxs-lookup"><span data-stu-id="84c3e-710">The pooled `HttpMessageHandler` instances results in `:::no-loc(Cookie):::Container` objects being shared.</span></span> <span data-ttu-id="84c3e-711">意外的 `:::no-loc(Cookie):::Container` 对象共享通常会导致错误的代码。</span><span class="sxs-lookup"><span data-stu-id="84c3e-711">Unanticipated `:::no-loc(Cookie):::Container` object sharing often results in incorrect code.</span></span> <span data-ttu-id="84c3e-712">对于需要 :::no-loc(cookie)::: 的应用，请考虑执行以下任一操作：</span><span class="sxs-lookup"><span data-stu-id="84c3e-712">For apps that require :::no-loc(cookie):::s, consider either:</span></span>
+<span data-ttu-id="84c3e-710">共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。</span><span class="sxs-lookup"><span data-stu-id="84c3e-710">The pooled `HttpMessageHandler` instances results in `CookieContainer` objects being shared.</span></span> <span data-ttu-id="84c3e-711">意外的 `CookieContainer` 对象共享通常会导致错误的代码。</span><span class="sxs-lookup"><span data-stu-id="84c3e-711">Unanticipated `CookieContainer` object sharing often results in incorrect code.</span></span> <span data-ttu-id="84c3e-712">对于需要 cookie 的应用，请考虑执行以下任一操作：</span><span class="sxs-lookup"><span data-stu-id="84c3e-712">For apps that require cookies, consider either:</span></span>
 
- - <span data-ttu-id="84c3e-713">禁用自动 :::no-loc(cookie)::: 处理</span><span class="sxs-lookup"><span data-stu-id="84c3e-713">Disabling automatic :::no-loc(cookie)::: handling</span></span>
+ - <span data-ttu-id="84c3e-713">禁用自动 cookie 处理</span><span class="sxs-lookup"><span data-stu-id="84c3e-713">Disabling automatic cookie handling</span></span>
  - <span data-ttu-id="84c3e-714">避免 `IHttpClientFactory`</span><span class="sxs-lookup"><span data-stu-id="84c3e-714">Avoiding `IHttpClientFactory`</span></span>
 
-<span data-ttu-id="84c3e-715">调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 :::no-loc(cookie)::: 处理：</span><span class="sxs-lookup"><span data-stu-id="84c3e-715">Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic :::no-loc(cookie)::: handling:</span></span>
+<span data-ttu-id="84c3e-715">调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：</span><span class="sxs-lookup"><span data-stu-id="84c3e-715">Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic cookie handling:</span></span>
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 

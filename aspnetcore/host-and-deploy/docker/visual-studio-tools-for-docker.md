@@ -6,17 +6,17 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
 ms.openlocfilehash: 2cfd200c44290a0931cdeb2f68e99b90c11aa612
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -201,7 +201,7 @@ baf9a678c88d        hellodockertools:dev   "C:\\remote_debugge..."   21 seconds 
 
 ## <a name="edit-and-continue"></a><span data-ttu-id="04ad1-217">编辑并继续</span><span class="sxs-lookup"><span data-stu-id="04ad1-217">Edit and continue</span></span>
 
-<span data-ttu-id="04ad1-218">对静态文件和 :::no-loc(Razor)::: 视图的更改会自动更新，无需执行编译步骤。</span><span class="sxs-lookup"><span data-stu-id="04ad1-218">Changes to static files and :::no-loc(Razor)::: views are automatically updated without the need for a compilation step.</span></span> <span data-ttu-id="04ad1-219">进行更改，保存并在浏览器中刷新，以查看更新。</span><span class="sxs-lookup"><span data-stu-id="04ad1-219">Make the change, save, and refresh the browser to view the update.</span></span>
+<span data-ttu-id="04ad1-218">对静态文件和 Razor 视图的更改会自动更新，无需执行编译步骤。</span><span class="sxs-lookup"><span data-stu-id="04ad1-218">Changes to static files and Razor views are automatically updated without the need for a compilation step.</span></span> <span data-ttu-id="04ad1-219">进行更改，保存并在浏览器中刷新，以查看更新。</span><span class="sxs-lookup"><span data-stu-id="04ad1-219">Make the change, save, and refresh the browser to view the update.</span></span>
 
 <span data-ttu-id="04ad1-220">必须在容器内编译和重启 Kestrel，才能修改代码文件。</span><span class="sxs-lookup"><span data-stu-id="04ad1-220">Code file modifications require compilation and a restart of Kestrel within the container.</span></span> <span data-ttu-id="04ad1-221">更改后，按 `CTRL+F5` 执行过程，并在容器内启动应用。</span><span class="sxs-lookup"><span data-stu-id="04ad1-221">After making the change, use `CTRL+F5` to perform the process and start the app within the container.</span></span> <span data-ttu-id="04ad1-222">未重新生成或停止 Docker 容器。</span><span class="sxs-lookup"><span data-stu-id="04ad1-222">The Docker container isn't rebuilt or stopped.</span></span> <span data-ttu-id="04ad1-223">在 PMC 中运行 `docker ps` 命令。</span><span class="sxs-lookup"><span data-stu-id="04ad1-223">Run the `docker ps` command in PMC.</span></span> <span data-ttu-id="04ad1-224">请注意，截至 10 分钟前，原始容器仍在运行：</span><span class="sxs-lookup"><span data-stu-id="04ad1-224">Notice the original container is still running as of 10 minutes ago:</span></span>
 

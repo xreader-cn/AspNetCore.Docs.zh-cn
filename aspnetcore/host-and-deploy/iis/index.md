@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/7/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: host-and-deploy/iis/index
 ms.openlocfilehash: e4a94ca9e3607868f3eb25d88338e8156f7f5206
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -400,7 +400,7 @@ net start w3svc
 
 1. <span data-ttu-id="a6d40-379">确认进程模型标识拥有适当的权限。</span><span class="sxs-lookup"><span data-stu-id="a6d40-379">Confirm the process model identity has the proper permissions.</span></span>
 
-   <span data-ttu-id="a6d40-380">如果将应用池的默认标识（“进程模型” > “:::no-loc(Identity):::”）从 ApplicationPool:::no-loc(Identity)::: 更改为另一标识，请确保新标识拥有对应用文件夹、数据库和其他所需资源的必需访问权限  。</span><span class="sxs-lookup"><span data-stu-id="a6d40-380">If the default identity of the app pool ( **Process Model** > **:::no-loc(Identity):::** ) is changed from **ApplicationPool:::no-loc(Identity):::** to another identity, verify that the new identity has the required permissions to access the app's folder, database, and other required resources.</span></span> <span data-ttu-id="a6d40-381">例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。</span><span class="sxs-lookup"><span data-stu-id="a6d40-381">For example, the app pool requires read and write access to folders where the app reads and writes files.</span></span>
+   <span data-ttu-id="a6d40-380">如果将应用池的默认标识（“进程模型” > “Identity”）从 ApplicationPoolIdentity 更改为另一标识，请确保新标识拥有对应用文件夹、数据库和其他所需资源的必需访问权限  。</span><span class="sxs-lookup"><span data-stu-id="a6d40-380">If the default identity of the app pool ( **Process Model** > **Identity** ) is changed from **ApplicationPoolIdentity** to another identity, verify that the new identity has the required permissions to access the app's folder, database, and other required resources.</span></span> <span data-ttu-id="a6d40-381">例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。</span><span class="sxs-lookup"><span data-stu-id="a6d40-381">For example, the app pool requires read and write access to folders where the app reads and writes files.</span></span>
 
 <span data-ttu-id="a6d40-382">**Windows 身份验证配置（可选）**</span><span class="sxs-lookup"><span data-stu-id="a6d40-382">**Windows Authentication configuration (Optional)**</span></span>  
 <span data-ttu-id="a6d40-383">有关详细信息，请参阅[配置 Windows 身份验证](xref:security/authentication/windowsauth)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-383">For more information, see [Configure Windows authentication](xref:security/authentication/windowsauth).</span></span>
@@ -459,9 +459,9 @@ net start w3svc
 
 <span data-ttu-id="a6d40-416">如果密钥环存储于内存中，则在应用重启时：</span><span class="sxs-lookup"><span data-stu-id="a6d40-416">If the key ring is stored in memory when the app restarts:</span></span>
 
-* <span data-ttu-id="a6d40-417">所有基于 :::no-loc(cookie)::: 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="a6d40-417">All :::no-loc(cookie):::-based authentication tokens are invalidated.</span></span> 
+* <span data-ttu-id="a6d40-417">所有基于 cookie 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="a6d40-417">All cookie-based authentication tokens are invalidated.</span></span> 
 * <span data-ttu-id="a6d40-418">用户需要在下一次请求时再次登录。</span><span class="sxs-lookup"><span data-stu-id="a6d40-418">Users are required to sign in again on their next request.</span></span> 
-* <span data-ttu-id="a6d40-419">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="a6d40-419">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="a6d40-420">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData :::no-loc(cookie):::](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-420">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData :::no-loc(cookie):::s](xref:fundamentals/app-state#tempdata).</span></span>
+* <span data-ttu-id="a6d40-419">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="a6d40-419">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="a6d40-420">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-420">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
 
 <span data-ttu-id="a6d40-421">若要在 IIS 下配置数据保护以持久化密钥环，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="a6d40-421">To configure data protection under IIS to persist the key ring, use **one** of the following approaches:</span></span>
 
@@ -555,9 +555,9 @@ net start w3svc
 
 <span data-ttu-id="a6d40-495">IIS“添加网站”对话框默认为每应用一个应用池。</span><span class="sxs-lookup"><span data-stu-id="a6d40-495">The IIS **Add Website** dialog defaults to a single app pool per app.</span></span> <span data-ttu-id="a6d40-496">提供了站点名称时，该文本会自动传输到“应用程序池”文本框 。</span><span class="sxs-lookup"><span data-stu-id="a6d40-496">When a **Site name** is provided, the text is automatically transferred to the **Application pool** textbox.</span></span> <span data-ttu-id="a6d40-497">添加站点时，会使用该站点名称创建新的应用池。</span><span class="sxs-lookup"><span data-stu-id="a6d40-497">A new app pool is created using the site name when the site is added.</span></span>
 
-## <a name="application-pool-no-locidentity"></a><span data-ttu-id="a6d40-498">应用程序池 :::no-loc(Identity):::</span><span class="sxs-lookup"><span data-stu-id="a6d40-498">Application Pool :::no-loc(Identity):::</span></span>
+## <a name="application-pool-no-locidentity"></a><span data-ttu-id="a6d40-498">应用程序池 Identity</span><span class="sxs-lookup"><span data-stu-id="a6d40-498">Application Pool Identity</span></span>
 
-<span data-ttu-id="a6d40-499">通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。</span><span class="sxs-lookup"><span data-stu-id="a6d40-499">An app pool identity account allows an app to run under a unique account without having to create and manage domains or local accounts.</span></span> <span data-ttu-id="a6d40-500">在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。</span><span class="sxs-lookup"><span data-stu-id="a6d40-500">On IIS 8.0 or later, the IIS Admin Worker Process (WAS) creates a virtual account with the name of the new app pool and runs the app pool's worker processes under this account by default.</span></span> <span data-ttu-id="a6d40-501">在 IIS 管理控制台中，确保应用池“高级设置”下的“:::no-loc(Identity):::”设置为使用 ApplicationPool:::no-loc(Identity):::  ：</span><span class="sxs-lookup"><span data-stu-id="a6d40-501">In the IIS Management Console under **Advanced Settings** for the app pool, ensure that the **:::no-loc(Identity):::** is set to use **ApplicationPool:::no-loc(Identity):::** :</span></span>
+<span data-ttu-id="a6d40-499">通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。</span><span class="sxs-lookup"><span data-stu-id="a6d40-499">An app pool identity account allows an app to run under a unique account without having to create and manage domains or local accounts.</span></span> <span data-ttu-id="a6d40-500">在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。</span><span class="sxs-lookup"><span data-stu-id="a6d40-500">On IIS 8.0 or later, the IIS Admin Worker Process (WAS) creates a virtual account with the name of the new app pool and runs the app pool's worker processes under this account by default.</span></span> <span data-ttu-id="a6d40-501">在 IIS 管理控制台中，确保应用池“高级设置”下的“Identity”设置为使用 ApplicationPoolIdentity  ：</span><span class="sxs-lookup"><span data-stu-id="a6d40-501">In the IIS Management Console under **Advanced Settings** for the app pool, ensure that the **Identity** is set to use **ApplicationPoolIdentity** :</span></span>
 
 ![应用程序池“高级设置”对话框](index/_static/apppool-identity.png)
 
@@ -999,7 +999,7 @@ services.Configure<IISOptions>(options =>
 
 1. <span data-ttu-id="a6d40-825">确认进程模型标识拥有适当的权限。</span><span class="sxs-lookup"><span data-stu-id="a6d40-825">Confirm the process model identity has the proper permissions.</span></span>
 
-   <span data-ttu-id="a6d40-826">如果将应用池的默认标识（“进程模型” > “:::no-loc(Identity):::”）从 ApplicationPool:::no-loc(Identity)::: 更改为另一标识，请确保新标识拥有对应用文件夹、数据库和其他所需资源的必需访问权限  。</span><span class="sxs-lookup"><span data-stu-id="a6d40-826">If the default identity of the app pool ( **Process Model** > **:::no-loc(Identity):::** ) is changed from **ApplicationPool:::no-loc(Identity):::** to another identity, verify that the new identity has the required permissions to access the app's folder, database, and other required resources.</span></span> <span data-ttu-id="a6d40-827">例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。</span><span class="sxs-lookup"><span data-stu-id="a6d40-827">For example, the app pool requires read and write access to folders where the app reads and writes files.</span></span>
+   <span data-ttu-id="a6d40-826">如果将应用池的默认标识（“进程模型” > “Identity”）从 ApplicationPoolIdentity 更改为另一标识，请确保新标识拥有对应用文件夹、数据库和其他所需资源的必需访问权限  。</span><span class="sxs-lookup"><span data-stu-id="a6d40-826">If the default identity of the app pool ( **Process Model** > **Identity** ) is changed from **ApplicationPoolIdentity** to another identity, verify that the new identity has the required permissions to access the app's folder, database, and other required resources.</span></span> <span data-ttu-id="a6d40-827">例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。</span><span class="sxs-lookup"><span data-stu-id="a6d40-827">For example, the app pool requires read and write access to folders where the app reads and writes files.</span></span>
 
 <span data-ttu-id="a6d40-828">**Windows 身份验证配置（可选）**</span><span class="sxs-lookup"><span data-stu-id="a6d40-828">**Windows Authentication configuration (Optional)**</span></span>  
 <span data-ttu-id="a6d40-829">有关详细信息，请参阅[配置 Windows 身份验证](xref:security/authentication/windowsauth)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-829">For more information, see [Configure Windows authentication](xref:security/authentication/windowsauth).</span></span>
@@ -1059,9 +1059,9 @@ services.Configure<IISOptions>(options =>
 
 <span data-ttu-id="a6d40-862">如果密钥环存储于内存中，则在应用重启时：</span><span class="sxs-lookup"><span data-stu-id="a6d40-862">If the key ring is stored in memory when the app restarts:</span></span>
 
-* <span data-ttu-id="a6d40-863">所有基于 :::no-loc(cookie)::: 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="a6d40-863">All :::no-loc(cookie):::-based authentication tokens are invalidated.</span></span> 
+* <span data-ttu-id="a6d40-863">所有基于 cookie 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="a6d40-863">All cookie-based authentication tokens are invalidated.</span></span> 
 * <span data-ttu-id="a6d40-864">用户需要在下一次请求时再次登录。</span><span class="sxs-lookup"><span data-stu-id="a6d40-864">Users are required to sign in again on their next request.</span></span> 
-* <span data-ttu-id="a6d40-865">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="a6d40-865">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="a6d40-866">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData :::no-loc(cookie):::](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-866">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData :::no-loc(cookie):::s](xref:fundamentals/app-state#tempdata).</span></span>
+* <span data-ttu-id="a6d40-865">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="a6d40-865">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="a6d40-866">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-866">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
 
 <span data-ttu-id="a6d40-867">若要在 IIS 下配置数据保护以持久化密钥环，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="a6d40-867">To configure data protection under IIS to persist the key ring, use **one** of the following approaches:</span></span>
 
@@ -1155,9 +1155,9 @@ services.Configure<IISOptions>(options =>
 
 <span data-ttu-id="a6d40-941">IIS“添加网站”对话框默认为每应用一个应用池。</span><span class="sxs-lookup"><span data-stu-id="a6d40-941">The IIS **Add Website** dialog defaults to a single app pool per app.</span></span> <span data-ttu-id="a6d40-942">提供了站点名称时，该文本会自动传输到“应用程序池”文本框 。</span><span class="sxs-lookup"><span data-stu-id="a6d40-942">When a **Site name** is provided, the text is automatically transferred to the **Application pool** textbox.</span></span> <span data-ttu-id="a6d40-943">添加站点时，会使用该站点名称创建新的应用池。</span><span class="sxs-lookup"><span data-stu-id="a6d40-943">A new app pool is created using the site name when the site is added.</span></span>
 
-## <a name="application-pool-no-locidentity"></a><span data-ttu-id="a6d40-944">应用程序池 :::no-loc(Identity):::</span><span class="sxs-lookup"><span data-stu-id="a6d40-944">Application Pool :::no-loc(Identity):::</span></span>
+## <a name="application-pool-no-locidentity"></a><span data-ttu-id="a6d40-944">应用程序池 Identity</span><span class="sxs-lookup"><span data-stu-id="a6d40-944">Application Pool Identity</span></span>
 
-<span data-ttu-id="a6d40-945">通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。</span><span class="sxs-lookup"><span data-stu-id="a6d40-945">An app pool identity account allows an app to run under a unique account without having to create and manage domains or local accounts.</span></span> <span data-ttu-id="a6d40-946">在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。</span><span class="sxs-lookup"><span data-stu-id="a6d40-946">On IIS 8.0 or later, the IIS Admin Worker Process (WAS) creates a virtual account with the name of the new app pool and runs the app pool's worker processes under this account by default.</span></span> <span data-ttu-id="a6d40-947">在 IIS 管理控制台中，确保应用池“高级设置”下的“:::no-loc(Identity):::”设置为使用 ApplicationPool:::no-loc(Identity):::  ：</span><span class="sxs-lookup"><span data-stu-id="a6d40-947">In the IIS Management Console under **Advanced Settings** for the app pool, ensure that the **:::no-loc(Identity):::** is set to use **ApplicationPool:::no-loc(Identity):::** :</span></span>
+<span data-ttu-id="a6d40-945">通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。</span><span class="sxs-lookup"><span data-stu-id="a6d40-945">An app pool identity account allows an app to run under a unique account without having to create and manage domains or local accounts.</span></span> <span data-ttu-id="a6d40-946">在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。</span><span class="sxs-lookup"><span data-stu-id="a6d40-946">On IIS 8.0 or later, the IIS Admin Worker Process (WAS) creates a virtual account with the name of the new app pool and runs the app pool's worker processes under this account by default.</span></span> <span data-ttu-id="a6d40-947">在 IIS 管理控制台中，确保应用池“高级设置”下的“Identity”设置为使用 ApplicationPoolIdentity  ：</span><span class="sxs-lookup"><span data-stu-id="a6d40-947">In the IIS Management Console under **Advanced Settings** for the app pool, ensure that the **Identity** is set to use **ApplicationPoolIdentity** :</span></span>
 
 ![应用程序池“高级设置”对话框](index/_static/apppool-identity.png)
 
@@ -1567,7 +1567,7 @@ services.Configure<IISOptions>(options =>
 
 1. <span data-ttu-id="a6d40-1252">确认进程模型标识拥有适当的权限。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1252">Confirm the process model identity has the proper permissions.</span></span>
 
-   <span data-ttu-id="a6d40-1253">如果将应用池的默认标识（“进程模型” > “:::no-loc(Identity):::”）从 ApplicationPool:::no-loc(Identity)::: 更改为另一标识，请确保新标识拥有对应用文件夹、数据库和其他所需资源的必需访问权限  。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1253">If the default identity of the app pool ( **Process Model** > **:::no-loc(Identity):::** ) is changed from **ApplicationPool:::no-loc(Identity):::** to another identity, verify that the new identity has the required permissions to access the app's folder, database, and other required resources.</span></span> <span data-ttu-id="a6d40-1254">例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1254">For example, the app pool requires read and write access to folders where the app reads and writes files.</span></span>
+   <span data-ttu-id="a6d40-1253">如果将应用池的默认标识（“进程模型” > “Identity”）从 ApplicationPoolIdentity 更改为另一标识，请确保新标识拥有对应用文件夹、数据库和其他所需资源的必需访问权限  。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1253">If the default identity of the app pool ( **Process Model** > **Identity** ) is changed from **ApplicationPoolIdentity** to another identity, verify that the new identity has the required permissions to access the app's folder, database, and other required resources.</span></span> <span data-ttu-id="a6d40-1254">例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1254">For example, the app pool requires read and write access to folders where the app reads and writes files.</span></span>
 
 <span data-ttu-id="a6d40-1255">**Windows 身份验证配置（可选）**</span><span class="sxs-lookup"><span data-stu-id="a6d40-1255">**Windows Authentication configuration (Optional)**</span></span>  
 <span data-ttu-id="a6d40-1256">有关详细信息，请参阅[配置 Windows 身份验证](xref:security/authentication/windowsauth)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1256">For more information, see [Configure Windows authentication](xref:security/authentication/windowsauth).</span></span>
@@ -1627,9 +1627,9 @@ services.Configure<IISOptions>(options =>
 
 <span data-ttu-id="a6d40-1289">如果密钥环存储于内存中，则在应用重启时：</span><span class="sxs-lookup"><span data-stu-id="a6d40-1289">If the key ring is stored in memory when the app restarts:</span></span>
 
-* <span data-ttu-id="a6d40-1290">所有基于 :::no-loc(cookie)::: 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1290">All :::no-loc(cookie):::-based authentication tokens are invalidated.</span></span> 
+* <span data-ttu-id="a6d40-1290">所有基于 cookie 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1290">All cookie-based authentication tokens are invalidated.</span></span> 
 * <span data-ttu-id="a6d40-1291">用户需要在下一次请求时再次登录。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1291">Users are required to sign in again on their next request.</span></span> 
-* <span data-ttu-id="a6d40-1292">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1292">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="a6d40-1293">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData :::no-loc(cookie):::](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1293">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData :::no-loc(cookie):::s](xref:fundamentals/app-state#tempdata).</span></span>
+* <span data-ttu-id="a6d40-1292">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1292">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="a6d40-1293">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1293">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
 
 <span data-ttu-id="a6d40-1294">若要在 IIS 下配置数据保护以持久化密钥环，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="a6d40-1294">To configure data protection under IIS to persist the key ring, use **one** of the following approaches:</span></span>
 
@@ -1751,9 +1751,9 @@ services.Configure<IISOptions>(options =>
 
 <span data-ttu-id="a6d40-1369">在服务器上托管多个网站时，建议在每个应用自己的应用池中运行各应用，以彼此隔离。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1369">When hosting multiple websites on a server, we recommend isolating the apps from each other by running each app in its own app pool.</span></span> <span data-ttu-id="a6d40-1370">IIS“添加网站”对话框默认执行此配置。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1370">The IIS **Add Website** dialog defaults to this configuration.</span></span> <span data-ttu-id="a6d40-1371">提供了站点名称时，该文本会自动传输到“应用程序池”文本框 。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1371">When a **Site name** is provided, the text is automatically transferred to the **Application pool** textbox.</span></span> <span data-ttu-id="a6d40-1372">添加站点时，会使用该站点名称创建新的应用池。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1372">A new app pool is created using the site name when the site is added.</span></span>
 
-## <a name="application-pool-no-locidentity"></a><span data-ttu-id="a6d40-1373">应用程序池 :::no-loc(Identity):::</span><span class="sxs-lookup"><span data-stu-id="a6d40-1373">Application Pool :::no-loc(Identity):::</span></span>
+## <a name="application-pool-no-locidentity"></a><span data-ttu-id="a6d40-1373">应用程序池 Identity</span><span class="sxs-lookup"><span data-stu-id="a6d40-1373">Application Pool Identity</span></span>
 
-<span data-ttu-id="a6d40-1374">通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1374">An app pool identity account allows an app to run under a unique account without having to create and manage domains or local accounts.</span></span> <span data-ttu-id="a6d40-1375">在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1375">On IIS 8.0 or later, the IIS Admin Worker Process (WAS) creates a virtual account with the name of the new app pool and runs the app pool's worker processes under this account by default.</span></span> <span data-ttu-id="a6d40-1376">在 IIS 管理控制台中，确保应用池“高级设置”下的“:::no-loc(Identity):::”设置为使用 ApplicationPool:::no-loc(Identity):::  ：</span><span class="sxs-lookup"><span data-stu-id="a6d40-1376">In the IIS Management Console under **Advanced Settings** for the app pool, ensure that the **:::no-loc(Identity):::** is set to use **ApplicationPool:::no-loc(Identity):::** :</span></span>
+<span data-ttu-id="a6d40-1374">通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1374">An app pool identity account allows an app to run under a unique account without having to create and manage domains or local accounts.</span></span> <span data-ttu-id="a6d40-1375">在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。</span><span class="sxs-lookup"><span data-stu-id="a6d40-1375">On IIS 8.0 or later, the IIS Admin Worker Process (WAS) creates a virtual account with the name of the new app pool and runs the app pool's worker processes under this account by default.</span></span> <span data-ttu-id="a6d40-1376">在 IIS 管理控制台中，确保应用池“高级设置”下的“Identity”设置为使用 ApplicationPoolIdentity  ：</span><span class="sxs-lookup"><span data-stu-id="a6d40-1376">In the IIS Management Console under **Advanced Settings** for the app pool, ensure that the **Identity** is set to use **ApplicationPoolIdentity** :</span></span>
 
 ![应用程序池“高级设置”对话框](index/_static/apppool-identity.png)
 

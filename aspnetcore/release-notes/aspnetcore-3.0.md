@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: aspnetcore-3.0
 ms.openlocfilehash: 235daac5c08248ca2052de6b44e66a8162ce23ad
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -29,39 +29,39 @@ ms.locfileid: "93051234"
 
 <span data-ttu-id="6d584-104">本文重点介绍 ASP.NET Core 3.0 中最重要的更改，并提供相关文档的链接。</span><span class="sxs-lookup"><span data-stu-id="6d584-104">This article highlights the most significant changes in ASP.NET Core 3.0 with links to relevant documentation.</span></span>
 
-## :::no-loc(Blazor):::
+## Blazor
 
-<span data-ttu-id="6d584-105">:::no-loc(Blazor)::: 是 ASP.NET Core 中的新框架，用于使用 .NET 生成交互式客户端 Web UI：</span><span class="sxs-lookup"><span data-stu-id="6d584-105">:::no-loc(Blazor)::: is a new framework in ASP.NET Core for building interactive client-side web UI with .NET:</span></span>
+<span data-ttu-id="6d584-105">Blazor 是 ASP.NET Core 中的新框架，用于使用 .NET 生成交互式客户端 Web UI：</span><span class="sxs-lookup"><span data-stu-id="6d584-105">Blazor is a new framework in ASP.NET Core for building interactive client-side web UI with .NET:</span></span>
 
 * <span data-ttu-id="6d584-106">使用 C# 代替 JavaScript 来创建丰富的交互式 UI。</span><span class="sxs-lookup"><span data-stu-id="6d584-106">Create rich interactive UIs using C# instead of JavaScript.</span></span>
 * <span data-ttu-id="6d584-107">共享使用 .NET 编写的服务器端和客户端应用逻辑。</span><span class="sxs-lookup"><span data-stu-id="6d584-107">Share server-side and client-side app logic written in .NET.</span></span>
 * <span data-ttu-id="6d584-108">将 UI 呈现为 HTML 和 CSS，以支持众多浏览器，其中包括移动浏览器。</span><span class="sxs-lookup"><span data-stu-id="6d584-108">Render the UI as HTML and CSS for wide browser support, including mobile browsers.</span></span>
 
-<span data-ttu-id="6d584-109">:::no-loc(Blazor)::: 框架支持的方案：</span><span class="sxs-lookup"><span data-stu-id="6d584-109">:::no-loc(Blazor)::: framework supported scenarios:</span></span>
+<span data-ttu-id="6d584-109">Blazor 框架支持的方案：</span><span class="sxs-lookup"><span data-stu-id="6d584-109">Blazor framework supported scenarios:</span></span>
 
-* <span data-ttu-id="6d584-110">可重用的 UI 组件（:::no-loc(Razor)::: 组件）</span><span class="sxs-lookup"><span data-stu-id="6d584-110">Reusable UI components (:::no-loc(Razor)::: components)</span></span>
+* <span data-ttu-id="6d584-110">可重用的 UI 组件（Razor 组件）</span><span class="sxs-lookup"><span data-stu-id="6d584-110">Reusable UI components (Razor components)</span></span>
 * <span data-ttu-id="6d584-111">客户端路由</span><span class="sxs-lookup"><span data-stu-id="6d584-111">Client-side routing</span></span>
 * <span data-ttu-id="6d584-112">组件布局</span><span class="sxs-lookup"><span data-stu-id="6d584-112">Component layouts</span></span>
 * <span data-ttu-id="6d584-113">对依赖项注入的支持</span><span class="sxs-lookup"><span data-stu-id="6d584-113">Support for dependency injection</span></span>
 * <span data-ttu-id="6d584-114">窗体和验证</span><span class="sxs-lookup"><span data-stu-id="6d584-114">Forms and validation</span></span>
-* <span data-ttu-id="6d584-115">用 :::no-loc(Razor)::: 类库构建组件库</span><span class="sxs-lookup"><span data-stu-id="6d584-115">Build component libraries with :::no-loc(Razor)::: class libraries</span></span>
+* <span data-ttu-id="6d584-115">用 Razor 类库构建组件库</span><span class="sxs-lookup"><span data-stu-id="6d584-115">Build component libraries with Razor class libraries</span></span>
 * <span data-ttu-id="6d584-116">JavaScript 互操作</span><span class="sxs-lookup"><span data-stu-id="6d584-116">JavaScript interop</span></span>
 
 <span data-ttu-id="6d584-117">有关详细信息，请参阅 <xref:blazor/index>。</span><span class="sxs-lookup"><span data-stu-id="6d584-117">For more information, see <xref:blazor/index>.</span></span>
 
-### :::no-loc(Blazor Server):::
+### Blazor Server
 
-<span data-ttu-id="6d584-118">:::no-loc(Blazor)::: 将组件呈现逻辑从 UI 更新的应用方式中分离出来。</span><span class="sxs-lookup"><span data-stu-id="6d584-118">:::no-loc(Blazor)::: decouples component rendering logic from how UI updates are applied.</span></span> <span data-ttu-id="6d584-119">:::no-loc(Blazor Server):::在 ASP.NET Core 应用中支持在服务器上托管 :::no-loc(Razor)::: 组件。</span><span class="sxs-lookup"><span data-stu-id="6d584-119">:::no-loc(Blazor Server)::: provides support for hosting :::no-loc(Razor)::: components on the server in an ASP.NET Core app.</span></span> <span data-ttu-id="6d584-120">可通过 :::no-loc(SignalR)::: 连接处理 UI 更新。</span><span class="sxs-lookup"><span data-stu-id="6d584-120">UI updates are handled over a :::no-loc(SignalR)::: connection.</span></span> <span data-ttu-id="6d584-121">ASP.NET Core 3.0 支持 :::no-loc(Blazor Server):::。</span><span class="sxs-lookup"><span data-stu-id="6d584-121">:::no-loc(Blazor Server)::: is supported in ASP.NET Core 3.0.</span></span>
+<span data-ttu-id="6d584-118">Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。</span><span class="sxs-lookup"><span data-stu-id="6d584-118">Blazor decouples component rendering logic from how UI updates are applied.</span></span> <span data-ttu-id="6d584-119">Blazor Server在 ASP.NET Core 应用中支持在服务器上托管 Razor 组件。</span><span class="sxs-lookup"><span data-stu-id="6d584-119">Blazor Server provides support for hosting Razor components on the server in an ASP.NET Core app.</span></span> <span data-ttu-id="6d584-120">可通过 SignalR 连接处理 UI 更新。</span><span class="sxs-lookup"><span data-stu-id="6d584-120">UI updates are handled over a SignalR connection.</span></span> <span data-ttu-id="6d584-121">ASP.NET Core 3.0 支持 Blazor Server。</span><span class="sxs-lookup"><span data-stu-id="6d584-121">Blazor Server is supported in ASP.NET Core 3.0.</span></span>
 
-### <a name="no-locblazor-webassembly-preview"></a><span data-ttu-id="6d584-122">:::no-loc(Blazor WebAssembly):::（预览版）</span><span class="sxs-lookup"><span data-stu-id="6d584-122">:::no-loc(Blazor WebAssembly)::: (Preview)</span></span>
+### <a name="no-locblazor-webassembly-preview"></a><span data-ttu-id="6d584-122">Blazor WebAssembly（预览版）</span><span class="sxs-lookup"><span data-stu-id="6d584-122">Blazor WebAssembly (Preview)</span></span>
 
-<span data-ttu-id="6d584-123">还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 :::no-loc(Blazor)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="6d584-123">:::no-loc(Blazor)::: apps can also be run directly in the browser using a WebAssembly-based .NET runtime.</span></span> <span data-ttu-id="6d584-124">:::no-loc(Blazor WebAssembly)::: 处于预览版阶段，ASP.NET Core 3.0 不提供支持。</span><span class="sxs-lookup"><span data-stu-id="6d584-124">:::no-loc(Blazor WebAssembly)::: is in preview and *not* supported in ASP.NET Core 3.0.</span></span> <span data-ttu-id="6d584-125">ASP.NET Core 的未来版本将支持 :::no-loc(Blazor WebAssembly):::。</span><span class="sxs-lookup"><span data-stu-id="6d584-125">:::no-loc(Blazor WebAssembly)::: will be supported in a future release of ASP.NET Core.</span></span>
+<span data-ttu-id="6d584-123">还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 Blazor 应用。</span><span class="sxs-lookup"><span data-stu-id="6d584-123">Blazor apps can also be run directly in the browser using a WebAssembly-based .NET runtime.</span></span> <span data-ttu-id="6d584-124">Blazor WebAssembly 处于预览版阶段，ASP.NET Core 3.0 不提供支持。</span><span class="sxs-lookup"><span data-stu-id="6d584-124">Blazor WebAssembly is in preview and *not* supported in ASP.NET Core 3.0.</span></span> <span data-ttu-id="6d584-125">ASP.NET Core 的未来版本将支持 Blazor WebAssembly。</span><span class="sxs-lookup"><span data-stu-id="6d584-125">Blazor WebAssembly will be supported in a future release of ASP.NET Core.</span></span>
 
-### <a name="no-locrazor-components"></a><span data-ttu-id="6d584-126">:::no-loc(Razor)::: 组件</span><span class="sxs-lookup"><span data-stu-id="6d584-126">:::no-loc(Razor)::: components</span></span>
+### <a name="no-locrazor-components"></a><span data-ttu-id="6d584-126">Razor 组件</span><span class="sxs-lookup"><span data-stu-id="6d584-126">Razor components</span></span>
 
-<span data-ttu-id="6d584-127">:::no-loc(Blazor)::: 应用是基于组件构建的。</span><span class="sxs-lookup"><span data-stu-id="6d584-127">:::no-loc(Blazor)::: apps are built from components.</span></span> <span data-ttu-id="6d584-128">组件是自包含的用户界面 (UI) 块，例如页、对话框或窗体。</span><span class="sxs-lookup"><span data-stu-id="6d584-128">Components are self-contained chunks of user interface (UI), such as a page, dialog, or form.</span></span> <span data-ttu-id="6d584-129">组件是定义 UI 呈现逻辑和客户端事件处理程序的普通 .NET 类。</span><span class="sxs-lookup"><span data-stu-id="6d584-129">Components are normal .NET classes that define UI rendering logic and client-side event handlers.</span></span> <span data-ttu-id="6d584-130">无需 JavaScript 即可创建丰富的交互式 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="6d584-130">You can create rich interactive web apps without JavaScript.</span></span>
+<span data-ttu-id="6d584-127">Blazor 应用是基于组件构建的。</span><span class="sxs-lookup"><span data-stu-id="6d584-127">Blazor apps are built from components.</span></span> <span data-ttu-id="6d584-128">组件是自包含的用户界面 (UI) 块，例如页、对话框或窗体。</span><span class="sxs-lookup"><span data-stu-id="6d584-128">Components are self-contained chunks of user interface (UI), such as a page, dialog, or form.</span></span> <span data-ttu-id="6d584-129">组件是定义 UI 呈现逻辑和客户端事件处理程序的普通 .NET 类。</span><span class="sxs-lookup"><span data-stu-id="6d584-129">Components are normal .NET classes that define UI rendering logic and client-side event handlers.</span></span> <span data-ttu-id="6d584-130">无需 JavaScript 即可创建丰富的交互式 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="6d584-130">You can create rich interactive web apps without JavaScript.</span></span>
 
-<span data-ttu-id="6d584-131">通常使用 :::no-loc(Razor)::: 语法（HTML 和 C# 的自然混合）创建 :::no-loc(Blazor)::: 中的组件。</span><span class="sxs-lookup"><span data-stu-id="6d584-131">Components in :::no-loc(Blazor)::: are typically authored using :::no-loc(Razor)::: syntax, a natural blend of HTML and C#.</span></span> <span data-ttu-id="6d584-132">:::no-loc(Razor)::: 组件与 :::no-loc(Razor)::: Pages 和 MVC 视图类似，因为它们都使用 :::no-loc(Razor):::。</span><span class="sxs-lookup"><span data-stu-id="6d584-132">:::no-loc(Razor)::: components are similar to :::no-loc(Razor)::: Pages and MVC views in that they both use :::no-loc(Razor):::.</span></span> <span data-ttu-id="6d584-133">与基于请求-响应模型的页和视图不同，组件专门用于处理 UI 构成。</span><span class="sxs-lookup"><span data-stu-id="6d584-133">Unlike pages and views, which are based on a request-response model, components are used specifically for handling UI composition.</span></span>
+<span data-ttu-id="6d584-131">通常使用 Razor 语法（HTML 和 C# 的自然混合）创建 Blazor 中的组件。</span><span class="sxs-lookup"><span data-stu-id="6d584-131">Components in Blazor are typically authored using Razor syntax, a natural blend of HTML and C#.</span></span> <span data-ttu-id="6d584-132">Razor 组件与 Razor Pages 和 MVC 视图类似，因为它们都使用 Razor。</span><span class="sxs-lookup"><span data-stu-id="6d584-132">Razor components are similar to Razor Pages and MVC views in that they both use Razor.</span></span> <span data-ttu-id="6d584-133">与基于请求-响应模型的页和视图不同，组件专门用于处理 UI 构成。</span><span class="sxs-lookup"><span data-stu-id="6d584-133">Unlike pages and views, which are based on a request-response model, components are used specifically for handling UI composition.</span></span>
 
 ## <a name="grpc"></a><span data-ttu-id="6d584-134">gRPC</span><span class="sxs-lookup"><span data-stu-id="6d584-134">gRPC</span></span>
 
@@ -88,11 +88,11 @@ ms.locfileid: "93051234"
 
 <span data-ttu-id="6d584-151">有关详细信息，请参阅 <xref:grpc/index>。</span><span class="sxs-lookup"><span data-stu-id="6d584-151">For more information, see <xref:grpc/index>.</span></span>
 
-## :::no-loc(SignalR):::
+## SignalR
 
-<span data-ttu-id="6d584-152">有关迁移说明，请参阅[更新 ](xref:migration/22-to-30#signalr) 代码:::no-loc(SignalR):::。</span><span class="sxs-lookup"><span data-stu-id="6d584-152">See [Update :::no-loc(SignalR)::: code](xref:migration/22-to-30#signalr) for migration instructions.</span></span> <span data-ttu-id="6d584-153">:::no-loc(SignalR)::: 现在使用 `System.Text.Json` 来序列化/反序列化 JSON 消息。</span><span class="sxs-lookup"><span data-stu-id="6d584-153">:::no-loc(SignalR)::: now uses `System.Text.Json` to serialize/deserialize JSON messages.</span></span> <span data-ttu-id="6d584-154">有关还原基于 `Newtonsoft.Json` 的序列化程序的说明，请参阅[切换到 Newtonsoft.Json](xref:migration/22-to-30#switch-to-newtonsoftjson)。</span><span class="sxs-lookup"><span data-stu-id="6d584-154">See [Switch to Newtonsoft.Json](xref:migration/22-to-30#switch-to-newtonsoftjson) for instructions to restore the `Newtonsoft.Json`-based serializer.</span></span>
+<span data-ttu-id="6d584-152">有关迁移说明，请参阅[更新 ](xref:migration/22-to-30#signalr) 代码SignalR。</span><span class="sxs-lookup"><span data-stu-id="6d584-152">See [Update SignalR code](xref:migration/22-to-30#signalr) for migration instructions.</span></span> <span data-ttu-id="6d584-153">SignalR 现在使用 `System.Text.Json` 来序列化/反序列化 JSON 消息。</span><span class="sxs-lookup"><span data-stu-id="6d584-153">SignalR now uses `System.Text.Json` to serialize/deserialize JSON messages.</span></span> <span data-ttu-id="6d584-154">有关还原基于 `Newtonsoft.Json` 的序列化程序的说明，请参阅[切换到 Newtonsoft.Json](xref:migration/22-to-30#switch-to-newtonsoftjson)。</span><span class="sxs-lookup"><span data-stu-id="6d584-154">See [Switch to Newtonsoft.Json](xref:migration/22-to-30#switch-to-newtonsoftjson) for instructions to restore the `Newtonsoft.Json`-based serializer.</span></span>
 
-<span data-ttu-id="6d584-155">在 :::no-loc(SignalR)::: 的 JavaScript 和 .NET 客户端中，添加了自动重新连接支持。</span><span class="sxs-lookup"><span data-stu-id="6d584-155">In the JavaScript and .NET Clients for :::no-loc(SignalR):::, support was added for automatic reconnection.</span></span> <span data-ttu-id="6d584-156">默认情况下，客户端会立即尝试重新连接，并根据需要分别在 2 秒、10 秒和 30 秒后重试。</span><span class="sxs-lookup"><span data-stu-id="6d584-156">By default, the client tries to reconnect immediately and retry after 2, 10, and 30 seconds if necessary.</span></span> <span data-ttu-id="6d584-157">如果客户端成功重新连接，则会收到新的连接 ID。</span><span class="sxs-lookup"><span data-stu-id="6d584-157">If the client successfully reconnects, it receives a new connection ID.</span></span> <span data-ttu-id="6d584-158">选择启用自动重新连接：</span><span class="sxs-lookup"><span data-stu-id="6d584-158">Automatic reconnect is opt-in:</span></span>
+<span data-ttu-id="6d584-155">在 SignalR 的 JavaScript 和 .NET 客户端中，添加了自动重新连接支持。</span><span class="sxs-lookup"><span data-stu-id="6d584-155">In the JavaScript and .NET Clients for SignalR, support was added for automatic reconnection.</span></span> <span data-ttu-id="6d584-156">默认情况下，客户端会立即尝试重新连接，并根据需要分别在 2 秒、10 秒和 30 秒后重试。</span><span class="sxs-lookup"><span data-stu-id="6d584-156">By default, the client tries to reconnect immediately and retry after 2, 10, and 30 seconds if necessary.</span></span> <span data-ttu-id="6d584-157">如果客户端成功重新连接，则会收到新的连接 ID。</span><span class="sxs-lookup"><span data-stu-id="6d584-157">If the client successfully reconnects, it receives a new connection ID.</span></span> <span data-ttu-id="6d584-158">选择启用自动重新连接：</span><span class="sxs-lookup"><span data-stu-id="6d584-158">Automatic reconnect is opt-in:</span></span>
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -117,7 +117,7 @@ const connection = new signalR.HubConnectionBuilder()
 
 <span data-ttu-id="6d584-164">尝试重新连接时，更新应用 UI，通知用户正在尝试重新连接。</span><span class="sxs-lookup"><span data-stu-id="6d584-164">During reconnection attempts, update the app UI to notify the user that the reconnection is being attempted.</span></span>
 
-<span data-ttu-id="6d584-165">为了在连接中断时提供 UI 反馈，:::no-loc(SignalR)::: 客户端 API 已扩展为包含以下事件处理程序：</span><span class="sxs-lookup"><span data-stu-id="6d584-165">To provide UI feedback when the connection is interrupted, the :::no-loc(SignalR)::: client API has been expanded to include the following event handlers:</span></span>
+<span data-ttu-id="6d584-165">为了在连接中断时提供 UI 反馈，SignalR 客户端 API 已扩展为包含以下事件处理程序：</span><span class="sxs-lookup"><span data-stu-id="6d584-165">To provide UI feedback when the connection is interrupted, the SignalR client API has been expanded to include the following event handlers:</span></span>
 
 * <span data-ttu-id="6d584-166">`onreconnecting`：使开发人员有机会禁用 UI 或允许用户了解应用程序处于脱机状态。</span><span class="sxs-lookup"><span data-stu-id="6d584-166">`onreconnecting`:  Gives developers an opportunity to disable UI or to let users know the app is offline.</span></span>
 * <span data-ttu-id="6d584-167">`onreconnected`：使开发人员有机会在重新建立连接后更新 UI。</span><span class="sxs-lookup"><span data-stu-id="6d584-167">`onreconnected`: Gives developers an opportunity to update the UI once the connection is reestablished.</span></span>
@@ -144,7 +144,7 @@ connection.onreconnected((connectionId) => {
 });
 ```
 
-<span data-ttu-id="6d584-170">当中心方法要求授权时，:::no-loc(SignalR)::: 3.0 和更高版本为授权处理程序提供了一个自定义资源。</span><span class="sxs-lookup"><span data-stu-id="6d584-170">:::no-loc(SignalR)::: 3.0 and later provides a custom resource to authorization handlers when a hub method requires authorization.</span></span> <span data-ttu-id="6d584-171">资源是 `HubInvocationContext` 的一个实例。</span><span class="sxs-lookup"><span data-stu-id="6d584-171">The resource is an instance of `HubInvocationContext`.</span></span> <span data-ttu-id="6d584-172">`HubInvocationContext` 包括：</span><span class="sxs-lookup"><span data-stu-id="6d584-172">The `HubInvocationContext` includes the:</span></span>
+<span data-ttu-id="6d584-170">当中心方法要求授权时，SignalR 3.0 和更高版本为授权处理程序提供了一个自定义资源。</span><span class="sxs-lookup"><span data-stu-id="6d584-170">SignalR 3.0 and later provides a custom resource to authorization handlers when a hub method requires authorization.</span></span> <span data-ttu-id="6d584-171">资源是 `HubInvocationContext` 的一个实例。</span><span class="sxs-lookup"><span data-stu-id="6d584-171">The resource is an instance of `HubInvocationContext`.</span></span> <span data-ttu-id="6d584-172">`HubInvocationContext` 包括：</span><span class="sxs-lookup"><span data-stu-id="6d584-172">The `HubInvocationContext` includes the:</span></span>
 
 * `HubCallerContext`
 * <span data-ttu-id="6d584-173">正在调用的中心方法的名称。</span><span class="sxs-lookup"><span data-stu-id="6d584-173">Name of the hub method being invoked.</span></span>
@@ -161,12 +161,12 @@ public class DomainRestrictedRequirement :
         DomainRestrictedRequirement requirement,
         HubInvocationContext resource)
     {
-        if (context.User?.:::no-loc(Identity):::?.Name == null)
+        if (context.User?.Identity?.Name == null)
         {
             return Task.CompletedTask;
         }
 
-        if (IsUserAllowedToDoThis(resource.HubMethodName, context.User.:::no-loc(Identity):::.Name))
+        if (IsUserAllowedToDoThis(resource.HubMethodName, context.User.Identity.Name))
         {
             context.Succeed(requirement);
         }
@@ -234,40 +234,40 @@ services
     });
 ```
 
-<span data-ttu-id="6d584-192">:::no-loc(SignalR)::: 中心使用[终结点路由](xref:fundamentals/routing)。</span><span class="sxs-lookup"><span data-stu-id="6d584-192">:::no-loc(SignalR)::: hubs use [Endpoint Routing](xref:fundamentals/routing).</span></span> <span data-ttu-id="6d584-193">以前 :::no-loc(SignalR)::: 中心连接是显式完成的：</span><span class="sxs-lookup"><span data-stu-id="6d584-193">:::no-loc(SignalR)::: hub connection was previously done explicitly:</span></span>
+<span data-ttu-id="6d584-192">SignalR 中心使用[终结点路由](xref:fundamentals/routing)。</span><span class="sxs-lookup"><span data-stu-id="6d584-192">SignalR hubs use [Endpoint Routing](xref:fundamentals/routing).</span></span> <span data-ttu-id="6d584-193">以前 SignalR 中心连接是显式完成的：</span><span class="sxs-lookup"><span data-stu-id="6d584-193">SignalR hub connection was previously done explicitly:</span></span>
 
 ```csharp
-app.Use:::no-loc(SignalR):::(routes =>
+app.UseSignalR(routes =>
 {
     routes.MapHub<ChatHub>("hubs/chat");
 });
 ```
 
-<span data-ttu-id="6d584-194">在以前的版本中，开发人员需要将控制器、:::no-loc(Razor)::: 页面和中心连接到各种位置。</span><span class="sxs-lookup"><span data-stu-id="6d584-194">In the previous version, developers needed to wire up controllers, :::no-loc(Razor)::: pages, and hubs in a variety of places.</span></span> <span data-ttu-id="6d584-195">显式连接会生成一系列几乎相同的路由段：</span><span class="sxs-lookup"><span data-stu-id="6d584-195">Explicit connection results in a series of nearly-identical routing segments:</span></span>
+<span data-ttu-id="6d584-194">在以前的版本中，开发人员需要将控制器、Razor 页面和中心连接到各种位置。</span><span class="sxs-lookup"><span data-stu-id="6d584-194">In the previous version, developers needed to wire up controllers, Razor pages, and hubs in a variety of places.</span></span> <span data-ttu-id="6d584-195">显式连接会生成一系列几乎相同的路由段：</span><span class="sxs-lookup"><span data-stu-id="6d584-195">Explicit connection results in a series of nearly-identical routing segments:</span></span>
 
 ```csharp
-app.Use:::no-loc(SignalR):::(routes =>
+app.UseSignalR(routes =>
 {
     routes.MapHub<ChatHub>("hubs/chat");
 });
 
 app.UseRouting(routes =>
 {
-    routes.Map:::no-loc(Razor):::Pages();
+    routes.MapRazorPages();
 });
 ```
 
-<span data-ttu-id="6d584-196">可以通过终结点路由来路由 :::no-loc(SignalR)::: 3.0 中心。</span><span class="sxs-lookup"><span data-stu-id="6d584-196">:::no-loc(SignalR)::: 3.0 hubs can be routed via endpoint routing.</span></span> <span data-ttu-id="6d584-197">通过终结点路由，通常可以在 `UseRouting` 中配置所有路由：</span><span class="sxs-lookup"><span data-stu-id="6d584-197">With endpoint routing, typically all routing can be configured in `UseRouting`:</span></span>
+<span data-ttu-id="6d584-196">可以通过终结点路由来路由 SignalR 3.0 中心。</span><span class="sxs-lookup"><span data-stu-id="6d584-196">SignalR 3.0 hubs can be routed via endpoint routing.</span></span> <span data-ttu-id="6d584-197">通过终结点路由，通常可以在 `UseRouting` 中配置所有路由：</span><span class="sxs-lookup"><span data-stu-id="6d584-197">With endpoint routing, typically all routing can be configured in `UseRouting`:</span></span>
 
 ```csharp
 app.UseRouting(routes =>
 {
-    routes.Map:::no-loc(Razor):::Pages();
+    routes.MapRazorPages();
     routes.MapHub<ChatHub>("hubs/chat");
 });
 ```
 
-<span data-ttu-id="6d584-198">ASP.NET Core 3.0 :::no-loc(SignalR)::: 添加了：</span><span class="sxs-lookup"><span data-stu-id="6d584-198">ASP.NET Core 3.0 :::no-loc(SignalR)::: added:</span></span>
+<span data-ttu-id="6d584-198">ASP.NET Core 3.0 SignalR 添加了：</span><span class="sxs-lookup"><span data-stu-id="6d584-198">ASP.NET Core 3.0 SignalR added:</span></span>
 
 <span data-ttu-id="6d584-199">客户端到服务器的流式处理。</span><span class="sxs-lookup"><span data-stu-id="6d584-199">Client-to-server streaming.</span></span> <span data-ttu-id="6d584-200">使用客户端到服务器的流式处理时，服务器端方法可以获取 `IAsyncEnumerable<T>` 或 `ChannelReader<T>` 的实例。</span><span class="sxs-lookup"><span data-stu-id="6d584-200">With client-to-server streaming, server-side methods can take instances of either an `IAsyncEnumerable<T>` or `ChannelReader<T>`.</span></span> <span data-ttu-id="6d584-201">在下面的 C# 示例中，中心上的 `UploadStream` 方法将从客户端接收字符串流：</span><span class="sxs-lookup"><span data-stu-id="6d584-201">In the following C# sample, the `UploadStream` method on the Hub will receive a stream of strings from the client:</span></span>
 
@@ -298,7 +298,7 @@ async IAsyncEnumerable<string> clientStreamData()
 await connection.SendAsync("UploadStream", clientStreamData());
 ```
 
-<span data-ttu-id="6d584-204">JavaScript 客户端应用将 :::no-loc(SignalR)::: `Subject`（或 [RxJS 主题](https://rxjs.dev/api/index/class/Subject)）用于上面的 `UploadStream` 中心方法的 `stream` 参数。</span><span class="sxs-lookup"><span data-stu-id="6d584-204">JavaScript client apps use the :::no-loc(SignalR)::: `Subject` (or an [RxJS Subject](https://rxjs.dev/api/index/class/Subject)) for the `stream` argument of the `UploadStream` Hub method above.</span></span>
+<span data-ttu-id="6d584-204">JavaScript 客户端应用将 SignalR `Subject`（或 [RxJS 主题](https://rxjs.dev/api/index/class/Subject)）用于上面的 `UploadStream` 中心方法的 `stream` 参数。</span><span class="sxs-lookup"><span data-stu-id="6d584-204">JavaScript client apps use the SignalR `Subject` (or an [RxJS Subject](https://rxjs.dev/api/index/class/Subject)) for the `stream` argument of the `UploadStream` Hub method above.</span></span>
 
 ```javascript
 let subject = new signalR.Subject();
@@ -324,25 +324,25 @@ subject.complete();
 
 <span data-ttu-id="6d584-212">若要将 Json.NET 添加到 ASP.NET Core 3.0，请参阅[添加基于 Newtonsoft.Json 的 JSON 格式支持](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support)。</span><span class="sxs-lookup"><span data-stu-id="6d584-212">To add Json.NET to ASP.NET Core 3.0, see [Add Newtonsoft.Json-based JSON format support](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support).</span></span>
 
-## <a name="new-no-locrazor-directives"></a><span data-ttu-id="6d584-213">新的 :::no-loc(Razor)::: 指令</span><span class="sxs-lookup"><span data-stu-id="6d584-213">New :::no-loc(Razor)::: directives</span></span>
+## <a name="new-no-locrazor-directives"></a><span data-ttu-id="6d584-213">新的 Razor 指令</span><span class="sxs-lookup"><span data-stu-id="6d584-213">New Razor directives</span></span>
 
-<span data-ttu-id="6d584-214">下面的列表包含新的 :::no-loc(Razor)::: 指令：</span><span class="sxs-lookup"><span data-stu-id="6d584-214">The following list contains new :::no-loc(Razor)::: directives:</span></span>
+<span data-ttu-id="6d584-214">下面的列表包含新的 Razor 指令：</span><span class="sxs-lookup"><span data-stu-id="6d584-214">The following list contains new Razor directives:</span></span>
 
 * <span data-ttu-id="6d584-215">[`@attribute`](xref:mvc/views/razor#attribute)：`@attribute` 指令将给定的属性应用于生成的页或视图的类。</span><span class="sxs-lookup"><span data-stu-id="6d584-215">[`@attribute`](xref:mvc/views/razor#attribute): The `@attribute` directive applies the given attribute to the class of the generated page or view.</span></span> <span data-ttu-id="6d584-216">例如 `@attribute [Authorize]`。</span><span class="sxs-lookup"><span data-stu-id="6d584-216">For example, `@attribute [Authorize]`.</span></span>
 * <span data-ttu-id="6d584-217">[`@implements`](xref:mvc/views/razor#implements)：`@implements` 指令为生成的类实现接口。</span><span class="sxs-lookup"><span data-stu-id="6d584-217">[`@implements`](xref:mvc/views/razor#implements): The `@implements` directive implements an interface for the generated class.</span></span> <span data-ttu-id="6d584-218">例如 `@implements IDisposable`。</span><span class="sxs-lookup"><span data-stu-id="6d584-218">For example, `@implements IDisposable`.</span></span>
 
-## <a name="no-locidentityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a><span data-ttu-id="6d584-219">:::no-loc(Identity):::Server4 支持 Web API 和 SPA 的身份验证和授权</span><span class="sxs-lookup"><span data-stu-id="6d584-219">:::no-loc(Identity):::Server4 supports authentication and authorization for web APIs and SPAs</span></span>
+## <a name="no-locidentityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a><span data-ttu-id="6d584-219">IdentityServer4 支持 Web API 和 SPA 的身份验证和授权</span><span class="sxs-lookup"><span data-stu-id="6d584-219">IdentityServer4 supports authentication and authorization for web APIs and SPAs</span></span>
 
-<span data-ttu-id="6d584-220">ASP.NET Core 3.0 使用 Web API 授权的支持在单页应用 (SPA) 中提供身份验证。</span><span class="sxs-lookup"><span data-stu-id="6d584-220">ASP.NET Core 3.0 offers authentication in Single Page Apps (SPAs) using the support for web API authorization.</span></span> <span data-ttu-id="6d584-221">:::no-loc(ASP.NET Core Identity)::: 与 [:::no-loc(Identity):::Server4](https://identityserver.io/) 结合使用，前者用于验证和存储用户身份信息，后者用于实现 OpenID Connect。</span><span class="sxs-lookup"><span data-stu-id="6d584-221">:::no-loc(ASP.NET Core Identity)::: for authenticating and storing users is combined with [:::no-loc(Identity):::Server4](https://identityserver.io/) for implementing OpenID Connect.</span></span>
+<span data-ttu-id="6d584-220">ASP.NET Core 3.0 使用 Web API 授权的支持在单页应用 (SPA) 中提供身份验证。</span><span class="sxs-lookup"><span data-stu-id="6d584-220">ASP.NET Core 3.0 offers authentication in Single Page Apps (SPAs) using the support for web API authorization.</span></span> <span data-ttu-id="6d584-221">ASP.NET Core Identity 与 [IdentityServer4](https://identityserver.io/) 结合使用，前者用于验证和存储用户身份信息，后者用于实现 OpenID Connect。</span><span class="sxs-lookup"><span data-stu-id="6d584-221">ASP.NET Core Identity for authenticating and storing users is combined with [IdentityServer4](https://identityserver.io/) for implementing OpenID Connect.</span></span>
 
-<span data-ttu-id="6d584-222">:::no-loc(Identity):::Server4 是适用于 ASP.NET Core 3.0 的 OpenID Connect 和 OAuth 2.0 框架。</span><span class="sxs-lookup"><span data-stu-id="6d584-222">:::no-loc(Identity):::Server4 is an OpenID Connect and OAuth 2.0 framework for ASP.NET Core 3.0.</span></span> <span data-ttu-id="6d584-223">它提供了以下安全功能：</span><span class="sxs-lookup"><span data-stu-id="6d584-223">It enables the following security features:</span></span>
+<span data-ttu-id="6d584-222">IdentityServer4 是适用于 ASP.NET Core 3.0 的 OpenID Connect 和 OAuth 2.0 框架。</span><span class="sxs-lookup"><span data-stu-id="6d584-222">IdentityServer4 is an OpenID Connect and OAuth 2.0 framework for ASP.NET Core 3.0.</span></span> <span data-ttu-id="6d584-223">它提供了以下安全功能：</span><span class="sxs-lookup"><span data-stu-id="6d584-223">It enables the following security features:</span></span>
 
 * <span data-ttu-id="6d584-224">身份验证即服务 (AaaS)</span><span class="sxs-lookup"><span data-stu-id="6d584-224">Authentication as a Service (AaaS)</span></span>
 * <span data-ttu-id="6d584-225">跨多个应用程序类型的单一登录/注销 (SSO)</span><span class="sxs-lookup"><span data-stu-id="6d584-225">Single sign-on/off (SSO) over multiple application types</span></span>
 * <span data-ttu-id="6d584-226">API 的访问控制</span><span class="sxs-lookup"><span data-stu-id="6d584-226">Access control for APIs</span></span>
 * <span data-ttu-id="6d584-227">Federation Gateway</span><span class="sxs-lookup"><span data-stu-id="6d584-227">Federation Gateway</span></span>
 
-<span data-ttu-id="6d584-228">有关详细信息，请参阅 [:::no-loc(Identity):::Server4 文档](http://docs.identityserver.io/en/latest/index.html)或 [SPA 的身份验证和授权](xref:security/authentication/identity/spa)。</span><span class="sxs-lookup"><span data-stu-id="6d584-228">For more information, see [the :::no-loc(Identity):::Server4 documentation](http://docs.identityserver.io/en/latest/index.html) or [Authentication and authorization for SPAs](xref:security/authentication/identity/spa).</span></span>
+<span data-ttu-id="6d584-228">有关详细信息，请参阅 [IdentityServer4 文档](http://docs.identityserver.io/en/latest/index.html)或 [SPA 的身份验证和授权](xref:security/authentication/identity/spa)。</span><span class="sxs-lookup"><span data-stu-id="6d584-228">For more information, see [the IdentityServer4 documentation](http://docs.identityserver.io/en/latest/index.html) or [Authentication and authorization for SPAs](xref:security/authentication/identity/spa).</span></span>
 
 ## <a name="certificate-and-kerberos-authentication"></a><span data-ttu-id="6d584-229">证书和 Kerberos 身份验证</span><span class="sxs-lookup"><span data-stu-id="6d584-229">Certificate and Kerberos authentication</span></span>
 
@@ -404,14 +404,14 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ## <a name="template-changes"></a><span data-ttu-id="6d584-252">模板更改</span><span class="sxs-lookup"><span data-stu-id="6d584-252">Template changes</span></span>
 
-<span data-ttu-id="6d584-253">Web UI 模板（:::no-loc(Razor)::: Pages、具有控制器和视图的 MVC）已删除以下内容：</span><span class="sxs-lookup"><span data-stu-id="6d584-253">The web UI templates (:::no-loc(Razor)::: Pages, MVC with controller and views) have the following removed:</span></span>
+<span data-ttu-id="6d584-253">Web UI 模板（Razor Pages、具有控制器和视图的 MVC）已删除以下内容：</span><span class="sxs-lookup"><span data-stu-id="6d584-253">The web UI templates (Razor Pages, MVC with controller and views) have the following removed:</span></span>
 
-* <span data-ttu-id="6d584-254">:::no-loc(cookie)::: 同意 UI 不再包括在内。</span><span class="sxs-lookup"><span data-stu-id="6d584-254">The :::no-loc(cookie)::: consent UI is no longer included.</span></span> <span data-ttu-id="6d584-255">若要在 ASP.NET Core 3.0 模板生成的应用中启用 :::no-loc(cookie)::: 同意功能，请参阅 <xref:security/gdpr>。</span><span class="sxs-lookup"><span data-stu-id="6d584-255">To enable the :::no-loc(cookie)::: consent feature in an ASP.NET Core 3.0 template-generated app, see <xref:security/gdpr>.</span></span>
+* <span data-ttu-id="6d584-254">cookie 同意 UI 不再包括在内。</span><span class="sxs-lookup"><span data-stu-id="6d584-254">The cookie consent UI is no longer included.</span></span> <span data-ttu-id="6d584-255">若要在 ASP.NET Core 3.0 模板生成的应用中启用 cookie 同意功能，请参阅 <xref:security/gdpr>。</span><span class="sxs-lookup"><span data-stu-id="6d584-255">To enable the cookie consent feature in an ASP.NET Core 3.0 template-generated app, see <xref:security/gdpr>.</span></span>
 * <span data-ttu-id="6d584-256">脚本和相关静态资产现在作为本地文件（而不是使用 CDN）进行引用。</span><span class="sxs-lookup"><span data-stu-id="6d584-256">Scripts and related static assets are now referenced as local files instead of using CDNs.</span></span> <span data-ttu-id="6d584-257">有关详细信息，[脚本和相关静态资产现在基于当前环境作为本地文件（而不是使用 CDN）进行引用 (aspnet/AspNetCore.Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350)。</span><span class="sxs-lookup"><span data-stu-id="6d584-257">For more information, see [Scripts and related static assets are now referenced as local files instead of using CDNs based on the current environment (aspnet/AspNetCore.Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).</span></span>
 
 <span data-ttu-id="6d584-258">Angular 模板已更新，以便使用 Angular 8。</span><span class="sxs-lookup"><span data-stu-id="6d584-258">The Angular template updated to use Angular 8.</span></span>
 
-<span data-ttu-id="6d584-259">默认情况下，:::no-loc(Razor)::: 类库 (RCL) 模板默认为 :::no-loc(Razor)::: 组件开发。</span><span class="sxs-lookup"><span data-stu-id="6d584-259">The :::no-loc(Razor)::: class library (RCL) template defaults to :::no-loc(Razor)::: component development by default.</span></span> <span data-ttu-id="6d584-260">Visual Studio 中的新模板选项提供了对页面和视图的模板支持。</span><span class="sxs-lookup"><span data-stu-id="6d584-260">A new template option in Visual Studio provides template support for pages and views.</span></span> <span data-ttu-id="6d584-261">在命令行界面中通过模板创建 RCL 时，请传递 `--support-pages-and-views` 选项 (`dotnet new razorclasslib --support-pages-and-views`)。</span><span class="sxs-lookup"><span data-stu-id="6d584-261">When creating an RCL from the template in a command shell, pass the `--support-pages-and-views` option (`dotnet new razorclasslib --support-pages-and-views`).</span></span>
+<span data-ttu-id="6d584-259">默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。</span><span class="sxs-lookup"><span data-stu-id="6d584-259">The Razor class library (RCL) template defaults to Razor component development by default.</span></span> <span data-ttu-id="6d584-260">Visual Studio 中的新模板选项提供了对页面和视图的模板支持。</span><span class="sxs-lookup"><span data-stu-id="6d584-260">A new template option in Visual Studio provides template support for pages and views.</span></span> <span data-ttu-id="6d584-261">在命令行界面中通过模板创建 RCL 时，请传递 `--support-pages-and-views` 选项 (`dotnet new razorclasslib --support-pages-and-views`)。</span><span class="sxs-lookup"><span data-stu-id="6d584-261">When creating an RCL from the template in a command shell, pass the `--support-pages-and-views` option (`dotnet new razorclasslib --support-pages-and-views`).</span></span>
 
 ## <a name="generic-host"></a><span data-ttu-id="6d584-262">泛型主机</span><span class="sxs-lookup"><span data-stu-id="6d584-262">Generic Host</span></span>
 

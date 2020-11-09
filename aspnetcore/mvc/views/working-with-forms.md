@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: mvc/views/working-with-forms
 ms.openlocfilehash: a568ad481eb09587e2ddce8e84d0ac3eff01e990
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -90,8 +90,8 @@ ms.locfileid: "93060893"
 |[<span data-ttu-id="d6ffc-137">asp-controller</span><span class="sxs-lookup"><span data-stu-id="d6ffc-137">asp-controller</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|<span data-ttu-id="d6ffc-138">控制器的名称。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-138">The name of the controller.</span></span>|
 |[<span data-ttu-id="d6ffc-139">asp-action</span><span class="sxs-lookup"><span data-stu-id="d6ffc-139">asp-action</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|<span data-ttu-id="d6ffc-140">操作方法的名称。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-140">The name of the action method.</span></span>|
 |[<span data-ttu-id="d6ffc-141">asp-area</span><span class="sxs-lookup"><span data-stu-id="d6ffc-141">asp-area</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|<span data-ttu-id="d6ffc-142">区域名称。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-142">The name of the area.</span></span>|
-|[<span data-ttu-id="d6ffc-143">asp-page</span><span class="sxs-lookup"><span data-stu-id="d6ffc-143">asp-page</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|<span data-ttu-id="d6ffc-144">页的名称 :::no-loc(Razor)::: 。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-144">The name of the :::no-loc(Razor)::: page.</span></span>|
-|[<span data-ttu-id="d6ffc-145">asp-page-handler</span><span class="sxs-lookup"><span data-stu-id="d6ffc-145">asp-page-handler</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|<span data-ttu-id="d6ffc-146">:::no-loc(Razor):::页面处理程序的名称。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-146">The name of the :::no-loc(Razor)::: page handler.</span></span>|
+|[<span data-ttu-id="d6ffc-143">asp-page</span><span class="sxs-lookup"><span data-stu-id="d6ffc-143">asp-page</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|<span data-ttu-id="d6ffc-144">页的名称 Razor 。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-144">The name of the Razor page.</span></span>|
+|[<span data-ttu-id="d6ffc-145">asp-page-handler</span><span class="sxs-lookup"><span data-stu-id="d6ffc-145">asp-page-handler</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|<span data-ttu-id="d6ffc-146">Razor页面处理程序的名称。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-146">The name of the Razor page handler.</span></span>|
 |[<span data-ttu-id="d6ffc-147">asp-route</span><span class="sxs-lookup"><span data-stu-id="d6ffc-147">asp-route</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|<span data-ttu-id="d6ffc-148">路由的名称。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-148">The name of the route.</span></span>|
 |[<span data-ttu-id="d6ffc-149">asp-route-{value}</span><span class="sxs-lookup"><span data-stu-id="d6ffc-149">asp-route-{value}</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|<span data-ttu-id="d6ffc-150">单个 URL 路由值。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-150">A single URL route value.</span></span> <span data-ttu-id="d6ffc-151">例如 `asp-route-id="1234"`。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-151">For example, `asp-route-id="1234"`.</span></span>|
 |[<span data-ttu-id="d6ffc-152">asp-all-route-data</span><span class="sxs-lookup"><span data-stu-id="d6ffc-152">asp-all-route-data</span></span>](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|<span data-ttu-id="d6ffc-153">所有路由值。</span><span class="sxs-lookup"><span data-stu-id="d6ffc-153">All route values.</span></span>|
@@ -120,7 +120,7 @@ ms.locfileid: "93060893"
 
 ### <a name="submit-to-page-example"></a><span data-ttu-id="d6ffc-159">提交到页示例</span><span class="sxs-lookup"><span data-stu-id="d6ffc-159">Submit to page example</span></span>
 
-<span data-ttu-id="d6ffc-160">以下标记会将窗体提交给 `About` :::no-loc(Razor)::: 页面：</span><span class="sxs-lookup"><span data-stu-id="d6ffc-160">The following markup submits the form to the `About` :::no-loc(Razor)::: Page:</span></span>
+<span data-ttu-id="d6ffc-160">以下标记会将窗体提交给 `About` Razor 页面：</span><span class="sxs-lookup"><span data-stu-id="d6ffc-160">The following markup submits the form to the `About` Razor Page:</span></span>
 
 ```cshtml
 <form method="post">
@@ -327,7 +327,7 @@ public IActionResult Edit(int id, int colorIndex)
 }
 ```
 
-<span data-ttu-id="d6ffc-251">下面 :::no-loc(Razor)::: 演示了如何访问特定 `Color` 元素：</span><span class="sxs-lookup"><span data-stu-id="d6ffc-251">The following :::no-loc(Razor)::: shows how you access a specific `Color` element:</span></span>
+<span data-ttu-id="d6ffc-251">下面 Razor 演示了如何访问特定 `Color` 元素：</span><span class="sxs-lookup"><span data-stu-id="d6ffc-251">The following Razor shows how you access a specific `Color` element:</span></span>
 
 [!code-cshtml[](working-with-forms/sample/final/Views/Demo/EditColor.cshtml)]
 
@@ -339,7 +339,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/ToDoItem.cs?range=3-8)]
 
-<span data-ttu-id="d6ffc-254">下面 :::no-loc(Razor)::: 演示如何循环访问集合：</span><span class="sxs-lookup"><span data-stu-id="d6ffc-254">The following :::no-loc(Razor)::: shows how to iterate over a collection:</span></span>
+<span data-ttu-id="d6ffc-254">下面 Razor 演示如何循环访问集合：</span><span class="sxs-lookup"><span data-stu-id="d6ffc-254">The following Razor shows how to iterate over a collection:</span></span>
 
 [!code-cshtml[](working-with-forms/sample/final/Views/Demo/Edit.cshtml)]
 

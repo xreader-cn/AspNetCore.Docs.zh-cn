@@ -1,21 +1,21 @@
 ---
-title: '第 4 部分，ASP.NET Core 中的 :::no-loc(Razor)::: 页面和 EF Core - 迁移'
+title: '第 4 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 迁移'
 author: rick-anderson
-description: ':::no-loc(Razor)::: 页面和实体框架教程系列第 4 部分。'
+description: 'Razor 页面和实体框架教程系列第 4 部分。'
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: data/ef-rp/migrations
 ms.openlocfilehash: e6d1b9f041e892aaa37840c28fdb3153bf098b0d
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -24,7 +24,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93061101"
 ---
-# <a name="part-4-no-locrazor-pages-with-ef-core-migrations-in-aspnet-core"></a><span data-ttu-id="146f4-103">第 4 部分，ASP.NET Core 中的 :::no-loc(Razor)::: 页面和 EF Core 迁移</span><span class="sxs-lookup"><span data-stu-id="146f4-103">Part 4, :::no-loc(Razor)::: Pages with EF Core migrations in ASP.NET Core</span></span>
+# <a name="part-4-no-locrazor-pages-with-ef-core-migrations-in-aspnet-core"></a><span data-ttu-id="146f4-103">第 4 部分，ASP.NET Core 中的 Razor 页面和 EF Core 迁移</span><span class="sxs-lookup"><span data-stu-id="146f4-103">Part 4, Razor Pages with EF Core migrations in ASP.NET Core</span></span>
 
 <span data-ttu-id="146f4-104">作者：[Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="146f4-104">By [Tom Dykstra](https://github.com/tdykstra), [Jon P Smith](https://twitter.com/thereformedprog), and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 

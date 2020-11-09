@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: host-and-deploy/iis/modules
 ms.openlocfilehash: 47ba04f199f9b77cf6032de9f80f2410f5c69424
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -66,7 +66,7 @@ ms.locfileid: "93057396"
 | <span data-ttu-id="5e3c0-179">**静态内容**</span><span class="sxs-lookup"><span data-stu-id="5e3c0-179">**Static Content**</span></span><br>`StaticFileModule`                                                         | <span data-ttu-id="5e3c0-180">否</span><span class="sxs-lookup"><span data-stu-id="5e3c0-180">No</span></span>  | [<span data-ttu-id="5e3c0-181">静态文件中间件</span><span class="sxs-lookup"><span data-stu-id="5e3c0-181">Static File Middleware</span></span>](xref:fundamentals/static-files) |
 | <span data-ttu-id="5e3c0-182">**令牌缓存**</span><span class="sxs-lookup"><span data-stu-id="5e3c0-182">**Token Caching**</span></span><br>`TokenCacheModule`                                                          | <span data-ttu-id="5e3c0-183">是</span><span class="sxs-lookup"><span data-stu-id="5e3c0-183">Yes</span></span> | |
 | <span data-ttu-id="5e3c0-184">**URI 缓存**</span><span class="sxs-lookup"><span data-stu-id="5e3c0-184">**URI Caching**</span></span><br>`UriCacheModule`                                                              | <span data-ttu-id="5e3c0-185">是</span><span class="sxs-lookup"><span data-stu-id="5e3c0-185">Yes</span></span> | |
-| <span data-ttu-id="5e3c0-186">**URL 授权**</span><span class="sxs-lookup"><span data-stu-id="5e3c0-186">**URL Authorization**</span></span><br>`UrlAuthorizationModule`                                                | <span data-ttu-id="5e3c0-187">是</span><span class="sxs-lookup"><span data-stu-id="5e3c0-187">Yes</span></span> | [:::no-loc(ASP.NET Core Identity):::](xref:security/authentication/identity) |
+| <span data-ttu-id="5e3c0-186">**URL 授权**</span><span class="sxs-lookup"><span data-stu-id="5e3c0-186">**URL Authorization**</span></span><br>`UrlAuthorizationModule`                                                | <span data-ttu-id="5e3c0-187">是</span><span class="sxs-lookup"><span data-stu-id="5e3c0-187">Yes</span></span> | [ASP.NET Core Identity](xref:security/authentication/identity) |
 | <span data-ttu-id="5e3c0-188">**Windows 身份验证**</span><span class="sxs-lookup"><span data-stu-id="5e3c0-188">**Windows Authentication**</span></span><br>`WindowsAuthenticationModule`                                      | <span data-ttu-id="5e3c0-189">是</span><span class="sxs-lookup"><span data-stu-id="5e3c0-189">Yes</span></span> | |
 
 <span data-ttu-id="5e3c0-190">&#8224;由于[目录结构](xref:host-and-deploy/directory-structure)中的更改，URL 重写模块的 `isFile` 和 `isDirectory` 匹配类型不适用于 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="5e3c0-190">&#8224;The URL Rewrite Module's `isFile` and `isDirectory` match types don't work with ASP.NET Core apps due to the changes in [directory structure](xref:host-and-deploy/directory-structure).</span></span>
@@ -80,7 +80,7 @@ ms.locfileid: "93057396"
 | <span data-ttu-id="5e3c0-196">AnonymousIdentification</span><span class="sxs-lookup"><span data-stu-id="5e3c0-196">AnonymousIdentification</span></span> | |
 | <span data-ttu-id="5e3c0-197">DefaultAuthentication</span><span class="sxs-lookup"><span data-stu-id="5e3c0-197">DefaultAuthentication</span></span>   | |
 | <span data-ttu-id="5e3c0-198">FileAuthorization</span><span class="sxs-lookup"><span data-stu-id="5e3c0-198">FileAuthorization</span></span>       | |
-| <span data-ttu-id="5e3c0-199">FormsAuthentication</span><span class="sxs-lookup"><span data-stu-id="5e3c0-199">FormsAuthentication</span></span>     | <span data-ttu-id="5e3c0-200">[:::no-loc(Cookie)::: 身份验证中间件](xref:security/authentication/:::no-loc(cookie):::)</span><span class="sxs-lookup"><span data-stu-id="5e3c0-200">[:::no-loc(Cookie)::: Authentication Middleware](xref:security/authentication/:::no-loc(cookie):::)</span></span> |
+| <span data-ttu-id="5e3c0-199">FormsAuthentication</span><span class="sxs-lookup"><span data-stu-id="5e3c0-199">FormsAuthentication</span></span>     | <span data-ttu-id="5e3c0-200">[Cookie 身份验证中间件](xref:security/authentication/cookie)</span><span class="sxs-lookup"><span data-stu-id="5e3c0-200">[Cookie Authentication Middleware](xref:security/authentication/cookie)</span></span> |
 | <span data-ttu-id="5e3c0-201">OutputCache</span><span class="sxs-lookup"><span data-stu-id="5e3c0-201">OutputCache</span></span>             | [<span data-ttu-id="5e3c0-202">响应缓存中间件</span><span class="sxs-lookup"><span data-stu-id="5e3c0-202">Response Caching Middleware</span></span>](xref:performance/caching/middleware) |
 | <span data-ttu-id="5e3c0-203">配置文件</span><span class="sxs-lookup"><span data-stu-id="5e3c0-203">Profile</span></span>                 | |
 | <span data-ttu-id="5e3c0-204">RoleManager</span><span class="sxs-lookup"><span data-stu-id="5e3c0-204">RoleManager</span></span>             | |
@@ -88,7 +88,7 @@ ms.locfileid: "93057396"
 | <span data-ttu-id="5e3c0-206">会话</span><span class="sxs-lookup"><span data-stu-id="5e3c0-206">Session</span></span>                 | [<span data-ttu-id="5e3c0-207">会话中间件</span><span class="sxs-lookup"><span data-stu-id="5e3c0-207">Session Middleware</span></span>](xref:fundamentals/app-state) |
 | <span data-ttu-id="5e3c0-208">UrlAuthorization</span><span class="sxs-lookup"><span data-stu-id="5e3c0-208">UrlAuthorization</span></span>        | |
 | <span data-ttu-id="5e3c0-209">UrlMappingsModule</span><span class="sxs-lookup"><span data-stu-id="5e3c0-209">UrlMappingsModule</span></span>       | [<span data-ttu-id="5e3c0-210">URL 重写中间件</span><span class="sxs-lookup"><span data-stu-id="5e3c0-210">URL Rewriting Middleware</span></span>](xref:fundamentals/url-rewriting) |
-| <span data-ttu-id="5e3c0-211">UrlRoutingModule-4.0</span><span class="sxs-lookup"><span data-stu-id="5e3c0-211">UrlRoutingModule-4.0</span></span>    | [:::no-loc(ASP.NET Core Identity):::](xref:security/authentication/identity) |
+| <span data-ttu-id="5e3c0-211">UrlRoutingModule-4.0</span><span class="sxs-lookup"><span data-stu-id="5e3c0-211">UrlRoutingModule-4.0</span></span>    | [ASP.NET Core Identity](xref:security/authentication/identity) |
 | <span data-ttu-id="5e3c0-212">WindowsAuthentication</span><span class="sxs-lookup"><span data-stu-id="5e3c0-212">WindowsAuthentication</span></span>   | |
 
 ## <a name="iis-manager-application-changes"></a><span data-ttu-id="5e3c0-213">IIS 管理器应用程序更改</span><span class="sxs-lookup"><span data-stu-id="5e3c0-213">IIS Manager application changes</span></span>

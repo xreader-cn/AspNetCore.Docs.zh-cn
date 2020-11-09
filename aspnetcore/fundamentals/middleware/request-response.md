@@ -7,17 +7,17 @@ ms.author: jukotali
 ms.custom: mvc
 ms.date: 5/29/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/middleware/request-response
 ms.openlocfilehash: cc701343cb3859f0f76ebc62bd54aa2e4431d522
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -30,7 +30,7 @@ ms.locfileid: "93061023"
 
 <span data-ttu-id="99f7e-104">作者：[Justin Kotalik](https://github.com/jkotalik)</span><span class="sxs-lookup"><span data-stu-id="99f7e-104">By [Justin Kotalik](https://github.com/jkotalik)</span></span>
 
-<span data-ttu-id="99f7e-105">本文介绍如何读取请求正文和写入响应正文。</span><span class="sxs-lookup"><span data-stu-id="99f7e-105">This article explains how to read from the request body and write to the response body.</span></span> <span data-ttu-id="99f7e-106">写入中间件时，可能需要这些操作的代码。</span><span class="sxs-lookup"><span data-stu-id="99f7e-106">Code for these operations might be required when writing middleware.</span></span> <span data-ttu-id="99f7e-107">除写入中间件外，通常不需要自定义代码，因为操作由 MVC 和 :::no-loc(Razor)::: Pages 处理。</span><span class="sxs-lookup"><span data-stu-id="99f7e-107">Outside of writing middleware, custom code isn't generally required because the operations are handled by MVC and :::no-loc(Razor)::: Pages.</span></span>
+<span data-ttu-id="99f7e-105">本文介绍如何读取请求正文和写入响应正文。</span><span class="sxs-lookup"><span data-stu-id="99f7e-105">This article explains how to read from the request body and write to the response body.</span></span> <span data-ttu-id="99f7e-106">写入中间件时，可能需要这些操作的代码。</span><span class="sxs-lookup"><span data-stu-id="99f7e-106">Code for these operations might be required when writing middleware.</span></span> <span data-ttu-id="99f7e-107">除写入中间件外，通常不需要自定义代码，因为操作由 MVC 和 Razor Pages 处理。</span><span class="sxs-lookup"><span data-stu-id="99f7e-107">Outside of writing middleware, custom code isn't generally required because the operations are handled by MVC and Razor Pages.</span></span>
 
 <span data-ttu-id="99f7e-108">请求正文和响应正文有两个抽象元素：<xref:System.IO.Stream> 和 <xref:System.IO.Pipelines.Pipe>。</span><span class="sxs-lookup"><span data-stu-id="99f7e-108">There are two abstractions for the request and response bodies: <xref:System.IO.Stream> and <xref:System.IO.Pipelines.Pipe>.</span></span> <span data-ttu-id="99f7e-109">对于请求读取，<xref:Microsoft.AspNetCore.Http.HttpRequest.Body?displayProperty=nameWithType> 为 <xref:System.IO.Stream>，`HttpRequest.BodyReader` 为 <xref:System.IO.Pipelines.PipeReader>。</span><span class="sxs-lookup"><span data-stu-id="99f7e-109">For request reading, <xref:Microsoft.AspNetCore.Http.HttpRequest.Body?displayProperty=nameWithType> is a <xref:System.IO.Stream>, and `HttpRequest.BodyReader` is a <xref:System.IO.Pipelines.PipeReader>.</span></span> <span data-ttu-id="99f7e-110">对于响应写入，<xref:Microsoft.AspNetCore.Http.HttpResponse.Body?displayProperty=nameWithType> 为 <xref:System.IO.Stream>，`HttpResponse.BodyWriter` 为 <xref:System.IO.Pipelines.PipeWriter>。</span><span class="sxs-lookup"><span data-stu-id="99f7e-110">For response writing, <xref:Microsoft.AspNetCore.Http.HttpResponse.Body?displayProperty=nameWithType> is a <xref:System.IO.Stream>, and `HttpResponse.BodyWriter` is a <xref:System.IO.Pipelines.PipeWriter>.</span></span>
 

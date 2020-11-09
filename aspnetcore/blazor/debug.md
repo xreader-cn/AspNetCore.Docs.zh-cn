@@ -1,23 +1,23 @@
 ---
-title: '调试 ASP.NET Core :::no-loc(Blazor WebAssembly):::'
+title: '调试 ASP.NET Core Blazor WebAssembly'
 author: guardrex
-description: '了解如何调试 :::no-loc(Blazor)::: 应用。'
+description: '了解如何调试 Blazor 应用。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 08/26/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/debug
 ms.openlocfilehash: 669ebaf6dcd05561340aefda4a75b6fe1068d207
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,11 +26,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93056187"
 ---
-# <a name="debug-aspnet-core-no-locblazor-webassembly"></a><span data-ttu-id="039d1-103">调试 ASP.NET Core :::no-loc(Blazor WebAssembly):::</span><span class="sxs-lookup"><span data-stu-id="039d1-103">Debug ASP.NET Core :::no-loc(Blazor WebAssembly):::</span></span>
+# <a name="debug-aspnet-core-no-locblazor-webassembly"></a><span data-ttu-id="039d1-103">调试 ASP.NET Core Blazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="039d1-103">Debug ASP.NET Core Blazor WebAssembly</span></span>
 
 [<span data-ttu-id="039d1-104">Daniel Roth</span><span class="sxs-lookup"><span data-stu-id="039d1-104">Daniel Roth</span></span>](https://github.com/danroth27)
 
-<span data-ttu-id="039d1-105">可以使用基于 Chromium 的浏览器 (Edge/Chrome) 中的浏览器开发工具调试 :::no-loc(Blazor WebAssembly)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-105">:::no-loc(Blazor WebAssembly)::: apps can be debugged using the browser dev tools in Chromium-based browsers (Edge/Chrome).</span></span> <span data-ttu-id="039d1-106">还可以使用以下集成开发环境 (IDE) 调试应用：</span><span class="sxs-lookup"><span data-stu-id="039d1-106">You can also debug your app using the following integrated development environments (IDEs):</span></span>
+<span data-ttu-id="039d1-105">可以使用基于 Chromium 的浏览器 (Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-105">Blazor WebAssembly apps can be debugged using the browser dev tools in Chromium-based browsers (Edge/Chrome).</span></span> <span data-ttu-id="039d1-106">还可以使用以下集成开发环境 (IDE) 调试应用：</span><span class="sxs-lookup"><span data-stu-id="039d1-106">You can also debug your app using the following integrated development environments (IDEs):</span></span>
 
 * <span data-ttu-id="039d1-107">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="039d1-107">Visual Studio</span></span>
 * <span data-ttu-id="039d1-108">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="039d1-108">Visual Studio for Mac</span></span>
@@ -67,7 +67,7 @@ ms.locfileid: "93056187"
 
 ## <a name="enable-debugging"></a><span data-ttu-id="039d1-130">启用调试</span><span class="sxs-lookup"><span data-stu-id="039d1-130">Enable debugging</span></span>
 
-<span data-ttu-id="039d1-131">若要为现有 :::no-loc(Blazor WebAssembly)::: 应用启用调试，请更新启动项目中的 `launchSettings.json` 文件，使每个启动配置文件包含以下 `inspectUri` 属性：</span><span class="sxs-lookup"><span data-stu-id="039d1-131">To enable debugging for an existing :::no-loc(Blazor WebAssembly)::: app, update the `launchSettings.json` file in the startup project to include the following `inspectUri` property in each launch profile:</span></span>
+<span data-ttu-id="039d1-131">若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 `launchSettings.json` 文件，使每个启动配置文件包含以下 `inspectUri` 属性：</span><span class="sxs-lookup"><span data-stu-id="039d1-131">To enable debugging for an existing Blazor WebAssembly app, update the `launchSettings.json` file in the startup project to include the following `inspectUri` property in each launch profile:</span></span>
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
@@ -79,16 +79,16 @@ ms.locfileid: "93056187"
 
 <span data-ttu-id="039d1-133">`inspectUri` 属性具有以下作用：</span><span class="sxs-lookup"><span data-stu-id="039d1-133">The `inspectUri` property:</span></span>
 
-* <span data-ttu-id="039d1-134">使 IDE 能够检测到该应用为 :::no-loc(Blazor WebAssembly)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-134">Enables the IDE to detect that the app is a :::no-loc(Blazor WebAssembly)::: app.</span></span>
-* <span data-ttu-id="039d1-135">指示脚本调试基础结构通过 :::no-loc(Blazor)::: 的调试代理连接到浏览器。</span><span class="sxs-lookup"><span data-stu-id="039d1-135">Instructs the script debugging infrastructure to connect to the browser through :::no-loc(Blazor):::'s debugging proxy.</span></span>
+* <span data-ttu-id="039d1-134">使 IDE 能够检测到该应用为 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-134">Enables the IDE to detect that the app is a Blazor WebAssembly app.</span></span>
+* <span data-ttu-id="039d1-135">指示脚本调试基础结构通过 Blazor 的调试代理连接到浏览器。</span><span class="sxs-lookup"><span data-stu-id="039d1-135">Instructs the script debugging infrastructure to connect to the browser through Blazor's debugging proxy.</span></span>
 
 <span data-ttu-id="039d1-136">已启动的浏览器 (`browserInspectUri`) 上 WebSocket 协议 (`wsProtocol`)、主机 (`url.hostname`)、端口 (`url.port`) 和检查器 URI 的占位符值由框架提供。</span><span class="sxs-lookup"><span data-stu-id="039d1-136">The placeholder values for the WebSockets protocol (`wsProtocol`), host (`url.hostname`), port (`url.port`), and inspector URI on the launched browser (`browserInspectUri`) are provided by the framework.</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="039d1-137">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="039d1-137">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="039d1-138">要在 Visual Studio 中调试 :::no-loc(Blazor WebAssembly)::: 应用，请按以下步骤执行：</span><span class="sxs-lookup"><span data-stu-id="039d1-138">To debug a :::no-loc(Blazor WebAssembly)::: app in Visual Studio:</span></span>
+<span data-ttu-id="039d1-138">要在 Visual Studio 中调试 Blazor WebAssembly 应用，请按以下步骤执行：</span><span class="sxs-lookup"><span data-stu-id="039d1-138">To debug a Blazor WebAssembly app in Visual Studio:</span></span>
 
-1. <span data-ttu-id="039d1-139">创建新的 ASP.NET Core 托管 :::no-loc(Blazor WebAssembly)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-139">Create a new ASP.NET Core hosted :::no-loc(Blazor WebAssembly)::: app.</span></span>
+1. <span data-ttu-id="039d1-139">创建新的 ASP.NET Core 托管 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-139">Create a new ASP.NET Core hosted Blazor WebAssembly app.</span></span>
 1. <span data-ttu-id="039d1-140">按 <kbd>F5</kbd> 在调试器中运行应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-140">Press <kbd>F5</kbd> to run the app in the debugger.</span></span>
 
    > [!NOTE]
@@ -99,7 +99,7 @@ ms.locfileid: "93056187"
 1. <span data-ttu-id="039d1-145">在 Visual Studio 中，检查“局部变量”窗口中 `currentCount` 字段的值。</span><span class="sxs-lookup"><span data-stu-id="039d1-145">In Visual Studio, inspect the value of the `currentCount` field in the **Locals** window.</span></span>
 1. <span data-ttu-id="039d1-146">按 <kbd>F5</kbd> 继续执行。</span><span class="sxs-lookup"><span data-stu-id="039d1-146">Press <kbd>F5</kbd> to continue execution.</span></span>
 
-<span data-ttu-id="039d1-147">调试 :::no-loc(Blazor WebAssembly)::: 应用时，还可以调试服务器代码：</span><span class="sxs-lookup"><span data-stu-id="039d1-147">While debugging a :::no-loc(Blazor WebAssembly)::: app, you can also debug server code:</span></span>
+<span data-ttu-id="039d1-147">调试 Blazor WebAssembly 应用时，还可以调试服务器代码：</span><span class="sxs-lookup"><span data-stu-id="039d1-147">While debugging a Blazor WebAssembly app, you can also debug server code:</span></span>
 
 1. <span data-ttu-id="039d1-148">在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 的“`Pages/FetchData.razor`”页中设置断点。</span><span class="sxs-lookup"><span data-stu-id="039d1-148">Set a breakpoint in the `Pages/FetchData.razor` page in <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>.</span></span>
 1. <span data-ttu-id="039d1-149">在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。</span><span class="sxs-lookup"><span data-stu-id="039d1-149">Set a breakpoint in the `WeatherForecastController` in the `Get` action method.</span></span>
@@ -154,17 +154,17 @@ ms.locfileid: "93056187"
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/OAT/_framework/debug/ws-proxy?browser={browserInspectUri}",
 ```
 
-<span data-ttu-id="039d1-167">有关将自定义应用基路径用于 :::no-loc(Blazor WebAssembly)::: 应用的信息，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。</span><span class="sxs-lookup"><span data-stu-id="039d1-167">For information on using a custom app base path for :::no-loc(Blazor WebAssembly)::: apps, see <xref:blazor/host-and-deploy/index#app-base-path>.</span></span>
+<span data-ttu-id="039d1-167">有关将自定义应用基路径用于 Blazor WebAssembly 应用的信息，请参阅 <xref:blazor/host-and-deploy/index#app-base-path>。</span><span class="sxs-lookup"><span data-stu-id="039d1-167">For information on using a custom app base path for Blazor WebAssembly apps, see <xref:blazor/host-and-deploy/index#app-base-path>.</span></span>
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="039d1-168">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="039d1-168">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<h2 id="vscode"><span data-ttu-id="039d1-169">调试独立 :::no-loc(Blazor WebAssembly):::</span><span class="sxs-lookup"><span data-stu-id="039d1-169">Debug standalone :::no-loc(Blazor WebAssembly):::</span></span></h2>
+<h2 id="vscode"><span data-ttu-id="039d1-169">调试独立 Blazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="039d1-169">Debug standalone Blazor WebAssembly</span></span></h2>
 
-1. <span data-ttu-id="039d1-170">在 VS Code 中打开独立 :::no-loc(Blazor WebAssembly)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-170">Open the standalone :::no-loc(Blazor WebAssembly)::: app in VS Code.</span></span>
+1. <span data-ttu-id="039d1-170">在 VS Code 中打开独立 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-170">Open the standalone Blazor WebAssembly app in VS Code.</span></span>
 
    <span data-ttu-id="039d1-171">可能会收到通知，告诉你需要进行其他设置才能启用调试：</span><span class="sxs-lookup"><span data-stu-id="039d1-171">You may receive a notification that additional setup is required to enable debugging:</span></span>
 
-   > <span data-ttu-id="039d1-172">需要进行其他设置才能调试 :::no-loc(Blazor WebAssembly)::: 应用程序。</span><span class="sxs-lookup"><span data-stu-id="039d1-172">Additional setup is required to debug :::no-loc(Blazor WebAssembly)::: applications.</span></span>
+   > <span data-ttu-id="039d1-172">需要进行其他设置才能调试 Blazor WebAssembly 应用程序。</span><span class="sxs-lookup"><span data-stu-id="039d1-172">Additional setup is required to debug Blazor WebAssembly applications.</span></span>
 
    <span data-ttu-id="039d1-173">如果收到通知，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="039d1-173">If you receive the notification:</span></span>
 
@@ -177,7 +177,7 @@ ms.locfileid: "93056187"
    > [!NOTE]
    > <span data-ttu-id="039d1-183">不支持“启动时不调试”(<kbd>Ctrl</kbd>+<kbd>F5</kbd>)。</span><span class="sxs-lookup"><span data-stu-id="039d1-183">**Start Without Debugging** (<kbd>Ctrl</kbd>+<kbd>F5</kbd>) isn't supported.</span></span> <span data-ttu-id="039d1-184">当应用以调试配置运行时，调试开销始终会导致性能的小幅下降。</span><span class="sxs-lookup"><span data-stu-id="039d1-184">When the app is run in Debug configuration, debugging overhead always results in a small performance reduction.</span></span>
 
-1. <span data-ttu-id="039d1-185">出现提示时，选择“:::no-loc(Blazor WebAssembly)::: 调试”选项以启动调试。</span><span class="sxs-lookup"><span data-stu-id="039d1-185">When prompted, select the **:::no-loc(Blazor WebAssembly)::: Debug** option to start debugging.</span></span>
+1. <span data-ttu-id="039d1-185">出现提示时，选择“Blazor WebAssembly 调试”选项以启动调试。</span><span class="sxs-lookup"><span data-stu-id="039d1-185">When prompted, select the **Blazor WebAssembly Debug** option to start debugging.</span></span>
 
 1. <span data-ttu-id="039d1-186">此时会启动独立应用，并打开调试浏览器。</span><span class="sxs-lookup"><span data-stu-id="039d1-186">The standalone app is launched, and a debugging browser is opened.</span></span>
 
@@ -188,9 +188,9 @@ ms.locfileid: "93056187"
 > [!NOTE]
 > <span data-ttu-id="039d1-189">在运行调试代理之前，在应用启动期间不会命中断点。</span><span class="sxs-lookup"><span data-stu-id="039d1-189">Breakpoints are **not** hit during app startup before the debug proxy is running.</span></span> <span data-ttu-id="039d1-190">这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。</span><span class="sxs-lookup"><span data-stu-id="039d1-190">This includes breakpoints in `Program.Main` (`Program.cs`) and breakpoints in the [`OnInitialized{Async}` methods](xref:blazor/components/lifecycle#component-initialization-methods) of components that are loaded by the first page requested from the app.</span></span>
 
-## <a name="debug-hosted-no-locblazor-webassembly"></a><span data-ttu-id="039d1-191">调试托管 :::no-loc(Blazor WebAssembly):::</span><span class="sxs-lookup"><span data-stu-id="039d1-191">Debug hosted :::no-loc(Blazor WebAssembly):::</span></span>
+## <a name="debug-hosted-no-locblazor-webassembly"></a><span data-ttu-id="039d1-191">调试托管 Blazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="039d1-191">Debug hosted Blazor WebAssembly</span></span>
 
-1. <span data-ttu-id="039d1-192">在 VS Code 中打开托管 :::no-loc(Blazor WebAssembly)::: 应用的“解决方案”文件夹。</span><span class="sxs-lookup"><span data-stu-id="039d1-192">Open the hosted :::no-loc(Blazor WebAssembly)::: app's solution folder in VS Code.</span></span>
+1. <span data-ttu-id="039d1-192">在 VS Code 中打开托管 Blazor WebAssembly 应用的“解决方案”文件夹。</span><span class="sxs-lookup"><span data-stu-id="039d1-192">Open the hosted Blazor WebAssembly app's solution folder in VS Code.</span></span>
 
 1. <span data-ttu-id="039d1-193">如果没有为项目设置启动配置，将显示以下通知。</span><span class="sxs-lookup"><span data-stu-id="039d1-193">If there's no launch configuration set for the project, the following notification appears.</span></span> <span data-ttu-id="039d1-194">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="039d1-194">Select **Yes**.</span></span>
 
@@ -202,13 +202,13 @@ ms.locfileid: "93056187"
 
 ## <a name="attach-to-an-existing-debugging-session"></a><span data-ttu-id="039d1-199">附加到现有的调试会话</span><span class="sxs-lookup"><span data-stu-id="039d1-199">Attach to an existing debugging session</span></span>
 
-<span data-ttu-id="039d1-200">若要附加到正在运行的 :::no-loc(Blazor)::: 应用，请创建一个具有以下配置的 `launch.json` 文件：</span><span class="sxs-lookup"><span data-stu-id="039d1-200">To attach to a running :::no-loc(Blazor)::: app, create a `launch.json` file with the following configuration:</span></span>
+<span data-ttu-id="039d1-200">若要附加到正在运行的 Blazor 应用，请创建一个具有以下配置的 `launch.json` 文件：</span><span class="sxs-lookup"><span data-stu-id="039d1-200">To attach to a running Blazor app, create a `launch.json` file with the following configuration:</span></span>
 
 ```json
 {
   "type": "blazorwasm",
   "request": "attach",
-  "name": "Attach to Existing :::no-loc(Blazor WebAssembly)::: Application"
+  "name": "Attach to Existing Blazor WebAssembly Application"
 }
 ```
 
@@ -221,11 +221,11 @@ ms.locfileid: "93056187"
 
 | <span data-ttu-id="039d1-205">选项</span><span class="sxs-lookup"><span data-stu-id="039d1-205">Option</span></span>    | <span data-ttu-id="039d1-206">描述</span><span class="sxs-lookup"><span data-stu-id="039d1-206">Description</span></span> |
 | --------- | ----------- |
-| `request` | <span data-ttu-id="039d1-207">使用 `launch` 启动调试会话并将其附加到 :::no-loc(Blazor WebAssembly)::: 应用，或使用 `attach` 将调试会话附加到已运行的应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-207">Use `launch` to launch and attach a debugging session to a :::no-loc(Blazor WebAssembly)::: app or `attach` to attach a debugging session to an already-running app.</span></span> |
+| `request` | <span data-ttu-id="039d1-207">使用 `launch` 启动调试会话并将其附加到 Blazor WebAssembly 应用，或使用 `attach` 将调试会话附加到已运行的应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-207">Use `launch` to launch and attach a debugging session to a Blazor WebAssembly app or `attach` to attach a debugging session to an already-running app.</span></span> |
 | `url`     | <span data-ttu-id="039d1-208">调试时要在浏览器中打开的 URL。</span><span class="sxs-lookup"><span data-stu-id="039d1-208">The URL to open in the browser when debugging.</span></span> <span data-ttu-id="039d1-209">默认为 `https://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="039d1-209">Defaults to `https://localhost:5001`.</span></span> |
 | `browser` | <span data-ttu-id="039d1-210">要为调试会话启动的浏览器。</span><span class="sxs-lookup"><span data-stu-id="039d1-210">The browser to launch for the debugging session.</span></span> <span data-ttu-id="039d1-211">设置为 `edge` 或 `chrome`。</span><span class="sxs-lookup"><span data-stu-id="039d1-211">Set to `edge` or `chrome`.</span></span> <span data-ttu-id="039d1-212">默认为 `chrome`。</span><span class="sxs-lookup"><span data-stu-id="039d1-212">Defaults to `chrome`.</span></span> |
 | `trace`   | <span data-ttu-id="039d1-213">用于从 JS 调试程序生成日志。</span><span class="sxs-lookup"><span data-stu-id="039d1-213">Used to generate logs from the JS debugger.</span></span> <span data-ttu-id="039d1-214">设置为 `true` 即可生成日志。</span><span class="sxs-lookup"><span data-stu-id="039d1-214">Set to `true` to generate logs.</span></span> |
-| `hosted`  | <span data-ttu-id="039d1-215">如果要启动和调试托管的 :::no-loc(Blazor WebAssembly)::: 应用，则必须设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="039d1-215">Must be set to `true` if launching and debugging a hosted :::no-loc(Blazor WebAssembly)::: app.</span></span> |
+| `hosted`  | <span data-ttu-id="039d1-215">如果要启动和调试托管的 Blazor WebAssembly 应用，则必须设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="039d1-215">Must be set to `true` if launching and debugging a hosted Blazor WebAssembly app.</span></span> |
 | `webRoot` | <span data-ttu-id="039d1-216">指定 Web 服务器的绝对路径。</span><span class="sxs-lookup"><span data-stu-id="039d1-216">Specifies the absolute path of the web server.</span></span> <span data-ttu-id="039d1-217">如果应用是从子路由中提供的，则应设置它。</span><span class="sxs-lookup"><span data-stu-id="039d1-217">Should be set if an app is served from a sub-route.</span></span> |
 | `timeout` | <span data-ttu-id="039d1-218">等待调试会话附加完成的毫秒数。</span><span class="sxs-lookup"><span data-stu-id="039d1-218">The number of milliseconds to wait for the debugging session to attach.</span></span> <span data-ttu-id="039d1-219">默认值为 30,000 毫秒（30 秒）。</span><span class="sxs-lookup"><span data-stu-id="039d1-219">Defaults to 30,000 milliseconds (30 seconds).</span></span> |
 | `program` | <span data-ttu-id="039d1-220">为运行托管应用的服务器而对可执行文件进行的引用。</span><span class="sxs-lookup"><span data-stu-id="039d1-220">A reference to the executable to run the server of the hosted app.</span></span> <span data-ttu-id="039d1-221">如果 `hosted` 是 `true`，则必须设置它。</span><span class="sxs-lookup"><span data-stu-id="039d1-221">Must be set if `hosted` is `true`.</span></span> |
@@ -234,7 +234,7 @@ ms.locfileid: "93056187"
 
 ## <a name="example-launch-configurations"></a><span data-ttu-id="039d1-226">启动配置示例</span><span class="sxs-lookup"><span data-stu-id="039d1-226">Example launch configurations</span></span>
 
-### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a><span data-ttu-id="039d1-227">启动并调试独立 :::no-loc(Blazor WebAssembly)::: 应用</span><span class="sxs-lookup"><span data-stu-id="039d1-227">Launch and debug a standalone :::no-loc(Blazor WebAssembly)::: app</span></span>
+### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a><span data-ttu-id="039d1-227">启动并调试独立 Blazor WebAssembly 应用</span><span class="sxs-lookup"><span data-stu-id="039d1-227">Launch and debug a standalone Blazor WebAssembly app</span></span>
 
 ```json
 {
@@ -255,13 +255,13 @@ ms.locfileid: "93056187"
 }
 ```
 
-### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a><span data-ttu-id="039d1-229">使用 Microsoft Edge 启动并调试托管 :::no-loc(Blazor WebAssembly)::: 应用</span><span class="sxs-lookup"><span data-stu-id="039d1-229">Launch and debug a hosted :::no-loc(Blazor WebAssembly)::: app with Microsoft Edge</span></span>
+### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a><span data-ttu-id="039d1-229">使用 Microsoft Edge 启动并调试托管 Blazor WebAssembly 应用</span><span class="sxs-lookup"><span data-stu-id="039d1-229">Launch and debug a hosted Blazor WebAssembly app with Microsoft Edge</span></span>
 
 <span data-ttu-id="039d1-230">浏览器默认配置为 Google Chrome。</span><span class="sxs-lookup"><span data-stu-id="039d1-230">Browser configuration defaults to Google Chrome.</span></span> <span data-ttu-id="039d1-231">使用 Microsoft Edge 进行调试时，将 `browser` 设置为 `edge`。</span><span class="sxs-lookup"><span data-stu-id="039d1-231">When using Microsoft Edge for debugging, set `browser` to `edge`.</span></span> <span data-ttu-id="039d1-232">若要使用 Google Chrome，要么不要设置 `browser` 选项，要么将选项值设置为 `chrome`。</span><span class="sxs-lookup"><span data-stu-id="039d1-232">To use Google Chrome, either don't set the `browser` option or set the option's value to `chrome`.</span></span>
 
 ```json
 {
-  "name": "Launch and Debug Hosted :::no-loc(Blazor WebAssembly)::: App",
+  "name": "Launch and Debug Hosted Blazor WebAssembly App",
   "type": "blazorwasm",
   "request": "launch",
   "hosted": true,
@@ -275,9 +275,9 @@ ms.locfileid: "93056187"
 
 # <a name="visual-studio-for-mac"></a>[<span data-ttu-id="039d1-235">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="039d1-235">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="039d1-236">要在 Visual Studio for Mac 中调试 :::no-loc(Blazor WebAssembly)::: 应用，请按以下步骤执行：</span><span class="sxs-lookup"><span data-stu-id="039d1-236">To debug a :::no-loc(Blazor WebAssembly)::: app in Visual Studio for Mac:</span></span>
+<span data-ttu-id="039d1-236">要在 Visual Studio for Mac 中调试 Blazor WebAssembly 应用，请按以下步骤执行：</span><span class="sxs-lookup"><span data-stu-id="039d1-236">To debug a Blazor WebAssembly app in Visual Studio for Mac:</span></span>
 
-1. <span data-ttu-id="039d1-237">创建新的 ASP.NET Core 托管 :::no-loc(Blazor WebAssembly)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-237">Create a new ASP.NET Core hosted :::no-loc(Blazor WebAssembly)::: app.</span></span>
+1. <span data-ttu-id="039d1-237">创建新的 ASP.NET Core 托管 Blazor WebAssembly 应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-237">Create a new ASP.NET Core hosted Blazor WebAssembly app.</span></span>
 1. <span data-ttu-id="039d1-238">按 <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> 在调试器中运行应用。</span><span class="sxs-lookup"><span data-stu-id="039d1-238">Press <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> to run the app in the debugger.</span></span>
 
    > [!NOTE]
@@ -291,7 +291,7 @@ ms.locfileid: "93056187"
 1. <span data-ttu-id="039d1-244">在 Visual Studio 中，检查“局部变量”窗口中 `currentCount` 字段的值。</span><span class="sxs-lookup"><span data-stu-id="039d1-244">In Visual Studio, inspect the value of the `currentCount` field in the **Locals** window.</span></span>
 1. <span data-ttu-id="039d1-245">按 <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> 继续执行。</span><span class="sxs-lookup"><span data-stu-id="039d1-245">Press <kbd>&#8984;</kbd>+<kbd>&#8617;</kbd> to continue execution.</span></span>
 
-<span data-ttu-id="039d1-246">调试 :::no-loc(Blazor WebAssembly)::: 应用时，还可以调试服务器代码：</span><span class="sxs-lookup"><span data-stu-id="039d1-246">While debugging a :::no-loc(Blazor WebAssembly)::: app, you can also debug server code:</span></span>
+<span data-ttu-id="039d1-246">调试 Blazor WebAssembly 应用时，还可以调试服务器代码：</span><span class="sxs-lookup"><span data-stu-id="039d1-246">While debugging a Blazor WebAssembly app, you can also debug server code:</span></span>
 
 1. <span data-ttu-id="039d1-247">在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 的“`Pages/FetchData.razor`”页中设置断点。</span><span class="sxs-lookup"><span data-stu-id="039d1-247">Set a breakpoint in the `Pages/FetchData.razor` page in <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>.</span></span>
 1. <span data-ttu-id="039d1-248">在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。</span><span class="sxs-lookup"><span data-stu-id="039d1-248">Set a breakpoint in the `WeatherForecastController` in the `Get` action method.</span></span>
@@ -333,11 +333,11 @@ ms.locfileid: "93056187"
 
 1. <span data-ttu-id="039d1-266">在组件代码（`.razor` 文件）和 C# 代码文件 (`.cs`) 中，当代码执行时将命中你设置的断点。</span><span class="sxs-lookup"><span data-stu-id="039d1-266">In component code (`.razor` files) and C# code files (`.cs`), breakpoints that you set are hit when code executes.</span></span> <span data-ttu-id="039d1-267">命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。</span><span class="sxs-lookup"><span data-stu-id="039d1-267">After a breakpoint is hit, single-step (<kbd>F10</kbd>) through the code or resume (<kbd>F8</kbd>) code execution normally.</span></span>
 
-<span data-ttu-id="039d1-268">:::no-loc(Blazor)::: 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)，并使用特定于 .NET 的信息扩展该协议。</span><span class="sxs-lookup"><span data-stu-id="039d1-268">:::no-loc(Blazor)::: provides a debugging proxy that implements the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) and augments the protocol with .NET-specific information.</span></span> <span data-ttu-id="039d1-269">按下调试键盘快捷方式后，:::no-loc(Blazor)::: 会将 Chrome 开发者工具指向代理。</span><span class="sxs-lookup"><span data-stu-id="039d1-269">When debugging keyboard shortcut is pressed, :::no-loc(Blazor)::: points the Chrome DevTools at the proxy.</span></span> <span data-ttu-id="039d1-270">代理连接到要调试的浏览器窗口（因此需要启用远程调试）。</span><span class="sxs-lookup"><span data-stu-id="039d1-270">The proxy connects to the browser window you're seeking to debug (hence the need to enable remote debugging).</span></span>
+<span data-ttu-id="039d1-268">Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)，并使用特定于 .NET 的信息扩展该协议。</span><span class="sxs-lookup"><span data-stu-id="039d1-268">Blazor provides a debugging proxy that implements the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) and augments the protocol with .NET-specific information.</span></span> <span data-ttu-id="039d1-269">按下调试键盘快捷方式后，Blazor 会将 Chrome 开发者工具指向代理。</span><span class="sxs-lookup"><span data-stu-id="039d1-269">When debugging keyboard shortcut is pressed, Blazor points the Chrome DevTools at the proxy.</span></span> <span data-ttu-id="039d1-270">代理连接到要调试的浏览器窗口（因此需要启用远程调试）。</span><span class="sxs-lookup"><span data-stu-id="039d1-270">The proxy connects to the browser window you're seeking to debug (hence the need to enable remote debugging).</span></span>
 
 ## <a name="browser-source-maps"></a><span data-ttu-id="039d1-271">浏览器源映射</span><span class="sxs-lookup"><span data-stu-id="039d1-271">Browser source maps</span></span>
 
-<span data-ttu-id="039d1-272">浏览器源映射允许浏览器将编译后的文件映射回其原始源文件，并且通常用于客户端调试。</span><span class="sxs-lookup"><span data-stu-id="039d1-272">Browser source maps allow the browser to map compiled files back to their original source files and are commonly used for client-side debugging.</span></span> <span data-ttu-id="039d1-273">但是，:::no-loc(Blazor)::: 当前不直接将 C# 映射到 JavaScript/WASM。</span><span class="sxs-lookup"><span data-stu-id="039d1-273">However, :::no-loc(Blazor)::: doesn't currently map C# directly to JavaScript/WASM.</span></span> <span data-ttu-id="039d1-274">相反，:::no-loc(Blazor)::: 在浏览器中进行 IL 解释，因此源映射不相关。</span><span class="sxs-lookup"><span data-stu-id="039d1-274">Instead, :::no-loc(Blazor)::: does IL interpretation within the browser, so source maps aren't relevant.</span></span>
+<span data-ttu-id="039d1-272">浏览器源映射允许浏览器将编译后的文件映射回其原始源文件，并且通常用于客户端调试。</span><span class="sxs-lookup"><span data-stu-id="039d1-272">Browser source maps allow the browser to map compiled files back to their original source files and are commonly used for client-side debugging.</span></span> <span data-ttu-id="039d1-273">但是，Blazor 当前不直接将 C# 映射到 JavaScript/WASM。</span><span class="sxs-lookup"><span data-stu-id="039d1-273">However, Blazor doesn't currently map C# directly to JavaScript/WASM.</span></span> <span data-ttu-id="039d1-274">相反，Blazor 在浏览器中进行 IL 解释，因此源映射不相关。</span><span class="sxs-lookup"><span data-stu-id="039d1-274">Instead, Blazor does IL interpretation within the browser, so source maps aren't relevant.</span></span>
 
 ## <a name="troubleshoot"></a><span data-ttu-id="039d1-275">疑难解答</span><span class="sxs-lookup"><span data-stu-id="039d1-275">Troubleshoot</span></span>
 
@@ -352,7 +352,7 @@ ms.locfileid: "93056187"
 
 ### <a name="breakpoints-in-oninitializedasync-not-hit"></a><span data-ttu-id="039d1-289">`OnInitialized{Async}` 中的未命中断点</span><span class="sxs-lookup"><span data-stu-id="039d1-289">Breakpoints in `OnInitialized{Async}` not hit</span></span>
 
-<span data-ttu-id="039d1-290">:::no-loc(Blazor)::: 框架的调试代理需要一小段时间才能启动，因此 [`OnInitialized{Async}` 生命周期方法](xref:blazor/components/lifecycle#component-initialization-methods)中的断点可能不会命中。</span><span class="sxs-lookup"><span data-stu-id="039d1-290">The :::no-loc(Blazor)::: framework's debugging proxy takes a short time to launch, so breakpoints in the [`OnInitialized{Async}` lifecycle method](xref:blazor/components/lifecycle#component-initialization-methods) might not be hit.</span></span> <span data-ttu-id="039d1-291">建议在方法主体开头添加延迟，以便在命中断点之前，为调试代理指定一段时间来启动。</span><span class="sxs-lookup"><span data-stu-id="039d1-291">We recommend adding a delay at the start of the method body to give the debug proxy some time to launch before the breakpoint is hit.</span></span> <span data-ttu-id="039d1-292">你可以根据 [`if` 编译器指令](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if)包括延迟，以确保应用的发布版本不存在延迟。</span><span class="sxs-lookup"><span data-stu-id="039d1-292">You can include the delay based on an [`if` compiler directive](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if) to ensure that the delay isn't present for a release build of the app.</span></span>
+<span data-ttu-id="039d1-290">Blazor 框架的调试代理需要一小段时间才能启动，因此 [`OnInitialized{Async}` 生命周期方法](xref:blazor/components/lifecycle#component-initialization-methods)中的断点可能不会命中。</span><span class="sxs-lookup"><span data-stu-id="039d1-290">The Blazor framework's debugging proxy takes a short time to launch, so breakpoints in the [`OnInitialized{Async}` lifecycle method](xref:blazor/components/lifecycle#component-initialization-methods) might not be hit.</span></span> <span data-ttu-id="039d1-291">建议在方法主体开头添加延迟，以便在命中断点之前，为调试代理指定一段时间来启动。</span><span class="sxs-lookup"><span data-stu-id="039d1-291">We recommend adding a delay at the start of the method body to give the debug proxy some time to launch before the breakpoint is hit.</span></span> <span data-ttu-id="039d1-292">你可以根据 [`if` 编译器指令](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if)包括延迟，以确保应用的发布版本不存在延迟。</span><span class="sxs-lookup"><span data-stu-id="039d1-292">You can include the delay based on an [`if` compiler directive](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if) to ensure that the delay isn't present for a release build of the app.</span></span>
 
 <span data-ttu-id="039d1-293"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>:</span><span class="sxs-lookup"><span data-stu-id="039d1-293"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>:</span></span>
 
@@ -385,7 +385,7 @@ protected override async Task OnInitializedAsync()
 <span data-ttu-id="039d1-296">如果 Visual Studio 引发了调试适配器启动因已达到超时而失败的异常，可使用注册表设置调整超时：</span><span class="sxs-lookup"><span data-stu-id="039d1-296">If Visual Studio throws an exception that the debug adapter failed to launch mentioning that the timeout was reached, you can adjust the timeout with a Registry setting:</span></span>
 
 ```console
-VsRegEdit.exe set "<VSInstallFolder>" HKCU JSDebugger\Options\Debugging ":::no-loc(Blazor):::TimeoutInMilliseconds" dword {TIMEOUT}
+VsRegEdit.exe set "<VSInstallFolder>" HKCU JSDebugger\Options\Debugging "BlazorTimeoutInMilliseconds" dword {TIMEOUT}
 ```
 
 <span data-ttu-id="039d1-297">前述命令中的 `{TIMEOUT}` 占位符以毫秒为单位。</span><span class="sxs-lookup"><span data-stu-id="039d1-297">The `{TIMEOUT}` placeholder in the preceding command is in milliseconds.</span></span> <span data-ttu-id="039d1-298">例如， 1 分钟指定为 `60000`。</span><span class="sxs-lookup"><span data-stu-id="039d1-298">For example, one minute is assigned as `60000`.</span></span>

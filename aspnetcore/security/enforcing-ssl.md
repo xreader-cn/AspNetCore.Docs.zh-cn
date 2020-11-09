@@ -6,17 +6,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: security/enforcing-ssl
 ms.openlocfilehash: e473da9a7cbd91a601ad4af0c7c02c7f576f348c
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -114,9 +114,9 @@ ms.locfileid: "93051117"
 
   * <span data-ttu-id="d5cae-155">在 "主机配置" 中。</span><span class="sxs-lookup"><span data-stu-id="d5cae-155">In host configuration.</span></span>
   * <span data-ttu-id="d5cae-156">通过设置 `ASPNETCORE_HTTPS_PORT` 环境变量。</span><span class="sxs-lookup"><span data-stu-id="d5cae-156">By setting the `ASPNETCORE_HTTPS_PORT` environment variable.</span></span>
-  * <span data-ttu-id="d5cae-157">通过在中添加顶级条目 *:::no-loc(appsettings.json):::* ：</span><span class="sxs-lookup"><span data-stu-id="d5cae-157">By adding a top-level entry in *:::no-loc(appsettings.json):::* :</span></span>
+  * <span data-ttu-id="d5cae-157">通过在中添加顶级条目 *appsettings.json* ：</span><span class="sxs-lookup"><span data-stu-id="d5cae-157">By adding a top-level entry in *appsettings.json* :</span></span>
 
-    [!code-json[](enforcing-ssl/sample-snapshot/3.x/:::no-loc(appsettings.json):::?highlight=2)]
+    [!code-json[](enforcing-ssl/sample-snapshot/3.x/appsettings.json?highlight=2)]
 
 * <span data-ttu-id="d5cae-158">使用 [ASPNETCORE_URLS 环境变量](../fundamentals/host/generic-host.md?view=aspnetcore-3.0#urls)指示包含安全方案的端口。</span><span class="sxs-lookup"><span data-stu-id="d5cae-158">Indicate a port with the secure scheme using the [ASPNETCORE_URLS environment variable](../fundamentals/host/generic-host.md?view=aspnetcore-3.0#urls).</span></span> <span data-ttu-id="d5cae-159">环境变量配置服务器。</span><span class="sxs-lookup"><span data-stu-id="d5cae-159">The environment variable configures the server.</span></span> <span data-ttu-id="d5cae-160">中间件通过间接发现 HTTPS 端口 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> 。</span><span class="sxs-lookup"><span data-stu-id="d5cae-160">The middleware indirectly discovers the HTTPS port via <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>.</span></span> <span data-ttu-id="d5cae-161">此方法在反向代理部署中不起作用。</span><span class="sxs-lookup"><span data-stu-id="d5cae-161">This approach doesn't work in reverse proxy deployments.</span></span>
 
@@ -128,9 +128,9 @@ ms.locfileid: "93051117"
 
   * <span data-ttu-id="d5cae-163">在 "主机配置" 中。</span><span class="sxs-lookup"><span data-stu-id="d5cae-163">In host configuration.</span></span>
   * <span data-ttu-id="d5cae-164">通过设置 `ASPNETCORE_HTTPS_PORT` 环境变量。</span><span class="sxs-lookup"><span data-stu-id="d5cae-164">By setting the `ASPNETCORE_HTTPS_PORT` environment variable.</span></span>
-  * <span data-ttu-id="d5cae-165">通过在中添加顶级条目 *:::no-loc(appsettings.json):::* ：</span><span class="sxs-lookup"><span data-stu-id="d5cae-165">By adding a top-level entry in *:::no-loc(appsettings.json):::* :</span></span>
+  * <span data-ttu-id="d5cae-165">通过在中添加顶级条目 *appsettings.json* ：</span><span class="sxs-lookup"><span data-stu-id="d5cae-165">By adding a top-level entry in *appsettings.json* :</span></span>
 
-    [!code-json[](enforcing-ssl/sample-snapshot/2.x/:::no-loc(appsettings.json):::?highlight=2)]
+    [!code-json[](enforcing-ssl/sample-snapshot/2.x/appsettings.json?highlight=2)]
 
 * <span data-ttu-id="d5cae-166">使用 [ASPNETCORE_URLS 环境变量](xref:fundamentals/host/web-host#server-urls)指示包含安全方案的端口。</span><span class="sxs-lookup"><span data-stu-id="d5cae-166">Indicate a port with the secure scheme using the [ASPNETCORE_URLS environment variable](xref:fundamentals/host/web-host#server-urls).</span></span> <span data-ttu-id="d5cae-167">环境变量配置服务器。</span><span class="sxs-lookup"><span data-stu-id="d5cae-167">The environment variable configures the server.</span></span> <span data-ttu-id="d5cae-168">中间件通过间接发现 HTTPS 端口 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> 。</span><span class="sxs-lookup"><span data-stu-id="d5cae-168">The middleware indirectly discovers the HTTPS port via <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>.</span></span> <span data-ttu-id="d5cae-169">此方法在反向代理部署中不起作用。</span><span class="sxs-lookup"><span data-stu-id="d5cae-169">This approach doesn't work in reverse proxy deployments.</span></span>
 

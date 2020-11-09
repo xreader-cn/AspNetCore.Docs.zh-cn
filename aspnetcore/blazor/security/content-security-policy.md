@@ -1,23 +1,23 @@
 ---
-title: '为 ASP.NET Core :::no-loc(Blazor)::: 强制实施内容安全策略'
+title: '为 ASP.NET Core Blazor 强制实施内容安全策略'
 author: guardrex
-description: '了解如何将内容安全策略 (CSP) 用于 ASP.NET Core :::no-loc(Blazor)::: 应用，以帮助防范跨站点脚本 (XSS) 攻击。'
+description: '了解如何将内容安全策略 (CSP) 用于 ASP.NET Core Blazor 应用，以帮助防范跨站点脚本 (XSS) 攻击。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/content-security-policy
 ms.openlocfilehash: 66fd41abe4f85071797bacc0a5531bbab35bd227
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -26,7 +26,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93055589"
 ---
-# <a name="enforce-a-content-security-policy-for-aspnet-core-no-locblazor"></a><span data-ttu-id="a4b30-103">为 ASP.NET Core :::no-loc(Blazor)::: 强制实施内容安全策略</span><span class="sxs-lookup"><span data-stu-id="a4b30-103">Enforce a Content Security Policy for ASP.NET Core :::no-loc(Blazor):::</span></span>
+# <a name="enforce-a-content-security-policy-for-aspnet-core-no-locblazor"></a><span data-ttu-id="a4b30-103">为 ASP.NET Core Blazor 强制实施内容安全策略</span><span class="sxs-lookup"><span data-stu-id="a4b30-103">Enforce a Content Security Policy for ASP.NET Core Blazor</span></span>
 
 <span data-ttu-id="a4b30-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="a4b30-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
@@ -40,11 +40,11 @@ ms.locfileid: "93055589"
 
 <span data-ttu-id="a4b30-111">加载页面时，浏览器会对策略进行评估。</span><span class="sxs-lookup"><span data-stu-id="a4b30-111">Policies are evaluated by the browser while a page is loading.</span></span> <span data-ttu-id="a4b30-112">浏览器将检查页面的源并确定它们是否满足内容安全指令的要求。</span><span class="sxs-lookup"><span data-stu-id="a4b30-112">The browser inspects the page's sources and determines if they meet the requirements of the content security directives.</span></span> <span data-ttu-id="a4b30-113">如果资源不符合策略指令，浏览器不会加载资源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-113">When policy directives aren't met for a resource, the browser doesn't load the resource.</span></span> <span data-ttu-id="a4b30-114">例如，请考虑不允许第三方脚本的策略。</span><span class="sxs-lookup"><span data-stu-id="a4b30-114">For example, consider a policy that doesn't allow third-party scripts.</span></span> <span data-ttu-id="a4b30-115">当某个页面的 `src` 属性中包含带有第三方来源的 `<script>` 标记时，浏览器将阻止加载该脚本。</span><span class="sxs-lookup"><span data-stu-id="a4b30-115">When a page contains a `<script>` tag with a third-party origin in the `src` attribute, the browser prevents the script from loading.</span></span>
 
-<span data-ttu-id="a4b30-116">大多数新式桌面和移动浏览器（包括 Chrome、Microsoft Edge、Firefox、Opera 和 Safari）都支持 CSP。</span><span class="sxs-lookup"><span data-stu-id="a4b30-116">CSP is supported in most modern desktop and mobile browsers, including Chrome, Edge, Firefox, Opera, and Safari.</span></span> <span data-ttu-id="a4b30-117">建议将 CSP 用于 :::no-loc(Blazor)::: 应用。</span><span class="sxs-lookup"><span data-stu-id="a4b30-117">CSP is recommended for :::no-loc(Blazor)::: apps.</span></span>
+<span data-ttu-id="a4b30-116">大多数新式桌面和移动浏览器（包括 Chrome、Microsoft Edge、Firefox、Opera 和 Safari）都支持 CSP。</span><span class="sxs-lookup"><span data-stu-id="a4b30-116">CSP is supported in most modern desktop and mobile browsers, including Chrome, Edge, Firefox, Opera, and Safari.</span></span> <span data-ttu-id="a4b30-117">建议将 CSP 用于 Blazor 应用。</span><span class="sxs-lookup"><span data-stu-id="a4b30-117">CSP is recommended for Blazor apps.</span></span>
 
 ## <a name="policy-directives"></a><span data-ttu-id="a4b30-118">策略指令</span><span class="sxs-lookup"><span data-stu-id="a4b30-118">Policy directives</span></span>
 
-<span data-ttu-id="a4b30-119">至少为 :::no-loc(Blazor)::: 应用指定以下指令和源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-119">Minimally, specify the following directives and sources for :::no-loc(Blazor)::: apps.</span></span> <span data-ttu-id="a4b30-120">按需添加其他指令和源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-120">Add additional directives and sources as needed.</span></span> <span data-ttu-id="a4b30-121">本文的[应用策略](#apply-the-policy)部分中使用了以下指令，其中提供了 :::no-loc(Blazor WebAssembly)::: 和 :::no-loc(Blazor Server)::: 的示例安全策略：</span><span class="sxs-lookup"><span data-stu-id="a4b30-121">The following directives are used in the [Apply the policy](#apply-the-policy) section of this article, where example security policies for :::no-loc(Blazor WebAssembly)::: and :::no-loc(Blazor Server)::: are provided:</span></span>
+<span data-ttu-id="a4b30-119">至少为 Blazor 应用指定以下指令和源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-119">Minimally, specify the following directives and sources for Blazor apps.</span></span> <span data-ttu-id="a4b30-120">按需添加其他指令和源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-120">Add additional directives and sources as needed.</span></span> <span data-ttu-id="a4b30-121">本文的[应用策略](#apply-the-policy)部分中使用了以下指令，其中提供了 Blazor WebAssembly 和 Blazor Server 的示例安全策略：</span><span class="sxs-lookup"><span data-stu-id="a4b30-121">The following directives are used in the [Apply the policy](#apply-the-policy) section of this article, where example security policies for Blazor WebAssembly and Blazor Server are provided:</span></span>
 
 * <span data-ttu-id="a4b30-122">[base-uri](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri)：限制页面的 `<base>` 标记的 URL。</span><span class="sxs-lookup"><span data-stu-id="a4b30-122">[base-uri](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri): Restricts the URLs for a page's `<base>` tag.</span></span> <span data-ttu-id="a4b30-123">指定 `self`，以指示应用的来源（包括方案和端口号）是有效源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-123">Specify `self` to indicate that the app's origin, including the scheme and port number, is a valid source.</span></span>
 * <span data-ttu-id="a4b30-124">[block-all-mixed-content](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content)：阻止加载混合 HTTP 和 HTTPS 内容。</span><span class="sxs-lookup"><span data-stu-id="a4b30-124">[block-all-mixed-content](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content): Prevents loading mixed HTTP and HTTPS content.</span></span>
@@ -56,17 +56,17 @@ ms.locfileid: "93055589"
 * <span data-ttu-id="a4b30-132">[script-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src)：指示脚本的有效源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-132">[script-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src): Indicates valid sources for scripts.</span></span>
   * <span data-ttu-id="a4b30-133">指定用于启动脚本的 `https://stackpath.bootstrapcdn.com/` 主机源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-133">Specify the `https://stackpath.bootstrapcdn.com/` host source for Bootstrap scripts.</span></span>
   * <span data-ttu-id="a4b30-134">指定 `self`，以指示应用的来源（包括方案和端口号）是有效源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-134">Specify `self` to indicate that the app's origin, including the scheme and port number, is a valid source.</span></span>
-  * <span data-ttu-id="a4b30-135">在 :::no-loc(Blazor WebAssembly)::: 应用中：</span><span class="sxs-lookup"><span data-stu-id="a4b30-135">In a :::no-loc(Blazor WebAssembly)::: app:</span></span>
-    * <span data-ttu-id="a4b30-136">指定以下哈希，以允许加载所需的 :::no-loc(Blazor WebAssembly)::: 内联脚本：</span><span class="sxs-lookup"><span data-stu-id="a4b30-136">Specify the following hashes to permit the required :::no-loc(Blazor WebAssembly)::: inline scripts to load:</span></span>
+  * <span data-ttu-id="a4b30-135">在 Blazor WebAssembly 应用中：</span><span class="sxs-lookup"><span data-stu-id="a4b30-135">In a Blazor WebAssembly app:</span></span>
+    * <span data-ttu-id="a4b30-136">指定以下哈希，以允许加载所需的 Blazor WebAssembly 内联脚本：</span><span class="sxs-lookup"><span data-stu-id="a4b30-136">Specify the following hashes to permit the required Blazor WebAssembly inline scripts to load:</span></span>
       * `sha256-v8ZC9OgMhcnEQ/Me77/R9TlJfzOBqrMTW8e1KuqLaqc=`
       * `sha256-If//FtbPc03afjLezvWHnC3Nbu4fDM04IIzkPaf3pH0=`
       * `sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=`
     * <span data-ttu-id="a4b30-137">指定 `unsafe-eval`，以使用 `eval()` 以及通过字符串创建代码的方法。</span><span class="sxs-lookup"><span data-stu-id="a4b30-137">Specify `unsafe-eval` to use `eval()` and methods for creating code from strings.</span></span>
-  * <span data-ttu-id="a4b30-138">在 :::no-loc(Blazor Server)::: 应用中，为针对样式表执行回退检测的内联脚本指定 `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` 哈希。</span><span class="sxs-lookup"><span data-stu-id="a4b30-138">In a :::no-loc(Blazor Server)::: app, specify the `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` hash for the inline script that performs fallback detection for stylesheets.</span></span>
+  * <span data-ttu-id="a4b30-138">在 Blazor Server 应用中，为针对样式表执行回退检测的内联脚本指定 `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` 哈希。</span><span class="sxs-lookup"><span data-stu-id="a4b30-138">In a Blazor Server app, specify the `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` hash for the inline script that performs fallback detection for stylesheets.</span></span>
 * <span data-ttu-id="a4b30-139">[style-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src)：指示样式表的有效源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-139">[style-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src): Indicates valid sources for stylesheets.</span></span>
   * <span data-ttu-id="a4b30-140">指定用于启动样式表的 `https://stackpath.bootstrapcdn.com/` 主机源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-140">Specify the `https://stackpath.bootstrapcdn.com/` host source for Bootstrap stylesheets.</span></span>
   * <span data-ttu-id="a4b30-141">指定 `self`，以指示应用的来源（包括方案和端口号）是有效源。</span><span class="sxs-lookup"><span data-stu-id="a4b30-141">Specify `self` to indicate that the app's origin, including the scheme and port number, is a valid source.</span></span>
-  * <span data-ttu-id="a4b30-142">指定 `unsafe-inline`，以允许使用内联样式。</span><span class="sxs-lookup"><span data-stu-id="a4b30-142">Specify `unsafe-inline` to allow the use of inline styles.</span></span> <span data-ttu-id="a4b30-143">:::no-loc(Blazor Server)::: 应用中的 UI 需要内联声明，以便在初始请求后重新连接客户端和服务器。</span><span class="sxs-lookup"><span data-stu-id="a4b30-143">The inline declaration is required for the UI in :::no-loc(Blazor Server)::: apps for reconnecting the client and server after the initial request.</span></span> <span data-ttu-id="a4b30-144">在将来的版本中，可能会删除内联样式，以便不再需要 `unsafe-inline`。</span><span class="sxs-lookup"><span data-stu-id="a4b30-144">In a future release, inline styling might be removed so that `unsafe-inline` is no longer required.</span></span>
+  * <span data-ttu-id="a4b30-142">指定 `unsafe-inline`，以允许使用内联样式。</span><span class="sxs-lookup"><span data-stu-id="a4b30-142">Specify `unsafe-inline` to allow the use of inline styles.</span></span> <span data-ttu-id="a4b30-143">Blazor Server 应用中的 UI 需要内联声明，以便在初始请求后重新连接客户端和服务器。</span><span class="sxs-lookup"><span data-stu-id="a4b30-143">The inline declaration is required for the UI in Blazor Server apps for reconnecting the client and server after the initial request.</span></span> <span data-ttu-id="a4b30-144">在将来的版本中，可能会删除内联样式，以便不再需要 `unsafe-inline`。</span><span class="sxs-lookup"><span data-stu-id="a4b30-144">In a future release, inline styling might be removed so that `unsafe-inline` is no longer required.</span></span>
 * <span data-ttu-id="a4b30-145">[upgrade-insecure-requests](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests)：指示应通过 HTTPS 安全地获取来自不安全 (HTTP) 源的内容 URL。</span><span class="sxs-lookup"><span data-stu-id="a4b30-145">[upgrade-insecure-requests](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests): Indicates that content URLs from insecure (HTTP) sources should be acquired securely over HTTPS.</span></span>
 
 <span data-ttu-id="a4b30-146">除 Microsoft Internet Explorer 外的所有浏览器都支持上述指令。</span><span class="sxs-lookup"><span data-stu-id="a4b30-146">The preceding directives are supported by all browsers except Microsoft Internet Explorer.</span></span>
@@ -87,9 +87,9 @@ ms.locfileid: "93055589"
 * <span data-ttu-id="a4b30-157">将指令置于 `content` 属性值中。</span><span class="sxs-lookup"><span data-stu-id="a4b30-157">Place the directives in the `content` attribute value.</span></span> <span data-ttu-id="a4b30-158">使用分号 (`;`) 分隔指令。</span><span class="sxs-lookup"><span data-stu-id="a4b30-158">Separate directives with a semicolon (`;`).</span></span>
 * <span data-ttu-id="a4b30-159">始终将 `meta` 标记置于 `<head>` 内容中。</span><span class="sxs-lookup"><span data-stu-id="a4b30-159">Always place the `meta` tag in the `<head>` content.</span></span>
 
-<span data-ttu-id="a4b30-160">以下各部分介绍 :::no-loc(Blazor WebAssembly)::: 和 :::no-loc(Blazor Server)::: 的示例策略。</span><span class="sxs-lookup"><span data-stu-id="a4b30-160">The following sections show example policies for :::no-loc(Blazor WebAssembly)::: and :::no-loc(Blazor Server):::.</span></span> <span data-ttu-id="a4b30-161">对于 :::no-loc(Blazor)::: 的每个版本，本文都对这些示例进行了版本控制。</span><span class="sxs-lookup"><span data-stu-id="a4b30-161">These examples are versioned with this article for each release of :::no-loc(Blazor):::.</span></span> <span data-ttu-id="a4b30-162">要使用适用于你的版本的版本，请在此网页上使用“版本”下拉选择器选择文档版本。</span><span class="sxs-lookup"><span data-stu-id="a4b30-162">To use a version appropriate for your release, select the document version with the **Version** drop down selector on this webpage.</span></span>
+<span data-ttu-id="a4b30-160">以下各部分介绍 Blazor WebAssembly 和 Blazor Server 的示例策略。</span><span class="sxs-lookup"><span data-stu-id="a4b30-160">The following sections show example policies for Blazor WebAssembly and Blazor Server.</span></span> <span data-ttu-id="a4b30-161">对于 Blazor 的每个版本，本文都对这些示例进行了版本控制。</span><span class="sxs-lookup"><span data-stu-id="a4b30-161">These examples are versioned with this article for each release of Blazor.</span></span> <span data-ttu-id="a4b30-162">要使用适用于你的版本的版本，请在此网页上使用“版本”下拉选择器选择文档版本。</span><span class="sxs-lookup"><span data-stu-id="a4b30-162">To use a version appropriate for your release, select the document version with the **Version** drop down selector on this webpage.</span></span>
 
-### :::no-loc(Blazor WebAssembly):::
+### Blazor WebAssembly
 
 <span data-ttu-id="a4b30-163">在 `wwwroot/index.html` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：</span><span class="sxs-lookup"><span data-stu-id="a4b30-163">In the `<head>` content of the `wwwroot/index.html` host page, apply the directives described in the [Policy directives](#policy-directives) section:</span></span>
 
@@ -112,7 +112,7 @@ ms.locfileid: "93055589"
                upgrade-insecure-requests;">
 ```
 
-### :::no-loc(Blazor Server):::
+### Blazor Server
 
 <span data-ttu-id="a4b30-164">在 `Pages/_Host.cshtml` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：</span><span class="sxs-lookup"><span data-stu-id="a4b30-164">In the `<head>` content of the `Pages/_Host.cshtml` host page, apply the directives described in the [Policy directives](#policy-directives) section:</span></span>
 
