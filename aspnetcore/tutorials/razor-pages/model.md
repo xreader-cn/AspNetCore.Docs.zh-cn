@@ -5,6 +5,7 @@ description: Razor 页面教程系列的第 2 部分。
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 4099873142b99afb7f0659dfd9a4fde8bec3081d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 84198760cf8302d379c7630b65641e65b66d72a2
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633768"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93050922"
 ---
 # <a name="part-2-add-a-model-to-a-no-locrazor-pages-app-in-aspnet-core"></a>第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型
 
@@ -99,7 +100,7 @@ ms.locfileid: "88633768"
 
 ![上述说明的图像。](model/_static/3/arp.png)
 
-appsettings.json 文件通过用于连接到本地数据的连接字符串进行更新。
+*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -113,13 +114,13 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* **对于 Windows**：运行下面的命令：
+* **对于 Windows** ：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **对于 macOS 和 Linux**：运行下面的命令：
+* **对于 macOS 和 Linux** ：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -153,7 +154,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 ![上述说明的图像。](model/_static/arpMac.png)
 
-appsettings.json 文件通过用于连接到本地数据的连接字符串进行更新。
+*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。
 
 ### <a name="add-ef-tools"></a>添加 EF 工具
 
@@ -173,7 +174,7 @@ dotnet tool install --global dotnet-ef
 
 在搭建基架时，会创建并更新以下文件：
 
-* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
+* *Pages/Movies* ：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="updated"></a>已更新
@@ -186,7 +187,7 @@ dotnet tool install --global dotnet-ef
 
 在搭建基架时，会创建并更新以下文件：
 
-* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
+* *Pages/Movies* ：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="updated"></a>已更新
@@ -199,7 +200,7 @@ dotnet tool install --global dotnet-ef
 
 在搭建基架时，会创建以下文件：
 
-* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
+* *Pages/Movies* ：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
 
 创建的文件将在下一节中说明。
 
@@ -263,7 +264,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 前面的代码为实体集创建 [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) 属性。 在实体框架术语中，实体集通常与数据表相对应。 实体对应表中的行。
 
-通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index) 在 *appsettings.json* 文件中读取数据库连接字符串。
+通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -384,7 +385,7 @@ to use Data, it should not use models. That will make the namespace the same for
 
 ![上述说明的图像。](model/_static/arp.png)
 
-appsettings.json 文件通过用于连接到本地数据的连接字符串进行更新。
+*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -393,13 +394,13 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 * 打开项目目录（包含 Program.cs、Startup.cs 和 .csproj 文件的目录）中的命令窗口。
 
-* **对于 Windows**：运行下面的命令：
+* **对于 Windows** ：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **对于 macOS 和 Linux**：运行下面的命令：
+* **对于 macOS 和 Linux** ：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -430,7 +431,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 ![上述说明的图像。](model/_static/arpMac.png)
 
-appsettings.json 文件通过用于连接到本地数据的连接字符串进行更新。
+*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。
 
 ---
 
@@ -438,7 +439,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 ### <a name="files-created"></a>创建的文件
 
-* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
+* *Pages/Movies* ：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="file-updated"></a>文件已更新
@@ -483,7 +484,7 @@ Update-Database
 
 ---
 > [!NOTE]
-> 前面的命令生成以下警告："*No type was specified for the decimal column 'Price' on entity type 'Movie'.This will cause values to be silently truncated if they do not fit in the default precision and scale.Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.* " 你可以忽略该警告，它将后面的教程中得到修复。
+> 前面的命令生成以下警告：" *No type was specified for the decimal column 'Price' on entity type 'Movie'.This will cause values to be silently truncated if they do not fit in the default precision and scale.Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.* " 你可以忽略该警告，它将后面的教程中得到修复。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -503,7 +504,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 前面的代码为实体集创建 [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) 属性。 在实体框架术语中，实体集通常与数据表相对应。 实体对应表中的行。
 
-通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index) 在 *appsettings.json* 文件中读取数据库连接字符串。
+通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 

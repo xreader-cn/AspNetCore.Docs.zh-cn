@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/23/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/diagnostics
-ms.openlocfilehash: 7d2da20d04b93ebcd16fb58a4b74b5b67d37bd72
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 1f25ae76e5a480e5e6f247e4ac78d06dd4e778e9
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722918"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060438"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>.NET 上 gRPC 中的日志记录和诊断
 
@@ -45,7 +46,7 @@ gRPC 服务和 gRPC 客户端使用 [.NET Core 日志记录](xref:fundamentals/l
 
 由于 gRPC 服务托管在 ASP.NET Core 上，因此它使用 ASP.NET Core 日志记录系统。 在默认配置中，gRPC 只记录很少的信息，但这可以进行配置。 有关配置 ASP.NET Core 日志记录的详细信息，请参阅 [ASP.NET Core 日志记录](xref:fundamentals/logging/index#configuration)上的文档。
 
-gRPC 在 `Grpc` 类别下添加日志。 若要启用来自 gRPC 的详细日志，请通过在 `Logging` 中的 `LogLevel` 子节中添加以下项目，将 `Grpc` 前缀配置为 appsettings.json 文件中的 `Debug` 级别：
+gRPC 在 `Grpc` 类别下添加日志。 若要启用来自 gRPC 的详细日志，请通过在 `Logging` 中的 `LogLevel` 子节中添加以下项目，将 `Grpc` 前缀配置为appsettings.json  文件中的 `Debug` 级别：
 
 [!code-json[](diagnostics/sample/logging-config.json?highlight=7)]
 

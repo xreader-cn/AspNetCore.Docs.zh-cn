@@ -5,8 +5,9 @@ description: 了解如何使用 Azure Active Directory B2C 保护 ASP.NET Core B
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/27/2020
+ms.date: 11/02/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: 1a58e19ecaf816ddfb724b9a575d35c801cebd04
-ms.sourcegitcommit: 2e3a967331b2c69f585dd61e9ad5c09763615b44
+ms.openlocfilehash: 8727fa52acbcf59549c326bd5106e5dfe23c36be
+ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/27/2020
-ms.locfileid: "92690561"
+ms.lasthandoff: 11/03/2020
+ms.locfileid: "93234486"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -139,16 +140,18 @@ ms.locfileid: "92690561"
 dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho -o {APP NAME} -ssp "{SIGN UP OR SIGN IN POLICY}"
 ```
 
-| 占位符                   | Azure 门户中的名称                                     | 示例                                      |
-| ----------------------------- | ----------------------------------------------------- | -------------------------------------------- |
-| `{AAD B2C INSTANCE}`          | 实例                                              | `https://contoso.b2clogin.com/`              |
-| `{APP NAME}`                  | &mdash;                                               | `BlazorSample`                               |
-| `{CLIENT APP CLIENT ID}`      | `Client` 应用的应用程序（客户端）ID        | `4369008b-21fa-427c-abaa-9b53bf58e538`       |
-| `{DEFAULT SCOPE}`             | 作用域名                                            | `API.Access`                                 |
-| `{SERVER API APP CLIENT ID}`  | “服务器 API 应用”的应用程序（客户端）ID      | `41451fa7-82d9-4673-8fa5-69eff5a761fd`       |
-| `{SERVER API APP ID URI}`     | 应用程序 ID URI                                    | `api://41451fa7-82d9-4673-8fa5-69eff5a761fd` |
-| `{SIGN UP OR SIGN IN POLICY}` | 注册/登录用户流                             | `B2C_1_signupsignin1`                        |
-| `{TENANT DOMAIN}`             | 主域/发布者域/租户域                       | `contoso.onmicrosoft.com`                    |
+| 占位符                   | Azure 门户中的名称                                     | 示例                                        |
+| ----------------------------- | ----------------------------------------------------- | ---------------------------------------------- |
+| `{AAD B2C INSTANCE}`          | 实例                                              | `https://contoso.b2clogin.com/`                |
+| `{APP NAME}`                  | &mdash;                                               | `BlazorSample`                                 |
+| `{CLIENT APP CLIENT ID}`      | `Client` 应用的应用程序（客户端）ID        | `4369008b-21fa-427c-abaa-9b53bf58e538`         |
+| `{DEFAULT SCOPE}`             | 作用域名                                            | `API.Access`                                   |
+| `{SERVER API APP CLIENT ID}`  | “服务器 API 应用”的应用程序（客户端）ID      | `41451fa7-82d9-4673-8fa5-69eff5a761fd`         |
+| `{SERVER API APP ID URI}`     | 应用程序 ID URI&dagger;                            | `41451fa7-82d9-4673-8fa5-69eff5a761fd`&dagger; |
+| `{SIGN UP OR SIGN IN POLICY}` | 注册/登录用户流                             | `B2C_1_signupsignin1`                          |
+| `{TENANT DOMAIN}`             | 主域/发布者域/租户域                       | `contoso.onmicrosoft.com`                      |
+
+&dagger;Blazor WebAssembly 模板会自动将 `api://` 的方案添加到 `dotnet new` 命令中传递的应用 ID URI 参数。 为 `{SERVER API APP ID URI}` 占位符提供应用 ID URI 时，如果方案为 `api://`，请从参数中删除方案 (`api://`)，如上表中的示例值所示。 如果应用 ID URI 是一个自定义值，或者有一些其他方案（例如，不受信任的发布者域的 `https://` 类似于 `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd`），则必须手动更新默认范围 URI，并在模板创建 `Client` 应用后删除 `api://` 方案。 有关详细信息，请参阅[访问令牌范围](#access-token-scopes)部分中的说明。 Blazor WebAssembly 模板可能会在未来版本的 ASP.NET Core 中有所更改来解决这些方案。 有关详细信息，请参阅[结合使用应用 ID URI 与 Blazor WASM 模板的双方案（托管、单组织）(dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417)。
 
 使用 `-o|--output` 选项指定的输出位置将创建一个项目文件夹（如果该文件夹不存在）并成为应用程序名称的一部分。
 
@@ -353,6 +356,29 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.DefaultAccessTokenScopes.Add("{SCOPE URI}");
 });
 ```
+
+> [!NOTE]
+> Blazor WebAssembly 模板会自动将 `api://` 的方案添加到 `dotnet new` 命令中传递的应用 ID URI 参数。 从 Blazor 项目模板生成应用时，请确认默认访问令牌范围的值使用在 Azure 门户中提供的正确的自定义应用 ID URI 值，或采用以下格式之一的值：
+>
+> * 当目录的发布者域受信任时，默认访问令牌范围通常为类似于以下示例的值，其中 `API.Access` 为默认范围名称：
+>
+>   ```csharp
+>   options.ProviderOptions.DefaultAccessTokenScopes.Add(
+>       "api://41451fa7-82d9-4673-8fa5-69eff5a761fd/API.Access");
+>   ```
+>
+>   检查双方案 (`api://api://...`) 的值。 如果存在双方案，则从值中删除第一个 `api://` 方案。
+>
+> * 当目录的发布者域不受信任时，默认访问令牌范围通常为类似于以下示例的值，其中 `API.Access` 为默认范围名称：
+>
+>   ```csharp
+>   options.ProviderOptions.DefaultAccessTokenScopes.Add(
+>       "https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd/API.Access");
+>   ```
+>
+>   检查附加 `api://` 方案 (`api://https://contoso.onmicrosoft.com/...`) 的值。 如果存在附加 `api://` 方案，则从值中删除 `api://` 方案。
+>
+> Blazor WebAssembly 模板可能会在未来版本的 ASP.NET Core 中有所更改来解决这些方案。 有关详细信息，请参阅[结合使用应用 ID URI 与 Blazor WASM 模板的双方案（托管、单组织）(dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417)。
 
 使用 `AdditionalScopesToConsent` 指定其他作用域：
 
