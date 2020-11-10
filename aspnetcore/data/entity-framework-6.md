@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/14/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/entity-framework-6
-ms.openlocfilehash: 64d420d7076f1da453ee423cc4a3732eeb47b221
-ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
+ms.openlocfilehash: 086418c161677f585b08ed360555c93d8575e701
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88876693"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93059450"
 ---
 # <a name="aspnet-core-and-entity-framework-6"></a>ASP.NET Core 和 Entity Framework 6
 ::: moniker range=">= aspnetcore-3.0"
@@ -106,7 +107,7 @@ ASP.NET Core 项目需要面向 .NET Framework 和引用 EF6。 例如，ASP.NET
 
 * 在 Core 项目的 Startup.cs 中，为 DI 注册上下文。    
 
-* 在 Core 项目的 appsettings.json 中，添加连接字符串。    
+* 在 Core 项目的 *appsettings.json* 中，添加连接字符串。  
 
 * 在 Core 项目中，添加控制器和视图以验证可读取和写入数据。 （请注意，ASP.NET Core MVC 基架不会使用从类库引用的 EF6 上下文。）
 

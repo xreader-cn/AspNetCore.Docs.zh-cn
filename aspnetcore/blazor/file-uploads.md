@@ -5,8 +5,8 @@ description: 了解如何使用 InputFile 组件在 Blazor 中上传文件。
 monikerRange: '>= aspnetcore-5.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/29/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,13 +17,14 @@ no-loc:
 - Let's Encrypt
 - Razor
 - SignalR
+ms.date: 10/27/2020
 uid: blazor/file-uploads
-ms.openlocfilehash: 06d1464cb731a8008362fc911f463e4ff8a37b6b
-ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
+ms.openlocfilehash: c0806c3a68a4d9e698925f6ec955dd2f53d7818f
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91606654"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93056122"
 ---
 # <a name="aspnet-core-no-locblazor-file-uploads"></a>ASP.NET Core Blazor 文件上传
 
@@ -44,8 +45,9 @@ ms.locfileid: "91606654"
 
 从用户选择的文件中读取数据：
 
-* 对文件调用 `OpenReadStream`，并从返回的流中进行读取。 有关详细信息，请参阅[文件流](#file-streams)部分。
-* 请使用 `ReadAsync`。 默认情况下，`ReadAsync` 只允许读取 524,288 KB (512 KB) 以下的文件。 此限制旨在防止开发人员意外地将大型文件读入到内存中。 如果必须支持较大的文件，则为所需的最大文件大小指定合理的近似值。 避免将传入的文件流直接读入到内存中。 例如，不要将文件字节复制到 <xref:System.IO.MemoryStream>，也不要以字节数组的形式进行读取。 这些方法可能会导致性能和安全问题，尤其是在 Blazor Server 中。 请考虑将文件字节复制到外部存储（如 blob 或磁盘上的文件）。
+* 对文件调用 `Microsoft.AspNetCore.Components.Forms.IBrowserFile.OpenReadStream`，并从返回的流中进行读取。 有关详细信息，请参阅[文件流](#file-streams)部分。
+* `OpenReadStream` 返回的 <xref:System.IO.Stream> 强制采用正在读取的 `Stream` 的最大大小（以字节为单位）。 默认情况下，只允许读取小于 524,288 KB (512 KB) 的文件，任何进一步读取都将导致异常。 此限制旨在防止开发人员意外地将大型文件读入到内存中。 如果需要，可以使用 `Microsoft.AspNetCore.Components.Forms.IBrowserFile.OpenReadStream` 上的 `maxAllowedSize` 参数指定更大的大小。
+* 避免将传入的文件流直接读入到内存中。 例如，不要将文件字节复制到 <xref:System.IO.MemoryStream>，也不要以字节数组的形式进行读取。 这些方法可能会导致性能和安全问题，尤其是在 Blazor Server 中。 请考虑将文件字节复制到外部存储（如 blob 或磁盘上的文件）。
 
 接收图像文件的组件可以对文件调用 `RequestImageFileAsync` 便利方法，在图像流式传入应用之前，在浏览器的 JavaScript 运行时内调整图像数据的大小。
 

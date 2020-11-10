@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/04/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 50bf2a60f14238c9b71fe90a64c284da202bff59
-ms.sourcegitcommit: d5ecad1103306fac8d5468128d3e24e529f1472c
+ms.openlocfilehash: 56ac6635639eed93a84f47fc915c7013c6ed2381
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/23/2020
-ms.locfileid: "92491595"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93052326"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -127,7 +128,7 @@ Kestrel Web 服务器具有约束配置选项，这些选项在面向 Internet �
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-在本文后面的示例中，Kestrel 选项是采用 C# 代码配置的。 还可以使用 [配置提供程序](xref:fundamentals/configuration/index)设置 Kestrel 选项。 例如，[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置 ：
+在本文后面的示例中，Kestrel 选项是采用 C# 代码配置的。 还可以使用 [配置提供程序](xref:fundamentals/configuration/index)设置 Kestrel 选项。 例如，[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：
 
 ```json
 {
@@ -901,7 +902,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 }
 ```
 
-以下 appsettings.json 示例将 HTTP/1.1 建立为所有指定终结点的连接协议：
+以下 appsettings.json 示例将为所有指定终结点建立 HTTP/1.1 连接协议：
 
 ```json
 {
@@ -1003,7 +1004,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 默认情况下，主机筛选中间件处于禁用状态。 要启用该中间件，请在 appsettings.json/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。 此值是以分号分隔的不带端口号的主机名列表：
 
-appsettings.json：
+*appsettings.json* :
 
 ```json
 {
@@ -1135,7 +1136,7 @@ Kestrel Web 服务器具有约束配置选项，这些选项在面向 Internet �
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。 例如，文件配置提供程序可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置 ：
+Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。 例如，文件配置提供程序可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：
 
 ```json
 {
@@ -1954,7 +1955,7 @@ private class TlsFilterAdapter : IConnectionAdapter
 
 默认情况下，主机筛选中间件处于禁用状态。 要启用该中间件，请在 appsettings.json/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。 此值是以分号分隔的不带端口号的主机名列表：
 
-appsettings.json：
+*appsettings.json* :
 
 ```json
 {
@@ -2043,7 +2044,7 @@ Kestrel Web 服务器具有约束配置选项，这些选项在面向 Internet �
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。 例如，文件配置提供程序可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置 ：
+Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。 例如，文件配置提供程序可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：
 
 ```json
 {
@@ -2744,7 +2745,7 @@ Listening on the following addresses: http://127.0.0.1:48508
 
 默认情况下，主机筛选中间件处于禁用状态。 要启用该中间件，请在 appsettings.json/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。 此值是以分号分隔的不带端口号的主机名列表：
 
-appsettings.json：
+*appsettings.json* :
 
 ```json
 {

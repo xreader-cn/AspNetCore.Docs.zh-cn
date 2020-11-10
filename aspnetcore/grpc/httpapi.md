@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/28/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/httpapi
-ms.openlocfilehash: fa4e7489920338344b78874690e64d4080b5a719
-ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
+ms.openlocfilehash: 45e2a1a5e6a9f00294147db769454b78c5b866e5
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2020
-ms.locfileid: "91805578"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93059931"
 ---
 # <a name="create-json-web-apis-from-grpc"></a>从 gRPC 创建 JSON Web API
 
@@ -38,7 +39,7 @@ ms.locfileid: "91805578"
 
 gRPC 是一种在应用之间进行通信的新方式。 gRPC 使用 HTTP/2、流式传输、Protobuf 和消息协定来创建高性能的实时服务。
 
-gRPC 有一个限制，即不是所有平台都可以使用它。 浏览器并不完全支持 HTTP/2，这使得 REST 和 JSON 成为将数据引入浏览器应用的主要方式。 即使有 gRPC 带来的好处，REST 和 JSON 在新式应用中也发挥着重要作用。 构建 gRPC 和 JSON Web API 给应用开发增加了不必要的开销。
+gRPC 有一个限制，即不是所有平台都可以使用它。 浏览器并不完全支持 HTTP/2，这使得 REST 和 JSON 成为将数据引入浏览器应用的主要方式。 即使有 gRPC 带来的好处，REST 和 JSON 在新式应用中也发挥着重要作用。 构建 gRPC *_和 JSON Web API 给应用开发增加了不必要的开销。
 
 本文讨论如何使用 gRPC 服务创建 JSON Web API。
 
@@ -46,7 +47,7 @@ gRPC 有一个限制，即不是所有平台都可以使用它。 浏览器并�
 
 gRPC HTTP API 是为 gRPC 服务创建 RESTful JSON API 的 ASP.NET Core 的实验性扩展。 配置 gRPC HTTP API 后，应用可以使用熟悉的 HTTP 概念调用 gRPC 服务：
 
-* HTTP 谓词
+_ HTTP 谓词
 * URL 参数绑定
 * JSON 请求/响应
 

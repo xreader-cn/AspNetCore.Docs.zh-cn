@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 9f02165f54d3cd3328496710dc92ebc86c4640d6
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 386be395399bf4131e4b6c8cac8221f994e8b7c5
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626826"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93054380"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
@@ -74,7 +75,7 @@ ms.locfileid: "88626826"
 
 之前你在“关于”页面创建了一个学生统计信息网格，显示每个注册日期的学生数量。 可以从学生实体集中获取数据 (`_context.Students`) ，使用 LINQ 将结果投影到`EnrollmentDateGroup`视图模型对象的列表。 假设你想要 SQL 本身编写，而不使用 LINQ。 需要运行 SQL 查询中返回实体对象之外的内容。 在 EF Core 1.0 中，执行该操作的另一种方法是编写 ADO.NET 代码，并从 EF 获取数据库连接。
 
-在*HomeController.cs*中，将`About`方法替换为以下代码：
+在 *HomeController.cs* 中，将`About`方法替换为以下代码：
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_UseRawSQL&highlight=3-32)]
 
@@ -100,21 +101,21 @@ ms.locfileid: "88626826"
 
 当控制器处理 HttpGet 请求时，`ViewData["RowsAffected"]`中不会返回任何东西，并且在视图中显示一个空文本框和提交按钮，如上图所示。
 
-当单击**Update**按钮时，将调用 HttpPost 方法，且从文本框中输入的值获取乘数。 代码接着执行 SQL 语句更新课程，并向视图的`ViewData`返回受影响的行数。 当视图获取`RowsAffected`值，它将显示更新的行数。
+当单击 **Update** 按钮时，将调用 HttpPost 方法，且从文本框中输入的值获取乘数。 代码接着执行 SQL 语句更新课程，并向视图的`ViewData`返回受影响的行数。 当视图获取`RowsAffected`值，它将显示更新的行数。
 
 在“解决方案资源管理器”中，右键单击“Views/Courses”文件夹，然后依次单击“添加”和“新建项”。
 
 在“添加新项”对话框中，在左侧窗格的“已安装”下单击“ASP.NET Core”，单击“Razor 视图”，并将新视图命名为“UpdateCourseCredits.cshtml”   。
 
-在*Views/Courses/UpdateCourseCredits.cshtml*中，将模板代码替换为以下代码：
+在 *Views/Courses/UpdateCourseCredits.cshtml* 中，将模板代码替换为以下代码：
 
 [!code-cshtml[](intro/samples/cu/Views/Courses/UpdateCourseCredits.cshtml)]
 
-通过选择**Courses**选项卡运行`UpdateCourseCredits`方法，然后在浏览器地址栏中 URL 的末尾添加"/ UpdateCourseCredits"到 (例如： `http://localhost:5813/Courses/UpdateCourseCredits`)。 在文本框中输入数字：
+通过选择 **Courses** 选项卡运行`UpdateCourseCredits`方法，然后在浏览器地址栏中 URL 的末尾添加"/ UpdateCourseCredits"到 (例如： `http://localhost:5813/Courses/UpdateCourseCredits`)。 在文本框中输入数字：
 
 ![“更新课程学分”页面](advanced/_static/update-credits.png)
 
-单击**Update**。 你会看到受影响的行数：
+单击 **Update** 。 你会看到受影响的行数：
 
 ![“更新课程学分”页面中受影响的行](advanced/_static/update-credits-rows-affected.png)
 
@@ -128,11 +129,11 @@ ms.locfileid: "88626826"
 
 有时能够以查看发送到数据库的实际 SQL 查询对于开发者来说是很有用的。 EF Core 自动使用 ASP.NET Core 的内置日志记录功能来编写包含 SQL 查询和更新的日志。 在本部分中，你将看到记录 SQL 日志的一些示例。
 
-打开*StudentsController.cs*并在`Details`方法的`if (student == null)`语句上设置断点。
+打开 *StudentsController.cs* 并在`Details`方法的`if (student == null)`语句上设置断点。
 
 在调试模式下运行应用，并转到某位学生的“详细信息”页面。
 
-转到**输出**窗口显示调试输出，就可以看到查询语句：
+转到 **输出** 窗口显示调试输出，就可以看到查询语句：
 
 ```
 Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (56ms) [Parameters=[@__id_0='?'], CommandType='Text', CommandTimeout='30']
@@ -158,7 +159,7 @@ ORDER BY [t].[ID]
 * 如果查询返回多个行，该方法会返回 null。
 * 如果想知道查询是否返回多个行，EF 必须检查是否至少返回 2。
 
-请注意，你不必使用调试模式，并在断点处停止，然后在**输出**窗口获取日志记录。 这种方法非常便捷，只需在想查看输出时停止日志记录即可。 如果不进行此操作，程序将继续进行日志记录，要查看感兴趣的部分则必须向后滚动。
+请注意，你不必使用调试模式，并在断点处停止，然后在 **输出** 窗口获取日志记录。 这种方法非常便捷，只需在想查看输出时停止日志记录即可。 如果不进行此操作，程序将继续进行日志记录，要查看感兴趣的部分则必须向后滚动。
 
 ## <a name="create-an-abstraction-layer"></a>创建抽象层
 
@@ -224,7 +225,7 @@ Tom Dykstra 和 Rick Anderson (twitter @RickAndMSFT) 共同编写了本教程。
 
 解决方案：
 
-停止 IIS Express 中的站点。 请转到 Windows 系统任务栏中，找到 IIS Express 并右键单击其图标、 选择 Contoso 大学站点，然后单击**停止站点**。
+停止 IIS Express 中的站点。 请转到 Windows 系统任务栏中，找到 IIS Express 并右键单击其图标、 选择 Contoso 大学站点，然后单击 **停止站点** 。
 
 ### <a name="migration-scaffolded-with-no-code-in-up-and-down-methods"></a>迁移基架的 Up 和 Down 方法中没有代码
 
@@ -240,9 +241,9 @@ EF CLI 命令不会自动关闭并保存代码文件。 如果在运行`migratio
 
 在有数据的数据库中进行架构更改时，很有可能发生其他错误。 如果遇到无法解决的迁移错误，你可以更改连接字符串中的数据库名称，或删除数据库。 若要迁移，创建新的数据库，在数据库尚没有数据时使用更新数据库命令更有望完成且不发生错误。
 
-最简单方法是在*appsettings.json*中重命名数据库。 下次运行`database update`时，会创建一个新数据库。
+最简单方法是在 appsettings.json 中重命名数据库。 下次运行`database update`时，会创建一个新数据库。
 
-若要在 SSOX 中删除数据库，右键单击数据库，单击**删除**，然后在**删除数据库**对话框框中，选择**关闭现有连接**，单击**确定**。
+若要在 SSOX 中删除数据库，右键单击数据库，单击 **删除** ，然后在 **删除数据库** 对话框框中，选择 **关闭现有连接** ，单击 **确定** 。
 
 若要使用 CLI 删除数据库，可以运行`database drop`CLI 命令：
 
@@ -254,7 +255,7 @@ dotnet ef database drop
 
 错误消息：
 
-> 建立到 SQL Server 的连接时出现与网络相关或特定于实例的错误。 未找到或无法访问服务器。 请验证实例名称是否正确，SQL Server 是否已配置为允许远程连接。 （提供程序：SQL 网络接口，错误：26 - 定位指定服务器/实例出错）
+> 建立到 SQL Server 的连接时出现与网络相关或特定于实例的错误。 找不到或无法访问服务器。 请验证实例名称是否正确，SQL Server 是否已配置为允许远程连接。 （提供程序：SQL 网络接口，错误：26 - 定位指定服务器/实例出错）
 
 解决方案：
 

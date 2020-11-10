@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/28/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: e86a648e2707e808452e3bc92d991058c8fde480
-ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
+ms.openlocfilehash: 98dfd539171807cbf94d4ac8746458152c809495
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91754640"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93057565"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件 (.pubxml)
 
@@ -72,7 +73,7 @@ MSBuild 或 Visual Studio 加载项目时，执行下列高级别操作：
 在 Visual Studio 中选择“发布”按钮时或从命令行发布时：
 
 * 计算属性/项目（需要生成的文件）。
-* **仅限 Visual Studio**：NuGet 包已还原。 （用户需要在 CLI 上执行显式还原。）
+* **仅限 Visual Studio** ：NuGet 包已还原。 （用户需要在 CLI 上执行显式还原。）
 * 生成项目。
 * 计算发布项（需要发布的文件）。
 * 文件已发布（计算的文件将被复制到发布目标）。

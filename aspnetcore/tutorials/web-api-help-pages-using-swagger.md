@@ -1,11 +1,12 @@
 ---
-title: 带有 Swagger/OpenAPI 的 ASP.NET Core Web API 帮助页
+title: 带有 Swagger/OpenAPI 的 ASP.NET Core Web API 文档
 author: RicoSuter
 description: 本教程提供添加 Swagger 以生成文档的演练和针对 Web API 应用的帮助页。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 10/29/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,32 +18,39 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: c40aede044c78122a9057613f0eece9acf84df7b
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: e5442c88048cf41e289fb476b4082cb6029b1b75
+ms.sourcegitcommit: 0d40fc4932531ce13fc4ee9432144584e03c2f1c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633989"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93062449"
 ---
-# <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>带有 Swagger/OpenAPI 的 ASP.NET Core Web API 帮助页
+# <a name="aspnet-core-web-api-documentation-with-swagger--openapi"></a>带有 Swagger/OpenAPI 的 ASP.NET Core Web API 文档
 
 作者：[Christoph Nienaber](https://twitter.com/zuckerthoben) 和 [Rico Suter](https://blog.rsuter.com/)
 
-使用 Web API 时，了解其各种方法对开发人员来说可能是一项挑战。 [Swagger](https://swagger.io/) 也称为 [OpenAPI](https://www.openapis.org/)，解决了为 Web API 生成有用文档和帮助页的问题。 它具有诸如交互式文档、客户端 SDK 生成和 API 可发现性等优点。
+Swagger (OpenAPI) 是一个与语言无关的规范，用于描述 REST API。 它使计算机和用户无需直接访问源代码即可了解 REST API 的功能。 其主要目标是：
 
-本文展示了 [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) 和 [NSwag](https://github.com/RicoSuter/NSwag) .NET Swagger 实现：
+* 尽量减少连接分离的服务所需的工作量。
+* 减少准确记录服务所需的时间。
 
-* **Swashbuckle.AspNetCore** 是一个开源项目，用于生成 ASP.NET Core Web API 的 Swagger 文档。
+.NET 的两个主要 OpenAPI 实现是 [Swashbuckle](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) 和 [NSwag](https://github.com/RicoSuter/NSwag)，请参阅：
 
-* **NSwag** 是另一个用于生成 Swagger 文档并将 [Swagger UI](https://swagger.io/swagger-ui/) 或 [ReDoc](https://github.com/Rebilly/ReDoc) 集成到 ASP.NET Core Web API 中的开源项目。 此外，NSwag 还提供了为 API 生成 C# 和 TypeScript 客户端代码的方法。
+* [Swashbuckle 入门](xref:tutorials/get-started-with-swashbuckle)
+* [NSwag 入门](xref:tutorials/get-started-with-nswag)
 
-## <a name="what-is-swagger--openapi"></a>什么是 Swagger/OpenAPI？
+## <a name="openapi-vs-swagger"></a>OpenAPI 与Swagger
 
-Swagger 是一个与语言无关的规范，用于描述 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) API。 Swagger 项目已捐赠给 [OpenAPI 计划](https://www.openapis.org/)，现在它被称为开放 API。 这两个名称可互换使用，但 OpenAPI 是首选。 它允许计算机和人员了解服务的功能，而无需直接访问实现（源代码、网络访问、文档）。 其中一个目标是尽量减少连接取消关联的服务所需的工作量。 另一个目标是减少准确记录服务所需的时间。
+Swagger 项目已于 2015 年捐赠给 OpenAPI 计划，自此它被称为 OpenAPI。 这两个名称可互换使用。 不过，“OpenAPI”指的是规范。 “Swagger”指的是来自使用 OpenAPI 规范的 SmartBear 的开放源代码和商业产品系列。 后续开放源代码产品（如 [OpenAPIGenerator](https://github.com/OpenAPITools/openapi-generator)）也属于 Swagger 系列名称，尽管 SmartBear 未发布也是如此。
+
+简而言之：
+
+* OpenAPI 是一种规范。
+* Swagger 是一种使用 OpenAPI 规范的工具。 例如，OpenAPIGenerator 和 SwaggerUI。
 
 ## <a name="openapi-specification-openapijson"></a>OpenAPI 规范 (openapi.json)
 
-OpenAPI 流的核心是规范，默认情况下是名为 openapi.json 的文档。 它由 OpenAPI 工具链（或其第三方实现）根据你的服务生成。 它描述了 API 的功能以及使用 HTTP 对其进行访问的方式。 它驱动 Swagger UI，并由工具链用来启用发现和客户端代码生成。 下面是为简洁起见而缩减的 OpenAPI 规范的示例：
+OpenAPI 规范是描述 API 功能的文档。 该文档基于控制器和模型中的 XML 和属性注释。 它是 OpenAPI 流的核心部分，用于驱动诸如 SwaggerUI 之类的工具。 默认情况下，它命名为 openapi.json。 下面是为简洁起见而缩减的 OpenAPI 规范的示例：
 
 ```json
 {
@@ -136,7 +144,7 @@ OpenAPI 流的核心是规范，默认情况下是名为 openapi.json 的文档�
 
 ![Swagger UI](web-api-help-pages-using-swagger/_static/swagger-ui.png)
 
-控制器中的每个公共操作方法都可以从 UI 中进行测试。 单击方法名称可以展开该部分。 添加所有必要的参数，然后单击“试试看!”。
+控制器中的每个公共操作方法都可以从 UI 中进行测试。 选择方法名称可以展开该部分。 添加所有必要的参数，然后选择“试试看!”。
 
 ![示例 Swagger GET 测试](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 

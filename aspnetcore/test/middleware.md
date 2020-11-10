@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/12/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/middleware
-ms.openlocfilehash: 1a5259f65261fb95fcfaa59df3f04da14d3f1ae3
-ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
+ms.openlocfilehash: 2dd5fa127af4432c612bb654d50eb4147aea6868
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/29/2020
-ms.locfileid: "89102860"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93051429"
 ---
 # <a name="test-aspnet-core-middleware"></a>测试 ASP.NET Core 中间件
 
@@ -135,14 +136,14 @@ public async Task TestMiddleware_ExpectedResponse()
 TestServer：
 
 * 用于复制服务器行为以测试中间件。
-* 请勿尝试复制所有 <xref:System.Net.Http.HttpClient> 行为。
-* 尝试授予客户端对服务器尽可能多控制权的访问权限，并尽可能深入地了解服务器上发生的情况。 例如，它可能引发 `HttpClient` 通常不会引发的异常，以便直接传输服务器状态。
+* 请勿*_尝试复制所有 <xref:System.Net.Http.HttpClient> 行为。
+_ 尝试授予客户端对服务器尽可能多控制权的访问权限，并尽可能深入地了解服务器上发生的情况。 例如，它可能引发 `HttpClient` 通常不会引发的异常，以便直接传输服务器状态。
 * 默认情况下，不会设置某些传输特定标头，因为这些标头通常与中间件无关。 有关更多信息，请参见下一节。
 
 ### <a name="content-length-and-transfer-encoding-headers"></a>Content-Length 和 Transfer-Encoding 标头
 
-TestServer 不设置与传输相关的请求或响应标头，如 [Content-Length](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Length) 或 [Transfer-Encoding](https://developer.mozilla.org/docs/Web/HTTP/Headers/Transfer-Encoding)。 应用程序应避免依赖于这些标头，因为它们的用法因客户端、方案和协议而异。 如果需要 `Content-Length` 和 `Transfer-Encoding` 来测试特定方案，则可以在编写 <xref:System.Net.Http.HttpRequestMessage> 或 <xref:Microsoft.AspNetCore.Http.HttpContext> 时在测试中指定它们。 有关详细信息，请查看以下 GitHub 问题：
+TestServer 不*_设置与传输相关的请求或响应标头，如 [Content-Length](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Length) 或 [Transfer-Encoding](https://developer.mozilla.org/docs/Web/HTTP/Headers/Transfer-Encoding)。 应用程序应避免依赖于这些标头，因为它们的用法因客户端、方案和协议而异。 如果需要 `Content-Length` 和 `Transfer-Encoding` 来测试特定方案，则可以在编写 <xref:System.Net.Http.HttpRequestMessage> 或 <xref:Microsoft.AspNetCore.Http.HttpContext> 时在测试中指定它们。 有关详细信息，请查看以下 GitHub 问题：
 
-* [dotnet/aspnetcore#21677](https://github.com/dotnet/aspnetcore/issues/21677)
+_ [dotnet/aspnetcore#21677](https://github.com/dotnet/aspnetcore/issues/21677)
 * [dotnet/aspnetcore#18463](https://github.com/dotnet/aspnetcore/issues/18463)
 * [dotnet/aspnetcore#13273](https://github.com/dotnet/aspnetcore/issues/13273)

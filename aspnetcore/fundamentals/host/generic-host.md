@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/17/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: d3de81ce7248372279b423da865513ee5db73c79
-ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
+ms.openlocfilehash: 3e44932c302713132a37534b97fffdd91acce2c7
+ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91762316"
+ms.lasthandoff: 11/03/2020
+ms.locfileid: "93234551"
 ---
 # <a name="net-generic-host-in-aspnet-core"></a>ASP.NET Core 中的 .NET 通用主机
 
@@ -113,7 +114,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
   * 前缀为 `DOTNET_` 的环境变量。
   * 命令行参数。
 * 通过以下对象加载应用配置：
-  * appsettings.json。
+  * *appsettings.json*.
   * appsettings.{Environment}.json。
   * [密钥管理器](xref:security/app-secrets) 当应用在 `Development` 环境中运行时。
   * 环境变量。
@@ -125,7 +126,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
   * EventLog（仅当在 Windows 上运行时）
 * 当环境为“开发”时，启用[范围验证](xref:fundamentals/dependency-injection#scope-validation)和[依赖关系验证](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild)。
 
-`ConfigureWebHostDefaults` 方法：
+<xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> 方法：
 
 * 从前缀为 `ASPNETCORE_` 的环境变量加载主机配置。
 * 使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。 有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel#kestrel-options>。
@@ -196,7 +197,7 @@ Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironmen
 
 ## <a name="settings-for-all-app-types"></a>适用于所有应用类型的设置
 
-本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。 默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。
+本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。 默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。 有关详细信息，请参阅[默认生成器设置](#default-builder-settings)部分。
 
 <!-- In the following sections, two spaces at end of line are used to force line breaks in the rendered page. -->
 
@@ -206,8 +207,8 @@ Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironmen
 
 键：`applicationName`  
 类型：`string`  
-**默认**：包含应用入口点的程序集的名称。  
-**环境变量**：`<PREFIX_>APPLICATIONNAME`
+**默认** ：包含应用入口点的程序集的名称。  
+**环境变量** ：`<PREFIX_>APPLICATIONNAME`
 
 要设置此值，请使用环境变量。 
 
@@ -217,8 +218,8 @@ Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironmen
 
 键：`contentRoot`  
 类型：`string`  
-**默认**：应用程序集所在的文件夹。  
-**环境变量**：`<PREFIX_>CONTENTROOT`
+**默认** ：应用程序集所在的文件夹。  
+**环境变量** ：`<PREFIX_>CONTENTROOT`
 
 若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseContentRoot`：
 
@@ -239,8 +240,8 @@ Host.CreateDefaultBuilder(args)
 
 键：`environment`  
 类型：`string`  
-**默认**：`Production`  
-**环境变量**：`<PREFIX_>ENVIRONMENT`
+**默认** ：`Production`  
+**环境变量** ：`<PREFIX_>ENVIRONMENT`
 
 若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：
 
@@ -261,8 +262,8 @@ Host.CreateDefaultBuilder(args)
 
 键：`shutdownTimeoutSeconds`  
 类型：`int`  
-**默认**：5 秒  
-**环境变量**：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`
+**默认** ：5 秒  
+**环境变量** ：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`
 
 若要设置此值，请使用环境变量或配置 `HostOptions`。 以下示例将超时设置为 20 秒：
 
@@ -270,13 +271,13 @@ Host.CreateDefaultBuilder(args)
 
 ### <a name="disable-app-configuration-reload-on-change"></a>禁用“在更改时重载应用配置”
 
-[默认情况下](xref:fundamentals/configuration/index#default)，appsettings.json 和 appsettings.{Environment}.json 会在文件更改时重载 。 若要在 ASP.NET Core 5.0 或更高版本中禁用此重载行为，请将 `hostBuilder:reloadConfigOnChange` 键设置为 `false`。
+[默认情况下](xref:fundamentals/configuration/index#default)，appsettings.json 和 appsettings.{Environment}.json 会在文件更改时重载。 若要在 ASP.NET Core 5.0 或更高版本中禁用此重载行为，请将 `hostBuilder:reloadConfigOnChange` 键设置为 `false`。
 
 键：`hostBuilder:reloadConfigOnChange`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：`true`  
+**默认** ：`true`  
 命令行参数：`hostBuilder:reloadConfigOnChange`  
-**环境变量**：`<PREFIX_>hostBuilder:reloadConfigOnChange`
+**环境变量** ：`<PREFIX_>hostBuilder:reloadConfigOnChange`
 
 > [!WARNING]
 > 所有平台上的环境变量分层键都不支持冒号 (`:`) 分隔符。 有关详细信息，请参阅[环境变量](xref:fundamentals/configuration/index#environment-variables)。
@@ -303,8 +304,8 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 键：`captureStartupErrors`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
-**环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`
+**默认** ：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
+**环境变量** ：`<PREFIX_>CAPTURESTARTUPERRORS`
 
 若要设置此值，使用配置或调用 `CaptureStartupErrors`：
 
@@ -318,8 +319,8 @@ webBuilder.CaptureStartupErrors(true);
 
 键：`detailedErrors`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：`false`  
-**环境变量**：`<PREFIX_>_DETAILEDERRORS`
+**默认** ：`false`  
+**环境变量** ：`<PREFIX_>_DETAILEDERRORS`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -333,8 +334,8 @@ webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
 
 键：`hostingStartupAssemblies`  
 类型：`string`  
-**默认**：空字符串  
-**环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`
+**默认** ：空字符串  
+**环境变量** ：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -348,8 +349,8 @@ webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;as
 
 键：`hostingStartupExcludeAssemblies`  
 类型：`string`  
-**默认**：空字符串  
-**环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
+**默认** ：空字符串  
+**环境变量** ：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -363,8 +364,8 @@ HTTPS 重定向端口。 用于[强制实施 HTTPS](xref:security/enforcing-ssl)
 
 键：`https_port`  
 类型：`string`  
-**默认**：未设置默认值。  
-**环境变量**：`<PREFIX_>HTTPS_PORT`
+**默认** ：未设置默认值。  
+**环境变量** ：`<PREFIX_>HTTPS_PORT`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -378,8 +379,8 @@ webBuilder.UseSetting("https_port", "8080");
 
 键：`preferHostingUrls`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：`true`  
-**环境变量**：`<PREFIX_>_PREFERHOSTINGURLS`
+**默认** ：`true`  
+**环境变量** ：`<PREFIX_>_PREFERHOSTINGURLS`
 
 若要设置此值，请使用环境变量或调用 `PreferHostingUrls`：
 
@@ -393,8 +394,8 @@ webBuilder.PreferHostingUrls(false);
 
 键：`preventHostingStartup`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：`false`  
-**环境变量**：`<PREFIX_>_PREVENTHOSTINGSTARTUP`
+**默认** ：`false`  
+**环境变量** ：`<PREFIX_>_PREVENTHOSTINGSTARTUP`
 
 若要设置此值，请使用环境变量或调用 `UseSetting`：
 
@@ -408,8 +409,8 @@ webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 
 键：`startupAssembly`  
 类型：`string`  
-**默认**：应用的程序集  
-**环境变量**：`<PREFIX_>STARTUPASSEMBLY`
+**默认** ：应用的程序集  
+**环境变量** ：`<PREFIX_>STARTUPASSEMBLY`
 
 若要设置此值，请使用环境变量或调用 `UseStartup`。 `UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。 如果调用多个 `UseStartup` 方法，优先选择最后一个方法。
 
@@ -427,8 +428,8 @@ IP 地址或主机地址的分号分隔列表，其中包含服务器应针对�
 
 键：`urls`  
 类型：`string`  
-**默认值**：`http://localhost:5000` 和 `https://localhost:5001`  
-**环境变量**：`<PREFIX_>URLS`
+**默认值** ：`http://localhost:5000` 和 `https://localhost:5001`  
+**环境变量** ：`<PREFIX_>URLS`
 
 若要设置此值，请使用环境变量或调用 `UseUrls`：
 
@@ -444,8 +445,8 @@ Kestrel 具有自己的终结点配置 API。 有关详细信息，请参阅 <xr
 
 键：`webroot`  
 类型：`string`  
-**默认**：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在。  
-**环境变量**：`<PREFIX_>WEBROOT`
+**默认** ：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在。  
+**环境变量** ：`<PREFIX_>WEBROOT`
 
 若要设置此值，请使用环境变量或对 `IWebHostBuilder` 调用 `UseWebRoot`：
 
@@ -616,7 +617,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
   * 前缀为 `DOTNET_` 的环境变量。
   * 命令行参数。
 * 通过以下对象加载应用配置：
-  * appsettings.json。
+  * *appsettings.json*.
   * appsettings.{Environment}.json。
   * [密钥管理器](xref:security/app-secrets) 当应用在 `Development` 环境中运行时。
   * 环境变量。
@@ -709,8 +710,8 @@ Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironmen
 
 键：`applicationName`  
 类型：`string`  
-**默认**：包含应用入口点的程序集的名称。  
-**环境变量**：`<PREFIX_>APPLICATIONNAME`
+**默认** ：包含应用入口点的程序集的名称。  
+**环境变量** ：`<PREFIX_>APPLICATIONNAME`
 
 要设置此值，请使用环境变量。 
 
@@ -720,8 +721,8 @@ Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironmen
 
 键：`contentRoot`  
 类型：`string`  
-**默认**：应用程序集所在的文件夹。  
-**环境变量**：`<PREFIX_>CONTENTROOT`
+**默认** ：应用程序集所在的文件夹。  
+**环境变量** ：`<PREFIX_>CONTENTROOT`
 
 若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseContentRoot`：
 
@@ -742,8 +743,8 @@ Host.CreateDefaultBuilder(args)
 
 键：`environment`  
 类型：`string`  
-**默认**：`Production`  
-**环境变量**：`<PREFIX_>ENVIRONMENT`
+**默认** ：`Production`  
+**环境变量** ：`<PREFIX_>ENVIRONMENT`
 
 若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：
 
@@ -764,8 +765,8 @@ Host.CreateDefaultBuilder(args)
 
 键：`shutdownTimeoutSeconds`  
 类型：`int`  
-**默认**：5 秒  
-**环境变量**：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`
+**默认** ：5 秒  
+**环境变量** ：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`
 
 若要设置此值，请使用环境变量或配置 `HostOptions`。 以下示例将超时设置为 20 秒：
 
@@ -793,8 +794,8 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 键：`captureStartupErrors`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
-**环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`
+**默认** ：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
+**环境变量** ：`<PREFIX_>CAPTURESTARTUPERRORS`
 
 若要设置此值，使用配置或调用 `CaptureStartupErrors`：
 
@@ -808,8 +809,8 @@ webBuilder.CaptureStartupErrors(true);
 
 键：`detailedErrors`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：`false`  
-**环境变量**：`<PREFIX_>_DETAILEDERRORS`
+**默认** ：`false`  
+**环境变量** ：`<PREFIX_>_DETAILEDERRORS`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -823,8 +824,8 @@ webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
 
 键：`hostingStartupAssemblies`  
 类型：`string`  
-**默认**：空字符串  
-**环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`
+**默认** ：空字符串  
+**环境变量** ：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -838,8 +839,8 @@ webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;as
 
 键：`hostingStartupExcludeAssemblies`  
 类型：`string`  
-**默认**：空字符串  
-**环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
+**默认** ：空字符串  
+**环境变量** ：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -853,8 +854,8 @@ HTTPS 重定向端口。 用于[强制实施 HTTPS](xref:security/enforcing-ssl)
 
 键：`https_port`  
 类型：`string`  
-**默认**：未设置默认值。  
-**环境变量**：`<PREFIX_>HTTPS_PORT`
+**默认** ：未设置默认值。  
+**环境变量** ：`<PREFIX_>HTTPS_PORT`
 
 要设置此值，使用配置或调用 `UseSetting`：
 
@@ -868,8 +869,8 @@ webBuilder.UseSetting("https_port", "8080");
 
 键：`preferHostingUrls`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：`true`  
-**环境变量**：`<PREFIX_>_PREFERHOSTINGURLS`
+**默认** ：`true`  
+**环境变量** ：`<PREFIX_>_PREFERHOSTINGURLS`
 
 若要设置此值，请使用环境变量或调用 `PreferHostingUrls`：
 
@@ -883,8 +884,8 @@ webBuilder.PreferHostingUrls(false);
 
 键：`preventHostingStartup`  
 类型：`bool`（`true` 或 `1`）  
-**默认**：`false`  
-**环境变量**：`<PREFIX_>_PREVENTHOSTINGSTARTUP`
+**默认** ：`false`  
+**环境变量** ：`<PREFIX_>_PREVENTHOSTINGSTARTUP`
 
 若要设置此值，请使用环境变量或调用 `UseSetting`：
 
@@ -898,8 +899,8 @@ webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 
 键：`startupAssembly`  
 类型：`string`  
-**默认**：应用的程序集  
-**环境变量**：`<PREFIX_>STARTUPASSEMBLY`
+**默认** ：应用的程序集  
+**环境变量** ：`<PREFIX_>STARTUPASSEMBLY`
 
 若要设置此值，请使用环境变量或调用 `UseStartup`。 `UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。 如果调用多个 `UseStartup` 方法，优先选择最后一个方法。
 
@@ -917,8 +918,8 @@ IP 地址或主机地址的分号分隔列表，其中包含服务器应针对�
 
 键：`urls`  
 类型：`string`  
-**默认值**：`http://localhost:5000` 和 `https://localhost:5001`  
-**环境变量**：`<PREFIX_>URLS`
+**默认值** ：`http://localhost:5000` 和 `https://localhost:5001`  
+**环境变量** ：`<PREFIX_>URLS`
 
 若要设置此值，请使用环境变量或调用 `UseUrls`：
 
@@ -934,8 +935,8 @@ Kestrel 具有自己的终结点配置 API。 有关详细信息，请参阅 <xr
 
 键：`webroot`  
 类型：`string`  
-**默认**：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在。  
-**环境变量**：`<PREFIX_>WEBROOT`
+**默认** ：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在。  
+**环境变量** ：`<PREFIX_>WEBROOT`
 
 若要设置此值，请使用环境变量或对 `IWebHostBuilder` 调用 `UseWebRoot`：
 
@@ -1099,9 +1100,9 @@ var host = new HostBuilder()
 
 键：`applicationName`  
 类型：`string`  
-**默认**：包含应用入口点的程序集的名称。  
-**设置使用**：`HostBuilderContext.HostingEnvironment.ApplicationName`  
-**环境变量**：`<PREFIX_>APPLICATIONNAME`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
+**默认** ：包含应用入口点的程序集的名称。  
+**设置使用** ：`HostBuilderContext.HostingEnvironment.ApplicationName`  
+**环境变量** ：`<PREFIX_>APPLICATIONNAME`（`<PREFIX_>` 是 [用户定义的可选前缀](#configurehostconfiguration)）
 
 ### <a name="content-root"></a>内容根
 
@@ -1109,9 +1110,9 @@ var host = new HostBuilder()
 
 键：`contentRoot`  
 类型：`string`  
-**默认**：默认为应用程序集所在的文件夹。  
-**设置使用**：`UseContentRoot`  
-**环境变量**：`<PREFIX_>CONTENTROOT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
+**默认** ：默认为应用程序集所在的文件夹。  
+**设置使用** ：`UseContentRoot`  
+**环境变量** ：`<PREFIX_>CONTENTROOT`（`<PREFIX_>` 是 [用户定义的可选前缀](#configurehostconfiguration)）
 
 如果路径不存在，主机将无法启动。
 
@@ -1125,9 +1126,9 @@ var host = new HostBuilder()
 
 键：`environment`  
 类型：`string`  
-**默认**：`Production`  
-**设置使用**：`UseEnvironment`  
-**环境变量**：`<PREFIX_>ENVIRONMENT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
+**默认** ：`Production`  
+**设置使用** ：`UseEnvironment`  
+**环境变量** ：`<PREFIX_>ENVIRONMENT`（`<PREFIX_>` 是 [用户定义的可选前缀](#configurehostconfiguration)）
 
 可将环境设置为任何值。 框架定义的值包括 `Development``Staging` 和 `Production`。 值不区分大小写。
 
@@ -1174,7 +1175,7 @@ hostsettings.json：
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureAppConfiguration)]
 
-appsettings.json：
+*appsettings.json* :
 
 [!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
 

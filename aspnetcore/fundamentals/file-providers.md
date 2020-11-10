@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/file-providers
-ms.openlocfilehash: 30c28e7bd4cd9c926b157f5a7b9e6688bd5b9b9a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 16e5ead9898125c804da4d60322510474201d897
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634600"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93059437"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
 
@@ -114,7 +115,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 FileProviderSample 示例应用创建 `ManifestEmbeddedFileProvider`，并将当前正在执行的程序集传递给其构造函数。
 
-*Startup.cs*：
+*Startup.cs* ：
 
 ```csharp
 var manifestEmbeddedProvider = 
@@ -175,7 +176,7 @@ var manifestEmbeddedProvider =
 |---------|---------|
 |`directory/file.txt`|匹配特定目录中的特定文件。|
 |`directory/*.txt`|匹配特定目录中带 .txt 扩展名的所有文件。|
-|`directory/*/appsettings.json`|匹配 directory 文件夹中下一级目录中的所有 appsettings.json 文件 。|
+|`directory/*/appsettings.json`|匹配正好位于“目录”文件夹中下一级目录中的所有 appsettings.json 文件。|
 |`directory/**/*.txt`|匹配在 directory 文件夹下任何位置找到的带 .txt 扩展名的所有文件 。|
 
 ::: moniker-end
@@ -261,7 +262,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 示例应用创建 `ManifestEmbeddedFileProvider` 并将当前正在执行的程序集传递给其构造函数。
 
-*Startup.cs*：
+*Startup.cs* ：
 
 ```csharp
 var manifestEmbeddedProvider = 

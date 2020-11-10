@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 08/17/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 61f72c4d281e7957b520e1660440e536ebd4c78a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 350df417886fe1ea5fef89dc221c217d596768b3
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631766"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060737"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -269,7 +270,7 @@ ms.locfileid: "88631766"
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。 使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值。
+   上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。 使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分中添加的 appsettings.json 配置值。
 
 1. 将以下突出显示的代码添加到 `Startup.ConfigureServices`：
 
@@ -619,7 +620,7 @@ ms.locfileid: "88631766"
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。 使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值。
+   上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。 使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分中添加的 appsettings.json 配置值。
 
 1. 将以下突出显示的代码添加到 `Startup.ConfigureServices`：
 

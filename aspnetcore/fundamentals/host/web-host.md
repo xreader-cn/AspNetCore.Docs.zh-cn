@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 67831237ab1f95c6535cf586681150a230b491d0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 09383cb9067d7fdc2d7b69213b741e7ae823e9ea
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635263"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060009"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core Web 主机
 
@@ -71,12 +72,12 @@ public class Program
   * 前缀为 `ASPNETCORE_` 的环境变量（例如，`ASPNETCORE_ENVIRONMENT`）。
   * 命令行参数。
 * 按以下顺序加载应用配置：
-  * appsettings.json。
+  * *appsettings.json*.
   * appsettings.{Environment}.json。
   * 应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。
   * 环境变量。
   * 命令行参数。
-* 配置控制台和调试输出的[日志记录](xref:fundamentals/logging/index)。 日志记录包含 appsettings.json 或 appsettings.{Environment}.json 文件的日志记录配置部分中指定的[日志筛选](xref:fundamentals/logging/index#log-filtering)规则 。
+* 配置控制台和调试输出的[日志记录](xref:fundamentals/logging/index)。 日志记录包含 appsettings.json 或 appsettings.{Environment}.json 文件的日志记录配置部分中指定的[日志筛选](xref:fundamentals/logging/index#log-filtering)规则。
 * 使用 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)在 IIS 后面运行时，`CreateDefaultBuilder` 会启用 [IIS 集成](xref:host-and-deploy/iis/index)，这会配置应用的基址和端口。 IIS 集成还配置应用以[捕获启动错误](#capture-startup-errors)。 有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。
 * 如果应用环境为“开发”，请将 [ServiceProviderOptions.ValidateScopes](/dotnet/api/microsoft.extensions.dependencyinjection.serviceprovideroptions.validatescopes) 设为 `true`。 有关详细信息，请参阅[作用域验证](#scope-validation)。
 
@@ -165,11 +166,11 @@ public class Program
 
 ::: moniker-end
 
-**密钥**：applicationName  
-**类型**：string  
-**默认值**：包含应用入口点的程序集的名称。  
-**设置使用**：`UseSetting`  
-**环境变量**：`ASPNETCORE_APPLICATIONNAME`
+**密钥** ：applicationName  
+**类型** ：string  
+**默认值** ：包含应用入口点的程序集的名称。  
+**设置使用** ：`UseSetting`  
+**环境变量** ：`ASPNETCORE_APPLICATIONNAME`
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -180,11 +181,11 @@ WebHost.CreateDefaultBuilder(args)
 
 此设置控制启动错误的捕获。
 
-**键**：captureStartupErrors  
-**类型**：布尔型（`true` 或 `1`）  
-**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
-**设置使用**：`CaptureStartupErrors`  
-**环境变量**：`ASPNETCORE_CAPTURESTARTUPERRORS`
+**键** ：captureStartupErrors  
+**类型** ：布尔型（`true` 或 `1`）  
+**默认** ：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
+**设置使用** ：`CaptureStartupErrors`  
+**环境变量** ：`ASPNETCORE_CAPTURESTARTUPERRORS`
 
 当 `false` 时，启动期间出错导致主机退出。 当 `true` 时，主机在启动期间捕获异常并尝试启动服务器。
 
@@ -197,11 +198,11 @@ WebHost.CreateDefaultBuilder(args)
 
 此设置确定 ASP.NET Core 开始搜索内容文件。
 
-**键**：contentRoot  
-**类型**：string  
-**默认**：默认为应用程序集所在的文件夹。  
-**设置使用**：`UseContentRoot`  
-**环境变量**：`ASPNETCORE_CONTENTROOT`
+**键** ：contentRoot  
+**类型** ：string  
+**默认** ：默认为应用程序集所在的文件夹。  
+**设置使用** ：`UseContentRoot`  
+**环境变量** ：`ASPNETCORE_CONTENTROOT`
 
 内容根目录也用作 [Web 根目录](xref:fundamentals/index#web-root)的基路径。 如果内容根路径不存在，主机将无法启动。
 
@@ -219,11 +220,11 @@ WebHost.CreateDefaultBuilder(args)
 
 确定是否应捕获详细错误。
 
-**键**：detailedErrors  
-**类型**：布尔型（`true` 或 `1`）  
-**默认值**：false  
-**设置使用**：`UseSetting`  
-**环境变量**：`ASPNETCORE_DETAILEDERRORS`
+**键** ：detailedErrors  
+**类型** ：布尔型（`true` 或 `1`）  
+**默认值** ：false  
+**设置使用** ：`UseSetting`  
+**环境变量** ：`ASPNETCORE_DETAILEDERRORS`
 
 启用（或当<a href="#environment">环境</a>设置为 `Development` ）时，应用捕获详细的异常。
 
@@ -236,11 +237,11 @@ WebHost.CreateDefaultBuilder(args)
 
 设置应用的环境。
 
-**键**：环境  
-**类型**：string  
-**默认**：生产  
-**设置使用**：`UseEnvironment`  
-**环境变量**：`ASPNETCORE_ENVIRONMENT`
+**键** ：环境  
+**类型** ：string  
+**默认** ：生产  
+**设置使用** ：`UseEnvironment`  
+**环境变量** ：`ASPNETCORE_ENVIRONMENT`
 
 可将环境设置为任何值。 框架定义的值包括 `Development``Staging` 和 `Production`。 值不区分大小写。 默认情况下，从 `ASPNETCORE_ENVIRONMENT` 环境变量读取环境。 使用 [Visual Studio](https://visualstudio.microsoft.com) 时，可在 launchSettings.json 文件中设置环境变量。 有关详细信息，请参阅 <xref:fundamentals/environments>。
 
@@ -253,11 +254,11 @@ WebHost.CreateDefaultBuilder(args)
 
 设置应用的承载启动程序集。
 
-**键**：hostingStartupAssemblies  
-**类型**：string  
-**默认**：空字符串  
-**设置使用**：`UseSetting`  
-**环境变量**：`ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`
+**键** ：hostingStartupAssemblies  
+**类型** ：string  
+**默认** ：空字符串  
+**设置使用** ：`UseSetting`  
+**环境变量** ：`ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`
 
 承载启动程序集的以分号分隔的字符串在启动时加载。
 
@@ -287,10 +288,10 @@ WebHost.CreateDefaultBuilder(args)
 承载启动程序集的以分号分隔的字符串在启动时排除。
 
 键：hostingStartupExcludeAssemblies  
-**类型**：string  
-**默认**：空字符串  
-**设置使用**：`UseSetting`  
-**环境变量**：`ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
+**类型** ：string  
+**默认** ：空字符串  
+**设置使用** ：`UseSetting`  
+**环境变量** ：`ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -301,11 +302,11 @@ WebHost.CreateDefaultBuilder(args)
 
 指示主机是否应该侦听使用 `WebHostBuilder` 配置的 URL，而不是使用 `IServer` 实现配置的 URL。
 
-**键**：preferHostingUrls  
-**类型**：布尔型（`true` 或 `1`）  
-**默认值**：true  
-**设置使用**：`PreferHostingUrls`  
-**环境变量**：`ASPNETCORE_PREFERHOSTINGURLS`
+**键** ：preferHostingUrls  
+**类型** ：布尔型（`true` 或 `1`）  
+**默认值** ：true  
+**设置使用** ：`PreferHostingUrls`  
+**环境变量** ：`ASPNETCORE_PREFERHOSTINGURLS`
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -316,11 +317,11 @@ WebHost.CreateDefaultBuilder(args)
 
 阻止承载启动程序集自动加载，包括应用的程序集所配置的承载启动程序集。 有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。
 
-**键**：preventHostingStartup  
-**类型**：布尔型（`true` 或 `1`）  
-**默认值**：false  
-**设置使用**：`UseSetting`  
-**环境变量**：`ASPNETCORE_PREVENTHOSTINGSTARTUP`
+**键** ：preventHostingStartup  
+**类型** ：布尔型（`true` 或 `1`）  
+**默认值** ：false  
+**设置使用** ：`UseSetting`  
+**环境变量** ：`ASPNETCORE_PREVENTHOSTINGSTARTUP`
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -331,11 +332,11 @@ WebHost.CreateDefaultBuilder(args)
 
 指示 IP 地址或主机地址，其中包含服务器应针对请求侦听的端口和协议。
 
-**键**：urls  
-**类型**：string  
-**默认**： http://localhost:5000  
-**设置使用**：`UseUrls`  
-**环境变量**：`ASPNETCORE_URLS`
+**键** ：urls  
+**类型** ：string  
+**默认** ： http://localhost:5000  
+**设置使用** ：`UseUrls`  
+**环境变量** ：`ASPNETCORE_URLS`
 
 设置为服务器应响应的以分号分隔 (;) 的 URL 前缀列表。 例如 `http://localhost:123`。 使用“\*”指示服务器应针对请求侦听的使用特定端口和协议（例如 `http://*:5000`）的 IP 地址或主机名。 协议（`http://` 或 `https://`）必须包含每个 URL。 不同的服务器支持的格式有所不同。
 
@@ -350,11 +351,11 @@ Kestrel 具有自己的终结点配置 API。 有关详细信息，请参阅 <xr
 
 指定等待 Web 主机关闭的时长。
 
-**键**：shutdownTimeoutSeconds  
-**类型**：int  
-**默认**：5  
-**设置使用**：`UseShutdownTimeout`  
-**环境变量**：`ASPNETCORE_SHUTDOWNTIMEOUTSECONDS`
+**键** ：shutdownTimeoutSeconds  
+**类型** ：int  
+**默认** ：5  
+**设置使用** ：`UseShutdownTimeout`  
+**环境变量** ：`ASPNETCORE_SHUTDOWNTIMEOUTSECONDS`
 
 虽然键使用 `UseSetting` 接受 int（例如 `.UseSetting(WebHostDefaults.ShutdownTimeoutKey, "10")`），但是 [UseShutdownTimeout](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useshutdowntimeout) 扩展方法采用 [TimeSpan](/dotnet/api/system.timespan)。
 
@@ -374,11 +375,11 @@ WebHost.CreateDefaultBuilder(args)
 
 确定要在其中搜索 `Startup` 类的程序集。
 
-**键**：startupAssembly  
-**类型**：string  
-**默认**：应用的程序集  
-**设置使用**：`UseStartup`  
-**环境变量**：`ASPNETCORE_STARTUPASSEMBLY`
+**键** ：startupAssembly  
+**类型** ：string  
+**默认** ：应用的程序集  
+**设置使用** ：`UseStartup`  
+**环境变量** ：`ASPNETCORE_STARTUPASSEMBLY`
 
 按名称（`string`）或类型（`TStartup`）的程序集可以引用。 如果调用多个 `UseStartup` 方法，优先选择最后一个方法。
 
@@ -396,11 +397,11 @@ WebHost.CreateDefaultBuilder(args)
 
 设置应用的静态资产的相对路径。
 
-**键**：webroot  
-**类型**：string  
-**默认**：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在。 如果该路径不存在，则使用无操作文件提供程序。  
-**设置使用**：`UseWebRoot`  
-**环境变量**：`ASPNETCORE_WEBROOT`
+**键** ：webroot  
+**类型** ：string  
+**默认** ：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在。 如果该路径不存在，则使用无操作文件提供程序。  
+**设置使用** ：`UseWebRoot`  
+**环境变量** ：`ASPNETCORE_WEBROOT`
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)

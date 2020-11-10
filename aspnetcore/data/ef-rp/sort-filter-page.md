@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: e01704cb10c88f3e9442e74034f5e5d39787f300
-ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
+ms.openlocfilehash: 51a1e2a90259898262ac655b7a0e8a55d766f0c7
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/02/2020
-ms.locfileid: "91653888"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93061036"
 ---
 # <a name="part-3-no-locrazor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>第 3 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页
 
@@ -61,7 +62,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_Ternary)]
 
-该代码使用 C# [条件运算符 ?:](/dotnet/csharp/language-reference/operators/conditional-operator)。 `?:` 运算符是三元运算符，它采用三个操作数。 第一行指定当 `sortOrder` 为 NULL 或为空时，`NameSort` 设置为 `name_desc`。 如果 `sortOrder` 不为 NULL 或不为空，则 `NameSort` 设置为空字符串。
+该代码使用 C# [条件运算符 ?:](/dotnet/csharp/language-reference/operators/conditional-operator)。 `?:` 运算符是三元运算符，它采用三个操作数。 第一行指定当 `sortOrder` 为 NULL 或为空时，`NameSort` 设置为 `name_desc`。 如果 `sortOrder` 不*_为 NULL 或不为空，则 `NameSort` 设置为空字符串。
 
 通过这两个语句，页面可如下设置列标题超链接：
 
@@ -84,7 +85,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 ### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>向“学生索引”页添加列标题超链接
 
-使用以下代码替换 Students/Index.cshtml 中的代码。 突出显示所作更改。
+使用以下代码替换 _Students/Index.cshtml* 中的代码。 突出显示所作更改。
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml?highlight=5,8,17-19,22,25-27,33)]
 

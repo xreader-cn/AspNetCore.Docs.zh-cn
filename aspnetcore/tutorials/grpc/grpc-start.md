@@ -3,8 +3,9 @@ title: 在 ASP.NET Core 中创建 .NET Core gRPC 客户端和服务器
 author: juntaoluo
 description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
 ms.author: johluo
-ms.date: 04/08/2020
+ms.date: 10/23/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: fbfd37b8f796990ff035f7fffeb906e23a8739d4
-ms.sourcegitcommit: c06a5bf419541d17595af30e4cf6f2787c21855e
+ms.openlocfilehash: 9388a2f814008ebb50171f85b8baccf6dadfac27
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/27/2020
-ms.locfileid: "92678576"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93057019"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -63,7 +64,7 @@ ms.locfileid: "92678576"
 * 启动 Visual Studio 并选择“创建新项目”。 或者，从 Visual Studio“文件”菜单中选择“新建” > “项目”  。
 * 在“创建新项目”对话框中，选择“gRPC 服务”，然后选择“下一步”  ：
 
-  ![“创建新项目”对话框](~/tutorials/grpc/grpc-start/static/cnp.png)
+  ![Visual Studio 中的“创建新项目”对话框](~/tutorials/grpc/grpc-start/static/cnp.png)
 
 * 将项目命名为 GrpcGreeter。 将项目命名为“GrpcGreeter”非常重要，这样在复制和粘贴代码时命名空间就会匹配。
 * 选择“创建”。
@@ -74,7 +75,7 @@ ms.locfileid: "92678576"
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
-* 将目录更改为 (`cd`) 包含项目的文件夹。
+* 将目录 (`cd`) 更改为项目的文件夹。
 * 运行以下命令：
 
   ```dotnetcli
@@ -93,9 +94,9 @@ ms.locfileid: "92678576"
 * 启动 Visual Studio for Mac 并选择“创建新项目”。 或者，从 Visual Studio“文件”菜单中选择“新建” > “项目”  。
 * 在“创建新项目”对话框中，选择“Web 和控制台” > “应用” > “gRPC 服务”，然后选择“下一步”    ：
 
-  ![“创建新项目”对话框](~/tutorials/grpc/grpc-start/static/cnp-mac.png)
+  ![macOS 上的“创建新项目”对话框](~/tutorials/grpc/grpc-start/static/cnp-mac.png)
 
-* 在目标框架部分，选择 .NET Core 3.1，然后单击“下一步” 
+* 选择“.NET Core 3.1”作为“目标框架”，然后选择“下一步”。
 * 将项目命名为 GrpcGreeter。 将项目命名为“GrpcGreeter”非常重要，这样在复制和粘贴代码时命名空间就会匹配。
 * 选择“创建”。
 ---
@@ -141,7 +142,7 @@ GrpcGreeter 项目文件：
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
-* 将目录更改为 (`cd`) 包含项目的文件夹。
+* 将目录 (`cd`) 更改为项目的文件夹。
 * 运行以下命令：
 
   ```dotnetcli
@@ -181,7 +182,7 @@ gRPC 客户端项目需要以下包：
 
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>管理 NuGet 包选项以安装包
 
-* 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目 
+* 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目 。
 * 选择“浏览”选项卡。
 * 在搜索框中输入 Grpc.Net.Client。
 * 从“浏览”选项卡中选择“Grpc.Net.Client”包，然后选择“安装”  。
@@ -199,10 +200,10 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 在 Solution Pad 中，右键单击 GrpcGreeterClient，然后选择“管理 NuGet 包”  
+* 在 Solution Pad 中，右键单击 GrpcGreeterClient 项目，然后选择“管理 NuGet 包”。
 * 在搜索框中输入 Grpc.Net.Client。
-* 从结果窗格中选择 Grpc.Net.Client 包并选择“添加包” 
-* 在“接受许可证”对话框中，单击“接受”按钮 。
+* 从结果窗格中选择 Grpc.Net.Client 包并选择“添加包”。
+* 在“接受许可证”对话框中，选择“接受”按钮。
 * 为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。
 
 ---

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/21/2020
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - Blazor
 - Blazor Server
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 6f677cc4fc26eb9d50ab6e149b7363079ae756a9
-ms.sourcegitcommit: c06a5bf419541d17595af30e4cf6f2787c21855e
+ms.openlocfilehash: 31db9aea9e0b7ed21cae2f87fbb9e2e649782697
+ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/27/2020
-ms.locfileid: "92678561"
+ms.lasthandoff: 11/03/2020
+ms.locfileid: "93234460"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core 依赖注入
 
@@ -33,11 +34,11 @@ ASP.NET Core 支持依赖关系注入 (DI) 软件设计模式，这是一种在�
 
 有关 MVC 控制器中依赖关系注入的详细信息，请参阅 <xref:mvc/controllers/dependency-injection>。
 
-若要了解如何在控制台应用中使用依赖注入，请参阅 [.NET 中的依赖注入](/dotnet/core/extensions/dependency-injection)
+若要了解如何在 Web 应用以外的应用程序中使用依赖关系注入，请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)。
 
 有关选项的依赖项注入的详细信息，请参阅 <xref:fundamentals/configuration/options>。
 
-本主题介绍 ASP.NET Core 中的依赖关系注入。 若要了解如何在控制台应用中使用依赖关系注入，请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)。
+本主题介绍 ASP.NET Core 中的依赖关系注入。 有关使用依赖关系注入的主要文档包含在 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -160,34 +161,7 @@ ASP.NET Core 框架使用一种约定来注册一组相关服务。 约定使用
 
 ## <a name="service-lifetimes"></a>服务生存期
 
-可以使用以下任一生存期注册服务：
-
-* 暂时
-* 作用域
-* 单例
-
-下列各部分描述了上述每个生存期。 为每个注册的服务选择适当的生存期。 
-
-### <a name="transient"></a>暂时
-
-暂时生存期服务是每次从服务容器进行请求时创建的。 这种生存期适合轻量级、 无状态的服务。 向 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient%2A> 注册暂时性服务。
-
-在处理请求的应用中，在请求结束时会释放暂时服务。
-
-### <a name="scoped"></a>作用域
-
-作用域生存期服务针对每个客户端请求（连接）创建一次。 向 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped%2A> 注册范围内服务。
-
-在处理请求的应用中，在请求结束时会释放有作用域的服务。
-
-使用 Entity Framework Core 时，默认情况下 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> 扩展方法使用范围内生存期来注册 `DbContext` 类型。
-
-不要从单一实例解析限定范围的服务，并小心不要间接地这样做，例如通过暂时性服务。 当处理后续请求时，它可能会导致服务处于不正确的状态。 可以：
-
-从限定范围或暂时性服务解析单一实例服务。
-* 从其他范围内或暂时性服务解析范围内服务。
-
-默认情况下在开发环境中，从具有较长生存期的其他服务解析服务将引发异常。 有关详细信息，请参阅[作用域验证](#sv)。
+请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)中的[服务生存期](/dotnet/core/extensions/dependency-injection#service-lifetimes)
 
 要在中间件中使用范围内服务，请使用以下方法之一：
 
@@ -196,39 +170,13 @@ ASP.NET Core 框架使用一种约定来注册一组相关服务。 约定使用
 
 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
 
-### <a name="singleton"></a>单例
-
-创建单例生命周期服务的情况如下：
-
-* 在首次请求它们时进行创建；或者
-* 在向容器直接提供实现实例时由开发人员进行创建。 很少用到此方法。
-
-每个后续请求都使用相同的实例。 如果应用需要单一实例行为，则允许服务容器管理服务的生存期。 不要实现单一实例设计模式，或提供代码来释放单一实例。 服务永远不应由解析容器服务的代码释放。 如果类型或工厂注册为单一实例，则容器自动释放单一实例。
-
-向 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton%2A> 注册单一实例服务。 单一实例服务必须是线程安全的，并且通常在无状态服务中使用。
-
-在处理请求的应用中，当应用关闭并释放 <xref:Microsoft.Extensions.DependencyInjection.ServiceProvider> 时，会释放单一实例服务。 由于应用关闭之前不释放内存，因此请考虑单一实例服务的内存使用。
-
-> [!WARNING]
-> 不要从单一实例解析限定范围的服务。 当处理后续请求时，它可能会导致服务处于不正确的状态。 可以从范围内或暂时性服务解析单一实例服务。
-
 ## <a name="service-registration-methods"></a>服务注册方法
 
-框架提供了适用于特定场景的服务注册扩展方法：
+请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)中的[服务注册方法](/dotnet/core/extensions/dependency-injection#service-registration-methods)
 
-<!-- Review: Auto disposal at end of app lifetime is not what you think of auto disposal  -->
+ 在[为测试模拟类型](xref:test/integration-tests#inject-mock-services)时，使用多个实现很常见。
 
-| 方法                                                                                                                                                                              | 自动<br>对象 (object)<br>释放 | 多种<br>实现 | 传递参数 |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------:|:---------------------------:|:---------:|
-| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<IMyDep, MyDep>();`                                                                             | 是                             | 是                         | 否        |
-| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep(99));` | 是                             | 是                         | 是       |
-| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<MyDep>();`                                                                                                | 是                             | 否                          | 否        |
-| `AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep(99));`                    | 否                              | 是                         | 是       |
-| `AddSingleton(new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep(99));`                                               | 否                              | 否                          | 是       |
-
-要详细了解释放类型，请参阅[服务释放](#disposal-of-services)部分。 在[为测试模拟类型](xref:test/integration-tests#inject-mock-services)时，使用多个实现很常见。
-
-仅使用实现类型注册服务等效于使用相同的实现和服务类型注册该服务。 因此，我们不能使用捕获显式服务类型的方法来注册服务的多个实现。 这些方法可以注册服务的多个实例，但它们都具有相同的实现类型。
+仅使用实现类型注册服务等效于使用相同的实现和服务类型注册该服务。 因此，我们不能使用捕获显式服务类型的方法来注册服务的多个实现。 这些方法可以注册服务的多个实例，但它们都具有相同的实现类型 。
 
 上述任何服务注册方法都可用于注册同一服务类型的多个服务实例。 下面的示例以 `IMyDependency` 作为服务类型调用 `AddSingleton` 两次。 第二次对 `AddSingleton` 的调用在解析为 `IMyDependency` 时替代上一次调用，在通过 `IEnumerable<IMyDependency>` 解析多个服务时添加到上一次调用。 通过 `IEnumerable<{SERVICE}>` 解析服务时，服务按其注册顺序显示。
 
@@ -239,7 +187,7 @@ services.AddSingleton<IMyDependency, DifferentDependency>();
 public class MyService
 {
     public MyService(IMyDependency myDependency, 
-       IEnumberable<IMyDependency> myDependencies)
+       IEnumerable<IMyDependency> myDependencies)
     {
         Trace.Assert(myDependency is DifferentDependency);
 
@@ -250,70 +198,9 @@ public class MyService
 }
 ```
 
-框架还提供 `TryAdd{LIFETIME}` 扩展方法，只有当尚未注册某个实现时，才注册该服务。
+## <a name="constructor-injection-behavior"></a>构造函数注入行为
 
-在下面的示例中，对 `AddSingleton` 的调用会将 `MyDependency` 注册为 `IMyDependency`的实现。 对 `TryAddSingleton` 的调用没有任何作用，因为 `IMyDependency` 已有一个已注册的实现。
-
-```csharp
-services.AddSingleton<IMyDependency, MyDependency>();
-// The following line has no effect:
-services.TryAddSingleton<IMyDependency, DifferentDependency>();
-
-public class MyService
-{
-    public MyService(IMyDependency myDependency, 
-        IEnumberable<IMyDependency> myDependencies)
-    {
-        Trace.Assert(myDependency is MyDependency);
-        Trace.Assert(myDependencies.Single() is MyDependency);
-    }
-}
-```
-
-有关详细信息，请参阅：
-
-* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAdd%2A>
-* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient%2A>
-* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped%2A>
-* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton%2A>
-
-[TryAddEnumerable(ServiceDescriptor)](xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable%2A) 方法仅会在没有同一类型实现的情况下才注册该服务。 多个服务通过 `IEnumerable<{SERVICE}>` 解析。 注册服务时，开发人员应在尚未添加一个相同类型时添加实例。 通常库作者使用 `TryAddEnumerable` 来避免在容器中注册实现的多个副本。
-
-在下面的示例中，对 `TryAddEnumerable` 的第一次调用会将 `MyDependency` 注册为 `IMyDependency1`的实现。 第二次调用向 `IMyDependency2` 注册 `MyDependency`。 第三次调用没有任何作用，因为 `IMyDependency1` 已有一个 `MyDependency` 的已注册的实现：
-
-```csharp
-public interface IMyDependency1 { }
-public interface IMyDependency2 { }
-
-public class MyDependency : IMyDependency1, IMyDependency2 { }
-
-services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDependency1, MyDependency>());
-services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDependency2, MyDependency>());
-services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDependency1, MyDependency>());
-```
-
-服务注册通常与顺序无关，除了注册同一类型的多个实现时。
-
-`IServiceCollection` 是 <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor> 对象的集合。 以下示例演示如何通过创建和添加 `ServiceDescriptor` 来注册服务：
-
-[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Startup5.cs?name=snippet)]
-
-内置 `Add{LIFETIME}` 方法使用同一种方式。 相关示例请参阅 [AddScoped 源代码](https://github.com/dotnet/extensions/blob/v3.1.6/src/DependencyInjection/DI.Abstractions/src/ServiceCollectionServiceExtensions.cs#L216-L237)。
-
-### <a name="constructor-injection-behavior"></a>构造函数注入行为
-
-服务可使用以下方式来解析：
-
-* <xref:System.IServiceProvider>
-* <xref:Microsoft.Extensions.DependencyInjection.ActivatorUtilities>:
-  * 创建未在容器中注册的对象。
-  * 与框架功能一起使用，例如[标记帮助程序](xref:mvc/views/tag-helpers/intro)、[MVC 控制器](xref:mvc/models/model-binding)和模型绑定器。
-
-构造函数可以接受非依赖关系注入提供的参数，但参数必须分配默认值。
-
-当服务由 `IServiceProvider` 或 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)需要 public 构造函数。
-
-当服务由 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)要求只存在一个适用的构造函数。 支持构造函数重载，但其参数可以全部通过依赖注入来实现的重载只能存在一个。
+请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)中的[构造函数注入行为](/dotnet/core/extensions/dependency-injection#constructor-injection-behavior)
 
 ## <a name="entity-framework-contexts"></a>实体框架上下文
 
@@ -328,16 +215,6 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDependency1, MyDependen
 以下 `Operation` 类实现了前面的所有接口。 `Operation` 构造函数生成 GUID，并将最后 4 个字符存储在 `OperationId` 属性中：
 
 [!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Models/Operation.cs?name=snippet1)]
-
-<!--
-An `OperationService` is registered that depends on each of the other `Operation` types. When `OperationService` is requested via dependency injection, it receives either a new instance of each service or an existing instance based on the lifetime of the dependent service.
-
-* When transient services are created when requested from the container, the `OperationId` of the `IOperationTransient` service is different than the `OperationId` of the `OperationService`. `OperationService` receives a new instance of the `IOperationTransient` class. The new instance yields a different `OperationId`.
-* When scoped services are created per client request, the `OperationId` of the `IOperationScoped` service is the same as that of `OperationService` within a client request. Across client requests, both services share a different `OperationId` value.
-* When singleton and singleton-instance services are created once and used across all client requests and all services, the `OperationId` is constant across all service requests.
-
-[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Services/OperationService.cs?name=snippet1)]
--->
 
 `Startup.ConfigureServices` 方法根据命名生存期创建 `Operation` 类的多个注册：
 
@@ -377,14 +254,7 @@ An `OperationService` is registered that depends on each of the other `Operation
 
 ## <a name="scope-validation"></a>作用域验证
 
-如果应用在[开发环境](xref:fundamentals/environments)中运行，并调用 [CreateDefaultBuilder](xref:fundamentals/host/generic-host#default-builder-settings) 以生成主机，默认服务提供程序会执行检查，以确认以下内容：
-
-* 没有从根服务提供程序解析到范围内服务。
-* 未将范围内服务注入单一实例。
-
-调用 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider%2A> 时创建根服务提供程序。 在启动提供程序和应用时，根服务提供程序的生存期对应于应用的生存期，并在关闭应用时释放。
-
-有作用域的服务由创建它们的容器释放。 如果范围内服务创建于根容器，则该服务的生存期实际上提升至单一实例，因为根容器只会在应用关闭时将其释放。 验证服务作用域，将在调用 `BuildServiceProvider` 时收集这类情况。
+请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)中的[构造函数注入行为](/dotnet/core/extensions/dependency-injection#constructor-injection-behavior)
 
 有关详细信息，请参阅[作用域验证](xref:fundamentals/host/web-host#scope-validation)。
 
@@ -442,72 +312,16 @@ Service1.Dispose
 
 ### <a name="idisposable-guidance-for-transient-and-shared-instances"></a>暂时和共享实例的 IDisposable 指南
 
-#### <a name="transient-limited-lifetime"></a>暂时、有限的生存期
-
-**方案**
-
-应用需要一个 <xref:System.IDisposable> 实例，该实例在以下任一情况下具有暂时性生存期：
-
-* 在根范围（根容器）内解析实例。
-* 应在作用域结束之前释放实例。
-
-**解决方案**
-
-使用工厂模式在父作用域外创建实例。  在这种情况下，应用通常会使用一个 `Create` 方法，该方法直接调用最终类型的构造函数。 如果最终类型具有其他依赖项，则工厂可以：
-
-* 在其构造函数中接收 <xref:System.IServiceProvider>。
-* 使用 <xref:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance%2A?displayProperty=nameWithType> 在容器外部实例化实例，同时将容器用于其依赖项。
-
-#### <a name="shared-instance-limited-lifetime"></a>共享实例，有限的生存期
-
-**方案**
-
-应用需要跨多个服务的共享 <xref:System.IDisposable> 实例，但 <xref:System.IDisposable> 实例应具有有限的生存期。
-
-**解决方案**
-
-为实例注册作用域生存期。 使用 <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope%2A?displayProperty=nameWithType> 创建新 <xref:Microsoft.Extensions.DependencyInjection.IServiceScope>。 使用作用域的 <xref:System.IServiceProvider> 获取所需的服务。 如果不再需要范围，请将其释放。
-
-#### <a name="general-idisposable-guidelines"></a>一般 IDisposable 准则
-
-* 不要为 <xref:System.IDisposable> 实例注册暂时性生存期。 请改用工厂模式。
-* 不要在根范围内解析具有暂时性或范围内生存期的 <xref:System.IDisposable> 实例。 唯一的例外是应用创建/重新创建并释放 <xref:System.IServiceProvider> 的情况，但这不是理想模式。
-* 通过 DI 接收 <xref:System.IDisposable> 依赖项不要求接收方自行实现 <xref:System.IDisposable>。 <xref:System.IDisposable> 依赖项的接收方不能对该依赖项调用 <xref:System.IDisposable.Dispose%2A>。
-* 使用范围控制服务的生存期。  作用域不区分层次，并且在各作用域之间没有特定联系。
+请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)中的[暂时和共享实例的 IDisposable 指南](/dotnet/core/extensions/dependency-injection-guidelines#idisposable-guidance-for-transient-and-shared-instances)
 
 ## <a name="default-service-container-replacement"></a>默认服务容器替换
 
-内置的服务容器旨在满足框架和大多数消费者应用的需求。 我们建议使用内置容器，除非你需要的特定功能不受它支持，例如：
-
-* 属性注入
-* 基于名称的注入
-* 子容器
-* 自定义生存期管理
-* 对迟缓初始化的 `Func<T>` 支持
-* 基于约定的注册
-
-以下第三方容器可用于 ASP.NET Core 应用：
-
-* [Autofac](https://autofac.readthedocs.io/en/latest/integration/aspnetcore.html)
-* [DryIoc](https://www.nuget.org/packages/DryIoc.Microsoft.DependencyInjection)
-* [Grace](https://www.nuget.org/packages/Grace.DependencyInjection.Extensions)
-* [LightInject](https://github.com/seesharper/LightInject.Microsoft.DependencyInjection)
-* [Lamar](https://jasperfx.github.io/lamar/)
-* [Stashbox](https://github.com/z4kn4fein/stashbox-extensions-dependencyinjection)
-* [Unity](https://www.nuget.org/packages/Unity.Microsoft.DependencyInjection)
-
-## <a name="thread-safety"></a>线程安全
-
-创建线程安全的单一实例服务。 如果单一实例服务依赖于一个暂时服务，那么暂时服务可能也需要线程安全，具体取决于单一实例使用它的方式。
-
-单个服务的工厂方法（例如 [AddSingleton\<TService>(IServiceCollection, Func\<IServiceProvider,TService>)](xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton%2A) 的第二个参数）不必是线程安全的。 像类型 (`static`) 构造函数一样，它保证仅由单个线程调用一次。
+请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)中的[默认服务容器替换](/dotnet/core/extensions/dependency-injection-guidelines#default-service-container-replacement)
 
 ## <a name="recommendations"></a>建议
 
-* 不支持基于`async/await` 和 `Task` 的服务解析。 由于 C# 不支持异步构造函数，因此请在同步解析服务后使用异步方法。
-* 避免在服务容器中直接存储数据和配置。 例如，用户的购物车通常不应添加到服务容器中。 配置应使用 [选项模型](xref:fundamentals/configuration/options)。 同样，避免“数据持有者”对象，也就是仅仅为实现对另一个对象的访问而存在的对象。 最好通过 DI 请求实际项。
-* 避免静态访问服务。 例如，避免将 [IApplicationBuilder.ApplicationServices](xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices) 捕获为静态字段或属性以便在其他地方使用。
-* 使 DI 工厂保持快速且同步。
+请参阅 [.NET 中的依赖关系注入](/dotnet/core/extensions/dependency-injection)中的[建议](/dotnet/core/extensions/dependency-injection-guidelines#recommendations)
+
 * 避免使用服务定位器模式。 例如，可以使用 DI 代替时，不要调用 <xref:System.IServiceProvider.GetService%2A>  来获取服务实例：
 
   **不正确：**
@@ -804,7 +618,7 @@ public void ConfigureServices(IServiceCollection services)
 
 服务注册扩展方法提供适用于特定场景的重载。
 
-| 方法 | 自动<br>对象 (object)<br>释放 | 多种<br>实现 | 传递参数 |
+| 方法 | 自动<br>对象<br>释放 | 多种<br>实现 | 传递参数 |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
 | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<IMyDep, MyDep>();` | 是 | 是 | 否 |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |
@@ -825,7 +639,7 @@ services.AddSingleton<IMyDependency, DifferentDependency>();
 public class MyService
 {
     public MyService(IMyDependency myDependency, 
-       IEnumberable<IMyDependency> myDependencies)
+       IEnumerable<IMyDependency> myDependencies)
     {
         Trace.Assert(myDependency is DifferentDependency);
 
@@ -848,7 +662,7 @@ services.TryAddSingleton<IMyDependency, DifferentDependency>();
 public class MyService
 {
     public MyService(IMyDependency myDependency, 
-        IEnumberable<IMyDependency> myDependencies)
+        IEnumerable<IMyDependency> myDependencies)
     {
         Trace.Assert(myDependency is MyDependency);
         Trace.Assert(myDependencies.Single() is MyDependency);

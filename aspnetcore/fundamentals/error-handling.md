@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/error-handling
-ms.openlocfilehash: da7f50b27e447b86bd8a06851b767488d51b7050
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: c8174c7e253a596d02dbc6cec183453b3723bc24
+ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90592886"
+ms.lasthandoff: 10/30/2020
+ms.locfileid: "93060464"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -45,11 +46,11 @@ ms.locfileid: "90592886"
 
 模板在中间件管道的前面部分放置 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage%2A>，以便它可以捕获在后面的中间件中引发的异常。
 
-仅当应用程序在开发环境中运行时，前面的代码才启用开发人员异常页。 当应用在生产环境中运行时，不应公开显示详细的异常信息。 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
+仅*_当应用在开发环境中运行时，前面的代码才启用开发人员异常页。 当应用在生产环境中运行时，不应公开显示详细的异常信息。 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
 
 开发人员异常页包括关于异常和请求的以下信息：
 
-* 堆栈跟踪
+_ 堆栈跟踪
 * 查询字符串参数（如果有）
 * Cookie（如果有）
 * 标头
