@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 9f64dd8f0ca026cec4b7ee4b5ea02523139eed4f
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 59ad373cefaa12370aa7c02a367125c7a94f59a6
+ms.sourcegitcommit: 91e14f1e2a25c98a57c2217fe91b172e0ff2958c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93057149"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94422595"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -278,7 +278,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 在前面的代码中，在 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers%2A> 中调用， `UseEndpoints` 以映射属性路由控制器。
 
-如下示例中：
+在以下示例中：
 
 * 使用前面的 `Configure` 方法。
 * `HomeController` 匹配一组与默认传统路由匹配的 Url `{controller=Home}/{action=Index}/{id?}` 。
@@ -430,11 +430,11 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了 `[Route]` 上述代码中的属性：
 
-| Attribute               | 结合 `[Route("Home")]` | 定义路由模板 |
+| 属性               | 结合 `[Route("Home")]` | 定义路由模板 |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | 是 | `"Home"` |
 | `[Route("Index")]` | 是 | `"Home/Index"` |
-| `[Route("/")]` | 否 | `""` |
+| `[Route("/")]` | **否** | `""` |
 | `[Route("About")]` | 是 | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
@@ -725,7 +725,7 @@ result: /UrlGeneration/Destination
 
 你可能希望在默认路由中遇到此问题 `{controller}/{action}/{id?}` 。 此问题在实践中很罕见，因为 `Url.Action` 始终显式指定 `controller` 和 `action` 值。
 
-多个 [Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) 采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如 `Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
+多个 [Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) 采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如，`Url.Action("Buy", "Products", new { id = 17 })` 。 路由值对象：
 
 * 按约定通常是匿名类型的对象。
 * 可以是 `IDictionary<>` 或 [POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)) 。
@@ -857,7 +857,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 ## <a name="sample-code"></a>代码示例
 
- * [示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)中包含了[MyDisplayRouteInfo](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x/main/Extensions/ControllerContextExtensions.cs)方法，用于显示路由信息。
+* [!INCLUDE[](~/includes/MyDisplayRouteInfo.md)]
 * [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)（[如何下载](xref:index#how-to-download-a-sample)）
 
 [!INCLUDE[](~/includes/dbg-route.md)]
@@ -1452,7 +1452,7 @@ MVC 生成一个包含所有属性路由操作的查找表，并匹配 `controll
 `Url.Action` (`IUrlHelper` . `Action`) 以及所有相关重载都基于这样一种想法：用户想通过指定控制器名称和操作名称来指定要链接的内容。
 
 > [!NOTE]
-> 使用 `Url.Action` 时，将为用户指定 `controller` 和 `action` 的当前路由值，`controller` 和 `action` 的值是环境值  的一部分。 `Url.Action` 方法始终使用 `action` 和 `controller` 的当前值，并将生成将路由到当前操作的 URL 路径。
+> 使用 `Url.Action` 时，将为用户指定 `controller` 和 `action` 的当前路由值，`controller` 和 `action` 的值是环境值 *和* **值** 的一部分。 `Url.Action` 方法始终使用 `action` 和 `controller` 的当前值，并将生成将路由到当前操作的 URL 路径。
 
 路由尝试使用环境值中的值来填充生成 URL 时未提供的信息。 通过使用路由（比如 `{a}/{b}/{c}/{d}`）和环境值 `{ a = Alice, b = Bob, c = Carol, d = David }`，路由就具有足够的信息来生成 URL，而无需任何附加值，因为所有路由参数都有值。 如果添加了值 `{ d = Donovan }`，则会忽略值 `{ d = David }`，生成的 URL 路径将为 `Alice/Bob/Carol/Donovan`。
 
