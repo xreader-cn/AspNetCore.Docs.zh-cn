@@ -9,10 +9,6 @@
   * `{header}={value}`
   * `{header}:{value}`
 
-* `--response`
-
-  指定一个文件，整个 HTTP 响应（包括标头和正文）应写入该文件。 例如 `--response "C:\response.txt"`。 如果文件不存在，则创建该文件。
-
 * `--response:body`
 
   指定一个文件，HTTP 响应正文应写入该文件。 例如 `--response:body "C:\response.json"`。 如果文件不存在，则创建该文件。

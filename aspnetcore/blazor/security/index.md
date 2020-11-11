@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 6110f51eb5d5ee40d6ce5a5d49ddda3329d1f033
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: a333c189e81a9f44e94deb6b37097f1a8b19a0f9
+ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055537"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430921"
 ---
 # <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -39,7 +39,7 @@ Blazor Server应用和 Blazor WebAssembly 应用的安全方案有所不同。 �
 
 Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项。 由于用户可修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
 
-[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization) 不适用于可路由的 Razor 组件。 如果非可路由的 Razor 组件[嵌入在页面中](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps#render-components-from-a-page-or-view)，则页面的授权约定会间接影响 Razor 组件以及其余页面内容。
+[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization) 不适用于可路由的 Razor 组件。 如果非可路由的 Razor 组件[嵌入在页面中](xref:blazor/components/prerendering-and-integration)，则页面的授权约定会间接影响 Razor 组件以及其余页面内容。
 
 > [!NOTE]
 > Razor 组件中不支持 <xref:Microsoft.AspNetCore.Identity.SignInManager%601> 和 <xref:Microsoft.AspNetCore.Identity.UserManager%601>。
