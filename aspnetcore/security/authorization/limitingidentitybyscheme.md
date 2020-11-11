@@ -18,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 4dc86480d40d8ee40b3c03aa7fd2994e6c15b105
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: a5f2dff7b0e0d4f209ba445b2efb6fb261cbaab1
+ms.sourcegitcommit: fbd5427293d9ecccc388bd5fd305c2eb8ada7281
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93053119"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94464011"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>使用 ASP.NET Core 中的特定方案授权
 
 在某些情况下，例如 (Spa) 的单页面应用程序，通常使用多种身份验证方法。 例如，应用可能会使用 cookie 基于的身份验证登录，并使用 JWT 持有者身份验证来处理 JavaScript 请求。 在某些情况下，应用程序可能有多个身份验证处理程序实例。 例如，两个 cookie 处理程序，其中一个包含基本标识，一个在已触发多重身份验证 (MFA) 时创建。 可能会触发 MFA，因为用户请求了需要额外安全的操作。 有关在用户请求需要 MFA 的资源时强制执行 MFA 的详细信息，请参阅 GitHub 颁发 [保护部分与 mfa](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195)。
 
-身份验证方案是在身份验证过程中配置身份验证服务时命名的。 例如： 。
+身份验证方案是在身份验证过程中配置身份验证服务时命名的。 例如：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -54,7 +54,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="selecting-the-scheme-with-the-authorize-attribute"></a>选择具有授权属性的方案
 
-在授权时，应用指示要使用的处理程序。 选择应用程序将通过以逗号分隔的身份验证方案列表传递到来授权的处理程序 `[Authorize]` 。 `[Authorize]`属性指定要使用的身份验证方案或方案，不管是否配置了默认设置。 例如： 。
+在授权时，应用指示要使用的处理程序。 选择应用程序将通过以逗号分隔的身份验证方案列表传递到来授权的处理程序 `[Authorize]` 。 `[Authorize]`属性指定要使用的身份验证方案或方案，不管是否配置了默认设置。 例如：
 
 ```csharp
 [Authorize(AuthenticationSchemes = AuthSchemes)]
@@ -130,7 +130,7 @@ public void ConfigureServices(IServiceCollection services)
 > [!NOTE]
 > 只向默认的身份验证方案注册一个 JWT 持有者身份验证 `JwtBearerDefaults.AuthenticationScheme` 。 必须使用唯一的身份验证方案注册附加身份验证。
 
-下一步是更新默认授权策略，以接受这两种身份验证方案。 例如： 。
+下一步是更新默认授权策略，以接受这两种身份验证方案。 例如：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -152,3 +152,5 @@ public void ConfigureServices(IServiceCollection services)
 当重写默认授权策略时，可以使用 `[Authorize]` 控制器中的属性。 然后，控制器接受由第一个或第二个颁发者颁发的 JWT 的请求。
 
 ::: moniker-end
+
+有关使用多个身份验证方案，请参阅 [此 GitHub 问题](https://github.com/dotnet/aspnetcore/issues/26002) 。
