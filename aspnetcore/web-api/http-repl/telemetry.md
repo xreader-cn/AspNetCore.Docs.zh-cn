@@ -1,10 +1,10 @@
 ---
-title: HTTP 复制遥测
+title: HttpRepl 遥测
 author: scottaddie
-description: 了解 HTTP 复制收集的遥测数据。
+description: 了解 HttpRepl 收集的遥测数据。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
-ms.date: 11/10/2020
+ms.date: 11/11/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,20 +18,20 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl/telemetry
-ms.openlocfilehash: 8590959e43c2dda69090acb358e740b271426a44
-ms.sourcegitcommit: fb72e9c1ae5b279817f1fb4b46a52170449b6f30
+ms.openlocfilehash: 5ff22753f566c494e51dae67c8c4f6371211be78
+ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94502001"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94550603"
 ---
-# <a name="http-repl-telemetry"></a>HTTP 复制遥测
+# <a name="httprepl-telemetry"></a>HttpRepl 遥测
 
-[ (复制) 的 HTTP 读取-Eval 打印循环](xref:web-api/http-repl)包含收集使用情况数据的遥测功能。 HTTP 复制团队了解如何使用该工具是非常重要的，因此可以对其进行改进。
+[HttpRepl](xref:web-api/http-repl)包含收集使用情况数据的遥测功能。 重要的是，HttpRepl 团队了解如何使用该工具，以便能够改进。
 
 ## <a name="how-to-opt-out"></a>如何选择退出
 
-默认情况下，已启用 HTTP 复制遥测功能。 要选择退出遥测功能，请将 `DOTNET_HTTPREPL_TELEMETRY_OPTOUT` 环境变量设置为 `1` 或 `true`。
+默认情况下，HttpRepl 遥测功能处于启用状态。 要选择退出遥测功能，请将 `DOTNET_HTTPREPL_TELEMETRY_OPTOUT` 环境变量设置为 `1` 或 `true`。
 
 ## <a name="disclosure"></a>公开
 
@@ -40,8 +40,10 @@ ms.locfileid: "94502001"
 ```console
 Telemetry
 ---------
-The .NET Core tools collect usage data in order to help us improve your experience. It is collected by Microsoft and shared with the community. You can opt-out of telemetry by setting the DOTNET_HTTPREPL_TELEMETRY_OPTOUT environment variable to '1' or 'true' using your favorite shell.
+The .NET tools collect usage data in order to help us improve your experience. It is collected by Microsoft and shared with the community. You can opt-out of telemetry by setting the DOTNET_HTTPREPL_TELEMETRY_OPTOUT environment variable to '1' or 'true' using your favorite shell.
 ```
+
+若要禁止显示 "首次运行" 体验文本，请将 `DOTNET_HTTPREPL_SKIP_FIRST_TIME_EXPERIENCE` 环境变量设置为 `1` 或 `true` 。
 
 ## <a name="data-points"></a>数据点
 
@@ -68,7 +70,7 @@ The .NET Core tools collect usage data in order to help us improve your experien
 | >= 5。0        | 该工具是否在容器中运行。 |
 | >= 5。0        |  (MAC) 地址的哈希媒体访问控制：加密 (SHA256) 对计算机进行哈希处理和唯一 ID。 |
 | >= 5。0        | 内核版本。 |
-| >= 5。0        | HTTP 复制版本。 |
+| >= 5。0        | HttpRepl 版本。 |
 | >= 5。0        | 该工具是通过 `help` 、 `run` 或参数启动的 `connect` 。 不收集实际参数值。 |
 | >= 5。0        | 调用的命令 (例如， `get`) 以及是否成功。 |
 | >= 5。0        | 对于 `connect` 命令，是 `root` `base` 提供、还是 `openapi` 参数。 不收集实际参数值。 |
