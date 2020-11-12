@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/index
-ms.openlocfilehash: eb8c5b3c66f9a0d845d6a1d58c69e6fddefa5b0b
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: e9e4ca11d20557666c75b84e56af825d002df0f1
+ms.sourcegitcommit: fbd5427293d9ecccc388bd5fd305c2eb8ada7281
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93053379"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94463998"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 
@@ -141,3 +141,4 @@ Orchard Core 是：
 * <xref:security/authentication/policyschemes>
 * <xref:security/authorization/secure-data>
 * [全球要求经过身份验证的用户](xref:security/authorization/secure-data#rau)
+* [GitHub 上关于使用多个身份验证方案的问题](https://github.com/dotnet/aspnetcore/issues/26002)

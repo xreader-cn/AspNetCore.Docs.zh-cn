@@ -5,7 +5,7 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/19/2020
+ms.date: 11/09/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: d30f40945a3b2799dfc2d9391bba37eee1bfdc18
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 0f02bc3a92b9f62eb0e3efea0cd780ad6d09bef5
+ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056265"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430999"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -628,12 +628,26 @@ public class NotifierService
 
 ## <a name="overwritten-parameters"></a>重写参数
 
-在父组件重新呈现时提供了新的参数值，这通常会重写现有参数。
+Blazor 框架通常会施加安全的父级到子级参数的赋值：
 
-请考虑使用以下 `Expander` 组件，它们会：
+* 不会意外覆盖参数。
+* 最大程度地减少副作用。 例如，可避免附加的呈现，因为它们可能会创建无限的呈现循环。
+
+当父组件重新呈现时，子组件会接收可能覆盖现有值的新参数值。 当使用一个或多个数据绑定参数开发组件并且开发人员直接写入子组件中的参数时，通常会发生意外覆盖子组件中的参数值：
+
+* 子组件通过父组件中的一个或多个参数值呈现。
+* 子级直接写入参数的值。
+* 父组件重新呈现并覆盖子参数的值。
+
+覆盖参数值的可能性也会扩展到子组件的属性资源库中。
+
+我们的通用指南不是创建直接写入其自身参数的组件。
+
+请考虑使用以下有故障的 `Expander` 组件，它们会：
 
 * 呈现子内容。
-* 切换以使用组件参数显示子内容。
+* 切换以使用组件参数 (`Expanded`) 显示子内容。
+* 组件直接写入 `Expanded` 参数，该参数演示了覆盖的参数存在的问题，应避免这样做。
 
 ```razor
 <div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
@@ -685,7 +699,7 @@ public class NotifierService
 
 * 接受父项中的 `Expanded` 组件参数值。
 * 将组件参数值分配给 [OnInitialized 事件](xref:blazor/components/lifecycle#component-initialization-methods)中的私有字段 (`expanded`)。
-* 使用私有字段来维持它的内部切换状态。
+* 使用私有字段来维护其内部切换状态，该状态演示如何避免直接写入参数。
 
 ```razor
 <div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
@@ -719,6 +733,8 @@ public class NotifierService
     }
 }
 ```
+
+有关其他信息，请参阅 [Blazor 双向绑定错误 (dotnet/aspnetcore #24599)](https://github.com/dotnet/aspnetcore/issues/24599)。 
 
 ## <a name="apply-an-attribute"></a>应用属性
 
