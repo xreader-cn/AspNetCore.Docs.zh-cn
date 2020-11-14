@@ -1,23 +1,23 @@
 ---
-title: '使用 Azure Active Directory 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 托管应用'
+title: '使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 托管应用'
 author: guardrex
-description: '了解如何使用 Azure Active Directory 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 托管应用。'
+description: '了解如何使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 托管应用。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: devx-track-csharp, mvc
 ms.date: 11/02/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/webassembly/hosted-with-azure-active-directory
 ms.openlocfilehash: 17f96be762ece8c59577445eb2ae630a8ee3b3dd
 ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
@@ -26,16 +26,16 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/03/2020
 ms.locfileid: "93234473"
 ---
-# <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory"></a><span data-ttu-id="52bac-103">使用 Azure Active Directory 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 托管应用</span><span class="sxs-lookup"><span data-stu-id="52bac-103">Secure an ASP.NET Core :::no-loc(Blazor WebAssembly)::: hosted app with Azure Active Directory</span></span>
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory"></a><span data-ttu-id="52bac-103">使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 托管应用</span><span class="sxs-lookup"><span data-stu-id="52bac-103">Secure an ASP.NET Core Blazor WebAssembly hosted app with Azure Active Directory</span></span>
 
 <span data-ttu-id="52bac-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="52bac-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="52bac-105">本文介绍如何创建使用 [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) 进行身份验证的[托管 :::no-loc(Blazor WebAssembly)::: 应用](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="52bac-105">This article describes how to create a [hosted :::no-loc(Blazor WebAssembly)::: app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) for authentication.</span></span>
+<span data-ttu-id="52bac-105">本文介绍如何创建使用 [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) 进行身份验证的[托管 Blazor WebAssembly 应用](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="52bac-105">This article describes how to create a [hosted Blazor WebAssembly app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) for authentication.</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
 > [!NOTE]
-> <span data-ttu-id="52bac-106">对于在 Visual Studio 中创建且配置为支持 AAD 组织目录中帐户的 :::no-loc(Blazor WebAssembly)::: 应用，Visual Studio 不会在项目生成时正确配置应用。</span><span class="sxs-lookup"><span data-stu-id="52bac-106">For :::no-loc(Blazor WebAssembly)::: apps created in Visual Studio that are configured to support accounts in an AAD organizational directory, Visual Studio doesn't configure the app correctly on project generation.</span></span> <span data-ttu-id="52bac-107">以后的 Visual Studio 版本将解决此问题。</span><span class="sxs-lookup"><span data-stu-id="52bac-107">This will be addressed in a future release of Visual Studio.</span></span> <span data-ttu-id="52bac-108">本文演示如何使用 .NET Core CLI 的 `dotnet new` 命令创建应用。</span><span class="sxs-lookup"><span data-stu-id="52bac-108">This article shows how to create the app with the .NET Core CLI's `dotnet new` command.</span></span> <span data-ttu-id="52bac-109">如果希望在针对 ASP.NET Core 5.0 中的最新 :::no-loc(Blazor)::: 模板更新 IDE 之前使用 Visual Studio 创建应用，请参阅本文的各个部分，并在 Visual Studio 创建应用后确认或更新应用的配置。</span><span class="sxs-lookup"><span data-stu-id="52bac-109">If you prefer to create the app with Visual Studio before the IDE is updated for the latest :::no-loc(Blazor)::: templates in ASP.NET Core 5.0, refer to each section of this article and confirm or update the app's configuration after Visual Studio creates the app.</span></span>
+> <span data-ttu-id="52bac-106">对于在 Visual Studio 中创建且配置为支持 AAD 组织目录中帐户的 Blazor WebAssembly 应用，Visual Studio 不会在项目生成时正确配置应用。</span><span class="sxs-lookup"><span data-stu-id="52bac-106">For Blazor WebAssembly apps created in Visual Studio that are configured to support accounts in an AAD organizational directory, Visual Studio doesn't configure the app correctly on project generation.</span></span> <span data-ttu-id="52bac-107">以后的 Visual Studio 版本将解决此问题。</span><span class="sxs-lookup"><span data-stu-id="52bac-107">This will be addressed in a future release of Visual Studio.</span></span> <span data-ttu-id="52bac-108">本文演示如何使用 .NET Core CLI 的 `dotnet new` 命令创建应用。</span><span class="sxs-lookup"><span data-stu-id="52bac-108">This article shows how to create the app with the .NET Core CLI's `dotnet new` command.</span></span> <span data-ttu-id="52bac-109">如果希望在针对 ASP.NET Core 5.0 中的最新 Blazor 模板更新 IDE 之前使用 Visual Studio 创建应用，请参阅本文的各个部分，并在 Visual Studio 创建应用后确认或更新应用的配置。</span><span class="sxs-lookup"><span data-stu-id="52bac-109">If you prefer to create the app with Visual Studio before the IDE is updated for the latest Blazor templates in ASP.NET Core 5.0, refer to each section of this article and confirm or update the app's configuration after Visual Studio creates the app.</span></span>
 
 ::: moniker-end
 
@@ -50,7 +50,7 @@ ms.locfileid: "93234473"
 <span data-ttu-id="52bac-114">请按照[快速入门：向 Microsoft 标识平台注册应用程序](/azure/active-directory/develop/quickstart-register-app)中的指南和后续 Azure AAD 主题操作，以便为服务器 API 应用注册 AAD 应用，然后执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="52bac-114">Follow the guidance in [Quickstart: Register an application with the Microsoft identity platform](/azure/active-directory/develop/quickstart-register-app) and subsequent Azure AAD topics to register an AAD app for the *Server API app* and then do the following:</span></span>
 
 1. <span data-ttu-id="52bac-115">在“Azure Active Directory” > “应用注册”中，选择“新建注册”  。</span><span class="sxs-lookup"><span data-stu-id="52bac-115">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="52bac-116">提供应用的名称（例如 :::no-loc(Blazor Server)::: AAD） 。</span><span class="sxs-lookup"><span data-stu-id="52bac-116">Provide a **Name** for the app (for example, **:::no-loc(Blazor Server)::: AAD** ).</span></span>
+1. <span data-ttu-id="52bac-116">提供应用的名称（例如 Blazor Server AAD） 。</span><span class="sxs-lookup"><span data-stu-id="52bac-116">Provide a **Name** for the app (for example, **Blazor Server AAD** ).</span></span>
 1. <span data-ttu-id="52bac-117">选择支持的帐户类型。</span><span class="sxs-lookup"><span data-stu-id="52bac-117">Choose a **Supported account types**.</span></span> <span data-ttu-id="52bac-118">为此体验选择“仅此组织目录中的帐户”（单个租户）。</span><span class="sxs-lookup"><span data-stu-id="52bac-118">You may select **Accounts in this organizational directory only** (single tenant) for this experience.</span></span>
 1. <span data-ttu-id="52bac-119">在这种情况下，“服务器 API 应用”不需要“重定向 URI”，因此请将下拉列表设置为 Web，并且不输入重定向 URI 。</span><span class="sxs-lookup"><span data-stu-id="52bac-119">The *Server API app* doesn't require a **Redirect URI** in this scenario, so leave the drop down set to **Web** and don't enter a redirect URI.</span></span>
 1. <span data-ttu-id="52bac-120">清除“权限” > “授予对 openid 和 offline_access 权限的管理员同意”复选框。</span><span class="sxs-lookup"><span data-stu-id="52bac-120">Clear the **Permissions** > **Grant admin consent to openid and offline_access permissions** check box.</span></span>
@@ -86,7 +86,7 @@ ms.locfileid: "93234473"
 ::: moniker range=">= aspnetcore-5.0"
 
 1. <span data-ttu-id="52bac-140">在“Azure Active Directory”>“应用注册”中，选择“新建注册”。</span><span class="sxs-lookup"><span data-stu-id="52bac-140">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="52bac-141">提供应用的名称（例如 :::no-loc(Blazor)::: 客户端 AAD） 。</span><span class="sxs-lookup"><span data-stu-id="52bac-141">Provide a **Name** for the app (for example, **:::no-loc(Blazor)::: Client AAD** ).</span></span>
+1. <span data-ttu-id="52bac-141">提供应用的名称（例如 Blazor 客户端 AAD） 。</span><span class="sxs-lookup"><span data-stu-id="52bac-141">Provide a **Name** for the app (for example, **Blazor Client AAD** ).</span></span>
 1. <span data-ttu-id="52bac-142">选择支持的帐户类型。</span><span class="sxs-lookup"><span data-stu-id="52bac-142">Choose a **Supported account types**.</span></span> <span data-ttu-id="52bac-143">为此体验选择“仅此组织目录中的帐户”（单个租户）。</span><span class="sxs-lookup"><span data-stu-id="52bac-143">You may select **Accounts in this organizational directory only** (single tenant) for this experience.</span></span>
 1. <span data-ttu-id="52bac-144">将“重定向 URI”下拉列表设置为“单页应用程序(SPA)”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback`。</span><span class="sxs-lookup"><span data-stu-id="52bac-144">Set the **Redirect URI** drop down to **Single-page application (SPA)** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="52bac-145">在 Kestrel 上运行的应用的默认端口为 5001。</span><span class="sxs-lookup"><span data-stu-id="52bac-145">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="52bac-146">如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。</span><span class="sxs-lookup"><span data-stu-id="52bac-146">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="52bac-147">对于 IIS Express，可以在“调试”面板的 `Server` 应用属性中找到应用随机生成的端口。</span><span class="sxs-lookup"><span data-stu-id="52bac-147">For IIS Express, the randomly generated port for the app can be found in the *`Server`* app's properties in the **Debug** panel.</span></span> <span data-ttu-id="52bac-148">由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="52bac-148">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="52bac-149">[创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="52bac-149">A remark appears in the [Create the app](#create-the-app) section to remind IIS Express users to update the redirect URI.</span></span>
 1. <span data-ttu-id="52bac-150">取消选中“权限”>“授予对 openid 和 offline_access 权限的管理员同意”复选框。</span><span class="sxs-lookup"><span data-stu-id="52bac-150">Clear the **Permissions** > **Grant admin consent to openid and offline_access permissions** check box.</span></span>
@@ -106,7 +106,7 @@ ms.locfileid: "93234473"
 ::: moniker range="< aspnetcore-5.0"
 
 1. <span data-ttu-id="52bac-158">在“Azure Active Directory”>“应用注册”中，选择“新建注册”。</span><span class="sxs-lookup"><span data-stu-id="52bac-158">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="52bac-159">提供应用的名称（例如 :::no-loc(Blazor)::: 客户端 AAD） 。</span><span class="sxs-lookup"><span data-stu-id="52bac-159">Provide a **Name** for the app (for example, **:::no-loc(Blazor)::: Client AAD** ).</span></span>
+1. <span data-ttu-id="52bac-159">提供应用的名称（例如 Blazor 客户端 AAD） 。</span><span class="sxs-lookup"><span data-stu-id="52bac-159">Provide a **Name** for the app (for example, **Blazor Client AAD** ).</span></span>
 1. <span data-ttu-id="52bac-160">选择支持的帐户类型。</span><span class="sxs-lookup"><span data-stu-id="52bac-160">Choose a **Supported account types**.</span></span> <span data-ttu-id="52bac-161">为此体验选择“仅此组织目录中的帐户”（单个租户）。</span><span class="sxs-lookup"><span data-stu-id="52bac-161">You may select **Accounts in this organizational directory only** (single tenant) for this experience.</span></span>
 1. <span data-ttu-id="52bac-162">将“重定向 URI”下拉列表设置为“Web”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback` 。</span><span class="sxs-lookup"><span data-stu-id="52bac-162">Leave the **Redirect URI** drop down set to **Web** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="52bac-163">在 Kestrel 上运行的应用的默认端口为 5001。</span><span class="sxs-lookup"><span data-stu-id="52bac-163">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="52bac-164">如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。</span><span class="sxs-lookup"><span data-stu-id="52bac-164">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="52bac-165">对于 IIS Express，可以在“调试”面板的 `Server` 应用属性中找到应用随机生成的端口。</span><span class="sxs-lookup"><span data-stu-id="52bac-165">For IIS Express, the randomly generated port for the app can be found in the *`Server`* app's properties in the **Debug** panel.</span></span> <span data-ttu-id="52bac-166">由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="52bac-166">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="52bac-167">[创建应用](#create-the-app)部分中会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="52bac-167">A remark appears in the [Create the app](#create-the-app) section to remind IIS Express users to update the redirect URI.</span></span>
 1. <span data-ttu-id="52bac-168">取消选中“权限”>“授予对 openid 和 offline_access 权限的管理员同意”复选框。</span><span class="sxs-lookup"><span data-stu-id="52bac-168">Clear the **Permissions** > **Grant admin consent to openid and offline_access permissions** check box.</span></span>
@@ -127,7 +127,7 @@ ms.locfileid: "93234473"
 
 1. <span data-ttu-id="52bac-177">确认应用拥有“Microsoft Graph” > “User.Read”权限 。</span><span class="sxs-lookup"><span data-stu-id="52bac-177">Confirm that the app has **Microsoft Graph** > **User.Read** permission.</span></span>
 1. <span data-ttu-id="52bac-178">选择“添加权限”，然后选择“我的 API” 。</span><span class="sxs-lookup"><span data-stu-id="52bac-178">Select **Add a permission** followed by **My APIs**.</span></span>
-1. <span data-ttu-id="52bac-179">从“名称”列（例如 :::no-loc(Blazor Server)::: AAD）中选择“服务器 API 应用” 。</span><span class="sxs-lookup"><span data-stu-id="52bac-179">Select the *Server API app* from the **Name** column (for example, **:::no-loc(Blazor Server)::: AAD** ).</span></span>
+1. <span data-ttu-id="52bac-179">从“名称”列（例如 Blazor Server AAD）中选择“服务器 API 应用” 。</span><span class="sxs-lookup"><span data-stu-id="52bac-179">Select the *Server API app* from the **Name** column (for example, **Blazor Server AAD** ).</span></span>
 1. <span data-ttu-id="52bac-180">打开 API 列表。</span><span class="sxs-lookup"><span data-stu-id="52bac-180">Open the **API** list.</span></span>
 1. <span data-ttu-id="52bac-181">启用对 API 的访问（例如 `API.Access`）。</span><span class="sxs-lookup"><span data-stu-id="52bac-181">Enable access to the API (for example, `API.Access`).</span></span>
 1. <span data-ttu-id="52bac-182">选择“添加权限”。</span><span class="sxs-lookup"><span data-stu-id="52bac-182">Select **Add permissions**.</span></span>
@@ -143,7 +143,7 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 
 | <span data-ttu-id="52bac-187">占位符</span><span class="sxs-lookup"><span data-stu-id="52bac-187">Placeholder</span></span>                  | <span data-ttu-id="52bac-188">Azure 门户中的名称</span><span class="sxs-lookup"><span data-stu-id="52bac-188">Azure portal name</span></span>                                     | <span data-ttu-id="52bac-189">示例</span><span class="sxs-lookup"><span data-stu-id="52bac-189">Example</span></span>                                        |
 | ---------------------------- | ----------------------------------------------------- | ---------------------------------------------- |
-| `{APP NAME}`                 | &mdash;                                               | `:::no-loc(Blazor):::Sample`                                 |
+| `{APP NAME}`                 | &mdash;                                               | `BlazorSample`                                 |
 | `{CLIENT APP CLIENT ID}`     | <span data-ttu-id="52bac-190">`Client` 应用的应用程序（客户端）ID</span><span class="sxs-lookup"><span data-stu-id="52bac-190">Application (client) ID for the *`Client`* app</span></span>        | `4369008b-21fa-427c-abaa-9b53bf58e538`         |
 | `{DEFAULT SCOPE}`            | <span data-ttu-id="52bac-191">作用域名</span><span class="sxs-lookup"><span data-stu-id="52bac-191">Scope name</span></span>                                            | `API.Access`                                   |
 | `{SERVER API APP CLIENT ID}` | <span data-ttu-id="52bac-192">“服务器 API 应用”的应用程序（客户端）ID</span><span class="sxs-lookup"><span data-stu-id="52bac-192">Application (client) ID for the *Server API app*</span></span>      | `41451fa7-82d9-4673-8fa5-69eff5a761fd`         |
@@ -151,7 +151,7 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 | `{TENANT DOMAIN}`            | <span data-ttu-id="52bac-194">主域/发布者域/租户域</span><span class="sxs-lookup"><span data-stu-id="52bac-194">Primary/Publisher/Tenant domain</span></span>                       | `contoso.onmicrosoft.com`                      |
 | `{TENANT ID}`                | <span data-ttu-id="52bac-195">目录（租户）ID</span><span class="sxs-lookup"><span data-stu-id="52bac-195">Directory (tenant) ID</span></span>                                 | `e86c78e2-8bb4-4c41-aefd-918e0565a45e`         |
 
-<span data-ttu-id="52bac-196">&dagger;:::no-loc(Blazor WebAssembly)::: 模板会自动将 `api://` 的方案添加到 `dotnet new` 命令中传递的应用 ID URI 参数。</span><span class="sxs-lookup"><span data-stu-id="52bac-196">&dagger;The :::no-loc(Blazor WebAssembly)::: template automatically adds a scheme of `api://` to the App ID URI argument passed in the `dotnet new` command.</span></span> <span data-ttu-id="52bac-197">为 `{SERVER API APP ID URI}` 占位符提供应用 ID URI 时，如果方案为 `api://`，请从参数中删除方案 (`api://`)，如上表中的示例值所示。</span><span class="sxs-lookup"><span data-stu-id="52bac-197">When providing the App ID URI for the `{SERVER API APP ID URI}` placeholder and if the scheme is `api://`, remove the scheme (`api://`) from the argument, as the example value in the preceding table shows.</span></span> <span data-ttu-id="52bac-198">如果应用 ID URI 是一个自定义值，或者有一些其他方案（例如，不受信任的发布者域的 `https://` 类似于 `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd`），则必须手动更新默认范围 URI，并在模板创建 `Client` 应用后删除 `api://` 方案。</span><span class="sxs-lookup"><span data-stu-id="52bac-198">If the App ID URI is a custom value or has some other scheme (for example, `https://` for an untrusted publisher domain similar to `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd`), you must manually update the default scope URI and remove the `api://` scheme after the *`Client`* app is created by the template.</span></span> <span data-ttu-id="52bac-199">有关详细信息，请参阅[访问令牌范围](#access-token-scopes)部分中的说明。</span><span class="sxs-lookup"><span data-stu-id="52bac-199">For more information, see the note in the [Access token scopes](#access-token-scopes) section.</span></span> <span data-ttu-id="52bac-200">:::no-loc(Blazor WebAssembly)::: 模板可能会在未来版本的 ASP.NET Core 中有所更改来解决这些方案。</span><span class="sxs-lookup"><span data-stu-id="52bac-200">The :::no-loc(Blazor WebAssembly)::: template might be changed in a future release of ASP.NET Core to address these scenarios.</span></span> <span data-ttu-id="52bac-201">有关详细信息，请参阅[结合使用应用 ID URI 与 :::no-loc(Blazor)::: WASM 模板的双方案（托管、单组织）(dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417)。</span><span class="sxs-lookup"><span data-stu-id="52bac-201">For more information, see [Double scheme for App ID URI with :::no-loc(Blazor)::: WASM template (hosted, single org) (dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417).</span></span>
+<span data-ttu-id="52bac-196">&dagger;Blazor WebAssembly 模板会自动将 `api://` 的方案添加到 `dotnet new` 命令中传递的应用 ID URI 参数。</span><span class="sxs-lookup"><span data-stu-id="52bac-196">&dagger;The Blazor WebAssembly template automatically adds a scheme of `api://` to the App ID URI argument passed in the `dotnet new` command.</span></span> <span data-ttu-id="52bac-197">为 `{SERVER API APP ID URI}` 占位符提供应用 ID URI 时，如果方案为 `api://`，请从参数中删除方案 (`api://`)，如上表中的示例值所示。</span><span class="sxs-lookup"><span data-stu-id="52bac-197">When providing the App ID URI for the `{SERVER API APP ID URI}` placeholder and if the scheme is `api://`, remove the scheme (`api://`) from the argument, as the example value in the preceding table shows.</span></span> <span data-ttu-id="52bac-198">如果应用 ID URI 是一个自定义值，或者有一些其他方案（例如，不受信任的发布者域的 `https://` 类似于 `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd`），则必须手动更新默认范围 URI，并在模板创建 `Client` 应用后删除 `api://` 方案。</span><span class="sxs-lookup"><span data-stu-id="52bac-198">If the App ID URI is a custom value or has some other scheme (for example, `https://` for an untrusted publisher domain similar to `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd`), you must manually update the default scope URI and remove the `api://` scheme after the *`Client`* app is created by the template.</span></span> <span data-ttu-id="52bac-199">有关详细信息，请参阅[访问令牌范围](#access-token-scopes)部分中的说明。</span><span class="sxs-lookup"><span data-stu-id="52bac-199">For more information, see the note in the [Access token scopes](#access-token-scopes) section.</span></span> <span data-ttu-id="52bac-200">Blazor WebAssembly 模板可能会在未来版本的 ASP.NET Core 中有所更改来解决这些方案。</span><span class="sxs-lookup"><span data-stu-id="52bac-200">The Blazor WebAssembly template might be changed in a future release of ASP.NET Core to address these scenarios.</span></span> <span data-ttu-id="52bac-201">有关详细信息，请参阅[结合使用应用 ID URI 与 Blazor WASM 模板的双方案（托管、单组织）(dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417)。</span><span class="sxs-lookup"><span data-stu-id="52bac-201">For more information, see [Double scheme for App ID URI with Blazor WASM template (hosted, single org) (dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417).</span></span>
 
 <span data-ttu-id="52bac-202">使用 `-o|--output` 选项指定的输出位置将创建一个项目文件夹（如果该文件夹不存在）并成为应用程序名称的一部分。</span><span class="sxs-lookup"><span data-stu-id="52bac-202">The output location specified with the `-o|--output` option creates a project folder if it doesn't exist and becomes part of the app's name.</span></span>
 
@@ -184,14 +184,14 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 
 ::: moniker range=">= aspnetcore-5.0"
 
-<span data-ttu-id="52bac-211">以下包提供使用 Microsoft :::no-loc(Identity)::: 平台验证和授权对 ASP.NET Core Web API 的调用的支持：</span><span class="sxs-lookup"><span data-stu-id="52bac-211">The support for authenticating and authorizing calls to ASP.NET Core Web APIs with the Microsoft :::no-loc(Identity)::: Platform is provided by the following packages:</span></span>
+<span data-ttu-id="52bac-211">以下包提供使用 Microsoft Identity 平台验证和授权对 ASP.NET Core Web API 的调用的支持：</span><span class="sxs-lookup"><span data-stu-id="52bac-211">The support for authenticating and authorizing calls to ASP.NET Core Web APIs with the Microsoft Identity Platform is provided by the following packages:</span></span>
 
-* [`Microsoft.:::no-loc(Identity):::.Web`](https://www.nuget.org/packages/Microsoft.:::no-loc(Identity):::.Web)
-* [`Microsoft.:::no-loc(Identity):::.Web.UI`](https://www.nuget.org/packages/Microsoft.:::no-loc(Identity):::.Web.UI)
+* [`Microsoft.Identity.Web`](https://www.nuget.org/packages/Microsoft.Identity.Web)
+* [`Microsoft.Identity.Web.UI`](https://www.nuget.org/packages/Microsoft.Identity.Web.UI)
 
 ```xml
-<PackageReference Include="Microsoft.:::no-loc(Identity):::.Web" Version="{VERSION}" />
-<PackageReference Include="Microsoft.:::no-loc(Identity):::.Web.UI" Version="{VERSION}" />
+<PackageReference Include="Microsoft.Identity.Web" Version="{VERSION}" />
+<PackageReference Include="Microsoft.Identity.Web.UI" Version="{VERSION}" />
 ```
 
 <span data-ttu-id="52bac-212">对于占位符 `{VERSION}`，可在包的版本历史记录（位于 NuGet.org）中找到与应用的共享框架版本匹配的最新稳定版本的包。</span><span class="sxs-lookup"><span data-stu-id="52bac-212">For the placeholder `{VERSION}`, the latest stable version of the package that matches the app's shared framework version can be found in the package's **Version History** at NuGet.org.</span></span>
@@ -215,11 +215,11 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 
 ::: moniker range=">= aspnetcore-5.0"
 
-<span data-ttu-id="52bac-216">`AddAuthentication` 方法在应用中设置身份验证服务，并将 JWT 持有者处理程序配置为默认身份验证方法。</span><span class="sxs-lookup"><span data-stu-id="52bac-216">The `AddAuthentication` method sets up authentication services within the app and configures the JWT Bearer handler as the default authentication method.</span></span> <span data-ttu-id="52bac-217"><xref:Microsoft.:::no-loc(Identity):::.Web.Microsoft:::no-loc(Identity):::WebApiAuthenticationBuilderExtensions.AddMicrosoft:::no-loc(Identity):::WebApi%2A> 方法将服务配置为使用 Microsoft :::no-loc(Identity)::: 平台 v2.0 保护 Web API。</span><span class="sxs-lookup"><span data-stu-id="52bac-217">The <xref:Microsoft.:::no-loc(Identity):::.Web.Microsoft:::no-loc(Identity):::WebApiAuthenticationBuilderExtensions.AddMicrosoft:::no-loc(Identity):::WebApi%2A> method configures services to protect the web API with Microsoft :::no-loc(Identity)::: Platform v2.0.</span></span> <span data-ttu-id="52bac-218">此方法需要应用配置中的 `AzureAd` 部分通过必要的设置来初始化身份验证选项。</span><span class="sxs-lookup"><span data-stu-id="52bac-218">This method expects an `AzureAd` section in the app's configuration with the necessary settings to initialize authentication options.</span></span>
+<span data-ttu-id="52bac-216">`AddAuthentication` 方法在应用中设置身份验证服务，并将 JWT 持有者处理程序配置为默认身份验证方法。</span><span class="sxs-lookup"><span data-stu-id="52bac-216">The `AddAuthentication` method sets up authentication services within the app and configures the JWT Bearer handler as the default authentication method.</span></span> <span data-ttu-id="52bac-217"><xref:Microsoft.Identity.Web.MicrosoftIdentityWebApiAuthenticationBuilderExtensions.AddMicrosoftIdentityWebApi%2A> 方法将服务配置为使用 Microsoft Identity 平台 v2.0 保护 Web API。</span><span class="sxs-lookup"><span data-stu-id="52bac-217">The <xref:Microsoft.Identity.Web.MicrosoftIdentityWebApiAuthenticationBuilderExtensions.AddMicrosoftIdentityWebApi%2A> method configures services to protect the web API with Microsoft Identity Platform v2.0.</span></span> <span data-ttu-id="52bac-218">此方法需要应用配置中的 `AzureAd` 部分通过必要的设置来初始化身份验证选项。</span><span class="sxs-lookup"><span data-stu-id="52bac-218">This method expects an `AzureAd` section in the app's configuration with the necessary settings to initialize authentication options.</span></span>
 
 ```csharp
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoft:::no-loc(Identity):::WebApi(Configuration.GetSection("AzureAd"));
+    .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
 ```
 
 ::: moniker-end
@@ -245,11 +245,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 ```
 
-### <a name="userno-locidentityname"></a><span data-ttu-id="52bac-224">User.:::no-loc(Identity):::.Name</span><span class="sxs-lookup"><span data-stu-id="52bac-224">User.:::no-loc(Identity):::.Name</span></span>
+### <a name="userno-locidentityname"></a><span data-ttu-id="52bac-224">User.Identity.Name</span><span class="sxs-lookup"><span data-stu-id="52bac-224">User.Identity.Name</span></span>
 
-<span data-ttu-id="52bac-225">默认情况下，`Server` 应用 API 使用 `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` 声明类型（例如 `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`）中的值填充 `User.:::no-loc(Identity):::.Name`。</span><span class="sxs-lookup"><span data-stu-id="52bac-225">By default, the *`Server`* app API populates `User.:::no-loc(Identity):::.Name` with the value from the `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` claim type (for example, `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`).</span></span>
+<span data-ttu-id="52bac-225">默认情况下，`Server` 应用 API 使用 `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` 声明类型（例如 `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`）中的值填充 `User.Identity.Name`。</span><span class="sxs-lookup"><span data-stu-id="52bac-225">By default, the *`Server`* app API populates `User.Identity.Name` with the value from the `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` claim type (for example, `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`).</span></span>
 
-<span data-ttu-id="52bac-226">要将应用配置为从 `name` 声明类型接收值，请在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> 的 <xref:Microsoft.:::no-loc(Identity):::Model.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType>：</span><span class="sxs-lookup"><span data-stu-id="52bac-226">To configure the app to receive the value from the `name` claim type, configure the <xref:Microsoft.:::no-loc(Identity):::Model.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType> of the <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="52bac-226">要将应用配置为从 `name` 声明类型接收值，请在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> 的 <xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType>：</span><span class="sxs-lookup"><span data-stu-id="52bac-226">To configure the app to receive the value from the `name` claim type, configure the <xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType?displayProperty=nameWithType> of the <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -267,7 +267,7 @@ services.Configure<JwtBearerOptions>(
 
 ::: moniker range=">= aspnetcore-5.0"
 
-<span data-ttu-id="52bac-228">`:::no-loc(appsettings.json):::` 文件包含用于配置 JWT 持有者处理程序（用于验证访问令牌）的选项：</span><span class="sxs-lookup"><span data-stu-id="52bac-228">The `:::no-loc(appsettings.json):::` file contains the options to configure the JWT bearer handler used to validate access tokens:</span></span>
+<span data-ttu-id="52bac-228">`appsettings.json` 文件包含用于配置 JWT 持有者处理程序（用于验证访问令牌）的选项：</span><span class="sxs-lookup"><span data-stu-id="52bac-228">The `appsettings.json` file contains the options to configure the JWT bearer handler used to validate access tokens:</span></span>
 
 ```json
 {
@@ -301,7 +301,7 @@ services.Configure<JwtBearerOptions>(
 
 ::: moniker range="< aspnetcore-5.0"
 
-<span data-ttu-id="52bac-230">`:::no-loc(appsettings.json):::` 文件包含用于配置 JWT 持有者处理程序（用于验证访问令牌）的选项：</span><span class="sxs-lookup"><span data-stu-id="52bac-230">The `:::no-loc(appsettings.json):::` file contains the options to configure the JWT bearer handler used to validate access tokens:</span></span>
+<span data-ttu-id="52bac-230">`appsettings.json` 文件包含用于配置 JWT 持有者处理程序（用于验证访问令牌）的选项：</span><span class="sxs-lookup"><span data-stu-id="52bac-230">The `appsettings.json` file contains the options to configure the JWT bearer handler used to validate access tokens:</span></span>
 
 ```json
 {
@@ -334,7 +334,7 @@ services.Configure<JwtBearerOptions>(
 <span data-ttu-id="52bac-233">WeatherForecast 控制器 (Controllers/WeatherForecastController.cs) 公开了一个受保护的 API，并将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性应用于控制器。</span><span class="sxs-lookup"><span data-stu-id="52bac-233">The WeatherForecast controller ( *Controllers/WeatherForecastController.cs* ) exposes a protected API with the [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute applied to the controller.</span></span> <span data-ttu-id="52bac-234">务必了解以下内容：</span><span class="sxs-lookup"><span data-stu-id="52bac-234">It's **important** to understand that:</span></span>
 
 * <span data-ttu-id="52bac-235">仅此 API 控制器中的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性可以保护此 API 免受未经授权的访问。</span><span class="sxs-lookup"><span data-stu-id="52bac-235">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute in this API controller is the only thing that protect this API from unauthorized access.</span></span>
-* <span data-ttu-id="52bac-236">:::no-loc(Blazor WebAssembly)::: 应用中使用的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性仅用作应用的提示，提示应授权用户应用才能正常运行。</span><span class="sxs-lookup"><span data-stu-id="52bac-236">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute used in the :::no-loc(Blazor WebAssembly)::: app only serves as a hint to the app that the user should be authorized for the app to work correctly.</span></span>
+* <span data-ttu-id="52bac-236">Blazor WebAssembly 应用中使用的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性仅用作应用的提示，提示应授权用户应用才能正常运行。</span><span class="sxs-lookup"><span data-stu-id="52bac-236">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute used in the Blazor WebAssembly app only serves as a hint to the app that the user should be authorized for the app to work correctly.</span></span>
 
 ```csharp
 [Authorize]
@@ -384,9 +384,9 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("{APP ASSEMBLY}.ServerAPI"));
 ```
 
-<span data-ttu-id="52bac-248">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `:::no-loc(Blazor):::Sample.ServerAPI`）。</span><span class="sxs-lookup"><span data-stu-id="52bac-248">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `:::no-loc(Blazor):::Sample.ServerAPI`).</span></span>
+<span data-ttu-id="52bac-248">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample.ServerAPI`）。</span><span class="sxs-lookup"><span data-stu-id="52bac-248">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `BlazorSample.ServerAPI`).</span></span>
 
-<span data-ttu-id="52bac-249">使用由 [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册对用户进行身份验证的支持。</span><span class="sxs-lookup"><span data-stu-id="52bac-249">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> extension method provided by the [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package.</span></span> <span data-ttu-id="52bac-250">此方法设置应用与 :::no-loc(Identity)::: 提供者 (IP) 交互所需的服务。</span><span class="sxs-lookup"><span data-stu-id="52bac-250">This method sets up the services required for the app to interact with the :::no-loc(Identity)::: Provider (IP).</span></span>
+<span data-ttu-id="52bac-249">使用由 [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册对用户进行身份验证的支持。</span><span class="sxs-lookup"><span data-stu-id="52bac-249">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> extension method provided by the [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package.</span></span> <span data-ttu-id="52bac-250">此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。</span><span class="sxs-lookup"><span data-stu-id="52bac-250">This method sets up the services required for the app to interact with the Identity Provider (IP).</span></span>
 
 <span data-ttu-id="52bac-251">`Program.cs`:</span><span class="sxs-lookup"><span data-stu-id="52bac-251">`Program.cs`:</span></span>
 
@@ -400,7 +400,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <span data-ttu-id="52bac-252"><xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 方法接受回叫，以配置验证应用所需的参数。</span><span class="sxs-lookup"><span data-stu-id="52bac-252">The <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> method accepts a callback to configure the parameters required to authenticate an app.</span></span> <span data-ttu-id="52bac-253">注册应用时，可以从 Azure 门户 AAD 配置中获取配置应用所需的值。</span><span class="sxs-lookup"><span data-stu-id="52bac-253">The values required for configuring the app can be obtained from the Azure Portal AAD configuration when you register the app.</span></span>
 
-<span data-ttu-id="52bac-254">配置由 `wwwroot/:::no-loc(appsettings.json):::` 文件提供：</span><span class="sxs-lookup"><span data-stu-id="52bac-254">Configuration is supplied by the `wwwroot/:::no-loc(appsettings.json):::` file:</span></span>
+<span data-ttu-id="52bac-254">配置由 `wwwroot/appsettings.json` 文件提供：</span><span class="sxs-lookup"><span data-stu-id="52bac-254">Configuration is supplied by the `wwwroot/appsettings.json` file:</span></span>
 
 ```json
 {
@@ -442,7 +442,7 @@ builder.Services.AddMsalAuthentication(options =>
 ```
 
 > [!NOTE]
-> <span data-ttu-id="52bac-262">:::no-loc(Blazor WebAssembly)::: 模板会自动将 `api://` 的方案添加到 `dotnet new` 命令中传递的应用 ID URI 参数。</span><span class="sxs-lookup"><span data-stu-id="52bac-262">The :::no-loc(Blazor WebAssembly)::: template automatically adds a scheme of `api://` to the App ID URI argument passed in the `dotnet new` command.</span></span> <span data-ttu-id="52bac-263">从 :::no-loc(Blazor)::: 项目模板生成应用时，请确认默认访问令牌范围的值使用在 Azure 门户中提供的正确的自定义应用 ID URI 值，或采用以下格式之一的值：</span><span class="sxs-lookup"><span data-stu-id="52bac-263">When generating an app from the :::no-loc(Blazor)::: project template, confirm that the value of the default access token scope uses either the correct custom App ID URI value that you provided in the Azure portal or a value with **one** of the following formats:</span></span>
+> <span data-ttu-id="52bac-262">Blazor WebAssembly 模板会自动将 `api://` 的方案添加到 `dotnet new` 命令中传递的应用 ID URI 参数。</span><span class="sxs-lookup"><span data-stu-id="52bac-262">The Blazor WebAssembly template automatically adds a scheme of `api://` to the App ID URI argument passed in the `dotnet new` command.</span></span> <span data-ttu-id="52bac-263">从 Blazor 项目模板生成应用时，请确认默认访问令牌范围的值使用在 Azure 门户中提供的正确的自定义应用 ID URI 值，或采用以下格式之一的值：</span><span class="sxs-lookup"><span data-stu-id="52bac-263">When generating an app from the Blazor project template, confirm that the value of the default access token scope uses either the correct custom App ID URI value that you provided in the Azure portal or a value with **one** of the following formats:</span></span>
 >
 > * <span data-ttu-id="52bac-264">当目录的发布者域受信任时，默认访问令牌范围通常为类似于以下示例的值，其中 `API.Access` 为默认范围名称：</span><span class="sxs-lookup"><span data-stu-id="52bac-264">When the publisher domain of the directory is **trusted** , the default access token scope is typically a value similar to the following example, where `API.Access` is the default scope name:</span></span>
 >
@@ -462,7 +462,7 @@ builder.Services.AddMsalAuthentication(options =>
 >
 >   <span data-ttu-id="52bac-268">检查附加 `api://` 方案 (`api://https://contoso.onmicrosoft.com/...`) 的值。</span><span class="sxs-lookup"><span data-stu-id="52bac-268">Inspect the value for an extra `api://` scheme (`api://https://contoso.onmicrosoft.com/...`).</span></span> <span data-ttu-id="52bac-269">如果存在附加 `api://` 方案，则从值中删除 `api://` 方案。</span><span class="sxs-lookup"><span data-stu-id="52bac-269">If an extra `api://` scheme is present, remove the `api://` scheme from the value.</span></span>
 >
-> <span data-ttu-id="52bac-270">:::no-loc(Blazor WebAssembly)::: 模板可能会在未来版本的 ASP.NET Core 中有所更改来解决这些方案。</span><span class="sxs-lookup"><span data-stu-id="52bac-270">The :::no-loc(Blazor WebAssembly)::: template might be changed in a future release of ASP.NET Core to address these scenarios.</span></span> <span data-ttu-id="52bac-271">有关详细信息，请参阅[结合使用应用 ID URI 与 :::no-loc(Blazor)::: WASM 模板的双方案（托管、单组织）(dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417)。</span><span class="sxs-lookup"><span data-stu-id="52bac-271">For more information, see [Double scheme for App ID URI with :::no-loc(Blazor)::: WASM template (hosted, single org) (dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417).</span></span>
+> <span data-ttu-id="52bac-270">Blazor WebAssembly 模板可能会在未来版本的 ASP.NET Core 中有所更改来解决这些方案。</span><span class="sxs-lookup"><span data-stu-id="52bac-270">The Blazor WebAssembly template might be changed in a future release of ASP.NET Core to address these scenarios.</span></span> <span data-ttu-id="52bac-271">有关详细信息，请参阅[结合使用应用 ID URI 与 Blazor WASM 模板的双方案（托管、单组织）(dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417)。</span><span class="sxs-lookup"><span data-stu-id="52bac-271">For more information, see [Double scheme for App ID URI with Blazor WASM template (hosted, single org) (dotnet/aspnetcore #27417)](https://github.com/dotnet/aspnetcore/issues/27417).</span></span>
 
 <span data-ttu-id="52bac-272">使用 `AdditionalScopesToConsent` 指定其他作用域：</span><span class="sxs-lookup"><span data-stu-id="52bac-272">Specify additional scopes with `AdditionalScopesToConsent`:</span></span>
 

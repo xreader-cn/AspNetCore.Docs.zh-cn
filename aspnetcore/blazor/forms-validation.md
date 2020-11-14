@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: 窗体和验证'
+title: 'ASP.NET Core Blazor 窗体和验证'
 author: guardrex
-description: '了解如何在 :::no-loc(Blazor)::: 中使用窗体和字段验证方案。'
+description: '了解如何在 Blazor 中使用窗体和字段验证方案。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/17/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/forms-validation
 ms.openlocfilehash: fe232b40a2255732dd375cc266937576d5b2d5d9
 ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
@@ -26,11 +26,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/11/2020
 ms.locfileid: "94507819"
 ---
-# <a name="aspnet-core-no-locblazor-forms-and-validation"></a><span data-ttu-id="ddbcd-103">ASP.NET Core :::no-loc(Blazor)::: 窗体和验证</span><span class="sxs-lookup"><span data-stu-id="ddbcd-103">ASP.NET Core :::no-loc(Blazor)::: forms and validation</span></span>
+# <a name="aspnet-core-no-locblazor-forms-and-validation"></a><span data-ttu-id="ddbcd-103">ASP.NET Core Blazor 窗体和验证</span><span class="sxs-lookup"><span data-stu-id="ddbcd-103">ASP.NET Core Blazor forms and validation</span></span>
 
 <span data-ttu-id="ddbcd-104">作者：[Daniel Roth](https://github.com/danroth27)、[Rémi Bourgarel](https://remibou.github.io/) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="ddbcd-104">By [Daniel Roth](https://github.com/danroth27), [Rémi Bourgarel](https://remibou.github.io/), and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="ddbcd-105">在 :::no-loc(Blazor)::: 中，使用[数据注释](xref:mvc/models/validation)支持窗体和验证。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-105">Forms and validation are supported in :::no-loc(Blazor)::: using [data annotations](xref:mvc/models/validation).</span></span>
+<span data-ttu-id="ddbcd-105">在 Blazor 中，使用[数据注释](xref:mvc/models/validation)支持窗体和验证。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-105">Forms and validation are supported in Blazor using [data annotations](xref:mvc/models/validation).</span></span>
 
 <span data-ttu-id="ddbcd-106">下面的 `ExampleModel` 类型使用数据注释定义验证逻辑：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-106">The following `ExampleModel` type defines validation logic using data annotations:</span></span>
 
@@ -45,7 +45,7 @@ public class ExampleModel
 }
 ```
 
-<span data-ttu-id="ddbcd-107">窗体是使用 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 组件定义的。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-107">A form is defined using the <xref:Microsoft.AspNetCore.Components.Forms.EditForm> component.</span></span> <span data-ttu-id="ddbcd-108">以下窗体展示了典型的元素、组件和 :::no-loc(Razor)::: 代码：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-108">The following form demonstrates typical elements, components, and :::no-loc(Razor)::: code:</span></span>
+<span data-ttu-id="ddbcd-107">窗体是使用 <xref:Microsoft.AspNetCore.Components.Forms.EditForm> 组件定义的。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-107">A form is defined using the <xref:Microsoft.AspNetCore.Components.Forms.EditForm> component.</span></span> <span data-ttu-id="ddbcd-108">以下窗体展示了典型的元素、组件和 Razor 代码：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-108">The following form demonstrates typical elements, components, and Razor code:</span></span>
 
 ```razor
 <EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
@@ -313,7 +313,7 @@ The birthday must be a date.
 
 <span data-ttu-id="ddbcd-160">验证器组件通过管理窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 的 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore> 来支持窗体验证。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-160">Validator components support form validation by managing a <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore> for a form's <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span>
 
-<span data-ttu-id="ddbcd-161">:::no-loc(Blazor)::: 框架提供了 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，以将验证支持附加到基于[验证属性（数据批注）](xref:mvc/models/validation#validation-attributes)的窗体。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-161">The :::no-loc(Blazor)::: framework provides the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component to attach validation support to forms based on [validation attributes (data annotations)](xref:mvc/models/validation#validation-attributes).</span></span> <span data-ttu-id="ddbcd-162">创建自定义验证器组件，以处理同一页上不同窗体或不同窗体处理步骤上相同窗体的验证消息，例如客户端验证，然后是服务器端验证。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-162">Create custom validator components to process validation messages for different forms on the same page or the same form at different steps of form processing, for example client-side validation followed by server-side validation.</span></span> <span data-ttu-id="ddbcd-163">本文的以下部分将使用本部分 `CustomValidator` 中所示的验证器组件示例：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-163">The validator component example shown in this section, `CustomValidator`, is used in the following sections of this article:</span></span>
+<span data-ttu-id="ddbcd-161">Blazor 框架提供了 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，以将验证支持附加到基于[验证属性（数据批注）](xref:mvc/models/validation#validation-attributes)的窗体。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-161">The Blazor framework provides the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component to attach validation support to forms based on [validation attributes (data annotations)](xref:mvc/models/validation#validation-attributes).</span></span> <span data-ttu-id="ddbcd-162">创建自定义验证器组件，以处理同一页上不同窗体或不同窗体处理步骤上相同窗体的验证消息，例如客户端验证，然后是服务器端验证。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-162">Create custom validator components to process validation messages for different forms on the same page or the same form at different steps of form processing, for example client-side validation followed by server-side validation.</span></span> <span data-ttu-id="ddbcd-163">本文的以下部分将使用本部分 `CustomValidator` 中所示的验证器组件示例：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-163">The validator component example shown in this section, `CustomValidator`, is used in the following sections of this article:</span></span>
 
 * [<span data-ttu-id="ddbcd-164">业务逻辑验证</span><span class="sxs-lookup"><span data-stu-id="ddbcd-164">Business logic validation</span></span>](#business-logic-validation)
 * [<span data-ttu-id="ddbcd-165">服务器验证</span><span class="sxs-lookup"><span data-stu-id="ddbcd-165">Server validation</span></span>](#server-validation)
@@ -337,7 +337,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace :::no-loc(Blazor):::Sample.Client
+namespace BlazorSample.Client
 {
     public class CustomValidator : ComponentBase
     {
@@ -456,9 +456,9 @@ namespace :::no-loc(Blazor):::Sample.Client
 
 <span data-ttu-id="ddbcd-203">下面的示例基于：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-203">The following example is based on:</span></span>
 
-* <span data-ttu-id="ddbcd-204">托管的 :::no-loc(Blazor)::: 解决方案，由 [:::no-loc(Blazor)::: 托管项目模板](xref:blazor/hosting-models#blazor-webassembly)创建。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-204">A hosted :::no-loc(Blazor)::: solution created by the [:::no-loc(Blazor)::: Hosted project template](xref:blazor/hosting-models#blazor-webassembly).</span></span> <span data-ttu-id="ddbcd-205">此示例可与[安全性和 :::no-loc(Identity)::: 文档](xref:blazor/security/webassembly/index#implementation-guidance)中介绍的任何安全托管 :::no-loc(Blazor)::: 方案一起使用。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-205">The example can be used with any of the secure hosted :::no-loc(Blazor)::: solutions described in the [Security and :::no-loc(Identity)::: documentation](xref:blazor/security/webassembly/index#implementation-guidance).</span></span>
+* <span data-ttu-id="ddbcd-204">托管的 Blazor 解决方案，由 [Blazor 托管项目模板](xref:blazor/hosting-models#blazor-webassembly)创建。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-204">A hosted Blazor solution created by the [Blazor Hosted project template](xref:blazor/hosting-models#blazor-webassembly).</span></span> <span data-ttu-id="ddbcd-205">此示例可与[安全性和 Identity 文档](xref:blazor/security/webassembly/index#implementation-guidance)中介绍的任何安全托管 Blazor 方案一起使用。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-205">The example can be used with any of the secure hosted Blazor solutions described in the [Security and Identity documentation](xref:blazor/security/webassembly/index#implementation-guidance).</span></span>
 * <span data-ttu-id="ddbcd-206">前面的[内置窗体组件](#built-in-forms-components)部分中的 Starfleet Starship 数据库窗体示例。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-206">The *Starfleet Starship Database* form example in the preceding [Built-in forms components](#built-in-forms-components) section.</span></span>
-* <span data-ttu-id="ddbcd-207">:::no-loc(Blazor)::: 框架的 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-207">The :::no-loc(Blazor)::: framework's <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component.</span></span>
+* <span data-ttu-id="ddbcd-207">Blazor 框架的 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-207">The Blazor framework's <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component.</span></span>
 * <span data-ttu-id="ddbcd-208">[验证器组件](#validator-components)部分中显示的 `CustomValidator` 组件。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-208">The `CustomValidator` component shown in the [Validator components](#validator-components) section.</span></span>
 
 <span data-ttu-id="ddbcd-209">在下面的示例中，如果用户选择 `Defense` 交付分类 (`Classification`)，则服务器 API 将验证是否为交付说明 (`Description`) 提供了值。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-209">In the following example, the server API validates that a value is provided for the ship's description (`Description`) if the user selects the `Defense` ship classification (`Classification`).</span></span>
@@ -481,9 +481,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using :::no-loc(Blazor):::Sample.Shared;
+using BlazorSample.Shared;
 
-namespace :::no-loc(Blazor):::Sample.Server.Controllers
+namespace BlazorSample.Server.Controllers
 {
     [Authorize]
     [ApiController]
@@ -593,7 +593,7 @@ services.AddControllersWithViews()
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.Extensions.Logging
-@using :::no-loc(Blazor):::Sample.Shared
+@using BlazorSample.Shared
 @attribute [Authorize]
 @inject HttpClient Http
 @inject ILogger<FormValidation> Logger
@@ -720,11 +720,11 @@ services.AddControllersWithViews()
 > <span data-ttu-id="ddbcd-228">除了[验证组件](#validator-components)，还可使用数据注释验证属性。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-228">As an alternative to [validation components](#validator-components), data annotation validation attributes can be used.</span></span> <span data-ttu-id="ddbcd-229">应用于窗体模型的自定义属性使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件激活。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-229">Custom attributes applied to the form's model activate with the use of the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component.</span></span> <span data-ttu-id="ddbcd-230">当与服务器端验证一起使用时，该属性都必须可在服务器上执行。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-230">When used with server-side validation, the attributes must be executable on the server.</span></span> <span data-ttu-id="ddbcd-231">有关详细信息，请参阅 <xref:mvc/models/validation#alternatives-to-built-in-attributes>。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-231">For more information, see <xref:mvc/models/validation#alternatives-to-built-in-attributes>.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="ddbcd-232">本部分中的服务器端验证方法适用于本文档集中的所有 :::no-loc(Blazor WebAssembly)::: 托管解决方案示例：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-232">The server-side validation approach in this section is suitable for any of the :::no-loc(Blazor WebAssembly)::: hosted solution examples in this documentation set:</span></span>
+> <span data-ttu-id="ddbcd-232">本部分中的服务器端验证方法适用于本文档集中的所有 Blazor WebAssembly 托管解决方案示例：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-232">The server-side validation approach in this section is suitable for any of the Blazor WebAssembly hosted solution examples in this documentation set:</span></span>
 >
 > * [<span data-ttu-id="ddbcd-233">Azure Active Directory (AAD)</span><span class="sxs-lookup"><span data-stu-id="ddbcd-233">Azure Active Directory (AAD)</span></span>](xref:blazor/security/webassembly/hosted-with-azure-active-directory)
 > * [<span data-ttu-id="ddbcd-234">Azure Active Directory (AAD) B2C</span><span class="sxs-lookup"><span data-stu-id="ddbcd-234">Azure Active Directory (AAD) B2C</span></span>](xref:blazor/security/webassembly/hosted-with-azure-active-directory-b2c)
-> * [<span data-ttu-id="ddbcd-235">:::no-loc(Identity)::: 服务器</span><span class="sxs-lookup"><span data-stu-id="ddbcd-235">:::no-loc(Identity)::: Server</span></span>](xref:blazor/security/webassembly/hosted-with-identity-server)
+> * [<span data-ttu-id="ddbcd-235">Identity 服务器</span><span class="sxs-lookup"><span data-stu-id="ddbcd-235">Identity Server</span></span>](xref:blazor/security/webassembly/hosted-with-identity-server)
 
 ## <a name="inputtext-based-on-the-input-event"></a><span data-ttu-id="ddbcd-236">基于输入事件的 InputText</span><span class="sxs-lookup"><span data-stu-id="ddbcd-236">InputText based on the input event</span></span>
 
@@ -952,20 +952,20 @@ public enum Engine { Ion, Plasma, Fusion, Warp }
 * <span data-ttu-id="ddbcd-261">HTML 属性不能具有 `null` 值。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-261">HTML attributes can't have `null` values.</span></span> <span data-ttu-id="ddbcd-262">HTML 中最接近的 `null` 等效项是 `<option>` 元素中缺少 HTML `value` 属性。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-262">The closest equivalent to `null` in HTML is absence of the HTML `value` attribute from the `<option>` element.</span></span>
 * <span data-ttu-id="ddbcd-263">选择没有 `value` 属性的 `<option>` 时，浏览器会将值视为该 `<option>` 的元素的 文本内容。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-263">When selecting an `<option>` with no `value` attribute, the browser treats the value as the *text content* of that `<option>`'s element.</span></span>
 
-<span data-ttu-id="ddbcd-264">:::no-loc(Blazor)::: 框架不会尝试取消默认行为，因为这会涉及以下操作：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-264">The :::no-loc(Blazor)::: framework doesn't attempt to suppress the default behavior because it would involve:</span></span>
+<span data-ttu-id="ddbcd-264">Blazor 框架不会尝试取消默认行为，因为这会涉及以下操作：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-264">The Blazor framework doesn't attempt to suppress the default behavior because it would involve:</span></span>
 
 * <span data-ttu-id="ddbcd-265">在框架中创建一系列特殊的解决办法。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-265">Creating a chain of special-case workarounds in the framework.</span></span>
 * <span data-ttu-id="ddbcd-266">对当前框架行为进行重大更改。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-266">Breaking changes to current framework behavior.</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
-<span data-ttu-id="ddbcd-267">HTML 中最合理的 `null` 等效项是空字符串 `value`。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-267">The most plausible `null` equivalent in HTML is an *empty string* `value`.</span></span> <span data-ttu-id="ddbcd-268">:::no-loc(Blazor)::: 框架处理 `null` 到空字符串之间的转换，以便双向绑定到 `<select>` 的值。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-268">The :::no-loc(Blazor)::: framework handles `null` to empty string conversions for two-way binding to a `<select>`'s value.</span></span>
+<span data-ttu-id="ddbcd-267">HTML 中最合理的 `null` 等效项是空字符串 `value`。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-267">The most plausible `null` equivalent in HTML is an *empty string* `value`.</span></span> <span data-ttu-id="ddbcd-268">Blazor 框架处理 `null` 到空字符串之间的转换，以便双向绑定到 `<select>` 的值。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-268">The Blazor framework handles `null` to empty string conversions for two-way binding to a `<select>`'s value.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-5.0"
 
-<span data-ttu-id="ddbcd-269">尝试双向绑定到 `<select>` 的值时，:::no-loc(Blazor)::: 框架不会自动处理 `null` 到空字符串之间的转换。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-269">The :::no-loc(Blazor)::: framework doesn't automatically handle `null` to empty string conversions when attempting two-way binding to a `<select>`'s value.</span></span> <span data-ttu-id="ddbcd-270">有关详细信息，请参阅[修复 `<select>` 到 null 值的绑定 (dotnet/aspnetcore #23221)](https://github.com/dotnet/aspnetcore/pull/23221)。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-270">For more information, see [Fix binding `<select>` to a null value (dotnet/aspnetcore #23221)](https://github.com/dotnet/aspnetcore/pull/23221).</span></span>
+<span data-ttu-id="ddbcd-269">尝试双向绑定到 `<select>` 的值时，Blazor 框架不会自动处理 `null` 到空字符串之间的转换。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-269">The Blazor framework doesn't automatically handle `null` to empty string conversions when attempting two-way binding to a `<select>`'s value.</span></span> <span data-ttu-id="ddbcd-270">有关详细信息，请参阅[修复 `<select>` 到 null 值的绑定 (dotnet/aspnetcore #23221)](https://github.com/dotnet/aspnetcore/pull/23221)。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-270">For more information, see [Fix binding `<select>` to a null value (dotnet/aspnetcore #23221)](https://github.com/dotnet/aspnetcore/pull/23221).</span></span>
 
 ::: moniker-end
 
@@ -973,7 +973,7 @@ public enum Engine { Ion, Plasma, Fusion, Warp }
 
 <span data-ttu-id="ddbcd-272"><xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件使用数据注释将验证支持附加到级联的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext>。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-272">The <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attaches validation support using data annotations to the cascaded <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span> <span data-ttu-id="ddbcd-273">使用数据注释启用对验证的支持需要此显式手势。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-273">Enabling support for validation using data annotations requires this explicit gesture.</span></span> <span data-ttu-id="ddbcd-274">若要使用不同于数据注释的验证系统，请用自定义实现替换 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-274">To use a different validation system than data annotations, replace the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> with a custom implementation.</span></span> <span data-ttu-id="ddbcd-275">可在以下参考源中检查 ASP.NET Core 的实现[`DataAnnotationsValidator`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[`AddDataAnnotationsValidation`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-275">The ASP.NET Core implementation is available for inspection in the reference source: [`DataAnnotationsValidator`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[`AddDataAnnotationsValidation`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).</span></span> <span data-ttu-id="ddbcd-276">前面的参考源链接提供了来自存储库 `master` 分支的代码，该分支表示产品单元当前对 ASP.NET Core 下一版本的开发。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-276">The preceding links to reference source provide code from the repository's `master` branch, which represents the product unit's current development for the next release of ASP.NET Core.</span></span> <span data-ttu-id="ddbcd-277">若要为其他版本选择分支，请使用 GitHub 分支选择器（例如 `release/3.1`）。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-277">To select the branch for a different release, use the GitHub branch selector (for example `release/3.1`).</span></span>
 
-<span data-ttu-id="ddbcd-278">:::no-loc(Blazor)::: 执行两种类型的验证：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-278">:::no-loc(Blazor)::: performs two types of validation:</span></span>
+<span data-ttu-id="ddbcd-278">Blazor 执行两种类型的验证：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-278">Blazor performs two types of validation:</span></span>
 
 * <span data-ttu-id="ddbcd-279">当用户从某个字段中跳出时，将执行 *字段验证* 。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-279">*Field validation* is performed when the user tabs out of a field.</span></span> <span data-ttu-id="ddbcd-280">在字段验证期间，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件将报告的所有验证结果与该字段相关联。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-280">During field validation, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component associates all reported validation results with the field.</span></span>
 * <span data-ttu-id="ddbcd-281">当用户提交窗体时，将执行 *模型验证* 。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-281">*Model validation* is performed when the user submits the form.</span></span> <span data-ttu-id="ddbcd-282">在模型验证期间，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件尝试根据验证结果报告的成员名称来确定字段。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-282">During model validation, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attempts to determine the field based on the member name that the validation result reports.</span></span> <span data-ttu-id="ddbcd-283">与单个成员无关的验证结果将与模型而不是字段相关联。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-283">Validation results that aren't associated with an individual member are associated with the model rather than a field.</span></span>
@@ -1058,7 +1058,7 @@ private class MyFieldClassProvider : FieldCssClassProvider
 
 ::: moniker-end
 
-### <a name="no-locblazor-data-annotations-validation-package"></a><span data-ttu-id="ddbcd-300">:::no-loc(Blazor)::: 数据注释验证包</span><span class="sxs-lookup"><span data-stu-id="ddbcd-300">:::no-loc(Blazor)::: data annotations validation package</span></span>
+### <a name="no-locblazor-data-annotations-validation-package"></a><span data-ttu-id="ddbcd-300">Blazor 数据注释验证包</span><span class="sxs-lookup"><span data-stu-id="ddbcd-300">Blazor data annotations validation package</span></span>
 
 <span data-ttu-id="ddbcd-301">[`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 是使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件填补验证经验空白的包。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-301">The [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) is a package that fills validation experience gaps using the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component.</span></span> <span data-ttu-id="ddbcd-302">该包目前处于 *试验阶段* 。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-302">The package is currently *experimental*.</span></span>
 
@@ -1067,11 +1067,11 @@ private class MyFieldClassProvider : FieldCssClassProvider
 
 ### <a name="compareproperty-attribute"></a><span data-ttu-id="ddbcd-306">[CompareProperty] 属性</span><span class="sxs-lookup"><span data-stu-id="ddbcd-306">[CompareProperty] attribute</span></span>
 
-<span data-ttu-id="ddbcd-307"><xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，因为它不会将验证结果与特定成员关联。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-307">The <xref:System.ComponentModel.DataAnnotations.CompareAttribute> doesn't work well with the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component because it doesn't associate the validation result with a specific member.</span></span> <span data-ttu-id="ddbcd-308">这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-308">This can result in inconsistent behavior between field-level validation and when the entire model is validated on a submit.</span></span> <span data-ttu-id="ddbcd-309">[`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-309">The [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) *experimental* package introduces an additional validation attribute, `ComparePropertyAttribute`, that works around these limitations.</span></span> <span data-ttu-id="ddbcd-310">在 :::no-loc(Blazor)::: 应用中，`[CompareProperty]` 可直接替代 [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) 特性。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-310">In a :::no-loc(Blazor)::: app, `[CompareProperty]` is a direct replacement for the [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) attribute.</span></span>
+<span data-ttu-id="ddbcd-307"><xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，因为它不会将验证结果与特定成员关联。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-307">The <xref:System.ComponentModel.DataAnnotations.CompareAttribute> doesn't work well with the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component because it doesn't associate the validation result with a specific member.</span></span> <span data-ttu-id="ddbcd-308">这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-308">This can result in inconsistent behavior between field-level validation and when the entire model is validated on a submit.</span></span> <span data-ttu-id="ddbcd-309">[`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-309">The [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) *experimental* package introduces an additional validation attribute, `ComparePropertyAttribute`, that works around these limitations.</span></span> <span data-ttu-id="ddbcd-310">在 Blazor 应用中，`[CompareProperty]` 可直接替代 [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) 特性。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-310">In a Blazor app, `[CompareProperty]` is a direct replacement for the [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) attribute.</span></span>
 
 ### <a name="nested-models-collection-types-and-complex-types"></a><span data-ttu-id="ddbcd-311">嵌套模型、集合类型和复杂类型</span><span class="sxs-lookup"><span data-stu-id="ddbcd-311">Nested models, collection types, and complex types</span></span>
 
-<span data-ttu-id="ddbcd-312">:::no-loc(Blazor)::: 支持结合使用数据注释和内置的 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 来验证窗体输入。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-312">:::no-loc(Blazor)::: provides support for validating form input using data annotations with the built-in <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>.</span></span> <span data-ttu-id="ddbcd-313">但是，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 仅验证绑定到窗体的模型的顶级属性（不包括集合类型或复杂类型的属性）。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-313">However, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> only validates top-level properties of the model bound to the form that aren't collection- or complex-type properties.</span></span>
+<span data-ttu-id="ddbcd-312">Blazor 支持结合使用数据注释和内置的 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 来验证窗体输入。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-312">Blazor provides support for validating form input using data annotations with the built-in <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>.</span></span> <span data-ttu-id="ddbcd-313">但是，<xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 仅验证绑定到窗体的模型的顶级属性（不包括集合类型或复杂类型的属性）。</span><span class="sxs-lookup"><span data-stu-id="ddbcd-313">However, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> only validates top-level properties of the model bound to the form that aren't collection- or complex-type properties.</span></span>
 
 <span data-ttu-id="ddbcd-314">若要验证绑定模型的整个对象图（包括集合类型和复杂类型的属性），请使用试验性 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 包提供的 `ObjectGraphDataAnnotationsValidator`：</span><span class="sxs-lookup"><span data-stu-id="ddbcd-314">To validate the bound model's entire object graph, including collection- and complex-type properties, use the `ObjectGraphDataAnnotationsValidator` provided by the *experimental* [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) package:</span></span>
 

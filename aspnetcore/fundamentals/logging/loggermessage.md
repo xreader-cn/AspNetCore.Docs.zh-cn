@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/26/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/logging/loggermessage
 ms.openlocfilehash: 0224e768bd0e016eac5165dc4d9745f4b0867094
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -155,9 +155,9 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 
 <span data-ttu-id="fe160-168">示例应用含有一个“全部清除”按钮，用于删除数据库中的所有引号。</span><span class="sxs-lookup"><span data-stu-id="fe160-168">The sample app has a **Clear All** button for deleting all of the quotes in the database.</span></span> <span data-ttu-id="fe160-169">通过一次删除一个引号来将其删除。</span><span class="sxs-lookup"><span data-stu-id="fe160-169">The quotes are deleted by removing them one at a time.</span></span> <span data-ttu-id="fe160-170">每当删除一个引号时，都会在记录器上调用 `QuoteDeleted` 方法。</span><span class="sxs-lookup"><span data-stu-id="fe160-170">Each time a quote is deleted, the `QuoteDeleted` method is called on the logger.</span></span> <span data-ttu-id="fe160-171">在这些日志消息中会添加一个日志作用域。</span><span class="sxs-lookup"><span data-stu-id="fe160-171">A log scope is added to these log messages.</span></span>
 
-<span data-ttu-id="fe160-172">在 :::no-loc(appsettings.json)::: 的控制台记录器部分中启用 `IncludeScopes`：</span><span class="sxs-lookup"><span data-stu-id="fe160-172">Enable `IncludeScopes` in the console logger section of *:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="fe160-172">在 appsettings.json 的控制台记录器部分中启用 `IncludeScopes`：</span><span class="sxs-lookup"><span data-stu-id="fe160-172">Enable `IncludeScopes` in the console logger section of *appsettings.json* :</span></span>
 
-[!code-json[](loggermessage/samples/3.x/LoggerMessageSample/:::no-loc(appsettings.json):::?highlight=3-5)]
+[!code-json[](loggermessage/samples/3.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
 <span data-ttu-id="fe160-173">要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。</span><span class="sxs-lookup"><span data-stu-id="fe160-173">To create a log scope, add a field to hold a <xref:System.Func%601> delegate for the scope.</span></span> <span data-ttu-id="fe160-174">示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs) 的字段：</span><span class="sxs-lookup"><span data-stu-id="fe160-174">The sample app creates a field called `_allQuotesDeletedScope` ( *Internal/LoggerExtensions.cs* ):</span></span>
 
@@ -323,9 +323,9 @@ Parameter name: entity
 
 <span data-ttu-id="fe160-248">示例应用含有一个“全部清除”按钮，用于删除数据库中的所有引号。</span><span class="sxs-lookup"><span data-stu-id="fe160-248">The sample app has a **Clear All** button for deleting all of the quotes in the database.</span></span> <span data-ttu-id="fe160-249">通过一次删除一个引号来将其删除。</span><span class="sxs-lookup"><span data-stu-id="fe160-249">The quotes are deleted by removing them one at a time.</span></span> <span data-ttu-id="fe160-250">每当删除一个引号时，都会在记录器上调用 `QuoteDeleted` 方法。</span><span class="sxs-lookup"><span data-stu-id="fe160-250">Each time a quote is deleted, the `QuoteDeleted` method is called on the logger.</span></span> <span data-ttu-id="fe160-251">在这些日志消息中会添加一个日志作用域。</span><span class="sxs-lookup"><span data-stu-id="fe160-251">A log scope is added to these log messages.</span></span>
 
-<span data-ttu-id="fe160-252">在 :::no-loc(appsettings.json)::: 的控制台记录器部分中启用 `IncludeScopes`：</span><span class="sxs-lookup"><span data-stu-id="fe160-252">Enable `IncludeScopes` in the console logger section of *:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="fe160-252">在 appsettings.json 的控制台记录器部分中启用 `IncludeScopes`：</span><span class="sxs-lookup"><span data-stu-id="fe160-252">Enable `IncludeScopes` in the console logger section of *appsettings.json* :</span></span>
 
-[!code-json[](loggermessage/samples/2.x/LoggerMessageSample/:::no-loc(appsettings.json):::?highlight=3-5)]
+[!code-json[](loggermessage/samples/2.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
 <span data-ttu-id="fe160-253">要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。</span><span class="sxs-lookup"><span data-stu-id="fe160-253">To create a log scope, add a field to hold a <xref:System.Func%601> delegate for the scope.</span></span> <span data-ttu-id="fe160-254">示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs) 的字段：</span><span class="sxs-lookup"><span data-stu-id="fe160-254">The sample app creates a field called `_allQuotesDeletedScope` ( *Internal/LoggerExtensions.cs* ):</span></span>
 

@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/22/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: host-and-deploy/health-checks
 ms.openlocfilehash: 32b7a4c6722ba45ba998f9430f5d6da6ddca53f9
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -52,7 +52,7 @@ ms.locfileid: "93058657"
 
 <span data-ttu-id="cd4c8-123">示例应用提供了启动代码来演示几个方案的运行状况检查。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-123">The sample app provides startup code to demonstrate health checks for several scenarios.</span></span> <span data-ttu-id="cd4c8-124">[数据库探测](#database-probe)方案使用 [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 检查数据库连接的运行状况。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-124">The [database probe](#database-probe) scenario checks the health of a database connection using [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks).</span></span> <span data-ttu-id="cd4c8-125">[DbContext 探测](#entity-framework-core-dbcontext-probe)方案使用 EF Core `DbContext` 检查数据库。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-125">The [DbContext probe](#entity-framework-core-dbcontext-probe) scenario checks a database using an EF Core `DbContext`.</span></span> <span data-ttu-id="cd4c8-126">若要探索数据库方案，示例应用将：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-126">To explore the database scenarios, the sample app:</span></span>
 
-* <span data-ttu-id="cd4c8-127">创建一个数据库，并在 :::no-loc(appsettings.json)::: 文件中提供其连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-127">Creates a database and provides its connection string in the *:::no-loc(appsettings.json):::* file.</span></span>
+* <span data-ttu-id="cd4c8-127">创建一个数据库，并在 appsettings.json 文件中提供其连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-127">Creates a database and provides its connection string in the *appsettings.json* file.</span></span>
 * <span data-ttu-id="cd4c8-128">其项目文件中具有以下包引用：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-128">Has the following package references in its project file:</span></span>
   * [<span data-ttu-id="cd4c8-129">AspNetCore.HealthChecks.SqlServer</span><span class="sxs-lookup"><span data-stu-id="cd4c8-129">AspNetCore.HealthChecks.SqlServer</span></span>](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
   * [<span data-ttu-id="cd4c8-130">Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore</span><span class="sxs-lookup"><span data-stu-id="cd4c8-130">Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore</span></span>](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
@@ -349,9 +349,9 @@ app.UseEndpoints(endpoints =>
 
 <span data-ttu-id="cd4c8-225">包括对 [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/) 的包引用。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-225">Include a package reference to [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).</span></span>
 
-<span data-ttu-id="cd4c8-226">在示例应用的 :::no-loc(appsettings.json)::: 文件中提供有效数据库连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-226">Supply a valid database connection string in the *:::no-loc(appsettings.json):::* file of the sample app.</span></span> <span data-ttu-id="cd4c8-227">应用使用名为 `HealthCheckSample` 的 SQL Server 数据库：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-227">The app uses a SQL Server database named `HealthCheckSample`:</span></span>
+<span data-ttu-id="cd4c8-226">在示例应用的 appsettings.json 文件中提供有效数据库连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-226">Supply a valid database connection string in the *appsettings.json* file of the sample app.</span></span> <span data-ttu-id="cd4c8-227">应用使用名为 `HealthCheckSample` 的 SQL Server 数据库：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-227">The app uses a SQL Server database named `HealthCheckSample`:</span></span>
 
-[!code-json[](health-checks/samples/3.x/HealthChecksSample/:::no-loc(appsettings.json):::?highlight=3)]
+[!code-json[](health-checks/samples/3.x/HealthChecksSample/appsettings.json?highlight=3)]
 
 <span data-ttu-id="cd4c8-228">在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-228">Register health check services with <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="cd4c8-229">示例应用使用数据库的连接字符串 (DbHealthStartup.cs) 调用 `AddSqlServer` 方法：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-229">The sample app calls the `AddSqlServer` method with the database's connection string ( *DbHealthStartup.cs* ):</span></span>
 
@@ -791,7 +791,7 @@ app.MapWhen(
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.Map:::no-loc(Razor):::Pages();
+    endpoints.MapRazorPages();
 });
 ```
 
@@ -821,7 +821,7 @@ app.UseEndpoints(endpoints =>
 
 <span data-ttu-id="cd4c8-402">示例应用提供了启动代码来演示几个方案的运行状况检查。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-402">The sample app provides startup code to demonstrate health checks for several scenarios.</span></span> <span data-ttu-id="cd4c8-403">[数据库探测](#database-probe)方案使用 [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 检查数据库连接的运行状况。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-403">The [database probe](#database-probe) scenario checks the health of a database connection using [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks).</span></span> <span data-ttu-id="cd4c8-404">[DbContext 探测](#entity-framework-core-dbcontext-probe)方案使用 EF Core `DbContext` 检查数据库。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-404">The [DbContext probe](#entity-framework-core-dbcontext-probe) scenario checks a database using an EF Core `DbContext`.</span></span> <span data-ttu-id="cd4c8-405">若要探索数据库方案，示例应用将：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-405">To explore the database scenarios, the sample app:</span></span>
 
-* <span data-ttu-id="cd4c8-406">创建一个数据库，并在 :::no-loc(appsettings.json)::: 文件中提供其连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-406">Creates a database and provides its connection string in the *:::no-loc(appsettings.json):::* file.</span></span>
+* <span data-ttu-id="cd4c8-406">创建一个数据库，并在 appsettings.json 文件中提供其连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-406">Creates a database and provides its connection string in the *appsettings.json* file.</span></span>
 * <span data-ttu-id="cd4c8-407">其项目文件中具有以下包引用：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-407">Has the following package references in its project file:</span></span>
   * [<span data-ttu-id="cd4c8-408">AspNetCore.HealthChecks.SqlServer</span><span class="sxs-lookup"><span data-stu-id="cd4c8-408">AspNetCore.HealthChecks.SqlServer</span></span>](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
   * [<span data-ttu-id="cd4c8-409">Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore</span><span class="sxs-lookup"><span data-stu-id="cd4c8-409">Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore</span></span>](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
@@ -1068,9 +1068,9 @@ private static Task WriteResponse(HttpContext httpContext, HealthReport result)
 
 <span data-ttu-id="cd4c8-484">包括对 [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/) 的包引用。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-484">Include a package reference to [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).</span></span>
 
-<span data-ttu-id="cd4c8-485">在示例应用的 :::no-loc(appsettings.json)::: 文件中提供有效数据库连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-485">Supply a valid database connection string in the *:::no-loc(appsettings.json):::* file of the sample app.</span></span> <span data-ttu-id="cd4c8-486">应用使用名为 `HealthCheckSample` 的 SQL Server 数据库：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-486">The app uses a SQL Server database named `HealthCheckSample`:</span></span>
+<span data-ttu-id="cd4c8-485">在示例应用的 appsettings.json 文件中提供有效数据库连接字符串。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-485">Supply a valid database connection string in the *appsettings.json* file of the sample app.</span></span> <span data-ttu-id="cd4c8-486">应用使用名为 `HealthCheckSample` 的 SQL Server 数据库：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-486">The app uses a SQL Server database named `HealthCheckSample`:</span></span>
 
-[!code-json[](health-checks/samples/2.x/HealthChecksSample/:::no-loc(appsettings.json):::?highlight=3)]
+[!code-json[](health-checks/samples/2.x/HealthChecksSample/appsettings.json?highlight=3)]
 
 <span data-ttu-id="cd4c8-487">在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。</span><span class="sxs-lookup"><span data-stu-id="cd4c8-487">Register health check services with <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="cd4c8-488">示例应用使用数据库的连接字符串 (DbHealthStartup.cs) 调用 `AddSqlServer` 方法：</span><span class="sxs-lookup"><span data-stu-id="cd4c8-488">The sample app calls the `AddSqlServer` method with the database's connection string ( *DbHealthStartup.cs* ):</span></span>
 

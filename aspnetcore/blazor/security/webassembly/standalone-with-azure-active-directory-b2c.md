@@ -1,23 +1,23 @@
 ---
-title: '使用 Azure Active Directory B2C 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 独立应用'
+title: '使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 独立应用'
 author: guardrex
-description: '了解如何使用 Azure Active Directory B2C 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 独立应用。'
+description: '了解如何使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 独立应用。'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/27/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/webassembly/standalone-with-azure-active-directory-b2c
 ms.openlocfilehash: 14eda03419e22538e17b7b4d6fa697d61cb384c8
 ms.sourcegitcommit: 45aa1c24c3fdeb939121e856282b00bdcf00ea55
@@ -26,11 +26,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/04/2020
 ms.locfileid: "93343698"
 ---
-# <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a><span data-ttu-id="5bd69-103">使用 Azure Active Directory B2C 保护 ASP.NET Core :::no-loc(Blazor WebAssembly)::: 独立应用</span><span class="sxs-lookup"><span data-stu-id="5bd69-103">Secure an ASP.NET Core :::no-loc(Blazor WebAssembly)::: standalone app with Azure Active Directory B2C</span></span>
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a><span data-ttu-id="5bd69-103">使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 独立应用</span><span class="sxs-lookup"><span data-stu-id="5bd69-103">Secure an ASP.NET Core Blazor WebAssembly standalone app with Azure Active Directory B2C</span></span>
 
 <span data-ttu-id="5bd69-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="5bd69-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="5bd69-105">本文介绍如何创建使用 [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) 进行身份验证的[独立 :::no-loc(Blazor WebAssembly)::: 应用](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="5bd69-105">This article covers how to create a [standalone :::no-loc(Blazor WebAssembly)::: app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) for authentication.</span></span>
+<span data-ttu-id="5bd69-105">本文介绍如何创建使用 [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) 进行身份验证的[独立 Blazor WebAssembly 应用](xref:blazor/hosting-models#blazor-webassembly)。</span><span class="sxs-lookup"><span data-stu-id="5bd69-105">This article covers how to create a [standalone Blazor WebAssembly app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) for authentication.</span></span>
 
 <span data-ttu-id="5bd69-106">按照 [创建 AAD B2C 租户（Azure 文档）](/azure/active-directory-b2c/tutorial-create-tenant)一文中的指南，创建租户或确定要在 Azure 门户中使用的应用的现有 B2C 租户。</span><span class="sxs-lookup"><span data-stu-id="5bd69-106">Create a tenant or identify an existing B2C tenant for the app to use in the Azure portal by following the guidance in the [Create an AAD B2C tenant (Azure documentation)](/azure/active-directory-b2c/tutorial-create-tenant) article.</span></span>
 
@@ -44,7 +44,7 @@ ms.locfileid: "93343698"
 ::: moniker range=">= aspnetcore-5.0"
 
 1. <span data-ttu-id="5bd69-111">在“Azure Active Directory”>“应用注册”中，选择“新建注册”。</span><span class="sxs-lookup"><span data-stu-id="5bd69-111">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="5bd69-112">提供应用的名称（例如 :::no-loc(Blazor)::: 独立 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="5bd69-112">Provide a **Name** for the app (for example, **:::no-loc(Blazor)::: Standalone AAD B2C** ).</span></span>
+1. <span data-ttu-id="5bd69-112">提供应用的名称（例如 Blazor 独立 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="5bd69-112">Provide a **Name** for the app (for example, **Blazor Standalone AAD B2C** ).</span></span>
 1. <span data-ttu-id="5bd69-113">对于“支持的帐户类型”，请选择多租户选项：任何组织目录或任何标识提供者中的帐户。用于使用 Azure AD B2C 对用户进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="5bd69-113">For **Supported account types** , select the multi-tenant option: **Accounts in any organizational directory or any identity provider. For authenticating users with Azure AD B2C.**</span></span>
 1. <span data-ttu-id="5bd69-114">将“重定向 URI”下拉列表设置为“单页应用程序(SPA)”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback`。</span><span class="sxs-lookup"><span data-stu-id="5bd69-114">Set the **Redirect URI** drop down to **Single-page application (SPA)** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="5bd69-115">在 Kestrel 上运行的应用的默认端口为 5001。</span><span class="sxs-lookup"><span data-stu-id="5bd69-115">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="5bd69-116">如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。</span><span class="sxs-lookup"><span data-stu-id="5bd69-116">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="5bd69-117">对于 IIS Express，可以在“调试”面板的应用属性中找到该应用随机生成的端口。</span><span class="sxs-lookup"><span data-stu-id="5bd69-117">For IIS Express, the randomly generated port for the app can be found in the app's properties in the **Debug** panel.</span></span> <span data-ttu-id="5bd69-118">由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="5bd69-118">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="5bd69-119">本主题后面部分会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="5bd69-119">A remark appears later in this topic to remind IIS Express users to update the redirect URI.</span></span>
 1. <span data-ttu-id="5bd69-120">确认已选择“权限”>“授予对 openid 和 offline_access 权限的管理员同意”。</span><span class="sxs-lookup"><span data-stu-id="5bd69-120">Confirm that **Permissions** > **Grant admin consent to openid and offline_access permissions** is selected.</span></span>
@@ -64,7 +64,7 @@ ms.locfileid: "93343698"
 ::: moniker range="< aspnetcore-5.0"
 
 1. <span data-ttu-id="5bd69-128">在“Azure Active Directory”>“应用注册”中，选择“新建注册”。</span><span class="sxs-lookup"><span data-stu-id="5bd69-128">In **Azure Active Directory** > **App registrations** , select **New registration**.</span></span>
-1. <span data-ttu-id="5bd69-129">提供应用的名称（例如 :::no-loc(Blazor)::: 独立 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="5bd69-129">Provide a **Name** for the app (for example, **:::no-loc(Blazor)::: Standalone AAD B2C** ).</span></span>
+1. <span data-ttu-id="5bd69-129">提供应用的名称（例如 Blazor 独立 AAD B2C） 。</span><span class="sxs-lookup"><span data-stu-id="5bd69-129">Provide a **Name** for the app (for example, **Blazor Standalone AAD B2C** ).</span></span>
 1. <span data-ttu-id="5bd69-130">对于“支持的帐户类型”，请选择多租户选项：任何组织目录或任何标识提供者中的帐户。用于使用 Azure AD B2C 对用户进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="5bd69-130">For **Supported account types** , select the multi-tenant option: **Accounts in any organizational directory or any identity provider. For authenticating users with Azure AD B2C.**</span></span>
 1. <span data-ttu-id="5bd69-131">将“重定向 URI”下拉列表设置为“Web”，并提供以下重定向 URI：`https://localhost:{PORT}/authentication/login-callback` 。</span><span class="sxs-lookup"><span data-stu-id="5bd69-131">Leave the **Redirect URI** drop down set to **Web** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="5bd69-132">在 Kestrel 上运行的应用的默认端口为 5001。</span><span class="sxs-lookup"><span data-stu-id="5bd69-132">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="5bd69-133">如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。</span><span class="sxs-lookup"><span data-stu-id="5bd69-133">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="5bd69-134">对于 IIS Express，可以在“调试”面板的应用属性中找到该应用随机生成的端口。</span><span class="sxs-lookup"><span data-stu-id="5bd69-134">For IIS Express, the randomly generated port for the app can be found in the app's properties in the **Debug** panel.</span></span> <span data-ttu-id="5bd69-135">由于此时应用不存在，并且 IIS Express 端口未知，因此请在创建应用后返回到此步骤，然后更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="5bd69-135">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="5bd69-136">本主题后面部分会显示一个注解，以提醒 IIS Express 用户更新重定向 URI。</span><span class="sxs-lookup"><span data-stu-id="5bd69-136">A remark appears later in this topic to remind IIS Express users to update the redirect URI.</span></span>
 1. <span data-ttu-id="5bd69-137">确认已选择“权限”>“授予对 openid 和 offline_access 权限的管理员同意”。</span><span class="sxs-lookup"><span data-stu-id="5bd69-137">Confirm that **Permissions** > **Grant admin consent to openid and offline_access permissions** is selected.</span></span>
@@ -85,7 +85,7 @@ ms.locfileid: "93343698"
 
 [<span data-ttu-id="5bd69-146">创建注册和登录用户流</span><span class="sxs-lookup"><span data-stu-id="5bd69-146">Create a sign-up and sign-in user flow</span></span>](/azure/active-directory-b2c/tutorial-create-user-flows)
 
-<span data-ttu-id="5bd69-147">至少选择“应用程序声明” > “显示名称”用户属性以填充 `LoginDisplay` 组件 (`Shared/LoginDisplay.razor`) 中的 `context.User.:::no-loc(Identity):::.Name` 。</span><span class="sxs-lookup"><span data-stu-id="5bd69-147">At a minimum, select the **Application claims** > **Display Name** user attribute to populate the `context.User.:::no-loc(Identity):::.Name` in the `LoginDisplay` component (`Shared/LoginDisplay.razor`).</span></span>
+<span data-ttu-id="5bd69-147">至少选择“应用程序声明” > “显示名称”用户属性以填充 `LoginDisplay` 组件 (`Shared/LoginDisplay.razor`) 中的 `context.User.Identity.Name` 。</span><span class="sxs-lookup"><span data-stu-id="5bd69-147">At a minimum, select the **Application claims** > **Display Name** user attribute to populate the `context.User.Identity.Name` in the `LoginDisplay` component (`Shared/LoginDisplay.razor`).</span></span>
 
 <span data-ttu-id="5bd69-148">记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin`）。</span><span class="sxs-lookup"><span data-stu-id="5bd69-148">Record the sign-up and sign-in user flow name created for the app (for example, `B2C_1_signupsignin`).</span></span>
 
@@ -98,7 +98,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 | <span data-ttu-id="5bd69-150">占位符</span><span class="sxs-lookup"><span data-stu-id="5bd69-150">Placeholder</span></span>                   | <span data-ttu-id="5bd69-151">Azure 门户中的名称</span><span class="sxs-lookup"><span data-stu-id="5bd69-151">Azure portal name</span></span>               | <span data-ttu-id="5bd69-152">示例</span><span class="sxs-lookup"><span data-stu-id="5bd69-152">Example</span></span>                                |
 | ----------------------------- | ------------------------------- | -------------------------------------- |
 | `{AAD B2C INSTANCE}`          | <span data-ttu-id="5bd69-153">实例</span><span class="sxs-lookup"><span data-stu-id="5bd69-153">Instance</span></span>                        | `https://contoso.b2clogin.com/`        |
-| `{APP NAME}`                  | &mdash;                         | `:::no-loc(Blazor):::Sample`                         |
+| `{APP NAME}`                  | &mdash;                         | `BlazorSample`                         |
 | `{CLIENT ID}`                 | <span data-ttu-id="5bd69-154">应用程序（客户端）ID</span><span class="sxs-lookup"><span data-stu-id="5bd69-154">Application (client) ID</span></span>         | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
 | `{SIGN UP OR SIGN IN POLICY}` | <span data-ttu-id="5bd69-155">注册/登录用户流</span><span class="sxs-lookup"><span data-stu-id="5bd69-155">Sign-up/sign-in user flow</span></span>       | `B2C_1_signupsignin1`                  |
 | `{TENANT DOMAIN}`             | <span data-ttu-id="5bd69-156">主域/发布者域/租户域</span><span class="sxs-lookup"><span data-stu-id="5bd69-156">Primary/Publisher/Tenant domain</span></span> | `contoso.onmicrosoft.com`              |
@@ -142,7 +142,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 
 ## <a name="authentication-service-support"></a><span data-ttu-id="5bd69-173">身份验证服务支持</span><span class="sxs-lookup"><span data-stu-id="5bd69-173">Authentication service support</span></span>
 
-<span data-ttu-id="5bd69-174">使用由 [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册用户身份验证支持。</span><span class="sxs-lookup"><span data-stu-id="5bd69-174">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> extension method provided by the [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package.</span></span> <span data-ttu-id="5bd69-175">此方法设置应用与 :::no-loc(Identity)::: 提供者 (IP) 交互所需的所有服务。</span><span class="sxs-lookup"><span data-stu-id="5bd69-175">This method sets up all of the services required for the app to interact with the :::no-loc(Identity)::: Provider (IP).</span></span>
+<span data-ttu-id="5bd69-174">使用由 [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 扩展方法在服务容器中注册用户身份验证支持。</span><span class="sxs-lookup"><span data-stu-id="5bd69-174">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> extension method provided by the [`Microsoft.Authentication.WebAssembly.Msal`](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package.</span></span> <span data-ttu-id="5bd69-175">此方法设置应用与 Identity 提供者 (IP) 交互所需的所有服务。</span><span class="sxs-lookup"><span data-stu-id="5bd69-175">This method sets up all of the services required for the app to interact with the Identity Provider (IP).</span></span>
 
 <span data-ttu-id="5bd69-176">`Program.cs`:</span><span class="sxs-lookup"><span data-stu-id="5bd69-176">`Program.cs`:</span></span>
 
@@ -155,7 +155,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <span data-ttu-id="5bd69-177"><xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> 方法接受回叫，以配置验证应用所需的参数。</span><span class="sxs-lookup"><span data-stu-id="5bd69-177">The <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> method accepts a callback to configure the parameters required to authenticate an app.</span></span> <span data-ttu-id="5bd69-178">注册应用时，可以从 AAD 配置中获取配置应用所需的值。</span><span class="sxs-lookup"><span data-stu-id="5bd69-178">The values required for configuring the app can be obtained from the AAD configuration when you register the app.</span></span>
 
-<span data-ttu-id="5bd69-179">配置由 `wwwroot/:::no-loc(appsettings.json):::` 文件提供：</span><span class="sxs-lookup"><span data-stu-id="5bd69-179">Configuration is supplied by the `wwwroot/:::no-loc(appsettings.json):::` file:</span></span>
+<span data-ttu-id="5bd69-179">配置由 `wwwroot/appsettings.json` 文件提供：</span><span class="sxs-lookup"><span data-stu-id="5bd69-179">Configuration is supplied by the `wwwroot/appsettings.json` file:</span></span>
 
 ```json
 {
@@ -181,7 +181,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 ## <a name="access-token-scopes"></a><span data-ttu-id="5bd69-181">访问令牌作用域</span><span class="sxs-lookup"><span data-stu-id="5bd69-181">Access token scopes</span></span>
 
-<span data-ttu-id="5bd69-182">:::no-loc(Blazor WebAssembly)::: 模板不会自动将应用配置为请求安全 API 的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="5bd69-182">The :::no-loc(Blazor WebAssembly)::: template doesn't automatically configure the app to request an access token for a secure API.</span></span> <span data-ttu-id="5bd69-183">要将访问令牌作为登录流程的一部分进行预配，请将作用域添加到 <xref:Microsoft.Authentication.WebAssembly.Msal.Models.MsalProviderOptions> 的默认访问令牌作用域中：</span><span class="sxs-lookup"><span data-stu-id="5bd69-183">To provision an access token as part of the sign-in flow, add the scope to the default access token scopes of the <xref:Microsoft.Authentication.WebAssembly.Msal.Models.MsalProviderOptions>:</span></span>
+<span data-ttu-id="5bd69-182">Blazor WebAssembly 模板不会自动将应用配置为请求安全 API 的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="5bd69-182">The Blazor WebAssembly template doesn't automatically configure the app to request an access token for a secure API.</span></span> <span data-ttu-id="5bd69-183">要将访问令牌作为登录流程的一部分进行预配，请将作用域添加到 <xref:Microsoft.Authentication.WebAssembly.Msal.Models.MsalProviderOptions> 的默认访问令牌作用域中：</span><span class="sxs-lookup"><span data-stu-id="5bd69-183">To provision an access token as part of the sign-in flow, add the scope to the default access token scopes of the <xref:Microsoft.Authentication.WebAssembly.Msal.Models.MsalProviderOptions>:</span></span>
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>

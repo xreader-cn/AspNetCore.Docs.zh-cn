@@ -7,17 +7,17 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 08/17/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: tutorials/first-mongo-app
 ms.openlocfilehash: 350df417886fe1ea5fef89dc221c217d596768b3
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -240,15 +240,15 @@ ms.locfileid: "93060737"
 
 ## <a name="add-a-configuration-model"></a><span data-ttu-id="b2df9-192">添加配置模型</span><span class="sxs-lookup"><span data-stu-id="b2df9-192">Add a configuration model</span></span>
 
-1. <span data-ttu-id="b2df9-193">向 :::no-loc(appsettings.json)::: 添加以下数据库配置值：</span><span class="sxs-lookup"><span data-stu-id="b2df9-193">Add the following database configuration values to *:::no-loc(appsettings.json):::* :</span></span>
+1. <span data-ttu-id="b2df9-193">向 appsettings.json 添加以下数据库配置值：</span><span class="sxs-lookup"><span data-stu-id="b2df9-193">Add the following database configuration values to *appsettings.json* :</span></span>
 
-   [!code-json[](first-mongo-app/samples/3.x/SampleApp/:::no-loc(appsettings.json):::?highlight=2-6)]
+   [!code-json[](first-mongo-app/samples/3.x/SampleApp/appsettings.json?highlight=2-6)]
 
 1. <span data-ttu-id="b2df9-194">使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录 ：</span><span class="sxs-lookup"><span data-stu-id="b2df9-194">Add a *BookstoreDatabaseSettings.cs* file to the *Models* directory with the following code:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   <span data-ttu-id="b2df9-195">前面的 `BookstoreDatabaseSettings` 类用于存储 :::no-loc(appsettings.json)::: 文件的 `BookstoreDatabaseSettings` 属性值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-195">The preceding `BookstoreDatabaseSettings` class is used to store the *:::no-loc(appsettings.json):::* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="b2df9-196">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="b2df9-196">The JSON and C# property names are named identically to ease the mapping process.</span></span>
+   <span data-ttu-id="b2df9-195">前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-195">The preceding `BookstoreDatabaseSettings` class is used to store the *appsettings.json* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="b2df9-196">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="b2df9-196">The JSON and C# property names are named identically to ease the mapping process.</span></span>
 
 1. <span data-ttu-id="b2df9-197">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="b2df9-197">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
@@ -256,7 +256,7 @@ ms.locfileid: "93060737"
 
    <span data-ttu-id="b2df9-198">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="b2df9-198">In the preceding code:</span></span>
 
-   * <span data-ttu-id="b2df9-199">:::no-loc(appsettings.json)::: 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册。</span><span class="sxs-lookup"><span data-stu-id="b2df9-199">The configuration instance to which the *:::no-loc(appsettings.json):::* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="b2df9-200">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 :::no-loc(appsettings.json)::: 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充。</span><span class="sxs-lookup"><span data-stu-id="b2df9-200">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *:::no-loc(appsettings.json):::*.</span></span>
+   * <span data-ttu-id="b2df9-199">appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册。</span><span class="sxs-lookup"><span data-stu-id="b2df9-199">The configuration instance to which the *appsettings.json* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="b2df9-200">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充。</span><span class="sxs-lookup"><span data-stu-id="b2df9-200">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *appsettings.json*.</span></span>
    * <span data-ttu-id="b2df9-201">`IBookstoreDatabaseSettings` 接口使用单一实例[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)在 DI 中注册。</span><span class="sxs-lookup"><span data-stu-id="b2df9-201">The `IBookstoreDatabaseSettings` interface is registered in DI with a singleton [service lifetime](xref:fundamentals/dependency-injection#service-lifetimes).</span></span> <span data-ttu-id="b2df9-202">在注入时，接口实例时将解析为 `BookstoreDatabaseSettings` 对象。</span><span class="sxs-lookup"><span data-stu-id="b2df9-202">When injected, the interface instance resolves to a `BookstoreDatabaseSettings` object.</span></span>
 
 1. <span data-ttu-id="b2df9-203">在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用：</span><span class="sxs-lookup"><span data-stu-id="b2df9-203">Add the following code to the top of *Startup.cs* to resolve the `BookstoreDatabaseSettings` and `IBookstoreDatabaseSettings` references:</span></span>
@@ -270,7 +270,7 @@ ms.locfileid: "93060737"
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   <span data-ttu-id="b2df9-207">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="b2df9-207">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="b2df9-208">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分中添加的 :::no-loc(appsettings.json)::: 配置值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-208">This technique provides access to the *:::no-loc(appsettings.json):::* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
+   <span data-ttu-id="b2df9-207">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="b2df9-207">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="b2df9-208">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分中添加的 appsettings.json 配置值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-208">This technique provides access to the *appsettings.json* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
 
 1. <span data-ttu-id="b2df9-209">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="b2df9-209">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
@@ -590,15 +590,15 @@ ms.locfileid: "93060737"
 
 ## <a name="add-a-configuration-model"></a><span data-ttu-id="b2df9-346">添加配置模型</span><span class="sxs-lookup"><span data-stu-id="b2df9-346">Add a configuration model</span></span>
 
-1. <span data-ttu-id="b2df9-347">向 :::no-loc(appsettings.json)::: 添加以下数据库配置值：</span><span class="sxs-lookup"><span data-stu-id="b2df9-347">Add the following database configuration values to *:::no-loc(appsettings.json):::* :</span></span>
+1. <span data-ttu-id="b2df9-347">向 appsettings.json 添加以下数据库配置值：</span><span class="sxs-lookup"><span data-stu-id="b2df9-347">Add the following database configuration values to *appsettings.json* :</span></span>
 
-   [!code-json[](first-mongo-app/samples/2.x/SampleApp/:::no-loc(appsettings.json):::?highlight=2-6)]
+   [!code-json[](first-mongo-app/samples/2.x/SampleApp/appsettings.json?highlight=2-6)]
 
 1. <span data-ttu-id="b2df9-348">使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录 ：</span><span class="sxs-lookup"><span data-stu-id="b2df9-348">Add a *BookstoreDatabaseSettings.cs* file to the *Models* directory with the following code:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   <span data-ttu-id="b2df9-349">前面的 `BookstoreDatabaseSettings` 类用于存储 :::no-loc(appsettings.json)::: 文件的 `BookstoreDatabaseSettings` 属性值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-349">The preceding `BookstoreDatabaseSettings` class is used to store the *:::no-loc(appsettings.json):::* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="b2df9-350">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="b2df9-350">The JSON and C# property names are named identically to ease the mapping process.</span></span>
+   <span data-ttu-id="b2df9-349">前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-349">The preceding `BookstoreDatabaseSettings` class is used to store the *appsettings.json* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="b2df9-350">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="b2df9-350">The JSON and C# property names are named identically to ease the mapping process.</span></span>
 
 1. <span data-ttu-id="b2df9-351">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="b2df9-351">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
@@ -606,7 +606,7 @@ ms.locfileid: "93060737"
 
    <span data-ttu-id="b2df9-352">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="b2df9-352">In the preceding code:</span></span>
 
-   * <span data-ttu-id="b2df9-353">:::no-loc(appsettings.json)::: 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册。</span><span class="sxs-lookup"><span data-stu-id="b2df9-353">The configuration instance to which the *:::no-loc(appsettings.json):::* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="b2df9-354">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 :::no-loc(appsettings.json)::: 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充。</span><span class="sxs-lookup"><span data-stu-id="b2df9-354">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *:::no-loc(appsettings.json):::*.</span></span>
+   * <span data-ttu-id="b2df9-353">appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册。</span><span class="sxs-lookup"><span data-stu-id="b2df9-353">The configuration instance to which the *appsettings.json* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="b2df9-354">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充。</span><span class="sxs-lookup"><span data-stu-id="b2df9-354">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *appsettings.json*.</span></span>
    * <span data-ttu-id="b2df9-355">`IBookstoreDatabaseSettings` 接口使用单一实例[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)在 DI 中注册。</span><span class="sxs-lookup"><span data-stu-id="b2df9-355">The `IBookstoreDatabaseSettings` interface is registered in DI with a singleton [service lifetime](xref:fundamentals/dependency-injection#service-lifetimes).</span></span> <span data-ttu-id="b2df9-356">在注入时，接口实例时将解析为 `BookstoreDatabaseSettings` 对象。</span><span class="sxs-lookup"><span data-stu-id="b2df9-356">When injected, the interface instance resolves to a `BookstoreDatabaseSettings` object.</span></span>
 
 1. <span data-ttu-id="b2df9-357">在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用：</span><span class="sxs-lookup"><span data-stu-id="b2df9-357">Add the following code to the top of *Startup.cs* to resolve the `BookstoreDatabaseSettings` and `IBookstoreDatabaseSettings` references:</span></span>
@@ -620,7 +620,7 @@ ms.locfileid: "93060737"
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   <span data-ttu-id="b2df9-361">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="b2df9-361">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="b2df9-362">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分中添加的 :::no-loc(appsettings.json)::: 配置值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-362">This technique provides access to the *:::no-loc(appsettings.json):::* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
+   <span data-ttu-id="b2df9-361">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="b2df9-361">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="b2df9-362">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分中添加的 appsettings.json 配置值。</span><span class="sxs-lookup"><span data-stu-id="b2df9-362">This technique provides access to the *appsettings.json* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
 
 1. <span data-ttu-id="b2df9-363">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="b2df9-363">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
@@ -730,7 +730,7 @@ ms.locfileid: "93060737"
 
 ## <a name="add-authentication-support-to-a-web-api"></a><span data-ttu-id="b2df9-411">向 Web API 添加身份验证支持</span><span class="sxs-lookup"><span data-stu-id="b2df9-411">Add authentication support to a web API</span></span>
 
-[!INCLUDE[](~/includes/:::no-loc(Identity):::Server4.md)]
+[!INCLUDE[](~/includes/IdentityServer4.md)]
 
 ## <a name="next-steps"></a><span data-ttu-id="b2df9-412">后续步骤</span><span class="sxs-lookup"><span data-stu-id="b2df9-412">Next steps</span></span>
 

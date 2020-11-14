@@ -1,5 +1,5 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor)::: 模板化组件'
+title: 'ASP.NET Core Blazor 模板化组件'
 author: guardrex
 description: 了解模板化组件如何接受一个或多个 UI 模板作为参数，然后将其用作组件呈现逻辑的一部分。
 monikerRange: '>= aspnetcore-3.1'
@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/18/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/components/templated-components
 ms.openlocfilehash: f818a0b7f1ba6d4dd6affeeba785c5e288568dd8
 ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
@@ -26,7 +26,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/11/2020
 ms.locfileid: "94507949"
 ---
-# <a name="aspnet-core-no-locblazor-templated-components"></a><span data-ttu-id="4cf52-103">ASP.NET Core :::no-loc(Blazor)::: 模板化组件</span><span class="sxs-lookup"><span data-stu-id="4cf52-103">ASP.NET Core :::no-loc(Blazor)::: templated components</span></span>
+# <a name="aspnet-core-no-locblazor-templated-components"></a><span data-ttu-id="4cf52-103">ASP.NET Core Blazor 模板化组件</span><span class="sxs-lookup"><span data-stu-id="4cf52-103">ASP.NET Core Blazor templated components</span></span>
 
 <span data-ttu-id="4cf52-104">作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="4cf52-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
 
@@ -43,7 +43,7 @@ ms.locfileid: "94507949"
 
 <span data-ttu-id="4cf52-115">`TableTemplate` 组件 (`TableTemplate.razor`)：</span><span class="sxs-lookup"><span data-stu-id="4cf52-115">`TableTemplate` component (`TableTemplate.razor`):</span></span>
 
-[!code-razor[](../common/samples/5.x/:::no-loc(Blazor):::WebAssemblySample/Components/TableTemplate.razor)]
+[!code-razor[](../common/samples/5.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 
 <span data-ttu-id="4cf52-116">使用模板化组件时，可以使用与参数名称匹配的子元素（在以下示例中为 `TableHeader` 和 `RowTemplate`）指定模板参数：</span><span class="sxs-lookup"><span data-stu-id="4cf52-116">When using a templated component, the template parameters can be specified using child elements that match the names of the parameters (`TableHeader` and `RowTemplate` in the following example):</span></span>
 
@@ -122,7 +122,7 @@ ms.locfileid: "94507949"
 
 <span data-ttu-id="4cf52-127">模板化组件通常是泛型类型。</span><span class="sxs-lookup"><span data-stu-id="4cf52-127">Templated components are often generically typed.</span></span> <span data-ttu-id="4cf52-128">例如，泛型 `ListViewTemplate` 组件 (`ListViewTemplate.razor`) 可用于呈现 `IEnumerable<T>` 值。</span><span class="sxs-lookup"><span data-stu-id="4cf52-128">For example, a generic `ListViewTemplate` component (`ListViewTemplate.razor`) can be used to render `IEnumerable<T>` values.</span></span> <span data-ttu-id="4cf52-129">若要定义泛型组件，请使用 [`@typeparam`](xref:mvc/views/razor#typeparam) 指令指定类型参数：</span><span class="sxs-lookup"><span data-stu-id="4cf52-129">To define a generic component, use the [`@typeparam`](xref:mvc/views/razor#typeparam) directive to specify type parameters:</span></span>
 
-[!code-razor[](../common/samples/5.x/:::no-loc(Blazor):::WebAssemblySample/Components/ListViewTemplate.razor)]
+[!code-razor[](../common/samples/5.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
 <span data-ttu-id="4cf52-130">使用泛型类型化组件时，将在可能的情况下推断类型参数：</span><span class="sxs-lookup"><span data-stu-id="4cf52-130">When using generic-typed components, the type parameter is inferred if possible:</span></span>
 

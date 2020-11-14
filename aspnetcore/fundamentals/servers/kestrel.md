@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/04/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/servers/kestrel
 ms.openlocfilehash: 56ac6635639eed93a84f47fc915c7013c6ed2381
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -128,7 +128,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-<span data-ttu-id="aa07a-159">在本文后面的示例中，Kestrel 选项是采用 C# 代码配置的。</span><span class="sxs-lookup"><span data-stu-id="aa07a-159">In examples shown later in this article, Kestrel options are configured in C# code.</span></span> <span data-ttu-id="aa07a-160">还可以使用 [配置提供程序](xref:fundamentals/configuration/index)设置 Kestrel 选项。</span><span class="sxs-lookup"><span data-stu-id="aa07a-160">Kestrel options can also be set using a [configuration provider](xref:fundamentals/configuration/index).</span></span> <span data-ttu-id="aa07a-161">例如，[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)可以从 :::no-loc(appsettings.json)::: 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：</span><span class="sxs-lookup"><span data-stu-id="aa07a-161">For example, the [File Configuration Provider](xref:fundamentals/configuration/index#file-configuration-provider) can load Kestrel configuration from an *:::no-loc(appsettings.json):::* or *appsettings.{Environment}.json* file:</span></span>
+<span data-ttu-id="aa07a-159">在本文后面的示例中，Kestrel 选项是采用 C# 代码配置的。</span><span class="sxs-lookup"><span data-stu-id="aa07a-159">In examples shown later in this article, Kestrel options are configured in C# code.</span></span> <span data-ttu-id="aa07a-160">还可以使用 [配置提供程序](xref:fundamentals/configuration/index)设置 Kestrel 选项。</span><span class="sxs-lookup"><span data-stu-id="aa07a-160">Kestrel options can also be set using a [configuration provider](xref:fundamentals/configuration/index).</span></span> <span data-ttu-id="aa07a-161">例如，[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：</span><span class="sxs-lookup"><span data-stu-id="aa07a-161">For example, the [File Configuration Provider](xref:fundamentals/configuration/index#file-configuration-provider) can load Kestrel configuration from an *appsettings.json* or *appsettings.{Environment}.json* file:</span></span>
 
 ```json
 {
@@ -528,7 +528,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 <span data-ttu-id="aa07a-312">`CreateDefaultBuilder` 在默认情况下调用 `Configure(context.Configuration.GetSection("Kestrel"))` 来加载 Kestrel 配置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-312">`CreateDefaultBuilder` calls `Configure(context.Configuration.GetSection("Kestrel"))` by default to load Kestrel configuration.</span></span> <span data-ttu-id="aa07a-313">Kestrel 可以使用默认 HTTPS 应用设置配置架构。</span><span class="sxs-lookup"><span data-stu-id="aa07a-313">A default HTTPS app settings configuration schema is available for Kestrel.</span></span> <span data-ttu-id="aa07a-314">从磁盘上的文件或从证书存储中配置多个终结点，包括要使用的 URL 和证书。</span><span class="sxs-lookup"><span data-stu-id="aa07a-314">Configure multiple endpoints, including the URLs and the certificates to use, either from a file on disk or from a certificate store.</span></span>
 
-<span data-ttu-id="aa07a-315">在以下 :::no-loc(appsettings.json)::: 示例中：</span><span class="sxs-lookup"><span data-stu-id="aa07a-315">In the following *:::no-loc(appsettings.json):::* example:</span></span>
+<span data-ttu-id="aa07a-315">在以下 appsettings.json 示例中：</span><span class="sxs-lookup"><span data-stu-id="aa07a-315">In the following *appsettings.json* example:</span></span>
 
 * <span data-ttu-id="aa07a-316">将 AllowInvalid 设置为 `true`，从而允许使用无效证书（例如自签名证书）。</span><span class="sxs-lookup"><span data-stu-id="aa07a-316">Set **AllowInvalid** to `true` to permit the use of invalid certificates (for example, self-signed certificates).</span></span>
 * <span data-ttu-id="aa07a-317">任何未指定证书的 HTTPS 终结点（下例中的 HttpsDefaultCert）会回退至在 Certificates > Default 下定义的证书或开发证书  。</span><span class="sxs-lookup"><span data-stu-id="aa07a-317">Any HTTPS endpoint that doesn't specify a certificate ( **HttpsDefaultCert** in the example that follows) falls back to the cert defined under **Certificates** > **Default** or the development certificate.</span></span>
@@ -890,7 +890,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 <span data-ttu-id="aa07a-415">`CreateDefaultBuilder` 在默认情况下调用 `serverOptions.Configure(context.Configuration.GetSection("Kestrel"))` 来加载 Kestrel 配置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-415">`CreateDefaultBuilder` calls `serverOptions.Configure(context.Configuration.GetSection("Kestrel"))` by default to load Kestrel configuration.</span></span>
 
-<span data-ttu-id="aa07a-416">以下 :::no-loc(appsettings.json)::: 示例将 HTTP/1.1 建立为所有终结点的默认连接协议：</span><span class="sxs-lookup"><span data-stu-id="aa07a-416">The following *:::no-loc(appsettings.json):::* example establishes HTTP/1.1 as the default connection protocol for all endpoints:</span></span>
+<span data-ttu-id="aa07a-416">以下 appsettings.json 示例将 HTTP/1.1 建立为所有终结点的默认连接协议：</span><span class="sxs-lookup"><span data-stu-id="aa07a-416">The following *appsettings.json* example establishes HTTP/1.1 as the default connection protocol for all endpoints:</span></span>
 
 ```json
 {
@@ -902,7 +902,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 }
 ```
 
-<span data-ttu-id="aa07a-417">以下 :::no-loc(appsettings.json)::: 示例将为所有指定终结点建立 HTTP/1.1 连接协议：</span><span class="sxs-lookup"><span data-stu-id="aa07a-417">The following *:::no-loc(appsettings.json):::* example establishes the HTTP/1.1 connection protocol for a specific endpoint:</span></span>
+<span data-ttu-id="aa07a-417">以下 appsettings.json 示例将为所有指定终结点建立 HTTP/1.1 连接协议：</span><span class="sxs-lookup"><span data-stu-id="aa07a-417">The following *appsettings.json* example establishes the HTTP/1.1 connection protocol for a specific endpoint:</span></span>
 
 ```json
 {
@@ -1002,9 +1002,9 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-<span data-ttu-id="aa07a-448">默认情况下，主机筛选中间件处于禁用状态。</span><span class="sxs-lookup"><span data-stu-id="aa07a-448">Host Filtering Middleware is disabled by default.</span></span> <span data-ttu-id="aa07a-449">要启用该中间件，请在 :::no-loc(appsettings.json):::/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。</span><span class="sxs-lookup"><span data-stu-id="aa07a-449">To enable the middleware, define an `AllowedHosts` key in *:::no-loc(appsettings.json):::*/*appsettings.\<EnvironmentName>.json*.</span></span> <span data-ttu-id="aa07a-450">此值是以分号分隔的不带端口号的主机名列表：</span><span class="sxs-lookup"><span data-stu-id="aa07a-450">The value is a semicolon-delimited list of host names without port numbers:</span></span>
+<span data-ttu-id="aa07a-448">默认情况下，主机筛选中间件处于禁用状态。</span><span class="sxs-lookup"><span data-stu-id="aa07a-448">Host Filtering Middleware is disabled by default.</span></span> <span data-ttu-id="aa07a-449">要启用该中间件，请在 appsettings.json/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。</span><span class="sxs-lookup"><span data-stu-id="aa07a-449">To enable the middleware, define an `AllowedHosts` key in *appsettings.json*/*appsettings.\<EnvironmentName>.json*.</span></span> <span data-ttu-id="aa07a-450">此值是以分号分隔的不带端口号的主机名列表：</span><span class="sxs-lookup"><span data-stu-id="aa07a-450">The value is a semicolon-delimited list of host names without port numbers:</span></span>
 
-<span data-ttu-id="aa07a-451">*:::no-loc(appsettings.json):::* :</span><span class="sxs-lookup"><span data-stu-id="aa07a-451">*:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="aa07a-451">*appsettings.json* :</span><span class="sxs-lookup"><span data-stu-id="aa07a-451">*appsettings.json* :</span></span>
 
 ```json
 {
@@ -1136,7 +1136,7 @@ public static void Main(string[] args)
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-<span data-ttu-id="aa07a-513">Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-513">Kestrel options, which are configured in C# code in the following examples, can also be set using a [configuration provider](xref:fundamentals/configuration/index).</span></span> <span data-ttu-id="aa07a-514">例如，文件配置提供程序可以从 :::no-loc(appsettings.json)::: 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：</span><span class="sxs-lookup"><span data-stu-id="aa07a-514">For example, the File Configuration Provider can load Kestrel configuration from an *:::no-loc(appsettings.json):::* or *appsettings.{Environment}.json* file:</span></span>
+<span data-ttu-id="aa07a-513">Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-513">Kestrel options, which are configured in C# code in the following examples, can also be set using a [configuration provider](xref:fundamentals/configuration/index).</span></span> <span data-ttu-id="aa07a-514">例如，文件配置提供程序可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：</span><span class="sxs-lookup"><span data-stu-id="aa07a-514">For example, the File Configuration Provider can load Kestrel configuration from an *appsettings.json* or *appsettings.{Environment}.json* file:</span></span>
 
 ```json
 {
@@ -1516,7 +1516,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 <span data-ttu-id="aa07a-642">`CreateDefaultBuilder` 在默认情况下调用 `Configure(context.Configuration.GetSection("Kestrel"))` 来加载 Kestrel 配置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-642">`CreateDefaultBuilder` calls `Configure(context.Configuration.GetSection("Kestrel"))` by default to load Kestrel configuration.</span></span> <span data-ttu-id="aa07a-643">Kestrel 可以使用默认 HTTPS 应用设置配置架构。</span><span class="sxs-lookup"><span data-stu-id="aa07a-643">A default HTTPS app settings configuration schema is available for Kestrel.</span></span> <span data-ttu-id="aa07a-644">从磁盘上的文件或从证书存储中配置多个终结点，包括要使用的 URL 和证书。</span><span class="sxs-lookup"><span data-stu-id="aa07a-644">Configure multiple endpoints, including the URLs and the certificates to use, either from a file on disk or from a certificate store.</span></span>
 
-<span data-ttu-id="aa07a-645">在以下 :::no-loc(appsettings.json)::: 示例中：</span><span class="sxs-lookup"><span data-stu-id="aa07a-645">In the following *:::no-loc(appsettings.json):::* example:</span></span>
+<span data-ttu-id="aa07a-645">在以下 appsettings.json 示例中：</span><span class="sxs-lookup"><span data-stu-id="aa07a-645">In the following *appsettings.json* example:</span></span>
 
 * <span data-ttu-id="aa07a-646">将 AllowInvalid 设置为 `true`，从而允许使用无效证书（例如自签名证书）。</span><span class="sxs-lookup"><span data-stu-id="aa07a-646">Set **AllowInvalid** to `true` to permit the use of invalid certificates (for example, self-signed certificates).</span></span>
 * <span data-ttu-id="aa07a-647">任何未指定证书的 HTTPS 终结点（下例中的 HttpsDefaultCert）会回退至在 Certificates > Default 下定义的证书或开发证书  。</span><span class="sxs-lookup"><span data-stu-id="aa07a-647">Any HTTPS endpoint that doesn't specify a certificate ( **HttpsDefaultCert** in the example that follows) falls back to the cert defined under **Certificates** > **Default** or the development certificate.</span></span>
@@ -1839,7 +1839,7 @@ private class TlsFilterAdapter : IConnectionAdapter
 
 <span data-ttu-id="aa07a-740"><xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 在默认情况下调用 `serverOptions.Configure(context.Configuration.GetSection("Kestrel"))` 来加载 Kestrel 配置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-740"><xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> calls `serverOptions.Configure(context.Configuration.GetSection("Kestrel"))` by default to load Kestrel configuration.</span></span>
 
-<span data-ttu-id="aa07a-741">在以下 :::no-loc(appsettings.json)::: 示例中，为 Kestrel 的所有终结点建立默认的连接协议（HTTP/1.1 和 HTTP/2）：</span><span class="sxs-lookup"><span data-stu-id="aa07a-741">In the following *:::no-loc(appsettings.json):::* example, a default connection protocol (HTTP/1.1 and HTTP/2) is established for all of Kestrel's endpoints:</span></span>
+<span data-ttu-id="aa07a-741">在以下 appsettings.json 示例中，为 Kestrel 的所有终结点建立默认的连接协议（HTTP/1.1 和 HTTP/2）：</span><span class="sxs-lookup"><span data-stu-id="aa07a-741">In the following *appsettings.json* example, a default connection protocol (HTTP/1.1 and HTTP/2) is established for all of Kestrel's endpoints:</span></span>
 
 ```json
 {
@@ -1953,9 +1953,9 @@ private class TlsFilterAdapter : IConnectionAdapter
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-<span data-ttu-id="aa07a-777">默认情况下，主机筛选中间件处于禁用状态。</span><span class="sxs-lookup"><span data-stu-id="aa07a-777">Host Filtering Middleware is disabled by default.</span></span> <span data-ttu-id="aa07a-778">要启用该中间件，请在 :::no-loc(appsettings.json):::/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。</span><span class="sxs-lookup"><span data-stu-id="aa07a-778">To enable the middleware, define an `AllowedHosts` key in *:::no-loc(appsettings.json):::*/*appsettings.\<EnvironmentName>.json*.</span></span> <span data-ttu-id="aa07a-779">此值是以分号分隔的不带端口号的主机名列表：</span><span class="sxs-lookup"><span data-stu-id="aa07a-779">The value is a semicolon-delimited list of host names without port numbers:</span></span>
+<span data-ttu-id="aa07a-777">默认情况下，主机筛选中间件处于禁用状态。</span><span class="sxs-lookup"><span data-stu-id="aa07a-777">Host Filtering Middleware is disabled by default.</span></span> <span data-ttu-id="aa07a-778">要启用该中间件，请在 appsettings.json/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。</span><span class="sxs-lookup"><span data-stu-id="aa07a-778">To enable the middleware, define an `AllowedHosts` key in *appsettings.json*/*appsettings.\<EnvironmentName>.json*.</span></span> <span data-ttu-id="aa07a-779">此值是以分号分隔的不带端口号的主机名列表：</span><span class="sxs-lookup"><span data-stu-id="aa07a-779">The value is a semicolon-delimited list of host names without port numbers:</span></span>
 
-<span data-ttu-id="aa07a-780">*:::no-loc(appsettings.json):::* :</span><span class="sxs-lookup"><span data-stu-id="aa07a-780">*:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="aa07a-780">*appsettings.json* :</span><span class="sxs-lookup"><span data-stu-id="aa07a-780">*appsettings.json* :</span></span>
 
 ```json
 {
@@ -2044,7 +2044,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-<span data-ttu-id="aa07a-824">Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-824">Kestrel options, which are configured in C# code in the following examples, can also be set using a [configuration provider](xref:fundamentals/configuration/index).</span></span> <span data-ttu-id="aa07a-825">例如，文件配置提供程序可以从 :::no-loc(appsettings.json)::: 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：</span><span class="sxs-lookup"><span data-stu-id="aa07a-825">For example, the File Configuration Provider can load Kestrel configuration from an *:::no-loc(appsettings.json):::* or *appsettings.{Environment}.json* file:</span></span>
+<span data-ttu-id="aa07a-824">Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配置提供程序](xref:fundamentals/configuration/index)进行设置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-824">Kestrel options, which are configured in C# code in the following examples, can also be set using a [configuration provider](xref:fundamentals/configuration/index).</span></span> <span data-ttu-id="aa07a-825">例如，文件配置提供程序可以从 appsettings.json 或 appsettings.{Environment}.json 文件加载 Kestrel 配置：</span><span class="sxs-lookup"><span data-stu-id="aa07a-825">For example, the File Configuration Provider can load Kestrel configuration from an *appsettings.json* or *appsettings.{Environment}.json* file:</span></span>
 
 ```json
 {
@@ -2380,7 +2380,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 <span data-ttu-id="aa07a-922">`CreateDefaultBuilder` 在默认情况下调用 `Configure(context.Configuration.GetSection("Kestrel"))` 来加载 Kestrel 配置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-922">`CreateDefaultBuilder` calls `Configure(context.Configuration.GetSection("Kestrel"))` by default to load Kestrel configuration.</span></span> <span data-ttu-id="aa07a-923">Kestrel 可以使用默认 HTTPS 应用设置配置架构。</span><span class="sxs-lookup"><span data-stu-id="aa07a-923">A default HTTPS app settings configuration schema is available for Kestrel.</span></span> <span data-ttu-id="aa07a-924">从磁盘上的文件或从证书存储中配置多个终结点，包括要使用的 URL 和证书。</span><span class="sxs-lookup"><span data-stu-id="aa07a-924">Configure multiple endpoints, including the URLs and the certificates to use, either from a file on disk or from a certificate store.</span></span>
 
-<span data-ttu-id="aa07a-925">在以下 :::no-loc(appsettings.json)::: 示例中：</span><span class="sxs-lookup"><span data-stu-id="aa07a-925">In the following *:::no-loc(appsettings.json):::* example:</span></span>
+<span data-ttu-id="aa07a-925">在以下 appsettings.json 示例中：</span><span class="sxs-lookup"><span data-stu-id="aa07a-925">In the following *appsettings.json* example:</span></span>
 
 * <span data-ttu-id="aa07a-926">将 AllowInvalid 设置为 `true`，从而允许使用无效证书（例如自签名证书）。</span><span class="sxs-lookup"><span data-stu-id="aa07a-926">Set **AllowInvalid** to `true` to permit the use of invalid certificates (for example, self-signed certificates).</span></span>
 * <span data-ttu-id="aa07a-927">任何未指定证书的 HTTPS 终结点（下例中的 HttpsDefaultCert）会回退至在 Certificates > Default 下定义的证书或开发证书  。</span><span class="sxs-lookup"><span data-stu-id="aa07a-927">Any HTTPS endpoint that doesn't specify a certificate ( **HttpsDefaultCert** in the example that follows) falls back to the cert defined under **Certificates** > **Default** or the development certificate.</span></span>
@@ -2743,9 +2743,9 @@ Listening on the following addresses: http://127.0.0.1:48508
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-<span data-ttu-id="aa07a-1028">默认情况下，主机筛选中间件处于禁用状态。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1028">Host Filtering Middleware is disabled by default.</span></span> <span data-ttu-id="aa07a-1029">要启用该中间件，请在 :::no-loc(appsettings.json):::/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1029">To enable the middleware, define an `AllowedHosts` key in *:::no-loc(appsettings.json):::*/*appsettings.\<EnvironmentName>.json*.</span></span> <span data-ttu-id="aa07a-1030">此值是以分号分隔的不带端口号的主机名列表：</span><span class="sxs-lookup"><span data-stu-id="aa07a-1030">The value is a semicolon-delimited list of host names without port numbers:</span></span>
+<span data-ttu-id="aa07a-1028">默认情况下，主机筛选中间件处于禁用状态。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1028">Host Filtering Middleware is disabled by default.</span></span> <span data-ttu-id="aa07a-1029">要启用该中间件，请在 appsettings.json/appsettings.\<EnvironmentName>.json 中定义一个 `AllowedHosts` 键。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1029">To enable the middleware, define an `AllowedHosts` key in *appsettings.json*/*appsettings.\<EnvironmentName>.json*.</span></span> <span data-ttu-id="aa07a-1030">此值是以分号分隔的不带端口号的主机名列表：</span><span class="sxs-lookup"><span data-stu-id="aa07a-1030">The value is a semicolon-delimited list of host names without port numbers:</span></span>
 
-<span data-ttu-id="aa07a-1031">*:::no-loc(appsettings.json):::* :</span><span class="sxs-lookup"><span data-stu-id="aa07a-1031">*:::no-loc(appsettings.json):::* :</span></span>
+<span data-ttu-id="aa07a-1031">*appsettings.json* :</span><span class="sxs-lookup"><span data-stu-id="aa07a-1031">*appsettings.json* :</span></span>
 
 ```json
 {
@@ -2774,7 +2774,7 @@ Listening on the following addresses: http://127.0.0.1:48508
 * <span data-ttu-id="aa07a-1050">排出超时为五秒，该值不可配置。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1050">Draining has a timeout of five seconds, which isn't configurable.</span></span>
 * <span data-ttu-id="aa07a-1051">如果 `Content-Length` 或 `Transfer-Encoding` 标头指定的所有数据在超时之前都未被读取，则连接将关闭。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1051">If all of the data specified by the `Content-Length` or `Transfer-Encoding` header hasn't been read before the timeout, the connection is closed.</span></span>
 
-<span data-ttu-id="aa07a-1052">有时，你可能想要在写入响应之前或之后立即终止请求。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1052">Sometimes you may want to terminate the request immediately, before or after writing the response.</span></span> <span data-ttu-id="aa07a-1053">例如，客户端可能具有限制性的数据上限，因此可以优先考虑限制上传的数据。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1053">For example, clients may have restrictive data caps, so limiting uploaded data might be a priority.</span></span> <span data-ttu-id="aa07a-1054">在这种情况下，若要终止请求，请从控制器、:::no-loc(Razor)::: 页面或中间件调用 [HttpContext](xref:Microsoft.AspNetCore.Http.HttpContext.Abort%2A)。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1054">In such cases to terminate a request, call [HttpContext.Abort](xref:Microsoft.AspNetCore.Http.HttpContext.Abort%2A) from a controller, :::no-loc(Razor)::: Page, or middleware.</span></span>
+<span data-ttu-id="aa07a-1052">有时，你可能想要在写入响应之前或之后立即终止请求。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1052">Sometimes you may want to terminate the request immediately, before or after writing the response.</span></span> <span data-ttu-id="aa07a-1053">例如，客户端可能具有限制性的数据上限，因此可以优先考虑限制上传的数据。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1053">For example, clients may have restrictive data caps, so limiting uploaded data might be a priority.</span></span> <span data-ttu-id="aa07a-1054">在这种情况下，若要终止请求，请从控制器、Razor 页面或中间件调用 [HttpContext](xref:Microsoft.AspNetCore.Http.HttpContext.Abort%2A)。</span><span class="sxs-lookup"><span data-stu-id="aa07a-1054">In such cases to terminate a request, call [HttpContext.Abort](xref:Microsoft.AspNetCore.Http.HttpContext.Abort%2A) from a controller, Razor Page, or middleware.</span></span>
 
 <span data-ttu-id="aa07a-1055">在调用 `Abort` 时，存在一些注意事项：</span><span class="sxs-lookup"><span data-stu-id="aa07a-1055">There are caveats to calling `Abort`:</span></span>
 

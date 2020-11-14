@@ -1,21 +1,21 @@
 ---
 title: 第 4 部分，使用数据库和 ASP.NET Core
 author: rick-anderson
-description: ':::no-loc(Razor)::: 页面教程系列的第 4 部分。'
+description: 'Razor 页面教程系列的第 4 部分。'
 ms.author: riande
 ms.date: 7/22/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: tutorials/razor-pages/sql
 ms.openlocfilehash: d592cf7d8a96a7e4ec2e53418843a186488951be
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -32,29 +32,29 @@ ms.locfileid: "93058150"
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-<span data-ttu-id="c348d-105">`:::no-loc(Razor):::PagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。</span><span class="sxs-lookup"><span data-stu-id="c348d-105">The `:::no-loc(Razor):::PagesMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="c348d-106">在 Startup.cs 的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="c348d-106">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in *Startup.cs* :</span></span>
+<span data-ttu-id="c348d-105">`RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。</span><span class="sxs-lookup"><span data-stu-id="c348d-105">The `RazorPagesMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="c348d-106">在 Startup.cs 的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="c348d-106">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in *Startup.cs* :</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="c348d-107">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c348d-107">Visual Studio</span></span>](#tab/visual-studio)
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="c348d-108">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c348d-108">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 ---
 
-<span data-ttu-id="c348d-109">ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。</span><span class="sxs-lookup"><span data-stu-id="c348d-109">The ASP.NET Core [Configuration](xref:fundamentals/configuration/index) system reads the `ConnectionString`.</span></span> <span data-ttu-id="c348d-110">进行本地开发时，它从 *:::no-loc(appsettings.json):::* 文件获取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="c348d-110">For local development, it gets the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="c348d-109">ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。</span><span class="sxs-lookup"><span data-stu-id="c348d-109">The ASP.NET Core [Configuration](xref:fundamentals/configuration/index) system reads the `ConnectionString`.</span></span> <span data-ttu-id="c348d-110">进行本地开发时，它从 *appsettings.json* 文件获取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="c348d-110">For local development, it gets the connection string from the *appsettings.json* file.</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="c348d-111">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c348d-111">Visual Studio</span></span>](#tab/visual-studio)
 
 <span data-ttu-id="c348d-112">生成代码的数据库名称值 (`Database={Database name}`) 将并不不同。</span><span class="sxs-lookup"><span data-stu-id="c348d-112">The name value for the database (`Database={Database name}`) will be different for your generated code.</span></span> <span data-ttu-id="c348d-113">名称值是任意的。</span><span class="sxs-lookup"><span data-stu-id="c348d-113">The name value is arbitrary.</span></span>
 
-[!code-json[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/:::no-loc(appsettings.json):::?highlight=10-12)]
+[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="c348d-114">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c348d-114">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/:::no-loc(Razor):::PagesMovie/appsettings_SQLite.json?highlight=8-10)]
+[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
 ---
 
@@ -94,7 +94,7 @@ ms.locfileid: "93058150"
 
 <span data-ttu-id="c348d-133">使用以下代码在 Models 文件夹中创建一个名为 `SeedData` 的新类：</span><span class="sxs-lookup"><span data-stu-id="c348d-133">Create a new class named `SeedData` in the *Models* folder with the following code:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Models/SeedData.cs?name=snippet_1)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedData.cs?name=snippet_1)]
 
 <span data-ttu-id="c348d-134">如果 DB 中有任何电影，则会返回种子初始值设定项，并且不会添加任何电影。</span><span class="sxs-lookup"><span data-stu-id="c348d-134">If there are any movies in the DB, the seed initializer returns and no movies are added.</span></span>
 
@@ -117,11 +117,11 @@ if (context.Movie.Any())
 
 <span data-ttu-id="c348d-140">下面的代码显示更新后的 Program.cs 文件。</span><span class="sxs-lookup"><span data-stu-id="c348d-140">The following code shows the updated *Program.cs* file.</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Program.cs)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Program.cs)]
 
 <span data-ttu-id="c348d-141">未运行 `Update-Database` 时出现以下异常：</span><span class="sxs-lookup"><span data-stu-id="c348d-141">The following exception occurs when `Update-Database` has not been run:</span></span>
 
-> `SqlException: Cannot open database ":::no-loc(Razor):::PagesMovieContext-" requested by the login. The login failed.`
+> `SqlException: Cannot open database "RazorPagesMovieContext-" requested by the login. The login failed.`
 > `Login failed for user 'user name'.`
 
 ### <a name="test-the-app"></a><span data-ttu-id="c348d-142">测试应用</span><span class="sxs-lookup"><span data-stu-id="c348d-142">Test the app</span></span>
@@ -153,8 +153,8 @@ if (context.Movie.Any())
 ## <a name="additional-resources"></a><span data-ttu-id="c348d-159">其他资源</span><span class="sxs-lookup"><span data-stu-id="c348d-159">Additional resources</span></span>
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="c348d-160">[上一篇：基架 :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)
-> [下一篇：更新页面](xref:tutorials/razor-pages/da1)</span><span class="sxs-lookup"><span data-stu-id="c348d-160">[Previous: Scaffolded :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)
+> <span data-ttu-id="c348d-160">[上一篇：基架 Razor Pages](xref:tutorials/razor-pages/page)
+> [下一篇：更新页面](xref:tutorials/razor-pages/da1)</span><span class="sxs-lookup"><span data-stu-id="c348d-160">[Previous: Scaffolded Razor Pages](xref:tutorials/razor-pages/page)
 [Next: Updating the pages](xref:tutorials/razor-pages/da1)</span></span>
 
 ::: moniker-end
@@ -163,38 +163,38 @@ if (context.Movie.Any())
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-<span data-ttu-id="c348d-161">`:::no-loc(Razor):::PagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。</span><span class="sxs-lookup"><span data-stu-id="c348d-161">The `:::no-loc(Razor):::PagesMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="c348d-162">在 Startup.cs 的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="c348d-162">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in *Startup.cs* :</span></span>
+<span data-ttu-id="c348d-161">`RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。</span><span class="sxs-lookup"><span data-stu-id="c348d-161">The `RazorPagesMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="c348d-162">在 Startup.cs 的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="c348d-162">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in *Startup.cs* :</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="c348d-163">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c348d-163">Visual Studio</span></span>](#tab/visual-studio)
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="c348d-164">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c348d-164">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 ---
 
 <span data-ttu-id="c348d-165">有关 `ConfigureServices` 中使用的方法的详细信息，请参阅：</span><span class="sxs-lookup"><span data-stu-id="c348d-165">For more information on the methods used in `ConfigureServices`, see:</span></span>
 
-* <span data-ttu-id="c348d-166">面向 `:::no-loc(Cookie):::PolicyOptions` 的 [ASP.NET Core 中的欧盟一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="c348d-166">[EU General Data Protection Regulation (GDPR) support in ASP.NET Core](xref:security/gdpr) for `:::no-loc(Cookie):::PolicyOptions`.</span></span>
+* <span data-ttu-id="c348d-166">面向 `CookiePolicyOptions` 的 [ASP.NET Core 中的欧盟一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="c348d-166">[EU General Data Protection Regulation (GDPR) support in ASP.NET Core](xref:security/gdpr) for `CookiePolicyOptions`.</span></span>
 * [<span data-ttu-id="c348d-167">SetCompatibilityVersion</span><span class="sxs-lookup"><span data-stu-id="c348d-167">SetCompatibilityVersion</span></span>](xref:mvc/compatibility-version)
 
-<span data-ttu-id="c348d-168">ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。</span><span class="sxs-lookup"><span data-stu-id="c348d-168">The ASP.NET Core [Configuration](xref:fundamentals/configuration/index) system reads the `ConnectionString`.</span></span> <span data-ttu-id="c348d-169">进行本地开发时，它从 *:::no-loc(appsettings.json):::* 文件获取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="c348d-169">For local development, it gets the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="c348d-168">ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。</span><span class="sxs-lookup"><span data-stu-id="c348d-168">The ASP.NET Core [Configuration](xref:fundamentals/configuration/index) system reads the `ConnectionString`.</span></span> <span data-ttu-id="c348d-169">进行本地开发时，它从 *appsettings.json* 文件获取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="c348d-169">For local development, it gets the connection string from the *appsettings.json* file.</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="c348d-170">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c348d-170">Visual Studio</span></span>](#tab/visual-studio)
 
 <span data-ttu-id="c348d-171">生成代码的数据库名称值 (`Database={Database name}`) 将并不不同。</span><span class="sxs-lookup"><span data-stu-id="c348d-171">The name value for the database (`Database={Database name}`) will be different for your generated code.</span></span> <span data-ttu-id="c348d-172">名称值是任意的。</span><span class="sxs-lookup"><span data-stu-id="c348d-172">The name value is arbitrary.</span></span>
 
-[!code-json[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/:::no-loc(appsettings.json):::)]
+[!code-json[](razor-pages-start/sample/RazorPagesMovie22/appsettings.json)]
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="c348d-173">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c348d-173">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/:::no-loc(Razor):::PagesMovie/appsettings_SQLite.json?highlight=8-10)]
+[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
 # <a name="visual-studio-for-mac"></a>[<span data-ttu-id="c348d-174">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c348d-174">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/:::no-loc(Razor):::PagesMovie/appsettings_SQLite.json?highlight=8-10)]
+[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
 ---
 
@@ -239,7 +239,7 @@ if (context.Movie.Any())
 
 <span data-ttu-id="c348d-194">使用以下代码在 Models 文件夹中创建一个名为 `SeedData` 的新类：</span><span class="sxs-lookup"><span data-stu-id="c348d-194">Create a new class named `SeedData` in the *Models* folder with the following code:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/Models/SeedData.cs?name=snippet_1)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedData.cs?name=snippet_1)]
 
 <span data-ttu-id="c348d-195">如果 DB 中有任何电影，则会返回种子初始值设定项，并且不会添加任何电影。</span><span class="sxs-lookup"><span data-stu-id="c348d-195">If there are any movies in the DB, the seed initializer returns and no movies are added.</span></span>
 
@@ -262,11 +262,11 @@ if (context.Movie.Any())
 
 <span data-ttu-id="c348d-201">下面的代码显示更新后的 Program.cs 文件。</span><span class="sxs-lookup"><span data-stu-id="c348d-201">The following code shows the updated *Program.cs* file.</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/Program.cs)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Program.cs)]
 
 <span data-ttu-id="c348d-202">生产应用不会调用 `Database.Migrate`。</span><span class="sxs-lookup"><span data-stu-id="c348d-202">A production app would not call `Database.Migrate`.</span></span> <span data-ttu-id="c348d-203">它会添加到上面的代码中，以防止在未运行 `Update-Database` 时出现以下异常：</span><span class="sxs-lookup"><span data-stu-id="c348d-203">It's added to the preceding code to prevent the following exception when `Update-Database` has not been run:</span></span>
 
-<span data-ttu-id="c348d-204">SqlException：无法打开登录请求的数据库“:::no-loc(Razor):::PagesMovieContext-21”。</span><span class="sxs-lookup"><span data-stu-id="c348d-204">SqlException: Cannot open database ":::no-loc(Razor):::PagesMovieContext-21" requested by the login.</span></span> <span data-ttu-id="c348d-205">登录失败。</span><span class="sxs-lookup"><span data-stu-id="c348d-205">The login failed.</span></span>
+<span data-ttu-id="c348d-204">SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21”。</span><span class="sxs-lookup"><span data-stu-id="c348d-204">SqlException: Cannot open database "RazorPagesMovieContext-21" requested by the login.</span></span> <span data-ttu-id="c348d-205">登录失败。</span><span class="sxs-lookup"><span data-stu-id="c348d-205">The login failed.</span></span>
 <span data-ttu-id="c348d-206">用户“用户名”登录失败。</span><span class="sxs-lookup"><span data-stu-id="c348d-206">Login failed for user 'user name'.</span></span>
 
 ### <a name="test-the-app"></a><span data-ttu-id="c348d-207">测试应用</span><span class="sxs-lookup"><span data-stu-id="c348d-207">Test the app</span></span>
@@ -310,8 +310,8 @@ if (context.Movie.Any())
 * [<span data-ttu-id="c348d-231">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="c348d-231">YouTube version of this tutorial</span></span>](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="c348d-232">[上一篇：基架 :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)
-> [下一篇：更新页面](xref:tutorials/razor-pages/da1)</span><span class="sxs-lookup"><span data-stu-id="c348d-232">[Previous: Scaffolded :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)
+> <span data-ttu-id="c348d-232">[上一篇：基架 Razor Pages](xref:tutorials/razor-pages/page)
+> [下一篇：更新页面](xref:tutorials/razor-pages/da1)</span><span class="sxs-lookup"><span data-stu-id="c348d-232">[Previous: Scaffolded Razor Pages](xref:tutorials/razor-pages/page)
 [Next: Updating the pages](xref:tutorials/razor-pages/da1)</span></span>
 
 ::: moniker-end

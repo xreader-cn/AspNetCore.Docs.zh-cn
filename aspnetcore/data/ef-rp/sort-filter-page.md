@@ -1,22 +1,22 @@
 ---
-title: '第 3 部分，ASP.NET Core 中的 :::no-loc(Razor)::: 页面和 EF Core - 排序、筛选、分页'
+title: '第 3 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页'
 author: rick-anderson
-description: ':::no-loc(Razor)::: 页面和实体框架教程系列的第 3 部分。'
+description: 'Razor 页面和实体框架教程系列的第 3 部分。'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: data/ef-rp/sort-filter-page
 ms.openlocfilehash: 51a1e2a90259898262ac655b7a0e8a55d766f0c7
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -25,7 +25,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93061036"
 ---
-# <a name="part-3-no-locrazor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a><span data-ttu-id="e6822-103">第 3 部分，ASP.NET Core 中的 :::no-loc(Razor)::: 页面和 EF Core - 排序、筛选、分页</span><span class="sxs-lookup"><span data-stu-id="e6822-103">Part 3, :::no-loc(Razor)::: Pages with EF Core in ASP.NET Core - Sort, Filter, Paging</span></span>
+# <a name="part-3-no-locrazor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a><span data-ttu-id="e6822-103">第 3 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页</span><span class="sxs-lookup"><span data-stu-id="e6822-103">Part 3, Razor Pages with EF Core in ASP.NET Core - Sort, Filter, Paging</span></span>
 
 <span data-ttu-id="e6822-104">作者：[Tom Dykstra](https://github.com/tdykstra)、[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Jon P Smith](https://twitter.com/thereformedprog)</span><span class="sxs-lookup"><span data-stu-id="e6822-104">By [Tom Dykstra](https://github.com/tdykstra), [Rick Anderson](https://twitter.com/RickAndMSFT), and [Jon P Smith](https://twitter.com/thereformedprog)</span></span>
 
@@ -58,7 +58,7 @@ ms.locfileid: "93061036"
 
 <span data-ttu-id="e6822-122">如果通过“学生”链接对“索引”页发起请求，则不会有任何查询字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-122">When the Index page is requested from the **Students** link, there's no query string.</span></span> <span data-ttu-id="e6822-123">学生按姓氏升序显示。</span><span class="sxs-lookup"><span data-stu-id="e6822-123">The students are displayed in ascending order by last name.</span></span> <span data-ttu-id="e6822-124">按姓氏升序是 `switch` 语句中的 `default`。</span><span class="sxs-lookup"><span data-stu-id="e6822-124">Ascending order by last name is the `default` in the `switch` statement.</span></span> <span data-ttu-id="e6822-125">用户单击列标题链接时，查询字符串值中会提供相应的 `sortOrder` 值。</span><span class="sxs-lookup"><span data-stu-id="e6822-125">When the user clicks a column heading link, the appropriate `sortOrder` value is provided in the query string value.</span></span>
 
-<span data-ttu-id="e6822-126">:::no-loc(Razor)::: 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应的查询字符串值：</span><span class="sxs-lookup"><span data-stu-id="e6822-126">`NameSort` and `DateSort` are used by the :::no-loc(Razor)::: Page to configure the column heading hyperlinks with the appropriate query string values:</span></span>
+<span data-ttu-id="e6822-126">Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应的查询字符串值：</span><span class="sxs-lookup"><span data-stu-id="e6822-126">`NameSort` and `DateSort` are used by the Razor Page to configure the column heading hyperlinks with the appropriate query string values:</span></span>
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_Ternary)]
 
@@ -105,7 +105,7 @@ ms.locfileid: "93061036"
 
 <span data-ttu-id="e6822-167">若要向“学生索引”页添加筛选：</span><span class="sxs-lookup"><span data-stu-id="e6822-167">To add filtering to the Students Index page:</span></span>
 
-* <span data-ttu-id="e6822-168">需要向 :::no-loc(Razor)::: 页面添加一个文本框和一个提交按钮。</span><span class="sxs-lookup"><span data-stu-id="e6822-168">A text box and a submit button is added to the :::no-loc(Razor)::: Page.</span></span> <span data-ttu-id="e6822-169">文本框会针对名字或姓氏提供一个搜索字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-169">The text box supplies a search string on the first or last name.</span></span>
+* <span data-ttu-id="e6822-168">需要向 Razor 页面添加一个文本框和一个提交按钮。</span><span class="sxs-lookup"><span data-stu-id="e6822-168">A text box and a submit button is added to the Razor Page.</span></span> <span data-ttu-id="e6822-169">文本框会针对名字或姓氏提供一个搜索字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-169">The text box supplies a search string on the first or last name.</span></span>
 * <span data-ttu-id="e6822-170">页面模型随即更新以使用文本框值。</span><span class="sxs-lookup"><span data-stu-id="e6822-170">The page model is updated to use the text box value.</span></span>
 
 ### <a name="update-the-ongetasync-method"></a><span data-ttu-id="e6822-171">更新 OnGetAsync 方法</span><span class="sxs-lookup"><span data-stu-id="e6822-171">Update the OnGetAsync method</span></span>
@@ -139,7 +139,7 @@ Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 
 <span data-ttu-id="e6822-199">有关详细信息，请参阅 [How to use case-insensitive query with Sqlite provider](https://github.com/aspnet/EntityFrameworkCore/issues/11414)（如何在 Sqlite 提供程序中使用不区分大小写的查询）。</span><span class="sxs-lookup"><span data-stu-id="e6822-199">For more information, see [How to use case-insensitive query with Sqlite provider](https://github.com/aspnet/EntityFrameworkCore/issues/11414).</span></span>
 
-### <a name="update-the-no-locrazor-page"></a><span data-ttu-id="e6822-200">更新 :::no-loc(Razor)::: 页面</span><span class="sxs-lookup"><span data-stu-id="e6822-200">Update the :::no-loc(Razor)::: page</span></span>
+### <a name="update-the-no-locrazor-page"></a><span data-ttu-id="e6822-200">更新 Razor 页面</span><span class="sxs-lookup"><span data-stu-id="e6822-200">Update the Razor page</span></span>
 
 <span data-ttu-id="e6822-201">替换 Pages/Students/Index.cshtml 中的代码，以添加“搜索”按钮。</span><span class="sxs-lookup"><span data-stu-id="e6822-201">Replace the code in *Pages/Students/Index.cshtml* to add a **Search** button.</span></span>
 
@@ -201,9 +201,9 @@ https://localhost:5001/Students?SearchString=an
 
 <span data-ttu-id="e6822-243">单击分页链接后，页面索引变量将包含要显示的页码。</span><span class="sxs-lookup"><span data-stu-id="e6822-243">When a paging link is clicked, the page index variable contains the page number to display.</span></span>
 
-<span data-ttu-id="e6822-244">`CurrentSort` 属性为 :::no-loc(Razor)::: 页面提供当前排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-244">The `CurrentSort` property provides the :::no-loc(Razor)::: Page with the current sort order.</span></span> <span data-ttu-id="e6822-245">必须在分页链接中包含当前排序顺序才能在分页时保留排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-245">The current sort order must be included in the paging links to keep the sort order while paging.</span></span>
+<span data-ttu-id="e6822-244">`CurrentSort` 属性为 Razor 页面提供当前排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-244">The `CurrentSort` property provides the Razor Page with the current sort order.</span></span> <span data-ttu-id="e6822-245">必须在分页链接中包含当前排序顺序才能在分页时保留排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-245">The current sort order must be included in the paging links to keep the sort order while paging.</span></span>
 
-<span data-ttu-id="e6822-246">`CurrentFilter` 属性为 :::no-loc(Razor)::: 页面提供当前筛选字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-246">The `CurrentFilter` property provides the :::no-loc(Razor)::: Page with the current filter string.</span></span> <span data-ttu-id="e6822-247">`CurrentFilter` 值：</span><span class="sxs-lookup"><span data-stu-id="e6822-247">The `CurrentFilter` value:</span></span>
+<span data-ttu-id="e6822-246">`CurrentFilter` 属性为 Razor 页面提供当前筛选字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-246">The `CurrentFilter` property provides the Razor Page with the current filter string.</span></span> <span data-ttu-id="e6822-247">`CurrentFilter` 值：</span><span class="sxs-lookup"><span data-stu-id="e6822-247">The `CurrentFilter` value:</span></span>
 
 * <span data-ttu-id="e6822-248">必须包含在分页链接中才能在分页过程中保留筛选设置。</span><span class="sxs-lookup"><span data-stu-id="e6822-248">Must be included in the paging links in order to maintain the filter settings during paging.</span></span>
 * <span data-ttu-id="e6822-249">必须在重新显示页面时还原到文本框。</span><span class="sxs-lookup"><span data-stu-id="e6822-249">Must be restored to the text box when the page is redisplayed.</span></span>
@@ -213,11 +213,11 @@ https://localhost:5001/Students?SearchString=an
   * <span data-ttu-id="e6822-253">搜索字符串将会更改。</span><span class="sxs-lookup"><span data-stu-id="e6822-253">The search string is changed.</span></span>
   * <span data-ttu-id="e6822-254">`searchString` 参数不为 NULL。</span><span class="sxs-lookup"><span data-stu-id="e6822-254">The `searchString` parameter isn't null.</span></span>
 
-  <span data-ttu-id="e6822-255">`PaginatedList.CreateAsync` 方法会将学生查询转换为支持分页的集合类型中的单个学生页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-255">The `PaginatedList.CreateAsync` method converts the student query to a single page of students in a collection type that supports paging.</span></span> <span data-ttu-id="e6822-256">单个学生页面会传递到 :::no-loc(Razor)::: 页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-256">That single page of students is passed to the :::no-loc(Razor)::: Page.</span></span>
+  <span data-ttu-id="e6822-255">`PaginatedList.CreateAsync` 方法会将学生查询转换为支持分页的集合类型中的单个学生页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-255">The `PaginatedList.CreateAsync` method converts the student query to a single page of students in a collection type that supports paging.</span></span> <span data-ttu-id="e6822-256">单个学生页面会传递到 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-256">That single page of students is passed to the Razor Page.</span></span>
 
   <span data-ttu-id="e6822-257">`PaginatedList.CreateAsync` 调用中的 `pageIndex` 之后的两个问号表示 [NULL 合并运算符](/dotnet/csharp/language-reference/operators/null-conditional-operator)。</span><span class="sxs-lookup"><span data-stu-id="e6822-257">The two question marks after `pageIndex` in the `PaginatedList.CreateAsync` call represent the [null-coalescing operator](/dotnet/csharp/language-reference/operators/null-conditional-operator).</span></span> <span data-ttu-id="e6822-258">NULL 合并运算符定义可为 NULL 的类型的默认值。</span><span class="sxs-lookup"><span data-stu-id="e6822-258">The null-coalescing operator defines a default value for a nullable type.</span></span> <span data-ttu-id="e6822-259">若 `pageIndex` 具有值，则表达式 `pageIndex ?? 1` 返回其值，若其没有值，则表达式返回 1。</span><span class="sxs-lookup"><span data-stu-id="e6822-259">The expression `pageIndex ?? 1` returns the value of `pageIndex` if it has a value, otherwise, it returns 1.</span></span>
 
-### <a name="add-paging-links-to-the-no-locrazor-page"></a><span data-ttu-id="e6822-260">向 :::no-loc(Razor)::: 页面添加分页链接</span><span class="sxs-lookup"><span data-stu-id="e6822-260">Add paging links to the :::no-loc(Razor)::: Page</span></span>
+### <a name="add-paging-links-to-the-no-locrazor-page"></a><span data-ttu-id="e6822-260">向 Razor 页面添加分页链接</span><span class="sxs-lookup"><span data-stu-id="e6822-260">Add paging links to the Razor Page</span></span>
 
 <span data-ttu-id="e6822-261">使用以下代码替换 Students/Index.cshtml 中的代码。</span><span class="sxs-lookup"><span data-stu-id="e6822-261">Replace the code in *Students/Index.cshtml* with the following code.</span></span> <span data-ttu-id="e6822-262">突出显示所作更改：</span><span class="sxs-lookup"><span data-stu-id="e6822-262">The changes are highlighted:</span></span>
 
@@ -253,7 +253,7 @@ https://localhost:5001/Students?SearchString=an
 
 [!code-csharp[Main](intro/samples/cu30/Models/SchoolViewModels/EnrollmentDateGroup.cs)]
 
-### <a name="create-the-no-locrazor-page"></a><span data-ttu-id="e6822-277">创建 :::no-loc(Razor)::: 页面</span><span class="sxs-lookup"><span data-stu-id="e6822-277">Create the :::no-loc(Razor)::: Page</span></span>
+### <a name="create-the-no-locrazor-page"></a><span data-ttu-id="e6822-277">创建 Razor 页面</span><span class="sxs-lookup"><span data-stu-id="e6822-277">Create the Razor Page</span></span>
 
 <span data-ttu-id="e6822-278">使用以下代码创建 Pages/About.cshtml 文件：</span><span class="sxs-lookup"><span data-stu-id="e6822-278">Create a *Pages/About.cshtml* file with the following code:</span></span>
 
@@ -310,7 +310,7 @@ https://localhost:5001/Students?SearchString=an
 
 <span data-ttu-id="e6822-302">如果通过“学生”链接对“索引”页发起请求，则不会有任何查询字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-302">When the Index page is requested from the **Students** link, there's no query string.</span></span> <span data-ttu-id="e6822-303">学生按姓氏升序显示。</span><span class="sxs-lookup"><span data-stu-id="e6822-303">The students are displayed in ascending order by last name.</span></span> <span data-ttu-id="e6822-304">按姓氏升序是 `switch` 语句中的默认顺序 (fall-through case)。</span><span class="sxs-lookup"><span data-stu-id="e6822-304">Ascending order by last name is the default (fall-through case) in the `switch` statement.</span></span> <span data-ttu-id="e6822-305">用户单击列标题链接时，查询字符串值中会提供相应的 `sortOrder` 值。</span><span class="sxs-lookup"><span data-stu-id="e6822-305">When the user clicks a column heading link, the appropriate `sortOrder` value is provided in the query string value.</span></span>
 
-<span data-ttu-id="e6822-306">:::no-loc(Razor)::: 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应的查询字符串值：</span><span class="sxs-lookup"><span data-stu-id="e6822-306">`NameSort` and `DateSort` are used by the :::no-loc(Razor)::: Page to configure the column heading hyperlinks with the appropriate query string values:</span></span>
+<span data-ttu-id="e6822-306">Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应的查询字符串值：</span><span class="sxs-lookup"><span data-stu-id="e6822-306">`NameSort` and `DateSort` are used by the Razor Page to configure the column heading hyperlinks with the appropriate query string values:</span></span>
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly&highlight=3-4)]
 
@@ -370,7 +370,7 @@ https://localhost:5001/Students?SearchString=an
 
 <span data-ttu-id="e6822-349">若要向“学生索引”页添加筛选：</span><span class="sxs-lookup"><span data-stu-id="e6822-349">To add filtering to the Students Index page:</span></span>
 
-* <span data-ttu-id="e6822-350">需要向 :::no-loc(Razor)::: 页面添加一个文本框和一个提交按钮。</span><span class="sxs-lookup"><span data-stu-id="e6822-350">A text box and a submit button is added to the :::no-loc(Razor)::: Page.</span></span> <span data-ttu-id="e6822-351">文本框会针对名字或姓氏提供一个搜索字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-351">The text box supplies a search string on the first or last name.</span></span>
+* <span data-ttu-id="e6822-350">需要向 Razor 页面添加一个文本框和一个提交按钮。</span><span class="sxs-lookup"><span data-stu-id="e6822-350">A text box and a submit button is added to the Razor Page.</span></span> <span data-ttu-id="e6822-351">文本框会针对名字或姓氏提供一个搜索字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-351">The text box supplies a search string on the first or last name.</span></span>
 * <span data-ttu-id="e6822-352">页面模型随即更新以使用文本框值。</span><span class="sxs-lookup"><span data-stu-id="e6822-352">The page model is updated to use the text box value.</span></span>
 
 ### <a name="add-filtering-functionality-to-the-index-method"></a><span data-ttu-id="e6822-353">向 Index 方法添加筛选功能</span><span class="sxs-lookup"><span data-stu-id="e6822-353">Add filtering functionality to the Index method</span></span>
@@ -455,9 +455,9 @@ http://localhost:5000/Students?SearchString=an
 
 <span data-ttu-id="e6822-413">单击分页链接后，页面索引变量将包含要显示的页码。</span><span class="sxs-lookup"><span data-stu-id="e6822-413">When a paging link is clicked, the page index variable contains the page number to display.</span></span>
 
-<span data-ttu-id="e6822-414">`CurrentSort` 为 :::no-loc(Razor)::: 页面提供当前排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-414">`CurrentSort` provides the :::no-loc(Razor)::: Page with the current sort order.</span></span> <span data-ttu-id="e6822-415">必须在分页链接中包含当前排序顺序才能在分页时保留排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-415">The current sort order must be included in the paging links to keep the sort order while paging.</span></span>
+<span data-ttu-id="e6822-414">`CurrentSort` 为 Razor 页面提供当前排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-414">`CurrentSort` provides the Razor Page with the current sort order.</span></span> <span data-ttu-id="e6822-415">必须在分页链接中包含当前排序顺序才能在分页时保留排序顺序。</span><span class="sxs-lookup"><span data-stu-id="e6822-415">The current sort order must be included in the paging links to keep the sort order while paging.</span></span>
 
-<span data-ttu-id="e6822-416">`CurrentFilter` 为 :::no-loc(Razor)::: 页面提供当前的筛选字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-416">`CurrentFilter` provides the :::no-loc(Razor)::: Page with the current filter string.</span></span> <span data-ttu-id="e6822-417">`CurrentFilter` 值：</span><span class="sxs-lookup"><span data-stu-id="e6822-417">The `CurrentFilter` value:</span></span>
+<span data-ttu-id="e6822-416">`CurrentFilter` 为 Razor 页面提供当前的筛选字符串。</span><span class="sxs-lookup"><span data-stu-id="e6822-416">`CurrentFilter` provides the Razor Page with the current filter string.</span></span> <span data-ttu-id="e6822-417">`CurrentFilter` 值：</span><span class="sxs-lookup"><span data-stu-id="e6822-417">The `CurrentFilter` value:</span></span>
 
 * <span data-ttu-id="e6822-418">必须包含在分页链接中才能在分页过程中保留筛选设置。</span><span class="sxs-lookup"><span data-stu-id="e6822-418">Must be included in the paging links in order to maintain the filter settings during paging.</span></span>
 * <span data-ttu-id="e6822-419">必须在重新显示页面时还原到文本框。</span><span class="sxs-lookup"><span data-stu-id="e6822-419">Must be restored to the text box when the page is redisplayed.</span></span>
@@ -469,13 +469,13 @@ http://localhost:5000/Students?SearchString=an
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage3)]
 
-<span data-ttu-id="e6822-425">`PaginatedList.CreateAsync` 方法会将学生查询转换为支持分页的集合类型中的单个学生页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-425">The `PaginatedList.CreateAsync` method converts the student query to a single page of students in a collection type that supports paging.</span></span> <span data-ttu-id="e6822-426">单个学生页面会传递到 :::no-loc(Razor)::: 页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-426">That single page of students is passed to the :::no-loc(Razor)::: Page.</span></span>
+<span data-ttu-id="e6822-425">`PaginatedList.CreateAsync` 方法会将学生查询转换为支持分页的集合类型中的单个学生页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-425">The `PaginatedList.CreateAsync` method converts the student query to a single page of students in a collection type that supports paging.</span></span> <span data-ttu-id="e6822-426">单个学生页面会传递到 Razor 页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-426">That single page of students is passed to the Razor Page.</span></span>
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage4)]
 
 <span data-ttu-id="e6822-427">`PaginatedList.CreateAsync` 中的两个问号表示 [NULL 合并运算符](/dotnet/csharp/language-reference/operators/null-conditional-operator)。</span><span class="sxs-lookup"><span data-stu-id="e6822-427">The two question marks in `PaginatedList.CreateAsync` represent the [null-coalescing operator](/dotnet/csharp/language-reference/operators/null-conditional-operator).</span></span> <span data-ttu-id="e6822-428">NULL 合并运算符定义可为 NULL 的类型的默认值。</span><span class="sxs-lookup"><span data-stu-id="e6822-428">The null-coalescing operator defines a default value for a nullable type.</span></span> <span data-ttu-id="e6822-429">`(pageIndex ?? 1)` 表达式表示返回 `pageIndex` 的值（若带有值）。</span><span class="sxs-lookup"><span data-stu-id="e6822-429">The expression `(pageIndex ?? 1)` means return the value of `pageIndex` if it has a value.</span></span> <span data-ttu-id="e6822-430">如果 `pageIndex` 没有值，则返回 1。</span><span class="sxs-lookup"><span data-stu-id="e6822-430">If `pageIndex` doesn't have a value, return 1.</span></span>
 
-## <a name="add-paging-links-to-the-student-no-locrazor-page"></a><span data-ttu-id="e6822-431">向“学生”:::no-loc(Razor)::: 页面添加分页链接</span><span class="sxs-lookup"><span data-stu-id="e6822-431">Add paging links to the student :::no-loc(Razor)::: Page</span></span>
+## <a name="add-paging-links-to-the-student-no-locrazor-page"></a><span data-ttu-id="e6822-431">向“学生”Razor 页面添加分页链接</span><span class="sxs-lookup"><span data-stu-id="e6822-431">Add paging links to the student Razor Page</span></span>
 
 <span data-ttu-id="e6822-432">更新 Students/Index.cshtml 中的标记。</span><span class="sxs-lookup"><span data-stu-id="e6822-432">Update the markup in *Students/Index.cshtml*.</span></span> <span data-ttu-id="e6822-433">突出显示所作更改：</span><span class="sxs-lookup"><span data-stu-id="e6822-433">The changes are highlighted:</span></span>
 
@@ -521,7 +521,7 @@ http://localhost:5000/Students?SearchString=an
 
 ### <a name="update-the-about-page-model"></a><span data-ttu-id="e6822-453">更新“关于”页面模型</span><span class="sxs-lookup"><span data-stu-id="e6822-453">Update the About page model</span></span>
 
-<span data-ttu-id="e6822-454">ASP.NET Core 2.2 中的 Web 模板不包含“关于”页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-454">The web templates in ASP.NET Core 2.2 do not include the About page.</span></span> <span data-ttu-id="e6822-455">如果使用的是 ASP.NET Core 2.2，请创建“关于”:::no-loc(Razor):::页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-455">If you are using ASP.NET Core 2.2, create the About :::no-loc(Razor)::: Page.</span></span>
+<span data-ttu-id="e6822-454">ASP.NET Core 2.2 中的 Web 模板不包含“关于”页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-454">The web templates in ASP.NET Core 2.2 do not include the About page.</span></span> <span data-ttu-id="e6822-455">如果使用的是 ASP.NET Core 2.2，请创建“关于”Razor页面。</span><span class="sxs-lookup"><span data-stu-id="e6822-455">If you are using ASP.NET Core 2.2, create the About Razor Page.</span></span>
 
 <span data-ttu-id="e6822-456">用以下代码更新 Pages/About.cshtml.cs 文件：</span><span class="sxs-lookup"><span data-stu-id="e6822-456">Update the *Pages/About.cshtml.cs* file with the following code:</span></span>
 
@@ -529,7 +529,7 @@ http://localhost:5000/Students?SearchString=an
 
 <span data-ttu-id="e6822-457">LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的数量，并将结果存储在 `EnrollmentDateGroup` 视图模型对象的集合中。</span><span class="sxs-lookup"><span data-stu-id="e6822-457">The LINQ statement groups the student entities by enrollment date, calculates the number of entities in each group, and stores the results in a collection of `EnrollmentDateGroup` view model objects.</span></span>
 
-### <a name="modify-the-about-no-locrazor-page"></a><span data-ttu-id="e6822-458">修改“关于”:::no-loc(Razor)::: 页面</span><span class="sxs-lookup"><span data-stu-id="e6822-458">Modify the About :::no-loc(Razor)::: Page</span></span>
+### <a name="modify-the-about-no-locrazor-page"></a><span data-ttu-id="e6822-458">修改“关于”Razor 页面</span><span class="sxs-lookup"><span data-stu-id="e6822-458">Modify the About Razor Page</span></span>
 
 <span data-ttu-id="e6822-459">将 Pages/About.cshtml 文件中的代码替换为以下代码：</span><span class="sxs-lookup"><span data-stu-id="e6822-459">Replace the code in the *Pages/About.cshtml* file with the following code:</span></span>
 

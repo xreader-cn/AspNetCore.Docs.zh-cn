@@ -7,17 +7,17 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: data/ef-mvc/advanced
 ms.openlocfilehash: 386be395399bf4131e4b6c8cac8221f994e8b7c5
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -105,7 +105,7 @@ ms.locfileid: "93054380"
 
 <span data-ttu-id="0d99b-160">在“解决方案资源管理器”中，右键单击“Views/Courses”文件夹，然后依次单击“添加”和“新建项”。</span><span class="sxs-lookup"><span data-stu-id="0d99b-160">In **Solution Explorer** , right-click the *Views/Courses* folder, and then click **Add > New Item**.</span></span>
 
-<span data-ttu-id="0d99b-161">在“添加新项”对话框中，在左侧窗格的“已安装”下单击“ASP.NET Core”，单击“:::no-loc(Razor)::: 视图”，并将新视图命名为“UpdateCourseCredits.cshtml”   。</span><span class="sxs-lookup"><span data-stu-id="0d99b-161">In the **Add New Item** dialog, click **ASP.NET Core** under **Installed** in the left pane, click **:::no-loc(Razor)::: View** , and name the new view *UpdateCourseCredits.cshtml*.</span></span>
+<span data-ttu-id="0d99b-161">在“添加新项”对话框中，在左侧窗格的“已安装”下单击“ASP.NET Core”，单击“Razor 视图”，并将新视图命名为“UpdateCourseCredits.cshtml”   。</span><span class="sxs-lookup"><span data-stu-id="0d99b-161">In the **Add New Item** dialog, click **ASP.NET Core** under **Installed** in the left pane, click **Razor View** , and name the new view *UpdateCourseCredits.cshtml*.</span></span>
 
 <span data-ttu-id="0d99b-162">在 *Views/Courses/UpdateCourseCredits.cshtml* 中，将模板代码替换为以下代码：</span><span class="sxs-lookup"><span data-stu-id="0d99b-162">In *Views/Courses/UpdateCourseCredits.cshtml* , replace the template code with the following code:</span></span>
 
@@ -241,7 +241,7 @@ _context.ChangeTracker.AutoDetectChangesEnabled = false;
 
 <span data-ttu-id="0d99b-241">在有数据的数据库中进行架构更改时，很有可能发生其他错误。</span><span class="sxs-lookup"><span data-stu-id="0d99b-241">It's possible to get other errors when making schema changes in a database that has existing data.</span></span> <span data-ttu-id="0d99b-242">如果遇到无法解决的迁移错误，你可以更改连接字符串中的数据库名称，或删除数据库。</span><span class="sxs-lookup"><span data-stu-id="0d99b-242">If you get migration errors you can't resolve, you can either change the database name in the connection string or delete the database.</span></span> <span data-ttu-id="0d99b-243">若要迁移，创建新的数据库，在数据库尚没有数据时使用更新数据库命令更有望完成且不发生错误。</span><span class="sxs-lookup"><span data-stu-id="0d99b-243">With a new database, there's no data to migrate, and the update-database command is much more likely to complete without errors.</span></span>
 
-<span data-ttu-id="0d99b-244">最简单方法是在 :::no-loc(appsettings.json)::: 中重命名数据库。</span><span class="sxs-lookup"><span data-stu-id="0d99b-244">The simplest approach is to rename the database in *:::no-loc(appsettings.json):::*.</span></span> <span data-ttu-id="0d99b-245">下次运行`database update`时，会创建一个新数据库。</span><span class="sxs-lookup"><span data-stu-id="0d99b-245">The next time you run `database update`, a new database will be created.</span></span>
+<span data-ttu-id="0d99b-244">最简单方法是在 appsettings.json 中重命名数据库。</span><span class="sxs-lookup"><span data-stu-id="0d99b-244">The simplest approach is to rename the database in *appsettings.json*.</span></span> <span data-ttu-id="0d99b-245">下次运行`database update`时，会创建一个新数据库。</span><span class="sxs-lookup"><span data-stu-id="0d99b-245">The next time you run `database update`, a new database will be created.</span></span>
 
 <span data-ttu-id="0d99b-246">若要在 SSOX 中删除数据库，右键单击数据库，单击 **删除** ，然后在 **删除数据库** 对话框框中，选择 **关闭现有连接** ，单击 **确定** 。</span><span class="sxs-lookup"><span data-stu-id="0d99b-246">To delete a database in SSOX, right-click the database, click **Delete** , and then in the **Delete Database** dialog box select **Close existing connections** and click **OK**.</span></span>
 

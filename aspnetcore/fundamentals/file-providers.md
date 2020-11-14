@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: fundamentals/file-providers
 ms.openlocfilehash: 16e5ead9898125c804da4d60322510474201d897
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -36,7 +36,7 @@ ms.locfileid: "93059437"
 
 * <span data-ttu-id="14f04-108"><xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> 将应用的[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root)作为 `IFileProvider` 类型公开。</span><span class="sxs-lookup"><span data-stu-id="14f04-108"><xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> exposes the app's [content root](xref:fundamentals/index#content-root) and [web root](xref:fundamentals/index#web-root) as `IFileProvider` types.</span></span>
 * <span data-ttu-id="14f04-109">[静态文件中间件](xref:fundamentals/static-files)使用文件提供程序来查找静态文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-109">[Static File Middleware](xref:fundamentals/static-files) uses File Providers to locate static files.</span></span>
-* <span data-ttu-id="14f04-110">[:::no-loc(Razor):::](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。</span><span class="sxs-lookup"><span data-stu-id="14f04-110">[:::no-loc(Razor):::](xref:mvc/views/razor) uses File Providers to locate pages and views.</span></span>
+* <span data-ttu-id="14f04-110">[Razor](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。</span><span class="sxs-lookup"><span data-stu-id="14f04-110">[Razor](xref:mvc/views/razor) uses File Providers to locate pages and views.</span></span>
 * <span data-ttu-id="14f04-111">.NET Core 工具使用文件提供程序和 glob 模式来指定应该发布哪些文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-111">.NET Core tooling uses File Providers and glob patterns to specify which files should be published.</span></span>
 
 <span data-ttu-id="14f04-112">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="14f04-112">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
@@ -176,7 +176,7 @@ var manifestEmbeddedProvider =
 |---------|---------|
 |`directory/file.txt`|<span data-ttu-id="14f04-201">匹配特定目录中的特定文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-201">Matches a specific file in a specific directory.</span></span>|
 |`directory/*.txt`|<span data-ttu-id="14f04-202">匹配特定目录中带 .txt 扩展名的所有文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-202">Matches all files with *.txt* extension in a specific directory.</span></span>|
-|`directory/*/:::no-loc(appsettings.json):::`|<span data-ttu-id="14f04-203">匹配正好位于“目录”文件夹中下一级目录中的所有 :::no-loc(appsettings.json)::: 文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-203">Matches all *:::no-loc(appsettings.json):::* files in directories exactly one level below the *directory* folder.</span></span>|
+|`directory/*/appsettings.json`|<span data-ttu-id="14f04-203">匹配正好位于“目录”文件夹中下一级目录中的所有 appsettings.json 文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-203">Matches all *appsettings.json* files in directories exactly one level below the *directory* folder.</span></span>|
 |`directory/**/*.txt`|<span data-ttu-id="14f04-204">匹配在 directory 文件夹下任何位置找到的带 .txt 扩展名的所有文件 。</span><span class="sxs-lookup"><span data-stu-id="14f04-204">Matches all files with a *.txt* extension found anywhere under the *directory* folder.</span></span>|
 
 ::: moniker-end
@@ -187,7 +187,7 @@ var manifestEmbeddedProvider =
 
 * <span data-ttu-id="14f04-207"><xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 将应用的[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root)作为 `IFileProvider` 类型公开。</span><span class="sxs-lookup"><span data-stu-id="14f04-207"><xref:Microsoft.Extensions.Hosting.IHostingEnvironment> exposes the app's [content root](xref:fundamentals/index#content-root) and [web root](xref:fundamentals/index#web-root) as `IFileProvider` types.</span></span>
 * <span data-ttu-id="14f04-208">[静态文件中间件](xref:fundamentals/static-files)使用文件提供程序来查找静态文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-208">[Static File Middleware](xref:fundamentals/static-files) uses File Providers to locate static files.</span></span>
-* <span data-ttu-id="14f04-209">[:::no-loc(Razor):::](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。</span><span class="sxs-lookup"><span data-stu-id="14f04-209">[:::no-loc(Razor):::](xref:mvc/views/razor) uses File Providers to locate pages and views.</span></span>
+* <span data-ttu-id="14f04-209">[Razor](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。</span><span class="sxs-lookup"><span data-stu-id="14f04-209">[Razor](xref:mvc/views/razor) uses File Providers to locate pages and views.</span></span>
 * <span data-ttu-id="14f04-210">.NET Core 工具使用文件提供程序和 glob 模式来指定应该发布哪些文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-210">.NET Core tooling uses File Providers and glob patterns to specify which files should be published.</span></span>
 
 <span data-ttu-id="14f04-211">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="14f04-211">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
@@ -320,8 +320,8 @@ var manifestEmbeddedProvider =
 **`directory/*.txt`**  
 <span data-ttu-id="14f04-293">匹配特定目录中带 .txt 扩展名的所有文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-293">Matches all files with *.txt* extension in a specific directory.</span></span>
 
-**`directory/*/:::no-loc(appsettings.json):::`**  
-<span data-ttu-id="14f04-294">匹配正好位于“目录”文件夹中下一级目录中的所有 `:::no-loc(appsettings.json):::` 文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-294">Matches all `:::no-loc(appsettings.json):::` files in directories exactly one level below the *directory* folder.</span></span>
+**`directory/*/appsettings.json`**  
+<span data-ttu-id="14f04-294">匹配正好位于“目录”文件夹中下一级目录中的所有 `appsettings.json` 文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-294">Matches all `appsettings.json` files in directories exactly one level below the *directory* folder.</span></span>
 
 **`directory/**/*.txt`**  
 <span data-ttu-id="14f04-295">匹配在“目录”文件夹下任何位置找到的带 .txt 扩展名的所有文件。</span><span class="sxs-lookup"><span data-stu-id="14f04-295">Matches all files with *.txt* extension found anywhere under the *directory* folder.</span></span>

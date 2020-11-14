@@ -7,17 +7,17 @@ ms.custom: mvc
 ms.date: 11/06/2020
 ms.topic: tutorial
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: data/ef-mvc/intro
 ms.openlocfilehash: 77cf1e9ad51b7044a35e1a9b2c125b0fdd91435e
 ms.sourcegitcommit: 33f631a4427b9a422755601ac9119953db0b4a3e
@@ -217,9 +217,9 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 5.0.0-rc.2.2047
 
 [!code-csharp[](intro/samples/5cu-snap/Startup.cs?name=snippet&highlight=1-2,22-23)]
 
-<span data-ttu-id="9d326-236">通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。</span><span class="sxs-lookup"><span data-stu-id="9d326-236">The name of the connection string is passed in to the context by calling a method on a `DbContextOptionsBuilder` object.</span></span> <span data-ttu-id="9d326-237">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *:::no-loc(appsettings.json):::* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9d326-237">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="9d326-236">通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。</span><span class="sxs-lookup"><span data-stu-id="9d326-236">The name of the connection string is passed in to the context by calling a method on a `DbContextOptionsBuilder` object.</span></span> <span data-ttu-id="9d326-237">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9d326-237">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
-<span data-ttu-id="9d326-238">打开 *:::no-loc(appsettings.json):::* 文件，并按以下标记所示添加连接字符串：</span><span class="sxs-lookup"><span data-stu-id="9d326-238">Open the *:::no-loc(appsettings.json):::* file and add a connection string as shown in the following markup:</span></span>
+<span data-ttu-id="9d326-238">打开 *appsettings.json* 文件，并按以下标记所示添加连接字符串：</span><span class="sxs-lookup"><span data-stu-id="9d326-238">Open the *appsettings.json* file and add a connection string as shown in the following markup:</span></span>
 
 [!code-json[](./intro/samples/5cu/appsettings1.json?highlight=2-4)]
 
@@ -322,7 +322,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 5.0.0-rc.2.2047
 
 * <span data-ttu-id="9d326-300">从 Visual Studio 中的“视图”菜单选择“SQL Server 对象资源管理器”。</span><span class="sxs-lookup"><span data-stu-id="9d326-300">Select **SQL Server Object Explorer** from the **View** menu in Visual Studio.</span></span>
 * <span data-ttu-id="9d326-301">在 SSOX 中，选择“(localdb)\MSSQLLocalDB”>“数据库”。</span><span class="sxs-lookup"><span data-stu-id="9d326-301">In SSOX, select **(localdb)\MSSQLLocalDB > Databases**.</span></span>
-* <span data-ttu-id="9d326-302">选择 *:::no-loc(appsettings.json):::* 文件中的连接字符串中的数据库名称的实体 `ContosoUniversity1`。</span><span class="sxs-lookup"><span data-stu-id="9d326-302">Select `ContosoUniversity1`, the entry for the database name that's in the connection string in the *:::no-loc(appsettings.json):::* file.</span></span>
+* <span data-ttu-id="9d326-302">选择 *appsettings.json* 文件中的连接字符串中的数据库名称的实体 `ContosoUniversity1`。</span><span class="sxs-lookup"><span data-stu-id="9d326-302">Select `ContosoUniversity1`, the entry for the database name that's in the connection string in the *appsettings.json* file.</span></span>
 * <span data-ttu-id="9d326-303">展开“表”节点，查看数据库中的表。</span><span class="sxs-lookup"><span data-stu-id="9d326-303">Expand the **Tables** node to see the tables in the database.</span></span>
 
 ![SSOX 中的表](intro/_static/ssox-tables.png)
@@ -556,13 +556,13 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 5.0.0-rc.2.2047
 
 [!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_SchoolContext&highlight=9-10)]
 
-<span data-ttu-id="9d326-472">通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。</span><span class="sxs-lookup"><span data-stu-id="9d326-472">The name of the connection string is passed in to the context by calling a method on a `DbContextOptionsBuilder` object.</span></span> <span data-ttu-id="9d326-473">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *:::no-loc(appsettings.json):::* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9d326-473">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="9d326-472">通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。</span><span class="sxs-lookup"><span data-stu-id="9d326-472">The name of the connection string is passed in to the context by calling a method on a `DbContextOptionsBuilder` object.</span></span> <span data-ttu-id="9d326-473">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9d326-473">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
 <span data-ttu-id="9d326-474">添加 `using` 语句引用 `ContosoUniversity.Data` 和 `Microsoft.EntityFrameworkCore` 命名空间，然后生成项目。</span><span class="sxs-lookup"><span data-stu-id="9d326-474">Add `using` statements for `ContosoUniversity.Data` and `Microsoft.EntityFrameworkCore` namespaces, and then build the project.</span></span>
 
 [!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_Usings)]
 
-<span data-ttu-id="9d326-475">打开 *:::no-loc(appsettings.json):::* 文件，并按以下所示添加连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9d326-475">Open the *:::no-loc(appsettings.json):::* file and add a connection string as shown in the following example.</span></span>
+<span data-ttu-id="9d326-475">打开 *appsettings.json* 文件，并按以下所示添加连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9d326-475">Open the *appsettings.json* file and add a connection string as shown in the following example.</span></span>
 
 [!code-json[](./intro/samples/cu/appsettings1.json?highlight=2-4)]
 
@@ -646,7 +646,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 5.0.0-rc.2.2047
 
 <span data-ttu-id="9d326-530">如果 SSOX 窗口尚未打开，请从Visual Studio 中的 **视图** 菜单中选择。</span><span class="sxs-lookup"><span data-stu-id="9d326-530">If the SSOX window isn't already open, select it from the **View** menu in Visual Studio.</span></span>
 
-<span data-ttu-id="9d326-531">在 SSOX 中，单击“(localdb)\MSSQLLocalDB”>“数据库”，然后单击 *:::no-loc(appsettings.json):::* 文件中的连接字符串中的数据库名称的实体。</span><span class="sxs-lookup"><span data-stu-id="9d326-531">In SSOX, click **(localdb)\MSSQLLocalDB > Databases** , and then click the entry for the database name that's in the connection string in the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="9d326-531">在 SSOX 中，单击“(localdb)\MSSQLLocalDB”>“数据库”，然后单击 *appsettings.json* 文件中的连接字符串中的数据库名称的实体。</span><span class="sxs-lookup"><span data-stu-id="9d326-531">In SSOX, click **(localdb)\MSSQLLocalDB > Databases** , and then click the entry for the database name that's in the connection string in the *appsettings.json* file.</span></span>
 
 <span data-ttu-id="9d326-532">展开“表”节点，查看数据库中的表。</span><span class="sxs-lookup"><span data-stu-id="9d326-532">Expand the **Tables** node to see the tables in the database.</span></span>
 

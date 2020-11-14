@@ -5,17 +5,17 @@ description: ASP.NET Core MVC 教程系列的第 4 部分。
 ms.author: riande
 ms.date: 01/13/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: tutorials/first-mvc-app/adding-model
 ms.openlocfilehash: fa1d79bed56f17afe69697a7e24ec200e6a0ab22
 ms.sourcegitcommit: 91e14f1e2a25c98a57c2217fe91b172e0ff2958c
@@ -125,7 +125,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 ## <a name="register-the-database-context"></a><span data-ttu-id="87d1d-155">注册数据库上下文</span><span class="sxs-lookup"><span data-stu-id="87d1d-155">Register the database context</span></span>
 
-<span data-ttu-id="87d1d-156">ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 生成。</span><span class="sxs-lookup"><span data-stu-id="87d1d-156">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="87d1d-157">在应用程序启动过程中，必须向 DI 注册服务（如 EF Core DB 上下文）。</span><span class="sxs-lookup"><span data-stu-id="87d1d-157">Services (such as the EF Core DB context) must be registered with DI during application startup.</span></span> <span data-ttu-id="87d1d-158">需要这些服务（如 :::no-loc(Razor)::: 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="87d1d-158">Components that require these services (such as :::no-loc(Razor)::: Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="87d1d-159">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="87d1d-159">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span> <span data-ttu-id="87d1d-160">本部分会将数据库上下文注册到 DI 容器。</span><span class="sxs-lookup"><span data-stu-id="87d1d-160">In this section, you register the database context with the DI container.</span></span>
+<span data-ttu-id="87d1d-156">ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 生成。</span><span class="sxs-lookup"><span data-stu-id="87d1d-156">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="87d1d-157">在应用程序启动过程中，必须向 DI 注册服务（如 EF Core DB 上下文）。</span><span class="sxs-lookup"><span data-stu-id="87d1d-157">Services (such as the EF Core DB context) must be registered with DI during application startup.</span></span> <span data-ttu-id="87d1d-158">需要这些服务（如 Razor 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="87d1d-158">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="87d1d-159">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="87d1d-159">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span> <span data-ttu-id="87d1d-160">本部分会将数据库上下文注册到 DI 容器。</span><span class="sxs-lookup"><span data-stu-id="87d1d-160">In this section, you register the database context with the DI container.</span></span>
 
 <span data-ttu-id="87d1d-161">将以下 `using` 语句添加到 Startup.cs 顶部：</span><span class="sxs-lookup"><span data-stu-id="87d1d-161">Add the following `using` statements at the top of *Startup.cs* :</span></span>
 
@@ -146,17 +146,17 @@ using Microsoft.EntityFrameworkCore;
 
 ---
 
-<span data-ttu-id="87d1d-165">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="87d1d-165">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="87d1d-166">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *:::no-loc(appsettings.json):::* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="87d1d-166">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="87d1d-165">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="87d1d-165">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="87d1d-166">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="87d1d-166">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
 <a name="cs"></a>
 
 ## <a name="add-a-database-connection-string"></a><span data-ttu-id="87d1d-167">添加数据库连接字符串</span><span class="sxs-lookup"><span data-stu-id="87d1d-167">Add a database connection string</span></span>
 
-<span data-ttu-id="87d1d-168">将连接字符串添加到 *:::no-loc(appsettings.json):::* 文件中：</span><span class="sxs-lookup"><span data-stu-id="87d1d-168">Add a connection string to the *:::no-loc(appsettings.json):::* file:</span></span>
+<span data-ttu-id="87d1d-168">将连接字符串添加到 *appsettings.json* 文件中：</span><span class="sxs-lookup"><span data-stu-id="87d1d-168">Add a connection string to the *appsettings.json* file:</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="87d1d-169">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="87d1d-169">Visual Studio</span></span>](#tab/visual-studio)
 
-[!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/:::no-loc(appsettings.json):::?highlight=10-12)]
+[!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/appsettings.json?highlight=10-12)]
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="87d1d-170">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="87d1d-170">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
@@ -194,7 +194,7 @@ using Microsoft.EntityFrameworkCore;
 <span data-ttu-id="87d1d-186">Visual Studio 将创建：</span><span class="sxs-lookup"><span data-stu-id="87d1d-186">Visual Studio creates:</span></span>
 
 * <span data-ttu-id="87d1d-187">电影控制器 (Controllers/MoviesController.cs)</span><span class="sxs-lookup"><span data-stu-id="87d1d-187">A movies controller ( *Controllers/MoviesController.cs* )</span></span>
-* <span data-ttu-id="87d1d-188">“创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 :::no-loc(Razor)::: 视图文件 (Views/Movies/\*.cshtml)</span><span class="sxs-lookup"><span data-stu-id="87d1d-188">:::no-loc(Razor)::: view files for Create, Delete, Details, Edit, and Index pages ( *Views/Movies/\*.cshtml* )</span></span>
+* <span data-ttu-id="87d1d-188">“创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 Razor 视图文件 (Views/Movies/\*.cshtml)</span><span class="sxs-lookup"><span data-stu-id="87d1d-188">Razor view files for Create, Delete, Details, Edit, and Index pages ( *Views/Movies/\*.cshtml* )</span></span>
 
 <span data-ttu-id="87d1d-189">自动创建这些文件称为“基架”。</span><span class="sxs-lookup"><span data-stu-id="87d1d-189">The automatic creation of these files is known as *scaffolding*.</span></span>
 
@@ -512,7 +512,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 ## <a name="register-the-database-context"></a><span data-ttu-id="87d1d-332">注册数据库上下文</span><span class="sxs-lookup"><span data-stu-id="87d1d-332">Register the database context</span></span>
 
-<span data-ttu-id="87d1d-333">ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 生成。</span><span class="sxs-lookup"><span data-stu-id="87d1d-333">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="87d1d-334">在应用程序启动过程中，必须向 DI 注册服务（如 EF Core DB 上下文）。</span><span class="sxs-lookup"><span data-stu-id="87d1d-334">Services (such as the EF Core DB context) must be registered with DI during application startup.</span></span> <span data-ttu-id="87d1d-335">需要这些服务（如 :::no-loc(Razor)::: 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="87d1d-335">Components that require these services (such as :::no-loc(Razor)::: Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="87d1d-336">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="87d1d-336">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span> <span data-ttu-id="87d1d-337">本部分会将数据库上下文注册到 DI 容器。</span><span class="sxs-lookup"><span data-stu-id="87d1d-337">In this section, you register the database context with the DI container.</span></span>
+<span data-ttu-id="87d1d-333">ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 生成。</span><span class="sxs-lookup"><span data-stu-id="87d1d-333">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="87d1d-334">在应用程序启动过程中，必须向 DI 注册服务（如 EF Core DB 上下文）。</span><span class="sxs-lookup"><span data-stu-id="87d1d-334">Services (such as the EF Core DB context) must be registered with DI during application startup.</span></span> <span data-ttu-id="87d1d-335">需要这些服务（如 Razor 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="87d1d-335">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="87d1d-336">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="87d1d-336">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span> <span data-ttu-id="87d1d-337">本部分会将数据库上下文注册到 DI 容器。</span><span class="sxs-lookup"><span data-stu-id="87d1d-337">In this section, you register the database context with the DI container.</span></span>
 
 <span data-ttu-id="87d1d-338">将以下 `using` 语句添加到 Startup.cs 顶部：</span><span class="sxs-lookup"><span data-stu-id="87d1d-338">Add the following `using` statements at the top of *Startup.cs* :</span></span>
 
@@ -533,17 +533,17 @@ using Microsoft.EntityFrameworkCore;
 
 ---
 
-<span data-ttu-id="87d1d-342">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="87d1d-342">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="87d1d-343">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *:::no-loc(appsettings.json):::* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="87d1d-343">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="87d1d-342">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="87d1d-342">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="87d1d-343">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="87d1d-343">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
 <a name="cs"></a>
 
 ## <a name="add-a-database-connection-string"></a><span data-ttu-id="87d1d-344">添加数据库连接字符串</span><span class="sxs-lookup"><span data-stu-id="87d1d-344">Add a database connection string</span></span>
 
-<span data-ttu-id="87d1d-345">将连接字符串添加到 *:::no-loc(appsettings.json):::* 文件中：</span><span class="sxs-lookup"><span data-stu-id="87d1d-345">Add a connection string to the *:::no-loc(appsettings.json):::* file:</span></span>
+<span data-ttu-id="87d1d-345">将连接字符串添加到 *appsettings.json* 文件中：</span><span class="sxs-lookup"><span data-stu-id="87d1d-345">Add a connection string to the *appsettings.json* file:</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="87d1d-346">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="87d1d-346">Visual Studio</span></span>](#tab/visual-studio)
 
-[!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/:::no-loc(appsettings.json):::?highlight=10-12)]
+[!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/appsettings.json?highlight=10-12)]
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="87d1d-347">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="87d1d-347">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
@@ -581,7 +581,7 @@ using Microsoft.EntityFrameworkCore;
 <span data-ttu-id="87d1d-363">Visual Studio 将创建：</span><span class="sxs-lookup"><span data-stu-id="87d1d-363">Visual Studio creates:</span></span>
 
 * <span data-ttu-id="87d1d-364">电影控制器 (Controllers/MoviesController.cs)</span><span class="sxs-lookup"><span data-stu-id="87d1d-364">A movies controller ( *Controllers/MoviesController.cs* )</span></span>
-* <span data-ttu-id="87d1d-365">“创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 :::no-loc(Razor)::: 视图文件 (Views/Movies/\*.cshtml)</span><span class="sxs-lookup"><span data-stu-id="87d1d-365">:::no-loc(Razor)::: view files for Create, Delete, Details, Edit, and Index pages ( *Views/Movies/\*.cshtml* )</span></span>
+* <span data-ttu-id="87d1d-365">“创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 Razor 视图文件 (Views/Movies/\*.cshtml)</span><span class="sxs-lookup"><span data-stu-id="87d1d-365">Razor view files for Create, Delete, Details, Edit, and Index pages ( *Views/Movies/\*.cshtml* )</span></span>
 
 <span data-ttu-id="87d1d-366">自动创建这些文件称为“基架”。</span><span class="sxs-lookup"><span data-stu-id="87d1d-366">The automatic creation of these files is known as *scaffolding*.</span></span>
 
@@ -860,13 +860,13 @@ return View(movie);
 
 * <span data-ttu-id="87d1d-489">Entity Framework Core [数据库上下文类](xref:data/ef-mvc/intro#create-the-database-context) (Data/MvcMovieContext.cs)</span><span class="sxs-lookup"><span data-stu-id="87d1d-489">An Entity Framework Core [database context class](xref:data/ef-mvc/intro#create-the-database-context) ( *Data/MvcMovieContext.cs* )</span></span>
 * <span data-ttu-id="87d1d-490">电影控制器 (Controllers/MoviesController.cs)</span><span class="sxs-lookup"><span data-stu-id="87d1d-490">A movies controller ( *Controllers/MoviesController.cs* )</span></span>
-* <span data-ttu-id="87d1d-491">“创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 :::no-loc(Razor)::: 视图文件 (Views/Movies/\*.cshtml)</span><span class="sxs-lookup"><span data-stu-id="87d1d-491">:::no-loc(Razor)::: view files for Create, Delete, Details, Edit, and Index pages ( *Views/Movies/\*.cshtml* )</span></span>
+* <span data-ttu-id="87d1d-491">“创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 Razor 视图文件 (Views/Movies/\*.cshtml)</span><span class="sxs-lookup"><span data-stu-id="87d1d-491">Razor view files for Create, Delete, Details, Edit, and Index pages ( *Views/Movies/\*.cshtml* )</span></span>
 
 <span data-ttu-id="87d1d-492">自动创建数据库上下文和 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete)（创建、读取、更新和删除）操作方法和视图的过程称为“搭建基架”。</span><span class="sxs-lookup"><span data-stu-id="87d1d-492">The automatic creation of the database context and [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (create, read, update, and delete) action methods and views is known as *scaffolding*.</span></span>
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="87d1d-493">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="87d1d-493">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace :::no-loc(Razor):::PagesMovie.Pages_Movies rather than namespace :::no-loc(Razor):::PagesMovie.Pages.Movies
+<!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
 
 * <span data-ttu-id="87d1d-494">打开项目目录（包含 Program.cs、Startup.cs 和 .csproj 文件的目录）中的命令窗口。</span><span class="sxs-lookup"><span data-stu-id="87d1d-494">Open a command window in the project directory (The directory that contains the *Program.cs* , *Startup.cs* , and *.csproj* files).</span></span>
@@ -923,7 +923,7 @@ An unhandled exception occurred while processing the request.
 SqlException: Cannot open database "MvcMovieContext-<GUID removed>" requested by the login. The login failed.
 Login failed for user 'Rick'.
 
-System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPool:::no-loc(Identity)::: identity, SqlConnectionString
+System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString
 ```
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="87d1d-504">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="87d1d-504">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
@@ -979,7 +979,7 @@ Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(int rc, sqlite3 db)
 
 ## <a name="examine-the-context-registered-with-dependency-injection"></a><span data-ttu-id="87d1d-526">检查通过依赖关系注入注册的上下文</span><span class="sxs-lookup"><span data-stu-id="87d1d-526">Examine the context registered with dependency injection</span></span>
 
-<span data-ttu-id="87d1d-527">ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 生成。</span><span class="sxs-lookup"><span data-stu-id="87d1d-527">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="87d1d-528">服务（例如 EF Core 数据库上下文）在应用程序启动期间通过 DI 注册。</span><span class="sxs-lookup"><span data-stu-id="87d1d-528">Services (such as the EF Core DB context) are registered with DI during application startup.</span></span> <span data-ttu-id="87d1d-529">需要这些服务（如 :::no-loc(Razor)::: 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="87d1d-529">Components that require these services (such as :::no-loc(Razor)::: Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="87d1d-530">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="87d1d-530">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
+<span data-ttu-id="87d1d-527">ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 生成。</span><span class="sxs-lookup"><span data-stu-id="87d1d-527">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="87d1d-528">服务（例如 EF Core 数据库上下文）在应用程序启动期间通过 DI 注册。</span><span class="sxs-lookup"><span data-stu-id="87d1d-528">Services (such as the EF Core DB context) are registered with DI during application startup.</span></span> <span data-ttu-id="87d1d-529">需要这些服务（如 Razor 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="87d1d-529">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="87d1d-530">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="87d1d-530">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
 
 # <a name="visual-studio"></a>[<span data-ttu-id="87d1d-531">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="87d1d-531">Visual Studio</span></span>](#tab/visual-studio)
 
@@ -995,7 +995,7 @@ Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(int rc, sqlite3 db)
 
 <span data-ttu-id="87d1d-538">前面的代码为实体集创建 [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) 属性。</span><span class="sxs-lookup"><span data-stu-id="87d1d-538">The preceding code creates a [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set.</span></span> <span data-ttu-id="87d1d-539">在实体框架术语中，实体集通常与数据表相对应。</span><span class="sxs-lookup"><span data-stu-id="87d1d-539">In Entity Framework terminology, an entity set typically corresponds to a database table.</span></span> <span data-ttu-id="87d1d-540">实体对应表中的行。</span><span class="sxs-lookup"><span data-stu-id="87d1d-540">An entity corresponds to a row in the table.</span></span>
 
-<span data-ttu-id="87d1d-541">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="87d1d-541">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="87d1d-542">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *:::no-loc(appsettings.json):::* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="87d1d-542">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="87d1d-541">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="87d1d-541">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="87d1d-542">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="87d1d-542">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="87d1d-543">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="87d1d-543">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 

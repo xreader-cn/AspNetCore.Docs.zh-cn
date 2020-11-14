@@ -1,23 +1,23 @@
 ---
-title: 'ASP.NET Core :::no-loc(Blazor WebAssembly)::: 其他安全方案'
+title: 'ASP.NET Core Blazor WebAssembly 其他安全方案'
 author: guardrex
-description: 了解如何为其他安全方案配置 :::no-loc(Blazor WebAssembly):::。
+description: 了解如何为其他安全方案配置 Blazor WebAssembly。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/27/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: blazor/security/webassembly/additional-scenarios
 ms.openlocfilehash: baed18df2d127b592f420aac0432e0b28f076d46
 ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
@@ -26,7 +26,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/11/2020
 ms.locfileid: "94508040"
 ---
-# <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a><span data-ttu-id="ae9d5-103">ASP.NET Core :::no-loc(Blazor WebAssembly)::: 其他安全方案</span><span class="sxs-lookup"><span data-stu-id="ae9d5-103">ASP.NET Core :::no-loc(Blazor WebAssembly)::: additional security scenarios</span></span>
+# <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a><span data-ttu-id="ae9d5-103">ASP.NET Core Blazor WebAssembly 其他安全方案</span><span class="sxs-lookup"><span data-stu-id="ae9d5-103">ASP.NET Core Blazor WebAssembly additional security scenarios</span></span>
 
 <span data-ttu-id="ae9d5-104">作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="ae9d5-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
@@ -59,7 +59,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("ServerAPI"));
 ```
 
-<span data-ttu-id="ae9d5-122">对于基于 :::no-loc(Blazor WebAssembly)::: 托管项目模板的 :::no-loc(Blazor)::: 应用，默认情况下，请求 URI 位于应用的基 URI 内。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-122">For a :::no-loc(Blazor)::: app based on the :::no-loc(Blazor WebAssembly)::: Hosted project template, request URIs are within the app's base URI by default.</span></span> <span data-ttu-id="ae9d5-123">因此，<xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 被分配给从项目模板生成的应用中的 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-123">Therefore, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> in an app generated from the project template.</span></span>
+<span data-ttu-id="ae9d5-122">对于基于 Blazor WebAssembly 托管项目模板的 Blazor 应用，默认情况下，请求 URI 位于应用的基 URI 内。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-122">For a Blazor app based on the Blazor WebAssembly Hosted project template, request URIs are within the app's base URI by default.</span></span> <span data-ttu-id="ae9d5-123">因此，<xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 被分配给从项目模板生成的应用中的 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-123">Therefore, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> in an app generated from the project template.</span></span>
 
 <span data-ttu-id="ae9d5-124">配置的 <xref:System.Net.Http.HttpClient> 用于使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 模式发出授权的请求：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-124">The configured <xref:System.Net.Http.HttpClient> is used to make authorized requests using the [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) pattern:</span></span>
 
@@ -120,7 +120,7 @@ builder.Services.AddHttpClient("ServerAPI",
     .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
 ```
 
-<span data-ttu-id="ae9d5-131">对于基于 :::no-loc(Blazor WebAssembly)::: 托管项目模板的 :::no-loc(Blazor)::: 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 分配给 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-131">For a :::no-loc(Blazor)::: app based on the :::no-loc(Blazor WebAssembly)::: Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> by default.</span></span>
+<span data-ttu-id="ae9d5-131">对于基于 Blazor WebAssembly 托管项目模板的 Blazor 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 分配给 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-131">For a Blazor app based on the Blazor WebAssembly Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> by default.</span></span>
 
 <span data-ttu-id="ae9d5-132">配置的 <xref:System.Net.Http.HttpClient> 用于使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 模式发出授权的请求。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-132">The configured <xref:System.Net.Http.HttpClient> is used to make authorized requests using the [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) pattern.</span></span> <span data-ttu-id="ae9d5-133">其中使用 <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A>（[`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) 包）创建客户端，在向服务器 API 发出请求时，将向 <xref:System.Net.Http.HttpClient> 提供包含访问令牌的实例。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-133">Where the client is created with <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A> ([`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) package), the <xref:System.Net.Http.HttpClient> is supplied instances that include access tokens when making requests to the server API.</span></span> <span data-ttu-id="ae9d5-134">如果请求 URI 是相对 URI，如以下示例 (`ExampleAPIMethod`) 中所示，则当客户端应用发出请求时，它将与 <xref:System.Net.Http.HttpClient.BaseAddress> 结合使用：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-134">If the request URI is a relative URI, as it is in the following example (`ExampleAPIMethod`), it's combined with the <xref:System.Net.Http.HttpClient.BaseAddress> when the client app makes the request:</span></span>
 
@@ -171,7 +171,7 @@ builder.Services.AddScoped(sp => new HttpClient(
     });
 ```
 
-<span data-ttu-id="ae9d5-141">对于基于 :::no-loc(Blazor WebAssembly)::: 托管项目模板的 :::no-loc(Blazor)::: 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> 分配给以下地址：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-141">For a :::no-loc(Blazor)::: app based on the :::no-loc(Blazor WebAssembly)::: Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> is assigned to the following by default:</span></span>
+<span data-ttu-id="ae9d5-141">对于基于 Blazor WebAssembly 托管项目模板的 Blazor 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> 分配给以下地址：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-141">For a Blazor app based on the Blazor WebAssembly Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> is assigned to the following by default:</span></span>
 
 * <span data-ttu-id="ae9d5-142"><xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`)。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-142">The <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`).</span></span>
 * <span data-ttu-id="ae9d5-143">`authorizedUrls` 数组的 URL。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-143">A URL of the `authorizedUrls` array.</span></span>
@@ -217,7 +217,7 @@ public class WeatherForecastClient
 }
 ```
 
-<span data-ttu-id="ae9d5-147">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `using static :::no-loc(Blazor):::Sample.Data;`）。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-147">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `using static :::no-loc(Blazor):::Sample.Data;`).</span></span>
+<span data-ttu-id="ae9d5-147">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `using static BlazorSample.Data;`）。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-147">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `using static BlazorSample.Data;`).</span></span>
 
 <span data-ttu-id="ae9d5-148">`Program.Main` (`Program.cs`):</span><span class="sxs-lookup"><span data-stu-id="ae9d5-148">`Program.Main` (`Program.cs`):</span></span>
 
@@ -232,7 +232,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 ```
 
-<span data-ttu-id="ae9d5-149">对于基于 :::no-loc(Blazor WebAssembly)::: 托管项目模板的 :::no-loc(Blazor)::: 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 分配给 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-149">For a :::no-loc(Blazor)::: app based on the :::no-loc(Blazor WebAssembly)::: Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> by default.</span></span>
+<span data-ttu-id="ae9d5-149">对于基于 Blazor WebAssembly 托管项目模板的 Blazor 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 分配给 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-149">For a Blazor app based on the Blazor WebAssembly Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> by default.</span></span>
 
 <span data-ttu-id="ae9d5-150">`FetchData` 组件 (`Pages/FetchData.razor`)：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-150">`FetchData` component (`Pages/FetchData.razor`):</span></span>
 
@@ -262,14 +262,14 @@ builder.Services.AddHttpClient<WeatherForecastClient>(
         scopes: new[] { "example.read", "example.write" }));
 ```
 
-<span data-ttu-id="ae9d5-154">对于基于 :::no-loc(Blazor WebAssembly)::: 托管项目模板的 :::no-loc(Blazor)::: 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> 分配给以下地址：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-154">For a :::no-loc(Blazor)::: app based on the :::no-loc(Blazor WebAssembly)::: Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> is assigned to the following by default:</span></span>
+<span data-ttu-id="ae9d5-154">对于基于 Blazor WebAssembly 托管项目模板的 Blazor 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> 分配给以下地址：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-154">For a Blazor app based on the Blazor WebAssembly Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> is assigned to the following by default:</span></span>
 
 * <span data-ttu-id="ae9d5-155"><xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`)。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-155">The <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`).</span></span>
 * <span data-ttu-id="ae9d5-156">`authorizedUrls` 数组的 URL。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-156">A URL of the `authorizedUrls` array.</span></span>
 
 ## <a name="unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client"></a><span data-ttu-id="ae9d5-157">使用安全默认客户端的应用中未经身份验证或未经授权的 Web API 请求</span><span class="sxs-lookup"><span data-stu-id="ae9d5-157">Unauthenticated or unauthorized web API requests in an app with a secure default client</span></span>
 
-<span data-ttu-id="ae9d5-158">如果 :::no-loc(Blazor WebAssembly)::: 应用通常使用安全的默认 <xref:System.Net.Http.HttpClient>，则该应用还可以通过配置命名的 <xref:System.Net.Http.HttpClient> 来发出未经身份验证或未经授权的 Web API 请求：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-158">If the :::no-loc(Blazor WebAssembly)::: app ordinarily uses a secure default <xref:System.Net.Http.HttpClient>, the app can also make unauthenticated or unauthorized web API requests by configuring a named <xref:System.Net.Http.HttpClient>:</span></span>
+<span data-ttu-id="ae9d5-158">如果 Blazor WebAssembly 应用通常使用安全的默认 <xref:System.Net.Http.HttpClient>，则该应用还可以通过配置命名的 <xref:System.Net.Http.HttpClient> 来发出未经身份验证或未经授权的 Web API 请求：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-158">If the Blazor WebAssembly app ordinarily uses a secure default <xref:System.Net.Http.HttpClient>, the app can also make unauthenticated or unauthorized web API requests by configuring a named <xref:System.Net.Http.HttpClient>:</span></span>
 
 <span data-ttu-id="ae9d5-159">`Program.Main` (`Program.cs`):</span><span class="sxs-lookup"><span data-stu-id="ae9d5-159">`Program.Main` (`Program.cs`):</span></span>
 
@@ -278,7 +278,7 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
     client => client.BaseAddress = new Uri("https://www.example.com/base"));
 ```
 
-<span data-ttu-id="ae9d5-160">对于基于 :::no-loc(Blazor WebAssembly)::: 托管项目模板的 :::no-loc(Blazor)::: 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 分配给 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-160">For a :::no-loc(Blazor)::: app based on the :::no-loc(Blazor WebAssembly)::: Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> by default.</span></span>
+<span data-ttu-id="ae9d5-160">对于基于 Blazor WebAssembly 托管项目模板的 Blazor 应用，默认情况下，将 <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) 分配给 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-160">For a Blazor app based on the Blazor WebAssembly Hosted project template, <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> (`new Uri(builder.HostEnvironment.BaseAddress)`) is assigned to the <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> by default.</span></span>
 
 <span data-ttu-id="ae9d5-161">先前的注册是对现有安全默认 <xref:System.Net.Http.HttpClient> 注册的补充。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-161">The preceding registration is in addition to the existing secure default <xref:System.Net.Http.HttpClient> registration.</span></span>
 
@@ -329,7 +329,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <span data-ttu-id="ae9d5-175">`IAccessTokenProvider.RequestToken` 方法提供重载，该重载允许应用使用一组给定的作用域来配置访问令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-175">The `IAccessTokenProvider.RequestToken` method provides an overload that allows an app to provision an access token with a given set of scopes.</span></span>
 
-<span data-ttu-id="ae9d5-176">在 :::no-loc(Razor)::: 组件中：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-176">In a :::no-loc(Razor)::: component:</span></span>
+<span data-ttu-id="ae9d5-176">在 Razor 组件中：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-176">In a Razor component:</span></span>
 
 ```razor
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
@@ -358,7 +358,7 @@ if (tokenResult.TryGetToken(out var token))
 
 ## <a name="cross-origin-resource-sharing-cors"></a><span data-ttu-id="ae9d5-181">跨域资源共享 (CORS)</span><span class="sxs-lookup"><span data-stu-id="ae9d5-181">Cross-origin resource sharing (CORS)</span></span>
 
-<span data-ttu-id="ae9d5-182">在 CORS 请求中发送凭据（授权 :::no-loc(cookie):::/标头）时，CORS 策略必须允许使用 `Authorization` 标头。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-182">When sending credentials (authorization :::no-loc(cookie):::s/headers) on CORS requests, the `Authorization` header must be allowed by the CORS policy.</span></span>
+<span data-ttu-id="ae9d5-182">在 CORS 请求中发送凭据（授权 cookie/标头）时，CORS 策略必须允许使用 `Authorization` 标头。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-182">When sending credentials (authorization cookies/headers) on CORS requests, the `Authorization` header must be allowed by the CORS policy.</span></span>
 
 <span data-ttu-id="ae9d5-183">以下策略包括的配置用于：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-183">The following policy includes configuration for:</span></span>
 
@@ -375,19 +375,19 @@ app.UseCors(policy =>
     .AllowCredentials());
 ```
 
-<span data-ttu-id="ae9d5-189">基于 :::no-loc(Blazor)::: 托管的项目模板的托管 :::no-loc(Blazor)::: 解决方案对客户端和服务器应用使用相同的基址。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-189">A hosted :::no-loc(Blazor)::: solution based on the :::no-loc(Blazor)::: Hosted project template uses the same base address for the client and server apps.</span></span> <span data-ttu-id="ae9d5-190">默认情况下，将客户端应用的 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> 设置为 `builder.HostEnvironment.BaseAddress` 的 URI。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-190">The client app's <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> is set to a URI of `builder.HostEnvironment.BaseAddress` by default.</span></span> <span data-ttu-id="ae9d5-191">在从 :::no-loc(Blazor)::: 托管的项目模板创建的托管应用的默认配置中，不需要 CORS 配置。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-191">CORS configuration is **not** required in the default configuration of a hosted app created from the :::no-loc(Blazor)::: Hosted project template.</span></span> <span data-ttu-id="ae9d5-192">不由服务器项目托管，并且不共享服务器应用的基址的其他客户端应用在服务器项目中需要 CORS 配置。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-192">Additional client apps that aren't hosted by the server project and don't share the server app's base address **do** require CORS configuration in the server project.</span></span>
+<span data-ttu-id="ae9d5-189">基于 Blazor 托管的项目模板的托管 Blazor 解决方案对客户端和服务器应用使用相同的基址。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-189">A hosted Blazor solution based on the Blazor Hosted project template uses the same base address for the client and server apps.</span></span> <span data-ttu-id="ae9d5-190">默认情况下，将客户端应用的 <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> 设置为 `builder.HostEnvironment.BaseAddress` 的 URI。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-190">The client app's <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> is set to a URI of `builder.HostEnvironment.BaseAddress` by default.</span></span> <span data-ttu-id="ae9d5-191">在从 Blazor 托管的项目模板创建的托管应用的默认配置中，不需要 CORS 配置。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-191">CORS configuration is **not** required in the default configuration of a hosted app created from the Blazor Hosted project template.</span></span> <span data-ttu-id="ae9d5-192">不由服务器项目托管，并且不共享服务器应用的基址的其他客户端应用在服务器项目中需要 CORS 配置。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-192">Additional client apps that aren't hosted by the server project and don't share the server app's base address **do** require CORS configuration in the server project.</span></span>
 
 <span data-ttu-id="ae9d5-193">有关详细信息，请参阅 <xref:security/cors> 和示例应用的 HTTP 请求测试程序组件 (`Components/HTTPRequestTester.razor`)。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-193">For more information, see <xref:security/cors> and the sample app's HTTP Request Tester component (`Components/HTTPRequestTester.razor`).</span></span>
 
 ## <a name="handle-token-request-errors"></a><span data-ttu-id="ae9d5-194">处理令牌请求错误</span><span class="sxs-lookup"><span data-stu-id="ae9d5-194">Handle token request errors</span></span>
 
-<span data-ttu-id="ae9d5-195">当单页应用程序 (SPA) 使用 Open ID Connect (OIDC) 对用户进行身份验证时，身份验证状态将以会话 :::no-loc(cookie):::（因用户提供其凭据而设置）的形式在 SPA 内和 :::no-loc(Identity)::: 提供者 (IP) 中进行本地维护。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-195">When a Single Page Application (SPA) authenticates a user using OpenID Connect (OIDC), the authentication state is maintained locally within the SPA and in the :::no-loc(Identity)::: Provider (IP) in the form of a session :::no-loc(cookie)::: that's set as a result of the user providing their credentials.</span></span>
+<span data-ttu-id="ae9d5-195">当单页应用程序 (SPA) 使用 Open ID Connect (OIDC) 对用户进行身份验证时，身份验证状态将以会话 cookie（因用户提供其凭据而设置）的形式在 SPA 内和 Identity 提供者 (IP) 中进行本地维护。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-195">When a Single Page Application (SPA) authenticates a user using OpenID Connect (OIDC), the authentication state is maintained locally within the SPA and in the Identity Provider (IP) in the form of a session cookie that's set as a result of the user providing their credentials.</span></span>
 
 <span data-ttu-id="ae9d5-196">IP 为用户发出的令牌通常在短时间（约 1 小时）内有效，因此客户端应用必须定期提取新令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-196">The tokens that the IP emits for the user typically are valid for short periods of time, about one hour normally, so the client app must regularly fetch new tokens.</span></span> <span data-ttu-id="ae9d5-197">否则，在授予的令牌到期后，将注销用户。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-197">Otherwise, the user would be logged-out after the granted tokens expire.</span></span> <span data-ttu-id="ae9d5-198">在大多数情况下，由于身份验证状态或“会话”保留在 IP 中，因此 OIDC 客户端能够预配新令牌，而无需用户再次进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-198">In most cases, OIDC clients are able to provision new tokens without requiring the user to authenticate again thanks to the authentication state or "session" that is kept within the IP.</span></span>
 
 <span data-ttu-id="ae9d5-199">在某些情况下，如果没有用户交互，客户端就无法获得令牌（例如，当用户出于某种原因而明确从 IP 注销时）。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-199">There are some cases in which the client can't get a token without user interaction, for example, when for some reason the user explicitly logs out from the IP.</span></span> <span data-ttu-id="ae9d5-200">如果用户访问 `https://login.microsoftonline.com` 并注销，则会发生这种情况。在这些场景下，应用不会立即知道用户已注销。客户端持有的任何令牌都可能不再有效。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-200">This scenario occurs if a user visits `https://login.microsoftonline.com` and logs out. In these scenarios, the app doesn't know immediately that the user has logged out. Any token that the client holds might no longer be valid.</span></span> <span data-ttu-id="ae9d5-201">另外，当前令牌过期后，如果没有用户交互，客户端将无法预配新令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-201">Also, the client isn't able to provision a new token without user interaction after the current token expires.</span></span>
 
-<span data-ttu-id="ae9d5-202">这些场景并不特定于基于令牌的身份验证。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-202">These scenarios aren't specific to token-based authentication.</span></span> <span data-ttu-id="ae9d5-203">它们本就是 SPA 的一部分。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-203">They are part of the nature of SPAs.</span></span> <span data-ttu-id="ae9d5-204">如果删除了身份验证:::no-loc(cookie):::，则使用 :::no-loc(cookie)::: 的 SPA 也无法调用服务器 API。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-204">An SPA using :::no-loc(cookie):::s also fails to call a server API if the authentication :::no-loc(cookie)::: is removed.</span></span>
+<span data-ttu-id="ae9d5-202">这些场景并不特定于基于令牌的身份验证。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-202">These scenarios aren't specific to token-based authentication.</span></span> <span data-ttu-id="ae9d5-203">它们本就是 SPA 的一部分。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-203">They are part of the nature of SPAs.</span></span> <span data-ttu-id="ae9d5-204">如果删除了身份验证cookie，则使用 cookie 的 SPA 也无法调用服务器 API。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-204">An SPA using cookies also fails to call a server API if the authentication cookie is removed.</span></span>
 
 <span data-ttu-id="ae9d5-205">当应用对受保护的资源执行 API 调用时，请注意以下事项：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-205">When an app performs API calls to protected resources, you must be aware of the following:</span></span>
 
@@ -714,7 +714,7 @@ builder.Services.AddApiAuthorization(options => {
 
 ### <a name="customize-the-user-with-a-payload-claim"></a><span data-ttu-id="ae9d5-267">使用有效负载声明自定义用户</span><span class="sxs-lookup"><span data-stu-id="ae9d5-267">Customize the user with a payload claim</span></span>
 
-<span data-ttu-id="ae9d5-268">在以下示例中，所有经过应用身份验证的用户都会收到每种用户身份验证方法的 `amr` 声明。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-268">In the following example, the app's authenticated users receive an `amr` claim for each of the user's authentication methods.</span></span> <span data-ttu-id="ae9d5-269">`amr` 声明确定在 Microsoft :::no-loc(Identity)::: Platform v1.0 [有效负载声明](/azure/active-directory/develop/access-tokens#the-amr-claim)中如何对令牌主体进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-269">The `amr` claim identifies how the subject of the token was authenticated in Microsoft :::no-loc(Identity)::: Platform v1.0 [payload claims](/azure/active-directory/develop/access-tokens#the-amr-claim).</span></span> <span data-ttu-id="ae9d5-270">该示例使用基于 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 的自定义用户帐户类。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-270">The example uses a custom user account class based on <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount>.</span></span>
+<span data-ttu-id="ae9d5-268">在以下示例中，所有经过应用身份验证的用户都会收到每种用户身份验证方法的 `amr` 声明。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-268">In the following example, the app's authenticated users receive an `amr` claim for each of the user's authentication methods.</span></span> <span data-ttu-id="ae9d5-269">`amr` 声明确定在 Microsoft Identity Platform v1.0 [有效负载声明](/azure/active-directory/develop/access-tokens#the-amr-claim)中如何对令牌主体进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-269">The `amr` claim identifies how the subject of the token was authenticated in Microsoft Identity Platform v1.0 [payload claims](/azure/active-directory/develop/access-tokens#the-amr-claim).</span></span> <span data-ttu-id="ae9d5-270">该示例使用基于 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 的自定义用户帐户类。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-270">The example uses a custom user account class based on <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount>.</span></span>
 
 <span data-ttu-id="ae9d5-271">创建扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 类的类。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-271">Create a class that extends the <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> class.</span></span> <span data-ttu-id="ae9d5-272">下面的示例将 `AuthenticationMethod` 属性设置为用户的 `amr` JSON 属性值数组。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-272">The following example sets the `AuthenticationMethod` property to the user's array of `amr` JSON property values.</span></span> <span data-ttu-id="ae9d5-273">对用户进行身份验证时，由框架自动填充 `AuthenticationMethod`。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-273">`AuthenticationMethod` is populated automatically by the framework when the user is authenticated.</span></span>
 
@@ -751,11 +751,11 @@ public class CustomAccountFactory
     {
         var initialUser = await base.CreateUserAsync(account, options);
 
-        if (initialUser.:::no-loc(Identity):::.IsAuthenticated)
+        if (initialUser.Identity.IsAuthenticated)
         {
             foreach (var value in account.AuthenticationMethod)
             {
-                ((Claims:::no-loc(Identity):::)initialUser.:::no-loc(Identity):::)
+                ((ClaimsIdentity)initialUser.Identity)
                     .AddClaim(new Claim("amr", value));
             }
         }
@@ -821,7 +821,7 @@ public class CustomAccountFactory
 
 ## <a name="support-prerendering-with-authentication"></a><span data-ttu-id="ae9d5-282">支持预呈现身份验证</span><span class="sxs-lookup"><span data-stu-id="ae9d5-282">Support prerendering with authentication</span></span>
 
-<span data-ttu-id="ae9d5-283">遵循任一托管 :::no-loc(Blazor WebAssembly)::: 应用主题中的指导后，请按照以下说明创建应用：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-283">After following the guidance in one of the hosted :::no-loc(Blazor WebAssembly)::: app topics, use the following instructions to create an app that:</span></span>
+<span data-ttu-id="ae9d5-283">遵循任一托管 Blazor WebAssembly 应用主题中的指导后，请按照以下说明创建应用：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-283">After following the guidance in one of the hosted Blazor WebAssembly app topics, use the following instructions to create an app that:</span></span>
 
 * <span data-ttu-id="ae9d5-284">预呈现不需要授权的路径。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-284">Prerenders paths for which authorization isn't required.</span></span>
 * <span data-ttu-id="ae9d5-285">不预呈现需要授权的路径。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-285">Doesn't prerender paths for which authorization is required.</span></span>
@@ -863,7 +863,7 @@ public void ConfigureServices(IServiceCollection services)
 {
     ...
 
-    services.Add:::no-loc(Razor):::Pages();
+    services.AddRazorPages();
     services.AddScoped<AuthenticationStateProvider, 
         ServerAuthenticationStateProvider>();
     services.AddScoped<SignOutSessionStateManager>();
@@ -872,7 +872,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="ae9d5-288">在服务器应用的 `Startup.Configure` 方法中，将 [`endpoints.MapFallbackToFile("index.html")`](xref:Microsoft.AspNetCore.Builder.StaticFilesEndpointRouteBuilderExtensions.MapFallbackToFile%2A) 替换为 [`endpoints.MapFallbackToPage("/_Host")`](xref:Microsoft.AspNetCore.Builder.:::no-loc(Razor):::PagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A)：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-288">In the server app's `Startup.Configure` method, replace [`endpoints.MapFallbackToFile("index.html")`](xref:Microsoft.AspNetCore.Builder.StaticFilesEndpointRouteBuilderExtensions.MapFallbackToFile%2A) with [`endpoints.MapFallbackToPage("/_Host")`](xref:Microsoft.AspNetCore.Builder.:::no-loc(Razor):::PagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A):</span></span>
+<span data-ttu-id="ae9d5-288">在服务器应用的 `Startup.Configure` 方法中，将 [`endpoints.MapFallbackToFile("index.html")`](xref:Microsoft.AspNetCore.Builder.StaticFilesEndpointRouteBuilderExtensions.MapFallbackToFile%2A) 替换为 [`endpoints.MapFallbackToPage("/_Host")`](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A)：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-288">In the server app's `Startup.Configure` method, replace [`endpoints.MapFallbackToFile("index.html")`](xref:Microsoft.AspNetCore.Builder.StaticFilesEndpointRouteBuilderExtensions.MapFallbackToFile%2A) with [`endpoints.MapFallbackToPage("/_Host")`](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A):</span></span>
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -903,7 +903,7 @@ app.UseEndpoints(endpoints =>
   
 ## <a name="options-for-hosted-apps-and-third-party-login-providers"></a><span data-ttu-id="ae9d5-295">用于托管应用和第三方登录提供程序的选项</span><span class="sxs-lookup"><span data-stu-id="ae9d5-295">Options for hosted apps and third-party login providers</span></span>
 
-<span data-ttu-id="ae9d5-296">使用第三方提供程序对托管的 :::no-loc(Blazor WebAssembly)::: 应用进行身份验证和授权时，有几个选项可用于对用户进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-296">When authenticating and authorizing a hosted :::no-loc(Blazor WebAssembly)::: app with a third-party provider, there are several options available for authenticating the user.</span></span> <span data-ttu-id="ae9d5-297">选择哪一种选项取决于方案。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-297">Which one you choose depends on your scenario.</span></span>
+<span data-ttu-id="ae9d5-296">使用第三方提供程序对托管的 Blazor WebAssembly 应用进行身份验证和授权时，有几个选项可用于对用户进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-296">When authenticating and authorizing a hosted Blazor WebAssembly app with a third-party provider, there are several options available for authenticating the user.</span></span> <span data-ttu-id="ae9d5-297">选择哪一种选项取决于方案。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-297">Which one you choose depends on your scenario.</span></span>
 
 <span data-ttu-id="ae9d5-298">有关详细信息，请参阅 <xref:security/authentication/social/additional-claims>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-298">For more information, see <xref:security/authentication/social/additional-claims>.</span></span>
 
@@ -923,13 +923,13 @@ app.UseEndpoints(endpoints =>
 
 ### <a name="authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party"></a><span data-ttu-id="ae9d5-305">使用第三方提供程序对用户进行身份验证，并在主机服务器和第三方调用受保护的 API</span><span class="sxs-lookup"><span data-stu-id="ae9d5-305">Authenticate users with a third-party provider and call protected APIs on the host server and the third party</span></span>
 
-<span data-ttu-id="ae9d5-306">使用第三方登录提供程序配置 :::no-loc(Identity):::。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-306">Configure :::no-loc(Identity)::: with a third-party login provider.</span></span> <span data-ttu-id="ae9d5-307">获取第三方 API 访问所需的令牌并进行存储。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-307">Obtain the tokens required for third-party API access and store them.</span></span>
+<span data-ttu-id="ae9d5-306">使用第三方登录提供程序配置 Identity。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-306">Configure Identity with a third-party login provider.</span></span> <span data-ttu-id="ae9d5-307">获取第三方 API 访问所需的令牌并进行存储。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-307">Obtain the tokens required for third-party API access and store them.</span></span>
 
-<span data-ttu-id="ae9d5-308">当用户登录时，:::no-loc(Identity)::: 将在身份验证过程中收集访问令牌和刷新令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-308">When a user logs in, :::no-loc(Identity)::: collects access and refresh tokens as part of the authentication process.</span></span> <span data-ttu-id="ae9d5-309">此时，可通过几种方法向第三方 API 进行 API 调用。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-309">At that point, there are a couple of approaches available for making API calls to third-party APIs.</span></span>
+<span data-ttu-id="ae9d5-308">当用户登录时，Identity 将在身份验证过程中收集访问令牌和刷新令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-308">When a user logs in, Identity collects access and refresh tokens as part of the authentication process.</span></span> <span data-ttu-id="ae9d5-309">此时，可通过几种方法向第三方 API 进行 API 调用。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-309">At that point, there are a couple of approaches available for making API calls to third-party APIs.</span></span>
 
 #### <a name="use-a-server-access-token-to-retrieve-the-third-party-access-token"></a><span data-ttu-id="ae9d5-310">使用服务器访问令牌检索第三方访问令牌</span><span class="sxs-lookup"><span data-stu-id="ae9d5-310">Use a server access token to retrieve the third-party access token</span></span>
 
-<span data-ttu-id="ae9d5-311">使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-311">Use the access token generated on the server to retrieve the third-party access token from a server API endpoint.</span></span> <span data-ttu-id="ae9d5-312">在此处，使用第三方访问令牌直接从客户端上的 :::no-loc(Identity)::: 调用第三方 API 资源。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-312">From there, use the third-party access token to call third-party API resources directly from :::no-loc(Identity)::: on the client.</span></span>
+<span data-ttu-id="ae9d5-311">使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-311">Use the access token generated on the server to retrieve the third-party access token from a server API endpoint.</span></span> <span data-ttu-id="ae9d5-312">在此处，使用第三方访问令牌直接从客户端上的 Identity 调用第三方 API 资源。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-312">From there, use the third-party access token to call third-party API resources directly from Identity on the client.</span></span>
 
 <span data-ttu-id="ae9d5-313">我们不建议使用此方法。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-313">We don't recommend this approach.</span></span> <span data-ttu-id="ae9d5-314">此方法需要将第三方访问令牌视为针对公共客户端生成。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-314">This approach requires treating the third-party access token as if it were generated for a public client.</span></span> <span data-ttu-id="ae9d5-315">在 OAuth 范畴，公共应用没有客户端机密，因为不能信任此类应用可以安全地存储机密，将为机密客户端生成访问令牌。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-315">In OAuth terms, the public app doesn't have a client secret because it can't be trusted to store secrets safely, and the access token is produced for a confidential client.</span></span> <span data-ttu-id="ae9d5-316">机密客户端具有客户端机密，并且假定能够安全地存储机密。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-316">A confidential client is a client that has a client secret and is assumed to be able to safely store secrets.</span></span>
 
@@ -947,7 +947,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="use-openid-connect-oidc-v20-endpoints"></a><span data-ttu-id="ae9d5-325">使用 OpenID Connect (OIDC) v2.0 终结点</span><span class="sxs-lookup"><span data-stu-id="ae9d5-325">Use OpenID Connect (OIDC) v2.0 endpoints</span></span>
 
-<span data-ttu-id="ae9d5-326">身份验证库和 :::no-loc(Blazor)::: 项目模板使用 Open ID Connect (OIDC) v1.0 终结点。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-326">The authentication library and :::no-loc(Blazor)::: project templates use OpenID Connect (OIDC) v1.0 endpoints.</span></span> <span data-ttu-id="ae9d5-327">要使用 v2.0 终结点，请配置 JWT 持有者 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority?displayProperty=nameWithType> 选项。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-327">To use a v2.0 endpoint, configure the JWT Bearer <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority?displayProperty=nameWithType> option.</span></span> <span data-ttu-id="ae9d5-328">在下面的示例中，通过向 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority> 属性追加 `v2.0` 段，将 AAD 配置为 v2.0：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-328">In the following example, AAD is configured for v2.0 by appending a `v2.0` segment to the <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority> property:</span></span>
+<span data-ttu-id="ae9d5-326">身份验证库和 Blazor 项目模板使用 Open ID Connect (OIDC) v1.0 终结点。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-326">The authentication library and Blazor project templates use OpenID Connect (OIDC) v1.0 endpoints.</span></span> <span data-ttu-id="ae9d5-327">要使用 v2.0 终结点，请配置 JWT 持有者 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority?displayProperty=nameWithType> 选项。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-327">To use a v2.0 endpoint, configure the JWT Bearer <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority?displayProperty=nameWithType> option.</span></span> <span data-ttu-id="ae9d5-328">在下面的示例中，通过向 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority> 属性追加 `v2.0` 段，将 AAD 配置为 v2.0：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-328">In the following example, AAD is configured for v2.0 by appending a `v2.0` segment to the <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority> property:</span></span>
 
 ```csharp
 builder.Services.Configure<JwtBearerOptions>(
@@ -958,7 +958,7 @@ builder.Services.Configure<JwtBearerOptions>(
     });
 ```
 
-<span data-ttu-id="ae9d5-329">也可以在应用设置 (`:::no-loc(appsettings.json):::`) 文件中进行设置：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-329">Alternatively, the setting can be made in the app settings (`:::no-loc(appsettings.json):::`) file:</span></span>
+<span data-ttu-id="ae9d5-329">也可以在应用设置 (`appsettings.json`) 文件中进行设置：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-329">Alternatively, the setting can be made in the app settings (`appsettings.json`) file:</span></span>
 
 ```json
 {
@@ -969,13 +969,13 @@ builder.Services.Configure<JwtBearerOptions>(
 }
 ```
 
-<span data-ttu-id="ae9d5-330">如果将段添加到授权不适合应用的 OIDC 提供程序（例如，使用非 AAD 提供程序），则直接设置 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> 属性。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-330">If tacking on a segment to the authority isn't appropriate for the app's OIDC provider, such as with non-AAD providers, set the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> property directly.</span></span> <span data-ttu-id="ae9d5-331">使用 `Authority` 键在 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> 或应用设置文件 (`:::no-loc(appsettings.json):::`) 中设置属性。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-331">Either set the property in <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> or in the app settings file (`:::no-loc(appsettings.json):::`) with the `Authority` key.</span></span>
+<span data-ttu-id="ae9d5-330">如果将段添加到授权不适合应用的 OIDC 提供程序（例如，使用非 AAD 提供程序），则直接设置 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> 属性。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-330">If tacking on a segment to the authority isn't appropriate for the app's OIDC provider, such as with non-AAD providers, set the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> property directly.</span></span> <span data-ttu-id="ae9d5-331">使用 `Authority` 键在 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> 或应用设置文件 (`appsettings.json`) 中设置属性。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-331">Either set the property in <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> or in the app settings file (`appsettings.json`) with the `Authority` key.</span></span>
 
 <span data-ttu-id="ae9d5-332">ID 令牌中的声明列表针对 v2.0 终结点会发生更改。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-332">The list of claims in the ID token changes for v2.0 endpoints.</span></span> <span data-ttu-id="ae9d5-333">有关详细信息，请参阅[为什么要更新到 Microsoft 标识平台 (v2.0)？](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison)。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-333">For more information, see [Why update to Microsoft identity platform (v2.0)?](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison).</span></span>
 
 ## <a name="configure-and-use-grpc-in-components"></a><span data-ttu-id="ae9d5-334">在组件中配置和使用 gRPC</span><span class="sxs-lookup"><span data-stu-id="ae9d5-334">Configure and use gRPC in components</span></span>
 
-<span data-ttu-id="ae9d5-335">若要将 :::no-loc(Blazor WebAssembly)::: 应用配置为使用 [ASP.NET Core gRPC 框架](xref:grpc/index)：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-335">To configure a :::no-loc(Blazor WebAssembly)::: app to use the [ASP.NET Core gRPC framework](xref:grpc/index):</span></span>
+<span data-ttu-id="ae9d5-335">若要将 Blazor WebAssembly 应用配置为使用 [ASP.NET Core gRPC 框架](xref:grpc/index)：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-335">To configure a Blazor WebAssembly app to use the [ASP.NET Core gRPC framework](xref:grpc/index):</span></span>
 
 * <span data-ttu-id="ae9d5-336">在服务器上启用 gRPC-Web。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-336">Enable gRPC-Web on the server.</span></span> <span data-ttu-id="ae9d5-337">有关详细信息，请参阅 <xref:grpc/browser>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-337">For more information, see <xref:grpc/browser>.</span></span>
 * <span data-ttu-id="ae9d5-338">为应用的消息处理程序注册 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-338">Register gRPC services for the app's message handler.</span></span> <span data-ttu-id="ae9d5-339">下面的示例将应用的授权消息处理程序配置为使用 [gRPC 教程中的 `GreeterClient` 服务](xref:tutorials/grpc/grpc-start#create-a-grpc-service) (`Program.Main`)：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-339">The following example configures the app's authorization message handler to use the [`GreeterClient` service from the gRPC tutorial](xref:tutorials/grpc/grpc-start#create-a-grpc-service) (`Program.Main`):</span></span>
@@ -1003,7 +1003,7 @@ builder.Services.AddScoped(sp =>
 });
 ```
 
-<span data-ttu-id="ae9d5-340">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-340">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span> <span data-ttu-id="ae9d5-341">将 `.proto` 文件放在托管的 :::no-loc(Blazor)::: 解决方案的 `Shared` 项目中。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-341">Place the `.proto` file in the `Shared` project of the hosted :::no-loc(Blazor)::: solution.</span></span>
+<span data-ttu-id="ae9d5-340">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-340">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `BlazorSample`).</span></span> <span data-ttu-id="ae9d5-341">将 `.proto` 文件放在托管的 Blazor 解决方案的 `Shared` 项目中。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-341">Place the `.proto` file in the `Shared` project of the hosted Blazor solution.</span></span>
 
 <span data-ttu-id="ae9d5-342">客户端应用中的组件可使用 gRPC 客户端 (`Pages/Grpc.razor`) 发出 gRPC 调用：</span><span class="sxs-lookup"><span data-stu-id="ae9d5-342">A component in the client app can make gRPC calls using the gRPC client (`Pages/Grpc.razor`):</span></span>
 
@@ -1045,7 +1045,7 @@ Server response: <strong>@serverResponse</strong>
 }
 ```
 
-<span data-ttu-id="ae9d5-343">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `:::no-loc(Blazor):::Sample`）。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-343">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `:::no-loc(Blazor):::Sample`).</span></span> <span data-ttu-id="ae9d5-344">若要使用 `Status.DebugException` 属性，请使用 [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) 版本 2.30.0 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-344">To use the `Status.DebugException` property, use [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) version 2.30.0 or later.</span></span>
+<span data-ttu-id="ae9d5-343">占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample`）。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-343">The placeholder `{APP ASSEMBLY}` is the app's assembly name (for example, `BlazorSample`).</span></span> <span data-ttu-id="ae9d5-344">若要使用 `Status.DebugException` 属性，请使用 [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) 版本 2.30.0 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-344">To use the `Status.DebugException` property, use [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) version 2.30.0 or later.</span></span>
 
 <span data-ttu-id="ae9d5-345">有关详细信息，请参阅 <xref:grpc/browser>。</span><span class="sxs-lookup"><span data-stu-id="ae9d5-345">For more information, see <xref:grpc/browser>.</span></span>
 

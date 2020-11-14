@@ -7,17 +7,17 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/09/2020
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: host-and-deploy/linux-nginx
 ms.openlocfilehash: 916bb1f761ce99b2296c84e1653e55fffa04f83c
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -162,7 +162,7 @@ server {
 }
 ```
 
-<span data-ttu-id="fdf01-170">如果应用是 :::no-loc(SignalR)::: 或 :::no-loc(Blazor Server)::: 应用，请分别参阅 <xref:signalr/scale#linux-with-nginx> 和 <xref:blazor/host-and-deploy/server#linux-with-nginx> 以了解详细信息。</span><span class="sxs-lookup"><span data-stu-id="fdf01-170">If the app is a :::no-loc(SignalR)::: or :::no-loc(Blazor Server)::: app see <xref:signalr/scale#linux-with-nginx> and <xref:blazor/host-and-deploy/server#linux-with-nginx> respectively for more information.</span></span>
+<span data-ttu-id="fdf01-170">如果应用是 SignalR 或 Blazor Server 应用，请分别参阅 <xref:signalr/scale#linux-with-nginx> 和 <xref:blazor/host-and-deploy/server#linux-with-nginx> 以了解详细信息。</span><span class="sxs-lookup"><span data-stu-id="fdf01-170">If the app is a SignalR or Blazor Server app see <xref:signalr/scale#linux-with-nginx> and <xref:blazor/host-and-deploy/server#linux-with-nginx> respectively for more information.</span></span>
 
 <span data-ttu-id="fdf01-171">当没有匹配的 `server_name` 时，Nginx 使用默认服务器。</span><span class="sxs-lookup"><span data-stu-id="fdf01-171">When no `server_name` matches, Nginx uses the default server.</span></span> <span data-ttu-id="fdf01-172">如果没有定义默认服务器，则配置文件中的第一台服务器是默认服务器。</span><span class="sxs-lookup"><span data-stu-id="fdf01-172">If no default server is defined, the first server in the configuration file is the default server.</span></span> <span data-ttu-id="fdf01-173">作为最佳做法，添加指定默认服务器，它会在配置文件中返回状态代码 444。</span><span class="sxs-lookup"><span data-stu-id="fdf01-173">As a best practice, add a specific default server which returns a status code of 444 in your configuration file.</span></span> <span data-ttu-id="fdf01-174">默认的服务器配置示例是：</span><span class="sxs-lookup"><span data-stu-id="fdf01-174">A default server configuration example is:</span></span>
 
@@ -303,13 +303,13 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="data-protection"></a><span data-ttu-id="fdf01-229">数据保护</span><span class="sxs-lookup"><span data-stu-id="fdf01-229">Data protection</span></span>
 
-<span data-ttu-id="fdf01-230">[ASP.NET Core 数据保护堆栈](xref:security/data-protection/introduction)由多个 ASP.NET Core [中间件](xref:fundamentals/middleware/index)（包括 :::no-loc(cookie)::: 中间件等身份验证中间件）和跨站点请求伪造 (CSRF) 保护使用。</span><span class="sxs-lookup"><span data-stu-id="fdf01-230">The [ASP.NET Core Data Protection stack](xref:security/data-protection/introduction) is used by several ASP.NET Core [middlewares](xref:fundamentals/middleware/index), including authentication middleware (for example, :::no-loc(cookie)::: middleware) and cross-site request forgery (CSRF) protections.</span></span> <span data-ttu-id="fdf01-231">即使用户代码不调用数据保护 API，也应该配置数据保护，以创建持久的加密[密钥存储](xref:security/data-protection/implementation/key-management)。</span><span class="sxs-lookup"><span data-stu-id="fdf01-231">Even if Data Protection APIs aren't called by user code, data protection should be configured to create a persistent cryptographic [key store](xref:security/data-protection/implementation/key-management).</span></span> <span data-ttu-id="fdf01-232">如果不配置数据保护，则密钥存储在内存中。重启应用时，密钥会被丢弃。</span><span class="sxs-lookup"><span data-stu-id="fdf01-232">If data protection isn't configured, the keys are held in memory and discarded when the app restarts.</span></span>
+<span data-ttu-id="fdf01-230">[ASP.NET Core 数据保护堆栈](xref:security/data-protection/introduction)由多个 ASP.NET Core [中间件](xref:fundamentals/middleware/index)（包括 cookie 中间件等身份验证中间件）和跨站点请求伪造 (CSRF) 保护使用。</span><span class="sxs-lookup"><span data-stu-id="fdf01-230">The [ASP.NET Core Data Protection stack](xref:security/data-protection/introduction) is used by several ASP.NET Core [middlewares](xref:fundamentals/middleware/index), including authentication middleware (for example, cookie middleware) and cross-site request forgery (CSRF) protections.</span></span> <span data-ttu-id="fdf01-231">即使用户代码不调用数据保护 API，也应该配置数据保护，以创建持久的加密[密钥存储](xref:security/data-protection/implementation/key-management)。</span><span class="sxs-lookup"><span data-stu-id="fdf01-231">Even if Data Protection APIs aren't called by user code, data protection should be configured to create a persistent cryptographic [key store](xref:security/data-protection/implementation/key-management).</span></span> <span data-ttu-id="fdf01-232">如果不配置数据保护，则密钥存储在内存中。重启应用时，密钥会被丢弃。</span><span class="sxs-lookup"><span data-stu-id="fdf01-232">If data protection isn't configured, the keys are held in memory and discarded when the app restarts.</span></span>
 
 <span data-ttu-id="fdf01-233">如果密钥环存储于内存中，则在应用重启时：</span><span class="sxs-lookup"><span data-stu-id="fdf01-233">If the key ring is stored in memory when the app restarts:</span></span>
 
-* <span data-ttu-id="fdf01-234">所有基于 :::no-loc(cookie)::: 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="fdf01-234">All :::no-loc(cookie):::-based authentication tokens are invalidated.</span></span>
+* <span data-ttu-id="fdf01-234">所有基于 cookie 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="fdf01-234">All cookie-based authentication tokens are invalidated.</span></span>
 * <span data-ttu-id="fdf01-235">用户需要在下一次请求时再次登录。</span><span class="sxs-lookup"><span data-stu-id="fdf01-235">Users are required to sign in again on their next request.</span></span>
-* <span data-ttu-id="fdf01-236">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="fdf01-236">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="fdf01-237">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData :::no-loc(cookie):::](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="fdf01-237">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData :::no-loc(cookie):::s](xref:fundamentals/app-state#tempdata).</span></span>
+* <span data-ttu-id="fdf01-236">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="fdf01-236">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="fdf01-237">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="fdf01-237">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
 
 <span data-ttu-id="fdf01-238">若要配置数据保护以持久保存并加密密钥环，请参阅：</span><span class="sxs-lookup"><span data-stu-id="fdf01-238">To configure data protection to persist and encrypt the key ring, see:</span></span>
 
@@ -401,7 +401,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
 
 > [!NOTE]
-> <span data-ttu-id="fdf01-288">:::no-loc(Blazor WebAssembly)::: 应用需要更大的 `burst` 参数值才能容纳应用发出的更大量的请求。</span><span class="sxs-lookup"><span data-stu-id="fdf01-288">:::no-loc(Blazor WebAssembly)::: apps require a larger `burst` parameter value to accommodate the larger number of requests made by an app.</span></span> <span data-ttu-id="fdf01-289">有关详细信息，请参阅 <xref:blazor/host-and-deploy/webassembly#nginx>。</span><span class="sxs-lookup"><span data-stu-id="fdf01-289">For more information, see <xref:blazor/host-and-deploy/webassembly#nginx>.</span></span>
+> <span data-ttu-id="fdf01-288">Blazor WebAssembly 应用需要更大的 `burst` 参数值才能容纳应用发出的更大量的请求。</span><span class="sxs-lookup"><span data-stu-id="fdf01-288">Blazor WebAssembly apps require a larger `burst` parameter value to accommodate the larger number of requests made by an app.</span></span> <span data-ttu-id="fdf01-289">有关详细信息，请参阅 <xref:blazor/host-and-deploy/webassembly#nginx>。</span><span class="sxs-lookup"><span data-stu-id="fdf01-289">For more information, see <xref:blazor/host-and-deploy/webassembly#nginx>.</span></span>
 
 #### <a name="secure-nginx-from-clickjacking"></a><span data-ttu-id="fdf01-290">保护 Nginx 免受点击劫持的侵害</span><span class="sxs-lookup"><span data-stu-id="fdf01-290">Secure Nginx from clickjacking</span></span>
 

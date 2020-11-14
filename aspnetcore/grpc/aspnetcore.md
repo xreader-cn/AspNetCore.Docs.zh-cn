@@ -6,17 +6,17 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/03/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: grpc/aspnetcore
 ms.openlocfilehash: b120aa4ab6922445f2c53f3b1cb3bd5c159d8a84
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -94,9 +94,9 @@ ms.locfileid: "93057825"
 
 <span data-ttu-id="4be8c-133">用于 gRPC 的 Kestrel 终结点应使用 TLS 进行保护。</span><span class="sxs-lookup"><span data-stu-id="4be8c-133">Kestrel endpoints used for gRPC should be secured with TLS.</span></span> <span data-ttu-id="4be8c-134">在开发环境中，当存在 ASP.NET Core 开发证书时，会在 `https://localhost:5001` 自动创建使用 TLS 进行保护的终结点。</span><span class="sxs-lookup"><span data-stu-id="4be8c-134">In development, an endpoint secured with TLS is automatically created at `https://localhost:5001` when the ASP.NET Core development certificate is present.</span></span> <span data-ttu-id="4be8c-135">不需要任何配置。</span><span class="sxs-lookup"><span data-stu-id="4be8c-135">No configuration is required.</span></span> <span data-ttu-id="4be8c-136">`https` 前缀验证 Kestrel 终结点是否正在使用 TLS。</span><span class="sxs-lookup"><span data-stu-id="4be8c-136">An `https` prefix verifies the Kestrel endpoint is using TLS.</span></span>
 
-<span data-ttu-id="4be8c-137">在生产环境中，必须显式配置 TLS。</span><span class="sxs-lookup"><span data-stu-id="4be8c-137">In production, TLS must be explicitly configured.</span></span> <span data-ttu-id="4be8c-138">以下 :::no-loc(appsettings.json)::: 示例中提供了使用 TLS 进行保护的 HTTP/2 终结点：</span><span class="sxs-lookup"><span data-stu-id="4be8c-138">In the following *:::no-loc(appsettings.json):::* example, an HTTP/2 endpoint secured with TLS is provided:</span></span>
+<span data-ttu-id="4be8c-137">在生产环境中，必须显式配置 TLS。</span><span class="sxs-lookup"><span data-stu-id="4be8c-137">In production, TLS must be explicitly configured.</span></span> <span data-ttu-id="4be8c-138">以下 appsettings.json 示例中提供了使用 TLS 进行保护的 HTTP/2 终结点：</span><span class="sxs-lookup"><span data-stu-id="4be8c-138">In the following *appsettings.json* example, an HTTP/2 endpoint secured with TLS is provided:</span></span>
 
-[!code-json[](~/grpc/aspnetcore/sample/:::no-loc(appsettings.json):::?highlight=4)]
+[!code-json[](~/grpc/aspnetcore/sample/appsettings.json?highlight=4)]
 
 <span data-ttu-id="4be8c-139">或者，可以在 Program.cs 中配置 Kestrel 终结点：</span><span class="sxs-lookup"><span data-stu-id="4be8c-139">Alternatively, Kestrel endpoints can be configured in *Program.cs* :</span></span>
 

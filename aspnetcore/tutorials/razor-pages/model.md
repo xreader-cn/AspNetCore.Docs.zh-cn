@@ -1,21 +1,21 @@
 ---
-title: '第 2 部分，在 ASP.NET Core 中向 :::no-loc(Razor)::: 页面应用添加模型'
+title: '第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型'
 author: rick-anderson
-description: ':::no-loc(Razor)::: 页面教程系列的第 2 部分。'
+description: 'Razor 页面教程系列的第 2 部分。'
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
-- ':::no-loc(appsettings.json):::'
-- ':::no-loc(ASP.NET Core Identity):::'
-- ':::no-loc(cookie):::'
-- ':::no-loc(Cookie):::'
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- 'appsettings.json'
+- 'ASP.NET Core Identity'
+- 'cookie'
+- 'Cookie'
+- 'Blazor'
+- 'Blazor Server'
+- 'Blazor WebAssembly'
+- 'Identity'
+- "Let's Encrypt"
+- 'Razor'
+- 'SignalR'
 uid: tutorials/razor-pages/model
 ms.openlocfilehash: 84198760cf8302d379c7630b65641e65b66d72a2
 ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
@@ -24,7 +24,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/30/2020
 ms.locfileid: "93050922"
 ---
-# <a name="part-2-add-a-model-to-a-no-locrazor-pages-app-in-aspnet-core"></a><span data-ttu-id="5869a-103">第 2 部分，在 ASP.NET Core 中向 :::no-loc(Razor)::: 页面应用添加模型</span><span class="sxs-lookup"><span data-stu-id="5869a-103">Part 2, add a model to a :::no-loc(Razor)::: Pages app in ASP.NET Core</span></span>
+# <a name="part-2-add-a-model-to-a-no-locrazor-pages-app-in-aspnet-core"></a><span data-ttu-id="5869a-103">第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型</span><span class="sxs-lookup"><span data-stu-id="5869a-103">Part 2, add a model to a Razor Pages app in ASP.NET Core</span></span>
 
 <span data-ttu-id="5869a-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="5869a-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
@@ -42,7 +42,7 @@ ms.locfileid: "93050922"
 
 # <a name="visual-studio"></a>[<span data-ttu-id="5869a-111">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="5869a-111">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="5869a-112">右键单击“:::no-loc(Razor):::PagesMovie”项目 >“添加” > “新建文件夹”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-112">Right-click the **:::no-loc(Razor):::PagesMovie** project > **Add** > **New Folder**.</span></span> <span data-ttu-id="5869a-113">将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-113">Name the folder *Models*.</span></span>
+<span data-ttu-id="5869a-112">右键单击“RazorPagesMovie”项目 >“添加” > “新建文件夹”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-112">Right-click the **RazorPagesMovie** project > **Add** > **New Folder**.</span></span> <span data-ttu-id="5869a-113">将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-113">Name the folder *Models*.</span></span>
 
 <span data-ttu-id="5869a-114">右键单击“Models”文件夹。</span><span class="sxs-lookup"><span data-stu-id="5869a-114">Right click the *Models* folder.</span></span> <span data-ttu-id="5869a-115">选择“添加” > “类” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-115">Select **Add** > **Class**.</span></span> <span data-ttu-id="5869a-116">将类命名“Movie”。</span><span class="sxs-lookup"><span data-stu-id="5869a-116">Name the class **Movie**.</span></span>
 
@@ -59,7 +59,7 @@ ms.locfileid: "93050922"
 
 # <a name="visual-studio-for-mac"></a>[<span data-ttu-id="5869a-120">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="5869a-120">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="5869a-121">在 Solution Pad 中，右键单击“:::no-loc(Razor):::PagesMovie”项目，然后选择“添加”>“新建文件夹...”  。将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-121">In Solution Pad, right-click the **:::no-loc(Razor):::PagesMovie** project, and then select **Add** > **New Folder...**. Name the folder *Models*.</span></span>
+* <span data-ttu-id="5869a-121">在 Solution Pad 中，右键单击“RazorPagesMovie”项目，然后选择“添加”>“新建文件夹...”  。将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-121">In Solution Pad, right-click the **RazorPagesMovie** project, and then select **Add** > **New Folder...**. Name the folder *Models*.</span></span>
 * <span data-ttu-id="5869a-122">右键单击“Models”文件夹，然后选择“添加”>“新建文件...”。</span><span class="sxs-lookup"><span data-stu-id="5869a-122">Right-click the *Models* folder, and then select **Add** > **New File...**.</span></span>
 * <span data-ttu-id="5869a-123">在“新建文件”对话框中：</span><span class="sxs-lookup"><span data-stu-id="5869a-123">In the **New File** dialog:</span></span>
 
@@ -88,23 +88,23 @@ ms.locfileid: "93050922"
 
 ![上述说明的图像。](model/_static/sca.png)
 
-<span data-ttu-id="5869a-137">在“添加基架”对话框中，依次选择“使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”>“添加”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-137">In the **Add Scaffold** dialog, select **:::no-loc(Razor)::: Pages using Entity Framework (CRUD)** > **Add**.</span></span>
+<span data-ttu-id="5869a-137">在“添加基架”对话框中，依次选择“使用实体框架的 Razor 页面 (CRUD)”>“添加”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-137">In the **Add Scaffold** dialog, select **Razor Pages using Entity Framework (CRUD)** > **Add**.</span></span>
 
 ![上述说明的图像。](model/_static/add_scaffold.png)
 
-<span data-ttu-id="5869a-139">完成“添加使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-139">Complete the **Add :::no-loc(Razor)::: Pages using Entity Framework (CRUD)** dialog:</span></span>
+<span data-ttu-id="5869a-139">完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-139">Complete the **Add Razor Pages using Entity Framework (CRUD)** dialog:</span></span>
 
-* <span data-ttu-id="5869a-140">在“模型类”下拉列表中，选择“Movie (:::no-loc(Razor):::PagesMovie.Models)” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-140">In the **Model class** drop down, select **Movie (:::no-loc(Razor):::PagesMovie.Models)**.</span></span>
-* <span data-ttu-id="5869a-141">在“数据上下文类”行中，选择 +（加号）并将生成的名称从 :::no-loc(Razor):::PagesMovie.Models.:::no-loc(Razor):::PagesMovieContext 更改为 :::no-loc(Razor):::PagesMovie.Data.:::no-loc(Razor):::PagesMovieContext   。</span><span class="sxs-lookup"><span data-stu-id="5869a-141">In the **Data context class** row, select the **+** (plus) sign and change the generated name from :::no-loc(Razor):::PagesMovie. **Models**.:::no-loc(Razor):::PagesMovieContext to :::no-loc(Razor):::PagesMovie. **Data**.:::no-loc(Razor):::PagesMovieContext.</span></span> <span data-ttu-id="5869a-142">不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。</span><span class="sxs-lookup"><span data-stu-id="5869a-142">[This change](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) is not required.</span></span> <span data-ttu-id="5869a-143">它创建具有正确命名空间的数据库上下文类。</span><span class="sxs-lookup"><span data-stu-id="5869a-143">It creates the database context class with the correct namespace.</span></span>
+* <span data-ttu-id="5869a-140">在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-140">In the **Model class** drop down, select **Movie (RazorPagesMovie.Models)**.</span></span>
+* <span data-ttu-id="5869a-141">在“数据上下文类”行中，选择 +（加号）并将生成的名称从 RazorPagesMovie.Models.RazorPagesMovieContext 更改为 RazorPagesMovie.Data.RazorPagesMovieContext   。</span><span class="sxs-lookup"><span data-stu-id="5869a-141">In the **Data context class** row, select the **+** (plus) sign and change the generated name from RazorPagesMovie. **Models**.RazorPagesMovieContext to RazorPagesMovie. **Data**.RazorPagesMovieContext.</span></span> <span data-ttu-id="5869a-142">不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。</span><span class="sxs-lookup"><span data-stu-id="5869a-142">[This change](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) is not required.</span></span> <span data-ttu-id="5869a-143">它创建具有正确命名空间的数据库上下文类。</span><span class="sxs-lookup"><span data-stu-id="5869a-143">It creates the database context class with the correct namespace.</span></span>
 * <span data-ttu-id="5869a-144">选择“添加”。</span><span class="sxs-lookup"><span data-stu-id="5869a-144">Select **Add**.</span></span>
 
 ![上述说明的图像。](model/_static/3/arp.png)
 
-<span data-ttu-id="5869a-146">*:::no-loc(appsettings.json):::* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-146">The *:::no-loc(appsettings.json):::* file is updated with the connection string used to connect to a local database.</span></span>
+<span data-ttu-id="5869a-146">*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-146">The *appsettings.json* file is updated with the connection string used to connect to a local database.</span></span>
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="5869a-147">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="5869a-147">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace :::no-loc(Razor):::PagesMovie.Pages_Movies rather than namespace :::no-loc(Razor):::PagesMovie.Pages.Movies
+<!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
 
 * <span data-ttu-id="5869a-148">打开项目目录（包含 Program.cs、Startup.cs 和 .csproj 文件的目录）中的命令窗口。</span><span class="sxs-lookup"><span data-stu-id="5869a-148">Open a command window in the project directory (The directory that contains the *Program.cs* , *Startup.cs* , and *.csproj* files).</span></span>
@@ -117,13 +117,13 @@ ms.locfileid: "93050922"
 * <span data-ttu-id="5869a-150">**对于 Windows** ：运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="5869a-150">**For Windows** : Run the following command:</span></span>
 
   ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Movie -dc :::no-loc(Razor):::PagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
 * <span data-ttu-id="5869a-151">**对于 macOS 和 Linux** ：运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="5869a-151">**For macOS and Linux** : Run the following command:</span></span>
 
   ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Movie -dc :::no-loc(Razor):::PagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   dotnet tool install --global dotnet-aspnet-codegenerator
   ```
 
@@ -142,19 +142,19 @@ ms.locfileid: "93050922"
 
 ![上述说明的图像。](model/_static/scaMac.png)
 
-<span data-ttu-id="5869a-158">在“新基架”对话框中，依次选择“使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”>“下一步”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-158">In the **New Scaffolding** dialog, select **:::no-loc(Razor)::: Pages using Entity Framework (CRUD)** > **Next**.</span></span>
+<span data-ttu-id="5869a-158">在“新基架”对话框中，依次选择“使用实体框架的 Razor 页面 (CRUD)”>“下一步”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-158">In the **New Scaffolding** dialog, select **Razor Pages using Entity Framework (CRUD)** > **Next**.</span></span>
 
 ![上述说明的图像。](model/_static/add_scaffoldMac.png)
 
-<span data-ttu-id="5869a-160">完成“添加使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-160">Complete the **Add :::no-loc(Razor)::: Pages using Entity Framework (CRUD)** dialog:</span></span>
+<span data-ttu-id="5869a-160">完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-160">Complete the **Add Razor Pages using Entity Framework (CRUD)** dialog:</span></span>
 
-* <span data-ttu-id="5869a-161">在“模型类”下拉列表中，选择或键入“Movie (:::no-loc(Razor):::PagesMovie.Models)” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-161">In the **Model class** drop down, select, or type, **Movie (:::no-loc(Razor):::PagesMovie.Models)**.</span></span>
-* <span data-ttu-id="5869a-162">在“数据上下文类”行中，键入新类的名称“:::no-loc(Razor):::PagesMovie.Data.:::no-loc(Razor):::PagesMovieContext”。 </span><span class="sxs-lookup"><span data-stu-id="5869a-162">In the **Data context class** row, type the name for the new class, :::no-loc(Razor):::PagesMovie. **Data**.:::no-loc(Razor):::PagesMovieContext.</span></span> <span data-ttu-id="5869a-163">不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。</span><span class="sxs-lookup"><span data-stu-id="5869a-163">[This change](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) is not required.</span></span> <span data-ttu-id="5869a-164">它创建具有正确命名空间的数据库上下文类。</span><span class="sxs-lookup"><span data-stu-id="5869a-164">It creates the database context class with the correct namespace.</span></span>
+* <span data-ttu-id="5869a-161">在“模型类”下拉列表中，选择或键入“Movie (RazorPagesMovie.Models)” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-161">In the **Model class** drop down, select, or type, **Movie (RazorPagesMovie.Models)**.</span></span>
+* <span data-ttu-id="5869a-162">在“数据上下文类”行中，键入新类的名称“RazorPagesMovie.Data.RazorPagesMovieContext”。 </span><span class="sxs-lookup"><span data-stu-id="5869a-162">In the **Data context class** row, type the name for the new class, RazorPagesMovie. **Data**.RazorPagesMovieContext.</span></span> <span data-ttu-id="5869a-163">不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。</span><span class="sxs-lookup"><span data-stu-id="5869a-163">[This change](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) is not required.</span></span> <span data-ttu-id="5869a-164">它创建具有正确命名空间的数据库上下文类。</span><span class="sxs-lookup"><span data-stu-id="5869a-164">It creates the database context class with the correct namespace.</span></span>
 * <span data-ttu-id="5869a-165">选择“添加”。</span><span class="sxs-lookup"><span data-stu-id="5869a-165">Select **Add**.</span></span>
 
 ![上述说明的图像。](model/_static/arpMac.png)
 
-<span data-ttu-id="5869a-167">*:::no-loc(appsettings.json):::* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-167">The *:::no-loc(appsettings.json):::* file is updated with the connection string used to connect to a local database.</span></span>
+<span data-ttu-id="5869a-167">*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-167">The *appsettings.json* file is updated with the connection string used to connect to a local database.</span></span>
 
 ### <a name="add-ef-tools"></a><span data-ttu-id="5869a-168">添加 EF 工具</span><span class="sxs-lookup"><span data-stu-id="5869a-168">Add EF tools</span></span>
 
@@ -175,7 +175,7 @@ dotnet tool install --global dotnet-ef
 <span data-ttu-id="5869a-173">在搭建基架时，会创建并更新以下文件：</span><span class="sxs-lookup"><span data-stu-id="5869a-173">The scaffold process creates and updates the following files:</span></span>
 
 * <span data-ttu-id="5869a-174">*Pages/Movies* ：“创建”、“删除”、“详细信息”、“编辑”和“索引”。</span><span class="sxs-lookup"><span data-stu-id="5869a-174">*Pages/Movies* : Create, Delete, Details, Edit, and Index.</span></span>
-* <span data-ttu-id="5869a-175">Data/:::no-loc(Razor):::PagesMovieContext.cs</span><span class="sxs-lookup"><span data-stu-id="5869a-175">*Data/:::no-loc(Razor):::PagesMovieContext.cs*</span></span>
+* <span data-ttu-id="5869a-175">Data/RazorPagesMovieContext.cs</span><span class="sxs-lookup"><span data-stu-id="5869a-175">*Data/RazorPagesMovieContext.cs*</span></span>
 
 ### <a name="updated"></a><span data-ttu-id="5869a-176">已更新</span><span class="sxs-lookup"><span data-stu-id="5869a-176">Updated</span></span>
 
@@ -188,7 +188,7 @@ dotnet tool install --global dotnet-ef
 <span data-ttu-id="5869a-180">在搭建基架时，会创建并更新以下文件：</span><span class="sxs-lookup"><span data-stu-id="5869a-180">The scaffold process creates and updates the following files:</span></span>
 
 * <span data-ttu-id="5869a-181">*Pages/Movies* ：“创建”、“删除”、“详细信息”、“编辑”和“索引”。</span><span class="sxs-lookup"><span data-stu-id="5869a-181">*Pages/Movies* : Create, Delete, Details, Edit, and Index.</span></span>
-* <span data-ttu-id="5869a-182">Data/:::no-loc(Razor):::PagesMovieContext.cs</span><span class="sxs-lookup"><span data-stu-id="5869a-182">*Data/:::no-loc(Razor):::PagesMovieContext.cs*</span></span>
+* <span data-ttu-id="5869a-182">Data/RazorPagesMovieContext.cs</span><span class="sxs-lookup"><span data-stu-id="5869a-182">*Data/RazorPagesMovieContext.cs*</span></span>
 
 ### <a name="updated"></a><span data-ttu-id="5869a-183">已更新</span><span class="sxs-lookup"><span data-stu-id="5869a-183">Updated</span></span>
 
@@ -250,21 +250,21 @@ Update-Database
 
 ### <a name="examine-the-context-registered-with-dependency-injection"></a><span data-ttu-id="5869a-211">检查通过依赖关系注入注册的上下文</span><span class="sxs-lookup"><span data-stu-id="5869a-211">Examine the context registered with dependency injection</span></span>
 
-<span data-ttu-id="5869a-212">ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)进行生成。</span><span class="sxs-lookup"><span data-stu-id="5869a-212">ASP.NET Core is built with [dependency injection](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="5869a-213">服务（例如 EF Core 数据库上下文）在应用程序启动期间通过依赖关系注入进行注册。</span><span class="sxs-lookup"><span data-stu-id="5869a-213">Services (such as the EF Core DB context) are registered with dependency injection during application startup.</span></span> <span data-ttu-id="5869a-214">需要这些服务（如 :::no-loc(Razor)::: 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="5869a-214">Components that require these services (such as :::no-loc(Razor)::: Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="5869a-215">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="5869a-215">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
+<span data-ttu-id="5869a-212">ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)进行生成。</span><span class="sxs-lookup"><span data-stu-id="5869a-212">ASP.NET Core is built with [dependency injection](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="5869a-213">服务（例如 EF Core 数据库上下文）在应用程序启动期间通过依赖关系注入进行注册。</span><span class="sxs-lookup"><span data-stu-id="5869a-213">Services (such as the EF Core DB context) are registered with dependency injection during application startup.</span></span> <span data-ttu-id="5869a-214">需要这些服务（如 Razor 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="5869a-214">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="5869a-215">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="5869a-215">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
 
 <span data-ttu-id="5869a-216">基架工具自动创建 DB 上下文并将其注册到依赖关系注入容器。</span><span class="sxs-lookup"><span data-stu-id="5869a-216">The scaffolding tool automatically created a DB context and registered it with the dependency injection container.</span></span>
 
 <span data-ttu-id="5869a-217">检查 `Startup.ConfigureServices` 方法。</span><span class="sxs-lookup"><span data-stu-id="5869a-217">Examine the `Startup.ConfigureServices` method.</span></span> <span data-ttu-id="5869a-218">基架添加了突出显示的行：</span><span class="sxs-lookup"><span data-stu-id="5869a-218">The highlighted line was added by the scaffolder:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-<span data-ttu-id="5869a-219">`:::no-loc(Razor):::PagesMovieContext` 为 `Movie` 模型协调 EF Core 功能（创建、读取、更新、删除等）。</span><span class="sxs-lookup"><span data-stu-id="5869a-219">The `:::no-loc(Razor):::PagesMovieContext` coordinates EF Core functionality (Create, Read, Update, Delete, etc.) for the `Movie` model.</span></span> <span data-ttu-id="5869a-220">数据上下文 (`:::no-loc(Razor):::PagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)。</span><span class="sxs-lookup"><span data-stu-id="5869a-220">The data context (`:::no-loc(Razor):::PagesMovieContext`) is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span></span> <span data-ttu-id="5869a-221">数据上下文指定数据模型中包含哪些实体。</span><span class="sxs-lookup"><span data-stu-id="5869a-221">The data context specifies which entities are included in the data model.</span></span>
+<span data-ttu-id="5869a-219">`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能（创建、读取、更新、删除等）。</span><span class="sxs-lookup"><span data-stu-id="5869a-219">The `RazorPagesMovieContext` coordinates EF Core functionality (Create, Read, Update, Delete, etc.) for the `Movie` model.</span></span> <span data-ttu-id="5869a-220">数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)。</span><span class="sxs-lookup"><span data-stu-id="5869a-220">The data context (`RazorPagesMovieContext`) is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span></span> <span data-ttu-id="5869a-221">数据上下文指定数据模型中包含哪些实体。</span><span class="sxs-lookup"><span data-stu-id="5869a-221">The data context specifies which entities are included in the data model.</span></span>
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/Data/:::no-loc(Razor):::PagesMovieContext.cs)]
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
 <span data-ttu-id="5869a-222">前面的代码为实体集创建 [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) 属性。</span><span class="sxs-lookup"><span data-stu-id="5869a-222">The preceding code creates a [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set.</span></span> <span data-ttu-id="5869a-223">在实体框架术语中，实体集通常与数据表相对应。</span><span class="sxs-lookup"><span data-stu-id="5869a-223">In Entity Framework terminology, an entity set typically corresponds to a database table.</span></span> <span data-ttu-id="5869a-224">实体对应表中的行。</span><span class="sxs-lookup"><span data-stu-id="5869a-224">An entity corresponds to a row in the table.</span></span>
 
-<span data-ttu-id="5869a-225">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="5869a-225">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="5869a-226">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *:::no-loc(appsettings.json):::* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="5869a-226">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="5869a-225">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="5869a-225">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="5869a-226">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="5869a-226">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="5869a-227">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="5869a-227">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
@@ -285,7 +285,7 @@ Update-Database
 <span data-ttu-id="5869a-233">如果收到错误：</span><span class="sxs-lookup"><span data-stu-id="5869a-233">If you get the error:</span></span>
 
 ```console
-SqlException: Cannot open database ":::no-loc(Razor):::PagesMovieContext-GUID" requested by the login. The login failed.
+SqlException: Cannot open database "RazorPagesMovieContext-GUID" requested by the login. The login failed.
 Login failed for user 'User-name'.
 ```
 
@@ -306,8 +306,8 @@ Login failed for user 'User-name'.
 
 > [!div class="step-by-step"]
 > <span data-ttu-id="5869a-243">[上一篇：入门](xref:tutorials/razor-pages/razor-pages-start)
-> [下一篇：基架 :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)</span><span class="sxs-lookup"><span data-stu-id="5869a-243">[Previous: Get Started](xref:tutorials/razor-pages/razor-pages-start)
-[Next: Scaffolded :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)</span></span>
+> [下一篇：基架 Razor Pages](xref:tutorials/razor-pages/page)</span><span class="sxs-lookup"><span data-stu-id="5869a-243">[Previous: Get Started](xref:tutorials/razor-pages/razor-pages-start)
+[Next: Scaffolded Razor Pages](xref:tutorials/razor-pages/page)</span></span>
 
 ::: moniker-end
 
@@ -324,7 +324,7 @@ Login failed for user 'User-name'.
 
 # <a name="visual-studio"></a>[<span data-ttu-id="5869a-251">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="5869a-251">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="5869a-252">右键单击“:::no-loc(Razor):::PagesMovie”项目 >“添加” > “新建文件夹”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-252">Right-click the **:::no-loc(Razor):::PagesMovie** project > **Add** > **New Folder**.</span></span> <span data-ttu-id="5869a-253">将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-253">Name the folder *Models*.</span></span>
+<span data-ttu-id="5869a-252">右键单击“RazorPagesMovie”项目 >“添加” > “新建文件夹”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-252">Right-click the **RazorPagesMovie** project > **Add** > **New Folder**.</span></span> <span data-ttu-id="5869a-253">将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-253">Name the folder *Models*.</span></span>
 
 <span data-ttu-id="5869a-254">右键单击“Models”文件夹。</span><span class="sxs-lookup"><span data-stu-id="5869a-254">Right click the *Models* folder.</span></span> <span data-ttu-id="5869a-255">选择“添加” > “类” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-255">Select **Add** > **Class**.</span></span> <span data-ttu-id="5869a-256">将类命名“Movie”。</span><span class="sxs-lookup"><span data-stu-id="5869a-256">Name the class **Movie**.</span></span>
 
@@ -341,7 +341,7 @@ Login failed for user 'User-name'.
 
 # <a name="visual-studio-for-mac"></a>[<span data-ttu-id="5869a-260">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="5869a-260">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="5869a-261">在解决方案资源管理器中，右键单击“:::no-loc(Razor):::PagesMovie”项目，然后选择“添加” > “新建文件夹”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-261">In Solution Explorer, right-click the **:::no-loc(Razor):::PagesMovie** project, and then select **Add** > **New Folder**.</span></span> <span data-ttu-id="5869a-262">将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-262">Name the folder *Models*.</span></span>
+* <span data-ttu-id="5869a-261">在解决方案资源管理器中，右键单击“RazorPagesMovie”项目，然后选择“添加” > “新建文件夹”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-261">In Solution Explorer, right-click the **RazorPagesMovie** project, and then select **Add** > **New Folder**.</span></span> <span data-ttu-id="5869a-262">将文件夹命名为“Models”。</span><span class="sxs-lookup"><span data-stu-id="5869a-262">Name the folder *Models*.</span></span>
 * <span data-ttu-id="5869a-263">右键单击“Models”文件夹，然后选择“添加”>“新建文件”。</span><span class="sxs-lookup"><span data-stu-id="5869a-263">Right-click the *Models* folder, and then select **Add** > **New File**.</span></span>
 * <span data-ttu-id="5869a-264">在“新建文件”对话框中：</span><span class="sxs-lookup"><span data-stu-id="5869a-264">In the **New File** dialog:</span></span>
 
@@ -370,27 +370,27 @@ Login failed for user 'User-name'.
 
 ![上述说明的图像。](model/_static/sca.png)
 
-<span data-ttu-id="5869a-278">在“添加基架”对话框中，依次选择“使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”>“添加”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-278">In the **Add Scaffold** dialog, select **:::no-loc(Razor)::: Pages using Entity Framework (CRUD)** > **Add**.</span></span>
+<span data-ttu-id="5869a-278">在“添加基架”对话框中，依次选择“使用实体框架的 Razor 页面 (CRUD)”>“添加”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-278">In the **Add Scaffold** dialog, select **Razor Pages using Entity Framework (CRUD)** > **Add**.</span></span>
 
 ![上述说明的图像。](model/_static/add_scaffold.png)
 
-<span data-ttu-id="5869a-280">完成“添加使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-280">Complete the **Add :::no-loc(Razor)::: Pages using Entity Framework (CRUD)** dialog:</span></span>
+<span data-ttu-id="5869a-280">完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-280">Complete the **Add Razor Pages using Entity Framework (CRUD)** dialog:</span></span>
 <!-- In the next section, change 
 (plus) sign and accept the generated name 
 to use Data, it should not use models. That will make the namespace the same for the VS version and the CLI version
 -->
 
-* <span data-ttu-id="5869a-281">在“模型类”下拉列表中，选择“Movie (:::no-loc(Razor):::PagesMovie.Models)” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-281">In the **Model class** drop down, select **Movie (:::no-loc(Razor):::PagesMovie.Models)**.</span></span>
-* <span data-ttu-id="5869a-282">在“数据上下文类”行中，选择 +（加号）并接受生成的名称“:::no-loc(Razor):::PagesMovie.Models.:::no-loc(Razor):::PagesMovieContext”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-282">In the **Data context class** row, select the **+** (plus) sign and accept the generated name **:::no-loc(Razor):::PagesMovie.Models.:::no-loc(Razor):::PagesMovieContext**.</span></span>
+* <span data-ttu-id="5869a-281">在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-281">In the **Model class** drop down, select **Movie (RazorPagesMovie.Models)**.</span></span>
+* <span data-ttu-id="5869a-282">在“数据上下文类”行中，选择 +（加号）并接受生成的名称“RazorPagesMovie.Models.RazorPagesMovieContext”  。</span><span class="sxs-lookup"><span data-stu-id="5869a-282">In the **Data context class** row, select the **+** (plus) sign and accept the generated name **RazorPagesMovie.Models.RazorPagesMovieContext**.</span></span>
 * <span data-ttu-id="5869a-283">选择“添加”。</span><span class="sxs-lookup"><span data-stu-id="5869a-283">Select **Add**.</span></span>
 
 ![上述说明的图像。](model/_static/arp.png)
 
-<span data-ttu-id="5869a-285">*:::no-loc(appsettings.json):::* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-285">The *:::no-loc(appsettings.json):::* file is updated with the connection string used to connect to a local database.</span></span>
+<span data-ttu-id="5869a-285">*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-285">The *appsettings.json* file is updated with the connection string used to connect to a local database.</span></span>
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="5869a-286">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="5869a-286">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace :::no-loc(Razor):::PagesMovie.Pages_Movies rather than namespace :::no-loc(Razor):::PagesMovie.Pages.Movies
+<!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
 
 * <span data-ttu-id="5869a-287">打开项目目录（包含 Program.cs、Startup.cs 和 .csproj 文件的目录）中的命令窗口。</span><span class="sxs-lookup"><span data-stu-id="5869a-287">Open a command window in the project directory (The directory that contains the *Program.cs* , *Startup.cs* , and *.csproj* files).</span></span>
@@ -398,13 +398,13 @@ to use Data, it should not use models. That will make the namespace the same for
 * <span data-ttu-id="5869a-288">**对于 Windows** ：运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="5869a-288">**For Windows** : Run the following command:</span></span>
 
   ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Movie -dc :::no-loc(Razor):::PagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
 * <span data-ttu-id="5869a-289">**对于 macOS 和 Linux** ：运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="5869a-289">**For macOS and Linux** : Run the following command:</span></span>
 
   ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Movie -dc :::no-loc(Razor):::PagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
@@ -420,19 +420,19 @@ to use Data, it should not use models. That will make the namespace the same for
 
 ![上述说明的图像。](model/_static/scaMac.png)
 
-<span data-ttu-id="5869a-296">在“添加新基架”对话框中，依次选择“使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”>“添加”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-296">In the **Add New Scaffolding** dialog, select **:::no-loc(Razor)::: Pages using Entity Framework (CRUD)** > **Add**.</span></span>
+<span data-ttu-id="5869a-296">在“添加新基架”对话框中，依次选择“使用实体框架的 Razor 页面 (CRUD)”>“添加”。  </span><span class="sxs-lookup"><span data-stu-id="5869a-296">In the **Add New Scaffolding** dialog, select **Razor Pages using Entity Framework (CRUD)** > **Add**.</span></span>
 
 ![上述说明的图像。](model/_static/add_scaffoldMac.png)
 
-<span data-ttu-id="5869a-298">完成“添加使用实体框架的 :::no-loc(Razor)::: 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-298">Complete the **Add :::no-loc(Razor)::: Pages using Entity Framework (CRUD)** dialog:</span></span>
+<span data-ttu-id="5869a-298">完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：</span><span class="sxs-lookup"><span data-stu-id="5869a-298">Complete the **Add Razor Pages using Entity Framework (CRUD)** dialog:</span></span>
 
 * <span data-ttu-id="5869a-299">在“模型类”下拉列表中，选择或键入“Movie” 。</span><span class="sxs-lookup"><span data-stu-id="5869a-299">In the **Model class** drop down, select or type **Movie**.</span></span>
-* <span data-ttu-id="5869a-300">在“数据上下文类”行中，键入或选择“:::no-loc(Razor):::PagesMovieContext”，这将创建一个具有正确命名空间的新数据库上下文类 。</span><span class="sxs-lookup"><span data-stu-id="5869a-300">In the **Data context class** row, type select the **:::no-loc(Razor):::PagesMovieContext** this will create a new db context class with the correct namespace.</span></span> <span data-ttu-id="5869a-301">在此示例中为“:::no-loc(Razor):::PagesMovie.Models.:::no-loc(Razor):::PagesMovieContext”。</span><span class="sxs-lookup"><span data-stu-id="5869a-301">In this case it will be  **:::no-loc(Razor):::PagesMovie.Models.:::no-loc(Razor):::PagesMovieContext**.</span></span>
+* <span data-ttu-id="5869a-300">在“数据上下文类”行中，键入或选择“RazorPagesMovieContext”，这将创建一个具有正确命名空间的新数据库上下文类 。</span><span class="sxs-lookup"><span data-stu-id="5869a-300">In the **Data context class** row, type select the **RazorPagesMovieContext** this will create a new db context class with the correct namespace.</span></span> <span data-ttu-id="5869a-301">在此示例中为“RazorPagesMovie.Models.RazorPagesMovieContext”。</span><span class="sxs-lookup"><span data-stu-id="5869a-301">In this case it will be  **RazorPagesMovie.Models.RazorPagesMovieContext**.</span></span>
 * <span data-ttu-id="5869a-302">选择“添加”。</span><span class="sxs-lookup"><span data-stu-id="5869a-302">Select **Add**.</span></span>
 
 ![上述说明的图像。](model/_static/arpMac.png)
 
-<span data-ttu-id="5869a-304">*:::no-loc(appsettings.json):::* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-304">The *:::no-loc(appsettings.json):::* file is updated with the connection string used to connect to a local database.</span></span>
+<span data-ttu-id="5869a-304">*appsettings.json* 文件通过用于连接到本地数据的连接字符串进行更新。</span><span class="sxs-lookup"><span data-stu-id="5869a-304">The *appsettings.json* file is updated with the connection string used to connect to a local database.</span></span>
 
 ---
 
@@ -441,7 +441,7 @@ to use Data, it should not use models. That will make the namespace the same for
 ### <a name="files-created"></a><span data-ttu-id="5869a-306">创建的文件</span><span class="sxs-lookup"><span data-stu-id="5869a-306">Files created</span></span>
 
 * <span data-ttu-id="5869a-307">*Pages/Movies* ：“创建”、“删除”、“详细信息”、“编辑”和“索引”。</span><span class="sxs-lookup"><span data-stu-id="5869a-307">*Pages/Movies* : Create, Delete, Details, Edit, and Index.</span></span>
-* <span data-ttu-id="5869a-308">Data/:::no-loc(Razor):::PagesMovieContext.cs</span><span class="sxs-lookup"><span data-stu-id="5869a-308">*Data/:::no-loc(Razor):::PagesMovieContext.cs*</span></span>
+* <span data-ttu-id="5869a-308">Data/RazorPagesMovieContext.cs</span><span class="sxs-lookup"><span data-stu-id="5869a-308">*Data/RazorPagesMovieContext.cs*</span></span>
 
 ### <a name="file-updated"></a><span data-ttu-id="5869a-309">文件已更新</span><span class="sxs-lookup"><span data-stu-id="5869a-309">File updated</span></span>
 
@@ -471,7 +471,7 @@ Add-Migration Initial
 Update-Database
 ```
 
-<span data-ttu-id="5869a-320">`Add-Migration` 命令生成用于创建初始数据库架构的代码。</span><span class="sxs-lookup"><span data-stu-id="5869a-320">The `Add-Migration` command generates code to create the initial database schema.</span></span> <span data-ttu-id="5869a-321">此架构的依据为 `DbContext` 中指定的模型（在 :::no-loc(Razor):::PagesMovieContext.cs 文件中）。</span><span class="sxs-lookup"><span data-stu-id="5869a-321">The schema is based on the model specified in the `DbContext` (In the *:::no-loc(Razor):::PagesMovieContext.cs* file).</span></span> <span data-ttu-id="5869a-322">`InitialCreate` 参数用于为迁移命名。</span><span class="sxs-lookup"><span data-stu-id="5869a-322">The `InitialCreate` argument is used to name the migration.</span></span> <span data-ttu-id="5869a-323">可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。</span><span class="sxs-lookup"><span data-stu-id="5869a-323">Any name can be used, but by convention a name that describes the migration is used.</span></span> <span data-ttu-id="5869a-324">有关详细信息，请参阅 <xref:data/ef-mvc/migrations>。</span><span class="sxs-lookup"><span data-stu-id="5869a-324">For more information, see <xref:data/ef-mvc/migrations>.</span></span>
+<span data-ttu-id="5869a-320">`Add-Migration` 命令生成用于创建初始数据库架构的代码。</span><span class="sxs-lookup"><span data-stu-id="5869a-320">The `Add-Migration` command generates code to create the initial database schema.</span></span> <span data-ttu-id="5869a-321">此架构的依据为 `DbContext` 中指定的模型（在 RazorPagesMovieContext.cs 文件中）。</span><span class="sxs-lookup"><span data-stu-id="5869a-321">The schema is based on the model specified in the `DbContext` (In the *RazorPagesMovieContext.cs* file).</span></span> <span data-ttu-id="5869a-322">`InitialCreate` 参数用于为迁移命名。</span><span class="sxs-lookup"><span data-stu-id="5869a-322">The `InitialCreate` argument is used to name the migration.</span></span> <span data-ttu-id="5869a-323">可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。</span><span class="sxs-lookup"><span data-stu-id="5869a-323">Any name can be used, but by convention a name that describes the migration is used.</span></span> <span data-ttu-id="5869a-324">有关详细信息，请参阅 <xref:data/ef-mvc/migrations>。</span><span class="sxs-lookup"><span data-stu-id="5869a-324">For more information, see <xref:data/ef-mvc/migrations>.</span></span>
 
 <span data-ttu-id="5869a-325">`Update-Database` 命令在 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法。</span><span class="sxs-lookup"><span data-stu-id="5869a-325">The `Update-Database` command runs the `Up` method in the *Migrations/\<time-stamp>_InitialCreate.cs* file.</span></span> <span data-ttu-id="5869a-326">`Up` 方法会创建数据库。</span><span class="sxs-lookup"><span data-stu-id="5869a-326">The `Up` method creates the database.</span></span>
 
@@ -491,21 +491,21 @@ Update-Database
 
 ### <a name="examine-the-context-registered-with-dependency-injection"></a><span data-ttu-id="5869a-331">检查通过依赖关系注入注册的上下文</span><span class="sxs-lookup"><span data-stu-id="5869a-331">Examine the context registered with dependency injection</span></span>
 
-<span data-ttu-id="5869a-332">ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)进行生成。</span><span class="sxs-lookup"><span data-stu-id="5869a-332">ASP.NET Core is built with [dependency injection](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="5869a-333">服务（例如 EF Core 数据库上下文）在应用程序启动期间通过依赖关系注入进行注册。</span><span class="sxs-lookup"><span data-stu-id="5869a-333">Services (such as the EF Core DB context) are registered with dependency injection during application startup.</span></span> <span data-ttu-id="5869a-334">需要这些服务（如 :::no-loc(Razor)::: 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="5869a-334">Components that require these services (such as :::no-loc(Razor)::: Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="5869a-335">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="5869a-335">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
+<span data-ttu-id="5869a-332">ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)进行生成。</span><span class="sxs-lookup"><span data-stu-id="5869a-332">ASP.NET Core is built with [dependency injection](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="5869a-333">服务（例如 EF Core 数据库上下文）在应用程序启动期间通过依赖关系注入进行注册。</span><span class="sxs-lookup"><span data-stu-id="5869a-333">Services (such as the EF Core DB context) are registered with dependency injection during application startup.</span></span> <span data-ttu-id="5869a-334">需要这些服务（如 Razor 页面）的组件通过构造函数参数提供相应服务。</span><span class="sxs-lookup"><span data-stu-id="5869a-334">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="5869a-335">本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。</span><span class="sxs-lookup"><span data-stu-id="5869a-335">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
 
 <span data-ttu-id="5869a-336">基架工具自动创建 DB 上下文并将其注册到依赖关系注入容器。</span><span class="sxs-lookup"><span data-stu-id="5869a-336">The scaffolding tool automatically created a DB context and registered it with the dependency injection container.</span></span>
 
 <span data-ttu-id="5869a-337">检查 `Startup.ConfigureServices` 方法。</span><span class="sxs-lookup"><span data-stu-id="5869a-337">Examine the `Startup.ConfigureServices` method.</span></span> <span data-ttu-id="5869a-338">基架添加了突出显示的行：</span><span class="sxs-lookup"><span data-stu-id="5869a-338">The highlighted line was added by the scaffolder:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-<span data-ttu-id="5869a-339">`:::no-loc(Razor):::PagesMovieContext` 为 `Movie` 模型协调 EF Core 功能（创建、读取、更新、删除等）。</span><span class="sxs-lookup"><span data-stu-id="5869a-339">The `:::no-loc(Razor):::PagesMovieContext` coordinates EF Core functionality (Create, Read, Update, Delete, etc.) for the `Movie` model.</span></span> <span data-ttu-id="5869a-340">数据上下文 (`:::no-loc(Razor):::PagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)。</span><span class="sxs-lookup"><span data-stu-id="5869a-340">The data context (`:::no-loc(Razor):::PagesMovieContext`) is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span></span> <span data-ttu-id="5869a-341">数据上下文指定数据模型中包含哪些实体。</span><span class="sxs-lookup"><span data-stu-id="5869a-341">The data context specifies which entities are included in the data model.</span></span>
+<span data-ttu-id="5869a-339">`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能（创建、读取、更新、删除等）。</span><span class="sxs-lookup"><span data-stu-id="5869a-339">The `RazorPagesMovieContext` coordinates EF Core functionality (Create, Read, Update, Delete, etc.) for the `Movie` model.</span></span> <span data-ttu-id="5869a-340">数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)。</span><span class="sxs-lookup"><span data-stu-id="5869a-340">The data context (`RazorPagesMovieContext`) is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span></span> <span data-ttu-id="5869a-341">数据上下文指定数据模型中包含哪些实体。</span><span class="sxs-lookup"><span data-stu-id="5869a-341">The data context specifies which entities are included in the data model.</span></span>
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/:::no-loc(Razor):::PagesMovie22/Data/:::no-loc(Razor):::PagesMovieContext.cs)]
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
 <span data-ttu-id="5869a-342">前面的代码为实体集创建 [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) 属性。</span><span class="sxs-lookup"><span data-stu-id="5869a-342">The preceding code creates a [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set.</span></span> <span data-ttu-id="5869a-343">在实体框架术语中，实体集通常与数据表相对应。</span><span class="sxs-lookup"><span data-stu-id="5869a-343">In Entity Framework terminology, an entity set typically corresponds to a database table.</span></span> <span data-ttu-id="5869a-344">实体对应表中的行。</span><span class="sxs-lookup"><span data-stu-id="5869a-344">An entity corresponds to a row in the table.</span></span>
 
-<span data-ttu-id="5869a-345">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="5869a-345">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="5869a-346">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *:::no-loc(appsettings.json):::* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="5869a-346">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *:::no-loc(appsettings.json):::* file.</span></span>
+<span data-ttu-id="5869a-345">通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。</span><span class="sxs-lookup"><span data-stu-id="5869a-345">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="5869a-346">进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。</span><span class="sxs-lookup"><span data-stu-id="5869a-346">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
 # <a name="visual-studio-code"></a>[<span data-ttu-id="5869a-347">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="5869a-347">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
@@ -526,7 +526,7 @@ Update-Database
 <span data-ttu-id="5869a-353">如果收到错误：</span><span class="sxs-lookup"><span data-stu-id="5869a-353">If you get the error:</span></span>
 
 ```console
-SqlException: Cannot open database ":::no-loc(Razor):::PagesMovieContext-GUID" requested by the login. The login failed.
+SqlException: Cannot open database "RazorPagesMovieContext-GUID" requested by the login. The login failed.
 Login failed for user 'User-name'.
 ```
 
@@ -547,7 +547,7 @@ Login failed for user 'User-name'.
 
 > [!div class="step-by-step"]
 > <span data-ttu-id="5869a-363">[上一篇：入门](xref:tutorials/razor-pages/razor-pages-start)
-> [下一篇：基架 :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)</span><span class="sxs-lookup"><span data-stu-id="5869a-363">[Previous: Get Started](xref:tutorials/razor-pages/razor-pages-start)
-[Next: Scaffolded :::no-loc(Razor)::: Pages](xref:tutorials/razor-pages/page)</span></span>
+> [下一篇：基架 Razor Pages](xref:tutorials/razor-pages/page)</span><span class="sxs-lookup"><span data-stu-id="5869a-363">[Previous: Get Started](xref:tutorials/razor-pages/razor-pages-start)
+[Next: Scaffolded Razor Pages](xref:tutorials/razor-pages/page)</span></span>
 
 ::: moniker-end
