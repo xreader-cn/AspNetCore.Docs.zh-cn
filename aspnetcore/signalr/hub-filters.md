@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hub-filters
-ms.openlocfilehash: 5a4cb5122080b72875ac11cf2e682162d017d7b9
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 9b131d8ec13204525f39263afaf506e336373a7c
+ms.sourcegitcommit: 827e8be18cebbcc09b467c089e17fa6f5e430cb2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052716"
+ms.lasthandoff: 11/15/2020
+ms.locfileid: "94634569"
 ---
 # <a name="use-hub-filters-in-aspnet-core-no-locsignalr"></a>在 ASP.NET Core 中使用集线器筛选器 SignalR
 
@@ -99,8 +99,8 @@ public class CustomFilter : IHubFilter
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Exception calling '{invocationContext.HubMethodName}'");
-            throw ex;
+            Console.WriteLine($"Exception calling '{invocationContext.HubMethodName}': {ex}");
+            throw;
         }
     }
 
@@ -197,7 +197,7 @@ public class CustomFilter : IHubFilter
 
 `HubInvocationContext`包含当前集线器方法调用的信息。
 
-| 属性 | 说明 | 类型 |
+| Property | 说明 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |
@@ -210,7 +210,7 @@ public class CustomFilter : IHubFilter
 
 `HubLifetimeContext`包含 `OnConnectedAsync` 和集线器方法的信息 `OnDisconnectedAsync` 。
 
-| 属性 | 说明 | 类型 |
+| Property | 说明 | 类型 |
 | ------ | ------ | ----------- |
 | `Context ` | `HubCallerContext`包含有关连接的信息。 | `HubCallerContext` |
 | `Hub` | 正在用于此集线器方法调用的集线器的实例。 | `Hub` |
