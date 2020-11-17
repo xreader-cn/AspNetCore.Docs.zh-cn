@@ -1,266 +1,440 @@
 ---
-title: '第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面'
+title: 第 7 部分，添加新字段
 author: rick-anderson
-description: 'Razor 页面教程系列第 7 部分。'
+description: Razor 页面教程系列第 7 部分。
 ms.author: riande
 ms.custom: mvc
-ms.date: 7/23/2019
+ms.date: 09/28/2020
 no-loc:
-- 'appsettings.json'
-- 'ASP.NET Core Identity'
-- 'cookie'
-- 'Cookie'
-- 'Blazor'
-- 'Blazor Server'
-- 'Blazor WebAssembly'
-- 'Identity'
-- "Let's Encrypt"
-- 'Razor'
-- 'SignalR'
+- Index
+- Create
+- Delete
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 951a8ada57ae523f362313426c0279556eb8339b
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 2dca5a9552dd2800212f8cd78ace0578b3d38cdb
+ms.sourcegitcommit: 342588e10ae0054a6d6dc0fd11dae481006be099
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93050610"
+ms.lasthandoff: 11/07/2020
+ms.locfileid: "94360874"
 ---
-# <a name="part-7-add-a-new-field-to-a-no-locrazor-page-in-aspnet-core"></a><span data-ttu-id="97894-103">第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面</span><span class="sxs-lookup"><span data-stu-id="97894-103">Part 7, add a new field to a Razor Page in ASP.NET Core</span></span>
+# <a name="part-7-add-a-new-field-to-a-no-locrazor-page-in-aspnet-core"></a><span data-ttu-id="76b0e-103">第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面</span><span class="sxs-lookup"><span data-stu-id="76b0e-103">Part 7, add a new field to a Razor Page in ASP.NET Core</span></span>
 
-<span data-ttu-id="97894-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="97894-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="76b0e-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="76b0e-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-::: moniker range=">= aspnetcore-3.0"
+::: moniker range=">= aspnetcore-5.0"
 
-[!INCLUDE[](~/includes/rp/download.md)]
+<span data-ttu-id="76b0e-105">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="76b0e-105">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="97894-105">在此部分中，[Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First 迁移用于：</span><span class="sxs-lookup"><span data-stu-id="97894-105">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
+<span data-ttu-id="76b0e-106">在此部分中，[Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First 迁移用于：</span><span class="sxs-lookup"><span data-stu-id="76b0e-106">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
 
-* <span data-ttu-id="97894-106">将新字段添加到模型。</span><span class="sxs-lookup"><span data-stu-id="97894-106">Add a new field to the model.</span></span>
-* <span data-ttu-id="97894-107">将新字段架构更改迁移到数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-107">Migrate the new field schema change to the database.</span></span>
+* <span data-ttu-id="76b0e-107">将新字段添加到模型。</span><span class="sxs-lookup"><span data-stu-id="76b0e-107">Add a new field to the model.</span></span>
+* <span data-ttu-id="76b0e-108">将新字段架构更改迁移到数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-108">Migrate the new field schema change to the database.</span></span>
 
-<span data-ttu-id="97894-108">使用 EF Code First 自动创建数据库时，Code First 将：</span><span class="sxs-lookup"><span data-stu-id="97894-108">When using EF Code First to automatically create a database, Code First:</span></span>
+<span data-ttu-id="76b0e-109">使用 EF Code First 自动创建数据库时，Code First 将：</span><span class="sxs-lookup"><span data-stu-id="76b0e-109">When using EF Code First to automatically create a database, Code First:</span></span>
 
-* <span data-ttu-id="97894-109">向数据库添加 `__EFMigrationsHistory` 表格，以跟踪数据库的架构是否与从生成它的模型类同步。</span><span class="sxs-lookup"><span data-stu-id="97894-109">Adds an `__EFMigrationsHistory` table to the database to track whether the schema of the database is in sync with the model classes it was generated from.</span></span>
-* <span data-ttu-id="97894-110">如果该模型类未与数据库同步，EF 将引发异常。</span><span class="sxs-lookup"><span data-stu-id="97894-110">If the model classes aren't in sync with the DB, EF throws an exception.</span></span>
+* <span data-ttu-id="76b0e-110">向数据库添加 [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。</span><span class="sxs-lookup"><span data-stu-id="76b0e-110">Adds an [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) table to the database to track whether the schema of the database is in sync with the model classes it was generated from.</span></span>
+* <span data-ttu-id="76b0e-111">如果该模型类未与数据库同步，EF 将引发异常。</span><span class="sxs-lookup"><span data-stu-id="76b0e-111">If the model classes aren't in sync with the database, EF throws an exception.</span></span>
 
-<span data-ttu-id="97894-111">通过自动验证同步的架构/模型可以更容易地发现不一致的数据库/代码问题。</span><span class="sxs-lookup"><span data-stu-id="97894-111">Automatic verification of schema/model in sync makes it easier to find inconsistent database/code issues.</span></span>
+<span data-ttu-id="76b0e-112">自动验证架构与模型是否同步可以更容易地发现不一致的数据库代码问题。</span><span class="sxs-lookup"><span data-stu-id="76b0e-112">Automatic verification that the schema and model are in sync makes it easier to find inconsistent database code issues.</span></span>
 
-## <a name="adding-a-rating-property-to-the-movie-model"></a><span data-ttu-id="97894-112">向电影模型添加分级属性</span><span class="sxs-lookup"><span data-stu-id="97894-112">Adding a Rating Property to the Movie Model</span></span>
+## <a name="adding-a-rating-property-to-the-movie-model"></a><span data-ttu-id="76b0e-113">向电影模型添加分级属性</span><span class="sxs-lookup"><span data-stu-id="76b0e-113">Adding a Rating Property to the Movie Model</span></span>
 
-<span data-ttu-id="97894-113">打开 Models/Movie.cs 文件，并添加 `Rating` 属性：</span><span class="sxs-lookup"><span data-stu-id="97894-113">Open the *Models/Movie.cs* file and add a `Rating` property:</span></span>
+1. <span data-ttu-id="76b0e-114">打开 Models/Movie.cs 文件，并添加 `Rating` 属性：</span><span class="sxs-lookup"><span data-stu-id="76b0e-114">Open the *Models/Movie.cs* file and add a `Rating` property:</span></span>
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRating.cs?highlight=13&name=snippet)]
+   [!code-csharp[](razor-pages-start/sample/RazorPagesMovie50/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
-<span data-ttu-id="97894-114">构建应用程序。</span><span class="sxs-lookup"><span data-stu-id="97894-114">Build the app.</span></span>
+1. <span data-ttu-id="76b0e-115">构建应用程序。</span><span class="sxs-lookup"><span data-stu-id="76b0e-115">Build the app.</span></span>
 
-<span data-ttu-id="97894-115">编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：</span><span class="sxs-lookup"><span data-stu-id="97894-115">Edit *Pages/Movies/Index.cshtml* , and add a `Rating` field:</span></span>
+1. <span data-ttu-id="76b0e-116">编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：</span><span class="sxs-lookup"><span data-stu-id="76b0e-116">Edit *Pages/Movies/Index.cshtml*, and add a `Rating` field:</span></span>
 
-<a name="addrat"></a>
+   <a name="addrat"></a>
 
-[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/SnapShots/IndexRating.cshtml?highlight=40-42,62-64)]
+   [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie50/SnapShots/IndexRating.cshtml?highlight=40-42,62-64)]
 
-<span data-ttu-id="97894-116">更新以下页面：</span><span class="sxs-lookup"><span data-stu-id="97894-116">Update the following pages:</span></span>
+1. <span data-ttu-id="76b0e-117">更新以下页面：</span><span class="sxs-lookup"><span data-stu-id="76b0e-117">Update the following pages:</span></span>
+   1. <span data-ttu-id="76b0e-118">将 `Rating` 字段添加到“Delete”和“详细信息”页面。</span><span class="sxs-lookup"><span data-stu-id="76b0e-118">Add the `Rating` field to the Delete and Details pages.</span></span>
+   1. <span data-ttu-id="76b0e-119">使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Pages/Movies/Create.cshtml)。</span><span class="sxs-lookup"><span data-stu-id="76b0e-119">Update [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Pages/Movies/Create.cshtml) with a `Rating` field.</span></span>
+   1. <span data-ttu-id="76b0e-120">将 `Rating` 字段添加到“编辑”页面。</span><span class="sxs-lookup"><span data-stu-id="76b0e-120">Add the `Rating` field to the Edit Page.</span></span>
 
-* <span data-ttu-id="97894-117">将 `Rating` 字段添加到“删除”和“详细信息”页面。</span><span class="sxs-lookup"><span data-stu-id="97894-117">Add the `Rating` field to the Delete and Details pages.</span></span>
-* <span data-ttu-id="97894-118">使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)。</span><span class="sxs-lookup"><span data-stu-id="97894-118">Update [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) with a `Rating` field.</span></span>
-* <span data-ttu-id="97894-119">将 `Rating` 字段添加到“编辑”页面。</span><span class="sxs-lookup"><span data-stu-id="97894-119">Add the `Rating` field to the Edit Page.</span></span>
-
-<span data-ttu-id="97894-120">在 DB 更新为包括新字段之前，应用将不会正常工作。</span><span class="sxs-lookup"><span data-stu-id="97894-120">The app won't work until the DB is updated to include the new field.</span></span> <span data-ttu-id="97894-121">在不更新数据库的情况下运行应用会引发 `SqlException`：</span><span class="sxs-lookup"><span data-stu-id="97894-121">Running the app without updating the database throws a `SqlException`:</span></span>
+<span data-ttu-id="76b0e-121">在数据库更新为包括新字段之前，应用将不会正常工作。</span><span class="sxs-lookup"><span data-stu-id="76b0e-121">The app won't work until the database is updated to include the new field.</span></span> <span data-ttu-id="76b0e-122">在不更新数据库的情况下运行应用会引发 `SqlException`：</span><span class="sxs-lookup"><span data-stu-id="76b0e-122">Running the app without an update to the database throws a `SqlException`:</span></span>
 
 `SqlException: Invalid column name 'Rating'.`
 
-<span data-ttu-id="97894-122">`SqlException` 异常是由于更新的 Movie 模型类与数据库的 Movie 表架构不同导致的。</span><span class="sxs-lookup"><span data-stu-id="97894-122">The `SqlException` exception is caused by the updated Movie model class being different than the schema of the Movie table of the database.</span></span> <span data-ttu-id="97894-123">（数据库表中没有 `Rating` 列。）</span><span class="sxs-lookup"><span data-stu-id="97894-123">(There's no `Rating` column in the database table.)</span></span>
+<span data-ttu-id="76b0e-123">`SqlException` 异常是由于更新的 Movie 模型类与数据库的 Movie 表架构不同导致的。</span><span class="sxs-lookup"><span data-stu-id="76b0e-123">The `SqlException` exception is caused by the updated Movie model class being different than the schema of the Movie table of the database.</span></span> <span data-ttu-id="76b0e-124">数据库表中没有 `Rating` 列。</span><span class="sxs-lookup"><span data-stu-id="76b0e-124">There's no `Rating` column in the database table.</span></span>
 
-<span data-ttu-id="97894-124">可通过几种方法解决此错误：</span><span class="sxs-lookup"><span data-stu-id="97894-124">There are a few approaches to resolving the error:</span></span>
+<span data-ttu-id="76b0e-125">可通过几种方法解决此错误：</span><span class="sxs-lookup"><span data-stu-id="76b0e-125">There are a few approaches to resolving the error:</span></span>
 
-1. <span data-ttu-id="97894-125">让 Entity Framework 自动丢弃并使用新的模型类架构重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-125">Have the Entity Framework automatically drop and re-create the database using the new model class schema.</span></span> <span data-ttu-id="97894-126">此方法在开发周期早期很方便；通过它可以一起快速改进模型和数据库架构。</span><span class="sxs-lookup"><span data-stu-id="97894-126">This approach is convenient early in the development cycle; it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="97894-127">此方法的缺点是会导致数据库中的现有数据丢失。</span><span class="sxs-lookup"><span data-stu-id="97894-127">The downside is that you lose existing data in the database.</span></span> <span data-ttu-id="97894-128">请勿对生产数据库使用此方法！</span><span class="sxs-lookup"><span data-stu-id="97894-128">Don't use this approach on a production database!</span></span> <span data-ttu-id="97894-129">当架构更改时丢弃数据库并使用初始值设定项以使用测试数据自动设定数据库种子，这通常是开发应用的有效方式。</span><span class="sxs-lookup"><span data-stu-id="97894-129">Dropping the DB on schema changes and using an initializer to automatically seed the database with test data is often a productive way to develop an app.</span></span>
+1. <span data-ttu-id="76b0e-126">让 Entity Framework 自动丢弃并使用新的模型类架构重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-126">Have the Entity Framework automatically drop and re-create the database using the new model class schema.</span></span> <span data-ttu-id="76b0e-127">此方法在开发周期早期很方便，通过该方法可以一起快速改进模型和数据库架构。</span><span class="sxs-lookup"><span data-stu-id="76b0e-127">This approach is convenient early in the development cycle, it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="76b0e-128">此方法的缺点是会导致数据库中的现有数据丢失。</span><span class="sxs-lookup"><span data-stu-id="76b0e-128">The downside is that you lose existing data in the database.</span></span> <span data-ttu-id="76b0e-129">请勿对生产数据库使用此方法！</span><span class="sxs-lookup"><span data-stu-id="76b0e-129">Don't use this approach on a production database!</span></span> <span data-ttu-id="76b0e-130">在架构更改时丢弃数据库，并使用初始化表达式通过测试数据自动设定数据库种子，这通常是开发应用的有效方式。</span><span class="sxs-lookup"><span data-stu-id="76b0e-130">Dropping the database on schema changes and using an initializer to automatically seed the database with test data is often a productive way to develop an app.</span></span>
 
-2. <span data-ttu-id="97894-130">对现有数据库架构进行显式修改，使它与模型类相匹配。</span><span class="sxs-lookup"><span data-stu-id="97894-130">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="97894-131">此方法的优点是可以保留数据。</span><span class="sxs-lookup"><span data-stu-id="97894-131">The advantage of this approach is that you keep your data.</span></span> <span data-ttu-id="97894-132">可以手动或通过创建数据库更改脚本进行此更改。</span><span class="sxs-lookup"><span data-stu-id="97894-132">You can make this change either manually or by creating a database change script.</span></span>
+2. <span data-ttu-id="76b0e-131">对现有数据库架构进行显式修改，使它与模型类相匹配。</span><span class="sxs-lookup"><span data-stu-id="76b0e-131">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="76b0e-132">此方法的优点是可以保留数据。</span><span class="sxs-lookup"><span data-stu-id="76b0e-132">The advantage of this approach is to keep the data.</span></span> <span data-ttu-id="76b0e-133">可以手动或通过创建数据库更改脚本进行此更改。</span><span class="sxs-lookup"><span data-stu-id="76b0e-133">Make this change either manually or by creating a database change script.</span></span>
 
-3. <span data-ttu-id="97894-133">使用 Code First 迁移更新数据库架构。</span><span class="sxs-lookup"><span data-stu-id="97894-133">Use Code First Migrations to update the database schema.</span></span>
+3. <span data-ttu-id="76b0e-134">使用 Code First 迁移更新数据库架构。</span><span class="sxs-lookup"><span data-stu-id="76b0e-134">Use Code First Migrations to update the database schema.</span></span>
 
-<span data-ttu-id="97894-134">对于本教程，请使用 Code First 迁移。</span><span class="sxs-lookup"><span data-stu-id="97894-134">For this tutorial, use Code First Migrations.</span></span>
+<span data-ttu-id="76b0e-135">对于本教程，请使用 Code First 迁移。</span><span class="sxs-lookup"><span data-stu-id="76b0e-135">For this tutorial, use Code First Migrations.</span></span>
 
-<span data-ttu-id="97894-135">更新 `SeedData` 类，使它提供新列的值。</span><span class="sxs-lookup"><span data-stu-id="97894-135">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="97894-136">示例更改如下所示，但可能需要对每个 `new Movie` 块做出此更改。</span><span class="sxs-lookup"><span data-stu-id="97894-136">A sample change is shown below, but you'll want to make this change for each `new Movie` block.</span></span>
+<span data-ttu-id="76b0e-136">更新 `SeedData` 类，使它提供新列的值。</span><span class="sxs-lookup"><span data-stu-id="76b0e-136">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="76b0e-137">示例更改如下所示，但对每个 `new Movie` 块做出此更改。</span><span class="sxs-lookup"><span data-stu-id="76b0e-137">A sample change is shown below, but make this change for each `new Movie` block.</span></span>
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie50/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-<span data-ttu-id="97894-137">请参阅[已完成的 SeedData.cs 文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs)。</span><span class="sxs-lookup"><span data-stu-id="97894-137">See the [completed SeedData.cs file](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs).</span></span>
+<span data-ttu-id="76b0e-138">请参阅[已完成的 SeedData.cs 文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Models/SeedDataRating.cs)。</span><span class="sxs-lookup"><span data-stu-id="76b0e-138">See the [completed SeedData.cs file](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Models/SeedDataRating.cs).</span></span>
 
-<span data-ttu-id="97894-138">生成解决方案。</span><span class="sxs-lookup"><span data-stu-id="97894-138">Build the solution.</span></span>
+<span data-ttu-id="76b0e-139">生成解决方案。</span><span class="sxs-lookup"><span data-stu-id="76b0e-139">Build the solution.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="97894-139">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="97894-139">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="76b0e-140">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="76b0e-140">Visual Studio</span></span>](#tab/visual-studio)
 
 <a name="pmc"></a>
 
-### <a name="add-a-migration-for-the-rating-field"></a><span data-ttu-id="97894-140">添加用于评级字段的迁移</span><span class="sxs-lookup"><span data-stu-id="97894-140">Add a migration for the rating field</span></span>
+### <a name="add-a-migration-for-the-rating-field"></a><span data-ttu-id="76b0e-141">添加用于评级字段的迁移</span><span class="sxs-lookup"><span data-stu-id="76b0e-141">Add a migration for the rating field</span></span>
 
-<span data-ttu-id="97894-141">从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 </span><span class="sxs-lookup"><span data-stu-id="97894-141">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
-<span data-ttu-id="97894-142">在 PMC 中，输入以下命令：</span><span class="sxs-lookup"><span data-stu-id="97894-142">In the PMC, enter the following commands:</span></span>
+1. <span data-ttu-id="76b0e-142">从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 </span><span class="sxs-lookup"><span data-stu-id="76b0e-142">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
+2. <span data-ttu-id="76b0e-143">在 PMC 中，输入以下命令：</span><span class="sxs-lookup"><span data-stu-id="76b0e-143">In the PMC, enter the following commands:</span></span>
 
-```powershell
-Add-Migration Rating
-Update-Database
-```
+   ```powershell
+   Add-Migration Rating
+   Update-Database
+   ```
 
-<span data-ttu-id="97894-143">`Add-Migration` 命令会通知框架执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="97894-143">The `Add-Migration` command tells the framework to:</span></span>
+<span data-ttu-id="76b0e-144">`Add-Migration` 命令会通知框架执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="76b0e-144">The `Add-Migration` command tells the framework to:</span></span>
 
-* <span data-ttu-id="97894-144">将 `Movie` 模型与 `Movie` DB 架构进行比较。</span><span class="sxs-lookup"><span data-stu-id="97894-144">Compare the `Movie` model with the `Movie` DB schema.</span></span>
-* <span data-ttu-id="97894-145">创建代码以将 DB 架构迁移到新模型。</span><span class="sxs-lookup"><span data-stu-id="97894-145">Create code to migrate the DB schema to the new model.</span></span>
+* <span data-ttu-id="76b0e-145">将 `Movie` 模型与 `Movie` 数据库架构进行比较。</span><span class="sxs-lookup"><span data-stu-id="76b0e-145">Compare the `Movie` model with the `Movie` database schema.</span></span>
+* <span data-ttu-id="76b0e-146">Create代码以将数据库架构迁移到新模型。</span><span class="sxs-lookup"><span data-stu-id="76b0e-146">Create code to migrate the database schema to the new model.</span></span>
 
-<span data-ttu-id="97894-146">名称“Rating”是任意的，用于对迁移文件进行命名。</span><span class="sxs-lookup"><span data-stu-id="97894-146">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="97894-147">为迁移文件使用有意义的名称是有帮助的。</span><span class="sxs-lookup"><span data-stu-id="97894-147">It's helpful to use a meaningful name for the migration file.</span></span>
+<span data-ttu-id="76b0e-147">名称“Rating”是任意的，用于对迁移文件进行命名。</span><span class="sxs-lookup"><span data-stu-id="76b0e-147">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="76b0e-148">为迁移文件使用有意义的名称是有帮助的。</span><span class="sxs-lookup"><span data-stu-id="76b0e-148">It's helpful to use a meaningful name for the migration file.</span></span>
 
-<span data-ttu-id="97894-148">`Update-Database` 命令指示框架将架构更改应用到数据库并保留现有数据。</span><span class="sxs-lookup"><span data-stu-id="97894-148">The `Update-Database` command tells the framework to apply the schema changes to the database and to preserve existing data.</span></span>
+<span data-ttu-id="76b0e-149">`Update-Database` 命令指示框架将架构更改应用到数据库并保留现有数据。</span><span class="sxs-lookup"><span data-stu-id="76b0e-149">The `Update-Database` command tells the framework to apply the schema changes to the database and to preserve existing data.</span></span>
 
 <a name="ssox"></a>
 
-<span data-ttu-id="97894-149">如果删除 DB 中的所有记录，种子初始值设定项会设定 DB 种子，并将包括 `Rating` 字段。</span><span class="sxs-lookup"><span data-stu-id="97894-149">If you delete all the records in the DB, the initializer will seed the DB and include the `Rating` field.</span></span> <span data-ttu-id="97894-150">可以使用浏览器中的删除链接，也可以从 [Sql Server 对象资源管理器](xref:tutorials/razor-pages/sql#ssox) (SSOX) 执行此操作。</span><span class="sxs-lookup"><span data-stu-id="97894-150">You can do this with the delete links in the browser or from [Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span></span>
+<span data-ttu-id="76b0e-150">如果删除数据库中的所有记录，初始化表达式会设定数据库种子，并将包括 `Rating` 字段。</span><span class="sxs-lookup"><span data-stu-id="76b0e-150">If you delete all the records in the database, the initializer will seed the database and include the `Rating` field.</span></span> <span data-ttu-id="76b0e-151">可以使用浏览器中的删除链接，也可以从 [Sql Server 对象资源管理器](xref:tutorials/razor-pages/sql#ssox) (SSOX) 执行此操作。</span><span class="sxs-lookup"><span data-stu-id="76b0e-151">You can do this with the delete links in the browser or from [Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span></span>
 
-<span data-ttu-id="97894-151">另一个方案是删除数据库，并使用迁移来重新创建该数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-151">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="97894-152">删除 SSOX 中的数据库：</span><span class="sxs-lookup"><span data-stu-id="97894-152">To delete the database in SSOX:</span></span>
+<span data-ttu-id="76b0e-152">另一个方案是删除数据库，并使用迁移来重新创建该数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-152">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="76b0e-153">删除 SSOX 中的数据库：</span><span class="sxs-lookup"><span data-stu-id="76b0e-153">To delete the database in SSOX:</span></span>
 
-* <span data-ttu-id="97894-153">在 SSOX 中选择数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-153">Select the database in SSOX.</span></span>
-* <span data-ttu-id="97894-154">右键单击数据库，并选择“删除”。</span><span class="sxs-lookup"><span data-stu-id="97894-154">Right click on the database, and select *Delete*.</span></span>
-* <span data-ttu-id="97894-155">检查“关闭现有连接”。</span><span class="sxs-lookup"><span data-stu-id="97894-155">Check **Close existing connections**.</span></span>
-* <span data-ttu-id="97894-156">选择“确定”  。</span><span class="sxs-lookup"><span data-stu-id="97894-156">Select **OK**.</span></span>
-* <span data-ttu-id="97894-157">在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：</span><span class="sxs-lookup"><span data-stu-id="97894-157">In the [PMC](xref:tutorials/razor-pages/new-field#pmc), update the database:</span></span>
+1. <span data-ttu-id="76b0e-154">在 SSOX 中选择数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-154">Select the database in SSOX.</span></span>
+1. <span data-ttu-id="76b0e-155">右键单击数据库，并选择“Delete”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-155">Right-click on the database, and select **Delete**.</span></span>
+1. <span data-ttu-id="76b0e-156">检查“关闭现有连接”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-156">Check **Close existing connections**.</span></span>
+1. <span data-ttu-id="76b0e-157">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-157">Select **OK**.</span></span>
+1. <span data-ttu-id="76b0e-158">在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：</span><span class="sxs-lookup"><span data-stu-id="76b0e-158">In the [PMC](xref:tutorials/razor-pages/new-field#pmc), update the database:</span></span>
+
+   ```powershell
+   Update-Database
+   ```
+
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="76b0e-159">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="76b0e-159">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+
+### <a name="drop-and-re-create-the-database"></a><span data-ttu-id="76b0e-160">删除并重新创建数据库</span><span class="sxs-lookup"><span data-stu-id="76b0e-160">Drop and re-create the database</span></span>
+
+> [!NOTE]
+> <span data-ttu-id="76b0e-161">在本教程中，使用 Entity Framework Core 迁移功能（若可行）。</span><span class="sxs-lookup"><span data-stu-id="76b0e-161">For this tutorial, you use the Entity Framework Core *migrations* feature where possible.</span></span> <span data-ttu-id="76b0e-162">迁移会更新数据库架构，使其与数据模型中的更改相匹配。</span><span class="sxs-lookup"><span data-stu-id="76b0e-162">Migrations updates the database schema to match changes in the data model.</span></span> <span data-ttu-id="76b0e-163">但是，迁移仅能执行 EF Core 提供程序所支持的更改类型，且 SQLite 提供程序的功能将受限。</span><span class="sxs-lookup"><span data-stu-id="76b0e-163">However, migrations can only do the kinds of changes that the EF Core provider supports, and the SQLite provider's capabilities are limited.</span></span> <span data-ttu-id="76b0e-164">例如，支持添加列，但不支持删除或更改列。</span><span class="sxs-lookup"><span data-stu-id="76b0e-164">For example, adding a column is supported, but removing or changing a column is not supported.</span></span> <span data-ttu-id="76b0e-165">如果已创建迁移以删除或更改列，则 `ef migrations add` 命令将成功，但 `ef database update` 命令会失败。</span><span class="sxs-lookup"><span data-stu-id="76b0e-165">If a migration is created to remove or change a column, the `ef migrations add` command succeeds but the `ef database update` command fails.</span></span> <span data-ttu-id="76b0e-166">由于上述限制，本教程不对 SQLite 架构更改使用迁移。</span><span class="sxs-lookup"><span data-stu-id="76b0e-166">Due to these limitations, this tutorial doesn't use migrations for SQLite schema changes.</span></span> <span data-ttu-id="76b0e-167">转而在架构更改时，放弃并重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-167">Instead, when the schema changes, you drop and re-create the database.</span></span>
+>
+><span data-ttu-id="76b0e-168">要绕开 SQLite 限制，可手动写入迁移代码，在表内容更改时重新生成表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-168">The workaround for the SQLite limitations is to manually write migrations code to perform a table rebuild when something in the table changes.</span></span> <span data-ttu-id="76b0e-169">表重新生成涉及：</span><span class="sxs-lookup"><span data-stu-id="76b0e-169">A table rebuild involves:</span></span>
+>
+>* <span data-ttu-id="76b0e-170">创建新表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-170">Creating a new table.</span></span>
+>* <span data-ttu-id="76b0e-171">将旧表中的数据复制到新表中。</span><span class="sxs-lookup"><span data-stu-id="76b0e-171">Copying data from the old table to the new table.</span></span>
+>* <span data-ttu-id="76b0e-172">放弃旧表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-172">Dropping the old table.</span></span>
+>* <span data-ttu-id="76b0e-173">为新表重命名。</span><span class="sxs-lookup"><span data-stu-id="76b0e-173">Renaming the new table.</span></span>
+>
+><span data-ttu-id="76b0e-174">有关更多信息，请参见以下资源：</span><span class="sxs-lookup"><span data-stu-id="76b0e-174">For more information, see the following resources:</span></span>
+>
+> * [<span data-ttu-id="76b0e-175">SQLite EF Core 数据库提供程序限制</span><span class="sxs-lookup"><span data-stu-id="76b0e-175">SQLite EF Core Database Provider Limitations</span></span>](/ef/core/providers/sqlite/limitations)
+> * [<span data-ttu-id="76b0e-176">自定义迁移代码</span><span class="sxs-lookup"><span data-stu-id="76b0e-176">Customize migration code</span></span>](/ef/core/managing-schemas/migrations/#customize-migration-code)
+> * [<span data-ttu-id="76b0e-177">数据种子设定</span><span class="sxs-lookup"><span data-stu-id="76b0e-177">Data seeding</span></span>](/ef/core/modeling/data-seeding)
+> * [<span data-ttu-id="76b0e-178">SQLite ALTER TABLE 语句</span><span class="sxs-lookup"><span data-stu-id="76b0e-178">SQLite ALTER TABLE statement</span></span>](https://sqlite.org/lang_altertable.html)
+
+1. <span data-ttu-id="76b0e-179">Delete迁移文件夹。</span><span class="sxs-lookup"><span data-stu-id="76b0e-179">Delete the migration folder.</span></span>  
+
+1. <span data-ttu-id="76b0e-180">使用以下命令重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-180">Use the following commands to recreate the database.</span></span>
+
+   ```dotnetcli
+   dotnet ef database drop
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+   ```
+
+---
+
+<span data-ttu-id="76b0e-181">运行应用，并验证是否可以创建/编辑/显示具有 `Rating` 字段的电影。</span><span class="sxs-lookup"><span data-stu-id="76b0e-181">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="76b0e-182">如果数据库未设定种子，则在 `SeedData.Initialize` 方法中设置断点。</span><span class="sxs-lookup"><span data-stu-id="76b0e-182">If the database isn't seeded, set a break point in the `SeedData.Initialize` method.</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="76b0e-183">其他资源</span><span class="sxs-lookup"><span data-stu-id="76b0e-183">Additional resources</span></span>
+
+> [!div class="step-by-step"]
+> <span data-ttu-id="76b0e-184">[上一篇：添加搜索](xref:tutorials/razor-pages/search)
+> [下一步：添加验证](xref:tutorials/razor-pages/validation)</span><span class="sxs-lookup"><span data-stu-id="76b0e-184">[Previous: Add Search](xref:tutorials/razor-pages/search)
+[Next: Add Validation](xref:tutorials/razor-pages/validation)</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0 >= aspnetcore-3.0"
+
+<span data-ttu-id="76b0e-185">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="76b0e-185">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+
+<span data-ttu-id="76b0e-186">在此部分中，[Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First 迁移用于：</span><span class="sxs-lookup"><span data-stu-id="76b0e-186">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
+
+* <span data-ttu-id="76b0e-187">将新字段添加到模型。</span><span class="sxs-lookup"><span data-stu-id="76b0e-187">Add a new field to the model.</span></span>
+* <span data-ttu-id="76b0e-188">将新字段架构更改迁移到数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-188">Migrate the new field schema change to the database.</span></span>
+
+<span data-ttu-id="76b0e-189">使用 EF Code First 自动创建数据库时，Code First 将：</span><span class="sxs-lookup"><span data-stu-id="76b0e-189">When using EF Code First to automatically create a database, Code First:</span></span>
+
+* <span data-ttu-id="76b0e-190">向数据库添加 [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。</span><span class="sxs-lookup"><span data-stu-id="76b0e-190">Adds an [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) table to the database to track whether the schema of the database is in sync with the model classes it was generated from.</span></span>
+* <span data-ttu-id="76b0e-191">如果该模型类未与数据库同步，EF 将引发异常。</span><span class="sxs-lookup"><span data-stu-id="76b0e-191">If the model classes aren't in sync with the database, EF throws an exception.</span></span>
+
+<span data-ttu-id="76b0e-192">自动验证架构与模型是否同步可以更容易地发现不一致的数据库代码问题。</span><span class="sxs-lookup"><span data-stu-id="76b0e-192">Automatic verification that the schema and model are in sync makes it easier to find inconsistent database code issues.</span></span>
+
+## <a name="adding-a-rating-property-to-the-movie-model"></a><span data-ttu-id="76b0e-193">向电影模型添加分级属性</span><span class="sxs-lookup"><span data-stu-id="76b0e-193">Adding a Rating Property to the Movie Model</span></span>
+
+1. <span data-ttu-id="76b0e-194">打开 Models/Movie.cs 文件，并添加 `Rating` 属性：</span><span class="sxs-lookup"><span data-stu-id="76b0e-194">Open the *Models/Movie.cs* file and add a `Rating` property:</span></span>
+
+   [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRating.cs?highlight=13&name=snippet)]
+
+1. <span data-ttu-id="76b0e-195">构建应用程序。</span><span class="sxs-lookup"><span data-stu-id="76b0e-195">Build the app.</span></span>
+
+1. <span data-ttu-id="76b0e-196">编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：</span><span class="sxs-lookup"><span data-stu-id="76b0e-196">Edit *Pages/Movies/Index.cshtml*, and add a `Rating` field:</span></span>
+
+   <a name="addrat"></a>
+
+   [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/SnapShots/IndexRating.cshtml?highlight=40-42,62-64)]
+
+1. <span data-ttu-id="76b0e-197">更新以下页面：</span><span class="sxs-lookup"><span data-stu-id="76b0e-197">Update the following pages:</span></span>
+   1. <span data-ttu-id="76b0e-198">将 `Rating` 字段添加到“Delete”和“详细信息”页面。</span><span class="sxs-lookup"><span data-stu-id="76b0e-198">Add the `Rating` field to the Delete and Details pages.</span></span>
+   1. <span data-ttu-id="76b0e-199">使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)。</span><span class="sxs-lookup"><span data-stu-id="76b0e-199">Update [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) with a `Rating` field.</span></span>
+   1. <span data-ttu-id="76b0e-200">将 `Rating` 字段添加到“编辑”页面。</span><span class="sxs-lookup"><span data-stu-id="76b0e-200">Add the `Rating` field to the Edit Page.</span></span>
+
+<span data-ttu-id="76b0e-201">在数据库更新为包括新字段之前，应用将不会正常工作。</span><span class="sxs-lookup"><span data-stu-id="76b0e-201">The app won't work until the database is updated to include the new field.</span></span> <span data-ttu-id="76b0e-202">在不更新数据库的情况下运行应用会引发 `SqlException`：</span><span class="sxs-lookup"><span data-stu-id="76b0e-202">Running the app without an update to the database throws a `SqlException`:</span></span>
+
+`SqlException: Invalid column name 'Rating'.`
+
+<span data-ttu-id="76b0e-203">`SqlException` 异常是由于更新的 Movie 模型类与数据库的 Movie 表架构不同导致的。</span><span class="sxs-lookup"><span data-stu-id="76b0e-203">The `SqlException` exception is caused by the updated Movie model class being different than the schema of the Movie table of the database.</span></span> <span data-ttu-id="76b0e-204">数据库表中没有 `Rating` 列。</span><span class="sxs-lookup"><span data-stu-id="76b0e-204">There's no `Rating` column in the database table.</span></span>
+
+<span data-ttu-id="76b0e-205">可通过几种方法解决此错误：</span><span class="sxs-lookup"><span data-stu-id="76b0e-205">There are a few approaches to resolving the error:</span></span>
+
+1. <span data-ttu-id="76b0e-206">让 Entity Framework 自动丢弃并使用新的模型类架构重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-206">Have the Entity Framework automatically drop and re-create the database using the new model class schema.</span></span> <span data-ttu-id="76b0e-207">此方法在开发周期早期很方便，通过该方法可以一起快速改进模型和数据库架构。</span><span class="sxs-lookup"><span data-stu-id="76b0e-207">This approach is convenient early in the development cycle, it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="76b0e-208">此方法的缺点是会导致数据库中的现有数据丢失。</span><span class="sxs-lookup"><span data-stu-id="76b0e-208">The downside is that you lose existing data in the database.</span></span> <span data-ttu-id="76b0e-209">请勿对生产数据库使用此方法！</span><span class="sxs-lookup"><span data-stu-id="76b0e-209">Don't use this approach on a production database!</span></span> <span data-ttu-id="76b0e-210">在架构更改时丢弃数据库，并使用初始化表达式通过测试数据自动设定数据库种子，这通常是开发应用的有效方式。</span><span class="sxs-lookup"><span data-stu-id="76b0e-210">Dropping the database on schema changes and using an initializer to automatically seed the database with test data is often a productive way to develop an app.</span></span>
+
+2. <span data-ttu-id="76b0e-211">对现有数据库架构进行显式修改，使它与模型类相匹配。</span><span class="sxs-lookup"><span data-stu-id="76b0e-211">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="76b0e-212">此方法的优点是可以保留数据。</span><span class="sxs-lookup"><span data-stu-id="76b0e-212">The advantage of this approach is to keep the data.</span></span> <span data-ttu-id="76b0e-213">可以手动或通过创建数据库更改脚本进行此更改。</span><span class="sxs-lookup"><span data-stu-id="76b0e-213">Make this change either manually or by creating a database change script.</span></span>
+
+3. <span data-ttu-id="76b0e-214">使用 Code First 迁移更新数据库架构。</span><span class="sxs-lookup"><span data-stu-id="76b0e-214">Use Code First Migrations to update the database schema.</span></span>
+
+<span data-ttu-id="76b0e-215">对于本教程，请使用 Code First 迁移。</span><span class="sxs-lookup"><span data-stu-id="76b0e-215">For this tutorial, use Code First Migrations.</span></span>
+
+<span data-ttu-id="76b0e-216">更新 `SeedData` 类，使它提供新列的值。</span><span class="sxs-lookup"><span data-stu-id="76b0e-216">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="76b0e-217">示例更改如下所示，但对每个 `new Movie` 块做出此更改。</span><span class="sxs-lookup"><span data-stu-id="76b0e-217">A sample change is shown below, but make this change for each `new Movie` block.</span></span>
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
+
+<span data-ttu-id="76b0e-218">请参阅[已完成的 SeedData.cs 文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Models/SeedDataRating.cs)。</span><span class="sxs-lookup"><span data-stu-id="76b0e-218">See the [completed SeedData.cs file](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Models/SeedDataRating.cs).</span></span>
+
+<span data-ttu-id="76b0e-219">生成解决方案。</span><span class="sxs-lookup"><span data-stu-id="76b0e-219">Build the solution.</span></span>
+
+# <a name="visual-studio"></a>[<span data-ttu-id="76b0e-220">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="76b0e-220">Visual Studio</span></span>](#tab/visual-studio)
+
+<a name="pmc"></a>
+
+### <a name="add-a-migration-for-the-rating-field"></a><span data-ttu-id="76b0e-221">添加用于评级字段的迁移</span><span class="sxs-lookup"><span data-stu-id="76b0e-221">Add a migration for the rating field</span></span>
+
+1. <span data-ttu-id="76b0e-222">从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 </span><span class="sxs-lookup"><span data-stu-id="76b0e-222">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
+2. <span data-ttu-id="76b0e-223">在 PMC 中，输入以下命令：</span><span class="sxs-lookup"><span data-stu-id="76b0e-223">In the PMC, enter the following commands:</span></span>
+
+   ```powershell
+   Add-Migration Rating
+   Update-Database
+   ```
+
+<span data-ttu-id="76b0e-224">`Add-Migration` 命令会通知框架执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="76b0e-224">The `Add-Migration` command tells the framework to:</span></span>
+
+* <span data-ttu-id="76b0e-225">将 `Movie` 模型与 `Movie` 数据库架构进行比较。</span><span class="sxs-lookup"><span data-stu-id="76b0e-225">Compare the `Movie` model with the `Movie` database schema.</span></span>
+* <span data-ttu-id="76b0e-226">Create代码以将数据库架构迁移到新模型。</span><span class="sxs-lookup"><span data-stu-id="76b0e-226">Create code to migrate the database schema to the new model.</span></span>
+
+<span data-ttu-id="76b0e-227">名称“Rating”是任意的，用于对迁移文件进行命名。</span><span class="sxs-lookup"><span data-stu-id="76b0e-227">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="76b0e-228">为迁移文件使用有意义的名称是有帮助的。</span><span class="sxs-lookup"><span data-stu-id="76b0e-228">It's helpful to use a meaningful name for the migration file.</span></span>
+
+<span data-ttu-id="76b0e-229">`Update-Database` 命令指示框架将架构更改应用到数据库并保留现有数据。</span><span class="sxs-lookup"><span data-stu-id="76b0e-229">The `Update-Database` command tells the framework to apply the schema changes to the database and to preserve existing data.</span></span>
+
+<a name="ssox"></a>
+
+<span data-ttu-id="76b0e-230">如果删除数据库中的所有记录，初始化表达式会设定数据库种子，并将包括 `Rating` 字段。</span><span class="sxs-lookup"><span data-stu-id="76b0e-230">If you delete all the records in the database, the initializer will seed the database and include the `Rating` field.</span></span> <span data-ttu-id="76b0e-231">可以使用浏览器中的删除链接，也可以从 [Sql Server 对象资源管理器](xref:tutorials/razor-pages/sql#ssox) (SSOX) 执行此操作。</span><span class="sxs-lookup"><span data-stu-id="76b0e-231">You can do this with the delete links in the browser or from [Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span></span>
+
+<span data-ttu-id="76b0e-232">另一个方案是删除数据库，并使用迁移来重新创建该数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-232">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="76b0e-233">删除 SSOX 中的数据库：</span><span class="sxs-lookup"><span data-stu-id="76b0e-233">To delete the database in SSOX:</span></span>
+
+* <span data-ttu-id="76b0e-234">在 SSOX 中选择数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-234">Select the database in SSOX.</span></span>
+* <span data-ttu-id="76b0e-235">右键单击数据库，并选择“Delete”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-235">Right-click on the database, and select **Delete**.</span></span>
+* <span data-ttu-id="76b0e-236">检查“关闭现有连接”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-236">Check **Close existing connections**.</span></span>
+* <span data-ttu-id="76b0e-237">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-237">Select **OK**.</span></span>
+* <span data-ttu-id="76b0e-238">在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：</span><span class="sxs-lookup"><span data-stu-id="76b0e-238">In the [PMC](xref:tutorials/razor-pages/new-field#pmc), update the database:</span></span>
 
   ```powershell
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="97894-158">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="97894-158">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="76b0e-239">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="76b0e-239">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-### <a name="drop-and-re-create-the-database"></a><span data-ttu-id="97894-159">删除并重新创建数据库</span><span class="sxs-lookup"><span data-stu-id="97894-159">Drop and re-create the database</span></span>
+### <a name="drop-and-re-create-the-database"></a><span data-ttu-id="76b0e-240">删除并重新创建数据库</span><span class="sxs-lookup"><span data-stu-id="76b0e-240">Drop and re-create the database</span></span>
 
-[!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
+> [!NOTE]
+> <span data-ttu-id="76b0e-241">在本教程中，使用 Entity Framework Core 迁移功能（若可行）。</span><span class="sxs-lookup"><span data-stu-id="76b0e-241">For this tutorial you, use the Entity Framework Core *migrations* feature where possible.</span></span> <span data-ttu-id="76b0e-242">迁移会更新数据库架构，使其与数据模型中的更改相匹配。</span><span class="sxs-lookup"><span data-stu-id="76b0e-242">Migrations updates the database schema to match changes in the data model.</span></span> <span data-ttu-id="76b0e-243">但是，迁移仅能执行 EF Core 提供程序所支持的更改类型，且 SQLite 提供程序的功能将受限。</span><span class="sxs-lookup"><span data-stu-id="76b0e-243">However, migrations can only do the kinds of changes that the EF Core provider supports, and the SQLite provider's capabilities are limited.</span></span> <span data-ttu-id="76b0e-244">例如，支持添加列，但不支持删除或更改列。</span><span class="sxs-lookup"><span data-stu-id="76b0e-244">For example, adding a column is supported, but removing or changing a column is not supported.</span></span> <span data-ttu-id="76b0e-245">如果已创建迁移以删除或更改列，则 `ef migrations add` 命令将成功，但 `ef database update` 命令会失败。</span><span class="sxs-lookup"><span data-stu-id="76b0e-245">If a migration is created to remove or change a column, the `ef migrations add` command succeeds but the `ef database update` command fails.</span></span> <span data-ttu-id="76b0e-246">由于上述限制，本教程不对 SQLite 架构更改使用迁移。</span><span class="sxs-lookup"><span data-stu-id="76b0e-246">Due to these limitations, this tutorial doesn't use migrations for SQLite schema changes.</span></span> <span data-ttu-id="76b0e-247">转而在架构更改时，放弃并重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-247">Instead, when the schema changes, you drop and re-create the database.</span></span>
+>
+><span data-ttu-id="76b0e-248">要绕开 SQLite 限制，可手动写入迁移代码，在表内容更改时重新生成表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-248">The workaround for the SQLite limitations is to manually write migrations code to perform a table rebuild when something in the table changes.</span></span> <span data-ttu-id="76b0e-249">表重新生成涉及：</span><span class="sxs-lookup"><span data-stu-id="76b0e-249">A table rebuild involves:</span></span>
+>
+>* <span data-ttu-id="76b0e-250">创建新表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-250">Creating a new table.</span></span>
+>* <span data-ttu-id="76b0e-251">将旧表中的数据复制到新表中。</span><span class="sxs-lookup"><span data-stu-id="76b0e-251">Copying data from the old table to the new table.</span></span>
+>* <span data-ttu-id="76b0e-252">放弃旧表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-252">Dropping the old table.</span></span>
+>* <span data-ttu-id="76b0e-253">为新表重命名。</span><span class="sxs-lookup"><span data-stu-id="76b0e-253">Renaming the new table.</span></span>
+>
+><span data-ttu-id="76b0e-254">有关更多信息，请参见以下资源：</span><span class="sxs-lookup"><span data-stu-id="76b0e-254">For more information, see the following resources:</span></span>
+>
+> * [<span data-ttu-id="76b0e-255">SQLite EF Core 数据库提供程序限制</span><span class="sxs-lookup"><span data-stu-id="76b0e-255">SQLite EF Core Database Provider Limitations</span></span>](/ef/core/providers/sqlite/limitations)
+> * [<span data-ttu-id="76b0e-256">自定义迁移代码</span><span class="sxs-lookup"><span data-stu-id="76b0e-256">Customize migration code</span></span>](/ef/core/managing-schemas/migrations/#customize-migration-code)
+> * [<span data-ttu-id="76b0e-257">数据种子设定</span><span class="sxs-lookup"><span data-stu-id="76b0e-257">Data seeding</span></span>](/ef/core/modeling/data-seeding)
+> * [<span data-ttu-id="76b0e-258">SQLite ALTER TABLE 语句</span><span class="sxs-lookup"><span data-stu-id="76b0e-258">SQLite ALTER TABLE statement</span></span>](https://sqlite.org/lang_altertable.html)
 
-<span data-ttu-id="97894-160">删除迁移文件夹。</span><span class="sxs-lookup"><span data-stu-id="97894-160">Delete the migration folder.</span></span>  <span data-ttu-id="97894-161">使用以下命令重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-161">Use the following commands to recreate the database.</span></span>
+1. <span data-ttu-id="76b0e-259">Delete迁移文件夹。</span><span class="sxs-lookup"><span data-stu-id="76b0e-259">Delete the migration folder.</span></span>  
 
-```dotnetcli
-dotnet ef database drop
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-```
+1. <span data-ttu-id="76b0e-260">使用以下命令重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-260">Use the following commands to recreate the database.</span></span>
+
+   ```dotnetcli
+   dotnet ef database drop
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+   ```
 
 ---
 
-<span data-ttu-id="97894-162">运行应用，并验证是否可以创建/编辑/显示具有 `Rating` 字段的电影。</span><span class="sxs-lookup"><span data-stu-id="97894-162">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="97894-163">如果数据库未设定种子，则在 `SeedData.Initialize` 方法中设置断点。</span><span class="sxs-lookup"><span data-stu-id="97894-163">If the database isn't seeded, set a break point in the `SeedData.Initialize` method.</span></span>
+<span data-ttu-id="76b0e-261">运行应用，并验证是否可以创建/编辑/显示具有 `Rating` 字段的电影。</span><span class="sxs-lookup"><span data-stu-id="76b0e-261">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="76b0e-262">如果数据库未设定种子，则在 `SeedData.Initialize` 方法中设置断点。</span><span class="sxs-lookup"><span data-stu-id="76b0e-262">If the database isn't seeded, set a break point in the `SeedData.Initialize` method.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="97894-164">其他资源</span><span class="sxs-lookup"><span data-stu-id="97894-164">Additional resources</span></span>
-
-* [<span data-ttu-id="97894-165">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="97894-165">YouTube version of this tutorial</span></span>](https://youtu.be/3i7uMxiGGR8)
+## <a name="additional-resources"></a><span data-ttu-id="76b0e-263">其他资源</span><span class="sxs-lookup"><span data-stu-id="76b0e-263">Additional resources</span></span>
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="97894-166">[上一篇：添加搜索](xref:tutorials/razor-pages/search)
-> [下一篇：添加验证](xref:tutorials/razor-pages/validation)</span><span class="sxs-lookup"><span data-stu-id="97894-166">[Previous: Adding Search](xref:tutorials/razor-pages/search)
-[Next: Adding Validation](xref:tutorials/razor-pages/validation)</span></span>
+> <span data-ttu-id="76b0e-264">[上一篇：添加搜索](xref:tutorials/razor-pages/search)
+> [下一步：添加验证](xref:tutorials/razor-pages/validation)</span><span class="sxs-lookup"><span data-stu-id="76b0e-264">[Previous: Add Search](xref:tutorials/razor-pages/search)
+[Next: Add Validation](xref:tutorials/razor-pages/validation)</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-[!INCLUDE[](~/includes/rp/download.md)]
+<span data-ttu-id="76b0e-265">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="76b0e-265">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="97894-167">在此部分中，[Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First 迁移用于：</span><span class="sxs-lookup"><span data-stu-id="97894-167">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
+<span data-ttu-id="76b0e-266">在此部分中，[Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First 迁移用于：</span><span class="sxs-lookup"><span data-stu-id="76b0e-266">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
 
-* <span data-ttu-id="97894-168">将新字段添加到模型。</span><span class="sxs-lookup"><span data-stu-id="97894-168">Add a new field to the model.</span></span>
-* <span data-ttu-id="97894-169">将新字段架构更改迁移到数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-169">Migrate the new field schema change to the database.</span></span>
+* <span data-ttu-id="76b0e-267">将新字段添加到模型。</span><span class="sxs-lookup"><span data-stu-id="76b0e-267">Add a new field to the model.</span></span>
+* <span data-ttu-id="76b0e-268">将新字段架构更改迁移到数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-268">Migrate the new field schema change to the database.</span></span>
 
-<span data-ttu-id="97894-170">使用 EF Code First 自动创建数据库时，Code First 将：</span><span class="sxs-lookup"><span data-stu-id="97894-170">When using EF Code First to automatically create a database, Code First:</span></span>
+<span data-ttu-id="76b0e-269">使用 EF Code First 自动创建数据库时，Code First 将：</span><span class="sxs-lookup"><span data-stu-id="76b0e-269">When using EF Code First to automatically create a database, Code First:</span></span>
 
-* <span data-ttu-id="97894-171">向数据库添加表格，以跟踪数据库的架构是否与从生成它的模型类同步。</span><span class="sxs-lookup"><span data-stu-id="97894-171">Adds a table to the database to track whether the schema of the database is in sync with the model classes it was generated from.</span></span>
-* <span data-ttu-id="97894-172">如果该模型类未与数据库同步，EF 将引发异常。</span><span class="sxs-lookup"><span data-stu-id="97894-172">If the model classes aren't in sync with the DB, EF throws an exception.</span></span>
+* <span data-ttu-id="76b0e-270">向数据库添加 [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。</span><span class="sxs-lookup"><span data-stu-id="76b0e-270">Adds an [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) table to the database to track whether the schema of the database is in sync with the model classes it was generated from.</span></span>
+* <span data-ttu-id="76b0e-271">如果该模型类未与数据库同步，EF 将引发异常。</span><span class="sxs-lookup"><span data-stu-id="76b0e-271">If the model classes aren't in sync with the database, EF throws an exception.</span></span>
 
-<span data-ttu-id="97894-173">通过自动验证同步的架构/模型可以更容易地发现不一致的数据库/代码问题。</span><span class="sxs-lookup"><span data-stu-id="97894-173">Automatic verification of schema/model in sync makes it easier to find inconsistent database/code issues.</span></span>
+<span data-ttu-id="76b0e-272">自动验证架构与模型是否同步可以更容易地发现不一致的数据库代码问题。</span><span class="sxs-lookup"><span data-stu-id="76b0e-272">Automatic verification that the schema and model are in sync makes it easier to find inconsistent database code issues.</span></span>
 
-## <a name="adding-a-rating-property-to-the-movie-model"></a><span data-ttu-id="97894-174">向电影模型添加分级属性</span><span class="sxs-lookup"><span data-stu-id="97894-174">Adding a Rating Property to the Movie Model</span></span>
+## <a name="adding-a-rating-property-to-the-movie-model"></a><span data-ttu-id="76b0e-273">向电影模型添加分级属性</span><span class="sxs-lookup"><span data-stu-id="76b0e-273">Adding a Rating Property to the Movie Model</span></span>
 
-<span data-ttu-id="97894-175">打开 Models/Movie.cs 文件，并添加 `Rating` 属性：</span><span class="sxs-lookup"><span data-stu-id="97894-175">Open the *Models/Movie.cs* file and add a `Rating` property:</span></span>
+<span data-ttu-id="76b0e-274">打开 Models/Movie.cs 文件，并添加 `Rating` 属性：</span><span class="sxs-lookup"><span data-stu-id="76b0e-274">Open the *Models/Movie.cs* file and add a `Rating` property:</span></span>
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
-<span data-ttu-id="97894-176">构建应用程序。</span><span class="sxs-lookup"><span data-stu-id="97894-176">Build the app.</span></span>
+<span data-ttu-id="76b0e-275">构建应用程序。</span><span class="sxs-lookup"><span data-stu-id="76b0e-275">Build the app.</span></span>
 
-<span data-ttu-id="97894-177">编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：</span><span class="sxs-lookup"><span data-stu-id="97894-177">Edit *Pages/Movies/Index.cshtml* , and add a `Rating` field:</span></span>
+<span data-ttu-id="76b0e-276">编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：</span><span class="sxs-lookup"><span data-stu-id="76b0e-276">Edit *Pages/Movies/Index.cshtml*, and add a `Rating` field:</span></span>
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml?highlight=40-42,61-63)]
 
-<span data-ttu-id="97894-178">更新以下页面：</span><span class="sxs-lookup"><span data-stu-id="97894-178">Update the following pages:</span></span>
+<span data-ttu-id="76b0e-277">更新以下页面：</span><span class="sxs-lookup"><span data-stu-id="76b0e-277">Update the following pages:</span></span>
 
-* <span data-ttu-id="97894-179">将 `Rating` 字段添加到“删除”和“详细信息”页面。</span><span class="sxs-lookup"><span data-stu-id="97894-179">Add the `Rating` field to the Delete and Details pages.</span></span>
-* <span data-ttu-id="97894-180">使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml)。</span><span class="sxs-lookup"><span data-stu-id="97894-180">Update [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) with a `Rating` field.</span></span>
-* <span data-ttu-id="97894-181">将 `Rating` 字段添加到“编辑”页面。</span><span class="sxs-lookup"><span data-stu-id="97894-181">Add the `Rating` field to the Edit Page.</span></span>
+* <span data-ttu-id="76b0e-278">将 `Rating` 字段添加到“Delete”和“详细信息”页面。</span><span class="sxs-lookup"><span data-stu-id="76b0e-278">Add the `Rating` field to the Delete and Details pages.</span></span>
+* <span data-ttu-id="76b0e-279">使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml)。</span><span class="sxs-lookup"><span data-stu-id="76b0e-279">Update [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) with a `Rating` field.</span></span>
+* <span data-ttu-id="76b0e-280">将 `Rating` 字段添加到“编辑”页面。</span><span class="sxs-lookup"><span data-stu-id="76b0e-280">Add the `Rating` field to the Edit Page.</span></span>
 
-<span data-ttu-id="97894-182">在 DB 更新为包括新字段之前，应用将不会正常工作。</span><span class="sxs-lookup"><span data-stu-id="97894-182">The app won't work until the DB is updated to include the new field.</span></span> <span data-ttu-id="97894-183">如果立即运行，应用会引发 `SqlException`：</span><span class="sxs-lookup"><span data-stu-id="97894-183">If run now, the app throws a `SqlException`:</span></span>
+<span data-ttu-id="76b0e-281">在数据库更新为包括新字段之前，应用将不会正常工作。</span><span class="sxs-lookup"><span data-stu-id="76b0e-281">The app won't work until the database is updated to include the new field.</span></span> <span data-ttu-id="76b0e-282">如果应用立即运行，应用会引发 `SqlException`：</span><span class="sxs-lookup"><span data-stu-id="76b0e-282">If the app is run now, the app throws a `SqlException`:</span></span>
 
 `SqlException: Invalid column name 'Rating'.`
 
-<span data-ttu-id="97894-184">此错误是由于更新的 Movie 模型类与数据库的 Movie 表架构不同导致的。</span><span class="sxs-lookup"><span data-stu-id="97894-184">This error is caused by the updated Movie model class being different than the schema of the Movie table of the database.</span></span> <span data-ttu-id="97894-185">（数据库表中没有 `Rating` 列。）</span><span class="sxs-lookup"><span data-stu-id="97894-185">(There's no `Rating` column in the database table.)</span></span>
+<span data-ttu-id="76b0e-283">此错误是由于更新的 Movie 模型类与数据库的 Movie 表架构不同导致的。</span><span class="sxs-lookup"><span data-stu-id="76b0e-283">This error is caused by the updated Movie model class being different than the schema of the Movie table of the database.</span></span> <span data-ttu-id="76b0e-284">数据库表中没有 `Rating` 列。</span><span class="sxs-lookup"><span data-stu-id="76b0e-284">There's no `Rating` column in the database table.</span></span>
 
-<span data-ttu-id="97894-186">可通过几种方法解决此错误：</span><span class="sxs-lookup"><span data-stu-id="97894-186">There are a few approaches to resolving the error:</span></span>
+<span data-ttu-id="76b0e-285">可通过几种方法解决此错误：</span><span class="sxs-lookup"><span data-stu-id="76b0e-285">There are a few approaches to resolving the error:</span></span>
 
-1. <span data-ttu-id="97894-187">让 Entity Framework 自动丢弃并使用新的模型类架构重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-187">Have the Entity Framework automatically drop and re-create the database using the new model class schema.</span></span> <span data-ttu-id="97894-188">此方法在开发周期早期很方便；通过它可以一起快速改进模型和数据库架构。</span><span class="sxs-lookup"><span data-stu-id="97894-188">This approach is convenient early in the development cycle; it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="97894-189">此方法的缺点是会导致数据库中的现有数据丢失。</span><span class="sxs-lookup"><span data-stu-id="97894-189">The downside is that you lose existing data in the database.</span></span> <span data-ttu-id="97894-190">请勿对生产数据库使用此方法！</span><span class="sxs-lookup"><span data-stu-id="97894-190">Don't use this approach on a production database!</span></span> <span data-ttu-id="97894-191">当架构更改时丢弃数据库并使用初始值设定项以使用测试数据自动设定数据库种子，这通常是开发应用的有效方式。</span><span class="sxs-lookup"><span data-stu-id="97894-191">Dropping the DB on schema changes and using an initializer to automatically seed the database with test data is often a productive way to develop an app.</span></span>
+1. <span data-ttu-id="76b0e-286">让 Entity Framework 自动丢弃并使用新的模型类架构重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-286">Have the Entity Framework automatically drop and re-create the database using the new model class schema.</span></span> <span data-ttu-id="76b0e-287">此方法在开发周期早期很方便，通过该方法可以一起快速改进模型和数据库架构。</span><span class="sxs-lookup"><span data-stu-id="76b0e-287">This approach is convenient early in the development cycle, it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="76b0e-288">此方法的缺点是会导致数据库中的现有数据丢失。</span><span class="sxs-lookup"><span data-stu-id="76b0e-288">The downside is that you lose existing data in the database.</span></span> <span data-ttu-id="76b0e-289">请勿对生产数据库使用此方法！</span><span class="sxs-lookup"><span data-stu-id="76b0e-289">Don't use this approach on a production database!</span></span> <span data-ttu-id="76b0e-290">在架构更改时丢弃数据库，并使用初始化表达式通过测试数据自动设定数据库种子，这通常是开发应用的有效方式。</span><span class="sxs-lookup"><span data-stu-id="76b0e-290">Dropping the database on schema changes and using an initializer to automatically seed the database with test data is often a productive way to develop an app.</span></span>
 
-2. <span data-ttu-id="97894-192">对现有数据库架构进行显式修改，使它与模型类相匹配。</span><span class="sxs-lookup"><span data-stu-id="97894-192">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="97894-193">此方法的优点是可以保留数据。</span><span class="sxs-lookup"><span data-stu-id="97894-193">The advantage of this approach is that you keep your data.</span></span> <span data-ttu-id="97894-194">可以手动或通过创建数据库更改脚本进行此更改。</span><span class="sxs-lookup"><span data-stu-id="97894-194">You can make this change either manually or by creating a database change script.</span></span>
+2. <span data-ttu-id="76b0e-291">对现有数据库架构进行显式修改，使它与模型类相匹配。</span><span class="sxs-lookup"><span data-stu-id="76b0e-291">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="76b0e-292">此方法的优点是可以保留数据。</span><span class="sxs-lookup"><span data-stu-id="76b0e-292">The advantage of this approach is to keep the data.</span></span> <span data-ttu-id="76b0e-293">可以手动或通过创建数据库更改脚本进行此更改。</span><span class="sxs-lookup"><span data-stu-id="76b0e-293">Make this change either manually or by creating a database change script.</span></span>
 
-3. <span data-ttu-id="97894-195">使用 Code First 迁移更新数据库架构。</span><span class="sxs-lookup"><span data-stu-id="97894-195">Use Code First Migrations to update the database schema.</span></span>
+3. <span data-ttu-id="76b0e-294">使用 Code First 迁移更新数据库架构。</span><span class="sxs-lookup"><span data-stu-id="76b0e-294">Use Code First Migrations to update the database schema.</span></span>
 
-<span data-ttu-id="97894-196">对于本教程，请使用 Code First 迁移。</span><span class="sxs-lookup"><span data-stu-id="97894-196">For this tutorial, use Code First Migrations.</span></span>
+<span data-ttu-id="76b0e-295">对于本教程，请使用 Code First 迁移。</span><span class="sxs-lookup"><span data-stu-id="76b0e-295">For this tutorial, use Code First Migrations.</span></span>
 
-<span data-ttu-id="97894-197">更新 `SeedData` 类，使它提供新列的值。</span><span class="sxs-lookup"><span data-stu-id="97894-197">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="97894-198">示例更改如下所示，但可能需要对每个 `new Movie` 块做出此更改。</span><span class="sxs-lookup"><span data-stu-id="97894-198">A sample change is shown below, but you'll want to make this change for each `new Movie` block.</span></span>
+<span data-ttu-id="76b0e-296">更新 `SeedData` 类，使它提供新列的值。</span><span class="sxs-lookup"><span data-stu-id="76b0e-296">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="76b0e-297">示例更改如下所示，但对每个 `new Movie` 块做出此更改。</span><span class="sxs-lookup"><span data-stu-id="76b0e-297">A sample change is shown below, but make this change for each `new Movie` block.</span></span>
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-<span data-ttu-id="97894-199">请参阅[已完成的 SeedData.cs 文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs)。</span><span class="sxs-lookup"><span data-stu-id="97894-199">See the [completed SeedData.cs file](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).</span></span>
+<span data-ttu-id="76b0e-298">请参阅[已完成的 SeedData.cs 文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs)。</span><span class="sxs-lookup"><span data-stu-id="76b0e-298">See the [completed SeedData.cs file](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).</span></span>
 
-<span data-ttu-id="97894-200">生成解决方案。</span><span class="sxs-lookup"><span data-stu-id="97894-200">Build the solution.</span></span>
+<span data-ttu-id="76b0e-299">生成解决方案。</span><span class="sxs-lookup"><span data-stu-id="76b0e-299">Build the solution.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="97894-201">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="97894-201">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="76b0e-300">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="76b0e-300">Visual Studio</span></span>](#tab/visual-studio)
 
 <a name="pmc"></a>
 
-### <a name="add-a-migration-for-the-rating-field"></a><span data-ttu-id="97894-202">添加用于评级字段的迁移</span><span class="sxs-lookup"><span data-stu-id="97894-202">Add a migration for the rating field</span></span>
+### <a name="add-a-migration-for-the-rating-field"></a><span data-ttu-id="76b0e-301">添加用于评级字段的迁移</span><span class="sxs-lookup"><span data-stu-id="76b0e-301">Add a migration for the rating field</span></span>
 
-<span data-ttu-id="97894-203">从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 </span><span class="sxs-lookup"><span data-stu-id="97894-203">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
-<span data-ttu-id="97894-204">在 PMC 中，输入以下命令：</span><span class="sxs-lookup"><span data-stu-id="97894-204">In the PMC, enter the following commands:</span></span>
+<span data-ttu-id="76b0e-302">从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 </span><span class="sxs-lookup"><span data-stu-id="76b0e-302">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
+<span data-ttu-id="76b0e-303">在 PMC 中，输入以下命令：</span><span class="sxs-lookup"><span data-stu-id="76b0e-303">In the PMC, enter the following commands:</span></span>
 
 ```powershell
 Add-Migration Rating
 Update-Database
 ```
 
-<span data-ttu-id="97894-205">`Add-Migration` 命令会通知框架执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="97894-205">The `Add-Migration` command tells the framework to:</span></span>
+<span data-ttu-id="76b0e-304">`Add-Migration` 命令会通知框架执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="76b0e-304">The `Add-Migration` command tells the framework to:</span></span>
 
-* <span data-ttu-id="97894-206">将 `Movie` 模型与 `Movie` DB 架构进行比较。</span><span class="sxs-lookup"><span data-stu-id="97894-206">Compare the `Movie` model with the `Movie` DB schema.</span></span>
-* <span data-ttu-id="97894-207">创建代码以将 DB 架构迁移到新模型。</span><span class="sxs-lookup"><span data-stu-id="97894-207">Create code to migrate the DB schema to the new model.</span></span>
+* <span data-ttu-id="76b0e-305">将 `Movie` 模型与 `Movie` 数据库架构进行比较。</span><span class="sxs-lookup"><span data-stu-id="76b0e-305">Compare the `Movie` model with the `Movie` database schema.</span></span>
+* <span data-ttu-id="76b0e-306">Create代码以将数据库架构迁移到新模型。</span><span class="sxs-lookup"><span data-stu-id="76b0e-306">Create code to migrate the database schema to the new model.</span></span>
 
-<span data-ttu-id="97894-208">名称“Rating”是任意的，用于对迁移文件进行命名。</span><span class="sxs-lookup"><span data-stu-id="97894-208">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="97894-209">为迁移文件使用有意义的名称是有帮助的。</span><span class="sxs-lookup"><span data-stu-id="97894-209">It's helpful to use a meaningful name for the migration file.</span></span>
+<span data-ttu-id="76b0e-307">名称“Rating”是任意的，用于对迁移文件进行命名。</span><span class="sxs-lookup"><span data-stu-id="76b0e-307">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="76b0e-308">为迁移文件使用有意义的名称是有帮助的。</span><span class="sxs-lookup"><span data-stu-id="76b0e-308">It's helpful to use a meaningful name for the migration file.</span></span>
 
-<span data-ttu-id="97894-210">`Update-Database` 命令指示框架将架构更改应用到数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-210">The `Update-Database` command tells the framework to apply the schema changes to the database.</span></span>
+<span data-ttu-id="76b0e-309">`Update-Database` 命令指示框架将架构更改应用到数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-309">The `Update-Database` command tells the framework to apply the schema changes to the database.</span></span>
 
 <a name="ssox"></a>
 
-<span data-ttu-id="97894-211">如果删除 DB 中的所有记录，种子初始值设定项会设定 DB 种子，并将包括 `Rating` 字段。</span><span class="sxs-lookup"><span data-stu-id="97894-211">If you delete all the records in the DB, the initializer will seed the DB and include the `Rating` field.</span></span> <span data-ttu-id="97894-212">可以使用浏览器中的删除链接，也可以从 [Sql Server 对象资源管理器](xref:tutorials/razor-pages/sql#ssox) (SSOX) 执行此操作。</span><span class="sxs-lookup"><span data-stu-id="97894-212">You can do this with the delete links in the browser or from [Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span></span>
+<span data-ttu-id="76b0e-310">如果删除 DdatabaseB 中的所有记录，初始化表达式会设定 DdatabaseB 种子，并将包括 `Rating` 字段。</span><span class="sxs-lookup"><span data-stu-id="76b0e-310">If you delete all the records in the DdatabaseB, the initializer will seed the DdatabaseB and include the `Rating` field.</span></span> <span data-ttu-id="76b0e-311">可以使用浏览器中的删除链接，也可以从 [Sql Server 对象资源管理器](xref:tutorials/razor-pages/sql#ssox) (SSOX) 执行此操作。</span><span class="sxs-lookup"><span data-stu-id="76b0e-311">You can do this with the delete links in the browser or from [Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span></span>
 
-<span data-ttu-id="97894-213">另一个方案是删除数据库，并使用迁移来重新创建该数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-213">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="97894-214">删除 SSOX 中的数据库：</span><span class="sxs-lookup"><span data-stu-id="97894-214">To delete the database in SSOX:</span></span>
+<span data-ttu-id="76b0e-312">另一个方案是删除数据库，并使用迁移来重新创建该数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-312">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="76b0e-313">删除 SSOX 中的数据库：</span><span class="sxs-lookup"><span data-stu-id="76b0e-313">To delete the database in SSOX:</span></span>
 
-* <span data-ttu-id="97894-215">在 SSOX 中选择数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-215">Select the database in SSOX.</span></span>
-* <span data-ttu-id="97894-216">右键单击数据库，并选择“删除”。</span><span class="sxs-lookup"><span data-stu-id="97894-216">Right click on the database, and select *Delete*.</span></span>
-* <span data-ttu-id="97894-217">检查“关闭现有连接”。</span><span class="sxs-lookup"><span data-stu-id="97894-217">Check **Close existing connections**.</span></span>
-* <span data-ttu-id="97894-218">选择“确定”  。</span><span class="sxs-lookup"><span data-stu-id="97894-218">Select **OK**.</span></span>
-* <span data-ttu-id="97894-219">在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：</span><span class="sxs-lookup"><span data-stu-id="97894-219">In the [PMC](xref:tutorials/razor-pages/new-field#pmc), update the database:</span></span>
+* <span data-ttu-id="76b0e-314">在 SSOX 中选择数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-314">Select the database in SSOX.</span></span>
+* <span data-ttu-id="76b0e-315">右键单击数据库，并选择“Delete”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-315">Right-click on the database, and select **Delete**.</span></span>
+* <span data-ttu-id="76b0e-316">检查“关闭现有连接”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-316">Check **Close existing connections**.</span></span>
+* <span data-ttu-id="76b0e-317">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="76b0e-317">Select **OK**.</span></span>
+* <span data-ttu-id="76b0e-318">在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：</span><span class="sxs-lookup"><span data-stu-id="76b0e-318">In the [PMC](xref:tutorials/razor-pages/new-field#pmc), update the database:</span></span>
 
   ```powershell
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="97894-220">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="97894-220">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="76b0e-319">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="76b0e-319">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-### <a name="drop-and-re-create-the-database"></a><span data-ttu-id="97894-221">删除并重新创建数据库</span><span class="sxs-lookup"><span data-stu-id="97894-221">Drop and re-create the database</span></span>
+### <a name="drop-and-re-create-the-database"></a><span data-ttu-id="76b0e-320">删除并重新创建数据库</span><span class="sxs-lookup"><span data-stu-id="76b0e-320">Drop and re-create the database</span></span>
 
-[!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
+> [!NOTE]
+> <span data-ttu-id="76b0e-321">在本教程中，使用 Entity Framework Core 迁移功能（若可行）。</span><span class="sxs-lookup"><span data-stu-id="76b0e-321">For this tutorial you, use the Entity Framework Core *migrations* feature where possible.</span></span> <span data-ttu-id="76b0e-322">迁移会更新数据库架构，使其与数据模型中的更改相匹配。</span><span class="sxs-lookup"><span data-stu-id="76b0e-322">Migrations updates the database schema to match changes in the data model.</span></span> <span data-ttu-id="76b0e-323">但是，迁移仅能执行 EF Core 提供程序所支持的更改类型，且 SQLite 提供程序的功能将受限。</span><span class="sxs-lookup"><span data-stu-id="76b0e-323">However, migrations can only do the kinds of changes that the EF Core provider supports, and the SQLite provider's capabilities are limited.</span></span> <span data-ttu-id="76b0e-324">例如，支持添加列，但不支持删除或更改列。</span><span class="sxs-lookup"><span data-stu-id="76b0e-324">For example, adding a column is supported, but removing or changing a column is not supported.</span></span> <span data-ttu-id="76b0e-325">如果已创建迁移以删除或更改列，则 `ef migrations add` 命令将成功，但 `ef database update` 命令会失败。</span><span class="sxs-lookup"><span data-stu-id="76b0e-325">If a migration is created to remove or change a column, the `ef migrations add` command succeeds but the `ef database update` command fails.</span></span> <span data-ttu-id="76b0e-326">由于上述限制，本教程不对 SQLite 架构更改使用迁移。</span><span class="sxs-lookup"><span data-stu-id="76b0e-326">Due to these limitations, this tutorial doesn't use migrations for SQLite schema changes.</span></span> <span data-ttu-id="76b0e-327">转而在架构更改时，放弃并重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-327">Instead, when the schema changes, you drop and re-create the database.</span></span>
+>
+><span data-ttu-id="76b0e-328">要绕开 SQLite 限制，可手动写入迁移代码，在表内容更改时重新生成表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-328">The workaround for the SQLite limitations is to manually write migrations code to perform a table rebuild when something in the table changes.</span></span> <span data-ttu-id="76b0e-329">表重新生成涉及：</span><span class="sxs-lookup"><span data-stu-id="76b0e-329">A table rebuild involves:</span></span>
+>
+>* <span data-ttu-id="76b0e-330">创建新表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-330">Creating a new table.</span></span>
+>* <span data-ttu-id="76b0e-331">将旧表中的数据复制到新表中。</span><span class="sxs-lookup"><span data-stu-id="76b0e-331">Copying data from the old table to the new table.</span></span>
+>* <span data-ttu-id="76b0e-332">放弃旧表。</span><span class="sxs-lookup"><span data-stu-id="76b0e-332">Dropping the old table.</span></span>
+>* <span data-ttu-id="76b0e-333">为新表重命名。</span><span class="sxs-lookup"><span data-stu-id="76b0e-333">Renaming the new table.</span></span>
+>
+><span data-ttu-id="76b0e-334">有关更多信息，请参见以下资源：</span><span class="sxs-lookup"><span data-stu-id="76b0e-334">For more information, see the following resources:</span></span>
+>
+> * [<span data-ttu-id="76b0e-335">SQLite EF Core 数据库提供程序限制</span><span class="sxs-lookup"><span data-stu-id="76b0e-335">SQLite EF Core Database Provider Limitations</span></span>](/ef/core/providers/sqlite/limitations)
+> * [<span data-ttu-id="76b0e-336">自定义迁移代码</span><span class="sxs-lookup"><span data-stu-id="76b0e-336">Customize migration code</span></span>](/ef/core/managing-schemas/migrations/#customize-migration-code)
+> * [<span data-ttu-id="76b0e-337">数据种子设定</span><span class="sxs-lookup"><span data-stu-id="76b0e-337">Data seeding</span></span>](/ef/core/modeling/data-seeding)
+> * [<span data-ttu-id="76b0e-338">SQLite ALTER TABLE 语句</span><span class="sxs-lookup"><span data-stu-id="76b0e-338">SQLite ALTER TABLE statement</span></span>](https://sqlite.org/lang_altertable.html)
 
-<span data-ttu-id="97894-222">删除数据库并通过迁移重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="97894-222">Delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="97894-223">若要删除该数据库，请删除数据库文件 (MvcMovie.db)。</span><span class="sxs-lookup"><span data-stu-id="97894-223">To delete the database, delete the database file ( *MvcMovie.db* ).</span></span> <span data-ttu-id="97894-224">然后运行 `ef database update` 命令：</span><span class="sxs-lookup"><span data-stu-id="97894-224">Then run the `ef database update` command:</span></span>
+<span data-ttu-id="76b0e-339">Delete数据库并通过迁移重新创建数据库。</span><span class="sxs-lookup"><span data-stu-id="76b0e-339">Delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="76b0e-340">若要删除该数据库，请删除数据库文件 (MvcMovie.db)。</span><span class="sxs-lookup"><span data-stu-id="76b0e-340">To delete the database, delete the database file (*MvcMovie.db*).</span></span> <span data-ttu-id="76b0e-341">然后运行 `ef database update` 命令：</span><span class="sxs-lookup"><span data-stu-id="76b0e-341">Then run the `ef database update` command:</span></span>
 
 ```dotnetcli
 dotnet ef database update
@@ -268,15 +442,15 @@ dotnet ef database update
 
 ---
 
-<span data-ttu-id="97894-225">运行应用，并验证是否可以创建/编辑/显示具有 `Rating` 字段的电影。</span><span class="sxs-lookup"><span data-stu-id="97894-225">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="97894-226">如果数据库未设定种子，则在 `SeedData.Initialize` 方法中设置断点。</span><span class="sxs-lookup"><span data-stu-id="97894-226">If the database isn't seeded, set a break point in the `SeedData.Initialize` method.</span></span>
+<span data-ttu-id="76b0e-342">运行应用，并验证是否可以创建/编辑/显示具有 `Rating` 字段的电影。</span><span class="sxs-lookup"><span data-stu-id="76b0e-342">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="76b0e-343">如果数据库未设定种子，则在 `SeedData.Initialize` 方法中设置断点。</span><span class="sxs-lookup"><span data-stu-id="76b0e-343">If the database isn't seeded, set a break point in the `SeedData.Initialize` method.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="97894-227">其他资源</span><span class="sxs-lookup"><span data-stu-id="97894-227">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="76b0e-344">其他资源</span><span class="sxs-lookup"><span data-stu-id="76b0e-344">Additional resources</span></span>
 
-* [<span data-ttu-id="97894-228">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="97894-228">YouTube version of this tutorial</span></span>](https://youtu.be/3i7uMxiGGR8)
+* [<span data-ttu-id="76b0e-345">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="76b0e-345">YouTube version of this tutorial</span></span>](https://youtu.be/3i7uMxiGGR8)
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="97894-229">[上一篇：添加搜索](xref:tutorials/razor-pages/search)
-> [下一篇：添加验证](xref:tutorials/razor-pages/validation)</span><span class="sxs-lookup"><span data-stu-id="97894-229">[Previous: Adding Search](xref:tutorials/razor-pages/search)
-[Next: Adding Validation](xref:tutorials/razor-pages/validation)</span></span>
+> <span data-ttu-id="76b0e-346">[上一篇：添加搜索](xref:tutorials/razor-pages/search)
+> [下一步：添加验证](xref:tutorials/razor-pages/validation)</span><span class="sxs-lookup"><span data-stu-id="76b0e-346">[Previous: Add Search](xref:tutorials/razor-pages/search)
+[Next: Add Validation](xref:tutorials/razor-pages/validation)</span></span>
 
 ::: moniker-end
