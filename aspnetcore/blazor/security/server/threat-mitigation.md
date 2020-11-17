@@ -5,7 +5,7 @@ description: 了解如何缓解 Blazor Server 应用面临的安全威胁。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/05/2020
+ms.date: 11/09/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/threat-mitigation
-ms.openlocfilehash: 5c3a002a8e3df030d53c8625597342a68ca0d4b5
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 0e8b26110a970526b5f6306da236a92f52e64604
+ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055407"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430948"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-no-locblazor-server"></a>ASP.NET Core Blazor Server 的威胁缓解指南
 
@@ -101,7 +101,10 @@ Blazor 客户端会为每个会话建立一个连接，并且只要浏览器窗�
     * 需要身份验证才能连接到应用并跟踪每位用户的活动会话。
     * 达到限制后拒绝新会话。
     * 代理 WebSocket 通过使用代理连接到应用，例如使用 [Azure SignalR 服务](/azure/azure-signalr/signalr-overview)，它将从客户端到应用的连接进行多路复用处理。 这样，应用拥有的连接容量比单个客户端可建立的大，从而防止客户端耗尽与服务器的连接。
-  * 在服务器级别：先使用代理/网关，再使用应用。 例如，通过 [Azure Front Door](/azure/frontdoor/front-door-overview)，可定义、管理和监视 Web 流量到应用的全局路由。
+  * 在服务器级别：先使用代理/网关，再使用应用。 例如，通过 [Azure Front Door](/azure/frontdoor/front-door-overview)，可定义、管理和监视 Web 流量到应用的全局路由，且它在将 Blazor Server 应用配置为使用长轮询时运行。
+  
+    > [!NOTE]
+    > 尽管 Blazor Server 应用支持长轮询，但[建议将 WebSocket 用作传输协议](xref:blazor/host-and-deploy/server#azure-signalr-service)。 [Azure Front Door](/azure/frontdoor/front-door-overview) 目前不支持 Websocket，但将来的服务版本会考虑支持 Websocket。
 
 ## <a name="denial-of-service-dos-attacks"></a>拒绝服务 (DoS) 攻击
 
@@ -116,7 +119,7 @@ Blazor 客户端会为每个会话建立一个连接，并且只要浏览器窗�
 
 使用 <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions> 设置单个传入中心消息的最大消息大小。
 
-| SignalR 和 ASP.NET Core 限制 | 描述 | 默认 |
+| SignalR 和 ASP.NET Core 限制 | 说明 | 默认 |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType> | 单个消息的大小。 | 32 KB |
 
@@ -307,7 +310,7 @@ ASP.NET Core 应用的保护指南适用于 Blazor Server 应用，将在以下�
 
 使用以下项在 JavaScript 中启用详细错误：
 
-* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DetailedErrors?displayProperty=nameWithType>。
+* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DetailedErrors?displayProperty=nameWithType>.
 * `DetailedErrors` 配置键设置为 `true`，在应用设置文件 (`appsettings.json`) 中可进行此设置。 也可使用值为 `true` 的 `ASPNETCORE_DETAILEDERRORS` 环境变量设置此键。
 
 > [!WARNING]

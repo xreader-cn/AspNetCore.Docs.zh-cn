@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 77cf1e9ad51b7044a35e1a9b2c125b0fdd91435e
-ms.sourcegitcommit: 33f631a4427b9a422755601ac9119953db0b4a3e
+ms.openlocfilehash: 428320f9d706b0dd16ced68d183ec4b331451965
+ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/05/2020
-ms.locfileid: "93365365"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94550642"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
@@ -73,11 +73,15 @@ If you choose to use SQLite, download and install a third-party tool for managin
 
 ## <a name="create-web-app"></a>创建 Web 应用
 
-* 打开 Visual Studio 并选择“ASP.NET Core Web 应用程序”>“下一步”。
-* 将项目命名为 `ContosoUniversity`。 请务必使用此名称（含大写），确保在复制代码时与命名空间相匹配。
-* 选择“创建”。
-* 在下拉列表中选择“.NET Core”和“ASP.NET Core 5.0”，然后选择“Web 应用程序(Model-View-Controller)”模板。
-  ![新的 ASP.NET Core 项目对话框](intro/_static/new-aspnet5.png)
+1. 启动 Visual Studio 并选择“创建新项目”。
+1. 在“新建项目”对话框中，选择“ASP.NET Core Web 应用程序”>“下一步”。
+1. 在“配置新项目”对话框中，为“项目名称”输入 `ContosoUniversity`。 请务必使用此名称（含大写），确保在复制代码时与每个 `namespace` 都相匹配。
+1. 选择“创建”。
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择：
+    1. 下拉列表中的“.NET Core”和“ASP.NET Core 5.0”。
+    1. ASP.NET Core Web 应用程序（模型-视图-控制器）。
+    1. “创建”
+      ![新的 ASP.NET Core 项目对话框](~/data/ef-mvc/intro/_static/new-aspnet5.png)
 
 ## <a name="set-up-the-site-style"></a>设置网站样式
 
@@ -109,8 +113,8 @@ EF SQL Server 包与其依赖项 `Microsoft.EntityFrameworkCore` 和 `Microsoft.
 添加 [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore) NuGet 包和 [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore) NuGet 包。 在程序管理器控制台 (PMC) 中输入以下命令以添加 NuGet 包：
 
 ```powershell
-Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore -Version 5.0.0-rc.2.20475.17
-Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 5.0.0-rc.2.20475.6
+Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 `Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore` NuGet 包提供 EF Core 错误页的 ASP.NET Core 中间件。 此中间件有助于检测和诊断 EF Core 迁移错误。
@@ -217,7 +221,7 @@ ASP.NET Core 包含[依赖关系注入](../../fundamentals/dependency-injection.
 
 [!code-csharp[](intro/samples/5cu-snap/Startup.cs?name=snippet&highlight=1-2,22-23)]
 
-通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
+通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。 进行本地开发时，[ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
 
 打开 *appsettings.json* 文件，并按以下标记所示添加连接字符串：
 
@@ -278,12 +282,12 @@ Program.cs 在应用启动时执行以下操作：
 
 * 在“解决方案资源管理器”中，右键单击 `Controllers` 文件夹，然后选择“添加”>“新搭建基架的项目”。
 * 在“添加基架”对话框中：
-  * 选择 **视图使用 Entity Framework 的 MVC 控制器** 。
-  * 单击 **添加** 。 随即将显示“使用 Entity Framework 添加包含视图的 MVC 控制器”对话框：![构架 Student](intro/_static/scaffold-student2.png)
+  * 选择 **视图使用 Entity Framework 的 MVC 控制器**。
+  * 单击 **添加**。 随即将显示“使用 Entity Framework 添加包含视图的 MVC 控制器”对话框：![构架 Student](intro/_static/scaffold-student2.png)
   * 在“模型类”中选择“Student”。
   * 在“数据上下文类”中选择“SchoolContext” 。
   * 使用 **StudentsController** 作为默认名称。
-  * 单击 **添加** 。
+  * 单击 **添加**。
 
 Visual Studio 基架引擎创建 `StudentsController.cs` 文件和一组对应于控制器的视图（`*.cshtml` 文件）。
 
@@ -388,11 +392,13 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-3.0"
+::: moniker range="<= aspnetcore-3.1"
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
 Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (EF) Core 2.2 和 Visual Studio 2017 或 2019 创建 ASP.NET Core 2.2 MVC Web 应用程序。
+
+本教程没有针对 ASP.NET Core 3.1 进行更新。 它已针对 [ASP.NET Core 5.0](xref:data/ef-mvc/intro?view=aspnetcore-5.0) 进行了更新。
 
 示例应用程序供一个虚构的 Contoso 大学网站使用。 它包括诸如学生入学、 课程创建和导师分配等功能。 这是一系列教程中的第一个，这一系列教程主要展示了如何从零开始构建 Contoso 大学示例应用程序。
 
@@ -438,7 +444,7 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 
 * 选择“.NET Core”、“ASP.NET Core 2.2”和“Web 应用程序(模型-视图-控制器)”模板  。
 
-* 请确保 **身份验证** 设置为  **不进行身份验证** 。
+* 请确保 **身份验证** 设置为  **不进行身份验证**。
 
 * 选择“确定”
 
@@ -458,7 +464,7 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 
 [!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,34-48,63)]
 
-在 *Views/Home/Index.cshtml* ，将文件的内容替换为以下代码以将有关 ASP.NET 和 MVC 的内容替换为有关此应用程序的内容：
+在 *Views/Home/Index.cshtml*，将文件的内容替换为以下代码以将有关 ASP.NET 和 MVC 的内容替换为有关此应用程序的内容：
 
 [!code-cshtml[](intro/samples/cu/Views/Home/Index.cshtml)]
 
@@ -532,7 +538,7 @@ EF SQL Server 包和其依赖项（`Microsoft.EntityFrameworkCore` 和 `Microsof
 
 使得给定的数据模型与 Entity Framework 功能相协调的主类是数据库上下文类。 可以通过继承 `Microsoft.EntityFrameworkCore.DbContext` 类的方式创建此类。 在该类中你可以指定数据模型中包含哪些实体。 你还可以定义某些 Entity Framework 行为。 在此项目中将数据库上下文类命名为 `SchoolContext`。
 
-在项目文件夹中，创建名为的文件夹 *Data* 。
+在项目文件夹中，创建名为的文件夹 *Data*。
 
 在 *Data* 文件夹创建名为 *SchoolContext.cs* 的类文件，并将模板代码替换为以下代码：
 
@@ -556,7 +562,7 @@ ASP.NET Core 默认实现 [依赖注入](../../fundamentals/dependency-injection
 
 [!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_SchoolContext&highlight=9-10)]
 
-通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
+通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。 进行本地开发时，[ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
 
 添加 `using` 语句引用 `ContosoUniversity.Data` 和 `Microsoft.EntityFrameworkCore` 命名空间，然后生成项目。
 
@@ -582,7 +588,7 @@ Entity Framework 已经为你创建了一个空数据库。 在本部分中，�
 
 这段代码首先检查是否有学生数据在数据库中，如果没有的话，就可以假定数据库是新建的，然后使用测试数据进行填充。 代码中使用数组存放测试数据而不是使用 `List<T>` 集合是为了优化性能。
 
-在 *Program.cs* ，修改 `Main` 方法，使得在应用程序启动时能执行以下操作：
+在 *Program.cs*，修改 `Main` 方法，使得在应用程序启动时能执行以下操作：
 
 * 从依赖注入容器中获取数据库上下文实例。
 * 调用 seed 方法，将上下文传递给它。
@@ -603,14 +609,14 @@ Entity Framework 已经为你创建了一个空数据库。 在本部分中，�
 
 CRUD 操作方法和视图的自动创建被称为基架。 基架与代码生成不同，基架的代码是一个起点，可以修改基架以满足自己需求，而你通常无需修改生成的代码。 当你需要自定义生成代码时，可使用一部分类或需求发生变化时重新生成代码。
 
-* 右键单击 **解决方案资源管理器** 中的 **Controllers** 文件夹选择 **添加 > 新搭建基架的项目** 。
+* 右键单击 **解决方案资源管理器** 中的 **Controllers** 文件夹选择 **添加 > 新搭建基架的项目**。
 * 在“添加基架”对话框中：
-  * 选择 **视图使用 Entity Framework 的 MVC 控制器** 。
-  * 单击 **添加** 。 随即将显示“使用 Entity Framework 添加包含视图的 MVC 控制器”对话框：![构架 Student](intro/_static/scaffold-student2.png)
-  * 在 **模型类** 选择 **Student** 。
+  * 选择 **视图使用 Entity Framework 的 MVC 控制器**。
+  * 单击 **添加**。 随即将显示“使用 Entity Framework 添加包含视图的 MVC 控制器”对话框：![构架 Student](intro/_static/scaffold-student2.png)
+  * 在 **模型类** 选择 **Student**。
   * 在“数据上下文类”中选择 SchoolContext 。
   * 使用 **StudentsController** 作为默认名称。
-  * 单击 **添加** 。
+  * 单击 **添加**。
 
 Visual Studio 基架引擎创建 StudentsController.cs 文件和一组对应于控制器的视图（.cshtml 文件）
 
@@ -652,7 +658,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 ![SSOX 中的表](intro/_static/ssox-tables.png)
 
-右键单击 **Student** 表，然后单击 **查看数据** ，即可查看已创建的列和已插入到表的行。
+右键单击 **Student** 表，然后单击 **查看数据**，即可查看已创建的列和已插入到表的行。
 
 ![SSOX 中的 Student 表](intro/_static/ssox-student-table.png)
 

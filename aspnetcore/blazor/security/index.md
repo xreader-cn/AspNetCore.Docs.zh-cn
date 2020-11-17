@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: a333c189e81a9f44e94deb6b37097f1a8b19a0f9
-ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
+ms.openlocfilehash: 6435a7c9ce2a30873f0d3475a38270d3dea1b300
+ms.sourcegitcommit: 98f92d766d4f343d7e717b542c1b08da29e789c1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430921"
+ms.lasthandoff: 11/13/2020
+ms.locfileid: "94595462"
 ---
 # <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -255,7 +255,7 @@ builder.Services.AddAuthorizationCore();
 
 ## <a name="authorizeview-component"></a>AuthorizeView 组件
 
-<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件根据用户是否有权查看来选择性地显示 UI。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用。
+<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件根据用户是否获得授权来选择性地显示 UI 内容。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用。
 
 该组件公开了一个 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState> 类型的 `context` 变量，可以使用该变量来访问有关已登录用户的信息：
 
@@ -266,24 +266,29 @@ builder.Services.AddAuthorizationCore();
 </AuthorizeView>
 ```
 
-另外，如果用户未经过身份验证，你还可以提供不同的内容以供显示：
+此外，如果用户未获得授权，你还可提供不同的内容以供显示：
 
 ```razor
 <AuthorizeView>
     <Authorized>
         <h1>Hello, @context.User.Identity.Name!</h1>
-        <p>You can only see this content if you're authenticated.</p>
+        <p>You can only see this content if you're authorized.</p>
+        <button @onclick="SecureMethod">Authorized Only Button</button>
     </Authorized>
     <NotAuthorized>
         <h1>Authentication Failure!</h1>
         <p>You're not signed in.</p>
     </NotAuthorized>
 </AuthorizeView>
+
+@code {
+    private void SecureMethod() { ... }
+}
 ```
 
-可以在 `NavMenu` 组件 (`Shared/NavMenu.razor`) 中使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件来显示 [`NavLink` 组件](xref:blazor/fundamentals/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
-
 `<Authorized>` 和 `<NotAuthorized>` 标记的内容可以包括任意项，如其他交互式组件。
+
+授权元素的默认事件处理程序（例如上例中 `<button>` 元素的 `SecureMethod` 方法）仅可由已获得授权的用户进行调用。
 
 [授权](#authorization)一节中介绍了授权条件，如用于控制 UI 选项或访问权限的角色或策略。
 
@@ -291,6 +296,8 @@ builder.Services.AddAuthorizationCore();
 
 * 将经过身份验证（已登录）的用户视为已授权。
 * 将未经过身份验证（已注销）的用户视为未授权。
+
+可以在 `NavMenu` 组件 (`Shared/NavMenu.razor`) 中使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件来显示 [`NavLink` 组件](xref:blazor/fundamentals/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
 
 ### <a name="role-based-and-policy-based-authorization"></a>基于角色和基于策略的授权
 

@@ -1,5 +1,25 @@
 ## <a name="troubleshoot"></a>疑难解答
 
+::: moniker range=">= aspnetcore-5.0"
+
+### <a name="common-errors"></a>常见错误
+
+* AAD 的客户端未获得授权
+
+  > 信息：Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[2] 授权失败。 不符合以下要求：DenyAnonymousAuthorizationRequirement：要求用户经过身份验证。
+
+  AAD 返回的登录回叫错误：
+
+  * 错误：`unauthorized_client`
+  * 说明：`AADB2C90058: The provided application is not configured to allow public clients.`
+
+  若要解决该错误：
+
+  1. 在 Azure 门户中访问[应用的清单](/azure/active-directory/develop/reference-app-manifest)。
+  1. 将 [`allowPublicClient`](/azure/active-directory/develop/reference-app-manifest#allowpublicclient-attribute) 属性设置为 `null` 或 `true`。
+
+::: moniker-end
+
 ### <a name="cookies-and-site-data"></a>Cookie 和站点数据
 
 Cookie 和站点数据在经过应用更新后仍可保持不变，并且会干扰测试和故障排除。 在更改应用代码、更改提供程序的用户帐户或更改提供程序的应用配置时，请清除以下内容：

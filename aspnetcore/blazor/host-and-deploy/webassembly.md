@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 0912b3fbcd0b891deb4985eaa18841c22f4f3264
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 7ae462ff9abd06fe4ab4b3e00a71515b76b0ee7d
+ms.sourcegitcommit: bb475e69cb647f22cf6d2c6f93d0836c160080d7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055745"
+ms.lasthandoff: 11/06/2020
+ms.locfileid: "94339979"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -523,7 +523,16 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 
 #### <a name="brotli-and-gzip-compression"></a>Brotli 和 Gzip 压缩
 
-通过 `web.config` 可将 IIS 配置为提供 Brotli 或 Gzip 压缩的 Blazor 资产。 有关示例配置，请参阅 [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true)。
+*本部分仅适用于独立的 Blazor WebAssembly 应用。托管的 Blazor 应用使用默认的 ASP.NET Core 应用 `web.config` 文件，而不使用本部分中所链接的文件。*
+
+通过 `web.config` 可将 IIS 配置为提供独立 Blazor WebAssembly 应用的 Brotli 或 Gzip 压缩的 Blazor 资产。 若要查看示例配置文件，请参阅 [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true)。
+
+在以下情况下，可能需要进一步配置示例 `web.config` 文件：
+
+* 应用的规范具有以下任意一个要求：
+  * 提供不是由示例 `web.config` 文件配置的压缩文件。
+  * 采用非压缩格式提供由示例 `web.config` 文件配置的压缩文件。
+* 服务器的 IIS 配置（例如 `applicationHost.config`）提供了服务器级 IIS 默认值。 根据服务器级别配置，应用可能要求 IIS 配置不同于示例 `web.config` 文件所包含的配置。
 
 #### <a name="troubleshooting"></a>疑难解答
 

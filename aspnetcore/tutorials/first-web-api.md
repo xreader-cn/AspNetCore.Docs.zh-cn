@@ -19,12 +19,12 @@ no-loc:
 - SignalR
 - Models
 uid: tutorials/first-web-api
-ms.openlocfilehash: fc41dd13e7d027d9630cd596162f9b5fd2ef9e2b
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: ab06f2d347d7f05e9c72a85e0c6e0fbc67fe48a7
+ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93058488"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94550707"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -119,7 +119,7 @@ ms.locfileid: "93058488"
 
   ![macOS API 模板选择](first-web-api-mac/_static/api_template.png)
 
-* 在“配置新的 ASP.NET Core Web API”对话框中，选择最新的 .NET Core 3.x 目标框架 。 选择“下一步”。
+* 在“配置新的 ASP.NET Core Web API”对话框中，选择最新的 .NET Core 5.x 目标框架。 选择“下一步”。
 
 * 输入“TodoApi”作为“项目名称”，然后选择“创建”。
 
@@ -402,7 +402,7 @@ ASP.NET Core 模板：
     }
     ```
 
-* 选择 **Send** 。
+* 选择 **Send**。
 
   ![使用创建请求的 Postman](first-web-api/_static/3/create.png)
 
@@ -419,7 +419,7 @@ ASP.NET Core 模板：
 
 * 将 HTTP 方法设置为 `GET`。
 * 将 URI 设置为 `https://localhost:<port>/api/TodoItems/1`。 例如 `https://localhost:5001/api/TodoItems/1`。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 ## <a name="examine-the-get-methods"></a>检查 GET 方法
 
@@ -451,7 +451,7 @@ ASP.NET Core 模板：
 * 将 HTTP 方法设置为“GET”。
 * 将请求 URI 设置为 `https://localhost:<port>/api/TodoItems`。 例如 `https://localhost:5001/api/TodoItems`。
 * 在 Postman 中设置 **Two pane view** 。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 此应用使用内存中数据库。 如果应用已停止并启动，则前面的 GET 请求将不会返回任何数据。 如果未返回任何数据，将数据 [POST](#post) 到应用。
 
@@ -519,13 +519,13 @@ ASP.NET Core 模板：
 
 * 将方法设置为 `DELETE`。
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 <a name="over-post-v5"></a>
 
 ## <a name="prevent-over-posting"></a>防止过度发布
 
-目前，示例应用公开了整个 `TodoItem` 对象。 生产应用通常使用模型的子集来限制输入和返回的数据。 这背后有多种原因，但安全性是主要原因。 模型的子集通常称为数据传输对象 (DTO)、输入模型或视图模型。 本文使用的是 **DTO** 。
+目前，示例应用公开了整个 `TodoItem` 对象。 生产应用通常使用模型的子集来限制输入和返回的数据。 这背后有多种原因，但安全性是主要原因。 模型的子集通常称为数据传输对象 (DTO)、输入模型或视图模型。 本文使用的是 **DTO**。
 
 DTO 可用于：
 
@@ -893,7 +893,7 @@ ASP.NET Core 模板：
     }
     ```
 
-* 选择 **Send** 。
+* 选择 **Send**。
 
   ![使用创建请求的 Postman](first-web-api/_static/3/create.png)
 
@@ -906,7 +906,7 @@ ASP.NET Core 模板：
 
 * 将 HTTP 方法设置为 `GET`。
 * 将 URI 设置为 `https://localhost:<port>/api/TodoItems/1`。 例如 `https://localhost:5001/api/TodoItems/1`。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 ## <a name="examine-the-get-methods"></a>检查 GET 方法
 
@@ -938,7 +938,7 @@ ASP.NET Core 模板：
 * 将 HTTP 方法设置为“GET”。
 * 将请求 URI 设置为 `https://localhost:<port>/api/TodoItems`。 例如 `https://localhost:5001/api/TodoItems`。
 * 在 Postman 中设置 **Two pane view** 。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 此应用使用内存中数据库。 如果应用已停止并启动，则前面的 GET 请求将不会返回任何数据。 如果未返回任何数据，将数据 [POST](#post) 到应用。
 
@@ -1006,14 +1006,14 @@ ASP.NET Core 模板：
 
 * 将方法设置为 `DELETE`。
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 <a name="over-post"></a>
 <a name="over-post-v3"></a>
 
 ## <a name="prevent-over-posting"></a>防止过度发布
 
-目前，示例应用公开了整个 `TodoItem` 对象。 生产应用通常使用模型的子集来限制输入和返回的数据。 这背后有多种原因，但安全性是主要原因。 模型的子集通常称为数据传输对象 (DTO)、输入模型或视图模型。 本文使用的是 **DTO** 。
+目前，示例应用公开了整个 `TodoItem` 对象。 生产应用通常使用模型的子集来限制输入和返回的数据。 这背后有多种原因，但安全性是主要原因。 模型的子集通常称为数据传输对象 (DTO)、输入模型或视图模型。 本文使用的是 **DTO**。
 
 DTO 可用于：
 
@@ -1321,7 +1321,7 @@ DTO 可用于：
 * 安装 [Postman](https://www.getpostman.com/downloads/)。
 * 启动 Web 应用。
 * 启动 Postman。
-* 禁用 **SSL 证书验证** 。
+* 禁用 **SSL 证书验证**。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -1340,7 +1340,7 @@ DTO 可用于：
   * 将 HTTP 方法设置为“GET”。
   * 将请求 URI 设置为 `https://localhost:<port>/api/todo`。 例如 `https://localhost:5001/api/todo`。
 * 在 Postman 中设置 **Two pane view** 。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 ![使用 Get 请求的 Postman](first-web-api/_static/2pv.png)
 
@@ -1377,7 +1377,7 @@ DTO 可用于：
     }
     ```
 
-* 选择 **Send** 。
+* 选择 **Send**。
 
   ![使用创建请求的 Postman](first-web-api/_static/create.png)
 
@@ -1392,7 +1392,7 @@ DTO 可用于：
 
 * 将方法设置为“GET”。
 * 将 URI 设置为 `https://localhost:<port>/api/TodoItems/2`。 例如 `https://localhost:5001/api/TodoItems/2`。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 ## <a name="add-a-puttodoitem-method-21"></a>添加 PutTodoItem 方法 2.1
 
@@ -1436,7 +1436,7 @@ DTO 可用于：
 
 * 将方法设置为 `DELETE`。
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/todo/1`。
-* 选择 **Send** 。
+* 选择 **Send**。
 
 可通过示例应用删除所有项。 但如果删除最后一项，则在下次调用 API 时，模型类构造函数会创建一个新项。
 

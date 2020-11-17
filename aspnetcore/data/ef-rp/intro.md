@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 74f65b916c2d5b7de61ec29f4259a51584ee5989
-ms.sourcegitcommit: 33f631a4427b9a422755601ac9119953db0b4a3e
+ms.openlocfilehash: 5849f4bfb9d0355177ceb5c2f4236c6d39dd9e92
+ms.sourcegitcommit: bb475e69cb647f22cf6d2c6f93d0836c160080d7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/05/2020
-ms.locfileid: "93365413"
+ms.lasthandoff: 11/06/2020
+ms.locfileid: "94340031"
 ---
 # <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor Pages 和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -119,12 +119,16 @@ To run the app after downloading the completed project:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 启动 Visual Studio 并选择“创建新项目”。
-* 选择“ASP.NET Core Web 应用程序”>“下一步”。
-* 将该项目命名为 ContosoUniversity 。 请务必使用此名称（含大写），确保在复制和粘贴代码时与命名空间相匹配。
-* 选择“创建”。
-* 在下拉列表中选择“.NET Core”和“ASP.NET Core 5.0”，然后选择“Web 应用程序”。
-
+1. 启动 Visual Studio 并选择“创建新项目”。
+1. 在“新建项目”对话框中，选择“ASP.NET Core Web 应用程序”>“下一步”。
+1. 在“配置新项目”对话框中，为“项目名称”输入 `ContosoUniversity`。 请务必使用此名称（含大写），确保在复制代码时与每个 `namespace` 都相匹配。
+1. 选择“创建”。
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择：
+    1. 下拉列表中的“.NET Core”和“ASP.NET Core 5.0”。
+    1. ASP.NET Core Web 应用程序（模型-视图-控制器）。
+    1. “创建”
+      ![新的 ASP.NET Core 项目对话框](~/data/ef-mvc/intro/_static/new-aspnet5.png)
+    
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 在终端中，导航到应在其中创建项目文件夹的文件夹。
@@ -362,7 +366,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 ---
 
-通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
+通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时，[ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
 
 ### <a name="add-the-database-exception-filter"></a>添加数据库异常筛选器
 
@@ -580,9 +584,9 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 若要在下载完成的项目之后运行应用，请执行以下操作：
 
-* 删除 ContosoUniversity.csproj，然后将 ContosoUniversitySQLite.csproj 重命名为 ContosoUniversity.csproj **** 。
+* 删除 ContosoUniversity.csproj，然后将 ContosoUniversitySQLite.csproj 重命名为 ContosoUniversity.csproj ****。
 * 在“Program.cs”中注释掉 `#define Startup`，以便使用 `StartupSQLite`。
-* 删除 appSettings.json，然后将 appSettingsSQLite.json 重命名为 appSettings.json **** 。
+* 删除 appSettings.json，然后将 appSettingsSQLite.json 重命名为 appSettings.json ****。
 * 删除“Migrations”文件夹，然后将 MigrationsSQL 重命名为 Migrations  。
 * 对 `#if SQLiteVersion` 执行全局搜索，并删除 `#if SQLiteVersion` 和相关 `#endif` 语句。
 * 生成项目。
@@ -839,7 +843,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 ---
 
-通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
+通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时，[ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
 
 ## <a name="create-the-database"></a>创建数据库
 
@@ -1019,7 +1023,7 @@ dotnet run
 
 * 将文件中的"ContosoUniversity"更改为"Contoso University"。 需要更改三个地方。
 
-* 添加菜单项 **Students** ， **Courses** ， **Instructors** ，和 **Department** ，并删除 **Contact** 菜单项。
+* 添加菜单项 **Students**，**Courses**，**Instructors**，和 **Department**，并删除 **Contact** 菜单项。
 
 突出显示所作更改。 （没有显示全部标记。）
 
@@ -1127,7 +1131,7 @@ dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.Sc
 
 ### <a name="file-updates"></a>更新的文件
 
-* *Startup.cs* ：下一部分详细介绍对此文件所作的更改。
+* *Startup.cs*：下一部分详细介绍对此文件所作的更改。
 * *appsettings.json* ：添加用于连接到本地数据库的连接字符串。
 
 ## <a name="examine-the-context-registered-with-dependency-injection"></a>检查通过依赖关系注入注册的上下文
@@ -1140,7 +1144,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 [!code-csharp[](intro/samples/cu21/Startup.cs?name=snippet_SchoolContext&highlight=13-14)]
 
-通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
+通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时，[ASP.NET Core 配置系统](xref:fundamentals/configuration/index)在 *appsettings.json* 文件中读取连接字符串。
 
 ## <a name="update-main"></a>更新 main
 

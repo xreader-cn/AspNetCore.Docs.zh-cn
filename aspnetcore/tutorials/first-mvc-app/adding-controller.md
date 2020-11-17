@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 11832efa6715f96856665f174d65b094806d2810
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 1851a61441ed351442f86939022319ad59d10006
+ms.sourcegitcommit: 91e14f1e2a25c98a57c2217fe91b172e0ff2958c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061283"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94422610"
 ---
 # <a name="part-2-add-a-controller-to-an-aspnet-core-mvc-app"></a>第 2 部分，将控制器添加到 ASP.NET Core MVC 应用
 
@@ -46,12 +46,12 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中，右键单击“控制器”，然后单击“添加”>“控制器”
-  ![上下文菜单](adding-controller/_static/add_controller.png) 
+* 在“解决方案资源管理器”中，右击“控制器 > 添加 > 控制器”
+  ![解决方案资源管理器，右击“控制器 > 添加 > 控制器”](~/tutorials/first-mvc-app/adding-controller/_static/add_controllerCopy.png)
 
-* 在“添加基架”对话框中，选择“控制器类 - 空” 
+* 在“添加基架”对话框中，选择“MVC 控制器 - 空” 
 
-  ![添加 MVC 控制器并为其命名](adding-controller/_static/ac.png)
+  ![添加 MVC 控制器并为其命名](~/tutorials/first-mvc-app/adding-controller/_static/acCopy.png)
 
 * 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”  。
 
@@ -161,11 +161,11 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”中，右键单击“控制器”，然后单击“添加”>“控制器”
-  ![上下文菜单](adding-controller/_static/add_controller.png) 
+  ![上下文菜单](~/tutorials/first-mvc-app/adding-controller/_static/add_controller.png) 
 
 * 在“添加基架”对话框中，选择“MVC 控制器 - 空” 
 
-  ![添加 MVC 控制器并为其命名](adding-controller/_static/ac.png)
+  ![添加 MVC 控制器并为其命名](~/tutorials/first-mvc-app/adding-controller/_static/ac.png)
 
 * 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”  。
 

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 5b07a2839daf190d99b2787db70998373d34cd44
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: e134832ad00b10bb01239afa06acc74d86707af1
+ms.sourcegitcommit: 91e14f1e2a25c98a57c2217fe91b172e0ff2958c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059996"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94422556"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 

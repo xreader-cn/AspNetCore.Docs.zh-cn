@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 669ebaf6dcd05561340aefda4a75b6fe1068d207
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 990882c03ddc14c664aa8da0518fb36087199aca
+ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056187"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94550512"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -49,6 +49,7 @@ ms.locfileid: "93056187"
 
 * 出现未经处理的异常时中断。
 * 于应用启动期间在调试代理运行之前命中断点。 这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。
+* 在非本地方案中调试（例如，[适用于 Linux 的 Windows 子系统 (WSL)](/windows/wsl/) 或 [Visual Studio Codespaces](/visualstudio/codespaces/overview/what-is-vsonline)）。
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -56,6 +57,8 @@ ms.locfileid: "93056187"
 
 * Google Chrome（版本 70 或更高版本）（默认）
 * Microsoft Edge（版本 80 或更高版本）
+
+确保防火墙或代理不会阻止与调试代理（`NodeJS` 进程）之间的通信。 有关详细信息，请参阅[防火墙配置](#firewall-configuration)部分。
 
 Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
 
@@ -339,6 +342,23 @@ Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://c
 
 浏览器源映射允许浏览器将编译后的文件映射回其原始源文件，并且通常用于客户端调试。 但是，Blazor 当前不直接将 C# 映射到 JavaScript/WASM。 相反，Blazor 在浏览器中进行 IL 解释，因此源映射不相关。
 
+## <a name="firewall-configuration"></a>防火墙配置
+
+如果防火墙阻止与调试代理之间的通信，则创建允许浏览器与 `NodeJS` 进程之间进行通信的防火墙例外规则。
+
+> [!WARNING]
+> 必须谨慎修改防火墙配置，以避免造成安全漏洞。 仔细应用安全指南、遵循最佳安全实践，并遵守防火墙制造商发出的警告。
+>
+> 允许与 `NodeJS` 进程之间的开放式通信：
+>
+> * 根据防火墙的功能和配置，打开节点服务器的任何连接。
+> * 可能会因网络而有风险。
+> * 仅建议在开发人员计算机上使用。
+>
+> 如果可能，只允许与受信任的网络或专用网络上的 `NodeJS` 进程之间的开放式通信。
+
+有关 [Windows 防火墙](/windows/security/threat-protection/windows-firewall/windows-firewall-with-advanced-security)配置指南，请参阅[创建入站程序或服务规则](/windows/security/threat-protection/windows-firewall/create-an-inbound-program-or-service-rule)。 有关详细信息，请参阅 Windows 防火墙文档集中的[具有高级安全性的 Windows Defender 防火墙](/windows/security/threat-protection/windows-firewall/windows-firewall-with-advanced-security)和相关文章。
+
 ## <a name="troubleshoot"></a>疑难解答
 
 如果遇到错误，以下提示可能有所帮助：
@@ -349,6 +369,7 @@ Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://c
 * 如果你的环境使用 HTTP 代理，请确保在代理绕过设置中包含 `localhost`。 这可以通过在以下二者之一中设置 `NO_PROXY` 环境变量来实现：
   * 项目的 `launchSettings.json` 文件。
   * 在将其应用于所有应用时所在的用户或系统环境变量级别。 使用环境变量时，请重新启动 Visual Studio 以使更改生效。
+* 确保防火墙或代理不会阻止与调试代理（`NodeJS` 进程）之间的通信。 有关详细信息，请参阅[防火墙配置](#firewall-configuration)部分。
 
 ### <a name="breakpoints-in-oninitializedasync-not-hit"></a>`OnInitialized{Async}` 中的未命中断点
 

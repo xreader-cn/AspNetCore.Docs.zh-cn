@@ -5,7 +5,7 @@ description: 了解如何在 Ubuntu 16.04 上将 Nginx 设置为反向代理，�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/09/2020
+ms.date: 10/30/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 916bb1f761ce99b2296c84e1653e55fffa04f83c
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: c4e0d70b41221f272bb4b1fe82cfa531ec6fcf15
+ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93057682"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94431057"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -35,7 +35,7 @@ ms.locfileid: "93057682"
 有关 ASP.NET Core 支持的其他 Linux 分配的信息，请参阅 [Linux 上 .NET Core 的先决条件](/dotnet/core/linux-prerequisites)。
 
 > [!NOTE]
-> 对于 Ubuntu 14.04，建议进行监控，以此作为监视 Kestrel 进程的解决方案。 在 Ubuntu 14.04 上不提供 systemd。 有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。
+> 对于 Ubuntu 14.04，建议使用 `supervisord` 作为监视 Kestrel 进程的解决方案。 `systemd` 不适用于 Ubuntu 14.04。 有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。
 
 本指南：
 
@@ -63,9 +63,9 @@ ms.locfileid: "93057682"
 如果应用在本地运行，且未配置为建立安全连接 (HTTPS)，则采用以下任一方法：
 
 * 配置应用，以处理安全的本地连接。 有关详细信息，请参阅 [HTTPS 配置](#https-configuration)部分。
-* 从 Properties/launchSettings.json 文件中的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）。
+* 从 `Properties/launchSettings.json` 文件的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）。
 
-在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 bin/Release/&lt;target_framework_moniker&gt;/publish）：
+在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 `bin/Release/{TARGET FRAMEWORK MONIKER}/publish`，其中 `{TARGET FRAMEWORK MONIKER}` 占位符表示目标框架名字对象/TFM）：
 
 ```dotnetcli
 dotnet publish --configuration Release
@@ -73,7 +73,7 @@ dotnet publish --configuration Release
 
 如果不希望维护服务器上的 .NET Core 运行时，还可将应用发布为[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)。
 
-使用集成到组织工作流的工具（例如 SCP、SFTP）将 ASP.NET Core 应用复制到服务器。 通常可在 var 目录（例如 var/www/helloapp）下找到 Web 应用 。
+使用集成到组织工作流的工具（例如 `SCP`、`SFTP`）将 ASP.NET Core 应用复制到服务器。 通常可在 `var` 目录（例如 `var/www/helloapp`）下找到 Web 应用。
 
 > [!NOTE]
 > 在生产部署方案中，持续集成工作流会执行发布应用并将资产复制到服务器的工作。
@@ -93,15 +93,16 @@ Kestrel 非常适合从 ASP.NET Core 提供动态内容。 但是，Web 服务�
 
 鉴于此指南的目的，使用 Nginx 的单个实例。 它与 HTTP 服务器一起运行在同一服务器上。 根据要求，可以选择不同的设置。
 
-由于请求是通过反向代理转接的，因此使用 [Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) 包中的[转接头中间件](xref:host-and-deploy/proxy-load-balancer)。 此中间件使用 `X-Forwarded-Proto` 标头来更新 `Request.Scheme`，使重定向 URI 和其他安全策略能够正常工作。
-
+由于请求通过反向代理转发，因此使用 [`Microsoft.AspNetCore.HttpOverrides`](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides) 包中的[转接头中间件](xref:host-and-deploy/proxy-load-balancer)。 此中间件使用 `X-Forwarded-Proto` 标头来更新 `Request.Scheme`，使重定向 URI 和其他安全策略能够正常工作。
 
 [!INCLUDE[](~/includes/ForwardedHeaders.md)]
 
 调用其他中间件之前，请先在 `Startup.Configure` 的基础上调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法。 配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：
 
 ```csharp
-// using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.HttpOverrides;
+
+...
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
@@ -113,10 +114,12 @@ app.UseAuthentication();
 
 如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，则要转接的默认标头为 `None`。
 
-默认情况下，在环回地址 (127.0.0.0/8, [::1])（包括标准 localhost 地址 (127.0.0.1)）上运行的代理受信任。 如果组织内的其他受信任代理或网络处理 Internet 与 Web 服务器之间的请求，请使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 将其添加到 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> 或 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> 的列表。 以下示例会将 IP 地址为 10.0.0.100 的受信任代理服务器添加到 `Startup.ConfigureServices` 中的转接头中间件 `KnownProxies`：
+默认情况下，在环回地址 (`127.0.0.0/8`, `[::1]`)（包括标准 localhost 地址 (`127.0.0.1`)）上运行的代理受信任。 如果组织内的其他受信任代理或网络处理 Internet 与 Web 服务器之间的请求，请使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 将其添加到 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> 或 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> 的列表。 以下示例会将 IP 地址为 10.0.0.100 的受信任代理服务器添加到 `Startup.ConfigureServices` 中的转接头中间件 `KnownProxies`：
 
 ```csharp
-// using System.Net;
+using System.Net;
+
+...
 
 services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -128,7 +131,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 ### <a name="install-nginx"></a>安装 Nginx
 
-使用 `apt-get` 安装 Nginx。 安装程序将创建一个 systemd init 脚本，该脚本运行 Nginx，作为系统启动时的守护程序。 按照以下网站上的 Ubuntu 安装说明操作：[Nginx：官方 Debian/Ubuntu 包](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)。
+使用 `apt-get` 安装 Nginx。 安装程序将创建一个 `systemd` init 脚本，该脚本运行 Nginx，作为系统启动时的守护程序。 按照以下网站上的 Ubuntu 安装说明操作：[Nginx：官方 Debian/Ubuntu 包](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)。
 
 > [!NOTE]
 > 如果需要可选 Nginx 模块，则可能需要从源代码生成 Nginx。
@@ -143,7 +146,7 @@ sudo service nginx start
 
 ### <a name="configure-nginx"></a>配置 Nginx
 
-若要将 Nginx 配置为反向代理以将请求转接到 ASP.NET Core 应用，请修改 /etc/nginx/sites-available/default。 在文本编辑器中打开它，并将内容替换为以下内容：
+若要将 Nginx 配置为反向代理以将 HTTP 请求转发到 ASP.NET Core 应用程序，请修改 `/etc/nginx/sites-available/default`。 在文本编辑器中打开它，并将内容替换为以下内容：
 
 ```nginx
 server {
@@ -192,7 +195,7 @@ server {
 
 ## <a name="monitor-the-app"></a>监视应用
 
-服务器设置为将对 `http://<serveraddress>:80` 发起的请求转接到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。 但是，未将 Nginx 设置为管理 Kestrel 进程。 systemd 可用于创建服务文件以启动和监视基础 Web 应用。 systemd 是一个 init 系统，可以提供用于启动、停止和管理进程的许多强大的功能。 
+服务器设置为将对 `http://<serveraddress>:80` 发起的请求转接到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。 但是，未将 Nginx 设置为管理 Kestrel 进程。 `systemd` 可用于创建服务文件以启动和监视基础 Web 应用。 `systemd` 是一个初始系统，可以提供启动、停止和管理进程的许多强大的功能。 
 
 ### <a name="create-the-service-file"></a>创建服务文件
 
@@ -226,14 +229,14 @@ WantedBy=multi-user.target
 
 在前面的示例中，管理服务的用户由 `User` 选项指定。 用户 (`www-data`) 必须存在并且拥有正确应用文件的所有权。
 
-使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。 如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。 提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。 `TimeoutStopSec` 默认为管理器配置文件（ *systemd-system.conf* 、 *system.conf.d* 、 *systemd-user.conf* 、 *user.conf.d* ）中 `DefaultTimeoutStopSec` 的值。 大多数分发版的默认超时时间为 90 秒。
+使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。 如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。 提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。 `TimeoutStopSec` 默认为管理器配置文件 (`systemd-system.conf`, `system.conf.d`, `systemd-user.conf`, `user.conf.d`) 中 `DefaultTimeoutStopSec` 的值。 大多数分发版的默认超时时间为 90 秒。
 
 ```
 # The default value is 90 seconds for most distributions.
 TimeoutStopSec=90
 ```
 
-Linux 具有区分大小写的文件系统。 将 ASPNETCORE_ENVIRONMENT 设置为“生产”会导致搜索配置文件 appsettings.Production.json，而不是 appsettings.production.json。
+Linux 具有区分大小写的文件系统。 将 `ASPNETCORE_ENVIRONMENT` 设置为 `Production` 时，将搜索配置文件 `appsettings.Production.json`，而不搜索 `appsettings.production.json`。
 
 必须转义某些值（例如，SQL 连接字符串）以供配置提供程序读取环境变量。 使用以下命令生成适当的转义值以供在配置文件中使用：
 
@@ -276,7 +279,7 @@ Main PID: 9021 (dotnet)
             └─9021 /usr/local/bin/dotnet /var/www/helloapp/helloapp.dll
 ```
 
-在配置了反向代理并通过 systemd 管理 Kestrel 后，Web 应用现已完全配置，并能在本地计算机上的浏览器中从 `http://localhost` 进行访问。 也可以从远程计算机进行访问，同时限制可能进行阻止的任何防火墙。 检查响应标头，`Server` 标头显示由 Kestrel 所提供的 ASP.NET Core 应用。
+在配置了反向代理并通过 `systemd` 管理 Kestrel 后，Web 应用现已完全配置，并能在本地计算机上的浏览器中从 `http://localhost` 进行访问。 也可以从远程计算机进行访问，同时限制可能进行阻止的任何防火墙。 检查响应标头，`Server` 标头显示由 Kestrel 所提供的 ASP.NET Core 应用。
 
 ```text
 HTTP/1.1 200 OK
@@ -357,7 +360,7 @@ sudo ufw enable
 
 #### <a name="change-the-nginx-response-name"></a>更改 Nginx 响应名称
 
-编辑 src/http/ngx_http_header_filter_module.c：
+编辑 `src/http/ngx_http_header_filter_module.c`：
 
 ```
 static char ngx_http_server_string[] = "Server: Web Server" CRLF;
@@ -372,9 +375,9 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 配置应用，以进行安全的 (HTTPS) 本地连接
 
-[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL。
+[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 `Properties/launchSettings.json` 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL。
 
-使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5）：
+使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5<kbd></kbd><kbd></kbd><kbd></kbd>）：
 
 * [从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐）
 * [KestrelServerOptions.ConfigureHttpsDefaults](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
@@ -383,20 +386,25 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 * 通过指定由受信任的证书颁发机构 (CA) 颁发的有效证书来配置服务器，以侦听端口 `443` 上的 HTTPS 流量。
 
-* 通过采用以下“/etc/nginx/nginx.conf”文件中所示的某些做法来增强安全保护。 示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。
+* 通过采用以下“`/etc/nginx/nginx.conf`”文件中所示的某些做法来增强安全保护。 示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。
+
+  > [!NOTE]
+  > 对于开发环境，我们建议使用临时重定向(302)，而不使用永久性重定向 (301)。 链接缓存会导致开发环境中的行为不稳定。
 
 * 添加 `HTTP Strict-Transport-Security` (HSTS) 标头可确保由客户端发起的所有后续请求都通过 HTTPS。
+
+  有关 HSTS 的重要指南，请参阅 <xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts>。
 
 * 如果将来将禁用 HTTPS，请使用以下方法之一：
 
   * 不要添加 HSTS 标头。
   * 选择短的 `max-age` 值。
 
-添加 /etc/nginx/proxy.conf 配置文件：
+添加 `/etc/nginx/proxy.conf` 配置文件：
 
 [!code-nginx[](linux-nginx/proxy.conf)]
 
-编辑 /etc/nginx/nginx.conf 配置文件。 示例包含一个配置文件中的 `http` 和 `server` 部分。
+将 `/etc/nginx/nginx.conf` 配置文件的内容替换为下面文件。 示例包含一个配置文件中的 `http` 和 `server` 部分。
 
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
 
@@ -405,31 +413,35 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 #### <a name="secure-nginx-from-clickjacking"></a>保护 Nginx 免受点击劫持的侵害
 
-[点击劫持](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)（也称为 *UI 伪装攻击* ）是一种恶意攻击，其中网站访问者会上当受骗，从而导致在与当前要访问的页面不同的页面上单击链接或按钮。 使用 `X-FRAME-OPTIONS` 可保护网站。
+[点击劫持](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)（也称为 *UI 伪装攻击*）是一种恶意攻击，其中网站访问者会上当受骗，从而导致在与当前要访问的页面不同的页面上单击链接或按钮。 使用 `X-FRAME-OPTIONS` 可保护网站。
 
 缓解点击劫持攻击：
 
-1. 编辑 nginx.conf 文件：
+1. 编辑 `nginx.conf` 文件：
 
    ```bash
    sudo nano /etc/nginx/nginx.conf
    ```
 
-   添加行 `add_header X-Frame-Options "SAMEORIGIN";`。
+   添加行：`add_header X-Frame-Options "SAMEORIGIN";`
+
 1. 保存该文件。
 1. 重启 Nginx。
 
 #### <a name="mime-type-sniffing"></a>MIME 类型探查
 
-此标头可阻止大部分浏览器通过 MIME 方式探查来自已声明内容类型的响应，因为标头会指示浏览器不要替代响应内容类型。 使用 `nosniff` 选项后，如果服务器认为内容是“文本/html”，则浏览器将其显示为“文本/html”。
+此标头可阻止大部分浏览器通过 MIME 方式探查来自已声明内容类型的响应，因为标头会指示浏览器不要替代响应内容类型。 使用 `nosniff` 选项后，如果服务器认为内容是“`text/html`”，则浏览器将其显示为“`text/html`”。
 
-编辑 nginx.conf 文件：
+1. 编辑 `nginx.conf` 文件：
 
-```bash
-sudo nano /etc/nginx/nginx.conf
-```
+   ```bash
+   sudo nano /etc/nginx/nginx.conf
+   ```
 
-添加行 `add_header X-Content-Type-Options "nosniff";` 并保存文件，然后重新启动 Nginx。
+   添加行：`add_header X-Content-Type-Options "nosniff";`
+
+1. 保存该文件。
+1. 重启 Nginx。
 
 ## <a name="additional-nginx-suggestions"></a>其他 Nginx 建议
 

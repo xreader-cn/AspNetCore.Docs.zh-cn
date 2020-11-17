@@ -18,12 +18,12 @@ no-loc:
 - SignalR
 - Kestrel
 uid: aspnetcore-5.0
-ms.openlocfilehash: e9c74f7b45ebcdffc19a0483b4e98ad2f44d5747
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: e25549d557dd971d0f2f4d67a182574f07138acb
+ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061739"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94508118"
 ---
 # <a name="whats-new-in-aspnet-core-50"></a>ASP.NET Core 5.0 的新增功能
 
@@ -224,6 +224,8 @@ Blazor WebAssembly 应用面向整个 .NET API 外围应用，但由于浏览器
 
 ## SignalR
 
+### <a name="no-locsignalr-hub-filters"></a>SignalR 中心筛选器
+
 SignalR 中心筛选器（在 ASP.NET SignalR 中称为“中心管道”）是一项功能，它允许代码在调用中心方法之前和之后运行。 在调用中心方法之前和之后运行代码类似于中间件在 HTTP 请求之前和之后运行代码。 常见用途包括日志记录、错误处理和参数验证。
 
 有关详细信息，请参阅[在 ASP.NET Core SignalR 中使用中心筛选器](xref:signalr/hub-filters)。
@@ -408,13 +410,14 @@ endpoints.MapGet("/weather/{city:alpha}", async context =>
 
 ### <a name="frombodyattribute"></a>FromBodyAttribute
 
-<xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute> 现在支持配置允许将这些参数或属性视为可选的选项：
+<xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute> 现在支持配置一个允许将这些参数或属性视为可选的选项：
 
 ```csharp
 public IActionResult Post([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]
-                           MyModel model) {
-     ...
-     }
+                          MyModel model)
+{
+    ...
+}
 ```
 
 ## <a name="miscellaneous-improvements"></a>其他改进

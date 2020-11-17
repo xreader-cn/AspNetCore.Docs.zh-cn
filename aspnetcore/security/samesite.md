@@ -19,12 +19,12 @@ no-loc:
 - SignalR
 - Electron
 uid: security/samesite
-ms.openlocfilehash: 6f826416e3045df32abf41e94e667120e71ae717
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: f1aa388015bd540a6fda263eac53753ada63bf79
+ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93051611"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94673986"
 ---
 # <a name="work-with-samesite-no-loccookies-in-aspnet-core"></a>使用 cookie ASP.NET Core 中的 SameSite
 
@@ -166,7 +166,7 @@ SameSite 支持在2.0 中第一次 ASP.NET Core 实现，使用 [2016 草案标�
 
 在中 `Startup.ConfigureServices` ，添加类似于下面的代码：
 
-::: moniker range="= aspnetcore-3.1"
+::: moniker range=">= aspnetcore-3.1"
 
 [!code-csharp[](samesite/sample/Startup31.cs?name=snippet)]
 
@@ -202,7 +202,7 @@ SameSite 支持在2.0 中第一次 ASP.NET Core 实现，使用 [2016 草案标�
 
 ### <a name="test-with-chrome"></a>用 Chrome 测试
 
-Chrome 78 + 提供了令人误解的结果，因为它具有临时的缓解措施。 Chrome 78 + 临时缓解允许 cookie 两分钟以内。 已启用适当测试标志的 Chrome 76 或77提供更准确的结果。 若要测试新的 SameSite 行为切换 `chrome://flags/#same-site-by-default-cookies` 为 **启用状态** 。 旧版本的 Chrome (75 及更) 低版本将报告为失败，并出现新 `None` 设置。 请参阅本文档中的 [支持旧版浏览器](#sob) 。
+Chrome 78 + 提供了令人误解的结果，因为它具有临时的缓解措施。 Chrome 78 + 临时缓解允许 cookie 两分钟以内。 已启用适当测试标志的 Chrome 76 或77提供更准确的结果。 若要测试新的 SameSite 行为切换 `chrome://flags/#same-site-by-default-cookies` 为 **启用状态**。 旧版本的 Chrome (75 及更) 低版本将报告为失败，并出现新 `None` 设置。 请参阅本文档中的 [支持旧版浏览器](#sob) 。
 
 Google 不会使旧版 chrome 版本可用。 遵循 [下载 Chromium](https://www.chromium.org/getting-involved/download-chromium) 中的说明来测试旧版 Chrome。 不要从通过搜索旧版 chrome 提供的 **链接下载 chrome** 。
 

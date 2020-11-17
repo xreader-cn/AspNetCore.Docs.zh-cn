@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: d78076eb29d6d09756e408b388fcf12b4b6460f6
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: d8838a458943599890420adec4551ad87e43d328
+ms.sourcegitcommit: e087b6a38e3d38625ebb567a973e75b4d79547b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94507936"
+ms.lasthandoff: 11/15/2020
+ms.locfileid: "94637699"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -244,11 +244,25 @@ namespace BlazorSample
 
 组件可以接收来自 [`@page`][9] 指令所提供的路由模板的路由参数。 路由器使用路由参数来填充相应的组件参数。
 
+::: moniker range=">= aspnetcore-5.0"
+
+支持可选参数。 在下面的示例中，`text` 可选参数将 route 段的值赋给组件的 `Text` 属性。 如果该段不存在，则将 `Text` 的值设置为 `fantastic`。
+
 `Pages/RouteParameter.razor`:
 
-[!code-razor[](index/samples_snapshot/RouteParameter.razor?highlight=2,7-8)]
+[!code-razor[](index/samples_snapshot/RouteParameter-5x.razor?highlight=1,6-7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+`Pages/RouteParameter.razor`:
+
+[!code-razor[](index/samples_snapshot/RouteParameter-3x.razor?highlight=2,7-8)]
 
 不支持可选参数，因此在前面的示例中应用了两个 [`@page`][9] 指令。 第一个指令允许导航到没有参数的组件。 第二个 [`@page`][9] 指令会接收 `{text}` 路由参数，并将值赋予 `Text` 属性。
+
+::: moniker-end
 
 要了解 catch-all 路由参数 `{*pageRoute}`（它可跨多个文件夹边界捕获路径），请参阅 <xref:blazor/fundamentals/routing#catch-all-route-parameters>。
 
@@ -265,6 +279,14 @@ namespace BlazorSample
 `Pages/ParentComponent.razor`:
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
+
+按照约定，使用 [Razor 的保留 `@` 符号](xref:mvc/views/razor#razor-syntax)将构成 C# 代码的特性值赋给参数：
+
+* 父字段或属性：`Title="@{FIELD OR PROPERTY}`，其中占位符 `{FIELD OR PROPERTY}` 是父组件的 C# 字段或属性。
+* 方法的结果：`Title="@{METHOD}"`，其中占位符 `{METHOD}` 是父组件的 C# 方法。
+* [隐式或显式表达式](xref:mvc/views/razor#implicit-razor-expressions)：`Title="@({EXPRESSION})"`，其中占位符 `{EXPRESSION}` 是 C# 表达式。
+  
+有关详细信息，请参阅 <xref:mvc/views/razor>。
 
 > [!WARNING]
 > 请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[重写参数](#overwritten-parameters)部分。
@@ -294,7 +316,7 @@ namespace BlazorSample
 > @for (int c = 0; c < 10; c++)
 > {
 >     var current = c;
->     <ChildComponent Param1="@c">
+>     <ChildComponent Title="@c">
 >         Child Content: Count: @current
 >     </ChildComponent>
 > }
@@ -305,7 +327,7 @@ namespace BlazorSample
 > ```razor
 > @foreach(var c in Enumerable.Range(0,10))
 > {
->     <ChildComponent Param1="@c">
+>     <ChildComponent Title="@c">
 >         Child Content: Count: @c
 >     </ChildComponent>
 > }
@@ -650,7 +672,7 @@ Blazor 框架通常会施加安全的父级到子级参数的赋值：
 * 组件直接写入 `Expanded` 参数，该参数演示了覆盖的参数存在的问题，应避免这样做。
 
 ```razor
-<div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
+<div @onclick="Toggle" class="card bg-light mb-3" style="width:30rem">
     <div class="card-body">
         <h2 class="card-title">Toggle (<code>Expanded</code> = @Expanded)</h2>
 
@@ -702,7 +724,7 @@ Blazor 框架通常会施加安全的父级到子级参数的赋值：
 * 使用私有字段来维护其内部切换状态，该状态演示如何避免直接写入参数。
 
 ```razor
-<div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
+<div @onclick="Toggle" class="card bg-light mb-3" style="width:30rem">
     <div class="card-body">
         <h2 class="card-title">Toggle (<code>expanded</code> = @expanded)</h2>
 

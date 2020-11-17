@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: eef381367d7aa59dcc430c529746088d4488e700
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: fc2e81cf130732d515fb871227031493e297cf9f
+ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93054926"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94507767"
 ---
 # <a name="aspnet-core-no-locblazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -48,12 +48,27 @@ dotnet new blazorserver --help
 
 以下文件和文件夹构成了基于 Blazor 项目模板生成的 Blazor 应用：
 
+::: moniker range=">= aspnetcore-5.0"
+
 * `Program.cs`：应用入口点，用于设置以下各项：
 
   * ASP.NET Core [主机](xref:fundamentals/host/generic-host) (Blazor Server)
   * WebAssembly 主机 (Blazor WebAssembly)：此文件中的代码对于通过 Blazor WebAssembly 模板 (`blazorwasm`) 创建的应用是唯一的。
-    * `App` 组件是应用的根组件。 `App` 组件被指定为根组件集合 (`builder.RootComponents.Add<App>("app")`) 的 `app` DOM 元素 (`<app>...</app>`)。
+    * `App` 组件是应用的根组件。 `App` 组件指定为根组件集合 (`builder.RootComponents.Add<App>("#app")`) 的 `app` DOM 元素（`wwwroot/index.html` 中的 `<div id="app">Loading...</div>`）。
     * 添加并配置了[服务](xref:blazor/fundamentals/dependency-injection)（例如，`builder.Services.AddSingleton<IMyDependency, MyDependency>()`）。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+* `Program.cs`：应用入口点，用于设置以下各项：
+
+  * ASP.NET Core [主机](xref:fundamentals/host/generic-host) (Blazor Server)
+  * WebAssembly 主机 (Blazor WebAssembly)：此文件中的代码对于通过 Blazor WebAssembly 模板 (`blazorwasm`) 创建的应用是唯一的。
+    * `App` 组件是应用的根组件。 `App` 组件指定为根组件集合 (`builder.RootComponents.Add<App>("app")`) 的 `app` DOM 元素（`wwwroot/index.html` 中的 `<app>Loading...</app>`）。
+    * 添加并配置了[服务](xref:blazor/fundamentals/dependency-injection)（例如，`builder.Services.AddSingleton<IMyDependency, MyDependency>()`）。
+
+::: moniker-end
 
 * `Startup.cs` (Blazor Server)：包含应用的启动逻辑。 `Startup` 类定义两个方法：
 

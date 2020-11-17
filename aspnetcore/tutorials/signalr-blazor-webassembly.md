@@ -5,7 +5,7 @@ description: 创建结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly 的�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/01/2020
+ms.date: 11/11/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 81cbfb692ffbd0bb6335ccef6dd10ad6c20fb334
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: afbfc44db8cb833df7a79061f9bd73052859fec2
+ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052690"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94508170"
 ---
 # <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a>结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly
 
@@ -49,8 +49,7 @@ ms.locfileid: "93052690"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-<!-- * [Visual Studio 2019 16.8 or later](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload -->
-* 具有“ASP.NET 和 Web 开发”工作负载的 [Visual Studio 2019 16.8 或更高版本（预览版）](https://visualstudio.microsoft.com/vs/preview/)
+* 具有“ASP.NET 和 Web 开发”工作负载的 [Visual Studio 2019 16.8 或更高版本](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019)
 * [!INCLUDE [.NET Core 5.0 SDK](~/includes/5.0-SDK.md)]
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -59,8 +58,7 @@ ms.locfileid: "93052690"
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-<!-- * [Visual Studio for Mac version 8.8 or later (in preview)](https://visualstudio.microsoft.com/vs/mac/) -->
-* [Visual Studio for Mac 版本 8.8 或更高版本（预览版）](/visualstudio/releasenotes/vs2019-mac-preview-relnotes)
+* [Visual Studio for Mac 8.8 或更高版本](https://visualstudio.microsoft.com/vs/mac/)
 * [!INCLUDE [.NET Core 5.0 SDK](~/includes/5.0-SDK.md)]
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
@@ -303,7 +301,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
    ![SignalR Blazor WebAssembly 示例应用在两个浏览器窗口中打开，显示交换的消息。](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
+   Quotes:*Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -333,7 +331,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
    ![SignalR Blazor WebAssembly 示例应用在两个浏览器窗口中打开，显示交换的消息。](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
+   Quotes:*Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -345,7 +343,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
    ![SignalR Blazor WebAssembly 示例应用在两个浏览器窗口中打开，显示交换的消息。](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
+   Quotes:*Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
@@ -362,7 +360,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
    ![SignalR Blazor WebAssembly 示例应用在两个浏览器窗口中打开，显示交换的消息。](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
+   Quotes:*Star Trek VI:The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
 ---
 

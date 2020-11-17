@@ -5,7 +5,7 @@ description: 了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/14/2020
+ms.date: 11/06/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 30dfd9e821490d016d1d2be5c4cfd56818d46655
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 08fc393160e0a7396963901e2add3b44fc7b02b9
+ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056369"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94507993"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -40,7 +40,7 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
    * 创建组件的实例。
    * 执行属性注入。 运行 [`SetParametersAsync`](#before-parameters-are-set)。
    * 调用 [`OnInitialized{Async}`](#component-initialization-methods)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
-1. 调用 [`OnParametersSet{Async}`](#after-parameters-are-set)。 如果返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后呈现组件。 如果未返回 <xref:System.Threading.Tasks.Task>，则呈现组件。
+1. 调用 [`OnParametersSet{Async}`](#after-parameters-are-set) 并呈现组件。 如果 `OnParametersSetAsync` 返回 <xref:System.Threading.Tasks.Task>，则将等待 <xref:System.Threading.Tasks.Task>，然后重新呈现组件。
 
 ![Blazor 中 Razor 组件的组件生命周期事件](lifecycle/_static/lifecycle1.png)
 

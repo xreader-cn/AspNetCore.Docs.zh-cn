@@ -1,10 +1,13 @@
 ---
-title: 第 5 部分，在 ASP.NET Core 应用中更新生成的页面
+title: 第 5 部分：更新生成的页面
 author: rick-anderson
 description: Razor 页面教程系列第 5 部分。
 ms.author: riande
-ms.date: 12/20/2018
+ms.date: 09/20/2020
 no-loc:
+- Index
+- Create
+- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -17,12 +20,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: 7d25dae67c928fa659654ce4ab34cfdad08b5300
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 7146c1955a578502a63578de4f1abce932cb8b32
+ms.sourcegitcommit: 342588e10ae0054a6d6dc0fd11dae481006be099
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93060061"
+ms.lasthandoff: 11/07/2020
+ms.locfileid: "94360591"
 ---
 # <a name="part-5-update-the-generated-pages-in-an-aspnet-core-app"></a>第 5 部分，在 ASP.NET Core 应用中更新生成的页面
 
@@ -30,9 +33,9 @@ ms.locfileid: "93060061"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-构架的电影应用有个不错的开始，但是展示效果还不够理想。 ReleaseDate 应是 Release Date（两个词）。
+构架的电影应用有个不错的开始，但是展示效果还不够理想。 ReleaseDate 应是两个词 (Release Date)。
 
-![在 Chrome 中打开的电影应用程序](sql/_static/m55.png)
+![在 Chrome 中打开的电影应用程序](sql/_static/5/m55.png)
 
 ## <a name="update-the-generated-code"></a>更新生成的代码
 
@@ -40,21 +43,27 @@ ms.locfileid: "93060061"
 
 [!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateFixed.cs?name=snippet_1&highlight=3,12,17)]
 
-`[Column(TypeName = "decimal(18, 2)")]` 数据注释使 Entity Framework Core 可以将 `Price` 正确映射到数据库中的货币。 有关详细信息，请参阅[数据类型](/ef/core/modeling/relational/data-types)。
+在前面的代码中：
 
-[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) 未包括在下一个教程中。 [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) 特性指定要显示的字段名称的内容（本例中应为“Release Date”，而不是“ReleaseDate”）。 [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) 属性指定数据的类型（日期），使字段中存储的时间信息不会显示。
+* `[Column(TypeName = "decimal(18, 2)")]` 数据注释使 Entity Framework Core 可以将 `Price` 正确映射到数据库中的货币。 有关详细信息，请参阅[数据类型](/ef/core/modeling/relational/data-types)。
+* [[Display]](xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DisplayMetadata) 属性指定字段的显示名称。 在前面的代码中即“Release Date”，而非“ReleaseDate”。
+* [[DataType]](xref:System.ComponentModel.DataAnnotations.DataTypeAttribute) 属性指定数据的类型 (`Date`)。 此字段中存储的时间信息不显示。
+
+[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) 未包括在下一个教程中。
 
 浏览到 Pages/Movies，并将鼠标悬停在“编辑”链接上以查看目标 URL。
 
-![鼠标悬停在“编辑”链接上的浏览器窗口，显示了 http://localhost:1234/Movies/Edit/5 的链接 URL](~/tutorials/razor-pages/da1/edit7.png)
+![鼠标悬停在“编辑”链接上的浏览器窗口，显示了 https://localhost:1234/Movies/Edit/5 的链接 URL](~/tutorials/razor-pages/da1/edit7.png)
 
-“编辑”、“详细信息”和“删除”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的  。
+“编辑”、“详细信息”和“Delete”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的。
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-[标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 在前面的代码中，`AnchorTagHelper` 从 Razor 页面（路由是相对的）、`asp-page` 和路由 ID (`asp-route-id`) 动态生成 HTML `href` 特性值。 有关详细信息，请参阅[页面的 URL 生成](xref:razor-pages/index#url-generation-for-pages)。
+[标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。
 
-在最喜欢的浏览器中使用“查看源”来检查生成的标记。 生成的 HTML 的一部分如下所示：
+在前面的代码中，[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)从 Razor 页面（路由是相对的）、`asp-page` 和路由标识符 (`asp-route-id`) 动态生成 HTML `href` 特性值。 有关详细信息，请参阅[页面的 URL 生成](xref:razor-pages/index#url-generation-for-pages)。
+
+在浏览器中使用“查看源”来检查生成的标记。 生成的 HTML 的一部分如下所示：
 
 ```html
 <td>
@@ -64,11 +73,13 @@ ms.locfileid: "93060061"
 </td>
 ```
 
-动态生成的链接通过查询字符串传递电影 ID（例如，`https://localhost:5001/Movies/Details?id=1` 中的 `?id=1`）。
+   动态生成的链接通过查询字符串传递电影 ID。 例如，`https://localhost:5001/Movies/Details?id=1` 中的 `?id=1`。
 
 ### <a name="add-route-template"></a>添加路由模板
 
-更新“编辑”、“详细信息”和“删除”Razor Pages 以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
+更新“编辑”、“详细信息”和“Delete”Razor 页面以使用 `{id:int}` 路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。
+
+生成的 HTML 会将 ID 添加到 URL 的路径部分：
 
 ```html
 <td>
@@ -78,19 +89,21 @@ ms.locfileid: "93060061"
 </td>
 ```
 
-如果对具有“{id: int}” 路由模板的页面进行的请求中不包含整数，则将返回 HTTP 404（未找到）错误。 例如，`http://localhost:5000/Movies/Details` 将返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
+如果对具有 `{id:int}` 路由模板的页面进行的请求中不包含整数，则将返回 HTTP 404（未找到）错误。 例如，`https://localhost:5001/Movies/Details` 将返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
 
- ```cshtml
+```cshtml
 @page "{id:int?}"
 ```
 
-若要测试 `@page "{id:int?}"` 的行为：
+测试 `@page "{id:int?}"` 的行为：
 
-* 在 Pages/Movies/Details.cshtml 中将 page 指令设置为 `@page "{id:int?}"`。
-* 在 `public async Task<IActionResult> OnGetAsync(int? id)` 中（位于 Pages/Movies/Details.cshtml.cs 中）设置断点。
-* 导航到 `https://localhost:5001/Movies/Details/`。
+1. 在 Pages/Movies/Details.cshtml 中将 page 指令设置为 `@page "{id:int?}"`。
+1. 在 `public async Task<IActionResult> OnGetAsync(int? id)` 中（位于 Pages/Movies/Details.cshtml.cs 中）设置断点。
+1. 导航到 `https://localhost:5001/Movies/Details/`。
 
-使用 `@page "{id:int}"` 指令时，永远不会命中断点。 路由引擎返回 HTTP 404。 使用 `@page "{id:int?}"` 时，`OnGetAsync` 方法返回 `NotFound` (HTTP 404)。
+使用 `@page "{id:int}"` 指令时，永远不会命中断点。 路由引擎返回 HTTP 404。 使用 `@page "{id:int?}"` 时，`OnGetAsync` 方法返回 `NotFound` (HTTP 404)：
+
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Pages/Movies/Details.cshtml.cs?name=snippet1&highlight=10-13)]
 
 ### <a name="review-concurrency-exception-handling"></a>查看并发异常处理
 
@@ -102,10 +115,10 @@ ms.locfileid: "93060061"
 
 测试 `catch` 块：
 
-* 在 `catch (DbUpdateConcurrencyException)`上设置断点
-* 对电影选择“编辑”，进行更改，但不要输入“保存”。
-* 在其他浏览器窗口中，选择同一电影的“删除”链接，然后删除此电影。
-* 在之前的浏览器窗口中，将更改发布到电影。
+1. 在 `catch (DbUpdateConcurrencyException)` 上设置断点。
+1. 对电影选择“编辑”，进行更改，但不要输入“保存”。
+1. 在其他浏览器窗口中，选择同一电影的“Delete”链接，然后删除此电影。
+1. 在之前的浏览器窗口中，将更改发布到电影。
 
 生产代码可能要检测并发冲突。 有关详细信息，请参阅[处理并发冲突](xref:data/ef-rp/concurrency)。
 
@@ -115,10 +128,10 @@ ms.locfileid: "93060061"
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/SnapShots/Edit.cshtml.cs?name=snippet2)]
 
-当对 Movies/Edit 页面进行 HTTP GET 请求时（例如 `http://localhost:5000/Movies/Edit/2`）：
+当对 Movies/Edit 页面（例如 `https://localhost:5001/Movies/Edit/3`）进行 HTTP GET 请求时：
 
 * `OnGetAsync` 方法从数据库提取电影并返回 `Page` 方法。
-* `Page` 方法呈现 Pages/Movies/Edit.cshtml Razor 页面。 Pages/Movies/Edit.cshtml 文件包含模型指令 (`@model RazorPagesMovie.Pages.Movies.EditModel`)，这使电影模型在页面上可用。
+* `Page` 方法呈现 Pages/Movies/Edit.cshtml Razor 页面。 Pages/Movies/Edit.cshtml 文件包含模型指令 `@model RazorPagesMovie.Pages.Movies.EditModel`，这使电影模型在页面上可用。
 * “编辑”表单中会显示电影的值。
 
 当发布 Movies/Edit 页面时：
@@ -133,7 +146,7 @@ ms.locfileid: "93060061"
 * 如果模型状态中存在错误（例如，`ReleaseDate` 无法被转换为日期），则会使用已提交的值重新显示表单。
 * 如果没有模型错误，则电影已保存。
 
-“索引”、“创建”和“删除”Razor 页面中的 HTTP GET 方法遵循一个类似的模式。 “创建”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
+“Index”、“Create”和“Delete”Razor 页面中的 HTTP GET 方法遵循一个类似的模式。 “Create”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -145,9 +158,9 @@ ms.locfileid: "93060061"
 
 ::: moniker range="< aspnetcore-3.0"
 
-构架的电影应用有个不错的开始，但是展示效果还不够理想。 ReleaseDate 应是 Release Date（两个词）。
+构架的电影应用有个不错的开始，但是展示效果还不够理想。 ReleaseDate 应是两个词 (Release Date)。
 
-![在 Chrome 中打开的电影应用程序](sql/_static/m55.png)
+![在 Chrome 中打开的电影应用程序](sql/_static/m55https.png)
 
 ## <a name="update-the-generated-code"></a>更新生成的代码
 
@@ -157,19 +170,19 @@ ms.locfileid: "93060061"
 
 `[Column(TypeName = "decimal(18, 2)")]` 数据注释使 Entity Framework Core 可以将 `Price` 正确映射到数据库中的货币。 有关详细信息，请参阅[数据类型](/ef/core/modeling/relational/data-types)。
 
-[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) 未包括在下一个教程中。 [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) 特性指定要显示的字段名称的内容（本例中应为“Release Date”，而不是“ReleaseDate”）。 [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) 属性指定数据的类型（日期），使字段中存储的时间信息不会显示。
+[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) 未包括在下一个教程中。 [[Display]](xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DisplayMetadata) 特性指定要显示的字段名称的内容（本例中应为“Release Date”，而不是“ReleaseDate”）。 [DataType](xref:System.ComponentModel.DataAnnotations.DataTypeAttribute) 属性指定数据的类型（`Date`），使字段中存储的时间信息不会显示。
 
 浏览到 Pages/Movies，并将鼠标悬停在“编辑”链接上以查看目标 URL。
 
 ![鼠标悬停在“编辑”链接上的浏览器窗口，显示了 http://localhost:1234/Movies/Edit/5 的链接 URL](~/tutorials/razor-pages/da1/edit7.png)
 
-“编辑”、“详细信息”和“删除”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的  。
+“编辑”、“详细信息”和“Delete”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的。
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 在前面的代码中，`AnchorTagHelper` 从 Razor 页面（路由是相对的）、`asp-page` 和路由 ID (`asp-route-id`) 动态生成 HTML `href` 特性值。 有关详细信息，请参阅[页面的 URL 生成](xref:razor-pages/index#url-generation-for-pages)。
 
-在最喜欢的浏览器中使用“查看源”来检查生成的标记。 生成的 HTML 的一部分如下所示：
+在浏览器中使用“查看源”来检查生成的标记。 生成的 HTML 的一部分如下所示：
 
 ```html
 <td>
@@ -179,9 +192,9 @@ ms.locfileid: "93060061"
 </td>
 ```
 
-动态生成的链接通过查询字符串传递电影 ID（例如，`https://localhost:5001/Movies/Details?id=1` 中的 `?id=1`）。
+动态生成的链接通过查询字符串传递电影 ID。 例如，`https://localhost:5001/Movies/Details?id=1` 中的 `?id=1`。
 
-更新“编辑”、“详细信息”和“删除”Razor Pages 以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
+更新“编辑”、“详细信息”和“Delete”Razor 页面以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
 
 ```html
 <td>
@@ -191,7 +204,7 @@ ms.locfileid: "93060061"
 </td>
 ```
 
-如果对具有“{id: int}” 路由模板的页面进行的请求中不包含整数，则将返回 HTTP 404（未找到）错误。 例如，`http://localhost:5000/Movies/Details` 将返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
+如果对具有“{id: int}” 路由模板的页面进行的请求中不包含整数，则将返回 HTTP 404（未找到）错误。 例如，`https://localhost:5001/Movies/Details` 将返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
 
  ```cshtml
 @page "{id:int?}"
@@ -203,7 +216,9 @@ ms.locfileid: "93060061"
 * 在 `public async Task<IActionResult> OnGetAsync(int? id)` 中（位于 Pages/Movies/Details.cshtml.cs 中）设置断点。
 * 导航到 `https://localhost:5001/Movies/Details/`。
 
-使用 `@page "{id:int}"` 指令时，永远不会命中断点。 路由引擎返回 HTTP 404。 使用 `@page "{id:int?}"` 时，`OnGetAsync` 方法返回 `NotFound` (HTTP 404)。
+使用 `@page "{id:int}"` 指令时，永远不会命中断点。 路由引擎返回 HTTP 404。 使用 `@page "{id:int?}"` 时，`OnGetAsync` 方法返回 `NotFound` (HTTP 404)：
+
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Details.cshtml.cs?name=snippet1&highlight=10-13)]
 
 ### <a name="review-concurrency-exception-handling"></a>查看并发异常处理
 
@@ -217,7 +232,7 @@ ms.locfileid: "93060061"
 
 * 在 `catch (DbUpdateConcurrencyException)`上设置断点
 * 对电影选择“编辑”，进行更改，但不要输入“保存”。
-* 在其他浏览器窗口中，选择同一电影的“删除”链接，然后删除此电影。
+* 在其他浏览器窗口中，选择同一电影的“Delete”链接，然后删除此电影。
 * 在之前的浏览器窗口中，将更改发布到电影。
 
 生产代码可能要检测并发冲突。 有关详细信息，请参阅[处理并发冲突](xref:data/ef-rp/concurrency)。
@@ -228,10 +243,10 @@ ms.locfileid: "93060061"
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Edit21.cshtml.cs?name=snippet2)]
 
-当对 Movies/Edit 页面进行 HTTP GET 请求时（例如 `http://localhost:5000/Movies/Edit/2`）：
+当对 Movies/Edit 页面（例如 `https://localhost:5001/Movies/Edit/3`）进行 HTTP GET 请求时：
 
 * `OnGetAsync` 方法从数据库提取电影并返回 `Page` 方法。 
-* `Page` 方法呈现 Pages/Movies/Edit.cshtml Razor 页面。 Pages/Movies/Edit.cshtml 文件包含模型指令 (`@model RazorPagesMovie.Pages.Movies.EditModel`)，这使电影模型在页面上可用。
+* `Page` 方法呈现 Pages/Movies/Edit.cshtml Razor 页面。 Pages/Movies/Edit.cshtml 文件包含模型指令 `@model RazorPagesMovie.Pages.Movies.EditModel`，这使电影模型在页面上可用。
 * “编辑”表单中会显示电影的值。
 
 当发布 Movies/Edit 页面时：
@@ -246,7 +261,7 @@ ms.locfileid: "93060061"
 * 如果模型状态中存在错误（例如，`ReleaseDate` 无法被转换为日期），则会使用已提交的值显示表单。
 * 如果没有模型错误，则电影已保存。
 
-“索引”、“创建”和“删除”Razor 页面中的 HTTP GET 方法遵循一个类似的模式。 “创建”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
+“Index”、“Create”和“Delete”Razor 页面中的 HTTP GET 方法遵循一个类似的模式。 “Create”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
 
 在下一教程中将添加搜索。
 

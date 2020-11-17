@@ -1,11 +1,11 @@
 ---
-title: 使用 HTTP REPL 测试 Web API
+title: 使用 HttpRepl 测试 Web API
 author: scottaddie
-description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测试 ASP.NET Core Web API。
+description: 了解如何使用 HttpRepl .NET Core 全局工具来浏览和测试 ASP.NET Core Web API。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc, devx-track-azurecli
-ms.date: 11/10/2020
+ms.date: 11/11/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: 81174b551c5b6d81e6ac80975f7f77ee6664059d
-ms.sourcegitcommit: fb72e9c1ae5b279817f1fb4b46a52170449b6f30
+ms.openlocfilehash: df2d4e63a18471b4c5f4f1c9434921303bb1da8a
+ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94501984"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94550616"
 ---
-# <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
+# <a name="test-web-apis-with-the-httprepl"></a>使用 HttpRepl 测试 Web API
 
 作者：[Scott Addie](https://twitter.com/Scott_Addie)
 
@@ -54,7 +54,7 @@ HTTP 读取–求值–打印循环 (REPL)：
 
 ## <a name="installation"></a>安装
 
-若要安装 HTTP REPL，运行以下命令：
+若要安装 HttpRepl，请运行以下命令：
 
 ```dotnetcli
 dotnet tool install -g Microsoft.dotnet-httprepl
@@ -64,13 +64,13 @@ dotnet tool install -g Microsoft.dotnet-httprepl
 
 ## <a name="usage"></a>使用情况
 
-成功安装该工具后，运行以下命令以启动 HTTP REPL：
+成功安装该工具后，运行以下命令启动 HttpRepl：
 
 ```console
 httprepl
 ```
 
-若要查看可用的 HTTP REPL 命令，请运行下面的一个命令：
+若要查看可用的 HttpRepl 命令，请运行以下其中一个命令：
 
 ```console
 httprepl -h
@@ -135,7 +135,7 @@ Use `help <COMMAND>` for more detail on an individual command. e.g. `help get`.
 For detailed tool info, see https://aka.ms/http-repl-doc.
 ```
 
-HTTP REPL 提供命令完成。 按 Tab <kbd></kbd>键可循环访问补全所键入字符或 API 终结点的命令的列表。 以下部分概述了可用的 CLI 命令。
+HttpRepl 提供命令补全功能。 按 Tab <kbd></kbd>键可循环访问补全所键入字符或 API 终结点的命令的列表。 以下部分概述了可用的 CLI 命令。
 
 ## <a name="connect-to-the-web-api"></a>连接到 Web API
 
@@ -151,7 +151,7 @@ httprepl <ROOT URI>
 httprepl https://localhost:5001
 ```
 
-或者，在 HTTP REPL 运行期间的任何时刻运行以下命令：
+或者，在运行 HttpRepl 的任何时候运行以下命令：
 
 ```console
 connect <ROOT URI>
@@ -252,9 +252,9 @@ https://localhost:5001/> cd people
 https://localhost:5001/people>
 ```
 
-## <a name="customize-the-http-repl"></a>自定义 HTTP REPL
+## <a name="customize-the-httprepl"></a>自定义 HttpRepl
 
-可自定义 HTTP REPL 的默认[颜色](#set-color-preferences)。 此外，还可定义[默认文本编辑器](#set-the-default-text-editor)。 HTTP REPL 首选项在当前会话中保持不变，并且也会在之后的会话中使用。 修改后，首选项存储在以下文件中：
+可自定义 HttpRepl 的默认[颜色](#set-color-preferences)。 此外，还可定义[默认文本编辑器](#set-the-default-text-editor)。 HttpRepl 首选项在当前会话中保持不变，并且也会在之后的会话中使用。 修改后，首选项存储在以下文件中：
 
 # <a name="linux"></a>[Linux](#tab/linux)
 
@@ -295,7 +295,7 @@ colors.status=BoldYellow
 
 ### <a name="set-color-preferences"></a>设置颜色首选项
 
-当前仅 JSON 支持响应着色。 若要自定义默认的 HTTP REPL 工具着色，请找到与要更改的颜色相对应的键。 有关如何查找键的说明，请参阅[查看设置](#view-the-settings)部分。 例如，将 `colors.json` 键值从 `Green` 更改为 `White`如下所示：
+当前仅 JSON 支持响应着色。 若要自定义默认的 HttpRepl 工具着色，请找到与要更改的颜色相对应的键。 有关如何查找键的说明，请参阅[查看设置](#view-the-settings)部分。 例如，将 `colors.json` 键值从 `Green` 更改为 `White`如下所示：
 
 ```console
 https://localhost:5001/people> pref set colors.json White
@@ -358,7 +358,7 @@ pref set formatting.json.indentSize 4
 
 ### <a name="set-the-default-text-editor"></a>设置默认文本编辑器
 
-默认情况下，HTTP REPL 未配置任何文本编辑器供使用。 若要测试需要 HTTP 请求正文的 Web API 方法，必须设置默认文本编辑器。 HTTP REPL 工具将启动已配置的文本编辑器，专门用于编写请求正文。 运行以下命令，将你青睐的文本编辑器设置为默认编辑器：
+默认情况下，HttpRepl 未配置任何文本编辑器供使用。 若要测试需要 HTTP 请求正文的 Web API 方法，必须设置默认文本编辑器。 HttpRepl 工具将启动已配置的文本编辑器，专门用于编写请求正文。 运行以下命令，将你青睐的文本编辑器设置为默认编辑器：
 
 ```console
 pref set editor.command.default "<EXECUTABLE>"
@@ -386,7 +386,7 @@ pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
 
 ---
 
-若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。 例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HTTP REPL 在禁用了扩展的新会话中打开 Visual Studio Code。 运行下面的命令：
+若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。 例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HttpRepl 在禁用了扩展的新会话中打开 Visual Studio Code。 运行下面的命令：
 
 ```console
 pref set editor.command.default.arguments "--disable-extensions --new-window"
@@ -397,7 +397,7 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 
 ### <a name="set-the-openapi-description-search-paths"></a>设置 OpenAPI 说明搜索路径
 
-默认情况下，HTTP REPL 具有一组相对路径，可用于在不使用 `--openapi` 选项执行 `connect` 命令时查找 OpenAPI 说明。 将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。 默认相对路径为：
+默认情况下，HttpRepl 具有一组相对路径，可用于在不使用 `--openapi` 选项执行 `connect` 命令时查找 OpenAPI 说明。 将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。 默认相对路径为：
 
 - *swagger.json*
 - *swagger/v1/swagger.json*
@@ -604,7 +604,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
 
 发出 HTTP PUT 请求：
 
-1. *可选* ：在修改之前，运行 `get` 命令以查看数据：
+1. *可选*：在修改之前，运行 `get` 命令以查看数据：
 
     ```console
     https://localhost:5001/fruits> get
@@ -666,7 +666,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     Server: Kestrel
     ```
 
-1. *可选* ：发出 `get` 命令以查看修改。 例如，如果在文本编辑器中键入了“Cherry”，则 `get` 会返回以下输出：
+1. *可选*：发出 `get` 命令以查看修改。 例如，如果在文本编辑器中键入了“Cherry”，则 `get` 会返回以下输出：
 
     ```console
     https://localhost:5001/fruits> get
@@ -717,7 +717,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
 
 发出 HTTP DELETE 请求：
 
-1. *可选* ：在修改之前，运行 `get` 命令以查看数据：
+1. *可选*：在修改之前，运行 `get` 命令以查看数据：
 
     ```console
     https://localhost:5001/fruits> get
@@ -757,7 +757,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
     Server: Kestrel
     ```
 
-1. *可选* ：发出 `get` 命令以查看修改。 在此示例中，`get` 返回以下输出：
+1. *可选*：发出 `get` 命令以查看修改。 在此示例中，`get` 返回以下输出：
 
     ```console
     https://localhost:5001/fruits> get
@@ -864,7 +864,7 @@ options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:
 
 ## <a name="test-secured-endpoints"></a>测试受保护的终结点
 
-HTTP REPL 支持通过以下方式测试受保护的终结点：
+HttpRepl 支持通过以下方式测试受保护的终结点：
 
 * 通过已登录用户的默认凭据。
 * 通过使用 HTTP 请求头。
@@ -907,7 +907,7 @@ HTTP REPL 支持通过以下方式测试受保护的终结点：
 set header Authorization "bearer <TOKEN VALUE>"
 ```
 
-若要访问 Azure 托管的终结点或使用 [Azure REST API](/rest/api/azure/)，你需要持有者令牌。 使用以下步骤，通过 [Azure CLI](/cli/azure/) 来获取 Azure 订阅的持有者令牌。 HTTP REPL 在 HTTP 请求头中设置持有者令牌。 检索 Azure 应用服务 Web 应用的列表。
+若要访问 Azure 托管的终结点或使用 [Azure REST API](/rest/api/azure/)，你需要持有者令牌。 使用以下步骤，通过 [Azure CLI](/cli/azure/) 来获取 Azure 订阅的持有者令牌。 HttpRepl 在 HTTP 请求头中设置持有者令牌。 检索 Azure 应用服务 Web 应用的列表。
 
 1. 登录 Azure：
 
@@ -933,7 +933,7 @@ set header Authorization "bearer <TOKEN VALUE>"
     az account get-access-token --query accessToken
     ```
 
-1. 通过 HTTP REPL 连接到 Azure REST API：
+1. 通过 HttpRepl 连接到 Azure REST API：
 
     ```console
     httprepl https://management.azure.com
@@ -1041,7 +1041,7 @@ Request echoing is off
 
 ## <a name="run-a-script"></a>运行脚本
 
-如果经常执行一组相同的 HTTP REPL 命令，请考虑将它们存储在一个文本文件中。 文件中的命令采用与在命令行上手动执行的命令相同的形式。 可使用 `run` 命令批量执行这些命令。 例如：
+如果经常执行一组相同的 HttpRepl 命令，请考虑将它们存储在一个文本文件中。 文件中的命令采用与在命令行上手动执行的命令相同的形式。 可使用 `run` 命令批量执行这些命令。 例如：
 
 1. 创建一个文本文件，其中包含一组换行符分隔的命令。 例如，一个包含以下命令的 people-script.txt 文件：
 
@@ -1096,7 +1096,7 @@ Request echoing is off
 
 ## <a name="clear-the-output"></a>清除输出
 
-若要删除 HTTP REPL 工具写入命令行界面的所有输出，请运行 `clear` 或 `cls` 命令。 例如，假设命令行界面包含以下输出：
+若要删除 HttpRepl 工具写入命令行界面的所有输出，请运行 `clear` 或 `cls` 命令。 例如，假设命令行界面包含以下输出：
 
 ```console
 httprepl https://localhost:5001
@@ -1126,4 +1126,4 @@ https://localhost:5001/>
 ## <a name="additional-resources"></a>其他资源
 
 * [REST API 请求](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
-* [HTTP REPL GitHub 存储库](https://github.com/dotnet/HttpRepl)
+* [HttpRepl GitHub 存储库](https://github.com/dotnet/HttpRepl)

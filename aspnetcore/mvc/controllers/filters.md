@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: ecb4de3439656eb56507b920db704048d8f96759
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: d075faa951a34fb3856b54eb9e21593b6616b4f1
+ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93058501"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94673960"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -31,7 +31,7 @@ ms.locfileid: "93058501"
 
 作者：[Kirk Larkin](https://github.com/serpent5)、[Rick Anderson](https://twitter.com/RickAndMSFT)、[Tom Dykstra](https://github.com/tdykstra/) 和 [Steve Smith](https://ardalis.com/)
 
-通过使用 ASP.NET Core 中的筛选器，可在请求处理管道中的特定阶段之前或之后运行代码。 
+通过使用 ASP.NET Core 中的筛选器，可在请求处理管道中的特定阶段之前或之后运行代码。
 
 内置筛选器处理任务，例如：
 
@@ -49,7 +49,7 @@ ms.locfileid: "93058501"
 
 ## <a name="how-filters-work"></a>筛选器的工作原理
 
-筛选器在 ASP.NET Core 操作调用管道  （有时称为筛选器管道  ）内运行。 筛选器管道在 ASP.NET Core 选择了要执行的操作之后运行。
+筛选器在 ASP.NET Core 操作调用管道（有时称为筛选器管道）内运行。 筛选器管道在 ASP.NET Core 选择了要执行的操作之后运行。
 
 ![请求通过其他中间件、路由中间件、操作选择和操作调用管道进行处理。 请求处理继续往回通过操作选择、路由中间件和各种其他中间件，变成发送到客户端的响应。](filters/_static/filter-pipeline-1.png)
 
@@ -179,14 +179,14 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 当管道的某个特定阶段有多个筛选器时，作用域可确定筛选器执行的默认顺序。  全局筛选器涵盖类筛选器，类筛选器又涵盖方法筛选器。
 
-在筛选器嵌套模式下，筛选器的 after  代码会按照与 before  代码相反的顺序运行。 筛选器序列：
+在筛选器嵌套模式下，筛选器的 after 代码会按照与 before 代码相反的顺序运行。 筛选器序列：
 
-* 全局筛选器的 before  代码。
+* 全局筛选器的 before 代码。
   * 控制器 *before* 和 Razor 页面筛选器的前代码。
-    * 操作方法筛选器的 before  代码。
-    * 操作方法筛选器的 after  代码。
+    * 操作方法筛选器的 before 代码。
+    * 操作方法筛选器的 after 代码。
   * 控制器 *after* 和 Razor 页面筛选器后的代码。
-* 全局筛选器的 after  代码。
+* 全局筛选器的 after 代码。
   
 下面的示例阐释了为同步操作筛选器调用筛选器方法的顺序。
 
@@ -232,7 +232,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
   * `MySampleActionFilter.OnActionExecuted`
 * `TestController.OnActionExecuted`
 
-控制器级别筛选器将 [Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) 属性设置为 `int.MinValue`。 控制器级别筛选器无法设置为在将筛选器应用于方法之后运行  。 在下一节对 Order 进行了介绍。
+控制器级别筛选器将 [Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) 属性设置为 `int.MinValue`。 控制器级别筛选器无法设置为在将筛选器应用于方法之后运行。 在下一节对 Order 进行了介绍。
 
 有关 Razor 页面，请 [参阅 Razor 通过重写筛选器方法实现页面筛选器](xref:razor-pages/filter#implement-razor-page-filters-by-overriding-filter-methods)。
 
@@ -240,8 +240,8 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 可以通过实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter> 来重写默认执行序列。 `IOrderedFilter` 公开了 <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter.Order> 属性来确定执行顺序，该属性优先于作用域。 具有较低的 `Order` 值的筛选器：
 
-* 在具有较高的 `Order` 值的筛选器之前运行 before  代码。
-* 在具有较高的 `Order` 值的筛选器之后运行 after  代码。
+* 在具有较高的 `Order` 值的筛选器之前运行 before 代码。
+* 在具有较高的 `Order` 值的筛选器之后运行 after 代码。
 
 使用构造函数参数设置了 `Order` 属性：
 
@@ -292,7 +292,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>依赖项注入
+## <a name="dependency-injection"></a>依赖关系注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 
@@ -315,7 +315,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 可以从 DI 获取记录器。 但是，避免创建和使用筛选器仅用于日志记录。 [内置框架日志记录](xref:fundamentals/logging/index)通常提供日志记录所需的内容。 添加到筛选器的日志记录：
 
 * 应重点关注业务域问题或特定于筛选器的行为。
-* 不应记录操作或其他框架事件  。 内置筛选器记录操作和框架事件。
+* 不应记录操作或其他框架事件。 内置筛选器记录操作和框架事件。
 
 ### <a name="servicefilterattribute"></a>ServiceFilterAttribute
 
@@ -335,7 +335,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 使用 `ServiceFilterAttribute` 时，[ServiceFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable) 设置：
 
-* 提供以下提示：筛选器实例可能在其创建的请求范围之外被重用。  ASP.NET Core 运行时不保证：
+* 提供以下提示：筛选器实例可能在其创建的请求范围之外被重用。 ASP.NET Core 运行时不保证：
 
   * 将创建筛选器的单一实例。
   * 稍后不会从 DI 容器重新请求筛选器。
@@ -354,7 +354,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 * `TypeFilterAttribute` 可以选择为类型接受构造函数参数。
 
 使用 `TypeFilterAttribute` 时，[TypeFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute.IsReusable) 设置：
-* 提供提示：筛选器实例可能在其创建的请求范围之外被重用。  ASP.NET Core 运行时不保证将创建筛选器的单一实例。
+* 提供提示：筛选器实例可能在其创建的请求范围之外被重用。 ASP.NET Core 运行时不保证将创建筛选器的单一实例。
 
 * 不应与依赖于生命周期不同于单一实例的服务的筛选器一起使用。
 
@@ -381,7 +381,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * 调用授权系统。
 * 不授权请求。
 
-不会在授权筛选器中引发异常  ：
+不会在授权筛选器中引发异常：
 
 * 不会处理异常。
 * 异常筛选器不会处理异常。
@@ -499,7 +499,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * 非常适合捕获发生在操作中的异常。
 * 并不像错误处理中间件那么灵活。
 
-建议使用中间件处理异常。 基于所调用的操作方法，仅当错误处理不同时，才使用异常筛选器  。 例如，应用可能具有用于 API 终结点和视图/HTML 的操作方法。 API 终结点可能返回 JSON 形式的错误信息，而基于视图的操作可能返回 HTML 形式的错误页。
+建议使用中间件处理异常。 基于所调用的操作方法，仅当错误处理不同时，才使用异常筛选器。 例如，应用可能具有用于 API 终结点和视图/HTML 的操作方法。 API 终结点可能返回 JSON 形式的错误信息，而基于视图的操作可能返回 HTML 形式的错误页。
 
 ## <a name="result-filters"></a>结果筛选器
 
@@ -547,13 +547,25 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * 设置短路的授权筛选器和资源筛选器。
 * 异常筛选器。
 
-例如，以下筛选器始终运行并在内容协商失败时设置具有“422 无法处理的实体”  状态代码的操作结果 (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>)：
+例如，以下筛选器始终运行并在内容协商失败时设置具有“422 无法处理的实体”状态代码的操作结果 (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>)：
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Filters/UnprocessableResultFilter.cs?name=snippet)]
 
 ### <a name="ifilterfactory"></a>IFilterFactory
 
 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> 可实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>。 因此，`IFilterFactory` 实例可在筛选器管道中的任意位置用作 `IFilterMetadata` 实例。 当运行时准备调用筛选器时，它会尝试将其转换为 `IFilterFactory`。 如果转换成功，则调用 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.CreateInstance*> 方法来创建将调用的 `IFilterMetadata` 实例。 这提供了一种很灵活的设计，因为无需在应用启动时显式设置精确的筛选器管道。
+
+`IFilterFactory.IsReusable`:
+
+* 出厂时，由工厂创建的筛选器实例可在创建它的请求范围之外重复使用的提示。
+* ***Not** _ 应与依赖于非单一生存期的服务的筛选器一起使用。
+
+ASP.NET Core 运行时不保证：
+
+_ 将创建筛选器的单个实例。
+* 稍后不会从 DI 容器重新请求筛选器。
+
+[!WARNING] 仅将配置 `IFilterFactory.IsReusable` 为在 `true` 筛选器源明确的情况下返回，筛选器是无状态的，可以在多个 HTTP 请求中安全使用。 例如，如果返回，则不要从已注册为作用域或暂时性的 DI 返回筛选器 `IFilterFactory.IsReusable``true`
 
 可以使用自定义属性实现来实现 `IFilterFactory` 作为另一种创建筛选器的方法：
 
@@ -623,7 +635,7 @@ What's a non-named attribute?
 
 作者：[Kirk Larkin](https://github.com/serpent5)、[Rick Anderson](https://twitter.com/RickAndMSFT)、[Tom Dykstra](https://github.com/tdykstra/) 和 [Steve Smith](https://ardalis.com/)
 
-通过使用 ASP.NET Core 中的筛选器，可在请求处理管道中的特定阶段之前或之后运行代码。 
+通过使用 ASP.NET Core 中的筛选器，可在请求处理管道中的特定阶段之前或之后运行代码。
 
 内置筛选器处理任务，例如：
 
@@ -638,7 +650,7 @@ What's a non-named attribute?
 
 ## <a name="how-filters-work"></a>筛选器的工作原理
 
-筛选器在 ASP.NET Core 操作调用管道  （有时称为筛选器管道  ）内运行。  筛选器管道在 ASP.NET Core 选择了要执行的操作之后运行。
+筛选器在 ASP.NET Core 操作调用管道（有时称为筛选器管道）内运行。  筛选器管道在 ASP.NET Core 选择了要执行的操作之后运行。
 
 ![请求通过其他中间件、路由中间件、操作选择和 ASP.NET Core 操作调用管道进行处理。 请求处理继续往回通过操作选择、路由中间件和各种其他中间件，变成发送到客户端的响应。](filters/_static/filter-pipeline-1.png)
 
@@ -723,16 +735,16 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 ### <a name="default-order-of-execution"></a>默认执行顺序
 
-当有同一类型的多个筛选器时，作用域可确定筛选器执行的默认顺序  。  全局筛选器涵盖类筛选器。 类筛选器涵盖方法筛选器。
+当有同一类型的多个筛选器时，作用域可确定筛选器执行的默认顺序。  全局筛选器涵盖类筛选器。 类筛选器涵盖方法筛选器。
 
-在筛选器嵌套模式下，筛选器的 after  代码会按照与 before  代码相反的顺序运行。 筛选器序列：
+在筛选器嵌套模式下，筛选器的 after 代码会按照与 before 代码相反的顺序运行。 筛选器序列：
 
-* 全局筛选器的 before  代码。
-  * 控制器筛选器的 before  代码。
-    * 操作方法筛选器的 before  代码。
-    * 操作方法筛选器的 after  代码。
-  * 控制器筛选器的 after  代码。
-* 全局筛选器的 after  代码。
+* 全局筛选器的 before 代码。
+  * 控制器筛选器的 before 代码。
+    * 操作方法筛选器的 before 代码。
+    * 操作方法筛选器的 after 代码。
+  * 控制器筛选器的 after 代码。
+* 全局筛选器的 after 代码。
   
 下面的示例阐释了为同步操作筛选器调用筛选器方法的顺序。
 
@@ -785,8 +797,8 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 可以通过实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter> 来重写默认执行序列。 `IOrderedFilter` 公开了 <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter.Order> 属性来确定执行顺序，该属性优先于作用域。 具有较低的 `Order` 值的筛选器：
 
-* 在具有较高的 `Order` 值的筛选器之前运行 before  代码。
-* 在具有较高的 `Order` 值的筛选器之后运行 after  代码。
+* 在具有较高的 `Order` 值的筛选器之前运行 before 代码。
+* 在具有较高的 `Order` 值的筛选器之后运行 after 代码。
 
 可以使用构造函数参数设置 `Order` 属性：
 
@@ -824,7 +836,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>依赖项注入
+## <a name="dependency-injection"></a>依赖关系注入
 
 可按类型或实例添加筛选器。 如果添加实例，该实例将用于每个请求。 如果添加类型，则将激活该类型。 激活类型的筛选器意味着：
 
@@ -847,7 +859,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 可以从 DI 获取记录器。 但是，避免创建和使用筛选器仅用于日志记录。 [内置框架日志记录](xref:fundamentals/logging/index)通常提供日志记录所需的内容。 添加到筛选器的日志记录：
 
 * 应重点关注业务域问题或特定于筛选器的行为。
-* 不应记录操作或其他框架事件  。 内置筛选器记录操作和框架事件。
+* 不应记录操作或其他框架事件。 内置筛选器记录操作和框架事件。
 
 ### <a name="servicefilterattribute"></a>ServiceFilterAttribute
 
@@ -867,7 +879,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 使用 `ServiceFilterAttribute` 时，[ServiceFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable) 设置：
 
-* 提供以下提示：筛选器实例可能在其创建的请求范围之外被重用。  ASP.NET Core 运行时不保证：
+* 提供以下提示：筛选器实例可能在其创建的请求范围之外被重用。 ASP.NET Core 运行时不保证：
 
   * 将创建筛选器的单一实例。
   * 稍后不会从 DI 容器重新请求筛选器。
@@ -886,7 +898,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 * `TypeFilterAttribute` 可以选择为类型接受构造函数参数。
 
 使用 `TypeFilterAttribute` 时，[TypeFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute.IsReusable) 设置：
-* 提供提示：筛选器实例可能在其创建的请求范围之外被重用。  ASP.NET Core 运行时不保证将创建筛选器的单一实例。
+* 提供提示：筛选器实例可能在其创建的请求范围之外被重用。 ASP.NET Core 运行时不保证将创建筛选器的单一实例。
 
 * 不应与依赖于生命周期不同于单一实例的服务的筛选器一起使用。
 
@@ -914,7 +926,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * 调用授权系统。
 * 不授权请求。
 
-不会在授权筛选器中引发异常  ：
+不会在授权筛选器中引发异常：
 
 * 不会处理异常。
 * 异常筛选器不会处理异常。
@@ -1026,7 +1038,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * 非常适合捕获发生在操作中的异常。
 * 并不像错误处理中间件那么灵活。
 
-建议使用中间件处理异常。 基于所调用的操作方法，仅当错误处理不同时，才使用异常筛选器  。 例如，应用可能具有用于 API 终结点和视图/HTML 的操作方法。 API 终结点可能返回 JSON 形式的错误信息，而基于视图的操作可能返回 HTML 形式的错误页。
+建议使用中间件处理异常。 基于所调用的操作方法，仅当错误处理不同时，才使用异常筛选器。 例如，应用可能具有用于 API 终结点和视图/HTML 的操作方法。 API 终结点可能返回 JSON 形式的错误信息，而基于视图的操作可能返回 HTML 形式的错误页。
 
 ## <a name="result-filters"></a>结果筛选器
 
@@ -1074,7 +1086,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * 设置短路的授权筛选器和资源筛选器。
 * 异常筛选器。
 
-例如，以下筛选器始终运行并在内容协商失败时设置具有“422 无法处理的实体”  状态代码的操作结果 (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>)：
+例如，以下筛选器始终运行并在内容协商失败时设置具有“422 无法处理的实体”状态代码的操作结果 (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>)：
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/UnprocessableResultFilter.cs?name=snippet)]
 
