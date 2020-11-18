@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: e473da9a7cbd91a601ad4af0c7c02c7f576f348c
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: aa109aaa89003fd7566e7dc219ecc9799b077355
+ms.sourcegitcommit: 8b867c4cb0c3b39bbc4d2d87815610d2ef858ae7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93051117"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94703665"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>在 ASP.NET Core 强制实施 HTTPS
 
@@ -450,6 +450,20 @@ dotnet dev-certs https --trust
 ### <a name="iis-express-ssl-certificate-used-with-visual-studio"></a>用于 Visual Studio 的 IIS Express SSL 证书
 
 若要解决 IIS Express 证书的问题，请从 Visual Studio 安装程序中选择 " **修复** "。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/aspnetcore/issues/16892)。
+
+<a name="trust-ff"></a>
+
+### <a name="firefox-sec_error_inadequate_key_usage-certificate-error"></a>Firefox SEC_ERROR_INADEQUATE_KEY_USAGE 证书错误
+
+Firefox 浏览器使用自己的证书存储区，因此不信任 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 或 [Kestrel](xref:fundamentals/servers/kestrel) 开发人员证书。
+
+若要将 Firefox 与 IIS Express 或 Kestrel 一起使用，请设置  `security.enterprise_roots.enabled` = `true`
+
+1. `about:config`在 FireFox 浏览器中输入。
+1. 如果接受风险，则选择 **"接受风险并继续"** 。
+1. 选择 **全部显示**
+1. 字符集 `security.enterprise_roots.enabled` = `true`
+1. 退出并重新启动 Firefox
 
 ## <a name="additional-information"></a>其他信息
 

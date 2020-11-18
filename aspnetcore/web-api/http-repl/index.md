@@ -5,7 +5,7 @@ description: 了解如何使用 HttpRepl .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc, devx-track-azurecli
-ms.date: 11/11/2020
+ms.date: 11/12/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: df2d4e63a18471b4c5f4f1c9434921303bb1da8a
-ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
+ms.openlocfilehash: c661141c1bec93c0f7b6404964dc0bca2319b529
+ms.sourcegitcommit: 827e8be18cebbcc09b467c089e17fa6f5e430cb2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94550616"
+ms.lasthandoff: 11/15/2020
+ms.locfileid: "94634608"
 ---
 # <a name="test-web-apis-with-the-httprepl"></a>使用 HttpRepl 测试 Web API
 
@@ -204,7 +204,7 @@ The field 'paths' in 'document' object is REQUIRED [#/paths]
 若要在 Web API 地址的当前路径中列出不同的终结点（控制器），请运行 `ls` 或 `dir` 命令：
 
 ```console
-https://localhot:5001/> ls
+https://localhost:5001/> ls
 ```
 
 以下输出格式随即显示：
@@ -1127,3 +1127,6 @@ https://localhost:5001/>
 
 * [REST API 请求](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
 * [HttpRepl GitHub 存储库](https://github.com/dotnet/HttpRepl)
+* [配置 Visual Studio 以启动 HttpRepl](https://devblogs.microsoft.com/aspnet/httprepl-a-command-line-tool-for-interacting-with-restful-http-services/#configure-visual-studio-for-windows-to-launch-httprepl-on-f5)
+* [配置 Visual Studio Code 以启动 HttpRepl](https://devblogs.microsoft.com/aspnet/httprepl-a-command-line-tool-for-interacting-with-restful-http-services/#configure-visual-studio-code-to-launch-httprepl-on-debug)
+* [配置 Visual Studio for Mac 以启动 HttpRepl](https://devblogs.microsoft.com/aspnet/httprepl-a-command-line-tool-for-interacting-with-restful-http-services/#configure-visual-studio-for-mac-to-launch-httprepl-as-a-custom-tool)
