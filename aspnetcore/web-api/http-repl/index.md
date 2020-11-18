@@ -5,7 +5,7 @@ description: 了解如何使用 HttpRepl .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc, devx-track-azurecli
-ms.date: 11/11/2020
+ms.date: 11/12/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,58 +19,58 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: df2d4e63a18471b4c5f4f1c9434921303bb1da8a
-ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
+ms.openlocfilehash: c661141c1bec93c0f7b6404964dc0bca2319b529
+ms.sourcegitcommit: 827e8be18cebbcc09b467c089e17fa6f5e430cb2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94550616"
+ms.lasthandoff: 11/15/2020
+ms.locfileid: "94634608"
 ---
-# <a name="test-web-apis-with-the-httprepl"></a><span data-ttu-id="22ac9-103">使用 HttpRepl 测试 Web API</span><span class="sxs-lookup"><span data-stu-id="22ac9-103">Test web APIs with the HttpRepl</span></span>
+# <a name="test-web-apis-with-the-httprepl"></a><span data-ttu-id="7db6c-103">使用 HttpRepl 测试 Web API</span><span class="sxs-lookup"><span data-stu-id="7db6c-103">Test web APIs with the HttpRepl</span></span>
 
-<span data-ttu-id="22ac9-104">作者：[Scott Addie](https://twitter.com/Scott_Addie)</span><span class="sxs-lookup"><span data-stu-id="22ac9-104">By [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
+<span data-ttu-id="7db6c-104">作者：[Scott Addie](https://twitter.com/Scott_Addie)</span><span class="sxs-lookup"><span data-stu-id="7db6c-104">By [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
 
-<span data-ttu-id="22ac9-105">HTTP 读取–求值–打印循环 (REPL)：</span><span class="sxs-lookup"><span data-stu-id="22ac9-105">The HTTP Read-Eval-Print Loop (REPL) is:</span></span>
+<span data-ttu-id="7db6c-105">HTTP 读取–求值–打印循环 (REPL)：</span><span class="sxs-lookup"><span data-stu-id="7db6c-105">The HTTP Read-Eval-Print Loop (REPL) is:</span></span>
 
-* <span data-ttu-id="22ac9-106">一种轻量级跨平台命令行工具，在所有支持的 .NET Core 的位置都可得到支持。</span><span class="sxs-lookup"><span data-stu-id="22ac9-106">A lightweight, cross-platform command-line tool that's supported everywhere .NET Core is supported.</span></span>
-* <span data-ttu-id="22ac9-107">用于发出 HTTP 请求以测试 ASP.NET Core Web API（和非 ASP.NET Core web API）并查看其结果。</span><span class="sxs-lookup"><span data-stu-id="22ac9-107">Used for making HTTP requests to test ASP.NET Core web APIs (and non-ASP.NET Core web APIs) and view their results.</span></span>
-* <span data-ttu-id="22ac9-108">可以在任何环境下测试托管的 web API，包括 localhost 和 Azure 应用服务。</span><span class="sxs-lookup"><span data-stu-id="22ac9-108">Capable of testing web APIs hosted in any environment, including localhost and Azure App Service.</span></span>
+* <span data-ttu-id="7db6c-106">一种轻量级跨平台命令行工具，在所有支持的 .NET Core 的位置都可得到支持。</span><span class="sxs-lookup"><span data-stu-id="7db6c-106">A lightweight, cross-platform command-line tool that's supported everywhere .NET Core is supported.</span></span>
+* <span data-ttu-id="7db6c-107">用于发出 HTTP 请求以测试 ASP.NET Core Web API（和非 ASP.NET Core web API）并查看其结果。</span><span class="sxs-lookup"><span data-stu-id="7db6c-107">Used for making HTTP requests to test ASP.NET Core web APIs (and non-ASP.NET Core web APIs) and view their results.</span></span>
+* <span data-ttu-id="7db6c-108">可以在任何环境下测试托管的 web API，包括 localhost 和 Azure 应用服务。</span><span class="sxs-lookup"><span data-stu-id="7db6c-108">Capable of testing web APIs hosted in any environment, including localhost and Azure App Service.</span></span>
 
-<span data-ttu-id="22ac9-109">支持以下 [HTTP 谓词](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)：</span><span class="sxs-lookup"><span data-stu-id="22ac9-109">The following [HTTP verbs](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) are supported:</span></span>
+<span data-ttu-id="7db6c-109">支持以下 [HTTP 谓词](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)：</span><span class="sxs-lookup"><span data-stu-id="7db6c-109">The following [HTTP verbs](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) are supported:</span></span>
 
-* [<span data-ttu-id="22ac9-110">DELETE</span><span class="sxs-lookup"><span data-stu-id="22ac9-110">DELETE</span></span>](#test-http-delete-requests)
-* [<span data-ttu-id="22ac9-111">GET</span><span class="sxs-lookup"><span data-stu-id="22ac9-111">GET</span></span>](#test-http-get-requests)
-* [<span data-ttu-id="22ac9-112">HEAD</span><span class="sxs-lookup"><span data-stu-id="22ac9-112">HEAD</span></span>](#test-http-head-requests)
-* [<span data-ttu-id="22ac9-113">OPTIONS</span><span class="sxs-lookup"><span data-stu-id="22ac9-113">OPTIONS</span></span>](#test-http-options-requests)
-* [<span data-ttu-id="22ac9-114">PATCH</span><span class="sxs-lookup"><span data-stu-id="22ac9-114">PATCH</span></span>](#test-http-patch-requests)
-* [<span data-ttu-id="22ac9-115">POST</span><span class="sxs-lookup"><span data-stu-id="22ac9-115">POST</span></span>](#test-http-post-requests)
-* [<span data-ttu-id="22ac9-116">PUT</span><span class="sxs-lookup"><span data-stu-id="22ac9-116">PUT</span></span>](#test-http-put-requests)
+* [<span data-ttu-id="7db6c-110">DELETE</span><span class="sxs-lookup"><span data-stu-id="7db6c-110">DELETE</span></span>](#test-http-delete-requests)
+* [<span data-ttu-id="7db6c-111">GET</span><span class="sxs-lookup"><span data-stu-id="7db6c-111">GET</span></span>](#test-http-get-requests)
+* [<span data-ttu-id="7db6c-112">HEAD</span><span class="sxs-lookup"><span data-stu-id="7db6c-112">HEAD</span></span>](#test-http-head-requests)
+* [<span data-ttu-id="7db6c-113">OPTIONS</span><span class="sxs-lookup"><span data-stu-id="7db6c-113">OPTIONS</span></span>](#test-http-options-requests)
+* [<span data-ttu-id="7db6c-114">PATCH</span><span class="sxs-lookup"><span data-stu-id="7db6c-114">PATCH</span></span>](#test-http-patch-requests)
+* [<span data-ttu-id="7db6c-115">POST</span><span class="sxs-lookup"><span data-stu-id="7db6c-115">POST</span></span>](#test-http-post-requests)
+* [<span data-ttu-id="7db6c-116">PUT</span><span class="sxs-lookup"><span data-stu-id="7db6c-116">PUT</span></span>](#test-http-put-requests)
 
-<span data-ttu-id="22ac9-117">若要继续操作，请[查看或下载示例 ASP.NET Core Web API](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples)（[下载方式](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-117">To follow along, [view or download the sample ASP.NET Core web API](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="7db6c-117">若要继续操作，请[查看或下载示例 ASP.NET Core Web API](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples)（[下载方式](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-117">To follow along, [view or download the sample ASP.NET Core web API](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="22ac9-118">先决条件</span><span class="sxs-lookup"><span data-stu-id="22ac9-118">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="7db6c-118">先决条件</span><span class="sxs-lookup"><span data-stu-id="7db6c-118">Prerequisites</span></span>
 
 * [!INCLUDE [2.1-SDK](~/includes/2.1-SDK.md)]
 
-## <a name="installation"></a><span data-ttu-id="22ac9-119">安装</span><span class="sxs-lookup"><span data-stu-id="22ac9-119">Installation</span></span>
+## <a name="installation"></a><span data-ttu-id="7db6c-119">安装</span><span class="sxs-lookup"><span data-stu-id="7db6c-119">Installation</span></span>
 
-<span data-ttu-id="22ac9-120">若要安装 HttpRepl，请运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-120">To install the HttpRepl, run the following command:</span></span>
+<span data-ttu-id="7db6c-120">若要安装 HttpRepl，请运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-120">To install the HttpRepl, run the following command:</span></span>
 
 ```dotnetcli
 dotnet tool install -g Microsoft.dotnet-httprepl
 ```
 
-<span data-ttu-id="22ac9-121">从 [Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。</span><span class="sxs-lookup"><span data-stu-id="22ac9-121">A [.NET Core Global Tool](/dotnet/core/tools/global-tools#install-a-global-tool) is installed from the [Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet package.</span></span>
+<span data-ttu-id="7db6c-121">从 [Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。</span><span class="sxs-lookup"><span data-stu-id="7db6c-121">A [.NET Core Global Tool](/dotnet/core/tools/global-tools#install-a-global-tool) is installed from the [Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet package.</span></span>
 
-## <a name="usage"></a><span data-ttu-id="22ac9-122">使用情况</span><span class="sxs-lookup"><span data-stu-id="22ac9-122">Usage</span></span>
+## <a name="usage"></a><span data-ttu-id="7db6c-122">使用情况</span><span class="sxs-lookup"><span data-stu-id="7db6c-122">Usage</span></span>
 
-<span data-ttu-id="22ac9-123">成功安装该工具后，运行以下命令启动 HttpRepl：</span><span class="sxs-lookup"><span data-stu-id="22ac9-123">After successful installation of the tool, run the following command to start the HttpRepl:</span></span>
+<span data-ttu-id="7db6c-123">成功安装该工具后，运行以下命令启动 HttpRepl：</span><span class="sxs-lookup"><span data-stu-id="7db6c-123">After successful installation of the tool, run the following command to start the HttpRepl:</span></span>
 
 ```console
 httprepl
 ```
 
-<span data-ttu-id="22ac9-124">若要查看可用的 HttpRepl 命令，请运行以下其中一个命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-124">To view the available HttpRepl commands, run one of the following commands:</span></span>
+<span data-ttu-id="7db6c-124">若要查看可用的 HttpRepl 命令，请运行以下其中一个命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-124">To view the available HttpRepl commands, run one of the following commands:</span></span>
 
 ```console
 httprepl -h
@@ -80,7 +80,7 @@ httprepl -h
 httprepl --help
 ```
 
-<span data-ttu-id="22ac9-125">显示以下输出：</span><span class="sxs-lookup"><span data-stu-id="22ac9-125">The following output is displayed:</span></span>
+<span data-ttu-id="7db6c-125">显示以下输出：</span><span class="sxs-lookup"><span data-stu-id="7db6c-125">The following output is displayed:</span></span>
 
 ```console
 Usage:
@@ -135,57 +135,57 @@ Use `help <COMMAND>` for more detail on an individual command. e.g. `help get`.
 For detailed tool info, see https://aka.ms/http-repl-doc.
 ```
 
-<span data-ttu-id="22ac9-126">HttpRepl 提供命令补全功能。</span><span class="sxs-lookup"><span data-stu-id="22ac9-126">The HttpRepl offers command completion.</span></span> <span data-ttu-id="22ac9-127">按 Tab <kbd></kbd>键可循环访问补全所键入字符或 API 终结点的命令的列表。</span><span class="sxs-lookup"><span data-stu-id="22ac9-127">Pressing the <kbd>Tab</kbd> key iterates through the list of commands that complete the characters or API endpoint that you typed.</span></span> <span data-ttu-id="22ac9-128">以下部分概述了可用的 CLI 命令。</span><span class="sxs-lookup"><span data-stu-id="22ac9-128">The following sections outline the available CLI commands.</span></span>
+<span data-ttu-id="7db6c-126">HttpRepl 提供命令补全功能。</span><span class="sxs-lookup"><span data-stu-id="7db6c-126">The HttpRepl offers command completion.</span></span> <span data-ttu-id="7db6c-127">按 Tab <kbd></kbd>键可循环访问补全所键入字符或 API 终结点的命令的列表。</span><span class="sxs-lookup"><span data-stu-id="7db6c-127">Pressing the <kbd>Tab</kbd> key iterates through the list of commands that complete the characters or API endpoint that you typed.</span></span> <span data-ttu-id="7db6c-128">以下部分概述了可用的 CLI 命令。</span><span class="sxs-lookup"><span data-stu-id="7db6c-128">The following sections outline the available CLI commands.</span></span>
 
-## <a name="connect-to-the-web-api"></a><span data-ttu-id="22ac9-129">连接到 Web API</span><span class="sxs-lookup"><span data-stu-id="22ac9-129">Connect to the web API</span></span>
+## <a name="connect-to-the-web-api"></a><span data-ttu-id="7db6c-129">连接到 Web API</span><span class="sxs-lookup"><span data-stu-id="7db6c-129">Connect to the web API</span></span>
 
-<span data-ttu-id="22ac9-130">运行以下命令，连接到 Web API：</span><span class="sxs-lookup"><span data-stu-id="22ac9-130">Connect to a web API by running the following command:</span></span>
+<span data-ttu-id="7db6c-130">运行以下命令，连接到 Web API：</span><span class="sxs-lookup"><span data-stu-id="7db6c-130">Connect to a web API by running the following command:</span></span>
 
 ```console
 httprepl <ROOT URI>
 ```
 
-<span data-ttu-id="22ac9-131">`<ROOT URI>` 是 Web API 的基 URI。</span><span class="sxs-lookup"><span data-stu-id="22ac9-131">`<ROOT URI>` is the base URI for the web API.</span></span> <span data-ttu-id="22ac9-132">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-132">For example:</span></span>
+<span data-ttu-id="7db6c-131">`<ROOT URI>` 是 Web API 的基 URI。</span><span class="sxs-lookup"><span data-stu-id="7db6c-131">`<ROOT URI>` is the base URI for the web API.</span></span> <span data-ttu-id="7db6c-132">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-132">For example:</span></span>
 
 ```console
 httprepl https://localhost:5001
 ```
 
-<span data-ttu-id="22ac9-133">或者，在运行 HttpRepl 的任何时候运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-133">Alternatively, run the following command at any time while the HttpRepl is running:</span></span>
+<span data-ttu-id="7db6c-133">或者，在运行 HttpRepl 的任何时候运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-133">Alternatively, run the following command at any time while the HttpRepl is running:</span></span>
 
 ```console
 connect <ROOT URI>
 ```
 
-<span data-ttu-id="22ac9-134">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-134">For example:</span></span>
+<span data-ttu-id="7db6c-134">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-134">For example:</span></span>
 
 ```console
 (Disconnected)> connect https://localhost:5001
 ```
 
-### <a name="manually-point-to-the-openapi-description-for-the-web-api"></a><span data-ttu-id="22ac9-135">手动指向 Web API 的 OpenAPI 说明</span><span class="sxs-lookup"><span data-stu-id="22ac9-135">Manually point to the OpenAPI description for the web API</span></span>
+### <a name="manually-point-to-the-openapi-description-for-the-web-api"></a><span data-ttu-id="7db6c-135">手动指向 Web API 的 OpenAPI 说明</span><span class="sxs-lookup"><span data-stu-id="7db6c-135">Manually point to the OpenAPI description for the web API</span></span>
 
-<span data-ttu-id="22ac9-136">上述 connect 命令将尝试自动查找 OpenAPI 说明。</span><span class="sxs-lookup"><span data-stu-id="22ac9-136">The connect command above will attempt to find the OpenAPI description automatically.</span></span> <span data-ttu-id="22ac9-137">如果由于某种原因而无法执行此操作，则可以使用 `--openapi` 选项指定 Web API 的 OpenAPI 说明的 URI：</span><span class="sxs-lookup"><span data-stu-id="22ac9-137">If for some reason it's unable to do so, you can specify the URI of the OpenAPI description for the web API by using the `--openapi` option:</span></span>
+<span data-ttu-id="7db6c-136">上述 connect 命令将尝试自动查找 OpenAPI 说明。</span><span class="sxs-lookup"><span data-stu-id="7db6c-136">The connect command above will attempt to find the OpenAPI description automatically.</span></span> <span data-ttu-id="7db6c-137">如果由于某种原因而无法执行此操作，则可以使用 `--openapi` 选项指定 Web API 的 OpenAPI 说明的 URI：</span><span class="sxs-lookup"><span data-stu-id="7db6c-137">If for some reason it's unable to do so, you can specify the URI of the OpenAPI description for the web API by using the `--openapi` option:</span></span>
 
 ```console
 connect <ROOT URI> --openapi <OPENAPI DESCRIPTION ADDRESS>
 ```
 
-<span data-ttu-id="22ac9-138">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-138">For example:</span></span>
+<span data-ttu-id="7db6c-138">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-138">For example:</span></span>
 
 ```console
 (Disconnected)> connect https://localhost:5001 --openapi /swagger/v1/swagger.json
 ```
 
-### <a name="enable-verbose-output-for-details-on-openapi-description-searching-parsing-and-validation"></a><span data-ttu-id="22ac9-139">启用详细输出，以获取有关 OpenAPI 说明搜索、分析和验证的详细信息</span><span class="sxs-lookup"><span data-stu-id="22ac9-139">Enable verbose output for details on OpenAPI description searching, parsing, and validation</span></span>
+### <a name="enable-verbose-output-for-details-on-openapi-description-searching-parsing-and-validation"></a><span data-ttu-id="7db6c-139">启用详细输出，以获取有关 OpenAPI 说明搜索、分析和验证的详细信息</span><span class="sxs-lookup"><span data-stu-id="7db6c-139">Enable verbose output for details on OpenAPI description searching, parsing, and validation</span></span>
 
-<span data-ttu-id="22ac9-140">当工具搜索 OpenAPI 说明并对其进行分析和验证时，通过 `connect` 命令指定 `--verbose` 选项将生成更多详细信息。</span><span class="sxs-lookup"><span data-stu-id="22ac9-140">Specifying the `--verbose` option with the `connect` command will produce more details when the tool searches for the OpenAPI description, parses, and validates it.</span></span>
+<span data-ttu-id="7db6c-140">当工具搜索 OpenAPI 说明并对其进行分析和验证时，通过 `connect` 命令指定 `--verbose` 选项将生成更多详细信息。</span><span class="sxs-lookup"><span data-stu-id="7db6c-140">Specifying the `--verbose` option with the `connect` command will produce more details when the tool searches for the OpenAPI description, parses, and validates it.</span></span>
 
 ```console
 connect <ROOT URI> --verbose
 ```
 
-<span data-ttu-id="22ac9-141">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-141">For example:</span></span>
+<span data-ttu-id="7db6c-141">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-141">For example:</span></span>
 
 ```console
 (Disconnected)> connect https://localhost:5001 --verbose
@@ -197,17 +197,17 @@ The field 'info' in 'document' object is REQUIRED [#/info]
 The field 'paths' in 'document' object is REQUIRED [#/paths]
 ```
 
-## <a name="navigate-the-web-api"></a><span data-ttu-id="22ac9-142">浏览 Web API</span><span class="sxs-lookup"><span data-stu-id="22ac9-142">Navigate the web API</span></span>
+## <a name="navigate-the-web-api"></a><span data-ttu-id="7db6c-142">浏览 Web API</span><span class="sxs-lookup"><span data-stu-id="7db6c-142">Navigate the web API</span></span>
 
-### <a name="view-available-endpoints"></a><span data-ttu-id="22ac9-143">查看可用的终结点</span><span class="sxs-lookup"><span data-stu-id="22ac9-143">View available endpoints</span></span>
+### <a name="view-available-endpoints"></a><span data-ttu-id="7db6c-143">查看可用的终结点</span><span class="sxs-lookup"><span data-stu-id="7db6c-143">View available endpoints</span></span>
 
-<span data-ttu-id="22ac9-144">若要在 Web API 地址的当前路径中列出不同的终结点（控制器），请运行 `ls` 或 `dir` 命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-144">To list the different endpoints (controllers) at the current path of the web API address, run the `ls` or `dir` command:</span></span>
+<span data-ttu-id="7db6c-144">若要在 Web API 地址的当前路径中列出不同的终结点（控制器），请运行 `ls` 或 `dir` 命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-144">To list the different endpoints (controllers) at the current path of the web API address, run the `ls` or `dir` command:</span></span>
 
 ```console
-https://localhot:5001/> ls
+https://localhost:5001/> ls
 ```
 
-<span data-ttu-id="22ac9-145">以下输出格式随即显示：</span><span class="sxs-lookup"><span data-stu-id="22ac9-145">The following output format is displayed:</span></span>
+<span data-ttu-id="7db6c-145">以下输出格式随即显示：</span><span class="sxs-lookup"><span data-stu-id="7db6c-145">The following output format is displayed:</span></span>
 
 ```console
 .        []
@@ -217,9 +217,9 @@ People   [get|post]
 https://localhost:5001/>
 ```
 
-<span data-ttu-id="22ac9-146">上述输出指示有两个控制器可用：`Fruits` 和 `People`。</span><span class="sxs-lookup"><span data-stu-id="22ac9-146">The preceding output indicates that there are two controllers available: `Fruits` and `People`.</span></span> <span data-ttu-id="22ac9-147">这两个控制器都支持无参数 HTTP GET 和 POST 操作。</span><span class="sxs-lookup"><span data-stu-id="22ac9-147">Both controllers support parameterless HTTP GET and POST operations.</span></span>
+<span data-ttu-id="7db6c-146">上述输出指示有两个控制器可用：`Fruits` 和 `People`。</span><span class="sxs-lookup"><span data-stu-id="7db6c-146">The preceding output indicates that there are two controllers available: `Fruits` and `People`.</span></span> <span data-ttu-id="7db6c-147">这两个控制器都支持无参数 HTTP GET 和 POST 操作。</span><span class="sxs-lookup"><span data-stu-id="7db6c-147">Both controllers support parameterless HTTP GET and POST operations.</span></span>
 
-<span data-ttu-id="22ac9-148">导航到特定控制器可显示更多详细信息。</span><span class="sxs-lookup"><span data-stu-id="22ac9-148">Navigating into a specific controller reveals more detail.</span></span> <span data-ttu-id="22ac9-149">例如，以下命令的输出显示 `Fruits` 控制器还支持 HTTP GET、PUT 和 DELETE 操作。</span><span class="sxs-lookup"><span data-stu-id="22ac9-149">For example, the following command's output shows the `Fruits` controller also supports HTTP GET, PUT, and DELETE operations.</span></span> <span data-ttu-id="22ac9-150">其中每个操作都需要路由中有一个 `id` 参数：</span><span class="sxs-lookup"><span data-stu-id="22ac9-150">Each of these operations expects an `id` parameter in the route:</span></span>
+<span data-ttu-id="7db6c-148">导航到特定控制器可显示更多详细信息。</span><span class="sxs-lookup"><span data-stu-id="7db6c-148">Navigating into a specific controller reveals more detail.</span></span> <span data-ttu-id="7db6c-149">例如，以下命令的输出显示 `Fruits` 控制器还支持 HTTP GET、PUT 和 DELETE 操作。</span><span class="sxs-lookup"><span data-stu-id="7db6c-149">For example, the following command's output shows the `Fruits` controller also supports HTTP GET, PUT, and DELETE operations.</span></span> <span data-ttu-id="7db6c-150">其中每个操作都需要路由中有一个 `id` 参数：</span><span class="sxs-lookup"><span data-stu-id="7db6c-150">Each of these operations expects an `id` parameter in the route:</span></span>
 
 ```console
 https://localhost:5001/fruits> ls
@@ -230,21 +230,21 @@ https://localhost:5001/fruits> ls
 https://localhost:5001/fruits>
 ```
 
-<span data-ttu-id="22ac9-151">或者，运行 `ui` 命令，在浏览器中打开 Web API 的 Swagger UI 页。</span><span class="sxs-lookup"><span data-stu-id="22ac9-151">Alternatively, run the `ui` command to open the web API's Swagger UI page in a browser.</span></span> <span data-ttu-id="22ac9-152">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-152">For example:</span></span>
+<span data-ttu-id="7db6c-151">或者，运行 `ui` 命令，在浏览器中打开 Web API 的 Swagger UI 页。</span><span class="sxs-lookup"><span data-stu-id="7db6c-151">Alternatively, run the `ui` command to open the web API's Swagger UI page in a browser.</span></span> <span data-ttu-id="7db6c-152">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-152">For example:</span></span>
 
 ```console
 https://localhost:5001/> ui
 ```
 
-### <a name="navigate-to-an-endpoint"></a><span data-ttu-id="22ac9-153">导航到一个终结点</span><span class="sxs-lookup"><span data-stu-id="22ac9-153">Navigate to an endpoint</span></span>
+### <a name="navigate-to-an-endpoint"></a><span data-ttu-id="7db6c-153">导航到一个终结点</span><span class="sxs-lookup"><span data-stu-id="7db6c-153">Navigate to an endpoint</span></span>
 
-<span data-ttu-id="22ac9-154">若要在 Web API 上导航到其他终结点，请运行 `cd` 命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-154">To navigate to a different endpoint on the web API, run the `cd` command:</span></span>
+<span data-ttu-id="7db6c-154">若要在 Web API 上导航到其他终结点，请运行 `cd` 命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-154">To navigate to a different endpoint on the web API, run the `cd` command:</span></span>
 
 ```console
 https://localhost:5001/> cd people
 ```
 
-<span data-ttu-id="22ac9-155">`cd` 命令后的路径不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="22ac9-155">The path following the `cd` command is case insensitive.</span></span> <span data-ttu-id="22ac9-156">以下输出格式随即显示：</span><span class="sxs-lookup"><span data-stu-id="22ac9-156">The following output format is displayed:</span></span>
+<span data-ttu-id="7db6c-155">`cd` 命令后的路径不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="7db6c-155">The path following the `cd` command is case insensitive.</span></span> <span data-ttu-id="7db6c-156">以下输出格式随即显示：</span><span class="sxs-lookup"><span data-stu-id="7db6c-156">The following output format is displayed:</span></span>
 
 ```console
 /people    [get|post]
@@ -252,35 +252,35 @@ https://localhost:5001/> cd people
 https://localhost:5001/people>
 ```
 
-## <a name="customize-the-httprepl"></a><span data-ttu-id="22ac9-157">自定义 HttpRepl</span><span class="sxs-lookup"><span data-stu-id="22ac9-157">Customize the HttpRepl</span></span>
+## <a name="customize-the-httprepl"></a><span data-ttu-id="7db6c-157">自定义 HttpRepl</span><span class="sxs-lookup"><span data-stu-id="7db6c-157">Customize the HttpRepl</span></span>
 
-<span data-ttu-id="22ac9-158">可自定义 HttpRepl 的默认[颜色](#set-color-preferences)。</span><span class="sxs-lookup"><span data-stu-id="22ac9-158">The HttpRepl's default [colors](#set-color-preferences) can be customized.</span></span> <span data-ttu-id="22ac9-159">此外，还可定义[默认文本编辑器](#set-the-default-text-editor)。</span><span class="sxs-lookup"><span data-stu-id="22ac9-159">Additionally, a [default text editor](#set-the-default-text-editor) can be defined.</span></span> <span data-ttu-id="22ac9-160">HttpRepl 首选项在当前会话中保持不变，并且也会在之后的会话中使用。</span><span class="sxs-lookup"><span data-stu-id="22ac9-160">The HttpRepl preferences are persisted across the current session and are honored in future sessions.</span></span> <span data-ttu-id="22ac9-161">修改后，首选项存储在以下文件中：</span><span class="sxs-lookup"><span data-stu-id="22ac9-161">Once modified, the preferences are stored in the following file:</span></span>
+<span data-ttu-id="7db6c-158">可自定义 HttpRepl 的默认[颜色](#set-color-preferences)。</span><span class="sxs-lookup"><span data-stu-id="7db6c-158">The HttpRepl's default [colors](#set-color-preferences) can be customized.</span></span> <span data-ttu-id="7db6c-159">此外，还可定义[默认文本编辑器](#set-the-default-text-editor)。</span><span class="sxs-lookup"><span data-stu-id="7db6c-159">Additionally, a [default text editor](#set-the-default-text-editor) can be defined.</span></span> <span data-ttu-id="7db6c-160">HttpRepl 首选项在当前会话中保持不变，并且也会在之后的会话中使用。</span><span class="sxs-lookup"><span data-stu-id="7db6c-160">The HttpRepl preferences are persisted across the current session and are honored in future sessions.</span></span> <span data-ttu-id="7db6c-161">修改后，首选项存储在以下文件中：</span><span class="sxs-lookup"><span data-stu-id="7db6c-161">Once modified, the preferences are stored in the following file:</span></span>
 
-# <a name="linux"></a>[<span data-ttu-id="22ac9-162">Linux</span><span class="sxs-lookup"><span data-stu-id="22ac9-162">Linux</span></span>](#tab/linux)
+# <a name="linux"></a>[<span data-ttu-id="7db6c-162">Linux</span><span class="sxs-lookup"><span data-stu-id="7db6c-162">Linux</span></span>](#tab/linux)
 
-<span data-ttu-id="22ac9-163">%HOME%/.httpreplprefs</span><span class="sxs-lookup"><span data-stu-id="22ac9-163">*%HOME%/.httpreplprefs*</span></span>
+<span data-ttu-id="7db6c-163">%HOME%/.httpreplprefs</span><span class="sxs-lookup"><span data-stu-id="7db6c-163">*%HOME%/.httpreplprefs*</span></span>
 
-# <a name="macos"></a>[<span data-ttu-id="22ac9-164">macOS</span><span class="sxs-lookup"><span data-stu-id="22ac9-164">macOS</span></span>](#tab/macos)
+# <a name="macos"></a>[<span data-ttu-id="7db6c-164">macOS</span><span class="sxs-lookup"><span data-stu-id="7db6c-164">macOS</span></span>](#tab/macos)
 
-<span data-ttu-id="22ac9-165">%HOME%/.httpreplprefs</span><span class="sxs-lookup"><span data-stu-id="22ac9-165">*%HOME%/.httpreplprefs*</span></span>
+<span data-ttu-id="7db6c-165">%HOME%/.httpreplprefs</span><span class="sxs-lookup"><span data-stu-id="7db6c-165">*%HOME%/.httpreplprefs*</span></span>
 
-# <a name="windows"></a>[<span data-ttu-id="22ac9-166">Windows</span><span class="sxs-lookup"><span data-stu-id="22ac9-166">Windows</span></span>](#tab/windows)
+# <a name="windows"></a>[<span data-ttu-id="7db6c-166">Windows</span><span class="sxs-lookup"><span data-stu-id="7db6c-166">Windows</span></span>](#tab/windows)
 
-<span data-ttu-id="22ac9-167">%USERPROFILE%\\.httpreplprefs</span><span class="sxs-lookup"><span data-stu-id="22ac9-167">*%USERPROFILE%\\.httpreplprefs*</span></span>
+<span data-ttu-id="7db6c-167">%USERPROFILE%\\.httpreplprefs</span><span class="sxs-lookup"><span data-stu-id="7db6c-167">*%USERPROFILE%\\.httpreplprefs*</span></span>
 
 ---
 
-<span data-ttu-id="22ac9-168">.httpreplprefs 文件将在启动时加载，并且在运行时不监控对其的更改。</span><span class="sxs-lookup"><span data-stu-id="22ac9-168">The *.httpreplprefs* file is loaded on startup and not monitored for changes at runtime.</span></span> <span data-ttu-id="22ac9-169">对文件的手动修改只会在重启该工具后生效。</span><span class="sxs-lookup"><span data-stu-id="22ac9-169">Manual modifications to the file take effect only after restarting the tool.</span></span>
+<span data-ttu-id="7db6c-168">.httpreplprefs 文件将在启动时加载，并且在运行时不监控对其的更改。</span><span class="sxs-lookup"><span data-stu-id="7db6c-168">The *.httpreplprefs* file is loaded on startup and not monitored for changes at runtime.</span></span> <span data-ttu-id="7db6c-169">对文件的手动修改只会在重启该工具后生效。</span><span class="sxs-lookup"><span data-stu-id="7db6c-169">Manual modifications to the file take effect only after restarting the tool.</span></span>
 
-### <a name="view-the-settings"></a><span data-ttu-id="22ac9-170">查看设置</span><span class="sxs-lookup"><span data-stu-id="22ac9-170">View the settings</span></span>
+### <a name="view-the-settings"></a><span data-ttu-id="7db6c-170">查看设置</span><span class="sxs-lookup"><span data-stu-id="7db6c-170">View the settings</span></span>
 
-<span data-ttu-id="22ac9-171">若要查看可用的设置，请运行 `pref get` 命令。</span><span class="sxs-lookup"><span data-stu-id="22ac9-171">To view the available settings, run the `pref get` command.</span></span> <span data-ttu-id="22ac9-172">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-172">For example:</span></span>
+<span data-ttu-id="7db6c-171">若要查看可用的设置，请运行 `pref get` 命令。</span><span class="sxs-lookup"><span data-stu-id="7db6c-171">To view the available settings, run the `pref get` command.</span></span> <span data-ttu-id="7db6c-172">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-172">For example:</span></span>
 
 ```console
 https://localhost:5001/> pref get
 ```
 
-<span data-ttu-id="22ac9-173">上述命令显示可用的键值对：</span><span class="sxs-lookup"><span data-stu-id="22ac9-173">The preceding command displays the available key-value pairs:</span></span>
+<span data-ttu-id="7db6c-173">上述命令显示可用的键值对：</span><span class="sxs-lookup"><span data-stu-id="7db6c-173">The preceding command displays the available key-value pairs:</span></span>
 
 ```console
 colors.json=Green
@@ -293,26 +293,26 @@ colors.protocol=BoldGreen
 colors.status=BoldYellow
 ```
 
-### <a name="set-color-preferences"></a><span data-ttu-id="22ac9-174">设置颜色首选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-174">Set color preferences</span></span>
+### <a name="set-color-preferences"></a><span data-ttu-id="7db6c-174">设置颜色首选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-174">Set color preferences</span></span>
 
-<span data-ttu-id="22ac9-175">当前仅 JSON 支持响应着色。</span><span class="sxs-lookup"><span data-stu-id="22ac9-175">Response colorization is currently supported for JSON only.</span></span> <span data-ttu-id="22ac9-176">若要自定义默认的 HttpRepl 工具着色，请找到与要更改的颜色相对应的键。</span><span class="sxs-lookup"><span data-stu-id="22ac9-176">To customize the default HttpRepl tool coloring, locate the key corresponding to the color to be changed.</span></span> <span data-ttu-id="22ac9-177">有关如何查找键的说明，请参阅[查看设置](#view-the-settings)部分。</span><span class="sxs-lookup"><span data-stu-id="22ac9-177">For instructions on how to find the keys, see the [View the settings](#view-the-settings) section.</span></span> <span data-ttu-id="22ac9-178">例如，将 `colors.json` 键值从 `Green` 更改为 `White`如下所示：</span><span class="sxs-lookup"><span data-stu-id="22ac9-178">For example, change the `colors.json` key value from `Green` to `White` as follows:</span></span>
+<span data-ttu-id="7db6c-175">当前仅 JSON 支持响应着色。</span><span class="sxs-lookup"><span data-stu-id="7db6c-175">Response colorization is currently supported for JSON only.</span></span> <span data-ttu-id="7db6c-176">若要自定义默认的 HttpRepl 工具着色，请找到与要更改的颜色相对应的键。</span><span class="sxs-lookup"><span data-stu-id="7db6c-176">To customize the default HttpRepl tool coloring, locate the key corresponding to the color to be changed.</span></span> <span data-ttu-id="7db6c-177">有关如何查找键的说明，请参阅[查看设置](#view-the-settings)部分。</span><span class="sxs-lookup"><span data-stu-id="7db6c-177">For instructions on how to find the keys, see the [View the settings](#view-the-settings) section.</span></span> <span data-ttu-id="7db6c-178">例如，将 `colors.json` 键值从 `Green` 更改为 `White`如下所示：</span><span class="sxs-lookup"><span data-stu-id="7db6c-178">For example, change the `colors.json` key value from `Green` to `White` as follows:</span></span>
 
 ```console
 https://localhost:5001/people> pref set colors.json White
 ```
 
-<span data-ttu-id="22ac9-179">只能使用[允许的颜色](https://github.com/dotnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs)。</span><span class="sxs-lookup"><span data-stu-id="22ac9-179">Only the [allowed colors](https://github.com/dotnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs) may be used.</span></span> <span data-ttu-id="22ac9-180">后续 HTTP 请求使用新着色显示输出。</span><span class="sxs-lookup"><span data-stu-id="22ac9-180">Subsequent HTTP requests display output with the new coloring.</span></span>
+<span data-ttu-id="7db6c-179">只能使用[允许的颜色](https://github.com/dotnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs)。</span><span class="sxs-lookup"><span data-stu-id="7db6c-179">Only the [allowed colors](https://github.com/dotnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs) may be used.</span></span> <span data-ttu-id="7db6c-180">后续 HTTP 请求使用新着色显示输出。</span><span class="sxs-lookup"><span data-stu-id="7db6c-180">Subsequent HTTP requests display output with the new coloring.</span></span>
 
-<span data-ttu-id="22ac9-181">如果未设置特定颜色键，则会考虑使用更通用的键。</span><span class="sxs-lookup"><span data-stu-id="22ac9-181">When specific color keys aren't set, more generic keys are considered.</span></span> <span data-ttu-id="22ac9-182">若要演示此回退行为，请考虑使用以下示例：</span><span class="sxs-lookup"><span data-stu-id="22ac9-182">To demonstrate this fallback behavior, consider the following example:</span></span>
+<span data-ttu-id="7db6c-181">如果未设置特定颜色键，则会考虑使用更通用的键。</span><span class="sxs-lookup"><span data-stu-id="7db6c-181">When specific color keys aren't set, more generic keys are considered.</span></span> <span data-ttu-id="7db6c-182">若要演示此回退行为，请考虑使用以下示例：</span><span class="sxs-lookup"><span data-stu-id="7db6c-182">To demonstrate this fallback behavior, consider the following example:</span></span>
 
-* <span data-ttu-id="22ac9-183">如果 `colors.json.name` 没有值，则使用 `colors.json.string`。</span><span class="sxs-lookup"><span data-stu-id="22ac9-183">If `colors.json.name` doesn't have a value, `colors.json.string` is used.</span></span>
-* <span data-ttu-id="22ac9-184">如果 `colors.json.string` 没有值，则使用 `colors.json.literal`。</span><span class="sxs-lookup"><span data-stu-id="22ac9-184">If `colors.json.string` doesn't have a value, `colors.json.literal` is used.</span></span>
-* <span data-ttu-id="22ac9-185">如果 `colors.json.literal` 没有值，则使用 `colors.json`。</span><span class="sxs-lookup"><span data-stu-id="22ac9-185">If `colors.json.literal` doesn't have a value, `colors.json` is used.</span></span> 
-* <span data-ttu-id="22ac9-186">如果 `colors.json` 没有值，则使用命令行界面的默认文本颜色 (`AllowedColors.None`)。</span><span class="sxs-lookup"><span data-stu-id="22ac9-186">If `colors.json` doesn't have a value, the command shell's default text color (`AllowedColors.None`) is used.</span></span>
+* <span data-ttu-id="7db6c-183">如果 `colors.json.name` 没有值，则使用 `colors.json.string`。</span><span class="sxs-lookup"><span data-stu-id="7db6c-183">If `colors.json.name` doesn't have a value, `colors.json.string` is used.</span></span>
+* <span data-ttu-id="7db6c-184">如果 `colors.json.string` 没有值，则使用 `colors.json.literal`。</span><span class="sxs-lookup"><span data-stu-id="7db6c-184">If `colors.json.string` doesn't have a value, `colors.json.literal` is used.</span></span>
+* <span data-ttu-id="7db6c-185">如果 `colors.json.literal` 没有值，则使用 `colors.json`。</span><span class="sxs-lookup"><span data-stu-id="7db6c-185">If `colors.json.literal` doesn't have a value, `colors.json` is used.</span></span> 
+* <span data-ttu-id="7db6c-186">如果 `colors.json` 没有值，则使用命令行界面的默认文本颜色 (`AllowedColors.None`)。</span><span class="sxs-lookup"><span data-stu-id="7db6c-186">If `colors.json` doesn't have a value, the command shell's default text color (`AllowedColors.None`) is used.</span></span>
 
-### <a name="set-indentation-size"></a><span data-ttu-id="22ac9-187">设置缩进尺寸</span><span class="sxs-lookup"><span data-stu-id="22ac9-187">Set indentation size</span></span>
+### <a name="set-indentation-size"></a><span data-ttu-id="7db6c-187">设置缩进尺寸</span><span class="sxs-lookup"><span data-stu-id="7db6c-187">Set indentation size</span></span>
 
-<span data-ttu-id="22ac9-188">当前，仅 JSON 支持响应缩进尺寸自定义。</span><span class="sxs-lookup"><span data-stu-id="22ac9-188">Response indentation size customization is currently supported for JSON only.</span></span> <span data-ttu-id="22ac9-189">默认尺寸为两个空格。</span><span class="sxs-lookup"><span data-stu-id="22ac9-189">The default size is two spaces.</span></span> <span data-ttu-id="22ac9-190">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-190">For example:</span></span>
+<span data-ttu-id="7db6c-188">当前，仅 JSON 支持响应缩进尺寸自定义。</span><span class="sxs-lookup"><span data-stu-id="7db6c-188">Response indentation size customization is currently supported for JSON only.</span></span> <span data-ttu-id="7db6c-189">默认尺寸为两个空格。</span><span class="sxs-lookup"><span data-stu-id="7db6c-189">The default size is two spaces.</span></span> <span data-ttu-id="7db6c-190">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-190">For example:</span></span>
 
 ```json
 [
@@ -331,13 +331,13 @@ https://localhost:5001/people> pref set colors.json White
 ]
 ```
 
-<span data-ttu-id="22ac9-191">若要更改默认尺寸，请设置 `formatting.json.indentSize` 键。</span><span class="sxs-lookup"><span data-stu-id="22ac9-191">To change the default size, set the `formatting.json.indentSize` key.</span></span> <span data-ttu-id="22ac9-192">例如，始终使用四个空格：</span><span class="sxs-lookup"><span data-stu-id="22ac9-192">For example, to always use four spaces:</span></span>
+<span data-ttu-id="7db6c-191">若要更改默认尺寸，请设置 `formatting.json.indentSize` 键。</span><span class="sxs-lookup"><span data-stu-id="7db6c-191">To change the default size, set the `formatting.json.indentSize` key.</span></span> <span data-ttu-id="7db6c-192">例如，始终使用四个空格：</span><span class="sxs-lookup"><span data-stu-id="7db6c-192">For example, to always use four spaces:</span></span>
 
 ```console
 pref set formatting.json.indentSize 4
 ```
 
-<span data-ttu-id="22ac9-193">后续响应遵循四个空格的设置：</span><span class="sxs-lookup"><span data-stu-id="22ac9-193">Subsequent responses honor the setting of four spaces:</span></span>
+<span data-ttu-id="7db6c-193">后续响应遵循四个空格的设置：</span><span class="sxs-lookup"><span data-stu-id="7db6c-193">Subsequent responses honor the setting of four spaces:</span></span>
 
 ```json
 [
@@ -356,29 +356,29 @@ pref set formatting.json.indentSize 4
 ]
 ```
 
-### <a name="set-the-default-text-editor"></a><span data-ttu-id="22ac9-194">设置默认文本编辑器</span><span class="sxs-lookup"><span data-stu-id="22ac9-194">Set the default text editor</span></span>
+### <a name="set-the-default-text-editor"></a><span data-ttu-id="7db6c-194">设置默认文本编辑器</span><span class="sxs-lookup"><span data-stu-id="7db6c-194">Set the default text editor</span></span>
 
-<span data-ttu-id="22ac9-195">默认情况下，HttpRepl 未配置任何文本编辑器供使用。</span><span class="sxs-lookup"><span data-stu-id="22ac9-195">By default, the HttpRepl has no text editor configured for use.</span></span> <span data-ttu-id="22ac9-196">若要测试需要 HTTP 请求正文的 Web API 方法，必须设置默认文本编辑器。</span><span class="sxs-lookup"><span data-stu-id="22ac9-196">To test web API methods requiring an HTTP request body, a default text editor must be set.</span></span> <span data-ttu-id="22ac9-197">HttpRepl 工具将启动已配置的文本编辑器，专门用于编写请求正文。</span><span class="sxs-lookup"><span data-stu-id="22ac9-197">The HttpRepl tool launches the configured text editor for the sole purpose of composing the request body.</span></span> <span data-ttu-id="22ac9-198">运行以下命令，将你青睐的文本编辑器设置为默认编辑器：</span><span class="sxs-lookup"><span data-stu-id="22ac9-198">Run the following command to set your preferred text editor as the default:</span></span>
+<span data-ttu-id="7db6c-195">默认情况下，HttpRepl 未配置任何文本编辑器供使用。</span><span class="sxs-lookup"><span data-stu-id="7db6c-195">By default, the HttpRepl has no text editor configured for use.</span></span> <span data-ttu-id="7db6c-196">若要测试需要 HTTP 请求正文的 Web API 方法，必须设置默认文本编辑器。</span><span class="sxs-lookup"><span data-stu-id="7db6c-196">To test web API methods requiring an HTTP request body, a default text editor must be set.</span></span> <span data-ttu-id="7db6c-197">HttpRepl 工具将启动已配置的文本编辑器，专门用于编写请求正文。</span><span class="sxs-lookup"><span data-stu-id="7db6c-197">The HttpRepl tool launches the configured text editor for the sole purpose of composing the request body.</span></span> <span data-ttu-id="7db6c-198">运行以下命令，将你青睐的文本编辑器设置为默认编辑器：</span><span class="sxs-lookup"><span data-stu-id="7db6c-198">Run the following command to set your preferred text editor as the default:</span></span>
 
 ```console
 pref set editor.command.default "<EXECUTABLE>"
 ```
 
-<span data-ttu-id="22ac9-199">在上述命令中，`<EXECUTABLE>` 是文本编辑器可执行文件的完整路径。</span><span class="sxs-lookup"><span data-stu-id="22ac9-199">In the preceding command, `<EXECUTABLE>` is the full path to the text editor's executable file.</span></span> <span data-ttu-id="22ac9-200">例如，运行以下命令，将 Visual Studio Code 设置为默认文本编辑器：</span><span class="sxs-lookup"><span data-stu-id="22ac9-200">For example, run the following command to set Visual Studio Code as the default text editor:</span></span>
+<span data-ttu-id="7db6c-199">在上述命令中，`<EXECUTABLE>` 是文本编辑器可执行文件的完整路径。</span><span class="sxs-lookup"><span data-stu-id="7db6c-199">In the preceding command, `<EXECUTABLE>` is the full path to the text editor's executable file.</span></span> <span data-ttu-id="7db6c-200">例如，运行以下命令，将 Visual Studio Code 设置为默认文本编辑器：</span><span class="sxs-lookup"><span data-stu-id="7db6c-200">For example, run the following command to set Visual Studio Code as the default text editor:</span></span>
 
-# <a name="linux"></a>[<span data-ttu-id="22ac9-201">Linux</span><span class="sxs-lookup"><span data-stu-id="22ac9-201">Linux</span></span>](#tab/linux)
+# <a name="linux"></a>[<span data-ttu-id="7db6c-201">Linux</span><span class="sxs-lookup"><span data-stu-id="7db6c-201">Linux</span></span>](#tab/linux)
 
 ```console
 pref set editor.command.default "/usr/bin/code"
 ```
 
-# <a name="macos"></a>[<span data-ttu-id="22ac9-202">macOS</span><span class="sxs-lookup"><span data-stu-id="22ac9-202">macOS</span></span>](#tab/macos)
+# <a name="macos"></a>[<span data-ttu-id="7db6c-202">macOS</span><span class="sxs-lookup"><span data-stu-id="7db6c-202">macOS</span></span>](#tab/macos)
 
 ```console
 pref set editor.command.default "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 ```
 
-# <a name="windows"></a>[<span data-ttu-id="22ac9-203">Windows</span><span class="sxs-lookup"><span data-stu-id="22ac9-203">Windows</span></span>](#tab/windows)
+# <a name="windows"></a>[<span data-ttu-id="7db6c-203">Windows</span><span class="sxs-lookup"><span data-stu-id="7db6c-203">Windows</span></span>](#tab/windows)
 
 ```console
 pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
@@ -386,77 +386,77 @@ pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
 
 ---
 
-<span data-ttu-id="22ac9-204">若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。</span><span class="sxs-lookup"><span data-stu-id="22ac9-204">To launch the default text editor with specific CLI arguments, set the `editor.command.default.arguments` key.</span></span> <span data-ttu-id="22ac9-205">例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HttpRepl 在禁用了扩展的新会话中打开 Visual Studio Code。</span><span class="sxs-lookup"><span data-stu-id="22ac9-205">For example, assume Visual Studio Code is the default text editor and that you always want the HttpRepl to open Visual Studio Code in a new session with extensions disabled.</span></span> <span data-ttu-id="22ac9-206">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-206">Run the following command:</span></span>
+<span data-ttu-id="7db6c-204">若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。</span><span class="sxs-lookup"><span data-stu-id="7db6c-204">To launch the default text editor with specific CLI arguments, set the `editor.command.default.arguments` key.</span></span> <span data-ttu-id="7db6c-205">例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HttpRepl 在禁用了扩展的新会话中打开 Visual Studio Code。</span><span class="sxs-lookup"><span data-stu-id="7db6c-205">For example, assume Visual Studio Code is the default text editor and that you always want the HttpRepl to open Visual Studio Code in a new session with extensions disabled.</span></span> <span data-ttu-id="7db6c-206">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-206">Run the following command:</span></span>
 
 ```console
 pref set editor.command.default.arguments "--disable-extensions --new-window"
 ```
 
 > [!TIP]
-> <span data-ttu-id="22ac9-207">如果默认编辑器是 Visual Studio Code，则通常需要传递 `-w` 或 `--wait` 参数以强制 Visual Studio Code 等待你关闭文件，然后再返回。</span><span class="sxs-lookup"><span data-stu-id="22ac9-207">If your default editor is Visual Studio Code, you'll usually want to pass the `-w` or `--wait` argument to force Visual Studio Code to wait for you to close the file before returning.</span></span>
+> <span data-ttu-id="7db6c-207">如果默认编辑器是 Visual Studio Code，则通常需要传递 `-w` 或 `--wait` 参数以强制 Visual Studio Code 等待你关闭文件，然后再返回。</span><span class="sxs-lookup"><span data-stu-id="7db6c-207">If your default editor is Visual Studio Code, you'll usually want to pass the `-w` or `--wait` argument to force Visual Studio Code to wait for you to close the file before returning.</span></span>
 
-### <a name="set-the-openapi-description-search-paths"></a><span data-ttu-id="22ac9-208">设置 OpenAPI 说明搜索路径</span><span class="sxs-lookup"><span data-stu-id="22ac9-208">Set the OpenAPI Description search paths</span></span>
+### <a name="set-the-openapi-description-search-paths"></a><span data-ttu-id="7db6c-208">设置 OpenAPI 说明搜索路径</span><span class="sxs-lookup"><span data-stu-id="7db6c-208">Set the OpenAPI Description search paths</span></span>
 
-<span data-ttu-id="22ac9-209">默认情况下，HttpRepl 具有一组相对路径，可用于在不使用 `--openapi` 选项执行 `connect` 命令时查找 OpenAPI 说明。</span><span class="sxs-lookup"><span data-stu-id="22ac9-209">By default, the HttpRepl has a set of relative paths that it uses to find the OpenAPI description when executing the `connect` command without the `--openapi` option.</span></span> <span data-ttu-id="22ac9-210">将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。</span><span class="sxs-lookup"><span data-stu-id="22ac9-210">These relative paths are combined with the root and base paths specified in the `connect` command.</span></span> <span data-ttu-id="22ac9-211">默认相对路径为：</span><span class="sxs-lookup"><span data-stu-id="22ac9-211">The default relative paths are:</span></span>
+<span data-ttu-id="7db6c-209">默认情况下，HttpRepl 具有一组相对路径，可用于在不使用 `--openapi` 选项执行 `connect` 命令时查找 OpenAPI 说明。</span><span class="sxs-lookup"><span data-stu-id="7db6c-209">By default, the HttpRepl has a set of relative paths that it uses to find the OpenAPI description when executing the `connect` command without the `--openapi` option.</span></span> <span data-ttu-id="7db6c-210">将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。</span><span class="sxs-lookup"><span data-stu-id="7db6c-210">These relative paths are combined with the root and base paths specified in the `connect` command.</span></span> <span data-ttu-id="7db6c-211">默认相对路径为：</span><span class="sxs-lookup"><span data-stu-id="7db6c-211">The default relative paths are:</span></span>
 
-- <span data-ttu-id="22ac9-212">*swagger.json*</span><span class="sxs-lookup"><span data-stu-id="22ac9-212">*swagger.json*</span></span>
-- <span data-ttu-id="22ac9-213">*swagger/v1/swagger.json*</span><span class="sxs-lookup"><span data-stu-id="22ac9-213">*swagger/v1/swagger.json*</span></span>
-- <span data-ttu-id="22ac9-214">*/swagger.json*</span><span class="sxs-lookup"><span data-stu-id="22ac9-214">*/swagger.json*</span></span>
-- <span data-ttu-id="22ac9-215">*/swagger/v1/swagger.json*</span><span class="sxs-lookup"><span data-stu-id="22ac9-215">*/swagger/v1/swagger.json*</span></span>
-- <span data-ttu-id="22ac9-216">openapi.json</span><span class="sxs-lookup"><span data-stu-id="22ac9-216">*openapi.json*</span></span>
-- <span data-ttu-id="22ac9-217">/openapi.json</span><span class="sxs-lookup"><span data-stu-id="22ac9-217">*/openapi.json*</span></span>
+- <span data-ttu-id="7db6c-212">*swagger.json*</span><span class="sxs-lookup"><span data-stu-id="7db6c-212">*swagger.json*</span></span>
+- <span data-ttu-id="7db6c-213">*swagger/v1/swagger.json*</span><span class="sxs-lookup"><span data-stu-id="7db6c-213">*swagger/v1/swagger.json*</span></span>
+- <span data-ttu-id="7db6c-214">*/swagger.json*</span><span class="sxs-lookup"><span data-stu-id="7db6c-214">*/swagger.json*</span></span>
+- <span data-ttu-id="7db6c-215">*/swagger/v1/swagger.json*</span><span class="sxs-lookup"><span data-stu-id="7db6c-215">*/swagger/v1/swagger.json*</span></span>
+- <span data-ttu-id="7db6c-216">openapi.json</span><span class="sxs-lookup"><span data-stu-id="7db6c-216">*openapi.json*</span></span>
+- <span data-ttu-id="7db6c-217">/openapi.json</span><span class="sxs-lookup"><span data-stu-id="7db6c-217">*/openapi.json*</span></span>
 
-<span data-ttu-id="22ac9-218">若要在环境中使用一组不同的搜索路径，请设置 `swagger.searchPaths` 首选项。</span><span class="sxs-lookup"><span data-stu-id="22ac9-218">To use a different set of search paths in your environment, set the `swagger.searchPaths` preference.</span></span> <span data-ttu-id="22ac9-219">该值必须是以竖线分隔的相对路径列表。</span><span class="sxs-lookup"><span data-stu-id="22ac9-219">The value must be a pipe-delimited list of relative paths.</span></span> <span data-ttu-id="22ac9-220">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-220">For example:</span></span>
+<span data-ttu-id="7db6c-218">若要在环境中使用一组不同的搜索路径，请设置 `swagger.searchPaths` 首选项。</span><span class="sxs-lookup"><span data-stu-id="7db6c-218">To use a different set of search paths in your environment, set the `swagger.searchPaths` preference.</span></span> <span data-ttu-id="7db6c-219">该值必须是以竖线分隔的相对路径列表。</span><span class="sxs-lookup"><span data-stu-id="7db6c-219">The value must be a pipe-delimited list of relative paths.</span></span> <span data-ttu-id="7db6c-220">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-220">For example:</span></span>
 
 ```console
 pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
 ```
 
-<span data-ttu-id="22ac9-221">除了替换默认列表外，还可以通过添加或删除路径来修改列表。</span><span class="sxs-lookup"><span data-stu-id="22ac9-221">Instead of replacing the default list altogether, the list can also be modified by adding or removing paths.</span></span>
+<span data-ttu-id="7db6c-221">除了替换默认列表外，还可以通过添加或删除路径来修改列表。</span><span class="sxs-lookup"><span data-stu-id="7db6c-221">Instead of replacing the default list altogether, the list can also be modified by adding or removing paths.</span></span>
 
-<span data-ttu-id="22ac9-222">若要将一个或多个搜索路径添加到默认列表，请设置 `swagger.addToSearchPaths` 首选项。</span><span class="sxs-lookup"><span data-stu-id="22ac9-222">To add one or more search paths to the default list, set the `swagger.addToSearchPaths` preference.</span></span> <span data-ttu-id="22ac9-223">该值必须是以竖线分隔的相对路径列表。</span><span class="sxs-lookup"><span data-stu-id="22ac9-223">The value must be a pipe-delimited list of relative paths.</span></span> <span data-ttu-id="22ac9-224">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-224">For example:</span></span>
+<span data-ttu-id="7db6c-222">若要将一个或多个搜索路径添加到默认列表，请设置 `swagger.addToSearchPaths` 首选项。</span><span class="sxs-lookup"><span data-stu-id="7db6c-222">To add one or more search paths to the default list, set the `swagger.addToSearchPaths` preference.</span></span> <span data-ttu-id="7db6c-223">该值必须是以竖线分隔的相对路径列表。</span><span class="sxs-lookup"><span data-stu-id="7db6c-223">The value must be a pipe-delimited list of relative paths.</span></span> <span data-ttu-id="7db6c-224">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-224">For example:</span></span>
 
 ```console
 pref set swagger.addToSearchPaths "openapi/v2/openapi.json|openapi/v3/openapi.json"
 ```
 
-<span data-ttu-id="22ac9-225">若要从默认列表中删除一个或多个搜索路径，请设置 `swagger.addToSearchPaths` 首选项。</span><span class="sxs-lookup"><span data-stu-id="22ac9-225">To remove one or more search paths from the default list, set the `swagger.addToSearchPaths` preference.</span></span> <span data-ttu-id="22ac9-226">该值必须是以竖线分隔的相对路径列表。</span><span class="sxs-lookup"><span data-stu-id="22ac9-226">The value must be a pipe-delimited list of relative paths.</span></span> <span data-ttu-id="22ac9-227">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-227">For example:</span></span>
+<span data-ttu-id="7db6c-225">若要从默认列表中删除一个或多个搜索路径，请设置 `swagger.addToSearchPaths` 首选项。</span><span class="sxs-lookup"><span data-stu-id="7db6c-225">To remove one or more search paths from the default list, set the `swagger.addToSearchPaths` preference.</span></span> <span data-ttu-id="7db6c-226">该值必须是以竖线分隔的相对路径列表。</span><span class="sxs-lookup"><span data-stu-id="7db6c-226">The value must be a pipe-delimited list of relative paths.</span></span> <span data-ttu-id="7db6c-227">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-227">For example:</span></span>
 
 ```console
 pref set swagger.removeFromSearchPaths "swagger.json|/swagger.json"
 ```
 
-## <a name="test-http-get-requests"></a><span data-ttu-id="22ac9-228">测试 HTTP GET 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-228">Test HTTP GET requests</span></span>
+## <a name="test-http-get-requests"></a><span data-ttu-id="7db6c-228">测试 HTTP GET 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-228">Test HTTP GET requests</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="22ac9-229">摘要</span><span class="sxs-lookup"><span data-stu-id="22ac9-229">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="7db6c-229">摘要</span><span class="sxs-lookup"><span data-stu-id="7db6c-229">Synopsis</span></span>
 
 ```console
 get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="22ac9-230">自变量</span><span class="sxs-lookup"><span data-stu-id="22ac9-230">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="7db6c-230">自变量</span><span class="sxs-lookup"><span data-stu-id="7db6c-230">Arguments</span></span>
 
 `PARAMETER`
 
-<span data-ttu-id="22ac9-231">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-231">The route parameter, if any, expected by the associated controller action method.</span></span>
+<span data-ttu-id="7db6c-231">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-231">The route parameter, if any, expected by the associated controller action method.</span></span>
 
-### <a name="options"></a><span data-ttu-id="22ac9-232">选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-232">Options</span></span>
+### <a name="options"></a><span data-ttu-id="7db6c-232">选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-232">Options</span></span>
 
-<span data-ttu-id="22ac9-233">`get` 命令可以使用以下选项：</span><span class="sxs-lookup"><span data-stu-id="22ac9-233">The following options are available for the `get` command:</span></span>
+<span data-ttu-id="7db6c-233">`get` 命令可以使用以下选项：</span><span class="sxs-lookup"><span data-stu-id="7db6c-233">The following options are available for the `get` command:</span></span>
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
-### <a name="example"></a><span data-ttu-id="22ac9-234">示例</span><span class="sxs-lookup"><span data-stu-id="22ac9-234">Example</span></span>
+### <a name="example"></a><span data-ttu-id="7db6c-234">示例</span><span class="sxs-lookup"><span data-stu-id="7db6c-234">Example</span></span>
 
-<span data-ttu-id="22ac9-235">发出 HTTP GET 请求：</span><span class="sxs-lookup"><span data-stu-id="22ac9-235">To issue an HTTP GET request:</span></span>
+<span data-ttu-id="7db6c-235">发出 HTTP GET 请求：</span><span class="sxs-lookup"><span data-stu-id="7db6c-235">To issue an HTTP GET request:</span></span>
 
-1. <span data-ttu-id="22ac9-236">在支持 `get` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-236">Run the `get` command on an endpoint that supports it:</span></span>
+1. <span data-ttu-id="7db6c-236">在支持 `get` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-236">Run the `get` command on an endpoint that supports it:</span></span>
 
     ```console
     https://localhost:5001/people> get
     ```
 
-    <span data-ttu-id="22ac9-237">上述命令显示以下输出格式：</span><span class="sxs-lookup"><span data-stu-id="22ac9-237">The preceding command displays the following output format:</span></span>
+    <span data-ttu-id="7db6c-237">上述命令显示以下输出格式：</span><span class="sxs-lookup"><span data-stu-id="7db6c-237">The preceding command displays the following output format:</span></span>
 
     ```console
     HTTP/1.1 200 OK
@@ -484,13 +484,13 @@ get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response:body] [--response
     https://localhost:5001/people>
     ```
 
-1. <span data-ttu-id="22ac9-238">通过将参数传递给 `get` 命令来检索特定记录：</span><span class="sxs-lookup"><span data-stu-id="22ac9-238">Retrieve a specific record by passing a parameter to the `get` command:</span></span>
+1. <span data-ttu-id="7db6c-238">通过将参数传递给 `get` 命令来检索特定记录：</span><span class="sxs-lookup"><span data-stu-id="7db6c-238">Retrieve a specific record by passing a parameter to the `get` command:</span></span>
 
     ```console
     https://localhost:5001/people> get 2
     ```
 
-    <span data-ttu-id="22ac9-239">上述命令显示以下输出格式：</span><span class="sxs-lookup"><span data-stu-id="22ac9-239">The preceding command displays the following output format:</span></span>
+    <span data-ttu-id="7db6c-239">上述命令显示以下输出格式：</span><span class="sxs-lookup"><span data-stu-id="7db6c-239">The preceding command displays the following output format:</span></span>
 
     ```console
     HTTP/1.1 200 OK
@@ -510,37 +510,37 @@ get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response:body] [--response
     https://localhost:5001/people>
     ```
 
-## <a name="test-http-post-requests"></a><span data-ttu-id="22ac9-240">测试 HTTP POST 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-240">Test HTTP POST requests</span></span>
+## <a name="test-http-post-requests"></a><span data-ttu-id="7db6c-240">测试 HTTP POST 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-240">Test HTTP POST requests</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="22ac9-241">摘要</span><span class="sxs-lookup"><span data-stu-id="22ac9-241">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="7db6c-241">摘要</span><span class="sxs-lookup"><span data-stu-id="7db6c-241">Synopsis</span></span>
 
 ```console
 post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="22ac9-242">自变量</span><span class="sxs-lookup"><span data-stu-id="22ac9-242">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="7db6c-242">自变量</span><span class="sxs-lookup"><span data-stu-id="7db6c-242">Arguments</span></span>
 
 `PARAMETER`
 
-<span data-ttu-id="22ac9-243">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-243">The route parameter, if any, expected by the associated controller action method.</span></span>
+<span data-ttu-id="7db6c-243">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-243">The route parameter, if any, expected by the associated controller action method.</span></span>
 
-### <a name="options"></a><span data-ttu-id="22ac9-244">选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-244">Options</span></span>
+### <a name="options"></a><span data-ttu-id="7db6c-244">选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-244">Options</span></span>
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
 [!INCLUDE [HTTP request body CLI options](~/includes/http-repl/requires-body-options.md)]
 
-### <a name="example"></a><span data-ttu-id="22ac9-245">示例</span><span class="sxs-lookup"><span data-stu-id="22ac9-245">Example</span></span>
+### <a name="example"></a><span data-ttu-id="7db6c-245">示例</span><span class="sxs-lookup"><span data-stu-id="7db6c-245">Example</span></span>
 
-<span data-ttu-id="22ac9-246">发出 HTTP POST 请求：</span><span class="sxs-lookup"><span data-stu-id="22ac9-246">To issue an HTTP POST request:</span></span>
+<span data-ttu-id="7db6c-246">发出 HTTP POST 请求：</span><span class="sxs-lookup"><span data-stu-id="7db6c-246">To issue an HTTP POST request:</span></span>
 
-1. <span data-ttu-id="22ac9-247">在支持 `post` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-247">Run the `post` command on an endpoint that supports it:</span></span>
+1. <span data-ttu-id="7db6c-247">在支持 `post` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-247">Run the `post` command on an endpoint that supports it:</span></span>
 
     ```console
     https://localhost:5001/people> post -h Content-Type=application/json
     ```
 
-    <span data-ttu-id="22ac9-248">在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。</span><span class="sxs-lookup"><span data-stu-id="22ac9-248">In the preceding command, the `Content-Type` HTTP request header is set to indicate a request body media type of JSON.</span></span> <span data-ttu-id="22ac9-249">默认文本编辑器打开一个 .tmp 文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。</span><span class="sxs-lookup"><span data-stu-id="22ac9-249">The default text editor opens a *.tmp* file with a JSON template representing the HTTP request body.</span></span> <span data-ttu-id="22ac9-250">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-250">For example:</span></span>
+    <span data-ttu-id="7db6c-248">在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。</span><span class="sxs-lookup"><span data-stu-id="7db6c-248">In the preceding command, the `Content-Type` HTTP request header is set to indicate a request body media type of JSON.</span></span> <span data-ttu-id="7db6c-249">默认文本编辑器打开一个 .tmp 文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。</span><span class="sxs-lookup"><span data-stu-id="7db6c-249">The default text editor opens a *.tmp* file with a JSON template representing the HTTP request body.</span></span> <span data-ttu-id="7db6c-250">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-250">For example:</span></span>
 
     ```json
     {
@@ -550,9 +550,9 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     ```
 
     > [!TIP]
-    > <span data-ttu-id="22ac9-251">若要设置默认文本编辑器，请参阅[设置默认文本编辑器](#set-the-default-text-editor)部分。</span><span class="sxs-lookup"><span data-stu-id="22ac9-251">To set the default text editor, see the [Set the default text editor](#set-the-default-text-editor) section.</span></span>
+    > <span data-ttu-id="7db6c-251">若要设置默认文本编辑器，请参阅[设置默认文本编辑器](#set-the-default-text-editor)部分。</span><span class="sxs-lookup"><span data-stu-id="7db6c-251">To set the default text editor, see the [Set the default text editor](#set-the-default-text-editor) section.</span></span>
 
-1. <span data-ttu-id="22ac9-252">修改 JSON 模板以满足模型验证要求：</span><span class="sxs-lookup"><span data-stu-id="22ac9-252">Modify the JSON template to satisfy model validation requirements:</span></span>
+1. <span data-ttu-id="7db6c-252">修改 JSON 模板以满足模型验证要求：</span><span class="sxs-lookup"><span data-stu-id="7db6c-252">Modify the JSON template to satisfy model validation requirements:</span></span>
 
     ```json
     {
@@ -561,7 +561,7 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     }
     ```
 
-1. <span data-ttu-id="22ac9-253">保存 .tmp 文件，并关闭文本编辑器。</span><span class="sxs-lookup"><span data-stu-id="22ac9-253">Save the *.tmp* file, and close the text editor.</span></span> <span data-ttu-id="22ac9-254">以下输出显示在命令行界面中：</span><span class="sxs-lookup"><span data-stu-id="22ac9-254">The following output appears in the command shell:</span></span>
+1. <span data-ttu-id="7db6c-253">保存 .tmp 文件，并关闭文本编辑器。</span><span class="sxs-lookup"><span data-stu-id="7db6c-253">Save the *.tmp* file, and close the text editor.</span></span> <span data-ttu-id="7db6c-254">以下输出显示在命令行界面中：</span><span class="sxs-lookup"><span data-stu-id="7db6c-254">The following output appears in the command shell:</span></span>
 
     ```console
     HTTP/1.1 201 Created
@@ -580,31 +580,31 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     https://localhost:5001/people>
     ```
 
-## <a name="test-http-put-requests"></a><span data-ttu-id="22ac9-255">测试 HTTP PUT 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-255">Test HTTP PUT requests</span></span>
+## <a name="test-http-put-requests"></a><span data-ttu-id="7db6c-255">测试 HTTP PUT 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-255">Test HTTP PUT requests</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="22ac9-256">摘要</span><span class="sxs-lookup"><span data-stu-id="22ac9-256">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="7db6c-256">摘要</span><span class="sxs-lookup"><span data-stu-id="7db6c-256">Synopsis</span></span>
 
 ```console
 put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="22ac9-257">自变量</span><span class="sxs-lookup"><span data-stu-id="22ac9-257">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="7db6c-257">自变量</span><span class="sxs-lookup"><span data-stu-id="7db6c-257">Arguments</span></span>
 
 `PARAMETER`
 
-<span data-ttu-id="22ac9-258">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-258">The route parameter, if any, expected by the associated controller action method.</span></span>
+<span data-ttu-id="7db6c-258">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-258">The route parameter, if any, expected by the associated controller action method.</span></span>
 
-### <a name="options"></a><span data-ttu-id="22ac9-259">选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-259">Options</span></span>
+### <a name="options"></a><span data-ttu-id="7db6c-259">选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-259">Options</span></span>
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
 [!INCLUDE [HTTP request body CLI options](~/includes/http-repl/requires-body-options.md)]
 
-### <a name="example"></a><span data-ttu-id="22ac9-260">示例</span><span class="sxs-lookup"><span data-stu-id="22ac9-260">Example</span></span>
+### <a name="example"></a><span data-ttu-id="7db6c-260">示例</span><span class="sxs-lookup"><span data-stu-id="7db6c-260">Example</span></span>
 
-<span data-ttu-id="22ac9-261">发出 HTTP PUT 请求：</span><span class="sxs-lookup"><span data-stu-id="22ac9-261">To issue an HTTP PUT request:</span></span>
+<span data-ttu-id="7db6c-261">发出 HTTP PUT 请求：</span><span class="sxs-lookup"><span data-stu-id="7db6c-261">To issue an HTTP PUT request:</span></span>
 
-1. <span data-ttu-id="22ac9-262">*可选*：在修改之前，运行 `get` 命令以查看数据：</span><span class="sxs-lookup"><span data-stu-id="22ac9-262">*Optional*: Run the `get` command to view the data before modifying it:</span></span>
+1. <span data-ttu-id="7db6c-262">*可选*：在修改之前，运行 `get` 命令以查看数据：</span><span class="sxs-lookup"><span data-stu-id="7db6c-262">*Optional*: Run the `get` command to view the data before modifying it:</span></span>
 
     ```console
     https://localhost:5001/fruits> get
@@ -630,13 +630,13 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     ]
     ```
 
-1. <span data-ttu-id="22ac9-263">在支持 `put` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-263">Run the `put` command on an endpoint that supports it:</span></span>
+1. <span data-ttu-id="7db6c-263">在支持 `put` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-263">Run the `put` command on an endpoint that supports it:</span></span>
 
     ```console
     https://localhost:5001/fruits> put 2 -h Content-Type=application/json
     ```
 
-    <span data-ttu-id="22ac9-264">在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。</span><span class="sxs-lookup"><span data-stu-id="22ac9-264">In the preceding command, the `Content-Type` HTTP request header is set to indicate a request body media type of JSON.</span></span> <span data-ttu-id="22ac9-265">默认文本编辑器打开一个 .tmp 文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。</span><span class="sxs-lookup"><span data-stu-id="22ac9-265">The default text editor opens a *.tmp* file with a JSON template representing the HTTP request body.</span></span> <span data-ttu-id="22ac9-266">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-266">For example:</span></span>
+    <span data-ttu-id="7db6c-264">在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。</span><span class="sxs-lookup"><span data-stu-id="7db6c-264">In the preceding command, the `Content-Type` HTTP request header is set to indicate a request body media type of JSON.</span></span> <span data-ttu-id="7db6c-265">默认文本编辑器打开一个 .tmp 文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。</span><span class="sxs-lookup"><span data-stu-id="7db6c-265">The default text editor opens a *.tmp* file with a JSON template representing the HTTP request body.</span></span> <span data-ttu-id="7db6c-266">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-266">For example:</span></span>
 
     ```json
     {
@@ -646,9 +646,9 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     ```
 
     > [!TIP]
-    > <span data-ttu-id="22ac9-267">若要设置默认文本编辑器，请参阅[设置默认文本编辑器](#set-the-default-text-editor)部分。</span><span class="sxs-lookup"><span data-stu-id="22ac9-267">To set the default text editor, see the [Set the default text editor](#set-the-default-text-editor) section.</span></span>
+    > <span data-ttu-id="7db6c-267">若要设置默认文本编辑器，请参阅[设置默认文本编辑器](#set-the-default-text-editor)部分。</span><span class="sxs-lookup"><span data-stu-id="7db6c-267">To set the default text editor, see the [Set the default text editor](#set-the-default-text-editor) section.</span></span>
 
-1. <span data-ttu-id="22ac9-268">修改 JSON 模板以满足模型验证要求：</span><span class="sxs-lookup"><span data-stu-id="22ac9-268">Modify the JSON template to satisfy model validation requirements:</span></span>
+1. <span data-ttu-id="7db6c-268">修改 JSON 模板以满足模型验证要求：</span><span class="sxs-lookup"><span data-stu-id="7db6c-268">Modify the JSON template to satisfy model validation requirements:</span></span>
 
     ```json
     {
@@ -657,7 +657,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     }
     ```
 
-1. <span data-ttu-id="22ac9-269">保存 .tmp 文件，并关闭文本编辑器。</span><span class="sxs-lookup"><span data-stu-id="22ac9-269">Save the *.tmp* file, and close the text editor.</span></span> <span data-ttu-id="22ac9-270">以下输出显示在命令行界面中：</span><span class="sxs-lookup"><span data-stu-id="22ac9-270">The following output appears in the command shell:</span></span>
+1. <span data-ttu-id="7db6c-269">保存 .tmp 文件，并关闭文本编辑器。</span><span class="sxs-lookup"><span data-stu-id="7db6c-269">Save the *.tmp* file, and close the text editor.</span></span> <span data-ttu-id="7db6c-270">以下输出显示在命令行界面中：</span><span class="sxs-lookup"><span data-stu-id="7db6c-270">The following output appears in the command shell:</span></span>
 
     ```console
     [main 2019-06-28T17:27:01.805Z] update#setState idle
@@ -666,7 +666,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     Server: Kestrel
     ```
 
-1. <span data-ttu-id="22ac9-271">*可选*：发出 `get` 命令以查看修改。</span><span class="sxs-lookup"><span data-stu-id="22ac9-271">*Optional*: Issue a `get` command to see the modifications.</span></span> <span data-ttu-id="22ac9-272">例如，如果在文本编辑器中键入了“Cherry”，则 `get` 会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="22ac9-272">For example, if you typed "Cherry" in the text editor, a `get` returns the following output:</span></span>
+1. <span data-ttu-id="7db6c-271">*可选*：发出 `get` 命令以查看修改。</span><span class="sxs-lookup"><span data-stu-id="7db6c-271">*Optional*: Issue a `get` command to see the modifications.</span></span> <span data-ttu-id="7db6c-272">例如，如果在文本编辑器中键入了“Cherry”，则 `get` 会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="7db6c-272">For example, if you typed "Cherry" in the text editor, a `get` returns the following output:</span></span>
 
     ```console
     https://localhost:5001/fruits> get
@@ -695,29 +695,29 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     https://localhost:5001/fruits>
     ```
 
-## <a name="test-http-delete-requests"></a><span data-ttu-id="22ac9-273">测试 HTTP DELETE 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-273">Test HTTP DELETE requests</span></span>
+## <a name="test-http-delete-requests"></a><span data-ttu-id="7db6c-273">测试 HTTP DELETE 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-273">Test HTTP DELETE requests</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="22ac9-274">摘要</span><span class="sxs-lookup"><span data-stu-id="22ac9-274">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="7db6c-274">摘要</span><span class="sxs-lookup"><span data-stu-id="7db6c-274">Synopsis</span></span>
 
 ```console
 delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="22ac9-275">自变量</span><span class="sxs-lookup"><span data-stu-id="22ac9-275">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="7db6c-275">自变量</span><span class="sxs-lookup"><span data-stu-id="7db6c-275">Arguments</span></span>
 
 `PARAMETER`
 
-<span data-ttu-id="22ac9-276">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-276">The route parameter, if any, expected by the associated controller action method.</span></span>
+<span data-ttu-id="7db6c-276">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-276">The route parameter, if any, expected by the associated controller action method.</span></span>
 
-### <a name="options"></a><span data-ttu-id="22ac9-277">选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-277">Options</span></span>
+### <a name="options"></a><span data-ttu-id="7db6c-277">选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-277">Options</span></span>
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
-### <a name="example"></a><span data-ttu-id="22ac9-278">示例</span><span class="sxs-lookup"><span data-stu-id="22ac9-278">Example</span></span>
+### <a name="example"></a><span data-ttu-id="7db6c-278">示例</span><span class="sxs-lookup"><span data-stu-id="7db6c-278">Example</span></span>
 
-<span data-ttu-id="22ac9-279">发出 HTTP DELETE 请求：</span><span class="sxs-lookup"><span data-stu-id="22ac9-279">To issue an HTTP DELETE request:</span></span>
+<span data-ttu-id="7db6c-279">发出 HTTP DELETE 请求：</span><span class="sxs-lookup"><span data-stu-id="7db6c-279">To issue an HTTP DELETE request:</span></span>
 
-1. <span data-ttu-id="22ac9-280">*可选*：在修改之前，运行 `get` 命令以查看数据：</span><span class="sxs-lookup"><span data-stu-id="22ac9-280">*Optional*: Run the `get` command to view the data before modifying it:</span></span>
+1. <span data-ttu-id="7db6c-280">*可选*：在修改之前，运行 `get` 命令以查看数据：</span><span class="sxs-lookup"><span data-stu-id="7db6c-280">*Optional*: Run the `get` command to view the data before modifying it:</span></span>
 
     ```console
     https://localhost:5001/fruits> get
@@ -743,13 +743,13 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
     ]
     ```
 
-1. <span data-ttu-id="22ac9-281">在支持 `delete` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-281">Run the `delete` command on an endpoint that supports it:</span></span>
+1. <span data-ttu-id="7db6c-281">在支持 `delete` 命令的终结点上运行该命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-281">Run the `delete` command on an endpoint that supports it:</span></span>
 
     ```console
     https://localhost:5001/fruits> delete 2
     ```
 
-    <span data-ttu-id="22ac9-282">上述命令显示以下输出格式：</span><span class="sxs-lookup"><span data-stu-id="22ac9-282">The preceding command displays the following output format:</span></span>
+    <span data-ttu-id="7db6c-282">上述命令显示以下输出格式：</span><span class="sxs-lookup"><span data-stu-id="7db6c-282">The preceding command displays the following output format:</span></span>
 
     ```console
     HTTP/1.1 204 No Content
@@ -757,7 +757,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
     Server: Kestrel
     ```
 
-1. <span data-ttu-id="22ac9-283">*可选*：发出 `get` 命令以查看修改。</span><span class="sxs-lookup"><span data-stu-id="22ac9-283">*Optional*: Issue a `get` command to see the modifications.</span></span> <span data-ttu-id="22ac9-284">在此示例中，`get` 返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="22ac9-284">In this example, a `get` returns the following output:</span></span>
+1. <span data-ttu-id="7db6c-283">*可选*：发出 `get` 命令以查看修改。</span><span class="sxs-lookup"><span data-stu-id="7db6c-283">*Optional*: Issue a `get` command to see the modifications.</span></span> <span data-ttu-id="7db6c-284">在此示例中，`get` 返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="7db6c-284">In this example, a `get` returns the following output:</span></span>
 
     ```console
     https://localhost:5001/fruits> get
@@ -782,182 +782,182 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
     https://localhost:5001/fruits>
     ```
 
-## <a name="test-http-patch-requests"></a><span data-ttu-id="22ac9-285">测试 HTTP PATCH 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-285">Test HTTP PATCH requests</span></span>
+## <a name="test-http-patch-requests"></a><span data-ttu-id="7db6c-285">测试 HTTP PATCH 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-285">Test HTTP PATCH requests</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="22ac9-286">摘要</span><span class="sxs-lookup"><span data-stu-id="22ac9-286">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="7db6c-286">摘要</span><span class="sxs-lookup"><span data-stu-id="7db6c-286">Synopsis</span></span>
 
 ```console
 patch <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="22ac9-287">自变量</span><span class="sxs-lookup"><span data-stu-id="22ac9-287">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="7db6c-287">自变量</span><span class="sxs-lookup"><span data-stu-id="7db6c-287">Arguments</span></span>
 
 `PARAMETER`
 
-<span data-ttu-id="22ac9-288">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-288">The route parameter, if any, expected by the associated controller action method.</span></span>
+<span data-ttu-id="7db6c-288">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-288">The route parameter, if any, expected by the associated controller action method.</span></span>
 
-### <a name="options"></a><span data-ttu-id="22ac9-289">选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-289">Options</span></span>
+### <a name="options"></a><span data-ttu-id="7db6c-289">选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-289">Options</span></span>
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
 [!INCLUDE [HTTP request body CLI options](~/includes/http-repl/requires-body-options.md)]
 
-## <a name="test-http-head-requests"></a><span data-ttu-id="22ac9-290">测试 HTTP HEAD 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-290">Test HTTP HEAD requests</span></span>
+## <a name="test-http-head-requests"></a><span data-ttu-id="7db6c-290">测试 HTTP HEAD 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-290">Test HTTP HEAD requests</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="22ac9-291">摘要</span><span class="sxs-lookup"><span data-stu-id="22ac9-291">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="7db6c-291">摘要</span><span class="sxs-lookup"><span data-stu-id="7db6c-291">Synopsis</span></span>
 
 ```console
 head <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="22ac9-292">自变量</span><span class="sxs-lookup"><span data-stu-id="22ac9-292">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="7db6c-292">自变量</span><span class="sxs-lookup"><span data-stu-id="7db6c-292">Arguments</span></span>
 
 `PARAMETER`
 
-<span data-ttu-id="22ac9-293">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-293">The route parameter, if any, expected by the associated controller action method.</span></span>
+<span data-ttu-id="7db6c-293">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-293">The route parameter, if any, expected by the associated controller action method.</span></span>
 
-### <a name="options"></a><span data-ttu-id="22ac9-294">选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-294">Options</span></span>
+### <a name="options"></a><span data-ttu-id="7db6c-294">选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-294">Options</span></span>
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
-## <a name="test-http-options-requests"></a><span data-ttu-id="22ac9-295">测试 HTTP OPTIONS 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-295">Test HTTP OPTIONS requests</span></span>
+## <a name="test-http-options-requests"></a><span data-ttu-id="7db6c-295">测试 HTTP OPTIONS 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-295">Test HTTP OPTIONS requests</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="22ac9-296">摘要</span><span class="sxs-lookup"><span data-stu-id="22ac9-296">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="7db6c-296">摘要</span><span class="sxs-lookup"><span data-stu-id="7db6c-296">Synopsis</span></span>
 
 ```console
 options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="22ac9-297">自变量</span><span class="sxs-lookup"><span data-stu-id="22ac9-297">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="7db6c-297">自变量</span><span class="sxs-lookup"><span data-stu-id="7db6c-297">Arguments</span></span>
 
 `PARAMETER`
 
-<span data-ttu-id="22ac9-298">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="22ac9-298">The route parameter, if any, expected by the associated controller action method.</span></span>
+<span data-ttu-id="7db6c-298">关联控制器操作方法所需的路由参数（如果有）。</span><span class="sxs-lookup"><span data-stu-id="7db6c-298">The route parameter, if any, expected by the associated controller action method.</span></span>
 
-### <a name="options"></a><span data-ttu-id="22ac9-299">选项</span><span class="sxs-lookup"><span data-stu-id="22ac9-299">Options</span></span>
+### <a name="options"></a><span data-ttu-id="7db6c-299">选项</span><span class="sxs-lookup"><span data-stu-id="7db6c-299">Options</span></span>
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
-## <a name="set-http-request-headers"></a><span data-ttu-id="22ac9-300">设置 HTTP 请求标头</span><span class="sxs-lookup"><span data-stu-id="22ac9-300">Set HTTP request headers</span></span>
+## <a name="set-http-request-headers"></a><span data-ttu-id="7db6c-300">设置 HTTP 请求标头</span><span class="sxs-lookup"><span data-stu-id="7db6c-300">Set HTTP request headers</span></span>
 
-<span data-ttu-id="22ac9-301">若要设置 HTTP 请求标头，请使用下面一种方法：</span><span class="sxs-lookup"><span data-stu-id="22ac9-301">To set an HTTP request header, use one of the following approaches:</span></span>
+<span data-ttu-id="7db6c-301">若要设置 HTTP 请求标头，请使用下面一种方法：</span><span class="sxs-lookup"><span data-stu-id="7db6c-301">To set an HTTP request header, use one of the following approaches:</span></span>
 
-* <span data-ttu-id="22ac9-302">使用该 HTTP 请求进行内联设置。</span><span class="sxs-lookup"><span data-stu-id="22ac9-302">Set inline with the HTTP request.</span></span> <span data-ttu-id="22ac9-303">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-303">For example:</span></span>
+* <span data-ttu-id="7db6c-302">使用该 HTTP 请求进行内联设置。</span><span class="sxs-lookup"><span data-stu-id="7db6c-302">Set inline with the HTTP request.</span></span> <span data-ttu-id="7db6c-303">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-303">For example:</span></span>
 
     ```console
     https://localhost:5001/people> post -h Content-Type=application/json
     ```
     
-    <span data-ttu-id="22ac9-304">若使用上述方法，每个不同的 HTTP 请求标头都需要其自己的 `-h` 选项。</span><span class="sxs-lookup"><span data-stu-id="22ac9-304">With the preceding approach, each distinct HTTP request header requires its own `-h` option.</span></span>
+    <span data-ttu-id="7db6c-304">若使用上述方法，每个不同的 HTTP 请求标头都需要其自己的 `-h` 选项。</span><span class="sxs-lookup"><span data-stu-id="7db6c-304">With the preceding approach, each distinct HTTP request header requires its own `-h` option.</span></span>
 
-* <span data-ttu-id="22ac9-305">在发送 HTTP 请求之前进行设置。</span><span class="sxs-lookup"><span data-stu-id="22ac9-305">Set before sending the HTTP request.</span></span> <span data-ttu-id="22ac9-306">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-306">For example:</span></span>
+* <span data-ttu-id="7db6c-305">在发送 HTTP 请求之前进行设置。</span><span class="sxs-lookup"><span data-stu-id="7db6c-305">Set before sending the HTTP request.</span></span> <span data-ttu-id="7db6c-306">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-306">For example:</span></span>
 
     ```console
     https://localhost:5001/people> set header Content-Type application/json
     ```
     
-    <span data-ttu-id="22ac9-307">在发送请求之前设置标头时，标头在命令行界面会话期间保持设置。</span><span class="sxs-lookup"><span data-stu-id="22ac9-307">When setting the header before sending a request, the header remains set for the duration of the command shell session.</span></span> <span data-ttu-id="22ac9-308">若要清除标头，请提供一个空值。</span><span class="sxs-lookup"><span data-stu-id="22ac9-308">To clear the header, provide an empty value.</span></span> <span data-ttu-id="22ac9-309">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-309">For example:</span></span>
+    <span data-ttu-id="7db6c-307">在发送请求之前设置标头时，标头在命令行界面会话期间保持设置。</span><span class="sxs-lookup"><span data-stu-id="7db6c-307">When setting the header before sending a request, the header remains set for the duration of the command shell session.</span></span> <span data-ttu-id="7db6c-308">若要清除标头，请提供一个空值。</span><span class="sxs-lookup"><span data-stu-id="7db6c-308">To clear the header, provide an empty value.</span></span> <span data-ttu-id="7db6c-309">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-309">For example:</span></span>
     
     ```console
     https://localhost:5001/people> set header Content-Type
     ```
 
-## <a name="test-secured-endpoints"></a><span data-ttu-id="22ac9-310">测试受保护的终结点</span><span class="sxs-lookup"><span data-stu-id="22ac9-310">Test secured endpoints</span></span>
+## <a name="test-secured-endpoints"></a><span data-ttu-id="7db6c-310">测试受保护的终结点</span><span class="sxs-lookup"><span data-stu-id="7db6c-310">Test secured endpoints</span></span>
 
-<span data-ttu-id="22ac9-311">HttpRepl 支持通过以下方式测试受保护的终结点：</span><span class="sxs-lookup"><span data-stu-id="22ac9-311">The HttpRepl supports the testing of secured endpoints in the following ways:</span></span>
+<span data-ttu-id="7db6c-311">HttpRepl 支持通过以下方式测试受保护的终结点：</span><span class="sxs-lookup"><span data-stu-id="7db6c-311">The HttpRepl supports the testing of secured endpoints in the following ways:</span></span>
 
-* <span data-ttu-id="22ac9-312">通过已登录用户的默认凭据。</span><span class="sxs-lookup"><span data-stu-id="22ac9-312">Via the default credentials of the logged in user.</span></span>
-* <span data-ttu-id="22ac9-313">通过使用 HTTP 请求头。</span><span class="sxs-lookup"><span data-stu-id="22ac9-313">Through the use of HTTP request headers.</span></span>
+* <span data-ttu-id="7db6c-312">通过已登录用户的默认凭据。</span><span class="sxs-lookup"><span data-stu-id="7db6c-312">Via the default credentials of the logged in user.</span></span>
+* <span data-ttu-id="7db6c-313">通过使用 HTTP 请求头。</span><span class="sxs-lookup"><span data-stu-id="7db6c-313">Through the use of HTTP request headers.</span></span>
 
-### <a name="default-credentials"></a><span data-ttu-id="22ac9-314">默认凭据</span><span class="sxs-lookup"><span data-stu-id="22ac9-314">Default credentials</span></span>
+### <a name="default-credentials"></a><span data-ttu-id="7db6c-314">默认凭据</span><span class="sxs-lookup"><span data-stu-id="7db6c-314">Default credentials</span></span>
 
-<span data-ttu-id="22ac9-315">假设你正在测试的 Web API 托管在 IIS 中，并使用 Windows 身份验证进行保护。</span><span class="sxs-lookup"><span data-stu-id="22ac9-315">Consider a web API you're testing that's hosted in IIS and secured with Windows authentication.</span></span> <span data-ttu-id="22ac9-316">你希望正在运行该工具的用户的凭据流向正在进行测试的 HTTP 终结点。</span><span class="sxs-lookup"><span data-stu-id="22ac9-316">You want the credentials of the user running the tool to flow across to the HTTP endpoints being tested.</span></span> <span data-ttu-id="22ac9-317">若要传递已登录用户的默认凭据，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="22ac9-317">To pass the default credentials of the logged in user:</span></span>
+<span data-ttu-id="7db6c-315">假设你正在测试的 Web API 托管在 IIS 中，并使用 Windows 身份验证进行保护。</span><span class="sxs-lookup"><span data-stu-id="7db6c-315">Consider a web API you're testing that's hosted in IIS and secured with Windows authentication.</span></span> <span data-ttu-id="7db6c-316">你希望正在运行该工具的用户的凭据流向正在进行测试的 HTTP 终结点。</span><span class="sxs-lookup"><span data-stu-id="7db6c-316">You want the credentials of the user running the tool to flow across to the HTTP endpoints being tested.</span></span> <span data-ttu-id="7db6c-317">若要传递已登录用户的默认凭据，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="7db6c-317">To pass the default credentials of the logged in user:</span></span>
 
-1. <span data-ttu-id="22ac9-318">将 `httpClient.useDefaultCredentials` 首选项设置为 `true`：</span><span class="sxs-lookup"><span data-stu-id="22ac9-318">Set the `httpClient.useDefaultCredentials` preference to `true`:</span></span>
+1. <span data-ttu-id="7db6c-318">将 `httpClient.useDefaultCredentials` 首选项设置为 `true`：</span><span class="sxs-lookup"><span data-stu-id="7db6c-318">Set the `httpClient.useDefaultCredentials` preference to `true`:</span></span>
 
     ```console
     pref set httpClient.useDefaultCredentials true
     ```
 
-1. <span data-ttu-id="22ac9-319">退出并重启该工具，然后将另一个请求发送到 Web API。</span><span class="sxs-lookup"><span data-stu-id="22ac9-319">Exit and restart the tool before sending another request to the web API.</span></span>
+1. <span data-ttu-id="7db6c-319">退出并重启该工具，然后将另一个请求发送到 Web API。</span><span class="sxs-lookup"><span data-stu-id="7db6c-319">Exit and restart the tool before sending another request to the web API.</span></span>
  
-### <a name="default-proxy-credentials"></a><span data-ttu-id="22ac9-320">默认代理凭据</span><span class="sxs-lookup"><span data-stu-id="22ac9-320">Default proxy credentials</span></span>
+### <a name="default-proxy-credentials"></a><span data-ttu-id="7db6c-320">默认代理凭据</span><span class="sxs-lookup"><span data-stu-id="7db6c-320">Default proxy credentials</span></span>
 
-<span data-ttu-id="22ac9-321">假设你正在测试的 Web API 位于使用 Windows 身份验证保护的代理后面。</span><span class="sxs-lookup"><span data-stu-id="22ac9-321">Consider a scenario in which the web API you're testing is behind a proxy secured with Windows authentication.</span></span> <span data-ttu-id="22ac9-322">你希望正在运行该工具的用户的凭据流向该代理。</span><span class="sxs-lookup"><span data-stu-id="22ac9-322">You want the credentials of the user running the tool to flow to the proxy.</span></span> <span data-ttu-id="22ac9-323">若要传递已登录用户的默认凭据，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="22ac9-323">To pass the default credentials of the logged in user:</span></span>
+<span data-ttu-id="7db6c-321">假设你正在测试的 Web API 位于使用 Windows 身份验证保护的代理后面。</span><span class="sxs-lookup"><span data-stu-id="7db6c-321">Consider a scenario in which the web API you're testing is behind a proxy secured with Windows authentication.</span></span> <span data-ttu-id="7db6c-322">你希望正在运行该工具的用户的凭据流向该代理。</span><span class="sxs-lookup"><span data-stu-id="7db6c-322">You want the credentials of the user running the tool to flow to the proxy.</span></span> <span data-ttu-id="7db6c-323">若要传递已登录用户的默认凭据，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="7db6c-323">To pass the default credentials of the logged in user:</span></span>
 
-1. <span data-ttu-id="22ac9-324">将 `httpClient.proxy.useDefaultCredentials` 首选项设置为 `true`：</span><span class="sxs-lookup"><span data-stu-id="22ac9-324">Set the `httpClient.proxy.useDefaultCredentials` preference to `true`:</span></span>
+1. <span data-ttu-id="7db6c-324">将 `httpClient.proxy.useDefaultCredentials` 首选项设置为 `true`：</span><span class="sxs-lookup"><span data-stu-id="7db6c-324">Set the `httpClient.proxy.useDefaultCredentials` preference to `true`:</span></span>
 
     ```console
     pref set httpClient.proxy.useDefaultCredentials true
     ```
 
-1. <span data-ttu-id="22ac9-325">退出并重启该工具，然后将另一个请求发送到 Web API。</span><span class="sxs-lookup"><span data-stu-id="22ac9-325">Exit and restart the tool before sending another request to the web API.</span></span>
+1. <span data-ttu-id="7db6c-325">退出并重启该工具，然后将另一个请求发送到 Web API。</span><span class="sxs-lookup"><span data-stu-id="7db6c-325">Exit and restart the tool before sending another request to the web API.</span></span>
 
-### <a name="http-request-headers"></a><span data-ttu-id="22ac9-326">HTTP 请求标头</span><span class="sxs-lookup"><span data-stu-id="22ac9-326">HTTP request headers</span></span>
+### <a name="http-request-headers"></a><span data-ttu-id="7db6c-326">HTTP 请求标头</span><span class="sxs-lookup"><span data-stu-id="7db6c-326">HTTP request headers</span></span>
 
-<span data-ttu-id="22ac9-327">支持的身份验证和授权方案的示例包括：</span><span class="sxs-lookup"><span data-stu-id="22ac9-327">Examples of supported authentication and authorization schemes include:</span></span>
+<span data-ttu-id="7db6c-327">支持的身份验证和授权方案的示例包括：</span><span class="sxs-lookup"><span data-stu-id="7db6c-327">Examples of supported authentication and authorization schemes include:</span></span>
 
-* <span data-ttu-id="22ac9-328">basic authentication</span><span class="sxs-lookup"><span data-stu-id="22ac9-328">basic authentication</span></span>
-* <span data-ttu-id="22ac9-329">JWT 持有者令牌</span><span class="sxs-lookup"><span data-stu-id="22ac9-329">JWT bearer tokens</span></span>
-* <span data-ttu-id="22ac9-330">摘要式身份验证</span><span class="sxs-lookup"><span data-stu-id="22ac9-330">digest authentication</span></span>
+* <span data-ttu-id="7db6c-328">basic authentication</span><span class="sxs-lookup"><span data-stu-id="7db6c-328">basic authentication</span></span>
+* <span data-ttu-id="7db6c-329">JWT 持有者令牌</span><span class="sxs-lookup"><span data-stu-id="7db6c-329">JWT bearer tokens</span></span>
+* <span data-ttu-id="7db6c-330">摘要式身份验证</span><span class="sxs-lookup"><span data-stu-id="7db6c-330">digest authentication</span></span>
 
-<span data-ttu-id="22ac9-331">例如，可以使用以下命令将持有者令牌发送到终结点：</span><span class="sxs-lookup"><span data-stu-id="22ac9-331">For example, you can send a bearer token to an endpoint with the following command:</span></span>
+<span data-ttu-id="7db6c-331">例如，可以使用以下命令将持有者令牌发送到终结点：</span><span class="sxs-lookup"><span data-stu-id="7db6c-331">For example, you can send a bearer token to an endpoint with the following command:</span></span>
 
 ```console
 set header Authorization "bearer <TOKEN VALUE>"
 ```
 
-<span data-ttu-id="22ac9-332">若要访问 Azure 托管的终结点或使用 [Azure REST API](/rest/api/azure/)，你需要持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="22ac9-332">To access an Azure-hosted endpoint or to use the [Azure REST API](/rest/api/azure/), you need a bearer token.</span></span> <span data-ttu-id="22ac9-333">使用以下步骤，通过 [Azure CLI](/cli/azure/) 来获取 Azure 订阅的持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="22ac9-333">Use the following steps to obtain a bearer token for your Azure subscription via the [Azure CLI](/cli/azure/).</span></span> <span data-ttu-id="22ac9-334">HttpRepl 在 HTTP 请求头中设置持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="22ac9-334">The HttpRepl sets the bearer token in an HTTP request header.</span></span> <span data-ttu-id="22ac9-335">检索 Azure 应用服务 Web 应用的列表。</span><span class="sxs-lookup"><span data-stu-id="22ac9-335">A list of Azure App Service Web Apps is retrieved.</span></span>
+<span data-ttu-id="7db6c-332">若要访问 Azure 托管的终结点或使用 [Azure REST API](/rest/api/azure/)，你需要持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="7db6c-332">To access an Azure-hosted endpoint or to use the [Azure REST API](/rest/api/azure/), you need a bearer token.</span></span> <span data-ttu-id="7db6c-333">使用以下步骤，通过 [Azure CLI](/cli/azure/) 来获取 Azure 订阅的持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="7db6c-333">Use the following steps to obtain a bearer token for your Azure subscription via the [Azure CLI](/cli/azure/).</span></span> <span data-ttu-id="7db6c-334">HttpRepl 在 HTTP 请求头中设置持有者令牌。</span><span class="sxs-lookup"><span data-stu-id="7db6c-334">The HttpRepl sets the bearer token in an HTTP request header.</span></span> <span data-ttu-id="7db6c-335">检索 Azure 应用服务 Web 应用的列表。</span><span class="sxs-lookup"><span data-stu-id="7db6c-335">A list of Azure App Service Web Apps is retrieved.</span></span>
 
-1. <span data-ttu-id="22ac9-336">登录 Azure：</span><span class="sxs-lookup"><span data-stu-id="22ac9-336">Sign in to Azure:</span></span>
+1. <span data-ttu-id="7db6c-336">登录 Azure：</span><span class="sxs-lookup"><span data-stu-id="7db6c-336">Sign in to Azure:</span></span>
 
     ```azurecli
     az login
     ```
 
-1. <span data-ttu-id="22ac9-337">使用以下命令获取订阅 ID：</span><span class="sxs-lookup"><span data-stu-id="22ac9-337">Get your subscription ID with the following command:</span></span>
+1. <span data-ttu-id="7db6c-337">使用以下命令获取订阅 ID：</span><span class="sxs-lookup"><span data-stu-id="7db6c-337">Get your subscription ID with the following command:</span></span>
 
     ```azurecli
     az account show --query id
     ```
 
-1. <span data-ttu-id="22ac9-338">复制订阅 ID 并运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="22ac9-338">Copy your subscription ID and run the following command:</span></span>
+1. <span data-ttu-id="7db6c-338">复制订阅 ID 并运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7db6c-338">Copy your subscription ID and run the following command:</span></span>
 
     ```azurecli
     az account set --subscription "<SUBSCRIPTION ID>"
     ```
 
-1. <span data-ttu-id="22ac9-339">使用以下命令获取持有者令牌：</span><span class="sxs-lookup"><span data-stu-id="22ac9-339">Get your bearer token with the following command:</span></span>
+1. <span data-ttu-id="7db6c-339">使用以下命令获取持有者令牌：</span><span class="sxs-lookup"><span data-stu-id="7db6c-339">Get your bearer token with the following command:</span></span>
 
     ```azurecli
     az account get-access-token --query accessToken
     ```
 
-1. <span data-ttu-id="22ac9-340">通过 HttpRepl 连接到 Azure REST API：</span><span class="sxs-lookup"><span data-stu-id="22ac9-340">Connect to the Azure REST API via the HttpRepl:</span></span>
+1. <span data-ttu-id="7db6c-340">通过 HttpRepl 连接到 Azure REST API：</span><span class="sxs-lookup"><span data-stu-id="7db6c-340">Connect to the Azure REST API via the HttpRepl:</span></span>
 
     ```console
     httprepl https://management.azure.com
     ```
 
-1. <span data-ttu-id="22ac9-341">设置 `Authorization` HTTP 请求标头：</span><span class="sxs-lookup"><span data-stu-id="22ac9-341">Set the `Authorization` HTTP request header:</span></span>
+1. <span data-ttu-id="7db6c-341">设置 `Authorization` HTTP 请求标头：</span><span class="sxs-lookup"><span data-stu-id="7db6c-341">Set the `Authorization` HTTP request header:</span></span>
 
     ```console
     https://management.azure.com/> set header Authorization "bearer <ACCESS TOKEN>"
     ```
 
-1. <span data-ttu-id="22ac9-342">导航到订阅：</span><span class="sxs-lookup"><span data-stu-id="22ac9-342">Navigate to the subscription:</span></span>
+1. <span data-ttu-id="7db6c-342">导航到订阅：</span><span class="sxs-lookup"><span data-stu-id="7db6c-342">Navigate to the subscription:</span></span>
 
     ```console
     https://management.azure.com/> cd subscriptions/<SUBSCRIPTION ID>
     ```
 
-1. <span data-ttu-id="22ac9-343">获取订阅的 Azure 应用服务 Web 应用的列表：</span><span class="sxs-lookup"><span data-stu-id="22ac9-343">Get a list of your subscription's Azure App Service Web Apps:</span></span>
+1. <span data-ttu-id="7db6c-343">获取订阅的 Azure 应用服务 Web 应用的列表：</span><span class="sxs-lookup"><span data-stu-id="7db6c-343">Get a list of your subscription's Azure App Service Web Apps:</span></span>
 
     ```console
     https://management.azure.com/subscriptions/{SUBSCRIPTION ID}> get providers/Microsoft.Web/sites?api-version=2016-08-01
     ```
 
-    <span data-ttu-id="22ac9-344">将显示以下响应：</span><span class="sxs-lookup"><span data-stu-id="22ac9-344">The following response is displayed:</span></span>
+    <span data-ttu-id="7db6c-344">将显示以下响应：</span><span class="sxs-lookup"><span data-stu-id="7db6c-344">The following response is displayed:</span></span>
 
     ```console
     HTTP/1.1 200 OK
@@ -981,20 +981,20 @@ set header Authorization "bearer <TOKEN VALUE>"
     }
     ```
 
-## <a name="toggle-http-request-display"></a><span data-ttu-id="22ac9-345">切换 HTTP 请求显示</span><span class="sxs-lookup"><span data-stu-id="22ac9-345">Toggle HTTP request display</span></span>
+## <a name="toggle-http-request-display"></a><span data-ttu-id="7db6c-345">切换 HTTP 请求显示</span><span class="sxs-lookup"><span data-stu-id="7db6c-345">Toggle HTTP request display</span></span>
 
-<span data-ttu-id="22ac9-346">默认情况下，禁止显示正在发送的 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="22ac9-346">By default, display of the HTTP request being sent is suppressed.</span></span> <span data-ttu-id="22ac9-347">可在命令行界面会话期间更改相应的设置。</span><span class="sxs-lookup"><span data-stu-id="22ac9-347">It's possible to change the corresponding setting for the duration of the command shell session.</span></span>
+<span data-ttu-id="7db6c-346">默认情况下，禁止显示正在发送的 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="7db6c-346">By default, display of the HTTP request being sent is suppressed.</span></span> <span data-ttu-id="7db6c-347">可在命令行界面会话期间更改相应的设置。</span><span class="sxs-lookup"><span data-stu-id="7db6c-347">It's possible to change the corresponding setting for the duration of the command shell session.</span></span>
 
-### <a name="enable-request-display"></a><span data-ttu-id="22ac9-348">启用请求显示</span><span class="sxs-lookup"><span data-stu-id="22ac9-348">Enable request display</span></span>
+### <a name="enable-request-display"></a><span data-ttu-id="7db6c-348">启用请求显示</span><span class="sxs-lookup"><span data-stu-id="7db6c-348">Enable request display</span></span>
 
-<span data-ttu-id="22ac9-349">运行 `echo on` 命令可查看正在发送的 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="22ac9-349">View the HTTP request being sent by running the `echo on` command.</span></span> <span data-ttu-id="22ac9-350">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-350">For example:</span></span>
+<span data-ttu-id="7db6c-349">运行 `echo on` 命令可查看正在发送的 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="7db6c-349">View the HTTP request being sent by running the `echo on` command.</span></span> <span data-ttu-id="7db6c-350">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-350">For example:</span></span>
 
 ```console
 https://localhost:5001/people> echo on
 Request echoing is on
 ```
 
-<span data-ttu-id="22ac9-351">当前会话中的后续 HTTP 请求显示请求标头。</span><span class="sxs-lookup"><span data-stu-id="22ac9-351">Subsequent HTTP requests in the current session display the request headers.</span></span> <span data-ttu-id="22ac9-352">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-352">For example:</span></span>
+<span data-ttu-id="7db6c-351">当前会话中的后续 HTTP 请求显示请求标头。</span><span class="sxs-lookup"><span data-stu-id="7db6c-351">Subsequent HTTP requests in the current session display the request headers.</span></span> <span data-ttu-id="7db6c-352">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-352">For example:</span></span>
 
 ```console
 https://localhost:5001/people> post
@@ -1030,20 +1030,20 @@ Transfer-Encoding: chunked
 https://localhost:5001/people>
 ```
 
-### <a name="disable-request-display"></a><span data-ttu-id="22ac9-353">禁用请求显示</span><span class="sxs-lookup"><span data-stu-id="22ac9-353">Disable request display</span></span>
+### <a name="disable-request-display"></a><span data-ttu-id="7db6c-353">禁用请求显示</span><span class="sxs-lookup"><span data-stu-id="7db6c-353">Disable request display</span></span>
 
-<span data-ttu-id="22ac9-354">运行 `echo off` 命令可禁止显示正在发送的 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="22ac9-354">Suppress display of the HTTP request being sent by running the `echo off` command.</span></span> <span data-ttu-id="22ac9-355">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-355">For example:</span></span>
+<span data-ttu-id="7db6c-354">运行 `echo off` 命令可禁止显示正在发送的 HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="7db6c-354">Suppress display of the HTTP request being sent by running the `echo off` command.</span></span> <span data-ttu-id="7db6c-355">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-355">For example:</span></span>
 
 ```console
 https://localhost:5001/people> echo off
 Request echoing is off
 ```
 
-## <a name="run-a-script"></a><span data-ttu-id="22ac9-356">运行脚本</span><span class="sxs-lookup"><span data-stu-id="22ac9-356">Run a script</span></span>
+## <a name="run-a-script"></a><span data-ttu-id="7db6c-356">运行脚本</span><span class="sxs-lookup"><span data-stu-id="7db6c-356">Run a script</span></span>
 
-<span data-ttu-id="22ac9-357">如果经常执行一组相同的 HttpRepl 命令，请考虑将它们存储在一个文本文件中。</span><span class="sxs-lookup"><span data-stu-id="22ac9-357">If you frequently execute the same set of HttpRepl commands, consider storing them in a text file.</span></span> <span data-ttu-id="22ac9-358">文件中的命令采用与在命令行上手动执行的命令相同的形式。</span><span class="sxs-lookup"><span data-stu-id="22ac9-358">Commands in the file take the same form as commands executed manually on the command line.</span></span> <span data-ttu-id="22ac9-359">可使用 `run` 命令批量执行这些命令。</span><span class="sxs-lookup"><span data-stu-id="22ac9-359">The commands can be executed in a batched fashion using the `run` command.</span></span> <span data-ttu-id="22ac9-360">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-360">For example:</span></span>
+<span data-ttu-id="7db6c-357">如果经常执行一组相同的 HttpRepl 命令，请考虑将它们存储在一个文本文件中。</span><span class="sxs-lookup"><span data-stu-id="7db6c-357">If you frequently execute the same set of HttpRepl commands, consider storing them in a text file.</span></span> <span data-ttu-id="7db6c-358">文件中的命令采用与在命令行上手动执行的命令相同的形式。</span><span class="sxs-lookup"><span data-stu-id="7db6c-358">Commands in the file take the same form as commands executed manually on the command line.</span></span> <span data-ttu-id="7db6c-359">可使用 `run` 命令批量执行这些命令。</span><span class="sxs-lookup"><span data-stu-id="7db6c-359">The commands can be executed in a batched fashion using the `run` command.</span></span> <span data-ttu-id="7db6c-360">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-360">For example:</span></span>
 
-1. <span data-ttu-id="22ac9-361">创建一个文本文件，其中包含一组换行符分隔的命令。</span><span class="sxs-lookup"><span data-stu-id="22ac9-361">Create a text file containing a set of newline-delimited commands.</span></span> <span data-ttu-id="22ac9-362">例如，一个包含以下命令的 people-script.txt 文件：</span><span class="sxs-lookup"><span data-stu-id="22ac9-362">To illustrate, consider a *people-script.txt* file containing the following commands:</span></span>
+1. <span data-ttu-id="7db6c-361">创建一个文本文件，其中包含一组换行符分隔的命令。</span><span class="sxs-lookup"><span data-stu-id="7db6c-361">Create a text file containing a set of newline-delimited commands.</span></span> <span data-ttu-id="7db6c-362">例如，一个包含以下命令的 people-script.txt 文件：</span><span class="sxs-lookup"><span data-stu-id="7db6c-362">To illustrate, consider a *people-script.txt* file containing the following commands:</span></span>
 
     ```text
     set base https://localhost:5001
@@ -1053,13 +1053,13 @@ Request echoing is off
     get 1
     ```
 
-1. <span data-ttu-id="22ac9-363">执行 `run` 命令，传入文本文件的路径。</span><span class="sxs-lookup"><span data-stu-id="22ac9-363">Execute the `run` command, passing in the text file's path.</span></span> <span data-ttu-id="22ac9-364">例如：</span><span class="sxs-lookup"><span data-stu-id="22ac9-364">For example:</span></span>
+1. <span data-ttu-id="7db6c-363">执行 `run` 命令，传入文本文件的路径。</span><span class="sxs-lookup"><span data-stu-id="7db6c-363">Execute the `run` command, passing in the text file's path.</span></span> <span data-ttu-id="7db6c-364">例如：</span><span class="sxs-lookup"><span data-stu-id="7db6c-364">For example:</span></span>
 
     ```console
     https://localhost:5001/> run C:\http-repl-scripts\people-script.txt
     ```
 
-    <span data-ttu-id="22ac9-365">随即显示以下输出：</span><span class="sxs-lookup"><span data-stu-id="22ac9-365">The following output appears:</span></span>
+    <span data-ttu-id="7db6c-365">随即显示以下输出：</span><span class="sxs-lookup"><span data-stu-id="7db6c-365">The following output appears:</span></span>
 
     ```console
     https://localhost:5001/> set base https://localhost:5001
@@ -1094,9 +1094,9 @@ Request echoing is off
     https://localhost:5001/People>
     ```
 
-## <a name="clear-the-output"></a><span data-ttu-id="22ac9-366">清除输出</span><span class="sxs-lookup"><span data-stu-id="22ac9-366">Clear the output</span></span>
+## <a name="clear-the-output"></a><span data-ttu-id="7db6c-366">清除输出</span><span class="sxs-lookup"><span data-stu-id="7db6c-366">Clear the output</span></span>
 
-<span data-ttu-id="22ac9-367">若要删除 HttpRepl 工具写入命令行界面的所有输出，请运行 `clear` 或 `cls` 命令。</span><span class="sxs-lookup"><span data-stu-id="22ac9-367">To remove all output written to the command shell by the HttpRepl tool, run the `clear` or `cls` command.</span></span> <span data-ttu-id="22ac9-368">例如，假设命令行界面包含以下输出：</span><span class="sxs-lookup"><span data-stu-id="22ac9-368">To illustrate, imagine the command shell contains the following output:</span></span>
+<span data-ttu-id="7db6c-367">若要删除 HttpRepl 工具写入命令行界面的所有输出，请运行 `clear` 或 `cls` 命令。</span><span class="sxs-lookup"><span data-stu-id="7db6c-367">To remove all output written to the command shell by the HttpRepl tool, run the `clear` or `cls` command.</span></span> <span data-ttu-id="7db6c-368">例如，假设命令行界面包含以下输出：</span><span class="sxs-lookup"><span data-stu-id="7db6c-368">To illustrate, imagine the command shell contains the following output:</span></span>
 
 ```console
 httprepl https://localhost:5001
@@ -1111,19 +1111,22 @@ People   [get|post]
 https://localhost:5001/>
 ```
 
-<span data-ttu-id="22ac9-369">运行以下命令以清除输出：</span><span class="sxs-lookup"><span data-stu-id="22ac9-369">Run the following command to clear the output:</span></span>
+<span data-ttu-id="7db6c-369">运行以下命令以清除输出：</span><span class="sxs-lookup"><span data-stu-id="7db6c-369">Run the following command to clear the output:</span></span>
 
 ```console
 https://localhost:5001/> clear
 ```
 
-<span data-ttu-id="22ac9-370">运行上述命令后，命令行界面仅包含以下输出：</span><span class="sxs-lookup"><span data-stu-id="22ac9-370">After running the preceding command, the command shell contains only the following output:</span></span>
+<span data-ttu-id="7db6c-370">运行上述命令后，命令行界面仅包含以下输出：</span><span class="sxs-lookup"><span data-stu-id="7db6c-370">After running the preceding command, the command shell contains only the following output:</span></span>
 
 ```console
 https://localhost:5001/>
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="22ac9-371">其他资源</span><span class="sxs-lookup"><span data-stu-id="22ac9-371">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="7db6c-371">其他资源</span><span class="sxs-lookup"><span data-stu-id="7db6c-371">Additional resources</span></span>
 
-* [<span data-ttu-id="22ac9-372">REST API 请求</span><span class="sxs-lookup"><span data-stu-id="22ac9-372">REST API requests</span></span>](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
-* [<span data-ttu-id="22ac9-373">HttpRepl GitHub 存储库</span><span class="sxs-lookup"><span data-stu-id="22ac9-373">HttpRepl GitHub repository</span></span>](https://github.com/dotnet/HttpRepl)
+* [<span data-ttu-id="7db6c-372">REST API 请求</span><span class="sxs-lookup"><span data-stu-id="7db6c-372">REST API requests</span></span>](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
+* [<span data-ttu-id="7db6c-373">HttpRepl GitHub 存储库</span><span class="sxs-lookup"><span data-stu-id="7db6c-373">HttpRepl GitHub repository</span></span>](https://github.com/dotnet/HttpRepl)
+* [<span data-ttu-id="7db6c-374">配置 Visual Studio 以启动 HttpRepl</span><span class="sxs-lookup"><span data-stu-id="7db6c-374">Configure Visual Studio to launch HttpRepl</span></span>](https://devblogs.microsoft.com/aspnet/httprepl-a-command-line-tool-for-interacting-with-restful-http-services/#configure-visual-studio-for-windows-to-launch-httprepl-on-f5)
+* [<span data-ttu-id="7db6c-375">配置 Visual Studio Code 以启动 HttpRepl</span><span class="sxs-lookup"><span data-stu-id="7db6c-375">Configure Visual Studio Code to launch HttpRepl</span></span>](https://devblogs.microsoft.com/aspnet/httprepl-a-command-line-tool-for-interacting-with-restful-http-services/#configure-visual-studio-code-to-launch-httprepl-on-debug)
+* [<span data-ttu-id="7db6c-376">配置 Visual Studio for Mac 以启动 HttpRepl</span><span class="sxs-lookup"><span data-stu-id="7db6c-376">Configure Visual Studio for Mac to launch HttpRepl</span></span>](https://devblogs.microsoft.com/aspnet/httprepl-a-command-line-tool-for-interacting-with-restful-http-services/#configure-visual-studio-for-mac-to-launch-httprepl-as-a-custom-tool)
