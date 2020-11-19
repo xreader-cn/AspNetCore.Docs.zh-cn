@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/ui-class
-ms.openlocfilehash: e87e74533fe6900d8e0a73708ad24b765a968493
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 0bfdb1932d829ec00c9de1bd38b7920cb1f40c51
+ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056798"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94570167"
 ---
 # <a name="create-reusable-ui-using-the-no-locrazor-class-library-project-in-aspnet-core"></a>使用 ASP.NET Core 中的 Razor 类库项目创建可重用 UI
 
@@ -102,7 +102,7 @@ RCL 可能需要 RCL 或 RCL 的消耗应用可以引用的伴随静态资产。
 
 若要将伴随资产作为 RCL 的一部分包括在内，请在类库中创建 *wwwroot* 文件夹，并在该文件夹中包括所有必需的文件。
 
-打包 RCL 时， *wwwroot* 文件夹中的所有伴随资产都会自动包括在包中。
+打包 RCL 时，*wwwroot* 文件夹中的所有伴随资产都会自动包括在包中。
 
 使用 `dotnet pack` 命令，而不是 Nuget.exe 版本 `nuget pack`。
 
@@ -110,7 +110,7 @@ RCL 可能需要 RCL 或 RCL 的消耗应用可以引用的伴随静态资产。
 
 若要排除静态资产，请将所需的排除路径添加到项目文件中的 `$(DefaultItemExcludes)` 属性组。 使用分号 (`;`) 分隔条目。
 
-在以下示例中， *wwwroot* 文件夹中的 *lib.css* 样式表不被视为静态资产，并且不包括在已发布的 RCL 中：
+在以下示例中，*wwwroot* 文件夹中的 *lib.css* 样式表不被视为静态资产，并且不包括在已发布的 RCL 中：
 
 ```xml
 <PropertyGroup>
@@ -122,7 +122,7 @@ RCL 可能需要 RCL 或 RCL 的消耗应用可以引用的伴随静态资产。
 
 若要在 RCL 中包括 TypeScript 文件，请执行以下操作：
 
-1. 将 TypeScript 文件 ( *.ts* ) 置于 *wwwroot* 文件夹之外。 例如，将文件置于 *Client* 文件夹中。
+1. 将 TypeScript 文件 ( *.ts*) 置于 *wwwroot* 文件夹之外。 例如，将文件置于 *Client* 文件夹中。
 
 1. 为 *wwwroot* 文件夹配置 TypeScript 生成输出。 在项目文件的 `PropertyGroup` 内设置 `TypescriptOutDir` 属性：
 
@@ -404,4 +404,15 @@ dotnet run
 
 ## <a name="additional-resources"></a>其他资源
 
+::: moniker range=">= aspnetcore-5.0"
+
 * <xref:blazor/components/class-libraries>
+* <xref:blazor/components/css-isolation#razor-class-library-rcl-support>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+* <xref:blazor/components/class-libraries>
+
+::: moniker-end

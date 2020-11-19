@@ -18,12 +18,12 @@ no-loc:
 - SignalR
 - Kestrel
 uid: aspnetcore-5.0
-ms.openlocfilehash: e25549d557dd971d0f2f4d67a182574f07138acb
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: 84747e2d13275a23e83dc2dc0f666cb0c8d001b1
+ms.sourcegitcommit: 827e8be18cebbcc09b467c089e17fa6f5e430cb2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94508118"
+ms.lasthandoff: 11/15/2020
+ms.locfileid: "94634621"
 ---
 # <a name="whats-new-in-aspnet-core-50"></a>ASP.NET Core 5.0 的新增功能
 
@@ -453,8 +453,6 @@ public class Program
 _ 在文本编辑器中打开 ASP.NET Core 项目。
 * 运行 `dotnet watch`。
 * 专注于代码更改，而工具处理应用的重新生成、重新启动和重新加载。
-
-我们希望将来能将自动刷新功能引入 Visual Studio。
 
 ### <a name="console-logger-formatter"></a>控制台记录器格式化程序
 

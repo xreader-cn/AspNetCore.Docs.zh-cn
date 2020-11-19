@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/state-management
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 1769ddbb95c9ffe373e916c885e411adc3d4c65b
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 7e79836e3dd1da175a62a84e11dfd30fee7b2f1b
+ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93054991"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94570141"
 ---
 # <a name="aspnet-core-no-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -61,12 +61,12 @@ ms.locfileid: "93054991"
 
 用于保留状态的常见位置有：
 
-* [服务器端存储](#server-side-storage)
-* [URL](#url)
-* [浏览器存储](#browser-storage)
-* [内存中状态容器服务](#in-memory-state-container-service)
+* [服务器端存储](#server-side-storage-wasm)
+* [URL](#url-wasm)
+* [浏览器存储](#browser-storage-wasm)
+* [内存中状态容器服务](#in-memory-state-container-service-wasm)
 
-### <a name="server-side-storage"></a>服务器端存储
+<h2 id="server-side-storage-wasm">服务器端存储</h2>
 
 对于跨多个用户和设备的永久数据持久性，应用可以使用通过 Web API 访问的独立服务器端存储。 选项包括：
 
@@ -90,7 +90,7 @@ ms.locfileid: "93054991"
 * [Azure 数据库](https://azure.microsoft.com/product-categories/databases/)
 * [Azure 存储文档](/azure/storage/)
 
-### <a name="url"></a>URL
+<h2 id="url-wasm">URL</h2>
 
 对于表示导航状态的暂时性数据，请将数据作为 URL 的一部分进行建模。 URL 中建模的用户状态示例：
 
@@ -101,7 +101,7 @@ ms.locfileid: "93054991"
 
 有关使用 [`@page`](xref:mvc/views/razor#page) 指令定义 URL 模式的信息，请参阅 <xref:blazor/fundamentals/routing>。
 
-### <a name="browser-storage"></a>浏览器存储
+<h2 id="browser-storage-wasm">浏览器存储</h2>
 
 对于用户正在主动创建的暂时性数据，通用存储位置是浏览器的 [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) 和 [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) 集合：
 
@@ -121,7 +121,7 @@ ms.locfileid: "93054991"
 > [!WARNING]
 > 用户可以查看或篡改 `localStorage` 和 `sessionStorage` 中存储的数据。
 
-## <a name="in-memory-state-container-service"></a>内存中状态容器服务
+<h2 id="in-memory-state-container-service-wasm">内存中状态容器服务</h2>
 
 [!INCLUDE[](~/includes/blazor-state-management/state-container.md)]
 
@@ -170,12 +170,12 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 
 用于保留状态的常见位置有：
 
-* [服务器端存储](#server-side-storage)
-* [URL](#url)
-* [浏览器存储](#browser-storage)
-* [内存中状态容器服务](#in-memory-state-container-service)
+* [服务器端存储](#server-side-storage-server)
+* [URL](#url-server)
+* [浏览器存储](#browser-storage-server)
+* [内存中状态容器服务](#in-memory-state-container-service-server)
 
-### <a name="server-side-storage"></a>服务器端存储
+<h2 id="server-side-storage-server">服务器端存储</h2>
 
 对于跨多个用户和设备的永久数据持久性，应用可以使用服务器端存储。 选项包括：
 
@@ -191,7 +191,7 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 * [Azure 数据库](https://azure.microsoft.com/product-categories/databases/)
 * [Azure 存储文档](/azure/storage/)
 
-### <a name="url"></a>URL
+<h2 id="url-server">URL</h2>
 
 对于表示导航状态的暂时性数据，请将数据作为 URL 的一部分进行建模。 URL 中建模的用户状态示例：
 
@@ -205,7 +205,7 @@ Blazor Server 是有状态的应用框架。 大多数情况下，应用保持�
 
 有关使用 [`@page`](xref:mvc/views/razor#page) 指令定义 URL 模式的信息，请参阅 <xref:blazor/fundamentals/routing>。
 
-### <a name="browser-storage"></a>浏览器存储
+<h2 id="browser-storage-server">浏览器存储</h2>
 
 对于用户正在主动创建的暂时性数据，通用存储位置是浏览器的 [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) 和 [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) 集合：
 
@@ -700,7 +700,7 @@ else
 
 ::: moniker-end
 
-## <a name="in-memory-state-container-service"></a>内存中状态容器服务
+<h2 id="in-memory-state-container-service-server">内存中状态容器服务</h2>
 
 [!INCLUDE[](~/includes/blazor-state-management/state-container.md)]
 
