@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/model-binding
-ms.openlocfilehash: 49300d32096e577db9b13a0510cc310b91ddb51d
-ms.sourcegitcommit: 33f631a4427b9a422755601ac9119953db0b4a3e
+ms.openlocfilehash: 4de34a75da932b41190caa8434ac5be8cc0710fd
+ms.sourcegitcommit: 8363e44f630fcc6433ccd2a85f7aa9567cd274ed
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/05/2020
-ms.locfileid: "93365348"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "94981929"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core 中的模型绑定
 
@@ -211,7 +211,7 @@ public class Pet
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
 * [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
-* [枚举](xref:System.ComponentModel.EnumConverter)
+* [Enum](xref:System.ComponentModel.EnumConverter)
 * [Guid.empty](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)
@@ -488,7 +488,7 @@ HTTP 请求中包含的上传文件。  还支持多个文件的 `IEnumerable<IF
 
 ### <a name="cancellationtoken"></a>CancellationToken
 
-用于取消异步控制器中的活动。
+操作可以选择将 `CancellationToken` 作为参数绑定。 这会将信号绑定到 <xref:Microsoft.AspNetCore.Http.HttpContext.RequestAborted> HTTP 请求的基础的连接中止时。 操作可以使用此参数来取消长时间运行的异步操作，这些操作将作为控制器操作的一部分执行。
 
 ### <a name="formcollection"></a>FormCollection
 
@@ -760,7 +760,7 @@ public class Pet
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
 * [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
-* [枚举](xref:System.ComponentModel.EnumConverter)
+* [Enum](xref:System.ComponentModel.EnumConverter)
 * [Guid.empty](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)

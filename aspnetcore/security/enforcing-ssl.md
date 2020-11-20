@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: aa109aaa89003fd7566e7dc219ecc9799b077355
-ms.sourcegitcommit: 8b867c4cb0c3b39bbc4d2d87815610d2ef858ae7
+ms.openlocfilehash: 209d055f6205eceb9efb5434427c303345791809
+ms.sourcegitcommit: 8363e44f630fcc6433ccd2a85f7aa9567cd274ed
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/17/2020
-ms.locfileid: "94703665"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "94981955"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>在 ASP.NET Core 强制实施 HTTPS
 
@@ -464,6 +464,8 @@ Firefox 浏览器使用自己的证书存储区，因此不信任 [IIS Express](
 1. 选择 **全部显示**
 1. 字符集 `security.enterprise_roots.enabled` = `true`
 1. 退出并重新启动 Firefox
+
+有关详细信息，请参阅 [在 Firefox 中 (CAs) 设置证书颁发机构](https://support.mozilla.org/kb/setting-certificate-authorities-firefox)。
 
 ## <a name="additional-information"></a>其他信息
 
