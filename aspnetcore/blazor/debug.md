@@ -30,7 +30,7 @@ ms.locfileid: "94550512"
 
 [Daniel Roth](https://github.com/danroth27)
 
-可以使用基于 Chromium 的浏览器 (Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。 还可以使用以下集成开发环境 (IDE) 调试应用：
+可以使用基于 Chromium 的浏览器 (Microsoft Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。 还可以使用以下集成开发环境 (IDE) 调试应用：
 
 * Visual Studio
 * Visual Studio for Mac
