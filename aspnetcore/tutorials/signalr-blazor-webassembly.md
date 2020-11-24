@@ -1,5 +1,5 @@
 ---
-title: 结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly
+title: 将 ASP.NET Core SignalR 与承载的 Blazor WebAssembly 应用一起使用
 author: guardrex
 description: 创建结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly 的聊天应用。
 monikerRange: '>= aspnetcore-3.1'
@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: afbfc44db8cb833df7a79061f9bd73052859fec2
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: 2975ee699a2535cdf63ef2f5af5790f178a09f93
+ms.sourcegitcommit: e087b6a38e3d38625ebb567a973e75b4d79547b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94508170"
+ms.lasthandoff: 11/15/2020
+ms.locfileid: "94637725"
 ---
-# <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a>结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly
+# <a name="use-aspnet-core-no-locsignalr-with-a-hosted-no-locblazor-webassembly-app"></a>将 ASP.NET Core SignalR 与承载的 Blazor WebAssembly 应用一起使用
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 

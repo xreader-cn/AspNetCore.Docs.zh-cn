@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 2efed6b76228227f032482346a36f528b3448de2
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 833114a12c8c1ac67097b3592cf410d7a69bb628
+ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93053561"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94673973"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>gRPC for ASP.NET Core 中的身份验证和授权
 
@@ -76,7 +76,7 @@ public override Task<BuyTicketsResponse> BuyTickets(
 
 在服务器上，使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)配置持有者令牌身份验证。
 
-在 .NET gRPC 客户端中，令牌可作为标头与调用一起发送：
+在 .NET gRPC 客户端中，令牌可通过 `Metadata` 集合与调用一起发送。 `Metadata` 集合中的条目以 HTTP 标头的形式与 gRPC 调用一起发送：
 
 ```csharp
 public bool DoAuthenticatedCall(
@@ -92,7 +92,9 @@ public bool DoAuthenticatedCall(
 }
 ```
 
-在通道上配置 `ChannelCredentials` 是通过 gRPC 调用将令牌发送到服务的备用方法。 凭据在每次进行 gRPC 调用时运行，因而无需在多个位置编写代码用于自行传递令牌。
+在通道上配置 `ChannelCredentials` 是通过 gRPC 调用将令牌发送到服务的备用方法。 `ChannelCredentials` 可包含 `CallCredentials`，这使得能够自动设置 `Metadata`。
+
+`CallCredentials` 在每次进行 gRPC 调用时运行，因而无需在多个位置编写代码用于自行传递令牌。 请注意，仅当通道通过 TLS 进行保护时，才应用 `CallCredentials`。 `CallCredentials` 不适用于不安全的非 TLS 通道。
 
 以下示例中的凭据将通道配置为随每个 gRPC 调用发送令牌：
 

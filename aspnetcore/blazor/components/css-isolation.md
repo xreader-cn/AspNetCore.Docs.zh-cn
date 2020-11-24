@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/css-isolation
-ms.openlocfilehash: 628e7dc897912beaae0df792b82958517ac70ca4
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 4fec0fa750b9209849030d0d6b7de8f4e163d62f
+ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056317"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94570128"
 ---
 # <a name="aspnet-core-no-locblazor-css-isolation"></a>ASP.NET Core Blazor CSS 隔离
 
@@ -34,9 +34,9 @@ CSS 隔离通过防止对全局样式的依赖来简化应用的 CSS 占用情�
 
 ## <a name="enable-css-isolation"></a>启用 CSS 隔离 
 
-若要定义组件特定的样式，请创建一个 `razor.css` 文件，该文件与组件的 `.razor` 文件的名称相匹配。 此 `razor.css` 文件是限定范围的 CSS 文件。 
+若要定义组件特定的样式，请创建一个 `.razor.css` 文件，该文件与组件的 `.razor` 文件的名称相匹配。 此 `.razor.css` 文件是限定范围的 CSS 文件。 
 
-对于具有 `MyComponent.razor` 文件的 `MyComponent` 组件，请随组件一起创建一个名为 `MyComponent.razor.css` 的文件。 `razor.css` 文件名中的 `MyComponent` 值不区分大小写。
+对于具有 `MyComponent.razor` 文件的 `MyComponent` 组件，请随组件一起创建一个名为 `MyComponent.razor.css` 的文件。 `.razor.css` 文件名中的 `MyComponent` 值不区分大小写。
 
 例如，若要将 CSS 隔离添加到默认 Blazor 项目模板中的 `Counter` 组件，请随 `Counter.razor` 文件一起添加一个名为 `Counter.razor.css` 的新文件，然后添加以下 CSS：
 
@@ -86,7 +86,7 @@ h1[b-3xxtam6d07] {
 
 ## <a name="child-component-support"></a>子组件支持
 
-默认情况下，CSS 隔离仅应用于与 `{COMPONENT NAME}.razor.css` 格式关联的组件，其中占位符 `{COMPONENT NAME}` 通常是组件名称。 若要对子组件应用更改，请对父组件的 `razor.css` 文件中的任何后代元素使用 `::deep` 连结符。 `::deep` 连结符会选择属于元素生成范围标识符后代的元素。 
+默认情况下，CSS 隔离仅应用于与 `{COMPONENT NAME}.razor.css` 格式关联的组件，其中占位符 `{COMPONENT NAME}` 通常是组件名称。 若要对子组件应用更改，请对父组件的 `.razor.css` 文件中的任何后代元素使用 `::deep` 连结符。 `::deep` 连结符会选择属于元素生成范围标识符后代的元素。 
 
 下面的示例演示了名为 `Parent` 的父组件和名为 `Child` 的子组件。
 
@@ -180,3 +180,24 @@ CSS 隔离开箱即用，也可在某些高级场景（例如依赖于现有工�
   <DisableScopedCssBundling>true</DisableScopedCssBundling>
 </PropertyGroup>
 ```
+
+## <a name="no-locrazor-class-library-rcl-support"></a>Razor 类库 (RCL) 支持
+
+[Razor 类库 (RCL)](xref:razor-pages/ui-class) 提供隔离的样式，`<link>` 标记的 `href` 属性指向 `{STATIC WEB ASSET BASE PATH}/{ASSEMBLY NAME}.bundle.scp.css`，其中占位符为：
+
+* `{STATIC WEB ASSET BASE PATH}`：静态 Web 资产基路径。
+* `{ASSEMBLY NAME}`：类库的程序集名称。
+
+如下示例中：
+
+* 静态 Web 资产基路径为 `_content/ClassLib`。
+* 类库的程序集名称为 `ClassLib`。
+
+```html
+<link href="_content/ClassLib/ClassLib.bundle.scp.css" rel="stylesheet">
+```
+
+有关 RCL 和组件库的详细信息，请参阅：
+
+* <xref:razor-pages/ui-class>
+* <xref:blazor/components/class-libraries>.

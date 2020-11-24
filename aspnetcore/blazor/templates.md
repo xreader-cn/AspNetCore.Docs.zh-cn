@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core Blazor 应用模板和 Blazor 项目结构。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/04/2020
+ms.date: 11/17/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: fc2e81cf130732d515fb871227031493e297cf9f
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: 602ad2908d607703a3b77b2047d51d912645b043
+ms.sourcegitcommit: 8b867c4cb0c3b39bbc4d2d87815610d2ef858ae7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94507767"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94703717"
 ---
 # <a name="aspnet-core-no-locblazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -91,16 +91,30 @@ dotnet new blazorserver --help
     * 最初请求应用的任何页面时，都会呈现此页面并在响应中返回。
     * 加载 `_framework/blazor.server.js` JavaScript 文件，该文件用于在浏览器和服务器之间建立实时 SignalR 连接。
     * 此主机页面指定根 `App` 组件 (`App.razor`) 的呈现位置。
-  * `Counter` (`Pages/Counter.razor`)：实现“计数器”页面。
-  * `Error`（`Error.razor`，仅 Blazor Server 应用）：当应用中发生未经处理的异常时呈现。
-  * `FetchData` (`Pages/FetchData.razor`)：实现“提取数据”页面。
-  * `Index` (`Pages/Index.razor`)：实现主页。
+  * `Counter` 组件 (`Pages/Counter.razor`)：实现“计数器”页面。
+  * `Error` 组件（`Error.razor`，仅限 Blazor Server应用）：当应用中发生未经处理的异常时呈现。
+  * `FetchData` 组件 (`Pages/FetchData.razor`)：实现“提取数据”页面。
+  * `Index` 组件 (`Pages/Index.razor`)：实现主页。
   
 * `Properties/launchSettings.json`：保留[开发环境配置](xref:fundamentals/environments#development-and-launchsettingsjson)。
 
+::: moniker range=">= aspnetcore-5.0"
+
 * `Shared` 文件夹：包含应用使用的其他 UI 组件 (`.razor`)：
-  * `MainLayout` (`MainLayout.razor`)：应用的[布局组件](xref:blazor/layouts)。
-  * `NavMenu` (`NavMenu.razor`)：实现边栏导航。 包括 [`NavLink`](xref:blazor/fundamentals/routing#navlink-component) 组件 (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>)，该组件可向其他 Razor 组件呈现导航链接。 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件会在系统加载其组件时自动指示选定状态，这有助于用户了解当前显示的组件。
+  * `MainLayout` 组件 (`MainLayout.razor`)：应用的[布局组件](xref:blazor/layouts)。
+  * `MainLayout.razor.css`：应用主布局的样式表。
+  * `NavMenu` 组件 (`NavMenu.razor`)：实现边栏导航。 包括 [`NavLink`](xref:blazor/fundamentals/routing#navlink-component) 组件 (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>)，该组件可向其他 Razor 组件呈现导航链接。 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件会在系统加载其组件时自动指示选定状态，这有助于用户了解当前显示的组件。
+  * `NavMenu.razor.css`：应用导航菜单的样式表。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+* `Shared` 文件夹：包含应用使用的其他 UI 组件 (`.razor`)：
+  * `MainLayout` 组件 (`MainLayout.razor`)：应用的[布局组件](xref:blazor/layouts)。
+  * `NavMenu` 组件 (`NavMenu.razor`)：实现边栏导航。 包括 [`NavLink`](xref:blazor/fundamentals/routing#navlink-component) 组件 (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>)，该组件可向其他 Razor 组件呈现导航链接。 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件会在系统加载其组件时自动指示选定状态，这有助于用户了解当前显示的组件。
+  
+::: moniker-end
 
 * `_Imports.razor`：包括要包含在应用组件 (`.razor`) 中的常见 Razor 指令，如用于命名空间的 [`@using`](xref:mvc/views/razor#using) 指令。
 

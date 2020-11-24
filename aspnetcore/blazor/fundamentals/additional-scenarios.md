@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: f8b6e65424948aaa7b28023497bbbf2a1ceb47dd
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: ef37c539d377f14a2744c3ead28234d8497df700
+ms.sourcegitcommit: e087b6a38e3d38625ebb567a973e75b4d79547b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056044"
+ms.lasthandoff: 11/15/2020
+ms.locfileid: "94637673"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
@@ -102,32 +102,21 @@ ms.locfileid: "93056044"
 
 ## <a name="render-mode"></a>呈现模式
 
+::: moniker range=">= aspnetcore-5.0"
+
+*此部分适用于托管的 Blazor WebAssembly 和 Blazor Server。*
+
+Blazor 默认设置为在服务器上预呈现 UI。 有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 本部分适用于 Blazor Server。
 
-默认情况下，Blazor Server 应用设置为：在客户端与服务器建立连接之前在服务器上预呈现 UI。 这是在 `_Host.cshtml` Razor 页中设置的：
+默认情况下，Blazor Server 应用设置为：在客户端与服务器建立连接之前在服务器上预呈现 UI。 有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
 
-```cshtml
-<body>
-    <app>
-      <component type="typeof(App)" render-mode="ServerPrerendered" />
-    </app>
-
-    <script src="_framework/blazor.server.js"></script>
-</body>
-```
-
-<xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 配置组件是否：
-
-* 在页面中预呈现。
-* 在页面上呈现为静态 HTML，或者包含从用户代理启动 Blazor 应用所需的信息。
-
-| 呈现模式 | 描述 |
-| --- | --- |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor Server 应用的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 将组件呈现为静态 HTML。 |
-
-不支持从静态 HTML 页面呈现服务器组件。
+::: moniker-end
 
 ## <a name="initialize-the-no-locblazor-circuit"></a>初始化 Blazor 回路
 
@@ -389,3 +378,4 @@ When one of the framework components is used in a child component, the rendered 
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:fundamentals/logging/index>
+* [Blazor Server 重新连接事件和组件生命周期事件](xref:blazor/components/lifecycle#blazor-server-reconnection-events)

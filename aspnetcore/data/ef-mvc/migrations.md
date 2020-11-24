@@ -1,10 +1,10 @@
 ---
-title: 教程：使用迁移功能 - ASP.NET MVC 和 EF Core
-description: 本教程使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用程序中的数据模型更改。
+title: 教程第 5 部分 - 将迁移应用于 Contoso University 示例
+description: Contoso University 教程系列的第 5 部分。 使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用中的数据模型更改。
 author: rick-anderson
 ms.author: riande
-ms.custom: mvc
-ms.date: 03/27/2019
+ms.custom: contperfq2
+ms.date: 11/13/2020
 ms.topic: tutorial
 no-loc:
 - appsettings.json
@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 070c18db55956d79560904f53395b5001c7bce6d
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: ab5be222416e61fcff90c5130ca91ad4a2a5c9b0
+ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93054029"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94673999"
 ---
-# <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>教程：使用迁移功能 - ASP.NET MVC 和 EF Core
+# <a name="tutorial-part-5-apply-migrations-to-the-contoso-university-sample"></a>教程：第 5 部分 - 将迁移应用于 Contoso University 示例
 
 本教程使用 EF Core 迁移功能管理数据模型更改。 后续教程将在更改数据模型时添加更多迁移。
 
@@ -34,7 +34,6 @@ ms.locfileid: "93054029"
 
 > [!div class="checklist"]
 > * 了解迁移相关信息
-> * 更改连接字符串
 > * 创建初始迁移
 > * 检查 Up 和 Down 方法
 > * 了解数据模型快照
@@ -52,22 +51,15 @@ ms.locfileid: "93054029"
 
 要使用迁移，可使用“包管理器控制台”(PMC) 或 CLI 。  以下教程演示如何使用 CLI 命令。 有关 PMC 的信息，请转到[本教程末尾](#pmc)。
 
-## <a name="change-the-connection-string"></a>更改连接字符串
+## <a name="drop-the-database"></a>删除数据库
 
-在 appsettings.json 文件中，将连接字符串中的数据库的名称更改为 ContosoUniversity2 或正在使用的计算机上未使用过的其他名称。
+删除数据库。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令：
 
-[!code-json[](intro/samples/cu/appsettings2.json?range=1-4)]
+ ```dotnetcli
+ dotnet ef database drop
+ ```
 
-此更改将设置项目，以便初始迁移创建新的数据库。 这并不是开始使用迁移的必要操作，但稍后你便会了解这样做的好处。
-
-> [!NOTE]
-> 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令：
->
-> ```dotnetcli
-> dotnet ef database drop
-> ```
->
-> 下面的部分说明如何运行 CLI 命令。
+下面的部分说明如何运行 CLI 命令。
 
 ## <a name="create-an-initial-migration"></a>创建初始迁移
 
@@ -94,7 +86,7 @@ dotnet ef migrations add InitialCreate
 
 ```console
 info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
-      Entity Framework Core 2.2.0-rtm-35687 initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+      Entity Framework Core initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
 Done. To undo this action, use 'ef migrations remove'
 ```
 
@@ -132,7 +124,7 @@ dotnet ef database update
 
 ```text
 info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
-      Entity Framework Core 2.2.0-rtm-35687 initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+      Entity Framework Core initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
 info: Microsoft.EntityFrameworkCore.Database.Command[20101]
       Executed DbCommand (274ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
       CREATE DATABASE [ContosoUniversity2];
@@ -155,7 +147,7 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 info: Microsoft.EntityFrameworkCore.Database.Command[20101]
       Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
       INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-      VALUES (N'20190327172701_InitialCreate', N'2.2.0-rtm-35687');
+      VALUES (N'20190327172701_InitialCreate', N'5.0-rtm');
 Done.
 ```
 
@@ -181,20 +173,9 @@ Done.
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples)
 
 ## <a name="next-step"></a>下一步
-
-在本教程中，你将了解：
-
-> [!div class="checklist"]
-> * 已了解迁移相关信息
-> * 已了解 NuGet 迁移包
-> * 已更改连接字符串
-> * 已创建初始迁移
-> * 已检查 Up 和 Down 方法
-> * 已了解数据模型快照
-> * 已应用迁移
 
 请继续阅读下一篇教程，开始了解有关展开数据模型的更高级主题。 同时还将介绍创建并应用其他迁移的方法。
 

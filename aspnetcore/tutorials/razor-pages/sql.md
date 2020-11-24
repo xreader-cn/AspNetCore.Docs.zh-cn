@@ -20,14 +20,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 3e78b5b6dab7145413ae8612bfeb352f328ec86a
-ms.sourcegitcommit: 342588e10ae0054a6d6dc0fd11dae481006be099
+ms.openlocfilehash: 2c5bc221901d9e41984fb591755a8ad94e7e1420
+ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2020
-ms.locfileid: "94360710"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94570232"
 ---
-# <a name="part-4-work-with-a-database-and-aspnet-core"></a>第 4 部分：使用数据库和 ASP.NET Core
+# <a name="part-4-of-tutorial-series-on-no-locrazor-pages"></a>Razor 页面教程系列第 4 部分
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Joe Audette](https://twitter.com/joeaudette)
 

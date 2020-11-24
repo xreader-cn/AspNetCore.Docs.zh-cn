@@ -3,7 +3,7 @@ title: 第 3 部分，将视图添加到 ASP.NET Core MVC 应用
 author: rick-anderson
 description: ASP.NET Core MVC 教程系列第 3 部分。
 ms.author: riande
-ms.date: 8/04/2019
+ms.date: 11/16/2019
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 56f39643ccd69c6508148374033208eb3b2f25ab
-ms.sourcegitcommit: 91e14f1e2a25c98a57c2217fe91b172e0ff2958c
+ms.openlocfilehash: ce2754d22b61578bdbe5e78a69e08bdc1e83190d
+ms.sourcegitcommit: fb208f907249cc7aab029afff941a0266c187050
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94422712"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94688342"
 ---
 # <a name="part-3-add-a-view-to-an-aspnet-core-mvc-app"></a>第 3 部分，将视图添加到 ASP.NET Core MVC 应用
 
@@ -74,11 +74,11 @@ ms.locfileid: "94422712"
 * 在“新建文件”对话框中：
 
   * 在左侧窗格中，选择“ASP.NET Core”。
-  * 在中间窗格中，选择“MVC 视图页面”。
+  * 选择中心窗格中的 Razor 视图。
   * 在“名称”框中键入“Index”。
   * 选择“新建”。
 
-![“添加新项”对话框](adding-view/_static/add_view_mac.png)
+![“添加新项”对话框](adding-view/_static/add_view_macVSM8.9.png)
 
 ---
 
@@ -121,7 +121,7 @@ ms.locfileid: "94422712"
 
 在前面的标记中，省略了 `asp-area=""` [定位点标记帮助程序属性](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)和属性值，因为此应用未使用[区域](xref:mvc/controllers/areas)。
 
-**说明** ：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
+**说明**：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
 
 保存更改并选择“隐私”链接。 请注意浏览器选项卡上的标题现在显示的是“隐私策略 - 电影应用”，而不是“隐私策略 - Mvc 电影”：
 
@@ -281,7 +281,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 > We haven't implemented the `Movies` controller yet, so if you click the `Movie App` link, you get a 404 (Not found) error.
 -->
 
-**说明** ：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
+**说明**：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
 
 保存更改并选择“隐私”链接。 请注意浏览器选项卡上的标题现在显示的是“隐私策略 - 电影应用”，而不是“隐私策略 - Mvc 电影”：
 

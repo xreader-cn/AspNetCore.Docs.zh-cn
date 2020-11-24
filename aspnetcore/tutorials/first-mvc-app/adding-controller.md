@@ -3,7 +3,7 @@ title: 第 2 部分，将控制器添加到 ASP.NET Core MVC 应用
 author: rick-anderson
 description: ASP.NET Core MVC 教程系列第 2 部分。
 ms.author: riande
-ms.date: 08/05/2017
+ms.date: 11/12/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 1851a61441ed351442f86939022319ad59d10006
-ms.sourcegitcommit: 91e14f1e2a25c98a57c2217fe91b172e0ff2958c
+ms.openlocfilehash: e51edc15b14a5bdd1d53e547e0b469ad608f46d0
+ms.sourcegitcommit: fb208f907249cc7aab029afff941a0266c187050
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94422610"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94688395"
 ---
 # <a name="part-2-add-a-controller-to-an-aspnet-core-mvc-app"></a>第 2 部分，将控制器添加到 ASP.NET Core MVC 应用
 
@@ -47,19 +47,19 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”中，右击“控制器 > 添加 > 控制器”
-  ![解决方案资源管理器，右击“控制器 > 添加 > 控制器”](~/tutorials/first-mvc-app/adding-controller/_static/add_controllerCopy.png)
+  ![解决方案资源管理器，右击“控制器 > 添加 > 控制器”](~/tutorials/first-mvc-app/adding-controller/_static/add_controllercopyVS19v16.9.png)
 
 * 在“添加基架”对话框中，选择“MVC 控制器 - 空” 
 
-  ![添加 MVC 控制器并为其命名](~/tutorials/first-mvc-app/adding-controller/_static/acCopy.png)
+  ![添加 MVC 控制器并为其命名](~/tutorials/first-mvc-app/adding-controller/_static/acCopyVS19v16.9.png)
 
-* 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”  。
+* 在“添加新项 - MvcMovie”对话框中，输入 HelloWorldController.cs，然后选择“添加”  。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 选择“EXPLORER”图标，然后按住 Control 并单击（右键单击）“控制器”，选择“新建文件”，然后将新文件命名为 HelloWorldController.cs 。
 
-  ![上下文菜单](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
+  ![上下文菜单](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_fileVSC1.51.png)
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 

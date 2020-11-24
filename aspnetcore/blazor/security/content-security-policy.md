@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/content-security-policy
-ms.openlocfilehash: 66fd41abe4f85071797bacc0a5531bbab35bd227
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 744449240fabc3dae317d0d7bc9090311521c224
+ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055589"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94570115"
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-no-locblazor"></a>为 ASP.NET Core Blazor 强制实施内容安全策略
 
@@ -57,12 +57,9 @@ ms.locfileid: "93055589"
   * 指定用于启动脚本的 `https://stackpath.bootstrapcdn.com/` 主机源。
   * 指定 `self`，以指示应用的来源（包括方案和端口号）是有效源。
   * 在 Blazor WebAssembly 应用中：
-    * 指定以下哈希，以允许加载所需的 Blazor WebAssembly 内联脚本：
-      * `sha256-v8ZC9OgMhcnEQ/Me77/R9TlJfzOBqrMTW8e1KuqLaqc=`
-      * `sha256-If//FtbPc03afjLezvWHnC3Nbu4fDM04IIzkPaf3pH0=`
-      * `sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=`
+    * 执行哈希以允许加载所需的脚本。
     * 指定 `unsafe-eval`，以使用 `eval()` 以及通过字符串创建代码的方法。
-  * 在 Blazor Server 应用中，为针对样式表执行回退检测的内联脚本指定 `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` 哈希。
+  * 在 Blazor Server应用中，执行哈希以允许加载所需的脚本。
 * [style-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src)：指示样式表的有效源。
   * 指定用于启动样式表的 `https://stackpath.bootstrapcdn.com/` 主机源。
   * 指定 `self`，以指示应用的来源（包括方案和端口号）是有效源。
@@ -93,6 +90,29 @@ ms.locfileid: "93055589"
 
 在 `wwwroot/index.html` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：
 
+::: moniker range=">= aspnetcore-5.0"
+
+```html
+<meta http-equiv="Content-Security-Policy" 
+      content="base-uri 'self';
+               block-all-mixed-content;
+               default-src 'self';
+               img-src data: https:;
+               object-src 'none';
+               script-src https://stackpath.bootstrapcdn.com/ 
+                          'self' 
+                          'sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=' 
+                          'unsafe-eval';
+               style-src https://stackpath.bootstrapcdn.com/
+                         'self'
+                         'unsafe-inline';
+               upgrade-insecure-requests;">
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 ```html
 <meta http-equiv="Content-Security-Policy" 
       content="base-uri 'self';
@@ -112,9 +132,38 @@ ms.locfileid: "93055589"
                upgrade-insecure-requests;">
 ```
 
+::: moniker-end
+
+添加应用所需的其他 `script-src` 和 `style-src` 哈希。 在开发期间，使用联机工具或浏览器开发人员工具来计算哈希。 例如，以下浏览器工具控制台错误为策略未涵盖的必需脚本报告哈希：
+
+> 拒绝执行内联脚本，因为它违反以下内容安全策略指令：“...”。 若要启用内联执行，需要使用“unsafe-inline”关键字、哈希（“sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=”）或 nonce（“nonce-...”）。
+
+与错误关联的特定脚本显示在错误旁边的控制台中。
+
 ### Blazor Server
 
 在 `Pages/_Host.cshtml` 主机页面的 `<head>` 内容中，应用[策略指令](#policy-directives)部分中描述的指令：
+
+::: moniker range=">= aspnetcore-5.0"
+
+```cshtml
+<meta http-equiv="Content-Security-Policy" 
+      content="base-uri 'self';
+               block-all-mixed-content;
+               default-src 'self';
+               img-src data: https:;
+               object-src 'none';
+               script-src https://stackpath.bootstrapcdn.com/ 
+                          'self';
+               style-src https://stackpath.bootstrapcdn.com/
+                         'self' 
+                         'unsafe-inline';
+               upgrade-insecure-requests;">
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 
 ```cshtml
 <meta http-equiv="Content-Security-Policy" 
@@ -131,6 +180,14 @@ ms.locfileid: "93055589"
                          'unsafe-inline';
                upgrade-insecure-requests;">
 ```
+
+::: moniker-end
+
+添加应用所需的其他 `script-src` 和 `style-src` 哈希。 在开发期间，使用联机工具或浏览器开发人员工具来计算哈希。 例如，以下浏览器工具控制台错误为策略未涵盖的必需脚本报告哈希：
+
+> 拒绝执行内联脚本，因为它违反以下内容安全策略指令：“...”。 若要启用内联执行，需要使用“unsafe-inline”关键字、哈希（“sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=”）或 nonce（“nonce-...”）。
+
+与错误关联的特定脚本显示在错误旁边的控制台中。
 
 ## <a name="meta-tag-limitations"></a>元标记限制
 

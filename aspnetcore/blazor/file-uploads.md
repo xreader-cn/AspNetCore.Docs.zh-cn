@@ -19,12 +19,12 @@ no-loc:
 - SignalR
 ms.date: 10/27/2020
 uid: blazor/file-uploads
-ms.openlocfilehash: c0806c3a68a4d9e698925f6ec955dd2f53d7818f
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 77c2874eef788b8083758c087913a7a04c55fa2b
+ms.sourcegitcommit: 54fdca99f30b18d69cf0753ca3c84c7dab8f2b0e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056122"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94691165"
 ---
 # <a name="aspnet-core-no-locblazor-file-uploads"></a>ASP.NET Core Blazor 文件上传
 
@@ -46,12 +46,15 @@ ms.locfileid: "93056122"
 从用户选择的文件中读取数据：
 
 * 对文件调用 `Microsoft.AspNetCore.Components.Forms.IBrowserFile.OpenReadStream`，并从返回的流中进行读取。 有关详细信息，请参阅[文件流](#file-streams)部分。
-* `OpenReadStream` 返回的 <xref:System.IO.Stream> 强制采用正在读取的 `Stream` 的最大大小（以字节为单位）。 默认情况下，只允许读取小于 524,288 KB (512 KB) 的文件，任何进一步读取都将导致异常。 此限制旨在防止开发人员意外地将大型文件读入到内存中。 如果需要，可以使用 `Microsoft.AspNetCore.Components.Forms.IBrowserFile.OpenReadStream` 上的 `maxAllowedSize` 参数指定更大的大小。
+* `OpenReadStream` 返回的 <xref:System.IO.Stream> 强制采用正在读取的 `Stream` 的最大大小（以字节为单位）。 默认情况下，允许读取不大于 512,000 字节 (500 KB) 的文件，任何进一步读取都将导致异常。 此限制旨在防止开发人员意外地将大型文件读入到内存中。 如果需要，可以使用 `Microsoft.AspNetCore.Components.Forms.IBrowserFile.OpenReadStream` 上的 `maxAllowedSize` 参数指定更大的大小。
 * 避免将传入的文件流直接读入到内存中。 例如，不要将文件字节复制到 <xref:System.IO.MemoryStream>，也不要以字节数组的形式进行读取。 这些方法可能会导致性能和安全问题，尤其是在 Blazor Server 中。 请考虑将文件字节复制到外部存储（如 blob 或磁盘上的文件）。
 
 接收图像文件的组件可以对文件调用 `RequestImageFileAsync` 便利方法，在图像流式传入应用之前，在浏览器的 JavaScript 运行时内调整图像数据的大小。
 
 以下示例演示在组件中上传多个图像文件。 通过 `InputFileChangeEventArgs.GetMultipleFiles`，可以读取多个文件。 请指定希望读取的最大文件数，以防止恶意用户上传的文件数超过应用的预期值。 如果文件上传不支持多个文件，则可以通过 `InputFileChangeEventArgs.File` 读取第一个文件，并且只能读取此文件。
+
+> [!NOTE]
+> <xref:Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs> 位于 <xref:Microsoft.AspNetCore.Components.Forms?displayProperty=fullName> 命名空间，后者通常是应用的 `_Imports.razor` 文件中的一个命名空间。
 
 ```razor
 <h3>Upload PNG images</h3>
@@ -75,7 +78,7 @@ ms.locfileid: "93056122"
 }
 
 @code {
-    IList<string> imageDataUrls = new List<string>();
+    private IList<string> imageDataUrls = new List<string>();
 
     private async Task OnInputFileChange(InputFileChangeEventArgs e)
     {

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 31db9aea9e0b7ed21cae2f87fbb9e2e649782697
-ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
+ms.openlocfilehash: 3f7cce475b5c7b0fcbb93644b2c39acd637a6f9d
+ms.sourcegitcommit: 98f92d766d4f343d7e717b542c1b08da29e789c1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/03/2020
-ms.locfileid: "93234460"
+ms.lasthandoff: 11/13/2020
+ms.locfileid: "94595475"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core 依赖注入
 
@@ -151,7 +151,7 @@ public void Configure(IApplicationBuilder app, ILogger<Startup> logger)
 
 ## <a name="register-groups-of-services-with-extension-methods"></a>使用扩展方法注册服务组
 
-ASP.NET Core 框架使用一种约定来注册一组相关服务。 约定使用单个 `Add{GROUP_NAME}` 扩展方法来注册该框架功能所需的所有服务。 例如，<Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers> 扩展方法会注册 MVC 控制器所需的服务。
+ASP.NET Core 框架使用一种约定来注册一组相关服务。 约定使用单个 `Add{GROUP_NAME}` 扩展方法来注册该框架功能所需的所有服务。 例如，<xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers%2A> 扩展方法会注册 MVC 控制器所需的服务。
 
 下面的代码通过个人用户帐户由 Razor 页面模板生成，并演示如何使用扩展方法 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> 和 <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity%2A> 将其他服务添加到容器中：
 
@@ -328,7 +328,7 @@ Service1.Dispose
 
     ![错误代码](dependency-injection/_static/bad.png)
 
-  **正确** ：
+  **正确**：
 
   ```csharp
   public class MyClass
@@ -500,7 +500,10 @@ services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
 
 > [!NOTE]
-> 每个 `services.Add{SERVICE_NAME}` 扩展方法添加（并可能配置）服务。 例如，`services.AddMvc()` 添加 Razor Pages 和 MVC 需要的服务。 我们建议应用遵循此约定。 将扩展方法置于 [Microsoft.Extensions.DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) 命名空间中以封装服务注册组。
+> 每个 `services.Add{SERVICE_NAME}` 扩展方法添加并可能配置服务。 例如，`services.AddControllersWithViews`、`services.AddRazorPages` 和 `services.AddControllers` 会添加 ASP.NET Core 应用所需的服务。 我们建议应用遵循此约定。 将扩展方法置于 <xref:Microsoft.Extensions.DependencyInjection?displayProperty=fullName> 命名空间中以封装服务注册的组。 还包括用于 DI 扩展方法的命名空间部分 `Microsoft.Extensions.DependencyInjection`：
+>
+> * 允许在不添加其他 `using` 块的情况下在 [IntelliSense](/visualstudio/ide/using-intellisense) 中显示它们。
+> * 防止在通常从中调用这些扩展方法的 `Startup` 类中出现过多的 `using` 语句。
 
 如果服务的构造函数需要[内置类型](/dotnet/csharp/language-reference/keywords/built-in-types-table)（如 `string`），则可以使用[配置](xref:fundamentals/configuration/index)或[选项模式](xref:fundamentals/configuration/options)注入该类型：
 
@@ -596,7 +599,7 @@ public void ConfigureServices(IServiceCollection services)
 
 在处理请求的应用中，在请求结束时会释放暂时服务。
 
-### <a name="scoped"></a>作用域
+### <a name="scoped"></a>范围内
 
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 针对每个客户端请求（连接）创建一次。
 
@@ -982,7 +985,7 @@ public void ConfigureServices(IServiceCollection services)
       }
       ```
    
-    **正确** ：
+    **正确**：
 
     ```csharp
     public class MyClass

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 5d9934c8bebbe994489380faf55140fce6beec95
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: f5373f1905958ee5c51ee76bd07690d079fb50f5
+ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94507793"
+ms.lasthandoff: 11/12/2020
+ms.locfileid: "94570011"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -703,6 +703,10 @@ services.AddServerSideBlazor()
 * 在服务器收到数据后，数据可以：
   * 暂时存储在内存缓冲区中，直到收集完所有数据段。
   * 立即使用。 例如，在收到每个数据段时，数据可以立即存储到数据库中或写入磁盘。
+  
+## <a name="js-modules"></a>JS 模块
+
+对于 JS 隔离，JS 互操作适用于浏览器针对 [EcmaScript 模块 (ESM)](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules) ([ECMAScript specification](https://tc39.es/ecma262/#sec-modules)) 的默认支持。
 
 ## <a name="additional-resources"></a>其他资源
 

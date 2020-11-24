@@ -5,7 +5,7 @@ description: 了解如何在应用中路由请求以及有关 NavLink 组件的�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/02/2020
+ms.date: 11/17/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: 8f0aa80d092b6678131a2b7152f21ecb8e168257
-ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
+ms.openlocfilehash: c4da8bf8447618c9a7a2d0f690164fe48a7ed006
+ms.sourcegitcommit: 8b867c4cb0c3b39bbc4d2d87815610d2ef858ae7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430986"
+ms.lasthandoff: 11/17/2020
+ms.locfileid: "94703691"
 ---
 # <a name="aspnet-core-no-locblazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -112,7 +112,31 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 
 ## <a name="route-parameters"></a>路由参数
 
-路由器使用路由参数以相同的名称填充相应的组件参数（不区分大小写）：
+路由器使用路由参数以相同的名称填充相应的组件参数（不区分大小写）。
+
+::: moniker range=">= aspnetcore-5.0"
+
+支持可选参数。 在下面的示例中，`text` 可选参数将 route 段的值赋给组件的 `Text` 属性。 如果该段不存在，则将 `Text` 的值设置为 `fantastic`：
+
+```razor
+@page "/RouteParameter/{text?}"
+
+<h1>Blazor is @Text!</h1>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Text = Text ?? "fantastic";
+    }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 
 ```razor
 @page "/RouteParameter"
@@ -132,6 +156,17 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 ```
 
 不支持可选参数。 上一个示例中应用了两个 `@page` 指令。 第一个指令允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 路由参数，并将值赋予 `Text` 属性。
+
+::: moniker-end
+
+在 [`OnParametersSet`](xref:blazor/components/lifecycle#after-parameters-are-set) 上还不是在 [`OnInitialized`](xref:blazor/components/lifecycle#component-initialization-methods) 上使用，以允许应用使用不同的可选参数值导航到同一组件。 根据上述示例，当用户应该能够从 `/RouteParameter` 导航到 `/RouteParameter/awesome` 或从 `/RouteParameter/awesome` 导航到 `/RouteParameter` 时使用 `OnParametersSet`：
+
+```csharp
+protected override void OnParametersSet()
+{
+    Text = Text ?? "fantastic";
+}
+```
 
 ## <a name="route-constraints"></a>路由约束
 
