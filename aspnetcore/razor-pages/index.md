@@ -1,7 +1,7 @@
 ---
 title: ASP.NET Core 中的 Razor Pages 介绍
 author: Rick-Anderson
-description: 了解 ASP.NET Core 中的 Razor Pages 如何使基于页面的编码方式比使用 MVC 更简单高效。
+description: 介绍了 ASP.NET Core 中的 Razor Pages 如何让编码以页面为中心的方案比使用 MVC 更容易和更高效。
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 02/12/2020
@@ -18,16 +18,15 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: 89e06d00e9312a428c4e164b0dc60527fe12d904
-ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
+ms.openlocfilehash: bc5f3c85d7ace120dec8369f4550a097b4f258ce
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430869"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417638"
 ---
 # <a name="introduction-to-no-locrazor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 介绍
 
-::: moniker range=">= aspnetcore-3.0"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Ryan Nowak](https://github.com/rynowak)
 
@@ -39,19 +38,43 @@ ms.locfileid: "94430869"
 
 ## <a name="prerequisites"></a>先决条件
 
+::: moniker range=">= aspnetcore-3.0 < aspnetcore-5.0"
+
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-5.0"
+
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs-5.0.md)]
+
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-5.0.md)]
+
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-5.0.md)]
+
+---
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 <a name="rpvs17"></a>
 
@@ -622,16 +645,6 @@ public string Message { get; set; }
 
 ::: moniker range="< aspnetcore-3.0"
 
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Ryan Nowak](https://github.com/rynowak)
-
-Razor Pages 是 ASP.NET Core MVC 的一个新特性，它可以使基于页面的编码方式更简单高效。
-
-若要查找使用模型视图控制器方法的教程，请参阅 [ASP.NET Core MVC 入门](xref:tutorials/first-mvc-app/start-mvc)。
-
-本文档介绍 Razor Pages。 它并不是分步教程。 如果认为某些部分过于复杂，请参阅 [Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start)。 有关 ASP.NET Core 的概述，请参阅 [ASP.NET Core 简介](xref:index)。
-
-## <a name="prerequisites"></a>先决条件
-
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
@@ -1025,7 +1038,7 @@ public class AboutModel : PageModel
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET 在[控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)上公开了 [TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_Controller_TempData) 属性。 此属性存储未读取的数据。 `Keep` 和 `Peek` 方法可用于检查数据，而不执行删除。 多个请求需要数据时，`TempData` 有助于进行重定向。
+ASP.NET 在[控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)上公开了 [TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata#Microsoft_AspNetCore_Mvc_Controller_TempData) 属性。 此属性存储未读取的数据。 `Keep` 和 `Peek` 方法可用于检查数据，而不执行删除。 多个请求需要数据时，`TempData` 有助于进行重定向。
 
 下面的代码使用 `TempData` 设置 `Message` 的值：
 

@@ -5,7 +5,7 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 3/29/2020
+ms.date: 11/23/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 9e744ec6d0f0dd72bded8284e98fd9ce53056b84
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: c04dcc65f7518d2d8b32cdce7a7fbb756dd8ec3a
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93057968"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417534"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -152,7 +152,7 @@ dotnet run
 
 以下 [setx](/windows-server/administration/windows-commands/setx) 命令可用于在 Windows 上设置环境键和值。 与 `set` 不同，`setx` 设置是持久的。 `/M` 在系统环境中设置变量。 如果未使用 `/M` 开关，则会设置用户环境变量。
 
-```cmd
+```console
 setx MyKey "My key from setx Environment" /M
 setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
@@ -193,6 +193,44 @@ dotnet run
 有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。
 
 有关 Azure 数据库连接字符串的信息，请参阅[连接字符串前缀](#constr)。
+
+### <a name="naming-of-environment-variables"></a>环境变量的命名
+
+环境变量名称反映了 appsettings.json 文件的结构。 层次结构中的每个元素由双下划线字符（更可取）或冒号分隔。 当元素结构包含数组时，应将数组索引视为此路径中的附加元素名称。 请考虑以下 appsettings.json 文件及其表示为环境变量的等效值。
+
+**appsettings.json**
+
+```json
+{
+    "SmtpServer": "smtp.example.com",
+    "Logging": [
+        {
+            "Name": "ToEmail",
+            "Level": "Critical",
+            "Args": {
+                "FromAddress": "MySystem@example.com",
+                "ToAddress": "SRE@example.com"
+            }
+        },
+        {
+            "Name": "ToConsole",
+            "Level": "Information"
+        }
+    ]
+}
+```
+
+环境变量
+
+```console
+setx SmtpServer=smtp.example.com
+setx Logging__0__Name=ToEmail
+setx Logging__0__Level=Critical
+setx Logging__0__Args__FromAddress=MySystem@example.com
+setx Logging__0__Args__ToAddress=SRE@example.com
+setx Logging__1__Name=ToConsole
+setx Logging__1__Level=Information
+```
 
 ### <a name="environment-variables-set-in-launchsettingsjson"></a>在 launchSettings.json 中设置的环境变量
 
@@ -647,25 +685,25 @@ Index: 5  Value: value5
 
 定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。
 
-*Models/EFConfigurationValue.cs* ：
+*Models/EFConfigurationValue.cs*：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
 添加 `EFConfigurationContext` 以存储和访问配置的值。
 
-*EFConfigurationProvider/EFConfigurationContext.cs* ：
+*EFConfigurationProvider/EFConfigurationContext.cs*：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
 创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。
 
-*EFConfigurationProvider/EFConfigurationSource.cs* ：
+*EFConfigurationProvider/EFConfigurationSource.cs*：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
 通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。 当数据库为空时，配置提供程序将对其进行初始化。 由于[配置密钥不区分大小写](#keys)，因此用来初始化数据库的字典是用不区分大小写的比较程序 ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)) 创建的。
 
-*EFConfigurationProvider/EFConfigurationProvider.cs* ：
+*EFConfigurationProvider/EFConfigurationProvider.cs*：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
@@ -1110,7 +1148,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 密钥       | 值             |
+| 键       | 值             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1670,7 +1708,7 @@ _config.GetSection("array").Bind(arrayExample);
 
 可以在由任何在配置中生成正确键值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。 如果示例包含具有缺失键值对的其他 JSON 配置提供程序，则 `ArrayExample.Entries` 与完整配置数组相匹配：
 
-*missing_value.json* :
+*missing_value.json*:
 
 ```json
 {
@@ -1687,7 +1725,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 密钥             | 值  |
+| 键             | 值  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1741,25 +1779,25 @@ JSON 配置提供程序将配置数据读入以下键值对：
 
 定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。
 
-*Models/EFConfigurationValue.cs* ：
+*Models/EFConfigurationValue.cs*：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
 添加 `EFConfigurationContext` 以存储和访问配置的值。
 
-*EFConfigurationProvider/EFConfigurationContext.cs* ：
+*EFConfigurationProvider/EFConfigurationContext.cs*：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
 创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。
 
-*EFConfigurationProvider/EFConfigurationSource.cs* ：
+*EFConfigurationProvider/EFConfigurationSource.cs*：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
 通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。 当数据库为空时，配置提供程序将对其进行初始化。
 
-*EFConfigurationProvider/EFConfigurationProvider.cs* ：
+*EFConfigurationProvider/EFConfigurationProvider.cs*：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
