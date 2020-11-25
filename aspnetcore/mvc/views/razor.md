@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: c1278b0cd3e58814b1c06dca81efd662c3de0c54
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 91e35a7cbd97e2bd6e77566362f02409915de7d7
+ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059190"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "96035705"
 ---
 # <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor ASP.NET Core 的语法参考
 
@@ -497,7 +497,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker-end
 
-例如： 。
+例如：
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
@@ -650,7 +650,7 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 `@namespace` 指令：
 
 * 设置生成的 Razor 页、MVC 视图或组件的类的命名空间 Razor 。
-* 在目录树中最近的导入文件中设置页面、视图或组件类的根派生命名空间， *_ViewImports* ) 或 *_Imports razor* (组件)  (视图或页面。 Razor
+* 在目录树中最近的导入文件中设置页面、视图或组件类的根派生命名空间， *_ViewImports*) 或 *_Imports razor* (组件)  (视图或页面。 Razor
 
 ```cshtml
 @namespace Your.Namespace.Here
@@ -658,27 +658,27 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 
 对于 Razor 下表中所示的页面示例：
 
-* 每个页面都导入 Pages/_ViewImports.cshtml  。
-* Pages/_ViewImports.cshtml 包含 `@namespace Hello.World` 。
+* 每个页面都导入 Pages/_ViewImports.cshtml。
+* Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`。
 * 每个页面都有 `Hello.World`，作为其命名空间的根。
 
-| 页                                        | 命名空间                             |
+| 页面                                        | 命名空间                             |
 | ------------------------------------------- | ------------------------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`                         |
-| Pages/MorePages/Page.cshtml                | `Hello.World.MorePages`               |
-| Pages/MorePages/EvenMorePages/Page.cshtml  | `Hello.World.MorePages.EvenMorePages` |
+| Pages/MorePages/Page.cshtml               | `Hello.World.MorePages`               |
+| Pages/MorePages/EvenMorePages/Page.cshtml | `Hello.World.MorePages.EvenMorePages` |
 
 上述关系适用于导入与 MVC 视图和组件一起使用的文件 Razor 。
 
 当多个导入文件具有 `@namespace` 指令时，最靠近目录树中的页面、视图或组件的文件将用于设置根命名空间。
 
-如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示  。
+如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示。
 
-| 页                                        | 命名空间               |
+| 页面                                        | 命名空间               |
 | ------------------------------------------- | ----------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`           |
-| Pages/MorePages/Page.cshtml                | `Hello.World.MorePages` |
-| Pages/MorePages/EvenMorePages/Page.cshtml  | `Another.Planet`        |
+| Pages/MorePages/Page.cshtml               | `Hello.World.MorePages` |
+| Pages/MorePages/EvenMorePages/Page.cshtml | `Another.Planet`        |
 
 ### `@page`
 
@@ -694,6 +694,20 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 ::: moniker range="< aspnetcore-3.0"
 
 `@page` *Cshtml* 文件第一行的指令指示该文件是一个 Razor 页面。 有关详细信息，请参阅 <xref:razor-pages/index>。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-5.0"
+
+### `@preservewhitespace`
+
+*此方案仅适用于 Razor (`.razor`) 的组件。*
+
+如果设置为 `false` (默认) ，则将在 Razor 以下情况下删除从组件 () 中呈现的标记中的空白 `.razor` ：
+
+* 元素中的前导或结尾。
+* 参数内的前导或结尾 `RenderFragment` 。 例如，传递到另一个组件的子内容。
+* 它位于 c # 代码块之前或之后（如 `@if` 或） `@foreach` 。
 
 ::: moniker-end
 
@@ -950,7 +964,7 @@ C # Razor 关键字必须用 `@(@C# Razor Keyword)` (进行双转义，例如 `@
    Index.cshtml.cs
   ```
 
-在 Debug 配置下生成项目将生成以下 obj 目录  ：
+在 Debug 配置下生成项目将生成以下 obj 目录：
 
 ```
  obj/
@@ -969,7 +983,7 @@ C # Razor 关键字必须用 `@(@C# Razor Keyword)` (进行双转义，例如 `@
            Index.g.cshtml.cs
 ```
 
-若要查看 *页面/索引* 生成的类，请打开 *obj/Debug/netcoreapp 2.1/ Razor /Pages/Index.g.cshtml.cs* 。
+若要查看 *页面/索引* 生成的类，请打开 *obj/Debug/netcoreapp 2.1/ Razor /Pages/Index.g.cshtml.cs*。
 
 ::: moniker-end
 
@@ -994,8 +1008,8 @@ C # Razor 关键字必须用 `@(@C# Razor Keyword)` (进行双转义，例如 `@
 Razor视图引擎为视图执行区分大小写的查找。 但是，实际查找取决于基础文件系统：
 
 * 基于文件的源：
-  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml* 、 */Views/home/test.cshtml* 以及任何其他大小写变体。
-  * 在区分大小写的文件系统（例如，Linux、OSX 以及使用 `EmbeddedFileProvider` 构建的文件系统）上，查找区分大小写。 例如，`return View("Test")` 专门匹配 */Views/Home/Test.cshtml* 。
+  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml*、*/Views/home/test.cshtml* 以及任何其他大小写变体。
+  * 在区分大小写的文件系统（例如，Linux、OSX 以及使用 `EmbeddedFileProvider` 构建的文件系统）上，查找区分大小写。 例如，`return View("Test")` 专门匹配 */Views/Home/Test.cshtml*。
 * 预编译视图：在 ASP.NET Core 2.0 及更高版本中，预编译视图查找在所有操作系统上均不区分大小写。 该行为与 Windows 上物理文件提供程序的行为相同。 如果两个预编译视图仅大小写不同，则查找的结果具有不确定性。
 
 建议开发人员将文件和目录名称的大小写与以下项的大小写匹配：

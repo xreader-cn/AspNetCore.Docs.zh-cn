@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/key-vault-configuration
-ms.openlocfilehash: fcd5524bed11cca2380ffd8956f437f742729b55
-ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
+ms.openlocfilehash: 7f5cd3de38f1e45d9b188c513a0e62ca658b2992
+ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2020
-ms.locfileid: "95417601"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "96035900"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
@@ -54,7 +54,7 @@ ms.locfileid: "95417601"
 
 ## <a name="secret-storage-in-the-development-environment"></a>开发环境中的机密存储
 
-使用 [机密管理器工具](xref:security/app-secrets)在本地设置机密。 当在开发环境中的本地计算机上运行示例应用时，会从本地密钥管理器存储中加载密码。
+使用 [机密管理器工具](xref:security/app-secrets)在本地设置机密。 在开发环境中的本地计算机上运行示例应用时，会从本地用户机密存储区中加载机密。
 
 机密管理器工具需要 `<UserSecretsId>` 应用的项目文件中的属性。 将属性值 (`{GUID}`) 设置为任何唯一 GUID：
 
@@ -142,7 +142,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 选择“添加访问策略”。
 1. 打开 **机密权限** ，并为应用提供 **Get** 和 **List** 权限。
 1. 选择 " **选择主体** "，并按名称选择注册的应用。 选择“选择”按钮  。
-1. 选择“确定”  。
+1. 选择“确定”。
 1. 选择“保存”。
 1. 部署应用。
 
@@ -225,7 +225,7 @@ config.AddAzureKeyVault(new SecretClient(new URI("Your Key Vault Endpoint"), new
     });
 ```
 
-| 属性         | 说明 |
+| properties         | 说明 |
 | ---------------- | ----------- |
 | `Manager`        | `Azure.Extensions.Aspnetcore.Configuration.Secrets` 用于控制机密加载的实例。 |
 | `ReloadInterval` | `Timespan` 如果为，则在轮询密钥保管库以进行更改之间等待。 默认值为 `null` (不) 重新加载配置。 |
@@ -328,7 +328,7 @@ Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的
 
 前面的 JSON 文件中所示的配置将存储在 Azure Key Vault 中，使用双划线 (`--`) 表示法和数值段：
 
-| 键 | 值 |
+| 密钥 | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -398,7 +398,7 @@ Configuration.Reload();
 
 ## <a name="secret-storage-in-the-development-environment"></a>开发环境中的机密存储
 
-使用 [机密管理器工具](xref:security/app-secrets)在本地设置机密。 当在开发环境中的本地计算机上运行示例应用时，会从本地密钥管理器存储中加载密码。
+使用 [机密管理器工具](xref:security/app-secrets)在本地设置机密。 在开发环境中的本地计算机上运行示例应用时，会从本地用户机密存储区中加载机密。
 
 机密管理器工具需要 `<UserSecretsId>` 应用的项目文件中的属性。 将属性值 (`{GUID}`) 设置为任何唯一 GUID：
 
@@ -486,7 +486,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 选择“添加访问策略”。
 1. 打开 **机密权限** ，并为应用提供 **Get** 和 **List** 权限。
 1. 选择 " **选择主体** "，并按名称选择注册的应用。 选择“选择”按钮  。
-1. 选择“确定”  。
+1. 选择“确定”。
 1. 选择“保存”。
 1. 部署应用。
 
@@ -655,7 +655,7 @@ Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的
 
 前面的 JSON 文件中所示的配置将存储在 Azure Key Vault 中，使用双划线 (`--`) 表示法和数值段：
 
-| 键 | 值 |
+| 密钥 | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
