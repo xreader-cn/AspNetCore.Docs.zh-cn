@@ -18,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/social/index
-ms.openlocfilehash: 1f7c8cd0716f1ada3517add0d37a09e419f38774
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: ca5fd8f746e759d1994dde9a2a0d5b5fd6c88d1a
+ms.sourcegitcommit: 59d95a9106301d5ec5c9f612600903a69c4580ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93053301"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "95870446"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
 作者：[Valeriy Novytskyy](https://github.com/01binary) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-本教程演示如何生成 ASP.NET Core 3.0 应用，该应用可让用户使用外部身份验证提供程序提供的凭据通过 OAuth 2.0 登录。
+本教程演示如何生成 ASP.NET Core 应用，该应用可让用户使用外部身份验证提供程序提供的凭据通过 OAuth 2.0 登录。
 
 以下几节中介绍了 [Facebook](xref:security/authentication/facebook-logins)、[Twitter](xref:security/authentication/twitter-logins)、[Google](xref:security/authentication/google-logins) 和 [Microsoft](xref:security/authentication/microsoft-logins) 提供程序，这些提供程序使用本文中创建的初学者项目。 第三方程序包中提供了其他提供程序，例如 [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers) 和 [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)。
 
@@ -46,7 +46,7 @@ ms.locfileid: "93053301"
 
 * 创建新项目。
 * 依次选择“ASP.NET Core Web 应用程序”和“下一步” 。
-* 提供项目名称，再确认或更改位置 。 选择“创建”。
+* 提供项目名称，再确认或更改位置 。 选择“创建”  。
 * 在下拉列表 (ASP.NET Core {X.Y}) 中选择最新版 ASP.NET Core，然后选择“Web 应用程序” 。
 * 在“身份验证”下，选择“更改”再设置针对单个用户帐户的身份验证  。 选择“确定”。
 * 在“创建新的 ASP.NET Core Web 应用程序”窗口中，选择“创建” 。
