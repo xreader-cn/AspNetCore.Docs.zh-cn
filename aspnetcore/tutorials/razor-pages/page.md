@@ -20,12 +20,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: a9494feacbe783b20a9f5eb98ef9e481f2c713fa
-ms.sourcegitcommit: 342588e10ae0054a6d6dc0fd11dae481006be099
+ms.openlocfilehash: d655be26a794f87a0be07046ae1d6415256d592c
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2020
-ms.locfileid: "94360887"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417625"
 ---
 # <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>第 3 部分，ASP.NET Core 中已搭建基架的 Razor 页面
 
@@ -236,12 +236,6 @@ Visual Studio 以用于标记帮助程序的特殊加粗字体显示以下标记
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
-
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
-
-本教程介绍[上一教程](xref:tutorials/razor-pages/model)中通过搭建基架创建的 Razor 页面。
-
-[查看或下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22)示例。
 
 ## <a name="the-no-loccreate-no-locdelete-details-and-edit-pages"></a>“Create”、“Delete”、“详细信息”和“编辑”页
 

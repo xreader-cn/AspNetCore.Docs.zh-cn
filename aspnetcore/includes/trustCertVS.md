@@ -9,3 +9,5 @@ Visual Studio 会显示以下对话框：
 ![安全警告对话](~/getting-started/_static/cert.png)
 
 如果你同意信任开发证书，请选择“是”。 
+
+[!INCLUDE[trust FF](~/includes/trust-ff.md)]

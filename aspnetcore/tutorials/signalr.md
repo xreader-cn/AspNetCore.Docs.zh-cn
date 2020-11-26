@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 59c296f3388e71254badb02fa3ae4279005c359c
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 1dad2264250bf43ec6c1df679b8754a82a5addfd
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056876"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417664"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-no-locsignalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -82,7 +82,8 @@ ms.locfileid: "93056876"
 
    ```dotnetcli
    dotnet new webapp -o SignalRChat
-   code -r SignalRChat
+   cd SignalRChat
+   code -r .
    ```
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
