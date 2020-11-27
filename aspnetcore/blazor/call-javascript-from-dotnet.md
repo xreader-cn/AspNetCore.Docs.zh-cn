@@ -5,7 +5,7 @@ description: 了解如何在 Blazor 应用中从 JavaScript 函数调用 .NET �
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, devx-track-js
-ms.date: 10/20/2020
+ms.date: 11/25/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,16 +19,16 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: f5373f1905958ee5c51ee76bd07690d079fb50f5
-ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
+ms.openlocfilehash: c73de0e30b7b564915f30d75f754f89fecccdc78
+ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94570011"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "96035718"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
-作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
+作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27)、[Pranav Krishnamoorthy](https://github.com/pranavkm) 和 [Luke Latham](https://github.com/guardrex)
 
 Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。 这被称为 JavaScript 互操作（JS 互操作） 。
 
@@ -543,28 +543,6 @@ public async ValueTask<string> Prompt(string message)
 
 `IJSInProcessObjectReference` 表示对某个 JavaScript 对象的引用，该对象的函数可以同步进行调用。
 
-`IJSUnmarshalledObjectReference` 表示对某个 JavaScript 对象的引用，该对象的函数无需 .NET 数据序列化开销即可调用。 当性能非常重要时，可以在 Blazor WebAssembly 中使用此项：
-
-```javascript
-window.unmarshalledInstance = {
-  helloWorld: function (personNamePointer) {
-    const personName = Blazor.platform.readStringField(value, 0);
-    return `Hello ${personName}`;
-  }
-};
-```
-
-```csharp
-var unmarshalledRuntime = (IJSUnmarshalledRuntime)js;
-var jsUnmarshalledReference = unmarshalledRuntime
-    .InvokeUnmarshalled<IJSUnmarshalledObjectReference>("unmarshalledInstance");
-
-string helloWorldString = jsUnmarshalledReference.InvokeUnmarshalled<string, string>(
-    "helloWorld");
-```
-
-在前面的示例中，<xref:Microsoft.JSInterop.IJSRuntime> 服务注入到类中并分配给 `js`（未显示）。
-
 ## <a name="use-of-javascript-libraries-that-render-ui-dom-elements"></a>使用呈现 UI 的 JavaScript 库（DOM 元素）
 
 有时你可能需要使用在浏览器 DOM 内生成可见用户界面元素的 JavaScript 库。 乍一想，这似乎很难，因为 Blazor 的 diffing 系统依赖于对 DOM 元素树的控制，并且如果某个外部代码使 DOM 树发生变化并为了应用 diff 而使其机制失效，就会产生错误。 这并不是一个特定于 Blazor 的限制。 任何基于 diff 的 UI 框架都会面临同样的问题。
@@ -707,6 +685,158 @@ services.AddServerSideBlazor()
 ## <a name="js-modules"></a>JS 模块
 
 对于 JS 隔离，JS 互操作适用于浏览器针对 [EcmaScript 模块 (ESM)](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules) ([ECMAScript specification](https://tc39.es/ecma262/#sec-modules)) 的默认支持。
+
+## <a name="unmarshalled-js-interop"></a>未封装的 JS 互操作
+
+当针对 JS 互操作序列化 .NET 对象并且满足以下任一条件时，Blazor WebAssembly 组件的性能可能会较差：
+
+* 大量 .NET 对象迅速地进行序列化。 示例：通过移动输入设备（如旋转鼠标滚轮）来进行 JS 互操作调用。
+* 对于 JS 互操作，必须序列化大型 .NET 对象或多个 .NET 对象。 示例：JS 互操作调用需要序列化数十个文件。
+
+<xref:Microsoft.JSInterop.IJSUnmarshalledObjectReference> 表示对某个 JavaScript 对象的引用，该对象的函数无需 .NET 数据序列化开销即可调用。
+
+在以下示例中：
+
+* 包含字符串和整数的 [struct](/dotnet/csharp/language-reference/builtin-types/struct) 会以非序列化方式传递给 JavaScript。
+* JavaScript 函数处理数据，并将布尔或字符串返回给调用方。
+* JavaScript 字符串无法直接转换为 .NET `string` 对象。 `unmarshalledFunctionReturnString` 函数调用 `BINDING.js_string_to_mono_string` 来管理 Javascript 字符串的转换。
+
+> [!NOTE]
+> 以下示例不是此方案的典型用例，因为传递给 JavaScript 的 [struct](/dotnet/csharp/language-reference/builtin-types/struct) 不会导致组件性能变差。 该示例仅使用一个小型对象来演示传递未序列化 .NET 数据的概念。
+
+`wwwroot/index.html` 中 `<script>` 块的内容或 `wwwroot/index.html` 引用的外部 Javascript 文件的内容：
+
+```javascript
+window.returnJSObjectReference = () => {
+    return {
+        unmarshalledFunctionReturnBoolean: function (fields) {
+            const name = Blazor.platform.readStringField(fields, 0);
+            const year = Blazor.platform.readInt32Field(fields, 8);
+
+            return name === "Brigadier Alistair Gordon Lethbridge-Stewart" &&
+                year === 1968;
+        },
+        unmarshalledFunctionReturnString: function (fields) {
+            const name = Blazor.platform.readStringField(fields, 0);
+            const year = Blazor.platform.readInt32Field(fields, 8);
+
+            return BINDING.js_string_to_mono_string(`Hello, ${name} (${year})!`);
+        }
+    };
+}
+```
+
+> [!WARNING]
+> `js_string_to_mono_string` 函数的名称、行为和存在可能会在 .NET 的将来版本中更改。 例如：
+>
+> * 函数可能已重命名。
+> * 函数本身可能会被删除，以便能够通过框架自动转换字符串。
+
+`Pages/UnmarshalledJSInterop.razor`（URL：`/unmarshalled-js-interop`）：
+
+```razor
+@page "/unmarshalled-js-interop"
+@using System.Runtime.InteropServices
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+<h1>Unmarshalled JS interop</h1>
+
+@if (callResultForBoolean)
+{
+    <p>JS interop was successful!</p>
+}
+
+@if (!string.IsNullOrEmpty(callResultForString))
+{
+    <p>@callResultForString</p>
+}
+
+<p>
+    <button @onclick="CallJSUnmarshalledForBoolean">
+        Call Unmarshalled JS & Return Boolean
+    </button>
+    <button @onclick="CallJSUnmarshalledForString">
+        Call Unmarshalled JS & Return String
+    </button>
+</p>
+
+<p>
+    <a href="https://www.doctorwho.tv">Doctor Who</a>
+    is a registered trademark of the <a href="https://www.bbc.com/">BBC</a>.
+</p>
+
+@code {
+    private bool callResultForBoolean;
+    private string callResultForString;
+
+    private void CallJSUnmarshalledForBoolean()
+    {
+        var unmarshalledRuntime = (IJSUnmarshalledRuntime)JS;
+
+        var jsUnmarshalledReference = unmarshalledRuntime
+            .InvokeUnmarshalled<IJSUnmarshalledObjectReference>(
+                "returnJSObjectReference");
+
+        callResultForBoolean = 
+            jsUnmarshalledReference.InvokeUnmarshalled<InteropStruct, bool>(
+                "unmarshalledFunctionReturnBoolean", GetStruct());
+    }
+
+    private void CallJSUnmarshalledForString()
+    {
+        var unmarshalledRuntime = (IJSUnmarshalledRuntime)JS;
+
+        var jsUnmarshalledReference = unmarshalledRuntime
+            .InvokeUnmarshalled<IJSUnmarshalledObjectReference>(
+                "returnJSObjectReference");
+
+        callResultForString = 
+            jsUnmarshalledReference.InvokeUnmarshalled<InteropStruct, string>(
+                "unmarshalledFunctionReturnString", GetStruct());
+    }
+
+    private InteropStruct GetStruct()
+    {
+        return new InteropStruct
+        {
+            Name = "Brigadier Alistair Gordon Lethbridge-Stewart",
+            Year = 1968,
+        };
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public struct InteropStruct
+    {
+        [FieldOffset(0)]
+        public string Name;
+
+        [FieldOffset(8)]
+        public int Year;
+    }
+}
+```
+
+如果 `IJSUnmarshalledObjectReference` 实例未使用 C# 代码释放，则可以使用 JavaScript 释放。 以下 `dispose` 函数在从 JavaScript 调用时释放对象引用：
+
+```javascript
+window.exampleJSObjectReferenceNotDisposedInCSharp = () => {
+    return {
+        dispose: function () {
+            DotNet.disposeJSObjectReference(this);
+        },
+
+        ...
+    };
+}
+```
+
+可以使用 `js_typed_array_to_array` 将数组类型从 JavaScript 对象转换为 .NET 对象，但 JavaScript 数组必须为类型化数组。 可以使用 C# 代码将 JavaScript 中的数组作为 .NET 对象数组 (`object[]`) 进行读取。
+
+可以转换其他数据类型（如字符串数组），但需要创建一个新的 Mono 数组对象 (`mono_obj_array_new`) 并设置其值 (`mono_obj_array_set`)。
+
+> [!WARNING]
+> Blazor 框架提供的 JavaScript 函数（如 `js_typed_array_to_array`、`mono_obj_array_new` 和 `mono_obj_array_set`）可能会在 .NET 的未来版本中进行名称更改、行为更改或删除。
 
 ## <a name="additional-resources"></a>其他资源
 

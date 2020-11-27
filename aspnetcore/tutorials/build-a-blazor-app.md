@@ -5,7 +5,7 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2020
+ms.date: 11/24/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 1efcd167d9a45b2def271b239c9b360749d72791
-ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
+ms.openlocfilehash: a32655b8afedb73ad436f023d2f821b6920c2edd
+ms.sourcegitcommit: 59d95a9106301d5ec5c9f612600903a69c4580ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94570180"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "95870433"
 ---
 # <a name="build-a-no-locblazor-todo-list-app"></a>生成 Blazor 待办事项列表应用
 
@@ -85,6 +85,8 @@ ms.locfileid: "94570180"
    <h3>Todo</h3>
    ```
 
+   保存 `Pages/Todo.razor` 文件。
+
 1. 将 `Todo` 组件添加到导航栏。
 
    `NavMenu` 组件 (`Shared/NavMenu.razor`) 用于应用的布局。 布局是可以避免应用中出现重复内容的组件。
@@ -99,7 +101,9 @@ ms.locfileid: "94570180"
    </li>
    ```
 
-1. 从 `TodoList` 文件夹，在命令行界面中执行的 `dotnet run` 命令，以生成并运行应用。 访问新的“待办事项”页面 (`Todo`)，确认指向 `https://localhost:5001/todo` 组件的链接有效。
+   保存 `Shared/NavMenu.razor` 文件。
+
+1. 从 `TodoList` 文件夹，在命令行界面中执行 [`dotnet watch run`](/aspnet/core/tutorials/dotnet-watch) 命令，以生成并运行应用。 访问新的“待办事项”页面 (`https://localhost:5001/todo`)，确认指向 `Todo` 组件的边栏导航链接有效。
 
 1. 向项目的根目录添加 `TodoItem.cs` 文件（`TodoList` 文件夹），以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 
@@ -116,7 +120,9 @@ ms.locfileid: "94570180"
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo3.razor?highlight=12-13)]
 
-1. 在命令行界面中停止运行的应用。 许多命令行界面接受键盘命令 <kbd>Ctrl</kbd>+<kbd>c</kbd> 来停止应用。 使用 `dotnet run` 命令重新生成并运行此应用。 选择“`Add todo`”按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
+1. 保存 `TodoItem.cs` 文件和更新的 `Pages/Todo.razor` 文件。 在命令行界面中，保存文件时，将自动重新生成应用。 浏览器会暂时断开与该应用的连接，并在重新建立连接后重新加载页面。
+
+1. 选择“`Add todo`”按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
 
 1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法以选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
 
@@ -134,7 +140,7 @@ ms.locfileid: "94570180"
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo6.razor?highlight=19-26)]
 
-1. 在命令行界面中停止运行的应用。 使用 `dotnet run` 命令重新生成并运行此应用。 在待办项列表中添加一些待办项以测试新代码。
+1. 保存 `Pages/ToDo.razor` 文件。 应用程序会在命令行界面中自动重新生成。 浏览器重新连接到应用后，页面会在浏览器中重新加载。
 
 1. 每个待办项的标题文本都可以编辑，复选框可以帮助用户跟踪已完成的项。 为每个待办项添加一个复选框输入，并将它的值绑定到 `IsDone` 属性。 将 `@todo.Title` 更改为绑定到 `@todo.Title` 的 `<input>` 元素：
 
@@ -150,7 +156,11 @@ ms.locfileid: "94570180"
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/Todo1.razor)]
 
-1. 在命令行界面中停止运行的应用。 使用 `dotnet run` 命令重新生成并运行此应用。 添加待办项以测试新代码。
+1. 保存 `Pages/ToDo.razor` 文件。 应用程序会在命令行界面中自动重新生成。 浏览器重新连接到应用后，页面会在浏览器中重新加载。
+
+1. 添加待办项以测试新代码。
+
+1. 完成后，请在命令行界面中关闭应用。 许多命令行界面接受键盘命令 <kbd>Ctrl</kbd>+<kbd>c</kbd> 来停止应用。
 
 ## <a name="next-steps"></a>后续步骤
 

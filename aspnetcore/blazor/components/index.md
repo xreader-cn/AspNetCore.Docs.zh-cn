@@ -5,7 +5,7 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/09/2020
+ms.date: 11/25/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,16 +19,16 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: cc4604f7f67a6648c96e099572ff27bfed838916
-ms.sourcegitcommit: 8363e44f630fcc6433ccd2a85f7aa9567cd274ed
+ms.openlocfilehash: b87986442bb8127f03df1f7ecff8167cafa27fdf
+ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "94981864"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "96035679"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
-作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Tobias Bartsch](https://www.aveo-solutions.com/)
+作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)、[Scott Addie](https://github.com/scottaddie) 和 [Tobias Bartsch](https://www.aveo-solutions.com/)
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -886,6 +886,64 @@ Razor 组件（`.razor` 文件）不支持 [`Tag Helpers`](xref:mvc/views/tag-he
 ```
 
 但是，并非在所有情况下都支持内联的 SVG 标记。 如果将 `<svg>` 标记直接放入组件文件 (`.razor`)，则支持基本图像呈现，但很多高级场景尚不受支持。 例如，当前未遵循 `<use>` 标记，并且 [`@bind`][10] 不能与某些 SVG 标记一起使用。 有关详细信息，请参阅 [Blazor (dotnet/aspnetcore #18271) 中的 SVG 支持](https://github.com/dotnet/aspnetcore/issues/18271)。
+
+## <a name="whitespace-rendering-behavior"></a>空白的呈现行为
+
+::: moniker range=">= aspnetcore-5.0"
+
+除非将 [`@preservewhitespace`](xref:mvc/views/razor#preservewhitespace) 指令与值 `true` 一起使用，否则在以下情况下默认删除额外的空白：
+
+* 元素中的前导或尾随空白。
+* `RenderFragment` 参数中的前导或尾随空白。 例如，传递到另一个组件的子内容。
+* 在 C# 代码块（例如 `@if` 和 `@foreach`）之前或之后。
+
+但是，在使用 CSS 规则（例如 `white-space: pre`）时，删除空白可能会影响呈现输出。 若要禁用此性能优化并保留空白，请执行以下任一操作：
+
+* 将 `@preservewhitespace true` 指令添加到 `.razor` 文件的顶部，从而将首选项应用于特定组件。
+* 将 `@preservewhitespace true` 指令添加到 `_Imports.razor` 文件中，从而将首选项应用于整个子目录或整个项目。
+
+在大多数情况下，不需要执行任何操作，因为应用程序通常会继续正常运行（但速度会更快）。 如果去除空白会导致特定组件出现任何问题，请在该组件中使用 `@preservewhitespace true` 来禁用此优化。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+空白将保留在组件的源代码中。 即使在没有视觉效果的情况下，只有空白的文本也会呈现在浏览器的文档对象模型 (DOM) 中。
+
+请考虑使用以下 Razor 组件代码：
+
+```razor
+<ul>
+    @foreach (var item in Items)
+    {
+        <li>
+            @item.Text
+        </li>
+    }
+</ul>
+```
+
+前面的示例呈现以下不必要的空白：
+
+* 在 `@foreach` 代码块外。
+* 围绕 `<li>` 元素。
+* 围绕 `@item.Text` 输出。
+
+包含 100 项的列表将导致 402 个空白区域，并且任何额外的空白都不会在视觉上影响呈现的输出。
+
+呈现组件的静态 HTML 时，不会保留标记中的空白。 例如，在呈现的输出中查看以下组件的源：
+
+```razor
+<img     alt="My image"   src="img.png"     />
+```
+
+不会保留前面 Razor 标记中的空白：
+
+```razor
+<img alt="My image" src="img.png" />
+```
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 

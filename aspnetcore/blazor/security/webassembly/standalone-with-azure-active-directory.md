@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-azure-active-directory
-ms.openlocfilehash: 4e8c22c56b7023301499fd273a9194b8c7b58f3d
-ms.sourcegitcommit: 45aa1c24c3fdeb939121e856282b00bdcf00ea55
+ms.openlocfilehash: 4f203e57fe69c3a14dc267c0693094fcefa3dd80
+ms.sourcegitcommit: 59d95a9106301d5ec5c9f612600903a69c4580ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/04/2020
-ms.locfileid: "93343700"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "96024659"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -35,7 +35,11 @@ ms.locfileid: "93343700"
 ::: moniker range=">= aspnetcore-5.0"
 
 > [!NOTE]
-> 对于在 Visual Studio 中创建且配置为支持 AAD 组织目录中帐户的 Blazor WebAssembly 应用，Visual Studio 不会在项目生成时正确配置应用。 以后的 Visual Studio 版本将解决此问题。 本文演示如何使用 .NET Core CLI 的 `dotnet new` 命令创建应用。 如果希望在针对 ASP.NET Core 5.0 中的最新 Blazor 模板更新 IDE 之前使用 Visual Studio 创建应用，请参阅本文的各个部分，并在 Visual Studio 创建应用后确认或更新应用的配置。
+> 对于在 Visual Studio 中创建且配置为支持 AAD 组织目录中帐户的 Blazor WebAssembly 应用，Visual Studio 当前不会在项目生成时正确配置 Azure 门户应用注册。 以后的 Visual Studio 版本将解决此问题。
+>
+> 本文介绍如何使用 .NET CLI `dotnet new` 命令创建解决方案和 Azure 应用门户注册，以及在 Azure 门户中手动创建应用注册。
+>
+> 如果希望在更新 IDE 之前使用 Visual Studio 创建解决方案和 Azure 应用注册，请参阅本文的各个部分，并在 Visual Studio 创建解决方案后确认或更新应用的配置和应用的注册。
 
 在 Azure 门户的“Azure Active Directory”>“应用注册”区域中注册 AAD 应用：
 

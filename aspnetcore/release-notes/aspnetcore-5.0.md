@@ -18,12 +18,12 @@ no-loc:
 - SignalR
 - Kestrel
 uid: aspnetcore-5.0
-ms.openlocfilehash: 84747e2d13275a23e83dc2dc0f666cb0c8d001b1
-ms.sourcegitcommit: 827e8be18cebbcc09b467c089e17fa6f5e430cb2
+ms.openlocfilehash: 8e848ef57a9164501fd3c4f29f47ad7c72118507
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/15/2020
-ms.locfileid: "94634621"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417547"
 ---
 # <a name="whats-new-in-aspnet-core-50"></a>ASP.NET Core 5.0 的新增功能
 
@@ -148,7 +148,7 @@ Blazor 具有内置的 `InputRadio` 和 `InputRadioGroup` 组件，这些组件�
 
 ### <a name="component-virtualization"></a>组件虚拟化
 
-使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。 有关详细信息，请参阅 <xref:blazor/forms-validation#radio-buttons>。
+使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。 有关详细信息，请参阅 <xref:blazor/components/virtualization>。
 
 ### <a name="ontoggle-event-support"></a>`ontoggle` 事件支持
 
@@ -361,7 +361,7 @@ See [Update SignalR code](xref:migration/31-to-50#signalr) for migration instruc
 
 ### <a name="azure-active-directory-authentication-with-microsoftno-locidentityweb"></a>使用 Microsoft.Identity.Web 的 Azure Active Directory 身份验证
 
-ASP.NET Core 项目模板现在与 <xref:Microsoft.Identity.Web?displayProperty=fullName> 集成，以处理使用 [Azure Activity Directory](/azure/active-directory/fundamentals/active-directory-whatis) (Azure AD) 的身份验证。 [Microsoft.Identity.Web package](https://www.nuget.org/packages/Microsoft.Identity.Web/) 提供：
+ASP.NET Core 项目模板现在与 <xref:Microsoft.Identity.Web?displayProperty=fullName> 集成，以处理使用 [Azure Active Directory](/azure/active-directory/fundamentals/active-directory-whatis) (Azure AD) 的身份验证。 [Microsoft.Identity.Web package](https://www.nuget.org/packages/Microsoft.Identity.Web/) 提供：
 
 * 通过 Azure AD 进行身份验证的更好体验。
 * 代表用户访问 Azure 资源的一种更简单方法，包括 [Microsoft Graph](/graph/overview)。 请参阅 [Microsoft.Identity.Web sample](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2)，它从基本登录开始，通过多租户（使用 Azure API、使用 Microsoft Graph 并保护你自己的 API）前进。 `Microsoft.Identity.Web` 与 .NET 5 一起提供。

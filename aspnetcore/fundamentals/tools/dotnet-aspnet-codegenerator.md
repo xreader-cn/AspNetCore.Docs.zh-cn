@@ -4,7 +4,7 @@ author: rick-anderson
 description: dotnet aspnet-codegenerator 命令可用于搭建 ASP.NET Core 项目的基架。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 07/04/2019
+ms.date: 11/16/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: 88d761b09833a14de5af9f9610753174867aa09a
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 8844b0014cac58f414d79df4c64bc0efac75bfe1
+ms.sourcegitcommit: d29535ea0b4197443fd884aaa6e5b4b763d04fc7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059983"
+ms.lasthandoff: 11/19/2020
+ms.locfileid: "94920698"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -31,9 +31,9 @@ ms.locfileid: "93059983"
 
 `dotnet aspnet-codegenerator` - 运行 ASP.NET Core 基架引擎。 使用 `dotnet aspnet-codegenerator` 只需要从命令行搭建基架，不必使用 Visual Studio 搭建基架。
 
-本文适用于：[.NET Core 2.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.1) 及更高版本。
+## <a name="install-and-update-aspnet-codegenerator"></a>安装和更新 aspnet-codegenerator
 
-## <a name="installing-aspnet-codegenerator"></a>安装 aspnet-codegenerator
+安装 [.NET SDK](https://dotnet.microsoft.com/download)。
 
 `dotnet-aspnet-codegenerator` 是必须安装的一个[全局工具](/dotnet/core/tools/global-tools)。 以下命令安装 `dotnet-aspnet-codegenerator` 工具的最新稳定版本：
 
@@ -45,6 +45,17 @@ dotnet tool install -g dotnet-aspnet-codegenerator
 
 ```dotnetcli
 dotnet tool update -g dotnet-aspnet-codegenerator
+```
+
+## <a name="uninstall-aspnet-codegenerator"></a>卸载 aspnet-codegenerator
+
+可能需要卸载 `aspnet-codegenerator` 才能解决问题。 例如，如果安装了 `aspnet-codegenerator` 的预览版本，请在安装发布版本之前卸载它。
+
+以下命令卸载 `dotnet-aspnet-codegenerator` 工具并安装最新稳定版本：
+
+```dotnetcli
+dotnet tool uninstall -g dotnet-aspnet-codegenerator
+dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 ## <a name="synopsis"></a>摘要

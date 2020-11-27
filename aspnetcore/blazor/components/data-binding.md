@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 004a15bf63c34144049a45f9d5fca8852fa36a3f
-ms.sourcegitcommit: fbd5427293d9ecccc388bd5fd305c2eb8ada7281
+ms.openlocfilehash: 7def253a0676e65f8f96209b3f3b7f7a700c4ebe
+ms.sourcegitcommit: 8363e44f630fcc6433ccd2a85f7aa9567cd274ed
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94463816"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "94981903"
 ---
 # <a name="aspnet-core-no-locblazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
@@ -146,7 +146,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 常见场景是将子组件中的属性绑定到其父组件中的属性。 此方案称为链接绑定，因为多个级别的绑定会同时进行。
 
-通过组件参数，可使用 `@bind-{PROPERTY OR FIELD}` 语法绑定父组件的属性和字段。
+通过[组件参数](xref:blazor/components/index#component-parameters)，可使用 `@bind-{PROPERTY OR FIELD}` 语法绑定父组件的属性和字段。
 
 不能在子组件中使用 [`@bind`](xref:mvc/views/razor#bind) 语法来实现链接绑定。 必须单独指定事件处理程序和值，以支持从子组件更新父组件中的属性。
 

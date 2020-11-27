@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: baed18df2d127b592f420aac0432e0b28f076d46
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: bb502533bca24e82792db8814b75b16407f20339
+ms.sourcegitcommit: 59d95a9106301d5ec5c9f612600903a69c4580ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94508040"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "95870381"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -884,6 +884,31 @@ app.UseEndpoints(endpoints =>
 
 在服务器应用中，如果不存在 `Pages` 文件夹，请创建一个。 在服务器应用的 `Pages` 文件夹中创建 `_Host.cshtml` 页。 将 `Client` 应用 `wwwroot/index.html` 文件中的内容粘贴到 `Pages/_Host.cshtml` 文件。 更新文件的内容：
 
+::: moniker range=">= aspnetcore-5.0"
+
+* 将 `@page "_Host"` 添加到文件顶部。
+* 将 `<div id="app">Loading...</div>` 标记替换为以下内容：
+
+  ```cshtml
+  <div id="app">
+      @if (!HttpContext.Request.Path.StartsWithSegments("/authentication"))
+      {
+          <component type="typeof({CLIENT APP ASSEMBLY NAME}.App)" 
+              render-mode="Static" />
+      }
+      else
+      {
+          <text>Loading...</text>
+      }
+  </div>
+  ```
+  
+  在前面的示例中，占位符 `{CLIENT APP ASSEMBLY NAME}` 是客户端应用程序的程序集名称（例如 `BlazorSample.Client`）。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 * 将 `@page "_Host"` 添加到文件顶部。
 * 将 `<app>Loading...</app>` 标记替换为以下内容：
 
@@ -891,7 +916,7 @@ app.UseEndpoints(endpoints =>
   <app>
       @if (!HttpContext.Request.Path.StartsWithSegments("/authentication"))
       {
-          <component type="typeof(Wasm.Authentication.Client.App)" 
+          <component type="typeof({CLIENT APP ASSEMBLY NAME}.App)" 
               render-mode="Static" />
       }
       else
@@ -900,6 +925,10 @@ app.UseEndpoints(endpoints =>
       }
   </app>
   ```
+  
+  在前面的示例中，占位符 `{CLIENT APP ASSEMBLY NAME}` 是客户端应用程序的程序集名称（例如 `BlazorSample.Client`）。
+
+::: moniker-end
   
 ## <a name="options-for-hosted-apps-and-third-party-login-providers"></a>用于托管应用和第三方登录提供程序的选项
 

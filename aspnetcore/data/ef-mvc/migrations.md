@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: ab5be222416e61fcff90c5130ca91ad4a2a5c9b0
-ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
+ms.openlocfilehash: 25ada6e3a210ed830514e69da7d5212264b4b91e
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/17/2020
-ms.locfileid: "94673999"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417560"
 ---
 # <a name="tutorial-part-5-apply-migrations-to-the-contoso-university-sample"></a>教程：第 5 部分 - 将迁移应用于 Contoso University 示例
 
@@ -53,9 +53,10 @@ ms.locfileid: "94673999"
 
 ## <a name="drop-the-database"></a>删除数据库
 
-删除数据库。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令：
+将 EF Core 工具安装为[全局工具](/ef/core/miscellaneous/cli/dotnet)并删除数据库：
 
  ```dotnetcli
+ dotnet tool install --global dotnet-ef
  dotnet ef database drop
  ```
 
@@ -76,11 +77,8 @@ ms.locfileid: "94673999"
 在命令窗口中输入以下命令：
 
 ```dotnetcli
-dotnet tool install --global dotnet-ef
 dotnet ef migrations add InitialCreate
 ```
-
-`dotnet tool install --global dotnet-ef` 将 `dotnet ef` 作为[全局工具](/ef/core/miscellaneous/cli/dotnet)安装。
 
 在前面的命令中，会显示类似于以下内容的输出：
 

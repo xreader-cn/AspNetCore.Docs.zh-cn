@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/httpapi
-ms.openlocfilehash: 45e2a1a5e6a9f00294147db769454b78c5b866e5
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 64d18114e2fe9ee10edb902a98a281c3cd9f3393
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059931"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417573"
 ---
 # <a name="create-json-web-apis-from-grpc"></a>从 gRPC 创建 JSON Web API
 
@@ -137,7 +137,7 @@ gRPC HTTP API 是一个试验。 它不完整，且不受支持。 我们对该�
 
 Grpc-gateway 和 gRPC HTTP API 最大的区别是 grpc-gateway 使用代码生成来创建反向代理服务器。 反向代理将 RESTful 调用转换为 gRPC，然后将它们发送到 gRPC 服务。
 
-如需了解 grpc-gateway 的安装和使用，请参阅 [grpc-gateway 文档](https://grpc-ecosystem.github.io/grpc-gateway/docs/usage.html)。
+如需了解 grpc-gateway 的安装和使用，请参阅 [grpc-gateway 自述文件](https://github.com/grpc-ecosystem/grpc-gateway/#grpc-gateway)。
 
 ## <a name="additional-resources"></a>其他资源
 

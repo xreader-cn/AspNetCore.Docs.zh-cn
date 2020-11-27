@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/index
-ms.openlocfilehash: 25348f8486ec6ccb53ebf527ad4519638dd5f73e
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 27b182394abe12a1631e5ba350942904bf4094aa
+ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059372"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "96035887"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -142,7 +142,7 @@ ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中�
 
 读取相关配置值的首选方法是使用[选项模式](xref:fundamentals/configuration/options)。 有关详细信息，请参阅[使用选项模式绑定分层配置数据](xref:fundamentals/configuration/index#optpat)。
 
-为了管理密码等机密配置数据，ASP.NET Core 提供了[机密管理器](xref:security/app-secrets#secret-manager)。 对于生产机密，建议使用 [Azure 密钥保管库](xref:security/key-vault-configuration)。
+为了管理密码等机密配置数据，.NET Core 提供了[机密管理器](xref:security/app-secrets#secret-manager)。 对于生产机密，建议使用 [Azure 密钥保管库](xref:security/key-vault-configuration)。
 
 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
 
@@ -227,7 +227,7 @@ Web 根目录是公用静态资源文件的基路径，例如：
 * JavaScript (.js)
 * 图像（.png、.jpg）
 
-默认情况下，静态文件仅从 Web 根目录及其子目录提供。 Web 根目录路径默认为 *{content root}/wwwroot* 。 在[构建主机](#host)时设置路径，可指定不同的 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/generic-host#webroot)。
+默认情况下，静态文件仅从 Web 根目录及其子目录提供。 Web 根目录路径默认为 *{content root}/wwwroot*。 在[构建主机](#host)时设置路径，可指定不同的 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/generic-host#webroot)。
 
 防止使用项目文件中的 [\<Content> 项目项](/visualstudio/msbuild/common-msbuild-project-items#content)在 wwwroot 中发布文件。 下面的示例会阻止在 wwwroot/local 及其子目录中发布内容：
 
@@ -379,7 +379,7 @@ ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中�
 
 例如，可指定配置来自 appsettings.json 和环境变量。 然后，当请求 ConnectionString 的值时，框架首先在 appsettings.json 文件中进行查找 。 如果也在环境变量中找到了值，那么来自环境变量的值将优先使用。
 
-为了管理密码等机密配置数据，ASP.NET Core 提供了[机密管理器工具](xref:security/app-secrets)。 对于生产机密，建议使用 [Azure 密钥保管库](xref:security/key-vault-configuration)。
+为了管理密码等机密配置数据，.NET Core 提供了[机密管理器工具](xref:security/app-secrets)。 对于生产机密，建议使用 [Azure 密钥保管库](xref:security/key-vault-configuration)。
 
 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
 

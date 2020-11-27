@@ -5,7 +5,7 @@ description: 了解如何为 .NET 应用配置 gRPC。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 05/26/2020
+ms.date: 11/23/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/configuration
-ms.openlocfilehash: e0b782a254cafc440638ca77a3b9ac885dc3575e
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 617c042c628dc431391f39c2ecb2d2f9c9463fa5
+ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059957"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "95417586"
 ---
 # <a name="grpc-for-net-configuration"></a>适用于 .NET 的 gRPC 配置
 
@@ -65,6 +65,7 @@ gRPC 客户端配置在 `GrpcChannelOptions` 中进行设置。 下表描述了�
 | <span style="word-break:normal;word-wrap:normal">MaxReceiveMessageSize</span> | 4 MB | 可以由客户端接收的最大消息大小（以字节为单位）。 如果客户端收到的消息超过此限制，则会引发异常。 增大此值可使客户端接收更大的消息，但可能会对内存消耗产生负面影响。 设置为 `null`时，消息的大小不受限制。 |
 | 凭据 | `null` | 一个 `ChannelCredentials` 实例。 凭据用于将身份验证元数据添加到 gRPC 调用。 |
 | CompressionProviders | gzip | 用于压缩和解压缩消息的压缩提供程序的集合。 可以创建自定义压缩提供程序并将其添加到集合中。 默认已配置提供程序支持 gzip 压缩。 |
+| ThrowOperationCanceledOnCancellation | `false` | 如果设置为 `true`，则在取消调用或超过其截止时间时，客户端将引发 <xref:System.OperationCanceledException>。 |
 
 下面的代码：
 

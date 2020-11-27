@@ -5,7 +5,7 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2020
+ms.date: 11/24/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: c04dcc65f7518d2d8b32cdce7a7fbb756dd8ec3a
-ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
+ms.openlocfilehash: 97ee00dd37ed4eef1c013e0f45b598a79f3f260c
+ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2020
-ms.locfileid: "95417534"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "96035861"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -108,20 +108,20 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的键  。 例�
 
 <a name="security"></a>
 
-## <a name="security-and-secret-manager"></a>安全和机密管理器
+## <a name="security-and-user-secrets"></a>安全性和用户机密
 
 配置数据指南：
 
-请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。 [机密管理器](xref:security/app-secrets)可用于存储开发环境中的机密。
+请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。 [机密管理器](xref:security/app-secrets)工具可用于存储开发环境中的机密。
 * 不要在开发或测试环境中使用生产机密。
 * 请在项目外部指定机密，避免将其意外提交到源代码存储库。
 
-[默认情况下](#default)，[机密管理器](xref:security/app-secrets)会在 appsettings.json 和 appsettings.`Environment`.json 之后读取配置设置  。
+[默认](#default)情况下，将在 JSON 配置源后注册用户机密配置源。 因此，用户机密密钥优先于 appsettings.json 和 appsettings.`Environment`.json 中的密钥。
 
 有关存储密码或其他敏感数据的详细信息：
 
 * <xref:fundamentals/environments>
-* <xref:security/app-secrets>：包含有关如何使用环境变量来存储敏感数据的建议。 机密管理器使用[文件配置提供程序](#fcp)将用户机密存储在本地系统上的 JSON 文件中。
+* <xref:security/app-secrets>：包含有关如何使用环境变量来存储敏感数据的建议。 机密管理器工具使用[文件配置提供程序](#fcp)将用户机密存储在本地系统上的 JSON 文件中。
 
 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。 有关详细信息，请参阅 <xref:security/key-vault-configuration>。
 
@@ -129,7 +129,7 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的键  。 例�
 
 ## <a name="environment-variables"></a>环境变量
 
-使用[默认](#default)配置时，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 appsettings.json、appsettings.`Environment`.json 和[机密管理器](xref:security/app-secrets)之后，从环境变量键值对中加载配置  。 因此，从环境中读取的键值会替代从 appsettings.json、appsettings.`Environment`.json 和机密管理器中读取的值  。
+使用[默认](#default)配置时，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 appsettings.json、appsettings.`Environment`.json 和[用户机密](xref:security/app-secrets)之后，从环境变量键值对中加载配置。 因此，从环境中读取的键值会替代从 appsettings.json、appsettings.`Environment`.json 和用户机密中读取的值。
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
@@ -243,7 +243,7 @@ setx Logging__1__Level=Information
 使用[默认](#default)配置，<xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 会从以下配置源后的命令行参数键值对中加载配置：
 
 * appsettings.json 和 appsettings.`Environment`.json 文件  。
-* 开发环境中的[应用机密（机密管理器）](xref:security/app-secrets)。
+* 开发环境中的[应用机密](xref:security/app-secrets)。
 * 环境变量。
 
 [默认情况下](#default)，在命令行上设置的配置值会替代通过所有其他配置提供程序设置的配置值。
@@ -355,7 +355,7 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 | [文件配置提供程序](#file-configuration-provider) | INI、JSON 和 XML 文件 |
 | [Key-per-file 配置提供程序](#key-per-file-configuration-provider) | 目录文件 |
 | [内存配置提供程序](#memory-configuration-provider) | 内存中集合 |
-| [机密管理器](xref:security/app-secrets)  | 用户配置文件目录中的文件 |
+| [用户机密](xref:security/app-secrets) | 用户配置文件目录中的文件 |
 
 按照指定的配置提供程序的顺序读取配置源。 代码中的配置提供程序应以特定顺序排列，从而满足应用所需的基础配置源的优先级。
 
@@ -363,7 +363,7 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 
 1. *appsettings.json*
 1. appsettings.`Environment`.json
-1. [机密管理器](xref:security/app-secrets)
+1. [用户机密](xref:security/app-secrets)
 1. 使用[环境变量配置提供程序](#evcp)通过环境变量提供。
 1. 使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。
 
@@ -865,7 +865,7 @@ using Microsoft.Extensions.Configuration;
 * 应用配置通过以下方式提供：
   * 使用[文件配置提供程序](#file-configuration-provider)的 appsettings.json。
   * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。
-  * 应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。
+  * 应用在使用入口程序集的 `Development` 环境中运行时的[用户机密](xref:security/app-secrets)。
   * 使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。
   * 使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。
 
@@ -880,7 +880,7 @@ using Microsoft.Extensions.Configuration;
 有关详细信息，请参阅下列主题：
 
 * <xref:fundamentals/environments>
-* <xref:security/app-secrets>：包含有关如何使用环境变量来存储敏感数据的建议。 Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
+* <xref:security/app-secrets>：包含有关如何使用环境变量来存储敏感数据的建议。 机密管理器工具使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
 
 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。 有关详细信息，请参阅 <xref:security/key-vault-configuration>。
 
@@ -983,7 +983,7 @@ public class HomeController : Controller
 | [文件配置提供程序](#file-configuration-provider) | 文件（INI、JSON、XML） |
 | [Key-per-file 配置提供程序](#key-per-file-configuration-provider) | 目录文件 |
 | [内存配置提供程序](#memory-configuration-provider) | 内存中集合 |
-| [用户机密 (Secret Manager)](xref:security/app-secrets)（安全主题） | 用户配置文件目录中的文件 |
+| [用户机密](xref:security/app-secrets)（安全主题） | 用户配置文件目录中的文件 |
 
 按照启动时指定的配置提供程序的顺序读取配置源。 本主题中所述的配置提供程序按字母顺序进行介绍，而不是按代码排列顺序进行介绍。 代码中的配置提供程序应以特定顺序排列，从而满足应用所需的基础配置源的优先级。
 
@@ -991,7 +991,7 @@ public class HomeController : Controller
 
 1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境） 
 1. [Azure 密钥保管库](xref:security/key-vault-configuration)
-1. [用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）
+1. [用户机密](xref:security/app-secrets)（仅限开发环境）
 1. 环境变量
 1. 命令行参数
 
@@ -1067,7 +1067,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 此外，`CreateDefaultBuilder` 也会加载：
 
 * appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置 。
-* [用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。
+* 开发环境中的[用户机密](xref:security/app-secrets)。
 * 环境变量。
 
 `CreateDefaultBuilder` 最后添加命令行配置提供程序。 在运行时传递的命令行参数会替代由其他提供程序设置的配置。
@@ -1148,7 +1148,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 键       | 值             |
+| 密钥       | 值             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1182,7 +1182,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 * 来自没有前缀的环境变量的应用配置，方法是通过调用不带前缀的 `AddEnvironmentVariables`。
 * appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置 。
-* [用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。
+* 开发环境中的[用户机密](xref:security/app-secrets)。
 * 命令行参数。
 
 环境变量配置提供程序是在配置已根据用户机密和 appsettings 文件建立后调用。 在此位置调用提供程序允许在运行时读取的环境变量替代由用户机密和 appsettings 文件设置的配置。
@@ -1342,7 +1342,7 @@ key=value
 此外，`CreateDefaultBuilder` 也会加载：
 
 * 环境变量。
-* [用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。
+* 开发环境中的[用户机密](xref:security/app-secrets)。
 * 命令行参数。
 
 首先建立 JSON 配置提供程序。 因此，用户机密、环境变量和命令行参数会替代由 appsettings 文件设置的配置。
@@ -1725,7 +1725,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 键             | 值  |
+| 密钥             | 值  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 

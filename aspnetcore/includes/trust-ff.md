@@ -1,0 +1,1 @@
+有关信任 Firefox 浏览器的信息，请参阅 [Firefox SEC_ERROR_INADEQUATE_KEY_USAGE 证书错误](xref:security/enforcing-ssl#trust-ff)。
