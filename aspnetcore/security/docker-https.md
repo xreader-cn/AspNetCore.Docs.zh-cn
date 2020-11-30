@@ -7,7 +7,6 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/05/2019
 no-loc:
-- appsettings.json
 - ASP.NET Core Identity
 - cookie
 - Cookie
@@ -19,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-https
-ms.openlocfilehash: 63d6e220c0f28e552207039c1649041bfdf4a0d4
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: a4aac2ce06fee20bdef157efc361f3099a217b1a
+ms.sourcegitcommit: 619200f2981656ede6d89adb6a22ad1a0e16da22
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059671"
+ms.lasthandoff: 11/30/2020
+ms.locfileid: "96332149"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>通过 HTTPS 在 Docker 上宿主 ASP.NET Core 映像
 
@@ -47,6 +46,8 @@ ms.locfileid: "93059671"
 针对域的[生产主机](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)需要[证书颁发机构颁发](https://wikipedia.org/wiki/Certificate_authority)的证书。 [Let's Encrypt](https://letsencrypt.org/) 是提供免费证书的证书颁发机构。
 
 本文档使用 [自签名开发证书](https://en.wikipedia.org/wiki/Self-signed_certificate) 来托管预生成的映像 `localhost` 。 说明类似于使用生产证书。
+
+使用 [dotnet dev](/dotnet/core/additional-tools/self-signed-certificates-guide) 证书创建用于开发和测试的自签名证书。
 
 对于生产证书：
 
@@ -84,6 +85,9 @@ docker run --rm -it -p 8000:80 -p 8001:443 -e ASPNETCORE_URLS="https://+;http://
 使用 [PowerShell](/powershell/scripting/overview)时，请将替换 `%USERPROFILE%` 为 `$env:USERPROFILE` 。
 
 密码必须与用于证书的密码匹配。
+
+
+注意：在这种情况下，证书必须是 `.pfx` 文件。  `.crt` `.key` 示例容器不支持使用带有或不带密码的或文件。  例如，在指定文件时 `.crt` ，容器可能会返回错误消息，如 "服务器模式 SSL 必须使用具有关联私钥的证书"。 当使用 [WSL](/windows/wsl/about)时，验证装载路径以确保证书正确加载。
 
 ### <a name="macos-or-linux"></a>macOS 或 Linux
 
