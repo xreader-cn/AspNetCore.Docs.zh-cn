@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 - Route-to-code
 uid: web-api/route-to-code
-ms.openlocfilehash: 49eaa3ceb47c41226b7a50782436ec270e6e1b7b
-ms.sourcegitcommit: 619200f2981656ede6d89adb6a22ad1a0e16da22
+ms.openlocfilehash: 1f5f532053f8f5ca7f73df8c1a910a484e2488d9
+ms.sourcegitcommit: 0bcc0d6df3145a0727da7c4be2f4bda8f27eeaa3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/30/2020
-ms.locfileid: "96335592"
+ms.lasthandoff: 12/02/2020
+ms.locfileid: "96513091"
 ---
 # <a name="basic-json-apis-with-no-locroute-to-code-in-aspnet-core"></a>中 ASP.NET Core 的基本 JSON Api Route-to-code
 
@@ -111,6 +111,21 @@ Route-to-code 支持身份验证和授权。 特性（如 `[Authorize]` 和 `[Al
 在 `Startup.Configure` 方法中，在 `Map` 中调用方法和其他类的静态方法 `UseEndpoints` ：
 
 [!code-csharp[](route-to-code/sample/Startup5.cs?name=snippet)]
+
+## <a name="notable-missing-features-compared-to-web-api"></a>与 Web API 相比明显缺少的功能
+
+Route-to-code 适用于基本 JSON Api。 它不支持 ASP.NET Core Web API 提供的许多高级功能。
+
+不是由提供的功能 Route-to-code 包括：
+
+* 模型绑定
+* 模型验证
+* OpenAPI/Swagger
+* 内容协商
+* 构造函数依赖关系注入
+* `ProblemDetails` ([https://tools.ietf.org/html/rfc7807](RFC 7807))
+
+如果需要上述列表中的某些功能，请考虑使用 [ASP.NET Core WEB api](xref:web-api/index) 创建 API。
 
 ## <a name="additional-resources"></a>其他资源
 
