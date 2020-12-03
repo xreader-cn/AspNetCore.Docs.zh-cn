@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: bfcef860beb07ab81dda1a10a1648491ae187bef
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: ad4184fce494ba06acf7e583a42a54d04d37ea20
+ms.sourcegitcommit: 92439194682dc788b8b5b3a08bd2184dc00e200b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052014"
+ms.lasthandoff: 12/03/2020
+ms.locfileid: "96556640"
 ---
 # <a name="introduction-to-no-locidentity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
 
@@ -62,10 +62,10 @@ Identity 通常使用 SQL Server 数据库配置以存储用户名、密码和�
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 选择 " **文件** " " > **新建** > **项目** "。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
-* 选择 ASP.NET Core **Web 应用程序** ，然后选择 " **更改身份验证** "。
-* 选择 **单个用户帐户** ，然后单击 **"确定"** 。
+* 选择 " **文件**" " > **新建** > **项目**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择 ASP.NET Core **Web 应用程序**，然后选择 " **更改身份验证**"。
+* 选择 **单个用户帐户** ，然后单击 **"确定"**。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -81,7 +81,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如： 。
+生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -123,6 +123,10 @@ dotnet ef database update
 
 中添加了服务 `ConfigureServices` 。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
 
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0 < aspnetcore-5.0"
+
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configureservices&highlight=11-99)]
 
 前面突出显示的代码 Identity 用默认选项值进行配置。 服务通过 [依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
@@ -130,6 +134,22 @@ dotnet ef database update
 Identity 通过调用启用 <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> 。 `UseAuthentication` 将身份验证 [中间件](xref:fundamentals/middleware/index) 添加到请求管道。
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configure&highlight=19)]
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-5.0"
+
+[!code-csharp[](identity/sample/WebApp5x/Startup.cs?name=snippet_configureservices&highlight=12-99)]
+
+前面的代码 Identity 用默认选项值进行配置。 服务通过 [依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
+
+Identity 通过调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)启用。 `UseAuthentication` 将身份验证 [中间件](xref:fundamentals/middleware/index) 添加到请求管道。
+
+[!code-csharp[](identity/sample/WebApp5x/Startup.cs?name=snippet_configure&highlight=19)]
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 模板生成的应用不使用 [授权](xref:security/authorization/secure-data)。 `app.UseAuthorization` 包括，以确保在应用添加授权时，按正确的顺序添加。 `UseRouting`、 `UseAuthentication` 、 `UseAuthorization` 和 `UseEndpoints` 必须按前面的代码中所示的顺序调用。
 
@@ -143,7 +163,7 @@ Identity 通过调用启用 <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExt
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-如果创建的项目的名称为 **WebApp1** ，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext` ：
+如果创建的项目的名称为 **WebApp1**，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext` ：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -190,7 +210,7 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Ident
 
 [SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync) 清除存储在中的用户声明 cookie 。
 
-Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml* ：
+Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-cshtml[](identity/sample/WebApp3/Pages/Shared/_LoginPartial.cshtml?highlight=15)]
 
@@ -296,10 +316,10 @@ Identity 可以使用 SQL Server 数据库配置以存储用户名、密码和�
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 选择 " **文件** " " > **新建** > **项目** "。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
-* 选择 ASP.NET Core **Web 应用程序** ，然后选择 " **更改身份验证** "。
-* 选择 **单个用户帐户** ，然后单击 **"确定"** 。
+* 选择 " **文件**" " > **新建** > **项目**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择 ASP.NET Core **Web 应用程序**，然后选择 " **更改身份验证**"。
+* 选择 **单个用户帐户** ，然后单击 **"确定"**。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -309,7 +329,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如： 。
+生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -347,8 +367,6 @@ dotnet ef database update
 
 中添加了服务 `ConfigureServices` 。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
 
-[!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configureservices)]
-
 前面的代码 Identity 用默认选项值进行配置。 服务通过 [依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
 
 Identity 通过调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)启用。 `UseAuthentication` 将身份验证 [中间件](xref:fundamentals/middleware/index) 添加到请求管道。
@@ -367,7 +385,7 @@ Identity 通过调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.build
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-如果创建的项目的名称为 **WebApp1** ，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext` ：
+如果创建的项目的名称为 **WebApp1**，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext` ：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -409,7 +427,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 [SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync) 清除存储在中的用户声明 cookie 。
 
-Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml* ：
+Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-cshtml[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 

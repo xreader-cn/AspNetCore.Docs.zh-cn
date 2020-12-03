@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 - Route-to-code
 uid: web-api/route-to-code
-ms.openlocfilehash: 1f5f532053f8f5ca7f73df8c1a910a484e2488d9
-ms.sourcegitcommit: 0bcc0d6df3145a0727da7c4be2f4bda8f27eeaa3
+ms.openlocfilehash: f8a3804a887ebfa0f5284d8991e903c978b18208
+ms.sourcegitcommit: 92439194682dc788b8b5b3a08bd2184dc00e200b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2020
-ms.locfileid: "96513091"
+ms.lasthandoff: 12/03/2020
+ms.locfileid: "96556601"
 ---
 # <a name="basic-json-apis-with-no-locroute-to-code-in-aspnet-core"></a>中 ASP.NET Core 的基本 JSON Api Route-to-code
 
@@ -76,14 +76,14 @@ ASP.NET Core 提供了有助于创建 JSON web Api 的帮助器方法：
 
 可通过两种方式自定义 JSON 序列化：
 
-* 默认序列化选项可 `JsonOptions` 在方法中进行配置 `Startup.ConfigureServices` 。
-* `WriteAsJsonAsync` 和 `ReadFromJsonAsync` 具有接受对象的重载 `JsonSerializerOptions` 。 此 `JsonSerializerOptions` 对象将重写默认选项。
+* 默认序列化选项可 <xref:Microsoft.AspNetCore.Http.Json.JsonOptions> 在方法中进行配置 `Startup.ConfigureServices` 。
+* `WriteAsJsonAsync` 和 `ReadFromJsonAsync` 具有接受对象的重载 <xref:System.Text.Json.JsonSerializerOptions> 。 此选项对象将覆盖默认选项。
 
 [!code-csharp[](route-to-code/sample/Startup6.cs?name=snippet)]
 
 ## <a name="authentication-and-authorization"></a>身份验证和授权
 
-Route-to-code 支持身份验证和授权。 特性（如 `[Authorize]` 和 `[AllowAnonymous]` ）不能放置在映射到请求委托的终结点上。 相反，授权元数据是使用 `RequireAuthorization` 和 `AllowAnonymous` 扩展方法添加的。
+Route-to-code 支持身份验证和授权。 特性（如 `[Authorize]` 和 `[AllowAnonymous]` ）不能放置在映射到请求委托的终结点上。 相反，授权元数据是使用 <xref:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization%2A> 和 <xref:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.AllowAnonymous%2A> 扩展方法添加的。
 
 [!code-csharp[](route-to-code/sample/Startup.cs?name=snippet&highlight=30)]
 
@@ -123,7 +123,7 @@ Route-to-code 适用于基本 JSON Api。 它不支持 ASP.NET Core Web API 提�
 * OpenAPI/Swagger
 * 内容协商
 * 构造函数依赖关系注入
-* `ProblemDetails` ([https://tools.ietf.org/html/rfc7807](RFC 7807))
+* `ProblemDetails` ([RFC 7807](https://tools.ietf.org/html/rfc7807)) 
 
 如果需要上述列表中的某些功能，请考虑使用 [ASP.NET Core WEB api](xref:web-api/index) 创建 API。
 
