@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: cc701343cb3859f0f76ebc62bd54aa2e4431d522
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 5ad39821778ea58097169def85a940a06f1d036e
+ms.sourcegitcommit: 0bcc0d6df3145a0727da7c4be2f4bda8f27eeaa3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061023"
+ms.lasthandoff: 12/02/2020
+ms.locfileid: "96513104"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>ASP.NET Core 中的请求和响应操作
 
@@ -44,6 +44,8 @@ ms.locfileid: "93061023"
 流不会从框架中删除。 流将继续在 .NET 中使用，并且许多流类型不具有等效的管道，如 `FileStreams` 和 `ResponseCompression`。
 
 ## <a name="stream-examples"></a>流示例
+
+<!-- see "fundamentals\middleware\request-response\static\TestPipes.JPG for testing sample -->
 
 假设目标是要创建一个中间件，它将整个请求正文作为一个字符串列表读取，并在新行上进行拆分。 一个简单的流实现可能如下例所示：
 

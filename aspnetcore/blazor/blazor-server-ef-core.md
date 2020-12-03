@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: bfc8f334b9229fed54e6b9841e4fb255ed18249a
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 6a74b8c5668a37082f648ae74210d90684c4559c
+ms.sourcegitcommit: 43a540e703b9096921de27abc6b66bc0783fe905
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056616"
+ms.lasthandoff: 11/30/2020
+ms.locfileid: "96320104"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>具有 Entity Framework Core (EFCore) 的 ASP.NET Core Blazor Server
 
@@ -65,7 +65,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 * 默认情况下，请考虑对每个操作使用一个上下文。 上下文旨在实现快速、低开销的实例化：
 
   ```csharp
-  var using context = new MyContext();
+  using var context = new MyContext();
 
   return await context.MyEntities.ToListAsync();
   ```
@@ -196,7 +196,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 * 默认情况下，请考虑对每个操作使用一个上下文。 上下文旨在实现快速、低开销的实例化：
 
   ```csharp
-  var using context = new MyContext();
+  using var context = new MyContext();
 
   return await context.MyEntities.ToListAsync();
   ```

@@ -20,11 +20,11 @@ no-loc:
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
 ms.openlocfilehash: 8727fa52acbcf59549c326bd5106e5dfe23c36be
-ms.sourcegitcommit: d64bf0cbe763beda22a7728c7f10d07fc5e19262
+ms.sourcegitcommit: fe2e3174c34bee1e425c6e52dd8f663fe52b8756
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/03/2020
-ms.locfileid: "93234486"
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "96174201"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
