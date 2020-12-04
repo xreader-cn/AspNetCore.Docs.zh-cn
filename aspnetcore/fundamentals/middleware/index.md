@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: aa51e53284bc25629b3975ff0e6de967b9a2b866
-ms.sourcegitcommit: 0bcc0d6df3145a0727da7c4be2f4bda8f27eeaa3
+ms.openlocfilehash: bdeccf81a3bb620c2e1fe15a798d5a83375842c8
+ms.sourcegitcommit: 92439194682dc788b8b5b3a08bd2184dc00e200b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2020
-ms.locfileid: "96513117"
+ms.lasthandoff: 12/03/2020
+ms.locfileid: "96556536"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -113,9 +113,9 @@ app.UseResponseCompression();
 以下排序结合了静态文件以允许缓存压缩的静态文件：
 
 ```csharp
-app.UseResponseCaching
-app.UseResponseCompression
-app.UseStaticFiles
+app.UseResponseCaching();
+app.UseResponseCompression();
+app.UseStaticFiles();
 ```
 
 以下 `Startup.Configure` 方法将为常见应用方案添加中间件组件：
@@ -193,6 +193,8 @@ public void Configure(IApplicationBuilder app)
     // Static files aren't compressed by Static File Middleware.
     app.UseStaticFiles();
 
+    app.UseRouting();
+
     app.UseResponseCompression();
 
     app.UseEndpoints(endpoints =>
@@ -260,7 +262,7 @@ app.Map("/level1", level1App => {
 
 <xref:Microsoft.AspNetCore.Builder.UseWhenExtensions.UseWhen%2A> 也基于给定谓词的结果创建请求管道分支。 与 `MapWhen` 不同的是，如果这个分支不发生短路或包含终端中间件，则会重新加入主管道：
 
-[!code-csharp[](index/snapshot/Chain/StartupUseWhen.cs?highlight=25-26)]
+[!code-csharp[](index/snapshot/Chain/StartupUseWhen.cs?highlight=18-19)]
 
 在前面的示例中，响应 "Hello from main pipeline." 是为所有请求编写的。 如果请求中包含查询字符串变量 `branch`，则在重新加入主管道之前会记录其值。
 
