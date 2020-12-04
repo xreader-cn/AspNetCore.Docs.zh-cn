@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 06f55647ba2bb41152e16bb054e098abbe157cb8
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: aa51e53284bc25629b3975ff0e6de967b9a2b866
+ms.sourcegitcommit: 0bcc0d6df3145a0727da7c4be2f4bda8f27eeaa3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059359"
+ms.lasthandoff: 12/02/2020
+ms.locfileid: "96513117"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -90,7 +90,7 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 
 向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此顺序对于安全性、性能和功能至关重要。
 
-下面的 `Startup.Configure` 方法按照建议的顺序增加与安全相关的中间件组件：
+下面的 `Startup.Configure` 方法按照典型的建议顺序增加与安全相关的中间件组件：
 
 [!code-csharp[](index/snapshot/StartupAll3.cs?name=snippet)]
 
@@ -100,6 +100,23 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 * 并非所有中间件都需要准确按照此顺序运行，但许多中间件必须遵循这个顺序。 例如：
   * `UseCors`、`UseAuthentication` 和 `UseAuthorization` 必须按照上述顺序运行。
   * 由于[此错误](https://github.com/dotnet/aspnetcore/issues/23218)，`UseCors` 当前必须在 `UseResponseCaching` 之前运行。
+
+在某些场景下，中间件将具有不同的排序。 例如，高速缓存和压缩排序是特定于场景的，存在多个有效的排序。 例如：
+
+```csharp
+app.UseResponseCaching();
+app.UseResponseCompression();
+```
+
+使用前面的代码，可以通过缓存压缩的响应来保存 CPU，但你可能最终会使用不同的压缩算法（如 gzip 或 brotli）来缓存资源的多个表示形式。
+
+以下排序结合了静态文件以允许缓存压缩的静态文件：
+
+```csharp
+app.UseResponseCaching
+app.UseResponseCompression
+app.UseStaticFiles
+```
 
 以下 `Startup.Configure` 方法将为常见应用方案添加中间件组件：
 
