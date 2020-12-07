@@ -6,8 +6,6 @@ ms.author: riande
 ms.date: 09/25/2020
 no-loc:
 - Index
-- Create
-- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -20,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: d655be26a794f87a0be07046ae1d6415256d592c
-ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
+ms.openlocfilehash: 4a5369b9e40de89ac9a1895466e7bdd7afb9d32e
+ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2020
-ms.locfileid: "95417625"
+ms.lasthandoff: 12/01/2020
+ms.locfileid: "96420027"
 ---
 # <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>第 3 部分，ASP.NET Core 中已搭建基架的 Razor 页面
 
@@ -47,7 +45,7 @@ ms.locfileid: "95417625"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="the-no-loccreate-no-locdelete-details-and-edit-pages"></a>“Create”、“Delete”、“详细信息”和“编辑”页
+## <a name="the-create-delete-details-and-edit-pages"></a>“创建”、“删除”、“详细信息”和“编辑”页面
 
 检查 Pages/Movies/Index.cshtml.cs 页面模型：
 
@@ -151,7 +149,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 1. 保存所做的更改，并通过选择“RpMovie”链接测试应用。 如果遇到任何问题，请参阅 GitHub 中的 [_Layout.cshtml](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Shared/_Layout.cshtml) 文件。
 
-1. 测试“主页”、“RpMovie”、“Create”、“编辑”和“Delete”链接。 每个页面都设置有标题，可以在浏览器选项卡中看到标题。将某个页面加入书签时，标题用于该书签。
+1. 测试“主页”、“RpMovie”、“创建”、“编辑”和“删除”链接    。 每个页面都设置有标题，可以在浏览器选项卡中看到标题。将某个页面加入书签时，标题用于该书签。
 
 > [!NOTE]
 > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的的非英语区域设置，以及支持非美国英语日期格式，必须执行使应用全球化的步骤。 有关添加十进制逗号的说明，请参阅 [GitHub 问题 4076](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
@@ -162,15 +160,15 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 前面的标记针对 Pages 文件夹下的所有 Razor 文件将布局文件设置为 Pages/Shared/_Layout.cshtml。  请参阅[布局](xref:razor-pages/index#layout)了解详细信息。
 
-### <a name="the-no-loccreate-page-model"></a>Create页面模型
+### <a name="the-create-page-model"></a>“创建”页面模型
 
-检查 Pages/Movies/Create.cshtml.cs 页面模型：
+检查 *Pages/Movies/Create.cshtml.cs* 页面模型：
 
 [!code-csharp[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippetALL)]
 
-`OnGet` 方法初始化页面所需的任何状态。 “Create”页没有任何要初始化的状态，因此返回 `Page`。 在本教程的后面部分中，将介绍 `OnGet` 初始化状态的示例。 `Page` 方法创建用于呈现 Create.cshtml 页的 `PageResult` 对象。
+`OnGet` 方法初始化页面所需的任何状态。 “创建”页没有任何要初始化的状态，因此返回 `Page`。 在本教程的后面部分中，将介绍 `OnGet` 初始化状态的示例。 `Page` 方法创建用于呈现 Create.cshtml 页的 `PageResult` 对象。
 
-`Movie` 属性使用 [[BindProperty]](xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute) 特性来选择加入[模型绑定](xref:mvc/models/model-binding)。 当“Create”表单发布表单值时，ASP.NET Core 运行时将发布的值绑定到 `Movie` 模型。
+`Movie` 属性使用 [[BindProperty]](xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute) 特性来选择加入[模型绑定](xref:mvc/models/model-binding)。 当“创建”表单发布表单值时，ASP.NET Core 运行时将发布的值绑定到 `Movie` 模型。
 
 当页面发布表单数据时，运行 `OnPostAsync` 方法：
 
@@ -183,7 +181,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 * 将保存数据。
 * 浏览器将重定向到 Index 页。
 
-### <a name="the-no-loccreate-no-locrazor-page"></a>Create Razor 页
+### <a name="the-create-no-locrazor-page"></a>“创建 Razor”页面
 
 检查 Pages/Movies/Create.cshtml Razor 页面文件：
 
@@ -237,7 +235,7 @@ Visual Studio 以用于标记帮助程序的特殊加粗字体显示以下标记
 
 ::: moniker range="< aspnetcore-3.0"
 
-## <a name="the-no-loccreate-no-locdelete-details-and-edit-pages"></a>“Create”、“Delete”、“详细信息”和“编辑”页
+## <a name="the-create-delete-details-and-edit-pages"></a>“创建”、“删除”、“详细信息”和“编辑”页面
 
 检查 Pages/Movies/Index.cshtml.cs 页面模型：
 
@@ -326,7 +324,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 保存所做的更改，并通过单击“RpMovie”链接测试应用。 如果遇到任何问题，请参阅 GitHub 中的 [_Layout.cshtml](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml) 文件。
 
-测试其他链接（“主页”、“RpMovie”、“Create”、“编辑”和“Delete”）。 每个页面都设置有标题，可以在浏览器选项卡中看到标题。将某个页面加入书签时，标题用于该书签。
+测试其他链接（“主页”、“RpMovie”、“创建”、“编辑”和“删除”）。 每个页面都设置有标题，可以在浏览器选项卡中看到标题。将某个页面加入书签时，标题用于该书签。
 
 > [!NOTE]
 > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的的非英语区域设置，以及支持非美国英语日期格式，必须执行使应用全球化的步骤。 有关添加十进制逗号的说明，请参阅 [GitHub 问题 4076](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
@@ -337,15 +335,15 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 前面的标记针对 Pages 文件夹下的所有 Razor 文件将布局文件设置为 Pages/Shared/_Layout.cshtml。  请参阅[布局](xref:razor-pages/index#layout)了解详细信息。
 
-### <a name="the-no-loccreate-page-model"></a>Create页面模型
+### <a name="the-create-page-model"></a>“创建”页面模型
 
-检查 Pages/Movies/Create.cshtml.cs 页面模型：
+检查 *Pages/Movies/Create.cshtml.cs* 页面模型：
 
 [!code-csharp[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml.cs?name=snippetALL)]
 
-`OnGet` 方法初始化页面所需的任何状态。 “Create”页没有任何要初始化的状态，因此返回 `Page`。 教程的后面部分将介绍 `OnGet` 方法初始化状态。 `Page` 方法创建用于呈现 Create.cshtml 页的 `PageResult` 对象。
+`OnGet` 方法初始化页面所需的任何状态。 “创建”页没有任何要初始化的状态，因此返回 `Page`。 教程的后面部分将介绍 `OnGet` 方法初始化状态。 `Page` 方法创建用于呈现 Create.cshtml 页的 `PageResult` 对象。
 
-`Movie` 属性使用 [[BindProperty]]<xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute> 特性来选择加入[模型绑定](xref:mvc/models/model-binding)。 当“Create”表单发布表单值时，ASP.NET Core 运行时将发布的值绑定到 `Movie` 模型。
+`Movie` 属性使用 [[BindProperty]]<xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute> 特性来选择加入[模型绑定](xref:mvc/models/model-binding)。 当“创建”表单发布表单值时，ASP.NET Core 运行时将发布的值绑定到 `Movie` 模型。
 
 当页面发布表单数据时，运行 `OnPostAsync` 方法：
 
@@ -355,7 +353,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 如果不存在模型错误，将保存数据，并且浏览器会重定向到Index页。
 
-### <a name="the-no-loccreate-no-locrazor-page"></a>Create Razor 页
+### <a name="the-create-no-locrazor-page"></a>“创建 Razor”页面
 
 检查 Pages/Movies/Create.cshtml Razor 页面文件：
 

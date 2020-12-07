@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 7323cf11ad4556443def4068873e6805b449058a
-ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
+ms.openlocfilehash: 9dcb1c4a19e50a57f1a1918cfcf775b49fa89b11
+ms.sourcegitcommit: 43a540e703b9096921de27abc6b66bc0783fe905
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/17/2020
-ms.locfileid: "94674012"
+ms.lasthandoff: 11/30/2020
+ms.locfileid: "96320143"
 ---
 # <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor Pages 和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -125,7 +125,7 @@ To run the app after downloading the completed project:
 1. 选择“创建”。
 1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择：
     1. 下拉列表中的“.NET Core”和“ASP.NET Core 5.0”。
-    1. ASP.NET Core Web 应用程序（模型-视图-控制器）。
+    1. **ASP.NET Core Web 应用**。
     1. “创建”
       ![新的 ASP.NET Core 项目对话框](~/data/ef-mvc/intro/_static/new-aspnet5.png)
     
@@ -723,7 +723,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
   * 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)” 。
   * 在“数据上下文类”行中，选择 +（加号） 。
   * 将数据上下文名称从 ContosoUniversity.Models.ContosoUniversityContext 更改为 ContosoUniversity.Data.SchoolContext 。
-  * 选择“添加”  。
+  * 选择“添加”。
 
 自动安装以下包：
 
@@ -1106,7 +1106,7 @@ dotnet run
 * 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)” 。
 * 在“数据上下文类”行中，选择加号 (+) 并将生成的名称更改为 ContosoUniversity.Models.SchoolContext  。
 * 在“数据上下文类”下拉列表中，选择“ContosoUniversity.Models.SchoolContext” 
-* 选择“添加”  。
+* 选择“添加”。
 
 ![CRUD 对话框](intro/_static/s1.png)
 

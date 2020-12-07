@@ -7,8 +7,6 @@ ms.custom: mvc
 ms.date: 09/29/2020
 no-loc:
 - Index
-- Create
-- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -21,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: d69ab3452f4f15e916049e5c772a20fe9f9fac65
-ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
+ms.openlocfilehash: f155922c9cb5ea7fdbad0963221ceddd19f4fe60
+ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94570219"
+ms.lasthandoff: 12/01/2020
+ms.locfileid: "96419949"
 ---
 # <a name="part-8-of-tutorial-series-on-no-locrazor-pages"></a>Razor 页面教程系列的第 8 部分。
 
@@ -85,7 +83,7 @@ Razor 页面和实体框架提供的验证支持是 DRY 原则的极佳示例：
 
 运行应用并导航到“页面/电影”。
 
-选择“新Create”链接。 使用无效值填写表单。 当 jQuery 客户端验证检测到错误时，会显示一条错误消息。
+选择“新建”链接。 使用无效值填写表单。 当 jQuery 客户端验证检测到错误时，会显示一条错误消息。
 
 ![带有多个 jQuery 客户端验证错误的电影视图表单](validation/_static/val.png)
 
@@ -93,11 +91,11 @@ Razor 页面和实体框架提供的验证支持是 DRY 原则的极佳示例：
 
 请注意表单如何自动呈现每个包含无效值的字段中的验证错误消息。 客户端（使用 JavaScript 和 jQuery）和服务器端（若用户禁用 JavaScript）都必定会遇到这些错误。
 
-一项重要优势是，无需在“Create”或“编辑”页面中更改代码。 在模型应用数据注释后，即已启用验证 UI。 本教程中创建的 Razor 页面自动选取了验证规则（使用 `Movie` 模型类的属性上的验证特性）。 使用“编辑”页面测试验证后，即已应用相同验证。
+一项重要优势是，无需在“创建”或“编辑”页面中更改代码。 在模型应用数据注释后，即已启用验证 UI。 本教程中创建的 Razor 页面自动选取了验证规则（使用 `Movie` 模型类的属性上的验证特性）。 使用“编辑”页面测试验证后，即已应用相同验证。
 
 存在客户端验证错误时，不会将表单数据发布到服务器。 请通过以下一种或多种方法验证是否未发布表单数据：
 
-* 在 `OnPostAsync` 方法中放置一个断点。 通过选择“Create”或“保存”提交表单。 从未命中断点。
+* 在 `OnPostAsync` 方法中放置一个断点。 通过选择“创建”或“保存”来提交表单 。 从未命中断点。
 * 使用 [Fiddler 工具](https://www.telerik.com/fiddler)。
 * 使用浏览器开发人员工具监视网络流量。
 
@@ -108,7 +106,7 @@ Razor 页面和实体框架提供的验证支持是 DRY 原则的极佳示例：
 （可选）测试服务器端验证：
 
 1. 在浏览器中禁用 JavaScript。 可以使用浏览器的开发人员工具禁用 JavaScript。 如果无法在此浏览器中禁用 JavaScript，请尝试其他浏览器。
-1. 在“Create”或“编辑”页面的 `OnPostAsync` 方法中设置断点。
+1. 在“创建”或“编辑”页面的 `OnPostAsync` 方法中设置断点。
 1. 提交包含无效数据的表单。
 1. 验证模型状态是否无效：
 
@@ -121,7 +119,7 @@ Razor 页面和实体框架提供的验证支持是 DRY 原则的极佳示例：
   
 或者可以[禁用服务器上的客户端验证](xref:mvc/models/validation#disable-client-side-validation)。
 
-以下代码显示了之前在本教程中设定其基架的“Create.cshtml”的一部分。 “Create”和“编辑”页面使用它来实现以下操作：
+以下代码显示了之前在本教程中设定其基架的“Create.cshtml”的一部分。 “创建”和“编辑”页面使用它来实现以下操作：
 
 * 显示初始表单。
 * 在出现错误时重现显示此表单。
@@ -130,7 +128,7 @@ Razor 页面和实体框架提供的验证支持是 DRY 原则的极佳示例：
 
 [输入标记帮助程序](xref:mvc/views/working-with-forms)使用 [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) 特性并在客户端生成 jQuery 验证所需的 HTML 特性。 [验证标记帮助程序](xref:mvc/views/working-with-forms#the-validation-tag-helpers)用于显示验证错误。 有关详细信息，请参阅[验证](xref:mvc/models/validation)。
 
-“Create”和“编辑”页面中没有验证规则。 仅可在 `Movie` 类中指定验证规则和错误字符串。 这些验证规则将自动应用于编辑 `Movie` 模型的 Razor 页面。
+“创建”和“编辑”页面中没有验证规则。 仅可在 `Movie` 类中指定验证规则和错误字符串。 这些验证规则将自动应用于编辑 `Movie` 模型的 Razor 页面。
 
 需要更改验证逻辑时，也只能在该模型中更改。 将始终在整个应用程序中应用验证（在一处定义验证逻辑）。 单处验证有助于保持代码干净，且更易于维护和更新。
 

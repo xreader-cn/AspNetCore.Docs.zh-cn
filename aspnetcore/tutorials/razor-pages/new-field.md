@@ -7,8 +7,6 @@ ms.custom: mvc
 ms.date: 09/28/2020
 no-loc:
 - Index
-- Create
-- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -21,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 2dca5a9552dd2800212f8cd78ace0578b3d38cdb
-ms.sourcegitcommit: 342588e10ae0054a6d6dc0fd11dae481006be099
+ms.openlocfilehash: 6b6856731c61957a9e23f76e2bc15befe56ea57d
+ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2020
-ms.locfileid: "94360874"
+ms.lasthandoff: 12/01/2020
+ms.locfileid: "96420001"
 ---
 # <a name="part-7-add-a-new-field-to-a-no-locrazor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -63,7 +61,7 @@ ms.locfileid: "94360874"
    [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie50/SnapShots/IndexRating.cshtml?highlight=40-42,62-64)]
 
 1. 更新以下页面：
-   1. 将 `Rating` 字段添加到“Delete”和“详细信息”页面。
+   1. 将 `Rating` 字段添加到“删除”和“详细信息”页面。
    1. 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Pages/Movies/Create.cshtml)。
    1. 将 `Rating` 字段添加到“编辑”页面。
 
@@ -108,7 +106,7 @@ ms.locfileid: "94360874"
 `Add-Migration` 命令会通知框架执行以下操作：
 
 * 将 `Movie` 模型与 `Movie` 数据库架构进行比较。
-* Create代码以将数据库架构迁移到新模型。
+* 创建代码以将数据库架构迁移到新模型。
 
 名称“Rating”是任意的，用于对迁移文件进行命名。 为迁移文件使用有意义的名称是有帮助的。
 
@@ -121,9 +119,9 @@ ms.locfileid: "94360874"
 另一个方案是删除数据库，并使用迁移来重新创建该数据库。 删除 SSOX 中的数据库：
 
 1. 在 SSOX 中选择数据库。
-1. 右键单击数据库，并选择“Delete”。
+1. 右键单击数据库，并选择“删除”。
 1. 检查“关闭现有连接”。
-1. 选择“确定”。
+1. 选择“确定”  。
 1. 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
    ```powershell
@@ -151,7 +149,7 @@ ms.locfileid: "94360874"
 > * [数据种子设定](/ef/core/modeling/data-seeding)
 > * [SQLite ALTER TABLE 语句](https://sqlite.org/lang_altertable.html)
 
-1. Delete迁移文件夹。  
+1. 删除迁移文件夹。  
 
 1. 使用以下命令重新创建数据库。
 
@@ -204,7 +202,7 @@ ms.locfileid: "94360874"
    [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/SnapShots/IndexRating.cshtml?highlight=40-42,62-64)]
 
 1. 更新以下页面：
-   1. 将 `Rating` 字段添加到“Delete”和“详细信息”页面。
+   1. 将 `Rating` 字段添加到“删除”和“详细信息”页面。
    1. 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)。
    1. 将 `Rating` 字段添加到“编辑”页面。
 
@@ -249,7 +247,7 @@ ms.locfileid: "94360874"
 `Add-Migration` 命令会通知框架执行以下操作：
 
 * 将 `Movie` 模型与 `Movie` 数据库架构进行比较。
-* Create代码以将数据库架构迁移到新模型。
+* 创建代码以将数据库架构迁移到新模型。
 
 名称“Rating”是任意的，用于对迁移文件进行命名。 为迁移文件使用有意义的名称是有帮助的。
 
@@ -262,9 +260,9 @@ ms.locfileid: "94360874"
 另一个方案是删除数据库，并使用迁移来重新创建该数据库。 删除 SSOX 中的数据库：
 
 * 在 SSOX 中选择数据库。
-* 右键单击数据库，并选择“Delete”。
+* 右键单击数据库，并选择“删除”。
 * 检查“关闭现有连接”。
-* 选择“确定”。
+* 选择“确定”  。
 * 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
   ```powershell
@@ -292,7 +290,7 @@ ms.locfileid: "94360874"
 > * [数据种子设定](/ef/core/modeling/data-seeding)
 > * [SQLite ALTER TABLE 语句](https://sqlite.org/lang_altertable.html)
 
-1. Delete迁移文件夹。  
+1. 删除迁移文件夹。  
 
 1. 使用以下命令重新创建数据库。
 
@@ -344,7 +342,7 @@ ms.locfileid: "94360874"
 
 更新以下页面：
 
-* 将 `Rating` 字段添加到“Delete”和“详细信息”页面。
+* 将 `Rating` 字段添加到“删除”和“详细信息”页面。
 * 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml)。
 * 将 `Rating` 字段添加到“编辑”页面。
 
@@ -389,7 +387,7 @@ Update-Database
 `Add-Migration` 命令会通知框架执行以下操作：
 
 * 将 `Movie` 模型与 `Movie` 数据库架构进行比较。
-* Create代码以将数据库架构迁移到新模型。
+* 创建代码以将数据库架构迁移到新模型。
 
 名称“Rating”是任意的，用于对迁移文件进行命名。 为迁移文件使用有意义的名称是有帮助的。
 
@@ -397,14 +395,14 @@ Update-Database
 
 <a name="ssox"></a>
 
-如果删除 DdatabaseB 中的所有记录，初始化表达式会设定 DdatabaseB 种子，并将包括 `Rating` 字段。 可以使用浏览器中的删除链接，也可以从 [Sql Server 对象资源管理器](xref:tutorials/razor-pages/sql#ssox) (SSOX) 执行此操作。
+如果删除数据库中的所有记录，初始化表达式会设定数据库种子，并将包括 `Rating` 字段。 可以使用浏览器中的删除链接，也可以从 [Sql Server 对象资源管理器](xref:tutorials/razor-pages/sql#ssox) (SSOX) 执行此操作。
 
 另一个方案是删除数据库，并使用迁移来重新创建该数据库。 删除 SSOX 中的数据库：
 
 * 在 SSOX 中选择数据库。
-* 右键单击数据库，并选择“Delete”。
+* 右键单击数据库，并选择“删除”。
 * 检查“关闭现有连接”。
-* 选择“确定”。
+* 选择“确定”  。
 * 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
   ```powershell
@@ -432,7 +430,7 @@ Update-Database
 > * [数据种子设定](/ef/core/modeling/data-seeding)
 > * [SQLite ALTER TABLE 语句](https://sqlite.org/lang_altertable.html)
 
-Delete数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
 
 ```dotnetcli
 dotnet ef database update

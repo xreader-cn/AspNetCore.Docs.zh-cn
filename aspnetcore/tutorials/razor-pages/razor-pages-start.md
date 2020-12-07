@@ -6,8 +6,6 @@ ms.author: riande
 ms.date: 09/15/2020
 no-loc:
 - Index
-- Create
-- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -20,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: fa113a3e0a2a69fb4aa1318056dcfc6e261490f6
-ms.sourcegitcommit: 8b867c4cb0c3b39bbc4d2d87815610d2ef858ae7
+ms.openlocfilehash: 4b8bd9c886e615add6b0d3e372843a8ddb33ae18
+ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/17/2020
-ms.locfileid: "96025016"
+ms.lasthandoff: 12/01/2020
+ms.locfileid: "96420040"
 ---
 # <a name="tutorial-get-started-with-no-locrazor-pages-in-aspnet-core"></a>教程：在 ASP.NET Core 中开始使用 Razor Pages
 
@@ -43,7 +41,7 @@ ms.locfileid: "96025016"
 在本教程中，你将了解：
 
 > [!div class="checklist"]
-> * Create Razor Pages Web 应用。
+> * 创建 Razor 页面 Web 应用。
 > * 运行应用。
 > * 检查项目文件。
 
@@ -67,28 +65,28 @@ ms.locfileid: "96025016"
 
 ---
 
-## <a name="no-loccreate-a-no-locrazor-pages-web-app"></a>Create Razor Pages Web 应用
+## <a name="create-a-no-locrazor-pages-web-app"></a>创建 Razor 页面 Web 应用
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. 启动 Visual Studio 并选择“Create新项目”。 有关详细信息，请参阅[在 Visual Studio 中Create新项目](/visualstudio/ide/create-new-project)。
+1. 启动 Visual Studio 并选择“创建新项目”。 有关详细信息，请参阅[在 Visual Studio 中新建项目](/visualstudio/ide/create-new-project)。
 
-   ![从“启动”窗口 Create 新项目](razor-pages-start/_static/5/start-window-create-new-project.png)
+   ![从“启动”窗口创建新项目](razor-pages-start/_static/5/start-window-create-new-project.png)
 
-1. 在“Create新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”。
+1. 在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”  。
 
     ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/5/np.png)
     
 1. 在“配置新项目”对话框中，为“项目名称”输入 `RazorPagesMovie`。 请务必将项目命名为“RazorPagesMovie”（包括匹配大小写），这样在复制和粘贴代码时命名空间就会匹配。
 
-1. 选择 Create。
+1. 选择“创建”  。
 
     ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
-1. 在“Create新的 ASP.NET Core Web 应用程序”对话框中，选择：
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择：
     1. 下拉列表中的“.NET Core”和“ASP.NET Core 5.0”。
     1. **Web 应用程序**。
-    1. **Create**.
+    1. **Create**。
 
      ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/5/npx.png)
 
@@ -128,7 +126,7 @@ ms.locfileid: "96025016"
     1. 如果看到用于选择“目标框架”的选项，请选择最新的 .NET 5.x 版本。
     1. 选择“下一步”。
 
-1. 将项目命名为“RazorPagesMovie”，然后选择“Create”。
+1. 将项目命名为“PagesMovie”，然后选择“创建” *Razor* 。
 
     ![macOS 命名项目](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -191,7 +189,7 @@ ms.locfileid: "96025016"
 在本教程中，你将了解：
 
 > [!div class="checklist"]
-> * Create Razor Pages Web 应用。
+> * 创建 Razor 页面 Web 应用。
 > * 运行应用。
 > * 检查项目文件。
 
@@ -215,17 +213,17 @@ ms.locfileid: "96025016"
 
 ---
 
-## <a name="no-loccreate-a-no-locrazor-pages-web-app"></a>Create Razor Pages Web 应用
+## <a name="create-a-no-locrazor-pages-web-app"></a>创建 Razor 页面 Web 应用
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从 Visual Studio“文件”菜单中选择“新建”>“项目”。
-* Create新的 ASP.NET Core Web 应用程序，然后选择“下一步”。
+* 创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”。
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 * 将项目命名为“RazorPagesMovie”。 请务必将项目命名为“RazorPagesMovie”，这样在复制和粘贴代码时命名空间就会匹配。
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
-* 在下拉列表中选择“ASP.NET Core 3.1”，然后依次选择“Web 应用程序”和“Create”。
+* 在下拉列表中选择“ASP.NET Core 3.1”，然后依次选择“Web 应用程序”和“创建”  。
 
 ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/3/npx.png)
 
@@ -270,7 +268,7 @@ ms.locfileid: "96025016"
 
   选择“下一步”。
 
-* 将项目命名为“RazorPagesMovie”，然后选择“Create”。
+* 将项目命名为“RazorPagesMovie”，然后选择“创建”。
 
   ![macOS 命名项目](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -333,7 +331,7 @@ ms.locfileid: "96025016"
 在本教程中，你将了解：
 
 > [!div class="checklist"]
-> * Create Razor Pages Web 应用。
+> * 创建 Razor 页面 Web 应用。
 > * 运行应用。
 > * 检查项目文件。
 
@@ -357,13 +355,13 @@ ms.locfileid: "96025016"
 
 ---
 
-## <a name="no-loccreate-a-no-locrazor-pages-web-app"></a>Create Razor Pages Web 应用
+## <a name="create-a-no-locrazor-pages-web-app"></a>创建 Razor 页面 Web 应用
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从 Visual Studio“文件”菜单中选择“新建”>“项目”。
 
-* Create新的 ASP.NET Core Web 应用程序，然后选择“下一步”。
+* 创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”。
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 
@@ -371,7 +369,7 @@ ms.locfileid: "96025016"
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
-* 在下拉列表中选择“ASP.NET Core 2.2”，然后依次选择“Web 应用程序”和“Create”。
+* 在下拉列表中选择“ASP.NET Core 2.2”，然后依次选择“Web 应用程序”和“创建”  。
 
 ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2_2.2.png)
 
@@ -414,7 +412,7 @@ ms.locfileid: "96025016"
 
   选择“下一步”。
 
-* 将项目命名为“RazorPagesMovie”，然后选择“Create”。
+* 将项目命名为“RazorPagesMovie”，然后选择“创建”。
 
   ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
 

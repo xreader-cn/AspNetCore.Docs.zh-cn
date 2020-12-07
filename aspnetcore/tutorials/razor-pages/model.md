@@ -6,8 +6,6 @@ ms.author: riande
 ms.date: 11/11/2020
 no-loc:
 - Index
-- Create
-- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -20,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 6244ac8798fb470a88802389961968fb52bd3c0a
-ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
+ms.openlocfilehash: b2e840e20d034b42b2dc4a525b1dd76e44bbe3a8
+ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94550660"
+ms.lasthandoff: 12/01/2020
+ms.locfileid: "96420053"
 ---
 # <a name="part-2-add-a-model-to-a-no-locrazor-pages-app-in-aspnet-core"></a>第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型
 
@@ -143,11 +141,11 @@ ms.locfileid: "94550660"
 
 ## <a name="scaffold-the-movie-model"></a>搭建“电影”模型的基架
 
-在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行Create、读取、更新和Delete (CRUD) 操作。
+在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行创建、读取、更新和删除 (CRUD) 操作。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Create“Pages/Movies”文件夹：
+1. 创建“Pages/Movies”文件夹：
    1. 右键单击“Pages”文件夹 >“添加”>“新建文件夹”。
    1. 将文件夹命名为“Movies”。
 
@@ -196,7 +194,7 @@ ms.locfileid: "94550660"
 | `-dc`  | 要使用的 `DbContext` 类。 |
 | `-udl` | 使用默认布局。 |
 | `-outDir` | 用于创建视图的相对输出文件夹路径。 |
-| `--referenceScriptLibraries` | 向“编辑”和“Create”页面添加 `_ValidationScriptsPartial` |
+| `--referenceScriptLibraries` | 向“编辑”和“创建”页面添加 `_ValidationScriptsPartial` |
 
 使用 `-h` 选项获取 `aspnet-codegenerator razorpage` 命令方面的帮助：
 
@@ -214,7 +212,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. Create“Pages/Movies”文件夹：
+1. 创建“Pages/Movies”文件夹：
    1. 按 Control 并单击“Pages”文件夹 >“添加”>“新建文件夹”。
    1. 将文件夹命名为“Movies”。
 
@@ -248,7 +246,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 在搭建基架时，会创建并更新以下文件：
 
-* “Pages/Movies”：Create、Delete、详细信息、编辑和Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”和 Index。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="updated"></a>已更新
@@ -261,7 +259,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 在搭建基架时，会创建以下文件：
 
-* “Pages/Movies”：Create、Delete、详细信息、编辑和Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”和 Index。
 
 创建的文件将在下一节中说明。
 
@@ -269,7 +267,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 在搭建基架时，会创建并更新以下文件：
 
-* “Pages/Movies”：Create、Delete、详细信息、编辑和Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和 Index。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="updated"></a>已更新
@@ -282,11 +280,11 @@ dotnet-aspnet-codegenerator razorpage -h
 
 <a name="pmc"></a>
 
-## <a name="no-loccreate-the-initial-database-schema-using-efs-migration-feature"></a>使用 EF 的迁移功能Create初始数据库架构
+## <a name="create-the-initial-database-schema-using-efs-migration-feature"></a>使用 EF 的迁移功能创建初始数据库架构
 
 Entity Framework Core 中的迁移功能提供了一种方法来执行以下操作：
 
-* Create初始数据库架构。
+* 创建初始数据库架构。
 * 以增量的方式更新数据库架构，使其与应用程序的数据模型保持同步。  保存数据库中的现有数据。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
@@ -340,7 +338,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能（例如，Create、读取、更新和 Delete）。 数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](xref:Microsoft.EntityFrameworkCore.DbContext)。 数据上下文指定数据模型中包含哪些实体。
+`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能，例如“创建”、“读取”、“更新”和“删除”。 数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](xref:Microsoft.EntityFrameworkCore.DbContext)。 数据上下文指定数据模型中包含哪些实体。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50/Data/RazorPagesMovieContext.cs)]
 
@@ -369,14 +367,14 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
    缺少[迁移步骤](#pmc)。
 
-1. 测试“Create”链接。
+1. 测试“创建”链接。
 
-   ![Create 页](model/_static/conan5.png)
+   ![创建页面](model/_static/conan5.png)
 
    > [!NOTE]
    > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的非英语区域设置，以及支持非美国英语日期格式，应用必须进行全球化。 有关全球化的说明，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
 
-1. 测试“编辑”、“详细信息”和“Delete”链接。
+1. 测试“编辑”、“详细信息”和“删除”链接。
 
 下一个教程介绍由基架创建的文件。
 
@@ -509,11 +507,11 @@ using Microsoft.EntityFrameworkCore;
 
 ## <a name="scaffold-the-movie-model"></a>搭建“电影”模型的基架
 
-在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行Create、读取、更新和Delete (CRUD) 操作。
+在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行创建、读取、更新和删除 (CRUD) 操作。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Create“Pages/Movies”文件夹：
+创建“Pages/Movies”文件夹：
 
 * 右键单击“Pages”文件夹 >“添加”>“新建文件夹”。
 * 将文件夹命名为“Movies”。
@@ -530,7 +528,7 @@ Create“Pages/Movies”文件夹：
 
 * 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)” 。
 * 在“数据上下文类”行中，选择 +（加号）并将生成的名称从 RazorPagesMovie.Models.RazorPagesMovieContext 更改为 RazorPagesMovie.Data.RazorPagesMovieContext   。 不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。 它创建具有正确命名空间的数据库上下文类。
-* 选择“添加”  。
+* 选择“添加”。
 
 ![上述说明的图像。](model/_static/3/arp.png)
 
@@ -563,7 +561,7 @@ Create“Pages/Movies”文件夹：
 | `-dc`  | 要使用的 `DbContext` 类。 |
 | `-udl` | 使用默认布局。 |
 | `-outDir` | 用于创建视图的相对输出文件夹路径。 |
-| `--referenceScriptLibraries` | 向“编辑”和“Create”页面添加 `_ValidationScriptsPartial` |
+| `--referenceScriptLibraries` | 向“编辑”和“创建”页面添加 `_ValidationScriptsPartial` |
 
 使用 `-h` 选项获取 `aspnet-codegenerator razorpage` 命令方面的帮助：
 
@@ -581,7 +579,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-Create“Pages/Movies”文件夹：
+创建“Pages/Movies”文件夹：
 
 * 右键单击“Pages”文件夹 >“添加”>“新建文件夹”。
 * 将文件夹命名为“Movies”。
@@ -598,7 +596,7 @@ Create“Pages/Movies”文件夹：
 
 * 在“模型类”下拉列表中，选择或键入“Movie (RazorPagesMovie.Models)” 。
 * 在“数据上下文类”行中，键入新类的名称“RazorPagesMovie.Data.RazorPagesMovieContext”。  不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。 它创建具有正确命名空间的数据库上下文类。
-* 选择“添加”  。
+* 选择“添加”。
 
 ![上述说明的图像。](model/_static/arpMac.png)
 
@@ -628,7 +626,7 @@ dotnet tool install --global dotnet-ef
 
 在搭建基架时，会创建并更新以下文件：
 
-* “Pages/Movies”：Create、Delete、详细信息、编辑和Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和 Index。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="updated"></a>已更新
@@ -641,7 +639,7 @@ dotnet tool install --global dotnet-ef
 
 在搭建基架时，会创建并更新以下文件：
 
-* “Pages/Movies”：Create、Delete、详细信息、编辑和Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和 Index。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="updated"></a>已更新
@@ -654,7 +652,7 @@ dotnet tool install --global dotnet-ef
 
 在搭建基架时，会创建以下文件：
 
-* “Pages/Movies”：Create、Delete、详细信息、编辑和Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和 Index。
 
 创建的文件将在下一节中说明。
 
@@ -715,7 +713,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能（例如，Create、读取、更新和 Delete）。 数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](xref:Microsoft.EntityFrameworkCore.DbContext)。 数据上下文指定数据模型中包含哪些实体。
+`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能，例如“创建”、“读取”、“更新”和“删除”。 数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](xref:Microsoft.EntityFrameworkCore.DbContext)。 数据上下文指定数据模型中包含哪些实体。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Data/RazorPagesMovieContext.cs)]
 
@@ -744,14 +742,14 @@ Login failed for user 'User-name'.
 
 缺少[迁移步骤](#pmc)。
 
-* 测试“Create”链接。
+* 测试“创建”链接。
 
-  ![Create 页](model/_static/conan5.png)
+  ![创建页面](model/_static/conan5.png)
 
   > [!NOTE]
   > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的非英语区域设置，以及支持非美国英语日期格式，应用必须进行全球化。 有关全球化的说明，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
 
-* 测试“编辑”、“详细信息”和“Delete”链接。
+* 测试“编辑”、“详细信息”和“删除”链接。
 
 下一个教程介绍由基架创建的文件。
 
@@ -895,11 +893,11 @@ using Microsoft.EntityFrameworkCore;
 
 ## <a name="scaffold-the-movie-model"></a>搭建“电影”模型的基架
 
-在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行Create、读取、更新和Delete (CRUD) 操作。
+在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行创建、读取、更新和删除 (CRUD) 操作。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Create“Pages/Movies”文件夹：
+创建“Pages/Movies”文件夹：
 
 * 右键单击“Pages”文件夹 >“添加”>“新建文件夹”。
 * 将文件夹命名为“Movies”。
@@ -953,7 +951,7 @@ to use Data, it should not use models. That will make the namespace the same for
 | `-dc`  | 要使用的 `DbContext` 类。 |
 | `-udl` | 使用默认布局。 |
 | `-outDir` | 用于创建视图的相对输出文件夹路径。 |
-| `--referenceScriptLibraries` | 向“编辑”和“Create”页面添加 `_ValidationScriptsPartial` |
+| `--referenceScriptLibraries` | 向“编辑”和“创建”页面添加 `_ValidationScriptsPartial` |
 
 使用 `-h` 选项获取 `aspnet-codegenerator razorpage` 命令方面的帮助：
 
@@ -965,7 +963,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-Create“Pages/Movies”文件夹：
+创建“Pages/Movies”文件夹：
 
 * 按 Control 并单击“Pages”文件夹 >“添加”>“新建文件夹”。
 * 将文件夹命名为“Movies”。
@@ -994,7 +992,7 @@ Create“Pages/Movies”文件夹：
 
 ### <a name="files-created"></a>创建的文件
 
-* “Pages/Movies”：Create、Delete、详细信息、编辑和Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和 Index。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="file-updated"></a>文件已更新
@@ -1058,7 +1056,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能（例如，Create、读取、更新和Delete）。 数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](xref:Microsoft.EntityFrameworkCore.DbContext)。 数据上下文指定数据模型中包含哪些实体。
+`RazorPagesMovieContext` 为 `Movie` 模型协调 EF Core 功能，例如“创建”、“读取”、“更新”和“删除”。 数据上下文 (`RazorPagesMovieContext`) 派生自 [Microsoft.EntityFrameworkCore.DbContext](xref:Microsoft.EntityFrameworkCore.DbContext)。 数据上下文指定数据模型中包含哪些实体。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
@@ -1087,14 +1085,14 @@ Login failed for user 'User-name'.
 
 缺少[迁移步骤](#pmc)。
 
-* 测试“Create”链接。
+* 测试“创建”链接。
 
-  ![Create 页](model/_static/conan.png)
+  ![创建页面](model/_static/conan.png)
 
   > [!NOTE]
   > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的非英语区域设置，以及支持非美国英语日期格式，应用必须进行全球化。 有关全球化的说明，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
 
-* 测试“编辑”、“详细信息”和“Delete”链接。
+* 测试“编辑”、“详细信息”和“删除”链接。
 
 下一个教程介绍由基架创建的文件。
 

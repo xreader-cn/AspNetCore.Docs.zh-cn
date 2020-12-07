@@ -6,8 +6,6 @@ ms.author: riande
 ms.date: 09/26/2020
 no-loc:
 - Index
-- Create
-- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -20,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 2c5bc221901d9e41984fb591755a8ad94e7e1420
-ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
+ms.openlocfilehash: 6627825239d815d2c8bcad98e22340f07f921ab9
+ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94570232"
+ms.lasthandoff: 12/01/2020
+ms.locfileid: "96420014"
 ---
 # <a name="part-4-of-tutorial-series-on-no-locrazor-pages"></a>Razor 页面教程系列第 4 部分
 
@@ -118,7 +116,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 ## <a name="seed-the-database"></a>设定数据库种子
 
-使用以下代码在 Models 文件夹中Create一个名为 `SeedData` 的新类：
+使用以下代码在 Models 文件夹中创建一个名为 `SeedData` 的新类：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedData.cs?name=snippet_1)]
 
@@ -154,7 +152,7 @@ if (context.Movie.Any())
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Delete数据库中的所有记录。 使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
+1. 删除数据库中的所有记录。 使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
 
 1. 通过调用 `Startup` 类中的方法强制应用初始化，使种子方法能够正常运行。 若要强制进行初始化，必须先停止 IIS Express，然后再重新启动它。 使用以下任一方法停止并重启 IIS：
 
@@ -169,7 +167,7 @@ if (context.Movie.Any())
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-Delete数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
+删除数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
 
 ---
 
@@ -272,7 +270,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 ## <a name="seed-the-database"></a>设定数据库种子
 
-使用以下代码在 Models 文件夹中Create一个名为 `SeedData` 的新类：
+使用以下代码在 Models 文件夹中创建一个名为 `SeedData` 的新类：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedData.cs?name=snippet_1)]
 
@@ -308,7 +306,7 @@ if (context.Movie.Any())
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Delete数据库中的所有记录。 使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作。
+* 删除数据库中的所有记录。 使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作。
 * 通过调用 `Startup` 类中的方法强制应用初始化，使种子方法能够正常运行。 若要强制进行初始化，必须先停止 IIS Express，然后再重新启动它。 使用以下任一方法停止并重启 IIS：
 
   * 右键单击通知区域中的 IIS Express 系统任务栏图标，然后点击“退出”或“停止站点” ：
@@ -322,7 +320,7 @@ if (context.Movie.Any())
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-Delete数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
+删除数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
 
 ---
 
@@ -416,7 +414,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 ## <a name="seed-the-database"></a>设定数据库种子
 
-使用以下代码在 Models 文件夹中Create一个名为 `SeedData` 的新类：
+使用以下代码在 Models 文件夹中创建一个名为 `SeedData` 的新类：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedData.cs?name=snippet_1)]
 
@@ -452,7 +450,7 @@ SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21�
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Delete数据库中的所有记录。 可以使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
+* 删除数据库中的所有记录。 可以使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
 * 通过调用 `Startup` 类中的方法强制应用初始化，使种子方法能够正常运行。 若要强制进行初始化，必须先停止 IIS Express，然后再重新启动它。 可以使用以下任一方法来执行此操作：
 
   * 右键单击通知区域中的 IIS Express 系统任务栏图标，然后点击“退出”或“停止站点” ：
@@ -466,11 +464,11 @@ SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21�
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Delete数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
+删除数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-Delete数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
+删除数据库中的所有记录，使种子方法运行。 停止并启动应用以设定数据库种子。
 
 ---
 

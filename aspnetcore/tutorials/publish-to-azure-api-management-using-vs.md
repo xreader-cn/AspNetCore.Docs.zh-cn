@@ -4,14 +4,14 @@ author: codemillmatt
 description: 了解如何使用 Visual Studio 将 ASP.NET Core Web API 发布到 Azure API 管理。
 ms.author: masoucou
 ms.custom: devx-track-csharp, mvc
-ms.date: 08/26/2020
+ms.date: 11/22/2020
 uid: tutorials/publish-to-azure-api-management-using-vs
-ms.openlocfilehash: 3cc6b8c0bd93f133151e1c8ad18a55b11975a9be
-ms.sourcegitcommit: 47c9a59ff8a359baa6bca2637d3af87ddca1245b
+ms.openlocfilehash: 395b5981a3018486235c38f032893f985ab71383
+ms.sourcegitcommit: 619200f2981656ede6d89adb6a22ad1a0e16da22
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2020
-ms.locfileid: "88945453"
+ms.lasthandoff: 11/30/2020
+ms.locfileid: "96332194"
 ---
 # <a name="publish-an-aspnet-core-web-api-to-azure-api-management-with-visual-studio"></a>使用 Visual Studio 将 ASP.NET Core Web API 发布到 Azure API 管理
 
@@ -108,11 +108,15 @@ ms.locfileid: "88945453"
 
 1. 在 Azure 门户中打开先前创建的 API 管理服务实例。 选择“API”边栏选项卡：
 
-    ![从 API 管理服务实例中选择了“API”边栏选项卡](publish-to-azure-api-management-using-vs/_static/portal_api_overview.png)
+  ![从 API 管理服务实例中选择了“API”边栏选项卡](publish-to-azure-api-management-using-vs/_static/portal_api_overview.png)
+
+1. 选择 Echo API 旁边的 3 个点，然后从弹出菜单中选择“删除”以将其删除 。
+
+  ![从 API 管理服务实例中删除 echo API](publish-to-azure-api-management-using-vs/_static/portal_delete_echo.png)
 
 1. 从“添加新 API”面板中，选择“空白 API”磁贴 ：
 
-    ![突出显示了“空白 API”磁贴的屏幕](publish-to-azure-api-management-using-vs/_static/portal_api_create_blank.png)
+  ![突出显示了“空白 API”磁贴的屏幕](publish-to-azure-api-management-using-vs/_static/portal_api_create_blank.png)
 
 1. 在出现的“创建空白 API”对话框中输入以下值：    
 
@@ -198,7 +202,7 @@ ms.locfileid: "88945453"
 
 1. 打开“测试”选项卡。 
 1. 选择 / 或 Get 操作 。
-1. 选择**Send**。
+1. 选择 **Send**。
 
     ![测试前门户的屏幕截图](publish-to-azure-api-management-using-vs/_static/portal_pre_test.png)
 

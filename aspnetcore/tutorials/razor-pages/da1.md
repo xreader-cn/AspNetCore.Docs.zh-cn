@@ -6,8 +6,6 @@ ms.author: riande
 ms.date: 09/20/2020
 no-loc:
 - Index
-- Create
-- Delete
 - appsettings.json
 - ASP.NET Core Identity
 - cookie
@@ -20,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: 7146c1955a578502a63578de4f1abce932cb8b32
-ms.sourcegitcommit: 342588e10ae0054a6d6dc0fd11dae481006be099
+ms.openlocfilehash: 460950413d1dd2d3539c1d62b0eb11f6bb5144a9
+ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2020
-ms.locfileid: "94360591"
+ms.lasthandoff: 12/01/2020
+ms.locfileid: "96419962"
 ---
 # <a name="part-5-update-the-generated-pages-in-an-aspnet-core-app"></a>第 5 部分，在 ASP.NET Core 应用中更新生成的页面
 
@@ -55,7 +53,7 @@ ms.locfileid: "94360591"
 
 ![鼠标悬停在“编辑”链接上的浏览器窗口，显示了 https://localhost:1234/Movies/Edit/5 的链接 URL](~/tutorials/razor-pages/da1/edit7.png)
 
-“编辑”、“详细信息”和“Delete”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的。
+“编辑”、“详细信息”和“删除”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的  。
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
@@ -77,7 +75,7 @@ ms.locfileid: "94360591"
 
 ### <a name="add-route-template"></a>添加路由模板
 
-更新“编辑”、“详细信息”和“Delete”Razor 页面以使用 `{id:int}` 路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。
+更新“编辑”、“详细信息”和“删除”Razor 页面以使用 `{id:int}` 路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。
 
 生成的 HTML 会将 ID 添加到 URL 的路径部分：
 
@@ -117,7 +115,7 @@ ms.locfileid: "94360591"
 
 1. 在 `catch (DbUpdateConcurrencyException)` 上设置断点。
 1. 对电影选择“编辑”，进行更改，但不要输入“保存”。
-1. 在其他浏览器窗口中，选择同一电影的“Delete”链接，然后删除此电影。
+1. 在其他浏览器窗口中，选择同一电影的“删除”链接，然后删除此电影。
 1. 在之前的浏览器窗口中，将更改发布到电影。
 
 生产代码可能要检测并发冲突。 有关详细信息，请参阅[处理并发冲突](xref:data/ef-rp/concurrency)。
@@ -146,7 +144,7 @@ ms.locfileid: "94360591"
 * 如果模型状态中存在错误（例如，`ReleaseDate` 无法被转换为日期），则会使用已提交的值重新显示表单。
 * 如果没有模型错误，则电影已保存。
 
-“Index”、“Create”和“Delete”Razor 页面中的 HTTP GET 方法遵循一个类似的模式。 “Create”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
+Index、“创建”和“删除”Razor页面中的 HTTP GET 方法遵循一个类似的模式。 “创建”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -176,7 +174,7 @@ ms.locfileid: "94360591"
 
 ![鼠标悬停在“编辑”链接上的浏览器窗口，显示了 http://localhost:1234/Movies/Edit/5 的链接 URL](~/tutorials/razor-pages/da1/edit7.png)
 
-“编辑”、“详细信息”和“Delete”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的。
+“编辑”、“详细信息”和“删除”链接是在 Pages/Movies/Index.cshtml 文件中由[定位标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的  。
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
@@ -194,7 +192,7 @@ ms.locfileid: "94360591"
 
 动态生成的链接通过查询字符串传递电影 ID。 例如，`https://localhost:5001/Movies/Details?id=1` 中的 `?id=1`。
 
-更新“编辑”、“详细信息”和“Delete”Razor 页面以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
+更新“编辑”、“详细信息”和“删除”Razor Pages 以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
 
 ```html
 <td>
@@ -232,7 +230,7 @@ ms.locfileid: "94360591"
 
 * 在 `catch (DbUpdateConcurrencyException)`上设置断点
 * 对电影选择“编辑”，进行更改，但不要输入“保存”。
-* 在其他浏览器窗口中，选择同一电影的“Delete”链接，然后删除此电影。
+* 在其他浏览器窗口中，选择同一电影的“删除”链接，然后删除此电影。
 * 在之前的浏览器窗口中，将更改发布到电影。
 
 生产代码可能要检测并发冲突。 有关详细信息，请参阅[处理并发冲突](xref:data/ef-rp/concurrency)。
@@ -261,7 +259,7 @@ ms.locfileid: "94360591"
 * 如果模型状态中存在错误（例如，`ReleaseDate` 无法被转换为日期），则会使用已提交的值显示表单。
 * 如果没有模型错误，则电影已保存。
 
-“Index”、“Create”和“Delete”Razor 页面中的 HTTP GET 方法遵循一个类似的模式。 “Create”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
+Index、“创建”和“删除”Razor页面中的 HTTP GET 方法遵循一个类似的模式。 “创建”Razor 页面中的 HTTP POST `OnPostAsync` 方法遵循的模式类似于“编辑”Razor 页面中的 `OnPostAsync` 方法所遵循的模式。
 
 在下一教程中将添加搜索。
 

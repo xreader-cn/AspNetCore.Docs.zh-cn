@@ -19,12 +19,12 @@ no-loc:
 - SignalR
 - Models
 uid: tutorials/first-web-api
-ms.openlocfilehash: ab06f2d347d7f05e9c72a85e0c6e0fbc67fe48a7
-ms.sourcegitcommit: 202144092067ea81be1dbb229329518d781dbdfb
+ms.openlocfilehash: ccbfc27eb89e23938a69f0ab4cb306d6a4136889
+ms.sourcegitcommit: fe2e3174c34bee1e425c6e52dd8f663fe52b8756
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94550707"
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "96175047"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -149,7 +149,7 @@ ms.locfileid: "94550707"
   Visual Studio 将启动：
 
 * IIS Express Web 服务器。
-* 默认浏览器，并导航到 `https://localhost:<port>/https://localhost:5001/swagger/index.html`，其中 `<port>` 是随机选择的端口号。
+* 默认浏览器，并导航到 `https://localhost:<port>/swagger/index.html`，其中 `<port>` 是随机选择的端口号。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -270,10 +270,8 @@ Swagger 用于为 Web API 生成有用的文档和帮助页面。 本教程重�
 ### <a name="add-nuget-packages"></a>添加 NuGet 包
 
 * 在“工具”菜单中，依次选择“NuGet 包管理器”、“管理解决方案的 NuGet 包” 。
-* 选择“浏览”选项卡，然后在搜索框中输入 Microsoft.。
-EntityFrameworkCore.SqlServer。
+* 选择“浏览”选项卡，然后在搜索框中输入 Microsoft.EntityFrameworkCore.SqlServer 。
 <!-- https://github.com/dotnet/AspNetCore.Docs/issues/19782 Delete this line at RTM -->
-* 选中“包括预发行版”复选框，以使 5.0 RC 版本可用。 
 * 在左窗格中选择“Microsoft.EntityFrameworkCore.SqlServer”。
 * 选中右窗格中的“项目”复选框，然后选择“安装” 。
 * 使用前面的说明添加 Microsoft.EntityFrameworkCore.InMemory NuGet 包。
@@ -330,8 +328,8 @@ EntityFrameworkCore.SqlServer。
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet tool install --global dotnet-aspnet-codegenerator
-dotnet tool update -g Dotnet-aspnet-codegenerator
+dotnet tool install -g dotnet-aspnet-codegenerator
+dotnet tool update -g dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
 ```
 
@@ -536,7 +534,7 @@ DTO 可用于：
 
 若要演示 DTO 方法，请更新 `TodoItem` 类，使其包含机密字段：
 
-[!code-csharp[](first-web-api/samples/5.x/TodoApiDTO/Models/TodoItem.cs?name=snippet&highlight=6)]
+[!code-csharp[](first-web-api/samples/5.x/TodoApiDTO/Models/TodoItem.cs?name=snippet&highlight=8)]
 
 此应用需要隐藏机密字段，但管理应用可以选择公开它。
 
@@ -1364,7 +1362,7 @@ DTO 可用于：
 
 * 生成项目。
 * 在 Postman 中，将 HTTP 方法设置为 `POST`。
-* 将 URI 设置为 `https://localhost:<port>/api/TodoItem`。 例如 `https://localhost:5001/api/TodoItem`。
+* 将 URI 设置为 `https://localhost:<port>/api/Todo`。 例如 `https://localhost:5001/api/Todo`。
 * 选择“正文”选项卡。
 * 选择“原始”单选按钮。
 * 将类型设置为 **JSON (application/json)**
