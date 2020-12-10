@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 9dcb1c4a19e50a57f1a1918cfcf775b49fa89b11
-ms.sourcegitcommit: 43a540e703b9096921de27abc6b66bc0783fe905
+ms.openlocfilehash: 0e81397d210518854939c6941e7f6da43ed48389
+ms.sourcegitcommit: 6af9016d1ffc2dffbb2454c7da29c880034cefcd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/30/2020
-ms.locfileid: "96320143"
+ms.lasthandoff: 12/10/2020
+ms.locfileid: "96855503"
 ---
 # <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor Pages 和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -479,7 +479,7 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 异步代码会在运行时引入少量开销。 流量较低时，对性能的影响可以忽略不计，但流量较高时，潜在的性能改善非常显著。
 
-在以下代码中，[async](/dotnet/csharp/language-reference/keywords/async) 关键字和 `Task<T>` 返回值，`await` 关键字和 `ToListAsync` 方法让代码异步执行。
+在以下代码中，[async](/dotnet/csharp/language-reference/keywords/async) 关键字和 `Task` 返回值，`await` 关键字和 `ToListAsync` 方法让代码异步执行。
 
 ```csharp
 public async Task OnGetAsync()
@@ -491,7 +491,7 @@ public async Task OnGetAsync()
 * `async` 关键字让编译器执行以下操作：
   * 为方法主体的各部分生成回调。
   * 创建返回的 [Task](/dotnet/csharp/programming-guide/concepts/async/async-return-types#BKMK_TaskReturnType) 对象。
-* 返回类型 `Task<T>` 表示正在进行的工作。
+* 返回类型 `Task` 表示正在进行的工作。
 * `await` 关键字让编译器将该方法拆分为两个部分。 第一部分是以异步方式结束已启动的操作。 第二部分是当操作完成时注入调用回调方法的地方。
 * `ToListAsync` 是 `ToList` 扩展方法的异步版本。
 
