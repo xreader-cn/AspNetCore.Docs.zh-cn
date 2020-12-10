@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: b87986442bb8127f03df1f7ecff8167cafa27fdf
-ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
+ms.openlocfilehash: a2738ab40e2a463a0166ce8916ed6f1b05ea1d08
+ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "96035679"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96855373"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -274,6 +274,13 @@ namespace BlazorSample
 
 [!code-razor[](../common/samples/5.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=2,11-12)]
 
+可为组件参数分配默认值：
+
+```csharp
+[Parameter]
+public string Title { get; set; } = "Panel Title from Child";
+```
+
 在示例应用的以下示例中，`ParentComponent` 设置 `ChildComponent` 的 `Title` 属性的值。
 
 `Pages/ParentComponent.razor`:
@@ -461,7 +468,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 }
 ```
 
-呈现组件时，将用 `MyLoginDialog` 子组件实例填充 `loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
+呈现组件时，将用 `CustomLoginDialog` 子组件实例填充 `loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
 
 > [!IMPORTANT]
 > 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在呈现组件之前，没有任何可引用的内容。
