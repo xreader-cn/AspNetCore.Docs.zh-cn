@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 3b95fe117895555ebcd44f971e7bb9d1173e1697
-ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
+ms.openlocfilehash: 1e571966b78f93e29e7901dd9648fbe3aca52726
+ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/01/2020
-ms.locfileid: "96419975"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96855477"
 ---
 # <a name="part-6-add-search-to-aspnet-core-no-locrazor-pages"></a>第 6 部分，将搜索添加到 ASP.NET Core Razor 页面
 
@@ -70,7 +70,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-此时仅对查询进行了定义，它还不会针对数据库运行。
+此时仅对查询进行了定义，它还 _不会_ 针对数据库运行。
 
 如果 `SearchString` 属性不为 null 或空，则电影查询会修改为根据搜索字符串进行筛选：
 
@@ -95,7 +95,7 @@ var movies = from m in _context.Movie
 
 ![Index 视图，显示添加到 URL 的“ghost”一词，以及返回的两部电影（Ghostbusters 和 Ghostbusters 2）的电影列表](search/_static/g2.png)
 
-ASP.NET Core 运行时使用[模型绑定](xref:mvc/models/model-binding)，通过查询字符串 (`?searchString=Ghost`) 或路由数据 (`https://localhost:5001/Movies/Ghost`) 设置 `SearchString` 属性的值。 模型绑定不区分大小写*_。
+ASP.NET Core 运行时使用[模型绑定](xref:mvc/models/model-binding)，通过查询字符串 (`?searchString=Ghost`) 或路由数据 (`https://localhost:5001/Movies/Ghost`) 设置 `SearchString` 属性的值。 模型绑定 _不_ 区分大小写。
 
 但是，用户不能通过修改 URL 来搜索电影。 在此步骤中，会添加 UI 来筛选电影。 如果已添加路由约束 `"{searchString?}"`，请将它删除。
 

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 9462b73ad67394e79de08e7d2b13bf6a3145a04e
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: c6f9815f473380f96092d663cdd785fd19109701
+ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94507962"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96855295"
 ---
 # <a name="aspnet-core-no-locblazor-layouts"></a>ASP.NET Core Blazor 布局
 
@@ -34,9 +34,9 @@ ms.locfileid: "94507962"
 
 从技术上讲，布局也是一个组件。 布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/components/data-binding)、[依赖项注入](xref:blazor/fundamentals/dependency-injection)和其他组件方案。
 
-若要将 *组件* 转换为 *布局* ，该组件应：
+将组件转换为布局：
 
-* 继承自 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase>，后者为布局内的呈现内容定义 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase.Body> 属性。
+* 组件继承自 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase>。 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> 为布局内的呈现内容定义 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase.Body> 属性。
 * 使用 Razor 语法 `@Body` 在布局标记中指定呈现内容的位置。
 
 以下代码示例显示布局组件 `MainLayout.razor` 的 Razor 模板。 布局继承 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> 并在导航栏和页脚之间设置 `@Body`：
@@ -89,7 +89,7 @@ ms.locfileid: "94507962"
 
 添加以下 `_Imports.razor` 文件导入内容：
 
-* `MyCoolLayout`。
+* `MyCoolLayout`.
 * 同一文件夹以及任何子文件夹中的所有 Razor 组件。
 * `BlazorApp1.Data` 命名空间。
  

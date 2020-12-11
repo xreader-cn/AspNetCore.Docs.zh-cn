@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/state-management
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 7e79836e3dd1da175a62a84e11dfd30fee7b2f1b
-ms.sourcegitcommit: 1ea3f23bec63e96ffc3a927992f30a5fc0de3ff9
+ms.openlocfilehash: 24f845bc1d98331f2ee54710d17beb6ffa95ad88
+ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2020
-ms.locfileid: "94570141"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96855412"
 ---
 # <a name="aspnet-core-no-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -43,6 +43,9 @@ ms.locfileid: "94570141"
 * 通过 [JavaScript 互操作](xref:blazor/call-javascript-from-dotnet)调用设置的值。
 
 当用户关闭并重新打开其浏览器或重新加载页面时，浏览器的内存中保存的用户状态丢失。
+
+> [!NOTE]
+> [受保护的浏览器存储](xref:blazor/state-management?pivots=server#aspnet-core-protected-browser-storage)（<xref:Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage?displayProperty=fullName> 命名空间）依赖于 ASP.NET Core 数据保护，仅支持用于 Blazor Server 应用。
 
 ## <a name="persist-state-across-browser-sessions"></a>跨浏览器会话保留状态
 

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 7ae462ff9abd06fe4ab4b3e00a71515b76b0ee7d
-ms.sourcegitcommit: bb475e69cb647f22cf6d2c6f93d0836c160080d7
+ms.openlocfilehash: 7edba338716a0545390ec53775f69eaef141d389
+ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2020
-ms.locfileid: "94339979"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96855282"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -934,11 +934,33 @@ Failed to find a valid digest in the 'integrity' attribute for resource 'https:/
  1. 打开浏览器的开发人员工具，然后在“网络”选项卡中查找。如有必要，请重新加载页面以查看请求和响应的列表。 在该列表中查找触发错误的文件。
  1. 检查响应中的 HTTP 状态代码。 如果服务器返回除“200 - 正常”（或其他 2xx 状态代码）以外的任何内容，则需要诊断服务器端问题。 例如，状态代码 403 表示存在授权问题，而状态代码 500 表示服务器以未指定的方式失败。 请参阅服务器端日志以诊断和修复应用。
  1. 如果资源的状态代码为“200 - 正常”，请在浏览器的开发人员工具中查看响应内容，并检查内容是否与预期的数据匹配。 例如，常见问题是错误配置了路由，因此请求甚至返回其他文件的 `index.html` 数据。 请确保对 `.wasm` 请求的响应是 WebAssembly 二进制文件，对 `.dll` 请求的响应是 .NET 程序集二进制文件。 如果不是，则需要诊断服务器端路由问题。
+ 1. 搜索以验证应用的已发布和已部署输出，并提供[完整性 PowerShell 脚本故障排除](#troubleshoot-integrity-powershell-script)。
 
 如果确认服务器返回看似正确的数据，则必须在生成文件和传递文件之间修改内容。 若要对此进行调查，请执行以下操作：
 
  * 如果在生成文件后修改文件，请检查生成工具链和部署机制。 例如，在 Git 转换文件行尾时，如前所述。
  * 如设置为动态修改响应（例如，尝试缩小 HTML），请检查 Web 服务器或 CDN 配置。 Web 服务器可以实现 HTTP 压缩（例如，返回 `content-encoding: br` 或 `content-encoding: gzip`），因为这不会影响解压缩后的结果。 但是，Web 服务器不可以修改未压缩的数据。
+
+### <a name="troubleshoot-integrity-powershell-script"></a>完整性 PowerShell 脚本故障排除
+
+使用 [`integrity.ps1`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/integrity.ps1?raw=true) PowerShell 脚本来验证已发布和已部署的 Blazor 应用。 当应用出现 Blazor 框架无法识别的完整性问题时，该脚本将作为起点提供。 您的应用可能需要自定义脚本。
+
+此脚本将检查 `publish` 文件夹中的文件，并从部署的应用中下载这些文件，以检测包含完整性哈希的不同清单中的问题。 这些检查应检测最常见的问题：
+
+* 你修改了已发布的输出中的文件，但未实现它。
+* 应用未正确部署到部署目标，或者在部署目标的环境中发生了更改。
+* 部署的应用与发布应用的输出之间存在差异。
+
+在 PowerShell 命令行中使用以下命令调用脚本：
+
+```powershell
+.\integrity.ps1 {BASE URL} {PUBLISH OUTPUT FOLDER}
+```
+
+占位符：
+
+* `{BASE URL}`：已部署的应用的 URL。
+* `{PUBLISH OUTPUT FOLDER}`：应用的 `publish` 文件夹的路径，或已发布的用于部署应用的位置。
 
 ### <a name="disable-integrity-checking-for-non-pwa-apps"></a>禁用非 PWA 应用的完整性检查
 

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/cicd
-ms.openlocfilehash: eddd7034bf1860fb35cf00eefb7a11a408869700
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 2ac7a130d223b21330d0a797c1d460fc0cf467d7
+ms.sourcegitcommit: 6af9016d1ffc2dffbb2454c7da29c880034cefcd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052638"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96901205"
 ---
 # <a name="continuous-integration-and-deployment"></a>持续集成和持续部署
 
@@ -118,7 +118,7 @@ ms.locfileid: "93052638"
 1. 如果对 GitHub 帐户启用了双因素身份验证，则需要个人访问令牌。 在这种情况下，单击“使用 GitHub 个人访问令牌授权”链接。 有关帮助，请参阅[官方 GitHub 个人访问令牌创建说明](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)。 只需要存储库范围内的权限。 否则，单击“使用 OAuth 授权”按钮。
 1. 出现提示时，请登录到你的 GitHub 帐户。 然后，选择“授权”，授予对 Azure DevOps 组织的访问权限。 如果成功，新的服务终结点随之创建。
 1. 单击“存储库”按钮旁边的省略号按钮。 从列表中选择“<GitHub_username>/simple-feed-reader”存储库。 单击“选择”按钮。
-1. 从“用于手动生成和计划生成的默认分支”下拉列表中选择主分支。 单击“继续”按钮。 此时将显示模板选择页。
+1. 从“用于手动生成和计划生成的默认分支”下拉列表中选择默认分支（主）。 单击“继续”按钮。 此时将显示模板选择页。
 
 ### <a name="create-the-build-definition"></a>创建生成定义
 
@@ -132,7 +132,7 @@ ms.locfileid: "93052638"
 
     ![启用持续集成设置](media/cicd/vsts-enable-ci.png)
 
-    这些设置会在将任何更改推送到 GitHub 存储库的主分支时触发生成。 持续集成在[提交对 GitHub 的更改并自动部署到 Azure](#commit-changes-to-github-and-automatically-deploy-to-azure) 一节中进行测试。
+    这些设置会在将任何更改推送到 GitHub 存储库的默认分支（主）时触发生成。 持续集成在[提交对 GitHub 的更改并自动部署到 Azure](#commit-changes-to-github-and-automatically-deploy-to-azure) 一节中进行测试。
 
 1. 单击“保存并排队”按钮，然后选择“保存”选项 ：
 
@@ -176,7 +176,7 @@ ms.locfileid: "93052638"
 
     启用此选项后，每次有新生成可用时都会进行部署。
 1. 右侧随即出现“持续部署触发器”面板。 单击“切换”按钮以启用该功能。 无需启用“拉取请求触发器”。
-1. 单击“生成分支筛选器”部分中的“添加”下拉列表 。 选择“生成定义的默认分支”选项。 此筛选器使得发布仅针对来自 GitHub 存储库的主分支的生成而触发。
+1. 单击“生成分支筛选器”部分中的“添加”下拉列表 。 选择“生成定义的默认分支”选项。 此筛选器使得发布仅针对来自 GitHub 存储库的默认分支（主）的生成而触发。
 1. 单击“保存”按钮。 在生成的“保存”模式对话框中，单击“确定”按钮 。
 1. 单击“环境 1”框。 右侧随即出现“环境”面板。 将“环境名称”文本框中的“环境 1”文本更改为“生产” 。
 
@@ -211,15 +211,15 @@ ms.locfileid: "93052638"
     git commit -a -m "upgraded to V4"
     ```
 
-1. 将主分支中的更改推送到 GitHub 存储库的源远程库 ：
+1. 将默认分支（主）中的更改推送到 GitHub 存储库的源远程库 。 在下面的命令中，将占位符 `{BRANCH}` 替换为默认分支（使用 `master`）：
 
     ```console
-    git push origin master
+    git push origin {BRANCH}
     ```
 
-    提交出现在 GitHub 存储库的主分支中：
+    提交出现在 GitHub 存储库的默认分支（主）中：
 
-    ![主分支中的 GitHub 提交](media/cicd/github-commit.png)
+    ![默认分支（主）中的 GitHub 提交](media/cicd/github-commit.png)
 
     生成被触发，因为在生成定义的“触发器”选项卡中启用了持续集成：
 

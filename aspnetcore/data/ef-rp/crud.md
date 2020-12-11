@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/crud
-ms.openlocfilehash: c5b9be64ea30cce7a3178bfbb244ef893e9639d2
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 4a48fb094888d51aa6f881c82e4f20ffbc84c8e2
+ms.sourcegitcommit: 6af9016d1ffc2dffbb2454c7da29c880034cefcd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93053860"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96901166"
 ---
 # <a name="part-2-no-locrazor-pages-with-ef-core-in-aspnet-core---crud"></a>第 2 部分，ASP.NET Core 中的 Razor 页面和 EF Core - CRUD
 
@@ -345,7 +345,7 @@ ms.locfileid: "93053860"
 `OnPostAsync` 方法检索所选实体，然后调用 [Remove](/dotnet/api/microsoft.entityframeworkcore.dbcontext.remove#Microsoft_EntityFrameworkCore_DbContext_Remove_System_Object_) 方法将实体的状态设置为 `Deleted`。 调用 `SaveChanges` 时生成 SQL DELETE 命令。 如果 `Remove` 失败：
 
 * 捕获数据库异常。
-* 通过 `saveChangesError=true` 调用“删除”页 `OnGetAsync` 方法。
+* 通过 `saveChangesError=true` 调用“删除”页的 `OnGetAsync` 方法。
 
 向“删除”Razor 页面添加错误消息 (Pages/Students/Delete.cshtml)：
 

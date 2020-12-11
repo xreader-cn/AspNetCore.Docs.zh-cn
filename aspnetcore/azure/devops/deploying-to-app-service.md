@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: 52c4905ecb3a76f1dd10629f834b2b541b698774
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: f1c7acba0b7fb7dc07da576b188e580328ff4b89
+ms.sourcegitcommit: 6af9016d1ffc2dffbb2454c7da29c880034cefcd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052352"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96901153"
 ---
 # <a name="deploy-an-app-to-app-service"></a>将应用部署到应用服务
 
@@ -141,7 +141,7 @@ ms.locfileid: "93052352"
     git remote add azure-prod GIT_DEPLOYMENT_URL
     ```
 
-    b. 将本地 master 分支推送到 azure-prod 远程的 master 分支    。
+    b. 将本地默认分支（主）推送到 azure-prod 的远程默认分支（主）  。
 
     ```console
     git push azure-prod master
@@ -153,7 +153,7 @@ ms.locfileid: "93052352"
 
 ## <a name="deployment-with-visual-studio"></a>使用 Visual Studio 进行部署
 
-> *注意：本部分仅适用于 Windows。Linux 和 macOS 用户应进行下面步骤 2 中所述的更改。保存文件，然后使用 `git commit` 将更改提交到本地存储库。最后如第一部分所述，使用 `git push` 推送更改* 。
+> *注意：本部分仅适用于 Windows。Linux 和 macOS 用户应进行下面步骤 2 中所述的更改。保存文件，然后使用 `git commit` 将更改提交到本地存储库。最后如第一部分所述，使用 `git push` 推送更改*。
 
 已从命令行界面部署了应用。 接下来使用 Visual Studio 的集成工具将更新部署到应用。 在后台，Visual Studio 会实现与命令行工具相同的操作，但是在 Visual Studio 的常见 UI 中完成的。
 
@@ -214,7 +214,7 @@ Visual Studio 会构建应用并将其部署到 Azure。 访问 Web 应用 URL�
     git remote add azure-staging <Git_staging_deployment_URL>
     ```
 
-    b. 将本地 master 分支推送到 azure-staging 远程的 master 分支    。
+    b. 将本地默认分支（主）推送到 azure-staging 的远程默认分支（主）  。
 
     ```console
     git push azure-staging master

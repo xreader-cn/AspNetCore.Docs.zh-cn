@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: c73de0e30b7b564915f30d75f754f89fecccdc78
-ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
+ms.openlocfilehash: a98537f53229d098328f5b14bf1d5060001ebd80
+ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "96035718"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96855232"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -501,10 +501,7 @@ JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 �
 * .NET 方法调用。
 * 返回类型具有循环引用时，从 C# 发出的 JavaScript 方法调用。
 
-有关详细信息，请查看以下问题：
-
-* [循环引用不受支持，使用两个按钮 (dotnet/aspnetcore #20525)](https://github.com/dotnet/aspnetcore/issues/20525)
-* [建议：在序列化时添加机制来处理循环引用 (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
+有关详细信息，请参阅[循环引用不受支持，使用两个按钮 (dotnet/aspnetcore #20525)](https://github.com/dotnet/aspnetcore/issues/20525)。
 
 ::: moniker range=">= aspnetcore-5.0"
 

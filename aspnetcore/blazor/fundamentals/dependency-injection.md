@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/dependency-injection
-ms.openlocfilehash: 0cec9a1ea6f6df52103ab190c85518ddc42a573f
-ms.sourcegitcommit: 1be547564381873fe9e84812df8d2088514c622a
+ms.openlocfilehash: c68deb5237754872e11bfd9c83275b9a3b147319
+ms.sourcegitcommit: 92439194682dc788b8b5b3a08bd2184dc00e200b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94507923"
+ms.lasthandoff: 12/03/2020
+ms.locfileid: "96556510"
 ---
 # <a name="aspnet-core-no-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -154,7 +154,7 @@ public void ConfigureServices(IServiceCollection services)
 
 | 生存期 | 描述 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。 但是，Blazor Server 托管模型支持 `Scoped` 生存期。 在 Blazor Server 应用中，范围内服务注册的范围为“连接”。 因此，即使当前意图是在 Blazor WebAssembly 应用的浏览器中运行客户端，对于范围应限定为当前用户的服务来说，首选使用作用域服务。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | <p>Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。</p><p>Blazor Server 托管模型在 HTTP 请求中支持 `Scoped` 生存期，但在客户端上加载的组件中的 SingalR 连接/线路消息中则不支持。 在页面或视图之间或从页面或视图导航到组件时，应用的 Razor 页面或 MVC 部分会正常处理作用域服务并在每个 HTTP 请求上重新创建服务。 在客户端上的组件间导航时，作用域服务不会重建，其中与服务器之间的通信通过用户线路的 SignalR 连接进行，而不是通过 HTTP 请求进行。 在客户端上的以下组件方案中，将重建作用域服务，因为为用户创建了新线路：</p><ul><li>用户关闭了浏览器窗口。 用户打开了一个新窗口，并向后导航到该应用。</li><li>用户在浏览器窗口中关闭应用的最后一个选项卡。 用户打开了一个新的选项卡，并向后导航到该应用。</li><li>用户选择浏览器的重新加载/刷新按钮。</li></ul><p>若要详细了解如何在 Blazor Server 应用中跨作用域服务保留用户状态，请参阅 <xref:blazor/hosting-models?pivots=server>。</p> |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI 创建服务的单个实例。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例。 |
 
