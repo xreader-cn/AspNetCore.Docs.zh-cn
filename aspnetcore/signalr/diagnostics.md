@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 6e5e9d866a1e03e69856cc63dcfe30284048dd6d
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 49029bbd53b98425a05bdb82517238e3aa2e3b1f
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061309"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97506625"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-no-locsignalr"></a>ASP.NET Core 中的日志记录和诊断 SignalR
 
@@ -75,7 +75,7 @@ Visual Studio 会在 " **输出** " 窗口中显示日志输出。 选择 **ASP.
 
 ### <a name="azure-app-service"></a>Azure 应用服务
 
-在 Azure App Service 门户的 " **诊断日志** " 部分中，启用 **应用程序日志记录 (Filesystem)** 选项，并将 **级别** 配置为 `Verbose` 。 日志 **流** 服务和应用服务文件系统的日志中应提供日志。 有关详细信息，请参阅 [Azure 日志流式处理](xref:fundamentals/logging/index#azure-log-streaming)。
+在 Azure App Service 门户的 "**诊断日志**" 部分中，启用 **应用程序日志记录 (Filesystem)** 选项，并将 **级别** 配置为 `Verbose` 。 日志 **流** 服务和应用服务文件系统的日志中应提供日志。 有关详细信息，请参阅 [Azure 日志流式处理](xref:fundamentals/logging/index#azure-log-streaming)。
 
 ### <a name="other-environments"></a>其他环境
 
@@ -110,14 +110,14 @@ Visual Studio 会在 " **输出** " 窗口中显示日志输出。 选择 **ASP.
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
-## <a name="net-client-logging"></a> .NET 客户端日志记录
+## <a name="net-client-logging"></a>.NET 客户端日志记录
 
 > [!WARNING]
 > 客户端日志可能包含来自应用的敏感信息。 切勿将来自生产应用的原始日志发布到 GitHub 等公共论坛。
 
 若要从 .NET 客户端获取日志，可以对使用 `ConfigureLogging` 方法 `HubConnectionBuilder` 。 这与和上的方法的工作方式相同 `ConfigureLogging` `WebHostBuilder` `HostBuilder` 。 你可以配置 ASP.NET Core 中使用的相同日志记录提供程序。 但是，您必须为单独的日志提供程序手动安装和启用 NuGet 包。
 
-若要将 .NET 客户端日志记录添加到 Blazor WebAssembly 应用程序，请参阅 <xref:blazor/fundamentals/logging#blazor-webassembly-signalr-net-client-logging> 。
+若要将 .NET 客户端日志记录添加到 Blazor WebAssembly 应用程序，请参阅 <xref:blazor/fundamentals/logging#signalr-net-client-logging> 。
 
 ### <a name="console-logging"></a>控制台日志记录
 
@@ -158,7 +158,7 @@ Fiddler 是一个非常强大的工具，用于收集 HTTP 跟踪。 从 [teleri
 
 如果使用 HTTPS 进行连接，则需要执行一些额外的步骤来确保 Fiddler 可以解密 HTTPS 流量。 有关更多详细信息，请参阅 [Fiddler 文档](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS)。
 
-收集跟踪后，可以通过从菜单栏中选择 "文件" **File**  >  " **保存**  >  **所有会话** " 来导出跟踪。
+收集跟踪后，可以通过从菜单栏中选择 "文件"   >  "**保存**  >  **所有会话**" 来导出跟踪。
 
 ![正在从 Fiddler 导出所有会话](diagnostics/fiddler-export.png)
 
@@ -226,7 +226,7 @@ tcpdump -i [interface] -w trace.pcap
 
 SignalR 在事件源上报告服务器指标 <xref:Microsoft.AspNetCore.Http.Connections> 。
 
-| “属性”                    | 说明                 |
+| 名称                    | 说明                 |
 |-------------------------|-----------------------------|
 | `connections-started`   | 已启动的连接总数   |
 | `connections-stopped`   | 已停止的连接总数   |
