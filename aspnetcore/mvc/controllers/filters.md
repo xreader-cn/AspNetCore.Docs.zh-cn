@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: d075faa951a34fb3856b54eb9e21593b6616b4f1
-ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
+ms.openlocfilehash: 72ee8f5dfdf8ffd6cfcb74b13fa0738893d8e214
+ms.sourcegitcommit: 6299f08aed5b7f0496001d093aae617559d73240
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/17/2020
-ms.locfileid: "94673960"
+ms.lasthandoff: 12/14/2020
+ms.locfileid: "97486130"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -146,7 +146,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet2&highlight=9)]
 
-在 **Response Headers** `author: Rick Anderson` `Editor: Joe Smith` 调用终结点时，将显示 "响应标头"、和 `Sample/Index2` 。
+在 `author: Rick Anderson` `Editor: Joe Smith` 调用终结点时，将显示 "响应标头"、和 `Sample/Index2` 。
 
 下面的代码将 `MyActionFilterAttribute` 和应用于 `AddHeaderAttribute` Razor 页面：
 
@@ -182,10 +182,10 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 在筛选器嵌套模式下，筛选器的 after 代码会按照与 before 代码相反的顺序运行。 筛选器序列：
 
 * 全局筛选器的 before 代码。
-  * 控制器 *before* 和 Razor 页面筛选器的前代码。
+  * 控制器和 Razor 页面筛选器的前代码。
     * 操作方法筛选器的 before 代码。
     * 操作方法筛选器的 after 代码。
-  * 控制器 *after* 和 Razor 页面筛选器后的代码。
+  * 控制器和 Razor 页面筛选器后的代码。
 * 全局筛选器的 after 代码。
   
 下面的示例阐释了为同步操作筛选器调用筛选器方法的顺序。
@@ -290,7 +290,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 这样 `AddHeader` 筛选器就不会为 `SomeResource` 操作运行。 如果这两个筛选器都应用于操作方法级别，只要 `ShortCircuitingResourceFilter` 先运行，此行为就不会变。 先运行 `ShortCircuitingResourceFilter`（考虑到它的筛选器类型），或显式使用 `Order` 属性。
 
-[!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
+[!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet3&highlight=1,15)]
 
 ## <a name="dependency-injection"></a>依赖关系注入
 
