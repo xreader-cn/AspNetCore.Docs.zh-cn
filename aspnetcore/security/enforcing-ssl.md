@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: 209d055f6205eceb9efb5434427c303345791809
-ms.sourcegitcommit: 8363e44f630fcc6433ccd2a85f7aa9567cd274ed
+ms.openlocfilehash: 3277fda0d1dcb5121a2172b3fc1e4869ed6f8430
+ms.sourcegitcommit: fc4cce2767e34f81079510f34bd54e9d0aa86497
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "94981955"
+ms.lasthandoff: 12/16/2020
+ms.locfileid: "97592864"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>在 ASP.NET Core 强制实施 HTTPS
 
@@ -325,7 +325,7 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 `Use
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
 
-使用 `--no-https` 选项。 例如：
+使用 `--no-https` 选项。 例如
 
 ```dotnetcli
 dotnet new webapp --no-https
@@ -396,6 +396,8 @@ dotnet dev-certs https --help
 ## <a name="troubleshoot-certificate-problems"></a>排查证书问题
 
 本部分提供了在 [安装和信任](#trust)ASP.NET Core HTTPS 开发证书时，但仍会出现浏览器警告，指出该证书不受信任。 [Kestrel](xref:fundamentals/servers/kestrel)使用 ASP.NET Core HTTPS 开发证书。
+
+若要修复 IIS Express 证书，请参阅 [此 Stackoverflow](https://stackoverflow.com/a/20048613/502537) 问题。
 
 ### <a name="all-platforms---certificate-not-trusted"></a>所有平台-证书不受信任
 
