@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/index
-ms.openlocfilehash: 082072d2b70abfe60da8e2cd40daa8b93ebcc9ac
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: a23bee120611ee603305a88dabac76566481fa4a
+ms.sourcegitcommit: 6299f08aed5b7f0496001d093aae617559d73240
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055810"
+ms.lasthandoff: 12/14/2020
+ms.locfileid: "97485883"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor"></a>托管和部署 ASP.NET Core Blazor
 
@@ -79,10 +79,18 @@ dotnet publish -c Release
 
 如果不为 `CoolApp` 指定其他配置，此方案中的子应用将不知道其在服务器上的位置。 例如，不知道它驻留在相对 URL 路径 `/CoolApp/` 上，应用就无法构造其资源的正确相对 URL。
 
-若要为 Blazor 应用的基路径 `https://www.contoso.com/CoolApp/` 提供配置，请将 `<base>` 标记的 `href` 属性设置为 `Pages/_Host.cshtml` 文件（Blazor Server）或 `wwwroot/index.html` 文件 (Blazor WebAssembly) 中的相对根路径：
+若要为 Blazor 应用的基路径 `https://www.contoso.com/CoolApp/` 提供配置，请将 `<base>` 标记的 `href` 属性设置为 `wwwroot/index.html` 文件 (Blazor WebAssembly) 或 `Pages/_Host.cshtml` 文件 (Blazor Server) 中的相对根路径。
+
+Blazor WebAssembly (`wwwroot/index.html`):
 
 ```html
 <base href="/CoolApp/">
+```
+
+Blazor Server (`Pages/_Host.cshtml`):
+
+```html
+<base href="~/CoolApp/">
 ```
 
 此外，Blazor Server应用还通过在应用的请求管道 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*>，设置服务器端基路径：
@@ -95,9 +103,9 @@ app.UsePathBase("/CoolApp");
 
 在许多托管方案中，应用的相对 URL 路径为应用的根目录。 在这些情况下，应用的相对 URL 基路径为正斜杠 (`<base href="/" />`)，它是 Blazor 应用的默认配置。 在其他托管方案中（例如 GitHub 页和 IIS 子应用），应用基路径必须设置为应用的服务器相对 URL 路径。
 
-若要设置应用的基路径，请更新 `Pages/_Host.cshtml` 文件（Blazor Server）或 `wwwroot/index.html` 文件 (Blazor WebAssembly) 的 `<head>` 标记元素中的 `<base>` 标记。 将 `href` 属性值设置为 `/{RELATIVE URL PATH}/`（需要尾部反斜杠），其中 `{RELATIVE URL PATH}` 是应用完整相对 URL 路径。
+若要设置应用的基路径，请更新 `Pages/_Host.cshtml` 文件（Blazor Server）或 `wwwroot/index.html` 文件 (Blazor WebAssembly) 的 `<head>` 标记元素中的 `<base>` 标记。 将 `href` 属性值设置为 `/{RELATIVE URL PATH}/` (Blazor WebAssembly) 或 `~/{RELATIVE URL PATH}/` (Blazor Server)。 尾部反斜杠是必需项。 占位符 `{RELATIVE URL PATH}` 是应用的完整相对 URL 路径。
 
-对于具有非根相对 URL 路径（例如 `<base href="/CoolApp/">`）的 Blazor WebAssembly 应用，应用在本地运行时找不到其资源。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值。 不要包含尾部反斜杠。 在本地运行应用时，若要传递路径基础参数，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
+对于具有非根相对 URL 路径（例如 `<base href="/CoolApp/">`）的 Blazor WebAssembly 应用，应用在本地运行时找不到其资源。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值。 **不要包含尾部反斜杠。** 在本地运行应用时，若要传递路径基础参数，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
 
 ```dotnetcli
 dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}

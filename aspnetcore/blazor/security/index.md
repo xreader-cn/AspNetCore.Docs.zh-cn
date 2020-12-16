@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 6435a7c9ce2a30873f0d3475a38270d3dea1b300
-ms.sourcegitcommit: 98f92d766d4f343d7e717b542c1b08da29e789c1
+ms.openlocfilehash: 8a61472da556db48a8572b0a59075beb7737a547
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/13/2020
-ms.locfileid: "94595462"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97506820"
 ---
 # <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -231,6 +231,8 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 </CascadingAuthenticationState>
 ```
 
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
+
 在 Blazor WebAssembly 应用中，将选项和授权服务添加到 `Program.Main`：
 
 ```csharp
@@ -422,6 +424,8 @@ You can only see this if you're signed in.
 </CascadingAuthenticationState>
 ```
 
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
+
 `<NotFound>`、`<NotAuthorized>` 和 `<Authorizing>` 标记的内容可以包括任意项，如其他交互式组件。
 
 如果未指定 `<NotAuthorized>` 标记，<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> 就会使用以下回退消息：
@@ -499,6 +503,8 @@ Not authorized.
     </Router>
 </CascadingAuthenticationState>
 ```
+
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
 
 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 提供 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 级联参数，它反过来又从基础 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> DI 服务接收此参数。
 
