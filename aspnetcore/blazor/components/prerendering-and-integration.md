@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/components/prerendering-and-integration
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: affca6c9b585b91787f94a13144d07bedfefdd37
-ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
+ms.openlocfilehash: 3402117334548f9d90880d4f536e8baa288e7bc9
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431686"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97506976"
 ---
 # <a name="prerender-and-integrate-aspnet-core-no-locrazor-components"></a>预呈现和集成 ASP.NET Core Razor 组件
 
@@ -308,6 +308,8 @@ Razor 组件可以通过 Blazor Server 应用集成到 Razor Pages 和 MVC 应�
    </Router>
    ```
 
+   [!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
+
 1. 将具有以下内容的 `_Host.cshtml` 文件添加到 `Pages` 文件夹：
 
    ```cshtml
@@ -376,6 +378,8 @@ Razor 组件可以通过 Blazor Server 应用集成到 Razor Pages 和 MVC 应�
        </NotFound>
    </Router>
    ```
+
+   [!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
 
 1. 将具有以下内容的 `_Host.cshtml` 文件添加到 `Views/Home` 文件夹：
 

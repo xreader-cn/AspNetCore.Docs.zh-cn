@@ -3,7 +3,7 @@ title: 第 7 部分，添加新字段
 author: rick-anderson
 description: Razor 页面教程系列第 7 部分。
 ms.author: riande
-ms.custom: mvc
+ms.custom: mvc, contperf-fy21q2
 ms.date: 09/28/2020
 no-loc:
 - Index
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 6b6856731c61957a9e23f76e2bc15befe56ea57d
-ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
+ms.openlocfilehash: 2961fcaa8bbb93527eb80f5aa7b18ef04761fb50
+ms.sourcegitcommit: 6299f08aed5b7f0496001d093aae617559d73240
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/01/2020
-ms.locfileid: "96420001"
+ms.lasthandoff: 12/14/2020
+ms.locfileid: "97486156"
 ---
 # <a name="part-7-add-a-new-field-to-a-no-locrazor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
 

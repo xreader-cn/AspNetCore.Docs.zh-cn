@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: 6a1feffb5341d432d6d1949a9e26b9537b85ba03
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 6e7fa6e231e97793fbf7e1ac1d208bf3013c6fce
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93054783"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97506562"
 ---
 # <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>在 ASP.NET Core Blazor WebAssembly 中延迟加载程序集
 
@@ -74,6 +74,8 @@ Blazor 的 `Router` 组件指定哪个程序集 Blazor 搜索可路由组件。 
     }
 }
 ```
+
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
 
 如果 `OnNavigateAsync` 回调引发一个未处理的异常，则会调用 [Blazor 错误 UI](xref:blazor/fundamentals/handle-errors#detailed-errors-during-development)。
 
@@ -133,6 +135,8 @@ services.AddScoped<LazyAssemblyLoader>();
 ...
 ```
 
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
+
 ### <a name="handle-cancellations-in-onnavigateasync"></a>处理 `OnNavigateAsync` 中的取消
 
 传递到 `OnNavigateAsync` 回调的 `NavigationContext` 对象包含的 `CancellationToken` 在发生新导航事件时进行设置。 设置此取消标记时，`OnNavigateAsync` 回调必须引发，以避免在过时的导航中继续运行 `OnNavigateAsync` 回调。
@@ -169,6 +173,8 @@ services.AddScoped<LazyAssemblyLoader>();
     }
 }
 ```
+
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
 
 > [!NOTE]
 > 如果取消 `NavigationContext` 中的取消标记会导致意外的行为（例如，呈现上一次导航中的组件），则不会引发。
@@ -230,6 +236,8 @@ services.AddScoped<LazyAssemblyLoader>();
     }
 }
 ```
+
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
 
 ## <a name="troubleshoot"></a>疑难解答
 

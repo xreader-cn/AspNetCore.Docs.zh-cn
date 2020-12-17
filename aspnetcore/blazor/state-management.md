@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/state-management
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 24f845bc1d98331f2ee54710d17beb6ffa95ad88
-ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
+ms.openlocfilehash: 6e6f3047da30490caff4f820003a3018e8c26aaa
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/08/2020
-ms.locfileid: "96855412"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97506601"
 ---
 # <a name="aspnet-core-no-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -126,7 +126,7 @@ ms.locfileid: "96855412"
 
 <h2 id="in-memory-state-container-service-wasm">内存中状态容器服务</h2>
 
-[!INCLUDE[](~/includes/blazor-state-management/state-container.md)]
+[!INCLUDE[](~/blazor/includes/state-container.md)]
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -427,6 +427,8 @@ else
 </CounterStateProvider>
 ```
 
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
+
 已包装的组件接收并可修改保留的计数器状态。 以下 `Counter` 组件实现了该模式：
 
 ```razor
@@ -670,6 +672,8 @@ else
 </CounterStateProvider>
 ```
 
+[!INCLUDE[](~/blazor/includes/prefer-exact-matches.md)]
+
 已包装的组件接收并可修改保留的计数器状态。 以下 `Counter` 组件实现了该模式：
 
 ```razor
@@ -705,6 +709,6 @@ else
 
 <h2 id="in-memory-state-container-service-server">内存中状态容器服务</h2>
 
-[!INCLUDE[](~/includes/blazor-state-management/state-container.md)]
+[!INCLUDE[](~/blazor/includes/state-container.md)]
 
 ::: zone-end

@@ -4,6 +4,7 @@ author: rick-anderson
 description: Razor 页面教程系列第 5 部分。
 ms.author: riande
 ms.date: 09/20/2020
+ms.custom: contperf-fy21q2
 no-loc:
 - Index
 - appsettings.json
@@ -18,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: 460950413d1dd2d3539c1d62b0eb11f6bb5144a9
-ms.sourcegitcommit: db0a6eb0be7bd7f22810a71fe9bf30e957fd116a
+ms.openlocfilehash: 46fbfb50afd03f918f9e02bcc8c1dbde9a080ca4
+ms.sourcegitcommit: 6299f08aed5b7f0496001d093aae617559d73240
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/01/2020
-ms.locfileid: "96419962"
+ms.lasthandoff: 12/14/2020
+ms.locfileid: "97485935"
 ---
 # <a name="part-5-update-the-generated-pages-in-an-aspnet-core-app"></a>第 5 部分，在 ASP.NET Core 应用中更新生成的页面
 
