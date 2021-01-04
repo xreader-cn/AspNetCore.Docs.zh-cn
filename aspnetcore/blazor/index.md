@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: ecdf4f59aca0fe71bbfcfe61a99109127c8b92df
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 79c225a0714562a01afe67bf8e59f3b3f98a6265
+ms.sourcegitcommit: e9b8835a02f75b6378b766edb8bab23b14a4192b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055707"
+ms.lasthandoff: 12/18/2020
+ms.locfileid: "97666854"
 ---
 # <a name="introduction-to-aspnet-core-no-locblazor"></a>ASP.NET Core Blazor 简介
 

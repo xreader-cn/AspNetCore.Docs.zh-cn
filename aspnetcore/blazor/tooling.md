@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: 500342ac979efdee824ac0d4b5757ca9804f3b30
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 29f1a1f211688a1edcd31c7230e7216df7c89eef
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93054809"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97506807"
 ---
 # <a name="tooling-for-aspnet-core-no-locblazor"></a>用于 ASP.NET Core Blazor 的工具
 
@@ -43,7 +43,9 @@ ms.locfileid: "93054809"
 
 1. 若要获得 Blazor WebAssembly 体验，请选择“Blazor WebAssembly 应用”模板。 若要获得 Blazor Server 体验，请选择“Blazor Server 应用”模板。 选择“创建”。
 
-   有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 
+   对于托管的 Blazor WebAssembly 体验，选择“托管的 ASP.NET Core”复选框。
+
+   若要了解 Blazor WebAssembly（独立和托管）和 Blazor Server这两个 Blazor 托管模型，请参阅 <xref:blazor/hosting-models> 。
 
 1. 按 Ctrl+F5 运行应用<kbd></kbd><kbd></kbd>。
 
@@ -69,13 +71,19 @@ ms.locfileid: "93054809"
    dotnet new blazorwasm -o WebApplication1
    ```
 
+   对于托管的 Blazor WebAssembly 体验，请向命令添加托管选项 (`-ho` 或 `--hosted`) 选项：
+   
+   ```dotnetcli
+   dotnet new blazorwasm -o WebApplication1 -ho
+   ```
+   
    若要获得 Blazor Server 体验，请在命令行界面中执行以下命令：
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
    ```
 
-   有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 
+   若要了解 Blazor WebAssembly（独立和托管）和 Blazor Server这两个 Blazor 托管模型，请参阅 <xref:blazor/hosting-models> 。
 
 1. 在 Visual Studio Code 中打开 `WebApplication1` 文件夹，
 
@@ -105,9 +113,11 @@ Linux 上没有用于信任证书的集中途径。 通常采用以下方法之�
 
    若要获得 Blazor WebAssembly 体验，请选择“Blazor WebAssembly 应用”模板。 若要获得 Blazor Server 体验，请选择“Blazor Server 应用”模板。 选择“下一步”。
 
-   有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 
+   若要了解 Blazor WebAssembly（独立和托管）和 Blazor Server这两个 Blazor 托管模型，请参阅 <xref:blazor/hosting-models> 。
 
 1. 确认已将“身份验证”设置为“无身份验证”。 选择“下一步”。
+
+1. 对于托管的 Blazor WebAssembly 体验，选择“托管的 ASP.NET Core”复选框。
 
 1. 在“项目名称”字段中，将应用命名为 `WebApplication1`。 选择“创建”。
 
@@ -116,3 +126,23 @@ Linux 上没有用于信任证书的集中途径。 通常采用以下方法之�
 如果出现信任开发证书的提示，请信任证书并继续操作。 信任证书需要使用用户密码和密钥链密码。 有关信任 ASP.NET Core HTTPS 开发证书的详细信息，请参阅 <xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos>。
 
 ::: zone-end
+
+## <a name="use-visual-studio-code-for-cross-platform-no-locblazor-development"></a>使用适用于跨平台 Blazor 开发的 Visual Studio Code
+
+[Visual Studio Code](https://code.visualstudio.com/) 是一个开源的跨平台集成开发环境 (IDE)，可用于开发 Blazor 应用。 使用 .NET CLI 创建新的 Blazor 应用，来使用 Visual Studio Code 进行开发。 有关详细信息，请选择[本文的 Linux 版本](/aspnet/core/blazor/tooling?pivots=linux)。
+
+## <a name="no-locblazor-template-options"></a>Blazor 模板选项
+
+Blazor 框架提供了一些模板，用于为每个 Blazor 托管模型（共两个）创建新应用。 模板用于创建新的 Blazor 项目和解决方案，而不考虑您选择用于 Blazor 开发的工具（Visual Studio、Visual Studio for Mac、Visual Studio Code 还是 .NET CLI）：
+
+* Blazor WebAssembly 项目模板：`blazorwasm`
+* Blazor Server项目模板：`blazorserver`
+
+有关 Blazor 的托管模型的详细信息，请参阅 <xref:blazor/hosting-models>。
+
+通过将 help 选项（`-h` 或 `--help`）传递给命令行界面中的 [`dotnet new`](/dotnet/core/tools/dotnet-new) CLI 命令，可使用模板选项：
+
+```dotnetcli
+dotnet new blazorwasm --h
+dotnet new blazorserver --h
+```

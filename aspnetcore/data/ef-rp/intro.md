@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 0e81397d210518854939c6941e7f6da43ed48389
-ms.sourcegitcommit: 6af9016d1ffc2dffbb2454c7da29c880034cefcd
+ms.openlocfilehash: 86b57a9cad27673b72ad174a18741f5528f9f78a
+ms.sourcegitcommit: c321518bfe367280ef262aecaada287f17fe1bc5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 12/10/2020
-ms.locfileid: "96855503"
+ms.locfileid: "97011853"
 ---
 # <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor Pages 和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -237,7 +237,8 @@ To run the app after downloading the completed project:
   * 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)” 。
   * 在“数据上下文类”行中，选择 +（加号） 。
     * 将数据上下文名称更改为以 `SchoolContext` 结尾，而不以 `ContosoUniversityContext` 结尾。 更新后的上下文名称为：`ContosoUniversity.Data.SchoolContext`
-   * 选择“添加”。
+    * 选择“添加”，完成数据上下文类的添加。
+   * 选择“添加”来完成“添加 Razor 页面”对话框 。
 
 自动安装以下包：
 
