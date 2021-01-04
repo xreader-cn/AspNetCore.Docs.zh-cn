@@ -5,7 +5,7 @@ description: 了解 Blazor 应用如何将服务注入组件。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 12/11/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,114 +19,56 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/dependency-injection
-ms.openlocfilehash: c68deb5237754872e11bfd9c83275b9a3b147319
-ms.sourcegitcommit: 92439194682dc788b8b5b3a08bd2184dc00e200b
+zone_pivot_groups: blazor-hosting-models
+ms.openlocfilehash: af6b645fc3c398414c85c78e1cfeb213e538c2a6
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2020
-ms.locfileid: "96556510"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97506794"
 ---
 # <a name="aspnet-core-no-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
 作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Mike Rousos](https://github.com/mjrousos)
 
-Blazor 支持[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)。 应用可通过将内置服务注入组件来使用这些服务。 应用还可定义和注册自定义服务，并通过 DI 使其在整个应用中可用。
+[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 是一种技术，它用于访问配置在中心位置的服务：
 
-DI 是一种技术，它用于访问配置在中心位置的服务。 该技术可在 Blazor 应用中用于以下方面：
-
-* 跨多个组件共享服务类的单个实例，称为“单一实例”服务。
-* 通过使用引用抽象将组件与具体服务类分离。 例如，请考虑用接口 `IDataAccess` 来访问应用中数据。 该接口由具体的 `DataAccess` 类实现，并在应用的服务容器中注册为服务。 当组件使用 DI 接收 `IDataAccess` 实现时，组件不与具体类型耦合。 可交换实现，目的可能是为了单元测试中的模拟实现。
+* 可将框架注册的服务直接注入到 Blazor 应用的组件中。
+* Blazor 应用还可定义和注册自定义服务，并通过 DI 使其在整个应用中可用。
 
 ## <a name="default-services"></a>默认服务
 
-默认服务会自动添加到应用的服务集合中。
+下表中所示的服务通常在 Blazor 应用中使用。
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 范围内 | 提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 <xref:System.Net.Http.HttpClient> 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor Server 应用不包含配置为服务的 <xref:System.Net.Http.HttpClient>。 向 Blazor Server 应用提供 <xref:System.Net.Http.HttpClient>。<br><br>有关详细信息，请参阅 <xref:blazor/call-web-api>。<br><br><xref:System.Net.Http.HttpClient> 注册为作用域服务，而不是单一实例。 有关详细信息，请参阅[服务生存期](#service-lifetime)部分。 |
-| <xref:Microsoft.JSInterop.IJSRuntime> | 单一实例 (Blazor WebAssembly)<br>范围内 (Blazor Server) | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。 |
-| <xref:Microsoft.AspNetCore.Components.NavigationManager> | 单一实例 (Blazor WebAssembly)<br>范围内 (Blazor Server) | 包含用于处理 URI 和导航状态的帮助程序。 有关详细信息，请参阅 [URI 和导航状态帮助程序](xref:blazor/fundamentals/routing#uri-and-navigation-state-helpers)。 |
+| <xref:System.Net.Http.HttpClient> | 范围内 | <p>提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。</p><p>Blazor WebAssembly 应用中 <xref:System.Net.Http.HttpClient> 的实例使用浏览器在后台处理 HTTP 流量。</p><p>默认情况下，Blazor Server 应用不包含配置为服务的 <xref:System.Net.Http.HttpClient>。 向 Blazor Server 应用提供 <xref:System.Net.Http.HttpClient>。</p><p>有关详细信息，请参阅 <xref:blazor/call-web-api>。</p><p><xref:System.Net.Http.HttpClient> 注册为作用域服务，而不是单一实例。 有关详细信息，请参阅[服务生存期](#service-lifetime)部分。</p> |
+| <xref:Microsoft.JSInterop.IJSRuntime> | <p>**Blazor WebAssembly** ：单例</p><p>**Blazor Server** ：作用域</p> | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。 |
+| <xref:Microsoft.AspNetCore.Components.NavigationManager> | <p>**Blazor WebAssembly** ：单例</p><p>**Blazor Server** ：作用域</p> | 包含用于处理 URI 和导航状态的帮助程序。 有关详细信息，请参阅 [URI 和导航状态帮助程序](xref:blazor/fundamentals/routing#uri-and-navigation-state-helpers)。 |
 
 自定义服务提供程序不会自动提供表中列出的默认服务。 如果你使用自定义服务提供程序且需要表中所示的任何服务，请将所需服务添加到新的服务提供程序。
 
 ## <a name="add-services-to-an-app"></a>向应用添加服务
 
-### Blazor WebAssembly
+::: zone pivot="webassembly"
 
-在 `Program.cs` 的 `Main` 方法中配置应用服务集合的服务。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
+在 `Program.cs` 的 `Program.Main` 方法中配置应用服务集合的服务。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
 
-```csharp
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+[!code-csharp[](dependency-injection/samples_snapshot/Program1.cs?highlight=7)]
 
-public class Program
-{
-    public static async Task Main(string[] args)
-    {
-        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+生成主机后，可在呈现任何组件之前从根 DI 范围使用服务。 这对于在呈现内容之前运行初始化逻辑而言很有用：
 
-        builder.Services.AddSingleton<IMyDependency, MyDependency>();
+[!code-csharp[](dependency-injection/samples_snapshot/Program2.cs?highlight=7,12-13)]
 
-        ...
+主机会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 `appsettings.json`）传递到 `InitializeWeatherAsync`：
 
-        await builder.Build().RunAsync();
-    }
-}
-```
+[!code-csharp[](dependency-injection/samples_snapshot/Program3.cs?highlight=13-14)]
 
-生成主机后，可在呈现任何组件之前从根 DI 范围访问服务。 这对于在呈现内容之前运行初始化逻辑而言很有用：
+::: zone-end
 
-```csharp
-public class Program
-{
-    public static async Task Main(string[] args)
-    {
-        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+::: zone pivot="server"
 
-        builder.Services.AddSingleton<WeatherService>();
-
-        ...
-
-        var host = builder.Build();
-
-        var weatherService = host.Services.GetRequiredService<WeatherService>();
-        await weatherService.InitializeWeatherAsync();
-
-        await host.RunAsync();
-    }
-}
-```
-
-主机还会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 `appsettings.json`）传递到 `InitializeWeatherAsync`：
-
-```csharp
-public class Program
-{
-    public static async Task Main(string[] args)
-    {
-        var builder = WebAssemblyHostBuilder.CreateDefault(args);
-
-        builder.Services.AddSingleton<WeatherService>();
-
-        ...
-
-        var host = builder.Build();
-
-        var weatherService = host.Services.GetRequiredService<WeatherService>();
-        await weatherService.InitializeWeatherAsync(
-            host.Configuration["WeatherServiceUrl"]);
-
-        await host.RunAsync();
-    }
-}
-```
-
-### Blazor Server
-
-创建新应用后，请检查 `Startup.ConfigureServices` 方法：
+创建新应用后，请检查 `Startup.cs` 中的 `Startup.ConfigureServices` 方法：
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -139,7 +81,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-向 <xref:Microsoft.Extensions.Hosting.IHostBuilder.ConfigureServices%2A> 方法传递 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>，它是服务描述符对象 (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) 的列表。 通过向服务集合提供服务描述符来在 `ConfigureServices` 方法中添加服务。 下面的示例演示了 `IDataAccess` 接口的概念及其具体实现 `DataAccess`：
+向 <xref:Microsoft.Extensions.Hosting.IHostBuilder.ConfigureServices%2A> 方法传递 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>，它是[服务描述符](xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor)对象列表。 通过向服务集合提供服务描述符来在 `ConfigureServices` 方法中添加服务。 下面的示例演示了 `IDataAccess` 接口的概念及其具体实现 `DataAccess`：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -147,6 +89,8 @@ public void ConfigureServices(IServiceCollection services)
     services.AddSingleton<IDataAccess, DataAccess>();
 }
 ```
+
+::: zone-end
 
 ### <a name="service-lifetime"></a>服务生存期
 
@@ -173,7 +117,7 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 
 
 下面的示例展示了如何使用 [`@inject`](xref:mvc/views/razor#inject)。 将实现 `Services.IDataAccess` 的服务注入组件的 `DataRepository` 属性中。 请注意代码是如何仅使用 `IDataAccess` 抽象的：
 
-[!code-razor[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,20)]
+[!code-razor[](dependency-injection/samples_snapshot/CustomerList.razor?highlight=2-3,20)]
 
 在内部，生成的属性 (`DataRepository`) 使用 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性。 通常，不直接使用此特性。 如果组件需要基类，并且基类也需要注入的属性，请手动添加 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性：
 
@@ -200,9 +144,11 @@ public class ComponentBase : IComponent
 
 ## <a name="use-di-in-services"></a>在服务中使用 DI
 
-复杂的服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性）在服务中不可用。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。 在下面的示例中，构造函数通过 DI 接收 <xref:System.Net.Http.HttpClient>。 <xref:System.Net.Http.HttpClient> 是默认服务。
+复杂的服务可能需要其他服务。 在下述示例中，`DataAccess` 需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性）在服务中不可用。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。 在下面的示例中，构造函数通过 DI 接收 <xref:System.Net.Http.HttpClient>。 <xref:System.Net.Http.HttpClient> 是默认服务。
 
 ```csharp
+using System.Net.Http;
+
 public class DataAccess : IDataAccess
 {
     public DataAccess(HttpClient http)
@@ -236,58 +182,23 @@ public class DataAccess : IDataAccess
 
   使用 [`@inject`](xref:mvc/views/razor#inject) 或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性注入到组件中的 DI 服务不在组件的范围内创建。 要使用组件的范围，必须使用 <xref:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService%2A> 或 <xref:System.IServiceProvider.GetService%2A> 解析服务。 任何使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> 提供程序进行解析的服务都具有从同一范围提供的依赖关系。
 
-  ```razor
-  @page "/preferences"
-  @using Microsoft.Extensions.DependencyInjection
-  @inherits OwningComponentBase
-
-  <h1>User (@UserService.Name)</h1>
-
-  <ul>
-      @foreach (var setting in SettingService.GetSettings())
-      {
-          <li>@setting.SettingName: @setting.SettingValue</li>
-      }
-  </ul>
-
-  @code {
-      private IUserService UserService { get; set; }
-      private ISettingService SettingService { get; set; }
-
-      protected override void OnInitialized()
-      {
-          UserService = ScopedServices.GetRequiredService<IUserService>();
-          SettingService = ScopedServices.GetRequiredService<ISettingService>();
-      }
-  }
-  ```
+  [!code-razor[](dependency-injection/samples_snapshot/Preferences.razor?highlight=3,20-21)]
 
 * <xref:Microsoft.AspNetCore.Components.OwningComponentBase%601> 派生自 <xref:Microsoft.AspNetCore.Components.OwningComponentBase>，并添加从范围内 DI 提供程序返回 `T` 实例的 <xref:Microsoft.AspNetCore.Components.OwningComponentBase%601.Service%2A> 属性。 当存在一项应用需要从使用组件范围的 DI 容器中获取的主服务时，不必使用 <xref:System.IServiceProvider> 的实例即可通过此类型便捷地访问 Scoped 服务。 <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> 属性可用，因此应用可获取其他类型的服务（如有必要）。
 
-  ```razor
-  @page "/users"
-  @attribute [Authorize]
-  @inherits OwningComponentBase<AppDbContext>
-
-  <h1>Users (@Service.Users.Count())</h1>
-
-  <ul>
-      @foreach (var user in Service.Users)
-      {
-          <li>@user.UserName</li>
-      }
-  </ul>
-  ```
+  [!code-razor[](dependency-injection/samples_snapshot/Users.razor?highlight=3,5,8)]
 
 ## <a name="use-of-an-entity-framework-core-ef-core-dbcontext-from-di"></a>使用来自 DI 的 Entity Framework Core (EF Core) DbContext
 
 有关详细信息，请参阅 <xref:blazor/blazor-server-ef-core>。
 
+::: moniker range="< aspnetcore-5.0"
+
 ## <a name="detect-transient-disposables"></a>检测暂时性可释放对象
 
 下面的示例演示如何在应使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 的应用中检测可释放的暂时性服务。 有关详细信息，请参阅[用于管理 DI 范围的实用工具基组件类](#utility-base-component-classes-to-manage-a-di-scope)部分。
 
-### Blazor WebAssembly
+::: zone pivot="webassembly"
 
 `DetectIncorrectUsagesOfTransientDisposables.cs`:
 
@@ -295,31 +206,43 @@ public class DataAccess : IDataAccess
 
 在以下示例中检测到 `TransientDisposable` (`Program.cs`)：
 
-::: moniker range=">= aspnetcore-5.0"
+<!-- moniker range=">= aspnetcore-5.0"
 
-[!code-csharp[](dependency-injection/samples_snapshot/5.x/transient-disposables/wasm-program.cs?highlight=6,9,17,22-25)]
+[!code-csharp[](dependency-injection/samples_snapshot/5.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-wasm-program.cs?highlight=6,9,17,22-25)]
 
-::: moniker-end
+moniker-end 
 
-::: moniker range="< aspnetcore-5.0"
+moniker range="< aspnetcore-5.0" -->
 
-[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/wasm-program.cs?highlight=6,9,17,22-25)]
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-wasm-program.cs?highlight=6,9,17,22-25)]
 
-::: moniker-end
+<!-- moniker-end -->
 
-### Blazor Server
+::: zone-end
+
+::: zone pivot="server"
 
 `DetectIncorrectUsagesOfTransientDisposables.cs`:
 
 [!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-server.cs)]
 
-`Program`:
+向 `Program.cs` 添加 <xref:Microsoft.Extensions.DependencyInjection?displayProperty=fullName> 的命名空间：
 
-[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/server-program.cs?highlight=3)]
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+```
+
+在 `Program.cs` 的 `Program.CreateHostBuilder` 中：
+
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-server-program.cs?highlight=3)]
 
 在以下示例中检测到 `TransientDependency` (`Startup.cs`)：
 
-[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/server-startup.cs?highlight=6-8,11-32)]
+[!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-server-startup.cs?highlight=6-8,11-32)]
+
+::: zone-end
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 

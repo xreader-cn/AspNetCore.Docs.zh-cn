@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: 6a74b8c5668a37082f648ae74210d90684c4559c
-ms.sourcegitcommit: 43a540e703b9096921de27abc6b66bc0783fe905
+ms.openlocfilehash: 10fc0afe84065f2c226d1e9c2f4314142369613a
+ms.sourcegitcommit: c321518bfe367280ef262aecaada287f17fe1bc5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/30/2020
-ms.locfileid: "96320104"
+ms.lasthandoff: 12/10/2020
+ms.locfileid: "97011879"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>具有 Entity Framework Core (EFCore) 的 ASP.NET Core Blazor Server
 
@@ -111,7 +111,7 @@ EF Core 依赖于 <xref:Microsoft.EntityFrameworkCore.DbContext> 来[配置数�
 > [!NOTE]
 > `Wrapper` 是对 `GridWrapper` 组件的[组件引用](xref:blazor/components/index#capture-references-to-components)。 请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor)中的 `Index` 组件 (`Pages/Index.razor`)。
 
-可以使用工厂创建新的 <xref:Microsoft.EntityFrameworkCore.DbContext> 实例，该工厂允许你为每个 `DbContext` 配置连接字符串，如使用 [ASP.NET Core 的 Identity 模型] (xref:security/authentication/customize_identity_model) 时：
+可使用工厂创建新的 <xref:Microsoft.EntityFrameworkCore.DbContext> 实例，该工厂允许你为每个 `DbContext` 配置连接字符串，例如在使用 [ASP.NET Core 的 Identity 模型](xref:security/authentication/customize_identity_model)时：
 
 ```csharp
 services.AddDbContextFactory<ApplicationDbContext>(options =>

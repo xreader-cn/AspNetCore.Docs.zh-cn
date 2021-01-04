@@ -5,7 +5,7 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/24/2020
+ms.date: 12/14/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: a32655b8afedb73ad436f023d2f821b6920c2edd
-ms.sourcegitcommit: 59d95a9106301d5ec5c9f612600903a69c4580ef
+ms.openlocfilehash: 87626ff30589de82a04c95634fc0dcbcf2eeac18
+ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "95870433"
+ms.lasthandoff: 12/15/2020
+ms.locfileid: "97507002"
 ---
 # <a name="build-a-no-locblazor-todo-list-app"></a>生成 Blazor 待办事项列表应用
 
@@ -62,59 +62,61 @@ ms.locfileid: "95870433"
    dotnet new blazorserver -o TodoList
    ```
 
-   上述命令将创建一个名为 `TodoList` 的文件夹来保存应用。 `TodoList` 文件夹是项目的根文件夹。 使用以下命令将目录切换到 `TodoList` 文件夹：
+   上述命令将创建一个带有 `-o|--output` 选项的 `TodoList` 文件夹来保存应用。 `TodoList` 文件夹是项目的根文件夹。 使用以下命令将目录切换到 `TodoList` 文件夹：
 
    ```dotnetcli
    cd TodoList
    ```
 
-1. 使用以下命令向 `Pages` 文件夹中的应用添加一个新的 `Todo` Razor 组件：
+1. 使用以下命令向应用添加一个新的 `Todo` Razor 组件：
 
    ```dotnetcli
    dotnet new razorcomponent -n Todo -o Pages
    ```
 
+   上述命令中的 `-n|--name` 指定了新的 Razor 组件的名称。 新组件是在项目具有 `-o|--output` 选项的 `Pages` 文件夹中创建的。
+
    > [!IMPORTANT]
    > Razor 组件文件名要求首字母大写。 打开 `Pages` 文件夹，确认 `Todo` 组件文件名以大写字母 `T` 开头。 文件名应为 `Todo.razor`。
 
-1. 在 `Pages/Todo.razor` 中为组件提供初始标记：
+1. 在任何文件编辑器中打开 `Todo`，添加 `@page` Razor 指令添加到具有 `/todo` 的相对 URL 的文件顶部。
 
-   ```razor
-   @page "/todo"
+   `Pages/Todo.razor`:
 
-   <h3>Todo</h3>
-   ```
+   [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo0.razor?highlight=1)]
 
    保存 `Pages/Todo.razor` 文件。
 
 1. 将 `Todo` 组件添加到导航栏。
 
-   `NavMenu` 组件 (`Shared/NavMenu.razor`) 用于应用的布局。 布局是可以避免应用中出现重复内容的组件。
+   `NavMenu` 组件用于应用的布局。 布局是可避免应用中出现重复内容的组件。 当应用加载组件 URL 时，`NavLink` 组件会在应用的 UI 中提供提示。
 
-   通过在 `Shared/NavMenu.razor` 文件中的现有列表项下添加以下列表项标记，为 `Todo` 组件添加一个 `<NavLink>` 元素：
+   在 `NavMenu` 组件的未排序列表 (`<ul>...</ul>`) 中，为 `Todo` 组件添加以下列表项 (`<li>...</li>`) 和 `NavLink` 组件。
 
-   ```razor
-   <li class="nav-item px-3">
-       <NavLink class="nav-link" href="todo">
-           <span class="oi oi-list-rich" aria-hidden="true"></span> Todo
-       </NavLink>
-   </li>
-   ```
+   在 `Shared/NavMenu.razor`中：
+
+   [!code-razor[](build-a-blazor-app/samples_snapshot/NavMenu.razor?highlight=5-9)]
 
    保存 `Shared/NavMenu.razor` 文件。
 
-1. 从 `TodoList` 文件夹，在命令行界面中执行 [`dotnet watch run`](/aspnet/core/tutorials/dotnet-watch) 命令，以生成并运行应用。 访问新的“待办事项”页面 (`https://localhost:5001/todo`)，确认指向 `Todo` 组件的边栏导航链接有效。
+1. 从 `TodoList` 文件夹，在命令行界面中执行 [`dotnet watch run`](/aspnet/core/tutorials/dotnet-watch) 命令，以生成并运行应用。 应用运行后，请在应用的导航栏中选择 `Todo` 链接来访问新的 Todo 页面，该链接将在 `/todo` 处加载页面。
 
-1. 向项目的根目录添加 `TodoItem.cs` 文件（`TodoList` 文件夹），以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
+   让应用继续运行命令行界面。 每次保存文件时，都将自动重新生成应用。 在编译和重启时，浏览器会暂时断开与应用的连接。 重新建立连接后，会自动重新加载浏览器中的页面。
+
+1. 向项目的根目录添加 `TodoItem.cs` 文件（`TodoList` 文件夹），以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码。
+
+   `TodoItem.cs`:
 
    [!code-csharp[](build-a-blazor-app/samples_snapshot/TodoItem.cs)]
 
-1. 返回到 `Todo` 组件 (`Pages/Todo.razor`)：
+1. 返回 `Todo` 组件并执行以下任务：
 
    * 在 `@code` 块中为待办项添加一个字段。 `Todo` 组件使用此字段来维护待办项列表的状态。
    * 添加无序列表标记和 `foreach` 循环，以将每个待办项呈现为列表项 (`<li>`)。
 
-   [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo2.razor?highlight=5-10,12-14)]
+   `Pages/Todo.razor`:
+
+   [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo2.razor?highlight=5-10,13)]
 
 1. 该应用需要 UI 元素来将待办项添加到列表。 在未排序列表 (`<ul>...</ul>`) 下方添加一个文本输入 (`<input>`) 和一个按钮 (`<button>`)：
 
@@ -124,13 +126,15 @@ ms.locfileid: "95870433"
 
 1. 选择“`Add todo`”按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
 
-1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法以选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
+1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法来选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo4.razor?highlight=2,7-10)]
 
-1. 要获得新待办项标题，请在 `@code` 块顶部添加 `newTodo` 字符串字段，并使用 `<input>` 元素中的 `bind` 属性将其绑定到文本输入的值：
+1. 若要获取新的待办项的标题，请在 `@code` 块的顶部添加一个 `newTodo` 字符串：
 
-   [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo5.razor?highlight=2)]
+   [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo5.razor?highlight=3)]
+
+   修改文本 `<input>` 元素，使用 `@bind` 属性来绑定 `newTodo`：
 
    ```razor
    <input placeholder="Something todo" @bind="newTodo" />
@@ -142,11 +146,11 @@ ms.locfileid: "95870433"
 
 1. 保存 `Pages/ToDo.razor` 文件。 应用程序会在命令行界面中自动重新生成。 浏览器重新连接到应用后，页面会在浏览器中重新加载。
 
-1. 每个待办项的标题文本都可以编辑，复选框可以帮助用户跟踪已完成的项。 为每个待办项添加一个复选框输入，并将它的值绑定到 `IsDone` 属性。 将 `@todo.Title` 更改为绑定到 `@todo.Title` 的 `<input>` 元素：
+1. 每个待办项的标题文本都可以编辑，复选框可以帮助用户跟踪已完成的项。 为每个待办项添加一个复选框输入，并将它的值绑定到 `IsDone` 属性。 将 `@todo.Title` 更改为 `<input>` 元素，后者通过 `@bind` 绑定到 `todo.Title`：
 
-   [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo7.razor?highlight=5-6)]
+   [!code-razor[](build-a-blazor-app/samples_snapshot/ToDo7.razor?highlight=4-7)]
 
-1. 若要验证这些值是否已绑定，请更新 `<h3>` 标头以显示尚未完成的待办项计数（`IsDone` 是 `false`）。
+1. 更新 `<h3>` 标头，显示尚未完成的待办项数目（`IsDone` 是 `false`）。
 
    ```razor
    <h3>Todo (@todos.Count(todo => !todo.IsDone))</h3>
@@ -158,7 +162,7 @@ ms.locfileid: "95870433"
 
 1. 保存 `Pages/ToDo.razor` 文件。 应用程序会在命令行界面中自动重新生成。 浏览器重新连接到应用后，页面会在浏览器中重新加载。
 
-1. 添加待办项以测试新代码。
+1. 添加项、编辑项，并将待办标记为“已完成”来测试组件。
 
 1. 完成后，请在命令行界面中关闭应用。 许多命令行界面接受键盘命令 <kbd>Ctrl</kbd>+<kbd>c</kbd> 来停止应用。
 
