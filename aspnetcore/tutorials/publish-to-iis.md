@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: b3c714ea8e741430df1f70b2df258f1e8f1c7ad5
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 0f70b5f12b9097f8710c9641404b3e085968fc3f
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93060503"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97753148"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>将 ASP.NET Core 应用发布到 IIS
 
@@ -47,8 +47,8 @@ ms.locfileid: "93060503"
 >
 > 本教程未介绍的 IIS 托管的重要方案包括：
 >
-> * [为 ASP.NET Core 数据保护创建注册表配置单元](xref:host-and-deploy/iis/index#data-protection)
-> * [配置应用池的访问控制列表 (ACL)](xref:host-and-deploy/iis/index#application-pool-identity)
+> * [为 ASP.NET Core 数据保护创建注册表配置单元](xref:host-and-deploy/iis/advanced#data-protection)
+> * [配置应用池的访问控制列表 (ACL)](xref:host-and-deploy/iis/advanced#application-pool-identity)
 > * 为了重点介绍 IIS 部署概念，本教程部署了一个没有在 IIS 中配置 HTTPS 安全性的应用。 有关托管为 HTTPS 协议启用的应用的详细信息，请参阅本文[其他资源](#additional-resources)部分中的安全主题。 有关托管 ASP.NET 核心应用的更多指南，请参阅 <xref:host-and-deploy/iis/index> 文章。
 
 ## <a name="install-the-net-core-hosting-bundle"></a>安装 .NET Core 托管捆绑包
@@ -96,6 +96,7 @@ ms.locfileid: "93060503"
 1. 设置“文件夹或文件共享”路径。
    * 如果为开发计算机上可用作网络共享的 IIS 站点创建了一个文件夹，请提供该共享的路径。 当前用户必须具有写入权限才能发布到共享。
    * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。 将 `bin/Release/{TARGET FRAMEWORK}/publish` 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。
+1. 选择“发布”按钮。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -113,6 +114,7 @@ ms.locfileid: "93060503"
 1. 设置“选择文件夹”路径。
    * 如果为开发计算机上可用作网络共享的 IIS 站点创建了一个文件夹，请提供该共享的路径。 当前用户必须具有写入权限才能发布到共享。
    * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。 将 `bin/Release/{TARGET FRAMEWORK}/publish` 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。
+1. 选择“发布”按钮。
 
 ---
 

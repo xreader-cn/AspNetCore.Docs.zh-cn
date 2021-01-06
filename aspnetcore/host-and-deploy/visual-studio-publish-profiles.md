@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 98dfd539171807cbf94d4ac8746458152c809495
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: eae4a19042efded03f10e9ebd17122232f0323eb
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93057565"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97854634"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件 (.pubxml)
 
@@ -73,7 +73,7 @@ MSBuild 或 Visual Studio 加载项目时，执行下列高级别操作：
 在 Visual Studio 中选择“发布”按钮时或从命令行发布时：
 
 * 计算属性/项目（需要生成的文件）。
-* **仅限 Visual Studio** ：NuGet 包已还原。 （用户需要在 CLI 上执行显式还原。）
+* **仅限 Visual Studio**：NuGet 包已还原。 （用户需要在 CLI 上执行显式还原。）
 * 生成项目。
 * 计算发布项（需要发布的文件）。
 * 文件已发布（计算的文件将被复制到发布目标）。
@@ -223,7 +223,7 @@ dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDe
 当使用名为 FolderProfile 的配置文件发布时，请使用以下命令之一：
 
 ```dotnetcli
-dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile`
+dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile
 ```
 
 ```dotnetcli
