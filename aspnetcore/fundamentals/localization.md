@@ -18,10 +18,10 @@ no-loc:
 - SignalR
 uid: fundamentals/localization
 ms.openlocfilehash: 07e2f561b0e9db58780d6e8a271e32b00132b1b5
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93059515"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
@@ -207,7 +207,7 @@ using Microsoft.Extensions.Localization;
 
 * *Welcome.fr-CA.resx*
 * *Welcome.fr.resx*
-* *Welcome.resx* （如果 `NeutralResourcesLanguage` 为“fr-CA”）
+* *Welcome.resx*（如果 `NeutralResourcesLanguage` 为“fr-CA”）
 
 例如，如果删除了“.fr”区域性指示符，而且已将区域性设置为“法语”，将读取默认资源文件，并本地化字符串。 对于不满足所请求区域性的情况，资源管理器可指定默认资源或回退资源。 缺少适用于请求区域性的资源时，如果只想返回键，不得具有默认资源文件。
 
@@ -561,7 +561,7 @@ using Microsoft.Extensions.Localization;
 
 * *Welcome.fr-CA.resx*
 * *Welcome.fr.resx*
-* *Welcome.resx* （如果 `NeutralResourcesLanguage` 为“fr-CA”）
+* *Welcome.resx*（如果 `NeutralResourcesLanguage` 为“fr-CA”）
 
 例如，如果删除了“.fr”区域性指示符，而且已将区域性设置为“法语”，将读取默认资源文件，并本地化字符串。 对于不满足所请求区域性的情况，资源管理器可指定默认资源或回退资源。 缺少适用于请求区域性的资源时，如果只想返回键，不得具有默认资源文件。
 
@@ -916,7 +916,7 @@ using Microsoft.Extensions.Localization;
 
 * *Welcome.fr-CA.resx*
 * *Welcome.fr.resx*
-* *Welcome.resx* （如果 `NeutralResourcesLanguage` 为“fr-CA”）
+* *Welcome.resx*（如果 `NeutralResourcesLanguage` 为“fr-CA”）
 
 例如，如果删除了“.fr”区域性指示符，而且已将区域性设置为“法语”，将读取默认资源文件，并本地化字符串。 对于不满足所请求区域性的情况，资源管理器可指定默认资源或回退资源。 缺少适用于请求区域性的资源时，如果只想返回键，不得具有默认资源文件。
 

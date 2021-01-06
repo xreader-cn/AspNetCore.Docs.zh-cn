@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: fundamentals/host/hosted-services
 ms.openlocfilehash: b8d6ec079ed39fb3a2c314816ebae6cea0847a36
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93061075"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
@@ -54,7 +54,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 ## <a name="package"></a>Package
 
-基于辅助角色服务模板的应用使用 `Microsoft.NET.Sdk.Worker` SDK，并且具有对 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包的显式包引用。 有关示例，请参阅示例应用的项目文件 ( *BackgroundTasksSample.csproj* )。
+基于辅助角色服务模板的应用使用 `Microsoft.NET.Sdk.Worker` SDK，并且具有对 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包的显式包引用。 有关示例，请参阅示例应用的项目文件 (*BackgroundTasksSample.csproj*)。
 
 对于使用 `Microsoft.NET.Sdk.Web` SDK 的 Web 应用，通过共享框架隐式引用 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包。 在应用的项目文件中不需要显式包引用。
 
@@ -128,7 +128,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 <xref:System.Threading.Timer> 不等待先前的 `DoWork` 执行完成，因此所介绍的方法可能并不适用于所有场景。 使用 [Interlocked.Increment](xref:System.Threading.Interlocked.Increment*) 以原子操作的形式将执行计数器递增，这可确保多个线程不会并行更新 `executionCount`。
 
-已使用 `AddHostedService` 扩展方法在 `IHostBuilder.ConfigureServices` ( *Program.cs* ) 中注册该服务：
+已使用 `AddHostedService` 扩展方法在 `IHostBuilder.ConfigureServices` (*Program.cs*) 中注册该服务：
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet1)]
 
@@ -147,7 +147,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/ConsumeScopedServiceHostedService.cs?name=snippet1&highlight=19,22-35)]
 
-已在 `IHostBuilder.ConfigureServices` ( *Program.cs* ) 中注册这些服务。 已使用 `AddHostedService` 扩展方法注册托管服务：
+已在 `IHostBuilder.ConfigureServices` (*Program.cs*) 中注册这些服务。 已使用 `AddHostedService` 扩展方法注册托管服务：
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet2)]
 
@@ -175,7 +175,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/MonitorLoop.cs?name=snippet_Monitor&highlight=7,33)]
 
-已在 `IHostBuilder.ConfigureServices` ( *Program.cs* ) 中注册这些服务。 已使用 `AddHostedService` 扩展方法注册托管服务：
+已在 `IHostBuilder.ConfigureServices` (*Program.cs*) 中注册这些服务。 已使用 `AddHostedService` 扩展方法注册托管服务：
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet3)]
 

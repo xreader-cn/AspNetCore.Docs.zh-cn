@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: blazor/advanced-scenarios
 ms.openlocfilehash: 95714b3c0d21d3b348a9a8a984e2a42e7708499e
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93056551"
 ---
 # <a name="aspnet-core-no-locblazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
@@ -135,13 +135,13 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!WARNING]
-> <xref:Microsoft.AspNetCore.Components.RenderTree> 中的类型允许处理呈现操作的 *结果* 。 这些是 Blazor 框架实现的内部细节。 这些类型应视为 *不稳定* ，并且在未来版本中可能会有更改。
+> <xref:Microsoft.AspNetCore.Components.RenderTree> 中的类型允许处理呈现操作的 *结果*。 这些是 Blazor 框架实现的内部细节。 这些类型应视为 *不稳定*，并且在未来版本中可能会有更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不与执行顺序相关
 
 Razor 组件文件 (`.razor`) 始终被编译。 与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。
 
-这些改进的关键示例涉及 *序列号* 。 序列号向运行时指示哪些输出来自哪些不同的已排序代码行。 运行时使用此信息在线性时间内生成高效的树上差分，这比常规树上差分算法通常可以做到的速度快得多。
+这些改进的关键示例涉及 *序列号*。 序列号向运行时指示哪些输出来自哪些不同的已排序代码行。 运行时使用此信息在线性时间内生成高效的树上差分，这比常规树上差分算法通常可以做到的速度快得多。
 
 请考虑使用以下 Razor 组件（`.razor` 文件）：
 
@@ -178,7 +178,7 @@ builder.AddContent(1, "Second");
 | :------: | ---------- | :----: |
 | 1        | Text 节点  | 秒 |
 
-当运行时执行差分时，它会看到序列 `0` 处的项目已被删除，因此，它会生成以下普通 *编辑脚本* ：
+当运行时执行差分时，它会看到序列 `0` 处的项目已被删除，因此，它会生成以下普通 *编辑脚本*：
 
 * 删除第一个文本节点。
 

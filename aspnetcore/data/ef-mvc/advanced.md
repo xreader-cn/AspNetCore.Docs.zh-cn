@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: data/ef-mvc/advanced
 ms.openlocfilehash: 386be395399bf4131e4b6c8cac8221f994e8b7c5
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93054380"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
@@ -115,7 +115,7 @@ ms.locfileid: "93054380"
 
 ![“更新课程学分”页面](advanced/_static/update-credits.png)
 
-单击 **Update** 。 你会看到受影响的行数：
+单击 **Update**。 你会看到受影响的行数：
 
 ![“更新课程学分”页面中受影响的行](advanced/_static/update-credits-rows-affected.png)
 
@@ -225,7 +225,7 @@ Tom Dykstra 和 Rick Anderson (twitter @RickAndMSFT) 共同编写了本教程。
 
 解决方案：
 
-停止 IIS Express 中的站点。 请转到 Windows 系统任务栏中，找到 IIS Express 并右键单击其图标、 选择 Contoso 大学站点，然后单击 **停止站点** 。
+停止 IIS Express 中的站点。 请转到 Windows 系统任务栏中，找到 IIS Express 并右键单击其图标、 选择 Contoso 大学站点，然后单击 **停止站点**。
 
 ### <a name="migration-scaffolded-with-no-code-in-up-and-down-methods"></a>迁移基架的 Up 和 Down 方法中没有代码
 
@@ -243,7 +243,7 @@ EF CLI 命令不会自动关闭并保存代码文件。 如果在运行`migratio
 
 最简单方法是在 appsettings.json 中重命名数据库。 下次运行`database update`时，会创建一个新数据库。
 
-若要在 SSOX 中删除数据库，右键单击数据库，单击 **删除** ，然后在 **删除数据库** 对话框框中，选择 **关闭现有连接** ，单击 **确定** 。
+若要在 SSOX 中删除数据库，右键单击数据库，单击 **删除**，然后在 **删除数据库** 对话框框中，选择 **关闭现有连接**，单击 **确定**。
 
 若要使用 CLI 删除数据库，可以运行`database drop`CLI 命令：
 

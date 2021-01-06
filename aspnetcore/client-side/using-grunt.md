@@ -18,10 +18,10 @@ no-loc:
 - SignalR
 uid: client-side/using-grunt
 ms.openlocfilehash: 374c23f440dcf301b3a1e1e9e6684dd050f218c6
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93054549"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>在 ASP.NET Core 中使用 Grunt
@@ -32,17 +32,17 @@ Grunt 是一种 JavaScript 任务运行程序，可自动执行脚本缩减、Ty
 
 完成的示例可清理目标部署目录、合并 JavaScript 文件和检查代码质量，将浓缩后的 JavaScript 文件内容部署至 Web 应用程序的根目录。 我们将使用以下包：
 
-* **grunt** ：Grunt 任务运行程序包。
+* **grunt**：Grunt 任务运行程序包。
 
-* **grunt-contrib-clean** ：用于删除文件或目录的插件。
+* **grunt-contrib-clean**：用于删除文件或目录的插件。
 
-* **grunt-contrib-jshint** ：用于检查 JavaScript 代码质量的插件。
+* **grunt-contrib-jshint**：用于检查 JavaScript 代码质量的插件。
 
-* **grunt-contrib-concat** ：用于将多个文件联接为单个文件的插件。
+* **grunt-contrib-concat**：用于将多个文件联接为单个文件的插件。
 
-* **grunt-contrib-uglify** ：缩减 JavaScript 以减小尺寸的插件。
+* **grunt-contrib-uglify**：缩减 JavaScript 以减小尺寸的插件。
 
-* **grunt-contrib-watch** ：用于监视文件活动的插件。
+* **grunt-contrib-watch**：用于监视文件活动的插件。
 
 ## <a name="preparing-the-application"></a>准备应用程序
 

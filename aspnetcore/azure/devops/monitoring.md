@@ -19,10 +19,10 @@ no-loc:
 - SignalR
 uid: azure/devops/monitor
 ms.openlocfilehash: 74e789828bf5d54e3457f235657f8ed7086df80d
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93056746"
 ---
 # <a name="monitor-and-debug"></a>监视和调试
@@ -50,10 +50,10 @@ ms.locfileid: "93056746"
     ![显示概览面板的屏幕截图](./media/monitoring/overview.png)
 
     * Http 5xx：服务器端错误计数，通常是 ASP.NET Core 代码中的异常。
-    * **数据输入** ：进入 Web 应用的数据流入量。
-    * **数据输出** ：从 Web 应用到客户端的数据流出量。
-    * **请求** ：HTTP 请求计数。
-    * **平均响应时间** ：Web 应用响应 HTTP 请求的平均时间。
+    * **数据输入**：进入 Web 应用的数据流入量。
+    * **数据输出**：从 Web 应用到客户端的数据流出量。
+    * **请求**：HTTP 请求计数。
+    * **平均响应时间**：Web 应用响应 HTTP 请求的平均时间。
 
     此页面还提供一些用于故障排除和优化的自助服务工具。
 
@@ -81,7 +81,7 @@ ms.locfileid: "93056746"
     ![Application Insights 设置](./media/monitoring/new-app-insights.png)
 
 1. 对于“运行时/框架”，选择“ASP.NET Core”。 接受默认设置。
-1. 选择“确定”  。 如果系统提示进行确认，请选择“继续”。
+1. 选择“确定”。 如果系统提示进行确认，请选择“继续”。
 1. 创建资源之后，单击 Application Insights 资源的名称，直接导航到 Application Insights 页面。
 
     ![新 Application Insights 资源已准备就绪](./media/monitoring/new-app-insights-done.png)

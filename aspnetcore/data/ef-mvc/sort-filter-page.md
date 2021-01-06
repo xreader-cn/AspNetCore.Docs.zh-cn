@@ -19,10 +19,10 @@ no-loc:
 - SignalR
 uid: data/ef-mvc/sort-filter-page
 ms.openlocfilehash: 8e425d413471912c763c4892a90e9d12039efec4
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93053977"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
@@ -105,7 +105,7 @@ ms.locfileid: "93053977"
 > [!NOTE]
 > 此处正在调用 `IQueryable` 对象上的 `Where` 方法，并且将在服务器上处理该筛选器。 在某些情况下，可能会将 `Where` 方法作为内存中集合上的扩展方法进行调用。 （例如，假设将引用更改为 `_context.Students`，这样它引用的不再是 EF `DbSet`，而是一个返回 `IEnumerable` 集合的存储库方法。）结果通常是相同的，但在某些情况下可能不同。
 >
->例如，`Contains` 方法的 .NET Framework 实现在默认情况下执行区分大小写比较，但在 SQL Server 中，这由 SQL Server 实例的排序规则设置决定。 该设置默认为不区分大小写。 可调用 `ToUpper` 方法进行不区分大小写的显式测试： *Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())* 。 如果稍后更改代码以使用返回 `IEnumerable` 集合而不是 `IQueryable` 对象的存储库，则可确保结果保持不变。 （在 `IEnumerable` 集合上调用 `Contains` 方法时，将获得 .NET Framework 实现；当在 `IQueryable` 对象上调用它时，将获得数据库提供程序实现。）但是，此解决方案会降低性能。 `ToUpper` 代码将在 TSQL SELECT 语句的 WHERE 子句中放置一个函数。 这将阻止优化器使用索引。 鉴于 SQL 主要安装为不区分大小写，在迁移到区分大小写的数据存储之前，最好避免使用 `ToUpper` 代码。
+>例如，`Contains` 方法的 .NET Framework 实现在默认情况下执行区分大小写比较，但在 SQL Server 中，这由 SQL Server 实例的排序规则设置决定。 该设置默认为不区分大小写。 可调用 `ToUpper` 方法进行不区分大小写的显式测试：*Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())* 。 如果稍后更改代码以使用返回 `IEnumerable` 集合而不是 `IQueryable` 对象的存储库，则可确保结果保持不变。 （在 `IEnumerable` 集合上调用 `Contains` 方法时，将获得 .NET Framework 实现；当在 `IQueryable` 对象上调用它时，将获得数据库提供程序实现。）但是，此解决方案会降低性能。 `ToUpper` 代码将在 TSQL SELECT 语句的 WHERE 子句中放置一个函数。 这将阻止优化器使用索引。 鉴于 SQL 主要安装为不区分大小写，在迁移到区分大小写的数据存储之前，最好避免使用 `ToUpper` 代码。
 
 ### <a name="add-a-search-box-to-the-student-index-view"></a>向“学生索引”视图添加搜索框
 

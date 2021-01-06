@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: razor-pages/razor-pages-conventions
 ms.openlocfilehash: 2947bf0b697ca01f17d260b9f31aa3cc79d457b6
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93059866"
 ---
 # <a name="no-locrazor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 路由和应用约定
@@ -128,7 +128,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Conventions/GlobalHeaderPageApplicationModelConvention.cs?name=snippet1)]
 
-*Startup.cs* ：
+*Startup.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet2)]
 
@@ -142,7 +142,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
 
-*Startup.cs* ：
+*Startup.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet10)]
 
@@ -288,7 +288,7 @@ public void ConfigureServices(IServiceCollection services)
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet9)]
 
-*AddHeaderWithFactory.cs* ：
+*AddHeaderWithFactory.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Factories/AddHeaderWithFactory.cs?name=snippet1)]
 
@@ -410,7 +410,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalHeaderPageApplicationModelConvention.cs?name=snippet1)]
 
-*Startup.cs* ：
+*Startup.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet2)]
 
@@ -424,7 +424,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
 
-*Startup.cs* ：
+*Startup.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet10)]
 
@@ -578,7 +578,7 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet9)]
 
-*AddHeaderWithFactory.cs* ：
+*AddHeaderWithFactory.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Factories/AddHeaderWithFactory.cs?name=snippet1)]
 
@@ -700,7 +700,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalHeaderPageApplicationModelConvention.cs?name=snippet1)]
 
-*Startup.cs* ：
+*Startup.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet2)]
 
@@ -714,7 +714,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
 
-*Startup.cs* ：
+*Startup.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet10)]
 
@@ -834,7 +834,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 有关 MVC 主题
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet9)]
 
-*AddHeaderWithFactory.cs* ：
+*AddHeaderWithFactory.cs*：
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Factories/AddHeaderWithFactory.cs?name=snippet1)]
 

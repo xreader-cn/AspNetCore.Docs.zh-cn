@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: host-and-deploy/web-farm
 ms.openlocfilehash: ee78e80a4eda3089943765700aa6bb62c6c1e07d
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93057513"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
@@ -34,7 +34,7 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 
 * 可靠性/可用性：如果一个或多个节点失败，负载均衡器可以将请求路由到其他正常运行的节点，以继续处理请求。
 * 容量/性能：多个节点可以处理的请求数多于一个服务器。 负载均衡器均衡工作负载的方式是，将请求分发到各个节点。
-* **可伸缩性** ：如果需要更多或更少容量，可以增加或减少活动节点数，与工作负载保持一致。 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)等 Web 场平台技术可以应系统管理员的请求自动添加或删除节点，也可以自动开始，而无需人为干预。
+* **可伸缩性**：如果需要更多或更少容量，可以增加或减少活动节点数，与工作负载保持一致。 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)等 Web 场平台技术可以应系统管理员的请求自动添加或删除节点，也可以自动开始，而无需人为干预。
 * 可维护性：Web 场节点可以依赖一组共享服务，这就简化了系统管理。 例如，Web 场中的节点可以依赖单一数据库服务器，以及静态资源（如图像和可下载文件）的公用网络位置。
 
 本主题介绍了在 Web 场中托管且依赖共享资源的 ASP.NET Core 应用的配置和依赖项。

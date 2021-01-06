@@ -2,9 +2,9 @@
 
 <a name="dc"></a>
 
-创建一个“Data”文件夹  。
+创建一个“Data”文件夹。
 
-将以下 `MvcMovieContext` 类添加到“Data”文件夹  ：  
+将以下 `MvcMovieContext` 类添加到“Data”文件夹：  
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/zDocOnly/MvcMovieContext.cs?name=snippet)]
 
@@ -14,7 +14,7 @@
 
 ### <a name="add-a-database-connection-string"></a>添加数据库连接字符串
 
-将连接字符串添加到 appsettings.json 文件  ：
+将连接字符串添加到 appsettings.json 文件：
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/appsettings_SQLite.json?highlight=10-12)]
 
@@ -26,7 +26,7 @@
 
 ### <a name="register-the-database-context"></a>注册数据库上下文
 
-将以下 `using` 语句添加到 Startup.cs 顶部  ：
+将以下 `using` 语句添加到 Startup.cs 顶部：
 
 ```csharp
 using MvcMovie.Data;
@@ -43,7 +43,7 @@ using Microsoft.EntityFrameworkCore;
 
 ::: moniker range="< aspnetcore-3.0"
 
-将以下 `MvcMovieContext` 类添加到“模型”文件夹  ：  
+将以下 `MvcMovieContext` 类添加到“模型”文件夹：  
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Data/MvcMovieContext.cs)]
 
@@ -53,7 +53,7 @@ using Microsoft.EntityFrameworkCore;
 
 ### <a name="add-a-database-connection-string"></a>添加数据库连接字符串
 
-将连接字符串添加到 appsettings.json 文件  ：
+将连接字符串添加到 appsettings.json 文件：
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
@@ -72,7 +72,7 @@ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
 ### <a name="register-the-database-context"></a>注册数据库上下文
 
-将以下 `using` 语句添加到 Startup.cs 顶部  ：
+将以下 `using` 语句添加到 Startup.cs 顶部：
 
 ```csharp
 using MvcMovie.Models;

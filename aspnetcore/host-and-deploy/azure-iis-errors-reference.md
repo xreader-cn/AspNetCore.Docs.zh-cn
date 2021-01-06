@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: host-and-deploy/azure-iis-errors-reference
 ms.openlocfilehash: b009cc61a94e618a48d96ecbd770ef6371308f6a
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93059840"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
@@ -209,7 +209,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 可能已部署 FDD 并安装了 .NET Core，但未重启 IIS。 重启服务器，或通过从命令提示符依次执行 net stop was /y 和 net start w3svc 来重启 IIS 。
 
-* 可能已部署 FDD，但未在托管系统上安装 .NET Core 运行时。 如果尚未安装 .NET Core 运行时，则运行系统上的 **.NET Core 托管捆绑包安装程序** 。
+* 可能已部署 FDD，但未在托管系统上安装 .NET Core 运行时。 如果尚未安装 .NET Core 运行时，则运行系统上的 **.NET Core 托管捆绑包安装程序**。
 
   [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
@@ -485,7 +485,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 可能已部署 FDD 并安装了 .NET Core，但未重启 IIS。 重启服务器，或通过从命令提示符依次执行 net stop was /y 和 net start w3svc 来重启 IIS 。
 
-* 可能已部署 FDD，但未在托管系统上安装 .NET Core 运行时。 如果尚未安装 .NET Core 运行时，则运行系统上的 **.NET Core 托管捆绑包安装程序** 。
+* 可能已部署 FDD，但未在托管系统上安装 .NET Core 运行时。 如果尚未安装 .NET Core 运行时，则运行系统上的 **.NET Core 托管捆绑包安装程序**。
 
   [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 

@@ -19,10 +19,10 @@ no-loc:
 - SignalR
 uid: grpc/comparison
 ms.openlocfilehash: 0fb50f07153f5f9953b667fe32062ad24b2bd66d
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93059944"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
@@ -37,7 +37,7 @@ ms.locfileid: "93059944"
 
 | 功能          | gRPC                                               | 具有 JSON 的 HTTP API           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
-| 协定         | 必需 ( *.proto* )                                | 可选 (OpenAPI)            |
+| 协定         | 必需 ( *.proto*)                                | 可选 (OpenAPI)            |
 | 协议         | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf（小型，二进制）](#performance)           | JSON（大型，人工可读取）  |
 | 规定性 | [严格规范](#strict-specification)      | 宽松。 任何 HTTP 均有效。     |

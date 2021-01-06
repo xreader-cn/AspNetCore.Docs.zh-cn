@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: fundamentals/file-providers
 ms.openlocfilehash: 16e5ead9898125c804da4d60322510474201d897
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93059437"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
@@ -115,7 +115,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 FileProviderSample 示例应用创建 `ManifestEmbeddedFileProvider`，并将当前正在执行的程序集传递给其构造函数。
 
-*Startup.cs* ：
+*Startup.cs*：
 
 ```csharp
 var manifestEmbeddedProvider = 
@@ -262,7 +262,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 示例应用创建 `ManifestEmbeddedFileProvider` 并将当前正在执行的程序集传递给其构造函数。
 
-*Startup.cs* ：
+*Startup.cs*：
 
 ```csharp
 var manifestEmbeddedProvider = 

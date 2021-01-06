@@ -19,10 +19,10 @@ no-loc:
 - SignalR
 uid: razor-pages/filter
 ms.openlocfilehash: a6d25c1b88e09560c1aad9aefd9148f7fe293909
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93056824"
 ---
 # <a name="filter-methods-for-no-locrazor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 的筛选方法

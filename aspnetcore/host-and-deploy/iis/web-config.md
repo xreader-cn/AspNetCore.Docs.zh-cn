@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: host-and-deploy/iis/web-config
 ms.openlocfilehash: edeef31042547db79fcec98f1236787f78e187a5
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93057279"
 ---
 # <a name="webconfig-file"></a>`web.config` 文件
@@ -111,7 +111,7 @@ ms.locfileid: "93057279"
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>`aspNetCore` 元素的属性
 
-| 属性 | 描述 | 默认 |
+| 属性 | 说明 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>`processPath` 中指定的可执行文件的参数。</p> | |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 `web.config` 中配置的 502 状态代码页面。</p> | `false` |

@@ -20,10 +20,10 @@ no-loc:
 - SignalR
 uid: blazor/test
 ms.openlocfilehash: cd4aee66fd6df6cc0ce520d8ca66e0a2cf130eff
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "93054861"
 ---
 # <a name="test-components-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中测试组件
@@ -42,7 +42,7 @@ ms.locfileid: "93054861"
 
 测试 Blazor 组件的两种常见方法是端到端 (E2E) 测试和单元测试：
 
-* **单元测试** ： [单元测试](/dotnet/core/testing/)使用单元测试库编写，该库提供：
+* **单元测试**：[单元测试](/dotnet/core/testing/)使用单元测试库编写，该库提供：
   * 组件呈现。
   * 组件输出和状态的检查。
   * 事件处理程序和生命周期方法的触发。
@@ -50,7 +50,7 @@ ms.locfileid: "93054861"
 
   [bUnit](https://github.com/egil/bUnit) 就是启用 Razor 组件单元测试的一个库。
 
-* **E2E 测试** ：测试运行程序会运行包含 CUT 的 Blazor 应用，并自动执行浏览器实例。 测试工具通过浏览器进行检查并与 CUT 交互。 [Selenium](https://github.com/SeleniumHQ/selenium) 就是一个可用于 Blazor 应用的 E2E 测试框架。
+* **E2E 测试**：测试运行程序会运行包含 CUT 的 Blazor 应用，并自动执行浏览器实例。 测试工具通过浏览器进行检查并与 CUT 交互。 [Selenium](https://github.com/SeleniumHQ/selenium) 就是一个可用于 Blazor 应用的 E2E 测试框架。
 
 在单元测试中，仅涉及到 Blazor 组件 (Razor/C#)。 必须模拟外部依赖项（如服务和 JS 互操作）。 在 E2E 测试中，Blazor 组件及其所有辅助基础结构是测试的一部分，包括 CSS、JS 以及 DOM 和浏览器 API。
 
@@ -143,11 +143,11 @@ public void CounterShouldIncrementWhenSelected()
 
 测试的每个步骤都执行以下操作：
 
-* *安排* ：使用 bUnit 的 `TestContext` 呈现 `Counter` 组件。 找到 CUT 的段落元素 (`<p>`)，并将其分配给 `paraElm`。
+* *安排*：使用 bUnit 的 `TestContext` 呈现 `Counter` 组件。 找到 CUT 的段落元素 (`<p>`)，并将其分配给 `paraElm`。
 
-* *执行* ：找到按钮的元素 (`<button>`)，然后通过调用 `Click` 选择它，该调用应增加计数器并更新段落标记 (`<p>`) 的内容。 段落元素文本内容通过调用 `TextContent` 获得。
+* *执行*：找到按钮的元素 (`<button>`)，然后通过调用 `Click` 选择它，该调用应增加计数器并更新段落标记 (`<p>`) 的内容。 段落元素文本内容通过调用 `TextContent` 获得。
 
-* *断言* ：在文本内容上调用 `MarkupMatches`，以验证它是否与预期字符串 `Current count: 1` 匹配。
+* *断言*：在文本内容上调用 `MarkupMatches`，以验证它是否与预期字符串 `Current count: 1` 匹配。
 
 > [!NOTE]
 > `MarkupMatches` 断言方法不同于常规字符串比较断言（例如 `Assert.Equal("Current count: 1", paraElmText);`），`MarkupMatches` 执行输入和预期的 HTML 标记的语义比较。 语义比较会识别 HTML 语义，这意味着忽略无关紧要的空格。 这会生成更稳定的测试。 有关详细信息，请参阅[自定义语义 HTML 比较](https://bunit.egilhansen.com/docs/verification/semantic-html-comparison)。
