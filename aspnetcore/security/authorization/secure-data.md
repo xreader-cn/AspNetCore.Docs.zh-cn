@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/secure-data
-ms.openlocfilehash: accfd46fa72c33976f8af2a39267c993447e036e
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: dc70cfe7cb0c0f044f5f1e7ee68a293b3ea7507f
+ms.sourcegitcommit: 04a404a9655c59ad1ea02aff5d399ae1b833ad6a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93051936"
+ms.lasthandoff: 01/03/2021
+ms.locfileid: "97854647"
 ---
 # <a name="create-an-aspnet-core-web-app-with-user-data-protected-by-authorization"></a>使用受授权保护的用户数据创建 ASP.NET Core web 应用
 
@@ -45,7 +45,7 @@ ms.locfileid: "93051936"
 
 此文档中的图像与最新模板并不完全匹配。
 
-在下图中，用户 Rick (`rick@example.com`) 已登录。 Rick 只能查看已批准的联系人， **编辑** / **删除** / 为其联系人 **创建新** 链接。 只有 Rick 创建的最后一条记录才会显示 " **编辑** " 和 " **删除** " 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+在下图中，用户 Rick (`rick@example.com`) 已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人 **创建新** 链接。 只有 Rick 创建的最后一条记录才会显示 " **编辑** " 和 " **删除** " 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
 
 ![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
 
@@ -75,7 +75,7 @@ ms.locfileid: "93051936"
 * `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
 * `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备知识
 
 本教程是高级教程。 你应该熟悉：
 
@@ -83,7 +83,7 @@ ms.locfileid: "93051936"
 * [身份验证](xref:security/authentication/identity)
 * [帐户确认和密码恢复](xref:security/authentication/accconfirm)
 * [授权](xref:security/authorization/introduction)
-* [Entity Framework Core](xref:data/ef-mvc/intro)
+* [实体框架核心](xref:data/ef-mvc/intro)
 
 ## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
 
@@ -93,7 +93,7 @@ ms.locfileid: "93051936"
 
 [下载](xref:index#how-to-download-a-sample)[初学者](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)应用。
 
-运行应用程序，点击 " **ContactManager** " 链接，并验证是否可以创建、编辑和删除联系人。
+运行应用程序，点击 " **ContactManager** " 链接，并验证是否可以创建、编辑和删除联系人。 若要创建初学者应用，请参阅 [创建初学者应用](#create-the-starter-app)。
 
 ## <a name="secure-user-data"></a>保护用户数据
 
@@ -128,7 +128,7 @@ dotnet ef database update
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=13-99)]
 
-前面突出显示的代码设置了 [后备身份验证策略](xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.FallbackPolicy)。 回退身份验证策略要求 * *_所有_* _ 用户进行身份验证，但 Razor 页面、控制器或操作方法除外。 例如， Razor 使用或的页、控制器或操作方法 `[AllowAnonymous]` `[Authorize(PolicyName="MyPolicy")]` 使用应用的身份验证属性而不是后备身份验证策略。
+前面突出显示的代码设置了 [后备身份验证策略](xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.FallbackPolicy)。 回退身份验证策略要求 **_所有_* _ 用户进行身份验证，但 Razor 页面、控制器或操作方法除外。 例如， Razor 使用或的页、控制器或操作方法 `[AllowAnonymous]` `[Authorize(PolicyName="MyPolicy")]` 使用应用的身份验证属性而不是后备身份验证策略。
 
 回退身份验证策略：
 
@@ -152,7 +152,7 @@ MVC 控制器和 Razor 页面要求对所有用户进行身份验证的另一种
 
 ### <a name="configure-the-test-account"></a>配置测试帐户
 
-`SeedData`类创建两个帐户：管理员和管理器。 使用 [机密管理器工具](xref:security/app-secrets) 来设置这些帐户的密码。 将项目目录中的密码设置 (包含 *Program.cs* ) 的目录：
+`SeedData`类创建两个帐户：管理员和管理器。 使用 [机密管理器工具](xref:security/app-secrets) 来设置这些帐户的密码。 将项目目录中的密码设置 (包含 *Program.cs*) 的目录：
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
@@ -203,7 +203,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ## <a name="register-the-authorization-handlers"></a>注册授权处理程序
 
-Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过 [依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
+Entity Framework Core 使用 AddScoped 的服务必须使用[](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过 [依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
@@ -272,7 +272,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 前面的标记添加了多个 `using` 语句。
 
-更新 *页面/联系人/索引* 中的 " **编辑** " 和 " **删除** " 链接，以便仅为具有适当权限的用户呈现它们：
+更新 *页面/联系人/索引* 中的 "**编辑**" 和 "**删除**" 链接，以便仅为具有适当权限的用户呈现它们：
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
@@ -351,7 +351,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 添加 *模型/联系方式* ：
+* 添加 *模型/联系方式*：
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
@@ -399,7 +399,7 @@ dotnet ef database update
 * **经理** 可以批准或拒绝联系人数据。 只有已批准的联系人对用户可见。
 * **管理员** 可以批准/拒绝和编辑/删除任何数据。
 
-在下图中，用户 Rick (`rick@example.com`) 已登录。 Rick 只能查看已批准的联系人， **编辑** / **删除** / 为其联系人 **创建新** 链接。 只有 Rick 创建的最后一条记录才会显示 " **编辑** " 和 " **删除** " 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+在下图中，用户 Rick (`rick@example.com`) 已登录。 Rick 只能查看已批准的联系人，**编辑** / **删除** / 为其联系人 **创建新** 链接。 只有 Rick 创建的最后一条记录才会显示 " **编辑** " 和 " **删除** " 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
 
 ![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
 
@@ -429,7 +429,7 @@ dotnet ef database update
 * `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
 * `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备知识
 
 本教程是高级教程。 你应该熟悉：
 
@@ -437,7 +437,7 @@ dotnet ef database update
 * [身份验证](xref:security/authentication/identity)
 * [帐户确认和密码恢复](xref:security/authentication/accconfirm)
 * [授权](xref:security/authorization/introduction)
-* [Entity Framework Core](xref:data/ef-mvc/intro)
+* [实体框架核心](xref:data/ef-mvc/intro)
 
 ## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
 
@@ -488,7 +488,7 @@ dotnet ef database update
 
 ### <a name="configure-the-test-account"></a>配置测试帐户
 
-`SeedData`类创建两个帐户：管理员和管理器。 使用 [机密管理器工具](xref:security/app-secrets) 来设置这些帐户的密码。 将项目目录中的密码设置 (包含 *Program.cs* ) 的目录：
+`SeedData`类创建两个帐户：管理员和管理器。 使用 [机密管理器工具](xref:security/app-secrets) 来设置这些帐户的密码。 将项目目录中的密码设置 (包含 *Program.cs*) 的目录：
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
@@ -539,7 +539,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ## <a name="register-the-authorization-handlers"></a>注册授权处理程序
 
-Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过 [依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
+Entity Framework Core 使用 AddScoped 的服务必须使用[](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler`使用 [Identity](xref:security/authentication/identity) 在 Entity Framework Core 上构建 ASP.NET Core。 向服务集合注册处理程序，使其可 `ContactsController` 通过 [依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到的末尾 `ConfigureServices` ：
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
@@ -608,7 +608,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
 
 前面的标记添加了多个 `using` 语句。
 
-更新 *页面/联系人/索引* 中的 " **编辑** " 和 " **删除** " 链接，以便仅为具有适当权限的用户呈现它们：
+更新 *页面/联系人/索引* 中的 "**编辑**" 和 "**删除**" 链接，以便仅为具有适当权限的用户呈现它们：
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
@@ -678,7 +678,7 @@ Entity Framework Core 使用 AddScoped 的服务必须使用[AddScoped](/dotnet/
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 添加 *模型/联系方式* ：
+* 添加 *模型/联系方式*：
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 

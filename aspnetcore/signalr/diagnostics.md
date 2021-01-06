@@ -1,9 +1,9 @@
 ---
 title: ASP.NET Core 中的日志记录和诊断 SignalR
-author: anurse
+author: bradygaster
 description: 了解如何从 ASP.NET Core 应用收集诊断信息 SignalR 。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: anurse
+ms.author: bradyg
 ms.custom: devx-track-csharp, signalr, devx-track-js
 ms.date: 06/12/2020
 no-loc:
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 49029bbd53b98425a05bdb82517238e3aa2e3b1f
-ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
+ms.openlocfilehash: 23ebd61d9931f9cd83afbdcc5a718e42cc565317
+ms.sourcegitcommit: b23fed8c1a1d2aec2f9b5e09041442ecfafedd56
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/15/2020
-ms.locfileid: "97506625"
+ms.lasthandoff: 12/28/2020
+ms.locfileid: "97797335"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-no-locsignalr"></a>ASP.NET Core 中的日志记录和诊断 SignalR
 
@@ -108,9 +108,19 @@ Visual Studio 会在 " **输出** " 窗口中显示日志输出。 选择 **ASP.
 
 如果要将日志发送到自定义日志记录系统，可以提供实现接口的 JavaScript 对象 `ILogger` 。 唯一需要实现的方法是 `log` ，它将使用事件的级别和与事件关联的消息。 例如：
 
-[!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
+::: moniker range=">= aspnetcore-3.0"
 
-## <a name="net-client-logging"></a>.NET 客户端日志记录
+[!code-typescript[](diagnostics/3.x/custom-logger.ts?highlight=3-7,13)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-typescript[](diagnostics/2.x/custom-logger.ts?highlight=3-7,13)]
+
+::: moniker-end
+
+## <a name="net-client-logging"></a> .NET 客户端日志记录
 
 > [!WARNING]
 > 客户端日志可能包含来自应用的敏感信息。 切勿将来自生产应用的原始日志发布到 GitHub 等公共论坛。

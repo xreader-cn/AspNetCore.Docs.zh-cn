@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/key-vault-configuration
-ms.openlocfilehash: 7f5cd3de38f1e45d9b188c513a0e62ca658b2992
-ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
+ms.openlocfilehash: 4b035fe59b8576eb387ddce67943386ccab55492
+ms.sourcegitcommit: 8dfcd2b4be936950c228b4d98430622a04254cd7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "96035900"
+ms.lasthandoff: 12/26/2020
+ms.locfileid: "97792080"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
@@ -41,7 +41,10 @@ ms.locfileid: "96035900"
 
 ## <a name="packages"></a>包
 
-向Azure.Extensions.AspNetCore.Configu 添加包引用 [ 。机密](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.Configuration.Secrets/) 包。
+添加以下包的包引用：
+
+* [Azure.Extensions.AspNetCore.Configuration.Secrets](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.Configuration.Secrets)
+* [Microsoft.Identity](https://www.nuget.org/packages/Azure.Identity)
 
 ## <a name="sample-app"></a>示例应用
 
@@ -193,7 +196,7 @@ az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-
 
 * 创建类的实例 `DefaultAzureCredential` ，凭据将尝试从 Azure 资源的环境中获取访问令牌。
 * [`Azure.Security.KeyVault.Secrets.Secrets`](/dotnet/api/azure.security.keyvault.secrets)使用实例创建新的 `DefaultAzureCredential` 。
-* `Azure.Security.KeyVault.Secrets.Secrets`实例与加载所有机密值的的默认实现一起使用， `Azure.Extensions.Aspnetcore.Configuration.Secrets` 并将 `--` 冒号 () 替换为 `:` 键名称中 () 。
+* `Azure.Security.KeyVault.Secrets.Secrets`实例与加载所有机密值的的默认实现一起使用， `Azure.Extensions.AspNetCore.Configuration.Secrets` 并将 `--` 冒号 () 替换为 `:` 键名称中 () 。
 
 [!code-csharp[](key-vault-configuration/samples/3.x/SampleApp/Program.cs?name=snippet2&highlight=12-14)]
 
@@ -225,25 +228,25 @@ config.AddAzureKeyVault(new SecretClient(new URI("Your Key Vault Endpoint"), new
     });
 ```
 
-| properties         | 说明 |
+| 属性         | 说明 |
 | ---------------- | ----------- |
-| `Manager`        | `Azure.Extensions.Aspnetcore.Configuration.Secrets` 用于控制机密加载的实例。 |
+| `Manager`        | `Azure.Extensions.AspNetCore.Configuration.Secrets` 用于控制机密加载的实例。 |
 | `ReloadInterval` | `Timespan` 如果为，则在轮询密钥保管库以进行更改之间等待。 默认值为 `null` (不) 重新加载配置。 |
 
 ## <a name="use-a-key-name-prefix"></a>使用密钥名称前缀
 
-AddAzureKeyVault 提供一个重载，该重载接受的实现 `Azure.Extensions.Aspnetcore.Configuration.Secrets` ，这允许你控制密钥保管库机密如何转换为配置密钥。 例如，你可以实现接口，以便基于在应用启动时提供的前缀值加载机密值。 例如，你可以根据应用程序的版本加载机密。
+AddAzureKeyVault 提供一个重载，该重载接受的实现 `Azure.Extensions.AspNetCore.Configuration.Secrets` ，这允许你控制密钥保管库机密如何转换为配置密钥。 例如，你可以实现接口，以便基于在应用启动时提供的前缀值加载机密值。 例如，你可以根据应用程序的版本加载机密。
 
 > [!WARNING]
 > 不要对 key vault 机密使用前缀，将多个应用的机密放入同一密钥保管库，或放置环境机密 (例如， *开发* 与 *生产* 机密) 到同一保管库中。 建议不同的应用和开发/生产环境使用不同的密钥保管库，以便隔离应用环境以获得最高级别的安全性。
 
 在下面的示例中，密钥保管库中建立了机密 (和使用开发环境的机密管理器工具) 对于 `5000-AppSecret` 密钥保管库机密名称) 中不允许使用 (期间。 此机密代表应用程序版本5.0.0.0 的应用程序机密。 对于其他版本的应用，5.1.0.0 会将机密添加到密钥保管库 (并使用机密管理器工具) `5100-AppSecret` 。 每个应用版本会将其版本控制的机密值加载到其配置中，并在 `AppSecret` 加载机密时去除版本。
 
-使用自定义调用 AddAzureKeyVault `Azure.Extensions.Aspnetcore.Configuration.Secrets` ：
+使用自定义调用 AddAzureKeyVault `Azure.Extensions.AspNetCore.Configuration.Secrets` ：
 
 [!code-csharp[](key-vault-configuration/samples_snapshot/Program.cs)]
 
-该 `Azure.Extensions.Aspnetcore.Configuration.Secrets` 实现将对机密的版本前缀做出反应，以将适当的机密加载到配置中：
+该 `Azure.Extensions.AspNetCore.Configuration.Secrets` 实现将对机密的版本前缀做出反应，以将适当的机密加载到配置中：
 
 * `Load` 当机密名称以前缀开头时，加载密码。 未加载其他机密。
 * `GetKey`:

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 59ad373cefaa12370aa7c02a367125c7a94f59a6
-ms.sourcegitcommit: 91e14f1e2a25c98a57c2217fe91b172e0ff2958c
+ms.openlocfilehash: a163c87fdb9a02c1b074ab32c19c11932c66cfd4
+ms.sourcegitcommit: 04a404a9655c59ad1ea02aff5d399ae1b833ad6a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94422595"
+ms.lasthandoff: 01/03/2021
+ms.locfileid: "97854530"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -44,7 +44,7 @@ ASP.NET Core 控制器使用路由 [中间件](xref:fundamentals/middleware/inde
   * 典型的 MVC 应用使用路由功能的方式。
   * 涵盖两种：
     * 通常用于控制器和视图的[传统路由](#cr)。
-    * 用于 REST Api 的 *属性路由* 。 如果主要对 REST Api 的路由感兴趣，请跳转到 [Rest api 的属性路由](#ar) 部分。
+    * 用于 REST Api 的 *属性路由*。 如果主要对 REST Api 的路由感兴趣，请跳转到 [Rest api 的属性路由](#ar) 部分。
   * 有关高级路由的详细信息，请参阅 [路由](xref:fundamentals/routing) 。
 * 指 ASP.NET Core 3.0 中添加的默认路由系统，称为 "终结点路由"。 出于兼容性目的，可以将控制器用于以前版本的路由。 有关说明，请参阅 [2.2-3.0 迁移指南](xref:migration/22-to-30) 。 有关旧路由系统上的参考材料，请参阅 [本文档的2.2 版本](xref:mvc/controllers/routing?view=aspnetcore-2.2) 。
 
@@ -120,7 +120,7 @@ endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"
 
 [!code-csharp[](routing/samples/3.x/main/StartupDefaultMVC.cs?name=snippet2)]
 
-是一种 *传统路由* 。 它被称为 *传统路由* ，因为它建立了一个 URL 路径 *约定* ：
+是一种 *传统路由*。 它被称为 *传统路由* ，因为它建立了一个 URL 路径 *约定* ：
 
 * 第一个路径段 `{controller=Home}` 映射到控制器名称。
 * 第二段 `{action=Index}` 映射到 [操作](#action) 名称。
@@ -172,13 +172,13 @@ ASP.NET Core 3.0 及更高版本中的终结点路由：
 
 ### <a name="multiple-conventional-routes"></a>多个传统路由
 
-[conventional routes](#cr) `UseEndpoints` 通过添加更多对和的调用，可以在内添加多个传统路由 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A> <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute%2A> 。 这样做允许定义多个约定，或者添加专用于特定 [操作](#action)的传统路由，例如：
+[](#cr) `UseEndpoints` 通过添加更多对和的调用，可以在内添加多个传统路由 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A> <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute%2A> 。 这样做允许定义多个约定，或者添加专用于特定 [操作](#action)的传统路由，例如：
 
 [!code-csharp[](routing/samples/3.x/main/Startup.cs?name=snippet_1)]
 
 <a name="dcr"></a>
 
-`blog`上述代码中的路由是专用的 **传统路由** 。 这称为专用的传统路由，因为：
+`blog`上述代码中的路由是专用的 **传统路由**。 这称为专用的传统路由，因为：
 
 * 它使用 [传统路由](#cr)。
 * 它专用于特定的 [操作](#action)。
@@ -260,7 +260,7 @@ ASP.NET Core 3.0 及更高版本中的终结点路由：
 * 不会影响 URL 匹配或处理请求。
 * 仅用于生成 URL。
 
-路由名称概念在路由中表示为 [IEndpointNameMetadata](xref:Microsoft.AspNetCore.Routing.IEndpointNameMetadata)。 术语 **路由名称** 和 **终结点名称** ：
+路由名称概念在路由中表示为 [IEndpointNameMetadata](xref:Microsoft.AspNetCore.Routing.IEndpointNameMetadata)。 术语 **路由名称** 和 **终结点名称**：
 
 * 是可互换的。
 * 文档和代码中使用哪一个取决于所述的 API。
@@ -278,7 +278,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 在前面的代码中，在 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers%2A> 中调用， `UseEndpoints` 以映射属性路由控制器。
 
-在以下示例中：
+如下示例中：
 
 * 使用前面的 `Configure` 方法。
 * `HomeController` 匹配一组与默认传统路由匹配的 Url `{controller=Home}/{action=Index}/{id?}` 。
@@ -472,7 +472,7 @@ AmbiguousMatchException: The request matched multiple endpoints. Matches:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/MyDemo3Controller.cs?name=snippet3& highlight=2)]
 
-在前面的代码中， `/home` 运行 `HomeController.Index` 终结点。 若要转到 `MyDemoController.MyIndex` ，请请求 `/home/MyIndex` 。 **注意** ：
+在前面的代码中， `/home` 运行 `HomeController.Index` 终结点。 若要转到 `MyDemoController.MyIndex` ，请请求 `/home/MyIndex` 。 **注意**：
 
 * 上面的代码是一个示例或不良路由设计。 它用于说明 `Order` 属性。
 * `Order`属性只解析多义性，该模板无法匹配。 最好删除该 `[Route("Home")]` 模板。
@@ -485,12 +485,7 @@ AmbiguousMatchException: The request matched multiple endpoints. Matches:
 
 ## <a name="token-replacement-in-route-templates-controller-action-area"></a>路由模板中的标记替换 [控制器]，[操作]，[区域]
 
-为方便起见，特性路由支持为保留路由参数替换标记，方法是将令牌括在以下其中一项：
-
-* 方括号： `[]`
-* 大括号： `{}`
-
-令牌 `[action]` 、 `[area]` 和 `[controller]` 将替换为自定义路由的操作的 "操作名称"、"区域名称" 和 "控制器名称" 的值：
+为方便起见，特性路由支持 *标记替换* ，方法是在方括号中包含一个标记 (`[` ， `]`) 。 令牌 `[action]` 、 `[area]` 和 `[controller]` 将替换为自定义路由的操作的 "操作名称"、"区域名称" 和 "控制器名称" 的值：
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet)]
 
@@ -668,7 +663,7 @@ ASP.NET Core 应用可以混合使用传统路由和属性路由。 通常将传
 
 如果应用使用默认传统路由，则变量的值 `url` 为 URL 路径字符串 `/UrlGeneration/Destination` 。 此 URL 路径由路由通过组合创建：
 
-* 当前请求中的路由值，称为 " **环境值** "。
+* 当前请求中的路由值，称为 " **环境值**"。
 * 传递到的值 `Url.Action` ，并将这些值替换为路由模板：
 
 ``` text
@@ -717,7 +712,7 @@ result: /UrlGeneration/Destination
 * 值 `{ d = David }` 被忽略。
 * 生成的 URL 路径为 `Alice/Bob/Carol/Donovan` 。
 
-**警告** ： URL 路径是分层的。 在前面的示例中，如果添加了值 `{ c = Cheryl }` ：
+**警告**： URL 路径是分层的。 在前面的示例中，如果添加了值 `{ c = Cheryl }` ：
 
 * 这两个值 `{ c = Carol, d = David }` 都将被忽略。
 * 不再存在的值 `d` ，URL 生成将失败。
@@ -823,7 +818,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 [!code-csharp[](routing/samples/3.x/AreasRouting/Areas/Blog/Controllers/UsersController.cs)]
 
-[[Area]](xref:Microsoft.AspNetCore.Mvc.AreaAttribute)特性用于将控制器表示为区域的一部分。 此控制器在区域中 `Blog` 。 没有属性的控制器 `[Area]` 不是任何区域的成员，并且在 **not** `area` 路由值由路由提供时不匹配。 在下面的示例中，只有所列出的第一个控制器才能与路由值 `{ area = Blog, controller = Users, action = AddUser }` 匹配。
+[[Area]](xref:Microsoft.AspNetCore.Mvc.AreaAttribute)特性用于将控制器表示为区域的一部分。 此控制器在区域中 `Blog` 。 没有属性的控制器 `[Area]` 不是任何区域的成员，并且在 `area` 路由值由路由提供时不匹配。 在下面的示例中，只有所列出的第一个控制器才能与路由值 `{ area = Blog, controller = Users, action = AddUser }` 匹配。
 
 [!code-csharp[](routing/samples/3.x/AreasRouting/Areas/Blog/Controllers/UsersController.cs)]
 
@@ -839,7 +834,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 就 *不匹配任何值* 而言，缺少 `area` 值相当于 `area` 的值为 NULL 或空字符串。
 
-在区域内执行操作时，的路由值 `area` 可用作路由用于生成 URL 的 [环境值](#ambient) 。 这意味着默认情况下，区域在 URL 生成中具有 *粘性* ，如以下示例所示。
+在区域内执行操作时，的路由值 `area` 可用作路由用于生成 URL 的 [环境值](#ambient) 。 这意味着默认情况下，区域在 URL 生成中具有 *粘性*，如以下示例所示。
 
 [!code-csharp[](routing/samples/3.x/AreasRouting/Startup3.cs?name=snippet3)]
 
@@ -855,7 +850,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 控制器上的公共方法（具有 [NonAction](xref:Microsoft.AspNetCore.Mvc.NonActionAttribute) 特性的方法除外）是操作。
 
-## <a name="sample-code"></a>代码示例
+## <a name="sample-code"></a>示例代码
 
 * [!INCLUDE[](~/includes/MyDisplayRouteInfo.md)]
 * [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)（[如何下载](xref:index#how-to-download-a-sample)）
@@ -1000,7 +995,7 @@ app.UseMvc(routes =>
 });
 ```
 
-此处的 `blog` 路由是一个 *专用的传统路由* ，这表示它使用传统路由系统，但专用于特定的操作。 由于 `controller` 和 `action` 不会在路由模板中作为参数显示，它们只能有默认值，因此，此路由将始终映射到 `BlogController.Article` 操作。
+此处的 `blog` 路由是一个 *专用的传统路由*，这表示它使用传统路由系统，但专用于特定的操作。 由于 `controller` 和 `action` 不会在路由模板中作为参数显示，它们只能有默认值，因此，此路由将始终映射到 `BlogController.Article` 操作。
 
 路由集合中的路由会进行排序，并按添加顺序进行处理。 因此，在此示例中，将先尝试 `blog` 路由，再尝试 `default` 路由。
 
@@ -1009,7 +1004,7 @@ app.UseMvc(routes =>
 
 ### <a name="fallback"></a>回退
 
-在处理请求时，MVC 将验证路由值能否用于在应用程序中查找控制器和操作。 如果路由值与任何操作都不匹配，则将该路由视为不匹配，并尝试下一个路由。 这称为 *回退* ，其目的是简化传统路由重叠的情况。
+在处理请求时，MVC 将验证路由值能否用于在应用程序中查找控制器和操作。 如果路由值与任何操作都不匹配，则将该路由视为不匹配，并尝试下一个路由。 这称为 *回退*，其目的是简化传统路由重叠的情况。
 
 ### <a name="disambiguating-actions"></a>区分操作
 
@@ -1151,7 +1146,7 @@ public class ProductsApiController : Controller
 
 ## <a name="route-name"></a>路由名称
 
-以下代码定义 `Products_List` 的 *路由名称* ：
+以下代码定义 `Products_List` 的 *路由名称*：
 
 ```csharp
 public class ProductsApiController : Controller
@@ -1437,7 +1432,7 @@ result: /UrlGeneration/Destination
 
 路由模板中的每个路由参数都会通过将名称与这些值和环境值匹配，来替换掉原来的值。 没有值的路由参数如果有默认值，则可使用默认值；如果本身是可选参数（比如此示例中的 `id`），则可直接跳过。 如果任何所需路由参数没有对应的值，URL 生成将失败。 如果某个路由的 URL 生成失败，则尝试下一个路由，直到尝试所有路由或找到匹配项为止。
 
-上面的 `Url.Action` 示例假定使用传统路由，但 URL 生成功能的工作方式与属性路由相似，只不过概念不同。 在传统路由中，路由值用于扩展模板，`controller` 和 `action` 的路由值通常出现在该模板中 — 这种做法可行是因为通过路由匹配的 URL 遵守某项 *约定* 。 在属性路由中，`controller` 和 `action` 的路由值不能出现在模板中，它们用于查找要使用的模板。
+上面的 `Url.Action` 示例假定使用传统路由，但 URL 生成功能的工作方式与属性路由相似，只不过概念不同。 在传统路由中，路由值用于扩展模板，`controller` 和 `action` 的路由值通常出现在该模板中 — 这种做法可行是因为通过路由匹配的 URL 遵守某项 *约定*。 在属性路由中，`controller` 和 `action` 的路由值不能出现在模板中，它们用于查找要使用的模板。
 
 此示例使用属性路由：
 
@@ -1459,7 +1454,7 @@ MVC 生成一个包含所有属性路由操作的查找表，并匹配 `controll
 > [!WARNING]
 > URL 路径是分层的。 在上述示例中，如果添加了值 `{ c = Cheryl }`，则会忽略 `{ c = Carol, d = David }` 这两个值。 在这种情况下，`d` 不再具有任何值，URL 生成将失败。 用户需要指定 `c` 和 `d` 所需的值。  使用默认路由 (`{controller}/{action}/{id?}`) 时可能会遇到此问题，但在实际操作中很少遇到此行为，因为 `Url.Action` 始终显式指定 `controller` 和 `action` 值。
 
-较长的 `Url.Action` 重载还采用附加 *路由值* 对象，为 `controller` 和 `action` 以外的路由参数提供值。 此重载最常与 `id` 结合使用，比如 `Url.Action("Buy", "Products", new { id = 17 })`。 按照惯例， *路由值* 对象通常是匿名类型的对象，但它也可以是 `IDictionary<>` 或 *普通旧 .NET 对象* 。 任何与路由参数不匹配的附加路由值都放在查询字符串中。
+较长的 `Url.Action` 重载还采用附加 *路由值* 对象，为 `controller` 和 `action` 以外的路由参数提供值。 此重载最常与 `id` 结合使用，比如 `Url.Action("Buy", "Products", new { id = 17 })`。 按照惯例，*路由值* 对象通常是匿名类型的对象，但它也可以是 `IDictionary<>` 或 *普通旧 .NET 对象*。 任何与路由参数不匹配的附加路由值都放在查询字符串中。
 
 [!code-csharp[](routing/samples/2.x/main/Controllers/TestController.cs)]
 
@@ -1510,7 +1505,7 @@ public IActionResult Edit(int id, Customer customer)
 
 ### <a name="special-case-for-dedicated-conventional-routes"></a>专用传统路由的特殊情况
 
-传统路由可以使用一种特殊的路由定义，称为 *专用传统路由* 。 在下面的示例中，名为 `blog` 的路由是一种专用传统路由。
+传统路由可以使用一种特殊的路由定义，称为 *专用传统路由*。 在下面的示例中，名为 `blog` 的路由是一种专用传统路由。
 
 ```csharp
 app.UseMvc(routes =>
@@ -1529,9 +1524,9 @@ app.UseMvc(routes =>
 
 ## <a name="areas"></a>Areas
 
-[区域](areas.md)是一种 MVC 功能，用于将相关功能整理到一个组中，作为单独的路由命名空间（用于控制器操作）和文件夹结构（用于视图）。 通过使用区域，应用程序可以有多个名称相同的控制器，只要它们具有不同的 *区域* 。 通过向 `controller` 和 `action` 添加另一个路由参数 `area`，可使用区域为路由创建层次结构。 此部分将讨论路由如何与区域交互；有关如何将区域与视图结合使用的详细信息，请参阅[区域](areas.md)。
+[区域](areas.md)是一种 MVC 功能，用于将相关功能整理到一个组中，作为单独的路由命名空间（用于控制器操作）和文件夹结构（用于视图）。 通过使用区域，应用程序可以有多个名称相同的控制器，只要它们具有不同的 *区域*。 通过向 `controller` 和 `action` 添加另一个路由参数 `area`，可使用区域为路由创建层次结构。 此部分将讨论路由如何与区域交互；有关如何将区域与视图结合使用的详细信息，请参阅[区域](areas.md)。
 
-下面的示例将 MVC 配置为使用默认传统路由和 *区域路由* （用于名为 `Blog` 的区域）：
+下面的示例将 MVC 配置为使用默认传统路由和 *区域路由*（用于名为 `Blog` 的区域）：
 
 [!code-csharp[](routing/samples/3.x/AreasRouting/Startup.cs?name=snippet1)]
 
@@ -1564,7 +1559,7 @@ app.UseMvc(routes =>
 > [!NOTE]
 > 就 *不匹配任何值* 而言，缺少 `area` 值相当于 `area` 的值为 NULL 或空字符串。
 
-在某个区域内执行某项操作时，`area` 的路由值将以 *环境值* 的形式提供，以便路由用于生成 URL。 这意味着默认情况下，区域在 URL 生成中具有 *粘性* ，如以下示例所示。
+在某个区域内执行某项操作时，`area` 的路由值将以 *环境值* 的形式提供，以便路由用于生成 URL。 这意味着默认情况下，区域在 URL 生成中具有 *粘性*，如以下示例所示。
 [!code-csharp[](routing/samples/3.x/AreasRouting/Startup.cs?name=snippet3)]
 
 [!code-csharp[](routing/samples/3.x/AreasRouting/Areas/Duck/Controllers/UsersController.cs)]
@@ -1590,7 +1585,7 @@ public class ProductsController : Controller
 
 假定使用默认传统路由，URL 路径 `/Products/Edit` 将生成值 `{ controller = Products, action = Edit }`，这将匹配此处所示的 **两项** 操作。 在 `IActionConstraint` 术语中，我们会说，这两项操作都被视为候选项，因为它们都与该路由数据匹配。
 
-当 `HttpGetAttribute` 执行时，它认为 *Edit()* 是 *GET* 的匹配项，而不是任何其他 Http 谓词的匹配项。 `Edit(...)` 操作未定义任何约束，因此将匹配任何 Http 谓词。 因此，假定 Http 谓词为 `POST`，则仅 `Edit(...)` 匹配。 不过，对于 `GET`，这两项操作仍然都能匹配，只是具有 `IActionConstraint` 的操作始终被认为比没有该接口的操作 *更匹配* 。 因此，由于 `Edit()` 具有 `[HttpGet]`，则认为它更特定，在两项操作都能匹配的情况将选择它。
+当 `HttpGetAttribute` 执行时，它认为 *Edit()* 是 *GET* 的匹配项，而不是任何其他 Http 谓词的匹配项。 `Edit(...)` 操作未定义任何约束，因此将匹配任何 Http 谓词。 因此，假定 Http 谓词为 `POST`，则仅 `Edit(...)` 匹配。 不过，对于 `GET`，这两项操作仍然都能匹配，只是具有 `IActionConstraint` 的操作始终被认为比没有该接口的操作 *更匹配*。 因此，由于 `Edit()` 具有 `[HttpGet]`，则认为它更特定，在两项操作都能匹配的情况将选择它。
 
 从概念上讲，`IActionConstraint` 是一种 *重载* 形式，但它并不重载具有相同名称的方法，而在匹配相同 URL 的操作之间重载。 属性路由也使用 `IActionConstraint`，这可能会导致将不同控制器中的操作都视为候选项。
 
@@ -1632,7 +1627,7 @@ public class CountrySpecificAttribute : Attribute, IActionConstraint
 
 用户负责实现 `Accept` 方法，并为要执行的约束选择“顺序”。 在此例中，当 `country` 路由值匹配时，`Accept` 方法返回 `true` 以表示该操作是匹配项。 它与 `RouteValueAttribute` 的不同之处在于，它允许回退到非属性化操作。 通过该示例可以了解到，如果定义 `en-US` 操作，则像 `fr-FR` 这样的国家/地区代码将回退到一个未应用 `[CountrySpecific(...)]` 的较通用的控制器。
 
-`Order` 属性决定约束所属的 *阶段* 。 操作约束基于 `Order` 分组运行。 例如，该框架提供的所有 HTTP 方法属性均使用相同的 `Order` 值，以便在相同的阶段运行。 用户可以按需设置阶段数来实现所需的策略。
+`Order` 属性决定约束所属的 *阶段*。 操作约束基于 `Order` 分组运行。 例如，该框架提供的所有 HTTP 方法属性均使用相同的 `Order` 值，以便在相同的阶段运行。 用户可以按需设置阶段数来实现所需的策略。
 
 > [!TIP]
 > 若要确定 `Order` 的值，请考虑是否应在 HTTP 方法前应用约束。 数值较低的先运行。

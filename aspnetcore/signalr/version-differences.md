@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/version-differences
-ms.openlocfilehash: c4c0ff83cb789e9aa35085496daa461404615726
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: c37f0a3c528b6285fbf35f41eed781fb76c68de4
+ms.sourcegitcommit: 04a404a9655c59ad1ea02aff5d399ae1b833ad6a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061205"
+ms.lasthandoff: 01/03/2021
+ms.locfileid: "97854595"
 ---
 # <a name="differences-between-aspnet-no-locsignalr-and-aspnet-core-no-locsignalr"></a>ASP.NET SignalR 与 ASP.NET Core 之间的差异 SignalR
 
@@ -151,7 +151,7 @@ ASP.NET 的扩展模型 SignalR 允许客户端将消息重新连接到场中的
 
 ASP.NET Core SignalR 现在支持从中心到客户端的 [流数据](xref:signalr/streaming) 。
 
-### <a name="state"></a>状态
+### <a name="state"></a>州省/自治区/直辖市
 
 能够在客户端和中心之间传递任意状态 (经常称为 `HubState`) ，并支持进度消息。 目前没有集线器代理。
 
@@ -203,8 +203,8 @@ npm install @aspnet/signalr
 
 ### <a name="internet-explorer-support"></a>Internet Explorer 支持
 
-ASP.NET Core SignalR 支持 Microsoft Internet explorer 11 或更高版本，而 ASP.NET SignalR 支持 Microsoft internet explorer 8 或更高版本。
-有关浏览器支持的详细信息，请参阅 [支持的平台](xref:signalr/supported-platforms#javascript-client)。
+ASP.NET Core SignalR 不支持 Microsoft Internet explorer，而 ASP.NET SignalR 支持 Microsoft internet explorer 8 或更高版本。
+有关详细信息，请参阅 <xref:signalr/supported-platforms#javascript-client>。
 
 ### <a name="javascript-client-method-syntax"></a>JavaScript 客户端方法语法
 
