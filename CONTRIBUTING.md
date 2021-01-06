@@ -2,9 +2,9 @@
 
 本文档介绍了参与到 [ASP.NET 文档站点](https://docs.microsoft.com/aspnet/)上托管的文章和代码示例中的过程。 欢迎更正拼写错误以及撰写新文章。
 
-## <a name="how-to-make-a-simple-correction-or-suggestion"></a>如何提出简单的更正和建议
+## <a name="how-to-make-a-simple-correction-or-suggestion"></a>如何提出简单的更正或建议
 
-文章作为 Markdown 文件存储在存储库中。 通过选择浏览器窗口右上角的“编辑”链接，可以在浏览器中对 Markdown 文件的内容进行简单更改  。 （在窄浏览器窗口中，展开“选项”栏，以查看“编辑”链接   。）按照说明创建拉取请求 (PR)。 我们将对拉取请求进行评审并接受相关请求或提出更改建议。
+文章作为 Markdown 文件存储在存储库中。 通过选择浏览器窗口右上角的“编辑”链接，可以在浏览器中对 Markdown 文件的内容进行简单更改。 （在窄浏览器窗口中，展开“选项”栏，以查看“编辑”链接 。）按照说明创建拉取请求 (PR)。 我们将对拉取请求进行评审并接受相关请求或提出更改建议。
 
 ## <a name="how-to-make-a-more-complex-submission"></a>如何提出更复杂的提交
 
@@ -14,7 +14,7 @@
 * 为 [aspnet/Docs](https://github.com/dotnet/AspNetCore.Docs/) 存储库创建分支，并为所做出的更改创建一个分支。
 * 提交拉取请求以掌握更改。
 * 如果拉取请求分配的标签为 “cla-required”，则[完成贡献许可协议 (CLA)](https://cla.dotnetfoundation.org/)。
-* 对拉取请求反馈进行响应。
+* 对 PR 请求反馈进行响应。
 
 有关此过程引导发布新文章的示例，请参阅 .NET Docs 存储库中的[问题&num; 67 ](https://github.com/dotnet/docs/issues/67)和[拉取请求&num; 798](https://github.com/dotnet/docs/pull/798)。 新文章为[编写代码](https://docs.microsoft.com/dotnet/articles/csharp/codedoc)。
 
@@ -28,7 +28,7 @@
 
 ## <a name="folder-structure-conventions"></a>文件夹结构约定
 
-对于每个Markdown 文件，可能存在图像文件夹和示例代码文件夹。 如果文章是 [fundamentals/configuration/index.md](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/fundamentals/configuration/index.md)，则图像位于 [fundamentals/configuration/index/\_](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) 中，示例应用项目文件位于 [fundamentals/configuration/index/sample](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample) 中。 fundamentals/configuration/index.md 文件中的图像由以下 Markdown 呈现： 
+对于每个Markdown 文件，可能存在图像文件夹和示例代码文件夹。 如果文章是 [fundamentals/configuration/index.md](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/fundamentals/configuration/index.md)，则图像位于 [fundamentals/configuration/index/\_](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) 中，示例应用项目文件位于 [fundamentals/configuration/index/sample](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample) 中。 fundamentals/configuration/index.md 文件中的图像由以下 Markdown 呈现：
 
 ```md
 ![description of image for alt attribute](configuration/index/_static/imagename.png)
@@ -69,9 +69,9 @@ Markdown 文件名称和图像文件名称使用小写。
 
 文章经常使用代码片段来说明要点。 DFM 允许将代码复制到 Markdown 文件或引用单独的代码文件。 请尽可能使用单独的代码文件，以最大限度地减少代码中出错的可能性。 代码文件存储在使用前面示例项目所述的文件夹结构的存储库中。 
 
-以下示例说明了用于 configuration/index.md 文件的 [DFM 代码片段语法](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet)。 
+以下示例说明了用于 configuration/index.md 文件的 [DFM 代码片段语法](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet)。
 
-将整个代码文件呈现为代码段：
+将整个代码文件呈现为代码片段：
 
 ```md
 [!code-csharp[](configuration/index/sample/Program.cs)]
@@ -86,7 +86,7 @@ Markdown 文件名称和图像文件名称使用小写。
 
 有关 C# 代码段，请参阅 [C# 区域](https://docs.microsoft.com/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region)。 请尽可能使用区域而不是行号，因为代码文件中的行号往往会更改，并与 Markdown 中引用的行号不同步。 可嵌套 C# 区域。 如果要引用外部区域，内部 `#region` 和 `#endregion` 指令不会呈现在代码段中。 
 
-呈现名为“snippet_Example”的 C# 区域：
+呈现名为 “snippet_Example” 的 C# 区域：
 
 ```md
 [!code-csharp[](configuration/index/sample/Program.cs?name=snippet_Example)]
@@ -112,9 +112,9 @@ DocFX 要求：
 
 ### <a name="windows-instructions"></a>Windows 说明
 
-* 从 [DocFX 发布](https://github.com/dotnet/docfx/releases)下载并解压缩 “docfx.zip”  。
+* 从 [DocFX 发布](https://github.com/dotnet/docfx/releases)下载并解压缩 “docfx.zip”。
 * 将 DocFX 添加到路径。
-* 在命令行界面，导航到包含 docfx.json  文件的文件夹（ASP.NET 内容为 aspnet  或 ASP.NET Core 内容为 aspnetcore  ），并运行以下命令：
+* 在命令行界面，导航到包含 docfx.json 文件的文件夹（ASP.NET 内容为 aspnet 或 ASP.NET Core 内容为 aspnetcore），并运行以下命令：
 
   ```console
   docfx --serve
@@ -131,15 +131,15 @@ DocFX 要求：
   ```
 
 * 下载 [DocFX 的最新版本](https://github.com/dotnet/docfx/releases)。
-* 将存档提取到 $HOME/bin/docfx  。
-* 在 Bash Shell 中为 docfx  创建一对别名。 第一个别名用于生成文档。 第二个别名用于生成和提供文档。
+* 将存档提取到 $HOME/bin/docfx。
+* 在 Bash Shell 中为 docfx 创建一对别名。 第一个别名用于生成文档。 第二个别名用于生成和提供文档。
 
   ```console
   alias docfx='mono $HOME/bin/docfx/docfx.exe'
   alias docfx-serve='mono $HOME/bin/docfx/docfx.exe --serve'
   ```
 
-* 在命令行界面，导航到包含 docfx.json  文件的文件夹（ASP.NET 内容为 aspnet  或 ASP.NET Core 内容为 aspnetcore  ），并运行以下命令通过其别名构建和提供文档：
+* 在命令行界面，导航到包含 docfx.json 文件的文件夹（ASP.NET 内容为 aspnet 或 ASP.NET Core 内容为 aspnetcore），并运行以下命令通过其别名构建和提供文档：
 
   ```console
   docfx-serve
@@ -147,7 +147,7 @@ DocFX 要求：
 
 * 在浏览器中导航到 `http://localhost:8080/group1-dest/`。
 
-## <a name="voice-and-tone"></a>语气和语调
+## <a name="voice-and-tone"></a>语音和声调
 
 我们的目标是编写被广泛受众所理解的易懂文档。 为此，我们编写了写作风格指南，请参与者遵守。 有关详细信息，请参阅 .NET 存储库中的 [语气和语调指南](https://github.com/dotnet/docs/blob/master/styleguide/voice-tone.md)。
 
@@ -157,4 +157,4 @@ DocFX 要求：
 
 ## <a name="redirects"></a>重定向
 
-如果删除某篇文章、更改文章的文件名或将其移到另一个文件夹，请创建一个重定向，确保将此项目收藏为书签的人不会收到 404 Not Found 错误。  添加重定向到[主重定向文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/.openpublishing.redirection.json)。
+如果删除某篇文章、更改文章的文件名或将其移到另一个文件夹，请创建一个重定向，确保将此项目收藏为书签的人不会收到 404 Not Found 错误。 添加重定向到[主重定向文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/.openpublishing.redirection.json)。
