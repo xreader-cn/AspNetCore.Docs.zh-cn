@@ -20,114 +20,114 @@ no-loc:
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
 ms.openlocfilehash: 4d4e50f8acea73859f5e839616f13f90a42291c4
-ms.sourcegitcommit: 6299f08aed5b7f0496001d093aae617559d73240
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2020
+ms.lasthandoff: 01/04/2021
 ms.locfileid: "97486221"
 ---
-# <a name="tutorial-get-started-with-no-locrazor-pages-in-aspnet-core"></a><span data-ttu-id="fcef7-103">教程：在 ASP.NET Core 中开始使用 Razor Pages</span><span class="sxs-lookup"><span data-stu-id="fcef7-103">Tutorial: Get started with Razor Pages in ASP.NET Core</span></span>
+# <a name="tutorial-get-started-with-no-locrazor-pages-in-aspnet-core"></a><span data-ttu-id="9bc53-103">教程：在 ASP.NET Core 中开始使用 Razor Pages</span><span class="sxs-lookup"><span data-stu-id="9bc53-103">Tutorial: Get started with Razor Pages in ASP.NET Core</span></span>
 
-<span data-ttu-id="fcef7-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="fcef7-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="9bc53-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="9bc53-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
-<span data-ttu-id="fcef7-105">本教程是系列教程中的第一个教程，介绍生成 ASP.NET Core Razor 页面 Web 应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="fcef7-105">This is the first tutorial of a series that teaches the basics of building an ASP.NET Core Razor Pages web app.</span></span>
+<span data-ttu-id="9bc53-105">本教程是系列教程中的第一个教程，介绍生成 ASP.NET Core Razor 页面 Web 应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="9bc53-105">This is the first tutorial of a series that teaches the basics of building an ASP.NET Core Razor Pages web app.</span></span>
 
-<span data-ttu-id="fcef7-106">有关面向熟悉控制器和视图的开发人员的更高级介绍，请参阅 [Razor Pages 简介](xref:razor-pages/index)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-106">For a more advanced introduction aimed at developers who are familiar with controllers and views, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
+<span data-ttu-id="9bc53-106">有关面向熟悉控制器和视图的开发人员的更高级介绍，请参阅 [Razor Pages 简介](xref:razor-pages/index)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-106">For a more advanced introduction aimed at developers who are familiar with controllers and views, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
 
-<span data-ttu-id="fcef7-107">在本系列结束时，你将拥有一个管理电影数据库的应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-107">At the end of the series, you'll have an app that manages a database of movies.</span></span>  
+<span data-ttu-id="9bc53-107">在本系列结束时，你将拥有一个管理电影数据库的应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-107">At the end of the series, you'll have an app that manages a database of movies.</span></span>  
 
-<span data-ttu-id="fcef7-108">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="fcef7-108">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="9bc53-108">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="9bc53-108">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie50) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="fcef7-109">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="fcef7-109">In this tutorial, you:</span></span>
+<span data-ttu-id="9bc53-109">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="9bc53-109">In this tutorial, you:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="fcef7-110">创建 Razor 页面 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-110">Create a Razor Pages web app.</span></span>
-> * <span data-ttu-id="fcef7-111">运行应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-111">Run the app.</span></span>
-> * <span data-ttu-id="fcef7-112">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-112">Examine the project files.</span></span>
+> * <span data-ttu-id="9bc53-110">创建 Razor 页面 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-110">Create a Razor Pages web app.</span></span>
+> * <span data-ttu-id="9bc53-111">运行应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-111">Run the app.</span></span>
+> * <span data-ttu-id="9bc53-112">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-112">Examine the project files.</span></span>
 
-<span data-ttu-id="fcef7-113">在本教程结束时，你将有一个工作的 Razor Pages Web 应用。在后续教程中，你可以在其基础上进行增强。</span><span class="sxs-lookup"><span data-stu-id="fcef7-113">At the end of this tutorial, you'll have a working Razor Pages web app that you'll enhance in later tutorials.</span></span>
+<span data-ttu-id="9bc53-113">在本教程结束时，你将有一个工作的 Razor Pages Web 应用。在后续教程中，你可以在其基础上进行增强。</span><span class="sxs-lookup"><span data-stu-id="9bc53-113">At the end of this tutorial, you'll have a working Razor Pages web app that you'll enhance in later tutorials.</span></span>
 
 ![主页或 Index 页](razor-pages-start/_static/5/home5.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="fcef7-115">先决条件</span><span class="sxs-lookup"><span data-stu-id="fcef7-115">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="9bc53-115">先决条件</span><span class="sxs-lookup"><span data-stu-id="9bc53-115">Prerequisites</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="fcef7-116">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcef7-116">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="9bc53-116">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9bc53-116">Visual Studio</span></span>](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-5.0.md)]
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="fcef7-117">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcef7-117">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="9bc53-117">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9bc53-117">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-5.0.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcef7-118">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="fcef7-118">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="9bc53-118">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="9bc53-118">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-5.0.md)]
 
 ---
 
-## <a name="create-a-no-locrazor-pages-web-app"></a><span data-ttu-id="fcef7-119">创建 Razor 页面 Web 应用</span><span class="sxs-lookup"><span data-stu-id="fcef7-119">Create a Razor Pages web app</span></span>
+## <a name="create-a-no-locrazor-pages-web-app"></a><span data-ttu-id="9bc53-119">创建 Razor 页面 Web 应用</span><span class="sxs-lookup"><span data-stu-id="9bc53-119">Create a Razor Pages web app</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="fcef7-120">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcef7-120">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="9bc53-120">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9bc53-120">Visual Studio</span></span>](#tab/visual-studio)
 
-1. <span data-ttu-id="fcef7-121">启动 Visual Studio 并选择“创建新项目”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-121">Start Visual Studio and select **Create a new project**.</span></span> <span data-ttu-id="fcef7-122">有关详细信息，请参阅[在 Visual Studio 中新建项目](/visualstudio/ide/create-new-project)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-122">For more information, see [Create a new project in Visual Studio](/visualstudio/ide/create-new-project).</span></span>
+1. <span data-ttu-id="9bc53-121">启动 Visual Studio 并选择“创建新项目”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-121">Start Visual Studio and select **Create a new project**.</span></span> <span data-ttu-id="9bc53-122">有关详细信息，请参阅[在 Visual Studio 中新建项目](/visualstudio/ide/create-new-project)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-122">For more information, see [Create a new project in Visual Studio](/visualstudio/ide/create-new-project).</span></span>
 
    ![从“启动”窗口创建新项目](razor-pages-start/_static/5/start-window-create-new-project.png)
 
-1. <span data-ttu-id="fcef7-124">在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”  。</span><span class="sxs-lookup"><span data-stu-id="fcef7-124">In the **Create a new project** dialog, select **ASP.NET Core Web Application**, and then select **Next**.</span></span>
+1. <span data-ttu-id="9bc53-124">在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”  。</span><span class="sxs-lookup"><span data-stu-id="9bc53-124">In the **Create a new project** dialog, select **ASP.NET Core Web Application**, and then select **Next**.</span></span>
 
     ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/5/np.png)
     
-1. <span data-ttu-id="fcef7-126">在“配置新项目”对话框中，为“项目名称”输入 `RazorPagesMovie`。</span><span class="sxs-lookup"><span data-stu-id="fcef7-126">In the **Configure your new project** dialog, enter `RazorPagesMovie` for **Project name**.</span></span> <span data-ttu-id="fcef7-127">请务必将项目命名为“RazorPagesMovie”（包括匹配大小写），这样在复制和粘贴代码时命名空间就会匹配。</span><span class="sxs-lookup"><span data-stu-id="fcef7-127">It's important to name the project *RazorPagesMovie*, including matching the capitalization, so the namespaces will match when you copy and paste example code.</span></span>
+1. <span data-ttu-id="9bc53-126">在“配置新项目”对话框中，为“项目名称”输入 `RazorPagesMovie`。</span><span class="sxs-lookup"><span data-stu-id="9bc53-126">In the **Configure your new project** dialog, enter `RazorPagesMovie` for **Project name**.</span></span> <span data-ttu-id="9bc53-127">请务必将项目命名为“RazorPagesMovie”（包括匹配大小写），这样在复制和粘贴代码时命名空间就会匹配。</span><span class="sxs-lookup"><span data-stu-id="9bc53-127">It's important to name the project *RazorPagesMovie*, including matching the capitalization, so the namespaces will match when you copy and paste example code.</span></span>
 
-1. <span data-ttu-id="fcef7-128">选择“创建”  。</span><span class="sxs-lookup"><span data-stu-id="fcef7-128">Select **Create**.</span></span>
+1. <span data-ttu-id="9bc53-128">选择“创建”  。</span><span class="sxs-lookup"><span data-stu-id="9bc53-128">Select **Create**.</span></span>
 
     ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
-1. <span data-ttu-id="fcef7-130">在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择：</span><span class="sxs-lookup"><span data-stu-id="fcef7-130">In the **Create a new ASP.NET Core web application** dialog, select:</span></span>
-    1. <span data-ttu-id="fcef7-131">下拉列表中的“.NET Core”和“ASP.NET Core 5.0”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-131">**.NET Core** and **ASP.NET Core 5.0** in the dropdowns.</span></span>
-    1. <span data-ttu-id="fcef7-132">**Web 应用程序**。</span><span class="sxs-lookup"><span data-stu-id="fcef7-132">**Web Application**.</span></span>
-    1. <span data-ttu-id="fcef7-133">**Create**。</span><span class="sxs-lookup"><span data-stu-id="fcef7-133">**Create**.</span></span>
+1. <span data-ttu-id="9bc53-130">在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择：</span><span class="sxs-lookup"><span data-stu-id="9bc53-130">In the **Create a new ASP.NET Core web application** dialog, select:</span></span>
+    1. <span data-ttu-id="9bc53-131">下拉列表中的“.NET Core”和“ASP.NET Core 5.0”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-131">**.NET Core** and **ASP.NET Core 5.0** in the dropdowns.</span></span>
+    1. <span data-ttu-id="9bc53-132">**Web 应用程序**。</span><span class="sxs-lookup"><span data-stu-id="9bc53-132">**Web Application**.</span></span>
+    1. <span data-ttu-id="9bc53-133">**Create**。</span><span class="sxs-lookup"><span data-stu-id="9bc53-133">**Create**.</span></span>
 
      ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/5/npx.png)
 
-    <span data-ttu-id="fcef7-135">创建以下初学者项目：</span><span class="sxs-lookup"><span data-stu-id="fcef7-135">The following starter project is created:</span></span>
+    <span data-ttu-id="9bc53-135">创建以下初学者项目：</span><span class="sxs-lookup"><span data-stu-id="9bc53-135">The following starter project is created:</span></span>
 
     ![“解决方案资源管理器”](razor-pages-start/_static/se2.2.png)
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="fcef7-137">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcef7-137">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="9bc53-137">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9bc53-137">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-1. <span data-ttu-id="fcef7-138">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-138">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+1. <span data-ttu-id="9bc53-138">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-138">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
 
-1. <span data-ttu-id="fcef7-139">更改为将包含项目的目录 (`cd`)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-139">Change to the directory (`cd`) which will contain the project.</span></span>
+1. <span data-ttu-id="9bc53-139">更改为将包含项目的目录 (`cd`)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-139">Change to the directory (`cd`) which will contain the project.</span></span>
 
-1. <span data-ttu-id="fcef7-140">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="fcef7-140">Run the following commands:</span></span>
+1. <span data-ttu-id="9bc53-140">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="9bc53-140">Run the following commands:</span></span>
 
    ```dotnetcli
    dotnet new webapp -o RazorPagesMovie
    code -r RazorPagesMovie
    ```
 
-   * <span data-ttu-id="fcef7-141">`dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="fcef7-141">The `dotnet new` command creates a new Razor Pages project in the *RazorPagesMovie* folder.</span></span>
-   * <span data-ttu-id="fcef7-142">`code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。</span><span class="sxs-lookup"><span data-stu-id="fcef7-142">The `code` command opens the *RazorPagesMovie* folder in the current instance of Visual Studio Code.</span></span>
+   * <span data-ttu-id="9bc53-141">`dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="9bc53-141">The `dotnet new` command creates a new Razor Pages project in the *RazorPagesMovie* folder.</span></span>
+   * <span data-ttu-id="9bc53-142">`code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。</span><span class="sxs-lookup"><span data-stu-id="9bc53-142">The `code` command opens the *RazorPagesMovie* folder in the current instance of Visual Studio Code.</span></span>
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcef7-143">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="fcef7-143">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="9bc53-143">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="9bc53-143">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-1. <span data-ttu-id="fcef7-144">选择“文件”>“新建解决方案” 。</span><span class="sxs-lookup"><span data-stu-id="fcef7-144">Select **File** > **New Solution**.</span></span>
+1. <span data-ttu-id="9bc53-144">选择“文件”>“新建解决方案” 。</span><span class="sxs-lookup"><span data-stu-id="9bc53-144">Select **File** > **New Solution**.</span></span>
 
     ![macOS 新建解决方案](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-1. <span data-ttu-id="fcef7-146">在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序” > “下一步”   。</span><span class="sxs-lookup"><span data-stu-id="fcef7-146">In Visual Studio for Mac earlier than version 8.6, select **.NET Core** > **App** > **Web Application** > **Next**.</span></span> <span data-ttu-id="fcef7-147">在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序” > “下一步”。   </span><span class="sxs-lookup"><span data-stu-id="fcef7-147">In version 8.6 or later, select **Web and Console** > **App** > **Web Application** > **Next**.</span></span>
+1. <span data-ttu-id="9bc53-146">在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序” > “下一步”   。</span><span class="sxs-lookup"><span data-stu-id="9bc53-146">In Visual Studio for Mac earlier than version 8.6, select **.NET Core** > **App** > **Web Application** > **Next**.</span></span> <span data-ttu-id="9bc53-147">在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序” > “下一步”。   </span><span class="sxs-lookup"><span data-stu-id="9bc53-147">In version 8.6 or later, select **Web and Console** > **App** > **Web Application** > **Next**.</span></span>
 
     ![macOS Web 应用模板选择](razor-pages-start/_static/web_app_template_vsmac.png)
 
-1. <span data-ttu-id="fcef7-149">在“配置新的 Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="fcef7-149">In the **Configure the new Web Application** dialog:</span></span>
+1. <span data-ttu-id="9bc53-149">在“配置新的 Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="9bc53-149">In the **Configure the new Web Application** dialog:</span></span>
 
-    1. <span data-ttu-id="fcef7-150">确认已将“身份验证”设置为“无身份验证”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-150">Confirm that **Authentication** is set to **No Authentication**.</span></span>
-    1. <span data-ttu-id="fcef7-151">如果看到用于选择“目标框架”的选项，请选择最新的 .NET 5.x 版本。</span><span class="sxs-lookup"><span data-stu-id="fcef7-151">If presented an option to select a **Target Framework**, select the latest .NET 5.x version.</span></span>
-    1. <span data-ttu-id="fcef7-152">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-152">Select **Next**.</span></span>
+    1. <span data-ttu-id="9bc53-150">确认已将“身份验证”设置为“无身份验证”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-150">Confirm that **Authentication** is set to **No Authentication**.</span></span>
+    1. <span data-ttu-id="9bc53-151">如果看到用于选择“目标框架”的选项，请选择最新的 .NET 5.x 版本。</span><span class="sxs-lookup"><span data-stu-id="9bc53-151">If presented an option to select a **Target Framework**, select the latest .NET 5.x version.</span></span>
+    1. <span data-ttu-id="9bc53-152">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-152">Select **Next**.</span></span>
 
-1. <span data-ttu-id="fcef7-153">将项目命名为“PagesMovie”，然后选择“创建” *Razor* 。</span><span class="sxs-lookup"><span data-stu-id="fcef7-153">Name the project *RazorPagesMovie* and select **Create**.</span></span>
+1. <span data-ttu-id="9bc53-153">将项目命名为“PagesMovie”，然后选择“创建” *Razor* 。</span><span class="sxs-lookup"><span data-stu-id="9bc53-153">Name the project *RazorPagesMovie* and select **Create**.</span></span>
 
     ![macOS 命名项目](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -135,43 +135,43 @@ ms.locfileid: "97486221"
 
 ---
 
-## <a name="run-the-app"></a><span data-ttu-id="fcef7-155">运行应用</span><span class="sxs-lookup"><span data-stu-id="fcef7-155">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="9bc53-155">运行应用</span><span class="sxs-lookup"><span data-stu-id="9bc53-155">Run the app</span></span>
 
   [!INCLUDE[](~/includes/run-the-app.md)]
 
-## <a name="examine-the-project-files"></a><span data-ttu-id="fcef7-156">检查项目文件</span><span class="sxs-lookup"><span data-stu-id="fcef7-156">Examine the project files</span></span>
+## <a name="examine-the-project-files"></a><span data-ttu-id="9bc53-156">检查项目文件</span><span class="sxs-lookup"><span data-stu-id="9bc53-156">Examine the project files</span></span>
 
-<span data-ttu-id="fcef7-157">下面是主项目文件夹和文件的概述，将在后续教程中使用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-157">Here's an overview of the main project folders and files that you'll work with in later tutorials.</span></span>
+<span data-ttu-id="9bc53-157">下面是主项目文件夹和文件的概述，将在后续教程中使用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-157">Here's an overview of the main project folders and files that you'll work with in later tutorials.</span></span>
 
-### <a name="pages-folder"></a><span data-ttu-id="fcef7-158">Pages 文件夹</span><span class="sxs-lookup"><span data-stu-id="fcef7-158">Pages folder</span></span>
+### <a name="pages-folder"></a><span data-ttu-id="9bc53-158">Pages 文件夹</span><span class="sxs-lookup"><span data-stu-id="9bc53-158">Pages folder</span></span>
 
-<span data-ttu-id="fcef7-159">包含 Razor 页面和支持文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-159">Contains Razor pages and supporting files.</span></span> <span data-ttu-id="fcef7-160">每个 Razor 页面都是一对文件：</span><span class="sxs-lookup"><span data-stu-id="fcef7-160">Each Razor page is a pair of files:</span></span>
+<span data-ttu-id="9bc53-159">包含 Razor 页面和支持文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-159">Contains Razor pages and supporting files.</span></span> <span data-ttu-id="9bc53-160">每个 Razor 页面都是一对文件：</span><span class="sxs-lookup"><span data-stu-id="9bc53-160">Each Razor page is a pair of files:</span></span>
 
-* <span data-ttu-id="fcef7-161">一个 .cshtml 文件，其中包含使用 Razor 语法的 C# 代码的 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="fcef7-161">A *.cshtml* file that has HTML markup with C# code using Razor syntax.</span></span>
-* <span data-ttu-id="fcef7-162">一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。</span><span class="sxs-lookup"><span data-stu-id="fcef7-162">A *.cshtml.cs* file that has C# code that handles page events.</span></span>
+* <span data-ttu-id="9bc53-161">一个 .cshtml 文件，其中包含使用 Razor 语法的 C# 代码的 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="9bc53-161">A *.cshtml* file that has HTML markup with C# code using Razor syntax.</span></span>
+* <span data-ttu-id="9bc53-162">一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。</span><span class="sxs-lookup"><span data-stu-id="9bc53-162">A *.cshtml.cs* file that has C# code that handles page events.</span></span>
 
-<span data-ttu-id="fcef7-163">支持文件的名称以下划线开头。</span><span class="sxs-lookup"><span data-stu-id="fcef7-163">Supporting files have names that begin with an underscore.</span></span> <span data-ttu-id="fcef7-164">例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。</span><span class="sxs-lookup"><span data-stu-id="fcef7-164">For example, the *_Layout.cshtml* file configures UI elements common to all pages.</span></span> <span data-ttu-id="fcef7-165">此文件设置页面顶部的导航菜单和页面底部的版权声明。</span><span class="sxs-lookup"><span data-stu-id="fcef7-165">This file sets up the navigation menu at the top of the page and the copyright notice at the bottom of the page.</span></span> <span data-ttu-id="fcef7-166">有关详细信息，请参阅 <xref:mvc/views/layout>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-166">For more information, see <xref:mvc/views/layout>.</span></span>
+<span data-ttu-id="9bc53-163">支持文件的名称以下划线开头。</span><span class="sxs-lookup"><span data-stu-id="9bc53-163">Supporting files have names that begin with an underscore.</span></span> <span data-ttu-id="9bc53-164">例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。</span><span class="sxs-lookup"><span data-stu-id="9bc53-164">For example, the *_Layout.cshtml* file configures UI elements common to all pages.</span></span> <span data-ttu-id="9bc53-165">此文件设置页面顶部的导航菜单和页面底部的版权声明。</span><span class="sxs-lookup"><span data-stu-id="9bc53-165">This file sets up the navigation menu at the top of the page and the copyright notice at the bottom of the page.</span></span> <span data-ttu-id="9bc53-166">有关详细信息，请参阅 <xref:mvc/views/layout>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-166">For more information, see <xref:mvc/views/layout>.</span></span>
 
-### <a name="wwwroot-folder"></a><span data-ttu-id="fcef7-167">wwwroot 文件夹</span><span class="sxs-lookup"><span data-stu-id="fcef7-167">wwwroot folder</span></span>
+### <a name="wwwroot-folder"></a><span data-ttu-id="9bc53-167">wwwroot 文件夹</span><span class="sxs-lookup"><span data-stu-id="9bc53-167">wwwroot folder</span></span>
 
-<span data-ttu-id="fcef7-168">包含静态资产，如 HTML 文件、JavaScript 文件和 CSS 文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-168">Contains static assets, like HTML files, JavaScript files, and CSS files.</span></span> <span data-ttu-id="fcef7-169">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-169">For more information, see <xref:fundamentals/static-files>.</span></span>
+<span data-ttu-id="9bc53-168">包含静态资产，如 HTML 文件、JavaScript 文件和 CSS 文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-168">Contains static assets, like HTML files, JavaScript files, and CSS files.</span></span> <span data-ttu-id="9bc53-169">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-169">For more information, see <xref:fundamentals/static-files>.</span></span>
 
 ### appsettings.json
 
-<span data-ttu-id="fcef7-170">包含配置数据，如连接字符串。</span><span class="sxs-lookup"><span data-stu-id="fcef7-170">Contains configuration data, like connection strings.</span></span> <span data-ttu-id="fcef7-171">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-171">For more information, see <xref:fundamentals/configuration/index>.</span></span>
+<span data-ttu-id="9bc53-170">包含配置数据，如连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9bc53-170">Contains configuration data, like connection strings.</span></span> <span data-ttu-id="9bc53-171">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-171">For more information, see <xref:fundamentals/configuration/index>.</span></span>
 
-### <a name="programcs"></a><span data-ttu-id="fcef7-172">Program.cs</span><span class="sxs-lookup"><span data-stu-id="fcef7-172">Program.cs</span></span>
+### <a name="programcs"></a><span data-ttu-id="9bc53-172">Program.cs</span><span class="sxs-lookup"><span data-stu-id="9bc53-172">Program.cs</span></span>
 
-<span data-ttu-id="fcef7-173">包含应用的入口点。</span><span class="sxs-lookup"><span data-stu-id="fcef7-173">Contains the entry point for the app.</span></span> <span data-ttu-id="fcef7-174">有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-174">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
+<span data-ttu-id="9bc53-173">包含应用的入口点。</span><span class="sxs-lookup"><span data-stu-id="9bc53-173">Contains the entry point for the app.</span></span> <span data-ttu-id="9bc53-174">有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-174">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
 
-### <a name="startupcs"></a><span data-ttu-id="fcef7-175">Startup.cs</span><span class="sxs-lookup"><span data-stu-id="fcef7-175">Startup.cs</span></span>
+### <a name="startupcs"></a><span data-ttu-id="9bc53-175">Startup.cs</span><span class="sxs-lookup"><span data-stu-id="9bc53-175">Startup.cs</span></span>
 
-<span data-ttu-id="fcef7-176">包含配置应用行为的代码。</span><span class="sxs-lookup"><span data-stu-id="fcef7-176">Contains code that configures app behavior.</span></span> <span data-ttu-id="fcef7-177">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-177">For more information, see <xref:fundamentals/startup>.</span></span>
+<span data-ttu-id="9bc53-176">包含配置应用行为的代码。</span><span class="sxs-lookup"><span data-stu-id="9bc53-176">Contains code that configures app behavior.</span></span> <span data-ttu-id="9bc53-177">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-177">For more information, see <xref:fundamentals/startup>.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="fcef7-178">后续步骤</span><span class="sxs-lookup"><span data-stu-id="fcef7-178">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="9bc53-178">后续步骤</span><span class="sxs-lookup"><span data-stu-id="9bc53-178">Next steps</span></span>
 
 > [!div class="step-by-step"]
-> [<span data-ttu-id="fcef7-179">下一篇：添加模型</span><span class="sxs-lookup"><span data-stu-id="fcef7-179">Next: Add a model</span></span>](xref:tutorials/razor-pages/model)
+> [<span data-ttu-id="9bc53-179">下一篇：添加模型</span><span class="sxs-lookup"><span data-stu-id="9bc53-179">Next: Add a model</span></span>](xref:tutorials/razor-pages/model)
 
 ::: moniker-end
 
@@ -179,97 +179,97 @@ ms.locfileid: "97486221"
 
 ::: moniker range=">= aspnetcore-3.0 < aspnetcore-5.0"
 
-<span data-ttu-id="fcef7-180">本教程是系列教程中的第一个教程，介绍生成 ASP.NET Core Razor 页面 Web 应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="fcef7-180">This is the first tutorial of a series that teaches the basics of building an ASP.NET Core Razor Pages web app.</span></span>
+<span data-ttu-id="9bc53-180">本教程是系列教程中的第一个教程，介绍生成 ASP.NET Core Razor 页面 Web 应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="9bc53-180">This is the first tutorial of a series that teaches the basics of building an ASP.NET Core Razor Pages web app.</span></span>
 
-<span data-ttu-id="fcef7-181">有关面向熟悉控制器和视图的开发人员的更高级介绍，请参阅 [Razor Pages 简介](xref:razor-pages/index)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-181">For a more advanced introduction aimed at developers who are familiar with controllers and views, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
+<span data-ttu-id="9bc53-181">有关面向熟悉控制器和视图的开发人员的更高级介绍，请参阅 [Razor Pages 简介](xref:razor-pages/index)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-181">For a more advanced introduction aimed at developers who are familiar with controllers and views, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
 
-<span data-ttu-id="fcef7-182">在本系列结束时，你将拥有一个管理电影数据库的应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-182">At the end of the series, you'll have an app that manages a database of movies.</span></span>  
+<span data-ttu-id="9bc53-182">在本系列结束时，你将拥有一个管理电影数据库的应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-182">At the end of the series, you'll have an app that manages a database of movies.</span></span>  
 
-<span data-ttu-id="fcef7-183">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="fcef7-183">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="9bc53-183">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="9bc53-183">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="fcef7-184">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="fcef7-184">In this tutorial, you:</span></span>
+<span data-ttu-id="9bc53-184">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="9bc53-184">In this tutorial, you:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="fcef7-185">创建 Razor 页面 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-185">Create a Razor Pages web app.</span></span>
-> * <span data-ttu-id="fcef7-186">运行应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-186">Run the app.</span></span>
-> * <span data-ttu-id="fcef7-187">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-187">Examine the project files.</span></span>
+> * <span data-ttu-id="9bc53-185">创建 Razor 页面 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-185">Create a Razor Pages web app.</span></span>
+> * <span data-ttu-id="9bc53-186">运行应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-186">Run the app.</span></span>
+> * <span data-ttu-id="9bc53-187">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-187">Examine the project files.</span></span>
 
-<span data-ttu-id="fcef7-188">在本教程结束时，你将有一个工作的 Razor 页面 Web 应用。在后续教程中，你可以在其基础上进行构建。</span><span class="sxs-lookup"><span data-stu-id="fcef7-188">At the end of this tutorial, you'll have a working Razor Pages web app that you'll build on in later tutorials.</span></span>
+<span data-ttu-id="9bc53-188">在本教程结束时，你将有一个工作的 Razor 页面 Web 应用。在后续教程中，你可以在其基础上进行构建。</span><span class="sxs-lookup"><span data-stu-id="9bc53-188">At the end of this tutorial, you'll have a working Razor Pages web app that you'll build on in later tutorials.</span></span>
 
 ![主页或 Index 页](razor-pages-start/_static/home2.2.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="fcef7-190">先决条件</span><span class="sxs-lookup"><span data-stu-id="fcef7-190">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="9bc53-190">先决条件</span><span class="sxs-lookup"><span data-stu-id="9bc53-190">Prerequisites</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="fcef7-191">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcef7-191">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="9bc53-191">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9bc53-191">Visual Studio</span></span>](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="fcef7-192">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcef7-192">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="9bc53-192">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9bc53-192">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcef7-193">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="fcef7-193">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="9bc53-193">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="9bc53-193">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
 
-## <a name="create-a-no-locrazor-pages-web-app"></a><span data-ttu-id="fcef7-194">创建 Razor 页面 Web 应用</span><span class="sxs-lookup"><span data-stu-id="fcef7-194">Create a Razor Pages web app</span></span>
+## <a name="create-a-no-locrazor-pages-web-app"></a><span data-ttu-id="9bc53-194">创建 Razor 页面 Web 应用</span><span class="sxs-lookup"><span data-stu-id="9bc53-194">Create a Razor Pages web app</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="fcef7-195">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcef7-195">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="9bc53-195">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9bc53-195">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="fcef7-196">从 Visual Studio“文件”菜单中选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-196">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
-* <span data-ttu-id="fcef7-197">创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-197">Create a new ASP.NET Core Web Application and select **Next**.</span></span>
-  <span data-ttu-id="fcef7-198">![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)</span><span class="sxs-lookup"><span data-stu-id="fcef7-198">![new ASP.NET Core Web Application](razor-pages-start/_static/np_2.1.png)</span></span>
-* <span data-ttu-id="fcef7-199">将项目命名为“RazorPagesMovie”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-199">Name the project **RazorPagesMovie**.</span></span> <span data-ttu-id="fcef7-200">请务必将项目命名为“RazorPagesMovie”，这样在复制和粘贴代码时命名空间就会匹配。</span><span class="sxs-lookup"><span data-stu-id="fcef7-200">It's important to name the project *RazorPagesMovie* so the namespaces will match when you copy and paste code.</span></span>
-  <span data-ttu-id="fcef7-201">![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)</span><span class="sxs-lookup"><span data-stu-id="fcef7-201">![new ASP.NET Core Web Application](razor-pages-start/_static/config.png)</span></span>
+* <span data-ttu-id="9bc53-196">从 Visual Studio“文件”菜单中选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-196">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
+* <span data-ttu-id="9bc53-197">创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-197">Create a new ASP.NET Core Web Application and select **Next**.</span></span>
+  <span data-ttu-id="9bc53-198">![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)</span><span class="sxs-lookup"><span data-stu-id="9bc53-198">![new ASP.NET Core Web Application](razor-pages-start/_static/np_2.1.png)</span></span>
+* <span data-ttu-id="9bc53-199">将项目命名为“RazorPagesMovie”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-199">Name the project **RazorPagesMovie**.</span></span> <span data-ttu-id="9bc53-200">请务必将项目命名为“RazorPagesMovie”，这样在复制和粘贴代码时命名空间就会匹配。</span><span class="sxs-lookup"><span data-stu-id="9bc53-200">It's important to name the project *RazorPagesMovie* so the namespaces will match when you copy and paste code.</span></span>
+  <span data-ttu-id="9bc53-201">![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)</span><span class="sxs-lookup"><span data-stu-id="9bc53-201">![new ASP.NET Core Web Application](razor-pages-start/_static/config.png)</span></span>
 
-* <span data-ttu-id="fcef7-202">在下拉列表中选择“ASP.NET Core 3.1”，然后依次选择“Web 应用程序”和“创建”  。</span><span class="sxs-lookup"><span data-stu-id="fcef7-202">Select **ASP.NET Core 3.1** in the dropdown, **Web Application**, and then select **Create**.</span></span>
+* <span data-ttu-id="9bc53-202">在下拉列表中选择“ASP.NET Core 3.1”，然后依次选择“Web 应用程序”和“创建”  。</span><span class="sxs-lookup"><span data-stu-id="9bc53-202">Select **ASP.NET Core 3.1** in the dropdown, **Web Application**, and then select **Create**.</span></span>
 
 ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/3/npx.png)
 
-  <span data-ttu-id="fcef7-204">创建以下初学者项目：</span><span class="sxs-lookup"><span data-stu-id="fcef7-204">The following starter project is created:</span></span>
+  <span data-ttu-id="9bc53-204">创建以下初学者项目：</span><span class="sxs-lookup"><span data-stu-id="9bc53-204">The following starter project is created:</span></span>
 
   ![“解决方案资源管理器”](razor-pages-start/_static/se2.2.png)
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="fcef7-206">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcef7-206">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="9bc53-206">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9bc53-206">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="fcef7-207">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-207">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+* <span data-ttu-id="9bc53-207">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-207">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
 
-* <span data-ttu-id="fcef7-208">更改为将包含项目的目录 (`cd`)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-208">Change to the directory (`cd`) which will contain the project.</span></span>
+* <span data-ttu-id="9bc53-208">更改为将包含项目的目录 (`cd`)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-208">Change to the directory (`cd`) which will contain the project.</span></span>
 
-* <span data-ttu-id="fcef7-209">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="fcef7-209">Run the following commands:</span></span>
+* <span data-ttu-id="9bc53-209">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="9bc53-209">Run the following commands:</span></span>
 
   ```dotnetcli
   dotnet new webapp -o RazorPagesMovie
   code -r RazorPagesMovie
   ```
 
-  * <span data-ttu-id="fcef7-210">`dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="fcef7-210">The `dotnet new` command creates a new Razor Pages project in the *RazorPagesMovie* folder.</span></span>
-  * <span data-ttu-id="fcef7-211">`code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。</span><span class="sxs-lookup"><span data-stu-id="fcef7-211">The `code` command opens the *RazorPagesMovie* folder in the current instance of Visual Studio Code.</span></span>
+  * <span data-ttu-id="9bc53-210">`dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="9bc53-210">The `dotnet new` command creates a new Razor Pages project in the *RazorPagesMovie* folder.</span></span>
+  * <span data-ttu-id="9bc53-211">`code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。</span><span class="sxs-lookup"><span data-stu-id="9bc53-211">The `code` command opens the *RazorPagesMovie* folder in the current instance of Visual Studio Code.</span></span>
 
-* <span data-ttu-id="fcef7-212">在状态栏的 OmniSharp 火焰图标变绿后，对话框就会询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?”</span><span class="sxs-lookup"><span data-stu-id="fcef7-212">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'RazorPagesMovie'. Add them?**</span></span> <span data-ttu-id="fcef7-213">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="fcef7-213">Select **Yes**.</span></span>
+* <span data-ttu-id="9bc53-212">在状态栏的 OmniSharp 火焰图标变绿后，对话框就会询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?”</span><span class="sxs-lookup"><span data-stu-id="9bc53-212">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'RazorPagesMovie'. Add them?**</span></span> <span data-ttu-id="9bc53-213">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="9bc53-213">Select **Yes**.</span></span>
 
-  <span data-ttu-id="fcef7-214">将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。  </span><span class="sxs-lookup"><span data-stu-id="fcef7-214">A *.vscode* directory, containing *launch.json* and *tasks.json* files, is added to the project's root directory.</span></span>
+  <span data-ttu-id="9bc53-214">将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。  </span><span class="sxs-lookup"><span data-stu-id="9bc53-214">A *.vscode* directory, containing *launch.json* and *tasks.json* files, is added to the project's root directory.</span></span>
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcef7-215">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="fcef7-215">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="9bc53-215">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="9bc53-215">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="fcef7-216">选择“文件”>“新建解决方案” 。</span><span class="sxs-lookup"><span data-stu-id="fcef7-216">Select **File** > **New Solution**.</span></span>
+* <span data-ttu-id="9bc53-216">选择“文件”>“新建解决方案” 。</span><span class="sxs-lookup"><span data-stu-id="9bc53-216">Select **File** > **New Solution**.</span></span>
 
   ![macOS 新建解决方案](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-* <span data-ttu-id="fcef7-218">在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序” > “下一步”   。</span><span class="sxs-lookup"><span data-stu-id="fcef7-218">In Visual Studio for Mac earlier than version 8.6, select **.NET Core** > **App** > **Web Application** > **Next**.</span></span> <span data-ttu-id="fcef7-219">在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序” > “下一步”。   </span><span class="sxs-lookup"><span data-stu-id="fcef7-219">In version 8.6 or later, select **Web and Console** > **App** > **Web Application** > **Next**.</span></span>
+* <span data-ttu-id="9bc53-218">在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序” > “下一步”   。</span><span class="sxs-lookup"><span data-stu-id="9bc53-218">In Visual Studio for Mac earlier than version 8.6, select **.NET Core** > **App** > **Web Application** > **Next**.</span></span> <span data-ttu-id="9bc53-219">在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序” > “下一步”。   </span><span class="sxs-lookup"><span data-stu-id="9bc53-219">In version 8.6 or later, select **Web and Console** > **App** > **Web Application** > **Next**.</span></span>
 
   ![macOS Web 应用模板选择](razor-pages-start/_static/web_app_template_vsmac.png)
 
-* <span data-ttu-id="fcef7-221">在“配置新的 Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="fcef7-221">In the **Configure the new Web Application** dialog:</span></span>
+* <span data-ttu-id="9bc53-221">在“配置新的 Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="9bc53-221">In the **Configure the new Web Application** dialog:</span></span>
 
-  * <span data-ttu-id="fcef7-222">确认已将“身份验证”设置为“无身份验证”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-222">Confirm that **Authentication** is set to **No Authentication**.</span></span>
-  * <span data-ttu-id="fcef7-223">如果看到用于选择“目标框架”的选项，请选择最新的 3.x 版本。</span><span class="sxs-lookup"><span data-stu-id="fcef7-223">If presented an option to select a **Target Framework**, select the latest 3.x version.</span></span>
+  * <span data-ttu-id="9bc53-222">确认已将“身份验证”设置为“无身份验证”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-222">Confirm that **Authentication** is set to **No Authentication**.</span></span>
+  * <span data-ttu-id="9bc53-223">如果看到用于选择“目标框架”的选项，请选择最新的 3.x 版本。</span><span class="sxs-lookup"><span data-stu-id="9bc53-223">If presented an option to select a **Target Framework**, select the latest 3.x version.</span></span>
 
-  <span data-ttu-id="fcef7-224">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-224">Select **Next**.</span></span>
+  <span data-ttu-id="9bc53-224">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-224">Select **Next**.</span></span>
 
-* <span data-ttu-id="fcef7-225">将项目命名为“RazorPagesMovie”，然后选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-225">Name the project **RazorPagesMovie**, and then select **Create**.</span></span>
+* <span data-ttu-id="9bc53-225">将项目命名为“RazorPagesMovie”，然后选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-225">Name the project **RazorPagesMovie**, and then select **Create**.</span></span>
 
   ![macOS 命名项目](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -277,43 +277,43 @@ ms.locfileid: "97486221"
 
 ---
 
-## <a name="run-the-app"></a><span data-ttu-id="fcef7-227">运行应用</span><span class="sxs-lookup"><span data-stu-id="fcef7-227">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="9bc53-227">运行应用</span><span class="sxs-lookup"><span data-stu-id="9bc53-227">Run the app</span></span>
 
   [!INCLUDE[](~/includes/run-the-app.md)]
 
-## <a name="examine-the-project-files"></a><span data-ttu-id="fcef7-228">检查项目文件</span><span class="sxs-lookup"><span data-stu-id="fcef7-228">Examine the project files</span></span>
+## <a name="examine-the-project-files"></a><span data-ttu-id="9bc53-228">检查项目文件</span><span class="sxs-lookup"><span data-stu-id="9bc53-228">Examine the project files</span></span>
 
-<span data-ttu-id="fcef7-229">下面是主项目文件夹和文件的概述，将在后续教程中使用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-229">Here's an overview of the main project folders and files that you'll work with in later tutorials.</span></span>
+<span data-ttu-id="9bc53-229">下面是主项目文件夹和文件的概述，将在后续教程中使用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-229">Here's an overview of the main project folders and files that you'll work with in later tutorials.</span></span>
 
-### <a name="pages-folder"></a><span data-ttu-id="fcef7-230">Pages 文件夹</span><span class="sxs-lookup"><span data-stu-id="fcef7-230">Pages folder</span></span>
+### <a name="pages-folder"></a><span data-ttu-id="9bc53-230">Pages 文件夹</span><span class="sxs-lookup"><span data-stu-id="9bc53-230">Pages folder</span></span>
 
-<span data-ttu-id="fcef7-231">包含 Razor 页面和支持文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-231">Contains Razor pages and supporting files.</span></span> <span data-ttu-id="fcef7-232">每个 Razor 页面都是一对文件：</span><span class="sxs-lookup"><span data-stu-id="fcef7-232">Each Razor page is a pair of files:</span></span>
+<span data-ttu-id="9bc53-231">包含 Razor 页面和支持文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-231">Contains Razor pages and supporting files.</span></span> <span data-ttu-id="9bc53-232">每个 Razor 页面都是一对文件：</span><span class="sxs-lookup"><span data-stu-id="9bc53-232">Each Razor page is a pair of files:</span></span>
 
-* <span data-ttu-id="fcef7-233">一个 .cshtml 文件，其中包含使用 Razor 语法的 C# 代码的 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="fcef7-233">A *.cshtml* file that has HTML markup with C# code using Razor syntax.</span></span>
-* <span data-ttu-id="fcef7-234">一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。</span><span class="sxs-lookup"><span data-stu-id="fcef7-234">A *.cshtml.cs* file that has C# code that handles page events.</span></span>
+* <span data-ttu-id="9bc53-233">一个 .cshtml 文件，其中包含使用 Razor 语法的 C# 代码的 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="9bc53-233">A *.cshtml* file that has HTML markup with C# code using Razor syntax.</span></span>
+* <span data-ttu-id="9bc53-234">一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。</span><span class="sxs-lookup"><span data-stu-id="9bc53-234">A *.cshtml.cs* file that has C# code that handles page events.</span></span>
 
-<span data-ttu-id="fcef7-235">支持文件的名称以下划线开头。</span><span class="sxs-lookup"><span data-stu-id="fcef7-235">Supporting files have names that begin with an underscore.</span></span> <span data-ttu-id="fcef7-236">例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。</span><span class="sxs-lookup"><span data-stu-id="fcef7-236">For example, the *_Layout.cshtml* file configures UI elements common to all pages.</span></span> <span data-ttu-id="fcef7-237">此文件设置页面顶部的导航菜单和页面底部的版权声明。</span><span class="sxs-lookup"><span data-stu-id="fcef7-237">This file sets up the navigation menu at the top of the page and the copyright notice at the bottom of the page.</span></span> <span data-ttu-id="fcef7-238">有关详细信息，请参阅 <xref:mvc/views/layout>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-238">For more information, see <xref:mvc/views/layout>.</span></span>
+<span data-ttu-id="9bc53-235">支持文件的名称以下划线开头。</span><span class="sxs-lookup"><span data-stu-id="9bc53-235">Supporting files have names that begin with an underscore.</span></span> <span data-ttu-id="9bc53-236">例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。</span><span class="sxs-lookup"><span data-stu-id="9bc53-236">For example, the *_Layout.cshtml* file configures UI elements common to all pages.</span></span> <span data-ttu-id="9bc53-237">此文件设置页面顶部的导航菜单和页面底部的版权声明。</span><span class="sxs-lookup"><span data-stu-id="9bc53-237">This file sets up the navigation menu at the top of the page and the copyright notice at the bottom of the page.</span></span> <span data-ttu-id="9bc53-238">有关详细信息，请参阅 <xref:mvc/views/layout>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-238">For more information, see <xref:mvc/views/layout>.</span></span>
 
-### <a name="wwwroot-folder"></a><span data-ttu-id="fcef7-239">wwwroot 文件夹</span><span class="sxs-lookup"><span data-stu-id="fcef7-239">wwwroot folder</span></span>
+### <a name="wwwroot-folder"></a><span data-ttu-id="9bc53-239">wwwroot 文件夹</span><span class="sxs-lookup"><span data-stu-id="9bc53-239">wwwroot folder</span></span>
 
-<span data-ttu-id="fcef7-240">包含静态文件，如 HTML 文件、JavaScript 文件和 CSS 文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-240">Contains static files, like HTML files, JavaScript files, and CSS files.</span></span> <span data-ttu-id="fcef7-241">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-241">For more information, see <xref:fundamentals/static-files>.</span></span>
+<span data-ttu-id="9bc53-240">包含静态文件，如 HTML 文件、JavaScript 文件和 CSS 文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-240">Contains static files, like HTML files, JavaScript files, and CSS files.</span></span> <span data-ttu-id="9bc53-241">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-241">For more information, see <xref:fundamentals/static-files>.</span></span>
 
-### <a name="appsettingsjson"></a><span data-ttu-id="fcef7-242">appSettings.json</span><span class="sxs-lookup"><span data-stu-id="fcef7-242">appSettings.json</span></span>
+### <a name="appsettingsjson"></a><span data-ttu-id="9bc53-242">appSettings.json</span><span class="sxs-lookup"><span data-stu-id="9bc53-242">appSettings.json</span></span>
 
-<span data-ttu-id="fcef7-243">包含配置数据，如连接字符串。</span><span class="sxs-lookup"><span data-stu-id="fcef7-243">Contains configuration data, like connection strings.</span></span> <span data-ttu-id="fcef7-244">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-244">For more information, see <xref:fundamentals/configuration/index>.</span></span>
+<span data-ttu-id="9bc53-243">包含配置数据，如连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9bc53-243">Contains configuration data, like connection strings.</span></span> <span data-ttu-id="9bc53-244">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-244">For more information, see <xref:fundamentals/configuration/index>.</span></span>
 
-### <a name="programcs"></a><span data-ttu-id="fcef7-245">Program.cs</span><span class="sxs-lookup"><span data-stu-id="fcef7-245">Program.cs</span></span>
+### <a name="programcs"></a><span data-ttu-id="9bc53-245">Program.cs</span><span class="sxs-lookup"><span data-stu-id="9bc53-245">Program.cs</span></span>
 
-<span data-ttu-id="fcef7-246">包含程序的入口点。</span><span class="sxs-lookup"><span data-stu-id="fcef7-246">Contains the entry point for the program.</span></span> <span data-ttu-id="fcef7-247">有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-247">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
+<span data-ttu-id="9bc53-246">包含程序的入口点。</span><span class="sxs-lookup"><span data-stu-id="9bc53-246">Contains the entry point for the program.</span></span> <span data-ttu-id="9bc53-247">有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-247">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
 
-### <a name="startupcs"></a><span data-ttu-id="fcef7-248">Startup.cs</span><span class="sxs-lookup"><span data-stu-id="fcef7-248">Startup.cs</span></span>
+### <a name="startupcs"></a><span data-ttu-id="9bc53-248">Startup.cs</span><span class="sxs-lookup"><span data-stu-id="9bc53-248">Startup.cs</span></span>
 
-<span data-ttu-id="fcef7-249">包含配置应用行为的代码。</span><span class="sxs-lookup"><span data-stu-id="fcef7-249">Contains code that configures app behavior.</span></span> <span data-ttu-id="fcef7-250">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-250">For more information, see <xref:fundamentals/startup>.</span></span>
+<span data-ttu-id="9bc53-249">包含配置应用行为的代码。</span><span class="sxs-lookup"><span data-stu-id="9bc53-249">Contains code that configures app behavior.</span></span> <span data-ttu-id="9bc53-250">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-250">For more information, see <xref:fundamentals/startup>.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="fcef7-251">后续步骤</span><span class="sxs-lookup"><span data-stu-id="fcef7-251">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="9bc53-251">后续步骤</span><span class="sxs-lookup"><span data-stu-id="9bc53-251">Next steps</span></span>
 
 > [!div class="step-by-step"]
-> [<span data-ttu-id="fcef7-252">下一篇：添加模型</span><span class="sxs-lookup"><span data-stu-id="fcef7-252">Next: Add a model</span></span>](xref:tutorials/razor-pages/model)
+> [<span data-ttu-id="9bc53-252">下一篇：添加模型</span><span class="sxs-lookup"><span data-stu-id="9bc53-252">Next: Add a model</span></span>](xref:tutorials/razor-pages/model)
 
 ::: moniker-end
 
@@ -321,99 +321,99 @@ ms.locfileid: "97486221"
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="fcef7-253">这是系列中的第一个教程。</span><span class="sxs-lookup"><span data-stu-id="fcef7-253">This is the first tutorial of a series.</span></span> <span data-ttu-id="fcef7-254">[本系列](xref:tutorials/razor-pages/index)介绍构建 ASP.NET Core Razor 页面 Web 应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="fcef7-254">[The series](xref:tutorials/razor-pages/index) teaches the basics of building an ASP.NET Core Razor Pages web app.</span></span>
+<span data-ttu-id="9bc53-253">这是系列中的第一个教程。</span><span class="sxs-lookup"><span data-stu-id="9bc53-253">This is the first tutorial of a series.</span></span> <span data-ttu-id="9bc53-254">[本系列](xref:tutorials/razor-pages/index)介绍构建 ASP.NET Core Razor 页面 Web 应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="9bc53-254">[The series](xref:tutorials/razor-pages/index) teaches the basics of building an ASP.NET Core Razor Pages web app.</span></span>
 
-<span data-ttu-id="fcef7-255">有关面向熟悉控制器和视图的开发人员的更高级介绍，请参阅 [Razor Pages 简介](xref:razor-pages/index)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-255">For a more advanced introduction aimed at developers who are familiar with controllers and views, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
+<span data-ttu-id="9bc53-255">有关面向熟悉控制器和视图的开发人员的更高级介绍，请参阅 [Razor Pages 简介](xref:razor-pages/index)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-255">For a more advanced introduction aimed at developers who are familiar with controllers and views, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
 
-<span data-ttu-id="fcef7-256">在本系列结束时，你将拥有一个管理电影数据库的应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-256">At the end of the series, you'll have an app that manages a database of movies.</span></span>  
+<span data-ttu-id="9bc53-256">在本系列结束时，你将拥有一个管理电影数据库的应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-256">At the end of the series, you'll have an app that manages a database of movies.</span></span>  
 
-<span data-ttu-id="fcef7-257">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="fcef7-257">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="9bc53-257">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="9bc53-257">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="fcef7-258">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="fcef7-258">In this tutorial, you:</span></span>
+<span data-ttu-id="9bc53-258">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="9bc53-258">In this tutorial, you:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="fcef7-259">创建 Razor 页面 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-259">Create a Razor Pages web app.</span></span>
-> * <span data-ttu-id="fcef7-260">运行应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-260">Run the app.</span></span>
-> * <span data-ttu-id="fcef7-261">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-261">Examine the project files.</span></span>
+> * <span data-ttu-id="9bc53-259">创建 Razor 页面 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-259">Create a Razor Pages web app.</span></span>
+> * <span data-ttu-id="9bc53-260">运行应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-260">Run the app.</span></span>
+> * <span data-ttu-id="9bc53-261">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-261">Examine the project files.</span></span>
 
-<span data-ttu-id="fcef7-262">在本教程结束时，你将有一个工作的 Razor 页面 Web 应用。在后续教程中，你可以在其基础上进行构建。</span><span class="sxs-lookup"><span data-stu-id="fcef7-262">At the end of this tutorial, you'll have a working Razor Pages web app that you'll build on in later tutorials.</span></span>
+<span data-ttu-id="9bc53-262">在本教程结束时，你将有一个工作的 Razor 页面 Web 应用。在后续教程中，你可以在其基础上进行构建。</span><span class="sxs-lookup"><span data-stu-id="9bc53-262">At the end of this tutorial, you'll have a working Razor Pages web app that you'll build on in later tutorials.</span></span>
 
 ![主页或 Index 页](razor-pages-start/_static/home2.2.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="fcef7-264">先决条件</span><span class="sxs-lookup"><span data-stu-id="fcef7-264">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="9bc53-264">先决条件</span><span class="sxs-lookup"><span data-stu-id="9bc53-264">Prerequisites</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="fcef7-265">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcef7-265">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="9bc53-265">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9bc53-265">Visual Studio</span></span>](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="fcef7-266">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcef7-266">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="9bc53-266">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9bc53-266">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcef7-267">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="fcef7-267">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="9bc53-267">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="9bc53-267">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
 ---
 
-## <a name="create-a-no-locrazor-pages-web-app"></a><span data-ttu-id="fcef7-268">创建 Razor 页面 Web 应用</span><span class="sxs-lookup"><span data-stu-id="fcef7-268">Create a Razor Pages web app</span></span>
+## <a name="create-a-no-locrazor-pages-web-app"></a><span data-ttu-id="9bc53-268">创建 Razor 页面 Web 应用</span><span class="sxs-lookup"><span data-stu-id="9bc53-268">Create a Razor Pages web app</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="fcef7-269">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcef7-269">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="9bc53-269">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9bc53-269">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="fcef7-270">从 Visual Studio“文件”菜单中选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-270">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
+* <span data-ttu-id="9bc53-270">从 Visual Studio“文件”菜单中选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-270">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
 
-* <span data-ttu-id="fcef7-271">创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-271">Create a new ASP.NET Core Web Application and select **Next**.</span></span>
+* <span data-ttu-id="9bc53-271">创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-271">Create a new ASP.NET Core Web Application and select **Next**.</span></span>
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 
-* <span data-ttu-id="fcef7-273">将项目命名为“RazorPagesMovie”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-273">Name the project **RazorPagesMovie**.</span></span> <span data-ttu-id="fcef7-274">请务必将项目命名为“RazorPagesMovie”，这样在复制和粘贴代码时命名空间就会匹配。</span><span class="sxs-lookup"><span data-stu-id="fcef7-274">It's important to name the project *RazorPagesMovie* so the namespaces will match when you copy and paste code.</span></span>
+* <span data-ttu-id="9bc53-273">将项目命名为“RazorPagesMovie”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-273">Name the project **RazorPagesMovie**.</span></span> <span data-ttu-id="9bc53-274">请务必将项目命名为“RazorPagesMovie”，这样在复制和粘贴代码时命名空间就会匹配。</span><span class="sxs-lookup"><span data-stu-id="9bc53-274">It's important to name the project *RazorPagesMovie* so the namespaces will match when you copy and paste code.</span></span>
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
-* <span data-ttu-id="fcef7-276">在下拉列表中选择“ASP.NET Core 2.2”，然后依次选择“Web 应用程序”和“创建”  。</span><span class="sxs-lookup"><span data-stu-id="fcef7-276">Select **ASP.NET Core 2.2** in the dropdown, **Web Application**, and then select **Create**.</span></span>
+* <span data-ttu-id="9bc53-276">在下拉列表中选择“ASP.NET Core 2.2”，然后依次选择“Web 应用程序”和“创建”  。</span><span class="sxs-lookup"><span data-stu-id="9bc53-276">Select **ASP.NET Core 2.2** in the dropdown, **Web Application**, and then select **Create**.</span></span>
 
 ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2_2.2.png)
 
-  <span data-ttu-id="fcef7-278">创建以下初学者项目：</span><span class="sxs-lookup"><span data-stu-id="fcef7-278">The following starter project is created:</span></span>
+  <span data-ttu-id="9bc53-278">创建以下初学者项目：</span><span class="sxs-lookup"><span data-stu-id="9bc53-278">The following starter project is created:</span></span>
 
   ![“解决方案资源管理器”](razor-pages-start/_static/se2.2.png)
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="fcef7-280">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcef7-280">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="9bc53-280">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9bc53-280">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="fcef7-281">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-281">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+* <span data-ttu-id="9bc53-281">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-281">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
 
-* <span data-ttu-id="fcef7-282">更改为将包含项目的目录 (`cd`)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-282">Change to the directory (`cd`) which will contain the project.</span></span>
+* <span data-ttu-id="9bc53-282">更改为将包含项目的目录 (`cd`)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-282">Change to the directory (`cd`) which will contain the project.</span></span>
 
-* <span data-ttu-id="fcef7-283">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="fcef7-283">Run the following commands:</span></span>
+* <span data-ttu-id="9bc53-283">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="9bc53-283">Run the following commands:</span></span>
 
   ```dotnetcli
   dotnet new webapp -o RazorPagesMovie
   code -r RazorPagesMovie
   ```
 
-  * <span data-ttu-id="fcef7-284">`dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="fcef7-284">The `dotnet new` command creates a new Razor Pages project in the *RazorPagesMovie* folder.</span></span>
-  * <span data-ttu-id="fcef7-285">`code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。</span><span class="sxs-lookup"><span data-stu-id="fcef7-285">The `code` command opens the *RazorPagesMovie* folder in the current instance of Visual Studio Code.</span></span>
+  * <span data-ttu-id="9bc53-284">`dotnet new` 命令在“RazorPagesMovie”文件夹中新建 Razor Pages 项目。</span><span class="sxs-lookup"><span data-stu-id="9bc53-284">The `dotnet new` command creates a new Razor Pages project in the *RazorPagesMovie* folder.</span></span>
+  * <span data-ttu-id="9bc53-285">`code` 命令在 Visual Studio Code 的当前实例中打开“RazorPagesMovie”文件夹。</span><span class="sxs-lookup"><span data-stu-id="9bc53-285">The `code` command opens the *RazorPagesMovie* folder in the current instance of Visual Studio Code.</span></span>
 
-* <span data-ttu-id="fcef7-286">在状态栏的 OmniSharp 火焰图标变绿后，对话框就会询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?”</span><span class="sxs-lookup"><span data-stu-id="fcef7-286">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'RazorPagesMovie'. Add them?**</span></span> <span data-ttu-id="fcef7-287">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="fcef7-287">Select **Yes**.</span></span>
+* <span data-ttu-id="9bc53-286">在状态栏的 OmniSharp 火焰图标变绿后，对话框就会询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?”</span><span class="sxs-lookup"><span data-stu-id="9bc53-286">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'RazorPagesMovie'. Add them?**</span></span> <span data-ttu-id="9bc53-287">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="9bc53-287">Select **Yes**.</span></span>
 
-  <span data-ttu-id="fcef7-288">将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。  </span><span class="sxs-lookup"><span data-stu-id="fcef7-288">A *.vscode* directory, containing *launch.json* and *tasks.json* files, is added to the project's root directory.</span></span>
+  <span data-ttu-id="9bc53-288">将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。  </span><span class="sxs-lookup"><span data-stu-id="9bc53-288">A *.vscode* directory, containing *launch.json* and *tasks.json* files, is added to the project's root directory.</span></span>
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcef7-289">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="fcef7-289">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="9bc53-289">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="9bc53-289">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="fcef7-290">选择“文件”>“新建解决方案” 。</span><span class="sxs-lookup"><span data-stu-id="fcef7-290">Select **File** > **New Solution**.</span></span>
+* <span data-ttu-id="9bc53-290">选择“文件”>“新建解决方案” 。</span><span class="sxs-lookup"><span data-stu-id="9bc53-290">Select **File** > **New Solution**.</span></span>
 
 ![macOS 新建解决方案](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-* <span data-ttu-id="fcef7-292">在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序” > “下一步”   。</span><span class="sxs-lookup"><span data-stu-id="fcef7-292">In Visual Studio for Mac earlier than version 8.6, select **.NET Core** > **App** > **Web Application** > **Next**.</span></span> <span data-ttu-id="fcef7-293">在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序” > “下一步”。   </span><span class="sxs-lookup"><span data-stu-id="fcef7-293">In version 8.6 or later, select **Web and Console** > **App** > **Web Application** > **Next**.</span></span>
+* <span data-ttu-id="9bc53-292">在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序” > “下一步”   。</span><span class="sxs-lookup"><span data-stu-id="9bc53-292">In Visual Studio for Mac earlier than version 8.6, select **.NET Core** > **App** > **Web Application** > **Next**.</span></span> <span data-ttu-id="9bc53-293">在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序” > “下一步”。   </span><span class="sxs-lookup"><span data-stu-id="9bc53-293">In version 8.6 or later, select **Web and Console** > **App** > **Web Application** > **Next**.</span></span>
 
-* <span data-ttu-id="fcef7-294">在“配置新的 Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="fcef7-294">In the **Configure the new Web Application** dialog:</span></span>
+* <span data-ttu-id="9bc53-294">在“配置新的 Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="9bc53-294">In the **Configure the new Web Application** dialog:</span></span>
 
-  * <span data-ttu-id="fcef7-295">确认已将“身份验证”设置为“无身份验证”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-295">Confirm that **Authentication** is set to **No Authentication**.</span></span>
-  * <span data-ttu-id="fcef7-296">如果看到用于选择“目标框架”的选项，请选择最新的 2.x 版本。</span><span class="sxs-lookup"><span data-stu-id="fcef7-296">If presented an option to select a **Target Framework**, select the latest 2.x version.</span></span>
+  * <span data-ttu-id="9bc53-295">确认已将“身份验证”设置为“无身份验证”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-295">Confirm that **Authentication** is set to **No Authentication**.</span></span>
+  * <span data-ttu-id="9bc53-296">如果看到用于选择“目标框架”的选项，请选择最新的 2.x 版本。</span><span class="sxs-lookup"><span data-stu-id="9bc53-296">If presented an option to select a **Target Framework**, select the latest 2.x version.</span></span>
 
-  <span data-ttu-id="fcef7-297">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-297">Select **Next**.</span></span>
+  <span data-ttu-id="9bc53-297">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-297">Select **Next**.</span></span>
 
-* <span data-ttu-id="fcef7-298">将项目命名为“RazorPagesMovie”，然后选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="fcef7-298">Name the project **RazorPagesMovie**, and then select **Create**.</span></span>
+* <span data-ttu-id="9bc53-298">将项目命名为“RazorPagesMovie”，然后选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="9bc53-298">Name the project **RazorPagesMovie**, and then select **Create**.</span></span>
 
   ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -421,65 +421,65 @@ ms.locfileid: "97486221"
 
 ---
 
-## <a name="run-the-app"></a><span data-ttu-id="fcef7-300">运行应用</span><span class="sxs-lookup"><span data-stu-id="fcef7-300">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="9bc53-300">运行应用</span><span class="sxs-lookup"><span data-stu-id="9bc53-300">Run the app</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="fcef7-301">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcef7-301">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="9bc53-301">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9bc53-301">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="fcef7-302">按 Ctrl+F5 以在不使用调试程序的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="fcef7-302">Press Ctrl+F5 to run without the debugger.</span></span>
+* <span data-ttu-id="9bc53-302">按 Ctrl+F5 以在不使用调试程序的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="9bc53-302">Press Ctrl+F5 to run without the debugger.</span></span>
 
-  <span data-ttu-id="fcef7-303">使用“Ctrl+F5”<kbd></kbd>启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。</span><span class="sxs-lookup"><span data-stu-id="fcef7-303">Launching the app with <kbd>Ctrl+F5</kbd> (non-debug mode) allows you to make code changes, save the file, refresh the browser, and see the code changes.</span></span> <span data-ttu-id="fcef7-304">许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。</span><span class="sxs-lookup"><span data-stu-id="fcef7-304">Many developers prefer to use non-debug mode to quickly launch the app and view changes.</span></span>
+  <span data-ttu-id="9bc53-303">使用“Ctrl+F5”<kbd></kbd>启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。</span><span class="sxs-lookup"><span data-stu-id="9bc53-303">Launching the app with <kbd>Ctrl+F5</kbd> (non-debug mode) allows you to make code changes, save the file, refresh the browser, and see the code changes.</span></span> <span data-ttu-id="9bc53-304">许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。</span><span class="sxs-lookup"><span data-stu-id="9bc53-304">Many developers prefer to use non-debug mode to quickly launch the app and view changes.</span></span>
 
   [!INCLUDE[](~/includes/trustCertVS.md)]
 
-  <span data-ttu-id="fcef7-305">Visual Studio 启动 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 并运行应用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-305">Visual Studio starts [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) and runs the app.</span></span> <span data-ttu-id="fcef7-306">地址栏显示 `localhost:port#`，而不是显示 `example.com`。</span><span class="sxs-lookup"><span data-stu-id="fcef7-306">The address bar shows `localhost:port#` and not something like `example.com`.</span></span> <span data-ttu-id="fcef7-307">这是因为 `localhost` 是本地计算机的标准主机名。</span><span class="sxs-lookup"><span data-stu-id="fcef7-307">That's because `localhost` is the standard hostname for the local computer.</span></span> <span data-ttu-id="fcef7-308">Localhost 仅为来自本地计算机的 Web 请求提供服务。</span><span class="sxs-lookup"><span data-stu-id="fcef7-308">Localhost only serves web requests from the local computer.</span></span> <span data-ttu-id="fcef7-309">Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。</span><span class="sxs-lookup"><span data-stu-id="fcef7-309">When Visual Studio creates a web project, a random port is used for the web server.</span></span>
+  <span data-ttu-id="9bc53-305">Visual Studio 启动 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 并运行应用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-305">Visual Studio starts [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) and runs the app.</span></span> <span data-ttu-id="9bc53-306">地址栏显示 `localhost:port#`，而不是显示 `example.com`。</span><span class="sxs-lookup"><span data-stu-id="9bc53-306">The address bar shows `localhost:port#` and not something like `example.com`.</span></span> <span data-ttu-id="9bc53-307">这是因为 `localhost` 是本地计算机的标准主机名。</span><span class="sxs-lookup"><span data-stu-id="9bc53-307">That's because `localhost` is the standard hostname for the local computer.</span></span> <span data-ttu-id="9bc53-308">Localhost 仅为来自本地计算机的 Web 请求提供服务。</span><span class="sxs-lookup"><span data-stu-id="9bc53-308">Localhost only serves web requests from the local computer.</span></span> <span data-ttu-id="9bc53-309">Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。</span><span class="sxs-lookup"><span data-stu-id="9bc53-309">When Visual Studio creates a web project, a random port is used for the web server.</span></span>
 
-* <span data-ttu-id="fcef7-310">在应用的主页上，选择“接受”以同意跟踪。</span><span class="sxs-lookup"><span data-stu-id="fcef7-310">On the app's home page, select **Accept** to consent to tracking.</span></span>
+* <span data-ttu-id="9bc53-310">在应用的主页上，选择“接受”以同意跟踪。</span><span class="sxs-lookup"><span data-stu-id="9bc53-310">On the app's home page, select **Accept** to consent to tracking.</span></span>
 
-  <span data-ttu-id="fcef7-311">此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-311">This app doesn't track personal information, but the project template includes the consent feature in case you need it to comply with the European Union's [General Data Protection Regulation (GDPR)](xref:security/gdpr).</span></span>
+  <span data-ttu-id="9bc53-311">此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-311">This app doesn't track personal information, but the project template includes the consent feature in case you need it to comply with the European Union's [General Data Protection Regulation (GDPR)](xref:security/gdpr).</span></span>
 
   ![主页或 Index 页](razor-pages-start/_static/homeGDPR2.2.png)
 
-  <span data-ttu-id="fcef7-313">下图展示了提供同意跟踪后的应用：</span><span class="sxs-lookup"><span data-stu-id="fcef7-313">The following image shows the app after consent to tracking is provided:</span></span>
+  <span data-ttu-id="9bc53-313">下图展示了提供同意跟踪后的应用：</span><span class="sxs-lookup"><span data-stu-id="9bc53-313">The following image shows the app after consent to tracking is provided:</span></span>
 
   ![主页或 Index 页](razor-pages-start/_static/home2.2.png)
   
-# <a name="visual-studio-code"></a>[<span data-ttu-id="fcef7-315">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcef7-315">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="9bc53-315">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9bc53-315">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
   [!INCLUDE[](~/includes/trustCertVSC.md)]
 
-* <span data-ttu-id="fcef7-316">按 Ctrl+F5<kbd></kbd> 以在不使用调试程序的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="fcef7-316">Press <kbd>Ctrl+F5</kbd> to run without the debugger.</span></span>
+* <span data-ttu-id="9bc53-316">按 Ctrl+F5<kbd></kbd> 以在不使用调试程序的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="9bc53-316">Press <kbd>Ctrl+F5</kbd> to run without the debugger.</span></span>
 
-  <span data-ttu-id="fcef7-317">使用“Ctrl+F5”<kbd></kbd>启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。</span><span class="sxs-lookup"><span data-stu-id="fcef7-317">Launching the app with <kbd>Ctrl+F5</kbd> (non-debug mode) allows you to make code changes, save the file, refresh the browser, and see the code changes.</span></span> <span data-ttu-id="fcef7-318">许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。</span><span class="sxs-lookup"><span data-stu-id="fcef7-318">Many developers prefer to use non-debug mode to quickly launch the app and view changes.</span></span>
+  <span data-ttu-id="9bc53-317">使用“Ctrl+F5”<kbd></kbd>启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。</span><span class="sxs-lookup"><span data-stu-id="9bc53-317">Launching the app with <kbd>Ctrl+F5</kbd> (non-debug mode) allows you to make code changes, save the file, refresh the browser, and see the code changes.</span></span> <span data-ttu-id="9bc53-318">许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。</span><span class="sxs-lookup"><span data-stu-id="9bc53-318">Many developers prefer to use non-debug mode to quickly launch the app and view changes.</span></span>
 
-  <span data-ttu-id="fcef7-319">Visual Studio Code 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并转到 `http://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="fcef7-319">Visual Studio Code starts [Kestrel](xref:fundamentals/servers/kestrel), launches a browser, and goes to `http://localhost:5001`.</span></span> <span data-ttu-id="fcef7-320">地址栏显示 `localhost:port#`，而不是显示 `example.com`。</span><span class="sxs-lookup"><span data-stu-id="fcef7-320">The address bar shows `localhost:port#` and not something like `example.com`.</span></span> <span data-ttu-id="fcef7-321">这是因为 `localhost` 是本地计算机的标准主机名。</span><span class="sxs-lookup"><span data-stu-id="fcef7-321">That's because `localhost` is the standard hostname for the local computer.</span></span> <span data-ttu-id="fcef7-322">Localhost 仅为来自本地计算机的 Web 请求提供服务。</span><span class="sxs-lookup"><span data-stu-id="fcef7-322">Localhost only serves web requests from the local computer.</span></span>
+  <span data-ttu-id="9bc53-319">Visual Studio Code 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并转到 `http://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="9bc53-319">Visual Studio Code starts [Kestrel](xref:fundamentals/servers/kestrel), launches a browser, and goes to `http://localhost:5001`.</span></span> <span data-ttu-id="9bc53-320">地址栏显示 `localhost:port#`，而不是显示 `example.com`。</span><span class="sxs-lookup"><span data-stu-id="9bc53-320">The address bar shows `localhost:port#` and not something like `example.com`.</span></span> <span data-ttu-id="9bc53-321">这是因为 `localhost` 是本地计算机的标准主机名。</span><span class="sxs-lookup"><span data-stu-id="9bc53-321">That's because `localhost` is the standard hostname for the local computer.</span></span> <span data-ttu-id="9bc53-322">Localhost 仅为来自本地计算机的 Web 请求提供服务。</span><span class="sxs-lookup"><span data-stu-id="9bc53-322">Localhost only serves web requests from the local computer.</span></span>
 
-* <span data-ttu-id="fcef7-323">在应用的主页上，选择“接受”以同意跟踪。</span><span class="sxs-lookup"><span data-stu-id="fcef7-323">On the app's home page, select **Accept** to consent to tracking.</span></span>
+* <span data-ttu-id="9bc53-323">在应用的主页上，选择“接受”以同意跟踪。</span><span class="sxs-lookup"><span data-stu-id="9bc53-323">On the app's home page, select **Accept** to consent to tracking.</span></span>
 
-  <span data-ttu-id="fcef7-324">此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-324">This app doesn't track personal information, but the project template includes the consent feature in case you need it to comply with the European Union's [General Data Protection Regulation (GDPR)](xref:security/gdpr).</span></span>
+  <span data-ttu-id="9bc53-324">此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-324">This app doesn't track personal information, but the project template includes the consent feature in case you need it to comply with the European Union's [General Data Protection Regulation (GDPR)](xref:security/gdpr).</span></span>
 
   ![主页或 Index 页](razor-pages-start/_static/homeGDPR2.2.png)
 
-  <span data-ttu-id="fcef7-326">下图展示了同意跟踪后的应用：</span><span class="sxs-lookup"><span data-stu-id="fcef7-326">The following image shows the app after you give consent to tracking:</span></span>
+  <span data-ttu-id="9bc53-326">下图展示了同意跟踪后的应用：</span><span class="sxs-lookup"><span data-stu-id="9bc53-326">The following image shows the app after you give consent to tracking:</span></span>
 
   ![主页或 Index 页](razor-pages-start/_static/home2.2.png)
   
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcef7-328">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="fcef7-328">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="9bc53-328">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="9bc53-328">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* <span data-ttu-id="fcef7-329">按 Cmd-Opt-F5，以在不使用调试器的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="fcef7-329">Press **Cmd-Opt-F5** to run without the debugger.</span></span>
+* <span data-ttu-id="9bc53-329">按 Cmd-Opt-F5，以在不使用调试器的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="9bc53-329">Press **Cmd-Opt-F5** to run without the debugger.</span></span>
 
-  <span data-ttu-id="fcef7-330">使用 Cmd+Opt+F5<kbd></kbd> 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改。</span><span class="sxs-lookup"><span data-stu-id="fcef7-330">Launching the app with <kbd>Cmd+Opt+F5</kbd> (non-debug mode) allows you to make code changes, save the file, refresh the browser, and see the code changes.</span></span> <span data-ttu-id="fcef7-331">许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。</span><span class="sxs-lookup"><span data-stu-id="fcef7-331">Many developers prefer to use non-debug mode to quickly launch the app and view changes.</span></span>
+  <span data-ttu-id="9bc53-330">使用 Cmd+Opt+F5<kbd></kbd> 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改。</span><span class="sxs-lookup"><span data-stu-id="9bc53-330">Launching the app with <kbd>Cmd+Opt+F5</kbd> (non-debug mode) allows you to make code changes, save the file, refresh the browser, and see the code changes.</span></span> <span data-ttu-id="9bc53-331">许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。</span><span class="sxs-lookup"><span data-stu-id="9bc53-331">Many developers prefer to use non-debug mode to quickly launch the app and view changes.</span></span>
 
-  <span data-ttu-id="fcef7-332">Visual Studio 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并转到 `http://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="fcef7-332">Visual Studio starts [Kestrel](xref:fundamentals/servers/kestrel), launches a browser, and goes to `http://localhost:5001`.</span></span>
+  <span data-ttu-id="9bc53-332">Visual Studio 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并转到 `http://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="9bc53-332">Visual Studio starts [Kestrel](xref:fundamentals/servers/kestrel), launches a browser, and goes to `http://localhost:5001`.</span></span>
 
-* <span data-ttu-id="fcef7-333">在应用的主页上，选择“接受”以同意跟踪。</span><span class="sxs-lookup"><span data-stu-id="fcef7-333">On the app's home page, select **Accept** to consent to tracking.</span></span>
+* <span data-ttu-id="9bc53-333">在应用的主页上，选择“接受”以同意跟踪。</span><span class="sxs-lookup"><span data-stu-id="9bc53-333">On the app's home page, select **Accept** to consent to tracking.</span></span>
 
-  <span data-ttu-id="fcef7-334">此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="fcef7-334">This app doesn't track personal information, but the project template includes the consent feature in case you need it to comply with the European Union's [General Data Protection Regulation (GDPR)](xref:security/gdpr).</span></span>
+  <span data-ttu-id="9bc53-334">此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。</span><span class="sxs-lookup"><span data-stu-id="9bc53-334">This app doesn't track personal information, but the project template includes the consent feature in case you need it to comply with the European Union's [General Data Protection Regulation (GDPR)](xref:security/gdpr).</span></span>
 
   ![主页或 Index 页](razor-pages-start/_static/homeGDPR2.2_safari.png)
 
-  <span data-ttu-id="fcef7-336">下图展示了提供同意跟踪后的应用：</span><span class="sxs-lookup"><span data-stu-id="fcef7-336">The following image shows the app after consent to tracking is provided:</span></span>
+  <span data-ttu-id="9bc53-336">下图展示了提供同意跟踪后的应用：</span><span class="sxs-lookup"><span data-stu-id="9bc53-336">The following image shows the app after consent to tracking is provided:</span></span>
 
   ![主页或 Index 页](razor-pages-start/_static/home2.2_safari.png)
 
@@ -487,44 +487,44 @@ ms.locfileid: "97486221"
 
 ---
 
-## <a name="examine-the-project-files"></a><span data-ttu-id="fcef7-338">检查项目文件</span><span class="sxs-lookup"><span data-stu-id="fcef7-338">Examine the project files</span></span>
+## <a name="examine-the-project-files"></a><span data-ttu-id="9bc53-338">检查项目文件</span><span class="sxs-lookup"><span data-stu-id="9bc53-338">Examine the project files</span></span>
 
-<span data-ttu-id="fcef7-339">下面是主项目文件夹和文件的概述，将在后续教程中使用。</span><span class="sxs-lookup"><span data-stu-id="fcef7-339">Here's an overview of the main project folders and files that you'll work with in later tutorials.</span></span>
+<span data-ttu-id="9bc53-339">下面是主项目文件夹和文件的概述，将在后续教程中使用。</span><span class="sxs-lookup"><span data-stu-id="9bc53-339">Here's an overview of the main project folders and files that you'll work with in later tutorials.</span></span>
 
-### <a name="pages-folder"></a><span data-ttu-id="fcef7-340">Pages 文件夹</span><span class="sxs-lookup"><span data-stu-id="fcef7-340">Pages folder</span></span>
+### <a name="pages-folder"></a><span data-ttu-id="9bc53-340">Pages 文件夹</span><span class="sxs-lookup"><span data-stu-id="9bc53-340">Pages folder</span></span>
 
-<span data-ttu-id="fcef7-341">包含 Razor 页面和支持文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-341">Contains Razor pages and supporting files.</span></span> <span data-ttu-id="fcef7-342">每个 Razor 页面都是一对文件：</span><span class="sxs-lookup"><span data-stu-id="fcef7-342">Each Razor page is a pair of files:</span></span>
+<span data-ttu-id="9bc53-341">包含 Razor 页面和支持文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-341">Contains Razor pages and supporting files.</span></span> <span data-ttu-id="9bc53-342">每个 Razor 页面都是一对文件：</span><span class="sxs-lookup"><span data-stu-id="9bc53-342">Each Razor page is a pair of files:</span></span>
 
-* <span data-ttu-id="fcef7-343">一个 .cshtml 文件，其中包含使用 Razor 语法的 C# 代码的 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="fcef7-343">A *.cshtml* file that has HTML markup with C# code using Razor syntax.</span></span>
-* <span data-ttu-id="fcef7-344">一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。</span><span class="sxs-lookup"><span data-stu-id="fcef7-344">A *.cshtml.cs* file that has C# code that handles page events.</span></span>
+* <span data-ttu-id="9bc53-343">一个 .cshtml 文件，其中包含使用 Razor 语法的 C# 代码的 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="9bc53-343">A *.cshtml* file that has HTML markup with C# code using Razor syntax.</span></span>
+* <span data-ttu-id="9bc53-344">一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。</span><span class="sxs-lookup"><span data-stu-id="9bc53-344">A *.cshtml.cs* file that has C# code that handles page events.</span></span>
 
-<span data-ttu-id="fcef7-345">支持文件的名称以下划线开头。</span><span class="sxs-lookup"><span data-stu-id="fcef7-345">Supporting files have names that begin with an underscore.</span></span> <span data-ttu-id="fcef7-346">例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。</span><span class="sxs-lookup"><span data-stu-id="fcef7-346">For example, the *_Layout.cshtml* file configures UI elements common to all pages.</span></span> <span data-ttu-id="fcef7-347">此文件设置页面顶部的导航菜单和页面底部的版权声明。</span><span class="sxs-lookup"><span data-stu-id="fcef7-347">This file sets up the navigation menu at the top of the page and the copyright notice at the bottom of the page.</span></span> <span data-ttu-id="fcef7-348">有关详细信息，请参阅 <xref:mvc/views/layout>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-348">For more information, see <xref:mvc/views/layout>.</span></span>
+<span data-ttu-id="9bc53-345">支持文件的名称以下划线开头。</span><span class="sxs-lookup"><span data-stu-id="9bc53-345">Supporting files have names that begin with an underscore.</span></span> <span data-ttu-id="9bc53-346">例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。</span><span class="sxs-lookup"><span data-stu-id="9bc53-346">For example, the *_Layout.cshtml* file configures UI elements common to all pages.</span></span> <span data-ttu-id="9bc53-347">此文件设置页面顶部的导航菜单和页面底部的版权声明。</span><span class="sxs-lookup"><span data-stu-id="9bc53-347">This file sets up the navigation menu at the top of the page and the copyright notice at the bottom of the page.</span></span> <span data-ttu-id="9bc53-348">有关详细信息，请参阅 <xref:mvc/views/layout>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-348">For more information, see <xref:mvc/views/layout>.</span></span>
 
-<span data-ttu-id="fcef7-349">Razor 页面派生自 `PageModel`。</span><span class="sxs-lookup"><span data-stu-id="fcef7-349">Razor Pages are derived from `PageModel`.</span></span> <span data-ttu-id="fcef7-350">按照约定，`PageModel` 派生的类称为 `<PageName>Model`。</span><span class="sxs-lookup"><span data-stu-id="fcef7-350">By convention, the `PageModel`-derived class is named `<PageName>Model`.</span></span>
+<span data-ttu-id="9bc53-349">Razor 页面派生自 `PageModel`。</span><span class="sxs-lookup"><span data-stu-id="9bc53-349">Razor Pages are derived from `PageModel`.</span></span> <span data-ttu-id="9bc53-350">按照约定，`PageModel` 派生的类称为 `<PageName>Model`。</span><span class="sxs-lookup"><span data-stu-id="9bc53-350">By convention, the `PageModel`-derived class is named `<PageName>Model`.</span></span>
 
-### <a name="wwwroot-folder"></a><span data-ttu-id="fcef7-351">wwwroot 文件夹</span><span class="sxs-lookup"><span data-stu-id="fcef7-351">wwwroot folder</span></span>
+### <a name="wwwroot-folder"></a><span data-ttu-id="9bc53-351">wwwroot 文件夹</span><span class="sxs-lookup"><span data-stu-id="9bc53-351">wwwroot folder</span></span>
 
-<span data-ttu-id="fcef7-352">包含静态文件，如 HTML 文件、JavaScript 文件和 CSS 文件。</span><span class="sxs-lookup"><span data-stu-id="fcef7-352">Contains static files, like HTML files, JavaScript files, and CSS files.</span></span> <span data-ttu-id="fcef7-353">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-353">For more information, see <xref:fundamentals/static-files>.</span></span>
+<span data-ttu-id="9bc53-352">包含静态文件，如 HTML 文件、JavaScript 文件和 CSS 文件。</span><span class="sxs-lookup"><span data-stu-id="9bc53-352">Contains static files, like HTML files, JavaScript files, and CSS files.</span></span> <span data-ttu-id="9bc53-353">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-353">For more information, see <xref:fundamentals/static-files>.</span></span>
 
-### <a name="appsettingsjson"></a><span data-ttu-id="fcef7-354">appSettings.json</span><span class="sxs-lookup"><span data-stu-id="fcef7-354">appSettings.json</span></span>
+### <a name="appsettingsjson"></a><span data-ttu-id="9bc53-354">appSettings.json</span><span class="sxs-lookup"><span data-stu-id="9bc53-354">appSettings.json</span></span>
 
-<span data-ttu-id="fcef7-355">包含配置数据，如连接字符串。</span><span class="sxs-lookup"><span data-stu-id="fcef7-355">Contains configuration data, like connection strings.</span></span> <span data-ttu-id="fcef7-356">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-356">For more information, see <xref:fundamentals/configuration/index>.</span></span>
+<span data-ttu-id="9bc53-355">包含配置数据，如连接字符串。</span><span class="sxs-lookup"><span data-stu-id="9bc53-355">Contains configuration data, like connection strings.</span></span> <span data-ttu-id="9bc53-356">有关详细信息，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-356">For more information, see <xref:fundamentals/configuration/index>.</span></span>
 
-### <a name="programcs"></a><span data-ttu-id="fcef7-357">Program.cs</span><span class="sxs-lookup"><span data-stu-id="fcef7-357">Program.cs</span></span>
+### <a name="programcs"></a><span data-ttu-id="9bc53-357">Program.cs</span><span class="sxs-lookup"><span data-stu-id="9bc53-357">Program.cs</span></span>
 
-<span data-ttu-id="fcef7-358">包含程序的入口点。</span><span class="sxs-lookup"><span data-stu-id="fcef7-358">Contains the entry point for the program.</span></span> <span data-ttu-id="fcef7-359">有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-359">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
+<span data-ttu-id="9bc53-358">包含程序的入口点。</span><span class="sxs-lookup"><span data-stu-id="9bc53-358">Contains the entry point for the program.</span></span> <span data-ttu-id="9bc53-359">有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-359">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
 
-### <a name="startupcs"></a><span data-ttu-id="fcef7-360">Startup.cs</span><span class="sxs-lookup"><span data-stu-id="fcef7-360">Startup.cs</span></span>
+### <a name="startupcs"></a><span data-ttu-id="9bc53-360">Startup.cs</span><span class="sxs-lookup"><span data-stu-id="9bc53-360">Startup.cs</span></span>
 
-<span data-ttu-id="fcef7-361">包含配置应用行为的代码，例如是否需要同意 cookie。</span><span class="sxs-lookup"><span data-stu-id="fcef7-361">Contains code that configures app behavior, such as whether it requires consent for cookies.</span></span> <span data-ttu-id="fcef7-362">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="fcef7-362">For more information, see <xref:fundamentals/startup>.</span></span>
+<span data-ttu-id="9bc53-361">包含配置应用行为的代码，例如是否需要同意 cookie。</span><span class="sxs-lookup"><span data-stu-id="9bc53-361">Contains code that configures app behavior, such as whether it requires consent for cookies.</span></span> <span data-ttu-id="9bc53-362">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="9bc53-362">For more information, see <xref:fundamentals/startup>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="fcef7-363">其他资源</span><span class="sxs-lookup"><span data-stu-id="fcef7-363">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="9bc53-363">其他资源</span><span class="sxs-lookup"><span data-stu-id="9bc53-363">Additional resources</span></span>
 
-* [<span data-ttu-id="fcef7-364">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="fcef7-364">YouTube version of this tutorial</span></span>](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
+* [<span data-ttu-id="9bc53-364">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="9bc53-364">YouTube version of this tutorial</span></span>](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
 
-## <a name="next-steps"></a><span data-ttu-id="fcef7-365">后续步骤</span><span class="sxs-lookup"><span data-stu-id="fcef7-365">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="9bc53-365">后续步骤</span><span class="sxs-lookup"><span data-stu-id="9bc53-365">Next steps</span></span>
 
 > [!div class="step-by-step"]
-> [<span data-ttu-id="fcef7-366">下一篇：添加模型</span><span class="sxs-lookup"><span data-stu-id="fcef7-366">Next: Add a model</span></span>](xref:tutorials/razor-pages/model)
+> [<span data-ttu-id="9bc53-366">下一篇：添加模型</span><span class="sxs-lookup"><span data-stu-id="9bc53-366">Next: Add a model</span></span>](xref:tutorials/razor-pages/model)
 
 ::: moniker-end
