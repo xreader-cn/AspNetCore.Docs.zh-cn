@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/configuration
-ms.openlocfilehash: 7dac8c84683553a52e07ecc61c8bcf8616e77dc6
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: cef05b32731e0930d7a3cfc6fe4502236b07a236
+ms.sourcegitcommit: b64c44ba5e3abb4ad4d50de93b7e282bf0f251e4
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061231"
+ms.lasthandoff: 01/07/2021
+ms.locfileid: "97972062"
 ---
 # <a name="aspnet-core-no-locsignalr-configuration"></a>ASP.NET Core SignalR 配置
 
@@ -197,14 +197,14 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别** 。
+下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别**。
 
-| String                      | LogLevel               |
+| 字符串                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |
-| `info` **或** `information` | `LogLevel.Information` |
-| `warn` **或** `warning`     | `LogLevel.Warning`     |
+| `info`**或**`information` | `LogLevel.Information` |
+| `warn`**或**`warning`     | `LogLevel.Warning`     |
 | `error`                     | `LogLevel.Error`       |
 | `critical`                  | `LogLevel.Critical`    |
 | `none`                      | `LogLevel.None`        |
@@ -293,7 +293,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
+在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr.httphubconnectionbuilder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr.httphubconnectionbuilder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/chathub")
@@ -343,7 +343,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | cookie要随每个 http 请求一起发送的 http 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -362,7 +362,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | `transport` | `null` | 一个 <xref:Microsoft.AspNetCore.Http.Connections.HttpTransportType> 值，该值指定用于连接的传输。 |
 | `headers` | `null` | 每个 HTTP 请求发送的标头的字典。 在浏览器中发送标头对于 Websocket 或流不起作用 <xref:Microsoft.AspNetCore.Http.Connections.HttpTransportType.ServerSentEvents> 。 |
 | `logMessageContent` | `null` | 设置为 `true` 可记录客户端发送和接收的消息的字节数/字符数。 |
-| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `withCredentials` | `true` | 指定是否将凭据与 CORS 请求一起发送。 Azure App Service cookie 将用于粘滞会话，并且需要启用此选项才能正常工作。 有关 CORS 的详细信息 SignalR ，请参阅 <xref:signalr/security#cross-origin-resource-sharing> 。 |
 
 # <a name="java"></a>[Java](#tab/java)
@@ -370,7 +370,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---
@@ -589,14 +589,14 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别** 。
+下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别**。
 
-| String                      | LogLevel               |
+| 字符串                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |
-| `info` **或** `information` | `LogLevel.Information` |
-| `warn` **或** `warning`     | `LogLevel.Warning`     |
+| `info`**或**`information` | `LogLevel.Information` |
+| `warn`**或**`warning`     | `LogLevel.Warning`     |
 | `error`                     | `LogLevel.Error`       |
 | `critical`                  | `LogLevel.Critical`    |
 | `none`                      | `LogLevel.None`        |
@@ -685,7 +685,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
+在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr.httphubconnectionbuilder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr.httphubconnectionbuilder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/chathub")
@@ -735,7 +735,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | cookie要随每个 http 请求一起发送的 http 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -753,14 +753,14 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | `accessTokenFactory` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
 | `transport` | `null` | 一个 <xref:Microsoft.AspNetCore.Http.Connections.HttpTransportType> 值，该值指定用于连接的传输。 |
 | `logMessageContent` | `null` | 设置为 `true` 可记录客户端发送和接收的消息的字节数/字符数。 |
-| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 
 # <a name="java"></a>[Java](#tab/java)
 
 | Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---
@@ -975,14 +975,14 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别** 。
+下表列出了可用的日志级别。 为 `configureLogging` 设置将记录的 **最小** 日志级别而提供的值。 将记录在此级别上记录的消息 **或在表中列出的级别**。
 
-| String                      | LogLevel               |
+| 字符串                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |
-| `info` **或** `information` | `LogLevel.Information` |
-| `warn` **或** `warning`     | `LogLevel.Warning`     |
+| `info`**或**`information` | `LogLevel.Information` |
+| `warn`**或**`warning`     | `LogLevel.Warning`     |
 | `error`                     | `LogLevel.Error`       |
 | `critical`                  | `LogLevel.Critical`    |
 | `none`                      | `LogLevel.None`        |
@@ -1071,7 +1071,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
+在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr.httphubconnectionbuilder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr.httphubconnectionbuilder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/chathub")
@@ -1121,7 +1121,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | cookie要随每个 http 请求一起发送的 http 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -1139,14 +1139,14 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | `accessTokenFactory` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
 | `transport` | `null` | 一个 <xref:Microsoft.AspNetCore.Http.Connections.HttpTransportType> 值，该值指定用于连接的传输。 |
 | `logMessageContent` | `null` | 设置为 `true` 可记录客户端发送和接收的消息的字节数/字符数。 |
-| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 
 # <a name="java"></a>[Java](#tab/java)
 
 | Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---
@@ -1421,7 +1421,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
+在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr.httphubconnectionbuilder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr.httphubconnectionbuilder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/chathub")
@@ -1471,7 +1471,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | cookie要随每个 http 请求一起发送的 http 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -1489,14 +1489,14 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | `accessTokenFactory` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
 | `transport` | `null` | 一个 <xref:Microsoft.AspNetCore.Http.Connections.HttpTransportType> 值，该值指定用于连接的传输。 |
 | `logMessageContent` | `null` | 设置为 `true` 可记录客户端发送和接收的消息的字节数/字符数。 |
-| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 
 # <a name="java"></a>[Java](#tab/java)
 
 | Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---
@@ -1768,7 +1768,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
+在 SignalR Java 客户端中，可以通过向 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr.httphubconnectionbuilder?view=aspnet-signalr-java)提供访问令牌工厂来配置用于身份验证的持有者令牌。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr.httphubconnectionbuilder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [Single \<String> ](https://reactivex.io/documentation/single.html)。 如果调用了 [单延迟](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，你可以编写逻辑来为客户端生成访问令牌。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/chathub")
@@ -1815,7 +1815,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `SkipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | cookie要随每个 http 请求一起发送的 http 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -1833,14 +1833,14 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/c
 | `accessTokenFactory` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
 | `transport` | `null` | 一个 <xref:Microsoft.AspNetCore.Http.Connections.HttpTransportType> 值，该值指定用于连接的传输。 |
 | `logMessageContent` | `null` | 设置为 `true` 可记录客户端发送和接收的消息的字节数/字符数。 |
-| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `skipNegotiation` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 
 # <a name="java"></a>[Java](#tab/java)
 
 | Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持** 。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 `true` 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure 服务时，无法启用此设置 SignalR 。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---
