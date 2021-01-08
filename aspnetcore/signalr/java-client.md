@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/java-client
-ms.openlocfilehash: da6876e0540579dac5fb9e92362b38a398bca4d5
-ms.sourcegitcommit: b64c44ba5e3abb4ad4d50de93b7e282bf0f251e4
+ms.openlocfilehash: 92941d21820de90eb2ae8fb76c21c588ed9f1ffb
+ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/07/2021
-ms.locfileid: "97972075"
+ms.lasthandoff: 01/08/2021
+ms.locfileid: "98024751"
 ---
 # <a name="aspnet-core-no-locsignalr-java-client"></a>ASP.NET Core SignalR Java 客户端
 
@@ -108,12 +108,43 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
     })).build();
 ```
 
+::: moniker range=">= aspnetcore-5.0"
+
+### <a name="passing-class-information-in-java"></a>在 Java 中传递类信息
+
+`on` `invoke` `stream` 在 Java 客户端中调用的、或方法时 `HubConnection` ，用户应传递 `Type` 对象而不是 `Class<?>` 对象来描述 `Object` 传递给方法的任何泛型。 `Type`可以使用提供的类来获取 `TypeReference` 。 例如，使用名为的自定义泛型类 `Foo<T>` ，下面的代码获取 `Type` ：
+
+```java
+Type fooType = new TypeReference<Foo<String>>() { }).getType();
+```
+
+对于非泛型，如基元或其他非参数化类型（如 `String` ），只需使用内置 `.class` 。
+
+使用一个或多个对象类型调用这些方法之一时，请在调用方法时使用泛型语法。 例如，当注册 `on` 一个名为的方法 `func` （该方法采用字符串和对象作为参数）时，请 `Foo<String>` 使用以下代码设置一个操作来打印参数：
+
+```java
+hubConnection.<String, Foo<String>>on("func", (param1, param2) ->{
+    System.out.println(param1);
+    System.out.println(param2);
+}, String.class, fooType);
+```
+
+此约定是必需的，因为我们无法通过 `Object.getClass` Java 中的类型擦除来检索有关复杂类型的完整信息。 例如， `getClass` 对的调用 `ArrayList<String>` 将不会返回 `Class<ArrayList<String>>` ，而是不会 `Class<ArrayList>` 为反序列化程序提供足够的信息来正确地反序列化传入消息。 对于自定义对象也是如此。
+
+::: moniker-end
+
 ## <a name="known-limitations"></a>已知的限制
 
-::: moniker range=">= aspnetcore-3.0"
+::: moniker range=">= aspnetcore-5.0"
 
-* 仅支持 JSON 协议。
 * 传输回退和服务器发送事件传输不受支持。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0 < aspnetcore-5.0"
+
+* 传输回退和服务器发送事件传输不受支持。
+* 仅支持 JSON 协议。
 
 ::: moniker-end
 

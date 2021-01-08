@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: e7d19a42e48048d2be4b87d6b0ac1ba6b2596ff1
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 7c3640e9cd2c5d392400a115813584861f789554
+ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93058163"
+ms.lasthandoff: 01/08/2021
+ms.locfileid: "98024686"
 ---
 # <a name="use-messagepack-hub-protocol-in-no-locsignalr-for-aspnet-core"></a>使用中的 MessagePack Hub 协议 SignalR 进行 ASP.NET Core
 
@@ -120,6 +120,26 @@ const connection = new signalR.HubConnectionBuilder()
 > [!NOTE]
 > 目前，JavaScript 客户端上没有用于 MessagePack 协议的配置选项。
 
+### <a name="java-client"></a>Java 客户端
+
+若要使用 Java 启用 MessagePack，请安装 `com.microsoft.signalr.messagepack` 包。 当使用 Gradle 时，请将以下行添加到 `dependencies` *Gradle* 文件的部分：
+
+```gradle
+implementation 'com.microsoft.signalr.messagepack:signalr-messagepack:5.0.0'
+```
+
+当使用 Maven 时，请在pom.xml文件的元素中添加以下行 `<dependencies>` ： 
+
+[!code-xml[pom.xml dependency element messagePack](java-client/sample/pom.xml?name=snippet_dependencyElement_messagePack)]
+
+调用 `withHubProtocol(new MessagePackHubProtocol())` `HubConnectionBuilder` 。
+
+```java
+HubConnection messagePackConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
+    .withHubProtocol(new MessagePackHubProtocol())
+    .build();
+```
+
 ## <a name="messagepack-quirks"></a>MessagePack 兼容
 
 使用 MessagePack 集线器协议时，需要注意几个问题。
@@ -136,7 +156,7 @@ public class ChatMessage
 }
 ```
 
-从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如： 。
+从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如：
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -187,6 +207,10 @@ InvalidDataException: Error binding arguments. Make sure that the types of the p
 ```
 
 有关此限制的详细信息，请参阅 GitHub 颁发 [aspnet/ SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)。
+
+### <a name="chars-and-strings-in-java"></a>Java 中的字符和字符串
+
+在 java 客户端中， `char` 对象将被序列化为单字符 `String` 对象。 这与 c # 和 JavaScript 客户端相反，后者将它们序列化为 `short` 对象。 MessagePack 规范本身不会定义对象的行为 `char` ，因此，由库作者决定如何序列化它们。 我们的客户端之间的行为差异是我们用于实现的库的结果。
 
 ## <a name="related-resources"></a>相关资源
 
@@ -316,7 +340,7 @@ public class ChatMessage
 }
 ```
 
-从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如： 。
+从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如：
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -496,7 +520,7 @@ public class ChatMessage
 }
 ```
 
-从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如： 。
+从 JavaScript 客户端发送时，必须使用 `PascalCased` 属性名称，因为大小写必须与 c # 类完全匹配。 例如：
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });

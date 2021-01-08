@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/client-features
-ms.openlocfilehash: 1d1778f95c53179ca05eaced3d1913f208220df4
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 65ad619bb943a0e5ffbaec7ec80243972dafc49f
+ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93050974"
+ms.lasthandoff: 01/08/2021
+ms.locfileid: "98024660"
 ---
 # <a name="aspnet-core-no-locsignalr-clients"></a>ASP.NET Core SignalR 客户端
 
@@ -38,7 +38,7 @@ SignalR2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。 对于�
 | SignalR 版本 | .NET Core 版本 | 支持级别 | 结束支持 |
 | - | - | - | - |
 | 1.0. x | 2.1.x | 长期支持 | 2021年8月21日 |
-| 1.1. x | 2.2. x | 生命周期结束 | 2019年12月23日 |
+| 1.1. x | 2.2.x | 生命周期结束 | 2019年12月23日 |
 | 3. x 或更高版本 | *与 SignalR 版本相同* | 请参阅 [.Net Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) |
 
 **注意：** 在 ASP.NET Core 3.0 中，JavaScript 客户端 *移* 到 `@microsoft/signalr` npm 包。
@@ -57,7 +57,7 @@ SignalR2.1 和 2.2 .Net Core 的1.x 版本映射到相同的生存期。 对于�
 | Server-Sent 事件传输 |2.1.0|1.0.0|1.0.0|❌|
 | 长轮询传输 |2.1.0|1.0.0|1.0.0|3.0.0|
 | JSON 集线器协议 |2.1.0|1.0.0|1.0.0|1.0.0|
-| MessagePack 中心协议 |2.1.0|1.0.0|1.0.0|❌|
+| MessagePack 中心协议 |2.1.0|1.0.0|1.0.0|5.0.0|
 
 [我们的问题跟踪](https://github.com/dotnet/AspNetCore/issues)程序中跟踪了对启用其他客户端功能的支持。
 
