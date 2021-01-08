@@ -766,6 +766,8 @@
       uid: grpc/interprocess
     - name: 从 gRPC 创建 JSON Web API
       uid: grpc/httpapi
+    - name: 代码优先 gRPC 服务和客户端
+      uid: grpc/code-first
     - name: 通过 dotnet-grpc 管理 Protobuf 参考
       uid: grpc/dotnet-grpc
     - name: 使用 gRPCurl 测试 gRPC 服务

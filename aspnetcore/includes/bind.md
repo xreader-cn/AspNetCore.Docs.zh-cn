@@ -15,11 +15,11 @@
 
 * 必须是包含公共无参数构造函数的非抽象类。
 * 类型的所有公共读写属性都已绑定。
-* 不会绑定字段。 在上面的代码中，`Position` 未绑定。 由于使用了 `Position` 属性，因此在将类绑定到配置提供程序时，不需要在应用中对字符串 `"Position"` 进行硬编码。
+* 字段不是绑定的。 在上面的代码中，`Position` 未绑定。 由于使用了 `Position` 属性，因此在将类绑定到配置提供程序时，不需要在应用中对字符串 `"Position"` 进行硬编码。
 
 下面的代码：
 
-* 调用 [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) 将 `PositionOptions` 类绑定到 `Position` 部分。
+_ 调用 [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) 将 `PositionOptions` 类绑定到 `Position` 部分。
 * 显示 `Position` 配置数据。
 
 [!code-csharp[](~/fundamentals/configuration/index/samples/3.x/ConfigSample/Pages/Test22.cshtml.cs?name=snippet)]
@@ -32,7 +32,7 @@
 
 在上面的代码中，默认读取在应用启动后对 JSON 配置文件所做的更改。
 
-使用选项模式时的替代方法是绑定 `Position` 部分并将它添加到[依赖项注入服务容器](xref:fundamentals/dependency-injection)。 在以下代码中，`PositionOptions` 已通过 <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> 被添加到了服务容器并已绑定到了配置：
+使用选项模式时的替代方法是绑定 `Position` 部分并将它添加到[依赖项注入服务容器](xref:fundamentals/dependency-injection)。 在以下代码中，`PositionOptions` 已通过 <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure_> 被添加到了服务容器并已绑定到了配置：
 
 [!code-csharp[](~/fundamentals/configuration/index/samples/3.x/ConfigSample/Startup.cs?name=snippet)]
 
