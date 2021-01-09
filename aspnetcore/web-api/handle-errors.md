@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core Web API 的错误处理。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: prkrishn
 ms.custom: mvc
-ms.date: 07/23/2020
+ms.date: 1/11/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/handle-errors
-ms.openlocfilehash: 0efcf1bbeeb65cf7f4420f8c50fb4adf7d1d016d
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 92e9350a7892f8f38f64d4ebd68d54a97ec7e994
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052521"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058371"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>处理 ASP.NET Core Web API 中的错误
 
@@ -80,7 +80,7 @@ Host: localhost:44312
 User-Agent: curl/7.55.1
 ```
 
-要改为显示 HTML 格式的响应，请将 `Accept` HTTP 请求头设置为 `text/html` 媒体类型。 例如： 。
+要改为显示 HTML 格式的响应，请将 `Accept` HTTP 请求头设置为 `text/html` 媒体类型。 例如：
 
 ```bash
 curl -i -H "Accept: text/html" https://localhost:5001/weatherforecast/chicago
@@ -127,7 +127,9 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 ::: moniker-end
 
 > [!WARNING]
-> 仅当应用程序在开发环境中运行时才启用开发人员异常页。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
+> 仅当应用程序在开发环境中运行时才启用开发人员异常页。 当应用在生产环境中运行时，请勿公开详细的异常信息。 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
+>
+> 不要使用 HTTP 方法属性（如 `HttpGet`）标记错误处理程序操作方法。 显式谓词可阻止某些请求访问操作方法。 如果未经身份验证的用户应看到错误，则允许匿名访问此方法。
 
 ## <a name="exception-handler"></a>异常处理程序
 
@@ -222,6 +224,8 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
     ::: moniker-end
 
+    前面的代码调用 [ControllerBase](xref:Microsoft.AspNetCore.Mvc.ControllerBase.Problem%2A) 来创建 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 响应。
+
 ## <a name="use-exceptions-to-modify-the-response"></a>使用异常来修改响应
 
 可以从控制器之外修改响应的内容。 在 ASP.NET 4.x Web API 中，执行此操作的一种方法是使用 <xref:System.Web.Http.HttpResponseException> 类型。 ASP.NET Core 不包括等效类型。 可以使用以下步骤来添加对 `HttpResponseException` 的支持：
@@ -234,7 +238,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
     [!code-csharp[](handle-errors/samples/3.x/Filters/HttpResponseExceptionFilter.cs?name=snippet_HttpResponseExceptionFilter)]
 
-    在上述筛选器中，将从最大整数值减去幻数10。 如果减去此数字，将允许其他筛选器在管道的最末尾运行。
+    上述筛选器指定 `Order` 最大整数值减去10的。 这允许其他筛选器在管道结束时运行。
 
 1. 在 `Startup.ConfigureServices` 中，将操作筛选器添加到筛选器集合：
 
@@ -280,7 +284,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
 ## <a name="client-error-response"></a>客户端错误响应
 
-错误结果  定义为具有 HTTP 状态代码 400 或更高的结果。 对于 Web API 控制器，MVC 会将错误结果转换为具有 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。
+错误结果定义为具有 HTTP 状态代码 400 或更高的结果。 对于 Web API 控制器，MVC 会将错误结果转换为具有 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。
 
 ::: moniker range="= aspnetcore-2.1"
 
@@ -337,3 +341,7 @@ public void ConfigureServices(IServiceCollection serviceCollection)
 [!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=9-10)]
 
 ::: moniker-end
+
+## <a name="custom-middleware-to-handle-exceptions"></a>用于处理异常的自定义中间件
+
+异常处理中间件中的默认值适用于大多数应用。 对于需要专用异常处理的应用，请考虑 [自定义异常处理中间件](xref:fundamentals/error-handling#exception-handler-lambda)。

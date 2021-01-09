@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: 91e35a7cbd97e2bd6e77566362f02409915de7d7
-ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
+ms.openlocfilehash: cb9ffab19062bf726dd519c782d502f76e372073
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "96035705"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058280"
 ---
 # <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor ASP.NET Core 的语法参考
 
@@ -399,7 +399,7 @@ Razor 能够用 lock 语句保护关键部分：
 }
 ```
 
-### <a name="comments"></a>注释
+### <a name="comments"></a>说明
 
 Razor 支持 c # 和 HTML 注释：
 
@@ -611,7 +611,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 *此方案仅适用于 Razor ( razor) 的组件。*
 
-`@layout`指令指定组件的布局 Razor 。 布局组件用于避免代码重复和不一致。 有关详细信息，请参阅 <xref:blazor/layouts>。
+`@layout`指令指定 Razor 具有指令的可路由组件的布局 [`@page`](#page) 。 布局组件用于避免代码重复和不一致。 有关详细信息，请参阅 <xref:blazor/layouts>。
 
 ::: moniker-end
 
@@ -662,7 +662,7 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 * Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`。
 * 每个页面都有 `Hello.World`，作为其命名空间的根。
 
-| 页面                                        | 命名空间                             |
+| 页                                        | 命名空间                             |
 | ------------------------------------------- | ------------------------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`                         |
 | Pages/MorePages/Page.cshtml               | `Hello.World.MorePages`               |
@@ -674,7 +674,7 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 
 如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示。
 
-| 页面                                        | 命名空间               |
+| 页                                        | 命名空间               |
 | ------------------------------------------- | ----------------------- |
 | *Pages/Index. cshtml*                        | `Hello.World`           |
 | Pages/MorePages/Page.cshtml               | `Hello.World.MorePages` |
@@ -705,9 +705,9 @@ Razor 公开 `Model` 用于访问传递到视图的模型的属性：
 
 如果设置为 `false` (默认) ，则将在 Razor 以下情况下删除从组件 () 中呈现的标记中的空白 `.razor` ：
 
-* 元素中的前导或结尾。
-* 参数内的前导或结尾 `RenderFragment` 。 例如，传递到另一个组件的子内容。
-* 它位于 c # 代码块之前或之后（如 `@if` 或） `@foreach` 。
+* 元素中的前导或尾随空白。
+* `RenderFragment` 参数中的前导或尾随空白。 例如，传递到另一个组件的子内容。
+* 在 C# 代码块（例如 `@if` 和 `@foreach`）之前或之后。
 
 ::: moniker-end
 
