@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/error-handling
-ms.openlocfilehash: c8174c7e253a596d02dbc6cec183453b3723bc24
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: ad9920ccd830b93d083f3c5ede03702164842b6e
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93060464"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97753109"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -108,15 +108,9 @@ In the preceding code, `await context.Response.WriteAsync(new string(' ', 512));
 
 ## <a name="usestatuscodepages"></a>UseStatusCodePages
 
-默认情况下，ASP.NET Core 应用不会为 HTTP 错误状态代码（如“404 - 未找到”）提供状态代码页。 当应用遇到没有正文的 HTTP 400-499 错误条件时，它将返回状态代码和空响应正文。 若要提供状态代码页，请使用状态代码页中间件。 若要启用常见错误状态代码的默认纯文本处理程序，请在 `Startup.Configure` 方法中调用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A>：
+默认情况下，ASP.NET Core 应用不会为 HTTP 错误状态代码（如“404 - 未找到”）提供状态代码页。 当应用遇到没有正文的 HTTP 400-599 错误状态代码时，它将返回状态代码和空响应正文。 若要提供状态代码页，请使用状态代码页中间件。 若要启用常见错误状态代码的默认纯文本处理程序，请在 `Startup.Configure` 方法中调用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages%2A>：
 
 [!code-csharp[](error-handling/samples/5.x/ErrorHandlingSample/StartupUseStatusCodePages.cs?name=snippet&highlight=13)]
-
-<!-- Review: 
-When you comment out // UseExceptionHandler("/Error");`
-you get a browser dependant error, not the codepage as I expected.
-call /index/2 -> return StatusCode(500); -> you get the codepage 
--->
 
 在请求处理中间件之前调用 `UseStatusCodePages`。 例如，在静态文件中间件和端点中间件之前调用 `UseStatusCodePages`。
 
@@ -133,6 +127,9 @@ Status Code: 404; Not Found
 * 将环境设置为生产环境。
 * 从 Program.cs 中的 `webBuilder.UseStartup<StartupUseStatusCodePages>();` 删除注释。
 * 选择主页上的链接。
+
+> [!NOTE]
+> 状态代码页中间件不捕获异常。 若要提供自定义错误处理页，请使用[异常处理程序页](#exception-handler-page)。
 
 ### <a name="usestatuscodepages-with-format-string"></a>包含格式字符串的 UseStatusCodePages
 

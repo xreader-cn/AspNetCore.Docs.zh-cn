@@ -4,7 +4,7 @@ author: jamesnk
 description: 了解如何使用 .NET gRPC 客户端调用 gRPC 服务。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 07/27/2020
+ms.date: 12/18/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 9322020083ce25b00b2979633ae8a692cfd4da4a
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 39f9b3fde19e31ca970668552e5829308705f513
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93060958"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97699141"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
@@ -201,11 +201,33 @@ await readTask;
 
 双向流式处理调用期间，客户端和服务可在任何时间互相发送消息。 与双向调用交互的最佳客户端逻辑因服务逻辑而异。
 
+## <a name="access-grpc-headers"></a>访问 gRPC 标头
+
+gRPC 调用返回响应头。 HTTP 响应头传递与返回的消息不相关的调用的名称/值元数据。
+
+标头可通过 `ResponseHeadersAsync` 进行访问，它会返回元数据的集合。 标头通常随响应消息一起返回；因此，必须等待它们返回。
+
+```csharp
+var client = new Greet.GreeterClient(channel);
+using var call = client.SayHelloAsync(new HelloRequest { Name = "World" });
+
+var headers = await call.ResponseHeadersAsync;
+var myValue = headers.GetValue("my-trailer-name");
+
+var response = await call.ResponseAsync;
+```
+
+使用 `ResponseHeadersAsync` 时：
+
+* 必须等待 `ResponseHeadersAsync` 的结果才能获取标头集合。
+* 无需在 `ResponseAsync`（或流式处理时的响应流）之前访问。 如果已返回响应，则 `ResponseHeadersAsync` 立即返回标头。
+* 如果存在连接或服务器错误，并且 gRPC 调用未返回标头，将引发异常。
+
 ## <a name="access-grpc-trailers"></a>访问 gRPC 尾部
 
-gRPC 调用可能会返回 gRPC 尾部。 gRPC 尾部用于提供有关调用的名称/值元数据。 尾部提供与 HTTP 头相似的功能，但在调用结尾获得。
+gRPC 调用可能会返回响应尾部。 尾部用于提供有关调用的名称/值元数据。 尾部提供与 HTTP 头相似的功能，但在调用结尾获得。
 
-gRPC 尾部可通过 `GetTrailers()` 进行访问，它会返回元数据的集合。 尾部是在响应完成后返回的，因此你必须等待收到所有响应消息，然后才能访问尾部。
+尾部可通过 `GetTrailers()` 进行访问，它会返回元数据的集合。 在响应完成后，会返回尾部。 因此，在访问尾部之前，必须等待所有响应消息。
 
 一元和客户端流式调用必须等待出现 `ResponseAsync` 后才能调用 `GetTrailers()`：
 
@@ -237,7 +259,7 @@ var trailers = call.GetTrailers();
 var myValue = trailers.GetValue("my-trailer-name");
 ```
 
-gRPC 尾部也可通过 `RpcException` 进行访问。 服务可能会同时返回尾部和“异常”gRPC 状态。 在这种情况下，尾部是从 gRPC 客户端引起的异常中检索得到的：
+尾部也可通过 `RpcException` 进行访问。 服务可能会同时返回尾部和“异常”gRPC 状态。 在这种情况下，尾部是从 gRPC 客户端引起的异常中检索得到的：
 
 ```csharp
 var client = new Greet.GreeterClient(channel);

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 62fc9d866adcf05ff024501db68cce8bb8b11a98
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 199ca62f71df5c0ee5ca2f78caf53ad8d6be1179
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059710"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97854556"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
@@ -141,9 +141,9 @@ ASP.NET Core 2.1 引入了新的 `IHttpClientFactory` 服务，方便在应用�
 
 有关详细信息，请参阅[启动 HTTP 请求](xref:fundamentals/http-requests)。
 
-## <a name="kestrel-transport-configuration"></a>Kestrel 传输配置
+## <a name="kestrel-libuv-transport-configuration"></a>Kestrel libuv 传输配置
 
-对于 ASP.NET Core 2.1 版，Kestrel 默认传输不再基于 Libuv，而是基于托管的套接字。 有关详细信息，请参阅 [Kestrel Web 服务器实现：传输配置](xref:fundamentals/servers/kestrel#transport-configuration)。
+对于 ASP.NET Core 2.1 版，Kestrel 默认传输不再基于 Libuv，而是基于托管的套接字。 有关详细信息，请参阅 [Kestrel Web 服务器实现：Libuv 传输配置](xref:fundamentals/servers/kestrel#libuv-transport-configuration)。
 
 ## <a name="generic-host-builder"></a>通用主机生成器
 

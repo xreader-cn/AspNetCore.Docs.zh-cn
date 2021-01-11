@@ -5,7 +5,7 @@ description: 了解 Blazor 应用如何将服务注入组件。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/11/2020
+ms.date: 12/19/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/fundamentals/dependency-injection
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: af6b645fc3c398414c85c78e1cfeb213e538c2a6
-ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
+ms.openlocfilehash: 3f2b4eff5422acbec80b2fd9b801101271cc3f75
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/15/2020
-ms.locfileid: "97506794"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97808720"
 ---
 # <a name="aspnet-core-no-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -98,7 +98,7 @@ public void ConfigureServices(IServiceCollection services)
 
 | 生存期 | 描述 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | <p>Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。</p><p>Blazor Server 托管模型在 HTTP 请求中支持 `Scoped` 生存期，但在客户端上加载的组件中的 SingalR 连接/线路消息中则不支持。 在页面或视图之间或从页面或视图导航到组件时，应用的 Razor 页面或 MVC 部分会正常处理作用域服务并在每个 HTTP 请求上重新创建服务。 在客户端上的组件间导航时，作用域服务不会重建，其中与服务器之间的通信通过用户线路的 SignalR 连接进行，而不是通过 HTTP 请求进行。 在客户端上的以下组件方案中，将重建作用域服务，因为为用户创建了新线路：</p><ul><li>用户关闭了浏览器窗口。 用户打开了一个新窗口，并向后导航到该应用。</li><li>用户在浏览器窗口中关闭应用的最后一个选项卡。 用户打开了一个新的选项卡，并向后导航到该应用。</li><li>用户选择浏览器的重新加载/刷新按钮。</li></ul><p>若要详细了解如何在 Blazor Server 应用中跨作用域服务保留用户状态，请参阅 <xref:blazor/hosting-models?pivots=server>。</p> |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | <p>Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。</p><p>Blazor Server 托管模型在 HTTP 请求中支持 `Scoped` 生存期，但在客户端上加载的组件中的 SignalR 连接/线路消息中则不支持。 在页面或视图之间或从页面或视图导航到组件时，应用的 Razor 页面或 MVC 部分会正常处理作用域服务并在每个 HTTP 请求上重新创建服务。 在客户端上的组件间导航时，作用域服务不会重建，其中与服务器之间的通信通过用户线路的 SignalR 连接进行，而不是通过 HTTP 请求进行。 在客户端上的以下组件方案中，将重建作用域服务，因为为用户创建了新线路：</p><ul><li>用户关闭了浏览器窗口。 用户打开了一个新窗口，并向后导航到该应用。</li><li>用户在浏览器窗口中关闭应用的最后一个选项卡。 用户打开了一个新的选项卡，并向后导航到该应用。</li><li>用户选择浏览器的重新加载/刷新按钮。</li></ul><p>若要详细了解如何在 Blazor Server 应用中跨作用域服务保留用户状态，请参阅 <xref:blazor/hosting-models?pivots=server>。</p> |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI 创建服务的单个实例。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例。 |
 
@@ -106,7 +106,7 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 
 
 ## <a name="request-a-service-in-a-component"></a>在组件中请求服务
 
-将服务添加到服务集合后，使用 [\@inject](xref:mvc/views/razor#inject) Razor 指令将服务注入组件。 [`@inject`](xref:mvc/views/razor#inject) 有两个参数：
+将服务添加到服务集合后，使用 [`@inject`](xref:mvc/views/razor#inject) Razor 指令将服务注入组件，该指令具有两个参数：
 
 * 类型：要注入的服务的类型。
 * 属性：接收注入的应用服务的属性的名称。 属性无需手动创建。 编译器会创建属性。
@@ -192,8 +192,6 @@ public class DataAccess : IDataAccess
 
 有关详细信息，请参阅 <xref:blazor/blazor-server-ef-core>。
 
-::: moniker range="< aspnetcore-5.0"
-
 ## <a name="detect-transient-disposables"></a>检测暂时性可释放对象
 
 下面的示例演示如何在应使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 的应用中检测可释放的暂时性服务。 有关详细信息，请参阅[用于管理 DI 范围的实用工具基组件类](#utility-base-component-classes-to-manage-a-di-scope)部分。
@@ -206,17 +204,17 @@ public class DataAccess : IDataAccess
 
 在以下示例中检测到 `TransientDisposable` (`Program.cs`)：
 
-<!-- moniker range=">= aspnetcore-5.0"
+::: moniker range=">= aspnetcore-5.0"
 
 [!code-csharp[](dependency-injection/samples_snapshot/5.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-wasm-program.cs?highlight=6,9,17,22-25)]
 
-moniker-end 
+::: moniker-end 
 
-moniker range="< aspnetcore-5.0" -->
+::: moniker range="< aspnetcore-5.0"
 
 [!code-csharp[](dependency-injection/samples_snapshot/3.x/transient-disposables/DetectIncorrectUsagesOfTransientDisposables-wasm-program.cs?highlight=6,9,17,22-25)]
 
-<!-- moniker-end -->
+::: moniker-end
 
 ::: zone-end
 
@@ -242,7 +240,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 ::: zone-end
 
-::: moniker-end
+应用可以注册暂时性可释放对象，而不会引发异常。 不过，这会尝试在 <xref:System.InvalidOperationException> 中解析暂时性可释放对象结果，如以下示例所示。
+
+`Pages/TransientDisposable.razor`:
+
+```razor
+@page "/transient-disposable"
+@inject TransientDisposable TransientDisposable
+
+<h1>Transient Disposable Detection</h1>
+```
+
+导航到 `/transient-disposable` 中的 `TransientDisposable` 组件，并在框架尝试构造 `TransientDisposable` 的实例时引发 <xref:System.InvalidOperationException>：
+
+> System.InvalidOperationException：尝试解析错误范围内的暂时性可释放服务 TransientDisposable。 为尝试解析的服务“T”使用“OwningComponentBase\<T>”组件基类。
 
 ## <a name="additional-resources"></a>其他资源
 

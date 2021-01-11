@@ -1,4 +1,4 @@
-如果尚未 `dotnet ef` 安装，请将其安装为全局工具：
+如果尚未安装 `dotnet ef`，请安装它作为全局工具：
 
 ```dotnetcli
   dotnet tool install --global dotnet-ef

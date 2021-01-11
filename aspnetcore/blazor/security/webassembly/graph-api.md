@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/graph-api
-ms.openlocfilehash: 128ba34b1e2a9f8cc2986a8f1cb3fb8beba83b21
-ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
+ms.openlocfilehash: 58c201d6d1172c1ff82521589f988e33d5c984ae
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/08/2020
-ms.locfileid: "96855386"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97854491"
 ---
 # <a name="use-graph-api-with-aspnet-core-no-locblazor-webassembly"></a>将 Graph API 和 ASP.NET Core Blazor WebAssembly 结合使用
 
@@ -107,7 +107,7 @@ internal static class GraphClientExtensions
             var result = await TokenProvider.RequestAccessToken(
                 new AccessTokenRequestOptions()
                 {
-                    Scopes = {STRING ARRAY OF SCOPES}
+                    Scopes = new[] { "{SCOPE 1}", "{SCOPE 2}", ... "{SCOPE X}" }
                 });
 
             if (result.TryGetToken(out var token))
@@ -150,7 +150,7 @@ internal static class GraphClientExtensions
 }
 ```
 
-上面代码中的占位符 `{STRING ARRAY OF SCOPES}` 是允许范围的字符串数组。 例如，将 `Scopes` 设置为本文以下部分各示例的 `User.Read` 范围：
+前面代码中的范围占位符 `"{SCOPE 1}", "{SCOPE 2}", ... "{SCOPE X}"` 表示一个或多个允许的范围。 例如，将 `Scopes` 设置为本文以下部分各示例的任一 `User.Read` 范围的字符串数组：
 
 ```csharp
 Scopes = new[] { "https://graph.microsoft.com/User.Read" }
@@ -159,10 +159,10 @@ Scopes = new[] { "https://graph.microsoft.com/User.Read" }
 在 `Program.Main` (`Program.cs`) 中，使用 `AddGraphClient` 扩展方法添加 Graph 客户端服务和配置：
 
 ```csharp
-builder.Services.AddGraphClient({STRING ARRAY OF SCOPES});
+builder.Services.AddGraphClient("{SCOPE 1}", "{SCOPE 2}", ... "{SCOPE X}");
 ```
 
-上面代码中的占位符 `{STRING ARRAY OF SCOPES}` 是允许范围的字符串数组。 例如，将 `User.Read` 范围传递到本文以下部分各示例的 `AddGraphClient`：
+前面代码中的范围占位符 `"{SCOPE 1}", "{SCOPE 2}", ... "{SCOPE X}"` 表示一个或多个允许的范围。 例如，将 `User.Read` 范围传递到本文以下部分各示例的 `AddGraphClient`：
 
 ```csharp
 builder.Services.AddGraphClient("https://graph.microsoft.com/User.Read");

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 5983cbc1e0256f7cf8e85fb07f9ba1bbc1bf08db
-ms.sourcegitcommit: c321518bfe367280ef262aecaada287f17fe1bc5
+ms.openlocfilehash: 55289dd7048c08ac61432c7cc062e74d2e69ee24
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/10/2020
-ms.locfileid: "97011866"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97753122"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -135,9 +135,17 @@ dotnet publish -p:BlazorEnableCompression=false
 
 ### <a name="app-configuration"></a>应用配置
 
-若要配置托管的 Blazor 解决方案以处理多个 Blazor WebAssembly 应用，请执行以下操作：
+托管的 Blazor 解决方案可为多个 Blazor WebAssembly 应用提供服务。
 
-* 使用现有的托管 Blazor 解决方案，或者从 Blazor 托管的项目模板创建一个新解决方案。
+> [!NOTE]
+> 本节中的示例引用 Visual Studio 解决方案的用法，但多个客户端应用在托管的 Blazor WebAssembly 程序方案中运行时，不需要使用 Visual Studio 和 Visual Studio 解决方案。 如果你未在使用 Visual Studio，则忽略 `{SOLUTION NAME}.sln` 文件以及为 Visual Studio 创建的任何其他文件。
+
+如下示例中：
+
+* 初始（第一个）客户端应用是通过 Blazor WebAssembly 项目模板创建的解决方案的默认客户端项目。 第一个客户端应用可在浏览器中通过端口 5001 上或主机为 `firstapp.com` 的 URL `/FirstApp` 访问。
+* 向解决方案添加第二个客户端应用：`SecondBlazorApp.Client`。 第二个客户端应用可在浏览器中通过端口 5002 上或主机为 `secondapp.com` 的 URL `/SecondApp` 访问。
+
+使用现有的托管 Blazor 解决方案，或者从 Blazor 托管的项目模板创建一个新解决方案：
 
 * 在客户端应用的项目文件中，在 `<PropertyGroup>` 中添加一个值为 `FirstApp` 的 `<StaticWebAssetBasePath>` 属性，以设置项目静态资产的基路径：
 
@@ -150,9 +158,19 @@ dotnet publish -p:BlazorEnableCompression=false
 
 * 向解决方案添加第二个客户端应用：
 
-  * 向解决方案的文件夹添加一个名为 `SecondClient` 的文件夹。
+  * 向解决方案的文件夹添加一个名为 `SecondClient` 的文件夹。 在添加 `SecondClient` 文件夹后，通过项目模板创建的解决方案文件夹包含以下解决方案文件和文件夹：
+  
+    * `Client`（文件夹）
+    * `SecondClient`（文件夹）
+    * `Server`（文件夹）
+    * `Shared`（文件夹）
+    * `{SOLUTION NAME}.sln`（文件）
+    
+    占位符 `{SOLUTION NAME}` 是解决方案的名称。
+
   * 在 Blazor WebAssembly 项目模板的 `SecondClient` 文件夹中创建一个名为 `SecondBlazorApp.Client` 的 Blazor WebAssembly 应用。
-  * 在应用的项目文件中，执行以下操作：
+
+  * 在 `SecondBlazorApp.Client` 应用的项目文件中，执行以下操作：
 
     * 向 `<PropertyGroup>` 添加一个值为 `SecondApp` 的 `<StaticWebAssetBasePath>` 属性：
 
@@ -173,14 +191,17 @@ dotnet publish -p:BlazorEnableCompression=false
 
       占位符 `{SOLUTION NAME}` 是解决方案的名称。
 
-* 在服务器应用的项目文件中，为新增的客户端应用创建一个项目引用：
+* 在服务器应用的项目文件中，为新增的 `SecondBlazorApp.Client` 客户端应用创建一个项目引用：
 
   ```xml
   <ItemGroup>
-    ...
+    <ProjectReference Include="..\Client\{SOLUTION NAME}.Client.csproj" />
     <ProjectReference Include="..\SecondClient\SecondBlazorApp.Client.csproj" />
+    <ProjectReference Include="..\Shared\{SOLUTION NAME}.Shared.csproj" />
   </ItemGroup>
   ```
+  
+  占位符 `{SOLUTION NAME}` 是解决方案的名称。
 
 * 在服务器应用的 `Properties/launchSettings.json` 文件中，配置 Kestrel 配置文件 (`{SOLUTION NAME}.Server`) 的 `applicationUrl`，以访问位于端口 5001 和 5002 的客户端应用：
 

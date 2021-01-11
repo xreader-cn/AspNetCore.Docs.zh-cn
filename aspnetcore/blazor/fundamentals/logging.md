@@ -5,7 +5,7 @@ description: 了解 Blazor 应用中的日志记录，包括日志级别配置�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/11/2020
+ms.date: 12/16/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/fundamentals/logging
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 78117fa6e9c7d5aed3fb31bbd3afee55b3b5b875
-ms.sourcegitcommit: 6b87f2e064cea02e65dacd206394b44f5c604282
+ms.openlocfilehash: 10c96bd2d0cc64f3bd035e7079b0996eb5768595
+ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/15/2020
-ms.locfileid: "97506703"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97666828"
 ---
 # <a name="aspnet-core-no-locblazor-logging"></a>ASP.NET Core Blazor 日志记录
 
@@ -55,6 +55,9 @@ builder.Logging.AddProvider(new CustomLoggingProvider());
 ## <a name="no-locsignalr-net-client-logging"></a>SignalR .NET 客户端日志记录
 
 注入 <xref:Microsoft.Extensions.Logging.ILoggerProvider>，将 `WebAssemblyConsoleLogger` 添加到传递给 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder> 的日志记录提供程序。 与传统的 <xref:Microsoft.Extensions.Logging.Console.ConsoleLogger> 不同，`WebAssemblyConsoleLogger` 是特定于浏览器的日志记录 API（例如，`console.log`）的包装器。 使用 `WebAssemblyConsoleLogger` 可以在浏览器上下文内的 Mono 中进行日志记录。
+
+> [!NOTE]
+> `WebAssemblyConsoleLogger` 是[内部](/dotnet/csharp/language-reference/keywords/internal)包装器，不能在开发人员代码中直接使用。
 
 为 <xref:Microsoft.Extensions.Logging?displayProperty=fullName> 添加命名空间，并将 <xref:Microsoft.Extensions.Logging.ILoggerProvider> 注入到组件中：
 
