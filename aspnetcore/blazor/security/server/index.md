@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 108fb3a8a24295cad43fd8c83303abd95a7ecd33
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: aa24def1a003a2c2608691e6168066c740f47205
+ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055472"
+ms.lasthandoff: 01/08/2021
+ms.locfileid: "98024621"
 ---
 # <a name="secure-aspnet-core-no-locblazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
 
@@ -45,7 +45,7 @@ Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。 有关�
 此时将打开一个对话框，为其他 ASP.NET Core 项目提供一组相同的身份验证机制：
 
 * **无身份验证**
-* **个人用户帐户** ：可存储用户帐户：
+* **个人用户帐户**：可存储用户帐户：
   * 在使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统的应用中存储。
   * 使用 [Azure AD B2C](xref:security/authentication/azure-ad-b2c) 存储。
 * **工作或学校帐户**
@@ -131,3 +131,6 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 * [快速入门：将 Microsoft 登录添加到 ASP.NET Core Web 应用](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp)
 * [快速入门：使用 Microsoft 标识平台保护 ASP.NET Core Web API](/azure/active-directory/develop/quickstart-v2-aspnet-core-web-api)
+* <xref:host-and-deploy/proxy-load-balancer>：包含有关以下内容的指导：
+  * 使用转接头中间件跨代理服务器和内部网络保留 HTTPS 方案信息。
+  * 其他方案和用例，包括手动方案配置、请求路径更改以进行正确请求路由，以及转发适用于 Linux 和非 IIS 反向代理的请求方案。

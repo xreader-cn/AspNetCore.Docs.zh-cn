@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: fc6fa075faa4fed1c2bf938d82c4dbfe631c31d3
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: c4d1095d3c3b457ca4d94cb1a573c3dc49548ff3
+ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93055062"
+ms.lasthandoff: 01/08/2021
+ms.locfileid: "98024634"
 ---
 # <a name="secure-aspnet-core-no-locblazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
@@ -138,3 +138,9 @@ Blazor WebAssembly 中的身份验证支持建立在 `oidc-client.js` 库的基�
 有关进一步的配置指南，请参阅 <xref:blazor/security/webassembly/additional-scenarios>。
 
 ::: moniker-end
+
+## <a name="additional-resources"></a>其他资源
+
+* <xref:host-and-deploy/proxy-load-balancer>：包含有关以下内容的指导：
+  * 使用转接头中间件跨代理服务器和内部网络保留 HTTPS 方案信息。
+  * 其他方案和用例，包括手动方案配置、请求路径更改以进行正确请求路由，以及转发适用于 Linux 和非 IIS 反向代理的请求方案。
