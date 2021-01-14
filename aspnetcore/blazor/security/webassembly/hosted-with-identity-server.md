@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 80196945bc6891d5517d7da0e07ca1b0debddd28
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: fdd7eb3c4a3b07022760a43cbde80838bfaf7c84
+ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97854675"
+ms.lasthandoff: 01/08/2021
+ms.locfileid: "98024790"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-no-locidentity-server"></a>使用 Identity 服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -575,3 +575,6 @@ Get-ChildItem -path Cert:\CurrentUser\My -Recurse | Format-List DnsNameList, Sub
 * [导入来自 Key Vault 的证书（Azure 文档）](/azure/app-service/configure-ssl-certificate#import-a-certificate-from-key-vault)
 * <xref:blazor/security/webassembly/additional-scenarios>
 * [使用安全默认客户端的应用中未经身份验证或未经授权的 Web API 请求](xref:blazor/security/webassembly/additional-scenarios#unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client)
+* <xref:host-and-deploy/proxy-load-balancer>：包含有关以下内容的指导：
+  * 使用转接头中间件跨代理服务器和内部网络保留 HTTPS 方案信息。
+  * 其他方案和用例，包括手动方案配置、请求路径更改以进行正确请求路由，以及转发适用于 Linux 和非 IIS 反向代理的请求方案。

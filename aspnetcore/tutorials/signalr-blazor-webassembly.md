@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: b2f58fb29e451628aead4ad35c7272a1409cf3d8
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 2f5630eac65b880bdefff2a4baf4f1878e981536
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97797348"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058384"
 ---
 # <a name="use-aspnet-core-no-locsignalr-with-a-hosted-no-locblazor-webassembly-app"></a>将 ASP.NET Core SignalR 与承载的 Blazor WebAssembly 应用一起使用
 
@@ -360,26 +360,6 @@ dotnet add Server package System.Text.Encodings.Web
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-::: moniker range=">= aspnetcore-5.0"
-
-1. 当 VS Code 主动为服务器应用创建一个启动配置文件 (`.vscode/launch.json`) 时，`program` 条目如下所示，它指向应用的程序集 (`{APPLICATION NAME}.Server.dll`)：
-
-   ```json
-   "program": "${workspaceFolder}/Server/bin/Debug/net5.0/{APPLICATION NAME}.Server.dll"
-   ```
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-5.0"
-
-1. 当 VS Code 主动为服务器应用创建一个启动配置文件 (`.vscode/launch.json`) 时，`program` 条目如下所示，它指向应用的程序集 (`{APPLICATION NAME}.Server.dll`)：
-
-   ```json
-   "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/{APPLICATION NAME}.Server.dll"
-   ```
-
-::: moniker-end
-
 1. 按 <kbd>F5</kbd> 来运行应用并进行调试，或者按 <kbd>Ctrl</kbd>+<kbd>F5</kbd> 来运行应用但不调试。
 
 1. 从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。
@@ -442,3 +422,4 @@ dotnet add Server package System.Text.Encodings.Web
 
 * <xref:signalr/introduction>
 * [SignalR 用于身份验证的跨源协商](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)
+* <xref:blazor/debug>
