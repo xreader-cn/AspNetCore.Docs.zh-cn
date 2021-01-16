@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: a27fdd70963830d22b3501972d6150dde5e1ea54
-ms.sourcegitcommit: fe2e3174c34bee1e425c6e52dd8f663fe52b8756
+ms.openlocfilehash: 49e299ed00ea0e5d54c1ba795971da379cd5b695
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/26/2020
-ms.locfileid: "96174592"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253132"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -176,7 +176,30 @@ ASP.NET Core 随附 [Kestrel 服务器](xref:fundamentals/servers/kestrel)，这
 
 以下部署方案中的 ASP.NET Core 支持 [HTTP/2](https://httpwg.org/specs/rfc7540.html)：
 
-::: moniker range=">= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-5.0"
+
+* [Kestrel](xref:fundamentals/servers/kestrel/http2)
+  * 操作系统
+    * Windows Server 2016/Windows 10 或更高版本&dagger;
+    * 具有 OpenSSL 1.0.2 或更高版本的 Linux（例如，Ubuntu 16.04 或更高版本）
+    * macOS 的未来版本将支持 HTTP/2。
+  * 目标框架：.NET Core 2.2 或更高版本
+* [HTTP.sys](xref:fundamentals/servers/httpsys#http2-support)
+  * Windows Server 2016/Windows 10 或更高版本
+  * 目标框架：不适用于 HTTP.sys 部署。
+* [IIS（进程内）](xref:host-and-deploy/iis/index#http2-support)
+  * Windows Server 2016/Windows 10 或更高版本；IIS 10 或更高版本
+  * 目标框架：.NET Core 2.2 或更高版本
+* [IIS（进程外）](xref:host-and-deploy/iis/index#http2-support)
+  * Windows Server 2016/Windows 10 或更高版本；IIS 10 或更高版本
+  * 面向公众的边缘服务器连接使用 HTTP/2，但与 Kestrel 的反向代理连接使用 HTTP/1.1。
+  * 目标框架：不适用于 IIS 进程外部署。
+
+&dagger;Kestrel 在 Windows Server 2012 R2 和 Windows 8.1 上对 HTTP/2 的支持有限。 支持受限是因为可在这些操作系统上使用的受支持 TLS 密码套件列表有限。 可能需要使用椭圆曲线数字签名算法 (ECDSA) 生成的证书来保护 TLS 连接。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2 < aspnetcore-5.0"
 
 * [Kestrel](xref:fundamentals/servers/kestrel#http2-support)
   * 操作系统

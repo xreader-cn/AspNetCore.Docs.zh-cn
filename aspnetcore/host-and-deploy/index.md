@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/index
-ms.openlocfilehash: 4f3d4c29a189cf6aa14eb10f570f0b35d8ff9abc
-ms.sourcegitcommit: 92439194682dc788b8b5b3a08bd2184dc00e200b
+ms.openlocfilehash: 05d04a9c95910c805ea28578aba21a0658dd779a
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2020
-ms.locfileid: "96556614"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252963"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>托管和部署 ASP.NET Core
 
@@ -74,7 +74,17 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 如果应用使用 [Kestrel](xref:fundamentals/servers/kestrel) 服务器，[Nginx](xref:host-and-deploy/linux-nginx)、[Apache](xref:host-and-deploy/linux-apache) 或 [IIS](xref:host-and-deploy/iis/index) 可用作反向代理服务器。 反向代理服务器接收来自 Internet 的 HTTP 请求，并将这些请求转发到 Kestrel。
 
+::: moniker-end 
+
+::: moniker range=">= aspnetcore-5.0"
+无论配置是否使用反向代理服务器，都是受支持的托管配置。 有关详细信息，请参阅[何时结合使用 Kestrel 和反向代理](xref:fundamentals/servers/kestrel/when-to-use-a-reverse-proxy)。
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2 < aspnetcore-5.0"
 无论配置是否使用反向代理服务器，都是受支持的托管配置。 有关详细信息，请参阅[何时结合使用 Kestrel 和反向代理](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy)。
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>代理服务器和负载均衡器方案
 
