@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 83525a4c1e87a60b57130c1bba14360c7d03f552
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 71f05163c075a2ef88d5c606814925cdcef879d2
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061374"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253041"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -48,7 +48,7 @@ ms.locfileid: "93061374"
 
 如果身份验证失败，此处理程序将 `403 (Forbidden)` `401 (Unauthorized)` 像你所料，返回响应，而不是。 原因是，在初次 TLS 连接期间应进行身份验证。 当它到达处理程序时，它的时间太晚。 无法将连接从匿名连接升级到证书。
 
-还会 `app.UseAuthentication();` 在方法中添加 `Startup.Configure` 。 否则， `HttpContext.User` 将不会设置为 `ClaimsPrincipal` 从证书创建。 例如： 。
+还会 `app.UseAuthentication();` 在方法中添加 `Startup.Configure` 。 否则， `HttpContext.User` 将不会设置为 `ClaimsPrincipal` 从证书创建。 例如：
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -152,37 +152,37 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
   * 确定你的服务是否知道该证书。
   * 构造自己的主体。 请看下面 `Startup.ConfigureServices` 中的示例：
 
-```csharp
-services.AddAuthentication(
-    CertificateAuthenticationDefaults.AuthenticationScheme)
-    .AddCertificate(options =>
-    {
-        options.Events = new CertificateAuthenticationEvents
+    ```csharp
+    services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+        .AddCertificate(options =>
         {
-            OnCertificateValidated = context =>
+            options.Events = new CertificateAuthenticationEvents
             {
-                var claims = new[]
+                OnCertificateValidated = context =>
                 {
-                    new Claim(
-                        ClaimTypes.NameIdentifier, 
-                        context.ClientCertificate.Subject,
-                        ClaimValueTypes.String, 
-                        context.Options.ClaimsIssuer),
-                    new Claim(ClaimTypes.Name,
-                        context.ClientCertificate.Subject,
-                        ClaimValueTypes.String, 
-                        context.Options.ClaimsIssuer)
-                };
-
-                context.Principal = new ClaimsPrincipal(
-                    new ClaimsIdentity(claims, context.Scheme.Name));
-                context.Success();
-
-                return Task.CompletedTask;
-            }
-        };
-    });
-```
+                    var claims = new[]
+                    {
+                        new Claim(
+                            ClaimTypes.NameIdentifier, 
+                            context.ClientCertificate.Subject,
+                            ClaimValueTypes.String, 
+                            context.Options.ClaimsIssuer),
+                        new Claim(ClaimTypes.Name,
+                            context.ClientCertificate.Subject,
+                            ClaimValueTypes.String, 
+                            context.Options.ClaimsIssuer)
+                    };
+    
+                    context.Principal = new ClaimsPrincipal(
+                        new ClaimsIdentity(claims, context.Scheme.Name));
+                    context.Success();
+    
+                    return Task.CompletedTask;
+                }
+            };
+        });
+    ```
 
 如果发现入站证书不符合额外的验证，请调用 `context.Fail("failure reason")` 失败原因。
 
@@ -267,8 +267,8 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 在 IIS 管理器中完成以下步骤：
 
 1. 从 " **连接** " 选项卡中选择你的站点。
-1. 双击 " **功能视图** " 窗口中的 " **SSL 设置** " 选项。
-1. 选中 " **需要 SSL** " 复选框，并选择 " **客户端证书** " 部分中的 " **要求** " 单选按钮。
+1. 双击 "**功能视图**" 窗口中的 " **SSL 设置**" 选项。
+1. 选中 "**需要 SSL** " 复选框，并选择 "**客户端证书**" 部分中的 "**要求**" 单选按钮。
 
 ![IIS 中的客户端证书设置](README-IISConfig.png)
 
@@ -301,7 +301,7 @@ public void ConfigureServices(IServiceCollection services)
         options.HeaderConverter = (headerValue) =>
         {
             X509Certificate2 clientCertificate = null;
-        
+
             if(!string.IsNullOrWhiteSpace(headerValue))
             {
                 byte[] bytes = StringToByteArray(headerValue);
@@ -618,7 +618,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-默认的缓存实现将结果存储在内存中。 可以通过实现 `ICertificateValidationCache` 并将其注册到依赖关系注入来提供自己的缓存。 例如 `services.AddSingleton<ICertificateValidationCache, YourCache>()`。
+默认的缓存实现将结果存储在内存中。 可以通过实现 `ICertificateValidationCache` 并将其注册到依赖关系注入来提供自己的缓存。 例如，`services.AddSingleton<ICertificateValidationCache, YourCache>()`。
 
 ::: moniker-end
 
@@ -638,9 +638,27 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
 
 以下方法支持可选的客户端证书：
 
+::: moniker range=">= aspnetcore-5.0"
+
 * 设置域和子域的绑定：
   * 例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。 `contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。
-  * 有关详细信息，请参阅：
+  * 有关详细信息，请参见:
+    * [Kestrel](/fundamentals/servers/kestrel)：
+      * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel/endpoints#listenoptionsusehttps)
+      * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
+      * 请注意，Kestrel 目前不支持在一个绑定上支持多个 TLS 配置，需要两个具有唯一 Ip 或端口的绑定。 请参见https://github.com/dotnet/runtime/issues/31097
+    * IIS
+      * [承载 IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
+      * [配置 IIS 上的安全性](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
+    * Http.Sys： [配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+* 设置域和子域的绑定：
+  * 例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。 `contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。
+  * 有关详细信息，请参见:
     * [Kestrel](/fundamentals/servers/kestrel)：
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
@@ -649,6 +667,9 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
       * [承载 IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
       * [配置 IIS 上的安全性](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
     * Http.Sys： [配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
+
+::: moniker-end
+
 * 对于需要客户端证书且没有客户端证书的 web 应用的请求：
   * 使用客户端证书保护的子域重定向到同一页面。
   * 例如，重定向到 `myClient.contoso.com/requestedPage` 。 由于与的请求 `myClient.contoso.com/requestedPage` 不同于的主机名 `contoso.com/requestedPage` ，因此客户端会建立一个不同的连接，并提供客户端证书。

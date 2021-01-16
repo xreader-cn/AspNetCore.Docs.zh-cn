@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: a163c87fdb9a02c1b074ab32c19c11932c66cfd4
-ms.sourcegitcommit: 04a404a9655c59ad1ea02aff5d399ae1b833ad6a
+ms.openlocfilehash: 44c507fb5e0ff4477a84bfc1e4d0c62180c8dd37
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/03/2021
-ms.locfileid: "97854530"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252833"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -430,11 +430,11 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了 `[Route]` 上述代码中的属性：
 
-| 属性               | 结合 `[Route("Home")]` | 定义路由模板 |
+| 特性               | 结合 `[Route("Home")]` | 定义路由模板 |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | 是 | `"Home"` |
 | `[Route("Index")]` | 是 | `"Home/Index"` |
-| `[Route("/")]` | **否** | `""` |
+| `[Route("/")]` | 否 | `""` |
 | `[Route("About")]` | 是 | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
@@ -570,7 +570,7 @@ AmbiguousMatchException: The request matched multiple endpoints. Matches:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet8&highlight=3)]
 
-在上面的代码中， `[HttpPost("product/{id:int}")]` 应用路由约束。 此 `ProductsController.ShowProduct` 操作仅由类似的 URL 路径进行匹配 `/product/3` 。 路由模板部分 `{id:int}` 仅限制整数。
+在上面的代码中， `[HttpPost("product14/{id:int}")]` 应用路由约束。 此 `Products14Controller.ShowProduct` 操作仅由类似的 URL 路径进行匹配 `/product14/3` 。 路由模板部分 `{id:int}` 仅限制整数。
 
 有关路由模板语法的详细说明，请参阅[路由模板参考](xref:fundamentals/routing#route-template-reference)。
 
@@ -720,7 +720,7 @@ result: /UrlGeneration/Destination
 
 你可能希望在默认路由中遇到此问题 `{controller}/{action}/{id?}` 。 此问题在实践中很罕见，因为 `Url.Action` 始终显式指定 `controller` 和 `action` 值。
 
-多个 [Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) 采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如，`Url.Action("Buy", "Products", new { id = 17 })` 。 路由值对象：
+多个 [Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) 采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如，`Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
 
 * 按约定通常是匿名类型的对象。
 * 可以是 `IDictionary<>` 或 [POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)) 。
@@ -791,7 +791,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 <a name="routing-areas-ref-label"></a>
 
-## <a name="areas"></a>Areas
+## <a name="areas"></a>地区
 
 [区域](xref:mvc/controllers/areas) 是一项 MVC 功能，用于将相关功能作为一个单独的组组织到一个组中：
 
@@ -1522,7 +1522,7 @@ app.UseMvc(routes =>
 
 <a name="routing-areas-ref-label"></a>
 
-## <a name="areas"></a>Areas
+## <a name="areas"></a>地区
 
 [区域](areas.md)是一种 MVC 功能，用于将相关功能整理到一个组中，作为单独的路由命名空间（用于控制器操作）和文件夹结构（用于视图）。 通过使用区域，应用程序可以有多个名称相同的控制器，只要它们具有不同的 *区域*。 通过向 `controller` 和 `action` 添加另一个路由参数 `area`，可使用区域为路由创建层次结构。 此部分将讨论路由如何与区域交互；有关如何将区域与视图结合使用的详细信息，请参阅[区域](areas.md)。
 

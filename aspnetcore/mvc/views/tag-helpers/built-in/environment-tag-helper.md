@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-ms.openlocfilehash: 4f8330521bb9114f6639c1889cc15ebd18adc0ed
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: d63364b0c052ba7f9e745e1ad829b8d1ca9122d2
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061127"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253119"
 ---
 # <a name="environment-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的环境标记帮助程序
 
@@ -39,13 +39,13 @@ ms.locfileid: "93061127"
 
 `names` 采用单个宿主环境名称或以逗号分隔的宿主环境名称列表，用于触发已包含内容的呈现。
 
-将环境值与 [ IHostingEnvironment.EnvironmentName ](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName*) 返回的当前值进行比较。 比较不区分大小写。
+将环境值与 [IWebHostEnvironment](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName*)返回的当前值进行比较。 比较不区分大小写。
 
 下面的示例使用图像标记帮助程序。 如果宿主环境是暂存或生产，则呈现内容：
 
 ```cshtml
 <environment names="Staging,Production">
-    <strong>HostingEnvironment.EnvironmentName is Staging or Production</strong>
+    <strong>IWebHostEnvironment.EnvironmentName is Staging or Production</strong>
 </environment>
 ```
 
@@ -57,11 +57,11 @@ ms.locfileid: "93061127"
 
 ### <a name="include"></a>include
 
-`include` 属性表现出与 `names` 属性相似的行为。 `include` 属性值中列出的环境必须与应用程序的托管环境 ([IHostingEnvironment.EnvironmentName](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName*)) 匹配才能呈现 `<environment>` 标记的内容。
+`include` 属性表现出与 `names` 属性相似的行为。 属性值中列出的环境 `include` 必须与应用的宿主环境 ([EnvironmentName](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName*)) ，才能呈现标记的内容 `<environment>` 。
 
 ```cshtml
 <environment include="Staging,Production">
-    <strong>HostingEnvironment.EnvironmentName is Staging or Production</strong>
+    <strong>IWebHostEnvironment.EnvironmentName is Staging or Production</strong>
 </environment>
 ```
 
@@ -71,7 +71,7 @@ ms.locfileid: "93061127"
 
 ```cshtml
 <environment exclude="Development">
-    <strong>HostingEnvironment.EnvironmentName is not Development</strong>
+    <strong>IWebHostEnvironment.EnvironmentName is not Development</strong>
 </environment>
 ```
 

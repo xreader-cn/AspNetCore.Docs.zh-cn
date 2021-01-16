@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/community
-ms.openlocfilehash: fcea5384b9f1d9f7e4c5a210dd2ceb7cf2e957ca
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 9bb9848398ecc0c0909f93798a56061a8e57b782
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061360"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252976"
 ---
 # <a name="community-oss-authentication-options-for-aspnet-core"></a>适用于 ASP.NET Core 的社区操作系统身份验证选项
 
@@ -34,9 +34,8 @@ ms.locfileid: "93061360"
 
 | 名称 | 说明 |
 | ---- | ----------- |
-| [OpenIdConnect (ASOS) ](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS 是用于 ASP.NET Core 和 OWIN/Katana 的低级别、协议优先的 OpenID Connect 服务器框架。 |
 | [Gluu 服务器](https://gluu.org/) | 用于标识、访问管理 (IAM) 和单一登录 (SSO) 的企业就绪、开源软件。 有关详细信息，请参阅 [Gluu 产品文档](https://gluu.org/docs/)。 |
-| [Identity服务](https://identityserver.io/) | IdentityServer 是 ASP.NET Core 的 OpenID Connect 和 OAuth 2.0 framework，由 OpenID Foundation 和 .NET Foundation 的管理中的正式认证。 有关详细信息，请参阅 [欢迎使用 Identity 服务器 4 (文档) ](https://identityserver4.readthedocs.io/en/latest/)。 |
-| [OpenIddict](https://github.com/openiddict/openiddict-core) | OpenIddict 是一个易于使用的 OpenID Connect 服务器，用于 ASP.NET Core。 |
+| [Identity服务器](https://identityserver.io/) | IdentityServer 是 ASP.NET Core 的 OpenID Connect 和 OAuth 2.0 framework，由 OpenID Foundation 和 .NET Foundation 的管理中的正式认证。 有关详细信息，请参阅 [欢迎使用 Identity 服务器 4 (文档) ](https://identityserver4.readthedocs.io/en/latest/)。 |
+| [OpenIddict](https://github.com/openiddict/openiddict-core) | 适用于 ASP.NET Core 2.1/3.1/5.0 和 4.1 (的通用 OpenID Connect 堆栈与 ASP.NET 4.6.1) 兼容。 |
 
 若要添加提供程序，请 [编辑此页](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Faspnet%2FDocs%2Fedit%2Fmaster%2Faspnetcore%2Fsecurity%2Fauthentication%2Fcommunity.md)。
