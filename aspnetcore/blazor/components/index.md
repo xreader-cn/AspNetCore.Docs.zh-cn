@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: a2738ab40e2a463a0166ce8916ed6f1b05ea1d08
-ms.sourcegitcommit: a71bb61f7add06acb949c9258fe506914dfe0c08
+ms.openlocfilehash: 12a1f528bdff0230bbf17075284d27de654a423e
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/08/2020
-ms.locfileid: "96855373"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252417"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -40,7 +40,7 @@ Blazor 应用是使用组件构建的。 组件是自包含的用户界面 (UI) 
 
 ### <a name="no-locrazor-syntax"></a>Razor 语法
 
-Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 Razor 标记语言，建议先阅读 <xref:mvc/views/razor>，然后再继续。
+Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 Razor 标记语言，建议先阅读 [ASP.NET Core 的 Razor 语法参考](xref:mvc/views/razor)，然后再继续。
 
 访问 Razor 语法上的内容时，请特别注意以下各节：
 
@@ -81,7 +81,7 @@ Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 
 }
 ```
 
-最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后 Blazor 将新呈现树与前一个呈现树进行比较，并对浏览器文档对象模型 (DOM) 应用任何修改。
+最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后 Blazor 将新呈现树与前一个呈现树进行比较，并对浏览器文档对象模型 (DOM) 应用任何修改。 <xref:blazor/components/rendering> 中提供了更多详细信息。
 
 组件是普通 C# 类，可以放置在项目中的任何位置。 生成网页的组件通常位于 `Pages` 文件夹中。 非页面组件通常放置在 `Shared` 文件夹或添加到项目的自定义文件夹中。
 
@@ -293,7 +293,7 @@ public string Title { get; set; } = "Panel Title from Child";
 * 方法的结果：`Title="@{METHOD}"`，其中占位符 `{METHOD}` 是父组件的 C# 方法。
 * [隐式或显式表达式](xref:mvc/views/razor#implicit-razor-expressions)：`Title="@({EXPRESSION})"`，其中占位符 `{EXPRESSION}` 是 C# 表达式。
   
-有关详细信息，请参阅 <xref:mvc/views/razor>。
+有关详细信息，请参阅 [ASP.NET Core 的 Razor 语法参考](xref:mvc/views/razor)。
 
 > [!WARNING]
 > 请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[重写参数](#overwritten-parameters)部分。
@@ -579,7 +579,7 @@ public class NotifierService
 }
 ```
 
-在前面的示例中，`NotifierService` 在 Blazor 的同步上下文之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现排入队列。
+在前面的示例中，`NotifierService` 在 Blazor 的同步上下文之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现排入队列。 有关详细信息，请参阅 <xref:blazor/components/rendering>。
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>使用 \@ 键控制是否保留元素和组件
 
@@ -801,7 +801,7 @@ HTML 元素属性基于 .NET 值有条件地呈现。 如果值为 `false` 或 `
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor>。
+有关详细信息，请参阅 [ASP.NET Core 的 Razor 语法参考](xref:mvc/views/razor)。
 
 > [!WARNING]
 > .NET 类型为 `bool` 时，某些 HTML 属性（如 [`aria-pressed`](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)）无法正常运行。 在这些情况下，请使用 `string` 类型，而不是 `bool`。
@@ -957,13 +957,13 @@ Razor 组件（`.razor` 文件）不支持 [`Tag Helpers`](xref:mvc/views/tag-he
 * <xref:blazor/security/server/threat-mitigation>：包括有关如何生成必须应对资源耗尽的 Blazor Server应用的指南。
 
 <!--Reference links in article-->
-[1]: <xref:mvc/views/razor#code>
-[2]: <xref:mvc/views/razor#using>
-[3]: <xref:mvc/views/razor#attributes>
-[4]: <xref:mvc/views/razor#ref>
-[5]: <xref:mvc/views/razor#key>
-[6]: <xref:mvc/views/razor#inherits>
-[7]: <xref:mvc/views/razor#attribute>
-[8]: <xref:mvc/views/razor#namespace>
-[9]: <xref:mvc/views/razor#page>
-[10]: <xref:mvc/views/razor#bind>
+[1]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#code)
+[2]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#using)
+[3]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#attributes)
+[4]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#ref)
+[5]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#key)
+[6]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#inherits)
+[7]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#attribute)
+[8]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#namespace)
+[9]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#page)
+[10]: [Razor syntax reference for ASP.NET Core](xref:mvc/views/razor#bind)

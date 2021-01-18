@@ -344,6 +344,8 @@
               uid: blazor/components/event-handling
             - name: 生命周期
               uid: blazor/components/lifecycle
+            - name: 渲染
+              uid: blazor/components/rendering
             - name: 组件虚拟化
               uid: blazor/components/virtualization
             - name: 模板化组件
@@ -970,8 +972,29 @@
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/protocols
     - name: Kestrel
-      uid: fundamentals/servers/kestrel
       displayName: 'deploy, publish, server'
+      items:
+        - name: 概述
+          displayName: 'deploy, publish, server'
+          uid: fundamentals/servers/kestrel
+        - name: 终结点
+          displayName: 'deploy, publish, server'
+          uid: fundamentals/servers/kestrel/endpoints
+        - name: 选项
+          displayName: 'deploy, publish, server'
+          uid: fundamentals/servers/kestrel/options
+        - name: HTTP/2
+          displayName: 'deploy, publish, server'
+          uid: fundamentals/servers/kestrel/http2
+        - name: 何时使用反向代理
+          displayName: 'deploy, publish, server'
+          uid: fundamentals/servers/kestrel/when-to-use-a-reverse-proxy
+        - name: 主机筛选
+          displayName: 'deploy, publish, server'
+          uid: fundamentals/servers/kestrel/host-filtering
+        - name: 请求排出
+          displayName: 'deploy, publish, server'
+          uid: fundamentals/servers/kestrel/request-draining
     - name: HTTP.sys
       displayName: 'deploy, publish, server'
       uid: fundamentals/servers/httpsys

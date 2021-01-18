@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: bc5f3c85d7ace120dec8369f4550a097b4f258ce
-ms.sourcegitcommit: aa85f2911792a1e4783bcabf0da3b3e7e218f63a
+ms.openlocfilehash: f8cdbbffae9b291923a6d425fef5526b0ec88f61
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2020
-ms.locfileid: "95417638"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253184"
 ---
 # <a name="introduction-to-no-locrazor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 介绍
 
@@ -352,7 +352,7 @@ Edit.cshtml.cs 文件：
 
 ![带有多个 jQuery 客户端验证错误的电影视图表单](~/tutorials/razor-pages/validation/_static/val.png)
 
-有关详情，请参阅：
+有关详细信息，请参见:
 
 * [将验证添加到电影应用](xref:tutorials/razor-pages/validation)
 * [ASP.NET Core 中的模型验证](xref:mvc/models/validation).
@@ -632,7 +632,7 @@ public string Message { get; set; }
 * [授权属性和 Razor Pages](xref:security/authorization/simple#aarp)
 * [下载或查看示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/index/3.0sample)
 * <xref:index>
-* <xref:mvc/views/razor>
+* [ASP.NET Core 的 Razor 语法参考](xref:mvc/views/razor)
 * <xref:mvc/controllers/areas>
 * <xref:tutorials/razor-pages/razor-pages-start>
 * <xref:security/authorization/razor-pages-authorization>
@@ -1143,7 +1143,7 @@ services.AddMvc()
 
 * [授权属性和 Razor Pages](xref:security/authorization/simple#aarp)
 * <xref:index>
-* <xref:mvc/views/razor>
+* [ASP.NET Core 的 Razor 语法参考](xref:mvc/views/razor)
 * <xref:mvc/controllers/areas>
 * <xref:tutorials/razor-pages/razor-pages-start>
 * <xref:security/authorization/razor-pages-authorization>

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: e4a94ca9e3607868f3eb25d88338e8156f7f5206
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: e0354859b08dc5d8a3e1f4b8a8530d61de2e78cf
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061517"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253158"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -69,6 +69,10 @@ Internet Information Services (IIS) 是一种灵活、安全且可管理的 Web 
 * <xref:host-and-deploy/iis/modules>
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
+
+## <a name="overlapped-recycle"></a>重叠的回收
+
+通常，建议使用[蓝绿部署](https://www.martinfowler.com/bliki/BlueGreenDeployment.html)之类的模式来实现零停机部署。 重叠的回收等功能会有帮助，但不保证可以实现零停机部署。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/aspnetcore/issues/10117)。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -392,7 +396,7 @@ net start w3svc
 
     ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载。 将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR)，在工作进程中托管应用。 将“.NET CLR 版本”设置为“无托管代码”是可选步骤，但建议采用此设置。
 
-1. *ASP.NET Core 2.2 或更高版本* ：
+1. *ASP.NET Core 2.2 或更高版本*：
 
    * 对于使用 32 位 SDK 发布的 32 位 (x86) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，且该 SDK 使用[进程内托管模型](#in-process-hosting-model)，请为 32 位启用应用程序池。 在 IIS 管理器中，导航到“连接”边栏中的“应用程序池” 。 选择应用的应用程序池。 在“操作”边栏中，选择，“高级设置” 。 将“启用 32 位应用程序”设置为 `True`。 
 
@@ -792,7 +796,7 @@ Kestrel 从模块获取请求后，请求会被推送到 ASP.NET Core 中间件�
 
 ### <a name="enable-the-iisintegration-components"></a>启用 IISIntegration 组件
 
-在 `CreateWebHostBuilder` 中生成主机 ( *Program.cs* )，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
+在 `CreateWebHostBuilder` 中生成主机 (*Program.cs*)，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -871,7 +875,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 敏感文件存在于应用的物理路径中，如 \<assembly>.runtimeconfig.json、\<assembly>.xml（XML 文档注释）和 \<assembly>.deps.json  。 如果存在 web.config 文件且站点正常启动，则请求获取这些敏感文件时，IIS 不会提供。 如果缺少 web.config 文件、命名不正确，或无法配置站点以正常启动，IIS 可能会公开提供敏感文件。
 
-部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。 **请勿从生产部署中删除 web.config 文件。**
+部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。**请勿从生产部署中删除 web.config 文件。**
 
 ### <a name="transform-webconfig"></a>转换 web.config
 
@@ -993,7 +997,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
     ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载：将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR) ，在工作进程中托管应用。 将“.NET CLR 版本”设置为“无托管代码”是可选步骤，但建议采用此设置。
 
-1. *ASP.NET Core 2.2 或更高版本* ：对于使用 [进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
+1. *ASP.NET Core 2.2 或更高版本*：对于使用 [进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
    在 IIS 管理器 >“应用程序池”的“操作”侧栏中，选择“设置应用程序池默认设置”或“高级设置”。 找到“启用 32 位应用程序”并将值设置为 `False`。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
@@ -1373,7 +1377,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 ### <a name="enable-the-iisintegration-components"></a>启用 IISIntegration 组件
 
-在 `CreateWebHostBuilder` 中生成主机 ( *Program.cs* )，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
+在 `CreateWebHostBuilder` 中生成主机 (*Program.cs*)，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以启用 IIS 集成：
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1439,7 +1443,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 敏感文件存在于应用的物理路径中，如 \<assembly>.runtimeconfig.json、\<assembly>.xml（XML 文档注释）和 \<assembly>.deps.json  。 如果存在 web.config 文件且站点正常启动，则请求获取这些敏感文件时，IIS 不会提供。 如果缺少 web.config 文件、命名不正确，或无法配置站点以正常启动，IIS 可能会公开提供敏感文件。
 
-部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。 **请勿从生产部署中删除 web.config 文件。**
+部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。**请勿从生产部署中删除 web.config 文件。**
 
 ### <a name="transform-webconfig"></a>转换 web.config
 
@@ -1561,7 +1565,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
     ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载：将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR) ，在工作进程中托管应用。 将“.NET CLR 版本”设置为“无托管代码”是可选步骤，但建议采用此设置。
 
-1. *ASP.NET Core 2.2 或更高版本* ：对于使用 [进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
+1. *ASP.NET Core 2.2 或更高版本*：对于使用 [进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
    在 IIS 管理器 >“应用程序池”的“操作”侧栏中，选择“设置应用程序池默认设置”或“高级设置”。 找到“启用 32 位应用程序”并将值设置为 `False`。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
