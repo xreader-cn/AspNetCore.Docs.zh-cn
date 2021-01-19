@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: b01b1c70be010ba0ad9bbd2c1114e5d8341b3261
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: e5f9a07db742ce2e26f03c0b6e1caa1904e4e0d9
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97506859"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058228"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -53,7 +53,9 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 `Render` 生命周期：
 
-1. 如果这不是组件的第一个呈现或 [`ShouldRender`](#suppress-ui-refreshing) 计算为 `false`，那么请不要对该组件执行进一步的操作。
+1. 停止组件的进一步呈现操作：
+   * 在第一次呈现后。
+   * 当 [`ShouldRender`](#suppress-ui-refreshing) 为 `false` 时。
 1. 生成呈现树差异并呈现组件。
 1. 等待 DOM 更新。
 1. 调用 [`OnAfterRender{Async}`](#after-component-render)。

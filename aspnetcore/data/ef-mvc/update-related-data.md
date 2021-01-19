@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: f41d0b1d7ba46ef4867e0d160dc61f21042ce403
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 9ad0de9984b42c2b14dfaf48c74660915de93be1
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93053938"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058319"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 
@@ -34,7 +34,7 @@ ms.locfileid: "93053938"
 
 ![“课程编辑”页面](update-related-data/_static/course-edit.png)
 
-![“讲师编辑”页面](update-related-data/_static/instructor-edit-courses.png)
+![编辑“讲师”页](update-related-data/_static/instructor-edit-courses.png)
 
 在本教程中，你将了解：
 
@@ -91,7 +91,7 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 在 Views/Courses/Create.cshtml 中，向“院系”下拉列表添加一个“选择院系”选项，将标题从 DepartmentID 更改为 Department，并添加一条验证消息  。
 
-[!code-cshtml[](intro/samples/cu/Views/Courses/Create.cshtml?highlight=2-6&range=29-34)]
+[!code-cshtml[](intro/samples/cu/Views/Courses/Create.cshtml?highlight=2-6&range=29-35)]
 
 在 Views/Courses/Edit.cshtml 中，对“院系”字段进行与 Create.cshtml 中相同的更改 。
 

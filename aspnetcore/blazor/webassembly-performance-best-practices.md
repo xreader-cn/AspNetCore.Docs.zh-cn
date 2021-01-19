@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: cc090b4e56745e6b010e4a7ee17332b0d3a95560
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 0753ef0f1cde7bbb45ecc09b97fecb5ce364811c
+ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "95417378"
+ms.lasthandoff: 01/08/2021
+ms.locfileid: "98024647"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
 
@@ -43,16 +43,16 @@ Blazor WebAssembly 经过精心设计和优化，可在最真实的应用程序 
 
 在运行时，组件作为层次结构存在。 根组件具有子组件。 反过来，根的子项也有其自己的子组件，依此类推。 发生事件（例如用户选择某个按钮）时，这就是 Blazor 如何决定要重新呈现哪些组件：
 
- 1. 事件本身将被调度到呈现事件处理程序的任何组件。 执行事件处理程序后，将重新呈现该组件。
- 1. 每当重新呈现任何组件时，都会向其每个子组件提供参数值的新副本。
- 1. 接收一组新的参数值时，每个组件都会选择是否要重新呈现。 默认情况下，如果参数值可能已更改（例如，如果它们是可变对象），则组件重新呈现。
+1. 事件本身将被调度到呈现事件处理程序的任何组件。 执行事件处理程序后，将重新呈现该组件。
+1. 每当重新呈现任何组件时，都会向其每个子组件提供参数值的新副本。
+1. 接收一组新的参数值时，每个组件都会选择是否要重新呈现。 默认情况下，如果参数值可能已更改（例如，如果它们是可变对象），则组件重新呈现。
 
 此序列的最后两个步骤以递归方式沿着组件层次结构继续向下。 在许多情况下，将重新呈现整个子树。 这意味着，针对高级组件的事件可能会导致成本高昂的重新呈现过程，因为必须重新呈现该点之下的所有内容。
 
 如果要中断此过程并防止将递归呈现到特定子树中，则可以执行以下任一操作：
 
- * 确保某个组件的所有参数均属于基元不可变类型（例如，`string`、`int`、`bool`、`DateTime` 等其他类型）。 如果这些参数值均未更改，则用于检测更改的内置逻辑会自动跳过重新呈现。 如果使用 `<Customer CustomerId="@item.CustomerId" />` 呈现子组件（其中 `CustomerId` 为 `int` 值），则除非 `item.CustomerId` 更改，否则不会重新呈现。
- * 如果需要接受非基元参数值（如自定义模型类型、事件回调或 <xref:Microsoft.AspNetCore.Components.RenderFragment> 值），则可以重写 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 以控制有关是否呈现的决策，[使用 `ShouldRender`](#use-of-shouldrender) 部分中对此进行了介绍。
+* 确保某个组件的所有参数均属于基元不可变类型（例如，`string`、`int`、`bool`、`DateTime` 等其他类型）。 如果这些参数值均未更改，则用于检测更改的内置逻辑会自动跳过重新呈现。 如果使用 `<Customer CustomerId="@item.CustomerId" />` 呈现子组件（其中 `CustomerId` 为 `int` 值），则除非 `item.CustomerId` 更改，否则不会重新呈现。
+* 如果需要接受非基元参数值（如自定义模型类型、事件回调或 <xref:Microsoft.AspNetCore.Components.RenderFragment> 值），则可以重写 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 以控制有关是否呈现的决策，[使用 `ShouldRender`](#use-of-shouldrender) 部分中对此进行了介绍。
 
 通过跳过重新呈现整个子树，当发生事件时，可以删除绝大多数的呈现开销。
 
@@ -109,38 +109,7 @@ Blazor WebAssembly 经过精心设计和优化，可在最真实的应用程序 
 
 在循环中呈现大量 UI（例如，具有数千个条目的列表或网格）时，呈现操作的极大数量可能会导致 UI 呈现延迟，从而导致用户体验不佳。 假设用户只能在不滚动的情况下同时查看少量元素，则花费太多时间呈现当前不可见的元素似乎太浪费了。
 
-为了解决此问题，Blazor 提供内置 [`<Virtualize>` 组件](xref:blazor/components/virtualization)，该组件可创建任意规模的列表的外观和滚动行为，但实际上只会呈现当前滚动视区内的列表项。 例如，这意味着应用可以有一个包含 100,000 个条目的列表，但每次只需支付 20 个可见项的费用。 使用 `<Virtualize>` 组件可以按数量级提高 UI 性能。
-
-`<Virtualize>` 可在以下情况下使用：
-
- * 在循环中呈现一组数据项。
- * 由于滚动，大多数项不可见。
- * 呈现的项的大小完全相同。 当用户滚动到任意点时，组件可计算要显示的可见项。
-
-下面显示了非虚拟化列表的示例：
-
-```razor
-<div class="all-flights" style="height:500px;overflow-y:scroll">
-    @foreach (var flight in allFlights)
-    {
-        <FlightSummary @key="flight.FlightId" Flight="@flight" />
-    }
-</div>
-```
-
-如果 `allFlights` 集合包含 10,000 个项，则会实例化并呈现 10,000 个 `<FlightSummary>` 组件实例。 相比之下，下面显示了非虚拟化列表的示例：
-
-```razor
-<div class="all-flights" style="height:500px;overflow-y:scroll">
-    <Virtualize Items="@allFlights" Context="flight">
-        <FlightSummary @key="flight.FlightId" Flight="@flight" />
-    </Virtualize>
-</div>
-```
-
-即使生成的 UI 看起来与用户相同，组件在后台也仅实例化并呈现填充可滚动区域所需数量的 `<FlightSummary>` 实例。 当用户滚动时，将重新计算并呈现显示的 `<FlightSummary>` 实例集。
-
-`<Virtualize>` 也有其他优点。 例如，当组件请求外部 API 中的数据时，`<Virtualize>` 允许组件仅提取与当前可见区域相对应的记录切片，而不是下载集合中的所有数据。
+为了解决此问题，Blazor 提供了 `Virtualize` 组件，它可创建任意规模的列表的外观和滚动行为，但只会呈现当前滚动视区内的列表项。 例如，这意味着应用可以有一个包含 100,000 个条目的列表，但每次只需支付 20 个可见项的费用。 使用 `Virtualize` 组件可以按数量级提高 UI 性能。
 
 有关详细信息，请参阅 <xref:blazor/components/virtualization>。
 
@@ -152,9 +121,9 @@ Blazor WebAssembly 经过精心设计和优化，可在最真实的应用程序 
 
 但是，还有生成需要大规模重复的组件的常见情况。 例如：
 
- * 大型嵌套窗体可能包含数百个单个输入、标签和其他元素。
- * 网格可能包含数千个单元格。
- * 散点图可能包含数百万个数据点。
+* 大型嵌套窗体可能包含数百个单个输入、标签和其他元素。
+* 网格可能包含数千个单元格。
+* 散点图可能包含数百万个数据点。
 
 如果将每个单位建模为单独的组件实例，则会有很多呈现性能变得至关重要的实例。 本部分提供了有关使此类组件变得轻量，以便 UI 保持快速且响应迅速的建议。
 
@@ -162,8 +131,8 @@ Blazor WebAssembly 经过精心设计和优化，可在最真实的应用程序 
 
 每个组件都是单独的，可以独立于其父组件和子组件进行呈现。 通过选择如何将 UI 拆分为组件的层次结构，你将控制 UI 呈现的粒度。 这可能导致性能良好或不佳。
 
- * 将 UI 拆分为多个组件后，当发生事件时，可以有较小部分的 UI 重新呈现。 例如，当用户单击表行中的某个按钮时，你可能能够仅重新呈现单行，而不是整页或整个表。
- * 但是，每个额外组件都包含一些额外内存和 CPU 开销，用于处理其独立状态和呈现生命周期。
+* 将 UI 拆分为多个组件后，当发生事件时，可以有较小部分的 UI 重新呈现。 例如，当用户单击表行中的某个按钮时，你可能能够仅重新呈现单行，而不是整页或整个表。
+* 但是，每个额外组件都包含一些额外内存和 CPU 开销，用于处理其独立状态和呈现生命周期。
 
 优化 .NET 5 上的 Blazor WebAssembly 性能时，我们计算了每个组件实例大约 0.06 毫秒的呈现开销。 这基于接受在典型便携式计算机上运行的三个参数的简单组件。 在内部，开销很大程度上取决于从字典中检索每个组件的状态以及传递和接收参数。 通过成倍增加，你可以看到添加 2,000 个额外的组件实例会使呈现时间增加 0.12 秒，并且用户会觉得 UI 开始变得缓慢。
 
@@ -297,8 +266,8 @@ public static RenderFragment SayHello = __builder =>
 
 `<CascadingValue>` 组件具有名为 `IsFixed` 的可选参数。
 
- * 如果 `IsFixed` 值为 `false`（默认值），则级联值的每个接收方都会将订阅设置为接收更改通知。 在这种情况下，由于订阅跟踪，每个 `[CascadingParameter]` 的开销大体上都要比常规 `[Parameter]` 昂贵。
- * 如果 `IsFixed` 值为 `true`（例如，`<CascadingValue Value="@someValue" IsFixed="true">`），则接收方会接收初始值，但不会将任何订阅设置为接收更新。 在这种情况下，每个 `[CascadingParameter]` 都是轻型的，并不比常规 `[Parameter]` 昂贵。
+* 如果 `IsFixed` 值为 `false`（默认值），则级联值的每个接收方都会将订阅设置为接收更改通知。 在这种情况下，由于订阅跟踪，每个 `[CascadingParameter]` 的开销大体上都要比常规 `[Parameter]` 昂贵。
+* 如果 `IsFixed` 值为 `true`（例如，`<CascadingValue Value="@someValue" IsFixed="true">`），则接收方会接收初始值，但不会将任何订阅设置为接收更新。 在这种情况下，每个 `[CascadingParameter]` 都是轻型的，并不比常规 `[Parameter]` 昂贵。
 
 因此，只要有可能，就应对级联值使用 `IsFixed="true"`。 只要提供的值不随时间变化，就可以执行此操作。 在组件将 `this` 作为级联值传递的常见模式下，应使用 `IsFixed="true"`：
 
@@ -338,9 +307,9 @@ public static RenderFragment SayHello = __builder =>
 
 在某些极端情况下，你可能希望避免反射并手动实现自己的参数设置逻辑。 这可能适用于以下情况：
 
- * 你有极频繁地呈现的组件（例如，UI 中有数百个或数千个副本）。
- * 它接受多个参数。
- * 你会发现接收参数的开销对 UI 响应能力有明显的影响。
+* 你有极频繁地呈现的组件（例如，UI 中有数百个或数千个副本）。
+* 它接受多个参数。
+* 你会发现接收参数的开销对 UI 响应能力有明显的影响。
 
 在这些情况下，可以重写组件的虚拟 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 方法，并实现自己的特定于组件的逻辑。 下面的示例特意避免了任何字典查找：
 
@@ -452,8 +421,8 @@ public static RenderFragment SayHello = __builder =>
 
 .NET 和 JavaScript 之间的调用涉及一些额外的开销，因为：
 
- * 默认情况下，调用是异步的。
- * 默认情况下，参数和返回值已进行 JSON 序列化。 这是为了在 .NET 和 JavaScript 类型之间提供一种易于理解的转换机制。
+* 默认情况下，调用是异步的。
+* 默认情况下，参数和返回值已进行 JSON 序列化。 这是为了在 .NET 和 JavaScript 类型之间提供一种易于理解的转换机制。
 
 此外，在 Blazor Server 上，这些调用通过网络传递。
 

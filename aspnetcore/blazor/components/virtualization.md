@@ -19,56 +19,71 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/virtualization
-ms.openlocfilehash: 920a23aee0d0555e93c829142700709d5881afd2
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: afd2da19641b41871f06426934c39348daa54b1f
+ms.sourcegitcommit: 2fea9bfe6127bbbdbb438406c82529b2bc331944
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97753084"
+ms.lasthandoff: 01/11/2021
+ms.locfileid: "98065527"
 ---
 # <a name="aspnet-core-no-locblazor-component-virtualization"></a>ASP.NET Core Blazor 组件虚拟化
 
 作者：[Daniel Roth](https://github.com/danroth27)
 
-使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。 虚拟化是一种技术，用于将 UI 呈现限制为仅当前可见的部分。 例如，当应用必须呈现项的长列表，并且在任何给定的时间只需要一小部分项可见时，虚拟化很有帮助。 Blazor 提供 `Virtualize` 组件，可用于向应用的组件添加虚拟化。
+使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。 虚拟化是一种技术，用于将 UI 呈现限制为仅当前可见的部分。 例如，当应用必须呈现项的长列表，并且在任何给定的时间只需要一小部分项可见时，虚拟化很有帮助。 Blazor 提供 [`Virtualize` 组件](xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601)，可用于向应用的组件添加虚拟化。
+
+在以下情况下，可使用 `Virtualize` 组件：
+
+* 在循环中呈现一组数据项。
+* 由于滚动，大多数项不可见。
+* 呈现的项的大小完全相同。 当用户滚动到任意点时，组件可计算要显示的可见项。
 
 如果不使用虚拟化，典型列表可能会使用 C# [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环来呈现列表中的每一项：
 
 ```razor
-@foreach (var employee in employees)
-{
-    <p>
-        @employee.FirstName @employee.LastName has the 
-        job title of @employee.JobTitle.
-    </p>
-}
+<div style="height:500px;overflow-y:scroll">
+    @foreach (var flight in allFlights)
+    {
+        <FlightSummary @key="flight.FlightId" Details="@flight.Summary" />
+    }
+</div>
 ```
 
 如果列表包含数千项，则呈现该列表可能会花费较长时间。 用户可能会遇到明显的 UI 延迟。
 
-与其一次性呈现列表中的所有项，不如将 [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环替换为 `Virtualize` 组件，并使用 `Items` 指定固定的项源。 这样，将仅呈现当前可见的项：
+与其一次性呈现列表中的所有项，不如将 [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环替换为 `Virtualize` 组件，并使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A?displayProperty=nameWithType> 指定固定的项源。 这样，将仅呈现当前可见的项：
 
 ```razor
-<Virtualize Context="employee" Items="@employees">
-    <p>
-        @employee.FirstName @employee.LastName has the 
-        job title of @employee.JobTitle.
-    </p>
-</Virtualize>
+<div style="height:500px;overflow-y:scroll">
+    <Virtualize Items="@allFlights" Context="flight">
+        <FlightSummary @key="flight.FlightId" Details="@flight.Summary" />
+    </Virtualize>
+</div>
 ```
 
-如果未使用 `Context` 指定组件的上下文，请在项目内容模板中使用 `context` 值 (`@context.{PROPERTY}`)：
+如果未使用 `Context` 指定组件的上下文，请在项目内容模板中使用 `context` 值：
 
 ```razor
-<Virtualize Items="@employees">
-    <p>
-        @context.FirstName @context.LastName has the 
-        job title of @context.JobTitle.
-    </p>
-</Virtualize>
+<div style="height:500px;overflow-y:scroll">
+    <Virtualize Items="@allFlights">
+        <FlightSummary @key="context.FlightId" Details="@context.Summary" />
+    </Virtualize>
+</div>
 ```
 
-`Virtualize` 组件根据容器的高度和呈现的项的大小来计算要呈现的项数。
+> [!NOTE]
+> 可通过 [`@key`](xref:mvc/views/razor#key) 指令属性来控制模型对象到元素和组件的映射过程。 `@key` 使比较算法保证基于键的值保留元素或组件。
+>
+> 有关详细信息，请参阅以下文章：
+>
+> * <xref:blazor/components/index#use-key-to-control-the-preservation-of-elements-and-components>
+> * <xref:mvc/views/razor#key>
+
+`Virtualize` 组件：
+
+* 根据容器的高度和呈现的项的大小来计算要呈现的项数。
+* 在用户滚动时，重新计算并重新呈现项。
+* 仅从与当前可见区域相对应的外部 API 中获取记录切片，而不是下载集合中的所有数据。
 
 `Virtualize` 组件的项内容可以包括：
 
@@ -78,7 +93,7 @@ ms.locfileid: "97753084"
 
 ## <a name="item-provider-delegate"></a>项提供程序委托
 
-如果不想将所有项加载到内存中，可向组件的 `ItemsProvider` 参数指定项提供程序委托方法，以按需异步检索请求的项：
+如果不想将所有项加载到内存中，可向组件的 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A?displayProperty=nameWithType> 参数指定项提供程序委托方法，以按需异步检索请求的项。 在下面的示例中，`LoadEmployees` 方法向 `Virtualize` 组件提供项：
 
 ```razor
 <Virtualize Context="employee" ItemsProvider="@LoadEmployees">
@@ -89,11 +104,11 @@ ms.locfileid: "97753084"
 </Virtualize>
 ```
 
-项提供程序接收 `ItemsProviderRequest`，它指定从特定起始索引开始的请求项数。 然后，项提供程序在数据库或其他服务中检索请求的项，并以 `ItemsProviderResult<TItem>` 形式将这些项与项总数一起返回。 项提供程序可以选择按每个请求检索项，也可以将项缓存以便后续使用。
+项提供程序接收 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest>，它指定从特定起始索引开始的请求项数。 然后，项提供程序在数据库或其他服务中检索请求的项，并以 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult%601> 形式将这些项与项总数一起返回。 项提供程序可以选择按每个请求检索项，也可以将项缓存以便后续使用。
 
 `Virtualize` 组件只能从其参数中接受一个项源，因此，请不要尝试在使用项提供程序的同时为 `Items` 分配集合。 如果同时分配两个，则在运行时设置组件的参数时，将引发 <xref:System.InvalidOperationException>。
 
-以下示例从 `EmployeeService` 加载员工：
+以下 `LoadEmployees` 方法示例从 `EmployeeService` 加载员工（未显示）：
 
 ```csharp
 private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
@@ -107,9 +122,14 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 }
 ```
 
+<xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.RefreshDataAsync%2A?displayProperty=nameWithType> 指示组件从其 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A> 重新请求数据。 当外部数据更改时，这很有用。 使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A> 时，无需对其进行调用。
+
 ## <a name="placeholder"></a>占位符
 
-由于从远程数据源请求项可能需要一些时间，你可以选择呈现占位符 (`<Placeholder>...</Placeholder>`)，直到项数据可用：
+由于从远程数据源请求项可能需要一些时间，你可选择呈现包含项内容的占位符：
+
+* 使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Placeholder%2A> (`<Placeholder>...</Placeholder>`) 显示内容，直到项数据可用。
+* 使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemContent%2A?displayProperty=nameWithType> 设置列表的项模板。
 
 ```razor
 <Virtualize Context="employee" ItemsProvider="@LoadEmployees">
@@ -129,7 +149,7 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 
 ## <a name="item-size"></a>项大小
 
-你可以使用 `ItemSize` 设置每个项的像素大小（默认值：50px）：
+你可以使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A?displayProperty=nameWithType> 设置每个项的像素大小（默认值：50）：
 
 ```razor
 <Virtualize Context="employee" Items="@employees" ItemSize="25">
@@ -139,7 +159,7 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 
 ## <a name="overscan-count"></a>溢出扫描计数
 
-`OverscanCount` 确定在可见区域之前和之后呈现的额外项数。 此设置有助于降低滚动期间的呈现频率。 但是，值越大，页面中呈现的元素越多（默认值：3）：
+<xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.OverscanCount%2A?displayProperty=nameWithType> 确定在可见区域之前和之后呈现的额外项数。 此设置有助于降低滚动期间的呈现频率。 但是，值越大，页面中呈现的元素越多（默认值：3）：
 
 ```razor
 <Virtualize Context="employee" Items="@employees" OverscanCount="4">

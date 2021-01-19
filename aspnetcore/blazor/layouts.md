@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 3cb7c6184c13a003b4f4294f887d8938caa42f97
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 417f69e797296cdcd01fc4ce326388512a406368
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97506898"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058267"
 ---
 # <a name="aspnet-core-no-locblazor-layouts"></a>ASP.NET Core Blazor 布局
 
@@ -32,7 +32,7 @@ ms.locfileid: "97506898"
 
 有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。 将这些元素的代码复制到应用的所有组件并不是一种有效的方法。 每当一个元素需要更新时，每个组件都必须更新。 此类复制难以维护，并会随时间推移导致内容不一致。 *布局* 可解决此问题。
 
-从技术上讲，布局也是一个组件。 布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/components/data-binding)、[依赖项注入](xref:blazor/fundamentals/dependency-injection)和其他组件方案。
+从技术上讲，布局也是一个组件。 布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/components/data-binding)、[依赖项注入](xref:blazor/fundamentals/dependency-injection)和其他组件方案。 布局仅适用于具有 [`@page`](xref:mvc/views/razor#page) 指令的可路由 Razor 组件。
 
 将组件转换为布局：
 
@@ -79,7 +79,7 @@ ms.locfileid: "97506898"
 
 ## <a name="specify-a-layout-in-a-component"></a>在组件中指定布局
 
-使用 Razor 指令 `@layout` 将布局应用于组件。 编译器将 `@layout` 转换为 <xref:Microsoft.AspNetCore.Components.LayoutAttribute>，后者应用于组件类。
+使用 [`@layout`](xref:mvc/views/razor#layout) Razor 指令将布局应用于同样具有 [`@page`](xref:mvc/views/razor#page) 指令的可路由 Razor 组件。 编译器将 `@layout` 转换为 <xref:Microsoft.AspNetCore.Components.LayoutAttribute>，后者应用于组件类。
 
 以下 `MasterList` 组件的内容插入到 `MasterLayout` 中 `@Body` 的位置：
 
@@ -105,6 +105,9 @@ ms.locfileid: "97506898"
 
 > [!WARNING]
 > 请勿向根 `_Imports.razor` 文件添加 Razor `@layout` 指令，这会导致应用中的布局形成无限循环。 请在 `Router` 组件中指定布局，以控制默认应用布局。 有关详细信息，请参阅[默认布局](#default-layout)部分。
+
+> [!NOTE]
+> [`@layout`](xref:mvc/views/razor#layout) Razor 指令只对具有 [`@page`](xref:mvc/views/razor#page) 指令的可路由 Razor 组件应用布局。
 
 ## <a name="nested-layouts"></a>嵌套布局
 

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: 83a41d503b2d56bca3f1bac14eeb9d54a8257642
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 6edf2017cc889321cfb484e643b75711fd66004d
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93057773"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058345"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -67,7 +67,6 @@ ms.locfileid: "93057773"
 可配置以下设置：
 
 * `KeepAliveInterval` - 向客户端发送“ping”帧的频率，以确保代理保持连接处于打开状态。 默认值为 2 分钟。
-* `ReceiveBufferSize` - 用于接收数据的缓冲区的大小。 高级用户可能需要对其进行更改，以便根据数据大小调整性能。 默认值为 4 KB。
 
 ::: moniker-end
 
@@ -76,7 +75,6 @@ ms.locfileid: "93057773"
 可配置以下设置：
 
 * `KeepAliveInterval` - 向客户端发送“ping”帧的频率，以确保代理保持连接处于打开状态。 默认值为 2 分钟。
-* <xref:Microsoft.AspNetCore.Builder.WebSocketOptions.ReceiveBufferSize> - 用于接收数据的缓冲区的大小。 高级用户可能需要对其进行更改，以便根据数据大小调整性能。 默认值为 4 KB。
 * `AllowedOrigins` - 用于 WebSocket 请求的允许的 Origin 标头值列表。 默认情况下，允许使用所有源。 有关详细信息，请参阅以下“WebSocket 源限制”。
 
 ::: moniker-end
@@ -188,11 +186,10 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 
 ## <a name="sample-app"></a>示例应用
 
-本文附带的[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)是一个 echo 应用。 它有一个可建立 WebSocket 连接的网页，且服务器将其收到的消息重新发回到客户端。 从命令提示符运行该应用（它未设置为在安装了 IIS Express 的 Visual Studio 中运行）并导航到 http://localhost:5000 。 该网页的左上方显示连接状态：
+本文附带的[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)是一个 echo 应用。 它有一个可建立 WebSocket 连接的网页，且服务器将其收到的消息都重新发回到客户端。 示例应用未配置为使用 IIS Express 从 Visual Studio 运行，因此请在命令行界面中使用 [`dotnet run`](/dotnet/core/tools/dotnet-run) 运行应用，并在浏览器中导航到 `http://localhost:5000`。 该网页显示连接状态：
 
-![网页的初始状态](websockets/_static/start.png)
+![WebSocket 连接前网页的初始状态](websockets/_static/start.png)
 
 选择“连接”，向显示的 URL 发送 WebSocket 请求。 输入测试消息并选择“发送”。 完成后，请选择“关闭套接字”。 “通信日志”部分会报告每一个发生的“打开”、“发送”和“关闭”操作。
 
-![网页的初始状态](websockets/_static/end.png)
-
+![发送并接收 WebSocket 连接和测试消息后网页的最终状态](websockets/_static/end.png)

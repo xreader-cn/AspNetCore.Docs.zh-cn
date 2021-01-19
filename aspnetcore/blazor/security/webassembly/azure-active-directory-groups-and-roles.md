@@ -19,19 +19,22 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: ded70f028b3021574ba260838837d9b23abd72f1
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 96a7dde9a5a756e40125ffda4c54fbf24fdc616a
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "94981877"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058254"
 ---
 # <a name="azure-active-directory-aad-groups-administrator-roles-and-user-defined-roles"></a>Azure Active Directory (AAD) 组、管理员角色和用户定义的角色
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Javier Calvarro Nelson](https://github.com/javiercn)
 
 > [!NOTE]
-> 本文适用于带有 Microsoft Identity v1.0 的 Blazor ASP.NET Core 应用 3.1 版，并计划更新为带有 Identity v2.0 的 5.0。 有关详细信息，请参阅[具有 AAD/B2C 组和角色的 Blazor WASM (dotnet/AspNetCore.Docs #17683)](https://github.com/dotnet/AspNetCore.Docs/issues/17683)。
+> 本文适用于带有 Microsoft Identity 1.0 的 Blazor ASP.NET Core 应用 3.1 版，并将在不久后更新为适合带有 Identity 2.0 版的 5.0 版。 有关详细信息，请查看以下 GitHub 问题和拉取请求。 拉取请求的“更改的文件”选项卡包含文章更新的草稿文本和示例。 审核并最终更新后，拉取请求将合并到实时文档集中。
+>
+> * 问题：[Blazor WASM 与 AAD 组和角色 (dotnet/AspNetCore.Docs #17683)](https://github.com/dotnet/AspNetCore.Docs/issues/17683)
+> * 拉取请求：[Blazor AAD 组和角色主题 5.0 (dotnet/AspNetCore.Docs #20856)](https://github.com/dotnet/AspNetCore.Docs/pull/20856)
 
 Azure Active Directory (AAD) 提供了多种授权方法，它们可与 ASP.NET Core Identity 结合使用：
 

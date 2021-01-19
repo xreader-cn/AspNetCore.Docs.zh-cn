@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 610a9e9b0007fb468ea9cdae6fadd2e756de4290
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: b1adca435b48db22a176d33a216c07d6647a6695
+ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93054048"
+ms.lasthandoff: 01/09/2021
+ms.locfileid: "98058306"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
@@ -183,7 +183,17 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 在 Views/Instructors/Index.cshtml 中，将模板代码替换为以下代码。 突出显示所作更改。
 
-[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-64&highlight=1,3-7,15-19,24,26-31,41-54,56)]
+::: moniker range=">= aspnetcore-2.2"
+
+[!code-cshtml[](intro/samples/5cu-snap/Views/Instructors/Index.cshtml?range=1-62&highlight=1,3-7,15-19,24,26-31,41-52,54)]
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.1"
+
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-62&highlight=1,3-7,15-19,24,26-31,41-52,54)]
+
+::: moniker-end
 
 已对现有代码进行了如下更改：
 
@@ -193,7 +203,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 * 添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列。 （由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。）
 
-  ```html
+  ```cshtml
   @if (item.OfficeAssignment != null)
   {
       @item.OfficeAssignment.Location
@@ -202,20 +212,11 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 * 添加了显示每位讲师所授课程的“课程”列。 有关更多信息，请参阅 Razor 语法文章的[显式行转换](xref:mvc/views/razor#explicit-line-transition)部分。
 
-* 添加了向所选讲师的 `tr` 元素中动态添加 `class="success"` 的代码。 此时会使用 Bootstrap 类为所选行设置背景色。
-
-  ```html
-  string selectedRow = "";
-  if (item.ID == (int?)ViewData["InstructorID"])
-  {
-      selectedRow = "success";
-  }
-  <tr class="@selectedRow">
-  ```
+* 添加了代码来将 Bootstrap CSS 类附有条件地添加到所选讲师的 `tr` 元素中。 此类会设置选定行的背景色。
 
 * 紧贴每行其他链接的前端添加了标有 Select 的新超链接，从而使所选讲师 ID 发送到 `Index` 方法。
 
-  ```html
+  ```cshtml
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
