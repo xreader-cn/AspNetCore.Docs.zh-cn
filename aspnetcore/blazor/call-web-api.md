@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 85b3ded6ec25310a573e99cbedf0df005d92bdbe
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 18afa7faa254f89ef664e0188be357a85c790523
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93234408"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252430"
 ---
 # <a name="call-a-web-api-from-aspnet-core-no-locblazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
@@ -414,5 +414,10 @@ protected override async Task OnInitializedAsync()
 * <xref:blazor/security/webassembly/additional-scenarios>：包括对使用 <xref:System.Net.Http.HttpClient> 发出安全 Web API 请求的介绍。
 * <xref:fundamentals/http-requests>
 * <xref:security/enforcing-ssl>
+::: moniker range=">= aspnetcore-5.0"
+* [Kestrel HTTPS 终结点配置](xref:fundamentals/servers/kestrel/endpoints)
+::: moniker-end
+::: moniker range="< aspnetcore-5.0"
 * [Kestrel HTTPS 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)
+::: moniker-end
 * [W3C 上的跨域资源共享 (CORS)](https://www.w3.org/TR/cors/)

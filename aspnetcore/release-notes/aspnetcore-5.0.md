@@ -18,12 +18,12 @@ no-loc:
 - SignalR
 - Kestrel
 uid: aspnetcore-5.0
-ms.openlocfilehash: d7ffcb67637593ab2909885a9e1f6de74a78361b
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 5caa412773bf9c8e3bed5ebc529d48b886de6956
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "96855490"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253067"
 ---
 # <a name="whats-new-in-aspnet-core-50"></a>ASP.NET Core 5.0 的新增功能
 
@@ -333,7 +333,7 @@ See [Update SignalR code](xref:migration/31-to-50#signalr) for migration instruc
 ### <a name="http2"></a>HTTP/2
 
 * 显著减少了 HTTP/2 代码路径中的分配。
-* 支持 [Kestrel](xref:fundamentals/servers/kestrel) 中的 HTTP/2 响应标头的 [HPack 动态压缩](https://tools.ietf.org/html/rfc7541)。 有关详细信息，请参阅[标头表大小](xref:fundamentals/servers/kestrel#header-table-size)和 [HPACK：HTTP/2 的静默杀手锏](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)。
+* 支持 [Kestrel](xref:fundamentals/servers/kestrel) 中的 HTTP/2 响应标头的 [HPack 动态压缩](https://tools.ietf.org/html/rfc7541)。 有关详细信息，请参阅[标头表大小](xref:fundamentals/servers/kestrel/options#header-table-size)和 [HPACK：HTTP/2 的静默杀手锏](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)。
 * 发送 HTTP/2 PING 帧：HTTP/2 有一种机制，用于发送 PING 帧以确保空闲连接仍然正常工作。 当使用经常空闲但仅可间歇查看活动的长生存期流（例如，gRPC 流）时，确保可行连接特别有用。 应用可以通过对 <xref:Microsoft.AspNetCore.Server.Kestrel.KestrelServerOptions> 设置限制，在 [Kestrel](xref:fundamentals/servers/kestrel) 中发送定期 PING 帧：
 
    ```csharp

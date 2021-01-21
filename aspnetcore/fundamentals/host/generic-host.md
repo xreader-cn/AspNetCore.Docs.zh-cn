@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 263c7713166005dfdec8ede6bfa9b03b730dede7
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: b99b0f0ab6e67ac84bf1232ff6681c5edd54ffb9
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "96035809"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253171"
 ---
 # <a name="net-generic-host-in-aspnet-core"></a>ASP.NET Core 中的 .NET 通用主机
 
@@ -129,8 +129,8 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 <xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> 方法：
 
 * 从前缀为 `ASPNETCORE_` 的环境变量加载主机配置。
-* 使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。 有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel#kestrel-options>。
-* 添加[主机筛选中间件](xref:fundamentals/servers/kestrel#host-filtering)。
+* 使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。 有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel/options>。
+* 添加[主机筛选中间件](xref:fundamentals/servers/kestrel/host-filtering)。
 * 如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 等于 `true`，则添加[转接头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers)。
 * 支持 IIS 集成。 有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。
 
@@ -437,7 +437,7 @@ IP 地址或主机地址的分号分隔列表，其中包含服务器应针对�
 webBuilder.UseUrls("http://*:5000;http://localhost:5001;https://hostname:5002");
 ```
 
-Kestrel 具有自己的终结点配置 API。 有关详细信息，请参阅 <xref:fundamentals/servers/kestrel#endpoint-configuration>。
+Kestrel 具有自己的终结点配置 API。 有关详细信息，请参阅 <xref:fundamentals/servers/kestrel/endpoints>。
 
 ### <a name="webroot"></a>WebRoot
 

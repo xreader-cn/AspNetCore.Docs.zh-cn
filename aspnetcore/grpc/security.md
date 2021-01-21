@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/security
-ms.openlocfilehash: a7a595a71f988377bf25c500f04da2add3d85aef
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 45ac0916a368cf68f4d40e14298a7628446989ee
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93058826"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252807"
 ---
 # <a name="security-considerations-in-grpc-for-aspnet-core"></a>适用于 ASP.NET Core 的 gRPC 的安全注意事项
 
@@ -39,7 +39,13 @@ gRPC 消息使用 HTTP/2 进行发送和接收。 我们建议：
 * 使用[传输层安全性 (TLS)](https://tools.ietf.org/html/rfc5246) 以保护生产 gRPC 应用中的消息。
 * gRPC 服务应仅侦听并响应受保护的端口。
 
+::: moniker range=">= aspnetcore-5.0"
+TLS 是在 Kestrel 中配置的。 有关配置 Kestrel 终结点的详细信息，请参阅 [Kestrel 终结点配置](xref:fundamentals/servers/kestrel/endpoints)。
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 TLS 是在 Kestrel 中配置的。 有关配置 Kestrel 终结点的详细信息，请参阅 [Kestrel 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。
+::: moniker-end
 
 ## <a name="exceptions"></a>异常
 

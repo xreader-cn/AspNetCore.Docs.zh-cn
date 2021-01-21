@@ -20,12 +20,12 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: 4813668f5278473fbaae36d572e69700b3fe771a
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 5901a1cb693dfe8e34e62ce2a28456bcf584221c
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97764232"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252261"
 ---
 # <a name="tooling-for-aspnet-core-no-locblazor"></a>用于 ASP.NET Core Blazor 的工具
 
@@ -129,7 +129,7 @@ Linux 上没有用于信任证书的集中途径。 通常采用以下方法之�
 
 ## <a name="use-visual-studio-code-for-cross-platform-no-locblazor-development"></a>使用适用于跨平台 Blazor 开发的 Visual Studio Code
 
-[Visual Studio Code](https://code.visualstudio.com/) 是一个开源的跨平台集成开发环境 (IDE)，可用于开发 Blazor 应用。 使用 .NET CLI 创建新的 Blazor 应用，来使用 Visual Studio Code 进行开发。 有关详细信息，请选择[本文的 Linux 版本](/aspnet/core/blazor/tooling?pivots=linux)。
+[Visual Studio Code](https://code.visualstudio.com/) 是一个开源的跨平台集成开发环境 (IDE)，可用于开发 Blazor 应用。 使用 .NET CLI 创建新的 Blazor 应用，来使用 Visual Studio Code 进行开发。 有关详细信息，请选择[本文的 Linux 版本](?pivots=linux)。
 
 ## <a name="no-locblazor-template-options"></a>Blazor 模板选项
 
