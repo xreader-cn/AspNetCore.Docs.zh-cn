@@ -19,30 +19,30 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 8acc34c88bf62b3da1b920acc7318c94435c100e
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 5a6c160ebdda3ec600980aa839770f4f22a9c2fc
+ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93051975"
+ms.lasthandoff: 01/21/2021
+ms.locfileid: "98658659"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
 ASP.NET Core 3.1 和更高版本模板在单页面应用中提供身份验证， (Spa) 使用对 API 授权的支持。 ASP.NET Core Identity对于身份验证和存储用户，将与用于实现 OpenID Connect 的[ Identity 服务器](https://identityserver.io/)结合。
 
-已将身份验证参数添加到 " **角度** " 和 " **响应** " 项目模板，该模板类似于 Web 应用程序中的身份验证参数 **(模型-视图-控制器)** (MVC) 和 **web 应用** (Razor 页) 项目模板。 允许的参数值为 **None** 和 **个体** 。 **React.js 和 Redux** 项目模板此时不支持身份验证参数。
+已将身份验证参数添加到 " **角度** " 和 " **响应** " 项目模板，该模板类似于 Web 应用程序中的身份验证参数 **(模型-视图-控制器)** (MVC) 和 **web 应用** (Razor 页) 项目模板。 允许的参数值为 **None** 和 **个体**。 **React.js 和 Redux** 项目模板此时不支持身份验证参数。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>使用 API 授权支持创建应用
 
 用户身份验证和授权可用于角度和响应 Spa。 打开命令 shell，并运行以下命令：
 
-**角** ：
+**角**：
 
 ```dotnetcli
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-**响应** ：
+**响应**：
 
 ```dotnetcli
 dotnet new react -o <output_directory_name> -au Individual
@@ -98,6 +98,27 @@ dotnet new react -o <output_directory_name> -au Individual
     app.UseIdentityServer();
     ```
 
+### <a name="azure-app-service-on-linux"></a>Linux 上的 Azure 应用服务
+
+对于 Linux 上的 Azure App Service 部署，请在中显式指定颁发者 `Startup.ConfigureServices` ：
+
+```csharp
+services.Configure<JwtBearerOptions>(
+    IdentityServerJwtConstants.IdentityServerJwtBearerScheme, 
+    options =>
+    {
+        options.Authority = "{AUTHORITY}";
+    });
+```
+
+在前面的代码中， `{AUTHORITY}` 占位符是在 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.Authority> 进行 OpenID connect 调用时要使用的。
+
+示例：
+
+```csharp
+options.Authority = "https://contoso-service.azurewebsites.net";
+```
+
 ### <a name="addapiauthorization"></a>AddApiAuthorization
 
 此帮助程序方法将 Identity 服务器配置为使用受支持的配置。 IdentityServer 是一个功能强大且可扩展的框架，用于处理应用安全问题。 同时，对于最常见的方案，这会造成不必要的复杂性。 因此，系统会为您提供一组约定和配置选项，这是一个很好的起点。 一旦你的身份验证需要更改，服务器的全部功能 Identity 仍可用于自定义身份验证以满足你的需求。
@@ -151,9 +172,9 @@ dotnet new react -o <output_directory_name> -au Individual
 角度模板中的身份验证和 API 授权支持位于其自身的 *ClientApp\src\api-authorization* 目录中。 模块由以下元素组成：
 
 * 3个组件：
-  * *login. ts* ：处理应用的登录流。
+  * *login. ts*：处理应用的登录流。
   * node.js：处理应用程序的注销 *流。*
-  * *login-menu. ts* ：一个小组件，显示以下一组链接：
+  * *login-menu. ts*：一个小组件，显示以下一组链接：
     * 用户进行身份验证时，用户配置文件管理和注销链接。
     * 用户未通过身份验证时的注册和登录链接。
 * `AuthorizeGuard`可以添加到路由中的路由防护，要求先对用户进行身份验证，然后才能访问路由。
@@ -166,12 +187,12 @@ dotnet new react -o <output_directory_name> -au Individual
 响应模板中的身份验证和 API 授权支持位于 *ClientApp\src\components\api-authorization* 目录中。 它由以下元素组成：
 
 * 4个组件：
-  * *Login.js* ：处理应用的登录流。
-  * *Logout.js* ：处理应用程序的注销流。
-  * *LoginMenu.js* ：显示以下链接集之一的小组件：
+  * *Login.js*：处理应用的登录流。
+  * *Logout.js*：处理应用程序的注销流。
+  * *LoginMenu.js*：显示以下链接集之一的小组件：
     * 用户进行身份验证时，用户配置文件管理和注销链接。
     * 用户未通过身份验证时的注册和登录链接。
-  * *AuthorizeRoute.js* ：路由组件，需要先对用户进行身份验证，然后才能呈现参数中指示的组件 `Component` 。
+  * *AuthorizeRoute.js*：路由组件，需要先对用户进行身份验证，然后才能呈现参数中指示的组件 `Component` 。
 * `authService`类的导出实例 `AuthorizeService` ，用于处理身份验证过程的较低级别细节，并向应用程序的其余部分提供有关使用情况的已通过身份验证的用户的信息。
 
 现在，你已了解解决方案的主要组件，可以更深入地了解应用程序的各个方案。
@@ -198,7 +219,7 @@ services.Configure<JwtBearerOptions>(
 
 API 的 JWT 处理程序会引发事件，这些事件可以使用来控制身份验证过程 `JwtBearerEvents` 。 若要为 API 授权提供支持，请 `AddIdentityServerJwt` 注册其自己的事件处理程序。
 
-若要自定义事件的处理，请根据需要使用其他逻辑来包装现有的事件处理程序。 例如： 。
+若要自定义事件的处理，请根据需要使用其他逻辑来包装现有的事件处理程序。 例如：
 
 ```csharp
 services.Configure<JwtBearerOptions>(
@@ -285,7 +306,7 @@ async populateWeatherData() {
 
 ### <a name="example-deploy-to-a-non-azure-web-hosting-provider"></a>示例：部署到非 Azure web 托管提供程序
 
-在 web 托管面板中，创建或加载证书。 然后，在应用的 *appsettings.json* 文件中修改 `IdentityServer` 部分以包含关键详细信息。 例如： 。
+在 web 托管面板中，创建或加载证书。 然后，在应用的 *appsettings.json* 文件中修改 `IdentityServer` 部分以包含关键详细信息。 例如：
 
 ```json
 "IdentityServer": {
