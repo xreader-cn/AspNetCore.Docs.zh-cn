@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/secure-data
-ms.openlocfilehash: dc70cfe7cb0c0f044f5f1e7ee68a293b3ea7507f
-ms.sourcegitcommit: 04a404a9655c59ad1ea02aff5d399ae1b833ad6a
+ms.openlocfilehash: ebd3c0dc9baa63b30f142773d7a3d621ce4082d9
+ms.sourcegitcommit: ebc5beccba5f3f7619de20baa58ad727d2a3d18c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/03/2021
-ms.locfileid: "97854647"
+ms.lasthandoff: 01/22/2021
+ms.locfileid: "98689300"
 ---
 # <a name="create-an-aspnet-core-web-app-with-user-data-protected-by-authorization"></a>使用受授权保护的用户数据创建 ASP.NET Core web 应用
 
@@ -75,7 +75,7 @@ ms.locfileid: "97854647"
 * `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
 * `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
-## <a name="prerequisites"></a>必备知识
+## <a name="prerequisites"></a>先决条件
 
 本教程是高级教程。 你应该熟悉：
 
@@ -129,6 +129,8 @@ dotnet ef database update
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=13-99)]
 
 前面突出显示的代码设置了 [后备身份验证策略](xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.FallbackPolicy)。 回退身份验证策略要求 **_所有_* _ 用户进行身份验证，但 Razor 页面、控制器或操作方法除外。 例如， Razor 使用或的页、控制器或操作方法 `[AllowAnonymous]` `[Authorize(PolicyName="MyPolicy")]` 使用应用的身份验证属性而不是后备身份验证策略。
+
+<xref:Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder.RequireAuthenticatedUser%2A> 添加 <xref:Microsoft.AspNetCore.Authorization.Infrastructure.DenyAnonymousAuthorizationRequirement> 到当前实例，这将强制对当前用户进行身份验证。
 
 回退身份验证策略：
 
@@ -429,7 +431,7 @@ dotnet ef database update
 * `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
 * `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
-## <a name="prerequisites"></a>必备知识
+## <a name="prerequisites"></a>先决条件
 
 本教程是高级教程。 你应该熟悉：
 

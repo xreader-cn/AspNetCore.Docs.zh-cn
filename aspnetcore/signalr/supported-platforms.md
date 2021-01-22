@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core SignalR 支持的平台。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc, devx-track-js
-ms.date: 01/16/2020
+ms.date: 01/21/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: ee6e263fb5bef7bfb84587c3b0f04175eb8073cd
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 0a858de44f4a87b182a43a776154b782c7e96288
+ms.sourcegitcommit: ebc5beccba5f3f7619de20baa58ad727d2a3d18c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93051013"
+ms.lasthandoff: 01/22/2021
+ms.locfileid: "98689222"
 ---
 # <a name="aspnet-core-no-locsignalr-supported-platforms"></a>ASP.NET Core SignalR 支持的平台
 
@@ -44,6 +44,8 @@ SignalR 对于 ASP.NET Core 支持 ASP.NET Core 支持的任何服务器平台�
 | Mozilla Firefox                  | 当前&dagger; |
 
 &dagger;最新指的是浏览器的最新版本。
+
+JavaScript 客户端不支持 Internet Explorer 和其他旧版浏览器。 客户端在不支持的浏览器上可能出现意外行为和错误。
 
 ## <a name="net-client"></a>.NET 客户端
 
