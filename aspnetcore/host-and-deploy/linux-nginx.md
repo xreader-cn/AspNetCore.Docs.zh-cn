@@ -19,85 +19,85 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: c4e0d70b41221f272bb4b1fe82cfa531ec6fcf15
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 6a8fd8e3498dda9b7c10834791e64df6276e2823
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "94431057"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253015"
 ---
-# <a name="host-aspnet-core-on-linux-with-nginx"></a><span data-ttu-id="f0adf-103">使用 Nginx 在 Linux 上托管 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f0adf-103">Host ASP.NET Core on Linux with Nginx</span></span>
+# <a name="host-aspnet-core-on-linux-with-nginx"></a><span data-ttu-id="d1e1c-103">使用 Nginx 在 Linux 上托管 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="d1e1c-103">Host ASP.NET Core on Linux with Nginx</span></span>
 
-<span data-ttu-id="f0adf-104">作者：[Sourabh Shirhatti](https://twitter.com/sshirhatti)</span><span class="sxs-lookup"><span data-stu-id="f0adf-104">By [Sourabh Shirhatti](https://twitter.com/sshirhatti)</span></span>
+<span data-ttu-id="d1e1c-104">作者：[Sourabh Shirhatti](https://twitter.com/sshirhatti)</span><span class="sxs-lookup"><span data-stu-id="d1e1c-104">By [Sourabh Shirhatti](https://twitter.com/sshirhatti)</span></span>
 
-<span data-ttu-id="f0adf-105">本指南介绍如何在 Ubuntu 16.04 服务器上设置生产就绪 ASP.NET Core 环境。</span><span class="sxs-lookup"><span data-stu-id="f0adf-105">This guide explains setting up a production-ready ASP.NET Core environment on an Ubuntu 16.04 server.</span></span> <span data-ttu-id="f0adf-106">这些说明可能适用于较新版本的 Ubuntu，但尚未使用较新版本进行测试。</span><span class="sxs-lookup"><span data-stu-id="f0adf-106">These instructions likely work with newer versions of Ubuntu, but the instructions haven't been tested with newer versions.</span></span>
+<span data-ttu-id="d1e1c-105">本指南介绍如何在 Ubuntu 16.04 服务器上设置生产就绪 ASP.NET Core 环境。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-105">This guide explains setting up a production-ready ASP.NET Core environment on an Ubuntu 16.04 server.</span></span> <span data-ttu-id="d1e1c-106">这些说明可能适用于较新版本的 Ubuntu，但尚未使用较新版本进行测试。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-106">These instructions likely work with newer versions of Ubuntu, but the instructions haven't been tested with newer versions.</span></span>
 
-<span data-ttu-id="f0adf-107">有关 ASP.NET Core 支持的其他 Linux 分配的信息，请参阅 [Linux 上 .NET Core 的先决条件](/dotnet/core/linux-prerequisites)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-107">For information on other Linux distributions supported by ASP.NET Core, see [Prerequisites for .NET Core on Linux](/dotnet/core/linux-prerequisites).</span></span>
+<span data-ttu-id="d1e1c-107">有关 ASP.NET Core 支持的其他 Linux 分配的信息，请参阅 [Linux 上 .NET Core 的先决条件](/dotnet/core/linux-prerequisites)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-107">For information on other Linux distributions supported by ASP.NET Core, see [Prerequisites for .NET Core on Linux](/dotnet/core/linux-prerequisites).</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f0adf-108">对于 Ubuntu 14.04，建议使用 `supervisord` 作为监视 Kestrel 进程的解决方案。</span><span class="sxs-lookup"><span data-stu-id="f0adf-108">For Ubuntu 14.04, `supervisord` is recommended as a solution for monitoring the Kestrel process.</span></span> <span data-ttu-id="f0adf-109">`systemd` 不适用于 Ubuntu 14.04。</span><span class="sxs-lookup"><span data-stu-id="f0adf-109">`systemd` isn't available on Ubuntu 14.04.</span></span> <span data-ttu-id="f0adf-110">有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-110">For Ubuntu 14.04 instructions, see the [previous version of this topic](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).</span></span>
+> <span data-ttu-id="d1e1c-108">对于 Ubuntu 14.04，建议使用 `supervisord` 作为监视 Kestrel 进程的解决方案。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-108">For Ubuntu 14.04, `supervisord` is recommended as a solution for monitoring the Kestrel process.</span></span> <span data-ttu-id="d1e1c-109">`systemd` 不适用于 Ubuntu 14.04。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-109">`systemd` isn't available on Ubuntu 14.04.</span></span> <span data-ttu-id="d1e1c-110">有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-110">For Ubuntu 14.04 instructions, see the [previous version of this topic](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).</span></span>
 
-<span data-ttu-id="f0adf-111">本指南：</span><span class="sxs-lookup"><span data-stu-id="f0adf-111">This guide:</span></span>
+<span data-ttu-id="d1e1c-111">本指南：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-111">This guide:</span></span>
 
-* <span data-ttu-id="f0adf-112">将现有 ASP.NET Core 应用置于反向代理服务器后方。</span><span class="sxs-lookup"><span data-stu-id="f0adf-112">Places an existing ASP.NET Core app behind a reverse proxy server.</span></span>
-* <span data-ttu-id="f0adf-113">设置反向代理服务器，以便将请求转发到 Kestrel Web 服务器。</span><span class="sxs-lookup"><span data-stu-id="f0adf-113">Sets up the reverse proxy server to forward requests to the Kestrel web server.</span></span>
-* <span data-ttu-id="f0adf-114">确保 Web 应用在启动时作为守护程序运行。</span><span class="sxs-lookup"><span data-stu-id="f0adf-114">Ensures the web app runs on startup as a daemon.</span></span>
-* <span data-ttu-id="f0adf-115">配置进程管理工具以帮助重新启动 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-115">Configures a process management tool to help restart the web app.</span></span>
+* <span data-ttu-id="d1e1c-112">将现有 ASP.NET Core 应用置于反向代理服务器后方。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-112">Places an existing ASP.NET Core app behind a reverse proxy server.</span></span>
+* <span data-ttu-id="d1e1c-113">设置反向代理服务器，以便将请求转发到 Kestrel Web 服务器。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-113">Sets up the reverse proxy server to forward requests to the Kestrel web server.</span></span>
+* <span data-ttu-id="d1e1c-114">确保 Web 应用在启动时作为守护程序运行。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-114">Ensures the web app runs on startup as a daemon.</span></span>
+* <span data-ttu-id="d1e1c-115">配置进程管理工具以帮助重新启动 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-115">Configures a process management tool to help restart the web app.</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="f0adf-116">先决条件</span><span class="sxs-lookup"><span data-stu-id="f0adf-116">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="d1e1c-116">先决条件</span><span class="sxs-lookup"><span data-stu-id="d1e1c-116">Prerequisites</span></span>
 
-1. <span data-ttu-id="f0adf-117">使用具有 sudo 特权的标准用户帐户访问 Ubuntu 16.04 服务器。</span><span class="sxs-lookup"><span data-stu-id="f0adf-117">Access to an Ubuntu 16.04 server with a standard user account with sudo privilege.</span></span>
-1. <span data-ttu-id="f0adf-118">在服务器上安装 .NET Core 运行时。</span><span class="sxs-lookup"><span data-stu-id="f0adf-118">Install the .NET Core runtime on the server.</span></span>
-   1. <span data-ttu-id="f0adf-119">访问[下载 .NET Core 页面](https://dotnet.microsoft.com/download/dotnet-core)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-119">Visit the [Download .NET Core page](https://dotnet.microsoft.com/download/dotnet-core).</span></span>
-   1. <span data-ttu-id="f0adf-120">选择最新的 .NET Core 非预览版。</span><span class="sxs-lookup"><span data-stu-id="f0adf-120">Select the latest non-preview .NET Core version.</span></span>
-   1. <span data-ttu-id="f0adf-121">在“运行应用”-“运行时”下的表格中，下载最新的非预览版运行时。</span><span class="sxs-lookup"><span data-stu-id="f0adf-121">Download the latest non-preview runtime in the table under **Run apps - Runtime**.</span></span>
-   1. <span data-ttu-id="f0adf-122">选择 Linux 包管理器说明链接，然后按照 Ubuntu 版本的 Ubuntu 说明进行操作。</span><span class="sxs-lookup"><span data-stu-id="f0adf-122">Select the Linux **Package manager instructions** link and follow the Ubuntu instructions for your version of Ubuntu.</span></span>
-1. <span data-ttu-id="f0adf-123">一个现有 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-123">An existing ASP.NET Core app.</span></span>
+1. <span data-ttu-id="d1e1c-117">使用具有 sudo 特权的标准用户帐户访问 Ubuntu 16.04 服务器。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-117">Access to an Ubuntu 16.04 server with a standard user account with sudo privilege.</span></span>
+1. <span data-ttu-id="d1e1c-118">在服务器上安装 .NET Core 运行时。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-118">Install the .NET Core runtime on the server.</span></span>
+   1. <span data-ttu-id="d1e1c-119">访问[下载 .NET Core 页面](https://dotnet.microsoft.com/download/dotnet-core)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-119">Visit the [Download .NET Core page](https://dotnet.microsoft.com/download/dotnet-core).</span></span>
+   1. <span data-ttu-id="d1e1c-120">选择最新的 .NET Core 非预览版。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-120">Select the latest non-preview .NET Core version.</span></span>
+   1. <span data-ttu-id="d1e1c-121">在“运行应用”-“运行时”下的表格中，下载最新的非预览版运行时。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-121">Download the latest non-preview runtime in the table under **Run apps - Runtime**.</span></span>
+   1. <span data-ttu-id="d1e1c-122">选择 Linux 包管理器说明链接，然后按照 Ubuntu 版本的 Ubuntu 说明进行操作。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-122">Select the Linux **Package manager instructions** link and follow the Ubuntu instructions for your version of Ubuntu.</span></span>
+1. <span data-ttu-id="d1e1c-123">一个现有 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-123">An existing ASP.NET Core app.</span></span>
 
-<span data-ttu-id="f0adf-124">升级共享框架后，可随时重启服务器托管的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-124">At any point in the future after upgrading the shared framework, restart the ASP.NET Core apps hosted by the server.</span></span>
+<span data-ttu-id="d1e1c-124">升级共享框架后，可随时重启服务器托管的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-124">At any point in the future after upgrading the shared framework, restart the ASP.NET Core apps hosted by the server.</span></span>
 
-## <a name="publish-and-copy-over-the-app"></a><span data-ttu-id="f0adf-125">通过应用发布和复制</span><span class="sxs-lookup"><span data-stu-id="f0adf-125">Publish and copy over the app</span></span>
+## <a name="publish-and-copy-over-the-app"></a><span data-ttu-id="d1e1c-125">通过应用发布和复制</span><span class="sxs-lookup"><span data-stu-id="d1e1c-125">Publish and copy over the app</span></span>
 
-<span data-ttu-id="f0adf-126">配置应用以进行[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-126">Configure the app for a [framework-dependent deployment](/dotnet/core/deploying/#framework-dependent-deployments-fdd).</span></span>
+<span data-ttu-id="d1e1c-126">配置应用以进行[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-126">Configure the app for a [framework-dependent deployment](/dotnet/core/deploying/#framework-dependent-deployments-fdd).</span></span>
 
-<span data-ttu-id="f0adf-127">如果应用在本地运行，且未配置为建立安全连接 (HTTPS)，则采用以下任一方法：</span><span class="sxs-lookup"><span data-stu-id="f0adf-127">If the app is run locally and isn't configured to make secure connections (HTTPS), adopt either of the following approaches:</span></span>
+<span data-ttu-id="d1e1c-127">如果应用在本地运行，且未配置为建立安全连接 (HTTPS)，则采用以下任一方法：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-127">If the app is run locally and isn't configured to make secure connections (HTTPS), adopt either of the following approaches:</span></span>
 
-* <span data-ttu-id="f0adf-128">配置应用，以处理安全的本地连接。</span><span class="sxs-lookup"><span data-stu-id="f0adf-128">Configure the app to handle secure local connections.</span></span> <span data-ttu-id="f0adf-129">有关详细信息，请参阅 [HTTPS 配置](#https-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="f0adf-129">For more information, see the [HTTPS configuration](#https-configuration) section.</span></span>
-* <span data-ttu-id="f0adf-130">从 `Properties/launchSettings.json` 文件的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）。</span><span class="sxs-lookup"><span data-stu-id="f0adf-130">Remove `https://localhost:5001` (if present) from the `applicationUrl` property in the `Properties/launchSettings.json` file.</span></span>
+* <span data-ttu-id="d1e1c-128">配置应用，以处理安全的本地连接。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-128">Configure the app to handle secure local connections.</span></span> <span data-ttu-id="d1e1c-129">有关详细信息，请参阅 [HTTPS 配置](#https-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-129">For more information, see the [HTTPS configuration](#https-configuration) section.</span></span>
+* <span data-ttu-id="d1e1c-130">从 `Properties/launchSettings.json` 文件的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-130">Remove `https://localhost:5001` (if present) from the `applicationUrl` property in the `Properties/launchSettings.json` file.</span></span>
 
-<span data-ttu-id="f0adf-131">在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 `bin/Release/{TARGET FRAMEWORK MONIKER}/publish`，其中 `{TARGET FRAMEWORK MONIKER}` 占位符表示目标框架名字对象/TFM）：</span><span class="sxs-lookup"><span data-stu-id="f0adf-131">Run [dotnet publish](/dotnet/core/tools/dotnet-publish) from the development environment to package an app into a directory (for example, `bin/Release/{TARGET FRAMEWORK MONIKER}/publish`, where the placeholder `{TARGET FRAMEWORK MONIKER}` is the Target Framework Moniker/TFM) that can run on the server:</span></span>
+<span data-ttu-id="d1e1c-131">在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 `bin/Release/{TARGET FRAMEWORK MONIKER}/publish`，其中 `{TARGET FRAMEWORK MONIKER}` 占位符表示目标框架名字对象/TFM）：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-131">Run [dotnet publish](/dotnet/core/tools/dotnet-publish) from the development environment to package an app into a directory (for example, `bin/Release/{TARGET FRAMEWORK MONIKER}/publish`, where the placeholder `{TARGET FRAMEWORK MONIKER}` is the Target Framework Moniker/TFM) that can run on the server:</span></span>
 
 ```dotnetcli
 dotnet publish --configuration Release
 ```
 
-<span data-ttu-id="f0adf-132">如果不希望维护服务器上的 .NET Core 运行时，还可将应用发布为[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-132">The app can also be published as a [self-contained deployment](/dotnet/core/deploying/#self-contained-deployments-scd) if you prefer not to maintain the .NET Core runtime on the server.</span></span>
+<span data-ttu-id="d1e1c-132">如果不希望维护服务器上的 .NET Core 运行时，还可将应用发布为[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-132">The app can also be published as a [self-contained deployment](/dotnet/core/deploying/#self-contained-deployments-scd) if you prefer not to maintain the .NET Core runtime on the server.</span></span>
 
-<span data-ttu-id="f0adf-133">使用集成到组织工作流的工具（例如 `SCP`、`SFTP`）将 ASP.NET Core 应用复制到服务器。</span><span class="sxs-lookup"><span data-stu-id="f0adf-133">Copy the ASP.NET Core app to the server using a tool that integrates into the organization's workflow (for example, `SCP`, `SFTP`).</span></span> <span data-ttu-id="f0adf-134">通常可在 `var` 目录（例如 `var/www/helloapp`）下找到 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-134">It's common to locate web apps under the `var` directory (for example, `var/www/helloapp`).</span></span>
+<span data-ttu-id="d1e1c-133">使用集成到组织工作流的工具（例如 `SCP`、`SFTP`）将 ASP.NET Core 应用复制到服务器。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-133">Copy the ASP.NET Core app to the server using a tool that integrates into the organization's workflow (for example, `SCP`, `SFTP`).</span></span> <span data-ttu-id="d1e1c-134">通常可在 `var` 目录（例如 `var/www/helloapp`）下找到 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-134">It's common to locate web apps under the `var` directory (for example, `var/www/helloapp`).</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f0adf-135">在生产部署方案中，持续集成工作流会执行发布应用并将资产复制到服务器的工作。</span><span class="sxs-lookup"><span data-stu-id="f0adf-135">Under a production deployment scenario, a continuous integration workflow does the work of publishing the app and copying the assets to the server.</span></span>
+> <span data-ttu-id="d1e1c-135">在生产部署方案中，持续集成工作流会执行发布应用并将资产复制到服务器的工作。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-135">Under a production deployment scenario, a continuous integration workflow does the work of publishing the app and copying the assets to the server.</span></span>
 
-<span data-ttu-id="f0adf-136">测试应用：</span><span class="sxs-lookup"><span data-stu-id="f0adf-136">Test the app:</span></span>
+<span data-ttu-id="d1e1c-136">测试应用：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-136">Test the app:</span></span>
 
-1. <span data-ttu-id="f0adf-137">在命令行中运行应用：`dotnet <app_assembly>.dll`。</span><span class="sxs-lookup"><span data-stu-id="f0adf-137">From the command line, run the app: `dotnet <app_assembly>.dll`.</span></span>
-1. <span data-ttu-id="f0adf-138">在浏览器中，导航到 `http://<serveraddress>:<port>` 以确认应用在 Linux 本地正常运行。</span><span class="sxs-lookup"><span data-stu-id="f0adf-138">In a browser, navigate to `http://<serveraddress>:<port>` to verify the app works on Linux locally.</span></span>
+1. <span data-ttu-id="d1e1c-137">在命令行中运行应用：`dotnet <app_assembly>.dll`。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-137">From the command line, run the app: `dotnet <app_assembly>.dll`.</span></span>
+1. <span data-ttu-id="d1e1c-138">在浏览器中，导航到 `http://<serveraddress>:<port>` 以确认应用在 Linux 本地正常运行。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-138">In a browser, navigate to `http://<serveraddress>:<port>` to verify the app works on Linux locally.</span></span>
 
-## <a name="configure-a-reverse-proxy-server"></a><span data-ttu-id="f0adf-139">配置反向代理服务器</span><span class="sxs-lookup"><span data-stu-id="f0adf-139">Configure a reverse proxy server</span></span>
+## <a name="configure-a-reverse-proxy-server"></a><span data-ttu-id="d1e1c-139">配置反向代理服务器</span><span class="sxs-lookup"><span data-stu-id="d1e1c-139">Configure a reverse proxy server</span></span>
 
-<span data-ttu-id="f0adf-140">反向代理是为动态 Web 应用提供服务的常见设置。</span><span class="sxs-lookup"><span data-stu-id="f0adf-140">A reverse proxy is a common setup for serving dynamic web apps.</span></span> <span data-ttu-id="f0adf-141">反向代理终止 HTTP 请求，并将其转发到 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-141">A reverse proxy terminates the HTTP request and forwards it to the ASP.NET Core app.</span></span>
+<span data-ttu-id="d1e1c-140">反向代理是为动态 Web 应用提供服务的常见设置。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-140">A reverse proxy is a common setup for serving dynamic web apps.</span></span> <span data-ttu-id="d1e1c-141">反向代理终止 HTTP 请求，并将其转发到 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-141">A reverse proxy terminates the HTTP request and forwards it to the ASP.NET Core app.</span></span>
 
-### <a name="use-a-reverse-proxy-server"></a><span data-ttu-id="f0adf-142">使用反向代理服务器</span><span class="sxs-lookup"><span data-stu-id="f0adf-142">Use a reverse proxy server</span></span>
+### <a name="use-a-reverse-proxy-server"></a><span data-ttu-id="d1e1c-142">使用反向代理服务器</span><span class="sxs-lookup"><span data-stu-id="d1e1c-142">Use a reverse proxy server</span></span>
 
-<span data-ttu-id="f0adf-143">Kestrel 非常适合从 ASP.NET Core 提供动态内容。</span><span class="sxs-lookup"><span data-stu-id="f0adf-143">Kestrel is great for serving dynamic content from ASP.NET Core.</span></span> <span data-ttu-id="f0adf-144">但是，Web 服务功能不像服务器（如 IIS、Apache 或 Nginx）那样功能丰富。</span><span class="sxs-lookup"><span data-stu-id="f0adf-144">However, the web serving capabilities aren't as feature rich as servers such as IIS, Apache, or Nginx.</span></span> <span data-ttu-id="f0adf-145">反向代理服务器可以卸载 HTTP 服务器的工作负载，如提供静态内容、缓存请求、压缩请求和 HTTPS 终端。</span><span class="sxs-lookup"><span data-stu-id="f0adf-145">A reverse proxy server can offload work such as serving static content, caching requests, compressing requests, and HTTPS termination from the HTTP server.</span></span> <span data-ttu-id="f0adf-146">反向代理服务器可能驻留在专用计算机上，也可能与 HTTP 服务器一起部署。</span><span class="sxs-lookup"><span data-stu-id="f0adf-146">A reverse proxy server may reside on a dedicated machine or may be deployed alongside an HTTP server.</span></span>
+<span data-ttu-id="d1e1c-143">Kestrel 非常适合从 ASP.NET Core 提供动态内容。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-143">Kestrel is great for serving dynamic content from ASP.NET Core.</span></span> <span data-ttu-id="d1e1c-144">但是，Web 服务功能不像服务器（如 IIS、Apache 或 Nginx）那样功能丰富。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-144">However, the web serving capabilities aren't as feature rich as servers such as IIS, Apache, or Nginx.</span></span> <span data-ttu-id="d1e1c-145">反向代理服务器可以卸载 HTTP 服务器的工作负载，如提供静态内容、缓存请求、压缩请求和 HTTPS 终端。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-145">A reverse proxy server can offload work such as serving static content, caching requests, compressing requests, and HTTPS termination from the HTTP server.</span></span> <span data-ttu-id="d1e1c-146">反向代理服务器可能驻留在专用计算机上，也可能与 HTTP 服务器一起部署。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-146">A reverse proxy server may reside on a dedicated machine or may be deployed alongside an HTTP server.</span></span>
 
-<span data-ttu-id="f0adf-147">鉴于此指南的目的，使用 Nginx 的单个实例。</span><span class="sxs-lookup"><span data-stu-id="f0adf-147">For the purposes of this guide, a single instance of Nginx is used.</span></span> <span data-ttu-id="f0adf-148">它与 HTTP 服务器一起运行在同一服务器上。</span><span class="sxs-lookup"><span data-stu-id="f0adf-148">It runs on the same server, alongside the HTTP server.</span></span> <span data-ttu-id="f0adf-149">根据要求，可以选择不同的设置。</span><span class="sxs-lookup"><span data-stu-id="f0adf-149">Based on requirements, a different setup may be chosen.</span></span>
+<span data-ttu-id="d1e1c-147">鉴于此指南的目的，使用 Nginx 的单个实例。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-147">For the purposes of this guide, a single instance of Nginx is used.</span></span> <span data-ttu-id="d1e1c-148">它与 HTTP 服务器一起运行在同一服务器上。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-148">It runs on the same server, alongside the HTTP server.</span></span> <span data-ttu-id="d1e1c-149">根据要求，可以选择不同的设置。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-149">Based on requirements, a different setup may be chosen.</span></span>
 
-<span data-ttu-id="f0adf-150">由于请求通过反向代理转发，因此使用 [`Microsoft.AspNetCore.HttpOverrides`](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides) 包中的[转接头中间件](xref:host-and-deploy/proxy-load-balancer)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-150">Because requests are forwarded by reverse proxy, use the [Forwarded Headers Middleware](xref:host-and-deploy/proxy-load-balancer) from the [`Microsoft.AspNetCore.HttpOverrides`](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides) package.</span></span> <span data-ttu-id="f0adf-151">此中间件使用 `X-Forwarded-Proto` 标头来更新 `Request.Scheme`，使重定向 URI 和其他安全策略能够正常工作。</span><span class="sxs-lookup"><span data-stu-id="f0adf-151">The middleware updates the `Request.Scheme`, using the `X-Forwarded-Proto` header, so that redirect URIs and other security policies work correctly.</span></span>
+<span data-ttu-id="d1e1c-150">由于请求通过反向代理转发，因此使用 [`Microsoft.AspNetCore.HttpOverrides`](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides) 包中的[转接头中间件](xref:host-and-deploy/proxy-load-balancer)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-150">Because requests are forwarded by reverse proxy, use the [Forwarded Headers Middleware](xref:host-and-deploy/proxy-load-balancer) from the [`Microsoft.AspNetCore.HttpOverrides`](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides) package.</span></span> <span data-ttu-id="d1e1c-151">此中间件使用 `X-Forwarded-Proto` 标头来更新 `Request.Scheme`，使重定向 URI 和其他安全策略能够正常工作。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-151">The middleware updates the `Request.Scheme`, using the `X-Forwarded-Proto` header, so that redirect URIs and other security policies work correctly.</span></span>
 
 [!INCLUDE[](~/includes/ForwardedHeaders.md)]
 
-<span data-ttu-id="f0adf-152">调用其他中间件之前，请先在 `Startup.Configure` 的基础上调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法。</span><span class="sxs-lookup"><span data-stu-id="f0adf-152">Invoke the <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> method at the top of `Startup.Configure` before calling other middleware.</span></span> <span data-ttu-id="f0adf-153">配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：</span><span class="sxs-lookup"><span data-stu-id="f0adf-153">Configure the middleware to forward the `X-Forwarded-For` and `X-Forwarded-Proto` headers:</span></span>
+<span data-ttu-id="d1e1c-152">调用其他中间件之前，请先在 `Startup.Configure` 的基础上调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders%2A> 方法。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-152">Invoke the <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders%2A> method at the top of `Startup.Configure` before calling other middleware.</span></span> <span data-ttu-id="d1e1c-153">配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-153">Configure the middleware to forward the `X-Forwarded-For` and `X-Forwarded-Proto` headers:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.HttpOverrides;
@@ -112,9 +112,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 ```
 
-<span data-ttu-id="f0adf-154">如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，则要转接的默认标头为 `None`。</span><span class="sxs-lookup"><span data-stu-id="f0adf-154">If no <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> are specified to the middleware, the default headers to forward are `None`.</span></span>
+<span data-ttu-id="d1e1c-154">如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，则要转接的默认标头为 `None`。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-154">If no <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> are specified to the middleware, the default headers to forward are `None`.</span></span>
 
-<span data-ttu-id="f0adf-155">默认情况下，在环回地址 (`127.0.0.0/8`, `[::1]`)（包括标准 localhost 地址 (`127.0.0.1`)）上运行的代理受信任。</span><span class="sxs-lookup"><span data-stu-id="f0adf-155">Proxies running on loopback addresses (`127.0.0.0/8`, `[::1]`), including the standard localhost address (`127.0.0.1`), are trusted by default.</span></span> <span data-ttu-id="f0adf-156">如果组织内的其他受信任代理或网络处理 Internet 与 Web 服务器之间的请求，请使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 将其添加到 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> 或 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> 的列表。</span><span class="sxs-lookup"><span data-stu-id="f0adf-156">If other trusted proxies or networks within the organization handle requests between the Internet and the web server, add them to the list of <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> or <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> with <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>.</span></span> <span data-ttu-id="f0adf-157">以下示例会将 IP 地址为 10.0.0.100 的受信任代理服务器添加到 `Startup.ConfigureServices` 中的转接头中间件 `KnownProxies`：</span><span class="sxs-lookup"><span data-stu-id="f0adf-157">The following example adds a trusted proxy server at IP address 10.0.0.100 to the Forwarded Headers Middleware `KnownProxies` in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="d1e1c-155">默认情况下，在环回地址 (`127.0.0.0/8`, `[::1]`)（包括标准 localhost 地址 (`127.0.0.1`)）上运行的代理受信任。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-155">Proxies running on loopback addresses (`127.0.0.0/8`, `[::1]`), including the standard localhost address (`127.0.0.1`), are trusted by default.</span></span> <span data-ttu-id="d1e1c-156">如果组织内的其他受信任代理或网络处理 Internet 与 Web 服务器之间的请求，请使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 将其添加到 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies%2A> 或 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks%2A> 的列表。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-156">If other trusted proxies or networks within the organization handle requests between the Internet and the web server, add them to the list of <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies%2A> or <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks%2A> with <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>.</span></span> <span data-ttu-id="d1e1c-157">以下示例会将 IP 地址为 10.0.0.100 的受信任代理服务器添加到 `Startup.ConfigureServices` 中的转接头中间件 `KnownProxies`：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-157">The following example adds a trusted proxy server at IP address 10.0.0.100 to the Forwarded Headers Middleware `KnownProxies` in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 using System.Net;
@@ -127,26 +127,26 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-<span data-ttu-id="f0adf-158">有关详细信息，请参阅 <xref:host-and-deploy/proxy-load-balancer>。</span><span class="sxs-lookup"><span data-stu-id="f0adf-158">For more information, see <xref:host-and-deploy/proxy-load-balancer>.</span></span>
+<span data-ttu-id="d1e1c-158">有关详细信息，请参阅 <xref:host-and-deploy/proxy-load-balancer>。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-158">For more information, see <xref:host-and-deploy/proxy-load-balancer>.</span></span>
 
-### <a name="install-nginx"></a><span data-ttu-id="f0adf-159">安装 Nginx</span><span class="sxs-lookup"><span data-stu-id="f0adf-159">Install Nginx</span></span>
+### <a name="install-nginx"></a><span data-ttu-id="d1e1c-159">安装 Nginx</span><span class="sxs-lookup"><span data-stu-id="d1e1c-159">Install Nginx</span></span>
 
-<span data-ttu-id="f0adf-160">使用 `apt-get` 安装 Nginx。</span><span class="sxs-lookup"><span data-stu-id="f0adf-160">Use `apt-get` to install Nginx.</span></span> <span data-ttu-id="f0adf-161">安装程序将创建一个 `systemd` init 脚本，该脚本运行 Nginx，作为系统启动时的守护程序。</span><span class="sxs-lookup"><span data-stu-id="f0adf-161">The installer creates a `systemd` init script that runs Nginx as daemon on system startup.</span></span> <span data-ttu-id="f0adf-162">按照以下网站上的 Ubuntu 安装说明操作：[Nginx：官方 Debian/Ubuntu 包](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-162">Follow the installation instructions for Ubuntu at [Nginx: Official Debian/Ubuntu packages](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages).</span></span>
+<span data-ttu-id="d1e1c-160">使用 `apt-get` 安装 Nginx。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-160">Use `apt-get` to install Nginx.</span></span> <span data-ttu-id="d1e1c-161">安装程序将创建一个 `systemd` init 脚本，该脚本运行 Nginx，作为系统启动时的守护程序。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-161">The installer creates a `systemd` init script that runs Nginx as daemon on system startup.</span></span> <span data-ttu-id="d1e1c-162">按照以下网站上的 Ubuntu 安装说明操作：[Nginx：官方 Debian/Ubuntu 包](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-162">Follow the installation instructions for Ubuntu at [Nginx: Official Debian/Ubuntu packages](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages).</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f0adf-163">如果需要可选 Nginx 模块，则可能需要从源代码生成 Nginx。</span><span class="sxs-lookup"><span data-stu-id="f0adf-163">If optional Nginx modules are required, building Nginx from source might be required.</span></span>
+> <span data-ttu-id="d1e1c-163">如果需要可选 Nginx 模块，则可能需要从源代码生成 Nginx。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-163">If optional Nginx modules are required, building Nginx from source might be required.</span></span>
 
-<span data-ttu-id="f0adf-164">因为是首次安装 Nginx，通过运行以下命令显式启动：</span><span class="sxs-lookup"><span data-stu-id="f0adf-164">Since Nginx was installed for the first time, explicitly start it by running:</span></span>
+<span data-ttu-id="d1e1c-164">因为是首次安装 Nginx，通过运行以下命令显式启动：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-164">Since Nginx was installed for the first time, explicitly start it by running:</span></span>
 
 ```bash
 sudo service nginx start
 ```
 
-<span data-ttu-id="f0adf-165">确认浏览器显示 Nginx 的默认登陆页。</span><span class="sxs-lookup"><span data-stu-id="f0adf-165">Verify a browser displays the default landing page for Nginx.</span></span> <span data-ttu-id="f0adf-166">可在 `http://<server_IP_address>/index.nginx-debian.html` 访问登陆页面。</span><span class="sxs-lookup"><span data-stu-id="f0adf-166">The landing page is reachable at `http://<server_IP_address>/index.nginx-debian.html`.</span></span>
+<span data-ttu-id="d1e1c-165">确认浏览器显示 Nginx 的默认登陆页。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-165">Verify a browser displays the default landing page for Nginx.</span></span> <span data-ttu-id="d1e1c-166">可在 `http://<server_IP_address>/index.nginx-debian.html` 访问登陆页面。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-166">The landing page is reachable at `http://<server_IP_address>/index.nginx-debian.html`.</span></span>
 
-### <a name="configure-nginx"></a><span data-ttu-id="f0adf-167">配置 Nginx</span><span class="sxs-lookup"><span data-stu-id="f0adf-167">Configure Nginx</span></span>
+### <a name="configure-nginx"></a><span data-ttu-id="d1e1c-167">配置 Nginx</span><span class="sxs-lookup"><span data-stu-id="d1e1c-167">Configure Nginx</span></span>
 
-<span data-ttu-id="f0adf-168">若要将 Nginx 配置为反向代理以将 HTTP 请求转发到 ASP.NET Core 应用程序，请修改 `/etc/nginx/sites-available/default`。</span><span class="sxs-lookup"><span data-stu-id="f0adf-168">To configure Nginx as a reverse proxy to forward HTTP requests to your ASP.NET Core app, modify `/etc/nginx/sites-available/default`.</span></span> <span data-ttu-id="f0adf-169">在文本编辑器中打开它，并将内容替换为以下内容：</span><span class="sxs-lookup"><span data-stu-id="f0adf-169">Open it in a text editor, and replace the contents with the following:</span></span>
+<span data-ttu-id="d1e1c-168">若要将 Nginx 配置为反向代理以将 HTTP 请求转发到 ASP.NET Core 应用程序，请修改 `/etc/nginx/sites-available/default`。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-168">To configure Nginx as a reverse proxy to forward HTTP requests to your ASP.NET Core app, modify `/etc/nginx/sites-available/default`.</span></span> <span data-ttu-id="d1e1c-169">在文本编辑器中打开它，并将内容替换为以下代码片段：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-169">Open it in a text editor, and replace the contents with the following snippet:</span></span>
 
 ```nginx
 server {
@@ -165,9 +165,9 @@ server {
 }
 ```
 
-<span data-ttu-id="f0adf-170">如果应用是 SignalR 或 Blazor Server 应用，请分别参阅 <xref:signalr/scale#linux-with-nginx> 和 <xref:blazor/host-and-deploy/server#linux-with-nginx> 以了解详细信息。</span><span class="sxs-lookup"><span data-stu-id="f0adf-170">If the app is a SignalR or Blazor Server app see <xref:signalr/scale#linux-with-nginx> and <xref:blazor/host-and-deploy/server#linux-with-nginx> respectively for more information.</span></span>
+<span data-ttu-id="d1e1c-170">如果应用是 SignalR 或 Blazor Server 应用，请分别参阅 <xref:signalr/scale#linux-with-nginx> 和 <xref:blazor/host-and-deploy/server#linux-with-nginx> 以了解详细信息。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-170">If the app is a SignalR or Blazor Server app, see <xref:signalr/scale#linux-with-nginx> and <xref:blazor/host-and-deploy/server#linux-with-nginx> respectively for more information.</span></span>
 
-<span data-ttu-id="f0adf-171">当没有匹配的 `server_name` 时，Nginx 使用默认服务器。</span><span class="sxs-lookup"><span data-stu-id="f0adf-171">When no `server_name` matches, Nginx uses the default server.</span></span> <span data-ttu-id="f0adf-172">如果没有定义默认服务器，则配置文件中的第一台服务器是默认服务器。</span><span class="sxs-lookup"><span data-stu-id="f0adf-172">If no default server is defined, the first server in the configuration file is the default server.</span></span> <span data-ttu-id="f0adf-173">作为最佳做法，添加指定默认服务器，它会在配置文件中返回状态代码 444。</span><span class="sxs-lookup"><span data-stu-id="f0adf-173">As a best practice, add a specific default server which returns a status code of 444 in your configuration file.</span></span> <span data-ttu-id="f0adf-174">默认的服务器配置示例是：</span><span class="sxs-lookup"><span data-stu-id="f0adf-174">A default server configuration example is:</span></span>
+<span data-ttu-id="d1e1c-171">当没有匹配的 `server_name` 时，Nginx 使用默认服务器。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-171">When no `server_name` matches, Nginx uses the default server.</span></span> <span data-ttu-id="d1e1c-172">如果没有定义默认服务器，则配置文件中的第一台服务器是默认服务器。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-172">If no default server is defined, the first server in the configuration file is the default server.</span></span> <span data-ttu-id="d1e1c-173">最佳做法是，添加一个特定的默认服务器，它会在配置文件中返回状态代码 444。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-173">As a best practice, add a specific default server that returns a status code of 444 in your configuration file.</span></span> <span data-ttu-id="d1e1c-174">默认的服务器配置示例是：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-174">A default server configuration example is:</span></span>
 
 ```nginx
 server {
@@ -177,35 +177,45 @@ server {
 }
 ```
 
-<span data-ttu-id="f0adf-175">使用上述配置文件和默认服务器，Nginx 接受主机标头 `example.com` 或 `*.example.com` 端口 80 上的公共流量。</span><span class="sxs-lookup"><span data-stu-id="f0adf-175">With the preceding configuration file and default server, Nginx accepts public traffic on port 80 with host header `example.com` or `*.example.com`.</span></span> <span data-ttu-id="f0adf-176">与这些主机不匹配的请求不会转接到 Kestrel。</span><span class="sxs-lookup"><span data-stu-id="f0adf-176">Requests not matching these hosts won't get forwarded to Kestrel.</span></span> <span data-ttu-id="f0adf-177">Nginx 将匹配的请求转接到 `http://localhost:5000` 中的 Kestrel。</span><span class="sxs-lookup"><span data-stu-id="f0adf-177">Nginx forwards the matching requests to Kestrel at `http://localhost:5000`.</span></span> <span data-ttu-id="f0adf-178">有关详细信息，请参阅 [nginx 如何处理请求](https://nginx.org/docs/http/request_processing.html)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-178">See [How nginx processes a request](https://nginx.org/docs/http/request_processing.html) for more information.</span></span> <span data-ttu-id="f0adf-179">若要更改 Kestrel 的 IP/端口，请参阅 [Kestrel：终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-179">To change Kestrel's IP/port, see [Kestrel: Endpoint configuration](xref:fundamentals/servers/kestrel#endpoint-configuration).</span></span>
+::: moniker range=">= aspnetcore-5.0"
+
+<span data-ttu-id="d1e1c-175">使用上述配置文件和默认服务器，Nginx 接受主机标头 `example.com` 或 `*.example.com` 端口 80 上的公共流量。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-175">With the preceding configuration file and default server, Nginx accepts public traffic on port 80 with host header `example.com` or `*.example.com`.</span></span> <span data-ttu-id="d1e1c-176">与这些主机不匹配的请求不会转接到 Kestrel。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-176">Requests not matching these hosts won't get forwarded to Kestrel.</span></span> <span data-ttu-id="d1e1c-177">Nginx 将匹配的请求转接到 `http://localhost:5000` 中的 Kestrel。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-177">Nginx forwards the matching requests to Kestrel at `http://localhost:5000`.</span></span> <span data-ttu-id="d1e1c-178">有关详细信息，请参阅 [nginx 如何处理请求](https://nginx.org/docs/http/request_processing.html)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-178">For more information, see [How nginx processes a request](https://nginx.org/docs/http/request_processing.html).</span></span> <span data-ttu-id="d1e1c-179">若要更改 Kestrel 的 IP/端口，请参阅 [Kestrel：终结点配置](xref:fundamentals/servers/kestrel/endpoints)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-179">To change Kestrel's IP/port, see [Kestrel: Endpoint configuration](xref:fundamentals/servers/kestrel/endpoints).</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+<span data-ttu-id="d1e1c-180">使用上述配置文件和默认服务器，Nginx 接受主机标头 `example.com` 或 `*.example.com` 端口 80 上的公共流量。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-180">With the preceding configuration file and default server, Nginx accepts public traffic on port 80 with host header `example.com` or `*.example.com`.</span></span> <span data-ttu-id="d1e1c-181">与这些主机不匹配的请求不会转接到 Kestrel。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-181">Requests not matching these hosts won't get forwarded to Kestrel.</span></span> <span data-ttu-id="d1e1c-182">Nginx 将匹配的请求转接到 `http://localhost:5000` 中的 Kestrel。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-182">Nginx forwards the matching requests to Kestrel at `http://localhost:5000`.</span></span> <span data-ttu-id="d1e1c-183">有关详细信息，请参阅 [nginx 如何处理请求](https://nginx.org/docs/http/request_processing.html)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-183">For more information, see [How nginx processes a request](https://nginx.org/docs/http/request_processing.html).</span></span> <span data-ttu-id="d1e1c-184">若要更改 Kestrel 的 IP/端口，请参阅 [Kestrel：终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-184">To change Kestrel's IP/port, see [Kestrel: Endpoint configuration](xref:fundamentals/servers/kestrel#endpoint-configuration).</span></span>
+
+::: moniker-end
 
 > [!WARNING]
-> <span data-ttu-id="f0adf-180">未能指定正确的 [server_name 指令](https://nginx.org/docs/http/server_names.html)会公开应用的安全漏洞。</span><span class="sxs-lookup"><span data-stu-id="f0adf-180">Failure to specify a proper [server_name directive](https://nginx.org/docs/http/server_names.html) exposes your app to security vulnerabilities.</span></span> <span data-ttu-id="f0adf-181">如果可控制整个父域（区别于易受攻击的 `*.com`），则子域通配符绑定（例如，`*.example.com`）不具有此安全风险。</span><span class="sxs-lookup"><span data-stu-id="f0adf-181">Subdomain wildcard binding (for example, `*.example.com`) doesn't pose this security risk if you control the entire parent domain (as opposed to `*.com`, which is vulnerable).</span></span> <span data-ttu-id="f0adf-182">有关详细信息，请参阅 [rfc7230 第 5.4 条](https://tools.ietf.org/html/rfc7230#section-5.4)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-182">See [rfc7230 section-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) for more information.</span></span>
+> <span data-ttu-id="d1e1c-185">未能指定正确的 [server_name 指令](https://nginx.org/docs/http/server_names.html)会公开应用的安全漏洞。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-185">Failure to specify a proper [server_name directive](https://nginx.org/docs/http/server_names.html) exposes your app to security vulnerabilities.</span></span> <span data-ttu-id="d1e1c-186">如果可控制整个父域（区别于易受攻击的 `*.com`），则子域通配符绑定（例如，`*.example.com`）不具有此安全风险。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-186">Subdomain wildcard binding (for example, `*.example.com`) doesn't pose this security risk if you control the entire parent domain (as opposed to `*.com`, which is vulnerable).</span></span> <span data-ttu-id="d1e1c-187">有关详细信息，请参阅 [rfc7230 第 5.4 条](https://tools.ietf.org/html/rfc7230#section-5.4)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-187">For more information, see [rfc7230 section-5.4](https://tools.ietf.org/html/rfc7230#section-5.4).</span></span>
 
-<span data-ttu-id="f0adf-183">完成配置 Nginx 后，运行 `sudo nginx -t` 来验证配置文件的语法。</span><span class="sxs-lookup"><span data-stu-id="f0adf-183">Once the Nginx configuration is established, run `sudo nginx -t` to verify the syntax of the configuration files.</span></span> <span data-ttu-id="f0adf-184">如果配置文件测试成功，可以通过运行 `sudo nginx -s reload` 强制 Nginx 选取更改。</span><span class="sxs-lookup"><span data-stu-id="f0adf-184">If the configuration file test is successful, force Nginx to pick up the changes by running `sudo nginx -s reload`.</span></span>
+<span data-ttu-id="d1e1c-188">完成配置 Nginx 后，运行 `sudo nginx -t` 来验证配置文件的语法。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-188">Once the Nginx configuration is established, run `sudo nginx -t` to verify the syntax of the configuration files.</span></span> <span data-ttu-id="d1e1c-189">如果配置文件测试成功，可以通过运行 `sudo nginx -s reload` 强制 Nginx 选取更改。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-189">If the configuration file test is successful, force Nginx to pick up the changes by running `sudo nginx -s reload`.</span></span>
 
-<span data-ttu-id="f0adf-185">要直接在服务器上运行应用：</span><span class="sxs-lookup"><span data-stu-id="f0adf-185">To directly run the app on the server:</span></span>
+<span data-ttu-id="d1e1c-190">要直接在服务器上运行应用：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-190">To directly run the app on the server:</span></span>
 
-1. <span data-ttu-id="f0adf-186">请导航到应用目录。</span><span class="sxs-lookup"><span data-stu-id="f0adf-186">Navigate to the app's directory.</span></span>
-1. <span data-ttu-id="f0adf-187">运行应用：`dotnet <app_assembly.dll>`，其中 `app_assembly.dll` 是应用的程序集文件名。</span><span class="sxs-lookup"><span data-stu-id="f0adf-187">Run the app: `dotnet <app_assembly.dll>`, where `app_assembly.dll` is the assembly file name of the app.</span></span>
+1. <span data-ttu-id="d1e1c-191">请导航到应用目录。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-191">Navigate to the app's directory.</span></span>
+1. <span data-ttu-id="d1e1c-192">运行应用：`dotnet <app_assembly.dll>`，其中 `app_assembly.dll` 是应用的程序集文件名。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-192">Run the app: `dotnet <app_assembly.dll>`, where `app_assembly.dll` is the assembly file name of the app.</span></span>
 
-<span data-ttu-id="f0adf-188">如果应用在服务器上运行，但无法通过 Internet 响应，请检查服务器的防火墙，并确认端口 80 已打开。</span><span class="sxs-lookup"><span data-stu-id="f0adf-188">If the app runs on the server but fails to respond over the Internet, check the server's firewall and confirm that port 80 is open.</span></span> <span data-ttu-id="f0adf-189">如果使用 Azure Ubuntu VM，请添加启用入站端口 80 流量的网络安全组 (NSG) 规则。</span><span class="sxs-lookup"><span data-stu-id="f0adf-189">If using an Azure Ubuntu VM, add a Network Security Group (NSG) rule that enables inbound port 80 traffic.</span></span> <span data-ttu-id="f0adf-190">不需要启用出站端口 80 规则，因为启用入站规则后会自动许可出站流量。</span><span class="sxs-lookup"><span data-stu-id="f0adf-190">There's no need to enable an outbound port 80 rule, as the outbound traffic is automatically granted when the inbound rule is enabled.</span></span>
+<span data-ttu-id="d1e1c-193">如果应用在服务器上运行，但无法通过 Internet 响应，请检查服务器的防火墙，确认端口 80 已打开。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-193">If the app runs on the server but fails to respond over the Internet, check the server's firewall and confirm port 80 is open.</span></span> <span data-ttu-id="d1e1c-194">如果使用 Azure Ubuntu VM，请添加启用入站端口 80 流量的网络安全组 (NSG) 规则。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-194">If using an Azure Ubuntu VM, add a Network Security Group (NSG) rule that enables inbound port 80 traffic.</span></span> <span data-ttu-id="d1e1c-195">不需要启用出站端口 80 规则，因为启用入站规则后会自动许可出站流量。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-195">There's no need to enable an outbound port 80 rule, as the outbound traffic is automatically granted when the inbound rule is enabled.</span></span>
 
-<span data-ttu-id="f0adf-191">测试应用完成后，请在命令提示符处按 `Ctrl+C` 关闭应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-191">When done testing the app, shut the app down with `Ctrl+C` at the command prompt.</span></span>
+<span data-ttu-id="d1e1c-196">完成应用测试后，请在命令提示符处按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 关闭应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-196">When done testing the app, shut down the app with <kbd>Ctrl</kbd> + <kbd>C</kbd> at the command prompt.</span></span>
 
-## <a name="monitor-the-app"></a><span data-ttu-id="f0adf-192">监视应用</span><span class="sxs-lookup"><span data-stu-id="f0adf-192">Monitor the app</span></span>
+## <a name="monitor-the-app"></a><span data-ttu-id="d1e1c-197">监视应用</span><span class="sxs-lookup"><span data-stu-id="d1e1c-197">Monitor the app</span></span>
 
-<span data-ttu-id="f0adf-193">服务器设置为将对 `http://<serveraddress>:80` 发起的请求转接到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-193">The server is setup to forward requests made to `http://<serveraddress>:80` on to the ASP.NET Core app running on Kestrel at `http://127.0.0.1:5000`.</span></span> <span data-ttu-id="f0adf-194">但是，未将 Nginx 设置为管理 Kestrel 进程。</span><span class="sxs-lookup"><span data-stu-id="f0adf-194">However, Nginx isn't set up to manage the Kestrel process.</span></span> <span data-ttu-id="f0adf-195">`systemd` 可用于创建服务文件以启动和监视基础 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-195">`systemd` can be used to create a service file to start and monitor the underlying web app.</span></span> <span data-ttu-id="f0adf-196">`systemd` 是一个初始系统，可以提供启动、停止和管理进程的许多强大的功能。</span><span class="sxs-lookup"><span data-stu-id="f0adf-196">`systemd` is an init system that provides many powerful features for starting, stopping, and managing processes.</span></span> 
+<span data-ttu-id="d1e1c-198">服务器设置为将对 `http://<serveraddress>:80` 发起的请求转发到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-198">The server is set up to forward requests made to `http://<serveraddress>:80` on to the ASP.NET Core app running on Kestrel at `http://127.0.0.1:5000`.</span></span> <span data-ttu-id="d1e1c-199">但是，未将 Nginx 设置为管理 Kestrel 进程。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-199">However, Nginx isn't set up to manage the Kestrel process.</span></span> <span data-ttu-id="d1e1c-200">`systemd` 可用于创建服务文件以启动和监视基础 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-200">`systemd` can be used to create a service file to start and monitor the underlying web app.</span></span> <span data-ttu-id="d1e1c-201">`systemd` 是一个初始系统，可以提供启动、停止和管理进程的许多强大的功能。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-201">`systemd` is an init system that provides many powerful features for starting, stopping, and managing processes.</span></span> 
 
-### <a name="create-the-service-file"></a><span data-ttu-id="f0adf-197">创建服务文件</span><span class="sxs-lookup"><span data-stu-id="f0adf-197">Create the service file</span></span>
+### <a name="create-the-service-file"></a><span data-ttu-id="d1e1c-202">创建服务文件</span><span class="sxs-lookup"><span data-stu-id="d1e1c-202">Create the service file</span></span>
 
-<span data-ttu-id="f0adf-198">创建服务定义文件：</span><span class="sxs-lookup"><span data-stu-id="f0adf-198">Create the service definition file:</span></span>
+<span data-ttu-id="d1e1c-203">创建服务定义文件：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-203">Create the service definition file:</span></span>
 
 ```bash
 sudo nano /etc/systemd/system/kestrel-helloapp.service
 ```
 
-<span data-ttu-id="f0adf-199">以下是应用的一个示例服务文件：</span><span class="sxs-lookup"><span data-stu-id="f0adf-199">The following is an example service file for the app:</span></span>
+<span data-ttu-id="d1e1c-204">以下示例是应用的服务文件：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-204">The following example is a service file for the app:</span></span>
 
 ```ini
 [Unit]
@@ -227,18 +237,18 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 WantedBy=multi-user.target
 ```
 
-<span data-ttu-id="f0adf-200">在前面的示例中，管理服务的用户由 `User` 选项指定。</span><span class="sxs-lookup"><span data-stu-id="f0adf-200">In the preceding example, the user that manages the service is specified by the `User` option.</span></span> <span data-ttu-id="f0adf-201">用户 (`www-data`) 必须存在并且拥有正确应用文件的所有权。</span><span class="sxs-lookup"><span data-stu-id="f0adf-201">The user (`www-data`) must exist and have proper ownership of the app's files.</span></span>
+<span data-ttu-id="d1e1c-205">在前面的示例中，管理服务的用户由 `User` 选项指定。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-205">In the preceding example, the user that manages the service is specified by the `User` option.</span></span> <span data-ttu-id="d1e1c-206">用户 (`www-data`) 必须存在并且拥有正确应用文件的所有权。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-206">The user (`www-data`) must exist and have proper ownership of the app's files.</span></span>
 
-<span data-ttu-id="f0adf-202">使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。</span><span class="sxs-lookup"><span data-stu-id="f0adf-202">Use `TimeoutStopSec` to configure the duration of time to wait for the app to shut down after it receives the initial interrupt signal.</span></span> <span data-ttu-id="f0adf-203">如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。</span><span class="sxs-lookup"><span data-stu-id="f0adf-203">If the app doesn't shut down in this period, SIGKILL is issued to terminate the app.</span></span> <span data-ttu-id="f0adf-204">提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。</span><span class="sxs-lookup"><span data-stu-id="f0adf-204">Provide the value as unitless seconds (for example, `150`), a time span value (for example, `2min 30s`), or `infinity` to disable the timeout.</span></span> <span data-ttu-id="f0adf-205">`TimeoutStopSec` 默认为管理器配置文件 (`systemd-system.conf`, `system.conf.d`, `systemd-user.conf`, `user.conf.d`) 中 `DefaultTimeoutStopSec` 的值。</span><span class="sxs-lookup"><span data-stu-id="f0adf-205">`TimeoutStopSec` defaults to the value of `DefaultTimeoutStopSec` in the manager configuration file (`systemd-system.conf`, `system.conf.d`, `systemd-user.conf`, `user.conf.d`).</span></span> <span data-ttu-id="f0adf-206">大多数分发版的默认超时时间为 90 秒。</span><span class="sxs-lookup"><span data-stu-id="f0adf-206">The default timeout for most distributions is 90 seconds.</span></span>
+<span data-ttu-id="d1e1c-207">使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-207">Use `TimeoutStopSec` to configure the duration of time to wait for the app to shut down after it receives the initial interrupt signal.</span></span> <span data-ttu-id="d1e1c-208">如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-208">If the app doesn't shut down in this period, SIGKILL is issued to terminate the app.</span></span> <span data-ttu-id="d1e1c-209">提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-209">Provide the value as unitless seconds (for example, `150`), a time span value (for example, `2min 30s`), or `infinity` to disable the timeout.</span></span> <span data-ttu-id="d1e1c-210">`TimeoutStopSec` 默认为管理器配置文件 (`systemd-system.conf`, `system.conf.d`, `systemd-user.conf`, `user.conf.d`) 中 `DefaultTimeoutStopSec` 的值。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-210">`TimeoutStopSec` defaults to the value of `DefaultTimeoutStopSec` in the manager configuration file (`systemd-system.conf`, `system.conf.d`, `systemd-user.conf`, `user.conf.d`).</span></span> <span data-ttu-id="d1e1c-211">大多数分发版的默认超时时间为 90 秒。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-211">The default timeout for most distributions is 90 seconds.</span></span>
 
 ```
 # The default value is 90 seconds for most distributions.
 TimeoutStopSec=90
 ```
 
-<span data-ttu-id="f0adf-207">Linux 具有区分大小写的文件系统。</span><span class="sxs-lookup"><span data-stu-id="f0adf-207">Linux has a case-sensitive file system.</span></span> <span data-ttu-id="f0adf-208">将 `ASPNETCORE_ENVIRONMENT` 设置为 `Production` 时，将搜索配置文件 `appsettings.Production.json`，而不搜索 `appsettings.production.json`。</span><span class="sxs-lookup"><span data-stu-id="f0adf-208">Setting `ASPNETCORE_ENVIRONMENT` to `Production` results in searching for the configuration file `appsettings.Production.json`, not `appsettings.production.json`.</span></span>
+<span data-ttu-id="d1e1c-212">Linux 具有区分大小写的文件系统。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-212">Linux has a case-sensitive file system.</span></span> <span data-ttu-id="d1e1c-213">将 `ASPNETCORE_ENVIRONMENT` 设置为 `Production` 时，将搜索配置文件 `appsettings.Production.json`，而不搜索 `appsettings.production.json`。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-213">Setting `ASPNETCORE_ENVIRONMENT` to `Production` results in searching for the configuration file `appsettings.Production.json`, not `appsettings.production.json`.</span></span>
 
-<span data-ttu-id="f0adf-209">必须转义某些值（例如，SQL 连接字符串）以供配置提供程序读取环境变量。</span><span class="sxs-lookup"><span data-stu-id="f0adf-209">Some values (for example, SQL connection strings) must be escaped for the configuration providers to read the environment variables.</span></span> <span data-ttu-id="f0adf-210">使用以下命令生成适当的转义值以供在配置文件中使用：</span><span class="sxs-lookup"><span data-stu-id="f0adf-210">Use the following command to generate a properly escaped value for use in the configuration file:</span></span>
+<span data-ttu-id="d1e1c-214">必须转义某些值（例如，SQL 连接字符串）以供配置提供程序读取环境变量。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-214">Some values (for example, SQL connection strings) must be escaped for the configuration providers to read the environment variables.</span></span> <span data-ttu-id="d1e1c-215">使用以下命令生成适当的转义值以供在配置文件中使用：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-215">Use the following command to generate a properly escaped value for use in the configuration file:</span></span>
 
 ```console
 systemd-escape "<value-to-escape>"
@@ -246,12 +256,12 @@ systemd-escape "<value-to-escape>"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="f0adf-211">环境变量名不支持冒号 (`:`) 分隔符。</span><span class="sxs-lookup"><span data-stu-id="f0adf-211">Colon (`:`) separators aren't supported in environment variable names.</span></span> <span data-ttu-id="f0adf-212">使用双下划线 (`__`) 代替冒号。</span><span class="sxs-lookup"><span data-stu-id="f0adf-212">Use a double underscore (`__`) in place of a colon.</span></span> <span data-ttu-id="f0adf-213">环境变量读入配置时，[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables)将双下划线转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="f0adf-213">The [Environment Variables configuration provider](xref:fundamentals/configuration/index#environment-variables) converts double-underscores into colons when environment variables are read into configuration.</span></span> <span data-ttu-id="f0adf-214">以下示例中，连接字符串密钥 `ConnectionStrings:DefaultConnection` 以 `ConnectionStrings__DefaultConnection` 形式设置到服务定义文件中：</span><span class="sxs-lookup"><span data-stu-id="f0adf-214">In the following example, the connection string key `ConnectionStrings:DefaultConnection` is set into the service definition file as `ConnectionStrings__DefaultConnection`:</span></span>
+<span data-ttu-id="d1e1c-216">环境变量名不支持冒号 (`:`) 分隔符。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-216">Colon (`:`) separators aren't supported in environment variable names.</span></span> <span data-ttu-id="d1e1c-217">使用双下划线 (`__`) 代替冒号。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-217">Use a double underscore (`__`) in place of a colon.</span></span> <span data-ttu-id="d1e1c-218">环境变量读入配置时，[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables)将双下划线转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-218">The [Environment Variables configuration provider](xref:fundamentals/configuration/index#environment-variables) converts double-underscores into colons when environment variables are read into configuration.</span></span> <span data-ttu-id="d1e1c-219">以下示例中，连接字符串密钥 `ConnectionStrings:DefaultConnection` 以 `ConnectionStrings__DefaultConnection` 形式设置到服务定义文件中：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-219">In the following example, the connection string key `ConnectionStrings:DefaultConnection` is set into the service definition file as `ConnectionStrings__DefaultConnection`:</span></span>
 
 ::: moniker-end
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="f0adf-215">环境变量名不支持冒号 (`:`) 分隔符。</span><span class="sxs-lookup"><span data-stu-id="f0adf-215">Colon (`:`) separators aren't supported in environment variable names.</span></span> <span data-ttu-id="f0adf-216">使用双下划线 (`__`) 代替冒号。</span><span class="sxs-lookup"><span data-stu-id="f0adf-216">Use a double underscore (`__`) in place of a colon.</span></span> <span data-ttu-id="f0adf-217">环境变量读入配置时，[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)将双下划线转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="f0adf-217">The [Environment Variables configuration provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider) converts double-underscores into colons when environment variables are read into configuration.</span></span> <span data-ttu-id="f0adf-218">以下示例中，连接字符串密钥 `ConnectionStrings:DefaultConnection` 以 `ConnectionStrings__DefaultConnection` 形式设置到服务定义文件中：</span><span class="sxs-lookup"><span data-stu-id="f0adf-218">In the following example, the connection string key `ConnectionStrings:DefaultConnection` is set into the service definition file as `ConnectionStrings__DefaultConnection`:</span></span>
+<span data-ttu-id="d1e1c-220">环境变量名不支持冒号 (`:`) 分隔符。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-220">Colon (`:`) separators aren't supported in environment variable names.</span></span> <span data-ttu-id="d1e1c-221">使用双下划线 (`__`) 代替冒号。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-221">Use a double underscore (`__`) in place of a colon.</span></span> <span data-ttu-id="d1e1c-222">环境变量读入配置时，[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)将双下划线转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-222">The [Environment Variables configuration provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider) converts double-underscores into colons when environment variables are read into configuration.</span></span> <span data-ttu-id="d1e1c-223">以下示例中，连接字符串密钥 `ConnectionStrings:DefaultConnection` 以 `ConnectionStrings__DefaultConnection` 形式设置到服务定义文件中：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-223">In the following example, the connection string key `ConnectionStrings:DefaultConnection` is set into the service definition file as `ConnectionStrings__DefaultConnection`:</span></span>
 
 ::: moniker-end
 
@@ -259,13 +269,13 @@ systemd-escape "<value-to-escape>"
 Environment=ConnectionStrings__DefaultConnection={Connection String}
 ```
 
-<span data-ttu-id="f0adf-219">保存该文件并启用该服务。</span><span class="sxs-lookup"><span data-stu-id="f0adf-219">Save the file and enable the service.</span></span>
+<span data-ttu-id="d1e1c-224">保存该文件并启用该服务。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-224">Save the file and enable the service.</span></span>
 
 ```bash
 sudo systemctl enable kestrel-helloapp.service
 ```
 
-<span data-ttu-id="f0adf-220">启用该服务，并确认它正在运行。</span><span class="sxs-lookup"><span data-stu-id="f0adf-220">Start the service and verify that it's running.</span></span>
+<span data-ttu-id="d1e1c-225">启用该服务，并确认它正在运行。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-225">Start the service and verify that it's running.</span></span>
 
 ```
 sudo systemctl start kestrel-helloapp.service
@@ -279,7 +289,7 @@ Main PID: 9021 (dotnet)
             └─9021 /usr/local/bin/dotnet /var/www/helloapp/helloapp.dll
 ```
 
-<span data-ttu-id="f0adf-221">在配置了反向代理并通过 `systemd` 管理 Kestrel 后，Web 应用现已完全配置，并能在本地计算机上的浏览器中从 `http://localhost` 进行访问。</span><span class="sxs-lookup"><span data-stu-id="f0adf-221">With the reverse proxy configured and Kestrel managed through `systemd`, the web app is fully configured and can be accessed from a browser on the local machine at `http://localhost`.</span></span> <span data-ttu-id="f0adf-222">也可以从远程计算机进行访问，同时限制可能进行阻止的任何防火墙。</span><span class="sxs-lookup"><span data-stu-id="f0adf-222">It's also accessible from a remote machine, barring any firewall that might be blocking.</span></span> <span data-ttu-id="f0adf-223">检查响应标头，`Server` 标头显示由 Kestrel 所提供的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-223">Inspecting the response headers, the `Server` header shows the ASP.NET Core app being served by Kestrel.</span></span>
+<span data-ttu-id="d1e1c-226">在配置了反向代理并通过 `systemd` 管理 Kestrel 后，Web 应用现已完全配置，并能在本地计算机上的浏览器中从 `http://localhost` 进行访问。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-226">With the reverse proxy configured and Kestrel managed through `systemd`, the web app is fully configured and can be accessed from a browser on the local machine at `http://localhost`.</span></span> <span data-ttu-id="d1e1c-227">也可以从远程计算机进行访问，同时限制可能进行阻止的任何防火墙。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-227">It's also accessible from a remote machine, barring any firewall that might be blocking.</span></span> <span data-ttu-id="d1e1c-228">检查响应标头，`Server` 标头显示由 Kestrel 所提供的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-228">Inspecting the response headers, the `Server` header shows the ASP.NET Core app being served by Kestrel.</span></span>
 
 ```text
 HTTP/1.1 200 OK
@@ -290,61 +300,61 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a><span data-ttu-id="f0adf-224">查看日志</span><span class="sxs-lookup"><span data-stu-id="f0adf-224">View logs</span></span>
+### <a name="view-logs"></a><span data-ttu-id="d1e1c-229">查看日志</span><span class="sxs-lookup"><span data-stu-id="d1e1c-229">View logs</span></span>
 
-<span data-ttu-id="f0adf-225">使用 Kestrel 的 Web 应用是通过 `systemd` 进行管理的，因此所有事件和进程都被记录到集中日志。</span><span class="sxs-lookup"><span data-stu-id="f0adf-225">Since the web app using Kestrel is managed using `systemd`, all events and processes are logged to a centralized journal.</span></span> <span data-ttu-id="f0adf-226">但是，此日志包含由 `systemd` 管理的所有服务和进程的全部条目。</span><span class="sxs-lookup"><span data-stu-id="f0adf-226">However, this journal includes all entries for all services and processes managed by `systemd`.</span></span> <span data-ttu-id="f0adf-227">若要查看特定于 `kestrel-helloapp.service` 的项，请使用以下命令：</span><span class="sxs-lookup"><span data-stu-id="f0adf-227">To view the `kestrel-helloapp.service`-specific items, use the following command:</span></span>
+<span data-ttu-id="d1e1c-230">使用 Kestrel 的 Web 应用是通过 `systemd` 进行管理的，因此所有事件和进程都被记录到集中日志。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-230">Since the web app using Kestrel is managed using `systemd`, all events and processes are logged to a centralized journal.</span></span> <span data-ttu-id="d1e1c-231">但是，此日志包含由 `systemd` 管理的所有服务和进程的全部条目。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-231">However, this journal includes all entries for all services and processes managed by `systemd`.</span></span> <span data-ttu-id="d1e1c-232">若要查看特定于 `kestrel-helloapp.service` 的项，请使用以下命令：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-232">To view the `kestrel-helloapp.service`-specific items, use the following command:</span></span>
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service
 ```
 
-<span data-ttu-id="f0adf-228">有关进一步筛选，使用时间选项（如 `--since today`、`--until 1 hour ago`）或这些选项的组合可以减少返回的条目数。</span><span class="sxs-lookup"><span data-stu-id="f0adf-228">For further filtering, time options such as `--since today`, `--until 1 hour ago` or a combination of these can reduce the amount of entries returned.</span></span>
+<span data-ttu-id="d1e1c-233">有关进一步筛选，使用时间选项（如 `--since today`、`--until 1 hour ago`）或这些选项的组合可以减少返回的条目数。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-233">For further filtering, time options such as `--since today`, `--until 1 hour ago`, or a combination of these can reduce the number of entries returned.</span></span>
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-10-18 04:00"
 ```
 
-## <a name="data-protection"></a><span data-ttu-id="f0adf-229">数据保护</span><span class="sxs-lookup"><span data-stu-id="f0adf-229">Data protection</span></span>
+## <a name="data-protection"></a><span data-ttu-id="d1e1c-234">数据保护</span><span class="sxs-lookup"><span data-stu-id="d1e1c-234">Data protection</span></span>
 
-<span data-ttu-id="f0adf-230">[ASP.NET Core 数据保护堆栈](xref:security/data-protection/introduction)由多个 ASP.NET Core [中间件](xref:fundamentals/middleware/index)（包括 cookie 中间件等身份验证中间件）和跨站点请求伪造 (CSRF) 保护使用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-230">The [ASP.NET Core Data Protection stack](xref:security/data-protection/introduction) is used by several ASP.NET Core [middlewares](xref:fundamentals/middleware/index), including authentication middleware (for example, cookie middleware) and cross-site request forgery (CSRF) protections.</span></span> <span data-ttu-id="f0adf-231">即使用户代码不调用数据保护 API，也应该配置数据保护，以创建持久的加密[密钥存储](xref:security/data-protection/implementation/key-management)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-231">Even if Data Protection APIs aren't called by user code, data protection should be configured to create a persistent cryptographic [key store](xref:security/data-protection/implementation/key-management).</span></span> <span data-ttu-id="f0adf-232">如果不配置数据保护，则密钥存储在内存中。重启应用时，密钥会被丢弃。</span><span class="sxs-lookup"><span data-stu-id="f0adf-232">If data protection isn't configured, the keys are held in memory and discarded when the app restarts.</span></span>
+<span data-ttu-id="d1e1c-235">[ASP.NET Core 数据保护堆栈](xref:security/data-protection/introduction)由多个 ASP.NET Core [中间件](xref:fundamentals/middleware/index)（包括 cookie 中间件等身份验证中间件）和跨站点请求伪造 (CSRF) 保护使用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-235">The [ASP.NET Core Data Protection stack](xref:security/data-protection/introduction) is used by several ASP.NET Core [middlewares](xref:fundamentals/middleware/index), including authentication middleware (for example, cookie middleware) and cross-site request forgery (CSRF) protections.</span></span> <span data-ttu-id="d1e1c-236">即使用户代码不调用数据保护 API，也应该配置数据保护，以创建持久的加密[密钥存储](xref:security/data-protection/implementation/key-management)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-236">Even if Data Protection APIs aren't called by user code, data protection should be configured to create a persistent cryptographic [key store](xref:security/data-protection/implementation/key-management).</span></span> <span data-ttu-id="d1e1c-237">如果不配置数据保护，则密钥存储在内存中。重启应用时，密钥会被丢弃。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-237">If data protection isn't configured, the keys are held in memory and discarded when the app restarts.</span></span>
 
-<span data-ttu-id="f0adf-233">如果密钥环存储于内存中，则在应用重启时：</span><span class="sxs-lookup"><span data-stu-id="f0adf-233">If the key ring is stored in memory when the app restarts:</span></span>
+<span data-ttu-id="d1e1c-238">如果密钥环存储于内存中，则在应用重启时：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-238">If the key ring is stored in memory when the app restarts:</span></span>
 
-* <span data-ttu-id="f0adf-234">所有基于 cookie 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="f0adf-234">All cookie-based authentication tokens are invalidated.</span></span>
-* <span data-ttu-id="f0adf-235">用户需要在下一次请求时再次登录。</span><span class="sxs-lookup"><span data-stu-id="f0adf-235">Users are required to sign in again on their next request.</span></span>
-* <span data-ttu-id="f0adf-236">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="f0adf-236">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="f0adf-237">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-237">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
+* <span data-ttu-id="d1e1c-239">所有基于 cookie 的身份验证令牌都无效。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-239">All cookie-based authentication tokens are invalidated.</span></span>
+* <span data-ttu-id="d1e1c-240">用户需要在下一次请求时再次登录。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-240">Users are required to sign in again on their next request.</span></span>
+* <span data-ttu-id="d1e1c-241">无法再解密使用密钥环保护的任何数据。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-241">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="d1e1c-242">这可能包括 [CSRF 令牌](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)和 [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-242">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
 
-<span data-ttu-id="f0adf-238">若要配置数据保护以持久保存并加密密钥环，请参阅：</span><span class="sxs-lookup"><span data-stu-id="f0adf-238">To configure data protection to persist and encrypt the key ring, see:</span></span>
+<span data-ttu-id="d1e1c-243">若要配置数据保护以持久保存并加密密钥环，请参阅：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-243">To configure data protection to persist and encrypt the key ring, see:</span></span>
 
 * <xref:security/data-protection/implementation/key-storage-providers>
 * <xref:security/data-protection/implementation/key-encryption-at-rest>
 
-## <a name="long-request-header-fields"></a><span data-ttu-id="f0adf-239">较长的请求标头字段</span><span class="sxs-lookup"><span data-stu-id="f0adf-239">Long request header fields</span></span>
+## <a name="long-request-header-fields"></a><span data-ttu-id="d1e1c-244">较长的请求标头字段</span><span class="sxs-lookup"><span data-stu-id="d1e1c-244">Long request header fields</span></span>
 
-<span data-ttu-id="f0adf-240">代理服务器默认设置通常将请求标头字段限制为 4 K 或 8 K，具体取决于平台。</span><span class="sxs-lookup"><span data-stu-id="f0adf-240">Proxy server default settings typically limit request header fields to 4 K or 8 K depending on the platform.</span></span> <span data-ttu-id="f0adf-241">某些应用可能需要超过默认值的字段（例如，使用 [Azure Active Directory](https://azure.microsoft.com/services/active-directory/) 的应用）。</span><span class="sxs-lookup"><span data-stu-id="f0adf-241">An app may require fields longer than the default (for example, apps that use [Azure Active Directory](https://azure.microsoft.com/services/active-directory/)).</span></span> <span data-ttu-id="f0adf-242">如果需要更长的字段，则代理服务器的默认设置需要进行调整。</span><span class="sxs-lookup"><span data-stu-id="f0adf-242">If longer fields are required, the proxy server's default settings require adjustment.</span></span> <span data-ttu-id="f0adf-243">要应用的值具体取决于方案。</span><span class="sxs-lookup"><span data-stu-id="f0adf-243">The values to apply depend on the scenario.</span></span> <span data-ttu-id="f0adf-244">有关详细信息，请参见服务器文档。</span><span class="sxs-lookup"><span data-stu-id="f0adf-244">For more information, see your server's documentation.</span></span>
+<span data-ttu-id="d1e1c-245">代理服务器默认设置通常将请求标头字段限制为 4 K 或 8 K，具体取决于平台。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-245">Proxy server default settings typically limit request header fields to 4 K or 8 K depending on the platform.</span></span> <span data-ttu-id="d1e1c-246">某些应用可能需要超过默认值的字段（例如，使用 [Azure Active Directory](https://azure.microsoft.com/services/active-directory/) 的应用）。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-246">An app may require fields longer than the default (for example, apps that use [Azure Active Directory](https://azure.microsoft.com/services/active-directory/)).</span></span> <span data-ttu-id="d1e1c-247">如果需要更长的字段，则代理服务器的默认设置需要进行调整。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-247">If longer fields are required, the proxy server's default settings require adjustment.</span></span> <span data-ttu-id="d1e1c-248">要应用的值具体取决于方案。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-248">The values to apply depend on the scenario.</span></span> <span data-ttu-id="d1e1c-249">有关详细信息，请参见服务器文档。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-249">For more information, see your server's documentation.</span></span>
 
-* [<span data-ttu-id="f0adf-245">proxy_buffer_size</span><span class="sxs-lookup"><span data-stu-id="f0adf-245">proxy_buffer_size</span></span>](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffer_size)
-* [<span data-ttu-id="f0adf-246">proxy_buffers</span><span class="sxs-lookup"><span data-stu-id="f0adf-246">proxy_buffers</span></span>](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffers)
-* [<span data-ttu-id="f0adf-247">proxy_busy_buffers_size</span><span class="sxs-lookup"><span data-stu-id="f0adf-247">proxy_busy_buffers_size</span></span>](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_busy_buffers_size)
-* [<span data-ttu-id="f0adf-248">large_client_header_buffers</span><span class="sxs-lookup"><span data-stu-id="f0adf-248">large_client_header_buffers</span></span>](https://nginx.org/docs/http/ngx_http_core_module.html#large_client_header_buffers)
-
-> [!WARNING]
-> <span data-ttu-id="f0adf-249">除非必要，否则不要提高代理缓冲区的默认值。</span><span class="sxs-lookup"><span data-stu-id="f0adf-249">Don't increase the default values of proxy buffers unless necessary.</span></span> <span data-ttu-id="f0adf-250">提高这些值将增加缓冲区溢出的风险和恶意用户的拒绝服务 (DoS) 攻击风险。</span><span class="sxs-lookup"><span data-stu-id="f0adf-250">Increasing these values increases the risk of buffer overrun (overflow) and Denial of Service (DoS) attacks by malicious users.</span></span>
-
-## <a name="secure-the-app"></a><span data-ttu-id="f0adf-251">保护应用</span><span class="sxs-lookup"><span data-stu-id="f0adf-251">Secure the app</span></span>
-
-### <a name="enable-apparmor"></a><span data-ttu-id="f0adf-252">启用 AppArmor</span><span class="sxs-lookup"><span data-stu-id="f0adf-252">Enable AppArmor</span></span>
-
-<span data-ttu-id="f0adf-253">Linux 安全模块 (LSM) 是一个框架，它是自 Linux 2.6 后的 Linux kernel 的一部分。</span><span class="sxs-lookup"><span data-stu-id="f0adf-253">Linux Security Modules (LSM) is a framework that's part of the Linux kernel since Linux 2.6.</span></span> <span data-ttu-id="f0adf-254">LSM 支持安全模块的不同实现。</span><span class="sxs-lookup"><span data-stu-id="f0adf-254">LSM supports different implementations of security modules.</span></span> <span data-ttu-id="f0adf-255">[AppArmor](https://wiki.ubuntu.com/AppArmor) 是实现强制访问控制系统的 LSM，它允许将程序限制在一组有限的资源内。</span><span class="sxs-lookup"><span data-stu-id="f0adf-255">[AppArmor](https://wiki.ubuntu.com/AppArmor) is a LSM that implements a Mandatory Access Control system which allows confining the program to a limited set of resources.</span></span> <span data-ttu-id="f0adf-256">确保已启用并成功配置 AppArmor。</span><span class="sxs-lookup"><span data-stu-id="f0adf-256">Ensure AppArmor is enabled and properly configured.</span></span>
-
-### <a name="configure-the-firewall"></a><span data-ttu-id="f0adf-257">配置防火墙</span><span class="sxs-lookup"><span data-stu-id="f0adf-257">Configure the firewall</span></span>
-
-<span data-ttu-id="f0adf-258">关闭所有未使用的外部端口。</span><span class="sxs-lookup"><span data-stu-id="f0adf-258">Close off all external ports that are not in use.</span></span> <span data-ttu-id="f0adf-259">通过为配置防火墙提供 CLI，不复杂的防火墙 (ufw) 为 `iptables` 提供了前端。</span><span class="sxs-lookup"><span data-stu-id="f0adf-259">Uncomplicated firewall (ufw) provides a front end for `iptables` by providing a CLI for configuring the firewall.</span></span>
+* [<span data-ttu-id="d1e1c-250">proxy_buffer_size</span><span class="sxs-lookup"><span data-stu-id="d1e1c-250">proxy_buffer_size</span></span>](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffer_size)
+* [<span data-ttu-id="d1e1c-251">proxy_buffers</span><span class="sxs-lookup"><span data-stu-id="d1e1c-251">proxy_buffers</span></span>](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffers)
+* [<span data-ttu-id="d1e1c-252">proxy_busy_buffers_size</span><span class="sxs-lookup"><span data-stu-id="d1e1c-252">proxy_busy_buffers_size</span></span>](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_busy_buffers_size)
+* [<span data-ttu-id="d1e1c-253">large_client_header_buffers</span><span class="sxs-lookup"><span data-stu-id="d1e1c-253">large_client_header_buffers</span></span>](https://nginx.org/docs/http/ngx_http_core_module.html#large_client_header_buffers)
 
 > [!WARNING]
-> <span data-ttu-id="f0adf-260">如果未正确配置，防火墙将阻止对整个系统的访问。</span><span class="sxs-lookup"><span data-stu-id="f0adf-260">A firewall will prevent access to the whole system if not configured correctly.</span></span> <span data-ttu-id="f0adf-261">在使用 SSH 进行连接时，未能指定正确的 SSH 端口最终会将你关在系统之外。</span><span class="sxs-lookup"><span data-stu-id="f0adf-261">Failure to specify the correct SSH port will effectively lock you out of the system if you are using SSH to connect to it.</span></span> <span data-ttu-id="f0adf-262">默认端口为 22。</span><span class="sxs-lookup"><span data-stu-id="f0adf-262">The default port is 22.</span></span> <span data-ttu-id="f0adf-263">有关详细信息，请参阅 [ufw 简介](https://help.ubuntu.com/community/UFW)和[手册](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-263">For more information, see the [introduction to ufw](https://help.ubuntu.com/community/UFW) and the [manual](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).</span></span>
+> <span data-ttu-id="d1e1c-254">除非必要，否则不要提高代理缓冲区的默认值。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-254">Don't increase the default values of proxy buffers unless necessary.</span></span> <span data-ttu-id="d1e1c-255">提高这些值将增加缓冲区溢出的风险和恶意用户的拒绝服务 (DoS) 攻击风险。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-255">Increasing these values increases the risk of buffer overrun (overflow) and Denial of Service (DoS) attacks by malicious users.</span></span>
 
-<span data-ttu-id="f0adf-264">安装 `ufw`，并将其配置为允许所需任何端口上的流量。</span><span class="sxs-lookup"><span data-stu-id="f0adf-264">Install `ufw` and configure it to allow traffic on any ports needed.</span></span>
+## <a name="secure-the-app"></a><span data-ttu-id="d1e1c-256">保护应用</span><span class="sxs-lookup"><span data-stu-id="d1e1c-256">Secure the app</span></span>
+
+### <a name="enable-apparmor"></a><span data-ttu-id="d1e1c-257">启用 AppArmor</span><span class="sxs-lookup"><span data-stu-id="d1e1c-257">Enable AppArmor</span></span>
+
+<span data-ttu-id="d1e1c-258">Linux 安全模块 (LSM) 是一个框架，它是自 Linux 2.6 后的 Linux kernel 的一部分。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-258">Linux Security Modules (LSM) is a framework that's part of the Linux kernel since Linux 2.6.</span></span> <span data-ttu-id="d1e1c-259">LSM 支持安全模块的不同实现。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-259">LSM supports different implementations of security modules.</span></span> <span data-ttu-id="d1e1c-260">[AppArmor](https://wiki.ubuntu.com/AppArmor) 是实现强制访问控制系统的 LSM，它允许将程序限制在一组有限的资源内。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-260">[AppArmor](https://wiki.ubuntu.com/AppArmor) is an LSM that implements a Mandatory Access Control system, which allows confining the program to a limited set of resources.</span></span> <span data-ttu-id="d1e1c-261">确保已启用并成功配置 AppArmor。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-261">Ensure AppArmor is enabled and properly configured.</span></span>
+
+### <a name="configure-the-firewall"></a><span data-ttu-id="d1e1c-262">配置防火墙</span><span class="sxs-lookup"><span data-stu-id="d1e1c-262">Configure the firewall</span></span>
+
+<span data-ttu-id="d1e1c-263">关闭所有未使用的外部端口。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-263">Close off all external ports that aren't in use.</span></span> <span data-ttu-id="d1e1c-264">通过为配置防火墙提供 CLI，不复杂的防火墙 (ufw) 为 `iptables` 提供了前端。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-264">Uncomplicated firewall (ufw) provides a front end for `iptables` by providing a CLI for configuring the firewall.</span></span>
+
+> [!WARNING]
+> <span data-ttu-id="d1e1c-265">如果未正确配置，防火墙将阻止对整个系统的访问。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-265">A firewall will prevent access to the whole system if not configured correctly.</span></span> <span data-ttu-id="d1e1c-266">在使用 SSH 进行连接时，未能指定正确的 SSH 端口最终会将你关在系统之外。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-266">Failure to specify the correct SSH port will effectively lock you out of the system if you are using SSH to connect to it.</span></span> <span data-ttu-id="d1e1c-267">默认端口为 22。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-267">The default port is 22.</span></span> <span data-ttu-id="d1e1c-268">有关详细信息，请参阅 [ufw 简介](https://help.ubuntu.com/community/UFW)和[手册](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-268">For more information, see the [introduction to ufw](https://help.ubuntu.com/community/UFW) and the [manual](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).</span></span>
+
+<span data-ttu-id="d1e1c-269">安装 `ufw`，并将其配置为允许所需任何端口上的流量。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-269">Install `ufw` and configure it to allow traffic on any ports needed.</span></span>
 
 ```bash
 sudo apt-get install ufw
@@ -356,101 +366,112 @@ sudo ufw allow 443/tcp
 sudo ufw enable
 ```
 
-### <a name="secure-nginx"></a><span data-ttu-id="f0adf-265">保护 Nginx</span><span class="sxs-lookup"><span data-stu-id="f0adf-265">Secure Nginx</span></span>
+### <a name="secure-nginx"></a><span data-ttu-id="d1e1c-270">保护 Nginx</span><span class="sxs-lookup"><span data-stu-id="d1e1c-270">Secure Nginx</span></span>
 
-#### <a name="change-the-nginx-response-name"></a><span data-ttu-id="f0adf-266">更改 Nginx 响应名称</span><span class="sxs-lookup"><span data-stu-id="f0adf-266">Change the Nginx response name</span></span>
+#### <a name="change-the-nginx-response-name"></a><span data-ttu-id="d1e1c-271">更改 Nginx 响应名称</span><span class="sxs-lookup"><span data-stu-id="d1e1c-271">Change the Nginx response name</span></span>
 
-<span data-ttu-id="f0adf-267">编辑 `src/http/ngx_http_header_filter_module.c`：</span><span class="sxs-lookup"><span data-stu-id="f0adf-267">Edit `src/http/ngx_http_header_filter_module.c`:</span></span>
+<span data-ttu-id="d1e1c-272">编辑 `src/http/ngx_http_header_filter_module.c`：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-272">Edit `src/http/ngx_http_header_filter_module.c`:</span></span>
 
 ```
 static char ngx_http_server_string[] = "Server: Web Server" CRLF;
 static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 ```
 
-#### <a name="configure-options"></a><span data-ttu-id="f0adf-268">配置选项</span><span class="sxs-lookup"><span data-stu-id="f0adf-268">Configure options</span></span>
+#### <a name="configure-options"></a><span data-ttu-id="d1e1c-273">配置选项</span><span class="sxs-lookup"><span data-stu-id="d1e1c-273">Configure options</span></span>
 
-<span data-ttu-id="f0adf-269">用其他必需模块配置服务器。</span><span class="sxs-lookup"><span data-stu-id="f0adf-269">Configure the server with additional required modules.</span></span> <span data-ttu-id="f0adf-270">请考虑使用 [ModSecurity](https://www.modsecurity.org/) 等 Web 应用防火墙来加强对应用的保护。</span><span class="sxs-lookup"><span data-stu-id="f0adf-270">Consider using a web app firewall, such as [ModSecurity](https://www.modsecurity.org/), to harden the app.</span></span>
+<span data-ttu-id="d1e1c-274">用其他必需模块配置服务器。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-274">Configure the server with additional required modules.</span></span> <span data-ttu-id="d1e1c-275">请考虑使用 [ModSecurity](https://www.modsecurity.org/) 等 Web 应用防火墙来加强对应用的保护。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-275">Consider using a web app firewall, such as [ModSecurity](https://www.modsecurity.org/), to harden the app.</span></span>
 
-#### <a name="https-configuration"></a><span data-ttu-id="f0adf-271">HTTPS 配置</span><span class="sxs-lookup"><span data-stu-id="f0adf-271">HTTPS configuration</span></span>
+#### <a name="https-configuration"></a><span data-ttu-id="d1e1c-276">HTTPS 配置</span><span class="sxs-lookup"><span data-stu-id="d1e1c-276">HTTPS configuration</span></span>
 
-<span data-ttu-id="f0adf-272">配置应用，以进行安全的 (HTTPS) 本地连接</span><span class="sxs-lookup"><span data-stu-id="f0adf-272">**Configure the app for secure (HTTPS) local connections**</span></span>
+<span data-ttu-id="d1e1c-277">配置应用，以进行安全的 (HTTPS) 本地连接</span><span class="sxs-lookup"><span data-stu-id="d1e1c-277">**Configure the app for secure (HTTPS) local connections**</span></span>
 
-<span data-ttu-id="f0adf-273">[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 `Properties/launchSettings.json` 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL。</span><span class="sxs-lookup"><span data-stu-id="f0adf-273">The [dotnet run](/dotnet/core/tools/dotnet-run) command uses the app's `Properties/launchSettings.json` file, which configures the app to listen on the URLs provided by the `applicationUrl` property (for example, `https://localhost:5001;http://localhost:5000`).</span></span>
+<span data-ttu-id="d1e1c-278">[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性提供的 URL。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-278">The [dotnet run](/dotnet/core/tools/dotnet-run) command uses the app's *Properties/launchSettings.json* file, which configures the app to listen on the URLs provided by the `applicationUrl` property.</span></span> <span data-ttu-id="d1e1c-279">例如，`https://localhost:5001;http://localhost:5000`。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-279">For example, `https://localhost:5001;http://localhost:5000`.</span></span>
 
-<span data-ttu-id="f0adf-274">使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5<kbd></kbd><kbd></kbd><kbd></kbd>）：</span><span class="sxs-lookup"><span data-stu-id="f0adf-274">Configure the app to use a certificate in development for the `dotnet run` command or development environment (<kbd>F5</kbd> or <kbd>Ctrl</kbd>+<kbd>F5</kbd> in Visual Studio Code) using one of the following approaches:</span></span>
+<span data-ttu-id="d1e1c-280">使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5<kbd></kbd><kbd></kbd><kbd></kbd>）：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-280">Configure the app to use a certificate in development for the `dotnet run` command or development environment (<kbd>F5</kbd> or <kbd>Ctrl</kbd>+<kbd>F5</kbd> in Visual Studio Code) using one of the following approaches:</span></span>
 
-* <span data-ttu-id="f0adf-275">[从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐）</span><span class="sxs-lookup"><span data-stu-id="f0adf-275">[Replace the default certificate from configuration](xref:fundamentals/servers/kestrel#configuration) (*Recommended*)</span></span>
-* [<span data-ttu-id="f0adf-276">KestrelServerOptions.ConfigureHttpsDefaults</span><span class="sxs-lookup"><span data-stu-id="f0adf-276">KestrelServerOptions.ConfigureHttpsDefaults</span></span>](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
+::: moniker range=">= aspnetcore-5.0"
 
-<span data-ttu-id="f0adf-277">配置反向代理，以便进行安全 (HTTPS) 客户端连接</span><span class="sxs-lookup"><span data-stu-id="f0adf-277">**Configure the reverse proxy for secure (HTTPS) client connections**</span></span>
+* <span data-ttu-id="d1e1c-281">[从配置中替换默认证书](xref:fundamentals/servers/kestrel/endpoints#configuration)（推荐）</span><span class="sxs-lookup"><span data-stu-id="d1e1c-281">[Replace the default certificate from configuration](xref:fundamentals/servers/kestrel/endpoints#configuration) (*Recommended*)</span></span>
+* [<span data-ttu-id="d1e1c-282">KestrelServerOptions.ConfigureHttpsDefaults</span><span class="sxs-lookup"><span data-stu-id="d1e1c-282">KestrelServerOptions.ConfigureHttpsDefaults</span></span>](xref:fundamentals/servers/kestrel/endpoints#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
 
-* <span data-ttu-id="f0adf-278">通过指定由受信任的证书颁发机构 (CA) 颁发的有效证书来配置服务器，以侦听端口 `443` 上的 HTTPS 流量。</span><span class="sxs-lookup"><span data-stu-id="f0adf-278">Configure the server to listen to HTTPS traffic on port `443` by specifying a valid certificate issued by a trusted Certificate Authority (CA).</span></span>
+::: moniker-end
 
-* <span data-ttu-id="f0adf-279">通过采用以下“`/etc/nginx/nginx.conf`”文件中所示的某些做法来增强安全保护。</span><span class="sxs-lookup"><span data-stu-id="f0adf-279">Harden the security by employing some of the practices depicted in the following `/etc/nginx/nginx.conf` file.</span></span> <span data-ttu-id="f0adf-280">示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。</span><span class="sxs-lookup"><span data-stu-id="f0adf-280">Examples include choosing a stronger cipher and redirecting all traffic over HTTP to HTTPS.</span></span>
+::: moniker range="< aspnetcore-5.0"
+
+* <span data-ttu-id="d1e1c-283">[从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐）</span><span class="sxs-lookup"><span data-stu-id="d1e1c-283">[Replace the default certificate from configuration](xref:fundamentals/servers/kestrel#configuration) (*Recommended*)</span></span>
+* [<span data-ttu-id="d1e1c-284">KestrelServerOptions.ConfigureHttpsDefaults</span><span class="sxs-lookup"><span data-stu-id="d1e1c-284">KestrelServerOptions.ConfigureHttpsDefaults</span></span>](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
+
+::: moniker-end
+
+<span data-ttu-id="d1e1c-285">配置反向代理，以便进行安全 (HTTPS) 客户端连接</span><span class="sxs-lookup"><span data-stu-id="d1e1c-285">**Configure the reverse proxy for secure (HTTPS) client connections**</span></span>
+
+* <span data-ttu-id="d1e1c-286">通过指定由受信任的证书颁发机构 (CA) 颁发的有效证书来配置服务器，以侦听端口 443 上的 HTTPS 流量。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-286">Configure the server to listen to HTTPS traffic on port 443 by specifying a valid certificate issued by a trusted Certificate Authority (CA).</span></span>
+
+* <span data-ttu-id="d1e1c-287">通过采用以下“/etc/nginx/nginx.conf”文件中所示的某些做法来增强安全保护。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-287">Harden the security by employing some of the practices depicted in the following */etc/nginx/nginx.conf* file.</span></span> <span data-ttu-id="d1e1c-288">示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-288">Examples include choosing a stronger cipher and redirecting all traffic over HTTP to HTTPS.</span></span>
 
   > [!NOTE]
-  > <span data-ttu-id="f0adf-281">对于开发环境，我们建议使用临时重定向(302)，而不使用永久性重定向 (301)。</span><span class="sxs-lookup"><span data-stu-id="f0adf-281">For development environments, we recommend using temporary redirects (302) rather than permanent redirects (301).</span></span> <span data-ttu-id="f0adf-282">链接缓存会导致开发环境中的行为不稳定。</span><span class="sxs-lookup"><span data-stu-id="f0adf-282">Link caching can cause unstable behavior in development environments.</span></span>
+  > <span data-ttu-id="d1e1c-289">对于开发环境，我们建议使用临时重定向(302)，而不使用永久性重定向 (301)。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-289">For development environments, we recommend using temporary redirects (302) rather than permanent redirects (301).</span></span> <span data-ttu-id="d1e1c-290">链接缓存会导致开发环境中的行为不稳定。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-290">Link caching can cause unstable behavior in development environments.</span></span>
 
-* <span data-ttu-id="f0adf-283">添加 `HTTP Strict-Transport-Security` (HSTS) 标头可确保由客户端发起的所有后续请求都通过 HTTPS。</span><span class="sxs-lookup"><span data-stu-id="f0adf-283">Adding an `HTTP Strict-Transport-Security` (HSTS) header ensures all subsequent requests made by the client are over HTTPS.</span></span>
+* <span data-ttu-id="d1e1c-291">添加 `HTTP Strict-Transport-Security` (HSTS) 标头可确保由客户端发起的所有后续请求都通过 HTTPS。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-291">Adding an `HTTP Strict-Transport-Security` (HSTS) header ensures all subsequent requests made by the client are over HTTPS.</span></span>
 
-  <span data-ttu-id="f0adf-284">有关 HSTS 的重要指南，请参阅 <xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts>。</span><span class="sxs-lookup"><span data-stu-id="f0adf-284">For important guidance on HSTS, see <xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts>.</span></span>
+  <span data-ttu-id="d1e1c-292">有关 HSTS 的重要指南，请参阅 <xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts>。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-292">For important guidance on HSTS, see <xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts>.</span></span>
 
-* <span data-ttu-id="f0adf-285">如果将来将禁用 HTTPS，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="f0adf-285">If HTTPS will be disabled in the future, use one of the following approaches:</span></span>
+* <span data-ttu-id="d1e1c-293">如果将来将禁用 HTTPS，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-293">If HTTPS will be disabled in the future, use one of the following approaches:</span></span>
 
-  * <span data-ttu-id="f0adf-286">不要添加 HSTS 标头。</span><span class="sxs-lookup"><span data-stu-id="f0adf-286">Don't add the HSTS header.</span></span>
-  * <span data-ttu-id="f0adf-287">选择短的 `max-age` 值。</span><span class="sxs-lookup"><span data-stu-id="f0adf-287">Choose a short `max-age` value.</span></span>
+  * <span data-ttu-id="d1e1c-294">不要添加 HSTS 标头。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-294">Don't add the HSTS header.</span></span>
+  * <span data-ttu-id="d1e1c-295">选择短的 `max-age` 值。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-295">Choose a short `max-age` value.</span></span>
 
-<span data-ttu-id="f0adf-288">添加 `/etc/nginx/proxy.conf` 配置文件：</span><span class="sxs-lookup"><span data-stu-id="f0adf-288">Add the `/etc/nginx/proxy.conf` configuration file:</span></span>
+<span data-ttu-id="d1e1c-296">添加 /etc/nginx/proxy.conf 配置文件：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-296">Add the */etc/nginx/proxy.conf* configuration file:</span></span>
 
 [!code-nginx[](linux-nginx/proxy.conf)]
 
-<span data-ttu-id="f0adf-289">将 `/etc/nginx/nginx.conf` 配置文件的内容替换为下面文件。</span><span class="sxs-lookup"><span data-stu-id="f0adf-289">**Replace** the contents of the `/etc/nginx/nginx.conf` configuration file with the following file.</span></span> <span data-ttu-id="f0adf-290">示例包含一个配置文件中的 `http` 和 `server` 部分。</span><span class="sxs-lookup"><span data-stu-id="f0adf-290">The example contains both `http` and `server` sections in one configuration file.</span></span>
+<span data-ttu-id="d1e1c-297">将 /etc/nginx/nginx.conf 配置文件的内容替换为以下文件。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-297">**Replace** the contents of the */etc/nginx/nginx.conf* configuration file with the following file.</span></span> <span data-ttu-id="d1e1c-298">示例包含一个配置文件中的 `http` 和 `server` 部分。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-298">The example contains both `http` and `server` sections in one configuration file.</span></span>
 
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
 
 > [!NOTE]
-> <span data-ttu-id="f0adf-291">Blazor WebAssembly 应用需要更大的 `burst` 参数值才能容纳应用发出的更大量的请求。</span><span class="sxs-lookup"><span data-stu-id="f0adf-291">Blazor WebAssembly apps require a larger `burst` parameter value to accommodate the larger number of requests made by an app.</span></span> <span data-ttu-id="f0adf-292">有关详细信息，请参阅 <xref:blazor/host-and-deploy/webassembly#nginx>。</span><span class="sxs-lookup"><span data-stu-id="f0adf-292">For more information, see <xref:blazor/host-and-deploy/webassembly#nginx>.</span></span>
+> <span data-ttu-id="d1e1c-299">Blazor WebAssembly 应用需要更大的 `burst` 参数值才能容纳应用发出的更大量的请求。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-299">Blazor WebAssembly apps require a larger `burst` parameter value to accommodate the larger number of requests made by an app.</span></span> <span data-ttu-id="d1e1c-300">有关详细信息，请参阅 <xref:blazor/host-and-deploy/webassembly#nginx>。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-300">For more information, see <xref:blazor/host-and-deploy/webassembly#nginx>.</span></span>
 
-#### <a name="secure-nginx-from-clickjacking"></a><span data-ttu-id="f0adf-293">保护 Nginx 免受点击劫持的侵害</span><span class="sxs-lookup"><span data-stu-id="f0adf-293">Secure Nginx from clickjacking</span></span>
+#### <a name="secure-nginx-from-clickjacking"></a><span data-ttu-id="d1e1c-301">保护 Nginx 免受点击劫持的侵害</span><span class="sxs-lookup"><span data-stu-id="d1e1c-301">Secure Nginx from clickjacking</span></span>
 
-<span data-ttu-id="f0adf-294">[点击劫持](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)（也称为 *UI 伪装攻击*）是一种恶意攻击，其中网站访问者会上当受骗，从而导致在与当前要访问的页面不同的页面上单击链接或按钮。</span><span class="sxs-lookup"><span data-stu-id="f0adf-294">[Clickjacking](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger), also known as a *UI redress attack*, is a malicious attack where a website visitor is tricked into clicking a link or button on a different page than they're currently visiting.</span></span> <span data-ttu-id="f0adf-295">使用 `X-FRAME-OPTIONS` 可保护网站。</span><span class="sxs-lookup"><span data-stu-id="f0adf-295">Use `X-FRAME-OPTIONS` to secure the site.</span></span>
+<span data-ttu-id="d1e1c-302">[点击劫持](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)（也称为 *UI 伪装攻击*）是一种恶意攻击，其中网站访问者会上当受骗，从而导致在与当前要访问的页面不同的页面上单击链接或按钮。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-302">[Clickjacking](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger), also known as a *UI redress attack*, is a malicious attack where a website visitor is tricked into clicking a link or button on a different page than they're currently visiting.</span></span> <span data-ttu-id="d1e1c-303">使用 `X-FRAME-OPTIONS` 可保护网站。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-303">Use `X-FRAME-OPTIONS` to secure the site.</span></span>
 
-<span data-ttu-id="f0adf-296">缓解点击劫持攻击：</span><span class="sxs-lookup"><span data-stu-id="f0adf-296">To mitigate clickjacking attacks:</span></span>
+<span data-ttu-id="d1e1c-304">缓解点击劫持攻击：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-304">To mitigate clickjacking attacks:</span></span>
 
-1. <span data-ttu-id="f0adf-297">编辑 `nginx.conf` 文件：</span><span class="sxs-lookup"><span data-stu-id="f0adf-297">Edit the `nginx.conf` file:</span></span>
-
-   ```bash
-   sudo nano /etc/nginx/nginx.conf
-   ```
-
-   <span data-ttu-id="f0adf-298">添加行：`add_header X-Frame-Options "SAMEORIGIN";`</span><span class="sxs-lookup"><span data-stu-id="f0adf-298">Add the line: `add_header X-Frame-Options "SAMEORIGIN";`</span></span>
-
-1. <span data-ttu-id="f0adf-299">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="f0adf-299">Save the file.</span></span>
-1. <span data-ttu-id="f0adf-300">重启 Nginx。</span><span class="sxs-lookup"><span data-stu-id="f0adf-300">Restart Nginx.</span></span>
-
-#### <a name="mime-type-sniffing"></a><span data-ttu-id="f0adf-301">MIME 类型探查</span><span class="sxs-lookup"><span data-stu-id="f0adf-301">MIME-type sniffing</span></span>
-
-<span data-ttu-id="f0adf-302">此标头可阻止大部分浏览器通过 MIME 方式探查来自已声明内容类型的响应，因为标头会指示浏览器不要替代响应内容类型。</span><span class="sxs-lookup"><span data-stu-id="f0adf-302">This header prevents most browsers from MIME-sniffing a response away from the declared content type, as the header instructs the browser not to override the response content type.</span></span> <span data-ttu-id="f0adf-303">使用 `nosniff` 选项后，如果服务器认为内容是“`text/html`”，则浏览器将其显示为“`text/html`”。</span><span class="sxs-lookup"><span data-stu-id="f0adf-303">With the `nosniff` option, if the server says the content is `text/html`, the browser renders it as `text/html`.</span></span>
-
-1. <span data-ttu-id="f0adf-304">编辑 `nginx.conf` 文件：</span><span class="sxs-lookup"><span data-stu-id="f0adf-304">Edit the `nginx.conf` file:</span></span>
+1. <span data-ttu-id="d1e1c-305">编辑 nginx.conf 文件：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-305">Edit the *nginx.conf* file:</span></span>
 
    ```bash
    sudo nano /etc/nginx/nginx.conf
    ```
 
-   <span data-ttu-id="f0adf-305">添加行：`add_header X-Content-Type-Options "nosniff";`</span><span class="sxs-lookup"><span data-stu-id="f0adf-305">Add the line: `add_header X-Content-Type-Options "nosniff";`</span></span>
+   <span data-ttu-id="d1e1c-306">添加行：`add_header X-Frame-Options "SAMEORIGIN";`</span><span class="sxs-lookup"><span data-stu-id="d1e1c-306">Add the line: `add_header X-Frame-Options "SAMEORIGIN";`</span></span>
 
-1. <span data-ttu-id="f0adf-306">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="f0adf-306">Save the file.</span></span>
-1. <span data-ttu-id="f0adf-307">重启 Nginx。</span><span class="sxs-lookup"><span data-stu-id="f0adf-307">Restart Nginx.</span></span>
+1. <span data-ttu-id="d1e1c-307">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-307">Save the file.</span></span>
+1. <span data-ttu-id="d1e1c-308">重启 Nginx。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-308">Restart Nginx.</span></span>
 
-## <a name="additional-nginx-suggestions"></a><span data-ttu-id="f0adf-308">其他 Nginx 建议</span><span class="sxs-lookup"><span data-stu-id="f0adf-308">Additional Nginx suggestions</span></span>
+#### <a name="mime-type-sniffing"></a><span data-ttu-id="d1e1c-309">MIME 类型探查</span><span class="sxs-lookup"><span data-stu-id="d1e1c-309">MIME-type sniffing</span></span>
 
-<span data-ttu-id="f0adf-309">在服务器上升级共享框架后，重启服务器托管的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="f0adf-309">After upgrading the shared framework on the server, restart the ASP.NET Core apps hosted by the server.</span></span>
+<span data-ttu-id="d1e1c-310">此标头可阻止大部分浏览器通过 MIME 方式探查来自已声明内容类型的响应，因为标头会指示浏览器不要替代响应内容类型。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-310">This header prevents most browsers from MIME-sniffing a response away from the declared content type, as the header instructs the browser not to override the response content type.</span></span> <span data-ttu-id="d1e1c-311">使用 `nosniff` 选项后，如果服务器认为内容是“`text/html`”，则浏览器将其显示为“`text/html`”。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-311">With the `nosniff` option, if the server says the content is `text/html`, the browser renders it as `text/html`.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="f0adf-310">其他资源</span><span class="sxs-lookup"><span data-stu-id="f0adf-310">Additional resources</span></span>
+1. <span data-ttu-id="d1e1c-312">编辑 nginx.conf 文件：</span><span class="sxs-lookup"><span data-stu-id="d1e1c-312">Edit the *nginx.conf* file:</span></span>
 
-* [<span data-ttu-id="f0adf-311">Linux 上 .NET Core 的先决条件</span><span class="sxs-lookup"><span data-stu-id="f0adf-311">Prerequisites for .NET Core on Linux</span></span>](/dotnet/core/linux-prerequisites)
-* [<span data-ttu-id="f0adf-312">Nginx：二进制版本：官方 Debian/Ubuntu 包</span><span class="sxs-lookup"><span data-stu-id="f0adf-312">Nginx: Binary Releases: Official Debian/Ubuntu packages</span></span>](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)
+   ```bash
+   sudo nano /etc/nginx/nginx.conf
+   ```
+
+   <span data-ttu-id="d1e1c-313">添加行：`add_header X-Content-Type-Options "nosniff";`</span><span class="sxs-lookup"><span data-stu-id="d1e1c-313">Add the line: `add_header X-Content-Type-Options "nosniff";`</span></span>
+
+1. <span data-ttu-id="d1e1c-314">保存该文件。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-314">Save the file.</span></span>
+1. <span data-ttu-id="d1e1c-315">重启 Nginx。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-315">Restart Nginx.</span></span>
+
+## <a name="additional-nginx-suggestions"></a><span data-ttu-id="d1e1c-316">其他 Nginx 建议</span><span class="sxs-lookup"><span data-stu-id="d1e1c-316">Additional Nginx suggestions</span></span>
+
+<span data-ttu-id="d1e1c-317">在服务器上升级共享框架后，重启服务器托管的 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="d1e1c-317">After upgrading the shared framework on the server, restart the ASP.NET Core apps hosted by the server.</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="d1e1c-318">其他资源</span><span class="sxs-lookup"><span data-stu-id="d1e1c-318">Additional resources</span></span>
+
+* [<span data-ttu-id="d1e1c-319">Linux 上 .NET Core 的先决条件</span><span class="sxs-lookup"><span data-stu-id="d1e1c-319">Prerequisites for .NET Core on Linux</span></span>](/dotnet/core/linux-prerequisites)
+* [<span data-ttu-id="d1e1c-320">Nginx：二进制版本：官方 Debian/Ubuntu 包</span><span class="sxs-lookup"><span data-stu-id="d1e1c-320">Nginx: Binary Releases: Official Debian/Ubuntu packages</span></span>](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/proxy-load-balancer>
-* [<span data-ttu-id="f0adf-313">NGINX：使用转接头</span><span class="sxs-lookup"><span data-stu-id="f0adf-313">NGINX: Using the Forwarded header</span></span>](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)
+* [<span data-ttu-id="d1e1c-321">NGINX：使用转接头</span><span class="sxs-lookup"><span data-stu-id="d1e1c-321">NGINX: Using the Forwarded header</span></span>](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)
