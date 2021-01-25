@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: aa24def1a003a2c2608691e6168066c740f47205
-ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
+ms.openlocfilehash: 5031273c3395be4365b3a6d239ebce7aaf9b66ac
+ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2021
-ms.locfileid: "98024621"
+ms.lasthandoff: 01/21/2021
+ms.locfileid: "98658633"
 ---
 # <a name="secure-aspnet-core-no-locblazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
 
@@ -126,6 +126,10 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 * [当前没有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-without-existing-authorization)。
 * [有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-with-authorization)。
+
+## <a name="azure-app-service-on-linux-with-no-locidentity-server"></a>使用 Identity 服务器的 Linux 上的 Azure 应用服务
+
+使用 Identity 服务器部署到 Linux 上的 Azure 应用服务时，显式指定颁发者。 有关详细信息，请参阅 <xref:security/authentication/identity/spa#azure-app-service-on-linux>。
 
 ## <a name="additional-resources"></a>其他资源
 

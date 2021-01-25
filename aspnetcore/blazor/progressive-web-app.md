@@ -5,7 +5,7 @@ description: 了解如何生成基于 Blazor 的渐进式 Web 应用 (PWA)，这
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/10/2020
+ms.date: 01/11/2020
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: f400319ef81b3d7768bdbdab84f46d3f9c50bb46
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 196e19528341e98ac06cefb08ba92f9e47d265ea
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "96855438"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252469"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-no-locblazor-webassembly"></a>利用 ASP.NET Core Blazor WebAssembly 生成渐进式 Web 应用程序
 
@@ -59,15 +59,109 @@ ms.locfileid: "96855438"
 
 # <a name="visual-studio-code--net-core-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
 
-使用 `--pwa` 开关在命令 shell 中创建 PWA 项目：
+使用以下命令和 `--pwa` 开关在命令外壳中创建 PWA 项目：
 
 ```dotnetcli
-dotnet new blazorwasm -o MyNewProject --pwa
+dotnet new blazorwasm -o MyBlazorPwa --pwa
 ```
+
+在上述命令中，`-o|--output` 选项将为名为 `MyBlazorPwa` 的应用创建一个新文件夹。
 
 ---
 
 （可选）可以为通过 ASP.NET Core 托管的模板创建的应用配置 PWA。 PWA 方案独立于托管模型。
+
+## <a name="convert-an-existing-no-locblazor-webassembly-app-into-a-pwa"></a>将现有 Blazor WebAssembly 应用转换为 PWA
+
+按照本部分中的指南，将现有 Blazor WebAssembly 应用转换为 PWA。
+
+在应用的项目文件中，执行以下操作：
+
+* 将以下 `ServiceWorkerAssetsManifest` 属性添加到 `PropertyGroup` 中：
+
+  ```xml
+    ...
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+  </PropertyGroup>
+   ```
+
+* 将以下 `ServiceWorker` 项添加到 `ItemGroup` 中：
+
+  ```xml
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" 
+      PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+  ```
+
+若要获取静态资产，请使用以下方法之一：
+
+::: moniker range=">= aspnetcore-5.0"
+
+* 在命令外壳中使用 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令创建一个单独的新 PWA 项目：
+
+  ```dotnetcli
+  dotnet new blazorwasm -o MyBlazorPwa --pwa
+  ```
+  
+  在上述命令中，`-o|--output` 选项将为名为 `MyBlazorPwa` 的应用创建一个新文件夹。
+  
+  如果你不打算将应用转换为最新版本，则传递 `-f|--framework` 选项。 以下示例将创建 ASP.NET Core 3.1 版的应用：
+  
+  ```dotnetcli
+  dotnet new blazorwasm -o MyBlazorPwa --pwa -f netcoreapp3.1
+  ```
+
+* 通过以下 URL 导航到 ASP.NET Core GitHub 存储库，该存储库链接到 5.0 版参考源和资产。 如果你不打算将应用转换为 5.0 版，请从适用于该应用的“切换分支或标记”下拉列表中选择要使用的版本。
+
+  [dotnet/aspnetcore（5.0 版）Blazor WebAssembly 项目模板 `wwwroot` 文件夹](https://github.com/dotnet/aspnetcore/tree/release/5.0/src/ProjectTemplates/Web.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Client/wwwroot)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+* 在命令外壳中使用 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令创建一个单独的新 PWA 项目。 传递 `-f|--framework` 选项以选择版本。 以下示例将创建 ASP.NET Core 3.1 版的应用：
+  
+  ```dotnetcli
+  dotnet new blazorwasm -o MyBlazorPwa --pwa -f netcoreapp3.1
+  ```
+  
+  在上述命令中，`-o|--output` 选项将为名为 `MyBlazorPwa` 的应用创建一个新文件夹。
+
+* 通过以下 URL 导航到 ASP.NET Core GitHub 存储库，该存储库链接到 3.1 版参考源和资产：
+
+  [dotnet/aspnetcore（3.1 版）Blazor WebAssembly 项目模板 `wwwroot` 文件夹](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/ProjectTemplates/ComponentsWebAssembly.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Client/wwwroot)
+
+  > [!NOTE]
+  > ASP.NET Core 3.1 发布之后，Blazor WebAssembly 项目模板的 URL 发生了变化。 可从以下 URL 获取 5.0 或更高版本的参考资产：
+  >
+  > [dotnet/aspnetcore（5.0 版）Blazor WebAssembly 项目模板 `wwwroot` 文件夹](https://github.com/dotnet/aspnetcore/tree/release/5.0/src/ProjectTemplates/Web.ProjectTemplates/content/ComponentsWebAssembly-CSharp/Client/wwwroot)
+
+::: moniker-end
+
+从你创建的应用的源 `wwwroot` 文件夹中，或从 `dotnet/aspnetcore` GitHub 存储库的参考资产中，将以下文件复制到应用的 `wwwroot` 文件夹中：
+
+* `icon-512.png`
+* `manifest.json`
+* `service-worker.js`
+* `service-worker.published.js`
+
+在应用的 `wwwroot/index.html` 文件中：
+
+* 为清单和应用图标添加 `<link>` 元素：
+
+  ```html
+  <link href="manifest.json" rel="manifest" />
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+  ```
+
+* 将以下 `<script>` 标记添加到紧跟在 `blazor.webassembly.js` 脚本标记后面的 `</body>` 结束标记中：
+
+  ```html
+      ...
+      <script>navigator.serviceWorker.register('service-worker.js');</script>
+  </body>
+  ```
 
 ## <a name="installation-and-app-manifest"></a>安装和应用部件清单 (manifest)
 

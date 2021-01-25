@@ -4,7 +4,7 @@ author: juntaoluo
 description: 了解使用 ASP.NET Core 编写 gRPC 服务时的基本概念。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 09/03/2019
+ms.date: 01/14/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/aspnetcore
-ms.openlocfilehash: b120aa4ab6922445f2c53f3b1cb3bd5c159d8a84
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 44a6f1d2a25314460fa4bce469f697a2fa4c0825
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93057825"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252846"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
@@ -77,6 +77,8 @@ gRPC 需要 [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) �
 
 ASP.NET Core 中间件和功能共享路由管道，因此可以将应用配置为提供其他请求处理程序。 其他请求处理程序（如 MVC 控制器）与已配置的 gRPC 服务并行工作。
 
+::: moniker range=">= aspnetcore-5.0"
+
 ### <a name="configure-kestrel"></a>配置 Kestrel
 
 Kestrel gRPC 终结点：
@@ -86,7 +88,47 @@ Kestrel gRPC 终结点：
 
 #### <a name="http2"></a>HTTP/2
 
-gRPC 需要 HTTP/2。 适用于 ASP.NET Core 的 gRPC 验证 [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) 为 `HTTP/2`。
+gRPC 需要 HTTP/2。 适用于 ASP.NET Core 的 gRPC 验证 [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol%2A) 为 `HTTP/2`。
+
+Kestrel 在大多数新式操作系统上[支持 HTTP/2](xref:fundamentals/servers/kestrel/http2)。 默认情况下，Kestrel 终结点配置为支持 HTTP/1.1 和 HTTP/2 连接。
+
+#### <a name="tls"></a>TLS
+
+用于 gRPC 的 Kestrel 终结点应使用 TLS 进行保护。 在开发环境中，当存在 ASP.NET Core 开发证书时，会在 `https://localhost:5001` 自动创建使用 TLS 进行保护的终结点。 不需要任何配置。 `https` 前缀验证 Kestrel 终结点是否正在使用 TLS。
+
+在生产环境中，必须显式配置 TLS。 以下 appsettings.json 示例中提供了使用 TLS 进行保护的 HTTP/2 终结点：
+
+[!code-json[](~/grpc/aspnetcore/sample/appsettings.json?highlight=4)]
+
+或者，可以在 Program.cs 中配置 Kestrel 终结点：
+
+[!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
+
+#### <a name="protocol-negotiation"></a>协议协商
+
+TLS 的用途不仅限于保护通信。 当终结点支持多个协议时，TLS [应用程序层协议协商 (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) 握手可用于协商客户端与服务器之间的连接协议。 此协商确定连接是使用 HTTP/1.1 还是 HTTP/2。
+
+如果在不使用 TLS 的情况下配置了 HTTP/2 终结点，则必须将终结点的 [ListenOptions.Protocols](xref:fundamentals/servers/kestrel/endpoints#listenoptionsprotocols) 设置为 `HttpProtocols.Http2`。 如果没有 TLS，则无法使用具有多个协议（例如 `HttpProtocols.Http1AndHttp2`）的终结点，因为没有协商。 到不安全终结点的所有连接均默认为 HTTP/1.1，且 gRPC 调用会失败。
+
+有关使用 Kestrel 启用 HTTP/2 和 TLS 的详细信息，请参阅 [Kestrel 终结点配置](xref:fundamentals/servers/kestrel/endpoints)。
+
+> [!NOTE]
+> macOS 不支持 ASP.NET Core gRPC 及 TLS。 在 macOS 上成功运行 gRPC 服务需要其他配置。 有关详细信息，请参阅[无法在 macOS 上启用 ASP.NET Core gRPC 应用](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+### <a name="configure-kestrel"></a>配置 Kestrel
+
+Kestrel gRPC 终结点：
+
+* 需要 HTTP/2。
+* 应使用[传输层安全性 (TLS)](https://tools.ietf.org/html/rfc5246) 进行保护。
+
+#### <a name="http2"></a>HTTP/2
+
+gRPC 需要 HTTP/2。 适用于 ASP.NET Core 的 gRPC 验证 [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol%2A) 为 `HTTP/2`。
 
 Kestrel 在大多数新式操作系统上[支持 HTTP/2](xref:fundamentals/servers/kestrel#http2-support)。 默认情况下，Kestrel 终结点配置为支持 HTTP/1.1 和 HTTP/2 连接。
 
@@ -112,6 +154,8 @@ TLS 的用途不仅限于保护通信。 当终结点支持多个协议时，TLS
 
 > [!NOTE]
 > macOS 不支持 ASP.NET Core gRPC 及 TLS。 在 macOS 上成功运行 gRPC 服务需要其他配置。 有关详细信息，请参阅[无法在 macOS 上启用 ASP.NET Core gRPC 应用](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)。
+
+::: moniker-end
 
 ## <a name="integration-with-aspnet-core-apis"></a>与 ASP.NET Core API 集成
 

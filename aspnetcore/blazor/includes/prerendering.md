@@ -37,7 +37,7 @@
 
 如果调用 <xref:Microsoft.JSInterop.JSRuntime.InvokeAsync%2A?displayProperty=nameWithType>，则 `ElementRef` 仅在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 中使用，而不在任何更早的生命周期方法中使用，因为呈现组件后才会有 JavaScript 元素。
 
-会调用 [StateHasChanged](xref:blazor/components/lifecycle#state-changes)，使用从 JavaScript 互操作调用中获取的新状态重新呈现该组件。 此代码不会创建无限循环，因为仅在 `infoFromJs` 为 `null` 时才调用 `StateHasChanged`。
+通过调用 [StateHasChanged](xref:blazor/components/lifecycle#state-changes)，可使用从 JavaScript 互操作调用中获取的新状态重新呈现组件（有关详细信息，请参阅 <xref:blazor/components/rendering>）。 此代码不会创建无限循环，因为仅在 `infoFromJs` 为 `null` 时才调用 `StateHasChanged`。
 
 ```cshtml
 @page "/prerendered-interop"

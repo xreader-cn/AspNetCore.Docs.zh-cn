@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 11312a34dc62dd3bace791819f62379bffbb1c49
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 2502f43f4eaf245996827f704462ec340bbb8e07
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97592826"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252534"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -527,7 +527,7 @@ var module = await js.InvokeAsync<IJSObjectReference>(
     "import", "./_content/MyComponents/exampleJsInterop.js");
 ```
 
-上例中的 `import` 标识符是专门用于导入 JavaScript 模块的特殊标识符。 使用模块的稳定静态 Web 资产路径 `_content/{LIBRARY NAME}/{PATH UNDER WWWROOT}` 指定模块。 占位符 `{LIBRARY NAME}` 是库的名称。 占位符 `{PATH UNDER WWWROOT}` 是 `wwwroot` 下脚本的路径。
+上例中的 `import` 标识符是专门用于导入 JavaScript 模块的特殊标识符。 使用模块的稳定静态 Web 资产路径 `./_content/{LIBRARY NAME}/{PATH UNDER WWWROOT}` 指定模块。 若要创建 JavaScript 文件的正确静态资产路径，需要当前目录 (`./`) 的路径段。 占位符 `{LIBRARY NAME}` 是库的名称。 占位符 `{PATH UNDER WWWROOT}` 是 `wwwroot` 下脚本的路径。
 
 <xref:Microsoft.JSInterop.IJSRuntime> 将模块作为 `IJSObjectReference` 导入，它表示对 .NET 代码中 JavaScript 对象的引用。 使用 `IJSObjectReference` 调用从模块导出的 JavaScript 函数：
 
@@ -655,29 +655,9 @@ export function setMapCenter(map, latitude, longitude) {
 
 ## <a name="size-limits-on-js-interop-calls"></a>对 JS 互操作调用的大小限制
 
-在 Blazor WebAssembly 中，框架对 JS 互操作调用的输入和输出大小不施加限制。
+在 Blazor WebAssembly 中，框架对 JS 互操作输入和输出的大小不施加限制。
 
-在 Blazor Server 中，JS 互操作调用的结果受 SignalR (<xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize>) 执行的最大有效负载大小的限制，默认值为 32 KB。 尝试响应有效负载大于 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize> 的 JS 互操作调用的应用程序将引发错误。 可以通过修改 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize> 来配置更大的限制。 下面的示例将最大接收消息大小设置为 64 KB (64 * 1024 * 1024)：
-
-```csharp
-services.AddServerSideBlazor()
-   .AddHubOptions(options => options.MaximumReceiveMessageSize = 64 * 1024 * 1024);
-```
-
-提高 SignalR 上限的代价是需要使用更多的服务器资源，这将使服务器面临来自恶意用户的更大风险。 此外，如果将大量内容作为字符串或字节数组读入内存中，还会导致垃圾回收器的分配工作状况不佳，从而导致额外的性能损失。 读取大型有效负载的一种方法是考虑以较小区块发送内容，并将有效负载作为 <xref:System.IO.Stream> 处理。 可以在读取大型 JSON 有效负载或者数据在 JavaScript 中以原始字节形式提供时使用此方法。 有关演示如何使用类似于 `InputFile` 组件的方法在 Blazor Server 中发送大型二进制有效负载的示例，请参阅[二进制文件提交示例应用](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/BinarySubmit)。
-
-开发在 JavaScript 和 Blazor 之间传输大量数据的代码时，请考虑以下指南：
-
-* 将数据切成小块，然后按顺序发送数据段，直到服务器收到所有数据。
-* 不要在 JavaScript 和 C# 代码中分配大型对象。
-* 发送或接收数据时，请勿长时间阻止主 UI 线程。
-* 在进程完成或取消时释放消耗的所有内存。
-* 为了安全起见，请强制执行以下附加要求：
-  * 声明可以传递的最大文件或数据大小。
-  * 声明从客户端到服务器的最低上传速率。
-* 在服务器收到数据后，数据可以：
-  * 暂时存储在内存缓冲区中，直到收集完所有数据段。
-  * 立即使用。 例如，在收到每个数据段时，数据可以立即存储到数据库中或写入磁盘。
+在 Blazor Server 中，JS 互操作调用的大小受中心方法允许的最大传入 SignalR 消息大小限制，该限制由 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize?displayProperty=nameWithType>（默认值：32 KB）实施。 JS 到 .NET 的 SignalR 消息大于 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize> 时会引发错误。 框架对从中心到客户端的 SignalR 消息大小不施加限制。 有关详细信息，请参阅 <xref:blazor/call-dotnet-from-javascript#size-limits-on-js-interop-calls>。
   
 ## <a name="js-modules"></a>JS 模块
 

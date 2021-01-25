@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: e5f9a07db742ce2e26f03c0b6e1caa1904e4e0d9
-ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
+ms.openlocfilehash: acaa276efda9fb4d09a5c1b1ca59c6abde1b64ec
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2021
-ms.locfileid: "98058228"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252380"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -53,7 +53,7 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 `Render` 生命周期：
 
-1. 停止组件的进一步呈现操作：
+1. 避免对组件进行进一步的呈现操作：
    * 在第一次呈现后。
    * 当 [`ShouldRender`](#suppress-ui-refreshing) 为 `false` 时。
 1. 生成呈现树差异并呈现组件。
@@ -62,7 +62,7 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 ![呈现生命周期](lifecycle/_static/lifecycle3.png)
 
-开发人员调用 [`StateHasChanged`](#state-changes) 会产生呈现。
+开发人员调用 [`StateHasChanged`](#state-changes) 会产生呈现。 有关详细信息，请参阅 <xref:blazor/components/rendering>。
 
 ## <a name="lifecycle-methods"></a>生命周期方法
 
@@ -215,6 +215,8 @@ protected override bool ShouldRender()
 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 通知组件其状态已更改。 如果适用，调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 会导致组件重新呈现。
 
 将自动为 <xref:Microsoft.AspNetCore.Components.EventCallback> 方法调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 有关详细信息，请参阅 <xref:blazor/components/event-handling#eventcallback>。
+
+有关详细信息，请参阅 <xref:blazor/components/rendering>。
 
 ## <a name="handle-incomplete-async-actions-at-render"></a>处理呈现时的不完整异步操作
 

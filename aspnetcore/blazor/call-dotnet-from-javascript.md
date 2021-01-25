@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: c1a97919cb41f42a93f28d9b5f1ecf6bd3e64da0
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 5a00bfb87b8cfe0fb3e2a832a553b8a4cd45ee6d
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97592851"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98252495"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-no-locblazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
 
@@ -456,6 +456,60 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 
 * [循环引用不受支持，使用两个按钮 (dotnet/aspnetcore #20525)](https://github.com/dotnet/aspnetcore/issues/20525)
 * [建议：在序列化时添加机制来处理循环引用 (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
+
+## <a name="size-limits-on-js-interop-calls"></a>对 JS 互操作调用的大小限制
+
+在 Blazor WebAssembly 中，框架对 JS 互操作输入和输出的大小不施加限制。
+
+在 Blazor Server 中，JS 互操作调用的大小受中心方法允许的最大传入 SignalR 消息大小限制，该限制由 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize?displayProperty=nameWithType>（默认值：32 KB）实施。 JS 到 .NET 的 SignalR 消息大于 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize> 时会引发错误。 框架对从中心到客户端的 SignalR 消息大小不施加限制。
+
+如果未将 SignalR 日志记录设置为[调试](xref:Microsoft.Extensions.Logging.LogLevel)或[跟踪](xref:Microsoft.Extensions.Logging.LogLevel)，则消息大小错误仅显示在浏览器的开发人员工具控制台中：
+
+> 错误：连接断开，出现错误“错误:服务器关闭时返回错误:连接因错误而关闭。”
+
+将 [SignalR 服务器端日志记录](xref:signalr/diagnostics#server-side-logging)设置为[调试](xref:Microsoft.Extensions.Logging.LogLevel)或[跟踪](xref:Microsoft.Extensions.Logging.LogLevel)时，服务器端日志记录会针对消息大小错误显示 <xref:System.IO.InvalidDataException>。
+
+`appsettings.Development.json`:
+
+```json
+{
+  "DetailedErrors": true,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information",
+      "Microsoft.AspNetCore.SignalR": "Debug"
+    }
+  }
+}
+```
+
+> System.IO.InvalidDataException:超出了最大消息大小 32768B。 消息大小可以在 AddHubOptions 中配置。
+
+通过在 `Startup.ConfigureServices` 中设置 <xref:Microsoft.AspNetCore.SignalR.HubOptions.MaximumReceiveMessageSize> 来提高限制。 以下示例将最大接收消息大小设置为 64 KB (64 * 1024)：
+
+```csharp
+services.AddServerSideBlazor()
+   .AddHubOptions(options => options.MaximumReceiveMessageSize = 64 * 1024);
+```
+
+提高 SignalR 传入消息大小上限的代价是需要使用更多的服务器资源，这将使服务器面临来自恶意用户的更大风险。 此外，如果将大量内容作为字符串或字节数组读入内存中，还会导致垃圾回收器的分配工作状况不佳，从而导致额外的性能损失。
+
+读取大型有效负载的一种方法是以较小区块发送内容，并将有效负载作为 <xref:System.IO.Stream> 处理。 可以在读取大型 JSON 有效负载或者数据在 JavaScript 中以原始字节形式提供时使用此方法。 有关演示如何使用类似于 `InputFile` 组件的方法在 Blazor Server 中发送大型二进制有效负载的示例，请参阅[二进制文件提交示例应用](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/BinarySubmit)。
+
+开发在 JavaScript 和 Blazor 之间传输大量数据的代码时，请考虑以下指南：
+
+* 将数据切成小块，然后按顺序发送数据段，直到服务器收到所有数据。
+* 不要在 JavaScript 和 C# 代码中分配大型对象。
+* 发送或接收数据时，请勿长时间阻止主 UI 线程。
+* 在进程完成或取消时释放消耗的所有内存。
+* 为了安全起见，请强制执行以下附加要求：
+  * 声明可以传递的最大文件或数据大小。
+  * 声明从客户端到服务器的最低上传速率。
+* 在服务器收到数据后，数据可以：
+  * 暂时存储在内存缓冲区中，直到收集完所有数据段。
+  * 立即使用。 例如，在收到每个数据段时，数据可以立即存储到数据库中或写入磁盘。
 
 ## <a name="js-modules"></a>JS 模块
 

@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: c4d1095d3c3b457ca4d94cb1a573c3dc49548ff3
-ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
+ms.openlocfilehash: 2df938f3ace47472536020f9848e954fc4446f15
+ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2021
-ms.locfileid: "98024634"
+ms.lasthandoff: 01/21/2021
+ms.locfileid: "98658581"
 ---
 # <a name="secure-aspnet-core-no-locblazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
@@ -106,6 +106,10 @@ Blazor WebAssembly 中的身份验证支持建立在 `oidc-client.js` 库的基�
 
 * [其他场景：自定义用户](xref:blazor/security/webassembly/additional-scenarios#customize-the-user)
 * <xref:blazor/security/webassembly/aad-groups-roles>
+
+## <a name="azure-app-service-on-linux-with-no-locidentity-server"></a>使用 Identity 服务器的 Linux 上的 Azure 应用服务
+
+使用 Identity 服务器部署到 Linux 上的 Azure 应用服务时，显式指定颁发者。 有关详细信息，请参阅 <xref:security/authentication/identity/spa#azure-app-service-on-linux>。
 
 ## <a name="implementation-guidance"></a>实施指南
 

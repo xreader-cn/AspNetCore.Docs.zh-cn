@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: c4e0d70b41221f272bb4b1fe82cfa531ec6fcf15
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 6a8fd8e3498dda9b7c10834791e64df6276e2823
+ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "94431057"
+ms.lasthandoff: 01/16/2021
+ms.locfileid: "98253015"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -97,7 +97,7 @@ Kestrel 非常适合从 ASP.NET Core 提供动态内容。 但是，Web 服务�
 
 [!INCLUDE[](~/includes/ForwardedHeaders.md)]
 
-调用其他中间件之前，请先在 `Startup.Configure` 的基础上调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法。 配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：
+调用其他中间件之前，请先在 `Startup.Configure` 的基础上调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders%2A> 方法。 配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：
 
 ```csharp
 using Microsoft.AspNetCore.HttpOverrides;
@@ -114,7 +114,7 @@ app.UseAuthentication();
 
 如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，则要转接的默认标头为 `None`。
 
-默认情况下，在环回地址 (`127.0.0.0/8`, `[::1]`)（包括标准 localhost 地址 (`127.0.0.1`)）上运行的代理受信任。 如果组织内的其他受信任代理或网络处理 Internet 与 Web 服务器之间的请求，请使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 将其添加到 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> 或 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> 的列表。 以下示例会将 IP 地址为 10.0.0.100 的受信任代理服务器添加到 `Startup.ConfigureServices` 中的转接头中间件 `KnownProxies`：
+默认情况下，在环回地址 (`127.0.0.0/8`, `[::1]`)（包括标准 localhost 地址 (`127.0.0.1`)）上运行的代理受信任。 如果组织内的其他受信任代理或网络处理 Internet 与 Web 服务器之间的请求，请使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 将其添加到 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies%2A> 或 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks%2A> 的列表。 以下示例会将 IP 地址为 10.0.0.100 的受信任代理服务器添加到 `Startup.ConfigureServices` 中的转接头中间件 `KnownProxies`：
 
 ```csharp
 using System.Net;
@@ -146,7 +146,7 @@ sudo service nginx start
 
 ### <a name="configure-nginx"></a>配置 Nginx
 
-若要将 Nginx 配置为反向代理以将 HTTP 请求转发到 ASP.NET Core 应用程序，请修改 `/etc/nginx/sites-available/default`。 在文本编辑器中打开它，并将内容替换为以下内容：
+若要将 Nginx 配置为反向代理以将 HTTP 请求转发到 ASP.NET Core 应用程序，请修改 `/etc/nginx/sites-available/default`。 在文本编辑器中打开它，并将内容替换为以下代码片段：
 
 ```nginx
 server {
@@ -167,7 +167,7 @@ server {
 
 如果应用是 SignalR 或 Blazor Server 应用，请分别参阅 <xref:signalr/scale#linux-with-nginx> 和 <xref:blazor/host-and-deploy/server#linux-with-nginx> 以了解详细信息。
 
-当没有匹配的 `server_name` 时，Nginx 使用默认服务器。 如果没有定义默认服务器，则配置文件中的第一台服务器是默认服务器。 作为最佳做法，添加指定默认服务器，它会在配置文件中返回状态代码 444。 默认的服务器配置示例是：
+当没有匹配的 `server_name` 时，Nginx 使用默认服务器。 如果没有定义默认服务器，则配置文件中的第一台服务器是默认服务器。 最佳做法是，添加一个特定的默认服务器，它会在配置文件中返回状态代码 444。 默认的服务器配置示例是：
 
 ```nginx
 server {
@@ -177,7 +177,17 @@ server {
 }
 ```
 
+::: moniker range=">= aspnetcore-5.0"
+
+使用上述配置文件和默认服务器，Nginx 接受主机标头 `example.com` 或 `*.example.com` 端口 80 上的公共流量。 与这些主机不匹配的请求不会转接到 Kestrel。 Nginx 将匹配的请求转接到 `http://localhost:5000` 中的 Kestrel。 有关详细信息，请参阅 [nginx 如何处理请求](https://nginx.org/docs/http/request_processing.html)。 若要更改 Kestrel 的 IP/端口，请参阅 [Kestrel：终结点配置](xref:fundamentals/servers/kestrel/endpoints)。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 使用上述配置文件和默认服务器，Nginx 接受主机标头 `example.com` 或 `*.example.com` 端口 80 上的公共流量。 与这些主机不匹配的请求不会转接到 Kestrel。 Nginx 将匹配的请求转接到 `http://localhost:5000` 中的 Kestrel。 有关详细信息，请参阅 [nginx 如何处理请求](https://nginx.org/docs/http/request_processing.html)。 若要更改 Kestrel 的 IP/端口，请参阅 [Kestrel：终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。
+
+::: moniker-end
 
 > [!WARNING]
 > 未能指定正确的 [server_name 指令](https://nginx.org/docs/http/server_names.html)会公开应用的安全漏洞。 如果可控制整个父域（区别于易受攻击的 `*.com`），则子域通配符绑定（例如，`*.example.com`）不具有此安全风险。 有关详细信息，请参阅 [rfc7230 第 5.4 条](https://tools.ietf.org/html/rfc7230#section-5.4)。
@@ -189,13 +199,13 @@ server {
 1. 请导航到应用目录。
 1. 运行应用：`dotnet <app_assembly.dll>`，其中 `app_assembly.dll` 是应用的程序集文件名。
 
-如果应用在服务器上运行，但无法通过 Internet 响应，请检查服务器的防火墙，并确认端口 80 已打开。 如果使用 Azure Ubuntu VM，请添加启用入站端口 80 流量的网络安全组 (NSG) 规则。 不需要启用出站端口 80 规则，因为启用入站规则后会自动许可出站流量。
+如果应用在服务器上运行，但无法通过 Internet 响应，请检查服务器的防火墙，确认端口 80 已打开。 如果使用 Azure Ubuntu VM，请添加启用入站端口 80 流量的网络安全组 (NSG) 规则。 不需要启用出站端口 80 规则，因为启用入站规则后会自动许可出站流量。
 
-测试应用完成后，请在命令提示符处按 `Ctrl+C` 关闭应用。
+完成应用测试后，请在命令提示符处按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 关闭应用。
 
 ## <a name="monitor-the-app"></a>监视应用
 
-服务器设置为将对 `http://<serveraddress>:80` 发起的请求转接到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。 但是，未将 Nginx 设置为管理 Kestrel 进程。 `systemd` 可用于创建服务文件以启动和监视基础 Web 应用。 `systemd` 是一个初始系统，可以提供启动、停止和管理进程的许多强大的功能。 
+服务器设置为将对 `http://<serveraddress>:80` 发起的请求转发到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。 但是，未将 Nginx 设置为管理 Kestrel 进程。 `systemd` 可用于创建服务文件以启动和监视基础 Web 应用。 `systemd` 是一个初始系统，可以提供启动、停止和管理进程的许多强大的功能。 
 
 ### <a name="create-the-service-file"></a>创建服务文件
 
@@ -205,7 +215,7 @@ server {
 sudo nano /etc/systemd/system/kestrel-helloapp.service
 ```
 
-以下是应用的一个示例服务文件：
+以下示例是应用的服务文件：
 
 ```ini
 [Unit]
@@ -375,18 +385,29 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 配置应用，以进行安全的 (HTTPS) 本地连接
 
-[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 `Properties/launchSettings.json` 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL。
+[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性提供的 URL。 例如，`https://localhost:5001;http://localhost:5000`。
 
 使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5<kbd></kbd><kbd></kbd><kbd></kbd>）：
+
+::: moniker range=">= aspnetcore-5.0"
+
+* [从配置中替换默认证书](xref:fundamentals/servers/kestrel/endpoints#configuration)（推荐）
+* [KestrelServerOptions.ConfigureHttpsDefaults](xref:fundamentals/servers/kestrel/endpoints#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 
 * [从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐）
 * [KestrelServerOptions.ConfigureHttpsDefaults](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
 
+::: moniker-end
+
 配置反向代理，以便进行安全 (HTTPS) 客户端连接
 
-* 通过指定由受信任的证书颁发机构 (CA) 颁发的有效证书来配置服务器，以侦听端口 `443` 上的 HTTPS 流量。
+* 通过指定由受信任的证书颁发机构 (CA) 颁发的有效证书来配置服务器，以侦听端口 443 上的 HTTPS 流量。
 
-* 通过采用以下“`/etc/nginx/nginx.conf`”文件中所示的某些做法来增强安全保护。 示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。
+* 通过采用以下“/etc/nginx/nginx.conf”文件中所示的某些做法来增强安全保护。 示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。
 
   > [!NOTE]
   > 对于开发环境，我们建议使用临时重定向(302)，而不使用永久性重定向 (301)。 链接缓存会导致开发环境中的行为不稳定。
@@ -400,11 +421,11 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
   * 不要添加 HSTS 标头。
   * 选择短的 `max-age` 值。
 
-添加 `/etc/nginx/proxy.conf` 配置文件：
+添加 /etc/nginx/proxy.conf 配置文件：
 
 [!code-nginx[](linux-nginx/proxy.conf)]
 
-将 `/etc/nginx/nginx.conf` 配置文件的内容替换为下面文件。 示例包含一个配置文件中的 `http` 和 `server` 部分。
+将 /etc/nginx/nginx.conf 配置文件的内容替换为以下文件。 示例包含一个配置文件中的 `http` 和 `server` 部分。
 
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
 
@@ -417,7 +438,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 缓解点击劫持攻击：
 
-1. 编辑 `nginx.conf` 文件：
+1. 编辑 nginx.conf 文件：
 
    ```bash
    sudo nano /etc/nginx/nginx.conf
@@ -432,7 +453,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 此标头可阻止大部分浏览器通过 MIME 方式探查来自已声明内容类型的响应，因为标头会指示浏览器不要替代响应内容类型。 使用 `nosniff` 选项后，如果服务器认为内容是“`text/html`”，则浏览器将其显示为“`text/html`”。
 
-1. 编辑 `nginx.conf` 文件：
+1. 编辑 nginx.conf 文件：
 
    ```bash
    sudo nano /etc/nginx/nginx.conf

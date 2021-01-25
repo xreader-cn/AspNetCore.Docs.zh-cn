@@ -3,7 +3,7 @@ title: ASP.NET Core 的类库中的可重用 Razor UI
 author: Rick-Anderson
 description: 说明如何使用 ASP.NET Core 中类库的分部视图创建可重用 Razor UI。
 ms.author: riande
-ms.date: 01/25/2020
+ms.date: 01/19/2021
 ms.custom: mvc, seodec18
 no-loc:
 - appsettings.json
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/ui-class
-ms.openlocfilehash: 0bfdb1932d829ec00c9de1bd38b7920cb1f40c51
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: a878a3485ecee0782b21ac69c5ec6ff832b9f06c
+ms.sourcegitcommit: cb984e0d7dc23a88c3a4121f23acfaea0acbfe1e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "94570167"
+ms.lasthandoff: 01/19/2021
+ms.locfileid: "98571017"
 ---
 # <a name="create-reusable-ui-using-the-no-locrazor-class-library-project-in-aspnet-core"></a>使用 ASP.NET Core 中的 Razor 类库项目创建可重用 UI
 
@@ -94,6 +94,14 @@ ASP.NET Core 模板假定 RCL 内容位于 *Areas* 文件夹中。 请参阅 [RC
   @RenderBody()
   <partial name="_Footer">
 </body>
+```
+
+将 _ViewStart.cshtml 文件添加到 RCL 项目的 Pages 文件夹中，以使用主机 Web 应用中的 _Layout.cshtml 文件：
+
+```cshtml
+@{
+    Layout = "_Layout";
+}
 ```
 
 ## <a name="create-an-rcl-with-static-assets"></a>创建具有静态资产的 RCL
