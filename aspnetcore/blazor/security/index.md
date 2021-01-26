@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: f8b31c617ef71003042d31690de49d48946ac3d5
-ms.sourcegitcommit: da5a5bed5718a9f8db59356ef8890b4b60ced6e9
+ms.openlocfilehash: 35620299b1138ca45a6ebf1d789a9f4aa9b29518
+ms.sourcegitcommit: 610936e4d3507f7f3d467ed7859ab9354ec158ba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2021
-ms.locfileid: "98710641"
+ms.lasthandoff: 01/25/2021
+ms.locfileid: "98751604"
 ---
 # <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -299,7 +299,7 @@ builder.Services.AddAuthorizationCore();
 * 将经过身份验证（已登录）的用户视为已授权。
 * 将未经过身份验证（已注销）的用户视为未授权。
 
-可以在 `NavMenu` 组件 (`Shared/NavMenu.razor`) 中使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件来显示 [`NavLink` 组件](xref:blazor/fundamentals/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
+可以在 `NavMenu` 组件 (`Shared/NavMenu.razor`) 中使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件来显示 [`NavLink` 组件](xref:blazor/fundamentals/routing#navlink-and-navmenu-components) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
 
 ### <a name="role-based-and-policy-based-authorization"></a>基于角色和基于策略的授权
 
