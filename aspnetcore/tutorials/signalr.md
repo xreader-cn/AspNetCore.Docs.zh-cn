@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 1dad2264250bf43ec6c1df679b8754a82a5addfd
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 1c77648f809562389667da452bdbf3f25f67c558
+ms.sourcegitcommit: ebc5beccba5f3f7619de20baa58ad727d2a3d18c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "95417664"
+ms.lasthandoff: 01/22/2021
+ms.locfileid: "98689313"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-no-locsignalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -62,23 +62,18 @@ ms.locfileid: "95417664"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
-* 从菜单中选择“文件”>“新建项目”。
-
-* 在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”  。
-
-* 在“配置新项目”对话框中，将项目命名为“SignalRChat”，然后选择“创建”。
-
-* 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择 .NET Core 和 ASP.NET Core 3.1  。 
-
-* 选择“Web 应用程序”以创建使用 Razor Pages 的项目，然后选择“创建” 。
+  * 从菜单中选择“文件”>“新建项目”。
+  * 在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”  。
+  * 在“配置新项目”对话框中，将项目命名为“SignalRChat”，然后选择“创建”。
+  * 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择 .NET Core 和 ASP.NET Core 3.1  。
+  * 选择“Web 应用程序”以创建使用 Razor Pages 的项目，然后选择“创建” 。
 
   ![Visual Studio 中的“新建项目”对话框](signalr/_static/3.x/signalr-new-project-dialog.png)
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)
 
-* 在将要在其中创建新项目文件夹的文件夹中打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
-
-* 运行以下命令：
+  * 在将要在其中创建新项目文件夹的文件夹中打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
+  * 运行以下命令：
 
    ```dotnetcli
    dotnet new webapp -o SignalRChat
@@ -88,13 +83,10 @@ ms.locfileid: "95417664"
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 从菜单中选择“文件”>“新建解决方案”。
-
-* 选择“.NET Core”>“应用”>“Web 应用程序”（不要选择“Web 应用程序(Model-View-Controller)”），然后选择“下一步”  。
-
-* 确保“目标框架”设置为 .NET Core 3.1，然后选择“下一步”  。
-
-* 将项目命名为“SignalRChat”，然后选择“创建”。
+  * 从菜单中选择“文件”>“新建解决方案”。
+  * 选择“.NET Core”>“应用”>“Web 应用程序”（不要选择“Web 应用程序(Model-View-Controller)”），然后选择“下一步”  。
+  * 确保“目标框架”设置为 .NET Core 3.1，然后选择“下一步”  。
+  * 将项目命名为“SignalRChat”，然后选择“创建”。
 
 ---
 
@@ -104,15 +96,11 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
-* 在“解决方案资源管理器”中，右键单击项目，然后选择“添加”>“客户端库”  。
-
-* 在“添加客户端库”对话框中，对于“提供程序”，选择“unpkg”。
-
-* 对于“库”，输入 `@microsoft/signalr@latest`。
-
-* 选择“选择特定文件”，展开“dist/browser”文件夹，然后选择“signalr.js”和“signalr.min.js”。
-
-* 将“目标位置”设置为 wwwroot/js/signalr/，然后选择“安装”。
+  * 在“解决方案资源管理器”中，右键单击项目，然后选择“添加”>“客户端库”  。
+  * 在“添加客户端库”对话框中，对于“提供程序”，选择“unpkg”。
+  * 对于“库”，输入 `@microsoft/signalr@latest`。
+  * 选择“选择特定文件”，展开“dist/browser”文件夹，然后选择“signalr.js”和“signalr.min.js”。
+  * 将“目标位置”设置为 wwwroot/js/signalr/，然后选择“安装”。
 
   ![“添加客户端库”对话框 - 选择库](signalr/_static/3.x/find-signalr-client-libs-select-files.png)
 
@@ -120,13 +108,13 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)
 
-* 在集成终端中，运行以下命令以安装 LibMan。
+  * 在集成终端中，运行以下命令以安装 LibMan。
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。 可能需要等待几秒钟的时间才能看到输出。
+  * 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。 可能需要等待几秒钟的时间才能看到输出。
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
@@ -147,15 +135,15 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 在“终端”中，运行以下命令以安装 LibMan。
+  * 在“终端”中，运行以下命令以安装 LibMan。
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* 导航到项目文件夹（包含 SignalRChat.csproj 文件的文件夹）。
+  * 导航到项目文件夹（包含 SignalRChat.csproj 文件的文件夹）。
 
-* 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。
+  * 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
@@ -180,9 +168,8 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 *中心* 是一个类，用作处理客户端 - 服务器通信的高级管道。
 
-* 在 SignalRChat 项目文件夹中，创建 Hubs 文件夹。
-
-* 在 Hubs 文件夹中，使用以下代码创建 ChatHub.cs 文件 ：
+  * 在 SignalRChat 项目文件夹中，创建 Hubs 文件夹。
+  * 在 Hubs 文件夹中，使用以下代码创建 ChatHub.cs 文件 ：
 
   [!code-csharp[ChatHub](signalr/sample-snapshot/3.x/ChatHub.cs)]
 
@@ -238,14 +225,12 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 从菜单中选择“运行”>“开始执行(不调试)”。
+  * 从菜单中选择“运行”>“开始执行(不调试)”。
 
 ---
 
-* 从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。
-
-* 选择任一浏览器，输入名称和消息，然后选择“发送消息”按钮。
-
+  * 从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。
+  * 选择任一浏览器，输入名称和消息，然后选择“发送消息”按钮。
   两个页面上立即显示名称和消息。
 
   ![SignalR 示例应用](signalr/_static/3.x/signalr-get-started-finished.png)
