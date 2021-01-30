@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/overview
-ms.openlocfilehash: 4f0e98057c03769a672ef350cc3ec724a4f7e721
-ms.sourcegitcommit: fe5a287fa6b9477b130aa39728f82cdad57611ee
+ms.openlocfilehash: 642a7b26a3ba0a79a35437a5c19ee0be63a367af
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431051"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057312"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -88,7 +88,7 @@ ASP.NET Core MVC 包括以下功能：
 
 ASP.NET Core MVC 建立在 [ASP.NET Core 的路由](../fundamentals/routing.md)之上，是一个功能强大的 URL 映射组件，可用于生成具有易于理解和可搜索 URL 的应用程序。 它可让你定义适用于搜索引擎优化 (SEO) 和链接生成的应用程序 URL 命名模式，而不考虑如何组织 Web 服务器上的文件。 可以使用支持路由值约束、默认值和可选值的方便路由模板语法来定义路由。
 
-通过基于约定的路由，可以全局定义应用程序接受的 URL 格式以及每个格式映射到给定控制器上特定操作方法的方式。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
+使用 *基于约定的路由*，可以全局定义应用程序接受的 URL 格式，并说明每种格式如何映射到给定控制器上的特定操作方法。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
 
 ```csharp
 routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
@@ -182,7 +182,7 @@ ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-in
 public class AccountController : Controller
 ```
 
-### <a name="areas"></a>地区
+### <a name="areas"></a>Areas
 
 [区域](controllers/areas.md)提供将大型 ASP.NET Core MVC Web 应用分区为较小功能分组的方法。 区域是应用程序内的一个 MVC 结构。 在 MVC 项目中，模型、控制器和视图等逻辑组件保存在不同的文件夹中，MVC 使用命名约定来创建这些组件之间的关系。 对于大型应用，将应用分区为独立的高级功能区域可能更有利。 例如，具有多个业务单位的电子商务应用程序，如结帐、计费和搜索等。其中每个单位都有自己的逻辑组件视图、控制器和模型。
 
@@ -269,5 +269,5 @@ Razor MVC 中的视图可以基于模型进行强类型化。 控制器可以将
 
 ## <a name="additional-resources"></a>其他资源
 
-* [MyTested AspNetCore-ASP.NET CORE mvc 的流畅测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc)：强类型单元测试库，提供用于测试 Mvc 和 web API 应用的流畅界面。 （ *不由 Microsoft 进行支持或维护* 。）
+* [MyTested AspNetCore-ASP.NET CORE mvc 的流畅测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc)：强类型单元测试库，提供用于测试 Mvc 和 web API 应用的流畅界面。 （*不由 Microsoft 进行支持或维护*。）
 * <xref:blazor/components/prerendering-and-integration>

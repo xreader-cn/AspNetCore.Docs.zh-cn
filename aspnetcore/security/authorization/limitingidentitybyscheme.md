@@ -18,14 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: a5f2dff7b0e0d4f209ba445b2efb6fb261cbaab1
-ms.sourcegitcommit: fbd5427293d9ecccc388bd5fd305c2eb8ada7281
+ms.openlocfilehash: c4cbec1b829fb8fd47f7b6924b6870bd5dd7097d
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94464011"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057299"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>使用 ASP.NET Core 中的特定方案授权
+
+有关 ASP.NET Core 中的身份验证方案的简介，请参阅 [身份验证方案](xref:security/authentication/index#authentication-scheme)。
 
 在某些情况下，例如 (Spa) 的单页面应用程序，通常使用多种身份验证方法。 例如，应用可能会使用 cookie 基于的身份验证登录，并使用 JWT 持有者身份验证来处理 JavaScript 请求。 在某些情况下，应用程序可能有多个身份验证处理程序实例。 例如，两个 cookie 处理程序，其中一个包含基本标识，一个在已触发多重身份验证 (MFA) 时创建。 可能会触发 MFA，因为用户请求了需要额外安全的操作。 有关在用户请求需要 MFA 的资源时强制执行 MFA 的详细信息，请参阅 GitHub 颁发 [保护部分与 mfa](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195)。
 

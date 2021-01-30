@@ -1,10 +1,10 @@
 ---
 title: 设置 ASP.NET Core Web API 中响应数据的格式
-author: ardalis
+author: rick-anderson
 description: 了解如何设置 ASP.NET Core Web API 中响应数据的格式。
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 04/17/2020
+ms.date: 1/28/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 89e3e51373db5f7cff974b7a8c69d06bedf856ca
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 5d228af00ee34e7f8ca60a5085872fdb93842367
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052508"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057494"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 
@@ -43,7 +43,7 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 
 示例下载返回作者列表。 在 F12 浏览器开发人员工具或 [Postman](https://www.getpostman.com/tools) 中使用上述代码：
 
-* 将显示包含内容类型的响应标头。  `application/json; charset=utf-8`
+* 将显示包含内容类型的响应标头。 `application/json; charset=utf-8`
 * 将显示请求标头。 例如 `Accept` 标头。 上述代码将忽略 `Accept` 标头。
 
 若要返回纯文本格式数据，请使用 <xref:Microsoft.AspNetCore.Mvc.ContentResult> 和 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Content%2A> 帮助程序：
@@ -81,14 +81,14 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 
 ### <a name="the-accept-header"></a>Accept 标头
 
-内容协商在 `Accept` 标头出现在请求中时发生  。 请求包含 Accept 标头时，ASP.NET Core 将执行以下操作：
+内容协商在 `Accept` 标头出现在请求中时发生。 请求包含 Accept 标头时，ASP.NET Core 将执行以下操作：
 
 * 按首选顺序枚举 Accept 标头中的媒体类型。
 * 尝试找到可以生成某种指定格式的响应的格式化程序。
 
 若未找到可以满足客户端请求的格式化程序，ASP.NET Core 将指定以下操作：
 
-* 已设置 `406 Not Acceptable` 时，将返回 <xref:Microsoft.AspNetCore.Mvc.MvcOptions>，或者
+* `406 Not Acceptable`如果 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.ReturnHttpNotAcceptable?displayProperty=nameWithType> 设置为，则返回 `true` ; 否则返回-
 * 尝试找到第一个可以生成响应的格式化程序。
 
 如果没有配置实现所请求格式的格式化程序，那么使用第一个可以设置对象格式的格式化程序。 若请求中没有 `Accept` 标头：
@@ -132,9 +132,22 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 
 使用前面的代码时，控制器方法会基于请求的 `Accept` 标头返回相应的格式。
 
-### <a name="configure-systemtextjson-based-formatters"></a>配置基于 System.Text.Json 的格式化程序
+### <a name="configure-systemtextjson-based-formatters"></a>配置基于 System.Text.Js的格式化程序
 
-可以使用 `Microsoft.AspNetCore.Mvc.JsonOptions.SerializerOptions` 配置基于 `System.Text.Json` 的格式化程序的功能。
+`System.Text.Json`可以使用配置基于的格式化程序的功能 <xref:Microsoft.AspNetCore.Mvc.JsonOptions.JsonSerializerOptions?displayProperty=fullName> 。 默认格式为 camelCase。 以下突出显示的代码设置 PascalCase 格式设置：
+
+[!code-csharp[](./formatting/5.0samples/WebAPI5PascalCase/Startup.cs?name=snippet&highlight=4-5)]
+
+以下操作方法会调用 [ControllerBase](xref:Microsoft.AspNetCore.Mvc.ControllerBase.Problem%2A) ，以创建 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 响应：
+
+[!code-csharp[](formatting/5.0samples/WebAPI5PascalCase/Controllers/WeatherForecastController.cs?name=snippet&highlight=4)]
+
+带有前面的代码：
+
+  * `https://localhost:5001/WeatherForecast/temperature` 返回 PascalCase。
+  * `https://localhost:5001/WeatherForecast/error` 返回 camelCase。 即使应用程序将格式设置为 PascalCase，也始终会 camelCase 错误响应。 `ProblemDetails` 遵循 [RFC 7807](https://tools.ietf.org/html/rfc7807#appendix-A)，它指定小写
+
+下面的代码设置 PascalCase 并添加一个自定义转换器：
 
 ```csharp
 services.AddControllers().AddJsonOptions(options =>
@@ -147,7 +160,7 @@ services.AddControllers().AddJsonOptions(options =>
 });
 ```
 
-可以使用 `JsonResult` 配置基于每个操作的输出序列化选项。 例如： 。
+可以使用 `JsonResult` 配置基于每个操作的输出序列化选项。 例如：
 
 ```csharp
 public IActionResult Get()
@@ -194,7 +207,7 @@ services.AddControllers().AddNewtonsoftJson(options =>
 });
 ```
 
-可以使用 `JsonResult` 配置基于每个操作的输出序列化选项。 例如： 。
+可以使用 `JsonResult` 配置基于每个操作的输出序列化选项。 例如：
 
 ```csharp
 public IActionResult Get()
@@ -239,7 +252,7 @@ XML 格式需要 [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org
 
 ### <a name="special-case-formatters"></a>特例格式化程序
 
-一些特例是使用内置格式化程序实现的。 默认情况下，`string` 返回类型的格式将设为 text/plain（如果通过 `Accept` 标头请求则为 text/html）  。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter> 删除此行为。 在 `ConfigureServices` 方法中删除格式化程序。 有模型对象返回类型的操作将在返回 `null` 时返回 `204 No Content`。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> 删除此行为。 以下代码删除 `StringOutputFormatter` 和 `HttpNoContentOutputFormatter`。
+一些特例是使用内置格式化程序实现的。 默认情况下，`string` 返回类型的格式将设为 text/plain（如果通过 `Accept` 标头请求则为 text/html）。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter> 删除此行为。 在 `ConfigureServices` 方法中删除格式化程序。 有模型对象返回类型的操作将在返回 `null` 时返回 `204 No Content`。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> 删除此行为。 以下代码删除 `StringOutputFormatter` 和 `HttpNoContentOutputFormatter`。
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](./formatting/3.0sample/StartupStringOutputFormatter.cs?name=snippet)]
@@ -250,7 +263,7 @@ XML 格式需要 [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org
 
 如果没有 `StringOutputFormatter`，内置 JSON 格式化程序将设置 `string` 返回类型的格式。 如果删除了内置 JSON 格式化程序并提供了 XML 格式化程序，则 XML 格式化程序将设置 `string` 返回类型的格式。 否则，`string` 返回类型返回 `406 Not Acceptable`。
 
-没有 `HttpNoContentOutputFormatter`，null 对象将使用配置的格式化程序来进行格式设置。 例如： 。
+没有 `HttpNoContentOutputFormatter`，null 对象将使用配置的格式化程序来进行格式设置。 例如：
 
 * JSON 格式化程序返回正文为 `null` 的响应。
 * 设置属性 `xsi:nil="true"` 时，XML 格式化程序返回空 XML 元素。
@@ -262,7 +275,7 @@ XML 格式需要 [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org
 * 在查询字符串中，或在路径中。
 * 使用格式特定的文件扩展名，如 .xml 或 .json。
 
-请求路径的映射必须在 API 使用的路由中指定。 例如： 。
+请求路径的映射必须在 API 使用的路由中指定。 例如：
 
 [!code-csharp[](./formatting/sample/Controllers/ProductsController.cs?name=snippet)]
 

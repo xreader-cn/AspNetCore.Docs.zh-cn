@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/anti-request-forgery
-ms.openlocfilehash: 197954965ee57b2a44ad0217d79ba142114e7df6
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 3bb3c059eafa8e948fe2e719207927c009902e59
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93060841"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057442"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>阻止跨站点请求伪造 (XSRF/CSRF) 攻击 ASP.NET Core
 
@@ -91,7 +91,7 @@ Cookie基于的身份验证是一种常用的身份验证形式。 基于令牌�
 
 ### <a name="token-based-authentication"></a>基于令牌的身份验证
 
-对用户进行身份验证时，会将令牌颁发 (不是防伪令牌) 。 令牌包含 [声明](/dotnet/framework/security/claims-based-identity-model) 形式的用户信息或引用令牌，该令牌将应用指向应用中维护的用户状态。 当用户尝试访问要求身份验证的资源时，会将令牌发送到应用程序，并以持有者令牌的形式提供附加的授权标头。 这使应用无状态。 在每个后续请求中，将在请求服务器端验证时传递该令牌。 此标记未 *加密* ; *编码* 。 在服务器上，将解码令牌来访问其信息。 若要在后续请求中发送令牌，请将该令牌存储在浏览器的本地存储中。 如果令牌存储在浏览器的本地存储中，请不要担心 CSRF 漏洞。 当令牌存储在中时，CSRF 是一个问题 cookie 。 有关详细信息，请参阅 GitHub 问题 [SPA 代码示例将添加 cookie 两个](https://github.com/dotnet/AspNetCore.Docs/issues/13369)。
+对用户进行身份验证时，会将令牌颁发 (不是防伪令牌) 。 令牌包含 [声明](/dotnet/framework/security/claims-based-identity-model) 形式的用户信息或引用令牌，该令牌将应用指向应用中维护的用户状态。 当用户尝试访问要求身份验证的资源时，会将令牌发送到应用程序，并以持有者令牌的形式提供附加的授权标头。 这使应用无状态。 在每个后续请求中，将在请求服务器端验证时传递该令牌。 此标记未 *加密*; *编码*。 在服务器上，将解码令牌来访问其信息。 若要在后续请求中发送令牌，请将该令牌存储在浏览器的本地存储中。 如果令牌存储在浏览器的本地存储中，请不要担心 CSRF 漏洞。 当令牌存储在中时，CSRF 是一个问题 cookie 。 有关详细信息，请参阅 GitHub 问题 [SPA 代码示例将添加 cookie 两个](https://github.com/dotnet/AspNetCore.Docs/issues/13369)。
 
 ### <a name="multiple-apps-hosted-at-one-domain"></a>在一个域中托管多个应用
 
@@ -251,7 +251,7 @@ services.AddAntiforgery(options =>
 | [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 确定用于创建防伪的设置 cookie 。 |
 | [Cookie域](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | 的域 cookie 。 默认为 `null`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie 。域名. |
 | [Cookie名称](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | cookie 的名称。 如果未设置，系统将生成一个以 [默认 Cookie 前缀](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) ( "开头的唯一名称。AspNetCore. 防伪. ") 。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie 。路径名. |
-| [Cookie路径](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | 在上设置的路径 cookie 。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie 。通道. |
+| [Cookie通道](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | 在上设置的路径 cookie 。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie 。通道. |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 |
 | [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 防伪系统使用的标头的名称。 如果 `null` 为，则系统仅考虑窗体数据。 |
 | [RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | 指定防伪系统是否需要 HTTPS。 如果为 `true` ，则非 HTTPS 请求会失败。 默认为 `false`。 此属性已过时，并将在将来的版本中删除。 建议使用的替代方法是设置 Cookie 。SecurePolicy. |
@@ -488,6 +488,10 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/anti-request-forgery/sample/AngularSample)（[如何下载](xref:index#how-to-download-a-sample)）
+
+## <a name="windows-authentication-and-antiforgery-no-loccookies"></a>Windows 身份验证和 cookie 防伪
+
+使用 Windows 身份验证时，必须使用对的相同方式来保护应用程序终结点的 CSRF 攻击 cookie 。  浏览器会将身份验证上下文隐式发送到服务器，因此，终结点需要受到 CSRF 攻击的保护。
 
 ## <a name="extend-antiforgery"></a>扩展防伪
 

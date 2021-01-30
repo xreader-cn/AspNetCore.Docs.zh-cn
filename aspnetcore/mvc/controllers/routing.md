@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 44c507fb5e0ff4477a84bfc1e4d0c62180c8dd37
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: 04ece9628265135efd0dd92d29c8b14fc897329e
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98252833"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057351"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -120,7 +120,7 @@ endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"
 
 [!code-csharp[](routing/samples/3.x/main/StartupDefaultMVC.cs?name=snippet2)]
 
-是一种 *传统路由*。 它被称为 *传统路由* ，因为它建立了一个 URL 路径 *约定* ：
+前面是 *传统路由* 的示例。 它被称为 *传统路由* ，因为它建立了一个 URL 路径 *约定* ：
 
 * 第一个路径段 `{controller=Home}` 映射到控制器名称。
 * 第二段 `{action=Index}` 映射到 [操作](#action) 名称。
@@ -430,11 +430,11 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了 `[Route]` 上述代码中的属性：
 
-| 特性               | 结合 `[Route("Home")]` | 定义路由模板 |
+| Attribute               | 结合 `[Route("Home")]` | 定义路由模板 |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | 是 | `"Home"` |
 | `[Route("Index")]` | 是 | `"Home/Index"` |
-| `[Route("/")]` | 否 | `""` |
+| `[Route("/")]` | **否** | `""` |
 | `[Route("About")]` | 是 | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
@@ -791,7 +791,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 <a name="routing-areas-ref-label"></a>
 
-## <a name="areas"></a>地区
+## <a name="areas"></a>Areas
 
 [区域](xref:mvc/controllers/areas) 是一项 MVC 功能，用于将相关功能作为一个单独的组组织到一个组中：
 
@@ -850,7 +850,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 控制器上的公共方法（具有 [NonAction](xref:Microsoft.AspNetCore.Mvc.NonActionAttribute) 特性的方法除外）是操作。
 
-## <a name="sample-code"></a>示例代码
+## <a name="sample-code"></a>代码示例
 
 * [!INCLUDE[](~/includes/MyDisplayRouteInfo.md)]
 * [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)（[如何下载](xref:index#how-to-download-a-sample)）
@@ -1522,7 +1522,7 @@ app.UseMvc(routes =>
 
 <a name="routing-areas-ref-label"></a>
 
-## <a name="areas"></a>地区
+## <a name="areas"></a>Areas
 
 [区域](areas.md)是一种 MVC 功能，用于将相关功能整理到一个组中，作为单独的路由命名空间（用于控制器操作）和文件夹结构（用于视图）。 通过使用区域，应用程序可以有多个名称相同的控制器，只要它们具有不同的 *区域*。 通过向 `controller` 和 `action` 添加另一个路由参数 `area`，可使用区域为路由创建层次结构。 此部分将讨论路由如何与区域交互；有关如何将区域与视图结合使用的详细信息，请参阅[区域](areas.md)。
 
