@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 71f05163c075a2ef88d5c606814925cdcef879d2
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: c862bc8bff6c4cc80696d92067e814889d6e7782
+ms.sourcegitcommit: 7e394a8527c9818caebb940f692ae4fcf2f1b277
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98253041"
+ms.lasthandoff: 01/31/2021
+ms.locfileid: "99217526"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -642,7 +642,7 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
 
 * 设置域和子域的绑定：
   * 例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。 `contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。
-  * 有关详细信息，请参见:
+  * 有关详细信息，请参阅：
     * [Kestrel](/fundamentals/servers/kestrel)：
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel/endpoints#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
@@ -650,7 +650,7 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
     * IIS
       * [承载 IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
       * [配置 IIS 上的安全性](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
-    * Http.Sys： [配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
+    * HTTP.sys： [配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
 
 ::: moniker-end
 
@@ -658,7 +658,7 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
 
 * 设置域和子域的绑定：
   * 例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。 `contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。
-  * 有关详细信息，请参见:
+  * 有关详细信息，请参阅：
     * [Kestrel](/fundamentals/servers/kestrel)：
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
@@ -666,7 +666,7 @@ ASP.NET Core 5 preview 7 及更高版本为可选的客户端证书添加了更�
     * IIS
       * [承载 IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
       * [配置 IIS 上的安全性](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
-    * Http.Sys： [配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
+    * HTTP.sys： [配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
 
 ::: moniker-end
 
