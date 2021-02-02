@@ -1,5 +1,5 @@
 ---
-title: .NET Core 上的 gRPC 的简介
+title: .NET 上的 gRPC 的简介
 author: juntaoluo
 description: 了解使用 Kestrel 服务器和 ASP.NET Core 堆栈的 gRPC 服务。
 monikerRange: '>= aspnetcore-3.0'
@@ -18,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/index
-ms.openlocfilehash: 80f44e3845cc1e3c87d5d657807a318eb65e6c6f
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 5820049aba90a2fbd06a23756b12ac9656c3b2c4
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93059892"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057507"
 ---
-# <a name="introduction-to-grpc-on-net-core"></a>.NET Core 上的 gRPC 的简介
+# <a name="introduction-to-grpc-on-net"></a>.NET 上的 gRPC 的简介
 
 作者：[John Luo](https://github.com/juntaoluo) 和 [James Newton-King](https://twitter.com/jamesnk)
 
@@ -47,7 +47,7 @@ gRPC 的主要优点是：
 
 ## <a name="c-tooling-support-for-proto-files"></a>.proto 文件的 C# 工具支持
 
-gRPC 使用协定优先方法进行 API 开发。 在 \*.proto  文件中定义服务和消息：
+gRPC 使用协定优先方法进行 API 开发。 在 \*.proto 文件中定义服务和消息：
 
 ```protobuf
 syntax = "proto3";
@@ -65,7 +65,7 @@ message HelloReply {
 }
 ```
 
-通过在项目中包含 \*.proto  文件，可以自动生成用于服务、客户端和消息的 .NET 类型：
+通过在项目中包含 \*.proto 文件，可以自动生成用于服务、客户端和消息的 .NET 类型：
 
 * 将包引用添加到 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包。
 * 将 \*.proto 文件添加到 `<Protobuf>` 项目组。
@@ -106,7 +106,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-`GreeterService` 继承自 `GreeterBase` 类型，后者是从 \*.proto  文件的 `Greeter` 服务生成的。 Startup.cs  中的客户端可以访问该服务：
+`GreeterService` 继承自 `GreeterBase` 类型，后者是从 \*.proto 文件的 `Greeter` 服务生成的。 Startup.cs 中的客户端可以访问该服务：
 
 ```csharp
 app.UseEndpoints(endpoints =>

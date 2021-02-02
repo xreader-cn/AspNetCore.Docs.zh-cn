@@ -4,7 +4,7 @@ author: mjrousos
 description: 了解 ASP.NET Core 中的身份验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/03/2020
+ms.date: 1/24/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/index
-ms.openlocfilehash: e9e4ca11d20557666c75b84e56af825d002df0f1
-ms.sourcegitcommit: fbd5427293d9ecccc388bd5fd305c2eb8ada7281
+ms.openlocfilehash: 72036e9c4c92ee5dd82ac4a67e766fb0e5c8f924
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94463998"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057286"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 
@@ -62,7 +62,19 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 ## <a name="authentication-concepts"></a>身份验证概念
 
+身份验证负责提供 <xref:System.Security.Claims.ClaimsPrincipal> 进行授权，以针对其进行权限决策。 可通过多种身份验证方案方法来选择使用哪种身份验证处理程序负责生成正确的声明集：
+
+  * [身份验证方案](xref:security/authorization/limitingidentitybyscheme)，也将在下一节中讨论。
+  * 默认身份验证方案，将在下一节中讨论。
+  * 直接设置 [HttpContext.User](xref:Microsoft.AspNetCore.Http.HttpContext.User)。
+
+不会自动探测方案。 如果未指定默认方案，则必须在授权属性中指定该方案，否则将引发以下错误：
+
+  InvalidOperationException：未指定任何 authenticationScheme，并且未找到 DefaultAuthenticateScheme。 可使用 AddAuthentication(string defaultScheme) 或 AddAuthentication(Action&lt;AuthenticationOptions&gt; configureOptions) 设置默认方案。
+
 ### <a name="authentication-scheme"></a>身份验证方案
+
+[身份验证方案](xref:security/authorization/limitingidentitybyscheme)可选择使用哪种身份验证处理程序负责生成正确的声明集。 有关详细信息，请参阅[使用特定方案授权](xref:security/authorization/limitingidentitybyscheme)。
 
 身份验证方案是与下列项相对应的名称：
 

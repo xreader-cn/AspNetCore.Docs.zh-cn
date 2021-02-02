@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: 49e299ed00ea0e5d54c1ba795971da379cd5b695
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: 2acddd212639ac0a82b3c46f2225ff66d0999dd0
+ms.sourcegitcommit: 7e394a8527c9818caebb940f692ae4fcf2f1b277
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98253132"
+ms.lasthandoff: 01/31/2021
+ms.locfileid: "99217552"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -32,31 +32,13 @@ ms.locfileid: "98253132"
 
 ASP.NET Core 应用与进程内 HTTP 服务器实现一起运行。 该服务器实现侦听 HTTP 请求，并以组成 <xref:Microsoft.AspNetCore.Http.HttpContext> 的[请求功能](xref:fundamentals/request-features)集形式，将它们呈现给应用。
 
-## <a name="kestrel"></a>Kestrel
-
-Kestrel 是 ASP.NET Core 项目模板指定的默认 Web 服务器。
-
-使用 Kestrel：
-
-* 本身作为边缘服务器，处理直接来自网络（包括 Internet）的请求。
-
-  ![Kestrel 直接与 Internet 通信，不使用反向代理服务器](kestrel/_static/kestrel-to-internet2.png)
-
-* 与反向代理服务器（如 [Internet Information Services (IIS)](https://www.iis.net/)、[Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/)）结合使用。 反向代理服务器接收来自 Internet 的 HTTP 请求，并将这些请求转发到 Kestrel。
-
-  ![Kestrel 通过反向代理服务器（如 IIS、Nginx 或 Apache）间接与 Internet 进行通信](kestrel/_static/kestrel-to-internet.png)
-
-无论托管配置是否使用反向代理服务器，都是受支持的托管配置。
-
-有关 Kestrel 配置指南和何时在反向代理配置中使用 Kestrel 的信息，请参阅 <xref:fundamentals/servers/kestrel>。
-
 ::: moniker range=">= aspnetcore-2.2"
 
 # <a name="windows"></a>[Windows](#tab/windows)
 
 ASP.NET Core 随附以下组件：
 
-* [Kestrel 服务器](xref:fundamentals/servers/kestrel)是默认跨平台 HTTP 服务器实现。
+* [Kestrel 服务器](xref:fundamentals/servers/kestrel)是默认跨平台 HTTP 服务器实现。 Kestrel 提供了最佳性能和内存利用率，但它没有 HTTP.sys 中的某些高级功能。 有关详细信息，请参阅本文档中的 [Kestrel 与HTTP.sys](#korh)。
 * IIS HTTP 服务器是 IIS 的[进程内服务器](#hosting-models)。
 * [HTTP.sys 服务器](xref:fundamentals/servers/httpsys)是仅用于 Windows 的 HTTP 服务器，它基于 [HTTP.sys 核心驱动程序和 HTTP 服务器 API](/windows/desktop/Http/http-api-start-page)。
 
@@ -66,6 +48,26 @@ ASP.NET Core 随附以下组件：
 * 在独立于 IIS 工作进程（[进程外托管模型](#hosting-models)）和 [Kestrel 服务器](#kestrel)的进程中。
 
 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)是本机 IIS 模块，用于处理 IIS 和进程内 IIS HTTP 服务器或 Kestrel 之间的本机 IIS 请求。 有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module>。
+
+<a name="korh"></a>
+
+## <a name="kestrel-vs-httpsys"></a>Kestrel 与HTTP.sys
+
+与 HTTP.sys 相比，Kestrel 具有以下优势：
+
+  * 更好的性能和内存利用率。
+  * 跨平台
+  * 灵活性，它是独立于操作系统进行开发和修补的。
+  * 编程端口和 TLS 配置
+  * 扩展性，允许 [PPv2](https://github.com/aspnet/AspLabs/blob/master/src/ProxyProtocol/ProxyProtocol.Sample/ProxyProtocol.cs) 等协议和备用传输。
+
+Http.Sys 作为共享内核模式组件运行，具有 kestrel 不具备的以下功能：
+
+  * 端口共享
+  * 内核模式 Windows 身份验证。 [Kestrel 仅支持用户模式的身份验证](xref:security/authentication/windowsauth#kestrel)。
+  * 通过队列传输的快速代理
+  * 直接文件传输
+  * 响应缓存
 
 ## <a name="hosting-models"></a>托管模型
 
@@ -89,6 +91,24 @@ ASP.NET Core 随附 [Kestrel 服务器](xref:fundamentals/servers/kestrel)，这
 ---
 
 ::: moniker-end
+
+## <a name="kestrel"></a>Kestrel
+
+ [Kestrel 服务器](xref:fundamentals/servers/kestrel)是默认跨平台 HTTP 服务器实现。 Kestrel 提供了最佳性能和内存利用率，但它没有 HTTP.sys 中的某些高级功能。 有关详细信息，请参阅本文档中的 [Kestrel 与HTTP.sys](#korh)。
+
+使用 Kestrel：
+
+* 本身作为边缘服务器，处理直接来自网络（包括 Internet）的请求。
+
+  ![Kestrel 直接与 Internet 通信，不使用反向代理服务器](kestrel/_static/kestrel-to-internet2.png)
+
+* 与反向代理服务器（如 [Internet Information Services (IIS)](https://www.iis.net/)、[Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/)）结合使用。 反向代理服务器接收来自 Internet 的 HTTP 请求，并将这些请求转发到 Kestrel。
+
+  ![Kestrel 通过反向代理服务器（如 IIS、Nginx 或 Apache）间接与 Internet 进行通信](kestrel/_static/kestrel-to-internet.png)
+
+无论托管配置是否使用反向代理服务器，都是受支持的托管配置。
+
+有关 Kestrel 配置指南和何时在反向代理配置中使用 Kestrel 的信息，请参阅 <xref:fundamentals/servers/kestrel>。
 
 ::: moniker range="< aspnetcore-2.2"
 
@@ -140,7 +160,7 @@ ASP.NET Core 随附 [Kestrel 服务器](xref:fundamentals/servers/kestrel)，这
 
 ## <a name="httpsys"></a>HTTP.sys
 
-如果 ASP.NET Core 应用在 Windows 上运行，则 HTTP.sys 是 Kestrel 的替代选项。 为了获得最佳性能，通常建议使用 Kestrel。 在应用向 Internet 公开且所需功能受 HTTP.sys（而不是 Kestrel）支持的方案中，可以使用 HTTP.sys。 有关详细信息，请参阅 <xref:fundamentals/servers/httpsys>。
+如果 ASP.NET Core 应用在 Windows 上运行，则 HTTP.sys 是 Kestrel 的替代选项。 与 HTTP.sys 相比，建议使用 Kestrel，除非应用需要 Kestrel 未提供的功能。 有关详细信息，请参阅 <xref:fundamentals/servers/httpsys>。
 
 ![HTTP.sys 直接与 Internet 进行通信](httpsys/_static/httpsys-to-internet.png)
 
