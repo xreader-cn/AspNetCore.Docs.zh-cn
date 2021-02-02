@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/static-files
-ms.openlocfilehash: 2e25af03a8a6aaff5b343885711c6ebb68340fac
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: d97caeffc6e8beebddb01a5bd126d61ba988de65
+ms.sourcegitcommit: ebc5beccba5f3f7619de20baa58ad727d2a3d18c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93057851"
+ms.lasthandoff: 01/22/2021
+ms.locfileid: "98689287"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -54,7 +54,7 @@ ms.locfileid: "93057851"
 
 ### <a name="serve-files-in-web-root"></a>在 Web 根目录中提供文件
 
-默认 Web 应用模板在 `Startup.Configure` 中调用 <xref:Owin.StaticFileExtensions.UseStaticFiles%2A> 方法，这将允许提供静态文件：
+默认 Web 应用模板在 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A> 方法，这将允许提供静态文件：
 
 [!code-csharp[](~/fundamentals/static-files/samples/3.x/StaticFilesSample/Startup.cs?name=snippet_Configure&highlight=15)]
 
@@ -104,23 +104,31 @@ ms.locfileid: "93057851"
 
 ## <a name="static-file-authorization"></a>静态文件授权
 
-静态文件中间件不提供授权检查。 可公开访问由静态文件中间件提供的任何文件，包括 `wwwroot` 下的文件。 根据授权提供文件：
+ASP.NET Core 模板在调用 <xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization%2A> 之前调用 <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A>。 大多数应用都遵循此模式。 如果在授权中间件之前调用静态文件中间件：
 
-* 将文件存储在 `wwwroot` 和默认静态文件中间件可访问的任何目录之外。
-* 在 `UseAuthorization` 后面调用 `UseStaticFiles` 并指定路径：
-
-  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet2)]
+  * 不会对静态文件执行任何授权检查。
+  * 静态文件中间件提供的静态文件（例如 `wwwroot` 下的文件）可公开访问。
   
-  上述方法要求用户已进行身份验证：
+根据授权提供静态文件：
 
-  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet1&highlight=20-99)]
+  * 将它们存储在 `wwwroot` 之外。
+  * 调用 `UseAuthorization` 之后调用 `UseStaticFiles`，以指定路径。
+  * 设置[回退授权策略](xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.FallbackPolicy)。
 
-   [!INCLUDE[](~/includes/requireAuth.md)]
+  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet2&highlight=24-29)]
+  
+  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet1&highlight=20-25)]
+
+  在前面的代码中，回退授权策略要求所有用户进行身份验证。 用于指定其自己的授权要求的终结点（如控制器、Razor Pages 等）不使用回退授权策略。 例如，具有 `[AllowAnonymous]` 或 `[Authorize(PolicyName="MyPolicy")]` 的 Razor Pages、控制器或操作方法使用应用的授权属性，而不是回退授权策略。
+
+  <xref:Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder.RequireAuthenticatedUser%2A> 将 <xref:Microsoft.AspNetCore.Authorization.Infrastructure.DenyAnonymousAuthorizationRequirement> 添加到当前实例，这将强制对当前用户进行身份验证。
+
+  `wwwroot` 下的静态资产是可公开访问的，因为在 `UseAuthentication` 之前会调用默认静态文件中间件 (`app.UseStaticFiles();`)。 MyStaticFiles 文件夹中的静态资产需要身份验证。 [示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/static-files/samples)对此进行了演示。
 
 还有一种根据授权提供文件的方法是：
 
-* 将文件存储在 `wwwroot` 和静态文件中间件可访问的任何目录之外。
-* 通过应用授权的操作方法为其提供服务，并返回 <xref:Microsoft.AspNetCore.Mvc.FileResult> 对象：
+  * 将文件存储在 `wwwroot` 和静态文件中间件可访问的任何目录之外。
+  * 通过应用授权的操作方法为其提供服务，并返回 <xref:Microsoft.AspNetCore.Mvc.FileResult> 对象：
 
   [!code-csharp[](static-files/samples/3.x/StaticFilesSample/Controllers/HomeController.cs?name=snippet_BannerImage)]
 
@@ -154,7 +162,7 @@ ms.locfileid: "93057851"
 * default.htm
 * default.html
 * index.htm
-* index.html
+* index.html 
 
 将请求视为完全限定 URI，提供在列表中找到的第一个文件。 浏览器 URL 继续反映请求的 URI。
 
@@ -396,7 +404,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 * default.htm
 * default.html
 * index.htm
-* index.html
+* index.html 
 
 将请求视为完全限定 URI，提供在列表中找到的第一个文件。 浏览器 URL 继续反映请求的 URI。
 

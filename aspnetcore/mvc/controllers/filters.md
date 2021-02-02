@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 72ee8f5dfdf8ffd6cfcb74b13fa0738893d8e214
-ms.sourcegitcommit: 6299f08aed5b7f0496001d093aae617559d73240
+ms.openlocfilehash: ee30ef89c5d7aeae83f23a81eb02235397c89ac2
+ms.sourcegitcommit: 75db2f684a9302b0be7925eab586aa091c6bd19f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2020
-ms.locfileid: "97486130"
+ms.lasthandoff: 02/01/2021
+ms.locfileid: "99238312"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -192,12 +192,12 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 | 序列 | 筛选器作用域 | 筛选器方法 |
 |:--------:|:------------:|:-------------:|
-| 1 | 全球 | `OnActionExecuting` |
+| 1 | Global | `OnActionExecuting` |
 | 2 | 控制器或 Razor 页面| `OnActionExecuting` |
 | 3 | 方法 | `OnActionExecuting` |
 | 4 | 方法 | `OnActionExecuted` |
 | 5 | 控制器或 Razor 页面 | `OnActionExecuted` |
-| 6 | 全球 | `OnActionExecuted` |
+| 6 | Global | `OnActionExecuted` |
 
 ### <a name="controller-level-filters"></a>控制器级别筛选器
 
@@ -565,7 +565,8 @@ ASP.NET Core 运行时不保证：
 _ 将创建筛选器的单个实例。
 * 稍后不会从 DI 容器重新请求筛选器。
 
-[!WARNING] 仅将配置 `IFilterFactory.IsReusable` 为在 `true` 筛选器源明确的情况下返回，筛选器是无状态的，可以在多个 HTTP 请求中安全使用。 例如，如果返回，则不要从已注册为作用域或暂时性的 DI 返回筛选器 `IFilterFactory.IsReusable``true`
+> [!WARNING] 
+> 仅将配置 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.IsReusable?displayProperty=nameWithType> 为在 `true` 筛选器源明确的情况下返回，筛选器是无状态的，并且筛选器可在多个 HTTP 请求中安全使用。 例如，如果返回，则不要从已注册为作用域或暂时性的 DI 返回筛选器 `IFilterFactory.IsReusable` `true` 。
 
 可以使用自定义属性实现来实现 `IFilterFactory` 作为另一种创建筛选器的方法：
 
@@ -750,12 +751,12 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 | 序列 | 筛选器作用域 | 筛选器方法 |
 |:--------:|:------------:|:-------------:|
-| 1 | 全球 | `OnActionExecuting` |
+| 1 | Global | `OnActionExecuting` |
 | 2 | 控制器 | `OnActionExecuting` |
 | 3 | 方法 | `OnActionExecuting` |
 | 4 | 方法 | `OnActionExecuted` |
 | 5 | 控制器 | `OnActionExecuted` |
-| 6 | 全球 | `OnActionExecuted` |
+| 6 | Global | `OnActionExecuted` |
 
 此序列显示：
 
@@ -812,8 +813,8 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 |:--------:|:------------:|:-----------------:|:-------------:|
 | 1 | 方法 | 0 | `OnActionExecuting` |
 | 2 | 控制器 | 1  | `OnActionExecuting` |
-| 3 | 全球 | 2  | `OnActionExecuting` |
-| 4 | 全球 | 2  | `OnActionExecuted` |
+| 3 | Global | 2  | `OnActionExecuting` |
+| 4 | Global | 2  | `OnActionExecuted` |
 | 5 | 控制器 | 1  | `OnActionExecuted` |
 | 6 | 方法 | 0  | `OnActionExecuted` |
 

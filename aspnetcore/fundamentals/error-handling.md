@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/error-handling
-ms.openlocfilehash: ad9920ccd830b93d083f3c5ede03702164842b6e
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: e65983fb1a440057283111ea5a79a79b765607b7
+ms.sourcegitcommit: 610936e4d3507f7f3d467ed7859ab9354ec158ba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97753109"
+ms.lasthandoff: 01/25/2021
+ms.locfileid: "98751685"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -68,7 +68,14 @@ _ 堆栈跟踪
 
 Razor Pages 应用模板在 Pages 文件夹中提供了一个“错误”页面 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`) 。 对于 MVC 应用，项目模板包括 `Error` 操作方法和主控制器的错误视图。
 
-不要使用 HTTP 方法属性（如 `HttpGet`）标记错误处理程序操作方法。 显式谓词可阻止某些请求访问操作方法。 如果未经身份验证的用户应看到错误视图，则允许匿名访问该方法。
+异常处理中间件使用原始 HTTP 方法重新执行请求。 如果错误处理程序终结点限制为一组特定的 HTTP 方法，那么只会对这些 HTTP 方法运行。 例如，使用 `[HttpGet]` 属性的 MVC 控制器操作仅对 GET 请求运行。 若要确保所有请求都到达自定义错误处理页，请不要将它们限制为一组特定的 HTTP 方法。
+
+根据原始 HTTP 方法以不同方式处理异常：
+
+* 对于 Razor Pages，创建多个处理程序方法。 例如，使用 `OnGet` 处理 GET 异常，使用 `OnPost` 处理 POST 异常。
+* 对于 MVC，请将 HTTP 谓词属性应用于多个操作。 例如，使用 `[HttpGet]` 处理 GET 异常，使用 `[HttpPost]` 处理 POST 异常。
+
+若要允许未经身份验证的用户查看自定义错误处理页，请确保它支持匿名访问。
 
 ### <a name="access-the-exception"></a>访问异常
 

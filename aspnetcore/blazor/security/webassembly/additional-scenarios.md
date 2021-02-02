@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: bb502533bca24e82792db8814b75b16407f20339
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: fb5b6f75959d9933e228b0288e70498ef05efc4a
+ms.sourcegitcommit: da5a5bed5718a9f8db59356ef8890b4b60ced6e9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "95870381"
+ms.lasthandoff: 01/22/2021
+ms.locfileid: "98710628"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -1077,6 +1077,17 @@ Server response: <strong>@serverResponse</strong>
 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `BlazorSample`）。 若要使用 `Status.DebugException` 属性，请使用 [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) 版本 2.30.0 或更高版本。
 
 有关详细信息，请参阅 <xref:grpc/browser>。
+
+## <a name="build-a-custom-version-of-the-authenticationmsal-javascript-library"></a>生成 Authentication.MSAL JavaScript 库的自定义版本
+
+如果应用需要[适用于 JavaScript 的 Microsoft 身份验证库 (MSAL.js)](https://www.npmjs.com/package/@azure/msal-browser) 的自定义版本，请执行以下步骤：
+
+1. 确认系统具有最新的开发人员 .NET SDK，或者从 [.NET Core SDK：安装程序和二进制文件](https://github.com/dotnet/installer#installers-and-binaries)获取最新的开发人员 SDK 并进行安装。 此方案不需要配置内部 NuGet 源。
+1. 设置 `dotnet/aspnetcore` GitHub 存储库，以按照[从源生成 ASP.NET Core](https://github.com/dotnet/aspnetcore/blob/main/docs/BuildFromSource.md) 中的文档进行开发。 分叉和克隆或下载 [dotnet/aspnetcore GitHub 存储库](https://github.com/dotnet/aspnetcore)的 ZIP 存档。
+1. 打开 `src/Components/WebAssembly/Authentication.Msal/src/Interop/package.json` 文件，并设置所需的 `@azure/msal-browser` 版本。 有关已发布版本列表，请访问 [`@azure/msal-browser` npm 网站](https://www.npmjs.com/package/@azure/msal-browser)，然后选择“版本”选项卡。
+1. 使用命令行界面中的 `yarn build` 命令在 `src/Components/WebAssembly/Authentication.Msal/src` 文件夹中生成 `Authentication.Msal` 项目。
+1. 如果应用使用[压缩资产 (Brotli/Gzip)](xref:blazor/host-and-deploy/webassembly#compression)，则压缩 `Interop/dist/Release/AuthenticationService.js` 文件。
+1. 如果生成了文件，请将该文件的 `AuthenticationService.js` 文件和压缩版本 (`.br`/`.gz`) 从 `Interop/dist/Release` 文件夹复制到应用的已发布资产中应用的 `publish/wwwroot/_content/Microsoft.Authentication.WebAssembly.Msal` 文件夹中。
 
 ## <a name="additional-resources"></a>其他资源
 

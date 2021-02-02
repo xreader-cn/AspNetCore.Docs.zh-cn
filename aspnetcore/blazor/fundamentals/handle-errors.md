@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/handle-errors
-ms.openlocfilehash: c789928252417ef1cf95c60deb7edef24d58126e
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 5a255c2d3535311cecd6b7219447e80d1ae78877
+ms.sourcegitcommit: d4836f9b7c508f51c6c4ee6d0cc719b38c1729c4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93055992"
+ms.lasthandoff: 01/25/2021
+ms.locfileid: "98758248"
 ---
 # <a name="handle-errors-in-aspnet-core-no-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -88,6 +88,35 @@ ms.locfileid: "93055992"
     top: 0.5rem;
 }
 ```
+
+## <a name="no-locblazor-server-detailed-circuit-errors"></a>Blazor Server 详细线路错误
+
+客户端错误不包括调用堆栈，也不提供有关错误原因的详细信息，但服务器日志的确包含此类信息。 出于开发目的，可通过启用详细错误向客户端提供敏感线路错误信息。
+
+使用以下方法启用 Blazor Server 详细错误：
+
+* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DetailedErrors?displayProperty=nameWithType>.
+* `DetailedErrors` 配置键设置为 `true`，在应用的开发设置文件 (`appsettings.Development.json`) 中可进行此设置。 也可使用值为 `true` 的 `ASPNETCORE_DETAILEDERRORS` 环境变量设置此键。
+* [SignalR 服务器端日志记录](xref:signalr/diagnostics#server-side-logging) (`Microsoft.AspNetCore.SignalR`) 可设置为[调试](xref:Microsoft.Extensions.Logging.LogLevel)或[跟踪](xref:Microsoft.Extensions.Logging.LogLevel)，以用于详细 SignalR 日志记录。
+
+`appsettings.Development.json`:
+
+```json
+{
+  "DetailedErrors": true,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information",
+      "Microsoft.AspNetCore.SignalR": "Debug"
+    }
+  }
+}
+```
+
+> [!WARNING]
+> 在 Internet 上向客户端公开错误信息是一项始终应该避免的安全风险。
 
 ## <a name="how-a-no-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor Server 应用如何应对未经处理的异常
 

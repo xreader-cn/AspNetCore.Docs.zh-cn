@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/kestrel/endpoints
-ms.openlocfilehash: 780250feab456fa3eedee4e023c9bc774e748291
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: 5fec573013da5bcb5039b7a189fd84d964349b3a
+ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98253832"
+ms.lasthandoff: 01/21/2021
+ms.locfileid: "98658737"
 ---
 # <a name="configure-endpoints-for-the-aspnet-core-kestrel-web-server"></a>为 ASP.NET Core Kestrel Web 服务器配置终结点
 
@@ -169,7 +169,7 @@ Kestrel 可以使用默认 HTTPS 应用设置配置架构。 从磁盘上的文�
 在以下 appsettings.json 示例中：
 
 * 将 `AllowInvalid` 设置为 `true`，从而允许使用无效证书（例如自签名证书）。
-* 任何未指定证书的 HTTPS 终结点（下例中的 `HttpsDefaultCert`）会回退至在 `Certificates` > `Default` 下定义的证书或开发证书。
+* 任何未指定证书的 HTTPS 终结点（下例中的 `HttpsDefaultCert`）会回退至在 `Certificates:Default` 下定义的证书或开发证书。
 
 ```json
 {
@@ -185,8 +185,16 @@ Kestrel 可以使用默认 HTTPS 应用设置配置架构。 从磁盘上的文�
           "Password": "<certificate password>"
         }
       },
-      "HttpsInlineCertStore": {
+      "HttpsInlineCertAndKeyFile": {
         "Url": "https://localhost:5002",
+        "Certificate": {
+          "Path": "<path to .pem/.crt file>",
+          "KeyPath": "<path to .key file>",
+          "Password": "<certificate password>"
+        }
+      },
+      "HttpsInlineCertStore": {
+        "Url": "https://localhost:5003",
         "Certificate": {
           "Subject": "<subject; required>",
           "Store": "<certificate store; required>",
@@ -195,14 +203,7 @@ Kestrel 可以使用默认 HTTPS 应用设置配置架构。 从磁盘上的文�
         }
       },
       "HttpsDefaultCert": {
-        "Url": "https://localhost:5003"
-      },
-      "Https": {
-        "Url": "https://*:5004",
-        "Certificate": {
-          "Path": "<path to .pfx file>",
-          "Password": "<certificate password>"
-        }
+        "Url": "https://localhost:5004"
       }
     },
     "Certificates": {
@@ -215,7 +216,24 @@ Kestrel 可以使用默认 HTTPS 应用设置配置架构。 从磁盘上的文�
 }
 ```
 
-对任何证书节点使用 `Path` 和 `Password` 的替代方法是使用证书存储字段来指定证书。 例如，可将 `Certificates` > `Default` 证书指定为：
+架构的注意事项：
+
+* 终结点的名称[不区分大小写](xref:fundamentals/configuration/index#configuration-keys-and-values)。 例如，由于再也无法解析标识符“Families”，因此 `HTTPS` and `Https` 是等效的。
+* 每个终结点都要具备 `Url` 参数。 此参数的格式和顶层 `Urls` 配置参数一样，只不过它只能有单个值。
+* 这些终结点不会添加进顶层 `Urls` 配置中定义的终结点，而是替换它们。 通过 `Listen` 在代码中定义的终结点与在配置节中定义的终结点相累积。
+* `Certificate` 部分是可选的。 如果未指定 `Certificate` 部分，则使用 `Certificates:Default` 中定义的默认值。 如果没有可用的默认值，则使用开发证书。 如果没有默认值，且开发证书不存在，则服务器将引发异常，并且无法启动。
+* `Certificate` 部分支持多个[证书源](#certificate-sources)。
+* 只要不会导致端口冲突，就能在[配置](xref:fundamentals/configuration/index)中定义任何数量的终结点。
+
+#### <a name="certificate-sources"></a>证书源
+
+可以将证书节点配置为从多个源加载证书：
+
+* `Path` 和 `Password` 用于加载 .pfx 文件。
+* `Path`、`KeyPath` 和 `Password` 用于加载 .pem/ *.crt* 和 .key 文件。
+* `Subject` 和 `Store` 用于从证书存储中加载。
+
+例如，可将 `Certificates:Default` 证书指定为：
 
 ```json
 "Default": {
@@ -226,15 +244,9 @@ Kestrel 可以使用默认 HTTPS 应用设置配置架构。 从磁盘上的文�
 }
 ```
 
-架构的注意事项：
+#### <a name="configurationloader"></a>ConfigurationLoader
 
-* 终结点的名称不区分大小写。 例如，`HTTPS` 和 `Https` 都是有效的。
-* 每个终结点都要具备 `Url` 参数。 此参数的格式和顶层 `Urls` 配置参数一样，只不过它只能有单个值。
-* 这些终结点不会添加进顶层 `Urls` 配置中定义的终结点，而是替换它们。 通过 `Listen` 在代码中定义的终结点与在配置节中定义的终结点相累积。
-* `Certificate` 部分是可选的。 如果为指定 `Certificate` 部分，则使用在之前的方案中定义的默认值。 如果没有可用的默认值，服务器会引发异常且无法启动。
-* `Certificate` 节同时支持 `Path`&ndash;`Password` 和 `Subject`&ndash;`Store` 证书。
-* 只要不会导致端口冲突，就能以这种方式定义任何数量的终结点。
-* `options.Configure(context.Configuration.GetSection("{SECTION}"))` 通过 `.Endpoint(string name, listenOptions => { })` 方法返回 `KestrelConfigurationLoader`，可以用于补充已配置的终结点设置：
+`options.Configure(context.Configuration.GetSection("{SECTION}"))` 通过 `.Endpoint(string name, listenOptions => { })` 方法返回 <xref:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader>，可以用于补充已配置的终结点设置：
 
 ```csharp
 webBuilder.UseKestrel((context, serverOptions) =>

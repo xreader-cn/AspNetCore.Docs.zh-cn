@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 1f22468c2c9bfb5c3c184e8686f1a8d1b486536d
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: e873fdd201cf0cdc809030fde30c6a8da2899861
+ms.sourcegitcommit: 610936e4d3507f7f3d467ed7859ab9354ec158ba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97486065"
+ms.lasthandoff: 01/25/2021
+ms.locfileid: "98751550"
 ---
 # <a name="aspnet-core-no-locblazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
@@ -426,7 +426,7 @@ Password:
 }
 ```
 
-有关适用于跨不必嵌套的组件在内存中共享数据的可选方法，请参阅 <xref:blazor/state-management> 的内存中状态容器服务。
+有关适用于跨不必嵌套的组件在内存中共享数据的可选方法，请参阅 <xref:blazor/state-management> 文章的“内存中状态容器服务”部分。
 
 ## <a name="additional-resources"></a>其他资源
 

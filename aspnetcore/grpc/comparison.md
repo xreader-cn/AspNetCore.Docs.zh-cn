@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: 0fb50f07153f5f9953b667fe32062ad24b2bd66d
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 1ec553d54a9cad170cb322bc186bb67ac8bbded4
+ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93059944"
+ms.lasthandoff: 01/21/2021
+ms.locfileid: "98658724"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
@@ -61,7 +61,7 @@ HTTP/2 不是 gRPC 独占的。 许多请求类型（包括使用 JSON 的 HTTP 
 
 ### <a name="code-generation"></a>代码生成
 
-所有 gRPC 框架都为代码生成提供一流支持。 [.proto 文件](https://developers.google.com/protocol-buffers/docs/proto3)是 gRPC 开发的核心文件，它定义 gRPC 服务和消息的协定。 通过此文件，gRPC 框架编码生成服务基类、消息和完整的客户端。
+所有 gRPC 框架都为代码生成提供一流支持。 [`.proto` 文件](https://developers.google.com/protocol-buffers/docs/proto3)是 gRPC 开发的核心文件，它定义 gRPC 服务和消息的协定。 通过此文件，gRPC 框架生成服务基类、消息和完整的客户端。
 
 通过在服务器和客户端之间共享 *.proto* 文件，可以端到端生成消息和客户端代码。 客户端的代码生成消除了客户端和服务器上的消息重复，并为你创建强类型客户端。 无需编写客户端可在具有许多服务的应用程序中节省大量开发时间。
 

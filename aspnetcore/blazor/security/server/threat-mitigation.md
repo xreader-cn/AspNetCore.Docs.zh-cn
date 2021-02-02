@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/threat-mitigation
-ms.openlocfilehash: d0ed36731d78d3e98aa294aca50492f0a3ac8174
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 4256e90ca5f185992a73d1e43460ca5d27159d6f
+ms.sourcegitcommit: d4836f9b7c508f51c6c4ee6d0cc719b38c1729c4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97506690"
+ms.lasthandoff: 01/25/2021
+ms.locfileid: "98758279"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-no-locblazor-server"></a>ASP.NET Core Blazor Server 的威胁缓解指南
 
@@ -306,12 +306,7 @@ ASP.NET Core 应用的保护指南适用于 Blazor Server 应用，将在以下�
 
 当服务器上发生错误时，框架会通知客户端并关闭会话。 默认情况下，客户端会收到一条通用错误消息，可在浏览器的开发人员工具中查看。
 
-客户端错误不包括调用堆栈，也不提供有关错误原因的详细信息，但服务器日志的确包含此类信息。 出于开发目的，可通过启用详细错误向客户端提供敏感错误信息。
-
-使用以下项在 JavaScript 中启用详细错误：
-
-* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DetailedErrors?displayProperty=nameWithType>.
-* `DetailedErrors` 配置键设置为 `true`，在应用设置文件 (`appsettings.json`) 中可进行此设置。 也可使用值为 `true` 的 `ASPNETCORE_DETAILEDERRORS` 环境变量设置此键。
+客户端错误不包括调用堆栈，也不提供有关错误原因的详细信息，但服务器日志的确包含此类信息。 出于开发目的，可通过[启用详细错误](xref:blazor/fundamentals/handle-errors#blazor-server-detailed-circuit-errors)向客户端提供敏感错误信息。
 
 > [!WARNING]
 > 在 Internet 上向客户端公开错误信息是一项始终应该避免的安全风险。
