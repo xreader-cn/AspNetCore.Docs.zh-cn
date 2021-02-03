@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: 2acddd212639ac0a82b3c46f2225ff66d0999dd0
-ms.sourcegitcommit: 7e394a8527c9818caebb940f692ae4fcf2f1b277
+ms.openlocfilehash: a49388c73f2ec0ea03b35dbba1575ce70a4e1512
+ms.sourcegitcommit: 75db2f684a9302b0be7925eab586aa091c6bd19f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/31/2021
-ms.locfileid: "99217552"
+ms.lasthandoff: 02/01/2021
+ms.locfileid: "99238331"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -38,7 +38,7 @@ ASP.NET Core 应用与进程内 HTTP 服务器实现一起运行。 该服务器
 
 ASP.NET Core 随附以下组件：
 
-* [Kestrel 服务器](xref:fundamentals/servers/kestrel)是默认跨平台 HTTP 服务器实现。 Kestrel 提供了最佳性能和内存利用率，但它没有 HTTP.sys 中的某些高级功能。 有关详细信息，请参阅本文档中的 [Kestrel 与HTTP.sys](#korh)。
+* [Kestrel 服务器](xref:fundamentals/servers/kestrel)是默认跨平台 HTTP 服务器实现。 Kestrel 提供了最佳性能和内存利用率，但它没有 HTTP.sys 中的某些高级功能。 有关详细信息，请参阅本文档中的 [Kestrel 与HTTP.sys](#korh)（下一节）。
 * IIS HTTP 服务器是 IIS 的[进程内服务器](#hosting-models)。
 * [HTTP.sys 服务器](xref:fundamentals/servers/httpsys)是仅用于 Windows 的 HTTP 服务器，它基于 [HTTP.sys 核心驱动程序和 HTTP 服务器 API](/windows/desktop/Http/http-api-start-page)。
 

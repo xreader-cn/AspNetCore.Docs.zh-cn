@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 35620299b1138ca45a6ebf1d789a9f4aa9b29518
-ms.sourcegitcommit: 610936e4d3507f7f3d467ed7859ab9354ec158ba
+ms.openlocfilehash: 0a271b2e306e2969530248fe820ed8aab2fa45e0
+ms.sourcegitcommit: 75db2f684a9302b0be7925eab586aa091c6bd19f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/25/2021
-ms.locfileid: "98751604"
+ms.lasthandoff: 02/01/2021
+ms.locfileid: "99238183"
 ---
-# <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
+# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS) 及 [Luke Latham](https://github.com/guardrex)
 
@@ -48,7 +48,7 @@ Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示
 
 Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份。 具体机制取决于 Blazor 应用是使用 Blazor WebAssembly 还是 Blazor Server托管的。
 
-### <a name="no-locblazor-webassembly-authentication"></a>Blazor WebAssembly身份验证
+### <a name="blazor-webassembly-authentication"></a>Blazor WebAssembly身份验证
 
 在 Blazor WebAssembly 应用中，可绕过身份验证检查，因为用户可修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
@@ -61,7 +61,7 @@ Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份�
 
 有关创建应用和配置的详细信息，请参阅 <xref:blazor/security/webassembly/index>。
 
-### <a name="no-locblazor-server-authentication"></a>Blazor Server身份验证
+### <a name="blazor-server-authentication"></a>Blazor Server身份验证
 
 Blazor Server应用通过使用 SignalR 创建的实时连接运行。 建立连接后，将处理[基于 SignalR 的应用的身份验证](xref:signalr/authn-and-authz)。 可基于 cookie 或一些其他持有者令牌进行身份验证。
 
@@ -391,9 +391,9 @@ You can only see this if you're signed in.
 
 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件与 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> 组件搭配使用时，可允许应用程序在以下情况下指定自定义内容：
 
-* 找不到内容。
-* 用户不符合应用于组件的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 条件。 [`[Authorize]` 属性](#authorize-attribute)一节中介绍了 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性。
-* 正在进行异步身份验证。
+* 用户不符合应用于组件的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 条件。 显示 [`<NotAuthorized>`](xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView.NotAuthorized?displayProperty=nameWithType) 元素的标记。 [`[Authorize]` 属性](#authorize-attribute)一节中介绍了 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性。
+* 异步授权正在进行中，这通常表示对用户进行身份验证的过程正在进行中。 显示 [`<Authorizing>`](xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView.Authorizing?displayProperty=nameWithType) 元素的标记。
+* 找不到内容。 显示 [`<NotFound>`](xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound?displayProperty=nameWithType) 元素的标记。
 
 在默认的 Blazor Server项目模板中，`App` 组件 (`App.razor`) 展示了如何设置自定义内容：
 
@@ -409,8 +409,8 @@ You can only see this if you're signed in.
                     <p>You may need to log in as a different user.</p>
                 </NotAuthorized>
                 <Authorizing>
-                    <h1>Authentication in progress</h1>
-                    <p>Only visible while authentication is in progress.</p>
+                    <h1>Authorization in progress</h1>
+                    <p>Only visible while authorization is in progress.</p>
                 </Authorizing>
             </AuthorizeRouteView>
         </Found>
