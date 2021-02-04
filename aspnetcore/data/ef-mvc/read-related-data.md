@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: b1adca435b48db22a176d33a216c07d6647a6695
-ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
+ms.openlocfilehash: 5f0e8efdf57e0a8ba5483680224d33ea5d60f06a
+ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2021
-ms.locfileid: "98058306"
+ms.lasthandoff: 02/03/2021
+ms.locfileid: "99530146"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
@@ -226,7 +226,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 在 Views/Instructors/Index.cshtml 文件中，关闭表格元素（在文件末尾）后，添加以下代码。 选择讲师时，此代码显示与讲师相关的课程列表。
 
-[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=66-101)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=63-98)]
 
 此代码读取视图模型的 `Courses` 属性以显示课程列表。 它还提供 Select 超链接，该链接可将所选课程的 ID 发送到 `Index` 操作方法。
 

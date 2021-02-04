@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/interprocess
-ms.openlocfilehash: d806a340d8540fce8af6ccc6ff68325e4b733922
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 8c0f8fb1468e61d5aa2e7f42cb5da33c01819124
+ms.sourcegitcommit: 7e394a8527c9818caebb940f692ae4fcf2f1b277
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93059879"
+ms.lasthandoff: 01/31/2021
+ms.locfileid: "99217461"
 ---
 # <a name="inter-process-communication-with-grpc"></a>使用 gRPC 进行进程间通信
 
@@ -64,9 +64,6 @@ Kestrel 提供对 UDS 终结点的内置支持。 UDS 在 Linux、macOS 和 [Win
 ## <a name="client-configuration"></a>客户端配置
 
 `GrpcChannel` 支持通过自定义传输进行 gRPC 调用。 创建通道后，可以使用包含自定义 `ConnectCallback` 的 `SocketsHttpHandler` 来配置它。 回调允许客户端通过自定义传输建立连接，然后通过该传输发送 HTTP 请求。
-
-> [!IMPORTANT]
-> `SocketsHttpHandler.ConnectCallback` 是 .NET 5 候选发布 2 中的新 API。
 
 Unix 域套接字连接工厂示例：
 

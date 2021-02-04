@@ -5,7 +5,7 @@ description: 了解如何生成基于 Blazor 的渐进式 Web 应用 (PWA)，这
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2020
+ms.date: 01/11/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: 1706d3502dc68f1c25e0c35ba8f5dd44b55ce690
-ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
+ms.openlocfilehash: fcf06295deb41f304b92caa82535a1197c909898
+ms.sourcegitcommit: 75db2f684a9302b0be7925eab586aa091c6bd19f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2021
-ms.locfileid: "98658646"
+ms.lasthandoff: 02/01/2021
+ms.locfileid: "99238241"
 ---
-# <a name="build-progressive-web-applications-with-aspnet-core-no-locblazor-webassembly"></a>利用 ASP.NET Core Blazor WebAssembly 生成渐进式 Web 应用程序
+# <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>利用 ASP.NET Core Blazor WebAssembly 生成渐进式 Web 应用程序
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -71,7 +71,7 @@ dotnet new blazorwasm -o MyBlazorPwa --pwa
 
 （可选）可以为通过 ASP.NET Core 托管的模板创建的应用配置 PWA。 PWA 方案独立于托管模型。
 
-## <a name="convert-an-existing-no-locblazor-webassembly-app-into-a-pwa"></a>将现有 Blazor WebAssembly 应用转换为 PWA
+## <a name="convert-an-existing-blazor-webassembly-app-into-a-pwa"></a>将现有 Blazor WebAssembly 应用转换为 PWA
 
 按照本部分中的指南，将现有 Blazor WebAssembly 应用转换为 PWA。
 

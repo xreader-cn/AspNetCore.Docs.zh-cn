@@ -18,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 86b57a9cad27673b72ad174a18741f5528f9f78a
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: e797228d498ec9b269e718c099a0532bbb4504d3
+ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97011853"
+ms.lasthandoff: 02/03/2021
+ms.locfileid: "99530237"
 ---
-# <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor Pages 和 Entity Framework Core - 第 1 个教程（共 8 个）
+# <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor Pages 和 Entity Framework Core - 第 1 个教程（共 8 个）
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -127,7 +127,7 @@ To run the app after downloading the completed project:
     1. 下拉列表中的“.NET Core”和“ASP.NET Core 5.0”。
     1. **ASP.NET Core Web 应用**。
     1. “创建”
-      ![新的 ASP.NET Core 项目对话框](~/data/ef-mvc/intro/_static/new-aspnet5.png)
+      ![新的 ASP.NET Core 项目对话框](~/data/ef-rp/intro/_static/new-aspnet5.png)
     
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -384,7 +384,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 在 PMC 中，输入以下命令来添加此 NuGet 包：
 
 ```powershell
-Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore -Version 5.0.0-rc.2.20475.17
+Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
 ```
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -724,7 +724,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
   * 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)” 。
   * 在“数据上下文类”行中，选择 +（加号） 。
   * 将数据上下文名称从 ContosoUniversity.Models.ContosoUniversityContext 更改为 ContosoUniversity.Data.SchoolContext 。
-  * 选择“添加”。
+  * 选择“添加”  。
 
 自动安装以下包：
 
@@ -999,7 +999,7 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 此网站的 UI 样式与内置模板生成的 UI 样式类似。 教程的重点是 EF Core 和 Razor Pages，而非 UI。
 
-## <a name="create-the-contosouniversity-no-locrazor-pages-web-app"></a>创建 ContosoUniversity Razor Pages Web 应用
+## <a name="create-the-contosouniversity-razor-pages-web-app"></a>创建 ContosoUniversity Razor Pages Web 应用
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -1107,7 +1107,7 @@ dotnet run
 * 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)” 。
 * 在“数据上下文类”行中，选择加号 (+) 并将生成的名称更改为 ContosoUniversity.Models.SchoolContext  。
 * 在“数据上下文类”下拉列表中，选择“ContosoUniversity.Models.SchoolContext” 
-* 选择“添加”。
+* 选择“添加”  。
 
 ![CRUD 对话框](intro/_static/s1.png)
 
