@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 810eff7ccb08ecc22ea255bf0a9fe3d22637179f
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 4b877c64a881fec15ac9e9bd74ffdde0b5fa60f9
+ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93060100"
+ms.lasthandoff: 02/03/2021
+ms.locfileid: "99530172"
 ---
-# <a name="host-aspnet-core-no-locsignalr-in-background-services"></a>SignalR在后台服务中托管 ASP.NET Core
+# <a name="host-aspnet-core-signalr-in-background-services"></a>SignalR在后台服务中托管 ASP.NET Core
 
 作者： [Brady Gaster](https://twitter.com/bradygaster)
 
@@ -46,7 +46,7 @@ ms.locfileid: "93060100"
 
 ::: moniker-end
 
-## <a name="enable-no-locsignalr-in-startup"></a>SignalR在启动时启用
+## <a name="enable-signalr-in-startup"></a>SignalR在启动时启用
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -94,7 +94,7 @@ SignalR在后台工作进程的上下文中托管 ASP.NET Core 中心与在 ASP.
 
 ::: moniker-end
 
-## <a name="call-a-no-locsignalr-hub-from-a-background-service"></a>SignalR从后台服务调用中心
+## <a name="call-a-signalr-hub-from-a-background-service"></a>SignalR从后台服务调用中心
 
 在启动过程中， `Worker` `BackgroundService` 使用启用类 `AddHostedService` 。
 
@@ -117,9 +117,9 @@ services.AddHostedService<Worker>();
 
 由于 `ExecuteAsync` 在后台服务中以迭代方式调用方法，服务器的当前日期和时间将使用发送到已连接的客户端 `ClockHub` 。
 
-## <a name="react-to-no-locsignalr-events-with-background-services"></a>SignalR通过后台服务对事件做出响应
+## <a name="react-to-signalr-events-with-background-services"></a>SignalR通过后台服务对事件做出响应
 
-与使用适用于或 .NET 桌面应用程序的 JavaScript 客户端的单页面应用一样 SignalR <xref:signalr/dotnet-client> ，也可以使用、 `BackgroundService` 或 `IHostedService` 实现来连接到 SignalR 集线器并响应事件。
+与使用适用于的 JavaScript 客户端的单页面应用 SignalR 或使用的 .net 桌面应用一样 <xref:signalr/dotnet-client> ， `BackgroundService` 或 `IHostedService` 实现也可用于连接到 SignalR 集线器和响应事件。
 
 `ClockHubClient`类实现 `IClock` 接口和 `IHostedService` 接口。 这样一来，就可以在过程中将其启用 `Startup` ，并对来自服务器的中心事件做出响应。
 
@@ -161,6 +161,6 @@ public partial class ClockHubClient : IClock, IHostedService
 ## <a name="additional-resources"></a>其他资源
 
 * [入门](xref:tutorials/signalr)
-* [中心](xref:signalr/hubs)
+* [集线器](xref:signalr/hubs)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)
 * [强类型中心](xref:signalr/hubs#strongly-typed-hubs)

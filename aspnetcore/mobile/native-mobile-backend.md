@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: 0bbf740cb49b77b476e7e015afee311110bbe5ea
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 4e86241771e884ba9079bcdf9a09eebc6acd62c8
+ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93060984"
+ms.lasthandoff: 02/03/2021
+ms.locfileid: "99530211"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>使用 ASP.NET Core 为本机移动应用创建后端服务
 
@@ -64,11 +64,11 @@ public static string RestUrl = "http://192.168.1.207:5000/api/todoitems/{0}";
 
 ## <a name="creating-the-aspnet-core-project"></a>创建 ASP.NET Core 项目
 
-在 Visual Studio 中创建一个新的 ASP.NET Core Web 应用程序。 选择 Web API 模板和 No Authentication（无身份验证）。 将项目命名为 *ToDoApi* 。
+在 Visual Studio 中创建一个新的 ASP.NET Core Web 应用程序。 选择 Web API 模板和 No Authentication（无身份验证）。 将项目命名为 *ToDoApi*。
 
 ![“新建 ASP.NET Web 应用程序”对话框，其中已选中 Web API 项目模板](native-mobile-backend/_static/web-api-template.png)
 
-对于向端口 5000 进行的请求，应用程序均需作出响应。 更新 Program.cs，使其包含 `.UseUrls("http://*:5000")`，以便实现以下操作  ：
+对于向端口 5000 进行的请求，应用程序均需作出响应。 更新 Program.cs，使其包含 `.UseUrls("http://*:5000")`，以便实现以下操作：
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Program.cs?range=10-16&highlight=3)]
 
@@ -91,14 +91,14 @@ API 方法需要通过某种方式处理数据。 使用原始 Xamarin 示例所
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Startup.cs?highlight=6&range=29-35)]
 
-现可创建 ToDoItemsController  。
+现可创建 ToDoItemsController。
 
 > [!TIP]
 > 有关创建 Web API 的详细信息，请参阅[使用 ASP.NET Core MVC 和 Visual Studio 生成首个 Web API](../tutorials/first-web-api.md)。
 
 ## <a name="creating-the-controller"></a>创建控制器
 
-在项目中添加新控制器 *ToDoItemsController* 。 它应继承 Microsoft.AspNetCore.Mvc.Controller。 添加 `Route` 属性以指示控制器将处理路径以 `api/todoitems` 开始的请求。 路由中的 `[controller]` 标记会被控制器的名称代替（省略 `Controller` 后缀），这对全局路由特别有用。 详细了解 [路由](../fundamentals/routing.md)。
+在项目中添加新控制器 *ToDoItemsController*。 它应继承 Microsoft.AspNetCore.Mvc.Controller。 添加 `Route` 属性以指示控制器将处理路径以 `api/todoitems` 开始的请求。 路由中的 `[controller]` 标记会被控制器的名称代替（省略 `Controller` 后缀），这对全局路由特别有用。 详细了解 [路由](../fundamentals/routing.md)。
 
 控制器需要 `IToDoRepository` 才能正常运行；通过控制器的构造函数请求该类型的实例。 在运行时，此实例将使用框架对 [依赖关系注入](../fundamentals/dependency-injection.md) 的支持来提供。
 
@@ -166,4 +166,7 @@ API 方法需要通过某种方式处理数据。 使用原始 Xamarin 示例所
 
 ## <a name="additional-resources"></a>其他资源
 
-* [身份验证和授权](/xamarin/xamarin-forms/enterprise-application-patterns/authentication-and-authorization)
+- [Xamarin： Web 服务身份验证](/xamarin/xamarin-forms/data-cloud/authentication/)
+- [Xamarin：使用 RESTful Web 服务](/xamarin/xamarin-forms/data-cloud/web-services/rest)
+- [Microsoft Learn：在 Xamarin 应用中使用 REST web 服务](/learn/modules/consume-rest-services/)
+- [Microsoft Learn：使用 ASP.NET Core 创建 web API](/learn/modules/build-web-api-aspnet-core/)

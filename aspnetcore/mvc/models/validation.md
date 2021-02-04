@@ -18,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: 77d49710b9d69f6fbbe92970f1c455de32489444
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: d6fa7e4524a8afdc23d4ad46354d9d8b395656a3
+ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93056954"
+ms.lasthandoff: 02/03/2021
+ms.locfileid: "99530185"
 ---
-# <a name="model-validation-in-aspnet-core-mvc-and-no-locrazor-pages"></a>ASP.NET Core MVC 和页面中的模型验证 Razor
+# <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和页面中的模型验证 Razor
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -76,13 +76,13 @@ ms.locfileid: "93056954"
 
 ### <a name="error-messages"></a>错误消息
 
-通过验证特性可以指定要为无效输入显示的错误消息。 例如： 。
+通过验证特性可以指定要为无效输入显示的错误消息。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如： 。
+在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -92,9 +92,27 @@ ms.locfileid: "93056954"
 
 若要查找为特定特性的错误消息而传递给 `String.Format` 的参数，请参阅 [DataAnnotations 源代码](https://github.com/dotnet/runtime/tree/master/src/libraries/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations)。
 
-## <a name="required-attribute"></a>[必需] 特性
+## <a name="non-nullable-reference-types-and-required-attribute"></a>不可以为 null 的引用类型和 [必需] 特性
 
-.NET Core 3.0 和更高版本中的验证系统将不可为 null 的参数或绑定属性视为具有 `[Required]` 特性。 `decimal` 和 `int` 等[值类型](/dotnet/csharp/language-reference/keywords/value-types)是不可为 null 的类型。 可以通过在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> 来禁用此行为：
+验证系统将不可以为 null 的参数或绑定属性视为具有 `[Required]` 属性。 通过 [启用 `Nullable` 上下文](/dotnet/csharp/nullable-references#nullable-contexts)，MVC 隐式开始验证不可为 null 的属性或参数，就好像它们已使用属性进行属性化一样 `[Required]` 。 请考虑以下代码：
+
+```csharp
+public class Person
+{
+    public string Name { get; set; }
+}
+```
+
+如果应用是使用生成的 `<Nullable>enable</Nullable>` ，则 `Name` JSON 或窗体 post 中缺少的值将导致验证错误。 使用可以为 null 的引用类型允许为属性指定 null 值或缺失值 `Name` ：
+
+```csharp
+public class Person
+{
+    public string? Name { get; set; }
+}
+```
+
+. 可以通过在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> 来禁用此行为：
 
 ```csharp
 services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
@@ -176,9 +194,9 @@ public string MiddleName { get; set; }
 
 对于内置验证特性无法处理的情况，可以创建自定义验证特性。 创建继承自 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> 的类，并替代 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> 方法。
 
-`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入  。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
+`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
 
-以下示例验证“经典”流派电影的发行日期是否不晚于指定年份  。 `[ClassicMovie]` 属性：
+以下示例验证“经典”流派电影的发行日期是否不晚于指定年份。 `[ClassicMovie]` 属性：
 
 * 仅在服务器上运行。
 * 对于经典电影，验证发行日期：
@@ -210,7 +228,7 @@ public string MiddleName { get; set; }
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_CheckAgeSignature)]
 
-在“检查年限”页 (CheckAge.cshtml) 中，有两个表单  。 第一个表单将 `99` 的 `Age` 值作为查询字符串参数提交：`https://localhost:5001/Users/CheckAge?Age=99`。
+在“检查年限”页 (CheckAge.cshtml) 中，有两个表单。 第一个表单将 `99` 的 `Age` 值作为查询字符串参数提交：`https://localhost:5001/Users/CheckAge?Age=99`。
 
 当提交查询字符串中格式设置正确的 `age` 参数时，表单将进行验证。
 
@@ -248,7 +266,7 @@ public string MiddleName { get; set; }
 
 客户端验证将阻止提交，直到表单变为有效为止。 “提交”按钮运行 JavaScript：要么提交表单要么显示错误消息。
 
-表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证  ：
+表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证：
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Views/Shared/_Layout.cshtml?name=snippet_Scripts)]
 
@@ -357,7 +375,7 @@ $.get({
 
 在 HTML 中呈现 `data-` 特性的方法在示例应用中由 `ClassicMovie` 特性使用。 若要使用此方法添加客户端验证：
 
-1. 为自定义验证特性创建特性适配器类。 从[AttributeAdapterBase \<T> ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2)派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
+1. 为自定义验证特性创建特性适配器类。 从 <xref:Microsoft.AspNetCore.Mvc.DataAnnotations.AttributeAdapterBase%601>派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Validation/ClassicMovieAttributeAdapter.cs?name=snippet_Class)]
 
@@ -430,7 +448,7 @@ $.get({
 内置验证特性包括：
 
 * `[CreditCard]`：验证属性是否具有信用卡格式。
-* `[Compare]`：验证模型中的两个属性是否匹配。 例如， *Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。 [基架 Identity ](xref:security/authentication/scaffold-identity)查看注册代码。
+* `[Compare]`：验证模型中的两个属性是否匹配。 例如，*Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。 [基架 Identity ](xref:security/authentication/scaffold-identity)查看注册代码。
 * `[EmailAddress]`：验证属性是否具有电子邮件格式。
 * `[Phone]`：验证属性是否具有电话号码格式。
 * `[Range]`：验证属性值是否在指定的范围内。
@@ -446,13 +464,13 @@ $.get({
 
 ### <a name="error-messages"></a>错误消息
 
-通过验证特性可以指定要为无效输入显示的错误消息。 例如： 。
+通过验证特性可以指定要为无效输入显示的错误消息。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如： 。
+在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -542,9 +560,9 @@ public string MiddleName { get; set; }
 
 对于内置验证特性无法处理的情况，可以创建自定义验证特性。 创建继承自 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> 的类，并替代 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> 方法。
 
-`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入  。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
+`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
 
-以下示例验证“经典”流派电影的发行日期是否不晚于指定年份  。 `[ClassicMovie2]` 特性首先检查流派，只有流派为“经典”时才会继续检查  。 如果电影流派为经典，它会检查发行日期，确保该日期不晚于传递给特性构造函数的限值。）
+以下示例验证“经典”流派电影的发行日期是否不晚于指定年份。 `[ClassicMovie2]` 特性首先检查流派，只有流派为“经典”时才会继续检查。 如果电影流派为经典，它会检查发行日期，确保该日期不晚于传递给特性构造函数的限值。）
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttribute.cs?name=snippet_ClassicMovieAttribute)]
 
@@ -573,7 +591,7 @@ public string MiddleName { get; set; }
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_CheckAge)]
 
-在“检查年限”页 (CheckAge.cshtml) 中，有两个表单  。 第一个表单提交 `Age` 的值 `99` 作为查询字符串：`https://localhost:5001/Users/CheckAge?Age=99`。
+在“检查年限”页 (CheckAge.cshtml) 中，有两个表单。 第一个表单提交 `Age` 的值 `99` 作为查询字符串：`https://localhost:5001/Users/CheckAge?Age=99`。
 
 当提交查询字符串中格式设置正确的 `age` 参数时，表单将进行验证。
 
@@ -615,7 +633,7 @@ public string MiddleName { get; set; }
 
 客户端验证将阻止提交，直到表单变为有效为止。 “提交”按钮运行 JavaScript：要么提交表单要么显示错误消息。
 
-表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证  ：
+表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证：
 
 [!code-cshtml[](validation/samples/2.x/ValidationSample/Views/Shared/_Layout.cshtml?name=snippet_ScriptTag)]
 
@@ -728,7 +746,7 @@ $.get({
 
 在 HTML 中呈现 `data-` 特性的方法在示例应用中由 `ClassicMovie` 特性使用。 若要使用此方法添加客户端验证：
 
-1. 为自定义验证特性创建特性适配器类。 从[AttributeAdapterBase \<T> ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2)派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
+1. 为自定义验证特性创建特性适配器类。 从 <xref:Microsoft.AspNetCore.Mvc.DataAnnotations.AttributeAdapterBase%601>派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttributeAdapter.cs?name=snippet_ClassicMovieAttributeAdapter)]
 
@@ -758,7 +776,7 @@ Razor页面：
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup3.cs?name=snippet_DisableClientValidation)]
 
-禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释  。
+禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释。
 
 ## <a name="additional-resources"></a>其他资源
 
