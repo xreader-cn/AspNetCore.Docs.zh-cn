@@ -45,13 +45,13 @@ ms.locfileid: "93060997"
 
 ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 很多同步阻塞调用会导致 [线程池](/archive/blogs/vancem/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall) 不足并降低响应时间。
 
-**请勿** ：
+**请勿**：
 
 * 通过调用 [task. Wait](/dotnet/api/system.threading.tasks.task.wait) 或 [task.](/dotnet/api/system.threading.tasks.task-1.result)来阻止异步执行。
 * 获取通用代码路径中的锁。 当构建为并行运行代码时，ASP.NET Core 应用程序的性能最高。
 * 调用 [任务。运行](/dotnet/api/system.threading.tasks.task.run) 并立即等待。 ASP.NET Core 已在正常线程池线程上运行应用程序代码，因此调用任务。运行仅会导致额外的不必要的线程池计划。 即使计划的代码会阻止线程，任务也不会阻止。
 
-**Do** ：
+**建议做法**：
 
 * 使 [热代码路径](#understand-hot-code-paths) 处于异步状态。
 * 如果异步 API 可用，则异步调用数据访问、i/o 和长时间运行的操作 Api。 不要 **使用**[任务。运行](/dotnet/api/system.threading.tasks.task.run)以使同步 API 成为异步同步。
@@ -72,7 +72,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 建议：
 
 * **请考虑缓存** 经常使用的大型对象。 缓存大型对象会阻止开销较高的分配。
-* 使用 [ArrayPool \<T>](/dotnet/api/system.buffers.arraypool-1)存储大型数组 **来池缓冲区** 。
+* 使用 [ArrayPool \<T>](/dotnet/api/system.buffers.arraypool-1)存储大型数组 **来池缓冲区**。
 * **不要** 在 [热代码路径](#understand-hot-code-paths)上分配很多生存期较短的大型对象。
 
 可以通过查看 [PerfView](https://github.com/Microsoft/perfview) 中的垃圾回收 (GC) 统计信息并进行检查来诊断内存问题，如前面的问题：
@@ -91,9 +91,9 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 * **请** 以异步方式调用所有数据访问 api。
 * 检索的数据 **不** 是必需的。 编写查询以仅返回当前 HTTP 请求所必需的数据。
-* 如果数据可以接受， **请考虑缓存** 经常访问的从数据库或远程服务检索的数据。 使用 [MemoryCache](xref:performance/caching/memory) 或 [microsoft.web.distributedcache](xref:performance/caching/distributed)，具体取决于方案。 有关详细信息，请参阅 <xref:performance/caching/response>。
+* 如果数据可以接受，**请考虑缓存** 经常访问的从数据库或远程服务检索的数据。 使用 [MemoryCache](xref:performance/caching/memory) 或 [microsoft.web.distributedcache](xref:performance/caching/distributed)，具体取决于方案。 有关详细信息，请参阅 <xref:performance/caching/response>。
 * **尽量减少** 网络往返次数。 目标是使用单个调用而不是多个调用来检索所需数据。
-* 在访问数据时， **请不要** 在 Entity Framework Core 中使用 [无跟踪查询](/ef/core/querying/tracking#no-tracking-queries)。 EF Core 可以更有效地返回无跟踪查询的结果。
+* 当出于只读目的访问数据时，**请** 在Entity Framework Core中使用 [无跟踪查询](/ef/core/querying/tracking#no-tracking-queries)。 EF Core可以更有效地返回无跟踪查询的结果。
 * 使用、或语句 **(筛选和** 聚合 LINQ 查询 `.Where` `.Select` `.Sum` ，例如) ，以便数据库执行筛选。
 * **请考虑 EF Core** 在客户端上解析一些查询运算符，这可能导致查询执行效率低下。 有关详细信息，请参阅 [客户端评估性能问题](/ef/core/querying/client-eval#client-evaluation-performance-issues)。
 * **不要** 对集合使用投影查询，这可能会导致执行 "N + 1" 个 SQL 查询。 有关详细信息，请参阅 [相关子查询的优化](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries)。
@@ -118,7 +118,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 ## <a name="keep-common-code-paths-fast"></a>快速保持通用代码路径
 
-您希望所有代码的速度都很快。 经常称为 "代码路径" 是最重要的。 这些方法包括：
+您希望所有代码的速度都很快。 经常称为 "代码路径" 是最重要的。 其中包括：
 
 * 应用程序的请求处理管道中的中间件组件，尤其是在管道早期运行的中间件。 这些组件会对性能产生很大的影响。
 * 针对每个请求或每个请求多次执行的代码。 例如，自定义日志记录、授权处理程序或暂时性服务的初始化。
@@ -165,7 +165,7 @@ ASP.NET Core 的每个新版本都包括性能改进。 .NET Core 和 ASP.NET Co
 建议：
 
 * **不要** 使用引发或捕获异常作为正常程序流的方法，尤其是在 [热代码路径](#understand-hot-code-paths)中。
-* 在应用程序 **中包括逻辑** ，以检测和处理会导致异常的情况。
+* 在应用程序 **中包括逻辑**，以检测和处理会导致异常的情况。
 * **引发或** 捕获异常或意外情况的异常。
 
 应用诊断工具（如 Application Insights）可帮助识别应用中可能影响性能的常见异常。
@@ -252,7 +252,7 @@ ASP.NET Core 中的所有 i/o 都是异步的。 服务器实现 `Stream` 了接
 
 ## <a name="do-not-store-ihttpcontextaccessorhttpcontext-in-a-field"></a>不要在字段中存储 IHttpContextAccessor
 
-[IHttpContextAccessor.HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) `HttpContext` 从请求线程访问时，IHttpContextAccessor 将返回活动请求的。 `IHttpContextAccessor.HttpContext`**不** 应存储在字段或变量中。
+[](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) `HttpContext` 从请求线程访问时，IHttpContextAccessor 将返回活动请求的。 `IHttpContextAccessor.HttpContext`**不** 应存储在字段或变量中。
 
 请勿 **执行此操作：** 下面的示例将存储 `HttpContext` 在字段中，并稍后尝试使用它。
 
