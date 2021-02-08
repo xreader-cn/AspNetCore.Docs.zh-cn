@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 97ee00dd37ed4eef1c013e0f45b598a79f3f260c
-ms.sourcegitcommit: 3f0ad1e513296ede1bff39a05be6c278e879afed
+ms.openlocfilehash: 62c9d1a58e0f771d91e2bc57f39ec5ebb25baaed
+ms.sourcegitcommit: 37186f76e4a50d7fb7389026dd0e5e234b51ebb2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "96035861"
+ms.lasthandoff: 02/04/2021
+ms.locfileid: "99541363"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -112,7 +112,7 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的键  。 例�
 
 配置数据指南：
 
-请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。 [机密管理器](xref:security/app-secrets)工具可用于存储开发环境中的机密。
+* 请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。 [机密管理器](xref:security/app-secrets)工具可用于存储开发环境中的机密。
 * 不要在开发或测试环境中使用生产机密。
 * 请在项目外部指定机密，避免将其意外提交到源代码存储库。
 
@@ -449,13 +449,13 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
   * `reloadOnChange: true`：保存更改后会重载文件。
 * 读取 MyConfig.json 文件之前的[默认配置提供程序](#default)。 MyConfig.json 文件中的设置会替代默认配置提供程序中的设置，包括[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)。
 
-通常，你不会希望自定义 JSON 文件替代在[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中设置的值。
+通常情况下，你不会希望自定义 JSON 文件替代在[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中设置的值。
 
 以下代码会清除所有配置提供程序并添加多个配置提供程序：
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON2.cs?name=snippet)]
 
-在前面的代码中，MyConfig.json 和 MyConfig.`Environment`.json 文件中的设置 ：
+在前面的代码中，MyConfig.json 和 MyConfig.`Environment`.json 文件中的设置  ：
 
 * 会替代 appsettings.json 和 appsettings.`Environment`.json 文件中的设置  。
 * 会被[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中的设置所替代。
@@ -727,7 +727,7 @@ Extensions/EntityFrameworkExtensions.cs：
 
 有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。
 
-## <a name="access-configuration-in-no-locrazor-pages"></a>访问 Razor Pages 中的配置
+## <a name="access-configuration-in-razor-pages"></a>访问 Razor Pages 中的配置
 
 以下代码显示 Razor Pages 中的配置数据：
 
@@ -805,7 +805,7 @@ Extensions/EntityFrameworkExtensions.cs：
 
 ## <a name="additional-resources"></a>其他资源
 
-* [配置源代码](https://github.com/dotnet/extensions/tree/master/src/Configuration)
+* [配置源代码](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.Extensions.Configuration)
 * <xref:fundamentals/configuration/options>
 * <xref:blazor/fundamentals/configuration>
 
@@ -1839,7 +1839,7 @@ public class Startup
 
 有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。
 
-## <a name="access-configuration-in-a-no-locrazor-pages-page-or-mvc-view"></a>在 Razor Pages 页面或 MVC 视图中访问配置
+## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a>在 Razor Pages 页面或 MVC 视图中访问配置
 
 若要访问 Razor Pages 页面或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) 命名空间添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入该页面或视图。
 
