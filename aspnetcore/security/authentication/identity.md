@@ -17,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: ad4184fce494ba06acf7e583a42a54d04d37ea20
-ms.sourcegitcommit: 92439194682dc788b8b5b3a08bd2184dc00e200b
+ms.openlocfilehash: 266781d0abc564952e124bc6eca3805c07592251
+ms.sourcegitcommit: 50d3e939a90c5480df480f651dda032901468dd5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2020
-ms.locfileid: "96556640"
+ms.lasthandoff: 02/08/2021
+ms.locfileid: "99819050"
 ---
-# <a name="introduction-to-no-locidentity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
+# <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -39,7 +39,7 @@ ASP.NET Core Identity:
 
 [!INCLUDE[](~/includes/requireAuth.md)]
 
-GitHub 上提供了[ Identity 源代码](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)。 [基架 Identity ](xref:security/authentication/scaffold-identity)并查看生成的文件以查看与的模板交互 Identity 。
+GitHub 上提供了[ Identity 源代码](https://github.com/dotnet/AspNetCore/tree/main/src/Identity)。 [基架 Identity ](xref:security/authentication/scaffold-identity)并查看生成的文件以查看与的模板交互 Identity 。
 
 Identity 通常使用 SQL Server 数据库配置以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
 
@@ -63,7 +63,7 @@ Identity 通常使用 SQL Server 数据库配置以存储用户名、密码和�
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 " **文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 " **更改身份验证**"。
 * 选择 **单个用户帐户** ，然后单击 **"确定"**。
 
@@ -81,7 +81,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
+生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如： 。
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -119,7 +119,7 @@ dotnet ef database update
 
 <a name="pw"></a>
 
-### <a name="configure-no-locidentity-services"></a>配置 Identity 服务
+### <a name="configure-identity-services"></a>配置 Identity 服务
 
 中添加了服务 `ConfigureServices` 。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
 
@@ -214,7 +214,7 @@ Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-cshtml[](identity/sample/WebApp3/Pages/Shared/_LoginPartial.cshtml?highlight=15)]
 
-## <a name="test-no-locidentity"></a>考试 Identity
+## <a name="test-identity"></a>考试 Identity
 
 默认 web 项目模板允许匿名访问主页。 若要测试 Identity ，请添加 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) ：
 
@@ -222,20 +222,20 @@ Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 如果已登录，请注销。运行应用并选择 " **隐私** " 链接。 将被重定向到登录页。
 
-### <a name="explore-no-locidentity"></a>浏览 Identity
+### <a name="explore-identity"></a>浏览 Identity
 
 Identity了解更多详细信息：
 
 * [创建完全标识 UI 源](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * 检查每个页面的源，并单步执行调试程序。
 
-## <a name="no-locidentity-components"></a>Identity 组分
+## <a name="identity-components"></a>Identity 组分
 
 所有 Identity 相关的 NuGet 包都包含在 [ASP.NET Core 共享框架](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework)中。
 
 的主包为 Identity [AspNetCore。 Identity ](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/) 此包包含的核心接口集 ASP.NET Core Identity ，由提供 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 。
 
-## <a name="migrating-to-no-locaspnet-core-identity"></a>迁移到 ASP.NET Core Identity
+## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET Core Identity
 
 有关迁移现有存储的详细信息和指南 Identity ，请参阅[迁移身份验证 Identity 和](xref:migration/identity)。
 
@@ -243,7 +243,7 @@ Identity了解更多详细信息：
 
 有关设置最小密码要求的示例，请参阅 [配置](#pw) 。
 
-## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault Identity 并添加Identity
+## <a name="adddefaultidentity-and-addidentity"></a>AddDefault Identity 并添加Identity
 
 <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> 是在 ASP.NET Core 2.1 中引入的。 调用 `AddDefaultIdentity` 类似于调用以下内容：
 
@@ -253,7 +253,7 @@ Identity了解更多详细信息：
 
 有关详细信息，请参阅 [AddDefault Identity 源](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63) 。
 
-## <a name="prevent-publish-of-static-no-locidentity-assets"></a>禁止发布静态 Identity 资产
+## <a name="prevent-publish-of-static-identity-assets"></a>禁止发布静态 Identity 资产
 
 若要防止将静态 Identity 资产发布 (用于 UI) 的用户的样式和 JavaScript 文件 Identity ，请将以下 `ResolveStaticWebAssetsInputsDependsOn` 属性和目标添加 `RemoveIdentityAssets` 到应用的项目文件中：
 
@@ -300,7 +300,7 @@ Identity 可以使用 SQL Server 数据库配置以存储用户名、密码和�
 
 <a name="adi"></a>
 
-## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault Identity 并添加Identity
+## <a name="adddefaultidentity-and-addidentity"></a>AddDefault Identity 并添加Identity
 
 <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> 是在 ASP.NET Core 2.1 中引入的。 调用 `AddDefaultIdentity` 类似于调用以下内容：
 
@@ -317,7 +317,7 @@ Identity 可以使用 SQL Server 数据库配置以存储用户名、密码和�
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 " **文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 " **更改身份验证**"。
 * 选择 **单个用户帐户** ，然后单击 **"确定"**。
 
@@ -329,7 +329,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
+生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如： 。
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -363,7 +363,7 @@ dotnet ef database update
 
 <a name="pw"></a>
 
-### <a name="configure-no-locidentity-services"></a>配置 Identity 服务
+### <a name="configure-identity-services"></a>配置 Identity 服务
 
 中添加了服务 `ConfigureServices` 。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
 
@@ -431,7 +431,7 @@ Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-cshtml[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
-## <a name="test-no-locidentity"></a>考试 Identity
+## <a name="test-identity"></a>考试 Identity
 
 默认 web 项目模板允许匿名访问主页。 若要进行测试 Identity ，请将添加 [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) 到 "隐私" 页。
 
@@ -439,20 +439,20 @@ Post 在 *Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 如果已登录，请注销。运行应用并选择 " **隐私** " 链接。 将被重定向到登录页。
 
-### <a name="explore-no-locidentity"></a>浏览 Identity
+### <a name="explore-identity"></a>浏览 Identity
 
 Identity了解更多详细信息：
 
 * [创建完全标识 UI 源](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * 检查每个页面的源，并单步执行调试程序。
 
-## <a name="no-locidentity-components"></a>Identity 组分
+## <a name="identity-components"></a>Identity 组分
 
 所有 Identity 相关 NuGet 包都包含在 [AspNetCore 元包](xref:fundamentals/metapackage-app)中。
 
 的主包为 Identity [AspNetCore。 Identity ](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/) 此包包含的核心接口集 ASP.NET Core Identity ，由提供 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 。
 
-## <a name="migrating-to-no-locaspnet-core-identity"></a>迁移到 ASP.NET Core Identity
+## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET Core Identity
 
 有关迁移现有存储的详细信息和指南 Identity ，请参阅[迁移身份验证 Identity 和](xref:migration/identity)。
 
