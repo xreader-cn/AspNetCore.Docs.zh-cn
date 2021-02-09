@@ -1,4 +1,4 @@
-HTTP 尾部类似于 HTTP 标头，只不过它是在发送响应正文后发送的。 IIS 和 HTTP.SYS 仅支持 HTTP/2 响应尾部。
+HTTP 尾部类似于 HTTP 标头，只不过它是在发送响应正文后发送的。 IIS 和 HTTP.sys 仅支持 HTTP/2 响应尾部。
 
 ```csharp
 if (httpContext.Response.SupportsTrailers())

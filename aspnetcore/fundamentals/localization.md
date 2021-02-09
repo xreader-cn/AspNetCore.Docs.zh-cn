@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 07e2f561b0e9db58780d6e8a271e32b00132b1b5
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 67f245b7f4e4aa97b30c5318c73732617aea44c7
+ms.sourcegitcommit: 7e394a8527c9818caebb940f692ae4fcf2f1b277
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93059515"
+ms.lasthandoff: 01/31/2021
+ms.locfileid: "99217565"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -134,7 +134,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="supportedcultures-and-supporteduicultures"></a>SupportedCultures 和 SupportedUICultures
 
-ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `SupportedUICultures`。 `SupportedCultures` 的 [CultureInfo](/dotnet/api/system.globalization.cultureinfo) 对象可决定区域性相关函数的结果，如日期、时间、数字和货币格式等。 `SupportedCultures` 确定文本的排序顺序、大小写约定和字符串比较。 请参阅 [CultureInfo.CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) 详细了解服务器如何获取区域性。 `SupportedUICultures` 可确定按 [ResourceManager](/dotnet/api/system.resources.resourcemanager) 来查找哪些转换字符串（位于 .resx 文件）。 `ResourceManager` 只需查找 `CurrentUICulture` 决定的区域性特定字符串。 .NET 中的每个线程都具有 `CurrentCulture` 和 `CurrentUICulture` 对象。 呈现区域性相关函数时，ASP.NET Core 可检查这些值。 例如，如果当前线程的区域性设置为“en-US”（英语，美国），`DateTime.Now.ToLongDateString()` 将显示“Thursday, February 18, 2016”，但如果 `CurrentCulture` 设置为“es-ES”（西班牙语，西班牙），则输出将为“jueves，18 de febrero de 2016”。
+ASP.NET Core 允许指定两个区域性值，<xref:Microsoft.AspNetCore.Builder.RequestLocalizationOptions.SupportedCultures> 和 <xref:Microsoft.AspNetCore.Builder.RequestLocalizationOptions.SupportedUICultures>。 `SupportedCultures` 的 <xref:System.Globalization.CultureInfo> 对象可决定区域性相关函数的结果，如日期、时间、数字和货币格式等。 `SupportedCultures` 确定文本的排序顺序、大小写约定和字符串比较。 有关服务器如何获取区域性的详细信息，请参阅 <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=nameWithType> 和 <xref:System.Globalization.CultureInfo.CurrentUICulture?displayProperty=nameWithType>。 `SupportedUICultures` 可确定按 <xref:System.Resources.ResourceManager> 查找的转换字符串（位于 `.resx` 文件中）。 `ResourceManager` 查找 `CurrentUICulture` 决定的区域性特定字符串。 .NET 中的每个线程都具有 `CurrentCulture` 和 `CurrentUICulture` 对象。 呈现区域性相关函数时，框架可检查这些值。 如果当前线程的区域性设置为 `en-US`（英语 (美国)），`DateTime.Now.ToLongDateString()` 将显示 `Thursday, February 18, 2016`；但是，如果 `CurrentCulture` 设置为 `es-ES`（西班牙语 (西班牙)），则输出为 `jueves, 18 de febrero de 2016`。
 
 ## <a name="resource-files"></a>资源文件
 
@@ -177,7 +177,7 @@ Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模
 
 ### <a name="rootnamespaceattribute"></a>RootNamespaceAttribute 
 
-[RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1) 属性在程序集的根命名空间不同于程序集名称时，提供程序集的根命名空间。 
+<xref:Microsoft.Extensions.Localization.RootNamespaceAttribute> 属性在程序集的根命名空间不同于程序集名称时，提供程序集的根命名空间。 
 
 > [!WARNING]
 > 当项目名称不是有效的 .NET 标识符时，可能会发生这种情况。 例如，`my-project-name.csproj` 将使用根命名空间 `my_project_name` 和导致此错误的程序集名称 `my-project-name`。 
@@ -261,7 +261,7 @@ using Microsoft.Extensions.Localization;
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
 
 通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 cookie 设置区域性。 若要创建 cookie，请使用 `MakeCookieValue` 方法。
 
@@ -531,7 +531,7 @@ Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模
 
 ### <a name="rootnamespaceattribute"></a>RootNamespaceAttribute 
 
-[RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1) 属性在程序集的根命名空间不同于程序集名称时，提供程序集的根命名空间。 
+<xref:Microsoft.Extensions.Localization.RootNamespaceAttribute> 属性在程序集的根命名空间不同于程序集名称时，提供程序集的根命名空间。 
 
 > [!WARNING]
 > 当项目名称不是有效的 .NET 标识符时，可能会发生这种情况。 例如，`my-project-name.csproj` 将使用根命名空间 `my_project_name` 和导致此错误的程序集名称 `my-project-name`。 
@@ -617,7 +617,7 @@ http://localhost:5000/?culture=es-MX&ui-culture=es-MX
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
 
 通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 cookie 设置区域性。 若要创建 cookie，请使用 `MakeCookieValue` 方法。
 
@@ -886,7 +886,7 @@ Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模
 
 ### <a name="rootnamespaceattribute"></a>RootNamespaceAttribute 
 
-[RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1) 属性在程序集的根命名空间不同于程序集名称时，提供程序集的根命名空间。 
+<xref:Microsoft.Extensions.Localization.RootNamespaceAttribute> 属性在程序集的根命名空间不同于程序集名称时，提供程序集的根命名空间。 
 
 > [!WARNING]
 > 当项目名称不是有效的 .NET 标识符时，可能会发生这种情况。 例如，`my-project-name.csproj` 将使用根命名空间 `my_project_name` 和导致此错误的程序集名称 `my-project-name`。 
@@ -972,7 +972,7 @@ http://localhost:5000/?culture=es-MX&ui-culture=es-MX
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
 
 通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 cookie 设置区域性。 若要创建 cookie，请使用 `MakeCookieValue` 方法。
 

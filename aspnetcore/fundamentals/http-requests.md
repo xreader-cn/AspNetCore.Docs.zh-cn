@@ -5,7 +5,7 @@ description: 了解如何将 IHttpClientFactory 接口用于管理 ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/09/2020
+ms.date: 1/21/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,18 +19,18 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/http-requests
-ms.openlocfilehash: 34c35daac3da845bac9156fe96078df7902a4cd0
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 1cf3029452f87a396847f969f0f3136a75874752
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93059489"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057325"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
 ::: moniker range=">= aspnetcore-3.0"
 
-作者：[Glenn Condron](https://github.com/glennc)、[Ryan Nowak](https://github.com/rynowak)、[Steve Gordon](https://github.com/stevejgordon)、[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Kirk Larkin](https://github.com/serpent5)
+作者：[Kirk Larkin](https://github.com/serpent5)、[Steve Gordon](https://github.com/stevejgordon)、[Glenn Condron](https://github.com/glennc) 和 [Ryan Nowak](https://github.com/rynowak)。
 
 可以注册 <xref:System.Net.Http.IHttpClientFactory> 并将其用于配置和创建应用中的 <xref:System.Net.Http.HttpClient> 实例。 `IHttpClientFactory` 的优势如下：
 
@@ -58,7 +58,7 @@ ms.locfileid: "93059489"
 
 可以通过调用 `AddHttpClient` 来注册 `IHttpClientFactory`：
 
-[!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
+[!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet1&highlight=13)]
 
 可以使用[依赖项注入 (DI)](xref:fundamentals/dependency-injection) 来请求 `IHttpClientFactory`。 以下代码使用 `IHttpClientFactory` 来创建 `HttpClient` 实例：
 
@@ -238,16 +238,15 @@ public class ValuesController : ControllerBase
 
 `HttpClient` 具有委托处理程序的概念，这些委托处理程序可以链接在一起，处理出站 HTTP 请求。 `IHttpClientFactory`：
 
-* 简化定义应用于各命名客户端的处理程序。
-* 支持注册和链接多个处理程序，以生成出站请求中间件管道。 每个处理程序都可以在出站请求前后执行工作。 此模式：
-
-  * 类似于 ASP.NET Core 中的入站中间件管道。
-  * 提供一种机制来管理有关 HTTP 请求的横切关注点，例如：
-
-    * 缓存
-    * 错误处理
-    * 序列化
-    * 日志记录
+  * 简化定义应用于各命名客户端的处理程序。
+  * 支持注册和链接多个处理程序，以生成出站请求中间件管道。 每个处理程序都可以在出站请求前后执行工作。 此模式：
+  
+    * 类似于 ASP.NET Core 中的入站中间件管道。
+    * 提供一种机制来管理有关 HTTP 请求的横切关注点，例如：
+      * 缓存
+      * 错误处理
+      * 序列化
+      * 日志记录
 
 创建委托处理程序：
 
@@ -262,13 +261,31 @@ public class ValuesController : ControllerBase
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup2.cs?name=snippet1)]
 
-在上述代码中通过 DI 注册了 `ValidateHeaderHandler`。 `IHttpClientFactory` 为每个处理程序创建单独的 DI 作用域。 处理程序可依赖于任何作用域的服务。 处理程序依赖的服务会在处置处理程序时得到处置。
-
-注册后可以调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*>，传入标头的类型。
+在上述代码中通过 DI 注册了 `ValidateHeaderHandler`。 注册后可以调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*>，传入标头的类型。
 
 可以按处理程序应该执行的顺序注册多个处理程序。 每个处理程序都会覆盖下一个处理程序，直到最终 `HttpClientHandler` 执行请求：
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet6)]
+
+### <a name="use-di-in-outgoing-request-middleware"></a>在出站请求中间件中使用 DI
+
+当 `IHttpClientFactory` 创建新的委托处理程序时，它使用 DI 来完成处理程序的构造函数参数。 `IHttpClientFactory` 为每个处理程序创建单独的 DI 范围，当处理程序使用限定范围的服务时，这可能导致意外的行为。
+
+例如，请考虑下面的接口及其实现，它将任务表示为带有标识符 `OperationId` 的操作：
+
+[!code-csharp[](http-requests/samples/3.x/HttpRequestsSample/Models/OperationScoped.cs?name=snippet_Types)]
+
+顾名思义，使用限定范围的生存期向 DI 注册 `IOperationScoped`：
+
+[!code-csharp[](http-requests/samples/3.x/HttpRequestsSample/Startup.cs?name=snippet_IOperationScoped&highlight=18,26)]
+
+以下委托处理程序消耗并使用 `IOperationScoped` 来设置传出请求的 `X-OPERATION-ID` 标头：
+
+[!code-csharp[](http-requests/samples/3.x/HttpRequestsSample/Handlers/OperationHandler.cs?name=snippet_Class&highlight=13)]
+
+在[`HttpRequestsSample`下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples/3.x/HttpRequestsSample)] 中，导航到 `/Operation` 并刷新页面。 每个请求的请求范围值发生更改，但处理程序范围值仅每 5 秒钟更改一次。
+
+处理程序可依赖于任何作用域的服务。 处理程序依赖的服务会在处置处理程序时得到处置。
 
 使用以下方法之一将每个请求状态与消息处理程序共享：
 
@@ -363,7 +380,7 @@ public class ValuesController : ControllerBase
 - `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
 - `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
 
-### <a name="no-loccookies"></a>Cookies
+### <a name="cookies"></a>Cookies
 
 共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 cookie 的应用，请考虑执行以下任一操作：
 
@@ -681,7 +698,7 @@ public class ValuesController : ControllerBase
 - `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
 - `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
 
-### <a name="no-loccookies"></a>Cookies
+### <a name="cookies"></a>Cookies
 
 共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 cookie 的应用，请考虑执行以下任一操作：
 
@@ -989,7 +1006,7 @@ public class ValuesController : ControllerBase
 - `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
 - `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
 
-### <a name="no-loccookies"></a>Cookies
+### <a name="cookies"></a>Cookies
 
 共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 cookie 的应用，请考虑执行以下任一操作：
 

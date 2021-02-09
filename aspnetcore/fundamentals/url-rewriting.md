@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: e7bd5f4d61661dd23eb0907f896d0d32b7799aac
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 55993f951bfe910fb179fdb25b8d04f81d4ee2c9
+ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93061296"
+ms.lasthandoff: 01/29/2021
+ms.locfileid: "99057455"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>ASP.NET Core 中的 URL 重写中间件
 
@@ -290,7 +290,7 @@ public void Configure(IApplicationBuilder app)
 
 #### <a name="unsupported-features"></a>不支持的功能
 
-与 ASP.NET Core 2.x 一同发布的中间件不支持以下 IIS URL 重写模块功能：
+中间件不支持以下 IIS URL 重写模块功能：
 
 * 出站规则
 * 自定义服务器变量

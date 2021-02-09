@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 235daac5c08248ca2052de6b44e66a8162ce23ad
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 161d6aeefe1882b86ce97cdcfa7e5b23048693f0
+ms.sourcegitcommit: 7e394a8527c9818caebb940f692ae4fcf2f1b277
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93051234"
+ms.lasthandoff: 01/31/2021
+ms.locfileid: "99217500"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -53,11 +53,11 @@ Blazor 框架支持的方案：
 
 Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor Server在 ASP.NET Core 应用中支持在服务器上托管 Razor 组件。 可通过 SignalR 连接处理 UI 更新。 ASP.NET Core 3.0 支持 Blazor Server。
 
-### <a name="no-locblazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
+### <a name="blazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
 
 还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 Blazor 应用。 Blazor WebAssembly 处于预览版阶段，ASP.NET Core 3.0 不提供支持。 ASP.NET Core 的未来版本将支持 Blazor WebAssembly。
 
-### <a name="no-locrazor-components"></a>Razor 组件
+### <a name="razor-components"></a>Razor 组件
 
 Blazor 应用是基于组件构建的。 组件是自包含的用户界面 (UI) 块，例如页、对话框或窗体。 组件是定义 UI 呈现逻辑和客户端事件处理程序的普通 .NET 类。 无需 JavaScript 即可创建丰富的交互式 Web 应用。
 
@@ -324,14 +324,14 @@ ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列�
 
 若要将 Json.NET 添加到 ASP.NET Core 3.0，请参阅[添加基于 Newtonsoft.Json 的 JSON 格式支持](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support)。
 
-## <a name="new-no-locrazor-directives"></a>新的 Razor 指令
+## <a name="new-razor-directives"></a>新的 Razor 指令
 
 下面的列表包含新的 Razor 指令：
 
 * [`@attribute`](xref:mvc/views/razor#attribute)：`@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
 * [`@implements`](xref:mvc/views/razor#implements)：`@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
 
-## <a name="no-locidentityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
+## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
 
 ASP.NET Core 3.0 使用 Web API 授权的支持在单页应用 (SPA) 中提供身份验证。 ASP.NET Core Identity 与 [IdentityServer4](https://identityserver.io/) 结合使用，前者用于验证和存储用户身份信息，后者用于实现 OpenID Connect。
 
@@ -376,7 +376,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 默认的用户主体是从证书属性构造的。 用户主体包含允许补充或替换主体的事件。 有关详细信息，请参阅 <xref:security/authentication/certauth>。
 
-[Windows 身份验证](/windows-server/security/windows-authentication/windows-authentication-overview)已扩展到 Linux 和 macOS。 在以前的版本中，Windows 身份验证限制为 [IIS](xref:host-and-deploy/iis/index) 和 [HttpSys](xref:fundamentals/servers/httpsys)。 在 ASP.NET Core 3.0 中，[Kestrel](xref:fundamentals/servers/kestrel) 能够在 Windows、Linux 和 macOS 上对已加入 Windows 域的主机使用 Negotiate、[Kerberos](/windows-server/security/kerberos/kerberos-authentication-overview) 和 [NTLM](/windows-server/security/kerberos/ntlm-overview)。 Kestrel 对这些身份验证方案的支持由 [Microsoft.AspNetCore.Authentication.Negotiate NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) 包提供。 对于其他身份验证服务，请配置身份验证应用范围，然后配置服务：
+[Windows 身份验证](/windows-server/security/windows-authentication/windows-authentication-overview)已扩展到 Linux 和 macOS。 在以前的版本中，Windows 身份验证限制为 [IIS](xref:host-and-deploy/iis/index) 和 [HTTP.sys](xref:fundamentals/servers/httpsys)。 在 ASP.NET Core 3.0 中，[Kestrel](xref:fundamentals/servers/kestrel) 能够在 Windows、Linux 和 macOS 上对已加入 Windows 域的主机使用 Negotiate、[Kerberos](/windows-server/security/kerberos/kerberos-authentication-overview) 和 [NTLM](/windows-server/security/kerberos/ntlm-overview)。 Kestrel 对这些身份验证方案的支持由 [Microsoft.AspNetCore.Authentication.Negotiate NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) 包提供。 对于其他身份验证服务，请配置身份验证应用范围，然后配置服务：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

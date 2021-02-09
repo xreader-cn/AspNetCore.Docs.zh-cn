@@ -4,7 +4,7 @@ author: juntaoluo
 description: 了解使用 ASP.NET Core 编写 gRPC 服务时的基本概念。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 01/14/2021
+ms.date: 01/29/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/aspnetcore
-ms.openlocfilehash: 44a6f1d2a25314460fa4bce469f697a2fa4c0825
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: f17ba247747f906cf026fc0f7bc04d51f4c8cb2a
+ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98252846"
+ms.lasthandoff: 02/03/2021
+ms.locfileid: "99530198"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
@@ -77,22 +77,41 @@ gRPC 需要 [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) �
 
 ASP.NET Core 中间件和功能共享路由管道，因此可以将应用配置为提供其他请求处理程序。 其他请求处理程序（如 MVC 控制器）与已配置的 gRPC 服务并行工作。
 
+## <a name="server-options"></a>服务器选项
+
+gRPC 服务可由所有内置 ASP.NET Core 服务器托管。
+
+> [!div class="checklist"]
+>
+> * Kestrel
+> * TestServer
+> * IIS&dagger;
+> * HTTP.sys&Dagger;
+
+&dagger;IIS 需要 .NET 5 和 Windows 10 内部版本 20241 或更高版本。
+
+&Dagger;HTTP.sys 需要 .NET 5 和 Windows 10 内部版本 19529 或更高版本。
+
+有关为 ASP.NET Core 应用选择正确的服务器的详细信息，请参阅 <xref:fundamentals/servers/index>。
+
 ::: moniker range=">= aspnetcore-5.0"
 
-### <a name="configure-kestrel"></a>配置 Kestrel
+## <a name="kestrel"></a>Kestrel
+
+[Kestrel](xref:fundamentals/servers/kestrel) 是一个跨平台的适用于 ASP.NET Core 的 Web 服务器。 Kestrel 提供了最佳性能和内存利用率，但它没有 HTTP.sys 中的某些高级功能，如端口共享。
 
 Kestrel gRPC 终结点：
 
 * 需要 HTTP/2。
 * 应使用[传输层安全性 (TLS)](https://tools.ietf.org/html/rfc5246) 进行保护。
 
-#### <a name="http2"></a>HTTP/2
+### <a name="http2"></a>HTTP/2
 
 gRPC 需要 HTTP/2。 适用于 ASP.NET Core 的 gRPC 验证 [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol%2A) 为 `HTTP/2`。
 
 Kestrel 在大多数新式操作系统上[支持 HTTP/2](xref:fundamentals/servers/kestrel/http2)。 默认情况下，Kestrel 终结点配置为支持 HTTP/1.1 和 HTTP/2 连接。
 
-#### <a name="tls"></a>TLS
+### <a name="tls"></a>TLS
 
 用于 gRPC 的 Kestrel 终结点应使用 TLS 进行保护。 在开发环境中，当存在 ASP.NET Core 开发证书时，会在 `https://localhost:5001` 自动创建使用 TLS 进行保护的终结点。 不需要任何配置。 `https` 前缀验证 Kestrel 终结点是否正在使用 TLS。
 
@@ -104,7 +123,7 @@ Kestrel 在大多数新式操作系统上[支持 HTTP/2](xref:fundamentals/serve
 
 [!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
 
-#### <a name="protocol-negotiation"></a>协议协商
+### <a name="protocol-negotiation"></a>协议协商
 
 TLS 的用途不仅限于保护通信。 当终结点支持多个协议时，TLS [应用程序层协议协商 (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) 握手可用于协商客户端与服务器之间的连接协议。 此协商确定连接是使用 HTTP/1.1 还是 HTTP/2。
 
@@ -115,24 +134,38 @@ TLS 的用途不仅限于保护通信。 当终结点支持多个协议时，TLS
 > [!NOTE]
 > macOS 不支持 ASP.NET Core gRPC 及 TLS。 在 macOS 上成功运行 gRPC 服务需要其他配置。 有关详细信息，请参阅[无法在 macOS 上启用 ASP.NET Core gRPC 应用](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)。
 
+## <a name="iis"></a>IIS
+
+[Internet Information Services (IIS)](xref:host-and-deploy/iis/index) 是一种灵活、安全且可管理的 Web 服务器，用于托管 Web 应用（包括 ASP.NET Core）。 需要 .NET 5 和 Windows 10 内部版本 20241 或更高版本，才能使用 IIS 托管 gRPC 服务。
+
+必须将 IIS 配置为使用 TLS 和 HTTP/2。 有关详细信息，请参阅 <xref:host-and-deploy/iis/protocols>。
+
+## <a name="httpsys"></a>HTTP.sys
+
+[HTTP.sys](xref:fundamentals/servers/httpsys) 是仅在 Windows 上运行的适用于 ASP.NET Core 的 Web 服务器。 需要 .NET 5 和 Windows 10 内部版本 20241 或更高版本，才能使用 HTTP.sys 托管 gRPC 服务。
+
+必须将 HTTP.sys 配置为使用 TLS 和 HTTP/2。 有关详细信息，请参阅 [HTTP.sys Web 服务器 HTTP/2 支持](xref:fundamentals/servers/httpsys#http2-support)。
+
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-5.0"
 
-### <a name="configure-kestrel"></a>配置 Kestrel
+## <a name="kestrel"></a>Kestrel
+
+[Kestrel](xref:fundamentals/servers/kestrel) 是一个跨平台的适用于 ASP.NET Core 的 Web 服务器。 Kestrel 提供了最佳性能和内存利用率，但它没有 HTTP.sys 中的某些高级功能，如端口共享。
 
 Kestrel gRPC 终结点：
 
 * 需要 HTTP/2。
 * 应使用[传输层安全性 (TLS)](https://tools.ietf.org/html/rfc5246) 进行保护。
 
-#### <a name="http2"></a>HTTP/2
+### <a name="http2"></a>HTTP/2
 
 gRPC 需要 HTTP/2。 适用于 ASP.NET Core 的 gRPC 验证 [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol%2A) 为 `HTTP/2`。
 
 Kestrel 在大多数新式操作系统上[支持 HTTP/2](xref:fundamentals/servers/kestrel#http2-support)。 默认情况下，Kestrel 终结点配置为支持 HTTP/1.1 和 HTTP/2 连接。
 
-#### <a name="tls"></a>TLS
+### <a name="tls"></a>TLS
 
 用于 gRPC 的 Kestrel 终结点应使用 TLS 进行保护。 在开发环境中，当存在 ASP.NET Core 开发证书时，会在 `https://localhost:5001` 自动创建使用 TLS 进行保护的终结点。 不需要任何配置。 `https` 前缀验证 Kestrel 终结点是否正在使用 TLS。
 
@@ -144,7 +177,7 @@ Kestrel 在大多数新式操作系统上[支持 HTTP/2](xref:fundamentals/serve
 
 [!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
 
-#### <a name="protocol-negotiation"></a>协议协商
+### <a name="protocol-negotiation"></a>协议协商
 
 TLS 的用途不仅限于保护通信。 当终结点支持多个协议时，TLS [应用程序层协议协商 (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) 握手可用于协商客户端与服务器之间的连接协议。 此协商确定连接是使用 HTTP/1.1 还是 HTTP/2。
 
