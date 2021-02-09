@@ -105,9 +105,9 @@
         - name: 使用 TypeScript 的 SignalR
           displayName: tutorial
           uid: tutorials/signalr-typescript-webpack
-        - name: 使用 Blazor WebAssembly 的 SignalR
+        - name: 使用 Blazor 的 SignalR
           displayName: tutorial
-          uid: tutorials/signalr-blazor-webassembly
+          uid: tutorials/signalr-blazor
     - name: 远程过程调用应用
       items:
         - name: 开始使用 gRPC 服务
@@ -308,8 +308,8 @@
           items:
             - name: 生成 Blazor 待办事项列表应用
               uid: tutorials/build-a-blazor-app
-            - name: 使用 Blazor WebAssembly 的 SignalR
-              uid: tutorials/signalr-blazor-webassembly
+            - name: 使用 Blazor 的 SignalR
+              uid: tutorials/signalr-blazor
         - name: 项目结构
           uid: blazor/project-structure
         - name: 基础知识
@@ -625,8 +625,8 @@
           uid: tutorials/signalr
         - name: 使用 TypeScript 的 SignalR
           uid: tutorials/signalr-typescript-webpack
-        - name: 使用 Blazor WebAssembly 的 SignalR
-          uid: tutorials/signalr-blazor-webassembly
+        - name: 使用 Blazor 的 SignalR
+          uid: tutorials/signalr-blazor
     - name: 示例
       href: 'https://github.com/aspnet/SignalR-samples'
       displayName: signalr
@@ -748,7 +748,7 @@
           uid: grpc/deadlines-cancellation
     - name: 使用 ASP.NET Core 的 gRPC 服务
       uid: grpc/aspnetcore
-    - name: 支持的平台
+    - name: 受支持的平台
       uid: grpc/supported-platforms
     - name: 在浏览器应用中使用 gRPC
       uid: grpc/browser
