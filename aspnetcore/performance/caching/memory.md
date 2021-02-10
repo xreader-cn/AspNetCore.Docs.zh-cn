@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/memory
-ms.openlocfilehash: 9b19c782d1d42ddaba590f05bab31899402f681a
-ms.sourcegitcommit: 6af9016d1ffc2dffbb2454c7da29c880034cefcd
+ms.openlocfilehash: 19e8dc0ae4d5f8fd28d03d5be87c0b1bbf32d940
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/08/2020
-ms.locfileid: "96901218"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100107215"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 中的缓存内存
 
@@ -51,7 +51,7 @@ Web 场中的非粘滞会话需要 [分布式缓存](distributed.md) ，以避�
 * 面向 .NET Standard 2.0 或更高版本的任何 [.net 实现](/dotnet/standard/net-standard#net-implementation-support) 。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` 建议使用 (本文中所述) ， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
+[](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` 建议使用 (本文中所述) ， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
 
 将 `System.Runtime.Caching` / `MemoryCache` ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，请使用作为兼容性桥。
 
@@ -181,7 +181,7 @@ Web 场中的非粘滞会话需要 [分布式缓存](distributed.md) ，以避�
 
 ## <a name="additional-notes"></a>附加说明
 
-* 不会在后台进行过期。 没有计时器可主动扫描过期项目的缓存。 缓存上的任何活动 (`Get` ， `Set` `Remove`) 可以触发过期项的后台扫描。  (上的计时器 `CancellationTokenSource` <xref:System.Threading.CancellationTokenSource.CancelAfter*>) 还会删除项并触发扫描过期项。 下面的示例将 [CancellationTokenSource (TimeSpan) ](/dotnet/api/system.threading.cancellationtokensource.-ctor) 用于注册的令牌。 此令牌激发后，会立即删除该条目，并激发逐出回调：
+* 不会在后台进行过期。 没有计时器可主动扫描过期项目的缓存。 缓存上的任何活动 (`Get` ， `Set` `Remove`) 可以触发过期项的后台扫描。  (上的计时器 `CancellationTokenSource` <xref:System.Threading.CancellationTokenSource.CancelAfter*>) 还会删除项，并触发扫描过期项。 下面的示例将 [CancellationTokenSource (TimeSpan) ](/dotnet/api/system.threading.cancellationtokensource.-ctor) 用于注册的令牌。 此令牌激发后，会立即删除该条目，并激发逐出回调：
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ae)]
 
@@ -235,7 +235,7 @@ Web 场中的非粘滞会话需要 [分布式缓存](distributed.md) ，以避�
 * 面向 .NET Standard 2.0 或更高版本的任何 [.net 实现](/dotnet/standard/net-standard#net-implementation-support) 。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` 建议使用 (本文中所述) ， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
+[](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` 建议使用 (本文中所述) ， `System.Runtime.Caching` / `MemoryCache` 因为它更好地集成到 ASP.NET Core 中。 例如， `IMemoryCache` 使用 ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection)本身工作。
 
 将 `System.Runtime.Caching` / `MemoryCache` ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，请使用作为兼容性桥。
 

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: ee30ef89c5d7aeae83f23a81eb02235397c89ac2
-ms.sourcegitcommit: 75db2f684a9302b0be7925eab586aa091c6bd19f
+ms.openlocfilehash: 79457d55e0dcda342bc0017bb386c23525666657
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2021
-ms.locfileid: "99238312"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100107189"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -192,12 +192,12 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 | 序列 | 筛选器作用域 | 筛选器方法 |
 |:--------:|:------------:|:-------------:|
-| 1 | Global | `OnActionExecuting` |
+| 1 | 全球 | `OnActionExecuting` |
 | 2 | 控制器或 Razor 页面| `OnActionExecuting` |
 | 3 | 方法 | `OnActionExecuting` |
 | 4 | 方法 | `OnActionExecuted` |
 | 5 | 控制器或 Razor 页面 | `OnActionExecuted` |
-| 6 | Global | `OnActionExecuted` |
+| 6 | 全球 | `OnActionExecuted` |
 
 ### <a name="controller-level-filters"></a>控制器级别筛选器
 
@@ -403,7 +403,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 资源筛选器示例：
 
 * 之前显示的[短路资源筛选器](#short-circuiting-resource-filter)。
-* [DisableFormValueModelBindingAttribute](https://github.com/aspnet/Entropy/blob/rel/2.0.0-preview2/samples/Mvc.FileUpload/Filters/DisableFormValueModelBindingAttribute.cs)：
+* [DisableFormValueModelBindingAttribute](https://github.com/aspnet/Entropy/blob/master/samples/Mvc.FileUpload/Filters/DisableFormValueModelBindingAttribute.cs)：
 
   * 可以防止模型绑定访问表单数据。
   * 用于上传大型文件，以防止表单数据被读入内存。
@@ -558,11 +558,11 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 `IFilterFactory.IsReusable`:
 
 * 出厂时，由工厂创建的筛选器实例可在创建它的请求范围之外重复使用的提示。
-* ***Not** _ 应与依赖于非单一生存期的服务的筛选器一起使用。
+* ***不*** 应与依赖于非单一生存期的服务的筛选器一起使用。
 
 ASP.NET Core 运行时不保证：
 
-_ 将创建筛选器的单个实例。
+* 将创建筛选器的单一实例。
 * 稍后不会从 DI 容器重新请求筛选器。
 
 > [!WARNING] 
@@ -751,19 +751,19 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 | 序列 | 筛选器作用域 | 筛选器方法 |
 |:--------:|:------------:|:-------------:|
-| 1 | Global | `OnActionExecuting` |
+| 1 | 全球 | `OnActionExecuting` |
 | 2 | 控制器 | `OnActionExecuting` |
 | 3 | 方法 | `OnActionExecuting` |
 | 4 | 方法 | `OnActionExecuted` |
 | 5 | 控制器 | `OnActionExecuted` |
-| 6 | Global | `OnActionExecuted` |
+| 6 | 全球 | `OnActionExecuted` |
 
 此序列显示：
 
 * 方法筛选器已嵌套在控制器筛选器中。
 * 控制器筛选器已嵌套在全局筛选器中。
 
-### <a name="controller-and-no-locrazor-page-level-filters"></a>控制器和 Razor 页级筛选器
+### <a name="controller-and-razor-page-level-filters"></a>控制器和 Razor 页级筛选器
 
 继承自 <xref:Microsoft.AspNetCore.Mvc.Controller> 基类的每个控制器包括 [Controller.OnActionExecuting](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuting*)、[Controller.OnActionExecutionAsync](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*) 和 [Controller.OnActionExecuted](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuted*)
 `OnActionExecuted` 方法。 这些方法：
@@ -813,8 +813,8 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 |:--------:|:------------:|:-----------------:|:-------------:|
 | 1 | 方法 | 0 | `OnActionExecuting` |
 | 2 | 控制器 | 1  | `OnActionExecuting` |
-| 3 | Global | 2  | `OnActionExecuting` |
-| 4 | Global | 2  | `OnActionExecuted` |
+| 3 | 全球 | 2  | `OnActionExecuting` |
+| 4 | 全球 | 2  | `OnActionExecuted` |
 | 5 | 控制器 | 1  | `OnActionExecuted` |
 | 6 | 方法 | 0  | `OnActionExecuted` |
 
