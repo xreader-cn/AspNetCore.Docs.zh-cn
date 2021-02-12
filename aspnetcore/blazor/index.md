@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: bd42ba41c6f599d7c0308febbbde71e0d060cc84
-ms.sourcegitcommit: 20a41c8e40a2e69e99291e2fe18caa04c02e7109
+ms.openlocfilehash: d42136de00ccc9b7565c5ae088e1ecf4560a63c5
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/05/2021
-ms.locfileid: "99578290"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100106877"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor 简介
 
@@ -148,8 +148,9 @@ WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性，通常
 
 Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor Server在 ASP.NET Core 应用中支持在服务器上托管 Razor 组件。 可通过 [SignalR](xref:signalr/introduction) 连接处理 UI 更新。
 
-运行时会处理以下事件：
+运行时停留在服务器上并处理：
 
+* 执行应用的 C# 代码。
 * 将 UI 事件从浏览器发送到服务器。
 * 将 UI 更新应用于服务器发送回的已呈现的组件。
 

@@ -326,8 +326,10 @@
               uid: blazor/fundamentals/logging
             - name: 处理错误
               uid: blazor/fundamentals/handle-errors
-            - name: 其他方案
-              uid: blazor/fundamentals/additional-scenarios
+            - name: SignalR
+              uid: blazor/fundamentals/signalr
+            - name: 静态文件
+              uid: blazor/fundamentals/static-files
         - name: 组件
           items:
             - name: 概述
@@ -440,6 +442,8 @@
               href: blazor/security/webassembly/index.md#authentication-component
             - name: AuthorizeView
               href: blazor/security/index.md#authorizeview-component
+            - name: CascadingValue
+              href: blazor/components/cascading-values-and-parameters.md#cascadingvalue-component
             - name: InputCheckbox
               href: blazor/forms-validation.md#built-in-forms-components
             - name: InputDate

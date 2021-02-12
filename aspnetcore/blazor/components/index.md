@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: efc73022d0bd8c29595f9bed1c06fe07002eb54a
-ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
+ms.openlocfilehash: 111512916cb7f0a4fc1f17648e2f9c69e366dff3
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2021
-ms.locfileid: "99530094"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100107046"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -268,7 +268,7 @@ namespace BlazorSample
 
 ### <a name="component-parameters"></a>组件参数
 
-组件可以有组件参数，这些参数是使用组件类中包含 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性的简单或复杂公共属性定义的。 使用这些属性在标记中为组件指定参数。
+组件可以有组件参数，这些参数是使用带有 [`[Parameter]` 特性](xref:Microsoft.AspNetCore.Components.ParameterAttribute)的组件类上的简单或复杂公共属性定义的。 使用这些属性在标记中为组件指定参数。
 
 `Components/ChildComponent.razor`:
 
@@ -396,7 +396,7 @@ public string Title { get; set; } = "Panel Title from Child";
        size="50">
 ```
 
-若要接受任意特性，请使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性定义组件参数，并将 <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> 属性设置为 `true`：
+若要接受任意特性，请使用 [`[Parameter]` 特性](xref:Microsoft.AspNetCore.Components.ParameterAttribute)定义组件参数，并将 <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> 属性设置为 `true`：
 
 ```razor
 @code {
@@ -584,7 +584,10 @@ public class NotifierService
 }
 ```
 
-在前面的示例中，`NotifierService` 在 Blazor 的同步上下文之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现排入队列。 有关详细信息，请参阅 <xref:blazor/components/rendering>。
+在上面的示例中：
+
+* `NotifierService` 在 Blazor 的同步上下文之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现排入队列。 有关详细信息，请参阅 <xref:blazor/components/rendering>。
+* 组件实现 <xref:System.IDisposable>，而 `OnNotify` 委托是在 `Dispose` 方法中取消订阅的，在释放组件时，框架会调用此方法。 有关详细信息，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>使用 \@ 键控制是否保留元素和组件
 
@@ -772,7 +775,7 @@ Blazor 框架通常会施加安全的父级到子级参数的赋值：
 
 ## <a name="apply-an-attribute"></a>应用属性
 
-可以通过 [`@attribute`][7] 指令在 Razor 组件中应用属性。 下面的示例将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 特性应用于组件类：
+可以通过 [`@attribute`][7] 指令在 Razor 组件中应用属性。 下面的示例将 [`[Authorize]` 特性](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)应用于组件类：
 
 ```razor
 @page "/"
