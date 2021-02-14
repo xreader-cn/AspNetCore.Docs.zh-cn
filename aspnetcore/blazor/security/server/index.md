@@ -19,20 +19,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 5031273c3395be4365b3a6d239ebce7aaf9b66ac
-ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
+ms.openlocfilehash: 5a3d3c6e06653de7f0d01565444d37013f347a5b
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2021
-ms.locfileid: "98658633"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280313"
 ---
-# <a name="secure-aspnet-core-no-locblazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
-
-作者：[Luke Latham](https://github.com/guardrex)
+# <a name="secure-aspnet-core-blazor-server-apps"></a>保护 ASP.NET Core Blazor Server应用
 
 Blazor Server应用的安全配置方式与 ASP.NET Core 应用相同。 有关详细信息，请参阅 <xref:security/index> 下的文章。 此“概述”下的主题特别适用于 Blazor Server。
 
-## <a name="no-locblazor-server-project-template"></a>Blazor Server项目模板
+## <a name="blazor-server-project-template"></a>Blazor Server项目模板
 
 创建项目后，可配置 Blazor Server项目模板来进行身份验证。
 
@@ -120,14 +118,14 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 ---
 
-## <a name="scaffold-no-locidentity"></a>设置Identity的基架
+## <a name="scaffold-identity"></a>设置Identity的基架
 
 将 Identity 架构到 Blazor Server项目中：
 
 * [当前没有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-without-existing-authorization)。
 * [有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-with-authorization)。
 
-## <a name="azure-app-service-on-linux-with-no-locidentity-server"></a>使用 Identity 服务器的 Linux 上的 Azure 应用服务
+## <a name="azure-app-service-on-linux-with-identity-server"></a>使用 Identity 服务器的 Linux 上的 Azure 应用服务
 
 使用 Identity 服务器部署到 Linux 上的 Azure 应用服务时，显式指定颁发者。 有关详细信息，请参阅 <xref:security/authentication/identity/spa#azure-app-service-on-linux>。
 

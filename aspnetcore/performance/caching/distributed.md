@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/distributed
-ms.openlocfilehash: 6d87c8de66bf5600189465b96dee903841106b6f
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 6f89046f2e1805111dd81b3282253a72a7c6ea09
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93061140"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100281015"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存
 
@@ -129,12 +129,12 @@ Table and index were created successfully.
 
 [NCache](https://github.com/Alachisoft/NCache) 是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
 
-若要在本地计算机上安装和配置 NCache，请参阅 [适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
+若要在本地计算机上安装和配置 NCache，请参阅 [Windows ( .net 和 .Net Core) 入门指南 ](https://www.alachisoft.com/resources/docs/ncache/getting-started-guide-windows/)。
 
 配置 NCache：
 
 1. 安装 [NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
-1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
+1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache/admin-guide/client-config.html)中配置缓存群集。
 1. 将以下代码添加到 `Startup.ConfigureServices`：
 
    ```csharp
@@ -156,7 +156,7 @@ Table and index were created successfully.
 
 示例应用将注入 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 到中 `IndexModel` 供索引页使用。
 
-每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过* 。
+每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过*。
 
 通过选择 " **重置缓存时间** " 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
 
@@ -173,7 +173,7 @@ Table and index were created successfully.
 
 * 现有基础结构
 * 性能要求
-* 成本
+* Cost
 * 团队体验
 
 缓存解决方案通常依赖于内存中的存储以快速检索缓存的数据，但是，内存是有限的资源，并且很昂贵。 仅将常用数据存储在缓存中。
@@ -299,12 +299,12 @@ Table and index were created successfully.
 
 [NCache](https://github.com/Alachisoft/NCache) 是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
 
-若要在本地计算机上安装和配置 NCache，请参阅 [适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
+若要在本地计算机上安装和配置 NCache，请参阅 [Windows ( .net 和 .Net Core) 入门指南 ](https://www.alachisoft.com/resources/docs/ncache/getting-started-guide-windows/)。
 
 配置 NCache：
 
 1. 安装 [NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
-1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
+1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache/admin-guide/client-config.html)中配置缓存群集。
 1. 将以下代码添加到 `Startup.ConfigureServices`：
 
    ```csharp
@@ -326,7 +326,7 @@ Table and index were created successfully.
 
 示例应用将注入 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 到中 `IndexModel` 供索引页使用。
 
-每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过* 。
+每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过*。
 
 通过选择 " **重置缓存时间** " 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
 
@@ -343,7 +343,7 @@ Table and index were created successfully.
 
 * 现有基础结构
 * 性能要求
-* 成本
+* Cost
 * 团队体验
 
 缓存解决方案通常依赖于内存中的存储以快速检索缓存的数据，但是，内存是有限的资源，并且很昂贵。 仅将常用数据存储在缓存中。
@@ -475,12 +475,12 @@ services.AddDistributedRedisCache(options =>
 
 [NCache](https://github.com/Alachisoft/NCache) 是在 .NET 和 .net Core 中以本机方式开发的开源内存中分布式缓存。 NCache 在本地工作并配置为分布式缓存群集，适用于在 Azure 或其他托管平台上运行的 ASP.NET Core 应用。
 
-若要在本地计算机上安装和配置 NCache，请参阅 [适用于 Windows 的 NCache 入门指南](https://www.alachisoft.com/resources/docs/ncache-oss/getting-started-guide-windows/)。
+若要在本地计算机上安装和配置 NCache，请参阅 [Windows ( .net 和 .Net Core) 入门指南 ](https://www.alachisoft.com/resources/docs/ncache/getting-started-guide-windows/)。
 
 配置 NCache：
 
 1. 安装 [NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
-1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
+1. 在 [ncconf](https://www.alachisoft.com/resources/docs/ncache/admin-guide/client-config.html)中配置缓存群集。
 1. 将以下代码添加到 `Startup.ConfigureServices`：
 
    ```csharp
@@ -502,7 +502,7 @@ services.AddDistributedRedisCache(options =>
 
 示例应用将注入 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 到中 `IndexModel` 供索引页使用。
 
-每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过* 。
+每次加载索引页时，都会在中检查缓存时间的缓存 `OnGetAsync` 。 如果缓存的时间未过期，则会显示时间。 如果自上一次 () 加载缓存时间之后经过了20秒的时间，则页面显示 *缓存时间已过*。
 
 通过选择 " **重置缓存时间** " 按钮立即将缓存的时间更新为当前时间。 按钮触发 `OnPostResetCachedTime` 处理程序方法。
 
@@ -519,7 +519,7 @@ services.AddDistributedRedisCache(options =>
 
 * 现有基础结构
 * 性能要求
-* 成本
+* Cost
 * 团队体验
 
 缓存解决方案通常依赖于内存中的存储以快速检索缓存的数据，但是，内存是有限的资源，并且很昂贵。 仅将常用数据存储在缓存中。
