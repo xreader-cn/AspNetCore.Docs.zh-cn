@@ -1,3 +1,23 @@
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: c8ab309e1c1d4df407e54761679d43ad44c263e7
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100536350"
+---
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [用于 Visual Studio Code 的 C#（最新版本）](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [!INCLUDE [.NET 5.0 SDK](~/includes/5.0-SDK.md)]
