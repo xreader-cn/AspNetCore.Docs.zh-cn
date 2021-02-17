@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: d3e9cd23a55702bcf9b002dcce556428683afeca
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: e70f3143159a1817e326a95b30e7369a5c9ab025
+ms.sourcegitcommit: f77a7467651bab61b24261da9dc5c1dd75fc1fa9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93052768"
+ms.lasthandoff: 02/17/2021
+ms.locfileid: "100564009"
 ---
-# <a name="aspnet-core-no-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR 托管和缩放
+# <a name="aspnet-core-signalr-hosting-and-scaling"></a>ASP.NET Core SignalR 托管和缩放
 
 作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和 [Tom Dykstra](https://github.com/tdykstra)
 
@@ -52,7 +52,7 @@ Web 服务器可以支持的并发 TCP 连接数受到限制。 标准 HTTP 客�
 
 与连接相关的资源的大量使用 SignalR 会影响托管在同一服务器上的其他 web 应用程序。 当 SignalR 打开并保存最近可用的 TCP 连接时，同一服务器上的其他 web 应用也不会有更多的可用连接。
 
-如果服务器的连接用尽，你会看到随机套接字错误和连接重置错误。 例如： 。
+如果服务器的连接用尽，你会看到随机套接字错误和连接重置错误。 例如：
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
@@ -70,7 +70,7 @@ An attempt was made to access a socket in a way forbidden by its access permissi
 
 解决此问题的方法是 [Azure SignalR 服务](#azure-signalr-service) 和 [Redis 底板](#redis-backplane)。
 
-## <a name="azure-no-locsignalr-service"></a>Azure SignalR 服务
+## <a name="azure-signalr-service"></a>Azure SignalR 服务
 
 Azure SignalR 服务是一种代理，而不是底板。 每次客户端启动与服务器的连接时，客户端都将被重定向以连接到服务。 下图说明了该过程：
 
@@ -201,10 +201,11 @@ http {
 有关 Nginx ASP.NET Core 的详细信息，请参阅以下文章：
 * <xref:host-and-deploy/linux-nginx>
 
-## <a name="third-party-no-locsignalr-backplane-providers"></a>第三方 SignalR 底板提供程序
+## <a name="third-party-signalr-backplane-providers"></a>第三方 SignalR 底板提供程序
 
 * [NCache](https://www.alachisoft.com/ncache/asp-net-core-signalr.html)
 * [Orleans](https://github.com/OrleansContrib/SignalR.Orleans)
+* [Rebus](https://github.com/rebus-org/Rebus.SignalR)
 
 ## <a name="next-steps"></a>后续步骤
 
