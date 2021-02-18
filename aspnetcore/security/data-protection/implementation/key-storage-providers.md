@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: e4cf10d09c1629afb298aef0c2b86ad3bf7b646c
-ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
+ms.openlocfilehash: d2f3e9dc7445b59c677f917bbd6c466b5037390c
+ms.sourcegitcommit: 422e8444b9f5cedc373be5efe8032822db54fcaf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/29/2021
-ms.locfileid: "99057364"
+ms.lasthandoff: 02/18/2021
+ms.locfileid: "101101192"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>ASP.NET Core 中的密钥存储提供程序
 
@@ -59,7 +59,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如果 web 应用作为 Azure 服务运行，则可以使用连接字符串通过 [azure](https://docs.microsoft.com/dotnet/api/azure.storage.blobs.blobcontainerclient)对 azure 存储进行身份验证。
+如果 web 应用作为 Azure 服务运行，则可以使用连接字符串通过 [azure](/dotnet/api/azure.storage.blobs.blobcontainerclient)对 azure 存储进行身份验证。
 
 ```csharp
 string connectionString = "<connection_string>";
