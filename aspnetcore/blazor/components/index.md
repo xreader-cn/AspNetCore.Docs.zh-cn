@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 823c24620b369874fdbc3e314b5b08952df83c8b
-ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
+ms.openlocfilehash: 7b4438b4003916488c17d389b9817b5e09d1086c
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2021
-ms.locfileid: "100280104"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100536215"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -285,16 +285,168 @@ public string Title { get; set; } = "Panel Title from Child";
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
-按照约定，使用 [Razor 的保留 `@` 符号](xref:mvc/views/razor#razor-syntax)将构成 C# 代码的特性值赋给参数：
+使用 [Razor 的保留 `@` 符号](xref:mvc/views/razor#razor-syntax)将 C# 字段、属性和方法作为 HTML 属性值分配给组件参数：
 
-* 父字段或属性：`Title="@{FIELD OR PROPERTY}`，其中占位符 `{FIELD OR PROPERTY}` 是父组件的 C# 字段或属性。
-* 方法的结果：`Title="@{METHOD}"`，其中占位符 `{METHOD}` 是父组件的 C# 方法。
-* [隐式或显式表达式](xref:mvc/views/razor#implicit-razor-expressions)：`Title="@({EXPRESSION})"`，其中占位符 `{EXPRESSION}` 是 C# 表达式。
+* 若要将父组件的字段、属性或方法分配给子组件的参数，请使用 `@` 符号作为字段、属性或方法名称的前缀。 若要将[隐式 C# 表达式](xref:mvc/views/razor#implicit-razor-expressions)的结果分配给一个参数，请使用 `@` 符号作为该隐式表达式的前缀。
+
+  以下父组件显示前面一个 `ChildComponent` 组件的四个实例，并将其 `Title` 参数值设置为：
+
+  * `title` 字段的值。
+  * `GetTitle` C# 方法的结果。
+  * 带有 <xref:System.DateTime.ToLongDateString%2A> 的长格式的当前本地日期。
+  * `person` 对象的 `Name` 属性。
+
+  `Pages/ParentComponent.razor`:
+  
+  ```razor
+  <ChildComponent Title="@title">
+      Title from field.
+  </ChildComponent>
+  
+  <ChildComponent Title="@GetTitle()">
+      Title from method.
+  </ChildComponent>
+  
+  <ChildComponent Title="@DateTime.Now.ToLongDateString()">
+      Title from implicit Razor expression.
+  </ChildComponent>
+  
+  <ChildComponent Title="@person.Name">
+      Title from implicit Razor expression.
+  </ChildComponent>
+  
+  @code {
+      private string title = "Panel Title from Parent";
+      private Person person = new Person();
+      
+      private string GetTitle()
+      {
+          return "Panel Title from Parent";
+      }
+      
+      private class Person
+      {
+          public string Name { get; set; } = "Dr. Who";
+      }
+  }
+  ```
+  
+  与 Razor 页面 (`.cshtml`) 不同，在呈现组件时，Blazor 不能在 Razor 表达式中执行异步工作。 这是因为 Blazor 是为呈现交互式 UI 而设计的。 在交互式 UI 中，屏幕必须始终显示某些内容，因此阻止呈现流是没有意义的。 相反，异步工作是在一个[异步生命周期事件](xref:blazor/components/lifecycle)期间执行的。 在每个异步生命周期事件之后，组件可能会再次呈现。 不支持以下 Razor 语法：
+  
+  ```razor
+  <ChildComponent Title="@await ...">
+      ...
+  </ChildComponent>
+  ```
+  
+  如果生成了应用，则前面示例中的代码将生成编译器错误：
+  
+  > “await”运算符只能用于异步方法中。 请考虑用“async”修饰符标记此方法，并将其返回类型更改为“Task”。
+
+  若要在前面的示例中异步获取 `Title` 参数的值，组件可以使用 [`OnInitializedAsync` 生命周期事件](xref:blazor/components/lifecycle#component-initialization-methods)，如以下示例所示：
+  
+  ```razor
+  <ChildComponent Title="@title">
+      Title from implicit Razor expression.
+  </ChildComponent>
+  
+  @code {
+      private string title;
+      
+      protected override async Task OnInitializedAsync()
+      {
+          title = await ...;
+      }
+  }
+  ```
+  
+* 若要将父组件中[显式 C# 表达式](xref:mvc/views/razor#explicit-razor-expressions)的结果分配给子组件的参数，请将该表达式括在括号中，并使用 `@` 符号作为前缀。
+
+  以下子组件具有 <xref:System.DateTime> 组件参数 `ShowItemsSinceDate`。
+  
+  `Shared/ChildComponent.razor`:
+  
+  ```razor
+  <div class="panel panel-default">
+      <div class="panel-heading">Explicit DateTime Expression Example</div>
+      <div class="panel-body">
+          <p>@ChildContent</p>
+          <p>One week ago date: @ShowItemsSinceDate</p>
+      </div>
+  </div>
+
+  @code {
+      [Parameter]
+      public DateTime ShowItemsSinceDate { get; set; }
+
+      [Parameter]
+      public RenderFragment ChildContent { get; set; }
+  }
+  ```
+  
+  下面的父组件使用一个显式 C# 表达式计算出过去一周的日期，并将其赋值给子组件的 `ShowItemsSinceDate` 参数。
+  
+  `Pages/ParentComponent.razor`:
+
+  ```razor
+  <ChildComponent ShowItemsSinceDate="@(DateTime.Now - TimeSpan.FromDays(7))">
+      Title from explicit Razor expression.
+  </ChildComponent>
+  ```
+
+  不支持使用显式表达式连接文本和表达式结果以赋值给参数。 下面的示例试图将文本“SKU-”与父组件的 `product` 对象提供的产品库存号（`SKU` 属性，“库存单位”）连接起来。 尽管 Razor 页面 (`.cshtml`) 支持此语法，但对赋值给子组件的 `Title` 参数无效。
+  
+  ```razor
+  <ChildComponent Title="SKU-@(product.SKU)">
+      Title from composed Razor expression. This doesn't compile.
+  </ChildComponent>
+  ```
+  
+  如果生成了应用，则前面示例中的代码将生成编译器错误：
+  
+  > 组件属性不支持复杂内容（混合 C# 和标记）。
+  
+  若要支持组合值赋值，请使用方法、字段或属性。 下面的示例采用 C# 方法 `GetTitle` 将“SKU-”与产品库存号连接起来：
+  
+  ```razor
+  <ChildComponent Title="@GetTitle()">
+      Composed title from method.
+  </ChildComponent>
+  
+  @code {
+      private Product product = new Product();
+
+      private string GetTitle() => $"SKU-{product.SKU}";
+      
+      private class Product
+      {
+          public string SKU { get; set; } = "12345";
+      }
+  }
+  ```
   
 有关详细信息，请参阅 [ASP.NET Core 的 Razor 语法参考](xref:mvc/views/razor)。
 
 > [!WARNING]
 > 请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[重写参数](#overwritten-parameters)部分。
+
+#### <a name="component-parameters-should-be-auto-properties"></a>组件参数应为自动属性
+
+应将组件参数声明为自动属性，这意味着它们不应在其 getter 或 setter 中包含自定义逻辑。 例如，下面的 `StartData` 属性是自动属性：
+
+```csharp
+[Parameter]
+public DateTime StartData { get; set; }
+```
+
+不要在 `get` 或 `set` 访问器中放置自定义逻辑，因为组件参数专门用作父组件向子组件传送信息的通道。 如果子组件属性的 setter 包含导致父组件重新呈现的逻辑，则会导致一个无限的呈现循环。
+
+如果需要转换已接收的参数值，请执行以下操作：
+
+* 将参数属性保留为纯自动属性，以表示所提供的原始数据。
+* 创建一些其他属性或方法，用于基于参数属性提供转换后的数据。
+
+如果需要在每次收到新数据时转换接收到的参数，可以重写 `OnParametersSetAsync`。
 
 ## <a name="child-content"></a>子内容
 

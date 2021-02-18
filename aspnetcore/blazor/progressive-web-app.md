@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: fcf06295deb41f304b92caa82535a1197c909898
-ms.sourcegitcommit: 75db2f684a9302b0be7925eab586aa091c6bd19f
+ms.openlocfilehash: 515da543fc6b6cca0b90968b154d91b611ea3345
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2021
-ms.locfileid: "99238241"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280547"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>利用 ASP.NET Core Blazor WebAssembly 生成渐进式 Web 应用程序
-
-作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
 渐进式 Web 应用 (PWA) 通常是一种单页应用程序 (SPA)，它使用新式浏览器 API 和功能以表现得如桌面应用。 Blazor WebAssembly 是基于标准的客户端 Web 应用平台，因此它可以使用任何浏览器 API，包括以下功能所需的 PWA API：
 
@@ -406,4 +404,4 @@ PWA 模板可以与身份验证结合使用。 在用户具有初始网络连接
 ## <a name="additional-resources"></a>其他资源
 
 * [完整性 PowerShell 脚本故障排除](xref:blazor/host-and-deploy/webassembly#troubleshoot-integrity-powershell-script)
-* [SignalR 用于身份验证的跨源协商](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)
+* [SignalR 用于身份验证的跨源协商](xref:blazor/fundamentals/signalr#signalr-cross-origin-negotiation-for-authentication)

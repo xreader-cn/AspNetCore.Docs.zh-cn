@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: a6f1c88b8e93c0d8ccfebca482895ebab8d18a81
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 780161090d376f08b849fadb47127810d6661d0c
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97506911"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100279760"
 ---
-# <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
-
-作者：[Daniel Roth](https://github.com/danroth27)
+# <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
 Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassembly.org/) 的 .NET 运行时 (Blazor WebAssembly) 上的浏览器中运行客户端，或在 ASP.NET Core (Blazor Server) 中运行服务器端 。 对于任意托管模型，应用和组件模型都相同。
 
@@ -38,7 +36,7 @@ Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassemb
 
 ![Blazor WebAssembly:Blazor 应用在浏览器内部的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
 
-如果创建了 Blazor WebAssembly 应用进行部署，但没有后端 ASP.NET Core 应用来为其文件提供服务，那么该应用被称为独立 Blazor WebAssembly 应用。 如果创建了应用进行部署，但没有后端应用来为其文件提供服务，那么该应用被称为托管的 Blazor WebAssembly 应用。 托管的 Blazor WebAssembly 应用通常使用 Web API 调用或 [SignalR](xref:signalr/introduction) (<xref:tutorials/signalr-blazor-webassembly>) 通过网络与服务器交互。
+如果创建了 Blazor WebAssembly 应用进行部署，但没有后端 ASP.NET Core 应用来为其文件提供服务，那么该应用被称为独立 Blazor WebAssembly 应用。 如果创建了应用进行部署，但没有后端应用来为其文件提供服务，那么该应用被称为托管的 Blazor WebAssembly 应用。 托管的 Blazor WebAssembly 应用通常使用 Web API 调用或 [SignalR](xref:signalr/introduction) (<xref:tutorials/signalr-blazor>) 通过网络与服务器交互。
 
 `blazor.webassembly.js` 脚本由框架和句柄提供：
 
@@ -160,5 +158,5 @@ Blazor Server 应用预呈现以响应第一个客户端请求，这会在服务
 
 * <xref:blazor/tooling>
 * <xref:signalr/introduction>
-* <xref:blazor/fundamentals/additional-scenarios>
-* <xref:tutorials/signalr-blazor-webassembly>
+* <xref:blazor/fundamentals/signalr>
+* <xref:tutorials/signalr-blazor>

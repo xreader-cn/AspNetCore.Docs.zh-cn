@@ -20,16 +20,14 @@ no-loc:
 - SignalR
 uid: blazor/components/prerendering-and-integration
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 3402117334548f9d90880d4f536e8baa288e7bc9
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: d120440c292d15b7741260ed31af92d60db2261c
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97506976"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280065"
 ---
-# <a name="prerender-and-integrate-aspnet-core-no-locrazor-components"></a>预呈现和集成 ASP.NET Core Razor 组件
-
-作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
+# <a name="prerender-and-integrate-aspnet-core-razor-components"></a>预呈现和集成 ASP.NET Core Razor 组件
 
 ::: zone pivot="webassembly"
 
@@ -284,7 +282,7 @@ Razor 组件可以通过 Blazor Server 应用集成到 Razor Pages 和 MVC 应�
 
 1. 将组件集成到任何页面或视图。 有关详细信息，请参阅[从页面或视图呈现组件](#render-components-from-a-page-or-view)部分。
 
-## <a name="use-routable-components-in-a-no-locrazor-pages-app"></a>在 Razor Pages 应用中使用可路由组件
+## <a name="use-routable-components-in-a-razor-pages-app"></a>在 Razor Pages 应用中使用可路由组件
 
 本部分介绍如何添加可直接从用户请求路由的组件。
 

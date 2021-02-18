@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 18afa7faa254f89ef664e0188be357a85c790523
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: b3c783623252512621a0cee7a3607c69cb6d09bb
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98252430"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280282"
 ---
-# <a name="call-a-web-api-from-aspnet-core-no-locblazor"></a>从 ASP.NET Core Blazor 调用 Web API
-
-作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Juan De la Cruz](https://github.com/juandelacruz23)
+# <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
 > [!NOTE]
 > 本主题适用于 Blazor WebAssembly。 [Blazor Server](xref:blazor/hosting-models#blazor-server) 应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。 有关适用于 Blazor Server 的指南，请参阅 <xref:fundamentals/http-requests>。
@@ -190,7 +188,7 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 
 在项目文件中引用 [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) NuGet 包。
 
-`Program.Main` (`Program.cs`)：
+`Program.Main` (`Program.cs`):
 
 ```csharp
 builder.Services.AddHttpClient("ServerAPI", client => 
@@ -221,7 +219,7 @@ builder.Services.AddHttpClient("ServerAPI", client =>
 
 类型化 <xref:System.Net.Http.HttpClient> 使用应用的一个或多个 <xref:System.Net.Http.HttpClient> 实例（默认或命名）从一个或多个 web API 终结点返回数据。
 
-`WeatherForecastClient.cs`：
+`WeatherForecastClient.cs`:
 
 ```csharp
 using System.Net.Http;
@@ -256,7 +254,7 @@ public class WeatherForecastHttpClient
 }
 ```
 
-`Program.Main` (`Program.cs`)：
+`Program.Main` (`Program.cs`):
 
 ```csharp
 builder.Services.AddHttpClient<WeatherForecastHttpClient>(client => 

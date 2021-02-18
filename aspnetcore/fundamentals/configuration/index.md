@@ -5,7 +5,7 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/24/2020
+ms.date: 1/29/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 62c9d1a58e0f771d91e2bc57f39ec5ebb25baaed
-ms.sourcegitcommit: 37186f76e4a50d7fb7389026dd0e5e234b51ebb2
+ms.openlocfilehash: 0f069b049889f7caade493e238ac7a23db5e79af
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/04/2021
-ms.locfileid: "99541363"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100536275"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -232,9 +232,30 @@ setx Logging__1__Name=ToConsole
 setx Logging__1__Level=Information
 ```
 
-### <a name="environment-variables-set-in-launchsettingsjson"></a>在 launchSettings.json 中设置的环境变量
+### <a name="environment-variables-set-in-generated-launchsettingsjson"></a>在生成的 launchSettings.json 中设置的环境变量
 
-在 launchSettings.json 中设置的环境变量将替代在系统环境中设置的变量。
+在 launchSettings.json 中设置的环境变量将替代在系统环境中设置的变量。 例如，ASP.NET Core Web 模板会生成一个 launchSettings.json 文件，该文件将终结点配置设置为：
+
+```json
+"applicationUrl": "https://localhost:5001;http://localhost:5000"
+```
+
+配置 `applicationUrl` 将设置 `ASPNETCORE_URLS` 环境变量并重写环境中设置的值。
+
+### <a name="escape-environment-variables-on-linux"></a>在 Linux 上转义环境变量
+
+在 Linux 上，必须转义 URL 环境变量的值，使 `systemd` 可以对其进行分析。 使用 Linux 工具 `systemd-escape` 生成 `http:--localhost:5001`
+ 
+ ```cmd
+ groot@terminus:~$ systemd-escape http://localhost:5001
+ http:--localhost:5001
+ ```
+
+### <a name="display-environment-variables"></a>显示环境变量
+
+下面的代码显示了应用程序启动时的环境变量和值，这对调试环境设置很有帮助：
+
+[!code-csharp[](~/fundamentals/configuration/index/samples_snippets/5.x/Program.cs?name=snippet)]
 
 <a name="clcp"></a>
 
@@ -556,6 +577,38 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 
 有关使用 `MemoryConfigurationProvider` 的其他示例，请参阅[绑定数组](#boa)。
 
+::: moniker-end
+::: moniker range=">= aspnetcore-5.0"
+
+<a name="kestrel"></a>
+
+## <a name="kestrel-endpoint-configuration"></a>Kestrel 终结点配置
+
+Kestrel 特定的终结点配置将覆盖所有[跨服务器](xref:fundamentals/servers/index)终结点配置。 跨服务器终结点配置包括：
+
+  * [UseUrls](xref:fundamentals/host/web-host#server-urls)
+  * [命令行](xref:fundamentals/configuration/index#command-line)上的 `--urls`
+  * [环境变量](xref:fundamentals/configuration/index#environment-variables) `ASPNETCORE_URLS`
+
+请考虑在 ASP.NET Core Web 应用中使用的以下 appsettings.json 文件：
+
+[!code-json[](~/fundamentals/configuration/index/samples_snippets/5.x/appsettings.json?highlight=2-8)]
+
+当在 ASP.NET Core Web 应用中使用前面突出显示的标记，并且应用在命令行上启动，且跨服务器端点配置如下时：
+
+`dotnet run --urls="https://localhost:7777"`
+
+Kestrel 将绑定到专门针对 appsettings.json 文件中的 Kestrel 配置的终结点 (`https://localhost:9999`)，而不是 `https://localhost:7777`。
+
+请考虑将 Kestrel 特定的终结点配置为环境变量：
+
+`set Kestrel__Endpoints__Https__Url=https://localhost:8888`
+
+在前面的环境变量中，`Https` 是 Kestrel 特定的终结点的名称。 前面的 appsettings.json 文件还定义了名为 `Https` 的 Kestrel 特定终结点。 [默认](#default-configuration)情况下，将在 appsettings.`Environment`.json 后读取使用[环境变量配置提供程序](#evcp)的环境变量，因此，前面的环境变量用于 `Https` 终结点。
+
+::: moniker-end
+::: moniker range=">= aspnetcore-3.0"
+
 ## <a name="getvalue"></a>GetValue
 
 [`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从配置中提取一个具有指定键的值，并将它转换为指定的类型：
@@ -773,7 +826,7 @@ Extensions/EntityFrameworkExtensions.cs：
 
 ## <a name="default-host-configuration"></a>默认主机配置
 
-有关使用 [Web 主机](xref:fundamentals/host/web-host)时默认配置的详细信息，请参阅[本主题的 ASP.NET Core 2.2 版本](?view=aspnetcore-2.2)。
+有关使用 [Web 主机](xref:fundamentals/host/web-host)时默认配置的详细信息，请参阅[本主题的 ASP.NET Core 2.2 版本](?view=aspnetcore-2.2&preserve-view=true)。
 
 * 主机配置通过以下方式提供：
   * 使用[环境变量配置提供程序](#environment-variables)通过前缀为 `DOTNET_`的环境变量（例如，`DOTNET_ENVIRONMENT`）提供。 在配置键值对加载后，前缀 (`DOTNET_`) 会遭去除。
@@ -1148,7 +1201,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 密钥       | 值             |
+| 密钥       | “值”             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1725,7 +1778,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 密钥             | 值  |
+| 密钥             | “值”  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1748,7 +1801,7 @@ config.AddJsonFile(
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 键                     | 值  |
+| 键                     | “值”  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |

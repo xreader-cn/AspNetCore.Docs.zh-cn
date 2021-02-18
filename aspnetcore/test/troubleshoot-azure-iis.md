@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: d51a4a43f585b0a0b7e3aab2c5de1b2d215de494
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: a8bb659a72e8370c31cc9c213689399e74f11b5c
+ms.sourcegitcommit: f77a7467651bab61b24261da9dc5c1dd75fc1fa9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93059593"
+ms.lasthandoff: 02/17/2021
+ms.locfileid: "100564065"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>对 Azure 应用服务和 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -321,6 +321,8 @@ ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不�
 故障排除完成后，通过设置 `stdoutLogEnabled="false"` 来禁用 stdout 日志记录。
 
 有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。
+
+<a name="enhanced-diagnostic-logs"></a>
 
 ### <a name="aspnet-core-module-debug-log-azure-app-service"></a>ASP.NET Core 模块调试日志（Azure 应用服务）
 
@@ -760,7 +762,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`（`{X.Y}` 是运行时版本）
 1. 运行应用：`dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
-应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
 
 #### <a name="test-a-64-bit-x64-app"></a>测试 64 位 (x64) 应用
 
@@ -773,7 +775,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
   1. `cd D:\home\site\wwwroot`
   1. 运行应用：`{ASSEMBLY NAME}.exe`
 
-应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
 
 **在预览版上运行的依赖框架的部署**
 
@@ -1238,7 +1240,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`（`{X.Y}` 是运行时版本）
 1. 运行应用：`dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
-应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
 
 #### <a name="test-a-64-bit-x64-app"></a>测试 64 位 (x64) 应用
 
@@ -1251,7 +1253,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
   1. `cd D:\home\site\wwwroot`
   1. 运行应用：`{ASSEMBLY NAME}.exe`
 
-应用的控制台输出（显示任何错误）会传送到 Kudu 控制台。
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
 
 **在预览版上运行的依赖框架的部署**
 

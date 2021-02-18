@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: 14370f9bbf45079fd3654d3e55af4178691cf4f5
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: fed5d26ecd73a4710ee794c413fd51e0b4cb4913
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98252547"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280196"
 ---
-# <a name="aspnet-core-no-locrazor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
-
-作者：[Simon Timms](https://github.com/stimms)
+# <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
 组件可在 [Razor 类库 (RCL)](xref:razor-pages/ui-class) 中跨项目共享。 Razor 组件类库可以包含在以下各项中：
 
@@ -127,7 +125,7 @@ Welcome to your new app.
 
 <!-- REACTIVATE WHEN HEAD COMPONENTS COME BACK AT 6.0
 
-To provide additional library component styles from stylesheets in the library's `wwwroot` folder, link the stylesheets using the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) in `Component1.razor`:
+To provide additional library component styles from stylesheets in the library's `wwwroot` folder, link the stylesheets using the framework's [`Link` component](xref:blazor/fundamentals/signalr#influence-html-head-tag-elements) in `Component1.razor`:
 
 ```razor
 <div class="my-component">
@@ -176,17 +174,17 @@ When the `Link` component is used in a child component, the linked asset is also
 
 ::: moniker-end
 
-## <a name="create-a-no-locrazor-components-class-library-with-static-assets"></a>创建包括静态资源的 Razor 组件类库
+## <a name="create-a-razor-components-class-library-with-static-assets"></a>创建包括静态资源的 Razor 组件类库
 
 RCL 可以包括静态资产。 静态资产可用于任何使用该库的应用。 有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>。
 
-## <a name="supply-components-and-static-assets-to-multiple-hosted-no-locblazor-apps"></a>向多个托管的 Blazor 应用提供组件和静态资产
+## <a name="supply-components-and-static-assets-to-multiple-hosted-blazor-apps"></a>向多个托管的 Blazor 应用提供组件和静态资产
 
 有关详细信息，请参阅 <xref:blazor/host-and-deploy/webassembly#static-assets-and-class-libraries>。
 
 ::: moniker range=">= aspnetcore-5.0"
 
-## <a name="browser-compatibility-analyzer-for-no-locblazor-webassembly"></a>Blazor WebAssembly 的浏览器兼容性分析器
+## <a name="browser-compatibility-analyzer-for-blazor-webassembly"></a>Blazor WebAssembly 的浏览器兼容性分析器
 
 Blazor WebAssembly 应用面向整个 .NET API 外围应用，但由于浏览器沙盒约束，并非所有 .NET API 在 WebAssembly 上都受支持。 在 WebAssembly 上运行时，不支持的 API 将引发 <xref:System.PlatformNotSupportedException>。 当应用使用应用目标平台不支持的 API 时，平台兼容性分析器会向开发人员发出警告。 对于 Blazor WebAssembly 应用，这意味着需要检查浏览器是否支持这些 API。 为兼容性分析器注释 .NET Framework API 是一个持续的过程，因此并不是所有的 .NET Framework API 当前都已进行注释。
 
@@ -210,7 +208,7 @@ private static string GetLoggingDirectory()
 
 有关详细信息，请参阅[在特定平台（dotnet/designs GitHub 存储库）上将 API 注释为不受支持](https://github.com/dotnet/designs/blob/main/accepted/2020/platform-exclusion/platform-exclusion.md#build-configuration-for-platforms)。
 
-## <a name="no-locblazor-javascript-isolation-and-object-references"></a>Blazor JavaScript 隔离和对象引用
+## <a name="blazor-javascript-isolation-and-object-references"></a>Blazor JavaScript 隔离和对象引用
 
 Blazor 在标准 [JavaScript 模块](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules)中启用 JavaScript 隔离。 JavaScript 隔离具有以下优势：
 

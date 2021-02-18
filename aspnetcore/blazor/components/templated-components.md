@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/templated-components
-ms.openlocfilehash: 28f98596046877672b2935cb1f0feb508548398d
-ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
+ms.openlocfilehash: 579cabd9e6b7141ec6af4c6e221b805272a2fe40
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2021
-ms.locfileid: "99529925"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280026"
 ---
 # <a name="aspnet-core-blazor-templated-components"></a>ASP.NET Core Blazor 模板化组件
-
-作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
 模板化组件是接受一个或多个 UI 模板作为参数的组件，然后可将其用作组件呈现逻辑的一部分。 通过模板化组件，可以创作适用面更广、比常规组件更便于重复使用的组件。 下面是一些示例：
 

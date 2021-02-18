@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 58a87bc5413523fdf052a9e1c41196bb8b0ab457
-ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
+ms.openlocfilehash: 1860a36ba4122fb39ca92797da9a44b282afa793
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2021
-ms.locfileid: "99529964"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280654"
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
-
-作者：[Pranav Krishnamoorthy](https://github.com/pranavkm) 和 [Steve Sanderson](https://github.com/SteveSandersonMS)
 
 Blazor WebAssembly 经过精心设计和优化，可在最真实的应用程序 UI 方案中提高性能。 但是，仅当开发人员使用正确的模式和功能时才会产生最佳结果。 请考虑以下方面：
 
@@ -91,7 +89,7 @@ Blazor WebAssembly 经过精心设计和优化，可在最真实的应用程序 
         prevInboundFlightId = InboundFlight.FlightId;
     }
 
-    protected override void ShouldRender() => shouldRender;
+    protected override bool ShouldRender() => shouldRender;
 
     // Note that 
 }
@@ -545,7 +543,7 @@ function jsInteropCall() {
 
 ### <a name="intermediate-language-il-trimming"></a>中间语言 (IL) 剪裁
 
-[从 Blazor WebAssembly 应用修剪未使用的程序集](xref:blazor/host-and-deploy/configure-trimmer)会通过删除应用的二进制文件中的未使用代码来减小应用的大小。 默认情况下，裁边器在发布应用程序时执行。 要从剪裁中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
+从 Blazor WebAssembly 应用修剪未使用的程序集会通过删除应用的二进制文件中的未使用代码来减小应用的大小。 有关详细信息，请参阅 <xref:blazor/host-and-deploy/configure-trimmer>。
 
 ::: moniker-end
 
@@ -555,11 +553,11 @@ function jsInteropCall() {
 
 通过[链接 Blazor WebAssembly 应用](xref:blazor/host-and-deploy/configure-linker)，可剪裁应用二进制文件中未使用的代码来减小应用的大小。 默认情况下，仅在 `Release` 配置中生成时才启用中间语言 (IL) 链接器。 要从此中受益，请使用 [`dotnet publish`](/dotnet/core/tools/dotnet-publish) 命令发布应用用于部署，并将 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项设置为 `Release`：
 
-::: moniker-end
-
 ```dotnetcli
 dotnet publish -c Release
 ```
+
+::: moniker-end
 
 ### <a name="use-systemtextjson"></a>使用 System.Text.Json
 

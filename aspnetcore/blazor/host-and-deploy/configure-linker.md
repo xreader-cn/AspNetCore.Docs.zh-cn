@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/configure-linker
-ms.openlocfilehash: 0c99056053356133e901d6cf468fec8034dfb845
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: c720747983da4ef6997d95d77c3f5305cfd7d3c0
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93055823"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100279929"
 ---
-# <a name="configure-the-linker-for-aspnet-core-no-locblazor"></a>配置 ASP.NET Core Blazor 链接器
-
-作者：[Luke Latham](https://github.com/guardrex)
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
 Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中剪裁不必要的 IL。 在调试配置中生成时，将禁用链接器。 应用必须在发布配置中生成才能启用链接器。 部署 Blazor WebAssembly 应用时，建议在发布中生成。 
 
@@ -61,7 +59,7 @@ Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/man
 </ItemGroup>
 ```
 
-`LinkerConfig.xml`：
+`LinkerConfig.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>

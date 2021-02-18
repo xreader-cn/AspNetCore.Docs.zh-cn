@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 417f69e797296cdcd01fc4ce326388512a406368
-ms.sourcegitcommit: 97243663fd46c721660e77ef652fe2190a461f81
+ms.openlocfilehash: d1f3e2028ca120b5901aca0b24802d872ae52597
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2021
-ms.locfileid: "98058267"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100279737"
 ---
-# <a name="aspnet-core-no-locblazor-layouts"></a>ASP.NET Core Blazor 布局
-
-作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Luke Latham](https://github.com/guardrex)
+# <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor 布局
 
 有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。 将这些元素的代码复制到应用的所有组件并不是一种有效的方法。 每当一个元素需要更新时，每个组件都必须更新。 此类复制难以维护，并会随时间推移导致内容不一致。 *布局* 可解决此问题。
 
@@ -125,7 +123,7 @@ ms.locfileid: "98058267"
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
-## <a name="share-a-no-locrazor-pages-layout-with-integrated-components"></a>与集成组件共享 Razor Pages 布局
+## <a name="share-a-razor-pages-layout-with-integrated-components"></a>与集成组件共享 Razor Pages 布局
 
 当可路由组件集成到 Razor Pages 应用中时，该应用的共享布局可与这些组件配合使用。 有关详细信息，请参阅 <xref:blazor/components/prerendering-and-integration>。
 

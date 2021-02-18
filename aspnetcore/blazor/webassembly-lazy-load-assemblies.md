@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: 6e7fa6e231e97793fbf7e1ac1d208bf3013c6fce
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: e8589a1e288c39b487673fafc04c59fa07916335
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97506562"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280669"
 ---
-# <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>在 ASP.NET Core Blazor WebAssembly 中延迟加载程序集
-
-作者：[Safia Abdalla](https://safia.rocks) 和 [Luke Latham](https://github.com/guardrex)
+# <a name="lazy-load-assemblies-in-aspnet-core-blazor-webassembly"></a>在 ASP.NET Core Blazor WebAssembly 中延迟加载程序集
 
 通过推迟某些应用程序程序集的加载，直到需要时才加载，来提高 Blazor WebAssembly 应用启动性能，这种方式称为“延迟加载”。 例如，只有在用户导航到某个组件时，才将用于呈现该组件的程序集设置为加载。 加载后，程序集被缓存在客户端，供以后的所有导航使用。
 

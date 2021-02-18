@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/configuration
-ms.openlocfilehash: 5889d775c09ee23f19bf3ff59344c52d469c4bdc
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 48d78f40e9254bac182ffbc534550157664bcc5b
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97485962"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100106929"
 ---
-# <a name="aspnet-core-no-locblazor-configuration"></a>ASP.NET Core Blazor 配置
+# <a name="aspnet-core-blazor-configuration"></a>ASP.NET Core Blazor 配置
 
 > [!NOTE]
 > 本主题适用于 Blazor WebAssembly。 若要获取 ASP.NET Core 应用配置的通用指南，请参阅 <xref:fundamentals/configuration/index>。
@@ -102,57 +102,6 @@ using var response = await http.GetAsync("cars.json");
 using var stream = await response.Content.ReadAsStreamAsync();
 
 builder.Configuration.AddJsonStream(stream);
-```
-
-## <a name="custom-configuration-provider-with-ef-core"></a>使用 EF Core 的自定义配置提供程序
-
-使用 <xref:fundamentals/configuration/index#custom-configuration-provider> 中演示的 EF Core 的自定义配置提供程序适用于 Blazor WebAssembly 应用。
-
-> [!WARNING]
-> 使用 Blazor WebAssembly 应用加载的数据库连接字符串和数据库不安全，不得用于存储敏感数据。
-
-向应用的项目文件添加 [`Microsoft.EntityFrameworkCore`](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) 和 [`Microsoft.EntityFrameworkCore.InMemory`](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory) 的包引用。
-
-添加 <xref:fundamentals/configuration/index#custom-configuration-provider>中描述的 EF Core 配置类。
-
-将 <xref:Microsoft.EntityFrameworkCore?displayProperty=fullName> 和 <xref:Microsoft.Extensions.Configuration.Memory?displayProperty=fullName> 的命名空间添加到 `Program.cs`：
-
-```csharp
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.Memory;
-```
-
-在 `Program.cs` 的 `Program.Main` 中：
-
-```csharp
-builder.Configuration.AddEFConfiguration(
-    options => options.UseInMemoryDatabase("InMemoryDb"));
-```
-
-将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入到组件中来访问配置数据。
-
-`Pages/EFCoreConfig.razor`:
-
-```razor
-@page "/efcore-config"
-@using Microsoft.Extensions.Configuration
-@inject IConfiguration Configuration
-
-<h1>EF Core configuration example</h1>
-
-<h2>Quotes</h2>
-
-<ul>
-    <li>@Configuration["quote1"]</li>
-    <li>@Configuration["quote2"]</li>
-    <li>@Configuration["quote3"]</li>
-</ul>
-
-<p>
-    Quotes &copy;2005 
-    <a href="https://www.uphe.com/">Universal Pictures</a>: 
-    <a href="https://www.uphe.com/movies/serenity">Serenity</a>
-</p>
 ```
 
 ## <a name="memory-configuration-source"></a>内存配置源

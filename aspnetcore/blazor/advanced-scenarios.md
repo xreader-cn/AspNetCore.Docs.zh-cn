@@ -19,18 +19,16 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: 95714b3c0d21d3b348a9a8a984e2a42e7708499e
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: ba2bf91f3318225383ec9d164c34be9124aa311b
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93056551"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280854"
 ---
-# <a name="aspnet-core-no-locblazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
+# <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
 
-作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
-
-## <a name="no-locblazor-server-circuit-handler"></a>Blazor Server 线路处理程序
+## <a name="blazor-server-circuit-handler"></a>Blazor Server 线路处理程序
 
 Blazor Server 允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。 线路处理程序通过从 `CircuitHandler` 派生并在应用的服务容器中注册该类实现。 以下线路处理程序示例跟踪打开的 SignalR 连接：
 

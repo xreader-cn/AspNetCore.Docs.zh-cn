@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: f8f261f25d854a9bf36ad3299f4af392d5c4fafd
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 8baee9bc0a8e569174f33dac6a406b2162d09552
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93055875"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100279916"
 ---
-# <a name="aspnet-core-no-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
-
-作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
+# <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
 Razor 组件可供位于不同区域、使用不同语言的用户使用。 以下 .NET 全球化和本地化方案可用：
 
@@ -127,7 +125,7 @@ Blazor Server 应用使用[本地化中间件](xref:fundamentals/localization#lo
 
 有关更多信息和示例，请参见<xref:fundamentals/localization>。
 
-#### <a name="no-loccookies"></a>Cookies
+#### <a name="cookies"></a>Cookies
 
 本地化区域性 cookie 可以保留用户的区域性。 本地化中间件会在后续请求上读取 cookie，以设置用户的区域性。 
 
