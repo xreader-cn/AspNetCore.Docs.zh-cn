@@ -1,4 +1,24 @@
-ASP.NET Core 标识将用户界面 (UI) 登录功能添加到 ASP.NET Core Web 应用。 若要保护 Web API 和 SPA，请使用以下项之一：
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: 5fb658d165ac679be232e983f5a4da5ebf3422b3
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100551978"
+---
+ASP.NET Core Identity 将用户界面 (UI) 登录功能添加到 ASP.NET Core Web 应用。 若要保护 Web API 和 SPA，请使用以下项之一：
 
 * [Azure Active Directory](/azure/api-management/api-management-howto-protect-backend-with-aad)
 * [Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-custom-rest-api-netfw) (Azure AD B2C)
