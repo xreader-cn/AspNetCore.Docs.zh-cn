@@ -19,10 +19,10 @@ no-loc:
 - SignalR
 uid: fundamentals/app-state
 ms.openlocfilehash: c11b748f9d79235b14c9541019da6e1fb3428af6
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.sourcegitcommit: c1839f2992b003c92cd958244a2e0771ae928786
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
+ms.lasthandoff: 02/05/2021
 ms.locfileid: "93051403"
 ---
 # <a name="session-and-state-management-in-aspnet-core"></a>ASP.NET Core 中的会话和状态管理
@@ -49,7 +49,7 @@ HTTP 是无状态的协议。 默认情况下，HTTP 请求是不保留用户值
 | [HttpContext.Items](#httpcontextitems) | 服务器端应用代码 |
 | [Cache](#cache) | 服务器端应用代码 |
 
-## <a name="no-loccookies"></a>Cookies
+## <a name="cookies"></a>Cookies
 
 Cookie 存储请求之间的数据。 因为 cookie 是随每个请求发送的，所以它们的大小应该保持在最低限度。 理想情况下，仅标识符应存储在 cookie 中，而数据则由应用存储。 大多数浏览器 cookie 大小限制为 4096 个字节。 每个域仅有有限数量的 cookie 可用。
 
@@ -288,7 +288,7 @@ cookie 数据是先使用 <xref:Microsoft.AspNetCore.DataProtection.IDataProtect
 
 检查此类错误的建议方法是完成将应用写入到该会话后，调用 `await feature.Session.CommitAsync`。 如果后备存储不可用，则 <xref:Microsoft.AspNetCore.Http.ISession.CommitAsync*> 引发异常。 如果 `CommitAsync` 失败，应用可以处理异常。 在与数据存储不可用的相同的条件下，<xref:Microsoft.AspNetCore.Http.ISession.LoadAsync*> 引发异常。
   
-## <a name="no-locsignalr-and-session-state"></a>SignalR 和会话状态
+## <a name="signalr-and-session-state"></a>SignalR 和会话状态
 
 SignalR 应用不应使用会话状态来存储信息。 SignalR 应用可以将每个连接状态存储在中心的 `Context.Items` 中。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
@@ -320,7 +320,7 @@ HTTP 是无状态的协议。 不采取其他步骤的情况下，HTTP 请求是
 | [Cache](#cache) | 服务器端应用代码 |
 | [Dependency Injection](#dependency-injection) | 服务器端应用代码 |
 
-## <a name="no-loccookies"></a>Cookies
+## <a name="cookies"></a>Cookies
 
 Cookie 存储请求之间的数据。 因为 cookie 是随每个请求发送的，所以它们的大小应该保持在最低限度。 理想情况下，仅标识符应存储在 cookie 中，而数据则由应用存储。 大多数浏览器 cookie 大小限制为 4096 个字节。 每个域仅有有限数量的 cookie 可用。
 
@@ -599,7 +599,7 @@ app.Run(async (context) =>
 
   检查此类错误的建议方法是完成将应用写入到该会话后，从应用代码调用 `await feature.Session.CommitAsync();`。 如果后备存储不可用，则 `CommitAsync` 引发异常。 如果 `CommitAsync` 失败，应用可以处理异常。 在与数据存储不可用的相同的条件下，`LoadAsync` 引发异常。
   
-## <a name="no-locsignalr-and-session-state"></a>SignalR 和会话状态
+## <a name="signalr-and-session-state"></a>SignalR 和会话状态
 
 SignalR 应用不应使用会话状态来存储信息。 SignalR 应用可以将每个连接状态存储在中心的 `Context.Items` 中。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
