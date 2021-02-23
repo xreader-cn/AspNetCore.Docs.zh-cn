@@ -19,26 +19,24 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/virtualization
-ms.openlocfilehash: 72b33bc3c2861380551915b1e8caab49122e8fab
-ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
+ms.openlocfilehash: d9fc767a4b5160c616053b075ba92194bcffa275
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2021
-ms.locfileid: "99529912"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280016"
 ---
-# <a name="aspnet-core-blazor-component-virtualization"></a><span data-ttu-id="67d2c-103">ASP.NET Core Blazor 组件虚拟化</span><span class="sxs-lookup"><span data-stu-id="67d2c-103">ASP.NET Core Blazor component virtualization</span></span>
+# <a name="aspnet-core-blazor-component-virtualization"></a><span data-ttu-id="00eec-103">ASP.NET Core Blazor 组件虚拟化</span><span class="sxs-lookup"><span data-stu-id="00eec-103">ASP.NET Core Blazor component virtualization</span></span>
 
-<span data-ttu-id="67d2c-104">作者：[Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="67d2c-104">By [Daniel Roth](https://github.com/danroth27)</span></span>
+<span data-ttu-id="00eec-104">使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。</span><span class="sxs-lookup"><span data-stu-id="00eec-104">Improve the perceived performance of component rendering using the Blazor framework's built-in virtualization support.</span></span> <span data-ttu-id="00eec-105">虚拟化是一种技术，用于将 UI 呈现限制为仅当前可见的部分。</span><span class="sxs-lookup"><span data-stu-id="00eec-105">Virtualization is a technique for limiting UI rendering to just the parts that are currently visible.</span></span> <span data-ttu-id="00eec-106">例如，当应用必须呈现项的长列表，并且在任何给定的时间只需要一小部分项可见时，虚拟化很有帮助。</span><span class="sxs-lookup"><span data-stu-id="00eec-106">For example, virtualization is helpful when the app must render a long list of items and only a subset of items is required to be visible at any given time.</span></span> <span data-ttu-id="00eec-107">Blazor 提供 [`Virtualize` 组件](xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601)，可用于向应用的组件添加虚拟化。</span><span class="sxs-lookup"><span data-stu-id="00eec-107">Blazor provides the [`Virtualize` component](xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601) that can be used to add virtualization to an app's components.</span></span>
 
-<span data-ttu-id="67d2c-105">使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。</span><span class="sxs-lookup"><span data-stu-id="67d2c-105">Improve the perceived performance of component rendering using the Blazor framework's built-in virtualization support.</span></span> <span data-ttu-id="67d2c-106">虚拟化是一种技术，用于将 UI 呈现限制为仅当前可见的部分。</span><span class="sxs-lookup"><span data-stu-id="67d2c-106">Virtualization is a technique for limiting UI rendering to just the parts that are currently visible.</span></span> <span data-ttu-id="67d2c-107">例如，当应用必须呈现项的长列表，并且在任何给定的时间只需要一小部分项可见时，虚拟化很有帮助。</span><span class="sxs-lookup"><span data-stu-id="67d2c-107">For example, virtualization is helpful when the app must render a long list of items and only a subset of items is required to be visible at any given time.</span></span> <span data-ttu-id="67d2c-108">Blazor 提供 [`Virtualize` 组件](xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601)，可用于向应用的组件添加虚拟化。</span><span class="sxs-lookup"><span data-stu-id="67d2c-108">Blazor provides the [`Virtualize` component](xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601) that can be used to add virtualization to an app's components.</span></span>
+<span data-ttu-id="00eec-108">在以下情况下，可使用 `Virtualize` 组件：</span><span class="sxs-lookup"><span data-stu-id="00eec-108">The `Virtualize` component can be used when:</span></span>
 
-<span data-ttu-id="67d2c-109">在以下情况下，可使用 `Virtualize` 组件：</span><span class="sxs-lookup"><span data-stu-id="67d2c-109">The `Virtualize` component can be used when:</span></span>
+* <span data-ttu-id="00eec-109">在循环中呈现一组数据项。</span><span class="sxs-lookup"><span data-stu-id="00eec-109">Rendering a set of data items in a loop.</span></span>
+* <span data-ttu-id="00eec-110">由于滚动，大多数项不可见。</span><span class="sxs-lookup"><span data-stu-id="00eec-110">Most of the items aren't visible due to scrolling.</span></span>
+* <span data-ttu-id="00eec-111">呈现的项的大小完全相同。</span><span class="sxs-lookup"><span data-stu-id="00eec-111">The rendered items are exactly the same size.</span></span> <span data-ttu-id="00eec-112">当用户滚动到任意点时，组件可计算要显示的可见项。</span><span class="sxs-lookup"><span data-stu-id="00eec-112">When the user scrolls to an arbitrary point, the component can calculate the visible items to show.</span></span>
 
-* <span data-ttu-id="67d2c-110">在循环中呈现一组数据项。</span><span class="sxs-lookup"><span data-stu-id="67d2c-110">Rendering a set of data items in a loop.</span></span>
-* <span data-ttu-id="67d2c-111">由于滚动，大多数项不可见。</span><span class="sxs-lookup"><span data-stu-id="67d2c-111">Most of the items aren't visible due to scrolling.</span></span>
-* <span data-ttu-id="67d2c-112">呈现的项的大小完全相同。</span><span class="sxs-lookup"><span data-stu-id="67d2c-112">The rendered items are exactly the same size.</span></span> <span data-ttu-id="67d2c-113">当用户滚动到任意点时，组件可计算要显示的可见项。</span><span class="sxs-lookup"><span data-stu-id="67d2c-113">When the user scrolls to an arbitrary point, the component can calculate the visible items to show.</span></span>
-
-<span data-ttu-id="67d2c-114">如果不使用虚拟化，典型列表可能会使用 C# [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环来呈现列表中的每一项：</span><span class="sxs-lookup"><span data-stu-id="67d2c-114">Without virtualization, a typical list might use a C# [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) loop to render each item in the list:</span></span>
+<span data-ttu-id="00eec-113">如果不使用虚拟化，典型列表可能会使用 C# [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环来呈现列表中的每一项：</span><span class="sxs-lookup"><span data-stu-id="00eec-113">Without virtualization, a typical list might use a C# [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) loop to render each item in the list:</span></span>
 
 ```razor
 <div style="height:500px;overflow-y:scroll">
@@ -49,9 +47,9 @@ ms.locfileid: "99529912"
 </div>
 ```
 
-<span data-ttu-id="67d2c-115">如果列表包含数千项，则呈现该列表可能会花费较长时间。</span><span class="sxs-lookup"><span data-stu-id="67d2c-115">If the list contains thousands of items, then rendering the list may take a long time.</span></span> <span data-ttu-id="67d2c-116">用户可能会遇到明显的 UI 延迟。</span><span class="sxs-lookup"><span data-stu-id="67d2c-116">The user may experience a noticeable UI lag.</span></span>
+<span data-ttu-id="00eec-114">如果列表包含数千项，则呈现该列表可能会花费较长时间。</span><span class="sxs-lookup"><span data-stu-id="00eec-114">If the list contains thousands of items, then rendering the list may take a long time.</span></span> <span data-ttu-id="00eec-115">用户可能会遇到明显的 UI 延迟。</span><span class="sxs-lookup"><span data-stu-id="00eec-115">The user may experience a noticeable UI lag.</span></span>
 
-<span data-ttu-id="67d2c-117">与其一次性呈现列表中的所有项，不如将 [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环替换为 `Virtualize` 组件，并使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A?displayProperty=nameWithType> 指定固定的项源。</span><span class="sxs-lookup"><span data-stu-id="67d2c-117">Instead of rendering each item in the list all at one time, replace the [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) loop with the `Virtualize` component and specify a fixed item source with <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="67d2c-118">这样，将仅呈现当前可见的项：</span><span class="sxs-lookup"><span data-stu-id="67d2c-118">Only the items that are currently visible are rendered:</span></span>
+<span data-ttu-id="00eec-116">与其一次性呈现列表中的所有项，不如将 [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环替换为 `Virtualize` 组件，并使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A?displayProperty=nameWithType> 指定固定的项源。</span><span class="sxs-lookup"><span data-stu-id="00eec-116">Instead of rendering each item in the list all at one time, replace the [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) loop with the `Virtualize` component and specify a fixed item source with <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="00eec-117">这样，将仅呈现当前可见的项：</span><span class="sxs-lookup"><span data-stu-id="00eec-117">Only the items that are currently visible are rendered:</span></span>
 
 ```razor
 <div style="height:500px;overflow-y:scroll">
@@ -61,7 +59,7 @@ ms.locfileid: "99529912"
 </div>
 ```
 
-<span data-ttu-id="67d2c-119">如果未使用 `Context` 指定组件的上下文，请在项目内容模板中使用 `context` 值：</span><span class="sxs-lookup"><span data-stu-id="67d2c-119">If not specifying a context to the component with `Context`, use the `context` value in the item content template:</span></span>
+<span data-ttu-id="00eec-118">如果未使用 `Context` 指定组件的上下文，请在项目内容模板中使用 `context` 值：</span><span class="sxs-lookup"><span data-stu-id="00eec-118">If not specifying a context to the component with `Context`, use the `context` value in the item content template:</span></span>
 
 ```razor
 <div style="height:500px;overflow-y:scroll">
@@ -72,28 +70,28 @@ ms.locfileid: "99529912"
 ```
 
 > [!NOTE]
-> <span data-ttu-id="67d2c-120">可通过 [`@key`](xref:mvc/views/razor#key) 指令属性来控制模型对象到元素和组件的映射过程。</span><span class="sxs-lookup"><span data-stu-id="67d2c-120">The mapping process of model objects to elements and components can be controlled with the [`@key`](xref:mvc/views/razor#key) directive attribute.</span></span> <span data-ttu-id="67d2c-121">`@key` 使比较算法保证基于键的值保留元素或组件。</span><span class="sxs-lookup"><span data-stu-id="67d2c-121">`@key` causes the diffing algorithm to guarantee preservation of elements or components based on the key's value.</span></span>
+> <span data-ttu-id="00eec-119">可通过 [`@key`](xref:mvc/views/razor#key) 指令属性来控制模型对象到元素和组件的映射过程。</span><span class="sxs-lookup"><span data-stu-id="00eec-119">The mapping process of model objects to elements and components can be controlled with the [`@key`](xref:mvc/views/razor#key) directive attribute.</span></span> <span data-ttu-id="00eec-120">`@key` 使比较算法保证基于键的值保留元素或组件。</span><span class="sxs-lookup"><span data-stu-id="00eec-120">`@key` causes the diffing algorithm to guarantee preservation of elements or components based on the key's value.</span></span>
 >
-> <span data-ttu-id="67d2c-122">有关详细信息，请参阅以下文章：</span><span class="sxs-lookup"><span data-stu-id="67d2c-122">For more information, see the following articles:</span></span>
+> <span data-ttu-id="00eec-121">有关详细信息，请参阅以下文章：</span><span class="sxs-lookup"><span data-stu-id="00eec-121">For more information, see the following articles:</span></span>
 >
 > * <xref:blazor/components/index#use-key-to-control-the-preservation-of-elements-and-components>
-> * [<span data-ttu-id="67d2c-123">ASP.NET Core 的 Razor 语法参考</span><span class="sxs-lookup"><span data-stu-id="67d2c-123">Razor syntax reference for ASP.NET Core</span></span>](xref:mvc/views/razor#key)
+> * [<span data-ttu-id="00eec-122">ASP.NET Core 的 Razor 语法参考</span><span class="sxs-lookup"><span data-stu-id="00eec-122">Razor syntax reference for ASP.NET Core</span></span>](xref:mvc/views/razor#key)
 
-<span data-ttu-id="67d2c-124">`Virtualize` 组件：</span><span class="sxs-lookup"><span data-stu-id="67d2c-124">The `Virtualize` component:</span></span>
+<span data-ttu-id="00eec-123">`Virtualize` 组件：</span><span class="sxs-lookup"><span data-stu-id="00eec-123">The `Virtualize` component:</span></span>
 
-* <span data-ttu-id="67d2c-125">根据容器的高度和呈现的项的大小来计算要呈现的项数。</span><span class="sxs-lookup"><span data-stu-id="67d2c-125">Calculates how many items to render based on the height of the container and the size of the rendered items.</span></span>
-* <span data-ttu-id="67d2c-126">在用户滚动时，重新计算并重新呈现项。</span><span class="sxs-lookup"><span data-stu-id="67d2c-126">Recalculates and rerenders items as the user scrolls.</span></span>
-* <span data-ttu-id="67d2c-127">仅从与当前可见区域相对应的外部 API 中获取记录切片，而不是下载集合中的所有数据。</span><span class="sxs-lookup"><span data-stu-id="67d2c-127">Only fetches the slice of records from an external API that correspond to the current visible region, instead of downloading all of the data from the collection.</span></span>
+* <span data-ttu-id="00eec-124">根据容器的高度和呈现的项的大小来计算要呈现的项数。</span><span class="sxs-lookup"><span data-stu-id="00eec-124">Calculates how many items to render based on the height of the container and the size of the rendered items.</span></span>
+* <span data-ttu-id="00eec-125">在用户滚动时，重新计算并重新呈现项。</span><span class="sxs-lookup"><span data-stu-id="00eec-125">Recalculates and rerenders items as the user scrolls.</span></span>
+* <span data-ttu-id="00eec-126">仅从与当前可见区域相对应的外部 API 中获取记录切片，而不是下载集合中的所有数据。</span><span class="sxs-lookup"><span data-stu-id="00eec-126">Only fetches the slice of records from an external API that correspond to the current visible region, instead of downloading all of the data from the collection.</span></span>
 
-<span data-ttu-id="67d2c-128">`Virtualize` 组件的项内容可以包括：</span><span class="sxs-lookup"><span data-stu-id="67d2c-128">The item content for the `Virtualize` component can include:</span></span>
+<span data-ttu-id="00eec-127">`Virtualize` 组件的项内容可以包括：</span><span class="sxs-lookup"><span data-stu-id="00eec-127">The item content for the `Virtualize` component can include:</span></span>
 
-* <span data-ttu-id="67d2c-129">纯 HTML 和 Razor 代码，如前面的示例所示。</span><span class="sxs-lookup"><span data-stu-id="67d2c-129">Plain HTML and Razor code, as the preceding example shows.</span></span>
-* <span data-ttu-id="67d2c-130">一个或多个 Razor 组件。</span><span class="sxs-lookup"><span data-stu-id="67d2c-130">One or more Razor components.</span></span>
-* <span data-ttu-id="67d2c-131">HTML/Razor 和 Razor 组件的组合。</span><span class="sxs-lookup"><span data-stu-id="67d2c-131">A mix of HTML/Razor and Razor components.</span></span>
+* <span data-ttu-id="00eec-128">纯 HTML 和 Razor 代码，如前面的示例所示。</span><span class="sxs-lookup"><span data-stu-id="00eec-128">Plain HTML and Razor code, as the preceding example shows.</span></span>
+* <span data-ttu-id="00eec-129">一个或多个 Razor 组件。</span><span class="sxs-lookup"><span data-stu-id="00eec-129">One or more Razor components.</span></span>
+* <span data-ttu-id="00eec-130">HTML/Razor 和 Razor 组件的组合。</span><span class="sxs-lookup"><span data-stu-id="00eec-130">A mix of HTML/Razor and Razor components.</span></span>
 
-## <a name="item-provider-delegate"></a><span data-ttu-id="67d2c-132">项提供程序委托</span><span class="sxs-lookup"><span data-stu-id="67d2c-132">Item provider delegate</span></span>
+## <a name="item-provider-delegate"></a><span data-ttu-id="00eec-131">项提供程序委托</span><span class="sxs-lookup"><span data-stu-id="00eec-131">Item provider delegate</span></span>
 
-<span data-ttu-id="67d2c-133">如果不想将所有项加载到内存中，可向组件的 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A?displayProperty=nameWithType> 参数指定项提供程序委托方法，以按需异步检索请求的项。</span><span class="sxs-lookup"><span data-stu-id="67d2c-133">If you don't want to load all of the items into memory, you can specify an items provider delegate method to the component's <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A?displayProperty=nameWithType> parameter that asynchronously retrieves the requested items on demand.</span></span> <span data-ttu-id="67d2c-134">在下面的示例中，`LoadEmployees` 方法向 `Virtualize` 组件提供项：</span><span class="sxs-lookup"><span data-stu-id="67d2c-134">In the following example, the `LoadEmployees` method provides the items to the `Virtualize` component:</span></span>
+<span data-ttu-id="00eec-132">如果不想将所有项加载到内存中，可向组件的 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A?displayProperty=nameWithType> 参数指定项提供程序委托方法，以按需异步检索请求的项。</span><span class="sxs-lookup"><span data-stu-id="00eec-132">If you don't want to load all of the items into memory, you can specify an items provider delegate method to the component's <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A?displayProperty=nameWithType> parameter that asynchronously retrieves the requested items on demand.</span></span> <span data-ttu-id="00eec-133">在下面的示例中，`LoadEmployees` 方法向 `Virtualize` 组件提供项：</span><span class="sxs-lookup"><span data-stu-id="00eec-133">In the following example, the `LoadEmployees` method provides the items to the `Virtualize` component:</span></span>
 
 ```razor
 <Virtualize Context="employee" ItemsProvider="@LoadEmployees">
@@ -104,11 +102,11 @@ ms.locfileid: "99529912"
 </Virtualize>
 ```
 
-<span data-ttu-id="67d2c-135">项提供程序接收 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest>，它指定从特定起始索引开始的请求项数。</span><span class="sxs-lookup"><span data-stu-id="67d2c-135">The items provider receives an <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest>, which specifies the required number of items starting at a specific start index.</span></span> <span data-ttu-id="67d2c-136">然后，项提供程序在数据库或其他服务中检索请求的项，并以 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult%601> 形式将这些项与项总数一起返回。</span><span class="sxs-lookup"><span data-stu-id="67d2c-136">The items provider then retrieves the requested items from a database or other service and returns them as an <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult%601> along with a count of the total items.</span></span> <span data-ttu-id="67d2c-137">项提供程序可以选择按每个请求检索项，也可以将项缓存以便后续使用。</span><span class="sxs-lookup"><span data-stu-id="67d2c-137">The items provider can choose to retrieve the items with each request or cache them so that they're readily available.</span></span>
+<span data-ttu-id="00eec-134">项提供程序接收 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest>，它指定从特定起始索引开始的请求项数。</span><span class="sxs-lookup"><span data-stu-id="00eec-134">The items provider receives an <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest>, which specifies the required number of items starting at a specific start index.</span></span> <span data-ttu-id="00eec-135">然后，项提供程序在数据库或其他服务中检索请求的项，并以 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult%601> 形式将这些项与项总数一起返回。</span><span class="sxs-lookup"><span data-stu-id="00eec-135">The items provider then retrieves the requested items from a database or other service and returns them as an <xref:Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult%601> along with a count of the total items.</span></span> <span data-ttu-id="00eec-136">项提供程序可以选择按每个请求检索项，也可以将项缓存以便后续使用。</span><span class="sxs-lookup"><span data-stu-id="00eec-136">The items provider can choose to retrieve the items with each request or cache them so that they're readily available.</span></span>
 
-<span data-ttu-id="67d2c-138">`Virtualize` 组件只能从其参数中接受一个项源，因此，请不要尝试在使用项提供程序的同时为 `Items` 分配集合。</span><span class="sxs-lookup"><span data-stu-id="67d2c-138">A `Virtualize` component can only accept **one item source** from its parameters, so don't attempt to simultaneously use an items provider and assign a collection to `Items`.</span></span> <span data-ttu-id="67d2c-139">如果同时分配两个，则在运行时设置组件的参数时，将引发 <xref:System.InvalidOperationException>。</span><span class="sxs-lookup"><span data-stu-id="67d2c-139">If both are assigned, an <xref:System.InvalidOperationException> is thrown when the component's parameters are set at runtime.</span></span>
+<span data-ttu-id="00eec-137">`Virtualize` 组件只能从其参数中接受一个项源，因此，请不要尝试在使用项提供程序的同时为 `Items` 分配集合。</span><span class="sxs-lookup"><span data-stu-id="00eec-137">A `Virtualize` component can only accept **one item source** from its parameters, so don't attempt to simultaneously use an items provider and assign a collection to `Items`.</span></span> <span data-ttu-id="00eec-138">如果同时分配两个，则在运行时设置组件的参数时，将引发 <xref:System.InvalidOperationException>。</span><span class="sxs-lookup"><span data-stu-id="00eec-138">If both are assigned, an <xref:System.InvalidOperationException> is thrown when the component's parameters are set at runtime.</span></span>
 
-<span data-ttu-id="67d2c-140">以下 `LoadEmployees` 方法示例从 `EmployeeService` 加载员工（未显示）：</span><span class="sxs-lookup"><span data-stu-id="67d2c-140">The following `LoadEmployees` method example loads employees from an `EmployeeService` (not shown):</span></span>
+<span data-ttu-id="00eec-139">以下 `LoadEmployees` 方法示例从 `EmployeeService` 加载员工（未显示）：</span><span class="sxs-lookup"><span data-stu-id="00eec-139">The following `LoadEmployees` method example loads employees from an `EmployeeService` (not shown):</span></span>
 
 ```csharp
 private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
@@ -122,14 +120,14 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 }
 ```
 
-<span data-ttu-id="67d2c-141"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.RefreshDataAsync%2A?displayProperty=nameWithType> 指示组件从其 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A> 重新请求数据。</span><span class="sxs-lookup"><span data-stu-id="67d2c-141"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.RefreshDataAsync%2A?displayProperty=nameWithType> instructs the component to rerequest data from its <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A>.</span></span> <span data-ttu-id="67d2c-142">当外部数据更改时，这很有用。</span><span class="sxs-lookup"><span data-stu-id="67d2c-142">This is useful when external data changes.</span></span> <span data-ttu-id="67d2c-143">使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A> 时，无需对其进行调用。</span><span class="sxs-lookup"><span data-stu-id="67d2c-143">There's no need to call this when using <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A>.</span></span>
+<span data-ttu-id="00eec-140"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.RefreshDataAsync%2A?displayProperty=nameWithType> 指示组件从其 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A> 重新请求数据。</span><span class="sxs-lookup"><span data-stu-id="00eec-140"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.RefreshDataAsync%2A?displayProperty=nameWithType> instructs the component to rerequest data from its <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemsProvider%2A>.</span></span> <span data-ttu-id="00eec-141">当外部数据更改时，这很有用。</span><span class="sxs-lookup"><span data-stu-id="00eec-141">This is useful when external data changes.</span></span> <span data-ttu-id="00eec-142">使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A> 时，无需对其进行调用。</span><span class="sxs-lookup"><span data-stu-id="00eec-142">There's no need to call this when using <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Items%2A>.</span></span>
 
-## <a name="placeholder"></a><span data-ttu-id="67d2c-144">占位符</span><span class="sxs-lookup"><span data-stu-id="67d2c-144">Placeholder</span></span>
+## <a name="placeholder"></a><span data-ttu-id="00eec-143">占位符</span><span class="sxs-lookup"><span data-stu-id="00eec-143">Placeholder</span></span>
 
-<span data-ttu-id="67d2c-145">由于从远程数据源请求项可能需要一些时间，你可选择呈现包含项内容的占位符：</span><span class="sxs-lookup"><span data-stu-id="67d2c-145">Because requesting items from a remote data source might take some time, you have the option to render a placeholder with item content:</span></span>
+<span data-ttu-id="00eec-144">由于从远程数据源请求项可能需要一些时间，你可选择呈现包含项内容的占位符：</span><span class="sxs-lookup"><span data-stu-id="00eec-144">Because requesting items from a remote data source might take some time, you have the option to render a placeholder with item content:</span></span>
 
-* <span data-ttu-id="67d2c-146">使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Placeholder%2A> (`<Placeholder>...</Placeholder>`) 显示内容，直到项数据可用。</span><span class="sxs-lookup"><span data-stu-id="67d2c-146">Use a <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Placeholder%2A> (`<Placeholder>...</Placeholder>`) to display content until the item data is available.</span></span>
-* <span data-ttu-id="67d2c-147">使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemContent%2A?displayProperty=nameWithType> 设置列表的项模板。</span><span class="sxs-lookup"><span data-stu-id="67d2c-147">Use <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemContent%2A?displayProperty=nameWithType> to set the item template for the list.</span></span>
+* <span data-ttu-id="00eec-145">使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Placeholder%2A> (`<Placeholder>...</Placeholder>`) 显示内容，直到项数据可用。</span><span class="sxs-lookup"><span data-stu-id="00eec-145">Use a <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.Placeholder%2A> (`<Placeholder>...</Placeholder>`) to display content until the item data is available.</span></span>
+* <span data-ttu-id="00eec-146">使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemContent%2A?displayProperty=nameWithType> 设置列表的项模板。</span><span class="sxs-lookup"><span data-stu-id="00eec-146">Use <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemContent%2A?displayProperty=nameWithType> to set the item template for the list.</span></span>
 
 ```razor
 <Virtualize Context="employee" ItemsProvider="@LoadEmployees">
@@ -147,9 +145,9 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 </Virtualize>
 ```
 
-## <a name="item-size"></a><span data-ttu-id="67d2c-148">项大小</span><span class="sxs-lookup"><span data-stu-id="67d2c-148">Item size</span></span>
+## <a name="item-size"></a><span data-ttu-id="00eec-147">项大小</span><span class="sxs-lookup"><span data-stu-id="00eec-147">Item size</span></span>
 
-<span data-ttu-id="67d2c-149">你可以使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A?displayProperty=nameWithType> 设置每个项的像素高度（默认值：50）：</span><span class="sxs-lookup"><span data-stu-id="67d2c-149">The height of each item in pixels can be set with <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A?displayProperty=nameWithType> (default: 50):</span></span>
+<span data-ttu-id="00eec-148">你可以使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A?displayProperty=nameWithType> 设置每个项的像素高度（默认值：50）：</span><span class="sxs-lookup"><span data-stu-id="00eec-148">The height of each item in pixels can be set with <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A?displayProperty=nameWithType> (default: 50):</span></span>
 
 ```razor
 <Virtualize Context="employee" Items="@employees" ItemSize="25">
@@ -157,9 +155,11 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 </Virtualize>
 ```
 
-## <a name="overscan-count"></a><span data-ttu-id="67d2c-150">溢出扫描计数</span><span class="sxs-lookup"><span data-stu-id="67d2c-150">Overscan count</span></span>
+<span data-ttu-id="00eec-149">默认情况下，`Virtualize` 组件测量初始呈现发生之后的实际呈现大小。</span><span class="sxs-lookup"><span data-stu-id="00eec-149">By default, the `Virtualize` component measures the actual rendering size *after* the initial render occurs.</span></span> <span data-ttu-id="00eec-150">使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A> 来提前提供准确的项大小，以帮助实现准确的初始呈现性能，并确保页面重载时处于正确滚动位置。</span><span class="sxs-lookup"><span data-stu-id="00eec-150">Use <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A> to provide an exact item size in advance to assist with accurate initial render performance and to ensure the correct scroll position for page reloads.</span></span> <span data-ttu-id="00eec-151">如果默认值 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A> 导致某些项在当前可见视图之外呈现，则会触发第二次重新呈现。</span><span class="sxs-lookup"><span data-stu-id="00eec-151">If the default <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A> causes some items to render outside of the currently visible view, a second re-render is triggered.</span></span> <span data-ttu-id="00eec-152">若要在虚拟化列表中正确保持浏览器的滚动位置，初始呈现必须正确。</span><span class="sxs-lookup"><span data-stu-id="00eec-152">To correctly maintain the browser's scroll position in a virtualized list, the initial render must be correct.</span></span> <span data-ttu-id="00eec-153">否则，用户可能会看到错误的项。</span><span class="sxs-lookup"><span data-stu-id="00eec-153">If not, users might view the wrong items.</span></span> 
 
-<span data-ttu-id="67d2c-151"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.OverscanCount%2A?displayProperty=nameWithType> 确定在可见区域之前和之后呈现的额外项数。</span><span class="sxs-lookup"><span data-stu-id="67d2c-151"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.OverscanCount%2A?displayProperty=nameWithType> determines how many additional items are rendered before and after the visible region.</span></span> <span data-ttu-id="67d2c-152">此设置有助于降低滚动期间的呈现频率。</span><span class="sxs-lookup"><span data-stu-id="67d2c-152">This setting helps to reduce the frequency of rendering during scrolling.</span></span> <span data-ttu-id="67d2c-153">但是，值越大，页面中呈现的元素越多（默认值：3）：</span><span class="sxs-lookup"><span data-stu-id="67d2c-153">However, higher values result in more elements rendered in the page (default: 3):</span></span>
+## <a name="overscan-count"></a><span data-ttu-id="00eec-154">溢出扫描计数</span><span class="sxs-lookup"><span data-stu-id="00eec-154">Overscan count</span></span>
+
+<span data-ttu-id="00eec-155"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.OverscanCount%2A?displayProperty=nameWithType> 确定在可见区域之前和之后呈现的额外项数。</span><span class="sxs-lookup"><span data-stu-id="00eec-155"><xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.OverscanCount%2A?displayProperty=nameWithType> determines how many additional items are rendered before and after the visible region.</span></span> <span data-ttu-id="00eec-156">此设置有助于降低滚动期间的呈现频率。</span><span class="sxs-lookup"><span data-stu-id="00eec-156">This setting helps to reduce the frequency of rendering during scrolling.</span></span> <span data-ttu-id="00eec-157">但是，值越大，页面中呈现的元素越多（默认值：3）：</span><span class="sxs-lookup"><span data-stu-id="00eec-157">However, higher values result in more elements rendered in the page (default: 3):</span></span>
 
 ```razor
 <Virtualize Context="employee" Items="@employees" OverscanCount="4">
@@ -167,6 +167,6 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 </Virtualize>
 ```
 
-## <a name="state-changes"></a><span data-ttu-id="67d2c-154">状态更改</span><span class="sxs-lookup"><span data-stu-id="67d2c-154">State changes</span></span>
+## <a name="state-changes"></a><span data-ttu-id="00eec-158">状态更改</span><span class="sxs-lookup"><span data-stu-id="00eec-158">State changes</span></span>
 
-<span data-ttu-id="67d2c-155">当对 `Virtualize` 组件呈现的项进行更改时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 以强制重新计算和重新呈现组件。</span><span class="sxs-lookup"><span data-stu-id="67d2c-155">When making changes to items rendered by the `Virtualize` component, call <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> to force re-evaluation and rerendering of the component.</span></span> <span data-ttu-id="67d2c-156">有关详细信息，请参阅 <xref:blazor/components/rendering>。</span><span class="sxs-lookup"><span data-stu-id="67d2c-156">For more information, see <xref:blazor/components/rendering>.</span></span>
+<span data-ttu-id="00eec-159">当对 `Virtualize` 组件呈现的项进行更改时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 以强制重新计算和重新呈现组件。</span><span class="sxs-lookup"><span data-stu-id="00eec-159">When making changes to items rendered by the `Virtualize` component, call <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> to force re-evaluation and rerendering of the component.</span></span> <span data-ttu-id="00eec-160">有关详细信息，请参阅 <xref:blazor/components/rendering>。</span><span class="sxs-lookup"><span data-stu-id="00eec-160">For more information, see <xref:blazor/components/rendering>.</span></span>
