@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/virtualization
-ms.openlocfilehash: 72b33bc3c2861380551915b1e8caab49122e8fab
-ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
+ms.openlocfilehash: d9fc767a4b5160c616053b075ba92194bcffa275
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2021
-ms.locfileid: "99529912"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280016"
 ---
 # <a name="aspnet-core-blazor-component-virtualization"></a>ASP.NET Core Blazor 组件虚拟化
-
-作者：[Daniel Roth](https://github.com/danroth27)
 
 使用 Blazor 框架的内置虚拟化支持提高组件呈现的感知性能。 虚拟化是一种技术，用于将 UI 呈现限制为仅当前可见的部分。 例如，当应用必须呈现项的长列表，并且在任何给定的时间只需要一小部分项可见时，虚拟化很有帮助。 Blazor 提供 [`Virtualize` 组件](xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601)，可用于向应用的组件添加虚拟化。
 
@@ -156,6 +154,8 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
     ...
 </Virtualize>
 ```
+
+默认情况下，`Virtualize` 组件测量初始呈现发生之后的实际呈现大小。 使用 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A> 来提前提供准确的项大小，以帮助实现准确的初始呈现性能，并确保页面重载时处于正确滚动位置。 如果默认值 <xref:Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize%601.ItemSize%2A> 导致某些项在当前可见视图之外呈现，则会触发第二次重新呈现。 若要在虚拟化列表中正确保持浏览器的滚动位置，初始呈现必须正确。 否则，用户可能会看到错误的项。 
 
 ## <a name="overscan-count"></a>溢出扫描计数
 

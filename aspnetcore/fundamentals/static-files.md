@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/static-files
-ms.openlocfilehash: d97caeffc6e8beebddb01a5bd126d61ba988de65
-ms.sourcegitcommit: ebc5beccba5f3f7619de20baa58ad727d2a3d18c
+ms.openlocfilehash: fad569ab06735600299d8051a258651e329db8ce
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2021
-ms.locfileid: "98689287"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100107176"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -469,7 +469,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 
 请参阅 [MIME 内容类型](https://www.iana.org/assignments/media-types/media-types.xhtml)。
 
-若要了解如何使用自定义 <xref:Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider>，或者要配置 Blazor Server 应用中的其他 <xref:Microsoft.AspNetCore.Builder.StaticFileOptions>，请参阅 <xref:blazor/fundamentals/additional-scenarios#static-files>。
+若要了解如何使用自定义 <xref:Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider>，或者要配置 Blazor Server 应用中的其他 <xref:Microsoft.AspNetCore.Builder.StaticFileOptions>，请参阅 <xref:blazor/fundamentals/static-files>。
 
 ## <a name="non-standard-content-types"></a>非标准内容类型
 

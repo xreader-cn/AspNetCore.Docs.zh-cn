@@ -19,16 +19,16 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/test
-ms.openlocfilehash: cd4aee66fd6df6cc0ce520d8ca66e0a2cf130eff
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 67ebfcd322ae08acf2fddae9bd6101f13fa77e7e
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93054861"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280711"
 ---
-# <a name="test-components-in-aspnet-core-no-locblazor"></a>在 ASP.NET Core Blazor 中测试组件
+# <a name="test-components-in-aspnet-core-blazor"></a>在 ASP.NET Core Blazor 中测试组件
 
-[Egil Hansen](https://egilhansen.com/)
+作者：[Egil Hansen](https://egilhansen.com/)
 
 测试是构建稳定且可维护的软件的一个重要方面。
 

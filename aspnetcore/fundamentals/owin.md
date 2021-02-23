@@ -4,7 +4,7 @@ author: ardalis
 description: 了解 ASP.NET Core 如何支持 .NET 的开放 Web 接口 (OWIN)，将 Web 应用与 Web 服务器分离。
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 12/18/2018
+ms.date: 2/8/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,18 +18,23 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/owin
-ms.openlocfilehash: 6085abc45137223d7a676107cf06dc2cf97a5c19
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: c44803c6f67d8e03759a01f7aa71d82088be9a11
+ms.sourcegitcommit: ef8d8c79993a6608bf597ad036edcf30b231843f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93060672"
+ms.lasthandoff: 02/09/2021
+ms.locfileid: "99975269"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>ASP.NET Core 中 .NET 的开放 Web 接口 (OWIN)
 
 作者：[Steve Smith](https://ardalis.com/) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core 支持 .NET 的开放 Web 接口 (OWIN)。 OWIN 允许 Web 应用从 Web 服务器分离。 它定义了在管道中使用中间件来处理请求和相关响应的标准方法。 ASP.NET Core 应用程序和中间件可以与基于 OWIN 的应用程序、服务器和中间件进行互操作。
+ASP.NET Core：
+
+* 支持 .NET 的开放 Web 接口 (OWIN)。
+* 具有与 .NET Core 兼容的 `Microsoft.Owin.*` ([Katana](/aspnet/aspnet/overview/owin-and-katana/)) 库的替换项。
+
+OWIN 允许 Web 应用从 Web 服务器分离。 它定义了在管道中使用中间件来处理请求和相关响应的标准方法。 ASP.NET Core 应用程序和中间件可以与基于 OWIN 的应用程序、服务器和中间件进行互操作。
 
 OWIN 提供了一个分离层，可一起使用具有不同对象模型的两个框架。 `Microsoft.AspNetCore.Owin` 包提供了两个适配器实现：
 

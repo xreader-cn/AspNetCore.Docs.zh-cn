@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: e602f29e6932280f4625ade64201ff232e02150d
-ms.sourcegitcommit: 610936e4d3507f7f3d467ed7859ab9354ec158ba
+ms.openlocfilehash: 45ddcc9e006df2c5e86a7859efc76882b269a496
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/25/2021
-ms.locfileid: "98751628"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280388"
 ---
-# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-no-locblazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
-
-作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27)、[Shashikant Rudrawadi](http://wisne.co) 和 [Luke Latham](https://github.com/guardrex)
+# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
 
 Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。 这被称为 JavaScript 互操作（JS 互操作） 。
 
@@ -41,11 +39,11 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 ## <a name="static-net-method-call"></a>静态 .NET 方法调用
 
-要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称以及任意自变量。 异步版本是支持 Blazor Server 方案的首选。 .NET 方法必须是公共的静态方法，并且包含 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性。 当前不支持调用开放式泛型方法。
+要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称以及任意自变量。 异步版本是支持 Blazor Server 方案的首选。 .NET 方法必须是公共的静态方法，并且包含 [`[JSInvokable]` 特性](xref:Microsoft.JSInterop.JSInvokableAttribute)。 当前不支持调用开放式泛型方法。
 
-该示例应用包含一个 C# 方法，用于返回 `int` 数组。 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性应用于方法。
+该示例应用包含一个 C# 方法，用于返回 `int` 数组。 [`[JSInvokable]` 特性](xref:Microsoft.JSInterop.JSInvokableAttribute)应用于该方法。
 
-`Pages/JsInterop.razor`：
+`Pages/JsInterop.razor`:
 
 ```razor
 <button type="button" class="btn btn-primary"
@@ -78,7 +76,7 @@ Array(4) [ 1, 2, 3, 4 ]
 
 第四个数组值推送到 `ReturnArrayAsync` 返回的数组 (`data.push(4);`)。
 
-默认情况下，方法标识符是方法名称，但你也可以使用 [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) 特性构造函数来指定其他标识符：
+默认情况下，方法标识符是方法名称，但你也可以使用 [`[JSInvokable]` 特性](xref:Microsoft.JSInterop.JSInvokableAttribute)构造函数来指定其他标识符：
 
 ```csharp
 @code {
@@ -118,7 +116,7 @@ returnArrayAsyncJs: function () {
 
 如果选择了“`Trigger .NET instance method HelloHelper.SayHello`”按钮，则 `ExampleJsInterop.CallHelloHelperSayHello` 会被调用并将名称 `Blazor` 传递给方法。
 
-`Pages/JsInterop.razor`：
+`Pages/JsInterop.razor`:
 
 ```razor
 <button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">

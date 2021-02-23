@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 1287ab5ce61e58848329c96393c3ee8c37610245
-ms.sourcegitcommit: cc405f20537484744423ddaf87bd1e7d82b6bdf0
+ms.openlocfilehash: 012c8794b3d239ce93ac942000c7ec4f71d06cbf
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2021
-ms.locfileid: "98658685"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280002"
 ---
-# <a name="aspnet-core-no-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
-
-作者：[Daniel Roth](https://github.com/danroth27)、[Rémi Bourgarel](https://remibou.github.io/) 和 [Luke Latham](https://github.com/guardrex)
+# <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
 在 Blazor 中，使用[数据注释](xref:mvc/models/validation)支持窗体和验证。
 
@@ -380,6 +378,9 @@ public class CustomValidator : ComponentBase
     }
 }
 ```
+
+> [!NOTE]
+> 匿名 Lambda 表达式是前面的示例中 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested> 和 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> 的已注册的事件处理程序。 在此方案中，无需实现 <xref:System.IDisposable> 和取消订阅事件委托。 有关详细信息，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
 
 ## <a name="business-logic-validation"></a>业务逻辑验证
 
@@ -1052,7 +1053,7 @@ private class MyFieldClassProvider : FieldCssClassProvider
 
 ::: moniker-end
 
-### <a name="no-locblazor-data-annotations-validation-package"></a>Blazor 数据注释验证包
+### <a name="blazor-data-annotations-validation-package"></a>Blazor 数据注释验证包
 
 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 是使用 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件填补验证经验空白的包。 该包目前处于 *试验阶段*。
 
@@ -1063,7 +1064,7 @@ private class MyFieldClassProvider : FieldCssClassProvider
 
 ### <a name="compareproperty-attribute"></a>`[CompareProperty]` 特性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) 特性。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 [`[Compare]` 特性](xref:System.ComponentModel.DataAnnotations.CompareAttribute)。
 
 ::: moniker-end
 
@@ -1124,7 +1125,7 @@ public class ShipDescription
 
 * 使用窗体的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 在初始化组件时分配模型。
 * 在上下文的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> 回调中验证窗体，以启用和禁用提交按钮。
-* 解除挂接 `Dispose` 方法中的事件处理程序。 有关详细信息，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
+* 实现 <xref:System.IDisposable> 并取消订阅 `Dispose` 方法中的事件处理程序。 有关详细信息，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
 
 > [!NOTE]
 > 使用 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 时，也不要将 <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> 分配给 <xref:Microsoft.AspNetCore.Components.Forms.EditForm>。

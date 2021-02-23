@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 2b464c2b6ca434ce4c3b559480da69945266ff69
-ms.sourcegitcommit: cb984e0d7dc23a88c3a4121f23acfaea0acbfe1e
+ms.openlocfilehash: 04eba2e004e920e9ca799b316781857f0b0b4ca3
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/19/2021
-ms.locfileid: "98570968"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100279783"
 ---
-# <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
-
-作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com)、[Daniel Roth](https://github.com/danroth27)、[Ben Adams](https://twitter.com/ben_a_adams) 和 [Safia Abdalla](https://safia.rocks)
+# <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
 利用 [Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)：
 
@@ -52,12 +50,15 @@ Blazor 依赖于主机提供适当的压缩文件。 使用 ASP.NET Core 托管�
 * 有关 IIS `web.config` 压缩配置，请参阅 [IIS：Brotli 和 Gzip 压缩](#brotli-and-gzip-compression) 部分。 
 * 如果在不支持静态压缩文件内容协商的静态托管解决方案（例如 GitHub 页面）上进行托管，请考虑配置应用以提取和解码 Brotli 压缩文件：
 
-  * 从 [google/brotli GitHub repository](https://github.com/google/brotli) 中获取 JavaScript Brotli 解码器。 解码器文件被命名为 `decode.min.js`，并且位于存储库的 [`js` 文件夹](https://github.com/google/brotli/tree/master/js)中。
+  * 从 [google/brotli GitHub repository](https://github.com/google/brotli) 中获取 JavaScript Brotli 解码器。 解码器文件被命名为 `decode.js`，并且位于存储库的 [`js` 文件夹](https://github.com/google/brotli/tree/master/js)中。
+  
+    > [!NOTE]
+    > [google/brotli GitHub 存储库](https://github.com/google/brotli)中的缩小版 `decode.js` 脚本 (`decode.min.js`) 中存在回归。 自行缩小脚本（例如，请参阅 [BuildBundlerMinifier 绑定和缩小](xref:client-side/bundling-and-minification#configure-bundling-and-minification)）或使用 [npm 包](https://www.npmjs.com/package/brotli)缩小脚本，直到 [TypeError in decode.min.js (google/brotli #881)](https://github.com/google/brotli/issues/881) 的问题得以解决为止。 本部分中的示例代码使用脚本的未缩小版。
 
   * 更新应用以使用解码器。 将 `wwwroot/index.html` 中结束 `<body>` 标记内的标记更改为以下内容：
   
     ```html
-    <script src="decode.min.js"></script>
+    <script src="decode.js"></script>
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script>
       Blazor.start({
@@ -128,7 +129,7 @@ dotnet publish -p:BlazorEnableCompression=false
 
 若要了解如何部署到 Azure 应用服务，请参阅 <xref:tutorials/publish-to-azure-webapp-using-vs>。
 
-## <a name="hosted-deployment-with-multiple-no-locblazor-webassembly-apps"></a>具有多个 Blazor WebAssembly 应用的托管部署
+## <a name="hosted-deployment-with-multiple-blazor-webassembly-apps"></a>具有多个 Blazor WebAssembly 应用的托管部署
 
 ### <a name="app-configuration"></a>应用配置
 
@@ -315,7 +316,7 @@ dotnet publish -p:BlazorEnableCompression=false
 Components provided to a client app by a class library are referenced normally. If any components require stylesheets or JavaScript files, use either of the following approaches to obtain the static assets:
 
 * The client app's `wwwroot/index.html` file can link (`<link>`) to the static assets.
-* The component can use the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) to obtain the static assets.
+* The component can use the framework's [`Link` component](xref:blazor/fundamentals/signalr#influence-html-head-tag-elements) to obtain the static assets.
 
 The preceding approaches are demonstrated in the following examples.
 
@@ -369,7 +370,7 @@ The preceding approaches are demonstrated in the following examples.
 
 ::: moniker range=">= aspnetcore-5.0"
 
-The library's `jeep-yj.png` image can also be added to the library's `Component1` component (`Component1.razor`). To provide the `my-component` CSS class to the client app's page, link to the library's stylesheet using the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements):
+The library's `jeep-yj.png` image can also be added to the library's `Component1` component (`Component1.razor`). To provide the `my-component` CSS class to the client app's page, link to the library's stylesheet using the framework's [`Link` component](xref:blazor/fundamentals/signalr#influence-html-head-tag-elements):
 
 ```razor
 <div class="my-component">
@@ -387,7 +388,7 @@ The library's `jeep-yj.png` image can also be added to the library's `Component1
 </div>
 ```
 
-An alternative to using the [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) is to load the stylesheet from the client app's `wwwroot/index.html` file. This approach makes the stylesheet available to all of the components in the client app:
+An alternative to using the [`Link` component](xref:blazor/fundamentals/signalr#influence-html-head-tag-elements) is to load the stylesheet from the client app's `wwwroot/index.html` file. This approach makes the stylesheet available to all of the components in the client app:
 
 ```html
 <head>

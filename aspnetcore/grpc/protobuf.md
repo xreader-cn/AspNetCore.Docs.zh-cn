@@ -4,7 +4,7 @@ author: jamesnk
 description: 了解如何为 .NET 应用创建 Protobuf 消息。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 08/23/2020
+ms.date: 02/12/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/protobuf
-ms.openlocfilehash: b70a5ee00405eecfce900b86dc631a54682dce1a
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: adb048c9b20e172ef8a7bc13f9b56928b1d4bf77
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "93058891"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280292"
 ---
 # <a name="create-protobuf-messages-for-net-apps"></a>为 .NET 应用创建 Protobuf 消息
 
@@ -48,6 +48,8 @@ message Person {
 ```
 
 前面的消息定义将三个字段指定为名称/值对。 与 .NET 类型上的属性类似，每个字段都有名称和类型。 字段类型可以是 [Protobuf 标量值类型](#scalar-value-types)（如 `int32`），也可以是其他消息。
+
+[Protobuf 样式指南](https://developers.google.com/protocol-buffers/docs/style)建议使用 `underscore_separated_names` 作为字段名称。 为 .NET 应用创建的新 Protobuf 消息应遵循 Protobuf 样式准则。 .NET 工具会自动生成使用 .NET 命名标准的 .NET 类型。 例如，`first_name` Protobuf 字段生成 `FirstName` .NET 属性。
 
 包括名称，消息定义中的每个字段都有一个唯一的编号。 消息序列化为 Protobuf 时，字段编号用于标识字段。 序列化一个小编号比序列化整个字段名称要快。 因为字段编号标识字段，所以在更改编号时务必小心。 有关更改 Protobuf 消息的详细信息，请参阅 <xref:grpc/versioning>。
 

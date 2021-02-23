@@ -5,7 +5,7 @@ description: 了解可用于构建 Blazor 应用程序的工具。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/28/2020
+ms.date: 02/11/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -20,16 +20,14 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: 5901a1cb693dfe8e34e62ce2a28456bcf584221c
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: 6b61d9a4645d273b0c78fae0388d569771c43a2d
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98252261"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100536241"
 ---
-# <a name="tooling-for-aspnet-core-no-locblazor"></a>用于 ASP.NET Core Blazor 的工具
-
-作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
+# <a name="tooling-for-aspnet-core-blazor"></a>用于 ASP.NET Core Blazor 的工具
 
 ::: zone pivot="windows"
 
@@ -50,6 +48,8 @@ ms.locfileid: "98252261"
 1. 按 Ctrl+F5 运行应用<kbd></kbd><kbd></kbd>。
 
 有关信任 ASP.NET Core HTTPS 开发证书的详细信息，请参阅 <xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos>。
+
+执行托管应用 Blazor WebAssembly 时，请从解决方案的 `Server` 项目运行应用。
 
 ::: zone-end
 
@@ -72,11 +72,11 @@ ms.locfileid: "98252261"
    ```
 
    对于托管的 Blazor WebAssembly 体验，请向命令添加托管选项 (`-ho` 或 `--hosted`) 选项：
-   
+
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1 -ho
    ```
-   
+
    若要获得 Blazor Server 体验，请在命令行界面中执行以下命令：
 
    ```dotnetcli
@@ -88,6 +88,57 @@ ms.locfileid: "98252261"
 1. 在 Visual Studio Code 中打开 `WebApplication1` 文件夹，
 
 1. IDE 要求添加资产以用于生成和调试项目。 选择 **“是”** 。
+
+   **托管的 Blazor WebAssembly 启动和任务配置**
+
+   对于托管的 Blazor WebAssembly 解决方案，请将包含 `launch.json` 和 `tasks.json` 文件的 `.vscode` 文件夹添加（或移动）到解决方案的父文件夹中，父文件夹包含常见的项目文件夹名称 `Client`、`Server` 和 `Shared`。 更新或确认 `launch.json` 和 `tasks.json` 文件中的配置是否从 `Server` 项目执行托管应用 Blazor WebAssembly。
+
+   **`.vscode/launch.json`** （`launch` 配置）：
+
+   ```json
+   ...
+   "cwd": "${workspaceFolder}/{SERVER APP FOLDER}",
+   ...
+   ```
+
+   在当前工作目录 (`cwd`) 的前面配置中，`{SERVER APP FOLDER}` 占位符是 `Server` 项目的文件夹，通常为“`Server`”。
+
+   如果使用 Microsoft Edge 并且系统上未安装 Google Chrome，请在配置中添加额外属性 `"browser": "edge"`。
+
+   `Server` 项目文件夹的示例，该示例将生成 Microsoft Edge（而不是默认浏览器 Google Chrome）作为调试运行的浏览器：
+
+   ```json
+   ...
+   "cwd": "${workspaceFolder}/Server",
+   "browser": "edge"
+   ...
+   ```
+
+   **`.vscode/tasks.json`** （[`dotnet` 命令](/dotnet/core/tools/dotnet)参数）：
+
+   ```json
+   ...
+   "${workspaceFolder}/{SERVER APP FOLDER}/{PROJECT NAME}.csproj",
+   ...
+   ```
+
+   在上述参数中：
+
+   * `{SERVER APP FOLDER}` 占位符是 `Server` 项目的文件夹，通常为“`Server`”。
+   * `{PROJECT NAME}` 占位符是应用的名称，通常基于从 Blazor 项目模板生成的应用中后跟“`.Server`”的解决方案的名称。
+
+   来自[将 SignalR 与 Blazor WebAssembly 应用配合使用的教程](xref:tutorials/signalr-blazor)的以下示例使用项目文件夹名称 `Server` 和项目名称 `BlazorWebAssemblySignalRApp.Server`：
+
+   ```json
+   ...
+   "args": [
+     "build",
+       "${workspaceFolder}/Server/BlazorWebAssemblySignalRApp.Server.csproj",
+       "/property:GenerateFullPaths=true",
+       "/consoleloggerparameters:NoSummary"
+   ],
+   ...
+   ```
 
 1. 按 Ctrl+F5 运行应用<kbd></kbd><kbd></kbd>。
 
@@ -125,13 +176,15 @@ Linux 上没有用于信任证书的集中途径。 通常采用以下方法之�
 
 如果出现信任开发证书的提示，请信任证书并继续操作。 信任证书需要使用用户密码和密钥链密码。 有关信任 ASP.NET Core HTTPS 开发证书的详细信息，请参阅 <xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos>。
 
+执行托管应用 Blazor WebAssembly 时，请从解决方案的 `Server` 项目运行应用。
+
 ::: zone-end
 
-## <a name="use-visual-studio-code-for-cross-platform-no-locblazor-development"></a>使用适用于跨平台 Blazor 开发的 Visual Studio Code
+## <a name="use-visual-studio-code-for-cross-platform-blazor-development"></a>使用适用于跨平台 Blazor 开发的 Visual Studio Code
 
 [Visual Studio Code](https://code.visualstudio.com/) 是一个开源的跨平台集成开发环境 (IDE)，可用于开发 Blazor 应用。 使用 .NET CLI 创建新的 Blazor 应用，来使用 Visual Studio Code 进行开发。 有关详细信息，请选择[本文的 Linux 版本](?pivots=linux)。
 
-## <a name="no-locblazor-template-options"></a>Blazor 模板选项
+## <a name="blazor-template-options"></a>Blazor 模板选项
 
 Blazor 框架提供了一些模板，用于为每个 Blazor 托管模型（共两个）创建新应用。 模板用于创建新的 Blazor 项目和解决方案，而不考虑您选择用于 Blazor 开发的工具（Visual Studio、Visual Studio for Mac、Visual Studio Code 还是 .NET CLI）：
 

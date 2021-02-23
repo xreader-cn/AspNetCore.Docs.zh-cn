@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/handle-errors
-ms.openlocfilehash: 5a255c2d3535311cecd6b7219447e80d1ae78877
-ms.sourcegitcommit: d4836f9b7c508f51c6c4ee6d0cc719b38c1729c4
+ms.openlocfilehash: c1f859e0113d5bff65c7075ad1eb03088429174e
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/25/2021
-ms.locfileid: "98758248"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100279964"
 ---
-# <a name="handle-errors-in-aspnet-core-no-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
-
-作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
+# <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
 本文介绍 Blazor 如何管理未经处理的异常以及如何开发用于检测和处理错误的应用。
 
@@ -89,7 +87,7 @@ ms.locfileid: "98758248"
 }
 ```
 
-## <a name="no-locblazor-server-detailed-circuit-errors"></a>Blazor Server 详细线路错误
+## <a name="blazor-server-detailed-circuit-errors"></a>Blazor Server 详细线路错误
 
 客户端错误不包括调用堆栈，也不提供有关错误原因的详细信息，但服务器日志的确包含此类信息。 出于开发目的，可通过启用详细错误向客户端提供敏感线路错误信息。
 
@@ -118,7 +116,7 @@ ms.locfileid: "98758248"
 > [!WARNING]
 > 在 Internet 上向客户端公开错误信息是一项始终应该避免的安全风险。
 
-## <a name="how-a-no-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor Server 应用如何应对未经处理的异常
+## <a name="how-a-blazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor Server 应用如何应对未经处理的异常
 
 Blazor Server 是一种有状态框架。 用户与应用进行交互时，会与服务器保持名为“线路”的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
 
@@ -173,7 +171,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 当 Blazor 创建某组件的实例时：
 
 * 会调用该组件的构造函数。
-* 会调用通过 [`@inject`](xref:mvc/views/razor#inject) 指令或 [`[Inject]`](xref:blazor/fundamentals/dependency-injection#request-a-service-in-a-component) 特性提供给组件构造函数的非单一 DI 设备的构造函数。
+* 会调用通过 [`@inject`](xref:mvc/views/razor#inject) 指令或 [`[Inject]` 特性](xref:blazor/fundamentals/dependency-injection#request-a-service-in-a-component)提供给组件构造函数的非单一 DI 服务的构造函数。
 
 如果任何已执行的构造函数或任何 `[Inject]` 属性的资源库引发了未经处理的异常，则 Blazor Server 线路会失败。 这是严重异常，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并进行错误处理和日志记录。
 
@@ -242,7 +240,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * 如果无法对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 进行异步调用，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用可能会失败，这是因为 JavaScript 端代码会引发异常或返回完成状态为 `rejected` 的 `Promise`。 开发人员代码必须捕获异常。 如果使用 [`await`](/dotnet/csharp/language-reference/keywords/await) 运算符，请考虑使用 [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) 语句包装方法调用，并进行错误处理和日志记录。 否则，失败的代码会导致未经处理的异常，这对于 Blazor Server 线路来说是严重异常。
 * 默认情况下，对 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 的调用必须在特定时间段内完成，否则调用会超时。默认超时期限为一分钟。 超时会保护代码免受网络连接丢失的影响，或者保护永远不会发回完成消息的 JavaScript 代码。 如果调用超时，则生成的 <xref:System.Threading.Tasks> 将失败，并出现 <xref:System.OperationCanceledException>。 捕获异常，并进行异常处理和日志记录。
 
-同样，JavaScript 代码可以对 [`[JSInvokable]`](xref:blazor/call-dotnet-from-javascript) 特性指示的 .NET 方法发起调用。 如果这些 .NET 方法引发未经处理的异常：
+同样，JavaScript 代码可以对 [`[JSInvokable]` 特性](xref:blazor/call-dotnet-from-javascript)指示的 .NET 方法发起调用。 如果这些 .NET 方法引发未经处理的异常：
 
 * 此异常不会被视为 Blazor Server 线路的严重异常。
 * JavaScript 端 `Promise` 会被拒绝。
@@ -254,7 +252,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * <xref:blazor/call-javascript-from-dotnet>
 * <xref:blazor/call-dotnet-from-javascript>
 
-### <a name="no-locblazor-server-prerendering"></a>Blazor Server 预呈现
+### <a name="blazor-server-prerendering"></a>Blazor Server 预呈现
 
 Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)进行预呈现，以便在用户的初始 HTTP 请求过程中返回其呈现的 HTML 标记。 实现方式如下：
 

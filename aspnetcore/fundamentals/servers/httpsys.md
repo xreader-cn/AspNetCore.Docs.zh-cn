@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 9c65abd5a055bb677a14921296316e7e03760bc2
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: ad37f8434b6025c5f3ec97dc52987f5660a64edc
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "96855360"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100106669"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -62,7 +62,7 @@ HTTP.sys 对于以下情形的部署来说很有用：
 
   ![HTTP.sys 直接与 Internet 进行通信](httpsys/_static/httpsys-to-internet.png)
 
-* 内部部署需要 Kestrel 中没有的功能，如 [Windows 身份验证](xref:security/authentication/windowsauth)。
+* 内部部署需要 Kestrel 中没有的功能。 有关详细信息，请参阅本文档中的 [Kestrel 与HTTP.sys](xref:fundamentals/servers/index#kestrel-vs-httpsys)
 
   ![HTTP.sys 直接与内部网络进行通信](httpsys/_static/httpsys-to-internal.png)
 
@@ -278,7 +278,7 @@ public IActionResult MyActionMethod()
 
 HTTP.sys 中的其他 HTTP/2 功能支持 gRPC，包括对响应尾部和发送重置帧的支持。
 
-使用 HTTP.SYS 运行 gRPC 的要求：
+使用 HTTP.sys 运行 gRPC 的要求：
 
 * Windows 10，OS 内部版本 19041.508 或更高版本
 * TLS 1.2 或更高版本的连接

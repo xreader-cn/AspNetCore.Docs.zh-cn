@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/rendering
-ms.openlocfilehash: 1a4d4116b8a6d9266bbacbbdd8f20dc49b4e1db0
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: e1222981d4af3f4e233cdc0c57bb96a71972af15
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98253827"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280046"
 ---
-# <a name="aspnet-core-no-locblazor-component-rendering"></a>ASP.NET Core Blazor 组件呈现
-
-作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
+# <a name="aspnet-core-blazor-component-rendering"></a>ASP.NET Core Blazor 组件呈现
 
 当组件第一次通过其父组件添加到组件层次结构时，它们必须呈现。 严格来说，只有在这种情况下，组件才必须呈现。
 
@@ -109,18 +107,20 @@ ms.locfileid: "98253827"
 
 由于在 .NET 中定义任务的方式，<xref:System.Threading.Tasks.Task> 的接收方只能观察到其最终完成状态，而观察不到中间异步状态。 因此，仅在第一次返回 <xref:System.Threading.Tasks.Task> 且 <xref:System.Threading.Tasks.Task> 最终完成时，<xref:Microsoft.AspNetCore.Components.ComponentBase> 才能触发重新呈现。 它不知道在其他中间点重新呈现。 如果要在中间点重新呈现，请使用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。
 
-### <a name="receiving-a-call-from-something-external-to-the-no-locblazor-rendering-and-event-handling-system"></a>从 Blazor 呈现和事件处理系统外部接收调用
+### <a name="receiving-a-call-from-something-external-to-the-blazor-rendering-and-event-handling-system"></a>从 Blazor 呈现和事件处理系统外部接收调用
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase> 只知道其自身的生命周期方法和 Blazor 触发的事件。 <xref:Microsoft.AspNetCore.Components.ComponentBase> 不知道代码中可能发生的其他事件。 例如，Blazor 不知道自定义数据存储引发的任何 C# 事件。 为了使此类事件触发重新呈现，从而在 UI 中显示已更新的值，请使用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。
 
 在另一个用例中，以下面的 `Counter` 组件为例，该组件使用 <xref:System.Timers.Timer?displayProperty=fullName> 定期更新计数并调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 来更新 UI。
 
-`Pages/Counter.razor`:
+`Pages/CounterWithTimerDisposal.razor`:
 
 ```razor
-@page "/counter"
+@page "/counter-with-timer-disposal"
 @using System.Timers
 @implements IDisposable
+
+<h1>Counter with <code>Timer</code> disposal</h1>
 
 <p>Current count: @currentCount</p>
 
@@ -134,7 +134,7 @@ ms.locfileid: "98253827"
         timer.Start();
     }
 
-    void OnTimerCallback()
+    private void OnTimerCallback()
     {
         _ = InvokeAsync(() =>
         {
@@ -143,11 +143,14 @@ ms.locfileid: "98253827"
         });
     }
 
-    void IDisposable.Dispose() => timer.Dispose();
+    public void IDisposable.Dispose() => timer.Dispose();
 }
 ```
 
-在上述示例中，`OnTimerCallback` 必须调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>，因为 Blazor 不知道回调中的 `currentCount` 更改。 `OnTimerCallback` 在 Blazor 管理的任何呈现流或事件通知之外运行。
+在上面的示例中：
+
+* `OnTimerCallback` 必须调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>，因为 Blazor 不知道回调中的 `currentCount` 更改。 `OnTimerCallback` 在 Blazor 管理的任何呈现流或事件通知之外运行。
+* 组件实现 <xref:System.IDisposable>，当框架调用 `Dispose` 方法时，其中的 <xref:System.Timers.Timer> 将释放。 有关详细信息，请参阅 <xref:blazor/components/lifecycle#component-disposal-with-idisposable>。
 
 同样，由于回调是在 Blazor 的同步上下文之外调用的，因此必须将逻辑包装在 <xref:Microsoft.AspNetCore.Components.ComponentBase.InvokeAsync%2A?displayProperty=nameWithType> 中，以将其移到呈现器的同步上下文中。 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 只能从呈现器的同步上下文调用，否则会引发异常。 这等效于封送到其他 UI 框架中的 UI 线程。
 

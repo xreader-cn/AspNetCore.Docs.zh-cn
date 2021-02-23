@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 5bdfcc5660b4c897d3552d4cf25e43dade71541c
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: 9214fa10a2bf7d53a4cb12263a3fa69bded84b29
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98252508"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100536228"
 ---
-# <a name="debug-aspnet-core-no-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
-
-[Daniel Roth](https://github.com/danroth27)
+# <a name="debug-aspnet-core-blazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
 可以使用基于 Chromium 的浏览器 (Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。 还可以使用以下集成开发环境 (IDE) 调试应用：
 
@@ -164,6 +162,8 @@ Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
 
 <h2 id="vscode">调试独立 Blazor WebAssembly</h2>
 
+有关配置 `.vscode` 文件夹中 VS Code 资产的信息，请参阅 <xref:blazor/tooling> 中的 Linux 操作系统指南。
+
 1. 在 VS Code 中打开独立 Blazor WebAssembly 应用。
 
    可能会收到通知，告诉你需要进行其他设置才能启用调试：
@@ -192,13 +192,15 @@ Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
 > [!NOTE]
 > 在运行调试代理之前，在应用启动期间不会命中断点。 这包括 `Program.Main` (`Program.cs`) 中的断点和组件的 [`OnInitialized{Async}` 方法](xref:blazor/components/lifecycle#component-initialization-methods) 中的断点，其中这些组件由请求自应用的第一页加载。
 
-## <a name="debug-hosted-no-locblazor-webassembly"></a>调试托管 Blazor WebAssembly
+## <a name="debug-hosted-blazor-webassembly"></a>调试托管 Blazor WebAssembly
 
 1. 在 VS Code 中打开托管 Blazor WebAssembly 应用的“解决方案”文件夹。
 
 1. 如果没有为项目设置启动配置，将显示以下通知。 选择 **“是”** 。
 
    > “{APPLICATION NAME}”中缺少进行生产和调试所需的资产。 警告的 VS Code
+
+   有关配置 `.vscode` 文件夹中 VS Code 资产的信息，请参阅 <xref:blazor/tooling> 中的 Linux 操作系统指南。
 
 1. 在窗口顶部的命令面板中，选择托管解决方案内的“服务器”项目。
 
@@ -238,7 +240,7 @@ Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
 
 ## <a name="example-launch-configurations"></a>启动配置示例
 
-### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a>启动并调试独立 Blazor WebAssembly 应用
+### <a name="launch-and-debug-a-standalone-blazor-webassembly-app"></a>启动并调试独立 Blazor WebAssembly 应用
 
 ```json
 {
@@ -259,7 +261,7 @@ Visual Studio for Mac 需要版本 8.8（内部版本 1532）或更高版本：
 }
 ```
 
-### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a>使用 Microsoft Edge 启动并调试托管 Blazor WebAssembly 应用
+### <a name="launch-and-debug-a-hosted-blazor-webassembly-app-with-microsoft-edge"></a>使用 Microsoft Edge 启动并调试托管 Blazor WebAssembly 应用
 
 浏览器默认配置为 Google Chrome。 使用 Microsoft Edge 进行调试时，将 `browser` 设置为 `edge`。 若要使用 Google Chrome，要么不要设置 `browser` 选项，要么将选项值设置为 `chrome`。
 

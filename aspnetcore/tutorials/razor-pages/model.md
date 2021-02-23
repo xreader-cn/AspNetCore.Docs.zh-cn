@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 7ea28e0ecad410335c37c603c8ec1eb5e6e41d33
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 92bfda330399b43871b3ae0e6b609726f7ad4a91
+ms.sourcegitcommit: f77a7467651bab61b24261da9dc5c1dd75fc1fa9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97485987"
+ms.lasthandoff: 02/17/2021
+ms.locfileid: "100564046"
 ---
-# <a name="part-2-add-a-model-to-a-no-locrazor-pages-app-in-aspnet-core"></a>第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型
+# <a name="part-2-add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>第 2 部分，在 ASP.NET Core 中向 Razor 页面应用添加模型
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -161,8 +161,8 @@ ms.locfileid: "97485987"
 1. 完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：
    1. 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)” 。
    1. 在“数据上下文类”行中，选择 +（加号） 。
-      1. 在“添加数据上下文”对话框中，将生成类名称 RazorPagesMovie.Data.RazorPagesMovieContext。
-   1. 选择“添加”  。
+      1. 在“添加数据上下文”对话框中，生成类名 `RazorPagesMovie.Data.RazorPagesMovieContext`。
+   1. 选择“添加”。
 
    ![上述说明的图像。](model/_static/3/arp.png)
 
@@ -226,7 +226,7 @@ dotnet-aspnet-codegenerator razorpage -h
    ![上述说明的图像。](model/_static/add_scaffoldMac.png)
 
 1. 完成“添加使用实体框架的 Razor 页面 (CRUD)”对话框：
-   1. 在“要使用的 DbContext 类”行中，将类命名为 RazorPagesMovie.Data.RazorPagesMovieContext。
+   1. 在“要使用的 DbContext 类:”行中，将类命名为 `RazorPagesMovie.Data.RazorPagesMovieContext`。
    1. 选择“完成”  。
 
    ![上述说明的图像。](model/_static/5/arpMac.png)
@@ -247,7 +247,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 在搭建基架时，会创建并更新以下文件：
 
-* *Pages/Movies*：“创建”、“删除”、“详细信息”和 Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和 Index。
 * Data/RazorPagesMovieContext.cs
 
 ### <a name="updated"></a>已更新
@@ -260,7 +260,7 @@ dotnet-aspnet-codegenerator razorpage -h
 
 在搭建基架时，会创建以下文件：
 
-* *Pages/Movies*：“创建”、“删除”、“详细信息”和 Index。
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和 Index。
 
 创建的文件将在下一节中说明。
 

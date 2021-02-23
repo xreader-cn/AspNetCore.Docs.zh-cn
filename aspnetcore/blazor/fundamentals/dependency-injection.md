@@ -20,14 +20,14 @@ no-loc:
 - SignalR
 uid: blazor/fundamentals/dependency-injection
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 3f2b4eff5422acbec80b2fd9b801101271cc3f75
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 30edffedf1faf96ed54d5380762c8558e478966c
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97808720"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100106916"
 ---
-# <a name="aspnet-core-no-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
+# <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
 作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Mike Rousos](https://github.com/mjrousos)
 
@@ -119,7 +119,7 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 
 
 [!code-razor[](dependency-injection/samples_snapshot/CustomerList.razor?highlight=2-3,20)]
 
-在内部，生成的属性 (`DataRepository`) 使用 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性。 通常，不直接使用此特性。 如果组件需要基类，并且基类也需要注入的属性，请手动添加 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性：
+在内部，生成的属性 (`DataRepository`) 使用 [`[Inject]` 特性](xref:Microsoft.AspNetCore.Components.InjectAttribute)。 通常，不直接使用此特性。 如果组件需要基类，并且基类也需要注入的属性，请手动添加 [`[Inject]` 特性](xref:Microsoft.AspNetCore.Components.InjectAttribute)：
 
 ```csharp
 using Microsoft.AspNetCore.Components;
@@ -144,7 +144,7 @@ public class ComponentBase : IComponent
 
 ## <a name="use-di-in-services"></a>在服务中使用 DI
 
-复杂的服务可能需要其他服务。 在下述示例中，`DataAccess` 需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性）在服务中不可用。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。 在下面的示例中，构造函数通过 DI 接收 <xref:System.Net.Http.HttpClient>。 <xref:System.Net.Http.HttpClient> 是默认服务。
+复杂的服务可能需要其他服务。 在下述示例中，`DataAccess` 需要 <xref:System.Net.Http.HttpClient> 默认服务。 [`@inject`](xref:mvc/views/razor#inject)（或 [`[Inject]` 特性](xref:Microsoft.AspNetCore.Components.InjectAttribute)）在服务中不可用。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。 在下面的示例中，构造函数通过 DI 接收 <xref:System.Net.Http.HttpClient>。 <xref:System.Net.Http.HttpClient> 是默认服务。
 
 ```csharp
 using System.Net.Http;
@@ -180,7 +180,7 @@ public class DataAccess : IDataAccess
 
 * <xref:Microsoft.AspNetCore.Components.OwningComponentBase> 是 <xref:Microsoft.AspNetCore.Components.ComponentBase> 类型的抽象、可释放子级，其具有 <xref:System.IServiceProvider> 类型的受保护的 <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> 属性。 此提供程序可用于解析范围限定为组件生存期的服务。
 
-  使用 [`@inject`](xref:mvc/views/razor#inject) 或 [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) 特性注入到组件中的 DI 服务不在组件的范围内创建。 要使用组件的范围，必须使用 <xref:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService%2A> 或 <xref:System.IServiceProvider.GetService%2A> 解析服务。 任何使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> 提供程序进行解析的服务都具有从同一范围提供的依赖关系。
+  使用 [`@inject`](xref:mvc/views/razor#inject) 或 [`[Inject]` 特性](xref:Microsoft.AspNetCore.Components.InjectAttribute)注入到组件中的 DI 服务不在组件的范围内创建。 要使用组件的范围，必须使用 <xref:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService%2A> 或 <xref:System.IServiceProvider.GetService%2A> 解析服务。 任何使用 <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> 提供程序进行解析的服务都具有从同一范围提供的依赖关系。
 
   [!code-razor[](dependency-injection/samples_snapshot/Preferences.razor?highlight=3,20-21)]
 

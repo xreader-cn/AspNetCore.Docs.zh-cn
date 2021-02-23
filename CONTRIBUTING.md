@@ -16,7 +16,7 @@
 * 如果拉取请求分配的标签为 “cla-required”，则[完成贡献许可协议 (CLA)](https://cla.dotnetfoundation.org/)。
 * 对 PR 请求反馈进行响应。
 
-有关此过程引导发布新文章的示例，请参阅 .NET Docs 存储库中的[问题&num; 67 ](https://github.com/dotnet/docs/issues/67)和[拉取请求&num; 798](https://github.com/dotnet/docs/pull/798)。 新文章为[编写代码](https://docs.microsoft.com/dotnet/articles/csharp/codedoc)。
+有关此过程引导发布新文章的示例，请参阅 .NET Docs 存储库中的[问题 1477](https://github.com/dotnet/docs/issues/1477) 和[拉取请求 18955](https://github.com/dotnet/docs/pull/18955)。 新文章是[将代码覆盖率用于单元测试](/dotnet/core/testing/unit-testing-code-coverage)。
 
 ## <a name="docs-authoring-pack-extension-in-visual-studio-code"></a>Visual Studio Code 中的 Docs 创作包扩展
 

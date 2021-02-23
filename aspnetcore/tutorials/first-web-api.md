@@ -4,7 +4,7 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc, devx-track-js
-ms.date: 08/13/2020
+ms.date: 02/04/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - SignalR
 - Models
 uid: tutorials/first-web-api
-ms.openlocfilehash: ccbfc27eb89e23938a69f0ab4cb306d6a4136889
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 1f7c7db857090ff0a174d37b86e1265bab40b4fd
+ms.sourcegitcommit: f77a7467651bab61b24261da9dc5c1dd75fc1fa9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "96175047"
+ms.lasthandoff: 02/17/2021
+ms.locfileid: "100564091"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -97,7 +97,6 @@ ms.locfileid: "96175047"
    ```dotnetcli
    dotnet new webapi -o TodoApi
    cd TodoApi
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
    dotnet add package Microsoft.EntityFrameworkCore.InMemory
    code -r ../TodoApi
    ```
@@ -130,7 +129,6 @@ ms.locfileid: "96175047"
 在项目文件夹中打开命令终端并运行以下命令：
 
    ```dotnetcli
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
    dotnet add package Microsoft.EntityFrameworkCore.InMemory
    ```
 
@@ -270,14 +268,11 @@ Swagger 用于为 Web API 生成有用的文档和帮助页面。 本教程重�
 ### <a name="add-nuget-packages"></a>添加 NuGet 包
 
 * 在“工具”菜单中，依次选择“NuGet 包管理器”、“管理解决方案的 NuGet 包” 。
-* 选择“浏览”选项卡，然后在搜索框中输入 Microsoft.EntityFrameworkCore.SqlServer 。
-<!-- https://github.com/dotnet/AspNetCore.Docs/issues/19782 Delete this line at RTM -->
-* 在左窗格中选择“Microsoft.EntityFrameworkCore.SqlServer”。
+* 选择“浏览”选项卡，然后在搜索框中输入“Microsoft.EntityFrameworkCore.InMemory” 。
+* 在左窗格中选择“Microsoft.EntityFrameworkCore.InMemory”。
 * 选中右窗格中的“项目”复选框，然后选择“安装” 。
-* 使用前面的说明添加 Microsoft.EntityFrameworkCore.InMemory NuGet 包。
 
-<!-- https://github.com/dotnet/AspNetCore.Docs/issues/19782 Update this image at RTM -->
-![NuGet 包管理器](first-web-api/_static/5/vsNuGet.png)
+![NuGet 程序包管理器](first-web-api/_static/5/vsNuGet.png)
 
 ## <a name="add-the-todocontext-database-context"></a>添加 TodoContext 数据库上下文
 
@@ -355,7 +350,7 @@ ASP.NET Core 模板：
 
 ## <a name="update-the-posttodoitem-create-method"></a>更新 PostTodoItem create 方法
 
-替换 `PostTodoItem` 中的返回语句，以使用 [nameof](/dotnet/csharp/language-reference/operators/nameof) 运算符：
+更新 `PostTodoItem` 中的 return 语句，以使用 [nameof](/dotnet/csharp/language-reference/operators/nameof) 运算符：
 
 [!code-csharp[](first-web-api/samples/5.x/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Create)]
 
@@ -621,7 +616,6 @@ DTO 可用于：
    ```dotnetcli
    dotnet new webapi -o TodoApi
    cd TodoApi
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
    dotnet add package Microsoft.EntityFrameworkCore.InMemory
    code -r ../TodoApi
    ```
@@ -654,7 +648,6 @@ DTO 可用于：
 在项目文件夹中打开命令终端并运行以下命令：
 
    ```dotnetcli
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
    dotnet add package Microsoft.EntityFrameworkCore.InMemory
    ```
 
@@ -764,10 +757,9 @@ DTO 可用于：
 ### <a name="add-nuget-packages"></a>添加 NuGet 包
 
 * 在“工具”菜单中，依次选择“NuGet 包管理器”、“管理解决方案的 NuGet 包” 。
-* 选择“浏览”选项卡，然后在搜索框中输入 Microsoft.EntityFrameworkCore.SqlServer 。
-* 在左窗格中选择“Microsoft.EntityFrameworkCore.SqlServer”。
+* 选择“浏览”选项卡，然后在搜索框中输入“Microsoft.EntityFrameworkCore.InMemory” 。
+* 在左窗格中选择“Microsoft.EntityFrameworkCore.InMemory”。
 * 选中右窗格中的“项目”复选框，然后选择“安装” 。
-* 使用前面的说明添加 Microsoft.EntityFrameworkCore.InMemory NuGet 包。
 
 ![NuGet 程序包管理器](first-web-api/_static/vs3NuGet.png)
 

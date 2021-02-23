@@ -5,7 +5,7 @@ description: 了解如何使用身份验证库保护 ASP.NET Core Blazor WebAsse
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/27/2020
+ms.date: 02/10/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,20 +19,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: 3da9ea045de996602ead052f6f13ffc999273a50
-ms.sourcegitcommit: 063a06b644d3ade3c15ce00e72a758ec1187dd06
+ms.openlocfilehash: a198606caf55232c221f1d1f1224918d3f87f04c
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2021
-ms.locfileid: "98252482"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280892"
 ---
-# <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用
-
-作者：[Javier Calvarro Nelson](https://github.com/javiercn) 和 [Luke Latham](https://github.com/guardrex)
+# <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证库保护 ASP.NET Core Blazor WebAssembly 独立应用
 
 对于 Azure Active Directory (AAD) 和 Azure Active Directory B2C (AAD B2C)，请勿按照本主题中的指南进行操作。请参阅此目录节点中的 AAD 和 AAD B2C 主题。
 
-若要创建使用 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 库的[独立 Blazor WebAssembly 应用](xref:blazor/hosting-models#blazor-webassembly)，请按照适用于所选工具的指南操作。
+若要创建使用 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 库的[独立 Blazor WebAssembly 应用](xref:blazor/hosting-models#blazor-webassembly)，请按照适用于所选工具的指南操作。 如果添加对身份验证的支持，请参阅本文中的以下部分，了解有关设置和配置应用的指南。
 
 > [!NOTE]
 > Identity 提供程序 (IP) 必须使用 [OpenID Connect (OIDC)](https://openid.net/connect/)。 例如，Facebook 的 IP 不是符合 OIDC 的提供程序，因此本主题中的指南不适用于 Facebook IP。 有关详细信息，请参阅 <xref:blazor/security/webassembly/index#authentication-library>。
@@ -43,11 +41,11 @@ ms.locfileid: "98252482"
 
 1. 在“新建 ASP.NET Core Web 应用”对话框中选择“Blazor WebAssembly应用”模板后，选择“身份验证”下的“更改”。
 
-1. 通过“存储应用内的用户帐户”选项选择“单个用户帐户”，以使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统存储应用内的用户。 
+1. 通过“存储应用内的用户帐户”选项选择“单个用户帐户”，以使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统。  此选择将添加身份验证支持，并且最终不会将用户存储在数据库中。 本文的以下部分提供了更多详细信息。
 
 # <a name="visual-studio-code--net-core-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
 
-在空文件夹中新建具有身份验证机制的 Blazor WebAssembly项目。 通过 `-au|--auth` 选项指定 `Individual` 身份验证机制，以使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统存储应用内的用户：
+在空文件夹中新建具有身份验证机制的 Blazor WebAssembly项目。 通过 `-au|--auth` 选项指定 `Individual` 身份验证机制，以使用 ASP.NET Core 的 [Identity](xref:security/authentication/identity) 系统。 此选择将添加身份验证支持，并且最终不会将用户存储在数据库中。 本文的以下部分提供了更多详细信息。
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual -o {APP NAME}
@@ -67,7 +65,7 @@ dotnet new blazorwasm -au Individual -o {APP NAME}
 
 1. 在“配置新的 Blazor WebAssembly应用”步骤中，从“身份验证”下拉列表中选择“个人身份验证(应用内)”。
 
-1. 此应用是使用 ASP.NET Core [Identity](xref:security/authentication/identity) 为应用中存储的个人用户创建的。
+1. 创建应用以使用 ASP.NET Core [Identity](xref:security/authentication/identity)，这样便不会将用户存储在数据库中。 本文的以下部分提供了更多详细信息。
 
 ---
 
@@ -88,6 +86,8 @@ dotnet new blazorwasm -au Individual -o {APP NAME}
 ## <a name="authentication-service-support"></a>身份验证服务支持
 
 使用由 [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) 包提供的 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> 扩展方法在服务容器中注册用户身份验证支持。 此方法设置应用与 Identity 提供者 (IP) 交互所需的服务。
+
+对于新应用，请为以下配置中的 `{AUTHORITY}` 和 `{CLIENT ID}` 占位符提供值。 提供与应用的 IP 一起使用所需的其他配置值。 例如用于 Google 的相关值，它需要 `PostLogoutRedirectUri`、`RedirectUri` 和 `ResponseType`。 如果向应用添加身份验证，请使用占位符值和其他配置值将以下代码和配置手动添加到应用中。
 
 `Program.cs`:
 
@@ -131,7 +131,9 @@ Google OAuth 2.0 OIDC 示例：
 
 Blazor WebAssembly 模板自动为 `openid` 和 `profile` 配置默认作用域。
 
-Blazor WebAssembly 模板不会自动将应用配置为请求安全 API 的访问令牌。 要将访问令牌作为登录流程的一部分进行预配，请将作用域添加到 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions> 的默认令牌作用域中：
+Blazor WebAssembly 模板不会自动将应用配置为请求安全 API 的访问令牌。 若要将访问令牌预配为登录流的一部分，请将范围添加到 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions> 的默认令牌范围中。 如果向应用添加身份验证，请手动添加以下代码并配置范围 URI。
+
+`Program.cs`:
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>

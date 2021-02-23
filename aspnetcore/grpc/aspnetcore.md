@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/aspnetcore
-ms.openlocfilehash: f17ba247747f906cf026fc0f7bc04d51f4c8cb2a
-ms.sourcegitcommit: e311cfb77f26a0a23681019bd334929d1aaeda20
+ms.openlocfilehash: 1a5510364ee46165e275d07073ab087d79d65313
+ms.sourcegitcommit: 50d3e939a90c5480df480f651dda032901468dd5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2021
-ms.locfileid: "99530198"
+ms.lasthandoff: 02/08/2021
+ms.locfileid: "99819037"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
@@ -142,7 +142,7 @@ TLS 的用途不仅限于保护通信。 当终结点支持多个协议时，TLS
 
 ## <a name="httpsys"></a>HTTP.sys
 
-[HTTP.sys](xref:fundamentals/servers/httpsys) 是仅在 Windows 上运行的适用于 ASP.NET Core 的 Web 服务器。 需要 .NET 5 和 Windows 10 内部版本 20241 或更高版本，才能使用 HTTP.sys 托管 gRPC 服务。
+[HTTP.sys](xref:fundamentals/servers/httpsys) 是仅在 Windows 上运行的适用于 ASP.NET Core 的 Web 服务器。 需要 .NET 5 和 Windows 10 内部版本 19529 或更高版本，才能使用 HTTP.sys 托管 gRPC 服务。
 
 必须将 HTTP.sys 配置为使用 TLS 和 HTTP/2。 有关详细信息，请参阅 [HTTP.sys Web 服务器 HTTP/2 支持](xref:fundamentals/servers/httpsys#http2-support)。
 

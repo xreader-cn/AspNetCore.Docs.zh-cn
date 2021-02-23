@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 3591ba18351b89e2d5dfaef796777273c97ce98b
-ms.sourcegitcommit: 610936e4d3507f7f3d467ed7859ab9354ec158ba
+ms.openlocfilehash: 03a49c827a1f70e6b721adf293857bb33475ed36
+ms.sourcegitcommit: 04ad9cd26fcaa8bd11e261d3661f375f5f343cdc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/25/2021
-ms.locfileid: "98751618"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100107072"
 ---
-# <a name="aspnet-core-no-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
-
-作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
+# <a name="aspnet-core-blazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
 Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法，以在组件初始化和呈现期间对组件执行其他操作。
 
@@ -70,7 +68,9 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 设置由组件的父组件在呈现树或路由参数中提供的参数。 通过重写方法，开发人员代码可以直接与 <xref:Microsoft.AspNetCore.Components.ParameterView> 参数交互。
 
-在下面的示例中，如果分析 `Param` 路由参数成功，则 <xref:Microsoft.AspNetCore.Components.ParameterView.TryGetValue%2A?displayProperty=nameWithType> 会将 `Param` 参数值分配给 `value`。 如果 `value` 不是 `null`，则由 `SetParametersAsyncExample` 组件显示值。
+在下面的示例中，如果分析 `Param` 路由参数成功，则 <xref:Microsoft.AspNetCore.Components.ParameterView.TryGetValue%2A?displayProperty=nameWithType> 会将 `Param` 参数值分配给 `value`。 如果 `value` 不是 `null`，则由组件显示值。
+
+尽管[路由参数匹配不区分大小写](xref:blazor/fundamentals/routing#route-parameters)，但 <xref:Microsoft.AspNetCore.Components.ParameterView.TryGetValue%2A> 仅匹配路由模板中区分大小写的参数名称。 以下示例需要使用 `/{Param?}`（而不是 `/{param?}`）来获取值。 如果在此方案中使用 `/{param?}`，则 <xref:Microsoft.AspNetCore.Components.ParameterView.TryGetValue%2A> 返回 `false`，并且 `message` 未设置为任一字符串。
 
 `Pages/SetParametersAsyncExample.razor`:
 
@@ -91,11 +91,14 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
     {
         if (parameters.TryGetValue<string>(nameof(Param), out var value))
         {
-            message = $"The value of 'Param' is {value}.";
-        }
-        else 
-        {
-            message = "The value of 'Param' is null.";
+            if (value is null)
+            {
+                message = "The value of 'Param' is null.";
+            }
+            else
+            {
+                message = $"The value of 'Param' is {value}.";
+            }
         }
 
         await base.SetParametersAsync(parameters);
@@ -105,7 +108,7 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 每次调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 时，<xref:Microsoft.AspNetCore.Components.ParameterView> 都包含该组件的参数值集。
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 的默认实现使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 或 [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) 特性（在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中具有对应的值）设置每个属性的值。 在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中没有对应值的参数保持不变。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 的默认实现使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 或 [`[CascadingParameter]` 特性](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute)（在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中具有对应的值）设置每个属性的值。 在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中没有对应值的参数保持不变。
 
 如果未调用 [`base.SetParametersAsync`](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A)，则自定义代码可使用任何需要的方式解释传入的参数值。 例如，不要求将传入参数分配给类的属性。
 
@@ -135,7 +138,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-[预呈现其内容](xref:blazor/fundamentals/additional-scenarios#render-mode)的 Blazor Server 应用调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 两次：
+[预呈现其内容](xref:blazor/fundamentals/signalr#render-mode)的 Blazor Server 应用调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 两次：
 
 * 在组件最初作为页面的一部分静态呈现时调用一次。
 * 在浏览器重新建立与服务器的连接时调用第二次。
@@ -314,7 +317,7 @@ public class WeatherForecastService
 }
 ```
 
-有关 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 的详细信息，请参阅 <xref:blazor/fundamentals/additional-scenarios#render-mode>。
+有关 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 的详细信息，请参阅 <xref:blazor/fundamentals/signalr#render-mode>。
 
 ## <a name="detect-when-the-app-is-prerendering"></a>检测应用何时预呈现
 
@@ -338,7 +341,45 @@ public class WeatherForecastService
 }
 ```
 
-对于异步处置任务，请使用 `DisposeAsync` 而不是前面示例中的 `Dispose`：
+如果对象需要释放，则在调用 <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> 时，可使用 Lambda 来释放对象：
+
+`Pages/CounterWithTimerDisposal.razor`:
+
+```razor
+@page "/counter-with-timer-disposal"
+@using System.Timers
+@implements IDisposable
+
+<h1>Counter with <code>Timer</code> disposal</h1>
+
+<p>Current count: @currentCount</p>
+
+@code {
+    private int currentCount = 0;
+    private Timer timer = new Timer(1000);
+
+    protected override void OnInitialized()
+    {
+        timer.Elapsed += (sender, eventArgs) => OnTimerCallback();
+        timer.Start();
+    }
+
+    private void OnTimerCallback()
+    {
+        _ = InvokeAsync(() =>
+        {
+            currentCount++;
+            StateHasChanged();
+        });
+    }
+
+    public void IDisposable.Dispose() => timer.Dispose();
+}
+```
+
+前面的示例显示在 <xref:blazor/components/rendering#receiving-a-call-from-something-external-to-the-blazor-rendering-and-event-handling-system> 中。
+
+对于异步释放任务，请使用 `DisposeAsync` 而不是 <xref:System.IDisposable.Dispose>：
 
 ```csharp
 public async ValueTask DisposeAsync()
@@ -350,7 +391,7 @@ public async ValueTask DisposeAsync()
 > [!NOTE]
 > 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
 
-取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：
+取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何取消订阅 `Dispose` 方法中的事件处理程序：
 
 * 专用字段和 Lambda 方法
 
@@ -359,7 +400,47 @@ public async ValueTask DisposeAsync()
 * 专用方法
 
   [!code-razor[](lifecycle/samples_snapshot/event-handler-disposal-2.razor?highlight=16,26)]
-  
+
+使用[匿名函数](/dotnet/csharp/programming-guide/statements-expressions-operators/anonymous-functions)、方法或表达式时，无需实现 <xref:System.IDisposable> 和取消订阅委托。 但是，当公开事件的对象的生存期长于注册委托的组件的生存期时，不能取消订阅委托是一个问题。 发生这种情况时，会导致内存泄漏，因为已注册的委托使原始对象保持活动状态。 因此，仅当你知道事件委托可快速释放时，才使用以下方法。 当不确定需要释放的对象的生存期时，请订阅委托方法并正确地释放委托，如前面的示例所示。
+
+* 匿名 Lambda 方法（无需显式释放）
+
+  ```csharp
+  private void HandleFieldChanged(object sender, FieldChangedEventArgs e)
+  {
+      formInvalid = !editContext.Validate();
+      StateHasChanged();
+  }
+
+  protected override void OnInitialized()
+  {
+      editContext = new EditContext(starship);
+      editContext.OnFieldChanged += (s, e) => HandleFieldChanged((editContext)s, e);
+  }
+  ```
+
+* 匿名 Lambda 表达式方法（无需显式释放）
+
+  ```csharp
+  private ValidationMessageStore messageStore;
+
+  [CascadingParameter]
+  private EditContext CurrentEditContext { get; set; }
+
+  protected override void OnInitialized()
+  {
+      ...
+
+      messageStore = new ValidationMessageStore(CurrentEditContext);
+
+      CurrentEditContext.OnValidationRequested += (s, e) => messageStore.Clear();
+      CurrentEditContext.OnFieldChanged += (s, e) => 
+          messageStore.Clear(e.FieldIdentifier);
+  }
+  ```
+
+  前面带有匿名 Lambda 表达式的完整代码示例显示在 <xref:blazor/forms-validation#validator-components> 中。
+
 有关详细信息，请参阅[清理非托管资源](/dotnet/standard/garbage-collection/unmanaged)以及后续关于实现 `Dispose` 和 `DisposeAsync` 方法的主题。
 
 ## <a name="cancelable-background-work"></a>可取消的后台工作
@@ -432,6 +513,6 @@ public async ValueTask DisposeAsync()
 }
 ```
 
-## <a name="no-locblazor-server-reconnection-events"></a>Blazor Server 重新连接事件
+## <a name="blazor-server-reconnection-events"></a>Blazor Server 重新连接事件
 
-本文所述的组件生命周期事件与 [Blazor Server 的重新连接事件处理程序](xref:blazor/fundamentals/additional-scenarios#reflect-the-connection-state-in-the-ui)分开运行。 当 Blazor Server 应用断开其与客户端的 SignalR 连接时，只有 UI 更新会被中断。 重新建立连接后，将恢复 UI 更新。 有关线路处理程序事件和配置的详细信息，请参阅 <xref:blazor/fundamentals/additional-scenarios>。
+本文所述的组件生命周期事件与 [Blazor Server 的重新连接事件处理程序](xref:blazor/fundamentals/signalr#reflect-the-connection-state-in-the-ui)分开运行。 当 Blazor Server 应用断开其与客户端的 SignalR 连接时，只有 UI 更新会被中断。 重新建立连接后，将恢复 UI 更新。 有关线路处理程序事件和配置的详细信息，请参阅 <xref:blazor/fundamentals/signalr>。

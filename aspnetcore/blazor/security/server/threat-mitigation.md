@@ -19,16 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/threat-mitigation
-ms.openlocfilehash: 4256e90ca5f185992a73d1e43460ca5d27159d6f
-ms.sourcegitcommit: d4836f9b7c508f51c6c4ee6d0cc719b38c1729c4
+ms.openlocfilehash: 524a1f85838d083ed2f01afd96601bcd5e6ce12b
+ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/25/2021
-ms.locfileid: "98758279"
+ms.lasthandoff: 02/12/2021
+ms.locfileid: "100280982"
 ---
-# <a name="threat-mitigation-guidance-for-aspnet-core-no-locblazor-server"></a>ASP.NET Core Blazor Server 的威胁缓解指南
-
-作者：[Javier Calvarro Nelson](https://github.com/javiercn)
+# <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>ASP.NET Core Blazor Server 的威胁缓解指南
 
 Blazor Server 应用采用有状态数据处理模型，其中服务器和客户端保持长期的关系。 持久状态通过[线路](xref:blazor/state-management)维持，该线路可在同样可能长期存在的连接中持续。
 
@@ -41,7 +39,7 @@ Blazor Server 应用采用有状态数据处理模型，其中服务器和客户
 * 不适用于受限制的环境。
 * 由于受限制的环境中的安全风险很低，因此不值得花费成本来实施。
 
-## <a name="no-locblazor-and-shared-state"></a>Blazor 和共享状态
+## <a name="blazor-and-shared-state"></a>Blazor 和共享状态
 
 [!INCLUDE[](~/blazor/includes/security/blazor-shared-state.md)]
 
@@ -108,20 +106,18 @@ Blazor 客户端会为每个会话建立一个连接，并且只要浏览器窗�
 
 ## <a name="denial-of-service-dos-attacks"></a>拒绝服务 (DoS) 攻击
 
-拒绝服务 (DoS) 攻击包括客户端导致服务器耗尽其一个或多个资源，从而使应用不可用。 Blazor Server 应用包含一些默认限制，并依赖其他 ASP.NET Core 和 SignalR 限制来防范 <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions> 上设置的 DoS 攻击。
+拒绝服务 (DoS) 攻击包括客户端导致服务器耗尽其一个或多个资源，从而使应用不可用。 Blazor Server 应用包含默认限制，并依赖其他 ASP.NET Core 和 SignalR 限制来防范 <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions> 上设置的 DoS 攻击：
 
-| Blazor Server 应用限制 | 描述 | 默认 |
-| --- | --- | --- |
-| <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitMaxRetained> | 给定服务器在内存中一次保留的断开连接的线路数上限。 | 100 |
-| <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitRetentionPeriod> | 断开连接的线路被移除前在内存中保留的最长时间。 | 3 分钟 |
-| <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.JSInteropDefaultCallTimeout> | 服务器在使异步 JavaScript 函数调用超时之前等待的最长时间。 | 1 分钟 |
-| <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.MaxBufferedUnacknowledgedRenderBatches> | 在给定时间内，服务器在内存中对每条线路保留用以支持重新连接可靠的未确认的呈现批处理的最大数量。 达到限制后，服务器会停止生成新的呈现批处理，直到客户端确认了一个或多个批处理。 | 10 |
+* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitMaxRetained?displayProperty=nameWithType>
+* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitRetentionPeriod?displayProperty=nameWithType>
+* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.JSInteropDefaultCallTimeout?displayProperty=nameWithType>
+* <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.MaxBufferedUnacknowledgedRenderBatches?displayProperty=nameWithType>
+* <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType>
 
-使用 <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions> 设置单个传入中心消息的最大消息大小。
+有关详细信息和配置编码示例，请参阅以下文章：
 
-| SignalR 和 ASP.NET Core 限制 | 说明 | 默认 |
-| --- | --- | --- |
-| <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType> | 单个消息的大小。 | 32 KB |
+* <xref:blazor/fundamentals/signalr>
+* <xref:signalr/configuration>
 
 ## <a name="interactions-with-the-browser-client"></a>与浏览器（客户端）的交互
 
