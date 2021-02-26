@@ -1,3 +1,23 @@
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: 5964554c36e2242b70faee390374828acd2bd860
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100552793"
+---
 当使用已通过 AAD 注册的服务器 API，并且应用的 AAD 注册在依赖于[未验证的发布者域](/azure/active-directory/develop/howto-configure-publisher-domain)的租户中时，服务器 API 应用的应用 ID URI 不是 `api://{SERVER API APP CLIENT ID OR CUSTOM VALUE}`，而是采用 `https://{TENANT}.onmicrosoft.com/{SERVER API APP CLIENT ID OR CUSTOM VALUE}` 格式。 如果是这种情况，则 `Client` 应用的 `Program.Main` (`Program.cs`) 中的默认访问令牌作用域如下所示：
 
 ```csharp

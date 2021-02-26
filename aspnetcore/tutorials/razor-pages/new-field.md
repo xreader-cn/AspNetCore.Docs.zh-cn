@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 2961fcaa8bbb93527eb80f5aa7b18ef04761fb50
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: 852c26f89b229d89797d9ce6fce2983319defe9c
+ms.sourcegitcommit: 422e8444b9f5cedc373be5efe8032822db54fcaf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97486156"
+ms.lasthandoff: 02/18/2021
+ms.locfileid: "101101141"
 ---
-# <a name="part-7-add-a-new-field-to-a-no-locrazor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
+# <a name="part-7-add-a-new-field-to-a-razor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -41,7 +41,7 @@ ms.locfileid: "97486156"
 
 使用 EF Code First 自动创建数据库时，Code First 将：
 
-* 向数据库添加 [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。
+* 向数据库添加 [`__EFMigrationsHistory`](/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。
 * 如果该模型类未与数据库同步，EF 将引发异常。
 
 自动验证架构与模型是否同步可以更容易地发现不一致的数据库代码问题。
@@ -182,7 +182,7 @@ ms.locfileid: "97486156"
 
 使用 EF Code First 自动创建数据库时，Code First 将：
 
-* 向数据库添加 [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。
+* 向数据库添加 [`__EFMigrationsHistory`](/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。
 * 如果该模型类未与数据库同步，EF 将引发异常。
 
 自动验证架构与模型是否同步可以更容易地发现不一致的数据库代码问题。
@@ -323,7 +323,7 @@ ms.locfileid: "97486156"
 
 使用 EF Code First 自动创建数据库时，Code First 将：
 
-* 向数据库添加 [`__EFMigrationsHistory`](https://docs.microsoft.com/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。
+* 向数据库添加 [`__EFMigrationsHistory`](/ef/core/managing-schemas/migrations/history-table) 表格，以跟踪数据库的架构是否与从生成它的模型类同步。
 * 如果该模型类未与数据库同步，EF 将引发异常。
 
 自动验证架构与模型是否同步可以更容易地发现不一致的数据库代码问题。

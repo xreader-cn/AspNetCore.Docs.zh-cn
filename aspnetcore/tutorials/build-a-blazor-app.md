@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 939841ca7214e212a2f197ea1e00b0f6152c471e
-ms.sourcegitcommit: 1166b0ff3828418559510c661e8240e5c5717bb7
+ms.openlocfilehash: d984023a1c46c5383d47a1634c54e61747b83d60
+ms.sourcegitcommit: 422e8444b9f5cedc373be5efe8032822db54fcaf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2021
-ms.locfileid: "100280505"
+ms.lasthandoff: 02/18/2021
+ms.locfileid: "101101205"
 ---
 # <a name="build-a-blazor-todo-list-app"></a>生成 Blazor 待办事项列表应用
 
@@ -117,7 +117,7 @@ ms.locfileid: "100280505"
 
    保存 `Shared/NavMenu.razor` 文件。
 
-1. 从 `TodoList` 文件夹，在命令行界面中执行 [`dotnet watch run`](/aspnet/core/tutorials/dotnet-watch) 命令，以生成并运行应用。 应用运行后，请在应用的导航栏中选择 `Todo` 链接来访问新的 Todo 页面，该链接将在 `/todo` 处加载页面。
+1. 从 `TodoList` 文件夹，在命令行界面中执行 [`dotnet watch run`](xref:tutorials/dotnet-watch) 命令，以生成并运行应用。 应用运行后，请在应用的导航栏中选择 `Todo` 链接来访问新的 Todo 页面，该链接将在 `/todo` 处加载页面。
 
    让应用继续运行命令行界面。 每次保存文件时，都将自动重新生成应用。 在编译和重启时，浏览器会暂时断开与应用的连接。 重新建立连接后，会自动重新加载浏览器中的页面。
 

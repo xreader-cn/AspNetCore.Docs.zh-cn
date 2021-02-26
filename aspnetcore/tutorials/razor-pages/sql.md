@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 8c9d0d9c24e0ce81925ccde463bcf085531b665e
-ms.sourcegitcommit: 8b0e9a72c1599ce21830c843558a661ba908ce32
+ms.openlocfilehash: fa1060ae1a046a40d55e9fef4a094aa9e51a18af
+ms.sourcegitcommit: 422e8444b9f5cedc373be5efe8032822db54fcaf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2021
-ms.locfileid: "98024726"
+ms.lasthandoff: 02/18/2021
+ms.locfileid: "101101166"
 ---
-# <a name="part-4-of-tutorial-series-on-no-locrazor-pages"></a>Razor 页面教程系列第 4 部分
+# <a name="part-4-of-tutorial-series-on-razor-pages"></a>Razor 页面教程系列第 4 部分
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Joe Audette](https://twitter.com/joeaudette)
 
@@ -142,7 +142,7 @@ if (context.Movie.Any())
 
 * 从依赖注入容器中获取数据库上下文实例。
 * 调用 `seedData.Initialize` 方法，并向其传递数据库上下文实例。
-* Seed 方法完成时释放上下文。 [using 语句](https://docs.microsoft.com/dotnet/csharp/language-reference/keywords/using-statement)将确保释放上下文。
+* Seed 方法完成时释放上下文。 [using 语句](/dotnet/csharp/language-reference/keywords/using-statement)将确保释放上下文。
 
 未运行 `Update-Database` 时出现以下异常：
 
@@ -296,7 +296,7 @@ if (context.Movie.Any())
 
 * 从依赖注入容器中获取数据库上下文实例。
 * 调用 `seedData.Initialize` 方法，并向其传递数据库上下文实例。
-* Seed 方法完成时释放上下文。 [using 语句](https://docs.microsoft.com/dotnet/csharp/language-reference/keywords/using-statement)将确保释放上下文。
+* Seed 方法完成时释放上下文。 [using 语句](/dotnet/csharp/language-reference/keywords/using-statement)将确保释放上下文。
 
 未运行 `Update-Database` 时出现以下异常：
 
@@ -440,7 +440,7 @@ if (context.Movie.Any())
 
 * 从依赖注入容器中获取数据库上下文实例。
 * 调用 `seedData.Initialize` 方法，并向其传递数据库上下文实例。
-* Seed 方法完成时释放上下文。 [using 语句](https://docs.microsoft.com/dotnet/csharp/language-reference/keywords/using-statement)将确保释放上下文。
+* Seed 方法完成时释放上下文。 [using 语句](/dotnet/csharp/language-reference/keywords/using-statement)将确保释放上下文。
 
 生产应用不会调用 `Database.Migrate`。 它会添加到上面的代码中，以防止在未运行 `Update-Database` 时出现以下异常：
 

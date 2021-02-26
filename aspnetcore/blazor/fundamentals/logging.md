@@ -20,14 +20,14 @@ no-loc:
 - SignalR
 uid: blazor/fundamentals/logging
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 10c96bd2d0cc64f3bd035e7079b0996eb5768595
-ms.sourcegitcommit: 3593c4efa707edeaaceffbfa544f99f41fc62535
+ms.openlocfilehash: e87b1a0dd54eb03dc1bdfdc7f2189a59df272026
+ms.sourcegitcommit: 422e8444b9f5cedc373be5efe8032822db54fcaf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97666828"
+ms.lasthandoff: 02/18/2021
+ms.locfileid: "101101023"
 ---
-# <a name="aspnet-core-no-locblazor-logging"></a>ASP.NET Core Blazor 日志记录
+# <a name="aspnet-core-blazor-logging"></a>ASP.NET Core Blazor 日志记录
 
 ::: zone pivot="webassembly"
 
@@ -52,7 +52,7 @@ builder.Logging.AddProvider(new CustomLoggingProvider());
 
 可以从应用设置文件中加载日志记录配置。 有关详细信息，请参阅 <xref:blazor/fundamentals/configuration#logging-configuration>。
 
-## <a name="no-locsignalr-net-client-logging"></a>SignalR .NET 客户端日志记录
+## <a name="signalr-net-client-logging"></a>SignalR .NET 客户端日志记录
 
 注入 <xref:Microsoft.Extensions.Logging.ILoggerProvider>，将 `WebAssemblyConsoleLogger` 添加到传递给 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder> 的日志记录提供程序。 与传统的 <xref:Microsoft.Extensions.Logging.Console.ConsoleLogger> 不同，`WebAssemblyConsoleLogger` 是特定于浏览器的日志记录 API（例如，`console.log`）的包装器。 使用 `WebAssemblyConsoleLogger` 可以在浏览器上下文内的 Mono 中进行日志记录。
 
@@ -83,7 +83,7 @@ var connection = new HubConnectionBuilder()
 
 ::: zone-end
 
-## <a name="log-in-no-locrazor-components"></a>登录 Razor 组件
+## <a name="log-in-razor-components"></a>登录 Razor 组件
 
 记录器会采用应用启动配置。
 
@@ -93,13 +93,33 @@ var connection = new HubConnectionBuilder()
 
 `Pages/Counter.razor`:
 
-[!code-razor[](logging/samples_snapshot/Counter1.razor?highlight=3,16)]
+::: moniker range=">= aspnetcore-5.0"
+
+[!code-razor[](~/blazor/common/samples/5.x/BlazorSample_WebAssembly/Pages/logging/Counter1.razor?highlight=3,16)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+[!code-razor[](~/blazor/common/samples/3.x/BlazorSample_WebAssembly/Pages/logging/Counter1.razor?highlight=3,16)]
+
+::: moniker-end
 
 下面的示例演示了如何使用组件中的 <xref:Microsoft.Extensions.Logging.ILoggerFactory> 进行日志记录。
 
 `Pages/Counter.razor`:
 
-[!code-razor[](logging/samples_snapshot/Counter2.razor?highlight=3,16-17)]
+::: moniker range=">= aspnetcore-5.0"
+
+[!code-razor[](~/blazor/common/samples/5.x/BlazorSample_WebAssembly/Pages/logging/Counter2.razor?highlight=3,16-17)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+[!code-razor[](~/blazor/common/samples/3.x/BlazorSample_WebAssembly/Pages/logging/Counter2.razor?highlight=3,16-17)]
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 

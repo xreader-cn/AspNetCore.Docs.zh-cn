@@ -1,17 +1,37 @@
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: 34e12afd6bc7015e4609fbdf773259ed5545809b
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100552878"
+---
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 创建新项目。
-1. 选择“辅助角色服务”  。 选择“下一步”  。
-1. 在“项目名称”字段提供项目名称，或接受默认项目名称  。 选择“创建”  。
-1. 在“创建辅助角色服务”对话框中，选择“创建”   。
+1. 选择“辅助角色服务”。 选择“下一步”。
+1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 选择“创建”。
+1. 在“创建辅助角色服务”对话框中，选择“创建”。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. 创建新项目。
 1. 在侧栏中的“.NET Core”下，选择“应用”。
-1. 在“ASP.NET Core”下，选择“辅助角色”。 选择“下一步”  。
-1. 对于“目标框架”，选择“.NET Core 3.0”或更高版本   。 选择“下一步”  。
-1. 在“项目名称”  字段中提供名称。 选择“创建”  。
+1. 在“ASP.NET Core”下，选择“辅助角色”。 选择“下一步”。
+1. 对于“目标框架”，选择“.NET Core 3.0”或更高版本。 选择“下一步”。
+1. 在“项目名称”字段中提供名称。 选择“创建”。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 

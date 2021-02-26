@@ -1,3 +1,23 @@
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: 378c74c930f6e3f9565f408a2761a8ed867450d3
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100552158"
+---
 ## <a name="share-interop-code-in-a-class-library"></a>在类库中共享互操作代码
 
 可在类库中包含 JS 互操作代码，以便能在 NuGet 包中共享代码。
