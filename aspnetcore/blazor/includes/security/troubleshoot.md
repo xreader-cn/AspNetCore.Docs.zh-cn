@@ -1,3 +1,23 @@
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: 4e7c0e9b0a164e0181af5d6baaedf0669c1c06aa
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100552379"
+---
 ## <a name="troubleshoot"></a>疑难解答
 
 ::: moniker range=">= aspnetcore-5.0"
@@ -16,7 +36,7 @@
   若要解决该错误：
 
   1. 在 Azure 门户中访问[应用的清单](/azure/active-directory/develop/reference-app-manifest)。
-  1. 将 [`allowPublicClient`](/azure/active-directory/develop/reference-app-manifest#allowpublicclient-attribute) 属性设置为 `null` 或 `true`。
+  1. 将 [`allowPublicClient` 属性](/azure/active-directory/develop/reference-app-manifest#allowpublicclient-attribute)设置为 `null` 或 `true`。
 
 ::: moniker-end
 
@@ -24,14 +44,14 @@
 
 Cookie 和站点数据在经过应用更新后仍可保持不变，并且会干扰测试和故障排除。 在更改应用代码、更改提供程序的用户帐户或更改提供程序的应用配置时，请清除以下内容：
 
-* 用户登录 Cookie
-* 应用 Cookie
+* 用户登录 cookie
+* 应用 cookie
 * 缓存和存储的站点数据
 
-防止存留的 Cookie 和站点数据干扰测试和故障排除的一种方法是：
+防止存留的 cookie 和站点数据干扰测试和故障排除的一种方法是：
 
 * 配置浏览器
-  * 使用浏览器测试是否可以配置为在每次关闭浏览器时删除所有 Cookie 和站点数据。
+  * 使用浏览器测试是否可以配置为在每次关闭浏览器时删除所有 cookie 和站点数据。
   * 对于应用、测试用户或提供程序配置的任何更改，请确保浏览器是手动关闭的或由 IDE 关闭的。
 * 在 Visual Studio 中使用自定义命令以 incognito 或 private 模式打开浏览器：
   * 通过 Visual Studio 的“运行”按钮打开“浏览工具”对话框 。
