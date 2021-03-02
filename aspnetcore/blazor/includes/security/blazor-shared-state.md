@@ -1,3 +1,23 @@
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: 5ff4e4368d9e6d7c8525ae4ef0625d176a256a85
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100551923"
+---
 Blazor 服务器应用位于服务器内存中。 这意味着同一进程中托管了多个应用。 对于每个应用会话，Blazor 会启动具有其自己的 DI 容器作用域的线路。 这意味着，每个 Blazor 会话的作用域内服务都是唯一的。
 
 > [!WARNING]
@@ -5,7 +25,7 @@ Blazor 服务器应用位于服务器内存中。 这意味着同一进程中托
 
 如果有状态的单一实例服务是专门为 Blazor 应用设计的，则可以在该应用中使用这些服务。 例如，假设用户无法控制使用哪些缓存密钥，则可以将内存缓存用作单一实例，因为它需要一个密钥来访问给定的条目。
 
-**另外，出于安全原因，不得在 Blazor 应用中使用 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor>。** Blazor 应用在 ASP.NET Core 管道的上下文之外运行。 <xref:Microsoft.AspNetCore.Http.HttpContext> 既不保证在 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> 中可用，也不保证它会保留启动了 Blazor 应用的上下文。
+**另外，出于安全原因，不得在 Blazor 应用中使用 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor>** 。 Blazor 应用在 ASP.NET Core 管道的上下文之外运行。 <xref:Microsoft.AspNetCore.Http.HttpContext> 既不保证在 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> 中可用，也不保证它会保留启动了 Blazor 应用的上下文。
 
 若要向 Blazor 应用传递请求状态，建议在初次呈现应用时通过传递到根组件的参数进行传递：
 

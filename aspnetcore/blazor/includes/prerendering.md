@@ -1,4 +1,24 @@
-在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，因此无法执行调用 JavaScript 等特定操作。 预呈现时，组件可能需要进行不同的呈现。
+---
+no-loc:
+- appsettings.json
+- ASP.NET Core Identity
+- cookie
+- Cookie
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+ms.openlocfilehash: c152524e0acd3803bd3b8078f667cce01180e25d
+ms.sourcegitcommit: a49c47d5a573379effee5c6b6e36f5c302aa756b
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100551656"
+---
+在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行调用 JavaScript 等特定操作。 预呈现时，组件可能需要进行不同的呈现。
 
 要将 JavaScript 互操作调用延迟到与浏览器建立连接之后，可使用 [OnAfterRenderAsync 组件生命周期事件](xref:blazor/components/lifecycle#after-component-render)。 仅在完成呈现应用并与客户端建立连接后，才会调用此事件。
 
