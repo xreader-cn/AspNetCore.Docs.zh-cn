@@ -5,7 +5,7 @@ description: 了解如何建立来自外部提供程序的其他声明和标记�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/30/2020
+ms.date: 02/18/2021
 no-loc:
 - appsettings.json
 - ASP.NET Core Identity
@@ -19,12 +19,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 4503291ff887f79b1ad6eacd4e56943ce23335bc
-ms.sourcegitcommit: 5156eab2118584405eb663e1fcd82f8bd7764504
+ms.openlocfilehash: 9c04ca466566e956b5e6dfec8131096c3995bc14
+ms.sourcegitcommit: a1db01b4d3bd8c57d7a9c94ce122a6db68002d66
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/31/2020
-ms.locfileid: "93141503"
+ms.lasthandoff: 03/04/2021
+ms.locfileid: "102110139"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>在 ASP.NET Core 中保存外部提供程序的其他声明和令牌
 
@@ -80,7 +80,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 在中 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` ， <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) 使用登录到应用 <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*> 。 在登录过程中， <xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 `ApplicationUser` 提供的用户数据的声明 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 。
 
-在示例应用中， `OnPostConfirmationAsync` ( *帐户/ExternalLogin* ) 将 (的 `urn:google:locale`) 和图片 (`urn:google:picture`) 声明中建立区域设置 `ApplicationUser` ，包括的声明 <xref:System.Security.Claims.ClaimTypes.GivenName> ：
+在示例应用中， `OnPostConfirmationAsync` (*帐户/ExternalLogin*) 将 (的 `urn:google:locale`) 和图片 (`urn:google:picture`) 声明中建立区域设置 `ApplicationUser` ，包括的声明 <xref:System.Security.Claims.ClaimTypes.GivenName> ：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -108,6 +108,9 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=54-56)]
 
+> [!NOTE]
+> 有关将令牌传递给应用的 Razor 组件的信息 Blazor Server ，请参阅 <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app> 。
+
 ## <a name="how-to-add-additional-custom-tokens"></a>如何添加其他自定义令牌
 
 为了演示如何添加作为的一部分存储的自定义令牌， `SaveTokens` 示例应用程序会 <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> <xref:System.DateTime> 为的 [AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*) 添加一个，其中包含 `TicketCreated` ：
@@ -121,6 +124,131 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 用户可以通过从派生 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 并实现抽象方法来定义自定义操作 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 。
 
 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
+
+## <a name="add-and-update-user-claims"></a>添加和更新用户声明
+
+首次注册时，声明从外部提供程序复制到用户数据库，而不是在登录时复制。 如果在用户注册以使用应用后在应用中启用了其他声明，请在用户上调用 [提供](xref:Microsoft.AspNetCore.Identity.SignInManager%601) ，以强制生成新的身份验证 cookie 。
+
+在使用测试用户帐户的开发环境中，只需删除并重新创建用户帐户即可。 对于生产系统，添加到应用的新声明可以回填用户帐户。 在 [将 `ExternalLogin` 页面基架](xref:security/authentication/scaffold-identity) 到中的应用程序后 `Areas/Pages/Identity/Account/Manage` ，将以下代码添加到 `ExternalLoginModel` 文件中的 `ExternalLogin.cshtml.cs` 。
+
+添加已添加声明的字典。 使用字典键保存声明类型，并使用这些值来保存默认值。 将以下行添加到类的顶部。 下面的示例假定为用户的 Google 图片添加一个声明，并将通用拍图像作为默认值：
+
+```csharp
+private readonly IReadOnlyDictionary<string, string> _claimsToSync = 
+    new Dictionary<string, string>()
+    {
+        { "urn:google:picture", "https://localhost:5001/headshot.png" },
+    };
+```
+
+将方法的默认代码替换 `OnGetCallbackAsync` 为以下代码。 代码遍历声明字典。 向每个用户添加 () 或更新的声明。 添加或更新声明时，用户登录将使用进行刷新 <xref:Microsoft.AspNetCore.Identity.SignInManager%601> ，同时)  (保留现有的身份验证属性 `AuthenticationProperties` 。
+
+```csharp
+public async Task<IActionResult> OnGetCallbackAsync(
+    string returnUrl = null, string remoteError = null)
+{
+    returnUrl = returnUrl ?? Url.Content("~/");
+
+    if (remoteError != null)
+    {
+        ErrorMessage = $"Error from external provider: {remoteError}";
+
+        return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
+    }
+
+    var info = await _signInManager.GetExternalLoginInfoAsync();
+
+    if (info == null)
+    {
+        ErrorMessage = "Error loading external login information.";
+        return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+    }
+
+    // Sign in the user with this external login provider if the user already has a 
+    // login.
+    var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, 
+        info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+
+    if (result.Succeeded)
+    {
+        _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", 
+            info.Principal.Identity.Name, info.LoginProvider);
+
+        if (_claimsToSync.Count > 0)
+        {
+            var user = await _userManager.FindByLoginAsync(info.LoginProvider, 
+                info.ProviderKey);
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            bool refreshSignIn = false;
+
+            foreach (var addedClaim in _claimsToSync)
+            {
+                var userClaim = userClaims
+                    .FirstOrDefault(c => c.Type == addedClaim.Key);
+
+                if (info.Principal.HasClaim(c => c.Type == addedClaim.Key))
+                {
+                    var externalClaim = info.Principal.FindFirst(addedClaim.Key);
+
+                    if (userClaim == null)
+                    {
+                        await _userManager.AddClaimAsync(user, 
+                            new Claim(addedClaim.Key, externalClaim.Value));
+                        refreshSignIn = true;
+                    }
+                    else if (userClaim.Value != externalClaim.Value)
+                    {
+                        await _userManager
+                            .ReplaceClaimAsync(user, userClaim, externalClaim);
+                        refreshSignIn = true;
+                    }
+                }
+                else if (userClaim == null)
+                {
+                    // Fill with a default value
+                    await _userManager.AddClaimAsync(user, new Claim(addedClaim.Key, 
+                        addedClaim.Value));
+                    refreshSignIn = true;
+                }
+            }
+
+            if (refreshSignIn)
+            {
+                await _signInManager.RefreshSignInAsync(user);
+            }
+        }
+
+        return LocalRedirect(returnUrl);
+    }
+
+    if (result.IsLockedOut)
+    {
+        return RedirectToPage("./Lockout");
+    }
+    else
+    {
+        // If the user does not have an account, then ask the user to create an 
+        // account.
+        ReturnUrl = returnUrl;
+        ProviderDisplayName = info.ProviderDisplayName;
+
+        if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+        {
+            Input = new InputModel
+            {
+                Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+            };
+        }
+
+        return Page();
+    }
+}
+```
+
+当用户登录但不需要回填步骤时，会执行类似的方法。 若要更新用户的声明，请在用户上调用以下内容：
+
+* 对于存储在标识数据库中的声明，为用户[UserManager ReplaceClaimAsync。](xref:Microsoft.AspNetCore.Identity.UserManager%601)
+* [提供 RefreshSignInAsync](xref:Microsoft.AspNetCore.Identity.SignInManager%601) ，用于强制生成新的身份验证 cookie 。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
@@ -220,7 +348,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 在中 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` ， <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) 使用登录到应用 <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*> 。 在登录过程中， <xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 `ApplicationUser` 提供的用户数据的声明 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 。
 
-在示例应用中， `OnPostConfirmationAsync` ( *帐户/ExternalLogin* ) 将 (的 `urn:google:locale`) 和图片 (`urn:google:picture`) 声明中建立区域设置 `ApplicationUser` ，包括的声明 <xref:System.Security.Claims.ClaimTypes.GivenName> ：
+在示例应用中， `OnPostConfirmationAsync` (*帐户/ExternalLogin*) 将 (的 `urn:google:locale`) 和图片 (`urn:google:picture`) 声明中建立区域设置 `ApplicationUser` ，包括的声明 <xref:System.Security.Claims.ClaimTypes.GivenName> ：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 

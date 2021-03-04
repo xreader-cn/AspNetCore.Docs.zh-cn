@@ -19,14 +19,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/samesite/mvc21
-ms.openlocfilehash: 61878af0f9af72284b43ffd46cca42b0cf043326
-ms.sourcegitcommit: ca34c1ac578e7d3daa0febf1810ba5fc74f60bbf
+ms.openlocfilehash: 8f819d283e136a63ad9f82d6432a93866210b36b
+ms.sourcegitcommit: a1db01b4d3bd8c57d7a9c94ce122a6db68002d66
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "93051546"
+ms.lasthandoff: 03/04/2021
+ms.locfileid: "102110100"
 ---
-# <a name="aspnet-core-21-mvc-samesite-no-loccookie-sample"></a>ASP.NET Core 2.1 MVC SameSite cookie 示例
+# <a name="aspnet-core-21-mvc-samesite-cookie-sample"></a>ASP.NET Core 2.1 MVC SameSite cookie 示例
 
 ASP.NET Core 2.1 内置了对 [SameSite](https://www.owasp.org/index.php/SameSite) 属性的支持，但它已写入原始标准。 修补后的 [行为](https://github.com/dotnet/aspnetcore/issues/8212) 更改了的含义 `SameSite.None` ，以发出值为的 sameSite 特性 `None` ，而不是根本不发出值。 如果您不希望发出该值，则可以将属性设置 `SameSite` cookie 为-1。
 
@@ -36,7 +36,7 @@ ASP.NET Core 2.1 内置了对 [SameSite](https://www.owasp.org/index.php/SameSit
 
 下面是如何在上编写 SameSite 属性的示例 cookie ：
 
-```c#
+```csharp
 var cookieOptions = new CookieOptions
 {
     // Set the secure flag, which Chrome's changes will require for SameSite none.
@@ -56,11 +56,11 @@ var cookieOptions = new CookieOptions
 Response.Cookies.Append(CookieName, "cookieValue", cookieOptions);
 ```
 
-## <a name="setting-no-loccookie-authentication-and-session-state-no-loccookies"></a>设置 Cookie 身份验证和会话状态 cookie
+## <a name="setting-cookie-authentication-and-session-state-cookies"></a>设置 Cookie 身份验证和会话状态 cookie
 
 Cookie 身份验证、会话状态和 [各种其他组件](../samesite.md?view=aspnetcore-2.1) 通过选项设置其 sameSite 选项 Cookie ，例如
 
-```c#
+```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -87,13 +87,13 @@ services.AddSession(options =>
 
 cookie当你单击 "创建 SameSite" 按钮的 SameSite 属性值为时，你可以从上图中看到该示例所创建的，这与 Cookie `Lax` [示例代码](#sampleCode)中设置的值匹配。
 
-## <a name="intercepting-no-loccookies"></a><a name="interception"></a>截获 cookie
+## <a name="intercepting-cookies"></a><a name="interception"></a>截获 cookie
 
 为了截获 cookie ，若要根据用户的浏览器代理中的支持来调整无值，必须使用 `CookiePolicy` 中间件。 在中写入和配置的任何组件 **之前** ，必须将其放入 http 请求管道 cookie `ConfigureServices()` 。
 
-若要将其插入管道中，请在 Startup.cs 的方法中使用 `app.UseCookiePolicy()` `Configure(IApplicationBuilder, IHostingEnvironment)` 。 [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs) 例如： 。
+若要将其插入管道中，请在 Startup.cs 的方法中使用 `app.UseCookiePolicy()` `Configure(IApplicationBuilder, IHostingEnvironment)` 。 [](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs) 例如：
 
-```c#
+```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
     if (env.IsDevelopment())
@@ -121,9 +121,9 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-然后在中，将 `ConfigureServices(IServiceCollection services)` cookie 策略配置为在 cookie 附加或删除时调用帮助器类。 例如： 。
+然后在中，将 `ConfigureServices(IServiceCollection services)` cookie 策略配置为在 cookie 附加或删除时调用帮助器类。 例如：
 
-```c#
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.Configure<CookiePolicyOptions>(options =>
@@ -159,9 +159,9 @@ Helper 函数 `CheckSameSite(HttpContext, CookieOptions)` ：
 
 ## <a name="targeting-net-framework"></a>目标 .NET Framework
 
-ASP.NET Core 和 System.web (ASP.NET 经典) 具有独立的 SameSite 实现。 如果使用 ASP.NET Core 或 ( .NET 4.7.2) 适用于 ASP.NET Core，则不需要 .NET Framework 的 SameSite KB 修补程序。
+ASP.NET Core 和 System.web (ASP.NET 4.x) 具有独立的 SameSite 实现。 如果使用 ASP.NET Core 或 SameSite SameSite 最低 Framework 版本需求 ( .NET Framework 4.7.2) 适用于 ASP.NET Core，则不需要 .NET Framework 的 KB 修补程序。
 
-.NET 上的 ASP.NET Core 要求更新 nuget 程序包依赖项以获取适当的修补程序。
+.NET 上的 ASP.NET Core 要求更新 NuGet 程序包依赖项以获取适当的修补程序。
 
 若要获取的 ASP.NET Core 更改 .NET Framework 确保你对修补的包以及版本 (2.1.14 或更高版本2.1 版本) 直接引用。
 

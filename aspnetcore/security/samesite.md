@@ -19,14 +19,14 @@ no-loc:
 - SignalR
 - Electron
 uid: security/samesite
-ms.openlocfilehash: f1aa388015bd540a6fda263eac53753ada63bf79
-ms.sourcegitcommit: bce62ceaac7782e22d185814f2e8532c84efa472
+ms.openlocfilehash: e06c73edfc999053e0aa37f05d984a2b428f69a9
+ms.sourcegitcommit: a1db01b4d3bd8c57d7a9c94ce122a6db68002d66
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/17/2020
-ms.locfileid: "94673986"
+ms.lasthandoff: 03/04/2021
+ms.locfileid: "102109931"
 ---
-# <a name="work-with-samesite-no-loccookies-in-aspnet-core"></a>使用 cookie ASP.NET Core 中的 SameSite
+# <a name="work-with-samesite-cookies-in-aspnet-core"></a>使用 cookie ASP.NET Core 中的 SameSite
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -42,13 +42,13 @@ SameSite 是一种 [IETF](https://ietf.org/about/) 草案标准，旨在针对�
 
 发出的每个 ASP.NET Core 组件都 cookie 需要确定 SameSite 是否合适。
 
-## <a name="samesite-and-no-locidentity"></a>SameSite 和 Identity
+## <a name="samesite-and-identity"></a>SameSite 和 Identity
 
 [!INCLUDE[](~/includes/SameSiteIdentity.md)]
 
 ## <a name="samesite-test-sample-code"></a>SameSite 测试示例代码
 
- ::: moniker range=">= aspnetcore-2.1 < aspnetcore-3.0"
+::: moniker range=">= aspnetcore-2.1 < aspnetcore-3.0"
 
 可下载和测试以下示例：
 
@@ -62,7 +62,6 @@ SameSite 是一种 [IETF](https://ietf.org/about/) 草案标准，旨在针对�
 ::: moniker range=">= aspnetcore-3.0"
 
 可下载并测试以下示例：
-
 
 | 示例               | 文档 |
 | ----------------- | ------------ |
@@ -227,7 +226,7 @@ Edge 支持旧的 SameSite 标准。 边缘版本44与新的标准没有任何�
 
 页面上设置了 SameSite 标志 `edge://flags/#same-site-by-default-cookies` 。 未发现边缘 Chromium 的兼容性问题。
 
-### <a name="test-with-no-locelectron"></a>测试 Electron
+### <a name="test-with-electron"></a>测试 Electron
 
 版本的 Electron 包含 Chromium 的旧版本。 例如，团队使用的版本 Electron 是 Chromium 66，它展示了较旧的行为。 你必须使用产品的版本来执行你自己的兼容性测试 Electron 。 请参阅下一节中的 [支持旧版浏览器](#sob) 。
 
