@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 5d228af00ee34e7f8ca60a5085872fdb93842367
-ms.sourcegitcommit: 83524f739dd25fbfa95ee34e95342afb383b49fe
+ms.openlocfilehash: 5fa7bc15bac2609c89fea54f8a788aaf9f5ad055
+ms.sourcegitcommit: 3982ff9dabb5b12aeb0a61cde2686b5253364f5d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/29/2021
-ms.locfileid: "99057494"
+ms.lasthandoff: 03/04/2021
+ms.locfileid: "102119027"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 
@@ -132,7 +132,7 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 
 使用前面的代码时，控制器方法会基于请求的 `Accept` 标头返回相应的格式。
 
-### <a name="configure-systemtextjson-based-formatters"></a>配置基于 System.Text.Js的格式化程序
+### <a name="configure-systemtextjson-based-formatters"></a>配置 `System.Text.Json` 基于的格式化程序
 
 `System.Text.Json`可以使用配置基于的格式化程序的功能 <xref:Microsoft.AspNetCore.Mvc.JsonOptions.JsonSerializerOptions?displayProperty=fullName> 。 默认格式为 camelCase。 以下突出显示的代码设置 PascalCase 格式设置：
 
@@ -188,7 +188,7 @@ ASP.NET Core 3.0 之前的版本中，默认设置使用通过 `Newtonsoft.Json`
 
 某些功能可能不适用于基于 `System.Text.Json` 的格式化程序，而需要引用基于 `Newtonsoft.Json` 的格式化程序。 若应用符合以下情况，请继续使用基于 `Newtonsoft.Json` 的格式化程序：
 
-* 使用 `Newtonsoft.Json` 属性。 例如，`[JsonProperty]` 或 `[JsonIgnore]`。
+* 使用 `Newtonsoft.Json` 属性。  例如 `[JsonProperty]` 或 `[JsonIgnore]`。
 * 自定义序列化设置。
 * 依赖 `Newtonsoft.Json` 提供的功能。
 * 配置 `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`。 ASP.NET Core 3.0 之前的版本中，`JsonResult.SerializerSettings` 接受特定于 `Newtonsoft.Json` 的 `JsonSerializerSettings` 的实例。
