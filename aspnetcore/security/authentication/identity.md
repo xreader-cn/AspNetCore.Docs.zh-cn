@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 266781d0abc564952e124bc6eca3805c07592251
-ms.sourcegitcommit: 50d3e939a90c5480df480f651dda032901468dd5
+ms.openlocfilehash: 4fa49f795b78b88e00bd32d04f74acd8689383b2
+ms.sourcegitcommit: 1436bd4d70937d6ec3140da56d96caab33c4320b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/08/2021
-ms.locfileid: "99819050"
+ms.lasthandoff: 03/06/2021
+ms.locfileid: "102394468"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
 
@@ -63,7 +63,7 @@ Identity 通常使用 SQL Server 数据库配置以存储用户名、密码和�
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 " **文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。 
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 " **更改身份验证**"。
 * 选择 **单个用户帐户** ，然后单击 **"确定"**。
 
@@ -81,7 +81,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如： 。
+生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -317,7 +317,7 @@ Identity 可以使用 SQL Server 数据库配置以存储用户名、密码和�
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 " **文件**" " > **新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为 **WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。 
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 " **更改身份验证**"。
 * 选择 **单个用户帐户** ，然后单击 **"确定"**。
 
@@ -329,7 +329,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如： 。
+生成的项目 [ASP.NET Core Identity](xref:security/authentication/identity) 以类库形式[ Razor ](xref:razor-pages/ui-class)提供。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -386,6 +386,15 @@ Identity 通过调用 [UseAuthentication](/dotnet/api/microsoft.aspnetcore.build
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 如果创建的项目的名称为 **WebApp1**，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext` ：
+
+使用 SQLite 时， `--useSqLite` 必须指定：
+
+```dotnetcli
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout" --useSqLite
+```
+
+使用 SQL Express 时，请使用以下命令：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
